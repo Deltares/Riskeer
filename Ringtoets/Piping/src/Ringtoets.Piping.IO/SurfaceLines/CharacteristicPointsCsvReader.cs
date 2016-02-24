@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
     /// </summary>
     public class CharacteristicPointsCsvReader : IDisposable
     {
-        public static readonly Point3D UndefinedPoint = new Point3D
+        private static readonly Point3D undefinedPoint = new Point3D
         {
             X = -1,
             Y = -1,
@@ -414,20 +414,27 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         {
             try
             {
+                Point3D point = null;
                 var xColumnKey = xPrefix + typeKey;
                 if (columnsInFile.ContainsKey(xColumnKey))
                 {
                     var xColumnIndex = columnsInFile[xColumnKey];
                     var yColumnIndex = columnsInFile[yPrefix + typeKey];
                     var zColumnIndex = columnsInFile[zPrefix + typeKey];
-                    return new Point3D
+
+                    point = new Point3D
                     {
                         X = double.Parse(valuesRead[xColumnIndex], CultureInfo.InvariantCulture),
                         Y = double.Parse(valuesRead[yColumnIndex], CultureInfo.InvariantCulture),
                         Z = double.Parse(valuesRead[zColumnIndex], CultureInfo.InvariantCulture)
                     };
+
+                    if(point.Equals(undefinedPoint))
+                    {
+                        point = null;
+                    }
                 }
-                return null;
+                return point;
             }
             catch (FormatException e)
             {

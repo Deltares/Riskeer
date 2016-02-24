@@ -1013,13 +1013,16 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(observableSurfaceLinesList, surfaceLines);
 
             // Assert
-            var pointFormat = string.Format(PipingDataResources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,0,1,2);
+            var pointFormat = string.Format(PipingDataResources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_,
+                0,
+                1,
+                2,
+                characteristicPointName);
             var expectedLogMessages = new[]
             {
                 string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_file_0_, 
                     corruptPath),
-                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_cause_2_,
-                    characteristicPointName,
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_,
                     "Rotterdam1Invalid",
                     pointFormat)
             };

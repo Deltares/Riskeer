@@ -659,19 +659,9 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                     Z = -0.31
                 }, location1.DikeToeAtPolder);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = -1,
-                    Y = -1,
-                    Z = -1
-                }, location1.TopShoulderInside);
+                Assert.IsNull(location1.TopShoulderInside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = -1,
-                    Y = -1,
-                    Z = -1
-                }, location1.ShoulderInside);
+                Assert.IsNull(location1.ShoulderInside);
 
                 Assert.AreEqual(new Point3D
                 {
@@ -701,19 +691,9 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                     Z = 2.61
                 }, location1.DikeTopAtRiver);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = -1,
-                    Y = -1,
-                    Z = -1
-                }, location1.ShoulderOutisde);
+                Assert.IsNull(location1.ShoulderOutisde);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = -1,
-                    Y = -1,
-                    Z = -1
-                }, location1.TopShoulderOutside);
+                Assert.IsNull(location1.TopShoulderOutside);
 
                 Assert.AreEqual(new Point3D
                 {
@@ -787,19 +767,9 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                     Z = -0.49
                 }, location2.DikeToeAtPolder);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = -1,
-                    Y = -1,
-                    Z = -1
-                }, location2.TopShoulderInside);
+                Assert.IsNull(location2.TopShoulderInside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = -1,
-                    Y = -1,
-                    Z = -1
-                }, location2.ShoulderInside);
+                Assert.IsNull(location2.ShoulderInside);
 
                 Assert.AreEqual(new Point3D
                 {
@@ -829,19 +799,9 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                     Z = 3.11
                 }, location2.DikeTopAtRiver);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = -1,
-                    Y = -1,
-                    Z = -1
-                }, location2.ShoulderOutisde);
+                Assert.IsNull(location2.ShoulderOutisde);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = -1,
-                    Y = -1,
-                    Z = -1
-                }, location2.TopShoulderOutside);
+                Assert.IsNull(location2.TopShoulderOutside);
 
                 Assert.AreEqual(new Point3D
                 {

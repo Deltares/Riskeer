@@ -46,15 +46,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// </summary>
     public class PipingSurfaceLinesCsvImporter : FileImporterBase
     {
-        private readonly ILog log;
+        private readonly ILog log = LogManager.GetLogger(typeof(PipingSurfaceLinesCsvImporter));
 
         private const string characteristicPointsFileSubExtension = ".krp";
         private const string csvFileExtension = ".csv";
-
-        public PipingSurfaceLinesCsvImporter()
-        {
-            log = LogManager.GetLogger(GetType());
-        }
 
         public override string Name
         {
@@ -342,64 +337,12 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void SetCharacteristicPointsOnSurfaceLine(RingtoetsPipingSurfaceLine readSurfaceLine, CharacteristicPoints characteristicPointsLocation)
         {
-            TrySetCharacteristicPoint(
-                characteristicPointsLocation.DitchPolderSide, 
-                readSurfaceLine.SetDitchPolderSideAt, 
-                readSurfaceLine.Name,
-                PipingFormsResources.CharacteristicPoint_DitchPolderSide);
-
-            TrySetCharacteristicPoint(
-                characteristicPointsLocation.BottomDitchPolderSide,
-                readSurfaceLine.SetBottomDitchPolderSideAt,
-                readSurfaceLine.Name,
-                PipingFormsResources.CharacteristicPoint_BottomDitchPolderSide);
-
-            TrySetCharacteristicPoint(
-                characteristicPointsLocation.BottomDitchDikeSide,
-                readSurfaceLine.SetBottomDitchDikeSideAt,
-                readSurfaceLine.Name,
-                PipingFormsResources.CharacteristicPoint_BottomDitchDikeSide);
-
-            TrySetCharacteristicPoint(
-                characteristicPointsLocation.DitchDikeSide,
-                readSurfaceLine.SetDitchDikeSideAt,
-                readSurfaceLine.Name,
-                PipingFormsResources.CharacteristicPoint_DitchDikeSide);
-
-            TrySetCharacteristicPoint(
-                characteristicPointsLocation.DikeToeAtRiver,
-                readSurfaceLine.SetDikeToeAtRiverAt,
-                readSurfaceLine.Name,
-                PipingFormsResources.CharacteristicPoint_DikeToeAtRiver);
-
-            TrySetCharacteristicPoint(
-                characteristicPointsLocation.DikeToeAtPolder,
-                readSurfaceLine.SetDikeToeAtPolderAt,
-                readSurfaceLine.Name,
-                PipingFormsResources.CharacteristicPoint_DikeToeAtPolder);
-        }
-
-        private void TrySetCharacteristicPoint(Point3D point, Action<Point3D> setAction, string surfaceLineName, string characteristicPointType)
-        {
-            if (IsDefined(point))
-            {
-                try
-                {
-                    setAction(point);
-                }
-                catch (ArgumentException e)
-                {
-                    log.ErrorFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_cause_2_, 
-                        characteristicPointType, 
-                        surfaceLineName, 
-                        e.Message);
-                }
-            }
-        }
-
-        private bool IsDefined(Point3D point)
-        {
-            return point != null && !point.Equals(CharacteristicPointsCsvReader.UndefinedPoint);
+            readSurfaceLine.TrySetDitchPolderSide(characteristicPointsLocation.DitchPolderSide);
+            readSurfaceLine.TrySetBottomDitchPolderSide(characteristicPointsLocation.BottomDitchPolderSide);
+            readSurfaceLine.TrySetBottomDitchDikeSide(characteristicPointsLocation.BottomDitchDikeSide);
+            readSurfaceLine.TrySetDitchDikeSide(characteristicPointsLocation.DitchDikeSide);
+            readSurfaceLine.TrySetDikeToeAtRiver(characteristicPointsLocation.DikeToeAtRiver);
+            readSurfaceLine.TrySetDikeToeAtPolder(characteristicPointsLocation.DikeToeAtPolder);
         }
 
         private void HandleUserCancellingImport()

@@ -176,12 +176,12 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Karakteristiek punt &apos;{0}&apos; van profielmeting &apos;{1}&apos; is overgeslagen. {2}.
+        ///   Looks up a localized string similar to Karakteristiek punt van profielmeting &apos;{0}&apos; is overgeslagen. {1}.
         /// </summary>
-        public static string PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_cause_2_ {
+        public static string PipingSurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_ {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_CharacteristicPoint_0_of_SurfaceLine_1_skipped_caus" +
-                        "e_2_", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_" +
+                        "1_", resourceCulture);
             }
         }
         

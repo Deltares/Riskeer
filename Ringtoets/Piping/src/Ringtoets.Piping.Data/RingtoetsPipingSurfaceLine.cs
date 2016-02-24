@@ -134,9 +134,16 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
         public void SetDitchPolderSideAt(Point3D point)
         {
-            DitchPolderSide = GetPointFromGeometry(point);
+            var geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_DitchPolderSide);
+            }
+            DitchPolderSide = geometryPoint;
         }
 
         /// <summary>
@@ -146,9 +153,16 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
         public void SetBottomDitchPolderSideAt(Point3D point)
         {
-            BottomDitchPolderSide = GetPointFromGeometry(point);
+            var geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_BottomDitchPolderSide);
+            }
+            BottomDitchPolderSide = geometryPoint;
         }
 
         /// <summary>
@@ -158,9 +172,16 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
         public void SetBottomDitchDikeSideAt(Point3D point)
         {
-            BottomDitchDikeSide = GetPointFromGeometry(point);
+            var geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_BottomDitchDikeSide);
+            }
+            BottomDitchDikeSide = geometryPoint;
         }
 
         /// <summary>
@@ -170,9 +191,16 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
         public void SetDitchDikeSideAt(Point3D point)
         {
-            DitchDikeSide = GetPointFromGeometry(point);
+            var geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_DitchDikeSide);
+            }
+            DitchDikeSide = geometryPoint;
         }
 
         /// <summary>
@@ -182,9 +210,16 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
         public void SetDikeToeAtRiverAt(Point3D point)
         {
-            DikeToeAtRiver = GetPointFromGeometry(point);
+            var geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_DikeToeAtRiver);
+            }
+            DikeToeAtRiver = geometryPoint;
         }
 
         /// <summary>
@@ -194,9 +229,16 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <paramref name="point"/>.</exception>
         public void SetDikeToeAtPolderAt(Point3D point)
         {
-            DikeToeAtPolder = GetPointFromGeometry(point);
+            var geometryPoint = GetPointFromGeometry(point);
+            if (geometryPoint == null)
+            {
+                throw CreatePointNotInGeometryException(point, Resources.CharacteristicPoint_DikeToeAtPolder);
+            }
+            DikeToeAtPolder = geometryPoint;
         }
 
         /// <summary>
@@ -204,8 +246,6 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="point">The location of a point from <see cref="Points"/>.</param>
         /// <returns>The <see cref="Point3D"/> from <see cref="Points"/> at the same location as <paramref name="point"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
-        /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         private Point3D GetPointFromGeometry(Point3D point)
         {
@@ -214,19 +254,16 @@ namespace Ringtoets.Piping.Data
                 throw new ArgumentNullException("point", "Cannot find a point in geometry using a null point.");
             }
             var pointFromGeometry = Points.FirstOrDefault(p => p.Equals(point));
-            if (pointFromGeometry == null)
-            {
-                throw CreateCharacteristicPointSetException(point);
-            }
             return pointFromGeometry;
         }
 
-        private static ArgumentException CreateCharacteristicPointSetException(Point3D point)
+        private static ArgumentException CreatePointNotInGeometryException(Point3D point, string characteristicPointDescription)
         {
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point,
-                                        point.X,
-                                        point.Y,
-                                        point.Z);
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_,
+                                          point.X,
+                                          point.Y,
+                                          point.Z,
+                                          characteristicPointDescription);
             return new ArgumentException(message);
         }
 
@@ -241,7 +278,6 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="InvalidOperationException"><see cref="Points"/> is empty.</exception>
         public double GetZAtL(double l)
         {
-
             ValidateHasPoints();
 
             Point2D[] pointsInLocalCoordinates = ProjectGeometryToLZ().ToArray();

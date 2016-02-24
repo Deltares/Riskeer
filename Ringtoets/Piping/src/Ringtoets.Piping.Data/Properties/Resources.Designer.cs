@@ -70,6 +70,60 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Slootbodem dijkzijde.
+        /// </summary>
+        public static string CharacteristicPoint_BottomDitchDikeSide {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_BottomDitchDikeSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slootbodem polderzijde.
+        /// </summary>
+        public static string CharacteristicPoint_BottomDitchPolderSide {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_BottomDitchPolderSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teen dijk binnenwaarts.
+        /// </summary>
+        public static string CharacteristicPoint_DikeToeAtPolder {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DikeToeAtPolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teen dijk buitenwaarts.
+        /// </summary>
+        public static string CharacteristicPoint_DikeToeAtRiver {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DikeToeAtRiver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insteek sloot dijkzijde.
+        /// </summary>
+        public static string CharacteristicPoint_DitchDikeSide {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DitchDikeSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insteek sloot polderzijde.
+        /// </summary>
+        public static string CharacteristicPoint_DitchPolderSide {
+            get {
+                return ResourceManager.GetString("CharacteristicPoint_DitchPolderSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Commentaar.
         /// </summary>
         public static string Comments_DisplayName {
@@ -224,12 +278,12 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De geometrie bevat geen punt op locatie ({0},{1},{2}) om als karakteristiek punt in te stellen..
+        ///   Looks up a localized string similar to De geometrie bevat geen punt op locatie ({0},{1},{2}) om als &apos;{3}&apos; in te stellen..
         /// </summary>
-        public static string RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point {
+        public static string RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_ {
             get {
                 return ResourceManager.GetString("RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_poi" +
-                        "nt_at_0_1_2_to_assign_as_characteristic_point", resourceCulture);
+                        "nt_at_0_1_2_to_assign_as_characteristic_point_3_", resourceCulture);
             }
         }
         
