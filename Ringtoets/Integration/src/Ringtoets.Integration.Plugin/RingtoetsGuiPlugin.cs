@@ -183,6 +183,9 @@ namespace Ringtoets.Integration.Plugin
                 Text = hydraulicBoundaryDatabase => HydraringResources.HydraulicBoundaryDatabase_DisplayName,
                 Image = hydraulicBoundaryDatabase => RingtoetsFormsResources.GenericInputOutputIcon,
                 CanRename = (context, o) => false,
+                ForeColor = context => context.Parent.HydraulicBoundaryDatabase == null ?
+                                           Color.FromKnownColor(KnownColor.GrayText) :
+                                           Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
         }

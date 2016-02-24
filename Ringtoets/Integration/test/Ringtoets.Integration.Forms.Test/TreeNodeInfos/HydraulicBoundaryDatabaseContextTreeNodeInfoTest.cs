@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Drawing;
+using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -46,7 +47,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Assert
             Assert.AreEqual(typeof(HydraulicBoundaryDatabaseContext), info.TagType);
-            Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
@@ -181,6 +181,41 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.VerifyAll(); // Expect no calls on arguments
 
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, RingtoetsHydraringRormsResources.DesignWaterLevel_Calculate, RingtoetsHydraringRormsResources.DesignWaterLevel_Calculate_ToolTip, RingtoetsFormsResources.FailureMechanismIcon);
+        }
+
+        [Test]
+        public void ForeColor_ContextHasNoReferenceLine_ReturnDisabledColor()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            // Call
+            Color color = info.ForeColor(hydraulicBoundaryDatabaseContext);
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ForeColor_ContextHasReferenceLineData_ReturnControlText()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            // Call
+            Color color = info.ForeColor(hydraulicBoundaryDatabaseContext);
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+            mocks.VerifyAll();
         }
     }
 }
