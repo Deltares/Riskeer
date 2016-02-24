@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Legend;
 using NUnit.Framework;
+using Rhino.Mocks;
 using DotSpatialResources = Core.Plugins.DotSpatial.Properties.Resources;
 
 namespace Core.Plugins.DotSpatial.Test.Legend
@@ -40,9 +44,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
             Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.IsChecked);
-            Assert.IsNull(info.OnNodeChecked);
             Assert.IsNull(info.CanDrag);
             Assert.IsNull(info.CanDrop);
             Assert.IsNull(info.CanInsert);
@@ -67,6 +68,90 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             TestHelper.AssertImagesAreEqual(DotSpatialResources.AreaIcon, image);
+        }
+
+        [Test]
+        public void CanCheck_Always_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>());
+
+            mocks.ReplayAll();
+
+            // Call
+            var canCheck = info.CanCheck(lineData);
+
+            // Assert
+            Assert.IsTrue(canCheck);
+
+            mocks.VerifyAll();
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IsChecked_Always_ReturnsAccordingToVisibleStateOfLineData(bool isVisible)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>());
+
+            lineData.IsVisible = isVisible;
+
+            mocks.ReplayAll();
+
+            // Call
+            var canCheck = info.IsChecked(lineData);
+
+            // Assert
+            Assert.AreEqual(isVisible, canCheck);
+
+            mocks.VerifyAll();
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void LineDataNodeWithoutParent_SetsLineDataVisibility(bool initialVisibleState)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>());
+
+            mocks.ReplayAll();
+
+            lineData.IsVisible = initialVisibleState;
+
+            // Call
+            info.OnNodeChecked(lineData, null);
+
+            // Assert
+            Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
+
+            mocks.VerifyAll();
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnNodeChecked_LineDataNodeWithObservableParent_SetsLineDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observable = mocks.StrictMock<IObservable>();
+            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>());
+
+            observable.Expect(o => o.NotifyObservers());
+
+            mocks.ReplayAll();
+
+            lineData.IsVisible = initialVisibleState;
+
+            // Call
+            info.OnNodeChecked(lineData, observable);
+
+            // Assert
+            Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
+
+            mocks.VerifyAll();
         }
     }
 }

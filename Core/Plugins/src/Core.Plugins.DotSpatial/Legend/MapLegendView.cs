@@ -21,6 +21,7 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Components.DotSpatial.Forms;
@@ -77,19 +78,28 @@ namespace Core.Plugins.DotSpatial.Legend
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPointData>
             {
                 Text = mapPointData => DotSpatialResources.MapData_Point_data_label,
-                Image = mapPointData => DotSpatialResources.PointsIcon
+                Image = mapPointData => DotSpatialResources.PointsIcon,
+                CanCheck = mapPointData => true,
+                IsChecked = mapPointData => mapPointData.IsVisible,
+                OnNodeChecked = MapPointDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapLineData>
             {
                 Text = mapLineData => DotSpatialResources.MapData_Line_data_label,
-                Image = mapLineData => DotSpatialResources.LineIcon
+                Image = mapLineData => DotSpatialResources.LineIcon,
+                CanCheck = mapLineData => true,
+                IsChecked = mapLineData => mapLineData.IsVisible,
+                OnNodeChecked = MapLineDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPolygonData>
             {
                 Text = mapPolygonData => DotSpatialResources.MapData_Polygon_data_label,
-                Image = mapPolygonData => DotSpatialResources.AreaIcon
+                Image = mapPolygonData => DotSpatialResources.AreaIcon,
+                CanCheck = mapPolygonData => true,
+                IsChecked = mapPolygonData => mapPolygonData.IsVisible,
+                OnNodeChecked = MapPolygonDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapDataCollection>
@@ -99,5 +109,36 @@ namespace Core.Plugins.DotSpatial.Legend
                 ChildNodeObjects = mapDataCollection => mapDataCollection.List.Reverse().Cast<object>().ToArray()
             });
         }
+
+        #region MapData
+
+        private void MapPointDataOnNodeChecked(MapPointData mapPointData, object parentData)
+        {
+            PointBasedMapDataOnNodeChecked(mapPointData, parentData);
+        }
+
+        private void MapLineDataOnNodeChecked(MapLineData mapLineData, object parentData)
+        {
+            PointBasedMapDataOnNodeChecked(mapLineData, parentData);
+        }
+
+        private void MapPolygonDataOnNodeChecked(MapPolygonData mapPolygonData, object parentData)
+        {
+            PointBasedMapDataOnNodeChecked(mapPolygonData, parentData);
+        }
+
+        private void PointBasedMapDataOnNodeChecked(PointBasedMapData pointBasedMapData, object parentData)
+        {
+            pointBasedMapData.IsVisible = !pointBasedMapData.IsVisible;
+            pointBasedMapData.NotifyObservers();
+
+            var observableParent = parentData as IObservable;
+            if (observableParent != null)
+            {
+                observableParent.NotifyObservers();
+            }
+        }
+
+        #endregion
     }
 }
