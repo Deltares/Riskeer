@@ -34,10 +34,7 @@ namespace Ringtoets.Integration.Data.Contribution
         /// <summary>
         /// Creates a new instance of <see cref="OtherFailureMechanism"/>.
         /// </summary>
-        public OtherFailureMechanism()
-        {
-            Name = RingtoetsIntegrationResources.OtherFailureMechanism_DisplayName;
-        }
+        public OtherFailureMechanism() : base(RingtoetsIntegrationResources.OtherFailureMechanism_DisplayName) { }
 
         public override IEnumerable<ICalculationItem> CalculationItems
         {

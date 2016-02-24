@@ -25,6 +25,8 @@ using System.Linq;
 
 using Core.Common.Base.Geometry;
 
+using Ringtoets.Common.Data.Properties;
+
 namespace Ringtoets.Common.Data
 {
     /// <summary>
@@ -34,6 +36,9 @@ namespace Ringtoets.Common.Data
     /// </summary>
     public class FailureMechanismSection
     {
+        private readonly Point2D geometryStart;
+        private readonly Point2D geometryEnd;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSection"/> class.
         /// </summary>
@@ -54,9 +59,15 @@ namespace Ringtoets.Common.Data
             {
                 throw new ArgumentException("One or multiple elements are null.", "geometryPoints");
             }
+            if (point2Ds.Length == 0)
+            {
+                throw new ArgumentException(Resources.FailureMechanismSection_Section_must_have_at_least_1_geometry_point, "geometryPoints");
+            }
 
             Name = name;
             Points = point2Ds;
+            geometryStart = point2Ds[0];
+            geometryEnd = point2Ds[point2Ds.Length-1];
         }
 
         /// <summary>
@@ -68,5 +79,21 @@ namespace Ringtoets.Common.Data
         /// Gets the 2D points describing the geometry of the section.
         /// </summary>
         public IEnumerable<Point2D> Points { get; private set; }
+
+        /// <summary>
+        /// Gets the geometric start of the section.
+        /// </summary>
+        public Point2D GetStart()
+        {
+            return geometryStart;
+        }
+
+        /// <summary>
+        /// Gets the geometric end of the section.
+        /// </summary>
+        public Point2D GetLast()
+        {
+            return geometryEnd;
+        }
     }
 }

@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using Core.Common.Base;
 using Ringtoets.Common.Data.Properties;
 
@@ -33,6 +35,17 @@ namespace Ringtoets.Common.Data
     public abstract class BaseFailureMechanism : Observable, IFailureMechanism
     {
         private double contribution;
+        private readonly List<FailureMechanismSection> sections;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseFailureMechanism"/> class.
+        /// </summary>
+        /// <param name="failureMechanismName">The name of the failure mechanism.</param>
+        protected BaseFailureMechanism(string failureMechanismName)
+        {
+            Name = failureMechanismName;
+            sections = new List<FailureMechanismSection>();
+        }
 
         /// <summary>
         /// Gets the amount of contribution as a percentage (0-100) for the <see cref="IFailureMechanism"/>
@@ -55,12 +68,65 @@ namespace Ringtoets.Common.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets the name of the <see cref="IFailureMechanism"/>.
-        /// </summary>
-        public string Name { get; protected set; }
+        public string Name { get; private set; }
 
         public abstract IEnumerable<ICalculationItem> CalculationItems { get; }
+
+        public IEnumerable<FailureMechanismSection> Sections
+        {
+            get
+            {
+                return sections;
+            }
+        }
+
+        public void AddSection(FailureMechanismSection section)
+        {
+            if (section == null)
+            {
+                throw new ArgumentNullException("section");
+            }
+
+            if (!sections.Any())
+            {
+                sections.Add(section);
+            }
+            else
+            {
+                InsertSectionWhileMaintainingConnectivityOrder(section);
+            }
+        }
+
+        /// <summary>
+        /// Inserts the section to <see cref="Sections"/> while maintaining connectivity
+        /// order (Neighboring <see cref="FailureMechanismSection"/> have same start- and 
+        /// endpoints).
+        /// </summary>
+        /// <param name="sectionToInsert">The new section.</param>
+        /// <exception cref="System.ArgumentException">When <paramref name="sectionToInsert"/> cannot
+        /// be connected to elements already defined in <see cref="Sections"/>.</exception>
+        private void InsertSectionWhileMaintainingConnectivityOrder(FailureMechanismSection sectionToInsert)
+        {
+            if (sections[0].GetStart().Equals(sectionToInsert.GetLast()))
+            {
+                sections.Insert(0, sectionToInsert);
+            }
+            else if (sections[sections.Count - 1].GetLast().Equals(sectionToInsert.GetStart()))
+            {
+                sections.Add(sectionToInsert);
+            }
+            else
+            {
+                string message = string.Format(Resources.BaseFailureMechanism_AddSection_Section_0_must_connect_to_existing_sections,
+                                               sectionToInsert.Name);
+                throw new ArgumentException(message, "sectionToInsert");
+            }
+        }
+
+        public void ClearAllSections()
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Gets or sets the unique identifier for the storage of the class.

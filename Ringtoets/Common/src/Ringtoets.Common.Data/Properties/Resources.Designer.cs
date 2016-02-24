@@ -61,6 +61,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vak &apos;{0}&apos; sluit niet aan op de al gedefinieerde vakken van het faalmechanisme..
+        /// </summary>
+        public static string BaseFailureMechanism_AddSection_Section_0_must_connect_to_existing_sections {
+            get {
+                return ResourceManager.GetString("BaseFailureMechanism_AddSection_Section_0_must_connect_to_existing_sections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oordeel.
         /// </summary>
         public static string FailureMechanism_AssessmentResult_DisplayName {
@@ -102,6 +111,15 @@ namespace Ringtoets.Common.Data.Properties {
         public static string FailureMechanism_SectionDevisions_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_SectionDevisions_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vak moet minstens uit 1 punt bestaan..
+        /// </summary>
+        public static string FailureMechanismSection_Section_must_have_at_least_1_geometry_point {
+            get {
+                return ResourceManager.GetString("FailureMechanismSection_Section_must_have_at_least_1_geometry_point", resourceCulture);
             }
         }
         

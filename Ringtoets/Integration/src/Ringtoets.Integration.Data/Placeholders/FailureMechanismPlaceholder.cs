@@ -35,13 +35,12 @@ namespace Ringtoets.Integration.Data.Placeholders
         /// Initializes a new instance of the <see cref="FailureMechanismPlaceholder"/> class.
         /// </summary>
         /// <param name="name">The placeholder's name.</param>
-        public FailureMechanismPlaceholder(string name)
+        public FailureMechanismPlaceholder(string name) : base(name)
         {
             SectionDivisions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_SectionDevisions_DisplayName);
             Locations = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_Locations_DisplayName);
             BoundaryConditions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_BoundaryConditions_DisplayName);
             AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
-            Name = name;
         }
 
         /// <summary>

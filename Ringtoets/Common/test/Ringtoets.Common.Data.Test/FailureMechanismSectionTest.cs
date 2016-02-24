@@ -68,5 +68,52 @@ namespace Ringtoets.Common.Data.Test
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "One or multiple elements are null.");
         }
+
+        [Test]
+        public void Constructor_GeometryIsEmpty_ThrowArgumentException()
+        {
+            // Call
+            TestDelegate call = () => new FailureMechanismSection("", Enumerable.Empty<Point2D>());
+
+            // Assert
+            string expectedMessage = "Vak moet minstens uit 1 punt bestaan.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void GetStart_SectionWithPoints_ReturnFirstPoint()
+        {
+            // Setup
+            var geometryPoints = new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            };
+            var section = new FailureMechanismSection("A", geometryPoints);
+
+            // Call
+            Point2D startingPoint = section.GetStart();
+
+            // Assert
+            Assert.AreEqual(geometryPoints[0], startingPoint);
+        }
+
+        [Test]
+        public void GetEnd_SectionWithPoints_ReturnLastPoint()
+        {
+            // Setup
+            var geometryPoints = new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            };
+            var section = new FailureMechanismSection("A", geometryPoints);
+
+            // Call
+            Point2D endingPoint = section.GetLast();
+
+            // Assert
+            Assert.AreEqual(geometryPoints[1], endingPoint);
+        }
     }
 }

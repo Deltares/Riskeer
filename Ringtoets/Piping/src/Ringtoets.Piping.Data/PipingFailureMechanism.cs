@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
@@ -37,7 +36,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
         /// </summary>
-        public PipingFailureMechanism()
+        public PipingFailureMechanism() : base(Resources.PipingFailureMechanism_DisplayName)
         {
             SectionDivisions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_SectionDevisions_DisplayName);
             SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
@@ -47,7 +46,6 @@ namespace Ringtoets.Piping.Data
             pipingCalculationGroup.Children.Add(new PipingCalculation());
             CalculationsGroup = pipingCalculationGroup;
             AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
-            Name = Resources.PipingFailureMechanism_DisplayName;
         }
 
         /// <summary>

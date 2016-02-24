@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data
         double Contribution { get; set; }
 
         /// <summary>
-        /// The name of the <see cref="IFailureMechanism"/>.
+        /// Gets the name of the <see cref="IFailureMechanism"/>.
         /// </summary>
         string Name { get; }
 
@@ -46,5 +46,24 @@ namespace Ringtoets.Common.Data
         /// Gets a <see cref="IEnumerable{T}"/> of <see cref="ICalculationItem"/>.
         /// </summary>
         IEnumerable<ICalculationItem> CalculationItems { get; }
+
+        /// <summary>
+        /// Gets the sections that define area's for which a calculation could determine
+        /// a representative result.
+        /// </summary>
+        IEnumerable<FailureMechanismSection> Sections { get; }
+
+        /// <summary>
+        /// Adds a <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.
+        /// </summary>
+        /// <param name="section">The new section.</param>
+        /// <exception cref="System.ArgumentException">When <paramref name="section"/> cannot
+        /// be connected to elements already defined in <see cref="Sections"/>.</exception>
+        void AddSection(FailureMechanismSection section);
+
+        /// <summary>
+        /// Clears all sections from <see cref="Sections"/>.
+        /// </summary>
+        void ClearAllSections();
     }
 }
