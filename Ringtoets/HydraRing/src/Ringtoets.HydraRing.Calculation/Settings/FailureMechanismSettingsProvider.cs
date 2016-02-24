@@ -40,83 +40,43 @@ namespace Ringtoets.HydraRing.Calculation.Settings
             {
                 {
                     HydraRingFailureMechanismType.AssessmentLevel,
-                    new FailureMechanismSettings
-                    {
-                        ValueMin = 0,
-                        ValueMax = 50
-                    }
+                    new FailureMechanismSettings(0, 50)
                 },
                 {
                     HydraRingFailureMechanismType.WaveHeight,
-                    new FailureMechanismSettings
-                    {
-                        ValueMin = 0,
-                        ValueMax = 50
-                    }
+                    new FailureMechanismSettings(0, 50)
                 },
                 {
                     HydraRingFailureMechanismType.WavePeakPeriod,
-                    new FailureMechanismSettings
-                    {
-                        ValueMin = 0,
-                        ValueMax = 50
-                    }
+                    new FailureMechanismSettings(0, 50)
                 },
                 {
                     HydraRingFailureMechanismType.WaveSpectralPeriod,
-                    new FailureMechanismSettings
-                    {
-                        ValueMin = 0,
-                        ValueMax = 50
-                    }
+                    new FailureMechanismSettings(0, 50)
                 },
                 {
                     HydraRingFailureMechanismType.QVariant,
-                    new FailureMechanismSettings
-                    {
-                        ValueMin = 0,
-                        ValueMax = 50
-                    }
+                    new FailureMechanismSettings(0, 50)
                 },
                 {
                     HydraRingFailureMechanismType.DikesOvertopping,
-                    new FailureMechanismSettings
-                    {
-                        ValueMin = double.NaN,
-                        ValueMax = double.NaN
-                    }
+                    new FailureMechanismSettings(double.NaN, double.NaN)
                 },
                 {
                     HydraRingFailureMechanismType.DikesPiping,
-                    new FailureMechanismSettings
-                    {
-                        ValueMin = double.NaN,
-                        ValueMax = double.NaN
-                    }
+                    new FailureMechanismSettings(double.NaN, double.NaN)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresOvertopping,
-                    new FailureMechanismSettings
-                    {
-                        ValueMin = double.NaN,
-                        ValueMax = double.NaN
-                    }
+                    new FailureMechanismSettings(double.NaN, double.NaN)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresClosure,
-                    new FailureMechanismSettings
-                    {
-                        ValueMin = double.NaN,
-                        ValueMax = double.NaN
-                    }
+                    new FailureMechanismSettings(double.NaN, double.NaN)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    new FailureMechanismSettings
-                    {
-                        ValueMin = double.NaN,
-                        ValueMax = double.NaN
-                    }
+                    new FailureMechanismSettings(double.NaN, double.NaN)
                 }
             };
         }
