@@ -206,7 +206,7 @@ namespace Ringtoets.HydraRing.Plugin.Test
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var importTarget = new HydraulicBoundaryDatabaseContext( assessmentSection);
+            var importTarget = new HydraulicBoundaryDatabaseContext(assessmentSection);
             importTarget.Attach(observer);
 
             importer.ProgressChanged = IncrementProgress;
@@ -300,7 +300,7 @@ namespace Ringtoets.HydraRing.Plugin.Test
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
             Assert.IsNull(importTarget.Parent.HydraulicBoundaryDatabase, "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
-            Assert.AreEqual(2, progress);
+            Assert.AreEqual(1, progress);
 
             mocks.VerifyAll(); // Expect no calls on 'observer'
         }
