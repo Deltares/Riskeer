@@ -42,23 +42,7 @@ namespace Ringtoets.HydraRing.Calculation.Settings
                     HydraRingFailureMechanismType.AssessmentLevel, new Dictionary<int, SubMechanismSettings>
                     {
                         {
-                            1, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            1, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
@@ -66,23 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Settings
                     HydraRingFailureMechanismType.WaveHeight, new Dictionary<int, SubMechanismSettings>
                     {
                         {
-                            11, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            11, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
@@ -90,23 +58,7 @@ namespace Ringtoets.HydraRing.Calculation.Settings
                     HydraRingFailureMechanismType.WavePeakPeriod, new Dictionary<int, SubMechanismSettings>
                     {
                         {
-                            14, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            14, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
@@ -114,23 +66,7 @@ namespace Ringtoets.HydraRing.Calculation.Settings
                     HydraRingFailureMechanismType.WaveSpectralPeriod, new Dictionary<int, SubMechanismSettings>
                     {
                         {
-                            16, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            16, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
@@ -138,61 +74,13 @@ namespace Ringtoets.HydraRing.Calculation.Settings
                     HydraRingFailureMechanismType.QVariant, new Dictionary<int, SubMechanismSettings>
                     {
                         {
-                            3, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            3, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            4, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            4, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            5, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 4,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            5, new SubMechanismSettings(4, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
@@ -200,42 +88,10 @@ namespace Ringtoets.HydraRing.Calculation.Settings
                     HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<int, SubMechanismSettings>
                     {
                         {
-                            102, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            102, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            103, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            103, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
@@ -243,61 +99,13 @@ namespace Ringtoets.HydraRing.Calculation.Settings
                     HydraRingFailureMechanismType.DikesPiping, new Dictionary<int, SubMechanismSettings>
                     {
                         {
-                            311, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            311, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            313, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            313, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            314, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            314, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
@@ -305,61 +113,13 @@ namespace Ringtoets.HydraRing.Calculation.Settings
                     HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<int, SubMechanismSettings>
                     {
                         {
-                            421, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            421, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            422, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            422, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            423, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            423, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
@@ -367,99 +127,19 @@ namespace Ringtoets.HydraRing.Calculation.Settings
                     HydraRingFailureMechanismType.StructuresClosure, new Dictionary<int, SubMechanismSettings>
                     {
                         {
-                            422, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 1,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            422, new SubMechanismSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            424, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            424, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            425, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            425, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            426, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 1,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            426, new SubMechanismSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            427, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 1,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            427, new SubMechanismSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
@@ -467,156 +147,31 @@ namespace Ringtoets.HydraRing.Calculation.Settings
                     HydraRingFailureMechanismType.StructuresStructuralFailure, new Dictionary<int, SubMechanismSettings>
                     {
                         {
-                            422, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 1,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            422, new SubMechanismSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            424, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 1,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            424, new SubMechanismSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            425, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            425, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            430, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            430, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            431, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 1,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            431, new SubMechanismSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            432, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 1,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            432, new SubMechanismSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            434, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            433, new SubMechanismSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            435, new SubMechanismSettings
-                            {
-                                CalculationTechniqueId = 1,
-                                FormStartMethod = 4,
-                                FormNumberOfIterations = 50,
-                                FormRelaxationFactor = 0.15,
-                                FormEpsBeta = 0.01,
-                                FormEpsHOH = 0.01,
-                                FormEpsZFunc = 0.01,
-                                DsStartMethod = 2,
-                                DsMinNumberOfIterations = 10000,
-                                DsMaxNumberOfIterations = 20000,
-                                DsVarCoefficient = 0.1,
-                                NiUMin = -6.0,
-                                NiUMax = 6.0,
-                                NiNumberSteps = 25
-                            }
+                            434, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                        },
+                        {
+                            435, new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 }

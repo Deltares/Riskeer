@@ -37,7 +37,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
         [TestCase(HydraRingFailureMechanismType.DikesPiping, double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, double.NaN, double.NaN)]
-        public void GetFailureMechanismSettings_StructuresStructuralFailureDefaultsOnly_ReturnsExpectedFailureMechanismSettings(HydraRingFailureMechanismType failureMechanismType, double expectedValueMin, double expectedValueMax)
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, double.NaN, double.NaN)]
+        public void GetFailureMechanismSettings_DefaultsOnly_ReturnsExpectedFailureMechanismSettings(HydraRingFailureMechanismType failureMechanismType, double expectedValueMin, double expectedValueMax)
         {
             // Setup
             var failureMechanismSettingsProvider = new FailureMechanismSettingsProvider();

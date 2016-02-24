@@ -20,7 +20,7 @@ namespace Ringtoets.HydraRing.Calculation.Settings
         }
 
         /// <summary>
-        /// Gets or sets the minimum value to use while iterating to a target probability.
+        /// Gets the minimum value to use while iterating to a target probability.
         /// </summary>
         public double ValueMin
         {
@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Settings
         }
 
         /// <summary>
-        /// Gets or sets the maximum value to use while iterating to a target probability.
+        /// Gets the maximum value to use while iterating to a target probability.
         /// </summary>
         public double ValueMax
         {

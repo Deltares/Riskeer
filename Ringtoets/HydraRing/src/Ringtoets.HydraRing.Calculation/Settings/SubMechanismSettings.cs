@@ -26,80 +26,214 @@ namespace Ringtoets.HydraRing.Calculation.Settings
     /// </summary>
     public class SubMechanismSettings
     {
-        /// <summary>
-        /// Gets or sets the id of the calculation technique that should be used.
-        /// </summary>
-        public int CalculationTechniqueId { get; set; }
+        private readonly int calculationTechniqueId;
+        private readonly int formStartMethod;
+        private readonly int formNumberOfIterations;
+        private readonly double formRelaxationFactor;
+        private readonly double formEpsBeta;
+        private readonly double formEpsHoh;
+        private readonly double formEpsZFunc;
+        private readonly int dsStartMethod;
+        private readonly int dsMinNumberOfIterations;
+        private readonly int dsMaxNumberOfIterations;
+        private readonly double dsVarCoefficient;
+        private readonly double niUMin;
+        private readonly double niUMax;
+        private readonly int niNumberSteps;
 
         /// <summary>
-        /// Gets or set the FORM start method.
+        /// Creates a new instance of the <see cref="SubMechanismSettings"/> class.
         /// </summary>
-        public int FormStartMethod { get; set; }
+        /// <param name="calculationTechniqueId">The id of the calculation technique that should be used.</param>
+        /// <param name="formStartMethod">The FORM start method.</param>
+        /// <param name="formNumberOfIterations">The maximum number of FORM iterations to perform.</param>
+        /// <param name="formRelaxationFactor">A relaxation towards the design point for FORM.</param>
+        /// <param name="formEpsBeta">One of the three convergence criteria for FORM.</param>
+        /// <param name="formEpsHoh">One of the three convergence criteria for FORM.</param>
+        /// <param name="formEpsZFunc">One of the three convergence criteria for FORM.</param>
+        /// <param name="dsStartMethod">The DIRS start method.</param>
+        /// <param name="dsMinNumberOfIterations">The minimum number of DIRS iterations to perform.</param>
+        /// <param name="dsMaxNumberOfIterations">The maximum number of DIRS iterations to perform.</param>
+        /// <param name="dsVarCoefficient">The variation coefficient to use within the DIRS iterations.</param>
+        /// <param name="niUMin">The lower size limit of a uniform grid deployed by NINT.</param>
+        /// <param name="niUMax">The upper size limit of a uniform grid deployed by NINT.</param>
+        /// <param name="niNumberSteps">The number of steps between <paramref name="niUMin"/> and <paramref name="niUMax"/> for NINT</param>
+        public SubMechanismSettings(int calculationTechniqueId, int formStartMethod, int formNumberOfIterations, double formRelaxationFactor, double formEpsBeta, double formEpsHoh, double formEpsZFunc, int dsStartMethod, int dsMinNumberOfIterations, int dsMaxNumberOfIterations, double dsVarCoefficient, double niUMin, double niUMax, int niNumberSteps)
+        {
+            this.calculationTechniqueId = calculationTechniqueId;
+            this.formStartMethod = formStartMethod;
+            this.formNumberOfIterations = formNumberOfIterations;
+            this.formRelaxationFactor = formRelaxationFactor;
+            this.formEpsBeta = formEpsBeta;
+            this.formEpsHoh = formEpsHoh;
+            this.formEpsZFunc = formEpsZFunc;
+            this.dsStartMethod = dsStartMethod;
+            this.dsMinNumberOfIterations = dsMinNumberOfIterations;
+            this.dsMaxNumberOfIterations = dsMaxNumberOfIterations;
+            this.dsVarCoefficient = dsVarCoefficient;
+            this.niUMin = niUMin;
+            this.niUMax = niUMax;
+            this.niNumberSteps = niNumberSteps;
+        }
 
         /// <summary>
-        /// Gets or set the maximum number of FORM iterations to perform.
+        /// Gets the id of the calculation technique that should be used.
         /// </summary>
-        public int FormNumberOfIterations { get; set; }
+        public int CalculationTechniqueId
+        {
+            get
+            {
+                return calculationTechniqueId;
+            }
+        }
 
         /// <summary>
-        /// Gets or set a relaxation towards the design point for FORM.
+        /// Gets the FORM start method.
         /// </summary>
-        public double FormRelaxationFactor { get; set; }
+        public int FormStartMethod
+        {
+            get
+            {
+                return formStartMethod;
+            }
+        }
 
         /// <summary>
-        /// Gets or set one of the three convergence criteria for FORM.
+        /// Gets the maximum number of FORM iterations to perform.
         /// </summary>
-        /// <seealso cref="FormEpsHOH"/>
+        public int FormNumberOfIterations
+        {
+            get
+            {
+                return formNumberOfIterations;
+            }
+        }
+
+        /// <summary>
+        /// Gets a relaxation towards the design point for FORM.
+        /// </summary>
+        public double FormRelaxationFactor
+        {
+            get
+            {
+                return formRelaxationFactor;
+            }
+        }
+
+        /// <summary>
+        /// Gets one of the three convergence criteria for FORM.
+        /// </summary>
+        /// <seealso cref="FormEpsHoh"/>
         /// <seealso cref="FormEpsZFunc"/>
-        public double FormEpsBeta { get; set; }
+        public double FormEpsBeta
+        {
+            get
+            {
+                return formEpsBeta;
+            }
+        }
 
         /// <summary>
-        /// Gets or set one of the three convergence criteria for FORM.
+        /// Gets one of the three convergence criteria for FORM.
         /// </summary>
         /// <seealso cref="FormEpsBeta"/>
         /// <seealso cref="FormEpsZFunc"/>
-        public double FormEpsHOH { get; set; }
+        public double FormEpsHoh
+        {
+            get
+            {
+                return formEpsHoh;
+            }
+        }
 
         /// <summary>
-        /// Gets or set one of the three convergence criteria for FORM.
+        /// Gets one of the three convergence criteria for FORM.
         /// </summary>
         /// <seealso cref="FormEpsBeta"/>
-        /// <seealso cref="FormEpsHOH"/>
-        public double FormEpsZFunc { get; set; }
+        /// <seealso cref="FormEpsHoh"/>
+        public double FormEpsZFunc
+        {
+            get
+            {
+                return formEpsZFunc;
+            }
+        }
 
         /// <summary>
-        /// Gets or set the DIRS start method.
+        /// Gets the DIRS start method.
         /// </summary>
-        public int DsStartMethod { get; set; }
+        public int DsStartMethod
+        {
+            get
+            {
+                return dsStartMethod;
+            }
+        }
 
         /// <summary>
-        /// Gets or set the minimum number of DIRS iterations to perform.
+        /// Gets the minimum number of DIRS iterations to perform.
         /// </summary>
-        public int DsMinNumberOfIterations { get; set; }
+        public int DsMinNumberOfIterations
+        {
+            get
+            {
+                return dsMinNumberOfIterations;
+            }
+        }
 
         /// <summary>
-        /// Gets or set the maximum number of DIRS iterations to perform.
+        /// Gets the maximum number of DIRS iterations to perform.
         /// </summary>
-        public int DsMaxNumberOfIterations { get; set; }
+        public int DsMaxNumberOfIterations
+        {
+            get
+            {
+                return dsMaxNumberOfIterations;
+            }
+        }
 
         /// <summary>
-        /// Gets or set the variation coefficient to use within the DIRS iterations.
+        /// Gets the variation coefficient to use within the DIRS iterations.
         /// </summary>
-        public double DsVarCoefficient { get; set; }
+        public double DsVarCoefficient
+        {
+            get
+            {
+                return dsVarCoefficient;
+            }
+        }
 
         /// <summary>
-        /// Gets or set the lower size limit of a uniform grid deployed by NINT.
+        /// Gets the lower size limit of a uniform grid deployed by NINT.
         /// </summary>
-        public double NiUMin { get; set; }
+        public double NiUMin
+        {
+            get
+            {
+                return niUMin;
+            }
+        }
 
         /// <summary>
-        /// Gets or set the upper size limit of a uniform grid deployed by NINT.
+        /// Gets the upper size limit of a uniform grid deployed by NINT.
         /// </summary>
-        public double NiUMax { get; set; }
+        public double NiUMax
+        {
+            get
+            {
+                return niUMax;
+            }
+        }
 
         /// <summary>
-        /// Gets or set the number of steps between <seealso cref="NiUMin"/> and <seealso cref="NiUMax"/> for NINT.
+        /// Gets the number of steps between <seealso cref="NiUMin"/> and <seealso cref="NiUMax"/> for NINT.
         /// </summary>
-        public int NiNumberSteps { get; set; }
+        public int NiNumberSteps
+        {
+            get
+            {
+                return niNumberSteps;
+            }
+        }
     }
 }

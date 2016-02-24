@@ -344,7 +344,7 @@ namespace Ringtoets.HydraRing.Calculation
                             "FormEpsBeta", subMechanismSettings.FormEpsBeta
                         },
                         {
-                            "FormEpsHOH", subMechanismSettings.FormEpsHOH
+                            "FormEpsHOH", subMechanismSettings.FormEpsHoh
                         },
                         {
                             "FormEpsZFunc", subMechanismSettings.FormEpsZFunc
