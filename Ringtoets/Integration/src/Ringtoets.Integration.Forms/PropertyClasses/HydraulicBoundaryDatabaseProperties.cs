@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Gui.Converters;
@@ -58,7 +57,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
         [ResourcesDescription(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Description")]
-        public IEnumerable<HydraulicBoundaryLocationProperties> Locations
+        public HydraulicBoundaryLocationProperties[] Locations
         {
             get
             {

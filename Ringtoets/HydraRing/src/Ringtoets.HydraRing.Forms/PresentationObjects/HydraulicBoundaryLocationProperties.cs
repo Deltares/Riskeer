@@ -47,7 +47,7 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the Id from the |<see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the Id from the <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         [PropertyOrder(1)]
         [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Id_DisplayName")]
@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the Name from the |<see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the Name from the <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         [PropertyOrder(2)]
         [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Name_DisplayName")]
@@ -75,7 +75,7 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the Location from the |<see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the Location from the <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         [PropertyOrder(3)]
         [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName")]
@@ -89,7 +89,7 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the DesignWaterLevel from the |<see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the DesignWaterLevel from the <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         [PropertyOrder(4)]
         [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName")]

@@ -71,22 +71,21 @@ namespace Ringtoets.HydraRing.IO.Test
         }
 
         [Test]
-        public void GetVersion_IncorrectFormatFile_ThrowsCriticalFileReadException()
+        public void GetVersion_InvalidColumns_ThrowsLineParseException()
         {
             // Setup
-            var dbFile = Path.Combine(testDataPath, "empty.sqlite");
-            var expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
+            var dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
+            var expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
-            HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile);
-
-            // Call
-            TestDelegate test = () => { hydraulicBoundarySqLiteDatabaseReader.GetVersion(); };
-
-            var exception = Assert.Throws<CriticalFileReadException>(test);
-
-            Assert.AreEqual(expectedMessage, exception.Message);
+            using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => { hydraulicBoundarySqLiteDatabaseReader.GetVersion(); };
+                var exception = Assert.Throws<LineParseException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
@@ -109,7 +108,7 @@ namespace Ringtoets.HydraRing.IO.Test
         }
 
         [Test]
-        public void ReadLocation_InvalidColums_ThrowsLineParseException()
+        public void ReadLocation_InvalidColumns_ThrowsLineParseException()
         {
             // Setup
             var dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
