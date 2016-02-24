@@ -43,7 +43,8 @@ namespace Ringtoets.HydraRing.Calculation
     {
         private readonly IList<HydraRingCalculationData> hydraRingCalculations;
         private readonly IDictionary<HydraRingFailureMechanismType, FailureMechanismDefaults> failureMechanismDefaults;
-        private readonly IEnumerable<SubMechanismSettings> subMechanismSettings;
+        private readonly IEnumerable<FailureMechanismSettings> defaultFailureMechanismSettings;
+        private readonly IEnumerable<SubMechanismSettings> defaultSubMechanismSettings;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.
@@ -145,7 +146,71 @@ namespace Ringtoets.HydraRing.Calculation
                 }
             };
 
-            subMechanismSettings = new[]
+            defaultFailureMechanismSettings = new[]
+            {
+                new FailureMechanismSettings
+                {
+                    FailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel,
+                    ValueMin = 0,
+                    ValueMax = 50
+                },
+                new FailureMechanismSettings
+                {
+                    FailureMechanismType = HydraRingFailureMechanismType.WaveHeight,
+                    ValueMin = 0,
+                    ValueMax = 50
+                },
+                new FailureMechanismSettings
+                {
+                    FailureMechanismType = HydraRingFailureMechanismType.WavePeakPeriod,
+                    ValueMin = 0,
+                    ValueMax = 50
+                },
+                new FailureMechanismSettings
+                {
+                    FailureMechanismType = HydraRingFailureMechanismType.WaveSpectralPeriod,
+                    ValueMin = 0,
+                    ValueMax = 50
+                },
+                new FailureMechanismSettings
+                {
+                    FailureMechanismType = HydraRingFailureMechanismType.QVariant,
+                    ValueMin = 0,
+                    ValueMax = 50
+                },
+                new FailureMechanismSettings
+                {
+                    FailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
+                    ValueMin = double.NaN,
+                    ValueMax = double.NaN
+                },
+                new FailureMechanismSettings
+                {
+                    FailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
+                    ValueMin = double.NaN,
+                    ValueMax = double.NaN
+                },
+                new FailureMechanismSettings
+                {
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
+                    ValueMin = double.NaN,
+                    ValueMax = double.NaN
+                },
+                new FailureMechanismSettings
+                {
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
+                    ValueMin = double.NaN,
+                    ValueMax = double.NaN
+                },
+                new FailureMechanismSettings
+                {
+                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
+                    ValueMin = double.NaN,
+                    ValueMax = double.NaN
+                }
+            };
+
+            defaultSubMechanismSettings = new[]
             {
                 new SubMechanismSettings
                 {
@@ -820,7 +885,8 @@ namespace Ringtoets.HydraRing.Calculation
 
             foreach (var hydraRingCalculation in hydraRingCalculations)
             {
-                var defaultsForFailureMechanism = failureMechanismDefaults[hydraRingCalculation.FailureMechanismType];
+                var failureMechanismDefault = failureMechanismDefaults[hydraRingCalculation.FailureMechanismType];
+                var defaultfailureMechanismSettings = defaultFailureMechanismSettings.First(fms => fms.FailureMechanismType == hydraRingCalculation.FailureMechanismType);
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
@@ -828,7 +894,7 @@ namespace Ringtoets.HydraRing.Calculation
                         "SectionId", 999 // TODO: Dike section integration
                     },
                     {
-                        "MechanismId", defaultsForFailureMechanism.MechanismId
+                        "MechanismId", failureMechanismDefault.MechanismId
                     },
                     {
                         "LayerId", null // Fixed: no support for revetments
@@ -837,10 +903,10 @@ namespace Ringtoets.HydraRing.Calculation
                         "AlternativeId", null // Fixed: no support for piping
                     },
                     {
-                        "Method", defaultsForFailureMechanism.CalculationTypeId
+                        "Method", failureMechanismDefault.CalculationTypeId
                     },
                     {
-                        "VariableId", defaultsForFailureMechanism.VariableId
+                        "VariableId", failureMechanismDefault.VariableId
                     },
                     {
                         "LoadVariableId", null // Fixed: not relevant
@@ -855,10 +921,10 @@ namespace Ringtoets.HydraRing.Calculation
                         "TableStepSize", null // Fixed: no support for type 3 computations (see "Method")
                     },
                     {
-                        "ValueMin", null // TODO: Implement
+                        "ValueMin", defaultfailureMechanismSettings.ValueMin
                     },
                     {
-                        "ValueMax", null // TODO: Implement
+                        "ValueMax", defaultfailureMechanismSettings.ValueMax
                     },
                     {
                         "Beta", !double.IsNaN(hydraRingCalculation.Beta) ? (double?) hydraRingCalculation.Beta : null
@@ -879,7 +945,7 @@ namespace Ringtoets.HydraRing.Calculation
 
                 foreach (var subMechanimsId in defaultsForFailureMechanism.SubMechanismIds)
                 {
-                    var configurationForSubMechanism = subMechanismSettings.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType && cs.SubMechanismId == subMechanimsId);
+                    var configurationForSubMechanism = defaultSubMechanismSettings.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType && cs.SubMechanismId == subMechanimsId);
 
                     orderDictionaries.Add(new OrderedDictionary
                     {
