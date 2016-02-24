@@ -61,8 +61,8 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weet u zeker dat u de referentielijn wilt vervangen?
-        ///Als u door gaat zullen alle vakindelingen, berekende hydrolische randvoorwaarden en berekeningsresultaten worden verwijderd..
+        ///   Looks up a localized string similar to Als u de referentielijn vervangt zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd.
+        ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
         internal static string ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed {
             get {
@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Referentielijn vervangen?.
+        ///   Looks up a localized string similar to Bevestigen.
         /// </summary>
         internal static string ReferenceLineImporter_ConfirmImport_DialogTitle {
             get {

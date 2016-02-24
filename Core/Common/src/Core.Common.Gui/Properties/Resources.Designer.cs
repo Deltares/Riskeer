@@ -70,7 +70,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stap {0} van {1}.
+        ///   Looks up a localized string similar to Taak {0} van {1}.
         /// </summary>
         public static string ActivityProgressDialog_OnShown_Executing_step_0_of_1 {
             get {

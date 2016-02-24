@@ -197,7 +197,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                 labelActivityProgressText.Text = !progressTextNullOrEmpty
                                                      ? activity.ProgressText.Length <= maximumNumberOfProgressTextCharacters
                                                            ? activity.ProgressText
-                                                           : activity.ProgressText.Take(maximumNumberOfProgressTextCharacters) + "..."
+                                                           : activity.ProgressText.Substring(0, maximumNumberOfProgressTextCharacters) + "..."
                                                      : "";
             });
         }

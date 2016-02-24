@@ -215,9 +215,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.AreSame(originalReferenceLine, assessmentSection.ReferenceLine);
             Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
 
-            Assert.AreEqual("Referentielijn vervangen?", messageBoxTitle);
-            var expectedText = "Weet u zeker dat u de referentielijn wilt vervangen?" + Environment.NewLine +
-                               "Als u door gaat zullen alle vakindelingen, berekende hydrolische randvoorwaarden en berekeningsresultaten worden verwijderd.";
+            Assert.AreEqual("Bevestigen", messageBoxTitle);
+            var expectedText = "Als u de referentielijn vervangt zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
+                               "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
 
             mocks.VerifyAll();
@@ -290,9 +290,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.AreEqual(198237.375, point2Ds[123].X, 1e-6);
             Assert.AreEqual(514879.781, point2Ds[123].Y, 1e-6);
 
-            Assert.AreEqual("Referentielijn vervangen?", messageBoxTitle);
-            var expectedText = "Weet u zeker dat u de referentielijn wilt vervangen?" + Environment.NewLine +
-                                   "Als u door gaat zullen alle vakindelingen, berekende hydrolische randvoorwaarden en berekeningsresultaten worden verwijderd.";
+            Assert.AreEqual("Bevestigen", messageBoxTitle);
+            var expectedText = "Als u de referentielijn vervangt zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
+                               "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
 
             // TODO: Clear 'vakindelingen' on all failure mechanisms
