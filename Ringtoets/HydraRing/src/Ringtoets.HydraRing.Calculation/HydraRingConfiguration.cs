@@ -43,8 +43,8 @@ namespace Ringtoets.HydraRing.Calculation
     {
         private readonly IList<HydraRingCalculationData> hydraRingCalculations;
         private IEnumerable<FixedFailureMechanismSettings> fixedFailureMechanismSettings;
-        private readonly IEnumerable<FailureMechanismSettings> defaultFailureMechanismSettings;
-        private readonly IEnumerable<SubMechanismSettings> defaultSubMechanismSettings;
+        private readonly SubMechanismSettingsProvider subMechanismSettingsProvider = new SubMechanismSettingsProvider();
+        private readonly FailureMechanismSettingsProvider failureMechanismSettingsProvider = new FailureMechanismSettingsProvider();
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.
@@ -54,625 +54,6 @@ namespace Ringtoets.HydraRing.Calculation
             hydraRingCalculations = new List<HydraRingCalculationData>();
 
             InitializeFixedFailureMechanismSettings();
-
-            defaultFailureMechanismSettings = new[]
-            {
-                new FailureMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel,
-                    ValueMin = 0,
-                    ValueMax = 50
-                },
-                new FailureMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.WaveHeight,
-                    ValueMin = 0,
-                    ValueMax = 50
-                },
-                new FailureMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.WavePeakPeriod,
-                    ValueMin = 0,
-                    ValueMax = 50
-                },
-                new FailureMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.WaveSpectralPeriod,
-                    ValueMin = 0,
-                    ValueMax = 50
-                },
-                new FailureMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.QVariant,
-                    ValueMin = 0,
-                    ValueMax = 50
-                },
-                new FailureMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
-                    ValueMin = double.NaN,
-                    ValueMax = double.NaN
-                },
-                new FailureMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
-                    ValueMin = double.NaN,
-                    ValueMax = double.NaN
-                },
-                new FailureMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
-                    ValueMin = double.NaN,
-                    ValueMax = double.NaN
-                },
-                new FailureMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
-                    ValueMin = double.NaN,
-                    ValueMax = double.NaN
-                },
-                new FailureMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    ValueMin = double.NaN,
-                    ValueMax = double.NaN
-                }
-            };
-
-            defaultSubMechanismSettings = new[]
-            {
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.AssessmentLevel,
-                    SubMechanismId = 1,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.WaveHeight,
-                    SubMechanismId = 11,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.WavePeakPeriod,
-                    SubMechanismId = 14,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.WaveSpectralPeriod,
-                    SubMechanismId = 16,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.QVariant,
-                    SubMechanismId = 3,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.QVariant,
-                    SubMechanismId = 4,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.QVariant,
-                    SubMechanismId = 5,
-                    CalculationTechniqueId = 4,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
-                    SubMechanismId = 102,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.DikesOvertopping,
-                    SubMechanismId = 103,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
-                    SubMechanismId = 311,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
-                    SubMechanismId = 313,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.DikesPiping,
-                    SubMechanismId = 314,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
-                    SubMechanismId = 421,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
-                    SubMechanismId = 422,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresOvertopping,
-                    SubMechanismId = 423,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
-                    SubMechanismId = 422,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 1,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
-                    SubMechanismId = 424,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
-                    SubMechanismId = 425,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
-                    SubMechanismId = 426,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 1,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresClosure,
-                    SubMechanismId = 427,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 1,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    SubMechanismId = 422,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 1,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    SubMechanismId = 424,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 1,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    SubMechanismId = 425,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    SubMechanismId = 430,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    SubMechanismId = 431,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 1,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    SubMechanismId = 432,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 1,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    SubMechanismId = 433,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 1,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    SubMechanismId = 434,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                },
-                new SubMechanismSettings
-                {
-                    FailureMechanismType = HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    SubMechanismId = 435,
-                    CalculationTechniqueId = 1,
-                    FormStartMethod = 4,
-                    FormNumberOfIterations = 50,
-                    FormRelaxationFactor = 0.15,
-                    FormEpsBeta = 0.01,
-                    FormEpsHOH = 0.01,
-                    FormEpsZFunc = 0.01,
-                    DsStartMethod = 2,
-                    DsMinNumberOfIterations = 10000,
-                    DsMaxNumberOfIterations = 20000,
-                    DsVarCoefficient = 0.1,
-                    NiUMin = -6.0,
-                    NiUMax = 6.0,
-                    NiNumberSteps = 25
-                }
-            };
         }
 
         /// <summary>
@@ -869,7 +250,7 @@ namespace Ringtoets.HydraRing.Calculation
             foreach (var hydraRingCalculation in hydraRingCalculations)
             {
                 var fixedFailureMechanismSettingsForCalculation = fixedFailureMechanismSettings.First(ffms => ffms.FailureMechanismType == hydraRingCalculation.FailureMechanismType);
-                var defaultFailureMechanismSettingsForCalculation = defaultFailureMechanismSettings.First(fms => fms.FailureMechanismType == hydraRingCalculation.FailureMechanismType);
+                var failureMechanismSettings = failureMechanismSettingsProvider.GetFailureMechanismSettings(hydraRingCalculation.FailureMechanismType);
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
@@ -904,10 +285,10 @@ namespace Ringtoets.HydraRing.Calculation
                         "TableStepSize", null // Fixed: no support for type 3 computations (see "Method")
                     },
                     {
-                        "ValueMin", defaultFailureMechanismSettingsForCalculation.ValueMin
+                        "ValueMin", failureMechanismSettings.ValueMin
                     },
                     {
-                        "ValueMax", defaultFailureMechanismSettingsForCalculation.ValueMax
+                        "ValueMax", failureMechanismSettings.ValueMax
                     },
                     {
                         "Beta", !double.IsNaN(hydraRingCalculation.Beta) ? (double?) hydraRingCalculation.Beta : null
@@ -928,7 +309,7 @@ namespace Ringtoets.HydraRing.Calculation
 
                 foreach (var subMechanimsId in fixedFailureMechanismSettingsForCalculation.SubMechanismIds)
                 {
-                    var configurationForSubMechanism = defaultSubMechanismSettings.First(cs => cs.FailureMechanismType == hydraRingCalculation.FailureMechanismType && cs.SubMechanismId == subMechanimsId);
+                    var subMechanismSettings = subMechanismSettingsProvider.GetSubMechanismSettings(hydraRingCalculation.FailureMechanismType, subMechanimsId);
 
                     orderDictionaries.Add(new OrderedDictionary
                     {
@@ -945,52 +326,52 @@ namespace Ringtoets.HydraRing.Calculation
                             "AlternativeId", null // Fixed: no support for piping
                         },
                         {
-                            "SubMechanismId", configurationForSubMechanism.SubMechanismId
+                            "SubMechanismId", subMechanimsId
                         },
                         {
-                            "Method", configurationForSubMechanism.CalculationTechniqueId
+                            "Method", subMechanismSettings.CalculationTechniqueId
                         },
                         {
-                            "FormStartMethod", configurationForSubMechanism.FormStartMethod
+                            "FormStartMethod", subMechanismSettings.FormStartMethod
                         },
                         {
-                            "FormNumberOfIterations", configurationForSubMechanism.FormNumberOfIterations
+                            "FormNumberOfIterations", subMechanismSettings.FormNumberOfIterations
                         },
                         {
-                            "FormRelaxationFactor", configurationForSubMechanism.FormRelaxationFactor
+                            "FormRelaxationFactor", subMechanismSettings.FormRelaxationFactor
                         },
                         {
-                            "FormEpsBeta", configurationForSubMechanism.FormEpsBeta
+                            "FormEpsBeta", subMechanismSettings.FormEpsBeta
                         },
                         {
-                            "FormEpsHOH", configurationForSubMechanism.FormEpsHOH
+                            "FormEpsHOH", subMechanismSettings.FormEpsHOH
                         },
                         {
-                            "FormEpsZFunc", configurationForSubMechanism.FormEpsZFunc
+                            "FormEpsZFunc", subMechanismSettings.FormEpsZFunc
                         },
                         {
-                            "DsStartMethod", configurationForSubMechanism.DsStartMethod
+                            "DsStartMethod", subMechanismSettings.DsStartMethod
                         },
                         {
                             "DsIterationmethod", 1 // Fixed: not relevant
                         },
                         {
-                            "DsMinNumberOfIterations", configurationForSubMechanism.DsMinNumberOfIterations
+                            "DsMinNumberOfIterations", subMechanismSettings.DsMinNumberOfIterations
                         },
                         {
-                            "DsMaxNumberOfIterations", configurationForSubMechanism.DsMaxNumberOfIterations
+                            "DsMaxNumberOfIterations", subMechanismSettings.DsMaxNumberOfIterations
                         },
                         {
-                            "DsVarCoefficient", configurationForSubMechanism.DsVarCoefficient
+                            "DsVarCoefficient", subMechanismSettings.DsVarCoefficient
                         },
                         {
-                            "NiUMin", configurationForSubMechanism.NiUMin
+                            "NiUMin", subMechanismSettings.NiUMin
                         },
                         {
-                            "NiUMax", configurationForSubMechanism.NiUMax
+                            "NiUMax", subMechanismSettings.NiUMax
                         },
                         {
-                            "NiNumberSteps", configurationForSubMechanism.NiNumberSteps
+                            "NiNumberSteps", subMechanismSettings.NiNumberSteps
                         }
                     });
                 }

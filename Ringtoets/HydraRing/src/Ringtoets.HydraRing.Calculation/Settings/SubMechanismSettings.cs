@@ -19,28 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.HydraRing.Calculation.Types;
-
 namespace Ringtoets.HydraRing.Calculation.Settings
 {
     /// <summary>
-    /// Container for sub mechanims settings, uniquely identified by the combination of:
-    /// - SectionID
-    /// - <see cref="FailureMechanismType"/>
-    /// - <see cref="SubMechanismId"/>
+    /// Container for sub mechanims settings.
     /// </summary>
     public class SubMechanismSettings
     {
-        /// <summary>
-        /// Gets or sets the <see cref="HydraRingFailureMechanismType"/>.
-        /// </summary>
-        public HydraRingFailureMechanismType FailureMechanismType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the id of the sub mechanism.
-        /// </summary>
-        public int SubMechanismId { get; set; }
-
         /// <summary>
         /// Gets or sets the id of the calculation technique that should be used.
         /// </summary>
