@@ -436,16 +436,17 @@ namespace Ringtoets.Integration.Plugin
         {
             var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryLocationsImporter();
 
-            if (nodeData.Parent.HydraulicBoundaryDatabase == null)
-            {
-                ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, selectedFile);
-                return;
-            }
-
             string newVersion;
             try
             {
                 hydraulicBoundaryLocationsImporter.ValidateAndConnectTo(selectedFile);
+
+                if (nodeData.Parent.HydraulicBoundaryDatabase == null)
+                {
+                    ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, selectedFile);
+                    return;
+                }
+
                 newVersion = hydraulicBoundaryLocationsImporter.GetHydraulicBoundaryDatabaseVersion();
             }
             catch (CriticalFileReadException exception)

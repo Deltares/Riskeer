@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Parent.HydraulicBoundaryDatabase.FilePath;
+                return data.Parent.HydraulicBoundaryDatabase != null ? data.Parent.HydraulicBoundaryDatabase.FilePath : string.Empty;
             }
         }
 
@@ -61,7 +61,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Parent.HydraulicBoundaryDatabase.Locations.Select(loc => new HydraulicBoundaryLocationProperties(loc)).ToArray();
+                return data.Parent.HydraulicBoundaryDatabase != null
+                           ? data.Parent.HydraulicBoundaryDatabase.Locations.Select(loc => new HydraulicBoundaryLocationProperties(loc)).ToArray()
+                           : new HydraulicBoundaryLocationProperties[0];
             }
         }
     }
