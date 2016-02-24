@@ -217,7 +217,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
             var expectedText = "Als u de referentielijn vervangt zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
-                               "Weet u zeker dat u wilt doorgaan?";
+                               Environment.NewLine + "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
 
             mocks.VerifyAll();
@@ -292,7 +292,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
             var expectedText = "Als u de referentielijn vervangt zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
-                               "Weet u zeker dat u wilt doorgaan?";
+                               Environment.NewLine + "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
 
             // TODO: Clear 'vakindelingen' on all failure mechanisms
@@ -333,8 +333,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             {
                 new ExpectedProgressNotification { Text = "Inlezen referentielijn.", CurrentStep = 1, MaxNrOfSteps = 4 }, 
                 new ExpectedProgressNotification { Text = "Geïmporteerde data toevoegen aan het traject.", CurrentStep = 2, MaxNrOfSteps = 4 }, 
-                new ExpectedProgressNotification { Text = "Verwijderen rekenresultaten en vakindelingen van faalmechanismen.", CurrentStep = 3, MaxNrOfSteps = 4 }, 
-                new ExpectedProgressNotification { Text = "Verwijderen hydraulische randvoorwaarde uitvoer.", CurrentStep = 4, MaxNrOfSteps = 4 }, 
+                new ExpectedProgressNotification { Text = "Wissen rekenresultaten en vakindelingen van faalmechanismen.", CurrentStep = 3, MaxNrOfSteps = 4 }, 
+                new ExpectedProgressNotification { Text = "Verwijderen uitvoer van hydraulische randvoorwaarden.", CurrentStep = 4, MaxNrOfSteps = 4 }, 
             };
             var progressChangedCallCount = 0;
             var importer = new ReferenceLineImporter();

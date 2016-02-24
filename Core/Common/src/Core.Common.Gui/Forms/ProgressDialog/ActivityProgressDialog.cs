@@ -38,7 +38,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
     /// </summary>
     public partial class ActivityProgressDialog : DialogBase
     {
-        private const int maximumNumberOfProgressTextCharacters = 75;
+        private const int maximumNumberOfProgressTextCharacters = 80;
 
         private Task task;
         private Activity runningActivity;
