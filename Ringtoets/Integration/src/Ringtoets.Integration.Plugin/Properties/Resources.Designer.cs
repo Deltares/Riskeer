@@ -72,15 +72,6 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bevestigen.
-        /// </summary>
-        internal static string ReferenceLineImporter_ConfirmImport_DialogTitle {
-            get {
-                return ResourceManager.GetString("ReferenceLineImporter_ConfirmImport_DialogTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}
         ///Er is geen referentielijn geïmporteerd..
         /// </summary>

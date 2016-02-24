@@ -38,6 +38,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.Properties;
 
+using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
@@ -143,7 +144,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             var clearReferenceLineDependentData = false;
 
             DialogResult result = MessageBox.Show(Resources.ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed,
-                                                  Resources.ReferenceLineImporter_ConfirmImport_DialogTitle,
+                                                  CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
             if (result == DialogResult.Cancel)
             {
