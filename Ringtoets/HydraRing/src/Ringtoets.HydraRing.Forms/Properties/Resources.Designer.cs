@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uitvoer van alle afhankelijke berekeningen is verwijderd..
+        ///   Looks up a localized string similar to De uitvoer van alle afhankelijke berekeningen is verwijderd..
         /// </summary>
         public static string Calculations_Deleted {
             get {
@@ -117,7 +117,7 @@ namespace Ringtoets.HydraRing.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Koppel aan hydraulische randvoorwaarden database.
+        ///   Looks up a localized string similar to Koppel aan hydraulische randvoorwaarden database..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Connect_ToolTip {
             get {

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Commands;
@@ -60,6 +59,11 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual("Demo duintraject", demoAssessmentSection.Name);
 
             Assert.AreEqual(1669, demoAssessmentSection.ReferenceLine.Points.Count());
+
+            Assert.IsNotEmpty(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath);
+            var hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
+            Assert.AreEqual(18, hydraulicBoundaryLocations.Length);
+
             mocks.VerifyAll();
         }
     }

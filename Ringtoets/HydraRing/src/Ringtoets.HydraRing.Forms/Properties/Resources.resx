@@ -147,7 +147,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Koppel aan database...</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Connect_ToolTip" xml:space="preserve">
-    <value>Koppel aan hydraulische randvoorwaarden database</value>
+    <value>Koppel aan hydraulische randvoorwaarden database.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_FilePath_Description" xml:space="preserve">
     <value>Locatie van het hydraulische randvoorwaarden database bestand.</value>
@@ -165,7 +165,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Selecteer database</value>
   </data>
   <data name="Calculations_Deleted" xml:space="preserve">
-    <value>Uitvoer van alle afhankelijke berekeningen is verwijderd.</value>
+    <value>De uitvoer van alle afhankelijke berekeningen is verwijderd.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Description" xml:space="preserve">
     <value>Locaties uit de hydraulische randvoorwaarden database.</value>

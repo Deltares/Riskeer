@@ -1,5 +1,7 @@
 ﻿using Core.Common.Controls.Commands;
 using Core.Common.Gui;
+using Ringtoets.HydraRing.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Plugin;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
@@ -48,7 +50,7 @@ namespace Demo.Ringtoets.Commands
                 Name = "Demo duintraject"
             };
             InitializeDemoReferenceLine(demoAssessmentSection);
-
+            InitializeDemoHydraulicBoundaryDatabase(demoAssessmentSection);
             return demoAssessmentSection;
         }
 
@@ -59,6 +61,18 @@ namespace Demo.Ringtoets.Commands
             {
                 var importer = new ReferenceLineImporter();
                 importer.Import(new ReferenceLineContext(demoAssessmentSection), temporaryShapeFile.FilePath);
+            }
+        }
+
+        private void InitializeDemoHydraulicBoundaryDatabase(DuneAssessmentSection demoAssessmentSection)
+        {
+            using (var tempPath = new TemporaryImportFile("HRD_dutchcoastsouth.sqlite"))
+            {
+                using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryLocationsImporter())
+                {
+                    hydraulicBoundaryDatabaseImporter.ValidateAndConnectTo(tempPath.FilePath);
+                    hydraulicBoundaryDatabaseImporter.Import(new HydraulicBoundaryDatabaseContext(demoAssessmentSection), tempPath.FilePath);
+                }
             }
         }
     }
