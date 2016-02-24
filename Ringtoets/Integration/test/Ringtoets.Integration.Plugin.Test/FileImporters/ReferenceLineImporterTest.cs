@@ -535,6 +535,44 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void DoPostImportUpdates_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToContinue_NotifyObserversOfTargetContextParent()
+        {
+            // Setup
+            var originalReferenceLine = new ReferenceLine();
+
+            var mocks = new MockRepository();
+
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = originalReferenceLine;
+
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+            referenceLineContext.Parent.Attach(observer);
+
+            var importer = new ReferenceLineImporter();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBoxTester = new MessageBoxTester(wnd);
+                messageBoxTester.ClickOk();
+            };
+
+            // Precondition
+            Assert.IsTrue(importer.Import(referenceLineContext, path));
+
+            // Call
+            importer.DoPostImportUpdates(referenceLineContext);
+
+            // Assert
+            mocks.VerifyAll(); // Expect NotifyObservers on context parent
+        }
+
+        [Test]
         public void DoPostImportUpdates_CancellingImport_DoNotNotifyObservers()
         {
             // Setup

@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
@@ -86,14 +87,18 @@ namespace Ringtoets.Integration.Forms.Views
         {
             var mapDataList = new List<MapData>();
 
-            if (GetReferenceLineData() != null)
+            MapData referenceLine = GetReferenceLineData();
+
+            if (referenceLine != null)
             {
-                mapDataList.Add(GetReferenceLineData());
+                mapDataList.Add(referenceLine);
             }
 
-            if (GetHydraulicBoudaryLocations() != null)
+            MapData hydraulicBoundaryLocations = GetHydraulicBoundaryLocations();
+
+            if (hydraulicBoundaryLocations != null)
             {
-                mapDataList.Add(GetHydraulicBoudaryLocations());
+                mapDataList.Add(hydraulicBoundaryLocations);
             }
 
             map.Data = new MapDataCollection(mapDataList);
@@ -106,18 +111,18 @@ namespace Ringtoets.Integration.Forms.Views
                 return null;
             }
 
-            var points = data.ReferenceLine.Points.ToList();
+            List<Point2D> points = data.ReferenceLine.Points.ToList();
             return points.Count > 0 ? new MapLineData(points) : null;
         }
 
-        private MapData GetHydraulicBoudaryLocations()
+        private MapData GetHydraulicBoundaryLocations()
         {
             if (data.HydraulicBoundaryDatabase == null)
             {
                 return null;
             }
 
-            var locations = data.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToList();
+            List<Point2D> locations = data.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToList();
             return locations.Count > 0 ? new MapPointData(locations) : null;
         }
     }
