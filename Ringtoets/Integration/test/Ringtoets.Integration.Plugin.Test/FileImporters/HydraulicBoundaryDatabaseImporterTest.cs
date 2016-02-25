@@ -33,12 +33,11 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
 
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsHydraRingFormsResources = Ringtoets.HydraRing.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.FileImporters

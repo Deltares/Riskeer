@@ -20,13 +20,17 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
-using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.HydraRing.Forms.PresentationObjects;
-using Ringtoets.Integration.Data;
 
-namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
+using Core.Common.Base;
+
+using NUnit.Framework;
+
+using Rhino.Mocks;
+
+using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
+
+namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class HydraulicBoundaryDatabaseContextTest

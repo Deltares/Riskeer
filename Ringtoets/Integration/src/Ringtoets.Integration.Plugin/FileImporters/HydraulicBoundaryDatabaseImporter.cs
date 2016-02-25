@@ -26,9 +26,9 @@ using Core.Common.IO.Exceptions;
 using log4net;
 
 using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.HydraRing.IO;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.Properties;
 
 namespace Ringtoets.Integration.Plugin.FileImporters

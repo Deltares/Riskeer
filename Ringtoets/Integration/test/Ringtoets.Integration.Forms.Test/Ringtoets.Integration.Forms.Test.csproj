@@ -58,6 +58,8 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
+    <Compile Include="PresentationObjects\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\AssessmentSectionBaseTreeNodeInfoTest.cs" />
@@ -128,10 +130,6 @@
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Forms\Ringtoets.HydraRing.Forms.csproj">
-      <Project>{EFB9B7E0-82A8-40CA-95C8-B56B4AC02294}</Project>
-      <Name>Ringtoets.HydraRing.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>

@@ -21,14 +21,18 @@
 
 using System.ComponentModel;
 using System.Globalization;
+
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
-using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.Forms.PresentationObjects;
 
-namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
+using NUnit.Framework;
+
+using Rhino.Mocks;
+
+using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
+
+namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class HydraulicBoundaryLocationPropertiesTest

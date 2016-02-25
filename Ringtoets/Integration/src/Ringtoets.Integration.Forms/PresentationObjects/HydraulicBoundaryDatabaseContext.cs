@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+
 using Core.Common.Base;
+
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
-namespace Ringtoets.HydraRing.Forms.PresentationObjects
+namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryDatabase"/>.

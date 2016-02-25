@@ -9,12 +9,11 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsHydraringRormsResources = Ringtoets.HydraRing.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
@@ -153,7 +152,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
 
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, RingtoetsHydraringRormsResources.DesignWaterLevel_Calculate, RingtoetsHydraringRormsResources.DesignWaterLevel_No_HRD_To_Calculate, RingtoetsFormsResources.FailureMechanismIcon, false);
+            const string expectedItemText = "Toetspeilen berekenen";
+            const string expectedItemTooltip = "Er is geen hydraulische randvoorwaarden database beschikbaar om de toetspeilen te berekenen.";
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsFormsResources.FailureMechanismIcon, false);
         }
 
         [Test]
@@ -180,7 +181,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
 
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, RingtoetsHydraringRormsResources.DesignWaterLevel_Calculate, RingtoetsHydraringRormsResources.DesignWaterLevel_Calculate_ToolTip, RingtoetsFormsResources.FailureMechanismIcon);
+            const string expectedItemText = "Toetspeilen berekenen";
+            const string expectedItemTooltip = "Bereken de toetspeilen";
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsFormsResources.FailureMechanismIcon);
         }
 
         [Test]

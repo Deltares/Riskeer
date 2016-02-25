@@ -25,9 +25,8 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.Forms.PresentationObjects;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
-using HydraRingResources = Ringtoets.HydraRing.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -40,8 +39,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// Gets the location of the Hydraulic Boundary Database.
         /// </summary>
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_FilePath_DisplayName")]
-        [ResourcesDescription(typeof(HydraRingResources), "HydraulicBoundaryDatabase_FilePath_Description")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_FilePath_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_FilePath_Description")]
         public string FilePath
         {
             get
@@ -55,8 +54,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// </summary>
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
-        [ResourcesDescription(typeof(HydraRingResources), "HydraulicBoundaryDatabase_Locations_Description")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Description")]
         public HydraulicBoundaryLocationProperties[] Locations
         {
             get
