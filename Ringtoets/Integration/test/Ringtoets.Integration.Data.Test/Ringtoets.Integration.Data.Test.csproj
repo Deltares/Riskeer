@@ -52,7 +52,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssessmentSectionBaseTest.cs" />
     <Compile Include="DikeAssessmentSectionTest.cs" />
     <Compile Include="DuneAssessmentSectionTest.cs" />
     <Compile Include="Placeholders\FailureMechanismPlaceholderTest.cs" />

@@ -4,6 +4,8 @@ using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+
+using Ringtoets.Common.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
 

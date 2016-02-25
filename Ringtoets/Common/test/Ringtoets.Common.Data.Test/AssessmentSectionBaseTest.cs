@@ -5,9 +5,7 @@ using Core.Common.Base;
 
 using NUnit.Framework;
 
-using Ringtoets.Common.Data;
-
-namespace Ringtoets.Integration.Data.Test
+namespace Ringtoets.Common.Data.Test
 {
     [TestFixture]
     public class AssessmentSectionBaseTest

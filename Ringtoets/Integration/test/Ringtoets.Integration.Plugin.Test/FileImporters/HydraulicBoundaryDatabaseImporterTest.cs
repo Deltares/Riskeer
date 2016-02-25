@@ -32,6 +32,7 @@ using NUnit.Framework;
 
 using Rhino.Mocks;
 
+using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;

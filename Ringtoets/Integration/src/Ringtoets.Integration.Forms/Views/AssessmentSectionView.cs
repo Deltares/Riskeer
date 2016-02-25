@@ -28,6 +28,8 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Forms;
+
+using Ringtoets.Common.Data;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.Views

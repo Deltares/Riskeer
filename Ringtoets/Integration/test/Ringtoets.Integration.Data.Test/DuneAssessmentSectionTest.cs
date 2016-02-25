@@ -2,6 +2,7 @@
 using Core.Common.Base;
 using NUnit.Framework;
 
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
 
 using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Resources;

@@ -23,11 +23,11 @@ using System.Collections.Generic;
 
 using Core.Common.Base;
 using Core.Common.Base.Storage;
-using Ringtoets.Common.Data;
+
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.Integration.Data
+namespace Ringtoets.Common.Data
 {
     /// <summary>
     /// Base implementation of assessment sections.
