@@ -44,6 +44,9 @@
     </Compile>
     <Compile Include="Helpers\NamingHelper.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolder.cs" />
+    <Compile Include="PresentationObjects\FailureMechanismContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PresentationObjects\TreeFolderCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -88,6 +91,10 @@
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -200,7 +200,8 @@ namespace Ringtoets.Integration.Plugin
                 new HydraulicBoundaryDatabaseContext(nodeData)
             };
 
-            childNodes.AddRange(nodeData.GetFailureMechanisms());
+            var failureMechanismContexts = nodeData.GetFailureMechanisms();
+            childNodes.AddRange(failureMechanismContexts);
 
             return childNodes.ToArray();
         }

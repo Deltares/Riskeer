@@ -58,6 +58,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PresentationObjects\FailureMechanismPlaceHolderContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
