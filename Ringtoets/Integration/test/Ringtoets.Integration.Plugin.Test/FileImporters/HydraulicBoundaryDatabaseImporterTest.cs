@@ -23,21 +23,25 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
 using Core.Common.Base;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
+
 using NUnit.Framework;
+
 using Rhino.Mocks;
+
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Plugin.FileImporters;
+
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsHydraRingFormsResources = Ringtoets.HydraRing.Forms.Properties.Resources;
-using RingtoetsHydraRingPluginResources = Ringtoets.HydraRing.Plugin.Properties.Resources;
-using RingtoetsHydraRingIOResources = Ringtoets.HydraRing.IO.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.HydraRing.Plugin.Test
+namespace Ringtoets.Integration.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class HydraulicBoundaryDatabaseImporterTest
@@ -171,7 +175,7 @@ namespace Ringtoets.HydraRing.Plugin.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                StringAssert.EndsWith(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_Import_Import_successful, messageArray[0]);
+                StringAssert.EndsWith("De hydraulische randvoorwaarden locaties zijn ingelezen.", messageArray[0]);
             });
             Assert.IsTrue(importResult);
             ICollection<HydraulicBoundaryLocation> importedLocations = importTarget.Parent.HydraulicBoundaryDatabase.Locations;

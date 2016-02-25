@@ -20,19 +20,18 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.IO;
+
 using Core.Common.IO.Exceptions;
+
 using log4net;
+
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.HydraRing.IO;
 using Ringtoets.Integration.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsHydraRingFormsResources = Ringtoets.HydraRing.Forms.Properties.Resources;
-using ApplicationResources = Ringtoets.HydraRing.Plugin.Properties.Resources;
-using HydraRingResources = Ringtoets.HydraRing.Forms.Properties.Resources;
+using Ringtoets.Integration.Plugin.Properties;
 
-namespace Ringtoets.HydraRing.Plugin
+namespace Ringtoets.Integration.Plugin.FileImporters
 {
     /// <summary>
     /// Imports locations read from an Hydraulic boundary .sqlite file (SqlLite database file) to a 
@@ -76,7 +75,7 @@ namespace Ringtoets.HydraRing.Plugin
         {
             if (hydraulicBoundaryDatabaseReader == null)
             {
-                throw new InvalidOperationException(ApplicationResources.HydraulicBoundaryLocationsImporter_Import_The_file_is_not_opened);
+                throw new InvalidOperationException(Resources.HydraulicBoundaryDatabaseImporter_File_not_opened);
             }
 
             var importResult = GetHydraulicBoundaryDatabase(filePath);
@@ -87,7 +86,7 @@ namespace Ringtoets.HydraRing.Plugin
             }
 
             AddImportedDataToModel(targetItem.Parent, importResult);
-            log.Info(ApplicationResources.HydraulicBoundaryLocationsImporter_Import_Import_successful);
+            log.Info(Resources.HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read);
             return true;
         }
 
@@ -102,7 +101,7 @@ namespace Ringtoets.HydraRing.Plugin
 
         private void HandleException(Exception e)
         {
-            var message = string.Format(ApplicationResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped, e.Message);
+            var message = string.Format(Resources.HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped, e.Message);
             log.Error(message);
         }
 
@@ -125,7 +124,7 @@ namespace Ringtoets.HydraRing.Plugin
                     }
                     catch (CriticalFileReadException e)
                     {
-                        var message = string.Format(ApplicationResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped, path);
+                        var message = string.Format(Resources.HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped, path);
                         log.Error(message, e);
                         return null;
                     }

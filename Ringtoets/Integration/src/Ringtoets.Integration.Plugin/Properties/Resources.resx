@@ -141,4 +141,13 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output" xml:space="preserve">
     <value>Verwijderen uitvoer van hydraulische randvoorwaarden.</value>
   </data>
+  <data name="HydraulicBoundaryDatabaseImporter_File_not_opened" xml:space="preserve">
+    <value>Er is nog geen bestand geopend.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read" xml:space="preserve">
+    <value>De hydraulische randvoorwaarden locaties zijn ingelezen.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped" xml:space="preserve">
+    <value>{0} Het bestand wordt overgeslagen.</value>
+  </data>
 </root>
