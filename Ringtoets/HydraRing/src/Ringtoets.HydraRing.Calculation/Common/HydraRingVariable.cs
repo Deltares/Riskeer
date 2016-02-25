@@ -26,7 +26,7 @@ namespace Ringtoets.HydraRing.Calculation.Common
     /// <summary>
     /// Container for Hydra-Ring variable related data.
     /// </summary>
-    internal abstract class HydraRingVariable
+    public abstract class HydraRingVariable
     {
         private readonly int variableId;
         private readonly HydraRingDistributionType distributionType;

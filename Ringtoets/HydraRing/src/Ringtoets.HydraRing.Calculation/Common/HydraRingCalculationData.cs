@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Types;
 
 namespace Ringtoets.HydraRing.Calculation.Common
@@ -52,6 +53,17 @@ namespace Ringtoets.HydraRing.Calculation.Common
             get
             {
                 return hydraulicBoundaryLocationId;
+            }
+        }
+
+        /// <summary>
+        /// Gets the variables to use during the calculation.
+        /// </summary>
+        public virtual IEnumerable<HydraRingVariable> Variables
+        {
+            get
+            {
+                yield break;
             }
         }
 

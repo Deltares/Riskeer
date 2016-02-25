@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using Ringtoets.HydraRing.Calculation.Common;
 using Ringtoets.HydraRing.Calculation.Types;
 
 namespace Ringtoets.HydraRing.Calculation.Data
@@ -41,6 +43,19 @@ namespace Ringtoets.HydraRing.Calculation.Data
             {
                 return HydraRingFailureMechanismType.AssessmentLevel;
             }
+        }
+
+        public override IEnumerable<HydraRingVariable> Variables
+        {
+            get
+            {
+                yield return new AssessmentLevelVariable();
+            }
+        }
+
+        private class AssessmentLevelVariable : HydraRingVariable
+        {
+            public AssessmentLevelVariable() : base(26, 0, 0, 0, 0, 0, 0, 0) { }
         }
     }
 }
