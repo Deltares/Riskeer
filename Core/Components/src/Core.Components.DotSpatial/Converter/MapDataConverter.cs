@@ -24,7 +24,6 @@ using System.Collections.Generic;
 
 using Core.Components.Gis.Data;
 using DotSpatial.Controls;
-using DotSpatial.Data;
 
 namespace Core.Components.DotSpatial.Converter
 {

@@ -42,8 +42,10 @@ namespace Core.Components.DotSpatial.Converter
                 featureSet.Features.Add(new Coordinate(point.X, point.Y));
             }
 
-            var layer = new MapPointLayer(featureSet);
-            layer.IsVisible = data.IsVisible;
+            var layer = new MapPointLayer(featureSet)
+            {
+                IsVisible = data.IsVisible
+            };
 
             return new List<IMapFeatureLayer>
             {

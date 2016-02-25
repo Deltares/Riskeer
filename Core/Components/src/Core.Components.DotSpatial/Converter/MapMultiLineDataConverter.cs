@@ -46,8 +46,10 @@ namespace Core.Components.DotSpatial.Converter
                 featureSet.Features.Add(lineString);
             }
 
-            var layer = new MapLineLayer(featureSet);
-            layer.IsVisible = data.IsVisible;
+            var layer = new MapLineLayer(featureSet)
+            {
+                IsVisible = data.IsVisible
+            };
 
             return new List<IMapFeatureLayer>
             {

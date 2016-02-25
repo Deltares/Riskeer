@@ -110,7 +110,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
         [TestCase(true)]
         [TestCase(false)]
-        public void LineDataNodeWithoutParent_SetsLineDataVisibility(bool initialVisibleState)
+        public void OnNodeChecked_LineDataNodeWithoutParent_SetsLineDataVisibility(bool initialVisibleState)
         {
             // Setup
             var mocks = new MockRepository();
