@@ -58,5 +58,36 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
                 return parent;
             }
         }
+
+        #region Equal implementation
+
+        private bool Equals(HydraulicBoundaryDatabaseContext other)
+        {
+            return Equals(parent, other.parent);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((HydraulicBoundaryDatabaseContext) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (parent != null ? parent.GetHashCode() : 0);
+        }
+
+        #endregion
     }
 }

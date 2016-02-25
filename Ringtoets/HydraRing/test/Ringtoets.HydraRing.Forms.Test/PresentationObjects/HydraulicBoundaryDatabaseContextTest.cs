@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 
@@ -102,6 +101,120 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
 
             // Assert
             mocks.VerifyAll(); // Expect not calls on 'observer'
+        }
+
+        [Test]
+        public void Equals_EqualsWithItself_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var context  = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            // Call
+            var isEqual = context.Equals(context);
+
+            // Assert
+            Assert.IsTrue(isEqual);
+        }
+
+        [Test]
+        public void Equals_EqualsWithNull_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            // Call
+            var isEqual = context.Equals(null);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+        }
+
+        [Test]
+        public void Equals_EqualsWithOtherTypeOfObject_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            var objectOfDifferentType = new object();
+
+            // Call
+            var isEqual = context.Equals(objectOfDifferentType);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+        }
+
+        [Test]
+        public void Equals_EqualsWithOtherEqualMapData_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            object context1 = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            HydraulicBoundaryDatabaseContext context2 = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            // Call
+            var isEqual1 = context1.Equals(context2);
+            var isEqual2 = context2.Equals(context1);
+
+            // Assert
+            Assert.IsTrue(isEqual1);
+            Assert.IsTrue(isEqual2);
+        }
+
+        [Test]
+        public void Equals_TwoUnequalAssessmentSectionMapDataInstances_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection1 = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection2 = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            object context1 = new HydraulicBoundaryDatabaseContext(assessmentSection1);
+            HydraulicBoundaryDatabaseContext context2 = new HydraulicBoundaryDatabaseContext(assessmentSection2);
+
+            // Call
+            var isEqual1 = context1.Equals(context2);
+            var isEqual2 = context2.Equals(context1);
+
+            // Assert
+            Assert.IsFalse(isEqual1);
+            Assert.IsFalse(isEqual2);
+        }
+
+
+        [Test]
+        public void GetHashCode_TwoEqualAssessmentSectionMapDataInstances_ReturnSameHash()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            object context1 = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            HydraulicBoundaryDatabaseContext context2 = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            // Call
+            int hash1 = context1.GetHashCode();
+            int hash2 = context2.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hash1, hash2);
         }
     }
 }
