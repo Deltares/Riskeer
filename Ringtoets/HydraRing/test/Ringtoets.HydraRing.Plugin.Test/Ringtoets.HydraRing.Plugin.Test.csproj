@@ -58,7 +58,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HydraulicBoundaryLocationsImporterTest.cs" />
+    <Compile Include="HydraulicBoundaryDatabaseImporterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

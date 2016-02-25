@@ -21,10 +21,14 @@
 
 namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
 {
-    internal static class GeneralEntity
+    /// <summary>
+    /// Defines the table and column names of the table 'General' in the hydraulic boundary database.
+    /// </summary>
+    internal static class GeneralTableDefinitions
     {
         internal const string TableName = "General";
         internal const string NameRegion = "NameRegion";
         internal const string CreationDate = "CreationDate";
+        internal const string GeneratedVersion = "GeneratedVersion";
     }
 }

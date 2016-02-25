@@ -21,7 +21,10 @@
 
 namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
 {
-    public static class HrdLocationsEntity
+    /// <summary>
+    /// Defines the table and column names of the table 'HRDLocations' in the hydraulic boundary database.
+    /// </summary>
+    public static class HrdLocationsTableDefinitions
     {
         internal const string TableName = "HRDLocations";
         internal const string HrdLocationId = "HRDLocationId";
@@ -29,5 +32,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         internal const string Name = "Name";
         internal const string XCoordinate = "XCoordinate";
         internal const string YCoordinate = "YCoordinate";
+        internal const string Count = "nrOfRows";
     }
 }

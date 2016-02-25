@@ -21,44 +21,58 @@
 
 namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
 {
+    /// <summary>
+    /// Defines queries to execute on a hydraulic boundary database.
+    /// </summary>
     public static class HydraulicBoundaryDatabaseQueryBuilder
     {
+        /// <summary>
+        /// Returns the query to get the version from the database.
+        /// </summary>
+        /// <returns>The query to get the version from the database.</returns>
         public static string GetVersionQuery()
         {
             return string.Format(
                 "SELECT ({0} || {1}) as {2} FROM {3} LIMIT 0,1;",
-                GeneralEntity.NameRegion,
-                GeneralEntity.CreationDate,
-                HydraulicBoundaryDatabaseColumns.Version,
-                GeneralEntity.TableName
+                GeneralTableDefinitions.NameRegion,
+                GeneralTableDefinitions.CreationDate,
+                GeneralTableDefinitions.GeneratedVersion,
+                GeneralTableDefinitions.TableName
                 );
         }
 
-        public static string GetLocationsCountQuery()
+        /// <summary>
+        /// Returns the query to get the amount of relevant locations from the database.
+        /// </summary>
+        /// <remarks>Locations are relevant when <see cref="HrdLocationsTableDefinitions.LocationTypeId"/> > 1.</remarks>
+        /// <returns>The query to get the amount of relevant locations from the database.</returns>
+        public static string GetRelevantLocationsCountQuery()
         {
             return string.Format(
                 "SELECT count({0}) as {1} FROM {2} WHERE {3} > 1 ;",
-                HrdLocationsEntity.HrdLocationId,
-                HydraulicBoundaryDatabaseColumns.LocationCount,
-                HrdLocationsEntity.TableName,
-                HrdLocationsEntity.LocationTypeId
+                HrdLocationsTableDefinitions.HrdLocationId,
+                HrdLocationsTableDefinitions.Count,
+                HrdLocationsTableDefinitions.TableName,
+                HrdLocationsTableDefinitions.LocationTypeId
                 );
         }
 
-        public static string GetLocationsQuery()
+        /// <summary>
+        /// Returns the query to get the all relevant locations from the database.
+        /// </summary>
+        /// <remarks>Locations are relevant when <see cref="HrdLocationsTableDefinitions.LocationTypeId"/> > 1.</remarks>
+        /// <returns>The query to get the all relevant locations from the database.</returns>
+        public static string GetRelevantLocationsQuery()
         {
             return string.Format(
-                "SELECT {0} as {1}, " +
-                "{2} as {3}, " +
-                "{4} as {5}, " +
-                "{6} as {7} FROM " +
-                "{8} WHERE {9} > 1;",
-                HrdLocationsEntity.HrdLocationId, HydraulicBoundaryDatabaseColumns.LocationId,
-                HrdLocationsEntity.Name, HydraulicBoundaryDatabaseColumns.LocationName,
-                HrdLocationsEntity.XCoordinate, HydraulicBoundaryDatabaseColumns.LocationX,
-                HrdLocationsEntity.YCoordinate, HydraulicBoundaryDatabaseColumns.LocationY,
-                HrdLocationsEntity.TableName,
-                HrdLocationsEntity.LocationTypeId);
+                "SELECT {0}, {1}, {2}, {3} FROM " +
+                "{4} WHERE {5} > 1;",
+                HrdLocationsTableDefinitions.HrdLocationId,
+                HrdLocationsTableDefinitions.Name,
+                HrdLocationsTableDefinitions.XCoordinate,
+                HrdLocationsTableDefinitions.YCoordinate,
+                HrdLocationsTableDefinitions.TableName,
+                HrdLocationsTableDefinitions.LocationTypeId);
         }
     }
 }

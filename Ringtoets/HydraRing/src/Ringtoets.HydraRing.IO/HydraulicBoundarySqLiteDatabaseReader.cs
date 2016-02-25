@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.IO
     /// </summary>
     public class HydraulicBoundarySqLiteDatabaseReader : SqLiteDatabaseReaderBase
     {
-        private SQLiteDataReader dataReader;
+        private SQLiteDataReader sqliteDataReader;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundarySqLiteDatabaseReader"/>, which will use 
@@ -68,9 +68,11 @@ namespace Ringtoets.HydraRing.IO
         /// required properties.</exception>
         public void PrepareReadLocation()
         {
-            var locationsQuery = HydraulicBoundaryDatabaseQueryBuilder.GetLocationsQuery();
+            CloseDataReader();
+            HasNext = false;
 
-            CreateDataReader(locationsQuery, new SQLiteParameter
+            var locationsQuery = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsQuery();
+            sqliteDataReader = CreateDataReader(locationsQuery, new SQLiteParameter
             {
                 DbType = DbType.String
             });
@@ -99,58 +101,62 @@ namespace Ringtoets.HydraRing.IO
         /// <summary>
         /// Gets the database version from the metadata table.
         /// </summary>
-        /// <exception cref="LineParseException"></exception>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
         public string GetVersion()
         {
-            var versionQuery = HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery();
+            string versionQuery = HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery();
             var sqliteParameter = new SQLiteParameter
             {
                 DbType = DbType.String
             };
-            CreateDataReader(versionQuery, sqliteParameter);
-
-            if (!dataReader.Read())
+            using (var dataReader = CreateDataReader(versionQuery, sqliteParameter))
             {
-                return "";
-            }
-            try
-            {
-                return Read<string>(HydraulicBoundaryDatabaseColumns.Version);
-            }
-            catch (InvalidCastException e)
-            {
-                var message = new FileReaderErrorMessageBuilder(Path).
-                    Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new LineParseException(message, e);
+                if (!dataReader.Read())
+                {
+                    return "";
+                }
+                try
+                {
+                    return (string) dataReader[GeneralTableDefinitions.GeneratedVersion];
+                }
+                catch (InvalidCastException e)
+                {
+                    var message = new FileReaderErrorMessageBuilder(Path).
+                        Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                    throw new LineParseException(message, e);
+                }
             }
         }
 
         /// <summary>
         /// Gets the amount of locations that can be read from the database.
         /// </summary>
-        /// <exception cref="InvalidCastException"></exception>
+        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
+        /// required properties.</exception>
         public int GetLocationCount()
         {
-            var locationCountQuery = HydraulicBoundaryDatabaseQueryBuilder.GetLocationsCountQuery();
+            string locationCountQuery = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsCountQuery();
             var sqliteParameter = new SQLiteParameter
             {
                 DbType = DbType.String
             };
-            CreateDataReader(locationCountQuery, sqliteParameter);
-
-            if (!dataReader.Read())
+            using (var dataReader = CreateDataReader(locationCountQuery, sqliteParameter))
             {
-                return 0;
-            }
-            try
-            {
-                return (int) Read<long>(HydraulicBoundaryDatabaseColumns.LocationCount);
-            }
-            catch (InvalidCastException e)
-            {
-                var message = new FileReaderErrorMessageBuilder(Path).
-                    Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
-                throw new LineParseException(message, e);
+                if (!dataReader.Read())
+                {
+                    return 0;
+                }
+                try
+                {
+                    return (int) (long) dataReader[HrdLocationsTableDefinitions.Count];
+                }
+                catch (InvalidCastException e)
+                {
+                    var message = new FileReaderErrorMessageBuilder(Path).
+                        Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                    throw new LineParseException(message, e);
+                }
             }
         }
 
@@ -165,7 +171,7 @@ namespace Ringtoets.HydraRing.IO
         /// </summary>
         private void MoveNext()
         {
-            HasNext = dataReader.Read() || (dataReader.NextResult() && dataReader.Read());
+            HasNext = sqliteDataReader.Read() || (sqliteDataReader.NextResult() && sqliteDataReader.Read());
         }
 
         /// <summary>
@@ -178,7 +184,7 @@ namespace Ringtoets.HydraRing.IO
         /// <typeparamref name="T"/>.</exception>
         private T Read<T>(string columnName)
         {
-            return (T) dataReader[columnName];
+            return (T) sqliteDataReader[columnName];
         }
 
         /// <summary>
@@ -191,10 +197,10 @@ namespace Ringtoets.HydraRing.IO
         {
             try
             {
-                var id = Read<long>(HydraulicBoundaryDatabaseColumns.LocationId);
-                var name = Read<string>(HydraulicBoundaryDatabaseColumns.LocationName);
-                var x = Read<double>(HydraulicBoundaryDatabaseColumns.LocationX);
-                var y = Read<double>(HydraulicBoundaryDatabaseColumns.LocationY);
+                var id = Read<long>(HrdLocationsTableDefinitions.HrdLocationId);
+                var name = Read<string>(HrdLocationsTableDefinitions.Name);
+                var x = Read<double>(HrdLocationsTableDefinitions.XCoordinate);
+                var y = Read<double>(HrdLocationsTableDefinitions.YCoordinate);
                 MoveNext();
                 return new HydraulicBoundaryLocation(id, name, x, y);
             }
@@ -214,9 +220,8 @@ namespace Ringtoets.HydraRing.IO
         ///     <item>A query could not be executed on the database schema.</item>
         /// </list>
         /// </exception>
-        private void CreateDataReader(string queryString, params SQLiteParameter[] parameters)
+        private SQLiteDataReader CreateDataReader(string queryString, params SQLiteParameter[] parameters)
         {
-            CloseDataReader();
             using (var query = new SQLiteCommand(Connection)
             {
                 CommandText = queryString
@@ -226,7 +231,7 @@ namespace Ringtoets.HydraRing.IO
 
                 try
                 {
-                    dataReader = query.ExecuteReader();
+                    return query.ExecuteReader();
                 }
                 catch (SQLiteException exception)
                 {
@@ -239,10 +244,9 @@ namespace Ringtoets.HydraRing.IO
 
         private void CloseDataReader()
         {
-            if (dataReader != null)
+            if (sqliteDataReader != null)
             {
-                dataReader.Dispose();
-
+                sqliteDataReader.Dispose();
             }
         }
     }

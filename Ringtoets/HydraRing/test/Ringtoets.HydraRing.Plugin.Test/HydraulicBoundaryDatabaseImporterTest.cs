@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -41,19 +40,15 @@ using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 namespace Ringtoets.HydraRing.Plugin.Test
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationsImporterTest
+    public class HydraulicBoundaryDatabaseImporterTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
-        private int progress;
-
-        private HydraulicBoundaryLocationsImporter importer;
+        private HydraulicBoundaryDatabaseImporter importer;
 
         [SetUp]
         public void SetUp()
         {
-            progress = 0;
-
-            importer = new HydraulicBoundaryLocationsImporter();
+            importer = new HydraulicBoundaryDatabaseImporter();
         }
 
         [TearDown]
@@ -65,20 +60,10 @@ namespace Ringtoets.HydraRing.Plugin.Test
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // Setup
-            var expectedFileFilter = string.Format("{0} (*.sqlite)|*.sqlite", RingtoetsHydraRingFormsResources.SelectHydraulicBoundaryDatabaseFile_FilterName);
-            var expectedDisplayName = "Locaties van de hydraulische randvoorwaarden";
-
             // Call is done in SetUp
 
             // Assert
-            Assert.IsInstanceOf<IFileImporter>(importer);
-            Assert.AreEqual(expectedDisplayName, importer.Name);
-            Assert.AreEqual(RingtoetsFormsResources.Ringtoets_Category, importer.Category);
-            Assert.AreEqual(16, importer.Image.Width);
-            Assert.AreEqual(16, importer.Image.Height);
-            Assert.AreEqual(typeof(ICollection<HydraulicBoundaryLocation>), importer.SupportedItemType);
-            Assert.AreEqual(expectedFileFilter, importer.FileFilter);
+            Assert.IsInstanceOf<HydraulicBoundaryDatabaseImporter>(importer);
         }
 
         [Test]
@@ -209,7 +194,8 @@ namespace Ringtoets.HydraRing.Plugin.Test
             var importTarget = new HydraulicBoundaryDatabaseContext(assessmentSection);
             importTarget.Attach(observer);
 
-            importer.ProgressChanged = IncrementProgress;
+            var progressChanged = new List<String>();
+            importer.ProgressChanged = (description, currentStep, totalSteps) => { progressChanged.Add(description); };
 
             // Precondition
             Assert.IsNull(importTarget.Parent.HydraulicBoundaryDatabase);
@@ -227,7 +213,8 @@ namespace Ringtoets.HydraRing.Plugin.Test
             TestHelper.AssertLogMessageIsGenerated(call, "Het importeren van hydraulische randvoorwaarden locaties is afgebroken. Er is geen data ingelezen.", 1);
             Assert.IsFalse(importResult);
             Assert.IsNull(importTarget.Parent.HydraulicBoundaryDatabase);
-            Assert.AreEqual(1, progress);
+            Assert.AreEqual(1, progressChanged.Count);
+            Assert.AreEqual(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_ReadHydraulicBoundaryLocations, progressChanged[0]);
 
             mocks.VerifyAll(); // 'observer' should not be notified
         }
@@ -246,8 +233,6 @@ namespace Ringtoets.HydraRing.Plugin.Test
 
             var importTarget = new HydraulicBoundaryDatabaseContext(assessmentSection);
             importTarget.Attach(observer);
-
-            importer.ProgressChanged = IncrementProgress;
 
             // Precondition
             Assert.IsNull(importTarget.Parent.HydraulicBoundaryDatabase);
@@ -285,7 +270,8 @@ namespace Ringtoets.HydraRing.Plugin.Test
             string corruptPath = Path.Combine(testDataPath, "corruptschema.sqlite");
             var expectedLogMessage = string.Format("Fout bij het lezen van bestand '{0}': Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.", corruptPath);
 
-            importer.ProgressChanged = IncrementProgress;
+            var progressChanged = new List<String>();
+            importer.ProgressChanged = (description, currentStep, totalSteps) => { progressChanged.Add(description); };
 
             importTarget.Attach(observer);
 
@@ -300,14 +286,10 @@ namespace Ringtoets.HydraRing.Plugin.Test
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
             Assert.IsNull(importTarget.Parent.HydraulicBoundaryDatabase, "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
-            Assert.AreEqual(1, progress);
+            Assert.AreEqual(1, progressChanged.Count);
+            Assert.AreEqual(RingtoetsHydraRingPluginResources.HydraulicBoundaryLocationsImporter_ReadHydraulicBoundaryLocations, progressChanged[0]);
 
             mocks.VerifyAll(); // Expect no calls on 'observer'
-        }
-
-        private void IncrementProgress(string a, int b, int c)
-        {
-            progress++;
         }
     }
 }

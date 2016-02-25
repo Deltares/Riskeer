@@ -68,7 +68,7 @@ namespace Demo.Ringtoets.Commands
         {
             using (var tempPath = new TemporaryImportFile("HRD_dutchcoastsouth.sqlite"))
             {
-                using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryLocationsImporter())
+                using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
                 {
                     hydraulicBoundaryDatabaseImporter.ValidateAndConnectTo(tempPath.FilePath);
                     hydraulicBoundaryDatabaseImporter.Import(new HydraulicBoundaryDatabaseContext(demoAssessmentSection), tempPath.FilePath);

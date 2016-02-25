@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -121,14 +142,22 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             const double originalZ = 3.3;
-            surfaceLine.SetGeometry(new[]{ new Point3D { X = 1.1, Y = 2.2, Z = originalZ} });
-
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D
+                {
+                    X = 1.1, Y = 2.2, Z = originalZ
+                }
+            });
 
             // Call
             Point2D[] lzCoordinates = surfaceLine.ProjectGeometryToLZ().ToArray();
 
             // Assert
-            CollectionAssert.AreEqual(new[]{ new Point2D ( 0.0, originalZ ) }, lzCoordinates);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(0.0, originalZ)
+            }, lzCoordinates);
         }
 
         [Test]
@@ -138,21 +167,30 @@ namespace Ringtoets.Piping.Data.Test
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D { X = 1.0, Y = 1.0, Z = 2.2 }, 
-                new Point3D { X = 2.0, Y = 3.0, Z = 4.4 }, // Outlier from line specified by extrema
-                new Point3D { X = 3.0, Y = 4.0, Z = 7.7 },
+                new Point3D
+                {
+                    X = 1.0, Y = 1.0, Z = 2.2
+                },
+                new Point3D
+                {
+                    X = 2.0, Y = 3.0, Z = 4.4
+                }, // Outlier from line specified by extrema
+                new Point3D
+                {
+                    X = 3.0, Y = 4.0, Z = 7.7
+                },
             });
 
             // Call
             Point2D[] actual = surfaceLine.ProjectGeometryToLZ().ToArray();
 
             // Assert
-            var length = Math.Sqrt(2 * 2 + 3 * 3);
-            const double secondCoordinateFactor = (2.0 * 1.0 + 3.0 * 2.0) / (2.0 * 2.0 + 3.0 * 3.0);
+            var length = Math.Sqrt(2*2 + 3*3);
+            const double secondCoordinateFactor = (2.0*1.0 + 3.0*2.0)/(2.0*2.0 + 3.0*3.0);
             var expectedCoordinatesX = new[]
             {
                 0.0,
-                secondCoordinateFactor * length,
+                secondCoordinateFactor*length,
                 length
             };
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Select(p => p.X).ToArray());
@@ -170,7 +208,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            StringAssert.StartsWith(Properties.Resources.RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null, exception.Message);
+            StringAssert.StartsWith(Resources.RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null, exception.Message);
         }
 
         [Test]
@@ -180,11 +218,14 @@ namespace Ringtoets.Piping.Data.Test
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
-            TestDelegate test = () => surfaceLine.SetGeometry(new Point3D[] { null });
+            TestDelegate test = () => surfaceLine.SetGeometry(new Point3D[]
+            {
+                null
+            });
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
-            StringAssert.StartsWith(Properties.Resources.RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null, exception.Message);
+            StringAssert.StartsWith(Resources.RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null, exception.Message);
         }
 
         [Test]
@@ -199,7 +240,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exceptionMessage = Assert.Throws<InvalidOperationException>(test).Message;
-            Assert.AreEqual(Properties.Resources.RingtoetsPipingSurfaceLine_SurfaceLine_has_no_Geometry, exceptionMessage);
+            Assert.AreEqual(Resources.RingtoetsPipingSurfaceLine_SurfaceLine_has_no_Geometry, exceptionMessage);
         }
 
         [Test]
@@ -212,9 +253,18 @@ namespace Ringtoets.Piping.Data.Test
             var l = 2.0;
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D { X = 0.0, Y = 0.0, Z = 2.2 }, 
-                new Point3D { X = l, Y = 0.0, Z = testZ },
-                new Point3D { X = 3.0, Y = 0.0, Z = 7.7 },
+                new Point3D
+                {
+                    X = 0.0, Y = 0.0, Z = 2.2
+                },
+                new Point3D
+                {
+                    X = l, Y = 0.0, Z = testZ
+                },
+                new Point3D
+                {
+                    X = 3.0, Y = 0.0, Z = 7.7
+                },
             });
 
             // Call
@@ -237,9 +287,18 @@ namespace Ringtoets.Piping.Data.Test
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D { X = 1.0, Y = 0.0, Z = 2.2 }, 
-                new Point3D { X = 2.0, Y = 0.0, Z = testZ },
-                new Point3D { X = 4.1, Y = 0.0, Z = 7.7 },
+                new Point3D
+                {
+                    X = 1.0, Y = 0.0, Z = 2.2
+                },
+                new Point3D
+                {
+                    X = 2.0, Y = 0.0, Z = testZ
+                },
+                new Point3D
+                {
+                    X = 4.1, Y = 0.0, Z = 7.7
+                },
             });
 
             // Call
@@ -247,7 +306,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var expectedMessage = string.Format("Kan geen hoogte bepalen. L moet in het bereik van [{0}, {1}] liggen.",
-                0,3.1);
+                                                0, 3.1);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -261,10 +320,22 @@ namespace Ringtoets.Piping.Data.Test
             var l = 2.0;
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D { X = 0.0, Y = 0.0, Z = 2.2 }, 
-                new Point3D { X = l, Y = 0.0, Z = testZ },
-                new Point3D { X = l, Y = 0.0, Z = testZ+1 },
-                new Point3D { X = 3.0, Y = 0.0, Z = 7.7 },
+                new Point3D
+                {
+                    X = 0.0, Y = 0.0, Z = 2.2
+                },
+                new Point3D
+                {
+                    X = l, Y = 0.0, Z = testZ
+                },
+                new Point3D
+                {
+                    X = l, Y = 0.0, Z = testZ + 1
+                },
+                new Point3D
+                {
+                    X = 3.0, Y = 0.0, Z = 7.7
+                },
             });
 
             // Call
@@ -272,7 +343,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exception = Assert.Throws<RingtoetsPipingSurfaceLineException>(test);
-            var message = string.Format(Properties.Resources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
             Assert.AreEqual(message, exception.Message);
         }
 

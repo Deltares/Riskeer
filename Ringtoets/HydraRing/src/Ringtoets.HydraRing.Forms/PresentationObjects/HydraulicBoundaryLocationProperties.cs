@@ -104,7 +104,7 @@ namespace Ringtoets.HydraRing.Forms.PresentationObjects
 
         public override string ToString()
         {
-            return String.Format("{0} ({1})", Name, Location);
+            return String.Format("{0} {1}", Name, Location);
         }
     }
 }

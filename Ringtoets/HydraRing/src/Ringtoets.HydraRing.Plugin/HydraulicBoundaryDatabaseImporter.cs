@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using log4net;
@@ -38,55 +36,21 @@ namespace Ringtoets.HydraRing.Plugin
 {
     /// <summary>
     /// Imports locations read from an Hydraulic boundary .sqlite file (SqlLite database file) to a 
-    /// collection of <see cref="HydraulicBoundaryLocation"/>.
+    /// collection of <see cref="HydraulicBoundaryLocation"/> in a <see cref="HydraulicBoundaryDatabase"/>.
     /// </summary>
-    public class HydraulicBoundaryLocationsImporter : FileImporterBase, IDisposable
+    public class HydraulicBoundaryDatabaseImporter : IDisposable
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationsImporter));
+        private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryDatabaseImporter));
+        private bool importIsCancelled;
 
         private HydraulicBoundarySqLiteDatabaseReader hydraulicBoundaryDatabaseReader;
 
-        public override string Name
-        {
-            get
-            {
-                return RingtoetsHydraRingFormsResources.HydraulicBoundaryLocationsCollection_DisplayName;
-            }
-        }
+        public ProgressChangedDelegate ProgressChanged { private get; set; }
 
-        public override string Category
+        public void Cancel()
         {
-            get
-            {
-                return RingtoetsCommonFormsResources.Ringtoets_Category;
-            }
+            importIsCancelled = true;
         }
-
-        public override Bitmap Image
-        {
-            get
-            {
-                return RingtoetsCommonFormsResources.DatabaseIcon;
-            }
-        }
-
-        public override Type SupportedItemType
-        {
-            get
-            {
-                return typeof(ICollection<HydraulicBoundaryLocation>);
-            }
-        }
-
-        public override string FileFilter
-        {
-            get
-            {
-                return string.Format("{0} (*.sqlite)|*.sqlite", HydraRingResources.SelectHydraulicBoundaryDatabaseFile_FilterName);
-            }
-        }
-
-        public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
         /// <summary>
         /// Validates the file and opens a connection.
@@ -107,22 +71,28 @@ namespace Ringtoets.HydraRing.Plugin
             return hydraulicBoundaryDatabaseReader.GetVersion();
         }
 
-        public override bool Import(object targetItem, string filePath)
+        /// <summary>
+        /// Based upon the data read from the hydraulic boundary database file located at 
+        /// <paramref name="filePath"/>, a new instance of <see cref="HydraulicBoundaryDatabase"/>, 
+        /// and saved into <paramref name="targetItem"/>.
+        /// </summary>
+        /// <param name="targetItem"><see cref="HydraulicBoundaryDatabaseContext"/> to set the newly 
+        /// created <see cref="HydraulicBoundaryDatabase"/>.</param>
+        /// <param name="filePath">The path of the hydraulic boundary database file to open.</param>
+        /// <returns><c>True</c> if the import was successful, <c>false</c> otherwise.</returns>
+        public bool Import(HydraulicBoundaryDatabaseContext targetItem, string filePath)
         {
             if (hydraulicBoundaryDatabaseReader == null)
             {
                 throw new InvalidOperationException(ApplicationResources.HydraulicBoundaryLocationsImporter_Import_The_file_is_not_opened);
             }
 
-            var importTarget = (HydraulicBoundaryDatabaseContext) targetItem;
+            var importResult = GetHydraulicBoundaryDatabase(filePath);
 
-            var importResult = ReadHydraulicBoundaryLocations(filePath);
-
-            if (ImportIsCancelled)
+            if (importIsCancelled)
             {
                 log.Info(ApplicationResources.HydraulicBoundaryLocationsImporter_Import_cancelled);
-                ImportIsCancelled = false;
-
+                importIsCancelled = false;
                 return false;
             }
 
@@ -131,7 +101,7 @@ namespace Ringtoets.HydraRing.Plugin
                 return false;
             }
 
-            AddImportedDataToModel(importTarget.Parent, importResult);
+            AddImportedDataToModel(targetItem.Parent, importResult);
             log.Info(ApplicationResources.HydraulicBoundaryLocationsImporter_Import_Import_successful);
             return true;
         }
@@ -145,19 +115,12 @@ namespace Ringtoets.HydraRing.Plugin
             }
         }
 
-        private HydraulicBoundaryDatabase ReadHydraulicBoundaryLocations(string path)
+        private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
         {
-            NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_ReadHydraulicBoundaryLocations, 1, 1);
-
-            try
+            if (ProgressChanged != null)
             {
-                return GetHydraulicBoundaryDatabase(path);
+                ProgressChanged(currentStepName, currentStep, totalNumberOfSteps);
             }
-            catch (LineParseException e)
-            {
-                HandleException(e);
-            }
-            return null;
         }
 
         private void HandleException(Exception e)
@@ -168,38 +131,48 @@ namespace Ringtoets.HydraRing.Plugin
 
         private HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase(string path)
         {
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-            {
-                FilePath = path,
-                Version = hydraulicBoundaryDatabaseReader.GetVersion()
-            };
-            var totalNumberOfSteps = hydraulicBoundaryDatabaseReader.GetLocationCount();
-            var currentStep = 1;
+            NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_ReadHydraulicBoundaryLocations, 1, 1);
 
-            hydraulicBoundaryDatabaseReader.PrepareReadLocation();
-            while (hydraulicBoundaryDatabaseReader.HasNext)
+            try
             {
-                if (ImportIsCancelled)
+                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
                 {
-                    return null;
-                }
-                NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_GetHydraulicBoundaryLocationReadResult, currentStep++, totalNumberOfSteps);
-                try
+                    FilePath = path,
+                    Version = hydraulicBoundaryDatabaseReader.GetVersion()
+                };
+                var totalNumberOfSteps = hydraulicBoundaryDatabaseReader.GetLocationCount();
+                var currentStep = 1;
+
+                hydraulicBoundaryDatabaseReader.PrepareReadLocation();
+                while (hydraulicBoundaryDatabaseReader.HasNext)
                 {
-                    hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryDatabaseReader.ReadLocation());
+                    if (importIsCancelled)
+                    {
+                        return null;
+                    }
+                    NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_GetHydraulicBoundaryLocationReadResult, currentStep++, totalNumberOfSteps);
+                    try
+                    {
+                        hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryDatabaseReader.ReadLocation());
+                    }
+                    catch (CriticalFileReadException e)
+                    {
+                        var message = string.Format(ApplicationResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped, path);
+                        log.Error(message, e);
+                        return null;
+                    }
                 }
-                catch (CriticalFileReadException e)
-                {
-                    var message = string.Format(ApplicationResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped, path);
-                    log.Error(message, e);
-                    return null;
-                }
+                return hydraulicBoundaryDatabase;
+            }
+            catch (LineParseException e)
+            {
+                HandleException(e);
             }
 
-            return hydraulicBoundaryDatabase;
+            return null;
         }
 
-        private void AddImportedDataToModel(AssessmentSectionBase assessmentSection, HydraulicBoundaryDatabase importedData)
+        private static void AddImportedDataToModel(AssessmentSectionBase assessmentSection, HydraulicBoundaryDatabase importedData)
         {
             assessmentSection.HydraulicBoundaryDatabase = importedData;
         }

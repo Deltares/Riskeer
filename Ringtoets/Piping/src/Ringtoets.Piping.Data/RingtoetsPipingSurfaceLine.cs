@@ -242,32 +242,6 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Finds a point from <see cref="Points"/> which is at the same position as <paramref name="point"/>.
-        /// </summary>
-        /// <param name="point">The location of a point from <see cref="Points"/>.</param>
-        /// <returns>The <see cref="Point3D"/> from <see cref="Points"/> at the same location as <paramref name="point"/>.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
-        private Point3D GetPointFromGeometry(Point3D point)
-        {
-            if (point == null)
-            {
-                throw new ArgumentNullException("point", "Cannot find a point in geometry using a null point.");
-            }
-            var pointFromGeometry = Points.FirstOrDefault(p => p.Equals(point));
-            return pointFromGeometry;
-        }
-
-        private static ArgumentException CreatePointNotInGeometryException(Point3D point, string characteristicPointDescription)
-        {
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_,
-                                          point.X,
-                                          point.Y,
-                                          point.Z,
-                                          characteristicPointDescription);
-            return new ArgumentException(message);
-        }
-
-        /// <summary>
         /// Gets the height of the projected <see cref="RingtoetsPipingSurfaceLine"/> at a L=<paramref name="l"/>.
         /// </summary>
         /// <param name="l">The L coordinate from where to take the height of the <see cref="RingtoetsPipingSurfaceLine"/>.</param>
@@ -283,7 +257,7 @@ namespace Ringtoets.Piping.Data
             Point2D[] pointsInLocalCoordinates = ProjectGeometryToLZ().ToArray();
 
             ValidateInRange(l, pointsInLocalCoordinates);
-            
+
             var segments = new Collection<Segment2D>();
             for (int i = 1; i < pointsInLocalCoordinates.Length; i++)
             {
@@ -302,6 +276,67 @@ namespace Ringtoets.Piping.Data
 
             var message = string.Format(Resources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
             throw new RingtoetsPipingSurfaceLineException(message);
+        }
+
+        /// <summary>
+        /// Projects the points in <see cref="Points"/> to localized coordinate (LZ-plane) system.
+        /// Z-values are retained, and the first point is put a L=0.
+        /// </summary>
+        /// <returns>Collection of 2D points in the LZ-plane.</returns>
+        public IEnumerable<Point2D> ProjectGeometryToLZ()
+        {
+            var count = geometryPoints.Length;
+            if (count == 0)
+            {
+                return Enumerable.Empty<Point2D>();
+            }
+
+            var localCoordinatesX = new double[count];
+            localCoordinatesX[0] = 0.0;
+            if (count > 1)
+            {
+                ProjectPointsAfterFirstOntoSpanningLine(localCoordinatesX);
+            }
+
+            var result = new Point2D[count];
+            for (int i = 0; i < count; i++)
+            {
+                var x = localCoordinatesX[i];
+                var y = geometryPoints[i].Z;
+                result[i] = new Point2D(x, y);
+            }
+            return result;
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        /// <summary>
+        /// Finds a point from <see cref="Points"/> which is at the same position as <paramref name="point"/>.
+        /// </summary>
+        /// <param name="point">The location of a point from <see cref="Points"/>.</param>
+        /// <returns>The <see cref="Point3D"/> from <see cref="Points"/> at the same location as <paramref name="point"/>.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
+        private Point3D GetPointFromGeometry(Point3D point)
+        {
+            if (point == null)
+            {
+                throw new ArgumentNullException("point", "Cannot find a point in geometry using a null point.");
+            }
+            var pointFromGeometry = Points.FirstOrDefault(p => p.Equals(point));
+            return pointFromGeometry;
+        }
+
+        private static ArgumentException CreatePointNotInGeometryException(Point3D point, string characteristicPointDescription)
+        {
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_,
+                                        point.X,
+                                        point.Y,
+                                        point.Z,
+                                        characteristicPointDescription);
+            return new ArgumentException(message);
         }
 
         /// <summary>
@@ -329,47 +364,11 @@ namespace Ringtoets.Piping.Data
             if (geometryInLocalCoordinates.First().X > localCoordinateL || geometryInLocalCoordinates.Last().X < localCoordinateL)
             {
                 var outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range,
-                    Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height,                                  
-                    geometryInLocalCoordinates.First().X,
-                    geometryInLocalCoordinates.Last().X);
+                                                      Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height,
+                                                      geometryInLocalCoordinates.First().X,
+                                                      geometryInLocalCoordinates.Last().X);
                 throw new ArgumentOutOfRangeException("localCoordinateL", outOfRangeMessage);
             }
-        }
-
-        /// <summary>
-        /// Projects the points in <see cref="Points"/> to localized coordinate (LZ-plane) system.
-        /// Z-values are retained, and the first point is put a L=0.
-        /// </summary>
-        /// <returns>Collection of 2D points in the LZ-plane.</returns>
-        public IEnumerable<Point2D> ProjectGeometryToLZ()
-        {
-            var count = geometryPoints.Length;
-            if (count == 0)
-            {
-                return Enumerable.Empty<Point2D>();
-            }
-
-            var localCoordinatesX = new double[count];
-            localCoordinatesX[0] = 0.0;
-            if (count > 1)
-            {
-                ProjectPointsAfterFirstOntoSpanningLine(localCoordinatesX);
-            }
-
-            var result = new Point2D[count];
-            for (int i = 0; i < count; i++)
-            {
-                result[i] = new Point2D
-                (
-                    localCoordinatesX[i], geometryPoints[i].Z
-                );
-            }
-            return result;
-        }
-
-        public override string ToString()
-        {
-            return Name;
         }
 
         /// <summary>
@@ -385,10 +384,7 @@ namespace Ringtoets.Piping.Data
         {
             // Determine the vectors from the first coordinate to each other coordinate point 
             // in the XY world coordinate plane:
-            Point2D[] worldCoordinates = Points.Select(p => new Point2D
-            (
-                p.X, p.Y
-            )).ToArray();
+            Point2D[] worldCoordinates = Points.Select(p => new Point2D(p.X, p.Y)).ToArray();
             var worldCoordinateVectors = new Vector[worldCoordinates.Length - 1];
             for (int i = 1; i < worldCoordinates.Length; i++)
             {

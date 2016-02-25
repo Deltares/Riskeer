@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
@@ -91,18 +90,14 @@ namespace Ringtoets.Integration.Forms.Views
         {
             var mapDataList = new List<MapData>();
 
-            MapData referenceLine = GetReferenceLineData();
-
-            if (referenceLine != null)
+            if (HasReferenceLinePoints())
             {
-                mapDataList.Add(referenceLine);
+                mapDataList.Add(GetReferenceLineData());
             }
 
-            MapData hydraulicBoundaryLocations = GetHydraulicBoundaryLocations();
-
-            if (hydraulicBoundaryLocations != null)
+            if (HasHydraulicBoundaryLocations())
             {
-                mapDataList.Add(hydraulicBoundaryLocations);
+                mapDataList.Add(GetHydraulicBoundaryLocations());
             }
 
             map.Data = new MapDataCollection(mapDataList);
@@ -110,24 +105,24 @@ namespace Ringtoets.Integration.Forms.Views
 
         private MapData GetReferenceLineData()
         {
-            if (data.ReferenceLine == null)
-            {
-                return null;
-            }
-
-            List<Point2D> points = data.ReferenceLine.Points.ToList();
-            return points.Count > 0 ? new MapLineData(points) : null;
+            var referenceLinePoints = data.ReferenceLine.Points.ToList();
+            return new MapLineData(referenceLinePoints);
         }
 
         private MapData GetHydraulicBoundaryLocations()
         {
-            if (data.HydraulicBoundaryDatabase == null)
-            {
-                return null;
-            }
+            var hrLocations = data.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
+            return new MapPointData(hrLocations);
+        }
 
-            List<Point2D> locations = data.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToList();
-            return locations.Count > 0 ? new MapPointData(locations) : null;
+        private bool HasReferenceLinePoints()
+        {
+            return data.ReferenceLine != null && data.ReferenceLine.Points.Any();
+        }
+
+        private bool HasHydraulicBoundaryLocations()
+        {
+            return data.HydraulicBoundaryDatabase != null && data.HydraulicBoundaryDatabase.Locations.Any();
         }
     }
 }

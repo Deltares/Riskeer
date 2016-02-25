@@ -104,7 +104,7 @@ namespace Ringtoets.HydraRing.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(hydraulicBoundaryLocationArguments);
             mockRepository.ReplayAll();
 
-            var expectedString = string.Format("{0} ({1})", name, new Point2D(x, y));
+            var expectedString = string.Format("{0} {1}", name, new Point2D(x, y));
 
             // Call
             HydraulicBoundaryLocationProperties hydraulicBoundaryLocationProperties = new HydraulicBoundaryLocationProperties(hydraulicBoundaryLocationMock);

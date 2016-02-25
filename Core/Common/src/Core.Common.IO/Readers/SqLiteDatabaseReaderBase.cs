@@ -89,8 +89,6 @@ namespace Core.Common.IO.Readers
                 Connection.Close();
                 Connection.Dispose();
             }
-
-            
         }
 
         /// <summary>

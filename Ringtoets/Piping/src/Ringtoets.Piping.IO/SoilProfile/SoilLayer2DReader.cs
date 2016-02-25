@@ -28,10 +28,8 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.XPath;
-
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
-
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Properties;
@@ -137,8 +135,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private XmlSchemaSet LoadXmlSchema()
         {
-            var schemaFile = AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly, 
-                "Ringtoets.Piping.IO.SoilProfile.XmlGeometrySchema.xsd");
+            var schemaFile = AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly,
+                                                                     "Ringtoets.Piping.IO.SoilProfile.XmlGeometrySchema.xsd");
             var xmlSchema = new XmlSchemaSet();
             xmlSchema.Add(XmlSchema.Read(schemaFile, null));
             return xmlSchema;
@@ -215,17 +213,15 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </list></exception>
         private Point2D ParsePoint(XElement point)
         {
-            var x = point.Element(xElementName);
-            var y = point.Element(zElementName);
-            if (x != null && y != null)
+            var xElement = point.Element(xElementName);
+            var yElement = point.Element(zElementName);
+            if (xElement != null && yElement != null)
             {
                 try
                 {
-                    return new Point2D
-                    (
-                        double.Parse(x.Value, CultureInfo.InvariantCulture),
-                        double.Parse(y.Value, CultureInfo.InvariantCulture)
-                    );
+                    var x = double.Parse(xElement.Value, CultureInfo.InvariantCulture);
+                    var y = double.Parse(yElement.Value, CultureInfo.InvariantCulture);
+                    return new Point2D(x, y);
                 }
                 catch (ArgumentNullException e)
                 {

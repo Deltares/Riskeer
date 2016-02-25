@@ -23,9 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
-
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data.Calculation
@@ -79,11 +77,9 @@ namespace Ringtoets.Piping.Data.Calculation
                 return null;
             }
 
-            return new Point2D
-            (
-                (bOtherLine*cLine - bLine*cOtherLine)/determinant,
-                (aLine*cOtherLine - aOtherLine*cLine)/determinant
-            );
+            var x = (bOtherLine*cLine - bLine*cOtherLine)/determinant;
+            var y = (aLine*cOtherLine - aOtherLine*cLine)/determinant;
+            return new Point2D(x, y);
         }
 
         /// <summary>
@@ -128,16 +124,8 @@ namespace Ringtoets.Piping.Data.Calculation
         /// the points are equal.</returns>
         private static Point2D LineIntersectionWithVerticalLine(Point2D point1, Point2D point2, double x)
         {
-            var verticalLineFirstPoint = new Point2D
-            (
-                x,
-                0
-            );
-            var verticalLineSecondPoint = new Point2D
-            (
-                x,
-                1
-            );
+            var verticalLineFirstPoint = new Point2D(x, 0);
+            var verticalLineSecondPoint = new Point2D(x, 1);
 
             try
             {

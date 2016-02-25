@@ -437,7 +437,7 @@ namespace Ringtoets.Integration.Plugin
 
         private static void ValidateAndImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData, string selectedFile)
         {
-            var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryLocationsImporter();
+            var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter();
 
             string newVersion;
             try
@@ -477,7 +477,7 @@ namespace Ringtoets.Integration.Plugin
         }
 
         private static void ShowCleanDialog(HydraulicBoundaryDatabaseContext nodeData,
-                                            HydraulicBoundaryLocationsImporter hydraulicBoundaryLocationsImporter,
+                                            HydraulicBoundaryDatabaseImporter hydraulicBoundaryLocationsImporter,
                                             string filePath)
         {
             var confirmation = MessageBox.Show(
@@ -507,7 +507,7 @@ namespace Ringtoets.Integration.Plugin
         }
 
         private static void ImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData,
-                                               HydraulicBoundaryLocationsImporter hydraulicBoundaryLocationsImporter,
+                                               HydraulicBoundaryDatabaseImporter hydraulicBoundaryLocationsImporter,
                                                string selectedFile)
         {
             if (hydraulicBoundaryLocationsImporter.Import(nodeData, selectedFile))
