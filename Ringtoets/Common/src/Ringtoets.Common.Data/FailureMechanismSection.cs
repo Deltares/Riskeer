@@ -22,9 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
-
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data
@@ -44,6 +42,13 @@ namespace Ringtoets.Common.Data
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="geometryPoints">The geometry points.</param>
+        /// <exception cref="ArgumentNullException">Thrown when:<list type="bullet">
+        /// <item><paramref name="name"/> is <c>null</c>.</item>
+        /// <item><paramref name="geometryPoints"/> is <c>null</c>.</item> </list></exception>
+        /// <exception cref="ArgumentException">Thrown when:<list type="bullet">
+        /// <item>One ore more <paramref name="geometryPoints"/> elements are <c>null</c>.</item>
+        /// <item><paramref name="geometryPoints"/> does not have at lease one geometry point.</item>
+        /// </list></exception>
         public FailureMechanismSection(string name, IEnumerable<Point2D> geometryPoints)
         {
             if (name == null)
@@ -67,7 +72,7 @@ namespace Ringtoets.Common.Data
             Name = name;
             Points = point2Ds;
             geometryStart = point2Ds[0];
-            geometryEnd = point2Ds[point2Ds.Length-1];
+            geometryEnd = point2Ds[point2Ds.Length - 1];
         }
 
         /// <summary>

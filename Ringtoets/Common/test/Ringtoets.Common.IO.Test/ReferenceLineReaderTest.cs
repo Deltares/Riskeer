@@ -1,13 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data;
 
 namespace Ringtoets.Common.IO.Test
@@ -20,7 +17,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             var validReferenceLineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
-            var reader =  new ReferenceLineReader();
+            var reader = new ReferenceLineReader();
 
             // Call
             ReferenceLine referenceLine = reader.ReadReferenceLine(validReferenceLineShapeFile);
@@ -130,7 +127,7 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestand moet exact 1 gehele polylijn bevatten.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand moet exact 1 gehele polylijn bevatten.",
                                                 invalidFilePath);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
@@ -149,7 +146,7 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestand bevat 1 multi-polylijn, welke niet ondersteund is.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bevat 1 multi-polylijn, welke niet ondersteund is.",
                                                 invalidFilePath);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);

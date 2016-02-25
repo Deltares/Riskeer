@@ -1,13 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data;
 
 namespace Ringtoets.Common.IO.Test
@@ -113,7 +110,7 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new FailureMechanismSectionReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestand mag uitsluitend polylijnen bevatten.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand mag uitsluitend polylijnen bevatten.",
                                                 invalidFilePath);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
@@ -218,7 +215,7 @@ namespace Ringtoets.Common.IO.Test
                     // Assert
                     var expectedSectionName = string.Format("1-1_{0}", i);
                     Assert.AreEqual(expectedSectionName, section.Name,
-                        string.Format("Section name is not as expected at index {0}", i));
+                                    string.Format("Section name is not as expected at index {0}", i));
                 }
             }
         }
@@ -283,7 +280,6 @@ namespace Ringtoets.Common.IO.Test
                     reader.ReadFailureMechanismSection();
                     reader.ReadFailureMechanismSection();
                 };
-
 
                 // Assert
                 var message = Assert.Throws<CriticalFileReadException>(call).Message;
