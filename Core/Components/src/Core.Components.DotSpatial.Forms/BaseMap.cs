@@ -98,9 +98,9 @@ namespace Core.Components.DotSpatial.Forms
             map.ClearLayers();
             if (data != null)
             {
-                foreach (FeatureSet featureSet in mapDataFactory.Create(data))
+                foreach (IMapFeatureLayer mapLayer in mapDataFactory.Create(data))
                 {
-                    map.Layers.Add(featureSet);
+                    map.Layers.Add(mapLayer);
                 }
 
                 map.ZoomToMaxExtent();

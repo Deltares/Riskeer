@@ -23,13 +23,13 @@ using System;
 using System.Collections.Generic;
 
 using Core.Components.Gis.Data;
-
+using DotSpatial.Controls;
 using DotSpatial.Data;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The abstract base class for transforming <see cref="MapData"/> in specific <see cref="FeatureSet"/> instances.
+    /// The abstract base class for transforming <see cref="MapData"/> in specific <see cref="IMapFeatureLayer"/> instances.
     /// </summary>
     public abstract class MapDataConverter<T> : IMapDataConverter where T : MapData
     {
@@ -38,7 +38,7 @@ namespace Core.Components.DotSpatial.Converter
             return data is T;
         }
 
-        public IList<FeatureSet> Convert(MapData data)
+        public IList<IMapFeatureLayer> Convert(MapData data)
         {
             if (data == null)
             {
@@ -54,10 +54,10 @@ namespace Core.Components.DotSpatial.Converter
         }
 
         /// <summary>
-        /// Creates one or more <see cref="FeatureSet"/> based on the <paramref name="data"/> that was given.
+        /// Creates one or more <see cref="IMapFeatureLayer"/> based on the <paramref name="data"/> that was given.
         /// </summary>
-        /// <param name="data">The data to transform into one or more <see cref="FeatureSet"/>.</param>
-        /// <returns>A new <see cref="List{T}"/> of <see cref="FeatureSet"/>.</returns>
-        protected abstract IList<FeatureSet> Convert(T data);
+        /// <param name="data">The data to transform into one or more <see cref="IMapFeatureLayer"/>.</param>
+        /// <returns>A new <see cref="List{T}"/> of <see cref="IMapFeatureLayer"/>.</returns>
+        protected abstract IList<IMapFeatureLayer> Convert(T data);
     }
 }

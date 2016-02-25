@@ -5,8 +5,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
-
-using DotSpatial.Data;
+using DotSpatial.Controls;
 using DotSpatial.Topology;
 using NUnit.Framework;
 
@@ -16,64 +15,58 @@ namespace Core.Components.DotSpatial.Test.Converter
     public class MapDataFactoryTest
     {
         [Test]
-        public void Create_MapPointData_ReturnFeatureSetWithPointType()
+        public void Create_MapPointData_ReturnMapPointLayer()
         {
             // Setup
             var factory = new MapDataFactory();
             var testData = CreateTestData();
 
             // Call
-            IList<FeatureSet> featureSets = factory.Create(new MapPointData(testData));
+            IList<IMapFeatureLayer> layers = factory.Create(new MapPointData(testData));
 
             // Assert
-            Assert.IsInstanceOf<IList<FeatureSet>>(featureSets);
-            var featureSet = featureSets[0];
-            Assert.AreEqual(testData.Count, featureSet.Features.Count);
-            Assert.IsInstanceOf<FeatureSet>(featureSet);
-            Assert.AreEqual(FeatureType.Point, featureSet.FeatureType);
-            CollectionAssert.AreNotEqual(testData, featureSet.Features[0].Coordinates);
+            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(layers);
+            var layer = layers[0];
+            Assert.IsInstanceOf<MapPointLayer>(layer);
         }
 
         [Test]
-        public void Create_MapLineData_ReturnFeatureSetWithLineType()
+        public void Create_MapLineData_ReturnMapLineLayer()
         {
             // Setup
             var factory = new MapDataFactory();
             var testData = CreateTestData();
 
             // Call
-            IList<FeatureSet> featureSets = factory.Create(new MapLineData(testData));
+            IList<IMapFeatureLayer> layers = factory.Create(new MapLineData(testData));
 
             // Assert
-            Assert.IsInstanceOf<IList<FeatureSet>>(featureSets);
-            var featureSet = featureSets[0];
-            Assert.AreEqual(1, featureSet.Features.Count);
-            Assert.IsInstanceOf<FeatureSet>(featureSet);
-            Assert.IsInstanceOf<LineString>(featureSet.Features[0].BasicGeometry);
-            Assert.AreEqual(FeatureType.Line, featureSet.FeatureType);
+            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(layers);
+            var layer = layers[0];
+            Assert.IsInstanceOf<MapLineLayer>(layer);
         }
 
         [Test]
-        public void Create_MapPolygonData_ReturnFeatureSetWithPolygonType()
+        public void Create_MapPolygonData_ReturnMapPolygonLayer()
         {
             // Setup
             var factory = new MapDataFactory();
             var testData = CreateTestData();
 
             // Call
-            IList<FeatureSet> featureSets = factory.Create(new MapPolygonData(testData));
+            IList<IMapFeatureLayer> layers = factory.Create(new MapPolygonData(testData));
 
             // Assert
-            Assert.IsInstanceOf<IList<FeatureSet>>(featureSets);
-            var featureSet = featureSets[0];
-            Assert.AreEqual(1, featureSet.Features.Count);
-            Assert.IsInstanceOf<FeatureSet>(featureSet);
-            Assert.IsInstanceOf<Polygon>(featureSet.Features[0].BasicGeometry);
-            Assert.AreEqual(FeatureType.Polygon, featureSet.FeatureType);
+            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(layers);
+            var layer = layers[0];
+            Assert.AreEqual(1, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MapPolygonLayer>(layer);
+            Assert.IsInstanceOf<Polygon>(layer.DataSet.Features[0].BasicGeometry);
+            Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
         }
 
         [Test]
-        public void Create_MapDataCollection_ReturnFeatureSetCorrespondingToListItems()
+        public void Create_MapDataCollection_ReturnMapLayersCorrespondingToListItems()
         {
             // Setup
             var factory = new MapDataFactory();
@@ -86,29 +79,29 @@ namespace Core.Components.DotSpatial.Test.Converter
             });
 
             // Call
-            IList<FeatureSet> featureSets = factory.Create(mapDataCollection);
+            IList<IMapFeatureLayer> layers = factory.Create(mapDataCollection);
 
             // Assert
-            Assert.IsInstanceOf<IList<FeatureSet>>(featureSets);
-            Assert.AreEqual(3, featureSets.Count);
+            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(layers);
+            Assert.AreEqual(3, layers.Count);
 
-            var featureSet = featureSets[0];
-            Assert.AreEqual(testData.Count, featureSet.Features.Count);
-            Assert.IsInstanceOf<FeatureSet>(featureSet);
-            Assert.AreEqual(FeatureType.Point, featureSet.FeatureType);
-            CollectionAssert.AreNotEqual(testData, featureSet.Features[0].Coordinates);
+            var layer = layers[0];
+            Assert.AreEqual(testData.Count, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MapPointLayer>(layer);
+            Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
+            CollectionAssert.AreNotEqual(testData, layer.DataSet.Features[0].Coordinates);
 
-            featureSet = featureSets[1];
-            Assert.AreEqual(1, featureSet.Features.Count);
-            Assert.IsInstanceOf<FeatureSet>(featureSet);
-            Assert.IsInstanceOf<LineString>(featureSet.Features[0].BasicGeometry);
-            Assert.AreEqual(FeatureType.Line, featureSet.FeatureType);
+            layer = layers[1];
+            Assert.AreEqual(1, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MapLineLayer>(layer);
+            Assert.IsInstanceOf<LineString>(layer.DataSet.Features[0].BasicGeometry);
+            Assert.AreEqual(FeatureType.Line, layer.DataSet.FeatureType);
 
-            featureSet = featureSets[2];
-            Assert.AreEqual(1, featureSet.Features.Count);
-            Assert.IsInstanceOf<FeatureSet>(featureSet);
-            Assert.IsInstanceOf<Polygon>(featureSet.Features[0].BasicGeometry);
-            Assert.AreEqual(FeatureType.Polygon, featureSet.FeatureType);
+            layer = layers[2];
+            Assert.AreEqual(1, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MapPolygonLayer>(layer);
+            Assert.IsInstanceOf<Polygon>(layer.DataSet.Features[0].BasicGeometry);
+            Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
         }
 
         [Test]

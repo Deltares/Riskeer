@@ -22,18 +22,18 @@
 using System.Collections.Generic;
 
 using Core.Components.Gis.Data;
-
+using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapPointData"/> into a <see cref="FeatureSet"/> containing one or more <see cref="Coordinate"/>.
+    /// The converter that converts <see cref="MapPointData"/> into a <see cref="IMapFeatureLayer"/> containing one or more <see cref="Coordinate"/>.
     /// </summary>
     public class MapPointDataConverter : MapDataConverter<MapPointData>
     {
-        protected override IList<FeatureSet> Convert(MapPointData data)
+        protected override IList<IMapFeatureLayer> Convert(MapPointData data)
         {
             var featureSet = new FeatureSet(FeatureType.Point);
 
@@ -42,9 +42,12 @@ namespace Core.Components.DotSpatial.Converter
                 featureSet.Features.Add(new Coordinate(point.X, point.Y));
             }
 
-            return new List<FeatureSet>
+            var layer = new MapPointLayer(featureSet);
+            layer.IsVisible = data.IsVisible;
+
+            return new List<IMapFeatureLayer>
             {
-                featureSet
+                layer
             };
         }
     }

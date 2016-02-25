@@ -7,8 +7,7 @@ using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
-
-using DotSpatial.Data;
+using DotSpatial.Controls;
 using DotSpatial.Topology;
 using NUnit.Framework;
 
@@ -56,7 +55,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_RandomPointData_ReturnsNewFeatureSetList()
+        public void Convert_RandomPointData_ReturnsNewMapPointLayerList()
         {
             // Setup
             var converter = new MapPointDataConverter();
@@ -72,15 +71,16 @@ namespace Core.Components.DotSpatial.Test.Converter
             var pointData = new MapPointData(points);
 
             // Call
-            var featureSets = converter.Convert(pointData);
+            var mapLayers = converter.Convert(pointData);
 
             // Assert
-            Assert.IsInstanceOf<IList<FeatureSet>>(featureSets);
-            var featureSet = featureSets[0];
-            Assert.AreEqual(pointData.Points.ToArray().Length, featureSet.Features.Count);
-            Assert.IsInstanceOf<FeatureSet>(featureSet);
-            Assert.AreEqual(FeatureType.Point, featureSet.FeatureType);
-            CollectionAssert.AreNotEqual(pointData.Points, featureSet.Features[0].Coordinates);
+            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
+            var layer = mapLayers[0];
+
+            Assert.AreEqual(pointData.Points.ToArray().Length, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MapPointLayer>(layer);
+            Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
+            CollectionAssert.AreNotEqual(pointData.Points, layer.DataSet.Features[0].Coordinates);
         }
 
         [Test]

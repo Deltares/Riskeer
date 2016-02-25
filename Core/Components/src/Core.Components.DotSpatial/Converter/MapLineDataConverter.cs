@@ -23,28 +23,31 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Core.Components.Gis.Data;
-
+using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapLineData"/> into a <see cref="FeatureSet"/> containing a <see cref="LineString"/>.
+    /// The converter that converts <see cref="MapLineData"/> into a <see cref="IMapFeatureLayer"/> containing a <see cref="LineString"/>.
     /// </summary>
     public class MapLineDataConverter : MapDataConverter<MapLineData>
     {
-        protected override IList<FeatureSet> Convert(MapLineData data)
+        protected override IList<IMapFeatureLayer> Convert(MapLineData data)
         {
             var coordinates = data.Points.Select(p => new Coordinate(p.X, p.Y));
             var lineString = new LineString(coordinates);
-            var featureSet = new FeatureSet(FeatureType.Line);
+            var featureSet = new FeatureSet(FeatureType.Line);            
 
             featureSet.Features.Add(lineString);
 
-            return new List<FeatureSet>
+            var layer = new MapLineLayer(featureSet);
+            layer.IsVisible = data.IsVisible;
+
+            return new List<IMapFeatureLayer>
             {
-                featureSet
+                layer
             };
         }
     }

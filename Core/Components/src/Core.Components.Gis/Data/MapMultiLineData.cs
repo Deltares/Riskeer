@@ -34,7 +34,7 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Creates a new instance of <see cref="MapLineData"/>.
         /// </summary>
-        /// <param name="lines">A <see cref="IEnumerable{T}"/> of <see cref="Tuple{T1,T2}"/> as (X,Y) lines.</param>
+        /// <param name="lines">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> as (X,Y) lines.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="lines"/> is <c>null</c>.</exception>
         public MapMultiLineData(IEnumerable<IEnumerable<Point2D>> lines)
         {
@@ -44,7 +44,13 @@ namespace Core.Components.Gis.Data
                 throw new ArgumentNullException("lines", message);
             }
             Lines = lines.ToArray();
+            IsVisible = true;
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the <see cref="PointBasedMapData"/> is visible.
+        /// </summary>
+        public bool IsVisible { get; set; }
 
         /// <summary>
         /// Gets all the lines in the multi line data

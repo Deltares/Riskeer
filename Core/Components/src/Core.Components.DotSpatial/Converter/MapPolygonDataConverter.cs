@@ -23,18 +23,18 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Core.Components.Gis.Data;
-
+using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapPolygonData"/> into a <see cref="FeatureSet"/> containing a <see cref="Polygon"/>.
+    /// The converter that converts <see cref="MapPolygonData"/> into a <see cref="IMapFeatureLayer"/> containing a <see cref="Polygon"/>.
     /// </summary>
     public class MapPolygonDataConverter : MapDataConverter<MapPolygonData>
     {
-        protected override IList<FeatureSet> Convert(MapPolygonData data)
+        protected override IList<IMapFeatureLayer> Convert(MapPolygonData data)
         {
             var coordinates = data.Points.Select(p => new Coordinate(p.X, p.Y));
             var polygon = new Polygon(coordinates);
@@ -42,9 +42,12 @@ namespace Core.Components.DotSpatial.Converter
 
             featureSet.Features.Add(polygon);
 
-            return new List<FeatureSet>
+            var layer = new MapPolygonLayer(featureSet);
+            layer.IsVisible = data.IsVisible;
+
+            return new List<IMapFeatureLayer>
             {
-                featureSet
+                layer
             };
         }
     }

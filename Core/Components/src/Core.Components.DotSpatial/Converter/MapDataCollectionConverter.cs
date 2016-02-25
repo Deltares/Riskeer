@@ -23,17 +23,16 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Core.Components.Gis.Data;
-
-using DotSpatial.Data;
+using DotSpatial.Controls;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapData"/> in <see cref="MapDataCollection"/> into one or more <see cref="FeatureSet"/>.
+    /// The converter that converts <see cref="MapData"/> in <see cref="MapDataCollection"/> into one or more <see cref="IMapFeatureLayer"/>.
     /// </summary>
     public class MapDataCollectionConverter : MapDataConverter<MapDataCollection>
     {
-        protected override IList<FeatureSet> Convert(MapDataCollection data)
+        protected override IList<IMapFeatureLayer> Convert(MapDataCollection data)
         {
             var factory = new MapDataFactory();
 

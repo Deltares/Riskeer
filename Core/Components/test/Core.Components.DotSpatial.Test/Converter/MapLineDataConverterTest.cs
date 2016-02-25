@@ -6,9 +6,7 @@ using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
-
-using DotSpatial.Data;
-using DotSpatial.Topology;
+using DotSpatial.Controls;
 using NUnit.Framework;
 
 namespace Core.Components.DotSpatial.Test.Converter
@@ -86,7 +84,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
-        public void Convert_RandomPointData_ReturnsNewFeatureSetList()
+        public void Convert_RandomPointData_ReturnsNewMapLineLayerList()
         {
             // Setup
             var converter = new MapLineDataConverter();
@@ -102,15 +100,13 @@ namespace Core.Components.DotSpatial.Test.Converter
             var lineData = new MapLineData(points);
 
             // Call
-            var featureSets = converter.Convert(lineData);
+            var mapLayers = converter.Convert(lineData);
 
             // Assert
-            Assert.IsInstanceOf<IList<FeatureSet>>(featureSets);
-            var featureSet = featureSets[0];
-            Assert.AreEqual(1, featureSet.Features.Count);
-            Assert.IsInstanceOf<FeatureSet>(featureSet);
-            Assert.AreEqual(FeatureType.Line, featureSet.FeatureType);
-            CollectionAssert.AreNotEqual(lineData.Points, featureSet.Features[0].Coordinates);
+            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
+            var layer = mapLayers[0];
+            Assert.AreEqual(1, mapLayers.Count);
+            Assert.IsInstanceOf<MapLineLayer>(layer);
         }
     }
 }

@@ -4,8 +4,7 @@ using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
-
-using DotSpatial.Data;
+using DotSpatial.Controls;
 using NUnit.Framework;
 
 namespace Core.Components.DotSpatial.Test.Converter
@@ -84,9 +83,9 @@ namespace Core.Components.DotSpatial.Test.Converter
 
         private class TestMapDataConverter<T> : MapDataConverter<T> where T : MapData
         {
-            protected override IList<FeatureSet> Convert(T data)
+            protected override IList<IMapFeatureLayer> Convert(T data)
             {
-                return new List<FeatureSet>(); // Dummy implementation
+                return new List<IMapFeatureLayer>(); // Dummy implementation
             }
         }
     }

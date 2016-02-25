@@ -24,13 +24,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 using Core.Components.Gis.Data;
-
+using DotSpatial.Controls;
 using DotSpatial.Data;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// A factory to create <see cref="FeatureSet"/> data from <see cref="MapData"/> which can be used on the map.
+    /// A factory to create <see cref="IMapFeatureLayer"/> data from <see cref="MapData"/> which can be used on the map.
     /// </summary>
     public class MapDataFactory
     {
@@ -47,12 +47,12 @@ namespace Core.Components.DotSpatial.Converter
         };
 
         /// <summary>
-        /// Creates one or more new <see cref="FeatureSet"/> from the given <paramref name="data"/>.
+        /// Creates one or more new <see cref="IMapFeatureLayer"/> from the given <paramref name="data"/>.
         /// </summary>
-        /// <param name="data">The <see cref="MapData"/> to base the creation of <see cref="FeatureSet"/> upon.</param>
-        /// <returns>A new <see cref="List{T}"/> of <see cref="FeatureSet"/>.</returns>
+        /// <param name="data">The <see cref="MapData"/> to base the creation of <see cref="IMapFeatureLayer"/> upon.</param>
+        /// <returns>A new <see cref="List{T}"/> of <see cref="IMapFeatureLayer"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when the given <paramref name="data"/> type is not supported.</exception>
-        public IList<FeatureSet> Create(MapData data)
+        public IList<IMapFeatureLayer> Create(MapData data)
         {
             foreach (var converter in converters)
             {

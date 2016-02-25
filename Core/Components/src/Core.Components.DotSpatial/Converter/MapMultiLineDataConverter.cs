@@ -23,17 +23,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
+using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapMultiLineData"/> into a <see cref="FeatureSet"/> containing multiple <see cref="LineString"/>.
+    /// The converter that converts <see cref="MapMultiLineData"/> into a <see cref="IMapFeatureLayer"/> containing multiple <see cref="LineString"/>.
     /// </summary>
     public class MapMultiLineDataConverter : MapDataConverter<MapMultiLineData>
     {
-        protected override IList<FeatureSet> Convert(MapMultiLineData data)
+        protected override IList<IMapFeatureLayer> Convert(MapMultiLineData data)
         {
             var featureSet = new FeatureSet(FeatureType.Line);
 
@@ -45,9 +46,12 @@ namespace Core.Components.DotSpatial.Converter
                 featureSet.Features.Add(lineString);
             }
 
-            return new List<FeatureSet>
+            var layer = new MapLineLayer(featureSet);
+            layer.IsVisible = data.IsVisible;
+
+            return new List<IMapFeatureLayer>
             {
-                featureSet
+                layer
             };
         }
     }

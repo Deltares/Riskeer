@@ -6,8 +6,7 @@ using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
-
-using DotSpatial.Data;
+using DotSpatial.Controls;
 using DotSpatial.Topology;
 using NUnit.Framework;
 
@@ -71,15 +70,15 @@ namespace Core.Components.DotSpatial.Test.Converter
             var polygonData = new MapPolygonData(polygonPoints);
 
             // Call
-            var featureSets = converter.Convert(polygonData);
+            var mapLayers = converter.Convert(polygonData);
 
             // Assert
-            Assert.IsInstanceOf<IList<FeatureSet>>(featureSets);
-            var featureSet = featureSets[0];
-            Assert.AreEqual(1, featureSet.Features.Count);
-            Assert.IsInstanceOf<FeatureSet>(featureSet);
-            Assert.AreEqual(FeatureType.Polygon, featureSet.FeatureType);
-            CollectionAssert.AreNotEqual(polygonData.Points, featureSet.Features[0].Coordinates);
+            Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
+            var layer = mapLayers[0];
+            Assert.AreEqual(1, layer.DataSet.Features.Count);
+            Assert.IsInstanceOf<MapPolygonLayer>(layer);
+            Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
+            CollectionAssert.AreNotEqual(polygonData.Points, layer.DataSet.Features[0].Coordinates);
         }
 
         [Test]
