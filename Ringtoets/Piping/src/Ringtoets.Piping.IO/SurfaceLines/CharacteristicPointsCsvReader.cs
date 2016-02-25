@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// data rows.
         /// </summary>
         /// <returns>A value greater than or equal to 0.</returns>
-        /// <exception cref="CharacteristicPoints">A critical error has occurred, which may be caused by:
+        /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
         /// <list type="bullet">
         /// <item>The file cannot be found at specified path.</item>
         /// <item>The specified path is invalid, such as being on an unmapped drive.</item>
