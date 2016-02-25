@@ -1,3 +1,5 @@
+using Ringtoets.HydraRing.Calculation.Common;
+
 namespace Ringtoets.HydraRing.Calculation.Data
 {
     /// <summary>

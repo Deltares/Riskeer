@@ -23,11 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
-using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Settings;
 using Ringtoets.HydraRing.Calculation.Types;
 
-namespace Ringtoets.HydraRing.Calculation
+namespace Ringtoets.HydraRing.Calculation.Common
 {
     /// <summary>
     /// Container for all configurations that are necessary for performing a Hydra-Ring calculation.

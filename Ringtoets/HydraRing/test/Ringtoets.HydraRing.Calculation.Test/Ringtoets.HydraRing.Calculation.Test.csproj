@@ -48,7 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HydraRingConfigurationTest.cs" />
+    <Compile Include="Common\HydraRingConfigurationTest.cs" />
     <Compile Include="Settings\FailureMechanismDefaultsProviderTest.cs" />
     <Compile Include="Settings\FailureMechanismDefaultsTest.cs" />
     <Compile Include="Settings\FailureMechanismSettingsProviderTest.cs" />

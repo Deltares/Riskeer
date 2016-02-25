@@ -21,10 +21,11 @@
 
 using System;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Common;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Types;
 
-namespace Ringtoets.HydraRing.Calculation.Test
+namespace Ringtoets.HydraRing.Calculation.Test.Common
 {
     [TestFixture]
     public class HydraRingConfigurationTest

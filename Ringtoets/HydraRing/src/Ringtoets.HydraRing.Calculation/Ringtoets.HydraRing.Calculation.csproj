@@ -40,17 +40,17 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Data\AssessmentLevelCalculationData.cs" />
-    <Compile Include="Data\HydraRingCalculationData.cs" />
+    <Compile Include="Common\HydraRingCalculationData.cs" />
     <Compile Include="Types\HydraRingDistributionType.cs" />
     <Compile Include="Types\HydraRingDeviationType.cs" />
-    <Compile Include="Data\HydraRingVariable.cs" />
+    <Compile Include="Common\HydraRingVariable.cs" />
     <Compile Include="Settings\FailureMechanismDefaults.cs" />
     <Compile Include="Settings\FailureMechanismDefaultsProvider.cs" />
     <Compile Include="Settings\FailureMechanismSettings.cs" />
     <Compile Include="Settings\FailureMechanismSettingsProvider.cs" />
     <Compile Include="Settings\SubMechanismSettingsProvider.cs" />
     <Compile Include="Types\HydraRingFailureMechanismType.cs" />
-    <Compile Include="HydraRingConfiguration.cs" />
+    <Compile Include="Common\HydraRingConfiguration.cs" />
     <Compile Include="Settings\SubMechanismSettings.cs" />
     <Compile Include="Data\HydraulicCalculationData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -21,7 +21,7 @@
 
 using Ringtoets.HydraRing.Calculation.Types;
 
-namespace Ringtoets.HydraRing.Calculation.Data
+namespace Ringtoets.HydraRing.Calculation.Common
 {
     /// <summary>
     /// Container of all data necessary for performing a Hydra-Ring calculation.
