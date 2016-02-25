@@ -44,7 +44,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
             Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.CanDrag);
             Assert.IsNull(info.CanDrop);
             Assert.IsNull(info.CanInsert);
             Assert.IsNull(info.OnDrop);
@@ -150,6 +149,24 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanDrag_Always_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var pointData = mocks.StrictMock<MapPointData>(Enumerable.Empty<Point2D>());
+
+            mocks.ReplayAll();
+
+            // Call
+            var canDrag = info.CanDrag(pointData, null);
+
+            // Assert
+            Assert.IsTrue(canDrag);
 
             mocks.VerifyAll();
         }

@@ -79,6 +79,7 @@ namespace Core.Plugins.DotSpatial.Legend
             {
                 Text = mapPointData => DotSpatialResources.MapData_Point_data_label,
                 Image = mapPointData => DotSpatialResources.PointsIcon,
+                CanDrag = (mapPointData, parentData) => true,
                 CanCheck = mapPointData => true,
                 IsChecked = mapPointData => mapPointData.IsVisible,
                 OnNodeChecked = MapPointDataOnNodeChecked
@@ -88,6 +89,7 @@ namespace Core.Plugins.DotSpatial.Legend
             {
                 Text = mapLineData => DotSpatialResources.MapData_Line_data_label,
                 Image = mapLineData => DotSpatialResources.LineIcon,
+                CanDrag = (mapLineData, parentData) => true,
                 CanCheck = mapLineData => true,
                 IsChecked = mapLineData => mapLineData.IsVisible,
                 OnNodeChecked = MapLineDataOnNodeChecked
@@ -97,6 +99,7 @@ namespace Core.Plugins.DotSpatial.Legend
             {
                 Text = mapPolygonData => DotSpatialResources.MapData_Polygon_data_label,
                 Image = mapPolygonData => DotSpatialResources.AreaIcon,
+                CanDrag = (mapPolygonData, parentData) => true,
                 CanCheck = mapPolygonData => true,
                 IsChecked = mapPolygonData => mapPolygonData.IsVisible,
                 OnNodeChecked = MapPolygonDataOnNodeChecked
@@ -106,7 +109,10 @@ namespace Core.Plugins.DotSpatial.Legend
             {
                 Text = mapDataCollection => DotSpatialResources.General_Map,
                 Image = mapDataCollection => GuiResources.folder,
-                ChildNodeObjects = mapDataCollection => mapDataCollection.List.Reverse().Cast<object>().ToArray()
+                ChildNodeObjects = mapDataCollection => mapDataCollection.List.Reverse().Cast<object>().ToArray(),
+                CanDrop = BaseMapCanDrop,
+                CanInsert = BaseMapCanInsert,
+                OnDrop = BaseMapOnDrop
             });
         }
 
@@ -140,5 +146,29 @@ namespace Core.Plugins.DotSpatial.Legend
         }
 
         #endregion
+
+        # region MapDataCollection
+
+        private static bool BaseMapCanDrop(object draggedData, object targetData)
+        {
+            return draggedData is MapData;
+        }
+
+        private static bool BaseMapCanInsert(object draggedData, object targetData)
+        {
+            return draggedData is MapData;
+        }
+
+        private static void BaseMapOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
+        {
+            var mapData = (MapData)droppedData;
+            var target = (MapDataCollection)newParentData;
+
+            target.List.Remove(mapData);
+            target.List.Insert(target.List.Count - position, mapData); // Note: target is the same as the previous parent in this case
+            target.NotifyObservers();
+        }
+
+        # endregion
     }
 }

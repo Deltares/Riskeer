@@ -118,22 +118,22 @@ namespace Core.Plugins.OxyPlot.Legend
 
         # region ChartData
 
-        private void PointDataOnNodeChecked(PointData pointData, object parentData)
+        private static void PointDataOnNodeChecked(PointData pointData, object parentData)
         {
             PointBasedChartDataOnNodeChecked(pointData, parentData);
         }
 
-        private void LineDataOnNodeChecked(LineData lineData, object parentData)
+        private static void LineDataOnNodeChecked(LineData lineData, object parentData)
         {
             PointBasedChartDataOnNodeChecked(lineData, parentData);
         }
 
-        private void AreaDataOnNodeChecked(AreaData areaData, object parentData)
+        private static void AreaDataOnNodeChecked(AreaData areaData, object parentData)
         {
             PointBasedChartDataOnNodeChecked(areaData, parentData);
         }
 
-        private void PointBasedChartDataOnNodeChecked(PointBasedChartData pointBasedChartData, object parentData)
+        private static void PointBasedChartDataOnNodeChecked(PointBasedChartData pointBasedChartData, object parentData)
         {
             pointBasedChartData.IsVisible = !pointBasedChartData.IsVisible;
             pointBasedChartData.NotifyObservers();
@@ -149,22 +149,17 @@ namespace Core.Plugins.OxyPlot.Legend
 
         # region ChartDataCollection
 
-        private bool BaseChartCanDrop(object draggedData, object targetData)
-        {
-            if (draggedData is ChartData)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool BaseChartCanInsert(object draggedData, object targetData)
+        private static bool BaseChartCanDrop(object draggedData, object targetData)
         {
             return draggedData is ChartData;
         }
 
-        private void BaseChartOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
+        private static bool BaseChartCanInsert(object draggedData, object targetData)
+        {
+            return draggedData is ChartData;
+        }
+
+        private static void BaseChartOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
         {
             var chartData = (ChartData) droppedData;
             var target = (ChartDataCollection) newParentData;

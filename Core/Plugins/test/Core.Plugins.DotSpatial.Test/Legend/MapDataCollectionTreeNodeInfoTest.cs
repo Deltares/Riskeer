@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
@@ -47,9 +49,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             Assert.IsNull(info.IsChecked);
             Assert.IsNull(info.OnNodeChecked);
             Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.OnDrop);
         }
 
         [Test]
@@ -100,6 +99,146 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             }, objects);
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanDrop_SourceNodeTagIsNoMapData_ReturnsFalse()
+        {
+            // Setup
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>());
+
+            mocks.ReplayAll();
+
+            // Call
+            var canDrop = info.CanDrop(new object(), mapDataCollection);
+
+            // Assert
+            Assert.IsFalse(canDrop);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanDrop_SourceNodeTagIsMapData_ReturnsTrue()
+        {
+            // Setup
+            var mapData = mocks.StrictMock<MapData>();
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>());
+
+            mocks.ReplayAll();
+
+            // Call
+            var canDrop = info.CanDrop(mapData, mapDataCollection);
+
+            // Assert
+            Assert.IsTrue(canDrop);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanInsert_SourceNodeTagIsNoMapData_ReturnsFalse()
+        {
+            // Setup
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>());
+
+            mocks.ReplayAll();
+
+            // Call
+            var canInsert = info.CanInsert(new object(), mapDataCollection);
+
+            // Assert
+            Assert.IsFalse(canInsert);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanInsert_SourceNodeTagIsMapData_ReturnsTrue()
+        {
+            // Setup
+            var mapData = mocks.StrictMock<MapData>();
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>());
+
+            mocks.ReplayAll();
+
+            // Call
+            var canInsert = info.CanInsert(mapData, mapDataCollection);
+
+            // Assert
+            Assert.IsTrue(canInsert);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void OnDrop_MapDataMovedToPositionInsideRange_SetsNewReverseOrder(int position)
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            var mapData1 = mocks.StrictMock<MapData>();
+            var mapData2 = mocks.StrictMock<MapData>();
+            var mapData3 = mocks.StrictMock<MapData>();
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>
+            {
+                mapData1,
+                mapData2,
+                mapData3
+            });
+
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            observer.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            mapDataCollection.Attach(observer);
+
+            // Call
+            info.OnDrop(mapData1, mapDataCollection, mapDataCollection, position, treeViewControlMock);
+
+            // Assert
+            var reversedIndex = 2 - position;
+            Assert.AreSame(mapData1, mapDataCollection.List.ElementAt(reversedIndex));
+
+            mocks.VerifyAll(); // UpdateObserver should be called
+        }
+
+        [Test]
+        [TestCase(-50)]
+        [TestCase(-1)]
+        [TestCase(3)]
+        [TestCase(50)]
+        public void OnDrop_MapDataMovedToPositionOutsideRange_SetsNewReverseOrder(int position)
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            var mapData1 = mocks.StrictMock<MapData>();
+            var mapData2 = mocks.StrictMock<MapData>();
+            var mapData3 = mocks.StrictMock<MapData>();
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>
+            {
+                mapData1,
+                mapData2,
+                mapData3
+            });
+
+            mapDataCollection.Attach(observer);
+
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => info.OnDrop(mapData1, mapDataCollection, mapDataCollection, position, treeViewControlMock);
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(test);
+
+            mocks.VerifyAll(); // UpdateObserver should be not called
         }
     }
 }
