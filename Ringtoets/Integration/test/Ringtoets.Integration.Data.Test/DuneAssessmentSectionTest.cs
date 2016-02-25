@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Integration.Data.Contribution;
+
+using Ringtoets.Common.Data.Contribution;
 
 using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 
@@ -19,7 +20,7 @@ namespace Ringtoets.Integration.Data.Test
             var contributions = new double[] { 70, 30 };
             var names = new[] {
                 duneErosionName,
-                RingtoetsIntegrationResources.OtherFailureMechanism_DisplayName
+                "Overig"
             };
 
             // Call
@@ -76,7 +77,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(failureMechanisms[0].Contribution, contribution[0].Contribution);
             Assert.AreEqual((30000 / contribution[0].Contribution) * 100, contribution[0].ProbabilitySpace);
 
-            Assert.AreEqual(RingtoetsIntegrationResources.OtherFailureMechanism_DisplayName, contribution[1].Assessment);
+            Assert.AreEqual("Overig", contribution[1].Assessment);
             Assert.AreEqual(30, contribution[1].Contribution);
             Assert.AreEqual((30000 / contribution[1].Contribution) * 100, 100000);
         }

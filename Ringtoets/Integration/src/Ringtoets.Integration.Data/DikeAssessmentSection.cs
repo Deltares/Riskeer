@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using Ringtoets.Common.Data;
-using Ringtoets.Integration.Data.Contribution;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Piping.Data;

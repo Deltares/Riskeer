@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Core.Common.TestUtil;
-using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data;
-using Ringtoets.Integration.Data.Contribution;
-using Ringtoets.Integration.Data.Properties;
 
-namespace Ringtoets.Integration.Data.Test.Contribution
+using Core.Common.TestUtil;
+
+using NUnit.Framework;
+
+using Rhino.Mocks;
+
+using Ringtoets.Common.Data.Contribution;
+
+namespace Ringtoets.Common.Data.Test.Contribution
 {
     [TestFixture]
     public class FailureMechanismContributionTest
@@ -36,7 +38,8 @@ namespace Ringtoets.Integration.Data.Test.Contribution
             };
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, Resources.FailureMechanismContribution_FailureMechanismContribution_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection);
+            const string expectedMessage = "Kan geen bijdrageoverzicht maken zonder faalmechanismen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -54,7 +57,8 @@ namespace Ringtoets.Integration.Data.Test.Contribution
             }, contribution, norm);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
+            const string expectedMessage = "Kan geen bijdrage element maken zonder een faalmechanisme.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -74,7 +78,8 @@ namespace Ringtoets.Integration.Data.Test.Contribution
             };
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.FailureMechanismContributionItem_Norm_must_be_larger_than_zero);
+            const string expectedMessage = "De faalkansbijdrage kan alleen bepaald worden als de norm van het traject groter is dan 0.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         [Test]
@@ -149,7 +154,7 @@ namespace Ringtoets.Integration.Data.Test.Contribution
                 failureMechanismContributions.Add(contribution);
             }
 
-            failureMechanismNames.Add(Resources.OtherFailureMechanism_DisplayName);
+            failureMechanismNames.Add("Overig");
             failureMechanismContributions.Add(otherContribution);
 
             mockRepository.ReplayAll();

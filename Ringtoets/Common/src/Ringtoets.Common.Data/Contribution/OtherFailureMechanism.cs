@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.Common.Data;
-using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 
-namespace Ringtoets.Integration.Data.Contribution
+using Ringtoets.Common.Data.Properties;
+
+namespace Ringtoets.Common.Data.Contribution
 {
     /// <summary>
     /// This class represents a failure mechanism which has no representative within Ringtoets but 
@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.Data.Contribution
         /// <summary>
         /// Creates a new instance of <see cref="OtherFailureMechanism"/>.
         /// </summary>
-        public OtherFailureMechanism() : base(RingtoetsIntegrationResources.OtherFailureMechanism_DisplayName) { }
+        public OtherFailureMechanism() : base(Resources.OtherFailureMechanism_DisplayName) { }
 
         public override IEnumerable<ICalculationItem> CalculationItems
         {

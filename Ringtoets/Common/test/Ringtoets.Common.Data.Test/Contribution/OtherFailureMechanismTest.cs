@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
-using Ringtoets.Integration.Data.Contribution;
-using Ringtoets.Integration.Data.Properties;
 
-namespace Ringtoets.Integration.Data.Test.Contribution
+using Ringtoets.Common.Data.Contribution;
+
+namespace Ringtoets.Common.Data.Test.Contribution
 {
     [TestFixture]
     public class OtherFailureMechanismTest
@@ -14,7 +14,7 @@ namespace Ringtoets.Integration.Data.Test.Contribution
             var result = new OtherFailureMechanism();
 
             // Assert
-            Assert.AreEqual(Resources.OtherFailureMechanism_DisplayName, result.Name);
+            Assert.AreEqual("Overig", result.Name);
         }
     }
 }

@@ -5,7 +5,8 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Integration.Data.Contribution;
+
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Integration.Plugin;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsIntegrationDataResources = Ringtoets.Integration.Data.Properties.Resources;

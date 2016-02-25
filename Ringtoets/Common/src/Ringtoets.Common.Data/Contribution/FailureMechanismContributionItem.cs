@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data;
-using Ringtoets.Integration.Data.Properties;
 
 using CommonResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Integration.Data.Contribution
+namespace Ringtoets.Common.Data.Contribution
 {
     /// <summary>
     /// This class represents an amount for which a failure mechanism will contribute to the 
@@ -44,7 +42,7 @@ namespace Ringtoets.Integration.Data.Contribution
         {
             if (failureMechanism == null)
             {
-                throw new ArgumentNullException("failureMechanism", Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
+                throw new ArgumentNullException("failureMechanism", CommonResources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
             }
             Assessment = failureMechanism.Name;
             Contribution = failureMechanism.Contribution;

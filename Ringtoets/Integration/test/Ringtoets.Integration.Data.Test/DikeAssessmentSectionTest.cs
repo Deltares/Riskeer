@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.Integration.Data.Contribution;
+
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Piping.Data;
 
 using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
@@ -38,7 +39,7 @@ namespace Ringtoets.Integration.Data.Test
                 stoneRevetmentName,
                 asphaltName,
                 grassRevetmentName,
-                RingtoetsIntegrationResources.OtherFailureMechanism_DisplayName
+                "Overig"
             };
 
             // Assert
@@ -138,7 +139,7 @@ namespace Ringtoets.Integration.Data.Test
                 Assert.AreEqual(norm, contribution[i].Norm);
                 Assert.AreEqual((norm / contribution[i].Contribution) * 100, contribution[i].ProbabilitySpace);
             }
-            Assert.AreEqual(RingtoetsIntegrationResources.OtherFailureMechanism_DisplayName, contribution[9].Assessment);
+            Assert.AreEqual("Overig", contribution[9].Assessment);
             Assert.AreEqual(30, contribution[9].Contribution);
             Assert.AreEqual(norm, contribution[9].Norm);
             Assert.AreEqual((norm / contribution[9].Contribution) * 100, 100000);

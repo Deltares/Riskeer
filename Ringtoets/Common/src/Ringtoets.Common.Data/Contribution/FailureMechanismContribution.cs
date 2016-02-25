@@ -21,13 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+
 using Core.Common.Base;
 using Core.Common.Utils.Extensions;
 
-using Ringtoets.Common.Data;
-using Ringtoets.Integration.Data.Properties;
+using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Integration.Data.Contribution
+namespace Ringtoets.Common.Data.Contribution
 {
     /// <summary>
     /// This class represents the distribution of all failure mechanism contributions.

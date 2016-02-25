@@ -115,11 +115,49 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan geen bijdrageoverzicht maken zonder faalmechanismen..
+        /// </summary>
+        public static string FailureMechanismContribution_FailureMechanismContribution_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection {
+            get {
+                return ResourceManager.GetString("FailureMechanismContribution_FailureMechanismContribution_Can_not_create_FailureM" +
+                        "echanismContribution_without_FailureMechanism_collection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan geen bijdrage element maken zonder een faalmechanisme..
+        /// </summary>
+        public static string FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure" +
+                        "_mechanism", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De faalkansbijdrage kan alleen bepaald worden als de norm van het traject groter is dan 0..
+        /// </summary>
+        public static string FailureMechanismContributionItem_Norm_must_be_larger_than_zero {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionItem_Norm_must_be_larger_than_zero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vak moet minstens uit 1 punt bestaan..
         /// </summary>
         public static string FailureMechanismSection_Section_must_have_at_least_1_geometry_point {
             get {
                 return ResourceManager.GetString("FailureMechanismSection_Section_must_have_at_least_1_geometry_point", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overig.
+        /// </summary>
+        public static string OtherFailureMechanism_DisplayName {
+            get {
+                return ResourceManager.GetString("OtherFailureMechanism_DisplayName", resourceCulture);
             }
         }
         

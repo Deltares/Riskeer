@@ -1,12 +1,14 @@
 ﻿using System;
-using Core.Common.TestUtil;
-using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data;
-using Ringtoets.Integration.Data.Contribution;
-using Ringtoets.Integration.Data.Properties;
 
-namespace Ringtoets.Integration.Data.Test.Contribution
+using Core.Common.TestUtil;
+
+using NUnit.Framework;
+
+using Rhino.Mocks;
+
+using Ringtoets.Common.Data.Contribution;
+
+namespace Ringtoets.Common.Data.Test.Contribution
 {
     [TestFixture]
     public class FailureMechanismContributionItemTest
@@ -32,7 +34,8 @@ namespace Ringtoets.Integration.Data.Test.Contribution
             };
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, Resources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
+            const string expectedMessage = "Kan geen bijdrage element maken zonder een faalmechanisme.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
