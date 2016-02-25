@@ -239,6 +239,8 @@ namespace Ringtoets.Piping.Plugin
             }
 
             return Gui.Get(failureMechanism, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
                       .AddCustomItem(addCalculationGroupItem)
                       .AddCustomItem(addCalculationItem)
                       .AddSeparator()
