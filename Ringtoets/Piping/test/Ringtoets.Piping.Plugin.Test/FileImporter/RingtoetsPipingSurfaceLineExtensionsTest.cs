@@ -28,9 +28,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             var random = new Random(21);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
+            var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = "testName"
@@ -41,12 +39,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Call
             Action test = () =>
             {
-                result = surfaceLine.TrySetDitchPolderSide(new Point3D(x, y, z));
+                result = surfaceLine.TrySetDitchPolderSide(testPoint);
             };
 
             // Assert
-            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie ({0},{1},{2}) om als '{3}' in te stellen.",
-                x, y, z, Data.Properties.Resources.CharacteristicPoint_DitchPolderSide);
+            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
+                testPoint, Data.Properties.Resources.CharacteristicPoint_DitchPolderSide);
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
         }
@@ -91,9 +89,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             var random = new Random(21);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
+            var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = "testName"
@@ -104,12 +100,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Call
             Action test = () =>
             {
-                result = surfaceLine.TrySetBottomDitchDikeSide(new Point3D(x, y, z));
+                result = surfaceLine.TrySetBottomDitchDikeSide(testPoint);
             };
 
             // Assert
-            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie ({0},{1},{2}) om als '{3}' in te stellen.",
-                x, y, z, Data.Properties.Resources.CharacteristicPoint_BottomDitchDikeSide);
+            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
+                testPoint, Data.Properties.Resources.CharacteristicPoint_BottomDitchDikeSide);
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
         }
@@ -154,9 +150,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             var random = new Random(21);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
+            var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = "testName"
@@ -167,12 +161,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Call
             Action test = () =>
             {
-                result = surfaceLine.TrySetBottomDitchPolderSide(new Point3D(x, y, z));
+                result = surfaceLine.TrySetBottomDitchPolderSide(testPoint);
             };
 
             // Assert
-            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie ({0},{1},{2}) om als '{3}' in te stellen.",
-                x, y, z, Data.Properties.Resources.CharacteristicPoint_BottomDitchPolderSide);
+            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
+                testPoint, Data.Properties.Resources.CharacteristicPoint_BottomDitchPolderSide);
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
         }
@@ -217,9 +211,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             var random = new Random(21);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
+            var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = "testName"
@@ -230,12 +222,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Call
             Action test = () =>
             {
-                result = surfaceLine.TrySetDitchDikeSide(new Point3D(x, y, z));
+                result = surfaceLine.TrySetDitchDikeSide(testPoint);
             };
 
             // Assert
-            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie ({0},{1},{2}) om als '{3}' in te stellen.",
-                x, y, z, Data.Properties.Resources.CharacteristicPoint_DitchDikeSide);
+            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
+                testPoint, Data.Properties.Resources.CharacteristicPoint_DitchDikeSide);
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
         }
@@ -280,9 +272,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             var random = new Random(21);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
+            var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = "testName"
@@ -293,12 +283,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Call
             Action test = () =>
             {
-                result = surfaceLine.TrySetDikeToeAtPolder(new Point3D(x, y, z));
+                result = surfaceLine.TrySetDikeToeAtPolder(testPoint);
             };
 
             // Assert
-            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie ({0},{1},{2}) om als '{3}' in te stellen.",
-                x, y, z, Data.Properties.Resources.CharacteristicPoint_DikeToeAtPolder);
+            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
+                testPoint, Data.Properties.Resources.CharacteristicPoint_DikeToeAtPolder);
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
         }
@@ -343,9 +333,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             var random = new Random(21);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
+            var testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = "testName"
@@ -356,12 +344,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Call
             Action test = () =>
             {
-                result = surfaceLine.TrySetDikeToeAtRiver(new Point3D(x, y, z));
+                result = surfaceLine.TrySetDikeToeAtRiver(testPoint);
             };
 
             // Assert
-            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie ({0},{1},{2}) om als '{3}' in te stellen.",
-                x, y, z, Data.Properties.Resources.CharacteristicPoint_DikeToeAtRiver);
+            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
+                testPoint, Data.Properties.Resources.CharacteristicPoint_DikeToeAtRiver);
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
         }

@@ -6,10 +6,23 @@ using Ringtoets.Piping.Plugin.Properties;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
+    /// <summary>
+    /// Extension methods for the <see cref="RingtoetsPipingSurfaceLine"/> class.
+    /// </summary>
     public static class RingtoetsPipingSurfaceLineExtensions
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(RingtoetsPipingSurfaceLineExtensions));
 
+        /// <summary>
+        /// Tries to set the <see cref="RingtoetsPipingSurfaceLine.DitchPolderSide"/> at the location of
+        /// <paramref name="point"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
+        /// <see cref="RingtoetsPipingSurfaceLine.DitchPolderSide"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.DitchPolderSide"/>.</param>
+        /// <returns><c>true</c> if the <see cref="RingtoetsPipingSurfaceLine.DitchPolderSide"/> was set, <c>false</c> if
+        /// <paramref name="point"/> is <c>null</c> or there is no point in <paramref name="surfaceLine"/> at the location
+        /// of <paramref name="point"/>.</returns>
         public static bool TrySetDitchPolderSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
@@ -27,6 +40,16 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return false;
         }
 
+        /// <summary>
+        /// Tries to set the <see cref="RingtoetsPipingSurfaceLine.BottomDitchPolderSide"/> at the location of
+        /// <paramref name="point"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
+        /// <see cref="RingtoetsPipingSurfaceLine.BottomDitchPolderSide"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.BottomDitchPolderSide"/>.</param>
+        /// <returns><c>true</c> if the <see cref="RingtoetsPipingSurfaceLine.BottomDitchPolderSide"/> was set, <c>false</c> if
+        /// <paramref name="point"/> is <c>null</c> or there is no point in <paramref name="surfaceLine"/> at the location
+        /// of <paramref name="point"/>.</returns>
         public static bool TrySetBottomDitchPolderSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
@@ -44,6 +67,16 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return false;
         }
 
+        /// <summary>
+        /// Tries to set the <see cref="RingtoetsPipingSurfaceLine.BottomDitchDikeSide"/> at the location of
+        /// <paramref name="point"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
+        /// <see cref="RingtoetsPipingSurfaceLine.BottomDitchDikeSide"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.BottomDitchDikeSide"/>.</param>
+        /// <returns><c>true</c> if the <see cref="RingtoetsPipingSurfaceLine.BottomDitchDikeSide"/> was set, <c>false</c> if
+        /// <paramref name="point"/> is <c>null</c> or there is no point in <paramref name="surfaceLine"/> at the location
+        /// of <paramref name="point"/>.</returns>
         public static bool TrySetBottomDitchDikeSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
@@ -61,6 +94,16 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return false;
         }
 
+        /// <summary>
+        /// Tries to set the <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/> at the location of
+        /// <paramref name="point"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
+        /// <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/>.</param>
+        /// <returns><c>true</c> if the <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/> was set, <c>false</c> if
+        /// <paramref name="point"/> is <c>null</c> or there is no point in <paramref name="surfaceLine"/> at the location
+        /// of <paramref name="point"/>.</returns>
         public static bool TrySetDitchDikeSide(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
@@ -78,6 +121,16 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return false;
         }
 
+        /// <summary>
+        /// Tries to set the <see cref="RingtoetsPipingSurfaceLine.DikeToeAtRiver"/> at the location of
+        /// <paramref name="point"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
+        /// <see cref="RingtoetsPipingSurfaceLine.DikeToeAtRiver"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.DikeToeAtRiver"/>.</param>
+        /// <returns><c>true</c> if the <see cref="RingtoetsPipingSurfaceLine.DikeToeAtRiver"/> was set, <c>false</c> if
+        /// <paramref name="point"/> is <c>null</c> or there is no point in <paramref name="surfaceLine"/> at the location
+        /// of <paramref name="point"/>.</returns>
         public static bool TrySetDikeToeAtRiver(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)
@@ -95,6 +148,16 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return false;
         }
 
+        /// <summary>
+        /// Tries to set the <see cref="RingtoetsPipingSurfaceLine.DikeToeAtPolder"/> at the location of
+        /// <paramref name="point"/>.
+        /// </summary>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to set the 
+        /// <see cref="RingtoetsPipingSurfaceLine.DikeToeAtPolder"/> for.</param>
+        /// <param name="point">The point at which to set the <see cref="RingtoetsPipingSurfaceLine.DikeToeAtPolder"/>.</param>
+        /// <returns><c>true</c> if the <see cref="RingtoetsPipingSurfaceLine.DikeToeAtPolder"/> was set, <c>false</c> if
+        /// <paramref name="point"/> is <c>null</c> or there is no point in <paramref name="surfaceLine"/> at the location
+        /// of <paramref name="point"/>.</returns>
         public static bool TrySetDikeToeAtPolder(this RingtoetsPipingSurfaceLine surfaceLine, Point3D point)
         {
             if (point != null)

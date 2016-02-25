@@ -278,12 +278,12 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De geometrie bevat geen punt op locatie ({0},{1},{2}) om als &apos;{3}&apos; in te stellen..
+        ///   Looks up a localized string similar to De geometrie bevat geen punt op locatie {0} om als &apos;{1}&apos; in te stellen..
         /// </summary>
-        public static string RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_ {
+        public static string RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_ {
             get {
                 return ResourceManager.GetString("RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_poi" +
-                        "nt_at_0_1_2_to_assign_as_characteristic_point_3_", resourceCulture);
+                        "nt_at_0_to_assign_as_characteristic_point_1_", resourceCulture);
             }
         }
         

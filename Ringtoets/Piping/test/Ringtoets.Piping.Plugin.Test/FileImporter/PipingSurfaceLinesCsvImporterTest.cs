@@ -26,8 +26,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         private readonly string ioTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "SurfaceLines");
         private readonly string pluginTestDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.Plugin, "SurfaceLines");
 
-        private string krpFormat = ("{0}.krp.csv");
-        private string surfaceLineFormat = ("{0}.csv");
+        private readonly string krpFormat = "{0}.krp.csv";
+        private readonly string surfaceLineFormat = "{0}.csv";
 
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -1016,10 +1016,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(observableSurfaceLinesList, surfaceLines);
 
             // Assert
-            var pointFormat = string.Format(PipingDataResources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_,
-                0,
-                1,
-                2,
+            var pointFormat = string.Format(PipingDataResources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                new Point3D(0, 1, 2),
                 characteristicPointName);
             var expectedLogMessages = new[]
             {

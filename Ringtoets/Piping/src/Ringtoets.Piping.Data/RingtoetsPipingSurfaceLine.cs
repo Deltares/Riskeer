@@ -134,8 +134,6 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
-        /// <paramref name="point"/>.</exception>
         public void SetDitchPolderSideAt(Point3D point)
         {
             var geometryPoint = GetPointFromGeometry(point);
@@ -153,8 +151,6 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
-        /// <paramref name="point"/>.</exception>
         public void SetBottomDitchPolderSideAt(Point3D point)
         {
             var geometryPoint = GetPointFromGeometry(point);
@@ -172,8 +168,6 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
-        /// <paramref name="point"/>.</exception>
         public void SetBottomDitchDikeSideAt(Point3D point)
         {
             var geometryPoint = GetPointFromGeometry(point);
@@ -191,8 +185,6 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
-        /// <paramref name="point"/>.</exception>
         public void SetDitchDikeSideAt(Point3D point)
         {
             var geometryPoint = GetPointFromGeometry(point);
@@ -210,8 +202,6 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
-        /// <paramref name="point"/>.</exception>
         public void SetDikeToeAtRiverAt(Point3D point)
         {
             var geometryPoint = GetPointFromGeometry(point);
@@ -229,8 +219,6 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
-        /// <paramref name="point"/>.</exception>
         public void SetDikeToeAtPolderAt(Point3D point)
         {
             var geometryPoint = GetPointFromGeometry(point);
@@ -330,10 +318,8 @@ namespace Ringtoets.Piping.Data
 
         private static ArgumentException CreatePointNotInGeometryException(Point3D point, string characteristicPointDescription)
         {
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_,
-                                        point.X,
-                                        point.Y,
-                                        point.Z,
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                                        point,
                                         characteristicPointDescription);
             return new ArgumentException(message);
         }
@@ -360,12 +346,14 @@ namespace Ringtoets.Piping.Data
         /// defined by <paramref name="geometryInLocalCoordinates"/>.</exception>
         private static void ValidateInRange(double localCoordinateL, Point2D[] geometryInLocalCoordinates)
         {
-            if (geometryInLocalCoordinates.First().X > localCoordinateL || geometryInLocalCoordinates.Last().X < localCoordinateL)
+            Point2D firstLocalPoint = geometryInLocalCoordinates.First();
+            Point2D lastLocalPoint = geometryInLocalCoordinates.Last();
+            if (firstLocalPoint.X > localCoordinateL || lastLocalPoint.X < localCoordinateL)
             {
                 var outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range,
                                                       Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height,
-                                                      geometryInLocalCoordinates.First().X,
-                                                      geometryInLocalCoordinates.Last().X);
+                                                      firstLocalPoint.X,
+                                                      lastLocalPoint.X);
                 throw new ArgumentOutOfRangeException("localCoordinateL", outOfRangeMessage);
             }
         }

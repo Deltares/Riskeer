@@ -331,18 +331,15 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
-            Point3D testPoint = new Point3D(x, y, z);
+            Point3D testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
             TestDelegate test = () => surfaceLine.SetDitchPolderSideAt(testPoint);
 
             // Assert
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_,
-                x, y, z, Resources.CharacteristicPoint_DitchPolderSide);
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                testPoint, Resources.CharacteristicPoint_DitchPolderSide);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -383,18 +380,15 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
-            Point3D testPoint = new Point3D(x, y, z);
+            Point3D testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
             TestDelegate test = () => surfaceLine.SetBottomDitchPolderSideAt(testPoint);
 
             // Assert
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_,
-                x, y, z, Resources.CharacteristicPoint_BottomDitchPolderSide);
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                testPoint, Resources.CharacteristicPoint_BottomDitchPolderSide);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -435,18 +429,15 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
-            Point3D testPoint = new Point3D(x, y, z);
+            Point3D testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
             TestDelegate test = () => surfaceLine.SetBottomDitchDikeSideAt(testPoint);
 
             // Assert
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_,
-                x, y, z, Resources.CharacteristicPoint_BottomDitchDikeSide);
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                testPoint, Resources.CharacteristicPoint_BottomDitchDikeSide);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -487,18 +478,15 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
-            Point3D testPoint = new Point3D(x, y, z);
+            Point3D testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
             TestDelegate test = () => surfaceLine.SetDitchDikeSideAt(testPoint);
 
             // Assert
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_,
-                x, y, z, Resources.CharacteristicPoint_DitchDikeSide);
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                testPoint, Resources.CharacteristicPoint_DitchDikeSide);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -539,18 +527,15 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
-            Point3D testPoint = new Point3D(x, y, z);
+            Point3D testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
             TestDelegate test = () => surfaceLine.SetDikeToeAtRiverAt(testPoint);
 
             // Assert
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_,
-                x, y, z, Resources.CharacteristicPoint_DikeToeAtRiver);
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                testPoint, Resources.CharacteristicPoint_DikeToeAtRiver);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
@@ -591,18 +576,15 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var x = random.NextDouble();
-            var y = random.NextDouble();
-            var z = random.NextDouble();
-            Point3D testPoint = new Point3D(x, y, z);
+            Point3D testPoint = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
             TestDelegate test = () => surfaceLine.SetDikeToeAtPolderAt(testPoint);
 
             // Assert
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_1_2_to_assign_as_characteristic_point_3_,
-                x, y, z, Resources.CharacteristicPoint_DikeToeAtPolder);
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                testPoint, Resources.CharacteristicPoint_DikeToeAtPolder);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
         }
 
