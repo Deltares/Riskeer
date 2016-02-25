@@ -44,7 +44,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         /// <summary>
         /// Returns the query to get the amount of relevant locations from the database.
         /// </summary>
-        /// <remarks>Locations are relevant when <see cref="HrdLocationsTableDefinitions.LocationTypeId"/> > 1.</remarks>
         /// <returns>The query to get the amount of relevant locations from the database.</returns>
         public static string GetRelevantLocationsCountQuery()
         {
@@ -53,26 +52,25 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
                 HrdLocationsTableDefinitions.HrdLocationId,
                 HrdLocationsTableDefinitions.Count,
                 HrdLocationsTableDefinitions.TableName,
-                HrdLocationsTableDefinitions.LocationTypeId
+                HrdLocationsTableDefinitions.LocationTypeId // Value > 1 makes it relevant
                 );
         }
 
         /// <summary>
         /// Returns the query to get the all relevant locations from the database.
         /// </summary>
-        /// <remarks>Locations are relevant when <see cref="HrdLocationsTableDefinitions.LocationTypeId"/> > 1.</remarks>
         /// <returns>The query to get the all relevant locations from the database.</returns>
         public static string GetRelevantLocationsQuery()
         {
             return string.Format(
-                "SELECT {0}, {1}, {2}, {3} FROM " +
-                "{4} WHERE {5} > 1;",
+                "SELECT {0}, {1}, {2}, {3} FROM {4} WHERE {5} > 1;",
                 HrdLocationsTableDefinitions.HrdLocationId,
                 HrdLocationsTableDefinitions.Name,
                 HrdLocationsTableDefinitions.XCoordinate,
                 HrdLocationsTableDefinitions.YCoordinate,
                 HrdLocationsTableDefinitions.TableName,
-                HrdLocationsTableDefinitions.LocationTypeId);
+                HrdLocationsTableDefinitions.LocationTypeId // Value > 1 makes it relevant
+                ); 
         }
     }
 }

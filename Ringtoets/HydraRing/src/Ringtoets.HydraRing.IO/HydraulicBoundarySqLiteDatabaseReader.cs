@@ -40,9 +40,8 @@ namespace Ringtoets.HydraRing.IO
         private SQLiteDataReader sqliteDataReader;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundarySqLiteDatabaseReader"/>, which will use 
-        /// the <paramref name="databaseFilePath"/>
-        /// as its source.
+        /// Creates a new instance of <see cref="HydraulicBoundarySqLiteDatabaseReader"/>, 
+        /// which will use the <paramref name="databaseFilePath"/> as its source.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -62,16 +61,16 @@ namespace Ringtoets.HydraRing.IO
         /// <summary>
         /// Reads the next location from the database.
         /// </summary>
-        /// <returns>New instance of <see cref="HydraulicBoundaryLocation"/>, based on the data read from the 
-        /// database or <c>null</c> if no data is available.</returns>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
+        /// <returns>New instance of <see cref="HydraulicBoundaryLocation"/>, based on the 
+        /// data read from the database or <c>null</c> if no data is available.</returns>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect 
+        /// values for required properties.</exception>
         public void PrepareReadLocation()
         {
             CloseDataReader();
             HasNext = false;
 
-            var locationsQuery = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsQuery();
+            string locationsQuery = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsQuery();
             sqliteDataReader = CreateDataReader(locationsQuery, new SQLiteParameter
             {
                 DbType = DbType.String
@@ -101,8 +100,10 @@ namespace Ringtoets.HydraRing.IO
         /// <summary>
         /// Gets the database version from the metadata table.
         /// </summary>
-        /// <exception cref="LineParseException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
+        /// <returns>The version found in the database, or an empty string if the version
+        /// cannot be found.</returns>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect 
+        /// values for required properties.</exception>
         public string GetVersion()
         {
             string versionQuery = HydraulicBoundaryDatabaseQueryBuilder.GetVersionQuery();
@@ -110,12 +111,13 @@ namespace Ringtoets.HydraRing.IO
             {
                 DbType = DbType.String
             };
-            using (var dataReader = CreateDataReader(versionQuery, sqliteParameter))
+            using (SQLiteDataReader dataReader = CreateDataReader(versionQuery, sqliteParameter))
             {
                 if (!dataReader.Read())
                 {
                     return "";
                 }
+
                 try
                 {
                     return (string) dataReader[GeneralTableDefinitions.GeneratedVersion];
@@ -132,8 +134,8 @@ namespace Ringtoets.HydraRing.IO
         /// <summary>
         /// Gets the amount of locations that can be read from the database.
         /// </summary>
-        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
-        /// required properties.</exception>
+        /// <exception cref="InvalidCastException">Thrown when the database returned incorrect 
+        /// values for required properties.</exception>
         public int GetLocationCount()
         {
             string locationCountQuery = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsCountQuery();
@@ -141,15 +143,16 @@ namespace Ringtoets.HydraRing.IO
             {
                 DbType = DbType.String
             };
-            using (var dataReader = CreateDataReader(locationCountQuery, sqliteParameter))
+            using (SQLiteDataReader dataReader = CreateDataReader(locationCountQuery, sqliteParameter))
             {
                 if (!dataReader.Read())
                 {
                     return 0;
                 }
+
                 try
                 {
-                    return (int) (long) dataReader[HrdLocationsTableDefinitions.Count];
+                    return Convert.ToInt32(dataReader[HrdLocationsTableDefinitions.Count]);
                 }
                 catch (InvalidCastException e)
                 {

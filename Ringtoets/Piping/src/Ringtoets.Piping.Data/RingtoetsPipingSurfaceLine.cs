@@ -325,8 +325,7 @@ namespace Ringtoets.Piping.Data
             {
                 throw new ArgumentNullException("point", "Cannot find a point in geometry using a null point.");
             }
-            var pointFromGeometry = Points.FirstOrDefault(p => p.Equals(point));
-            return pointFromGeometry;
+            return Points.FirstOrDefault(p => p.Equals(point));
         }
 
         private static ArgumentException CreatePointNotInGeometryException(Point3D point, string characteristicPointDescription)

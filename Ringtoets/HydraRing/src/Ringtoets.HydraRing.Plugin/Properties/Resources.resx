@@ -120,17 +120,8 @@
   <data name="HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped" xml:space="preserve">
     <value>{0} Het bestand wordt overgeslagen.</value>
   </data>
-  <data name="HydraulicBoundaryLocationsImporter_Import_cancelled" xml:space="preserve">
-    <value>Het importeren van hydraulische randvoorwaarden locaties is afgebroken. Er is geen data ingelezen.</value>
-  </data>
   <data name="HydraulicBoundaryLocationsImporter_Import_Import_successful" xml:space="preserve">
     <value>De hydraulische randvoorwaarden locaties zijn ingelezen.</value>
-  </data>
-  <data name="HydraulicBoundaryLocationsImporter_ReadHydraulicBoundaryLocations" xml:space="preserve">
-    <value>Inlezen van de de hydraulische randvoorwaarden database.</value>
-  </data>
-  <data name="HydraulicBoundaryLocationsImporter_GetHydraulicBoundaryLocationReadResult" xml:space="preserve">
-    <value>Inlezen van de locaties uit de hydraulische randvoorwaarden database.</value>
   </data>
   <data name="HydraulicBoundaryLocationsImporter_Import_The_file_is_not_opened" xml:space="preserve">
     <value>Er is nog geen bestand geopend.</value>

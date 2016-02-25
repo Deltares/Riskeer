@@ -41,16 +41,8 @@ namespace Ringtoets.HydraRing.Plugin
     public class HydraulicBoundaryDatabaseImporter : IDisposable
     {
         private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryDatabaseImporter));
-        private bool importIsCancelled;
 
         private HydraulicBoundarySqLiteDatabaseReader hydraulicBoundaryDatabaseReader;
-
-        public ProgressChangedDelegate ProgressChanged { private get; set; }
-
-        public void Cancel()
-        {
-            importIsCancelled = true;
-        }
 
         /// <summary>
         /// Validates the file and opens a connection.
@@ -89,13 +81,6 @@ namespace Ringtoets.HydraRing.Plugin
 
             var importResult = GetHydraulicBoundaryDatabase(filePath);
 
-            if (importIsCancelled)
-            {
-                log.Info(ApplicationResources.HydraulicBoundaryLocationsImporter_Import_cancelled);
-                importIsCancelled = false;
-                return false;
-            }
-
             if (importResult == null)
             {
                 return false;
@@ -115,14 +100,6 @@ namespace Ringtoets.HydraRing.Plugin
             }
         }
 
-        private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
-        {
-            if (ProgressChanged != null)
-            {
-                ProgressChanged(currentStepName, currentStep, totalNumberOfSteps);
-            }
-        }
-
         private void HandleException(Exception e)
         {
             var message = string.Format(ApplicationResources.HydraulicBoundaryLocationsImporter_CriticalErrorMessage_0_File_Skipped, e.Message);
@@ -131,26 +108,17 @@ namespace Ringtoets.HydraRing.Plugin
 
         private HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase(string path)
         {
-            NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_ReadHydraulicBoundaryLocations, 1, 1);
-
             try
             {
-                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     FilePath = path,
                     Version = hydraulicBoundaryDatabaseReader.GetVersion()
                 };
-                var totalNumberOfSteps = hydraulicBoundaryDatabaseReader.GetLocationCount();
-                var currentStep = 1;
 
                 hydraulicBoundaryDatabaseReader.PrepareReadLocation();
                 while (hydraulicBoundaryDatabaseReader.HasNext)
                 {
-                    if (importIsCancelled)
-                    {
-                        return null;
-                    }
-                    NotifyProgress(ApplicationResources.HydraulicBoundaryLocationsImporter_GetHydraulicBoundaryLocationReadResult, currentStep++, totalNumberOfSteps);
                     try
                     {
                         hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryDatabaseReader.ReadLocation());

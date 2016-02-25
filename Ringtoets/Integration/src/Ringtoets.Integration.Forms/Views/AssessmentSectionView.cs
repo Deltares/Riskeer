@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
@@ -105,13 +106,13 @@ namespace Ringtoets.Integration.Forms.Views
 
         private MapData GetReferenceLineData()
         {
-            var referenceLinePoints = data.ReferenceLine.Points.ToList();
+            Point2D[] referenceLinePoints = data.ReferenceLine.Points.ToArray();
             return new MapLineData(referenceLinePoints);
         }
 
         private MapData GetHydraulicBoundaryLocations()
         {
-            var hrLocations = data.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
+            Point2D[] hrLocations = data.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
             return new MapPointData(hrLocations);
         }
 
