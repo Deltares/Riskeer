@@ -41,6 +41,9 @@
     </Compile>
     <Compile Include="Data\AssessmentLevelCalculationData.cs" />
     <Compile Include="Data\HydraRingCalculationData.cs" />
+    <Compile Include="Types\HydraRingDistributionType.cs" />
+    <Compile Include="Types\HydraRingDeviationType.cs" />
+    <Compile Include="Data\HydraRingVariable.cs" />
     <Compile Include="Settings\FailureMechanismDefaults.cs" />
     <Compile Include="Settings\FailureMechanismDefaultsProvider.cs" />
     <Compile Include="Settings\FailureMechanismSettings.cs" />
