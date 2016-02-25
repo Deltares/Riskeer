@@ -6,13 +6,15 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
-
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
+using Ringtoets.Piping.Forms.Views;
 using GuiPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
+using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test
 {
@@ -31,6 +33,25 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsInstanceOf<PipingRibbon>(ringtoetsGuiPlugin.RibbonCommandHandler);
             }
         }
+
+        [Test]
+        public void GetViewInfos_ReturnsSupportedViews()
+        {
+            // Setup
+            using (var guiPlugin = new PipingGuiPlugin())
+            {
+                // Call
+                ViewInfo[] viewInfos = guiPlugin.GetViewInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, viewInfos.Length);
+
+                var contributionViewInfo = viewInfos.Single(vi => vi.DataType == typeof(PipingFailureMechanism));
+                Assert.AreEqual(typeof(PipingFailureMechanismView), contributionViewInfo.ViewType);
+                TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingIcon, contributionViewInfo.Image);
+            }
+        }
+				
 
         [Test]
         public void GetPropertyInfos_ReturnsSupportedPropertyClasses()

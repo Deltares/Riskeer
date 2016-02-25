@@ -6,7 +6,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
-using Core.Plugins.DotSpatial.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.PresentationObjects;

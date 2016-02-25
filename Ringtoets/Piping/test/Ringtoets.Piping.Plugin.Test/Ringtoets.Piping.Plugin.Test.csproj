@@ -59,6 +59,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -99,6 +100,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.DotSpatial\Core.Plugins.DotSpatial.csproj">
+      <Project>{610e0a9c-1997-4c43-a10e-39d4c66ada93}</Project>
+      <Name>Core.Plugins.DotSpatial</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>

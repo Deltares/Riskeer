@@ -35,10 +35,10 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
+using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Service;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
@@ -62,6 +62,15 @@ namespace Ringtoets.Piping.Plugin
             yield return new PropertyInfo<PipingOutput, PipingOutputProperties>();
             yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
             yield return new PropertyInfo<PipingSoilProfile, PipingSoilProfileProperties>();
+        }
+
+        public override IEnumerable<ViewInfo> GetViewInfos()
+        {
+            yield return new ViewInfo<PipingFailureMechanism, PipingFailureMechanismView>
+            {
+                GetViewName = (view, mechanism) => PipingDataResources.PipingFailureMechanism_DisplayName,
+                Image = PipingFormsResources.PipingIcon
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -380,18 +389,18 @@ namespace Ringtoets.Piping.Plugin
         private ContextMenuStrip PipingCalculationContextContextMenuStrip(PipingCalculationContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             PipingCalculation calculation = nodeData.WrappedData;
-            var validateItem = new StrictContextMenuItem(RingtoetsFormsResources.Validate,
-                                                         RingtoetsFormsResources.Validate_ToolTip,
-                                                         RingtoetsFormsResources.ValidateIcon,
+            var validateItem = new StrictContextMenuItem(RingtoetsCommonFormsResources.Validate,
+                                                         RingtoetsCommonFormsResources.Validate_ToolTip,
+                                                         RingtoetsCommonFormsResources.ValidateIcon,
                                                          (o, args) => { PipingCalculationService.Validate(calculation); });
-            var calculateItem = new StrictContextMenuItem(RingtoetsFormsResources.Calculate,
-                                                          RingtoetsFormsResources.Calculate_ToolTip,
-                                                          RingtoetsFormsResources.CalculateIcon,
+            var calculateItem = new StrictContextMenuItem(RingtoetsCommonFormsResources.Calculate,
+                                                          RingtoetsCommonFormsResources.Calculate_ToolTip,
+                                                          RingtoetsCommonFormsResources.CalculateIcon,
                                                           (o, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, new PipingCalculationActivity(calculation)); });
 
             var clearOutputItem = new StrictContextMenuItem(PipingFormsResources.Clear_output,
                                                             PipingFormsResources.Clear_output_ToolTip,
-                                                            RingtoetsFormsResources.ClearIcon,
+                                                            RingtoetsCommonFormsResources.ClearIcon,
                                                             (o, args) => ClearOutput(calculation));
 
             if (!calculation.HasOutput)
@@ -555,9 +564,9 @@ namespace Ringtoets.Piping.Plugin
             var calculateAllItem = CreateCalculateAllItem(group);
 
             var clearAllItem = new StrictContextMenuItem(
-                RingtoetsFormsResources.Clear_all_output,
+                RingtoetsCommonFormsResources.Clear_all_output,
                 PipingFormsResources.PipingCalculationGroup_ClearOutput_ToolTip,
-                RingtoetsFormsResources.ClearIcon, (o, args) =>
+                RingtoetsCommonFormsResources.ClearIcon, (o, args) =>
                 {
                     if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContext_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
                     {
@@ -617,9 +626,9 @@ namespace Ringtoets.Piping.Plugin
         private StrictContextMenuItem CreateCalculateAllItem(PipingCalculationGroup group)
         {
             var menuItem = new StrictContextMenuItem(
-                RingtoetsFormsResources.Calculate_all,
+                RingtoetsCommonFormsResources.Calculate_all,
                 PipingFormsResources.PipingCalculationGroup_CalculateAll_ToolTip,
-                RingtoetsFormsResources.CalculateAllIcon, (o, args) => { CalculateAll(group); });
+                RingtoetsCommonFormsResources.CalculateAllIcon, (o, args) => { CalculateAll(group); });
 
             if (!group.GetPipingCalculations().Any())
             {
@@ -633,9 +642,9 @@ namespace Ringtoets.Piping.Plugin
         private static StrictContextMenuItem CreateValidateAllItem(PipingCalculationGroup group)
         {
             var menuItem = new StrictContextMenuItem(
-                RingtoetsFormsResources.Validate_all,
+                RingtoetsCommonFormsResources.Validate_all,
                 PipingFormsResources.PipingCalculationGroup_Validate_All_ToolTip,
-                RingtoetsFormsResources.ValidateAllIcon, (o, args) => { ValidateAll(group); });
+                RingtoetsCommonFormsResources.ValidateAllIcon, (o, args) => { ValidateAll(group); });
 
             if (!group.GetPipingCalculations().Any())
             {

@@ -107,6 +107,10 @@
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.DotSpatial\Core.Plugins.DotSpatial.csproj">
+      <Project>{610e0a9c-1997-4c43-a10e-39d4c66ada93}</Project>
+      <Name>Core.Plugins.DotSpatial</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
       <Name>Ringtoets.Common.Data</Name>
