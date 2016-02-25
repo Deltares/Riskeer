@@ -354,7 +354,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(observableSurfaceLinesList, corruptPath);
 
             // Assert
-            var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_, "Rotterdam1");
+            var innerMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_, "Rotterdam1");
+            var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, innerMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
             CollectionAssert.IsEmpty(observableSurfaceLinesList,
@@ -827,10 +828,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(observableSurfaceLinesList, surfaceLineFile);
 
             // Assert
+            var innerMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_,
+                "Rotterdam1");
             var expectedLogMessages = new[]
             {
                 string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_file_0_, corruptPath),
-                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_, "Rotterdam1")
+                string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, innerMessage)
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
             Assert.IsFalse(importResult);
