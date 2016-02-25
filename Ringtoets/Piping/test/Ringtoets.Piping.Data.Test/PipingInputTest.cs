@@ -72,8 +72,8 @@ namespace Ringtoets.Piping.Data.Test
             RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
             var firstPointX = 1.0;
             var secondPointX = 4.0;
-            var point1 = new Point3D { X = firstPointX, Y = 0.0, Z = 2.0 };
-            var point2 = new Point3D { X = secondPointX, Y = 0.0, Z = 1.8 };
+            var point1 = new Point3D(firstPointX, 0.0, 2.0);
+            var point2 = new Point3D(secondPointX, 0.0, 1.8);
             surfaceLine.SetGeometry(new []
             {
                 point1,
@@ -98,8 +98,8 @@ namespace Ringtoets.Piping.Data.Test
             RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
             var firstPointX = 1.0;
             var secondPointX = 4.0;
-            var point1 = new Point3D { X = firstPointX, Y = 0.0, Z = 2.0 };
-            var point2 = new Point3D { X = secondPointX, Y = 0.0, Z = 1.8 };
+            var point1 = new Point3D(firstPointX, 0.0, 2.0);
+            var point2 = new Point3D(secondPointX, 0.0, 1.8);
             surfaceLine.SetGeometry(new[]
             {
                 point1,
@@ -123,9 +123,9 @@ namespace Ringtoets.Piping.Data.Test
             var firstPointX = 1.0;
             var secondPointX = 3.0;
             var thirdPointX = 5.0;
-            var point1 = new Point3D { X = firstPointX, Y = 0.0, Z = 2.0 };
-            var point2 = new Point3D { X = secondPointX, Y = 0.0, Z = 1.8 };
-            var point3 = new Point3D { X = thirdPointX, Y = 0.0, Z = 1.8 };
+            var point1 = new Point3D(firstPointX, 0.0, 2.0);
+            var point2 = new Point3D(secondPointX, 0.0, 1.8);
+            var point3 = new Point3D(thirdPointX, 0.0, 1.8);
             surfaceLine.SetGeometry(new[]
             {
                 point1,
@@ -151,9 +151,9 @@ namespace Ringtoets.Piping.Data.Test
             var firstPointX = 1.0;
             var secondPointX = 3.0;
             var thirdPointX = 5.0;
-            var point1 = new Point3D { X = firstPointX, Y = 0.0, Z = 2.0 };
-            var point2 = new Point3D { X = secondPointX, Y = 0.0, Z = 1.8 };
-            var point3 = new Point3D { X = thirdPointX, Y = 0.0, Z = 1.8 };
+            var point1 = new Point3D(firstPointX, 0.0, 2.0);
+            var point2 = new Point3D(secondPointX, 0.0, 1.8);
+            var point3 = new Point3D(thirdPointX, 0.0, 1.8);
             surfaceLine.SetGeometry(new[]
             {
                 point1,

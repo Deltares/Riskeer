@@ -41,12 +41,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Call
             Action test = () =>
             {
-                result = surfaceLine.TrySetDitchPolderSide(new Point3D
-                {
-                    X = x,
-                    Y = y,
-                    Z = z
-                });
+                result = surfaceLine.TrySetDitchPolderSide(new Point3D(x, y, z));
             };
 
             // Assert
@@ -66,12 +61,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var z = random.NextDouble();
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
-            var point = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            var point = new Point3D(x, y, z);
 
             surfaceLine.SetGeometry(new [] { point });
 
@@ -114,12 +104,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Call
             Action test = () =>
             {
-                result = surfaceLine.TrySetBottomDitchDikeSide(new Point3D
-                {
-                    X = x,
-                    Y = y,
-                    Z = z
-                });
+                result = surfaceLine.TrySetBottomDitchDikeSide(new Point3D(x, y, z));
             };
 
             // Assert
@@ -139,12 +124,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var z = random.NextDouble();
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
-            var point = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            var point = new Point3D(x, y, z);
 
             surfaceLine.SetGeometry(new[] { point });
 
@@ -187,12 +167,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Call
             Action test = () =>
             {
-                result = surfaceLine.TrySetBottomDitchPolderSide(new Point3D
-                {
-                    X = x,
-                    Y = y,
-                    Z = z
-                });
+                result = surfaceLine.TrySetBottomDitchPolderSide(new Point3D(x, y, z));
             };
 
             // Assert
@@ -212,12 +187,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var z = random.NextDouble();
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
-            var point = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            var point = new Point3D(x, y, z);
 
             surfaceLine.SetGeometry(new[] { point });
 
@@ -260,12 +230,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Call
             Action test = () =>
             {
-                result = surfaceLine.TrySetDitchDikeSide(new Point3D
-                {
-                    X = x,
-                    Y = y,
-                    Z = z
-                });
+                result = surfaceLine.TrySetDitchDikeSide(new Point3D(x, y, z));
             };
 
             // Assert
@@ -285,12 +250,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var z = random.NextDouble();
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
-            var point = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            var point = new Point3D(x, y, z);
 
             surfaceLine.SetGeometry(new[] { point });
 
@@ -333,12 +293,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Call
             Action test = () =>
             {
-                result = surfaceLine.TrySetDikeToeAtPolder(new Point3D
-                {
-                    X = x,
-                    Y = y,
-                    Z = z
-                });
+                result = surfaceLine.TrySetDikeToeAtPolder(new Point3D(x, y, z));
             };
 
             // Assert
@@ -358,12 +313,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var z = random.NextDouble();
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
-            var point = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            var point = new Point3D(x, y, z);
 
             surfaceLine.SetGeometry(new[] { point });
 
@@ -406,12 +356,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Call
             Action test = () =>
             {
-                result = surfaceLine.TrySetDikeToeAtRiver(new Point3D
-                {
-                    X = x,
-                    Y = y,
-                    Z = z
-                });
+                result = surfaceLine.TrySetDikeToeAtRiver(new Point3D(x, y, z));
             };
 
             // Assert
@@ -431,12 +376,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var z = random.NextDouble();
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
-            var point = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            var point = new Point3D(x, y, z);
 
             surfaceLine.SetGeometry(new[] { point });
 

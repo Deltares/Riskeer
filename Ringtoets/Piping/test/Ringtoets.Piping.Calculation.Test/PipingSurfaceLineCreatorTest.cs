@@ -24,9 +24,9 @@ namespace Ringtoets.Piping.Calculation.Test
             };
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D { X = 0.0, Y = 0.0, Z = 1.1 }, 
-                new Point3D { X = 2.2, Y = 0.0, Z = 3.3 }, 
-                new Point3D { X = 4.4, Y = 0.0, Z = 5.5 }
+                new Point3D (0.0, 0.0, 1.1), 
+                new Point3D (2.2, 0.0, 3.3), 
+                new Point3D (4.4, 0.0, 5.5)
             });
 
             // Call
@@ -52,9 +52,9 @@ namespace Ringtoets.Piping.Calculation.Test
             const double firstX = 4.6;
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D { X = firstX, Y = 0.0, Z = 1.1 }, 
-                new Point3D { X = 7.8, Y = 0.0, Z = 3.3 }, 
-                new Point3D { X = 9.9, Y = 0.0, Z = 5.5 }
+                new Point3D (firstX, 0.0, 1.1), 
+                new Point3D (7.8, 0.0, 3.3), 
+                new Point3D (9.9, 0.0, 5.5)
             });
 
             // Call
@@ -80,9 +80,9 @@ namespace Ringtoets.Piping.Calculation.Test
             };
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D { X = 1.0, Y = 1.0, Z = 2.2 }, 
-                new Point3D { X = 2.0, Y = 3.0, Z = 4.4 }, // Outlier from line specified by extrema
-                new Point3D { X = 3.0, Y = 4.0, Z = 7.7 },
+                new Point3D (1.0, 1.0, 2.2), 
+                new Point3D (2.0, 3.0, 4.4), // Outlier from line specified by extrema
+                new Point3D (3.0, 4.0, 7.7),
             });
 
             // Call
@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Calculation.Test
             };
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D { X = 1.0, Y = 1.0, Z = 2.2 }, 
+                new Point3D (1.0, 1.0, 2.2), 
             });
 
             // Call

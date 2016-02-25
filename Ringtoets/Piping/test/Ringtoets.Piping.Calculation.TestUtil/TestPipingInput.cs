@@ -82,20 +82,9 @@ namespace Ringtoets.Piping.Calculation.TestUtil
             var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
             ringtoetsPipingSurfaceLine.SetGeometry(new[]
             {
-                new Point3D
-                {
-                    X = 0, Y = 0, Z = 2
-                },
-                new Point3D
-                {
-                    X = 1, Y = 0, Z = 8
-
-                },
-                new Point3D
-                {
-                    X = 2, Y = 0, Z = -1
-
-                }
+                new Point3D (0, 0, 2),
+                new Point3D (1, 0, 8),
+                new Point3D (2, 0, -1)
             });
             return ringtoetsPipingSurfaceLine;
         }

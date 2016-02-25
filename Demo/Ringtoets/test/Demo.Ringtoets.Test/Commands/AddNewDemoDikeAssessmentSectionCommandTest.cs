@@ -92,33 +92,33 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.IsNotNull(surfaceLine3);
             Assert.IsNotNull(surfaceLine4);
 
-            Assert.AreEqual(new Point3D {X = 155883.762, Y = 569864.416, Z = 0.53}, surfaceLine1.DitchPolderSide);
-            Assert.AreEqual(new Point3D {X = 155882.067, Y = 569866.157, Z = -1.9}, surfaceLine1.BottomDitchPolderSide);
-            Assert.AreEqual(new Point3D {X = 155874.184, Y = 569874.252, Z = -1.9}, surfaceLine1.BottomDitchDikeSide);
-            Assert.AreEqual(new Point3D {X = 155872.224, Y = 569876.265, Z = 0.91}, surfaceLine1.DitchDikeSide);
-            Assert.AreEqual(new Point3D {X = 155864.173, Y = 569884.532, Z = 0.95}, surfaceLine1.DikeToeAtPolder);
-            Assert.AreEqual(new Point3D {X = 155797.109, Y = 569953.4, Z = -4}, surfaceLine1.DikeToeAtRiver);
+            Assert.AreEqual(new Point3D (155883.762, 569864.416, 0.53), surfaceLine1.DitchPolderSide);
+            Assert.AreEqual(new Point3D (155882.067, 569866.157, -1.9), surfaceLine1.BottomDitchPolderSide);
+            Assert.AreEqual(new Point3D (155874.184, 569874.252, -1.9), surfaceLine1.BottomDitchDikeSide);
+            Assert.AreEqual(new Point3D (155872.224, 569876.265, 0.91), surfaceLine1.DitchDikeSide);
+            Assert.AreEqual(new Point3D (155864.173, 569884.532, 0.95), surfaceLine1.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D (155797.109, 569953.4, -4), surfaceLine1.DikeToeAtRiver);
             
             Assert.IsNull(surfaceLine2.DitchPolderSide);
             Assert.IsNull(surfaceLine2.BottomDitchPolderSide);
             Assert.IsNull(surfaceLine2.BottomDitchDikeSide);
             Assert.IsNull(surfaceLine2.DitchDikeSide);
-            Assert.AreEqual(new Point3D { X = 155558.754, Y = 569618.729, Z = 1.45}, surfaceLine2.DikeToeAtPolder);
-            Assert.AreEqual(new Point3D { X = 155505.259, Y = 569701.229, Z = -4 }, surfaceLine2.DikeToeAtRiver);
+            Assert.AreEqual(new Point3D (155558.754, 569618.729, 1.45), surfaceLine2.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D (155505.259, 569701.229, -4), surfaceLine2.DikeToeAtRiver);
             
-            Assert.AreEqual(new Point3D { X = 155063.763, Y = 569276.113, Z = -0.5}, surfaceLine3.DitchPolderSide);
-            Assert.AreEqual(new Point3D { X = 155063.272, Y = 569276.926, Z = -1.45 }, surfaceLine3.BottomDitchPolderSide);
-            Assert.AreEqual(new Point3D { X = 155056.855, Y = 569287.56, Z = -1.45 }, surfaceLine3.BottomDitchDikeSide);
-            Assert.AreEqual(new Point3D { X = 155056.297, Y = 569288.485, Z = -0.37}, surfaceLine3.DitchDikeSide);
-            Assert.AreEqual(new Point3D { X = 155047.587, Y = 569302.917, Z = 1.42}, surfaceLine3.DikeToeAtPolder);
-            Assert.AreEqual(new Point3D { X = 154999.006, Y = 569383.419, Z = -4 }, surfaceLine3.DikeToeAtRiver);
+            Assert.AreEqual(new Point3D (155063.763, 569276.113, -0.5), surfaceLine3.DitchPolderSide);
+            Assert.AreEqual(new Point3D (155063.272, 569276.926, -1.45), surfaceLine3.BottomDitchPolderSide);
+            Assert.AreEqual(new Point3D (155056.855, 569287.56, -1.45), surfaceLine3.BottomDitchDikeSide);
+            Assert.AreEqual(new Point3D (155056.297, 569288.485, -0.37), surfaceLine3.DitchDikeSide);
+            Assert.AreEqual(new Point3D (155047.587, 569302.917, 1.42), surfaceLine3.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D (154999.006, 569383.419, -4), surfaceLine3.DikeToeAtRiver);
 
             Assert.IsNull(surfaceLine4.DitchPolderSide);
             Assert.IsNull(surfaceLine4.BottomDitchPolderSide);
             Assert.IsNull(surfaceLine4.BottomDitchDikeSide);
             Assert.IsNull(surfaceLine4.DitchDikeSide);
-            Assert.AreEqual(new Point3D { X = 154682.383, Y = 568112.623, Z = 1.55}, surfaceLine4.DikeToeAtPolder);
-            Assert.AreEqual(new Point3D { X = 154586.088, Y = 568119.17, Z = -4 }, surfaceLine4.DikeToeAtRiver);
+            Assert.AreEqual(new Point3D (154682.383, 568112.623, 1.55), surfaceLine4.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D (154586.088, 568119.17, -4), surfaceLine4.DikeToeAtRiver);
         }
 
         private void AssertCalculationAbleToCalculate(PipingCalculation calculation)

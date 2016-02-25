@@ -66,18 +66,8 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D
-                {
-                    X = 0.0,
-                    Y = 0.0,
-                    Z = 0.0
-                }, 
-                new Point3D
-                {
-                    X = 1.0,
-                    Y = 0.0,
-                    Z = 1.0 
-                }
+                new Point3D(0.0, 0.0, 0.0), 
+                new Point3D(1.0, 0.0, 1.0)
             });
             var pipingInput = new PipingInput
             {
@@ -123,18 +113,8 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D
-                {
-                    X = 0.0,
-                    Y = 0.0,
-                    Z = 0.0
-                },
-                new Point3D
-                {
-                    X = 1.0,
-                    Y = 0.0,
-                    Z = 1.0
-                }
+                new Point3D(0.0, 0.0, 0.0),
+                new Point3D(1.0, 0.0, 1.0)
             });
             return surfaceLine;
         }

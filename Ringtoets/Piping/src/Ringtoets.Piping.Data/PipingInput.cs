@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
-
 using Ringtoets.Piping.Data.Probabilistics;
 
 namespace Ringtoets.Piping.Data
@@ -213,8 +212,8 @@ namespace Ringtoets.Piping.Data
 
         private void UpdateValuesBasedOnSurfaceLine()
         {
-            var entryPointIndex = Array.IndexOf(surfaceLine.Points.ToArray(), surfaceLine.DikeToeAtRiver);
-            var exitPointIndex = Array.IndexOf(surfaceLine.Points.ToArray(), surfaceLine.DikeToeAtPolder);
+            var entryPointIndex = Array.IndexOf(surfaceLine.Points, surfaceLine.DikeToeAtRiver);
+            var exitPointIndex = Array.IndexOf(surfaceLine.Points, surfaceLine.DikeToeAtPolder);
 
             var localGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
 

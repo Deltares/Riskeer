@@ -151,11 +151,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             double meanDiameter70 = random.NextDouble();
             double beddingAngle = random.NextDouble();
             double entryPointL = random.NextDouble();
-            double exitPointL = entryPointL + random.NextDouble();
-
-            // Precondition
-            Assert.Greater(exitPointL, entryPointL);
-
+            double exitPointL = entryPointL + random.NextDouble() + 0.001;
+            
             var dampingFactorExit = new LognormalDistribution();
             var phreaticLevelExit = new NormalDistribution();
             var thicknessCoverageLayer = new LognormalDistribution();
@@ -431,18 +428,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D
-                {
-                    X = xMin,
-                    Y = 0.0,
-                    Z = 0.0
-                },
-                new Point3D
-                {
-                    X = xMax,
-                    Y = 0.0,
-                    Z = 1.0
-                }
+                new Point3D(xMin, 0.0, 0.0),
+                new Point3D(xMax, 0.0, 1.0)
             });
             return surfaceLine;
         }

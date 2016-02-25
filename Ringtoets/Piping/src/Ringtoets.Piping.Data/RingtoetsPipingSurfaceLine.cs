@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the 3D points describing its geometry.
         /// </summary>
-        public IEnumerable<Point3D> Points
+        public Point3D[] Points
         {
             get
             {

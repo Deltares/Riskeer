@@ -1108,83 +1108,23 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual("Rotterdam1", firstSurfaceLine.Name);
             Assert.AreEqual(8, firstSurfaceLine.Points.Count());
             Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
-            Assert.AreEqual(new Point3D 
-            {
-                X = 94263.0026213,
-                Y = 427776.654093,
-                Z = -1.02
-            }, firstSurfaceLine.DitchPolderSide);
-            Assert.AreEqual(new Point3D
-            {
-                X = 94275.9126686,
-                Y = 427811.080886,
-                Z = -1.04
-            }, firstSurfaceLine.BottomDitchPolderSide);
-            Assert.AreEqual(new Point3D
-            {
-                X = 94284.0663827,
-                Y = 427831.918156,
-                Z = 1.25
-            }, firstSurfaceLine.BottomDitchDikeSide);
-            Assert.AreEqual(new Point3D
-            {
-                X = 94294.9380015,
-                Y = 427858.191234,
-                Z = 1.45
-            }, firstSurfaceLine.DitchDikeSide);
-            Assert.AreEqual(new Point3D
-            {
-                X = 94284.0663827,
-                Y = 427831.918156,
-                Z = 1.25
-            }, firstSurfaceLine.DikeToeAtRiver);
-            Assert.AreEqual(new Point3D
-            {
-                X = 94305.3566362,
-                Y = 427889.900123,
-                Z = 1.65
-            }, firstSurfaceLine.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(94263.0026213, 427776.654093, -1.02), firstSurfaceLine.DitchPolderSide);
+            Assert.AreEqual(new Point3D(94275.9126686, 427811.080886, -1.04), firstSurfaceLine.BottomDitchPolderSide);
+            Assert.AreEqual(new Point3D(94284.0663827, 427831.918156, 1.25), firstSurfaceLine.BottomDitchDikeSide);
+            Assert.AreEqual(new Point3D(94294.9380015, 427858.191234, 1.45), firstSurfaceLine.DitchDikeSide);
+            Assert.AreEqual(new Point3D(94284.0663827, 427831.918156, 1.25), firstSurfaceLine.DikeToeAtRiver);
+            Assert.AreEqual(new Point3D(94305.3566362, 427889.900123, 1.65), firstSurfaceLine.DikeToeAtPolder);
 
             var secondSurfaceLine = importTargetArray[1];
             Assert.AreEqual("ArtifcialLocal", secondSurfaceLine.Name);
             Assert.AreEqual(3, secondSurfaceLine.Points.Count());
             Assert.AreEqual(5.7, secondSurfaceLine.EndingWorldPoint.X);
-            Assert.AreEqual(new Point3D
-            {
-                X = 2.3,
-                Y = 0,
-                Z = 1.0
-            }, secondSurfaceLine.DitchPolderSide);
-            Assert.AreEqual(new Point3D
-            {
-                X = 4.4,
-                Y = 0,
-                Z = 2.0
-            }, secondSurfaceLine.BottomDitchPolderSide);
-            Assert.AreEqual(new Point3D
-            {
-                X = 5.7,
-                Y = 0,
-                Z = 1.1
-            }, secondSurfaceLine.BottomDitchDikeSide);
-            Assert.AreEqual(new Point3D
-            {
-                X = 5.7,
-                Y = 0,
-                Z = 1.1
-            }, secondSurfaceLine.DitchDikeSide);
-            Assert.AreEqual(new Point3D
-            {
-                X = 2.3,
-                Y = 0,
-                Z = 1.0
-            }, secondSurfaceLine.DikeToeAtRiver);
-            Assert.AreEqual(new Point3D
-            {
-                X = 5.7,
-                Y = 0,
-                Z = 1.1
-            }, secondSurfaceLine.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(2.3, 0, 1.0), secondSurfaceLine.DitchPolderSide);
+            Assert.AreEqual(new Point3D(4.4, 0, 2.0), secondSurfaceLine.BottomDitchPolderSide);
+            Assert.AreEqual(new Point3D(5.7, 0, 1.1), secondSurfaceLine.BottomDitchDikeSide);
+            Assert.AreEqual(new Point3D(5.7, 0, 1.1), secondSurfaceLine.DitchDikeSide);
+            Assert.AreEqual(new Point3D(2.3, 0, 1.0), secondSurfaceLine.DikeToeAtRiver);
+            Assert.AreEqual(new Point3D(5.7, 0, 1.1), secondSurfaceLine.DikeToeAtPolder);
 
             Assert.AreEqual(7, callCount);
 

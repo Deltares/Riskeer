@@ -160,12 +160,6 @@
   <data name="PipingInput_Diameter70_DisplayName" xml:space="preserve">
     <value>70%-fraktiel van de korreldiameter in de bovenste zandlaag [m]</value>
   </data>
-  <data name="PipingInput_ExitPointXCoordinate_Description" xml:space="preserve">
-    <value>De x-coordinaat van het uittredepunt.</value>
-  </data>
-  <data name="PipingInput_ExitPointXCoordinate_DisplayName" xml:space="preserve">
-    <value>X-coordinaat uittredepunt [-]</value>
-  </data>
   <data name="PipingInput_Gravity_Description" xml:space="preserve">
     <value>Valversnelling</value>
   </data>
@@ -557,13 +551,13 @@
     <value>Karakteristieke punten</value>
   </data>
   <data name="PipingInput_EntryPointL_Description" xml:space="preserve">
-    <value>Het L-coordinaat van het intredepunt.</value>
+    <value>Het L-coördinaat van het intredepunt.</value>
   </data>
   <data name="PipingInput_EntryPointL_DisplayName" xml:space="preserve">
-    <value>Inttredepunt</value>
+    <value>Intredepunt</value>
   </data>
   <data name="PipingInput_ExitPointL_Description" xml:space="preserve">
-    <value>Het L-coordinaat van het uittredepunt.</value>
+    <value>Het L-coördinaat van het uittredepunt.</value>
   </data>
   <data name="PipingInput_ExitPointL_DisplayName" xml:space="preserve">
     <value>Uittredepunt</value>

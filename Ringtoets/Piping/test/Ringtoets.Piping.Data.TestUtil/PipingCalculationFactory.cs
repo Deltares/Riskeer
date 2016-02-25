@@ -25,18 +25,8 @@ namespace Ringtoets.Piping.Data.TestUtil
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new []
             {
-                new Point3D
-                {
-                    X = 0.0,
-                    Y = 0.0,
-                    Z = 0.0
-                }, 
-                new Point3D
-                {
-                    X = 1.0,
-                    Y = 0.0,
-                    Z = top 
-                }
+                new Point3D(0.0, 0.0, 0.0), 
+                new Point3D(1.0, 0.0, top)
             });
             return new PipingCalculation
             {

@@ -71,10 +71,7 @@ namespace Ringtoets.Piping.Data.Test
 
             var sourceData = new[]
             {
-                new Point3D
-                {
-                    X = 1.1, Y = 2.2, Z = 3.3
-                }
+                new Point3D(1.1, 2.2, 3.3)
             };
 
             // Call
@@ -95,22 +92,10 @@ namespace Ringtoets.Piping.Data.Test
 
             var sourceData = new[]
             {
-                new Point3D
-                {
-                    X = 1.1, Y = 2.2, Z = 3.3
-                },
-                new Point3D
-                {
-                    X = 4.4, Y = 5.5, Z = 6.6
-                },
-                new Point3D
-                {
-                    X = 7.7, Y = 8.8, Z = 9.9
-                },
-                new Point3D
-                {
-                    X = 10.10, Y = 11.11, Z = 12.12
-                },
+                new Point3D(1.1, 2.2, 3.3),
+                new Point3D(4.4, 5.5, 6.6),
+                new Point3D(7.7, 8.8, 9.9),
+                new Point3D(10.10, 11.11, 12.12),
             };
 
             // Call
@@ -144,10 +129,7 @@ namespace Ringtoets.Piping.Data.Test
             const double originalZ = 3.3;
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D
-                {
-                    X = 1.1, Y = 2.2, Z = originalZ
-                }
+                new Point3D(1.1, 2.2, originalZ)
             });
 
             // Call
@@ -167,18 +149,9 @@ namespace Ringtoets.Piping.Data.Test
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D
-                {
-                    X = 1.0, Y = 1.0, Z = 2.2
-                },
-                new Point3D
-                {
-                    X = 2.0, Y = 3.0, Z = 4.4
-                }, // Outlier from line specified by extrema
-                new Point3D
-                {
-                    X = 3.0, Y = 4.0, Z = 7.7
-                },
+                new Point3D(1.0, 1.0, 2.2),
+                new Point3D(2.0, 3.0, 4.4), // Outlier from line specified by extrema
+                new Point3D(3.0, 4.0, 7.7),
             });
 
             // Call
@@ -253,18 +226,9 @@ namespace Ringtoets.Piping.Data.Test
             var l = 2.0;
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D
-                {
-                    X = 0.0, Y = 0.0, Z = 2.2
-                },
-                new Point3D
-                {
-                    X = l, Y = 0.0, Z = testZ
-                },
-                new Point3D
-                {
-                    X = 3.0, Y = 0.0, Z = 7.7
-                },
+                new Point3D(0.0, 0.0, 2.2),
+                new Point3D(l, 0.0, testZ),
+                new Point3D(3.0, 0.0, 7.7),
             });
 
             // Call
@@ -287,18 +251,9 @@ namespace Ringtoets.Piping.Data.Test
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D
-                {
-                    X = 1.0, Y = 0.0, Z = 2.2
-                },
-                new Point3D
-                {
-                    X = 2.0, Y = 0.0, Z = testZ
-                },
-                new Point3D
-                {
-                    X = 4.1, Y = 0.0, Z = 7.7
-                },
+                new Point3D(1.0, 0.0, 2.2),
+                new Point3D(2.0, 0.0, testZ),
+                new Point3D(4.1, 0.0, 7.7),
             });
 
             // Call
@@ -320,22 +275,10 @@ namespace Ringtoets.Piping.Data.Test
             var l = 2.0;
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D
-                {
-                    X = 0.0, Y = 0.0, Z = 2.2
-                },
-                new Point3D
-                {
-                    X = l, Y = 0.0, Z = testZ
-                },
-                new Point3D
-                {
-                    X = l, Y = 0.0, Z = testZ + 1
-                },
-                new Point3D
-                {
-                    X = 3.0, Y = 0.0, Z = 7.7
-                },
+                new Point3D(0.0, 0.0, 2.2),
+                new Point3D(l, 0.0, testZ),
+                new Point3D(l, 0.0, testZ + 1),
+                new Point3D(3.0, 0.0, 7.7)
             });
 
             // Call
@@ -371,12 +314,7 @@ namespace Ringtoets.Piping.Data.Test
             var testX = 1.0;
             var testY = 2.2;
             var testZ = 4.4;
-            Point3D testPoint = new Point3D
-            {
-                X = testX,
-                Y = testY,
-                Z = testZ
-            };
+            Point3D testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
 
@@ -396,12 +334,7 @@ namespace Ringtoets.Piping.Data.Test
             var x = random.NextDouble();
             var y = random.NextDouble();
             var z = random.NextDouble();
-            Point3D testPoint = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            Point3D testPoint = new Point3D(x, y, z);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
@@ -433,12 +366,7 @@ namespace Ringtoets.Piping.Data.Test
             var testX = 1.0;
             var testY = 2.2;
             var testZ = 4.4;
-            Point3D testPoint = new Point3D
-            {
-                X = testX,
-                Y = testY,
-                Z = testZ
-            };
+            Point3D testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
 
@@ -458,12 +386,7 @@ namespace Ringtoets.Piping.Data.Test
             var x = random.NextDouble();
             var y = random.NextDouble();
             var z = random.NextDouble();
-            Point3D testPoint = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            Point3D testPoint = new Point3D(x, y, z);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
@@ -495,12 +418,7 @@ namespace Ringtoets.Piping.Data.Test
             var testX = 1.0;
             var testY = 2.2;
             var testZ = 4.4;
-            Point3D testPoint = new Point3D
-            {
-                X = testX,
-                Y = testY,
-                Z = testZ
-            };
+            Point3D testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
 
@@ -520,12 +438,7 @@ namespace Ringtoets.Piping.Data.Test
             var x = random.NextDouble();
             var y = random.NextDouble();
             var z = random.NextDouble();
-            Point3D testPoint = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            Point3D testPoint = new Point3D(x, y, z);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
@@ -557,12 +470,7 @@ namespace Ringtoets.Piping.Data.Test
             var testX = 1.0;
             var testY = 2.2;
             var testZ = 4.4;
-            Point3D testPoint = new Point3D
-            {
-                X = testX,
-                Y = testY,
-                Z = testZ
-            };
+            Point3D testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
 
@@ -582,12 +490,7 @@ namespace Ringtoets.Piping.Data.Test
             var x = random.NextDouble();
             var y = random.NextDouble();
             var z = random.NextDouble();
-            Point3D testPoint = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            Point3D testPoint = new Point3D(x, y, z);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
@@ -619,12 +522,7 @@ namespace Ringtoets.Piping.Data.Test
             var testX = 1.0;
             var testY = 2.2;
             var testZ = 4.4;
-            Point3D testPoint = new Point3D
-            {
-                X = testX,
-                Y = testY,
-                Z = testZ
-            };
+            Point3D testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
 
@@ -644,12 +542,7 @@ namespace Ringtoets.Piping.Data.Test
             var x = random.NextDouble();
             var y = random.NextDouble();
             var z = random.NextDouble();
-            Point3D testPoint = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            Point3D testPoint = new Point3D(x, y, z);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
@@ -681,12 +574,7 @@ namespace Ringtoets.Piping.Data.Test
             var testX = 1.0;
             var testY = 2.2;
             var testZ = 4.4;
-            Point3D testPoint = new Point3D
-            {
-                X = testX,
-                Y = testY,
-                Z = testZ
-            };
+            Point3D testPoint = new Point3D(testX, testY, testZ);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             CreateTestGeometry(testPoint, surfaceLine);
 
@@ -706,12 +594,7 @@ namespace Ringtoets.Piping.Data.Test
             var x = random.NextDouble();
             var y = random.NextDouble();
             var z = random.NextDouble();
-            Point3D testPoint = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            Point3D testPoint = new Point3D(x, y, z);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
@@ -741,18 +624,9 @@ namespace Ringtoets.Piping.Data.Test
             var random = new Random(21);
             var points = new[]
             {
-                new Point3D
-                {
-                    X = random.NextDouble(), Y = random.NextDouble(), Z = random.NextDouble()
-                },
-                new Point3D
-                {
-                    X = testPoint.X, Y = testPoint.Y, Z = testPoint.Z
-                },
-                new Point3D
-                {
-                    X = 2 + random.NextDouble(), Y = random.NextDouble(), Z = random.NextDouble()
-                }
+                new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble()),
+                new Point3D(testPoint.X, testPoint.Y, testPoint.Z),
+                new Point3D(2 + random.NextDouble(), random.NextDouble(), random.NextDouble())
             };
             surfaceLine.SetGeometry(points);
         }

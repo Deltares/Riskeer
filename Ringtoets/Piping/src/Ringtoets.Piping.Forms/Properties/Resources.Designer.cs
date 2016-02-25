@@ -633,7 +633,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het L-coordinaat van het intredepunt..
+        ///   Looks up a localized string similar to Het L-coördinaat van het intredepunt..
         /// </summary>
         public static string PipingInput_EntryPointL_Description {
             get {
@@ -642,7 +642,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inttredepunt.
+        ///   Looks up a localized string similar to Intredepunt.
         /// </summary>
         public static string PipingInput_EntryPointL_DisplayName {
             get {
@@ -651,7 +651,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het L-coordinaat van het uittredepunt..
+        ///   Looks up a localized string similar to Het L-coördinaat van het uittredepunt..
         /// </summary>
         public static string PipingInput_ExitPointL_Description {
             get {
@@ -665,24 +665,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingInput_ExitPointL_DisplayName {
             get {
                 return ResourceManager.GetString("PipingInput_ExitPointL_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De x-coordinaat van het uittredepunt..
-        /// </summary>
-        public static string PipingInput_ExitPointXCoordinate_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_ExitPointXCoordinate_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to X-coordinaat uittredepunt [-].
-        /// </summary>
-        public static string PipingInput_ExitPointXCoordinate_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_ExitPointXCoordinate_DisplayName", resourceCulture);
             }
         }
         

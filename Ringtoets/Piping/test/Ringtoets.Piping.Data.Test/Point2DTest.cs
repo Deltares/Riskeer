@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Data.Test
             var point = new Point2D();
 
             // Call
-            var result = point.Equals(new Point3D());
+            var result = point.Equals(new Point3D(0,0,0));
 
             // Assert
             Assert.IsFalse(result);

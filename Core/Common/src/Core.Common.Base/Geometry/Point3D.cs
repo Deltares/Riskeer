@@ -29,19 +29,32 @@ namespace Core.Common.Base.Geometry
     public class Point3D
     {
         /// <summary>
+        /// Creates a new instance of <see cref="Point3D"/>.
+        /// </summary>
+        /// <param name="x">The x-coordinate of the new <see cref="Point3D"/>.</param>
+        /// <param name="y">The y-coordinate of the new <see cref="Point3D"/>.</param>
+        /// <param name="z">The z-coordinate of the new <see cref="Point3D"/>.</param>
+        public Point3D(double x, double y, double z)
+        {
+            X = x;
+            Y = y;
+            Z = z;
+        }
+
+        /// <summary>
         /// Gets or sets the x coordinate.
         /// </summary>
-        public double X { get; set; }
+        public double X { get; private set; }
 
         /// <summary>
         /// Gets or sets the y coordinate.
         /// </summary>
-        public double Y { get; set; }
+        public double Y { get; private set; }
 
         /// <summary>
         /// Gets or sets the z coordinate.
         /// </summary>
-        public double Z { get; set; }
+        public double Z { get; private set; }
 
         public override bool Equals(object obj)
         {

@@ -31,15 +31,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             const string expectedName = "<some nice name>";
-            var random = new Random(21);
-            var point1 = new Point3D
-            {
-                X = 1.1, Y = 2.2, Z = 3.3
-            };
-            var point2 = new Point3D
-            {
-                X = 2.1, Y = 2.2, Z = 3.3
-            };
+            var point1 = new Point3D(1.1, 2.2, 3.3);
+            var point2 = new Point3D(2.1, 2.2, 3.3);
 
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {

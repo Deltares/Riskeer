@@ -617,104 +617,39 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 Assert.AreEqual("Rotterdam1", location1.Name);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 100,
-                    Y = 0,
-                    Z = -0.63
-                }, location1.SurfaceLevelInside);
+                Assert.AreEqual(new Point3D(100, 0, -0.63), location1.SurfaceLevelInside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 60.83,
-                    Y = 0,
-                    Z = -0.57
-                }, location1.DitchPolderSide);
+                Assert.AreEqual(new Point3D(60.83, 0, -0.57), location1.DitchPolderSide);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 59.36,
-                    Y = 0,
-                    Z = -1.87
-                }, location1.BottomDitchPolderSide);
+                Assert.AreEqual(new Point3D(59.36, 0, -1.87), location1.BottomDitchPolderSide);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 57.99,
-                    Y = 0,
-                    Z = -1.9
-                }, location1.BottomDitchDikeSide);
+                Assert.AreEqual(new Point3D(57.99, 0, -1.9), location1.BottomDitchDikeSide);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 55.37,
-                    Y = 0,
-                    Z = -0.31
-                }, location1.DitchDikeSide);
+                Assert.AreEqual(new Point3D(55.37, 0, -0.31), location1.DitchDikeSide);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 55.37,
-                    Y = 0,
-                    Z = -0.31
-                }, location1.DikeToeAtPolder);
+                Assert.AreEqual(new Point3D(55.37, 0, -0.31), location1.DikeToeAtPolder);
 
                 Assert.IsNull(location1.TopShoulderInside);
 
                 Assert.IsNull(location1.ShoulderInside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 40.17,
-                    Y = 0,
-                    Z = 2.63
-                }, location1.DikeTopAtPolder);
+                Assert.AreEqual(new Point3D(40.17, 0, 2.63), location1.DikeTopAtPolder);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 40.85,
-                    Y = 0,
-                    Z = 2.44
-                }, location1.TrafficLoadInside);
+                Assert.AreEqual(new Point3D(40.85, 0, 2.44), location1.TrafficLoadInside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 38.35,
-                    Y = 0,
-                    Z = 2.623
-                }, location1.TrafficLoadOutside);
+                Assert.AreEqual(new Point3D(38.35, 0, 2.623), location1.TrafficLoadOutside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 35.95,
-                    Y = 0,
-                    Z = 2.61
-                }, location1.DikeTopAtRiver);
+                Assert.AreEqual(new Point3D(35.95, 0, 2.61), location1.DikeTopAtRiver);
 
                 Assert.IsNull(location1.ShoulderOutisde);
 
                 Assert.IsNull(location1.TopShoulderOutside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 29.1,
-                    Y = 0,
-                    Z = -0.2
-                }, location1.DikeToeAtRiver);
+                Assert.AreEqual(new Point3D(29.1, 0, -0.2), location1.DikeToeAtRiver);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 0,
-                    Y = 0,
-                    Z = -0.71
-                }, location1.SurfaceLevelOutside);
+                Assert.AreEqual(new Point3D(0, 0, -0.71), location1.SurfaceLevelOutside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 23.703,
-                    Y = 0,
-                    Z = -1.5
-                }, location1.DikeTableHeight);
+                Assert.AreEqual(new Point3D(23.703, 0, -1.5), location1.DikeTableHeight);
 
                 Assert.IsNull(location1.InsertRiverChannel);
                 Assert.IsNull(location1.BottomRiverChannel);
@@ -725,104 +660,39 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 Assert.AreEqual("Amsterdam1", location2.Name);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 100,
-                    Y = 0,
-                    Z = -0.47
-                }, location2.SurfaceLevelInside);
+                Assert.AreEqual(new Point3D(100, 0, -0.47), location2.SurfaceLevelInside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 58.42,
-                    Y = 0,
-                    Z = -0.6
-                }, location2.DitchPolderSide);
+                Assert.AreEqual(new Point3D(58.42, 0, -0.6), location2.DitchPolderSide);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 56.2,
-                    Y = 0,
-                    Z = -1.98
-                }, location2.BottomDitchPolderSide);
+                Assert.AreEqual(new Point3D(56.2, 0, -1.98), location2.BottomDitchPolderSide);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 56.2,
-                    Y = 0,
-                    Z = -1.98
-                }, location2.BottomDitchDikeSide);
+                Assert.AreEqual(new Point3D(56.2, 0, -1.98), location2.BottomDitchDikeSide);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 53.48,
-                    Y = 0,
-                    Z = -0.49
-                }, location2.DitchDikeSide);
+                Assert.AreEqual(new Point3D(53.48, 0, -0.49), location2.DitchDikeSide);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 53.48,
-                    Y = 0,
-                    Z = -0.49
-                }, location2.DikeToeAtPolder);
+                Assert.AreEqual(new Point3D(53.48, 0, -0.49), location2.DikeToeAtPolder);
 
                 Assert.IsNull(location2.TopShoulderInside);
 
                 Assert.IsNull(location2.ShoulderInside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 38.17,
-                    Y = 0,
-                    Z = 3.04
-                }, location2.DikeTopAtPolder);
+                Assert.AreEqual(new Point3D(38.17, 0, 3.04), location2.DikeTopAtPolder);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 37.73,
-                    Y = 0,
-                    Z = 3.13
-                }, location2.TrafficLoadInside);
+                Assert.AreEqual(new Point3D(37.73, 0, 3.13), location2.TrafficLoadInside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 35.23,
-                    Y = 0,
-                    Z = 3.253
-                }, location2.TrafficLoadOutside);
+                Assert.AreEqual(new Point3D(35.23, 0, 3.253), location2.TrafficLoadOutside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 32.77,
-                    Y = 0,
-                    Z = 3.11
-                }, location2.DikeTopAtRiver);
+                Assert.AreEqual(new Point3D(32.77, 0, 3.11), location2.DikeTopAtRiver);
 
                 Assert.IsNull(location2.ShoulderOutisde);
 
                 Assert.IsNull(location2.TopShoulderOutside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 19.61,
-                    Y = 0,
-                    Z = -0.05
-                }, location2.DikeToeAtRiver);
+                Assert.AreEqual(new Point3D(19.61, 0, -0.05), location2.DikeToeAtRiver);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 0,
-                    Y = 0,
-                    Z = -0.33
-                }, location2.SurfaceLevelOutside);
+                Assert.AreEqual(new Point3D(0, 0, -0.33), location2.SurfaceLevelOutside);
 
-                Assert.AreEqual(new Point3D
-                {
-                    X = 17.32,
-                    Y = 0,
-                    Z = -1.52
-                }, location2.DikeTableHeight);
+                Assert.AreEqual(new Point3D(17.32, 0, -1.52), location2.DikeTableHeight);
 
                 Assert.IsNull(location2.InsertRiverChannel);
                 Assert.IsNull(location2.BottomRiverChannel);

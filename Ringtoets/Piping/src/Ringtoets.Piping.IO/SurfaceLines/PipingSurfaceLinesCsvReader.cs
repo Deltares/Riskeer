@@ -219,7 +219,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         private void CheckZeroLength(RingtoetsPipingSurfaceLine surfaceLine)
         {
             Point3D lastPoint = null;
-            foreach (var point in surfaceLine.Points.ToArray())
+            foreach (var point in surfaceLine.Points)
             {
                 if (lastPoint != null)
                 {
@@ -291,11 +291,11 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             for (int i = 0; i < coordinateCount; i++)
             {
                 points[i] = new Point3D
-                {
-                    X = worldCoordinateValues[i*expectedValuesForPoint],
-                    Y = worldCoordinateValues[i*expectedValuesForPoint + 1],
-                    Z = worldCoordinateValues[i*expectedValuesForPoint + 2]
-                };
+                (
+                    worldCoordinateValues[i*expectedValuesForPoint],
+                    worldCoordinateValues[i*expectedValuesForPoint + 1],
+                    worldCoordinateValues[i*expectedValuesForPoint + 2]
+                );
             }
             return points;
         }

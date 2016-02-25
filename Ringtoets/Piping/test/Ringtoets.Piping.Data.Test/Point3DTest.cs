@@ -10,27 +10,15 @@ namespace Ringtoets.Piping.Data.Test
     public class Point3DTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
-        {
-            // Call
-            var point = new Point3D();
-
-            // Assert
-            Assert.AreEqual(0, point.X);
-            Assert.AreEqual(0, point.Y);
-            Assert.AreEqual(0, point.Z);
-        }
-
-        [Test]
-        public void AutomaticProperties_SetAndGetValuesAgain_ReturnedValueShouldBeSameAsSetValue()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var point = new Point3D();
+            var x = 1.1;
+            var y = 2.2;
+            var z = -1.1;
 
             // Call
-            point.X = 1.1;
-            point.Y = 2.2;
-            point.Z = -1.1;
+            var point = new Point3D(x, y, z);
 
             // Assert
             Assert.AreEqual(1.1, point.X);
@@ -42,7 +30,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Equals_ToNull_ReturnsFalse()
         {
             // Setup
-            var point = new Point3D();
+            var point = new Point3D(0,0,0);
 
             // Call
             var result = point.Equals(null);
@@ -55,7 +43,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Equals_ToOtherType_ReturnsFalse()
         {
             // Setup
-            var point = new Point3D();
+            var point = new Point3D(0,0,0);
 
             // Call
             var result = point.Equals(new Point2D());
@@ -68,7 +56,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Equals_ToItself_ReturnsTrue()
         {
             // Setup
-            var point = new Point3D();
+            var point = new Point3D(0,0,0);
 
             // Call
             var result = point.Equals(point);
@@ -84,18 +72,8 @@ namespace Ringtoets.Piping.Data.Test
         public void Equals_OtherWithSameCoordinates_ReturnsTrue(double x, double y, double z)
         {
             // Setup
-            var point = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
-            var otherPoint = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            var point = new Point3D(x, y, z);
+            var otherPoint = new Point3D(x, y, z);
 
             // Call
             var result = point.Equals(otherPoint);
@@ -115,19 +93,13 @@ namespace Ringtoets.Piping.Data.Test
             var x = random.NextDouble();
             var y = random.NextDouble();
             var z = random.NextDouble();
-            
-            var point = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
-            var otherPoint = new Point3D
-            {
-                X = x + deltaX,
-                Y = y + deltaY,
-                Z = z + deltaZ
-            };
+
+            var point = new Point3D(x, y, z);
+            var otherPoint = new Point3D(
+                x + deltaX,
+                y + deltaY,
+                z + deltaZ
+            );
 
             // Call
             var result = point.Equals(otherPoint);
@@ -145,18 +117,8 @@ namespace Ringtoets.Piping.Data.Test
             var y = random.NextDouble();
             var z = random.NextDouble();
 
-            var point = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
-            var otherPoint = new Point3D
-            {
-                X = x,
-                Y = y,
-                Z = z
-            };
+            var point = new Point3D(x, y, z);
+            var otherPoint = new Point3D(x, y, z);
 
             // Call
             var result = point.GetHashCode();
@@ -183,10 +145,7 @@ namespace Ringtoets.Piping.Data.Test
         private static void DoToString_HasCoordinateValues_PrintCoordinateValuesInLocalCulture()
         {
             // Setup
-            var point = new Point3D
-            {
-                X = 1.1, Y = 2.2, Z = 3.3
-            };
+            var point = new Point3D(1.1, 2.2, 3.3);
 
             // Call
             var stringRepresentation = point.ToString();
