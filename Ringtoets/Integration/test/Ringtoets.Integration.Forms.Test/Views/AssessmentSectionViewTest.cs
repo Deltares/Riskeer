@@ -200,6 +200,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSectionBase2 = new AssessmentSectionBaseTestClass();
             assessmentSectionBase2.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             assessmentSectionBase2.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
+            assessmentSectionBase2.Attach(observer);
 
             // Call
             assessmentSectionBase.NotifyObservers();
