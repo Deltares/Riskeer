@@ -416,7 +416,7 @@ namespace Ringtoets.HydraRing.Calculation.Common
                             "SectionId", 999 // TODO: Dike section integration
                         },
                         {
-                            "SequenceNumber", i
+                            "SequenceNumber", i + 1
                         },
                         {
                             "XCoordinate", GetHydraRingValue(hydraRingProfilePoint.X)
