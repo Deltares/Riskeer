@@ -68,6 +68,17 @@ namespace Ringtoets.HydraRing.Calculation.Common
         }
 
         /// <summary>
+        /// Gets the profile points to use during the calculation.
+        /// </summary>
+        public virtual IEnumerable<HydraRingProfilePoint> ProfilePoints
+        {
+            get
+            {
+                yield break;
+            }
+        }
+
+        /// <summary>
         /// Gets the target reliability index to use during the calculation.
         /// </summary>
         /// <remarks>Only relevant for type 2 computations.</remarks>

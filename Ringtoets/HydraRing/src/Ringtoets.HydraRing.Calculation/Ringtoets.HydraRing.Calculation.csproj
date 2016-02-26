@@ -39,6 +39,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Common\HydraRingProfilePoint.cs" />
     <Compile Include="Data\AssessmentLevelCalculationData.cs" />
     <Compile Include="Common\HydraRingCalculationData.cs" />
     <Compile Include="Settings\VariableDefaults.cs" />

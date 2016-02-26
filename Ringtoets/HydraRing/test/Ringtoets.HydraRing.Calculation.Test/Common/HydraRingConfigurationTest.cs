@@ -63,6 +63,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
                                          "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (999, 1, NULL, NULL, 26, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 300);" + Environment.NewLine +
                                          Environment.NewLine +
+                                         "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
+                                         Environment.NewLine +
                                          "DELETE FROM [Areas];" + Environment.NewLine +
                                          "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +
                                          Environment.NewLine +

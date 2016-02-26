@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
+using System.Linq;
 using Ringtoets.HydraRing.Calculation.Settings;
 using Ringtoets.HydraRing.Calculation.Types;
 
@@ -105,6 +106,7 @@ namespace Ringtoets.HydraRing.Calculation.Common
             InitializeDesignTablesConfiguration(configurationDictionary);
             InitializeNumericsConfiguration(configurationDictionary);
             InitializeVariableDatasConfiguration(configurationDictionary);
+            InitializeCalculationProfiles(configurationDictionary);
             InitializeAreasConfiguration(configurationDictionary);
             InitializeProjectsConfiguration(configurationDictionary);
 
@@ -398,6 +400,40 @@ namespace Ringtoets.HydraRing.Calculation.Common
             configurationDictionary["VariableDatas"] = orderDictionaries;
         }
 
+        private void InitializeCalculationProfiles(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            var orderDictionaries = new List<OrderedDictionary>();
+
+            foreach (var hydraRingCalculation in hydraRingCalculations)
+            {
+                for (var i = 0; i < hydraRingCalculation.ProfilePoints.Count(); i++)
+                {
+                    var hydraRingProfilePoint = hydraRingCalculation.ProfilePoints.ElementAt(i);
+
+                    orderDictionaries.Add(new OrderedDictionary
+                    {
+                        {
+                            "SectionId", 999 // TODO: Dike section integration
+                        },
+                        {
+                            "SequenceNumber", i
+                        },
+                        {
+                            "XCoordinate", GetHydraRingValue(hydraRingProfilePoint.X)
+                        },
+                        {
+                            "ZCoordinate", GetHydraRingValue(hydraRingProfilePoint.Z)
+                        },
+                        {
+                            "Roughness", GetHydraRingValue(hydraRingProfilePoint.Roughness)
+                        }
+                    });
+                }
+            }
+
+            configurationDictionary["CalculationProfiles"] = orderDictionaries;
+        }
+
         private void InitializeAreasConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
         {
             configurationDictionary["Areas"] = new List<OrderedDictionary>
@@ -446,6 +482,8 @@ namespace Ringtoets.HydraRing.Calculation.Common
 
                 if (configurationDictionary[tableName].Count <= 0)
                 {
+                    lines.Add("");
+
                     continue;
                 }
 

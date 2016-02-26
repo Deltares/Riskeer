@@ -21,38 +21,22 @@
 
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Common;
-using Ringtoets.HydraRing.Calculation.Types;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Common
 {
     [TestFixture]
-    public class HydraRingCalculationDataTest
+    public class HydraRingProfilePointTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraRingCalculationData = new HydraRingCalculationDataImplementation(1);
+            var hydraRingProfilePoint = new HydraRingProfilePoint(1.1, 2.2);
 
             // Assert
-            Assert.AreEqual(1, hydraRingCalculationData.HydraulicBoundaryLocationId);
-            Assert.AreEqual(HydraRingFailureMechanismType.QVariant, hydraRingCalculationData.FailureMechanismType);
-            CollectionAssert.IsEmpty(hydraRingCalculationData.Variables);
-            CollectionAssert.IsEmpty(hydraRingCalculationData.ProfilePoints);
-            Assert.IsNaN(hydraRingCalculationData.Beta);
-        }
-
-        private class HydraRingCalculationDataImplementation : HydraRingCalculationData
-        {
-            public HydraRingCalculationDataImplementation(int hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId) {}
-
-            public override HydraRingFailureMechanismType FailureMechanismType
-            {
-                get
-                {
-                    return HydraRingFailureMechanismType.QVariant;
-                }
-            }
+            Assert.AreEqual(1.1, hydraRingProfilePoint.X);
+            Assert.AreEqual(2.2, hydraRingProfilePoint.Z);
+            Assert.AreEqual(1.0, hydraRingProfilePoint.Roughness);
         }
     }
 }
