@@ -25,7 +25,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.AreEqual(75, chart.MinimumSize.Height);
             Assert.AreEqual(50, chart.MinimumSize.Width);
             Assert.IsNull(chart.Data);
-            Assert.IsFalse(chart.IsPanningEnabled);
+            Assert.IsTrue(chart.IsPanningEnabled);
             Assert.IsFalse(chart.IsRectangleZoomingEnabled);
         }
 
@@ -61,7 +61,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             // Setup
             var chart = new BaseChart();
-            var testData = new LineData(Enumerable.Empty<Tuple<double,double>>());
+            var testData = new LineData(Enumerable.Empty<Tuple<double, double>>());
             var observers = TypeUtils.GetField<ICollection<IObserver>>(testData, "observers");
             var view = TypeUtils.GetField<PlotView>(chart, "view");
 
@@ -69,7 +69,10 @@ namespace Core.Components.OxyPlot.Forms.Test
             chart.Data = testData;
 
             // Assert
-            CollectionAssert.AreEqual(new []{chart}, observers);
+            CollectionAssert.AreEqual(new[]
+            {
+                chart
+            }, observers);
             Assert.AreEqual(1, view.Model.Series.Count);
         }
 
@@ -90,7 +93,10 @@ namespace Core.Components.OxyPlot.Forms.Test
 
             // Assert
             CollectionAssert.IsEmpty(observersOld);
-            CollectionAssert.AreEqual(new[] { chart }, observersNew);
+            CollectionAssert.AreEqual(new[]
+            {
+                chart
+            }, observersNew);
             Assert.AreEqual(1, view.Model.Series.Count);
         }
 
@@ -117,25 +123,20 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void TogglePanning_Always_ChangesState(bool isPanning)
+        public void TogglePanning_Always_PanningEnabled()
         {
             // Setup
             var chart = new BaseChart();
-            if (isPanning)
-            {
-                chart.TogglePanning();
-            }
 
             // Precondition
-            Assert.AreEqual(isPanning, chart.IsPanningEnabled);
+            Assert.IsTrue(chart.IsPanningEnabled);
 
             // Call
             chart.TogglePanning();
 
             // Assert
-            Assert.AreNotEqual(isPanning, chart.IsPanningEnabled);
+            Assert.IsTrue(chart.IsPanningEnabled);
+            Assert.IsFalse(chart.IsRectangleZoomingEnabled);
         }
 
         [Test]
@@ -152,12 +153,13 @@ namespace Core.Components.OxyPlot.Forms.Test
 
             // Precondition
             Assert.AreEqual(isRectangleZooming, chart.IsRectangleZoomingEnabled);
+            Assert.AreEqual(!isRectangleZooming, chart.IsPanningEnabled);
 
             // Call
             chart.ToggleRectangleZooming();
 
             // Assert
-            Assert.AreNotEqual(isRectangleZooming, chart.IsRectangleZoomingEnabled);
+            Assert.IsTrue(chart.IsRectangleZoomingEnabled);
         }
 
         [Test]
