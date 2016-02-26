@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis;
@@ -31,7 +32,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 
 namespace Ringtoets.Piping.Forms.Views
 {
-    public partial class PipingFailureMechanismView :  UserControl, IMapView
+    public partial class PipingFailureMechanismView :  UserControl, IMapView, IObserver
     {
         private readonly BaseMap map;
         private PipingFailureMechanismContext data;
@@ -60,7 +61,9 @@ namespace Ringtoets.Piping.Forms.Views
 
                 if (data != null)
                 {
+                    data.Parent.Detach(this);
                     SetDataToMap();
+                    data.Parent.Attach(this);
                 }
             }
         }
@@ -110,6 +113,14 @@ namespace Ringtoets.Piping.Forms.Views
         private bool HasHydraulicBoundaryLocations()
         {
             return data.Parent.HydraulicBoundaryDatabase != null && data.Parent.HydraulicBoundaryDatabase.Locations.Any();
+        }
+
+        public void UpdateObserver()
+        {
+            if (data != null)
+            {
+                SetDataToMap();
+            }
         }
     }
 }
