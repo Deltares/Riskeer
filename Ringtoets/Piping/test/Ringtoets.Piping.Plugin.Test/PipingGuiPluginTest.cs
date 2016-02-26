@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 // Assert
                 Assert.AreEqual(1, viewInfos.Length);
 
-                var contributionViewInfo = viewInfos.Single(vi => vi.DataType == typeof(PipingFailureMechanism));
+                var contributionViewInfo = viewInfos.Single(vi => vi.DataType == typeof(PipingFailureMechanismContext));
                 Assert.AreEqual(typeof(PipingFailureMechanismView), contributionViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingIcon, contributionViewInfo.Image);
             }
