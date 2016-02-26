@@ -26,6 +26,8 @@
 
         <fluent:RibbonTabItem Header="{x:Static p:Resources.General_Map}" Group="{Binding Source={x:Reference MapContextualGroup}}" fluent:KeyTip.Keys="K">
             <fluent:RibbonGroupBox Header="{x:Static p:Resources.Ribbon_GroupBox_Navigation}">
+                <fluent:ToggleButton Name="TogglePanningButton" Header="{x:Static p:Resources.Ribbon_Toggle_Panning}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_Panning_ToolTip}"  SizeDefinition="Middle"  Icon="{Binding Source={x:Static p:Resources.PanIcon}, Converter={StaticResource IconConverter}}" Click="ButtonTogglePanning_Click" fluent:KeyTip.Keys="P" />
+                <fluent:ToggleButton x:Name="ToggleRectangleZoomingButton" Header="{x:Static p:Resources.Ribbon_Toggle_RectangleZooming}" ToolTip="{x:Static p:Resources.Ribbon_Toggle_RectangleZooming_ToolTip}" Icon="{Binding Source={x:Static p:Resources.RectangleZoomIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonToggleRectangleZooming_Click" fluent:KeyTip.Keys="Z"/>
                 <fluent:Button x:Name="ZoomToAllButton" Header="{x:Static p:Resources.Ribbon_ZoomToAll}" ToolTip="{x:Static p:Resources.Ribbon_ZoomToAll_ToolTip}" Icon="{Binding Source={x:Static p:Resources.ZoomToAllIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonZoomToAll_Click" fluent:KeyTip.Keys="A"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>

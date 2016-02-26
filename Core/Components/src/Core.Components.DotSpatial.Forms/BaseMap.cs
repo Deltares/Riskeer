@@ -34,6 +34,7 @@ namespace Core.Components.DotSpatial.Forms
     public sealed class BaseMap : Control, IMap, IObserver
     {
         private readonly MapDataFactory mapDataFactory = new MapDataFactory();
+
         private MapData data;
         private Map map;
 
@@ -43,7 +44,12 @@ namespace Core.Components.DotSpatial.Forms
         public BaseMap()
         {
             InitializeMapView();
+            TogglePanning();
         }
+
+        public bool IsPanningEnabled { get; private set; }
+
+        public bool IsRectangleZoomingEnabled { get; private set; }
 
         public MapData Data
         {
@@ -70,9 +76,37 @@ namespace Core.Components.DotSpatial.Forms
             map.ZoomToMaxExtent();
         }
 
+        public void TogglePanning()
+        {
+            if (!IsPanningEnabled)
+            {
+                ResetDefaultInteraction();
+                map.FunctionMode = FunctionMode.Pan;
+                IsPanningEnabled = true;
+            }
+        }
+
+        public void ToggleRectangleZooming()
+        {
+            if (!IsRectangleZoomingEnabled)
+            {
+                ResetDefaultInteraction();
+                map.FunctionMode = FunctionMode.None;
+                IsRectangleZoomingEnabled = true;
+
+                map.ActivateMapFunction(new MapFunctionSelectionZoom(map));
+            }
+        }
+
         public void UpdateObserver()
         {
             DrawFeatureSets();
+        }
+
+        private void ResetDefaultInteraction()
+        {
+            IsPanningEnabled = false;
+            IsRectangleZoomingEnabled = false;
         }
 
         /// <summary>
@@ -115,7 +149,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 ProjectionModeDefine = ActionMode.Never,
                 Dock = DockStyle.Fill,
-                FunctionMode = FunctionMode.Pan,
+                FunctionMode = FunctionMode.Pan
             };
 
             Controls.Add(map);

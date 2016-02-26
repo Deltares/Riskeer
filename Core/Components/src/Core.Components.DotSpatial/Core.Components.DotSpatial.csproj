@@ -82,6 +82,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -95,6 +97,7 @@
     <Compile Include="Converter\MapMultiLineDataConverter.cs" />
     <Compile Include="Converter\MapPointDataConverter.cs" />
     <Compile Include="Converter\MapPolygonDataConverter.cs" />
+    <Compile Include="MapFunctionSelectionZoom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

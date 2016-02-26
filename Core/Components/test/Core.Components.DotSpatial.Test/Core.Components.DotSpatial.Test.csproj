@@ -91,8 +91,13 @@
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converter\MapDataCollectionConverterTest.cs" />
@@ -101,6 +106,7 @@
     <Compile Include="Converter\MapDataConverterTest.cs" />
     <Compile Include="Converter\MapDataFactoryTest.cs" />
     <Compile Include="Converter\MapPointDataConverterTest.cs" />
+    <Compile Include="MapFunctionSelectionZoomTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +132,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
+      <Link>Copying.Lesser.licenseheader</Link>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

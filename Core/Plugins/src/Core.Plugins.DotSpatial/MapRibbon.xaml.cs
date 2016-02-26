@@ -91,6 +91,8 @@ namespace Core.Plugins.DotSpatial
         public void ValidateItems()
         {
             ToggleLegendViewButton.IsChecked = ToggleLegendViewCommand != null && ToggleLegendViewCommand.Checked;
+            TogglePanningButton.IsChecked = Map != null && Map.IsPanningEnabled;
+            ToggleRectangleZoomingButton.IsChecked = Map != null && Map.IsRectangleZoomingEnabled;
         }
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
@@ -120,6 +122,18 @@ namespace Core.Plugins.DotSpatial
         private void ButtonZoomToAll_Click(object sender, RoutedEventArgs e)
         {
             Map.ZoomToAll();
+        }
+
+        private void ButtonTogglePanning_Click(object sender, RoutedEventArgs e)
+        {
+            Map.TogglePanning();
+            ValidateItems();
+        }
+
+        private void ButtonToggleRectangleZooming_Click(object sender, RoutedEventArgs e)
+        {
+            Map.ToggleRectangleZooming();
+            ValidateItems();
         }
     }
 }

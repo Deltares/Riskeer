@@ -29,6 +29,16 @@ namespace Core.Components.Gis
     public interface IMap
     {
         /// <summary>
+        /// Gets a value indicating whether or not the chart can be panned with the left mouse button.
+        /// </summary>
+        bool IsPanningEnabled { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether or not the chart can be zoomed by rectangle with the left mouse button.
+        /// </summary>
+        bool IsRectangleZoomingEnabled { get; }
+
+        /// <summary>
         /// Gets or sets the data to show in the <see cref="IMap"/>.
         /// </summary>
         MapData Data { get; set; }
@@ -37,5 +47,15 @@ namespace Core.Components.Gis
         /// Zooms to a level so that everything is in view.
         /// </summary>
         void ZoomToAll();
+
+        /// <summary>
+        /// Toggles panning of the <see cref="IMap"/>. Panning is invoked by clicking the left mouse-button.
+        /// </summary>
+        void TogglePanning();
+
+        /// <summary>
+        /// Toggles rectangle zooming of the <see cref="IMap"/>. Rectangle zooming is invoked by clicking the left mouse-button.
+        /// </summary>
+        void ToggleRectangleZooming();
     }
 }
