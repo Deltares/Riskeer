@@ -10,6 +10,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -356,6 +357,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationToBeRemoved);
 
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
             var calculationContext = new PipingCalculationContext(calculationToBeRemoved,
@@ -365,7 +367,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingSoilProfile>(),
-                                                                 pipingFailureMechanismMock);
+                                                                 pipingFailureMechanismMock,
+                                                                 assessmentSectionMock);
 
             // Call
             bool removalAllowed = info.CanRemove(calculationContext, groupContext);
@@ -384,6 +387,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var group = new PipingCalculationGroup("", groupNameEditable);
 
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
             var calculationContext = new PipingCalculationContext(calculationToBeRemoved,
@@ -393,7 +397,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingSoilProfile>(),
-                                                                 pipingFailureMechanismMock);
+                                                                 pipingFailureMechanismMock,
+                                                                 assessmentSectionMock);
 
             // Call
             bool removalAllowed = info.CanRemove(calculationContext, groupContext);
@@ -440,6 +445,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             group.Attach(observer);
 
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
             var calculationContext = new PipingCalculationContext(elementToBeRemoved,
@@ -449,7 +455,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingSoilProfile>(),
-                                                                 pipingFailureMechanismMock);
+                                                                 pipingFailureMechanismMock,
+                                                                 assessmentSectionMock);
 
             // Precondition
             Assert.IsTrue(info.CanRemove(calculationContext, groupContext));

@@ -6,7 +6,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 
 using Rhino.Mocks;
-
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -29,13 +29,14 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new TestPipingSoilProfile()
             };
+            var assessmentSectionBase = new MockRepository().StrictMock<AssessmentSectionBase>();
 
             var mocks = new MockRepository();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
-            var groupContext = new PipingCalculationGroupContext(group, surfaceLines, soilProfiles, pipingFailureMechanismMock);
+            var groupContext = new PipingCalculationGroupContext(group, surfaceLines, soilProfiles, pipingFailureMechanismMock, assessmentSectionBase);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(groupContext);
@@ -44,6 +45,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.AreSame(surfaceLines, groupContext.AvailablePipingSurfaceLines);
             Assert.AreSame(soilProfiles, groupContext.AvailablePipingSoilProfiles);
             Assert.AreSame(pipingFailureMechanismMock, groupContext.PipingFailureMechanism);
+            Assert.AreSame(assessmentSectionBase, groupContext.AssessmentSection);
         }
 
         [Test]
@@ -61,7 +63,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             };
 
             // Call
-            TestDelegate call = () => new PipingCalculationGroupContext(group, surfaceLines, soilProfiles, null);
+            TestDelegate call = () => new PipingCalculationGroupContext(group, surfaceLines, soilProfiles, null, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -76,13 +78,14 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
+            var assessmentSectionBase = new MockRepository().StrictMock<AssessmentSectionBase>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
             var presentationObject = new PipingCalculationGroupContext(new PipingCalculationGroup(),
                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                        Enumerable.Empty<PipingSoilProfile>(),
-                                                                       pipingFailureMechanismMock);
+                                                                       pipingFailureMechanismMock, assessmentSectionBase);
             presentationObject.Attach(observer);
 
             // Call
@@ -99,12 +102,13 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionBase = new MockRepository().StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
             var presentationObject = new PipingCalculationGroupContext(new PipingCalculationGroup(),
                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                        Enumerable.Empty<PipingSoilProfile>(),
-                                                                       pipingFailureMechanismMock);
+                                                                       pipingFailureMechanismMock, assessmentSectionBase);
             presentationObject.Attach(observer);
             presentationObject.Detach(observer);
 
@@ -123,13 +127,14 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionBase = new MockRepository().StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
             var group = new PipingCalculationGroup();
             var presentationObject = new PipingCalculationGroupContext(group,
                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                        Enumerable.Empty<PipingSoilProfile>(),
-                                                                       pipingFailureMechanismMock);
+                                                                       pipingFailureMechanismMock, assessmentSectionBase);
             presentationObject.Attach(observer);
 
             // Call

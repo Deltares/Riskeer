@@ -5,6 +5,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -34,14 +35,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionBaseMock = new MockRepository().StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
             var properties = new PipingCalculationGroupContextProperties
             {
-                Data = new PipingCalculationGroupContext(group,
+                Data = new PipingCalculationGroupContext(@group,
                                                          Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                          Enumerable.Empty<PipingSoilProfile>(),
-                                                         pipingFailureMechanismMock)
+                                                         pipingFailureMechanismMock, assessmentSectionBaseMock)
             };
 
             // Call & Assert
@@ -56,6 +58,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionBaseMock = new MockRepository().StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
             var group = new PipingCalculationGroup();
@@ -63,10 +66,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var properties = new PipingCalculationGroupContextProperties
             {
-                Data = new PipingCalculationGroupContext(group,
+                Data = new PipingCalculationGroupContext(@group,
                                                          Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                          Enumerable.Empty<PipingSoilProfile>(),
-                                                         pipingFailureMechanismMock)
+                                                         pipingFailureMechanismMock, assessmentSectionBaseMock)
             };
 
             // Call & Assert
@@ -86,14 +89,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionBaseMock = new MockRepository().StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
             var properties = new PipingCalculationGroupContextProperties
             {
-                Data = new PipingCalculationGroupContext(group,
+                Data = new PipingCalculationGroupContext(@group,
                                                          Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                          Enumerable.Empty<PipingSoilProfile>(),
-                                                         pipingFailureMechanismMock)
+                                                         pipingFailureMechanismMock, assessmentSectionBaseMock)
             };
 
             string propertyName = TypeUtils.GetMemberName<PipingCalculationGroupContextProperties>(p => p.Name);

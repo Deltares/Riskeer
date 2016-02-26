@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 
@@ -35,15 +36,13 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationGroupContext"/> class.
         /// </summary>
-        /// <param name="group">The <see cref="PipingCalculationGroup"/> instance wrapped by this context object.</param>
+        /// <param name="calculationGroup">The <see cref="PipingCalculationGroup"/> instance wrapped by this context object.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="soilProfiles">The soil profiles available within the piping context.</param>
         /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
-        public PipingCalculationGroupContext(PipingCalculationGroup group,
-                                             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
-                                             IEnumerable<PipingSoilProfile> soilProfiles,
-                                             PipingFailureMechanism pipingFailureMechanism) :
-                                                 base(group, surfaceLines, soilProfiles)
+        /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
+        public PipingCalculationGroupContext(PipingCalculationGroup calculationGroup, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<PipingSoilProfile> soilProfiles, PipingFailureMechanism pipingFailureMechanism, AssessmentSectionBase assessmentSection)
+            : base(calculationGroup, surfaceLines, soilProfiles)
         {
             if (pipingFailureMechanism == null)
             {
@@ -53,11 +52,18 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
             }
 
             PipingFailureMechanism = pipingFailureMechanism;
+
+            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
         /// Gets the piping failure mechanism which the piping context belongs to.
         /// </summary>
         public PipingFailureMechanism PipingFailureMechanism { get; private set; }
+
+        /// <summary>
+        /// Gets the assessment section which the piping context belongs to.
+        /// </summary>
+        public AssessmentSectionBase AssessmentSection { get; private set; }
     }
 }
