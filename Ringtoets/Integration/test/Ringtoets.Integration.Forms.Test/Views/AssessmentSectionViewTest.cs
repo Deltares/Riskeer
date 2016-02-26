@@ -226,7 +226,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ReferenceLine = new ReferenceLine()
             };
             assessmentSectionBase2.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
-            assessmentSectionBase.ReferenceLine.SetGeometry(new List<Point2D>
+            assessmentSectionBase2.ReferenceLine.SetGeometry(new List<Point2D>
             {
                 new Point2D(2.0, 1.0),
                 new Point2D(4.0, 3.0)
