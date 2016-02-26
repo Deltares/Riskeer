@@ -106,8 +106,6 @@ namespace Core.Components.DotSpatial.Forms
                 {
                     map.Layers.Add(mapLayer);
                 }
-
-                ZoomToAll();
             }
         }
 

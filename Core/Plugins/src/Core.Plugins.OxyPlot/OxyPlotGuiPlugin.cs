@@ -66,7 +66,7 @@ namespace Core.Plugins.OxyPlot
             yield return new ViewInfo<ChartDataCollection, ChartDataView>
             {
                 Image = Resources.ChartIcon,
-                GetViewName = (v, o) => "Diagram"
+                GetViewName = (v, o) => Resources.OxyPlotGuiPlugin_GetViewInfos_Diagram
             };
         }
 

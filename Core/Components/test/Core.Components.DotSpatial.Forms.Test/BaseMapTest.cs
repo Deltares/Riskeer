@@ -69,22 +69,6 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void Data_KnownMapData_MapFeatureAddedAndZoomedToExtents()
-        {
-            // Setup
-            var map = new BaseMap();
-            var testData = new MapPointData(Enumerable.Empty<Point2D>());
-            var mapView = map.Controls.OfType<Map>().First();
-
-            // Call
-            map.Data = testData;
-
-            // Assert
-            Assert.AreEqual(1, mapView.Layers.Count);
-            Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
-        }
-
-        [Test]
         public void Data_SetPointData_MapPointLayerAdded()
         {
             // Setup
