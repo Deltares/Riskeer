@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Common.Utils.Reflection;
+
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using DotSpatial.Controls;
@@ -83,29 +82,6 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Assert
             Assert.AreEqual(1, mapView.Layers.Count);
             Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
-        }
-
-        [Test]
-        public void Data_SetToNull_BaseMapDetachedFeaturesCleared()
-        {
-            // Setup
-            var map = new BaseMap();
-            var testData = new MapPointData(Enumerable.Empty<Point2D>());
-            var observers = TypeUtils.GetField<ICollection<IObserver>>(testData, "observers");
-            var mapView = map.Controls.OfType<Map>().First();
-
-            map.Data = testData;
-
-            // Precondition
-            Assert.AreEqual(1, mapView.Layers.Count);
-
-            // Call
-            map.Data = null;
-
-            // Assert
-            Assert.IsNull(map.Data);
-            CollectionAssert.IsEmpty(observers);
-            CollectionAssert.IsEmpty(mapView.Layers);
         }
 
         [Test]
