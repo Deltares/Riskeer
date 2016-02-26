@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsInstanceOf<UserControl>(view);
             Assert.IsInstanceOf<IView>(view);
             Assert.IsInstanceOf<IObserver>(view);
-            Assert.NotNull(view.Map);
+            Assert.IsNotNull(view.Map);
             Assert.IsNull(view.Data);
         }
 
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var view = new PipingFailureMechanismView();
             var map = (BaseMap)view.Controls[0];
 
-            var assessmentSectionBase = new AssessmentSectionBaseTestClass();
+            var assessmentSectionBase = new TestAssessmentSectionBase();
 
             var pipingFailureMechanism = new PipingFailureMechanism();
 
@@ -70,16 +70,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetToMapPointData_MapDataSet()
+        public void Data_SetMapData_MapDataSet()
         {
             // Setup
             var view = new PipingFailureMechanismView();
             var map = (BaseMap)view.Controls[0];
-            var assessmentSectionBase = new AssessmentSectionBaseTestClass
+            var assessmentSectionBase = new TestAssessmentSectionBase
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
+                ReferenceLine = new ReferenceLine()
             };
             assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+            assessmentSectionBase.ReferenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionBase);
@@ -93,6 +99,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mapData = map.Data as MapDataCollection;
             Assert.IsNotNull(mapData);
             Assert.IsTrue(mapData.List.Any(md => md is MapPointData));
+            Assert.IsTrue(mapData.List.Any(md => md is MapLineData));
         }
 
         [Test]
@@ -108,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            var assessmentSectionBase = new AssessmentSectionBaseTestClass
+            var assessmentSectionBase = new TestAssessmentSectionBase
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
@@ -134,6 +141,52 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void UpdateObserver_ReferenceLineUpdated_SetNewMapDataData()
+        {
+            // Setup
+            var view = new PipingFailureMechanismView();
+            var map = (BaseMap)view.Controls[0];
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            var assessmentSectionBase = new TestAssessmentSectionBase
+            {
+                ReferenceLine = new ReferenceLine()
+            };
+            assessmentSectionBase.ReferenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+            assessmentSectionBase.Attach(observer);
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionBase);
+
+            view.Data = pipingContext;
+            var mapData = map.Data;
+
+            assessmentSectionBase.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            assessmentSectionBase.ReferenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(2.0, 5.0),
+                new Point2D(4.0, 3.0)
+            });
+
+            // Call
+            assessmentSectionBase.NotifyObservers();
+
+            // Assert
+            Assert.AreNotEqual(mapData, map.Data);
+            Assert.IsInstanceOf<MapDataCollection>(map.Data);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void UpdateObserver_OtherAssessmentSectionUpdated_MapDataNotUpdated()
         {
             // Setup
@@ -146,11 +199,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            var assessmentSectionBase = new AssessmentSectionBaseTestClass
+            var assessmentSectionBase = new TestAssessmentSectionBase
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
+                ReferenceLine = new ReferenceLine()
             };
             assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+            assessmentSectionBase.ReferenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
             assessmentSectionBase.Attach(observer);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -158,11 +217,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             view.Data = pipingContext;
 
-            var assessmentSectionBase2 = new AssessmentSectionBaseTestClass
+            var assessmentSectionBase2 = new TestAssessmentSectionBase
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
+                ReferenceLine = new ReferenceLine()
             };
             assessmentSectionBase2.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
+            assessmentSectionBase.ReferenceLine.SetGeometry(new List<Point2D>
+            {
+                new Point2D(2.0, 1.0),
+                new Point2D(4.0, 3.0)
+            });
             assessmentSectionBase2.Attach(observer);
 
             // Call
@@ -187,10 +252,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            var assessmentSectionBase = new AssessmentSectionBaseTestClass
+            var assessmentSectionBase = new TestAssessmentSectionBase
             {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
                 ReferenceLine = new ReferenceLine()
             };
+            assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
             assessmentSectionBase.ReferenceLine.SetGeometry(new List<Point2D>
             {
                 new Point2D(1.0, 2.0),
@@ -223,7 +290,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private class AssessmentSectionBaseTestClass : AssessmentSectionBase
+        private class TestAssessmentSectionBase : AssessmentSectionBase
         {
             public override IEnumerable<IFailureMechanism> GetFailureMechanisms()
             {
