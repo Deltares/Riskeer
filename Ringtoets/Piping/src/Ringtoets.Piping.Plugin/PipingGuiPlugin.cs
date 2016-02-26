@@ -435,7 +435,8 @@ namespace Ringtoets.Piping.Plugin
                 pipingCalculationContext.WrappedData.Comments,
                 new PipingInputContext(pipingCalculationContext.WrappedData.InputParameters,
                                        pipingCalculationContext.AvailablePipingSurfaceLines,
-                                       pipingCalculationContext.AvailablePipingSoilProfiles)
+                                       pipingCalculationContext.AvailablePipingSoilProfiles,
+                                       pipingCalculationContext.AssessmentSection)
             };
 
             if (pipingCalculationContext.WrappedData.HasOutput)

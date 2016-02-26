@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
-
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {
@@ -34,5 +36,22 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     {
         public PipingInputContext(PipingInput input, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<PipingSoilProfile> profiles):
             base(input, surfaceLines, profiles){ }
+
+        public PipingInputContext(PipingInput pipingInput, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<PipingSoilProfile> soilProfiles, AssessmentSectionBase assessmentSection)
+            : base(pipingInput, surfaceLines, soilProfiles)
+        {
+            if (assessmentSection == null)
+            {
+                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                                            Resources.PipingContext_DataDescription_AssessmentSection);
+                throw new ArgumentNullException("assessmentSection", message);
+            }
+            AssessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets the assessment section which the piping context belongs to.
+        /// </summary>
+        public AssessmentSectionBase AssessmentSection { get; private set; }
     }
 }

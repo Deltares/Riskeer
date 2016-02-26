@@ -1,11 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using Core.Common.Base;
-
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 using Rhino.Mocks;
-
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -22,15 +23,44 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var pipingInput = new PipingInput();
             var surfaceLines = new[] { new RingtoetsPipingSurfaceLine() };
             var profiles = new[] { new TestPipingSoilProfile() };
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+
+            mocks.ReplayAll();
             
             // Call
-            var context = new PipingInputContext(pipingInput, surfaceLines, profiles);
+            var context = new PipingInputContext(pipingInput, surfaceLines, profiles, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<PipingContext<PipingInput>>(context);
             Assert.AreSame(pipingInput, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             CollectionAssert.AreEqual(surfaceLines, context.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(profiles, context.AvailablePipingSoilProfiles);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ParameteredConstructor_AssessmentSectionIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var input = new PipingInput();
+            var surfaceLines = new[]
+            {
+                new RingtoetsPipingSurfaceLine()
+            };
+            var soilProfiles = new[]
+            {
+                new TestPipingSoilProfile()
+            };
+
+            // Call
+            TestDelegate call = () => new PipingInputContext(input, surfaceLines, soilProfiles, null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het dijktraject mag niet 'null' zijn.");
         }
 
         [Test]
@@ -38,13 +68,15 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var presentationObject = new PipingInputContext(new PipingInput(),
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<PipingSoilProfile>());
+                                                            Enumerable.Empty<PipingSoilProfile>(),
+                                                            assessmentSectionMock);
             presentationObject.Attach(observer);
 
             // Call
@@ -59,12 +91,14 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             var presentationObject = new PipingInputContext(new PipingInput(),
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<PipingSoilProfile>());
+                                                            Enumerable.Empty<PipingSoilProfile>(),
+                                                            assessmentSectionMock);
             presentationObject.Attach(observer);
             presentationObject.Detach(observer);
 
@@ -80,6 +114,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -87,7 +122,8 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var pipingInput = new PipingInput();
             var presentationObject = new PipingInputContext(pipingInput,
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<PipingSoilProfile>());
+                                                            Enumerable.Empty<PipingSoilProfile>(),
+                                                            assessmentSectionMock);
             presentationObject.Attach(observer);
 
             // Call

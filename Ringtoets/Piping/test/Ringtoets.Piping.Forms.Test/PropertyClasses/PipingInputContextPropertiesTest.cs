@@ -6,6 +6,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
@@ -33,6 +34,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
             var random = new Random(22);
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -53,7 +58,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>())
+                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              assessmentSectionMock)
             };
 
             // Call & Assert
@@ -94,6 +100,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
             Assert.AreSame(soilProfile, properties.SoilProfile);
+
+            mocks.ReplayAll();
         }
 
         [Test]
@@ -101,6 +109,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -112,7 +121,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>())
+                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              assessmentSectionMock)
             };
 
             // Call & Assert
@@ -127,6 +137,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var projectObserver = mocks.StrictMock<IObserver>();
             int numberProperties = 24;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
@@ -169,7 +180,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>()),
+                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              assessmentSectionMock),
                 AssessmentLevelSellmeijer = assessmentLevel,
                 WaterVolumetricWeightUplift = waterVolumetricWeight,
                 UpliftModelFactor = upliftModelFactor,
@@ -238,6 +250,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void EntryPointL_ExitPointAndSeepageLengthSet_ExpectedValue(double exitPoint, double seepageLength, double entryPoint)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
             var random = new Random(22);
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -258,7 +274,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>())
+                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              assessmentSectionMock)
             };
 
             properties.ExitPointL = exitPoint;
@@ -268,6 +285,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(entryPoint, properties.EntryPointL);
             Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
             Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
+
+            mocks.ReplayAll();
         }
 
         [Test]
@@ -279,6 +298,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void SeepageLength_ExitPointAndEntryPointSet_ExpectedValue(double entryPoint, double exitPoint, double seepageLength)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
             var random = new Random(22);
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -299,7 +322,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>())
+                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              assessmentSectionMock)
             };
 
             properties.ExitPointL = exitPoint;
@@ -309,12 +333,18 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(seepageLength, properties.SeepageLength.Distribution.Mean);
             Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
             Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
+
+            mocks.ReplayAll();
         }
 
         [Test]
         public void SeepageLength_EntryPointAndThenExitPointSet_ExpectedValue()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
             var random = new Random(22);
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -335,7 +365,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>())
+                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              assessmentSectionMock)
             };
 
             properties.EntryPointL = -1;
@@ -345,12 +376,18 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(3, properties.SeepageLength.Distribution.Mean);
             Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
             Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
+
+            mocks.ReplayAll();
         }
 
         [Test]
         public void EntryPointL_SetResultInInvalidSeePage_ThrowsArgumentException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
             var random = new Random(22);
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -371,7 +408,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>())
+                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              assessmentSectionMock)
             };
 
             var l = 2.0;
@@ -383,12 +421,18 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             var message = string.Format(Resources.PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length, l);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+
+            mocks.ReplayAll();
         }
 
         [Test]
         public void ExitPointL_SetResultInInvalidSeePage_ThrowsArgumentException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
             var random = new Random(22);
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -409,7 +453,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>())
+                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              assessmentSectionMock)
             };
 
             var l = -2.0;
@@ -421,6 +466,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             var message = string.Format(Resources.PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length, l);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+
+            mocks.ReplayAll();
         }
 
         private static RingtoetsPipingSurfaceLine ValidSurfaceLine(double xMin, double xMax)
