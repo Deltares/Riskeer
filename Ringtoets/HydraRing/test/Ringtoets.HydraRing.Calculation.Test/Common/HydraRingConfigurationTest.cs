@@ -67,7 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
                                          "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Projects];" + Environment.NewLine +
-                                         "INSERT INTO [Projects] VALUES (1, 'Sprint', 'Hydra-Ring Sprint');" + Environment.NewLine;
+                                         "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine;
 
             var creationScript = hydraRingConfiguration.GenerateDataBaseCreationScript();
 

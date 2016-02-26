@@ -427,10 +427,10 @@ namespace Ringtoets.HydraRing.Calculation.Common
                         "aDefault", 1 // Fixed: not relevant
                     },
                     {
-                        "bDefault", "Sprint" // Fixed: not relevant
+                        "bDefault", "WTI 2017" // Fixed: not relevant
                     },
                     {
-                        "cDefault", "Hydra-Ring Sprint" // Fixed: not relevant
+                        "cDefault", "Ringtoets calculation" // Fixed: not relevant
                     }
                 }
             };
