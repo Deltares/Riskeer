@@ -41,6 +41,8 @@
     </Compile>
     <Compile Include="Data\AssessmentLevelCalculationData.cs" />
     <Compile Include="Common\HydraRingCalculationData.cs" />
+    <Compile Include="Settings\VariableDefaults.cs" />
+    <Compile Include="Settings\VariableDefaultsProvider.cs" />
     <Compile Include="Types\HydraRingDistributionType.cs" />
     <Compile Include="Types\HydraRingDeviationType.cs" />
     <Compile Include="Common\HydraRingVariable.cs" />
