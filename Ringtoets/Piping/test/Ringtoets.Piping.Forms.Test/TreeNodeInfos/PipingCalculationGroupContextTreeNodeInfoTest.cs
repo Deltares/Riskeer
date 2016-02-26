@@ -1096,7 +1096,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             PipingCalculationGroup targetGroup;
             PipingCalculationGroupContext targetGroupContext;
-            CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext, failureMechanism);
+            CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext, failureMechanism, assessmentSection);
 
             failureMechanism.CalculationsGroup.Children.Add(draggedItem);
             failureMechanism.CalculationsGroup.Children.Add(targetGroup);
@@ -1146,7 +1146,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             PipingCalculationGroup targetGroup;
             PipingCalculationGroupContext targetGroupContext;
-            CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext, sourceFailureMechanism);
+            CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext, sourceFailureMechanism, assessmentSection);
 
             targetFailureMechanism.CalculationsGroup.Children.Add(targetGroup);
 
@@ -1189,12 +1189,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             PipingCalculationGroup originalOwnerGroup;
             PipingCalculationGroupContext originalOwnerGroupContext;
-            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, pipingFailureMechanismMock);
+            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
             originalOwnerGroup.Children.Add(draggedItem);
 
             PipingCalculationGroup newOwnerGroup;
             PipingCalculationGroupContext newOwnerGroupContext;
-            CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, pipingFailureMechanismMock);
+            CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
 
             var originalOwnerObserver = mocks.StrictMock<IObserver>();
             originalOwnerObserver.Expect(o => o.UpdateObserver());
@@ -1244,7 +1244,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             PipingCalculationGroup originalOwnerGroup;
             PipingCalculationGroupContext originalOwnerGroupContext;
-            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, pipingFailureMechanismMock);
+            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
             originalOwnerGroup.Children.Add(existingItemStub);
             originalOwnerGroup.Children.Add(draggedItem);
             originalOwnerGroup.Children.Add(existingItemStub);
@@ -1290,12 +1290,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             PipingCalculationGroup originalOwnerGroup;
             PipingCalculationGroupContext originalOwnerGroupContext;
-            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, pipingFailureMechanismMock);
+            CreatePipingCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
             originalOwnerGroup.Children.Add(draggedItem);
 
             PipingCalculationGroup newOwnerGroup;
             PipingCalculationGroupContext newOwnerGroupContext;
-            CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, pipingFailureMechanismMock);
+            CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
 
             var sameNamedItem = mocks.Stub<IPipingCalculationItem>();
             sameNamedItem.Stub(i => i.Name).Return(draggedItem.Name);
@@ -1348,16 +1348,17 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         /// </summary>
         /// <param name="data">The created group without any children.</param>
         /// <param name="dataContext">The context object for <paramref name="data"/>, without any other data.</param>
-        /// <param name="failureMechanism"></param>
-        private void CreatePipingCalculationGroupAndContext(out PipingCalculationGroup data, out PipingCalculationGroupContext dataContext, PipingFailureMechanism failureMechanism)
+        /// <param name="pipingFailureMechanism">The piping failure mechanism the item and context belong to.</param>
+        /// <param name="assessmentSection">The assessment section the item and context belong to.</param>
+        private void CreatePipingCalculationGroupAndContext(out PipingCalculationGroup data, out PipingCalculationGroupContext dataContext, PipingFailureMechanism pipingFailureMechanism, AssessmentSectionBase assessmentSection)
         {
             data = new PipingCalculationGroup();
 
             dataContext = new PipingCalculationGroupContext(data,
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                             Enumerable.Empty<PipingSoilProfile>(),
-                                                            failureMechanism,
-                                                            null);
+                                                            pipingFailureMechanism,
+                                                            assessmentSection);
         }
 
         /// <summary>
@@ -1367,6 +1368,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         /// <param name="data">Output: The concrete create class based on <paramref name="type"/>.</param>
         /// <param name="dataContext">Output: The <see cref="PipingContext{T}"/> corresponding with <paramref name="data"/>.</param>
         /// <param name="pipingFailureMechanism">The piping failure mechanism the item and context belong to.</param>
+        /// <param name="assessmentSection">The assessment section the item and context belong to.</param>
         /// <param name="initialName">Optional: The name of <paramref name="data"/>.</param>
         /// <exception cref="System.NotSupportedException"></exception>
         private void CreatePipingCalculationItemAndContext(PipingCalculationItemType type, out IPipingCalculationItem data, out object dataContext, PipingFailureMechanism pipingFailureMechanism, AssessmentSectionBase assessmentSection, string initialName = null)
@@ -1397,7 +1399,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                     Enumerable.Empty<PipingSoilProfile>(),
                                                                     pipingFailureMechanism,
-                                                                    null);
+                                                                    assessmentSection);
                     break;
                 default:
                     throw new NotSupportedException();

@@ -2,7 +2,7 @@
 using System.Linq;
 
 using Core.Common.Base;
-
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 using Rhino.Mocks;
@@ -29,9 +29,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new TestPipingSoilProfile()
             };
-            var assessmentSectionBase = new MockRepository().StrictMock<AssessmentSectionBase>();
 
             var mocks = new MockRepository();
+            var assessmentSectionBase = mocks.StrictMock<AssessmentSectionBase>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
@@ -62,13 +62,44 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestPipingSoilProfile()
             };
 
+            var mocks = new MockRepository();
+            var assessmentSectionBase = mocks.StrictMock<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new PipingCalculationGroupContext(group, surfaceLines, soilProfiles, null, null);
+            TestDelegate call = () => new PipingCalculationGroupContext(group, surfaceLines, soilProfiles, null, assessmentSectionBase);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessage = exception.Message.Split(new[] { Environment.NewLine }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Het piping faalmechanisme mag niet 'null' zijn.", customMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het piping faalmechanisme mag niet 'null' zijn.");
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ParameteredConstructor_AssessmentSectionIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var group = new PipingCalculationGroup();
+            var surfaceLines = new[]
+            {
+                new RingtoetsPipingSurfaceLine()
+            };
+            var soilProfiles = new[]
+            {
+                new TestPipingSoilProfile()
+            };
+
+            var mocks = new MockRepository();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new PipingCalculationGroupContext(group, surfaceLines, soilProfiles, pipingFailureMechanismMock, null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het dijktraject mag niet 'null' zijn.");
+
+            mocks.VerifyAll();
         }
 
         [Test]

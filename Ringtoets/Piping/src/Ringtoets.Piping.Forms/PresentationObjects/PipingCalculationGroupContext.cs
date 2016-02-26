@@ -50,6 +50,12 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
                                             Resources.PipingContext_DataDescription_PipingFailureMechanism);
                 throw new ArgumentNullException("pipingFailureMechanism", message);
             }
+            if (assessmentSection == null)
+            {
+                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                                            Resources.PipingContext_DataDescription_AssessmentSection);
+                throw new ArgumentNullException("assessmentSection", message);
+            }
 
             PipingFailureMechanism = pipingFailureMechanism;
 

@@ -65,9 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             TestDelegate call = () => new PipingCalculationContext(calculation, surfacelines, profiles, null, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessage = exception.Message.Split(new[] { Environment.NewLine }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Het piping faalmechanisme mag niet 'null' zijn.", customMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het piping faalmechanisme mag niet 'null' zijn.");
         }
 
         [Test]
