@@ -15,7 +15,7 @@ namespace Core.Components.OxyPlot.Test
             // Assert
             Assert.IsInstanceOf<IPlotController>(controller);
             Assert.IsInstanceOf<ControllerBase>(controller);
-            Assert.IsFalse(controller.IsPanningEnabled);
+            Assert.IsTrue(controller.IsPanningEnabled);
             Assert.IsFalse(controller.IsRectangleZoomingEnabled);
         }
 
@@ -30,20 +30,7 @@ namespace Core.Components.OxyPlot.Test
 
             // Assert
             Assert.IsTrue(controller.IsPanningEnabled);
-        }
-
-        [Test]
-        public void TogglePanning_PanningEnabled_PanningDisabled()
-        {
-            // Setup
-            var controller = new DynamicPlotController();
-            controller.TogglePanning();
-
-            // Call
-            controller.TogglePanning();
-
-            // Assert
-            Assert.IsFalse(controller.IsPanningEnabled);
+            Assert.IsFalse(controller.IsRectangleZoomingEnabled);
         }
 
         [Test]
@@ -57,20 +44,7 @@ namespace Core.Components.OxyPlot.Test
 
             // Assert
             Assert.IsTrue(controller.IsRectangleZoomingEnabled);
-        }
-
-        [Test]
-        public void ToggleRectangleZooming_RectangleZoomingEnabled_RectangleZoomingDisabled()
-        {
-            // Setup
-            var controller = new DynamicPlotController();
-            controller.ToggleRectangleZooming();
-
-            // Call
-            controller.ToggleRectangleZooming();
-
-            // Assert
-            Assert.IsFalse(controller.IsRectangleZoomingEnabled);
+            Assert.IsFalse(controller.IsPanningEnabled);
         }
     }
 }

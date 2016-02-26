@@ -44,6 +44,7 @@ namespace Core.Components.OxyPlot
         public DynamicPlotController()
         {
             EnableScrollWheelZooming();
+            TogglePanning();
         }
 
         /// <summary>
@@ -51,10 +52,9 @@ namespace Core.Components.OxyPlot
         /// </summary>
         public void TogglePanning()
         {
-            var enablePanning = !IsPanningEnabled;
-            ResetDefaultInteraction();
-            if (enablePanning)
+            if (!IsPanningEnabled)
             {
+                ResetDefaultInteraction();
                 EnablePanning();
             }
         }
@@ -64,10 +64,9 @@ namespace Core.Components.OxyPlot
         /// </summary>
         public void ToggleRectangleZooming()
         {
-            var enableRectangleZoom = !IsRectangleZoomingEnabled;
-            ResetDefaultInteraction();
-            if (enableRectangleZoom)
+            if (!IsRectangleZoomingEnabled)
             {
+                ResetDefaultInteraction();
                 EnableRectangleZoom();
             }
         }
