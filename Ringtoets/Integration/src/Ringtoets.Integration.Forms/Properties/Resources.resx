@@ -169,7 +169,7 @@
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="DesignWaterLevel_Calculate" xml:space="preserve">
-    <value>Toetspeilen berekenen</value>
+    <value>&amp;Toetspeilen berekenen</value>
   </data>
   <data name="DesignWaterLevel_Calculate_ToolTip" xml:space="preserve">
     <value>Bereken de toetspeilen</value>
@@ -184,7 +184,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>{0} mag niet 'null' zijn.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Connect" xml:space="preserve">
-    <value>Koppel aan database...</value>
+    <value>&amp;Koppel aan database...</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Connect_ToolTip" xml:space="preserve">
     <value>Koppel aan hydraulische randvoorwaarden database.</value>

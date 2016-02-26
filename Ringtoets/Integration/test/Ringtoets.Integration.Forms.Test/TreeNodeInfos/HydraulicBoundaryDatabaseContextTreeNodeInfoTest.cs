@@ -154,7 +154,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
 
-            const string expectedItemText = "Toetspeilen berekenen";
+            const string expectedItemText = "&Toetspeilen berekenen";
             const string expectedItemTooltip = "Er is geen hydraulische randvoorwaarden database beschikbaar om de toetspeilen te berekenen.";
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsFormsResources.FailureMechanismIcon, false);
         }
@@ -183,7 +183,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
 
-            const string expectedItemText = "Toetspeilen berekenen";
+            const string expectedItemText = "&Toetspeilen berekenen";
             const string expectedItemTooltip = "Bereken de toetspeilen";
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsFormsResources.FailureMechanismIcon);
         }
