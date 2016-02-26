@@ -43,6 +43,7 @@ namespace Ringtoets.HydraRing.Calculation.Common
         private readonly SubMechanismSettingsProvider subMechanismSettingsProvider = new SubMechanismSettingsProvider();
         private readonly FailureMechanismSettingsProvider failureMechanismSettingsProvider = new FailureMechanismSettingsProvider();
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
+        private readonly VariableDefaultsProvider variableDefaultsProvider = new VariableDefaultsProvider();
         private readonly HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType;
         private readonly HydraRingUncertaintiesType uncertaintiesType;
 
@@ -332,6 +333,8 @@ namespace Ringtoets.HydraRing.Calculation.Common
 
                 foreach (var hydraRingVariable in hydraRingCalculation.Variables)
                 {
+                    var variableDefaults = variableDefaultsProvider.GetVariableDefaults(hydraRingCalculation.FailureMechanismType, hydraRingVariable.VariableId);
+
                     orderDictionaries.Add(new OrderedDictionary
                     {
                         {
@@ -386,7 +389,7 @@ namespace Ringtoets.HydraRing.Calculation.Common
                                                           : null
                         },
                         {
-                            "CorrelationLength", null // TODO: Implement
+                            "CorrelationLength", GetHydraRingValue(variableDefaults.CorrelationLength)
                         }
                     });
                 }
