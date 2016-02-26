@@ -358,17 +358,17 @@ namespace Ringtoets.Piping.Plugin
             PipingFailureMechanism wrappedData = pipingFailureMechanismContext.WrappedData;
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, pipingFailureMechanismContext.Parent), TreeFolderCategory.Input),
                 new PipingCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData.SurfaceLines, wrappedData.SoilProfiles, wrappedData, pipingFailureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
 
-        private static IList GetInputs(PipingFailureMechanism failureMechanism)
+        private static IList GetInputs(PipingFailureMechanism failureMechanism, AssessmentSectionBase assessmentSection)
         {
             return new ArrayList
             {
-                failureMechanism.SectionDivisions,
+                new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 failureMechanism.SurfaceLines,
                 failureMechanism.SoilProfiles,
                 failureMechanism.BoundaryConditions

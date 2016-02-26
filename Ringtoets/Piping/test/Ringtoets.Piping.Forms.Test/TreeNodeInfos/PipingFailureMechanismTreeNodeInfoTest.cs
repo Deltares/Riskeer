@@ -115,13 +115,18 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var inputsFolder = (CategoryTreeFolder) children[0];
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
+
+            var failureMechanismSectionsContext = (FailureMechanismSectionsContext)inputsFolder.Contents[0];
+            CollectionAssert.AreEqual(pipingFailureMechanism.Sections, failureMechanismSectionsContext.WrappedData);
+            Assert.AreSame(pipingFailureMechanism, failureMechanismSectionsContext.ParentFailureMechanism);
+            Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
+
             CollectionAssert.AreEqual(new object[]
             {
-                pipingFailureMechanism.SectionDivisions,
                 pipingFailureMechanism.SurfaceLines,
                 pipingFailureMechanism.SoilProfiles,
                 pipingFailureMechanism.BoundaryConditions
-            }, inputsFolder.Contents);
+            }, inputsFolder.Contents.Cast<object>().Skip(1));
 
             var calculationsFolder = (PipingCalculationGroupContext) children[1];
             Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);

@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+
+using Ringtoets.Common.Data;
 using Ringtoets.Integration.Data.Placeholders;
 
 namespace Ringtoets.Integration.Data.Test.Placeholders
@@ -16,8 +18,9 @@ namespace Ringtoets.Integration.Data.Test.Placeholders
             var failureMechanism = new FailureMechanismPlaceholder(expectedName);
 
             // Assert
+            Assert.IsInstanceOf<BaseFailureMechanism>(failureMechanism);
             Assert.AreEqual(expectedName, failureMechanism.Name);
-            Assert.AreEqual("Vakindeling", failureMechanism.SectionDivisions.Name);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.AreEqual("Locaties", failureMechanism.Locations.Name);
             Assert.AreEqual("Randvoorwaarden", failureMechanism.BoundaryConditions.Name);
             Assert.AreEqual("Oordeel", failureMechanism.AssessmentResult.Name);

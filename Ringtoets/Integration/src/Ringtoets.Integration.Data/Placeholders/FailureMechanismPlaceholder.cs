@@ -37,16 +37,10 @@ namespace Ringtoets.Integration.Data.Placeholders
         /// <param name="name">The placeholder's name.</param>
         public FailureMechanismPlaceholder(string name) : base(name)
         {
-            SectionDivisions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_SectionDevisions_DisplayName);
             Locations = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_Locations_DisplayName);
             BoundaryConditions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_BoundaryConditions_DisplayName);
             AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
         }
-
-        /// <summary>
-        /// Gets the subdivision of the assessment section for which this failure mechanism is calculating.
-        /// </summary>
-        public InputPlaceholder SectionDivisions { get; private set; }
 
         /// <summary>
         /// Gets the locations relevant for evaluating this failure mechanism.

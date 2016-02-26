@@ -1,5 +1,7 @@
 ﻿using System.Drawing;
 using System.Linq;
+
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -105,6 +107,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new FailureMechanismPlaceholder("test");
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]{ new Point2D(1,2), new Point2D(5,6) }));
             var failureMechanismContext = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
 
             // Call
@@ -115,12 +118,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var inputFolder = (CategoryTreeFolder)children[0];
             Assert.AreEqual("Invoer", inputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputFolder.Category);
+
+            var failureMechanismSectionsContext = (FailureMechanismSectionsContext)inputFolder.Contents[0];
+            CollectionAssert.AreEqual(failureMechanism.Sections, failureMechanismSectionsContext.WrappedData);
+            Assert.AreSame(failureMechanism, failureMechanismSectionsContext.ParentFailureMechanism);
+            Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
             CollectionAssert.AreEqual(new[]
             {
-                failureMechanism.SectionDivisions,
                 failureMechanism.Locations,
                 failureMechanism.BoundaryConditions
-            }, inputFolder.Contents);
+            }, inputFolder.Contents.Cast<object>().Skip(1));
 
             var outputFolder = (CategoryTreeFolder)children[1];
             Assert.AreEqual("Uitvoer", outputFolder.Name);

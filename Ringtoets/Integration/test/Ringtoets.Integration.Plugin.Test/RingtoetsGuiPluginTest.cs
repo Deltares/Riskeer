@@ -13,8 +13,6 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Placeholder;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -109,12 +107,13 @@ namespace Ringtoets.Integration.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(7, treeNodeInfos.Length);
+                Assert.AreEqual(8, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSectionBase)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PlaceholderWithReadonlyName)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismPlaceholderContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CategoryTreeFolder)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContribution)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext)));
             }

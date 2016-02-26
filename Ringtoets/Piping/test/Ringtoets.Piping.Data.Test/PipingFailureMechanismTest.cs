@@ -26,8 +26,8 @@ namespace Ringtoets.Piping.Data.Test
             var piping = new PipingFailureMechanism();
 
             // assert
-            Assert.IsInstanceOf<IFailureMechanism>(piping);
-            Assert.AreEqual("Vakindeling", piping.SectionDivisions.Name);
+            Assert.IsInstanceOf<BaseFailureMechanism>(piping);
+            CollectionAssert.IsEmpty(piping.Sections);
             CollectionAssert.IsEmpty(piping.SurfaceLines);
             Assert.IsInstanceOf<ObservableList<RingtoetsPipingSurfaceLine>>(piping.SurfaceLines);
             CollectionAssert.IsEmpty(piping.SoilProfiles);

@@ -108,9 +108,9 @@ namespace Ringtoets.Common.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Vakindeling.
         /// </summary>
-        public static string FailureMechanism_SectionDevisions_DisplayName {
+        public static string FailureMechanism_Sections_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanism_SectionDevisions_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanism_Sections_DisplayName", resourceCulture);
             }
         }
         

@@ -129,7 +129,7 @@
   <data name="FailureMechanism_Locations_DisplayName" xml:space="preserve">
     <value>Locaties</value>
   </data>
-  <data name="FailureMechanism_SectionDevisions_DisplayName" xml:space="preserve">
+  <data name="FailureMechanism_Sections_DisplayName" xml:space="preserve">
     <value>Vakindeling</value>
   </data>
   <data name="ReferenceLine_SetGeometry_New_geometry_cannot_be_null" xml:space="preserve">

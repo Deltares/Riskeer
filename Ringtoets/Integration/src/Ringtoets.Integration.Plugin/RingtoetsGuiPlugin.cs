@@ -47,6 +47,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
@@ -150,6 +151,13 @@ namespace Ringtoets.Integration.Plugin
                 ForeColor = failureMechanismPlaceholder => Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = FailureMechanismPlaceholderChildNodeObjects,
                 ContextMenuStrip = FailureMechanismPlaceholderContextMenuStrip
+            };
+
+            yield return new TreeNodeInfo<FailureMechanismSectionsContext>
+            {
+                Text = context => RingtoetsCommonDataResources.FailureMechanism_Sections_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.Sections,
+                ContextMenuStrip = FailureMechanismSectionsContextMenuStrip
             };
 
             yield return new TreeNodeInfo<PlaceholderWithReadonlyName>
@@ -270,7 +278,7 @@ namespace Ringtoets.Integration.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetInputs(nodeData.WrappedData),
+                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetOutputs(nodeData.WrappedData),
@@ -278,11 +286,11 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private IList GetInputs(FailureMechanismPlaceholder nodeData)
+        private IList GetInputs(FailureMechanismPlaceholder nodeData, AssessmentSectionBase assessmentSection)
         {
             return new ArrayList
             {
-                nodeData.SectionDivisions,
+                new FailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.Locations,
                 nodeData.BoundaryConditions
             };
@@ -330,6 +338,17 @@ namespace Ringtoets.Integration.Plugin
         }
 
         # endregion
+
+        #region FailureMechanismSectionsContext
+
+        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddImportItem()
+                      .Build();
+        }
+
+        #endregion
 
         # region PlaceholderWithReadonlyName
 

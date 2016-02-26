@@ -38,7 +38,6 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public PipingFailureMechanism() : base(Resources.PipingFailureMechanism_DisplayName)
         {
-            SectionDivisions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_SectionDevisions_DisplayName);
             SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
             SoilProfiles = new ObservableList<PipingSoilProfile>();
             BoundaryConditions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_BoundaryConditions_DisplayName);
@@ -47,11 +46,6 @@ namespace Ringtoets.Piping.Data
             CalculationsGroup = pipingCalculationGroup;
             AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
         }
-
-        /// <summary>
-        /// Gets the subdivision of the assessment section for which the piping failure mechanism is calculating.
-        /// </summary>
-        public InputPlaceholder SectionDivisions { get; private set; }
 
         /// <summary>
         /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.

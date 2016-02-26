@@ -67,6 +67,7 @@
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismContributionTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismPlaceholderTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\FailureMechanismSectionsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HydraulicBoundaryDatabaseContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PlaceholderWithReadonlyNameTreeNodeInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
