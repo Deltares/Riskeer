@@ -156,6 +156,15 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             return null;
         }
 
+        public void Dispose()
+        {
+            if (fileReader != null)
+            {
+                fileReader.Dispose();
+                fileReader = null;
+            }
+        }
+
         /// <summary>
         /// Reads lines from file until the first non-white line is hit.
         /// </summary>
@@ -196,15 +205,6 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             return surfaceLine;
         }
 
-        public void Dispose()
-        {
-            if (fileReader != null)
-            {
-                fileReader.Dispose();
-                fileReader = null;
-            }
-        }
-
         /// <summary>
         /// Checks if the geometry defining the surface line is valid.
         /// </summary>
@@ -223,7 +223,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             {
                 if (lastPoint != null)
                 {
-                    if(!Equals(lastPoint, point))
+                    if (!Equals(lastPoint, point))
                     {
                         return;
                     }
@@ -290,12 +290,10 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             var points = new Point3D[coordinateCount];
             for (int i = 0; i < coordinateCount; i++)
             {
-                points[i] = new Point3D
-                (
-                    worldCoordinateValues[i*expectedValuesForPoint],
-                    worldCoordinateValues[i*expectedValuesForPoint + 1],
-                    worldCoordinateValues[i*expectedValuesForPoint + 2]
-                );
+                var x = worldCoordinateValues[i*expectedValuesForPoint];
+                var y = worldCoordinateValues[i*expectedValuesForPoint + 1];
+                var z = worldCoordinateValues[i*expectedValuesForPoint + 2];
+                points[i] = new Point3D(x, y, z);
             }
             return points;
         }
