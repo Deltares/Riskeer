@@ -35,7 +35,6 @@ namespace Ringtoets.HydraRing.Calculation.Common
         private readonly double mean;
         private readonly double variability;
         private readonly double shift;
-        private readonly double correlationLength;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingVariable"/> class.
@@ -47,8 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Common
         /// <param name="mean">The mean value in case the variable is random.</param>
         /// <param name="variability">The variability in case the variable is random.</param>
         /// <param name="shift">The shift in case the variable is random.</param>
-        /// <param name="correlationLength">The correlation length.</param>
-        protected HydraRingVariable(int variableId, HydraRingDistributionType distributionType, double value, HydraRingDeviationType deviationType, double mean, double variability, double shift, double correlationLength)
+        protected HydraRingVariable(int variableId, HydraRingDistributionType distributionType, double value, HydraRingDeviationType deviationType, double mean, double variability, double shift)
         {
             this.variableId = variableId;
             this.distributionType = distributionType;
@@ -57,7 +55,6 @@ namespace Ringtoets.HydraRing.Calculation.Common
             this.mean = mean;
             this.variability = variability;
             this.shift = shift;
-            this.correlationLength = correlationLength;
         }
 
         /// <summary>
@@ -150,17 +147,6 @@ namespace Ringtoets.HydraRing.Calculation.Common
             get
             {
                 return shift;
-            }
-        }
-
-        /// <summary>
-        /// Gets the correlation length.
-        /// </summary>
-        public double CorrelationLength
-        {
-            get
-            {
-                return correlationLength;
             }
         }
     }

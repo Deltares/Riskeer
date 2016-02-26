@@ -103,6 +103,7 @@ namespace Ringtoets.HydraRing.Calculation.Common
             InitializeSectionsConfiguration(configurationDictionary);
             InitializeDesignTablesConfiguration(configurationDictionary);
             InitializeNumericsConfiguration(configurationDictionary);
+            InitializeVariableDatasConfiguration(configurationDictionary);
             InitializeAreasConfiguration(configurationDictionary);
             InitializeProjectsConfiguration(configurationDictionary);
 
@@ -226,13 +227,13 @@ namespace Ringtoets.HydraRing.Calculation.Common
                         "TableStepSize", null // Fixed: no support for type 3 computations (see "Method")
                     },
                     {
-                        "ValueMin", failureMechanismSettings.ValueMin
+                        "ValueMin", GetHydraRingValue(failureMechanismSettings.ValueMin)
                     },
                     {
-                        "ValueMax", failureMechanismSettings.ValueMax
+                        "ValueMax", GetHydraRingValue(failureMechanismSettings.ValueMax)
                     },
                     {
-                        "Beta", !double.IsNaN(hydraRingCalculation.Beta) ? (double?) hydraRingCalculation.Beta : null
+                        "Beta", GetHydraRingValue(hydraRingCalculation.Beta)
                     }
                 });
             }
@@ -279,16 +280,16 @@ namespace Ringtoets.HydraRing.Calculation.Common
                             "FormNumberOfIterations", subMechanismSettings.FormNumberOfIterations
                         },
                         {
-                            "FormRelaxationFactor", subMechanismSettings.FormRelaxationFactor
+                            "FormRelaxationFactor", GetHydraRingValue(subMechanismSettings.FormRelaxationFactor)
                         },
                         {
-                            "FormEpsBeta", subMechanismSettings.FormEpsBeta
+                            "FormEpsBeta", GetHydraRingValue(subMechanismSettings.FormEpsBeta)
                         },
                         {
-                            "FormEpsHOH", subMechanismSettings.FormEpsHoh
+                            "FormEpsHOH", GetHydraRingValue(subMechanismSettings.FormEpsHoh)
                         },
                         {
-                            "FormEpsZFunc", subMechanismSettings.FormEpsZFunc
+                            "FormEpsZFunc", GetHydraRingValue(subMechanismSettings.FormEpsZFunc)
                         },
                         {
                             "DsStartMethod", subMechanismSettings.DsStartMethod
@@ -303,13 +304,13 @@ namespace Ringtoets.HydraRing.Calculation.Common
                             "DsMaxNumberOfIterations", subMechanismSettings.DsMaxNumberOfIterations
                         },
                         {
-                            "DsVarCoefficient", subMechanismSettings.DsVarCoefficient
+                            "DsVarCoefficient", GetHydraRingValue(subMechanismSettings.DsVarCoefficient)
                         },
                         {
-                            "NiUMin", subMechanismSettings.NiUMin
+                            "NiUMin", GetHydraRingValue(subMechanismSettings.NiUMin)
                         },
                         {
-                            "NiUMax", subMechanismSettings.NiUMax
+                            "NiUMax", GetHydraRingValue(subMechanismSettings.NiUMax)
                         },
                         {
                             "NiNumberSteps", subMechanismSettings.NiNumberSteps
@@ -319,6 +320,79 @@ namespace Ringtoets.HydraRing.Calculation.Common
             }
 
             configurationDictionary["Numerics"] = orderDictionaries;
+        }
+
+        private void InitializeVariableDatasConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            var orderDictionaries = new List<OrderedDictionary>();
+
+            foreach (var hydraRingCalculation in hydraRingCalculations)
+            {
+                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculation.FailureMechanismType);
+
+                foreach (var hydraRingVariable in hydraRingCalculation.Variables)
+                {
+                    orderDictionaries.Add(new OrderedDictionary
+                    {
+                        {
+                            "SectionId", 999 // TODO: Dike section integration
+                        },
+                        {
+                            "MechanismId", failureMechanismDefaults.MechanismId
+                        },
+                        {
+                            "LayerId", null // Fixed: no support for revetments
+                        },
+                        {
+                            "AlternativeId", null // Fixed: no support for piping
+                        },
+                        {
+                            "VariableId", hydraRingVariable.VariableId
+                        },
+                        {
+                            "Value", hydraRingVariable.DistributionType == HydraRingDistributionType.Deterministic
+                                         ? GetHydraRingValue(hydraRingVariable.Value)
+                                         : null
+                        },
+                        {
+                            "DistributionType", (int?) hydraRingVariable.DistributionType
+                        },
+                        {
+                            "Parameter1", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic
+                                              ? GetHydraRingValue(hydraRingVariable.Mean)
+                                              : null
+                        },
+                        {
+                            "Parameter2", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic
+                                          && hydraRingVariable.DeviationType == HydraRingDeviationType.Standard
+                                              ? GetHydraRingValue(hydraRingVariable.Variability)
+                                              : null
+                        },
+                        {
+                            "Parameter3", hydraRingVariable.DistributionType == HydraRingDistributionType.LogNormal
+                                              ? GetHydraRingValue(hydraRingVariable.Shift)
+                                              : null
+                        },
+                        {
+                            "Parameter4", null // Fixed: Not relevant
+                        },
+                        {
+                            "DeviationType", (int?) hydraRingVariable.DeviationType
+                        },
+                        {
+                            "CoefficientOfVariation", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic
+                                                      && hydraRingVariable.DeviationType == HydraRingDeviationType.Variation
+                                                          ? GetHydraRingValue(hydraRingVariable.Variability)
+                                                          : null
+                        },
+                        {
+                            "CorrelationLength", null // TODO: Implement
+                        }
+                    });
+                }
+            }
+
+            configurationDictionary["VariableDatas"] = orderDictionaries;
         }
 
         private void InitializeAreasConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
@@ -408,6 +482,11 @@ namespace Ringtoets.HydraRing.Calculation.Common
             }
 
             return string.Join(Environment.NewLine, lines);
+        }
+
+        private double? GetHydraRingValue(double value)
+        {
+            return !double.IsNaN(value) ? (double?) value : null;
         }
     }
 }

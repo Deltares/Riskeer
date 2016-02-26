@@ -55,7 +55,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
 
         private class AssessmentLevelVariable : HydraRingVariable
         {
-            public AssessmentLevelVariable() : base(26, 0, 0, 0, 0, 0, 0, 0) { }
+            public AssessmentLevelVariable() : base(26, HydraRingDistributionType.Deterministic, 0, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN) { }
         }
     }
 }
