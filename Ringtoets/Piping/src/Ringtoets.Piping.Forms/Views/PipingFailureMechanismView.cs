@@ -19,18 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis;
+using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Forms;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
 
 namespace Ringtoets.Piping.Forms.Views
 {
     public partial class PipingFailureMechanismView :  UserControl, IMapView
     {
         private readonly BaseMap map;
-        private PipingFailureMechanism data;
+        private PipingFailureMechanismContext data;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismView"/>.
@@ -52,7 +56,7 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
-                data = value as PipingFailureMechanism;
+                data = value as PipingFailureMechanismContext;
 
                 if (data != null)
                 {
@@ -71,6 +75,41 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void SetDataToMap()
         {
+            var mapDataList = new List<MapData>();
+
+            if (HasReferenceLinePoints())
+            {
+                mapDataList.Add(GetReferenceLineData());
+            }
+
+            if (HasHydraulicBoundaryLocations())
+            {
+                mapDataList.Add(GetHydraulicBoundaryLocations());
+            }
+
+            map.Data = new MapDataCollection(mapDataList);
+        }
+
+        private MapData GetReferenceLineData()
+        {
+            Point2D[] referenceLinePoints = data.Parent.ReferenceLine.Points.ToArray();
+            return new MapLineData(referenceLinePoints);
+        }
+
+        private MapData GetHydraulicBoundaryLocations()
+        {
+            Point2D[] hrLocations = data.Parent.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
+            return new MapPointData(hrLocations);
+        }
+
+        private bool HasReferenceLinePoints()
+        {
+            return data.Parent.ReferenceLine != null && data.Parent.ReferenceLine.Points.Any();
+        }
+
+        private bool HasHydraulicBoundaryLocations()
+        {
+            return data.Parent.HydraulicBoundaryDatabase != null && data.Parent.HydraulicBoundaryDatabase.Locations.Any();
         }
     }
 }

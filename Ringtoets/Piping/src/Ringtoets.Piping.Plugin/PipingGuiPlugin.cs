@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<PipingFailureMechanism, PipingFailureMechanismView>
+            yield return new ViewInfo<PipingFailureMechanismContext, PipingFailureMechanismView>
             {
                 GetViewName = (view, mechanism) => PipingDataResources.PipingFailureMechanism_DisplayName,
                 Image = PipingFormsResources.PipingIcon
