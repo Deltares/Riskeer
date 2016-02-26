@@ -1,8 +1,10 @@
 ﻿using System;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 
@@ -29,10 +31,11 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var mocks = new MockRepository();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
             // Call
-            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock);
+            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(presentationObject);
@@ -41,6 +44,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.AreSame(surfacelines, presentationObject.AvailablePipingSurfaceLines);
             Assert.AreSame(profiles, presentationObject.AvailablePipingSoilProfiles);
             Assert.AreSame(pipingFailureMechanismMock, presentationObject.PipingFailureMechanism);
+            Assert.AreSame(assessmentSectionMock, presentationObject.AssessmentSection);
         }
 
         [Test]
@@ -58,12 +62,36 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var calculation = new PipingCalculation();
 
             // Call
-            TestDelegate call = () => new PipingCalculationContext(calculation, surfacelines, profiles, null);
+            TestDelegate call = () => new PipingCalculationContext(calculation, surfacelines, profiles, null, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             string customMessage = exception.Message.Split(new[] { Environment.NewLine }, StringSplitOptions.None)[0];
             Assert.AreEqual("Het piping faalmechanisme mag niet 'null' zijn.", customMessage);
+        }
+
+        [Test]
+        public void ParameteredConstructor_AssessmentSectionIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var surfacelines = new[]
+            {
+                new RingtoetsPipingSurfaceLine()
+            };
+            var profiles = new[]
+            {
+                new TestPipingSoilProfile()
+            };
+            var calculation = new PipingCalculation();
+            var mocks = new MockRepository();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock, null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het dijktraject mag niet 'null' zijn.");
         }
 
         [Test]
@@ -85,9 +113,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var calculation = new PipingCalculation();
 
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock);
+            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock, assessmentSectionBaseMock);
             presentationObject.Attach(observer);
 
             // Call
@@ -115,9 +144,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var calculation = new PipingCalculation();
 
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock);
+            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock, assessmentSectionBaseMock);
             presentationObject.Attach(observer);
             presentationObject.Detach(observer);
 

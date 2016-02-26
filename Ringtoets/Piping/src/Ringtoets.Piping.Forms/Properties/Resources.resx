@@ -568,4 +568,7 @@
   <data name="PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length" xml:space="preserve">
     <value>Kon waarde {0} voor het intredepunt niet zetten omdat dit zou resulteren in een ongeldige kwelweglengte.</value>
   </data>
+  <data name="PipingContext_DataDescription_AssessmentSection" xml:space="preserve">
+    <value>Het dijktraject</value>
+  </data>
 </root>

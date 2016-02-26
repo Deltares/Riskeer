@@ -443,6 +443,15 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het dijktraject.
+        /// </summary>
+        public static string PipingContext_DataDescription_AssessmentSection {
+            get {
+                return ResourceManager.GetString("PipingContext_DataDescription_AssessmentSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het piping faalmechanisme.
         /// </summary>
         public static string PipingContext_DataDescription_PipingFailureMechanism {

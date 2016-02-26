@@ -1088,8 +1088,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             object draggedItemContext;
 
             var failureMechanism = new PipingFailureMechanism();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
 
-            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanism);
+            mocks.ReplayAll();
+
+            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanism, assessmentSection);
 
             PipingCalculationGroup targetGroup;
             PipingCalculationGroupContext targetGroupContext;
@@ -1132,8 +1135,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             object draggedItemContext;
 
             var targetFailureMechanism = new PipingFailureMechanism();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
 
-            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, targetFailureMechanism);
+            mocks.ReplayAll();
+
+            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, targetFailureMechanism, assessmentSection);
 
             var sourceFailureMechanism = new PipingFailureMechanism();
             sourceFailureMechanism.CalculationsGroup.Children.Add(draggedItem);
@@ -1175,10 +1181,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
 
             IPipingCalculationItem draggedItem;
             object draggedItemContext;
-            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock);
+            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, assessmentSection);
 
             PipingCalculationGroup originalOwnerGroup;
             PipingCalculationGroupContext originalOwnerGroupContext;
@@ -1225,11 +1232,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
 
             const string name = "Very cool name";
             IPipingCalculationItem draggedItem;
             object draggedItemContext;
-            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, name);
+            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, assessmentSection, name);
 
             var existingItemStub = mocks.Stub<IPipingCalculationItem>();
             existingItemStub.Stub(i => i.Name).Return("");
@@ -1274,10 +1282,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
 
             IPipingCalculationItem draggedItem;
             object draggedItemContext;
-            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock);
+            CreatePipingCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, assessmentSection);
 
             PipingCalculationGroup originalOwnerGroup;
             PipingCalculationGroupContext originalOwnerGroupContext;
@@ -1360,7 +1369,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         /// <param name="pipingFailureMechanism">The piping failure mechanism the item and context belong to.</param>
         /// <param name="initialName">Optional: The name of <paramref name="data"/>.</param>
         /// <exception cref="System.NotSupportedException"></exception>
-        private void CreatePipingCalculationItemAndContext(PipingCalculationItemType type, out IPipingCalculationItem data, out object dataContext, PipingFailureMechanism pipingFailureMechanism, string initialName = null)
+        private void CreatePipingCalculationItemAndContext(PipingCalculationItemType type, out IPipingCalculationItem data, out object dataContext, PipingFailureMechanism pipingFailureMechanism, AssessmentSectionBase assessmentSection, string initialName = null)
         {
             switch (type)
             {
@@ -1374,7 +1383,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     dataContext = new PipingCalculationContext(calculation,
                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                Enumerable.Empty<PipingSoilProfile>(),
-                                                               pipingFailureMechanism);
+                                                               pipingFailureMechanism,
+                                                               assessmentSection);
                     break;
                 case PipingCalculationItemType.Group:
                     var group = new PipingCalculationGroup();
