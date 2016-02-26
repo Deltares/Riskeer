@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the parent of <see name="WrappedData"/>.
+        /// Gets the parent of <see cref="WrappedData"/>.
         /// </summary>
         public AssessmentSectionBase Parent { get; private set; }
 

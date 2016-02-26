@@ -10,9 +10,12 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
+
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
@@ -110,13 +113,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsChildsOnData()
         {
             // Setup
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
-            failureMechanism.Expect(f => f.Name).Return("some name");
-            failureMechanism.Expect(f => f.Contribution).Return(100);
-
-            mocks.ReplayAll();
-
-            var failureMechanismList = new List<IFailureMechanism> { failureMechanism };
+            var failureMechanismList = new List<IFailureMechanism>
+            {
+                new PipingFailureMechanism(),
+                new FailureMechanismPlaceholder("A")
+            };
             var contribution = new FailureMechanismContribution(failureMechanismList, 10.0, 2);
             var assessmentSection = new TestAssessmentSectionBase(contribution, failureMechanismList);
 
@@ -124,7 +125,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var objects = info.ChildNodeObjects(assessmentSection).ToArray();
 
             // Assert
-            Assert.AreEqual(4, objects.Length);
+            Assert.AreEqual(5, objects.Length);
             var referenceLineContext = (ReferenceLineContext)objects[0];
             Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
             Assert.AreSame(assessmentSection, referenceLineContext.Parent);
@@ -135,7 +136,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.Parent.HydraulicBoundaryDatabase);
             Assert.AreSame(assessmentSection, context.Parent);
 
-            Assert.AreSame(failureMechanism, objects[3]);
+            var pipingFailureMechanismContext = (PipingFailureMechanismContext)objects[3];
+            Assert.AreSame(failureMechanismList[0], pipingFailureMechanismContext.WrappedData);
+            Assert.AreSame(assessmentSection, pipingFailureMechanismContext.Parent);
+
+            var placeholderFailureMechanismContext = (FailureMechanismPlaceholderContext)objects[4];
+            Assert.AreSame(failureMechanismList[1], placeholderFailureMechanismContext.WrappedData);
+            Assert.AreSame(assessmentSection, placeholderFailureMechanismContext.Parent);
 
             mocks.VerifyAll();
         }

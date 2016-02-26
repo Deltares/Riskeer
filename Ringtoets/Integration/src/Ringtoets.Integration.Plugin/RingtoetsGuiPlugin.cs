@@ -42,6 +42,8 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Plugin.FileImporters;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
 
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
@@ -141,9 +143,9 @@ namespace Ringtoets.Integration.Plugin
                                    Gui.Get(nodeData, treeViewControl).AddImportItem().Build()
             };
 
-            yield return new TreeNodeInfo<FailureMechanismPlaceholder>
+            yield return new TreeNodeInfo<FailureMechanismPlaceholderContext>
             {
-                Text = failureMechanismPlaceholder => failureMechanismPlaceholder.Name,
+                Text = failureMechanismPlaceholder => failureMechanismPlaceholder.WrappedData.Name,
                 Image = failureMechanismPlaceholder => RingtoetsFormsResources.FailureMechanismIcon,
                 ForeColor = failureMechanismPlaceholder => Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = FailureMechanismPlaceholderChildNodeObjects,
@@ -200,10 +202,31 @@ namespace Ringtoets.Integration.Plugin
                 new HydraulicBoundaryDatabaseContext(nodeData)
             };
 
-            var failureMechanismContexts = nodeData.GetFailureMechanisms();
+            var failureMechanismContexts = WrapFailureMechanismsInContexts(nodeData);
             childNodes.AddRange(failureMechanismContexts);
 
             return childNodes.ToArray();
+        }
+
+        private static IEnumerable<object> WrapFailureMechanismsInContexts(AssessmentSectionBase nodeData)
+        {
+            foreach (IFailureMechanism failureMechanism in nodeData.GetFailureMechanisms())
+            {
+                var placeHolder = failureMechanism as FailureMechanismPlaceholder;
+                var piping = failureMechanism as PipingFailureMechanism;
+                if (placeHolder != null)
+                {
+                    yield return new FailureMechanismPlaceholderContext(placeHolder, nodeData);
+                }
+                else if (piping != null)
+                {
+                    yield return new PipingFailureMechanismContext(piping, nodeData);
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
+            }
         }
 
         private void AssessmentSectionBaseOnNodeRenamed(AssessmentSectionBase nodeData, string newName)
@@ -240,17 +263,17 @@ namespace Ringtoets.Integration.Plugin
 
         # endregion
 
-        # region FailureMechanismPlaceholder
+        # region FailureMechanismPlaceHolderContext
 
-        private object[] FailureMechanismPlaceholderChildNodeObjects(FailureMechanismPlaceholder nodeData)
+        private object[] FailureMechanismPlaceholderChildNodeObjects(FailureMechanismPlaceholderContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetInputs(nodeData),
+                                       GetInputs(nodeData.WrappedData),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData),
+                                       GetOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
@@ -273,7 +296,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismPlaceholderContextMenuStrip(FailureMechanismPlaceholder nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismPlaceholderContextMenuStrip(FailureMechanismPlaceholderContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var calculateItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,

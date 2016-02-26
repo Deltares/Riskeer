@@ -7,8 +7,11 @@ using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.Placeholders;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -27,7 +30,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismPlaceholder));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismPlaceholderContext));
         }
 
         [TearDown]
@@ -40,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismPlaceholder), info.TagType);
+            Assert.AreEqual(typeof(FailureMechanismPlaceholderContext), info.TagType);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
@@ -59,14 +62,19 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
             var testName = "ttt";
             var placeholder = new FailureMechanismPlaceholder(testName);
+            var placeholderContext = new FailureMechanismPlaceholderContext(placeholder, assessmentSection);
 
             // Call
-            var text = info.Text(placeholder);
+            var text = info.Text(placeholderContext);
 
             // Assert
             Assert.AreEqual(testName, text);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -93,10 +101,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnFoldersWithInputAndOutput()
         {
             // Setup
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
             var failureMechanism = new FailureMechanismPlaceholder("test");
+            var failureMechanismContext = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(failureMechanism).ToArray();
+            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
             // Assert
             Assert.AreEqual(2, children.Length);
@@ -114,6 +126,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Uitvoer", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
             Assert.AreEqual(new[]{failureMechanism.AssessmentResult}, outputFolder.Contents);
+            mocks.VerifyAll();
         }
 
         [Test]

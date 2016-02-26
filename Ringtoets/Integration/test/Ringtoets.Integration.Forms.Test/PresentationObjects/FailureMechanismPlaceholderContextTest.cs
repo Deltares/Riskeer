@@ -10,7 +10,7 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class FailureMechanismPlaceHolderContextTest
+    public class FailureMechanismPlaceholderContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -23,7 +23,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var failureMechanism = new FailureMechanismPlaceholder("A");
 
             // Call
-            var context = new FailureMechanismPlaceHolderContext(failureMechanism, assessmentSection);
+            var context = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<FailureMechanismPlaceholder>>(context);

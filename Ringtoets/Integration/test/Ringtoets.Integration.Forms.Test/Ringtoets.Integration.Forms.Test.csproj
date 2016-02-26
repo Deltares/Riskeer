@@ -58,7 +58,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PresentationObjects\FailureMechanismPlaceHolderContextTest.cs" />
+    <Compile Include="PresentationObjects\FailureMechanismPlaceholderContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
@@ -135,6 +135,10 @@
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
+      <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
+      <Name>Ringtoets.Piping.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>

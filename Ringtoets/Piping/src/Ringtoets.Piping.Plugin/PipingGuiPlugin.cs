@@ -75,9 +75,9 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return new TreeNodeInfo<PipingFailureMechanism>
+            yield return new TreeNodeInfo<PipingFailureMechanismContext>
             {
-                Text = pipingFailureMechanism => pipingFailureMechanism.Name,
+                Text = pipingFailureMechanism => pipingFailureMechanism.WrappedData.Name,
                 Image = pipingFailureMechanism => PipingFormsResources.PipingIcon,
                 ContextMenuStrip = FailureMechanismContextMenuStrip,
                 ChildNodeObjects = FailureMechanismChildNodeObjects,
@@ -214,40 +214,40 @@ namespace Ringtoets.Piping.Plugin
 
         # region PipingFailureMechanism TreeNodeInfo
 
-        private ContextMenuStrip FailureMechanismContextMenuStrip(PipingFailureMechanism failureMechanism, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
         {
             var addCalculationGroupItem = new StrictContextMenuItem(
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
                 PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip,
                 PipingFormsResources.AddFolderIcon,
-                (o, args) => AddCalculationGroup(failureMechanism)
+                (o, args) => AddCalculationGroup(pipingFailureMechanismContext.WrappedData)
                 );
 
             var addCalculationItem = new StrictContextMenuItem(
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
                 PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation_Tooltip,
                 PipingFormsResources.PipingIcon,
-                (s, e) => AddCalculation(failureMechanism)
+                (s, e) => AddCalculation(pipingFailureMechanismContext.WrappedData)
                 );
 
-            var validateAllItem = CreateValidateAllItem(failureMechanism);
+            var validateAllItem = CreateValidateAllItem(pipingFailureMechanismContext.WrappedData);
 
-            var calculateAllItem = CreateCalculateAllItem(failureMechanism);
+            var calculateAllItem = CreateCalculateAllItem(pipingFailureMechanismContext.WrappedData);
 
             var clearAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Clear_all_output,
                 RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
                 RingtoetsCommonFormsResources.ClearIcon,
-                (o, args) => ClearAll(failureMechanism)
+                (o, args) => ClearAll(pipingFailureMechanismContext.WrappedData)
                 );
 
-            if (!GetAllPipingCalculations(failureMechanism).Any(c => c.HasOutput))
+            if (!GetAllPipingCalculations(pipingFailureMechanismContext.WrappedData).Any(c => c.HasOutput))
             {
                 clearAllItem.Enabled = false;
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            return Gui.Get(failureMechanism, treeViewControl)
+            return Gui.Get(pipingFailureMechanismContext, treeViewControl)
                       .AddOpenItem()
                       .AddSeparator()
                       .AddCustomItem(addCalculationGroupItem)
@@ -353,13 +353,14 @@ namespace Ringtoets.Piping.Plugin
             failureMechanism.CalculationsGroup.NotifyObservers();
         }
 
-        private object[] FailureMechanismChildNodeObjects(PipingFailureMechanism pipingFailureMechanism)
+        private object[] FailureMechanismChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)
         {
+            PipingFailureMechanism wrappedData = pipingFailureMechanismContext.WrappedData;
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(pipingFailureMechanism), TreeFolderCategory.Input),
-                new PipingCalculationGroupContext(pipingFailureMechanism.CalculationsGroup, pipingFailureMechanism.SurfaceLines, pipingFailureMechanism.SoilProfiles, pipingFailureMechanism),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(pipingFailureMechanism), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData), TreeFolderCategory.Input),
+                new PipingCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData.SurfaceLines, wrappedData.SoilProfiles, wrappedData),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
 
