@@ -24,7 +24,6 @@ using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
 using Core.Components.Gis;
-
 using Fluent;
 
 namespace Core.Plugins.DotSpatial
@@ -116,6 +115,11 @@ namespace Core.Plugins.DotSpatial
         private void ButtonToggleLegend_Click(object sender, RoutedEventArgs e)
         {
             ToggleLegendViewCommand.Execute();
+        }
+
+        private void ButtonZoomToAll_Click(object sender, RoutedEventArgs e)
+        {
+            Map.ZoomToAll();
         }
     }
 }

@@ -24,7 +24,6 @@ using Core.Common.Base;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.Gis.Data;
 using DotSpatial.Controls;
-using DotSpatial.Data;
 using IMap = Core.Components.Gis.IMap;
 
 namespace Core.Components.DotSpatial.Forms
@@ -66,6 +65,11 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
+        public void ZoomToAll()
+        {
+            map.ZoomToMaxExtent();
+        }
+
         public void UpdateObserver()
         {
             DrawFeatureSets();
@@ -103,7 +107,7 @@ namespace Core.Components.DotSpatial.Forms
                     map.Layers.Add(mapLayer);
                 }
 
-                map.ZoomToMaxExtent();
+                ZoomToAll();
             }
         }
 

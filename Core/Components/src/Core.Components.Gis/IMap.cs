@@ -32,5 +32,10 @@ namespace Core.Components.Gis
         /// Gets or sets the data to show in the <see cref="IMap"/>.
         /// </summary>
         MapData Data { get; set; }
+
+        /// <summary>
+        /// Zooms to a level so that everything is in view.
+        /// </summary>
+        void ZoomToAll();
     }
 }

@@ -24,6 +24,10 @@
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
 
-        <fluent:RibbonTabItem Header="{x:Static p:Resources.General_Map}" Group="{Binding Source={x:Reference MapContextualGroup}}" fluent:KeyTip.Keys="K"/>
+        <fluent:RibbonTabItem Header="{x:Static p:Resources.General_Map}" Group="{Binding Source={x:Reference MapContextualGroup}}" fluent:KeyTip.Keys="K">
+            <fluent:RibbonGroupBox Header="{x:Static p:Resources.Ribbon_GroupBox_Navigation}">
+                <fluent:Button x:Name="ZoomToAllButton" Header="{x:Static p:Resources.Ribbon_ZoomToAll}" ToolTip="{x:Static p:Resources.Ribbon_ZoomToAll_ToolTip}" Icon="{Binding Source={x:Static p:Resources.ZoomToAllIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Middle" Click="ButtonZoomToAll_Click" fluent:KeyTip.Keys="A"/>
+            </fluent:RibbonGroupBox>
+        </fluent:RibbonTabItem>
     </fluent:Ribbon>
 </UserControl>

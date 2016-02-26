@@ -7,11 +7,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
-
 using DotSpatial.Controls;
-
 using NUnit.Framework;
-
 using IMap = Core.Components.Gis.IMap;
 
 namespace Core.Components.DotSpatial.Forms.Test
@@ -120,7 +117,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             var mapView = map.Controls.OfType<Map>().First();
 
             // Call
-            map.Data = testData;            
+            map.Data = testData;
 
             // Assert
             Assert.IsInstanceOf<MapPointData>(map.Data);
@@ -183,7 +180,34 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Assert
             Assert.IsNull(map.Data);
             Assert.AreEqual(0, mapView.Layers.Count);
-        }	
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void ZoomToAll_MapInForm_ViewInvalidatedLayersSame()
+        {
+            // Setup
+            var form = new Form();
+            var map = new BaseMap();
+            var testData = new MapPointData(Enumerable.Empty<Point2D>());
+            var mapView = map.Controls.OfType<Map>().First();
+            var invalidated = 0;
+
+            map.Data = testData;
+            form.Controls.Add(map);
+
+            mapView.Invalidated += (sender, args) => { invalidated++; };
+
+            form.Show();
+            Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");
+
+            // Call
+            map.ZoomToAll();
+
+            // Assert
+            Assert.AreEqual(2, invalidated);
+            Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
+        }
 
         [Test]
         [RequiresSTA]
