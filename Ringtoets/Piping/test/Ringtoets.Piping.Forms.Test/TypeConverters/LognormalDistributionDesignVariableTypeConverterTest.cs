@@ -7,7 +7,7 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 
 using Rhino.Mocks;
-
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -131,22 +131,25 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GivenPipingInputParameterContextPropertiesInDynamicPropertyBag_WhenSettingNewValue_ThenPipingInputUpdatesObservers(int propertyIndexToChange)
         {
             // Scenario
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var typeDescriptorContextMock = mocks.StrictMock<ITypeDescriptorContext>();
+
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
             var inputParameters = new PipingInput();
             var inputParametersContext = new PipingInputContext(inputParameters,
                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                Enumerable.Empty<PipingSoilProfile>());
+                                                                Enumerable.Empty<PipingSoilProfile>(),
+                                                                assessmentSectionMock);
             var inputParameterContextProperties = new PipingInputContextProperties
             {
                 Data = inputParametersContext
             };
             var dynamicPropertyBag = new DynamicPropertyBag(inputParameterContextProperties);
 
-            var mocks = new MockRepository();
-            var typeDescriptorContextMock = mocks.StrictMock<ITypeDescriptorContext>();
             typeDescriptorContextMock.Expect(tdc => tdc.Instance).Return(dynamicPropertyBag);
-
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             inputParameters.Attach(observer);

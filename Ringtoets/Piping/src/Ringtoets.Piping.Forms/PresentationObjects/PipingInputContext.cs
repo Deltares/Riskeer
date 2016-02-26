@@ -34,24 +34,8 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// </summary>
     public class PipingInputContext : PipingContext<PipingInput>
     {
-        public PipingInputContext(PipingInput input, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<PipingSoilProfile> profiles):
-            base(input, surfaceLines, profiles){ }
-
         public PipingInputContext(PipingInput pipingInput, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<PipingSoilProfile> soilProfiles, AssessmentSectionBase assessmentSection)
-            : base(pipingInput, surfaceLines, soilProfiles)
-        {
-            if (assessmentSection == null)
-            {
-                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.PipingContext_DataDescription_AssessmentSection);
-                throw new ArgumentNullException("assessmentSection", message);
-            }
-            AssessmentSection = assessmentSection;
-        }
-
-        /// <summary>
-        /// Gets the assessment section which the piping context belongs to.
-        /// </summary>
-        public AssessmentSectionBase AssessmentSection { get; private set; }
+            : base(pipingInput, surfaceLines, soilProfiles, assessmentSection)
+        { }
     }
 }

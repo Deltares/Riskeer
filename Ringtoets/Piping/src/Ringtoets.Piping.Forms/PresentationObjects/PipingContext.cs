@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 
 using Core.Common.Base;
-
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 
@@ -41,17 +41,20 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="soilProfiles">The soil profiles available within the piping context.</param>
+        /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
         protected PipingContext(
             T wrappedData,
             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
-            IEnumerable<PipingSoilProfile> soilProfiles)
+            IEnumerable<PipingSoilProfile> soilProfiles, 
+            AssessmentSectionBase assessmentSection)
         {
-            AssertInputsAreNotNull(wrappedData, surfaceLines, soilProfiles);
+            AssertInputsAreNotNull(wrappedData, surfaceLines, soilProfiles, assessmentSection);
 
             WrappedData = wrappedData;
             AvailablePipingSurfaceLines = surfaceLines;
             AvailablePipingSoilProfiles = soilProfiles;
+            AssessmentSection = assessmentSection;
         }
 
         public override bool Equals(object obj)
@@ -87,13 +90,18 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         public T WrappedData { get; private set; }
 
         /// <summary>
+        /// Gets the assessment section which the piping context belongs to.
+        /// </summary>
+        public AssessmentSectionBase AssessmentSection { get; private set; }
+
+        /// <summary>
         /// Asserts the inputs are not null.
         /// </summary>
         /// <param name="wrappedData">The wrapped data.</param>
         /// <param name="surfaceLines">The surface lines.</param>
         /// <param name="soilProfiles">The soil profiles.</param>
         /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
-        private static void AssertInputsAreNotNull(object wrappedData, object surfaceLines, object soilProfiles)
+        private static void AssertInputsAreNotNull(object wrappedData, object surfaceLines, object soilProfiles, object assessmentSection)
         {
             if (wrappedData == null)
             {
@@ -112,6 +120,12 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
                 var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.PipingContext_DataDescription_Soilprofiles);
                 throw new ArgumentNullException("soilProfiles", message);
+            }
+            if (assessmentSection == null)
+            {
+                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                                            Resources.PipingContext_DataDescription_AssessmentSection);
+                throw new ArgumentNullException("assessmentSection", message);
             }
         }
 

@@ -5,6 +5,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
@@ -52,7 +53,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var pipingInputContext = mocks.StrictMock<PipingInputContext>(new PipingInput(), Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>());
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingInputContext = mocks.StrictMock<PipingInputContext>(new PipingInput(), Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>(), assessmentSection);
 
             mocks.ReplayAll();
 
@@ -69,7 +71,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var pipingInputContext = mocks.StrictMock<PipingInputContext>(new PipingInput(), Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>());
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingInputContext = mocks.StrictMock<PipingInputContext>(new PipingInput(), Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>(), assessmentSection);
 
             mocks.ReplayAll();
 

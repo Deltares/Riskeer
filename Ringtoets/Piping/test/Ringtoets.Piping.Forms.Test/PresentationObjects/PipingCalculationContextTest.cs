@@ -60,9 +60,12 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestPipingSoilProfile()
             };
             var calculation = new PipingCalculation();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new PipingCalculationContext(calculation, surfacelines, profiles, null, null);
+            TestDelegate call = () => new PipingCalculationContext(calculation, surfacelines, profiles, null, assessmentSection);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het piping faalmechanisme mag niet 'null' zijn.");

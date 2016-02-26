@@ -7,6 +7,7 @@ using Core.Common.Gui.PropertyBag;
 
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -22,6 +23,12 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
         public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var provider = mockRepository.DynamicMock<IServiceProvider>();
+            var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
+            var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
+            var assessmentSectionMock = mockRepository.StrictMock<AssessmentSectionBase>();
+
             var pipingInput = new PipingInput
             {
                 SoilProfile = new TestPipingSoilProfile()
@@ -31,7 +38,8 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                             new[]
                                                             {
                                                                 new TestPipingSoilProfile()
-                                                            });
+                                                            },
+                                                            assessmentSectionMock);
 
             var properties = new PipingInputContextProperties
             {
@@ -40,10 +48,6 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
 
             var editor = new PipingInputContextSoilProfileSelectionEditor();
             var someValue = new object();
-            var mockRepository = new MockRepository();
-            var provider = mockRepository.DynamicMock<IServiceProvider>();
-            var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
-            var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var propertyBag = new DynamicPropertyBag(properties);
 
             provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
@@ -65,6 +69,12 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var provider = mockRepository.DynamicMock<IServiceProvider>();
+            var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
+            var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
+            var assessmentSectionMock = mockRepository.StrictMock<AssessmentSectionBase>();
+
             var soilProfile = new TestPipingSoilProfile();
             var pipingInput = new PipingInput
             {
@@ -75,7 +85,8 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 new[]
                                                                 {
                                                                     soilProfile
-                                                                });
+                                                                },
+                                                                assessmentSectionMock);
 
             var properties = new PipingInputContextProperties
             {
@@ -84,10 +95,6 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
 
             var editor = new PipingInputContextSoilProfileSelectionEditor();
             var someValue = new object();
-            var mockRepository = new MockRepository();
-            var provider = mockRepository.DynamicMock<IServiceProvider>();
-            var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
-            var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var propertyBag = new DynamicPropertyBag(properties);
 
             provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);

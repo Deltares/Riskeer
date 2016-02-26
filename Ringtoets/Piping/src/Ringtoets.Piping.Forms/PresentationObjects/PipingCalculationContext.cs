@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         public PipingCalculationContext(PipingCalculation calculation, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<PipingSoilProfile> soilProfiles, PipingFailureMechanism pipingFailureMechanism, AssessmentSectionBase assessmentSection)
-            : base(calculation, surfaceLines, soilProfiles)
+            : base(calculation, surfaceLines, soilProfiles, assessmentSection)
         {
             if (pipingFailureMechanism == null)
             {
@@ -50,21 +50,9 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
                                             Resources.PipingContext_DataDescription_PipingFailureMechanism);
                 throw new ArgumentNullException("pipingFailureMechanism", message);
             }
-            if (assessmentSection == null)
-            {
-                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.PipingContext_DataDescription_AssessmentSection);
-                throw new ArgumentNullException("assessmentSection", message);
-            }
 
             PipingFailureMechanism = pipingFailureMechanism;
-            AssessmentSection = assessmentSection;
         }
-
-        /// <summary>
-        /// Gets the assessment section which the piping context belongs to.
-        /// </summary>
-        public AssessmentSectionBase AssessmentSection { get; private set; }
 
         /// <summary>
         /// Gets the piping failure mechanism which the piping context belongs to.
