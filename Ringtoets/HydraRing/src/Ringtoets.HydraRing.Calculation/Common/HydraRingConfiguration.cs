@@ -106,7 +106,20 @@ namespace Ringtoets.HydraRing.Calculation.Common
             InitializeDesignTablesConfiguration(configurationDictionary);
             InitializeNumericsConfiguration(configurationDictionary);
             InitializeVariableDatasConfiguration(configurationDictionary);
-            InitializeCalculationProfiles(configurationDictionary);
+            InitializeCalculationProfilesConfiguration(configurationDictionary);
+            InitializeSectionFaultTreeModelsConfiguration(configurationDictionary);
+            InitializeSectionSubMechanismModelsConfiguration(configurationDictionary);
+            InitializeFetchesConfiguration(configurationDictionary);
+            InitializeAreaPointsConfiguration(configurationDictionary);
+            InitializePresentationSectionsConfiguration(configurationDictionary);
+            InitializeProfilesConfiguration(configurationDictionary);
+            InitializeForelandModelsConfiguration(configurationDictionary);
+            InitializeForelandsConfiguration(configurationDictionary);
+            InitializeProbabilityAlternativesConfiguration(configurationDictionary);
+            InitializeSetUpHeightsConfiguration(configurationDictionary);
+            InitializeCalcWindDirectionsConfiguration(configurationDictionary);
+            InitializeSwellsConfiguration(configurationDictionary);
+            InitializeWaveReductionsConfiguration(configurationDictionary);
             InitializeAreasConfiguration(configurationDictionary);
             InitializeProjectsConfiguration(configurationDictionary);
 
@@ -400,7 +413,7 @@ namespace Ringtoets.HydraRing.Calculation.Common
             configurationDictionary["VariableDatas"] = orderDictionaries;
         }
 
-        private void InitializeCalculationProfiles(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        private void InitializeCalculationProfilesConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
         {
             var orderDictionaries = new List<OrderedDictionary>();
 
@@ -432,6 +445,71 @@ namespace Ringtoets.HydraRing.Calculation.Common
             }
 
             configurationDictionary["CalculationProfiles"] = orderDictionaries;
+        }
+
+        private void InitializeSectionFaultTreeModelsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["SectionFaultTreeModels"] = new List<OrderedDictionary>();
+        }
+
+        private void InitializeSectionSubMechanismModelsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["SectionSubMechanismModels"] = new List<OrderedDictionary>();
+        }
+
+        private void InitializeFetchesConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["Fetches"] = new List<OrderedDictionary>();
+        }
+
+        private void InitializeAreaPointsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["AreaPoints"] = new List<OrderedDictionary>();
+        }
+
+        private void InitializePresentationSectionsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["PresentationSections"] = new List<OrderedDictionary>();
+        }
+
+        private void InitializeProfilesConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["Profiles"] = new List<OrderedDictionary>();
+        }
+
+        private void InitializeForelandModelsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["ForelandModels"] = new List<OrderedDictionary>();
+        }
+
+        private void InitializeForelandsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["Forelands"] = new List<OrderedDictionary>();
+        }
+
+        private void InitializeProbabilityAlternativesConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["ProbabilityAlternatives"] = new List<OrderedDictionary>();
+        }
+
+        private void InitializeSetUpHeightsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["SetUpHeights"] = new List<OrderedDictionary>();
+        }
+
+        private void InitializeCalcWindDirectionsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["CalcWindDirections"] = new List<OrderedDictionary>();
+        }
+
+        private void InitializeSwellsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["Swells"] = new List<OrderedDictionary>();
+        }
+
+        private void InitializeWaveReductionsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
+        {
+            configurationDictionary["WaveReductions"] = new List<OrderedDictionary>();
         }
 
         private void InitializeAreasConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)

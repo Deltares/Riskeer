@@ -73,6 +73,32 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
                                          "INSERT INTO [CalculationProfiles] VALUES (999, 1, 1.1, 2.2, 3.3);" + Environment.NewLine +
                                          "INSERT INTO [CalculationProfiles] VALUES (999, 2, 11.1, 22.2, 33.3);" + Environment.NewLine +
                                          Environment.NewLine +
+                                         "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Fetches];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [AreaPoints];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [PresentationSections];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Profiles];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [ForelandModels];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Forelands];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [ProbabilityAlternatives];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [SetUpHeights];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [CalcWindDirections];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Swells];" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [WaveReductions];" + Environment.NewLine +
+                                         Environment.NewLine +
                                          "DELETE FROM [Areas];" + Environment.NewLine +
                                          "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +
                                          Environment.NewLine +
