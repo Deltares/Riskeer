@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.Placeholders;
@@ -35,6 +36,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism" />.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="parent"/> are <c>null</c>.</exception>
         public FailureMechanismPlaceHolderContext(FailureMechanismPlaceholder wrappedFailureMechanism, AssessmentSectionBase parent) :
             base(wrappedFailureMechanism, parent)
         {

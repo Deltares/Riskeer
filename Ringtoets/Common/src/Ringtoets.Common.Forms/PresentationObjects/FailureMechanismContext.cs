@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
@@ -33,10 +34,26 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="parent"/> are <c>null</c>.</exception>
         protected FailureMechanismContext(T wrappedFailureMechanism, AssessmentSectionBase parent)
         {
+            AssertInputsAreNotNull(wrappedFailureMechanism, parent);
+
             WrappedData = wrappedFailureMechanism;
             Parent = parent;
+        }
+
+        private void AssertInputsAreNotNull(T wrappedFailureMechanism, AssessmentSectionBase parent)
+        {
+            if (wrappedFailureMechanism == null)
+            {
+                throw new ArgumentNullException("wrappedFailureMechanism", "Failure mechanism cannot be null.");
+            }
+
+            if (parent == null)
+            {
+                throw new ArgumentNullException("parent", "The assessment section cannot be null.");
+            }
         }
 
         /// <summary>
