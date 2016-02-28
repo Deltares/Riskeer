@@ -449,7 +449,34 @@ namespace Ringtoets.HydraRing.Calculation.Common
 
         private void InitializeSectionFaultTreeModelsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
         {
-            configurationDictionary["SectionFaultTreeModels"] = new List<OrderedDictionary>();
+            var orderedDictionaries = new List<OrderedDictionary>();
+
+            foreach (var hydraRingCalculation in hydraRingCalculations)
+            {
+                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculation.FailureMechanismType);
+                var failureMechanismSettings = failureMechanismSettingsProvider.GetFailureMechanismSettings(hydraRingCalculation.FailureMechanismType);
+
+                orderedDictionaries.Add(new OrderedDictionary
+                {
+                    {
+                        "SectionId", 999 // TODO: Dike section integration
+                    },
+                    {
+                        "MechanismId", failureMechanismDefaults.MechanismId
+                    },
+                    {
+                        "LayerId", null // Fixed: no support for revetments
+                    },
+                    {
+                        "AlternativeId", null // Fixed: no support for piping
+                    },
+                    {
+                        "FaultTreeModelId", failureMechanismSettings.FaultTreeModelId
+                    }
+                });
+            }
+
+            configurationDictionary["SectionFaultTreeModels"] = orderedDictionaries;
         }
 
         private void InitializeSectionSubMechanismModelsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)

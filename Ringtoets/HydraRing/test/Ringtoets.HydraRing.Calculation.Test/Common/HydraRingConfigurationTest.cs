@@ -74,6 +74,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
                                          "INSERT INTO [CalculationProfiles] VALUES (999, 2, 11.1, 22.2, 33.3);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
+                                         "INSERT INTO [SectionFaultTreeModels] VALUES (999, 1, NULL, NULL, 1);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                          Environment.NewLine +
