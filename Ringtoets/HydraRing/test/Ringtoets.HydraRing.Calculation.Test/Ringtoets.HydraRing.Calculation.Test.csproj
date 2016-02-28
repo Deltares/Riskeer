@@ -52,6 +52,7 @@
     <Compile Include="Common\HydraRingConfigurationTest.cs" />
     <Compile Include="Common\HydraRingProfilePointTest.cs" />
     <Compile Include="Common\HydraRingVariableTest.cs" />
+    <Compile Include="HydraRingConfigurationIntegrationTest.cs" />
     <Compile Include="Settings\FailureMechanismDefaultsProviderTest.cs" />
     <Compile Include="Settings\FailureMechanismDefaultsTest.cs" />
     <Compile Include="Settings\FailureMechanismSettingsProviderTest.cs" />
