@@ -28,17 +28,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
     [TestFixture]
     public class FailureMechanismSettingsProviderTest
     {
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 0.0, 50.0)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, 0.0, 50.0)]
-        [TestCase(HydraRingFailureMechanismType.WaveHeight, 0.0, 50.0)]
-        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 0.0, 50.0)]
-        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 0.0, 50.0)]
-        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.DikesPiping, double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.StructuresClosure, double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, double.NaN, double.NaN)]
-        public void GetFailureMechanismSettings_DefaultsOnly_ReturnsExpectedFailureMechanismSettings(HydraRingFailureMechanismType failureMechanismType, double expectedValueMin, double expectedValueMax)
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 0.0, 50.0, 1)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, 0.0, 50.0, 7)]
+        [TestCase(HydraRingFailureMechanismType.WaveHeight, 0.0, 50.0, 11)]
+        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 0.0, 50.0, 14)]
+        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 0.0, 50.0, 16)]
+        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, double.NaN, double.NaN, 1017)]
+        [TestCase(HydraRingFailureMechanismType.DikesPiping, double.NaN, double.NaN, 3015)]
+        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, double.NaN, double.NaN, 4404)]
+        [TestCase(HydraRingFailureMechanismType.StructuresClosure, double.NaN, double.NaN, 4505)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, double.NaN, double.NaN, 4607)]
+        public void GetFailureMechanismSettings_DefaultsOnly_ReturnsExpectedFailureMechanismSettings(HydraRingFailureMechanismType failureMechanismType, double expectedValueMin, double expectedValueMax, double expectedFaultTreeModelId)
         {
             // Setup
             var failureMechanismSettingsProvider = new FailureMechanismSettingsProvider();
@@ -49,6 +49,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
             // Assert
             Assert.AreEqual(expectedValueMin, failureMechanismSettings.ValueMin);
             Assert.AreEqual(expectedValueMax, failureMechanismSettings.ValueMax);
+            Assert.AreEqual(expectedFaultTreeModelId, failureMechanismSettings.FaultTreeModelId);
         }
     }
 }

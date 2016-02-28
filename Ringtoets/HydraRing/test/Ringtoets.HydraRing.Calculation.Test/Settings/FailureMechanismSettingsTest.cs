@@ -31,11 +31,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
         public void Constructor_ExpectedValues()
         {
             // Call
-            var failureMechanismSettings = new FailureMechanismSettings(1.1, 2.2);
+            var failureMechanismSettings = new FailureMechanismSettings(1.1, 2.2, 3.3);
 
             // Assert
             Assert.AreEqual(1.1, failureMechanismSettings.ValueMin);
             Assert.AreEqual(2.2, failureMechanismSettings.ValueMax);
+            Assert.AreEqual(3.3, failureMechanismSettings.FaultTreeModelId);
         }
     }
 }

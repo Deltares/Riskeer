@@ -40,43 +40,43 @@ namespace Ringtoets.HydraRing.Calculation.Settings
             {
                 {
                     HydraRingFailureMechanismType.AssessmentLevel,
-                    new FailureMechanismSettings(0, 50)
+                    new FailureMechanismSettings(0, 50, 1)
                 },
                 {
                     HydraRingFailureMechanismType.WaveHeight,
-                    new FailureMechanismSettings(0, 50)
+                    new FailureMechanismSettings(0, 50, 11)
                 },
                 {
                     HydraRingFailureMechanismType.WavePeakPeriod,
-                    new FailureMechanismSettings(0, 50)
+                    new FailureMechanismSettings(0, 50, 14)
                 },
                 {
                     HydraRingFailureMechanismType.WaveSpectralPeriod,
-                    new FailureMechanismSettings(0, 50)
+                    new FailureMechanismSettings(0, 50, 16)
                 },
                 {
                     HydraRingFailureMechanismType.QVariant,
-                    new FailureMechanismSettings(0, 50)
+                    new FailureMechanismSettings(0, 50, 7)
                 },
                 {
                     HydraRingFailureMechanismType.DikesOvertopping,
-                    new FailureMechanismSettings(double.NaN, double.NaN)
+                    new FailureMechanismSettings(double.NaN, double.NaN, 1017)
                 },
                 {
                     HydraRingFailureMechanismType.DikesPiping,
-                    new FailureMechanismSettings(double.NaN, double.NaN)
+                    new FailureMechanismSettings(double.NaN, double.NaN, 3015)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresOvertopping,
-                    new FailureMechanismSettings(double.NaN, double.NaN)
+                    new FailureMechanismSettings(double.NaN, double.NaN, 4404)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresClosure,
-                    new FailureMechanismSettings(double.NaN, double.NaN)
+                    new FailureMechanismSettings(double.NaN, double.NaN, 4505)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    new FailureMechanismSettings(double.NaN, double.NaN)
+                    new FailureMechanismSettings(double.NaN, double.NaN, 4607)
                 }
             };
         }
