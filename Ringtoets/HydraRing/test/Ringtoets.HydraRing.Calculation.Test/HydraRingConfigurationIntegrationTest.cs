@@ -41,21 +41,21 @@ namespace Ringtoets.HydraRing.Calculation.Test
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
-                                         "INSERT INTO [Sections] VALUES (999, 1, 1, 'HydraRingLocation', 'HydraRingLocation', NULL, NULL, NULL, NULL, 700004, 700004, 100, NULL, NULL);" + Environment.NewLine +
+                                         "INSERT INTO [Sections] VALUES (700004, 1, 1, '700004', '700004', NULL, NULL, NULL, NULL, 700004, 700004, 100, NULL, NULL);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                         "INSERT INTO [DesignTables] VALUES (999, 1, NULL, NULL, 2, 26, NULL, NULL, NULL, NULL, 0, 50, 3.29053);" + Environment.NewLine +
+                                         "INSERT INTO [DesignTables] VALUES (700004, 1, NULL, NULL, 2, 26, NULL, NULL, NULL, NULL, 0, 50, 3.29053);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Numerics];" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (999, 1, NULL, NULL, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (700004, 1, NULL, NULL, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [VariableDatas];" + Environment.NewLine +
-                                         "INSERT INTO [VariableDatas] VALUES (999, 1, NULL, NULL, 26, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (700004, 1, NULL, NULL, 26, 0, 0, NULL, NULL, NULL, NULL, 0, NULL, 300);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
-                                         "INSERT INTO [SectionFaultTreeModels] VALUES (999, 1, NULL, NULL, 1);" + Environment.NewLine +
+                                         "INSERT INTO [SectionFaultTreeModels] VALUES (700004, 1, NULL, NULL, 1);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
                                          Environment.NewLine +

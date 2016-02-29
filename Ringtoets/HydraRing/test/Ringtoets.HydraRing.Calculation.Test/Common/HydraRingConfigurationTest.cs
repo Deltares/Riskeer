@@ -53,31 +53,31 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
                                          "INSERT INTO [HydraulicModels] VALUES (3, 2, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
-                                         "INSERT INTO [Sections] VALUES (999, 1, 1, 'HydraRingLocation', 'HydraRingLocation', NULL, NULL, NULL, NULL, 700004, 700004, 100, NULL, NULL);" + Environment.NewLine +
+                                         "INSERT INTO [Sections] VALUES (9999, 1, 1, 'LocationName', 'LocationName', 2.2, 3.3, 5.5, 6.6, 700004, 700004, 100, 7.7, 4.4);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                         "INSERT INTO [DesignTables] VALUES (999, 1, NULL, NULL, 2, 26, NULL, NULL, NULL, NULL, 0, 50, 1.1);" + Environment.NewLine +
+                                         "INSERT INTO [DesignTables] VALUES (9999, 1, NULL, NULL, 2, 26, NULL, NULL, NULL, NULL, 0, 50, 1.1);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Numerics];" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (999, 1, NULL, NULL, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (9999, 1, NULL, NULL, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [VariableDatas];" + Environment.NewLine +
-                                         "INSERT INTO [VariableDatas] VALUES (999, 1, NULL, NULL, 26, 2.2, 0, NULL, NULL, NULL, NULL, 0, NULL, 300);" + Environment.NewLine +
-                                         "INSERT INTO [VariableDatas] VALUES (999, 1, NULL, NULL, 26, 22.2, 0, NULL, NULL, NULL, NULL, 1, NULL, 300);" + Environment.NewLine +
-                                         "INSERT INTO [VariableDatas] VALUES (999, 1, NULL, NULL, 26, NULL, 2, 333.3, 444.4, NULL, NULL, 0, NULL, 300);" + Environment.NewLine +
-                                         "INSERT INTO [VariableDatas] VALUES (999, 1, NULL, NULL, 26, NULL, 2, 3333.3, NULL, NULL, NULL, 1, 4444.4, 300);" + Environment.NewLine +
-                                         "INSERT INTO [VariableDatas] VALUES (999, 1, NULL, NULL, 26, NULL, 4, 33333.3, 44444.4, 55555.5, NULL, 0, NULL, 300);" + Environment.NewLine +
-                                         "INSERT INTO [VariableDatas] VALUES (999, 1, NULL, NULL, 26, NULL, 4, 333333.3, NULL, 555555.5, NULL, 1, 444444.4, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (9999, 1, NULL, NULL, 26, 2.2, 0, NULL, NULL, NULL, NULL, 0, NULL, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (9999, 1, NULL, NULL, 26, 22.2, 0, NULL, NULL, NULL, NULL, 1, NULL, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (9999, 1, NULL, NULL, 26, NULL, 2, 333.3, 444.4, NULL, NULL, 0, NULL, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (9999, 1, NULL, NULL, 26, NULL, 2, 3333.3, NULL, NULL, NULL, 1, 4444.4, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (9999, 1, NULL, NULL, 26, NULL, 4, 33333.3, 44444.4, 55555.5, NULL, 0, NULL, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (9999, 1, NULL, NULL, 26, NULL, 4, 333333.3, NULL, 555555.5, NULL, 1, 444444.4, 300);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
-                                         "INSERT INTO [CalculationProfiles] VALUES (999, 1, 1.1, 2.2, 3.3);" + Environment.NewLine +
-                                         "INSERT INTO [CalculationProfiles] VALUES (999, 2, 11.1, 22.2, 33.3);" + Environment.NewLine +
+                                         "INSERT INTO [CalculationProfiles] VALUES (9999, 1, 1.1, 2.2, 3.3);" + Environment.NewLine +
+                                         "INSERT INTO [CalculationProfiles] VALUES (9999, 2, 11.1, 22.2, 33.3);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [SectionFaultTreeModels];" + Environment.NewLine +
-                                         "INSERT INTO [SectionFaultTreeModels] VALUES (999, 1, NULL, NULL, 1);" + Environment.NewLine +
+                                         "INSERT INTO [SectionFaultTreeModels] VALUES (9999, 1, NULL, NULL, 1);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
-                                         "INSERT INTO [SectionSubMechanismModels] VALUES (999, 1, NULL, NULL, 1, 1234);" + Environment.NewLine +
+                                         "INSERT INTO [SectionSubMechanismModels] VALUES (9999, 1, NULL, NULL, 1, 1234);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Fetches];" + Environment.NewLine +
                                          Environment.NewLine +
@@ -131,7 +131,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
             {
                 get
                 {
-                    return new HydraRingDikeSection(1, "Name", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
+                    return new HydraRingDikeSection(9999, "LocationName", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
                 }
             }
 
