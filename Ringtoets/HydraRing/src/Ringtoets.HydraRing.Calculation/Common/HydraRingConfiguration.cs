@@ -32,11 +32,24 @@ namespace Ringtoets.HydraRing.Calculation.Common
     /// <summary>
     /// Container for all configurations that are necessary for performing a Hydra-Ring calculation.
     /// The following Hydra-Ring features are not exposed (yet):
-    /// - Combination of multiple dike sections
-    /// - Coupling two hydraulic boundary stations
-    /// - Performing revetment calculations (DesignTables > LayerId)
-    /// - Performing piping calculations (DesignTables > AlternativeId)
-    /// - Type 3 computations (DesignTables > Method)
+    /// <list type="bullet">
+    /// <item>
+    /// Combination of multiple dike sections
+    /// </item>
+    /// <item>
+    /// Coupling two hydraulic boundary stations
+    /// </item>
+    /// <item>
+    /// Performing revetment calculations (DesignTables > LayerId)
+    /// </item>
+    /// <item>
+    /// Performing piping calculations (DesignTables > AlternativeId)
+    /// </item>
+    /// <item>
+    /// Type 3 computations (DesignTables > Method)
+    /// </item>
+    /// </list>
+    /// In the end, the configuration can be used to generate a Hydra-Ring database creation script.
     /// </summary>
     public class HydraRingConfiguration
     {
@@ -481,7 +494,44 @@ namespace Ringtoets.HydraRing.Calculation.Common
 
         private void InitializeSectionSubMechanismModelsConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)
         {
-            configurationDictionary["SectionSubMechanismModels"] = new List<OrderedDictionary>();
+            var orderedDictionaries = new List<OrderedDictionary>();
+
+            foreach (var hydraRingCalculation in hydraRingCalculations)
+            {
+                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculation.FailureMechanismType);
+
+                foreach (var subMechanismId in failureMechanismDefaults.SubMechanismIds)
+                {
+                    var subMechanismModelId = hydraRingCalculation.GetSubMechanismModelId(subMechanismId);
+
+                    if (subMechanismModelId != null)
+                    {
+                        orderedDictionaries.Add(new OrderedDictionary
+                        {
+                            {
+                                "SectionId", 999 // TODO: Dike section integration
+                            },
+                            {
+                                "MechanismId", failureMechanismDefaults.MechanismId
+                            },
+                            {
+                                "LayerId", null // Fixed: no support for revetments
+                            },
+                            {
+                                "AlternativeId", null // Fixed: no support for piping
+                            },
+                            {
+                                "SubMechanismId", subMechanismId
+                            },
+                            {
+                                "SubMechanismModelId", subMechanismModelId
+                            }
+                        });
+                    }
+                }
+            }
+
+            configurationDictionary["SectionSubMechanismModels"] = orderedDictionaries;
         }
 
         private void InitializeFetchesConfiguration(Dictionary<string, List<OrderedDictionary>> configurationDictionary)

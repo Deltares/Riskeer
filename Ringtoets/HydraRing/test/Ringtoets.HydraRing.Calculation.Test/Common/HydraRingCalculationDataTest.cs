@@ -42,6 +42,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
             Assert.IsNaN(hydraRingCalculationData.Beta);
         }
 
+        [Test]
+        public void GetSubMechanismModelId_ReturnsExpectedValues()
+        {
+            // Call
+            var hydraRingCalculationData = new HydraRingCalculationDataImplementation(1);
+
+            // Assert
+            Assert.AreEqual(10, hydraRingCalculationData.GetSubMechanismModelId(1));
+            Assert.AreEqual(20, hydraRingCalculationData.GetSubMechanismModelId(2));
+            Assert.IsNull(hydraRingCalculationData.GetSubMechanismModelId(3));
+        }
+
         private class HydraRingCalculationDataImplementation : HydraRingCalculationData
         {
             public HydraRingCalculationDataImplementation(int hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId) {}
@@ -51,6 +63,19 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
                 get
                 {
                     return HydraRingFailureMechanismType.QVariant;
+                }
+            }
+
+            public override int? GetSubMechanismModelId(int subMechanismId)
+            {
+                switch (subMechanismId)
+                {
+                    case 1:
+                        return 10;
+                    case 2:
+                        return 20;
+                    default:
+                        return null;
                 }
             }
         }

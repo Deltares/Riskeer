@@ -77,6 +77,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
                                          "INSERT INTO [SectionFaultTreeModels] VALUES (999, 1, NULL, NULL, 1);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
+                                         "INSERT INTO [SectionSubMechanismModels] VALUES (999, 1, NULL, NULL, 1, 1234);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Fetches];" + Environment.NewLine +
                                          Environment.NewLine +
@@ -146,6 +147,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
                     yield return new HydraRingProfilePointDerivative(1.1, 2.2, 3.3);
                     yield return new HydraRingProfilePointDerivative(11.1, 22.2, 33.3);
                 }
+            }
+
+            public override int? GetSubMechanismModelId(int subMechanismId)
+            {
+                return 1234;
             }
         }
 
