@@ -577,4 +577,7 @@
   <data name="PipingInput_HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
     <value>Locatie met hydraulische randvoorwaarden</value>
   </data>
+  <data name="PipingInputContextProperties_HydraulicBoundaryLocation_No_design_water_level_calculated" xml:space="preserve">
+    <value>Voor locatie '{0}' is geen toetspeil berekend.</value>
+  </data>
 </root>

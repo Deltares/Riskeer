@@ -478,6 +478,82 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
         }
 
+        [Test]
+        public void HydraulicBoundaryLocation_DesignWaterLevelIsNaN_ThrowsArgumentException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var projectObserver = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var inputParameters = new PipingInput();
+            inputParameters.Attach(projectObserver);
+
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              assessmentSectionMock)
+            };
+
+            string testName = "TestName";
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testName, 0, 0)
+            {
+                DesignWaterLevel = double.NaN
+            };
+
+            // Call
+            TestDelegate test = () => properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+
+            // Assert
+            var message = string.Format("Voor locatie '{0}' is geen toetspeil berekend.", testName);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+
+            Assert.AreEqual(0, properties.AssessmentLevelSellmeijer);
+            Assert.AreEqual(0, properties.AssessmentLevelUplift);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void HydraulicBoundaryLocation_DesignWaterLevelSet_SetsAssessmentLevelToDesignWaterLevelAndNotifiesOnce()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var projectObserver = mocks.StrictMock<IObserver>();
+            projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(1);
+            mocks.ReplayAll();
+
+            var inputParameters = new PipingInput();
+            inputParameters.Attach(projectObserver);
+
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              assessmentSectionMock)
+            };
+
+            double testLevel = new Random(21).NextDouble();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
+            {
+                DesignWaterLevel = testLevel
+            };
+
+            // Call
+            properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+
+            // Assert
+            Assert.AreEqual(testLevel, properties.AssessmentLevelSellmeijer);
+            Assert.AreEqual(testLevel, properties.AssessmentLevelUplift);
+
+            mocks.VerifyAll();
+        }
+
         private static RingtoetsPipingSurfaceLine ValidSurfaceLine(double xMin, double xMax)
         {
             var surfaceLine = new RingtoetsPipingSurfaceLine();
