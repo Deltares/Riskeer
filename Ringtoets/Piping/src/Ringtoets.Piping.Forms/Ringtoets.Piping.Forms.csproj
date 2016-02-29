@@ -76,6 +76,7 @@
     <Compile Include="TypeConverters\PropertyDescriptors\SimpleReadonlyPropertyDescriptor.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\TextPropertyDescriptorDecorator.cs" />
     <Compile Include="TypeConverters\NormalDistributionDesignVariableTypeConverter.cs" />
+    <Compile Include="UITypeEditors\PipingInputContextHydraulicBoundaryLocationEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSoilProfileSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditor.cs" />

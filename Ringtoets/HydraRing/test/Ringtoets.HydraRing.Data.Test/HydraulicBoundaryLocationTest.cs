@@ -117,5 +117,19 @@ namespace Ringtoets.HydraRing.Data.Test
             Assert.AreEqual(expectedLocationsDescription, locationsProperty.Description);
             Assert.AreEqual(expectedLocationsCategory, filePathProperty.Category);
         }
+
+        [Test]
+        public void ToString_Always_ReturnsName()
+        {
+            // Setup
+            var testName = "testName";
+            var hydraulicBoundaryLocationProperties = new HydraulicBoundaryLocation(0, testName, 0, 0);
+
+            // Call
+            var result = hydraulicBoundaryLocationProperties.ToString();
+
+            // Assert
+            Assert.AreEqual(testName, result);
+        }
     }
 }

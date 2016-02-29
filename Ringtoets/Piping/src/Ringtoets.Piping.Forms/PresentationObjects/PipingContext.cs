@@ -21,9 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 
@@ -83,6 +84,22 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// set <see cref="PipingInput.SoilProfile"/>.
         /// </summary>
         public IEnumerable<PipingSoilProfile> AvailablePipingSoilProfiles { get; private set; }
+
+        /// <summary>
+        /// Gets the available hydraulic boundary locations in order for the user to select one to 
+        /// set <see cref="PipingInput.HydraulicBoundaryLocation"/>.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocation> AvailableHydraulicBoundaryLocations 
+        {
+            get
+            {
+                if (AssessmentSection.HydraulicBoundaryDatabase == null)
+                {
+                    return Enumerable.Empty<HydraulicBoundaryLocation>();
+                }
+                return AssessmentSection.HydraulicBoundaryDatabase.Locations;
+            }
+        }
 
         /// <summary>
         /// Gets the concrete data instance wrapped by this context object.

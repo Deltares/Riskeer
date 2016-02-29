@@ -696,6 +696,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt..
+        /// </summary>
+        public static string PipingInput_HydraulicBoundaryLocation_Description {
+            get {
+                return ResourceManager.GetString("PipingInput_HydraulicBoundaryLocation_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locatie met hydraulische randvoorwaarden.
+        /// </summary>
+        public static string PipingInput_HydraulicBoundaryLocation_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingInput_HydraulicBoundaryLocation_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit..
         /// </summary>
         public static string PipingInput_MeanDiameter70_Description {

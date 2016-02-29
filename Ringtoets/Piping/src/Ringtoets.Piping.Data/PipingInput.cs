@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 
 namespace Ringtoets.Piping.Data
@@ -52,7 +53,10 @@ namespace Ringtoets.Piping.Data
             CriticalHeaveGradient = 0.3;
 
             PhreaticLevelExit = new NormalDistribution();
-            DampingFactorExit = new LognormalDistribution { Mean = 1.0 };
+            DampingFactorExit = new LognormalDistribution
+            {
+                Mean = 1.0
+            };
             ThicknessCoverageLayer = new LognormalDistribution();
             SeepageLength = new LognormalDistribution();
             Diameter70 = new LognormalDistribution();
@@ -140,6 +144,65 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public double ExitPointL { get; set; }
 
+        #region Constants
+
+        /// <summary>
+        /// Gets or sets the critical exit gradient for heave.
+        /// </summary>
+        public double CriticalHeaveGradient { get; private set; }
+
+        #endregion
+
+        /// <summary>
+        /// Gets or sets the surface line.
+        /// </summary>
+        public RingtoetsPipingSurfaceLine SurfaceLine
+        {
+            get
+            {
+                return surfaceLine;
+            }
+            set
+            {
+                surfaceLine = value;
+                UpdateValuesBasedOnSurfaceLine();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the profile which contains a 1 dimensional definition of soil layers with properties.
+        /// </summary>
+        public PipingSoilProfile SoilProfile { get; set; }
+
+        /// <summary>
+        /// Gets or set the hydraulic boundary location from which to use the assessment level.
+        /// </summary>
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+
+        private void UpdateValuesBasedOnSurfaceLine()
+        {
+            var entryPointIndex = Array.IndexOf(surfaceLine.Points, surfaceLine.DikeToeAtRiver);
+            var exitPointIndex = Array.IndexOf(surfaceLine.Points, surfaceLine.DikeToeAtPolder);
+
+            var localGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
+
+            var entryPointL = localGeometry[0].X;
+            var exitPointL = localGeometry[localGeometry.Length - 1].X;
+
+            var differentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
+            if (differentPoints && exitPointIndex > 0)
+            {
+                exitPointL = localGeometry.ElementAt(exitPointIndex).X;
+            }
+            if (differentPoints && entryPointIndex > -1)
+            {
+                entryPointL = localGeometry.ElementAt(entryPointIndex).X;
+            }
+
+            ExitPointL = exitPointL;
+            SeepageLength.Mean = exitPointL - entryPointL;
+        }
+
         #region Probabilistic parameters
 
         /// <summary>
@@ -184,59 +247,5 @@ namespace Ringtoets.Piping.Data
         public LognormalDistribution DampingFactorExit { get; set; }
 
         #endregion
-
-        #region Constants
-
-        /// <summary>
-        /// Gets or sets the critical exit gradient for heave.
-        /// </summary>
-        public double CriticalHeaveGradient { get; private set; }
-
-        #endregion
-
-        /// <summary>
-        /// Gets or sets the surface line.
-        /// </summary>
-        public RingtoetsPipingSurfaceLine SurfaceLine
-        {
-            get
-            {
-                return surfaceLine;
-            }
-            set
-            {
-                surfaceLine = value;
-                UpdateValuesBasedOnSurfaceLine();
-            }
-        }
-
-        private void UpdateValuesBasedOnSurfaceLine()
-        {
-            var entryPointIndex = Array.IndexOf(surfaceLine.Points, surfaceLine.DikeToeAtRiver);
-            var exitPointIndex = Array.IndexOf(surfaceLine.Points, surfaceLine.DikeToeAtPolder);
-
-            var localGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
-
-            var entryPointL = localGeometry[0].X;
-            var exitPointL = localGeometry[localGeometry.Length - 1].X;
-
-            var differentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
-            if (differentPoints && exitPointIndex > 0)
-            {
-                exitPointL = localGeometry.ElementAt(exitPointIndex).X;
-            }
-            if (differentPoints && entryPointIndex > -1)
-            {
-                entryPointL = localGeometry.ElementAt(entryPointIndex).X;
-            }
-
-            ExitPointL = exitPointL;
-            SeepageLength.Mean = exitPointL - entryPointL;
-        }
-
-        /// <summary>
-        /// Gets or sets the profile which contains a 1 dimensional definition of soil layers with properties.
-        /// </summary>
-        public PipingSoilProfile SoilProfile { get; set; }
     }
 }

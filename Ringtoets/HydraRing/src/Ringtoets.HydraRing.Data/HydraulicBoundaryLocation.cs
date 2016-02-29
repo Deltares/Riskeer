@@ -68,5 +68,10 @@ namespace Ringtoets.HydraRing.Data
         /// Gets the design water level of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         public double DesignWaterLevel { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

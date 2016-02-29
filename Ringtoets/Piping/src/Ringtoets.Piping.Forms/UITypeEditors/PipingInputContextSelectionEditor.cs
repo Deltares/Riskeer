@@ -112,10 +112,10 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
             };
             listBox.SelectedValueChanged += (sender, eventArgs) => editorService.CloseDropDown();
 
-            foreach (T surfaceLine in GetAvailableOptions(context))
+            foreach (T option in GetAvailableOptions(context))
             {
-                int index = listBox.Items.Add(surfaceLine);
-                if (ReferenceEquals(GetCurrentOption(context), surfaceLine))
+                int index = listBox.Items.Add(option);
+                if (ReferenceEquals(GetCurrentOption(context), option))
                 {
                     listBox.SelectedIndex = index;
                 }

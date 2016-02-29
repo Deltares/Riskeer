@@ -7,6 +7,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
@@ -48,10 +49,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     IsAquifer = true
                 }
             });
+            var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
             var inputParameters = new PipingInput
             {
                 SurfaceLine = surfaceLine,
-                SoilProfile = soilProfile
+                SoilProfile = soilProfile,
+                HydraulicBoundaryLocation = testHydraulicBoundaryLocation
             };
 
             var properties = new PipingInputContextProperties
@@ -100,6 +104,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
             Assert.AreSame(soilProfile, properties.SoilProfile);
+            Assert.AreSame(testHydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
 
             mocks.ReplayAll();
         }
@@ -139,7 +144,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var projectObserver = mocks.StrictMock<IObserver>();
-            int numberProperties = 24;
+            int numberProperties = 25;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
@@ -174,6 +179,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             PipingSoilProfile soilProfile = new TestPipingSoilProfile();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
             var inputContext = new PipingInputContextProperties
@@ -204,6 +210,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 BeddingAngle = beddingAngle,
                 SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile,
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };
 
             // Assert I
@@ -228,6 +235,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(meanDiameter70, inputParameters.MeanDiameter70);
             Assert.AreEqual(beddingAngle, inputParameters.BeddingAngle);
             Assert.AreEqual(soilProfile, inputParameters.SoilProfile);
+            Assert.AreEqual(hydraulicBoundaryLocation, inputParameters.HydraulicBoundaryLocation);
             
             // Call
             inputContext.ExitPointL = exitPointL;
@@ -479,6 +487,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 new Point3D(xMax, 0.0, 1.0)
             });
             return surfaceLine;
+        }
+
+        private class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
+        {
+            public TestHydraulicBoundaryLocation() : base(0, string.Empty, 0, 0) { }
         }
     }
 }

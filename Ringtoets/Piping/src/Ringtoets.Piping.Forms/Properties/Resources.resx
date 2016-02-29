@@ -571,4 +571,10 @@
   <data name="PipingContext_DataDescription_AssessmentSection" xml:space="preserve">
     <value>Het dijktraject</value>
   </data>
+  <data name="PipingInput_HydraulicBoundaryLocation_Description" xml:space="preserve">
+    <value>De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.</value>
+  </data>
+  <data name="PipingInput_HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
+    <value>Locatie met hydraulische randvoorwaarden</value>
+  </data>
 </root>

@@ -50,6 +50,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0, inputParameters.AssessmentLevel);
             Assert.IsNull(inputParameters.SurfaceLine);
             Assert.IsNull(inputParameters.SoilProfile);
+            Assert.IsNull(inputParameters.HydraulicBoundaryLocation);
 
             Assert.AreEqual(1.0, inputParameters.UpliftModelFactor);
             Assert.AreEqual(1, inputParameters.SellmeijerModelFactor);

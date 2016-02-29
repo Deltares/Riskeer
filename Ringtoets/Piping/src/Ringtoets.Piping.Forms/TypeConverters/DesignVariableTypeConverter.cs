@@ -99,8 +99,8 @@ namespace Ringtoets.Piping.Forms.TypeConverters
 
         private static PropertyDescriptor CreatePropertyDescriptor(PropertyDescriptorCollection originalProperties, ParameterDefinition<T> parameter, IObservable observableParent)
         {
-            PropertyDescriptor originalMeanPropertyDescriptor = originalProperties.Find(parameter.PropertyName, false);
-            var reroutedPropertyDescriptor = new RoutedPropertyDescriptor(originalMeanPropertyDescriptor, o => ((DesignVariable<T>)o).Distribution);
+            PropertyDescriptor originalPropertyDescriptor = originalProperties.Find(parameter.PropertyName, false);
+            var reroutedPropertyDescriptor = new RoutedPropertyDescriptor(originalPropertyDescriptor, o => ((DesignVariable<T>)o).Distribution);
             return new TextPropertyDescriptorDecorator(reroutedPropertyDescriptor,
                                                        parameter.Symbol,
                                                        parameter.Description)

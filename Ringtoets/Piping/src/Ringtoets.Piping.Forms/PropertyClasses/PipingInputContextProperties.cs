@@ -23,10 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
-using System.Reflection;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
@@ -39,6 +38,121 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     public class PipingInputContextProperties : ObjectProperties<PipingInputContext>
     {
+        /// <summary>
+        /// Gets the available surface lines on <see cref="PipingCalculationContext"/>.
+        /// </summary>
+        public IEnumerable<RingtoetsPipingSurfaceLine> GetAvailableSurfaceLines()
+        {
+            return data.AvailablePipingSurfaceLines;
+        }
+
+        /// <summary>
+        /// Gets the available soil profiles on <see cref="PipingCalculationContext"/>.
+        /// </summary>
+        public IEnumerable<PipingSoilProfile> GetAvailableSoilProfiles()
+        {
+            return data.AvailablePipingSoilProfiles;
+        }
+
+        /// <summary>
+        /// Gets the available hydraulic boundary locations on <see cref="PipingCalculationContext"/>.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
+        {
+            return data.AvailableHydraulicBoundaryLocations;
+        }
+
+        private double WaterVolumetricWeight
+        {
+            get
+            {
+                return data.WrappedData.WaterVolumetricWeight;
+            }
+            set
+            {
+                data.WrappedData.WaterVolumetricWeight = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        private double PiezometricHeadPolder
+        {
+            get
+            {
+                return data.WrappedData.PiezometricHeadPolder;
+            }
+            set
+            {
+                data.WrappedData.PiezometricHeadPolder = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        private double AssessmentLevel
+        {
+            get
+            {
+                return data.WrappedData.AssessmentLevel;
+            }
+            set
+            {
+                data.WrappedData.AssessmentLevel = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        private double PiezometricHeadExit
+        {
+            get
+            {
+                return data.WrappedData.PiezometricHeadExit;
+            }
+            set
+            {
+                data.WrappedData.PiezometricHeadExit = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        private DesignVariable<LognormalDistribution> DampingFactorExit
+        {
+            get
+            {
+                return PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(data.WrappedData);
+            }
+            set
+            {
+                data.WrappedData.DampingFactorExit = value.Distribution;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        private DesignVariable<NormalDistribution> PhreaticLevelExit
+        {
+            get
+            {
+                return PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(data.WrappedData);
+            }
+            set
+            {
+                data.WrappedData.PhreaticLevelExit = value.Distribution;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        private DesignVariable<LognormalDistribution> ThicknessCoverageLayer
+        {
+            get
+            {
+                return PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(data.WrappedData);
+            }
+            set
+            {
+                data.WrappedData.ThicknessCoverageLayer = value.Distribution;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
         #region General
 
         [Editor(typeof(PipingInputContextSurfaceLineSelectionEditor), typeof(UITypeEditor))]
@@ -71,6 +185,23 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.SoilProfile = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [Editor(typeof(PipingInputContextHydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_HydraulicBoundaryLocation_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_HydraulicBoundaryLocation_Description")]
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation
+        {
+            get
+            {
+                return data.WrappedData.HydraulicBoundaryLocation;
+            }
+            set
+            {
+                data.WrappedData.HydraulicBoundaryLocation = value;
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -207,7 +338,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #endregion
 
         #region Uplift 
-        
+
         [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_EntryPointL_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_EntryPointL_Description")]
@@ -597,113 +728,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-#endregion
-
-        /// <summary>
-        /// Gets the available surface lines on <see cref="PipingCalculationContext"/>.
-        /// </summary>
-        public IEnumerable<RingtoetsPipingSurfaceLine> GetAvailableSurfaceLines()
-        {
-            return data.AvailablePipingSurfaceLines;
-        }
-
-        /// <summary>
-        /// Gets the available soil profiles on <see cref="PipingCalculationContext"/>.
-        /// </summary>
-        public IEnumerable<PipingSoilProfile> GetAvailableSoilProfiles()
-        {
-            return data.AvailablePipingSoilProfiles;
-        }
-
-        private double WaterVolumetricWeight
-        {
-            get
-            {
-                return data.WrappedData.WaterVolumetricWeight;
-            }
-            set
-            {
-                data.WrappedData.WaterVolumetricWeight = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        private double PiezometricHeadPolder
-        {
-            get
-            {
-                return data.WrappedData.PiezometricHeadPolder;
-            }
-            set
-            {
-                data.WrappedData.PiezometricHeadPolder = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        private double AssessmentLevel
-        {
-            get
-            {
-                return data.WrappedData.AssessmentLevel;
-            }
-            set
-            {
-                data.WrappedData.AssessmentLevel = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        private double PiezometricHeadExit
-        {
-            get
-            {
-                return data.WrappedData.PiezometricHeadExit;
-            }
-            set
-            {
-                data.WrappedData.PiezometricHeadExit = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        private DesignVariable<LognormalDistribution> DampingFactorExit
-        {
-            get
-            {
-                return PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(data.WrappedData);
-            }
-            set
-            {
-                data.WrappedData.DampingFactorExit = value.Distribution;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        private DesignVariable<NormalDistribution> PhreaticLevelExit
-        {
-            get
-            {
-                return PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(data.WrappedData);
-            }
-            set
-            {
-                data.WrappedData.PhreaticLevelExit = value.Distribution;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        private DesignVariable<LognormalDistribution> ThicknessCoverageLayer
-        {
-            get
-            {
-                return PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(data.WrappedData);
-            }
-            set
-            {
-                data.WrappedData.ThicknessCoverageLayer = value.Distribution;
-                data.WrappedData.NotifyObservers();
-            }
-        }
+        #endregion
     }
 }
