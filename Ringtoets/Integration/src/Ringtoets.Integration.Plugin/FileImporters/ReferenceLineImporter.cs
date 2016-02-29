@@ -34,7 +34,6 @@ using log4net;
 
 using Ringtoets.Common.Data;
 using Ringtoets.Common.IO;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.Properties;
 

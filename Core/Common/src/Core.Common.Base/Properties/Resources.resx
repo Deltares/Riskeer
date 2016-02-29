@@ -138,4 +138,7 @@
   <data name="App_App_Ringtoets_Copyright" xml:space="preserve">
     <value>Ringtoets Copyright (C) 2016 Stichting Deltares. Dit programma komt ZONDER ENIGE GARANTIE. Dit programma is gratis en u mag het zelf verder verspreiden en/of aanpassen overeenkomstig de GNU Lesser General Public License versie 3.</value>
   </data>
+  <data name="Segment2D_Constructor_Segment_must_be_created_with_two_points" xml:space="preserve">
+    <value>Voor het maken van een segment zijn twee punten nodig.</value>
+  </data>
 </root>

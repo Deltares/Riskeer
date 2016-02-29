@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
+using Core.Common.Base.Geometry;
+
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Calculation;
 using Ringtoets.Piping.IO.Properties;

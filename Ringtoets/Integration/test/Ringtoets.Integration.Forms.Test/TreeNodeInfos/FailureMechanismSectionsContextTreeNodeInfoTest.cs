@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Drawing;
+using System.Linq;
 
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -12,6 +14,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
+
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
@@ -104,6 +107,51 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             info.ContextMenuStrip(context, null, treeViewControlMock);
 
             // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ForeColor_NoSectionsOnFailureMechanism_ReturnGrayText()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Sections).Return(Enumerable.Empty<FailureMechanismSection>());
+            mocks.ReplayAll();
+
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            Color color = info.ForeColor(context);
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ForeColor_HasSectionsOnFailureMechanism_ReturnControlText()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Sections).Return(new[]
+            {
+                new FailureMechanismSection("A", new[]
+                {
+                    new Point2D(3, 4),
+                    new Point2D(5, 6)
+                }),
+            });
+            mocks.ReplayAll();
+
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            Color color = info.ForeColor(context);
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             mocks.VerifyAll();
         }
     }

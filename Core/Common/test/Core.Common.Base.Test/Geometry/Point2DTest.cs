@@ -20,11 +20,14 @@
 // All rights reserved.
 
 using System;
+
 using Core.Common.Base.Geometry;
+
 using MathNet.Numerics.LinearAlgebra.Double;
+
 using NUnit.Framework;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Core.Common.Base.Test.Geometry
 {
     [TestFixture]
     public class Point2DTest
@@ -178,6 +181,50 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(2, vector.Count);
             Assert.AreEqual(point1.X - point2.X, vector[0]);
             Assert.AreEqual(point1.Y - point2.Y, vector[1]);
+        }
+
+        [Test]
+        public void GetEuclideanDistanceTo_Itself_ReturnZero()
+        {
+            // Setup
+            var point = new Point2D(1.1, 2.2);
+
+            // Call
+            double euclideanDistance = point.GetEuclideanDistanceTo(point);
+
+            // Assert
+            Assert.AreEqual(0, euclideanDistance);
+        }
+
+        [Test]
+        public void GetEuclideanDistanceTo_Null_ThrowArgumentNullException()
+        {
+            // Setup
+            var point = new Point2D(1.1, 2.2);
+
+            // Call
+            TestDelegate call = () => point.GetEuclideanDistanceTo(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void GetEuclideanDistanceTo_DifferentPoint_ReturnEuclideanDistance()
+        {
+            // Setup
+            var point = new Point2D(1.2, 3.5);
+            var point2 = new Point2D(8.13, 21.34);
+
+            // Call
+            double euclideanDistance1 = point.GetEuclideanDistanceTo(point2);
+            double euclideanDistance2 = point2.GetEuclideanDistanceTo(point);
+
+            // Assert
+            var expectedResult = Math.Sqrt(Math.Pow(point.X - point2.X, 2) +
+                                           Math.Pow(point.Y - point2.Y, 2));
+            Assert.AreEqual(expectedResult, euclideanDistance1);
+            Assert.AreEqual(euclideanDistance2, euclideanDistance1);
         }
 
         private static void DoToString_HasCoordinateValues_PrintCoordinateValuesInLocalCulture()

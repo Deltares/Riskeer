@@ -3,9 +3,8 @@
 using Core.Common.Base.Geometry;
 
 using NUnit.Framework;
-using Ringtoets.Piping.Data.Properties;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Core.Common.Base.Test.Geometry
 {
     [TestFixture]
     public class Segment2DTest
@@ -29,7 +28,6 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_WithNullFirstPoint_ThrowsArgumentNullException()
         {
             // Setup
-            var firstPoint = new Point2D();
             var secondPoint = new Point2D();
 
             // Call
@@ -37,7 +35,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            StringAssert.StartsWith(Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points, exception.Message);
+            StringAssert.StartsWith("Voor het maken van een segment zijn twee punten nodig.", exception.Message);
         }
 
         [Test]
@@ -45,14 +43,13 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var firstPoint = new Point2D();
-            var secondPoint = new Point2D();
 
             // Call
             TestDelegate test = () => new Segment2D(firstPoint, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            StringAssert.StartsWith(Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points, exception.Message);
+            StringAssert.StartsWith("Voor het maken van een segment zijn twee punten nodig.", exception.Message);
         }
 
         [Test]
@@ -127,6 +124,24 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [TestCase(1.1, 2.2, 1.1, 2.2, 0)]
+        [TestCase(1.2, 3.5, 8.13, 21.34, 19.138717)]
+        public void Length_VariousCases_ReturnExpectedLength(
+            double x1, double y1,
+            double x2, double y2,
+            double expectedLength)
+        {
+            // Setup
+            var segment = new Segment2D(new Point2D(x1, y1), new Point2D(x2, y2));
+
+            // Call
+            double length = segment.Length;
+
+            // Assert
+            Assert.AreEqual(expectedLength, length, 1e-6);
+        }
+
+        [Test]
         public void Equals_SameSegment_ReturnsTrue()
         {
             // Setup
@@ -139,8 +154,11 @@ namespace Ringtoets.Piping.Data.Test
             var point2 = new Point2D(x2, y2);
             var segment = new Segment2D(point1, point2);
 
-            // Call & Assert
-            Assert.IsTrue(segment.Equals(segment));
+            // Assert
+            var isEqual = segment.Equals(segment);
+
+            // Assert
+            Assert.IsTrue(isEqual);
         }
 
         [Test]
@@ -167,8 +185,11 @@ namespace Ringtoets.Piping.Data.Test
             var random = new Random(22);
             var segment = new Segment2D(new Point2D(random.NextDouble(), random.NextDouble()), new Point2D(random.NextDouble(), random.NextDouble()));
 
-            // Call & Assert
-            Assert.IsFalse(segment.Equals(new Point2D(0.0,0.0)));
+            // Call
+            var isEqual = segment.Equals(new Point2D(0.0,0.0));
+
+            // Assert
+            Assert.IsFalse(isEqual);
         }
 
         [Test]
@@ -332,6 +353,105 @@ namespace Ringtoets.Piping.Data.Test
             // Call & Assert
             Assert.IsFalse(segment1.IsConnected(segment2));
             Assert.IsFalse(segment2.IsConnected(segment1));
+        }
+
+        [Test]
+        public void GetEuclideanDistanceToPoint_PointOnFirstPoint_ReturnZero()
+        {
+            // Setup
+            var segment = new Segment2D(new Point2D(1.2, 3.5), new Point2D(8.13, 21.34));
+
+            // Call
+            var euclideanDistance = segment.GetEuclideanDistanceToPoint(segment.FirstPoint);
+
+            // Assert
+            Assert.AreEqual(0, euclideanDistance);
+        }
+
+        [Test]
+        public void GetEuclideanDistanceToPoint_PointOnSecondPoint_ReturnZero()
+        {
+            // Setup
+            var segment = new Segment2D(new Point2D(1.2, 3.5), new Point2D(8.13, 21.34));
+
+            // Call
+            var euclideanDistance = segment.GetEuclideanDistanceToPoint(segment.SecondPoint);
+
+            // Assert
+            Assert.AreEqual(0, euclideanDistance);
+        }
+
+        [Test]
+        public void GetEuclideanDistanceToPoint_PointIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var segment = new Segment2D(new Point2D(1.2, 3.5), new Point2D(8.13, 21.34));
+
+            // Call
+            TestDelegate call = () => segment.GetEuclideanDistanceToPoint(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        [TestCase(-2.3, 2.1)]
+        [TestCase(0, 1.1)]
+        [TestCase(3.2, -1.2)]
+        public void GetEuclideanDistanceToPoint_FirstPointIsClosest_ReturnExpectedDistance(
+            double x, double y)
+        {       
+            // Setup
+            var point = new Point2D(x, y);
+            var segment = new Segment2D(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4));
+
+            // Call
+            var actualDistance = segment.GetEuclideanDistanceToPoint(point);
+
+            // Assert
+            var expectedDistance = point.GetEuclideanDistanceTo(segment.FirstPoint);
+            Assert.AreEqual(expectedDistance, actualDistance);
+        }
+
+        [Test]
+        [TestCase(2.2, 3.3, 0)]
+        [TestCase(0, 3.3, 1.555634919)]
+        [TestCase(4.4, -1.1, 4.666904756)]
+        [TestCase(-2.2, 9.9, 7.778174593)]
+        [TestCase(11, -3.3, 10.88944443)]
+        [TestCase(1.5, 3.5, 0.636396103)]
+        [TestCase(4.5, 1, 3.252691193)]
+        public void GetEuclideanDistanceToPoint_LinePerpendicularToSegmentIsClosest_ReturnExpectedDistance(
+            double x, double y, double expectedDistance)
+        {
+            // Setup
+            var point = new Point2D(x, y);
+            var segment = new Segment2D(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4));
+
+            // Call
+            var actualDistance = segment.GetEuclideanDistanceToPoint(point);
+
+            // Assert
+            Assert.AreEqual(expectedDistance, actualDistance, 1e-6);
+        }
+
+        [Test]
+        [TestCase(5.3, 4.3)]
+        [TestCase(6.6, 7.7)]
+        [TestCase(2.7, 12.6)]
+        public void GetEuclideanDistanceToPoint_SecondPointIsClosest_ReturnExpectedDistance(
+            double x, double y)
+        {       
+            // Setup
+            var point = new Point2D(x, y);
+            var segment = new Segment2D(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4));
+
+            // Call
+            var actualDistance = segment.GetEuclideanDistanceToPoint(point);
+
+            // Assert
+            var expectedDistance = point.GetEuclideanDistanceTo(segment.SecondPoint);
+            Assert.AreEqual(expectedDistance, actualDistance);
         }
     }
 }

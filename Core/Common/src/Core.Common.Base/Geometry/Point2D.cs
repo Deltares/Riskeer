@@ -3,16 +3,16 @@
 // This file is part of Ringtoets.
 //
 // Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
+// it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 // 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
+// GNU Lesser General Public License for more details.
 //
-// You should have received a copy of the GNU General Public License
+// You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
@@ -72,6 +72,23 @@ namespace Core.Common.Base.Geometry
             return result;
         }
 
+        /// <summary>
+        /// Gets the euclidean distance from this point to another.
+        /// </summary>
+        /// <param name="secondPoint">The second point.</param>
+        /// <returns>A value of 0 or greater.</returns>
+        /// <exception cref="System.ArgumentNullException">When <paramref name="secondPoint"/> is null.</exception>
+        public double GetEuclideanDistanceTo(Point2D secondPoint)
+        {
+            if (secondPoint == null)
+            {
+                throw new ArgumentNullException("secondPoint");
+            }
+
+            Vector vector = this - secondPoint;
+            return Math.Sqrt(vector.DotProduct(vector));
+        }
+
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
@@ -86,7 +103,7 @@ namespace Core.Common.Base.Geometry
             {
                 return false;
             }
-            return Equals((Point2D) obj);
+            return Equals((Point2D)obj);
         }
 
         public override int GetHashCode()
@@ -94,7 +111,7 @@ namespace Core.Common.Base.Geometry
             unchecked
             {
                 var hashCode = X.GetHashCode();
-                hashCode = (hashCode*397) ^ Y.GetHashCode();
+                hashCode = (hashCode * 397) ^ Y.GetHashCode();
                 return hashCode;
             }
         }

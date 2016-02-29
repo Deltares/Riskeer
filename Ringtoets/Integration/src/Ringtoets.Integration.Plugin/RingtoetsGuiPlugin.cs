@@ -157,6 +157,9 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = context => RingtoetsCommonDataResources.FailureMechanism_Sections_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.Sections,
+                ForeColor = context => context.WrappedData.Any() ?
+                                           Color.FromKnownColor(KnownColor.ControlText) :
+                                           Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = FailureMechanismSectionsContextMenuStrip
             };
 

@@ -129,9 +129,6 @@
   <data name="DesignVariable_GetDesignValue_Distribution_must_be_set" xml:space="preserve">
     <value>Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.</value>
   </data>
-  <data name="Segment2D_Constructor_Segment_must_be_created_with_two_points" xml:space="preserve">
-    <value>Voor het maken van een segment zijn twee punten nodig.</value>
-  </data>
   <data name="IDistribution_InverseCDF_Probability_must_be_in_range" xml:space="preserve">
     <value>Kans moet in het bereik van [0, 1] opgegeven worden.</value>
   </data>

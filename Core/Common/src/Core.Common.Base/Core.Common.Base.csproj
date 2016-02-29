@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="Geometry\Point2D.cs" />
     <Compile Include="Geometry\Point3D.cs" />
+    <Compile Include="Geometry\Segment2D.cs" />
     <Compile Include="IO\FileImporterBase.cs" />
     <Compile Include="IO\ProgressChangedDelegate.cs" />
     <Compile Include="Storage\StorageException.cs" />

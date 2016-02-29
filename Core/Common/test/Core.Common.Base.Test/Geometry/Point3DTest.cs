@@ -4,7 +4,7 @@ using Core.Common.Base.Geometry;
 
 using NUnit.Framework;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Core.Common.Base.Test.Geometry
 {
     [TestFixture]
     public class Point3DTest

@@ -3,16 +3,16 @@
 // This file is part of Ringtoets.
 //
 // Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
+// it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 // 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
+// GNU Lesser General Public License for more details.
 //
-// You should have received a copy of the GNU General Public License
+// You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
@@ -21,11 +21,11 @@
 
 using System;
 
-using Core.Common.Base.Geometry;
+using Core.Common.Base.Properties;
 
-using Ringtoets.Piping.Data.Properties;
+using MathNet.Numerics.LinearAlgebra.Double;
 
-namespace Ringtoets.Piping.Data
+namespace Core.Common.Base.Geometry
 {
     /// <summary>
     /// This class represents lines between two <see cref="Point2D"/>.
@@ -44,14 +44,15 @@ namespace Ringtoets.Piping.Data
         {
             if (first == null)
             {
-                throw new ArgumentNullException("first",Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points);
+                throw new ArgumentNullException("first", Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points);
             }
             if (second == null)
             {
-                throw new ArgumentNullException("second",Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points);
+                throw new ArgumentNullException("second", Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points);
             }
             FirstPoint = first;
             SecondPoint = second;
+            Length = FirstPoint.GetEuclideanDistanceTo(SecondPoint);
         }
 
         /// <summary>
@@ -63,6 +64,11 @@ namespace Ringtoets.Piping.Data
         /// The second <see cref="Point2D"/> of the <see cref="Segment2D"/>.
         /// </summary>
         public Point2D SecondPoint { get; private set; }
+
+        /// <summary>
+        /// Gets the (euclidean) length of the segment.
+        /// </summary>
+        public double Length { get; private set; }
 
         /// <summary>
         /// This method determines whether <paramref name="x"/> is contained by the <see cref="FirstPoint"/>
@@ -88,6 +94,50 @@ namespace Ringtoets.Piping.Data
         public bool IsVertical()
         {
             return Math.Abs(FirstPoint.X - SecondPoint.X) < 1e-8 && Math.Abs(FirstPoint.Y - SecondPoint.Y) >= 1e-8;
+        }
+
+        /// <summary>
+        /// Gets the euclidean distance from this 2D line segment to some 2D point.
+        /// </summary>
+        /// <param name="point">The point to measure distance to.</param>
+        /// <returns>A value of 0 or greater.</returns>
+        public double GetEuclideanDistanceToPoint(Point2D point)
+        {
+            if (point == null)
+            {
+                throw new ArgumentNullException("point");
+            }
+
+            Vector segmentVector = SecondPoint - FirstPoint; // Vector from FirstPoint to SecondPoint
+            Vector orientationVector = point - FirstPoint; // Vector from FirstPoint to 'point'
+
+            // Situation sketch, normalized along the segment:
+            //   A  :   B  :  C
+            // .....p1----p2......
+            //      :      :
+            // 1. Use numerator part of vector projection to determine relative location of 'point':
+            double dotProductOrientationVector = segmentVector.DotProduct(orientationVector);
+            if (dotProductOrientationVector <= 0)
+            {
+                // 'point' falls outside the perpendicular area defined by segment, specifically: Zone A
+                return point.GetEuclideanDistanceTo(FirstPoint);
+            }
+            // 2. Use denominator part of vector projection to determine relative location of 'point':
+            double dotProdcutSegmentVector = segmentVector.DotProduct(segmentVector);
+            if (dotProdcutSegmentVector <= dotProductOrientationVector)
+            {
+                // 'point' falls outside the perpendicular area defined by segment, specifically: Zone C
+                return point.GetEuclideanDistanceTo(SecondPoint);
+            }
+
+            // 'point' falls within the perpendicular area defined by the segment (zone B).
+            // 3. Use remainder of vector projection to determine point on segment for perpendicular line:
+            double projectionFactor = dotProductOrientationVector / dotProdcutSegmentVector;
+            double perpendicularOnSegmentX = FirstPoint.X + projectionFactor * segmentVector[0];
+            double perpendicularOnSegmentY = FirstPoint.Y + projectionFactor * segmentVector[1];
+            var perpendicularLineIntersectionPoint = new Point2D(perpendicularOnSegmentX, perpendicularOnSegmentY);
+
+            return point.GetEuclideanDistanceTo(perpendicularLineIntersectionPoint);
         }
 
         /// <summary>
@@ -119,14 +169,14 @@ namespace Ringtoets.Piping.Data
             {
                 return false;
             }
-            return Equals((Segment2D) obj);
+            return Equals((Segment2D)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return ((FirstPoint.X + SecondPoint.X).GetHashCode()*397) ^ (FirstPoint.Y + SecondPoint.Y).GetHashCode();
+                return ((FirstPoint.X + SecondPoint.X).GetHashCode() * 397) ^ (FirstPoint.Y + SecondPoint.Y).GetHashCode();
             }
         }
 
