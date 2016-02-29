@@ -25,10 +25,12 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.IO.Properties;
+using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.SurfaceLines
 {
@@ -204,7 +206,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             }
             else
             {
-                throw CreateCriticalFileReadException(currentLine, Core.Common.Utils.Properties.Resources.Error_File_empty);
+                throw CreateCriticalFileReadException(currentLine, UtilsResources.Error_File_empty);
             }
         }
 
@@ -223,11 +225,11 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             }
             catch (OutOfMemoryException e)
             {
-                throw CreateCriticalFileReadException(currentLine, Core.Common.Utils.Properties.Resources.Error_Line_too_big_for_RAM, e);
+                throw CreateCriticalFileReadException(currentLine, UtilsResources.Error_Line_too_big_for_RAM, e);
             }
             catch (IOException e)
             {
-                var message = new FileReaderErrorMessageBuilder(filePath).Build(string.Format(Core.Common.Utils.Properties.Resources.Error_General_IO_ErrorMessage_0_, e.Message));
+                var message = new FileReaderErrorMessageBuilder(filePath).Build(string.Format(UtilsResources.Error_General_IO_ErrorMessage_0_, e.Message));
                 throw new CriticalFileReadException(message, e);
             }
         }

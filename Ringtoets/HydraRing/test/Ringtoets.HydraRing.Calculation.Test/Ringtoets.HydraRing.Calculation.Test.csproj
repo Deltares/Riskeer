@@ -56,6 +56,12 @@
     <Compile Include="HydraRingConfigurationIntegrationTest.cs" />
     <Compile Include="Hydraulics\AssessmentLevelCalculationTest.cs" />
     <Compile Include="Hydraulics\HydraulicCalculationTest.cs" />
+    <Compile Include="IO\HydraRingSettingsCsvReaderTest.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Settings\FailureMechanismDefaultsProviderTest.cs" />
     <Compile Include="Settings\FailureMechanismDefaultsTest.cs" />
     <Compile Include="Settings\FailureMechanismSettingsProviderTest.cs" />
@@ -72,6 +78,10 @@
     <Compile Include="Data\HydraRingUncertaintiesTypeTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
+      <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
       <Name>Ringtoets.HydraRing.Calculation</Name>
@@ -82,6 +92,13 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Resources\Hydra-Ring settings test.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

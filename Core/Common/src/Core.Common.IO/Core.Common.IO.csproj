@@ -51,6 +51,7 @@
     <Compile Include="Readers\SqLiteDatabaseReaderBase.cs" />
     <Compile Include="Readers\IRowBasedDatabaseReader.cs" />
     <Compile Include="Readers\ReadResult.cs" />
+    <Compile Include="StreamReaderHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Common.Utils\Core.Common.Utils.csproj">
