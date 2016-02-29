@@ -21,17 +21,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.IO;
 using Ringtoets.HydraRing.Calculation.Settings;
-using Ringtoets.HydraRing.Calculation.Test.Properties;
 
 namespace Ringtoets.HydraRing.Calculation.Test.IO
 {
     [TestFixture]
     public class HydraRingSettingsCsvReaderTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Settings");
+
         [Test]
         public void Constructor_PathSet_DoesNotThrowArgumentNullException()
         {
@@ -49,14 +51,19 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
             TestDelegate call = () => new HydraRingSettingsCsvReader(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "A path to a file must be set.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "A file must be set.");
         }
 
         [Test]
         public void ReadSettings_ValidFile_ReturnsSettings()
         {
             // Setup
-            var reader = new HydraRingSettingsCsvReader(Resources.TestSettings);
+            var testFile = Path.Combine(testDataPath, "HydraRingSettingsTest.csv");
+
+            var streamReader = new StreamReader(testFile);
+            var fileContents = streamReader.ReadToEnd();
+
+            var reader = new HydraRingSettingsCsvReader(fileContents);
             var expectedDictionary = GetDictionary();
 
             // Call

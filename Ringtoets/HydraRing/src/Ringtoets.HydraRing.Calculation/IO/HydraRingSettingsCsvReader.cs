@@ -62,16 +62,16 @@ namespace Ringtoets.HydraRing.Calculation.IO
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingSettingsCsvReader"/>.
         /// </summary>
-        /// <param name="path">The path to the file to read.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="path"/> is not set.</exception>
-        public HydraRingSettingsCsvReader(string path)
+        /// <param name="file">The file to read.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="file"/> is not set.</exception>
+        public HydraRingSettingsCsvReader(string file)
         {
-            if (string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(file))
             {
-                throw new ArgumentNullException("path", "A path to a file must be set.");
+                throw new ArgumentNullException("file", "A file must be set.");
             }
 
-            filePath = path;
+            filePath = file;
         }
 
         /// <summary>

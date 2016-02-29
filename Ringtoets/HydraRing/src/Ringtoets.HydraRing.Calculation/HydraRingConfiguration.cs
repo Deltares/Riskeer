@@ -296,7 +296,7 @@ namespace Ringtoets.HydraRing.Calculation
 
                 foreach (var subMechanimsId in failureMechanismDefaults.SubMechanismIds)
                 {
-                    var subMechanismSettings = subMechanismSettingsProvider.GetSubMechanismSettings(hydraRingCalculation.FailureMechanismType, subMechanimsId);
+                    var subMechanismSettings = subMechanismSettingsProvider.GetSubMechanismSettings(hydraRingCalculation.FailureMechanismType, subMechanimsId, ringId);
 
                     orderDictionaries.Add(new OrderedDictionary
                     {

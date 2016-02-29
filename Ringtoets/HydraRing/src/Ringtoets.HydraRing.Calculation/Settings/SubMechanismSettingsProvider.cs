@@ -21,6 +21,8 @@
 
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.IO;
+using Ringtoets.HydraRing.Calculation.Properties;
 
 namespace Ringtoets.HydraRing.Calculation.Settings
 {
@@ -29,12 +31,44 @@ namespace Ringtoets.HydraRing.Calculation.Settings
     /// </summary>
     public class SubMechanismSettingsProvider
     {
-        private readonly IDictionary<HydraRingFailureMechanismType, IDictionary<int, SubMechanismSettings>> defaultSubMechanismSettings;
+        private readonly IDictionary<int, IDictionary<int, IDictionary<string, SubMechanismSettings>>> fileSubMechanismSettings;
+        private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider;
+        private IDictionary<HydraRingFailureMechanismType, IDictionary<int, SubMechanismSettings>> defaultSubMechanismSettings;
 
         /// <summary>
         /// Creates a new instance of the <see cref="SubMechanismSettingsProvider"/> class.
         /// </summary>
         public SubMechanismSettingsProvider()
+        {
+            failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
+
+            InitializeDefaultSubMechanismSettings();
+
+            fileSubMechanismSettings = new HydraRingSettingsCsvReader(Resources.HydraRingSettings).ReadSettings();
+        }
+
+        /// <summary>
+        /// Returns <see cref="SubMechanismSettings"/> based on the provided <see cref="HydraRingFailureMechanismType"/> and sub mechanism id.
+        /// </summary>
+        /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="FailureMechanismSettings"/> for.</param>
+        /// <param name="subMechanismId">The sub mechanism id to obtain the <see cref="FailureMechanismSettings"/> for.</param>
+        /// <param name="ringId">The ring id to obtain the <see cref="FailureMechanismSettings"/> for.</param>
+        /// <returns>The <see cref="FailureMechanismSettings"/> corresponding to the provided <see cref="HydraRingFailureMechanismType"/> and sub mechanism id.</returns>
+        public SubMechanismSettings GetSubMechanismSettings(HydraRingFailureMechanismType failureMechanismType, int subMechanismId, string ringId)
+        {
+            var mechanismId = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(failureMechanismType).MechanismId;
+
+            if (fileSubMechanismSettings.ContainsKey(mechanismId) &&
+                fileSubMechanismSettings[mechanismId].ContainsKey(subMechanismId) &&
+                fileSubMechanismSettings[mechanismId][subMechanismId].ContainsKey(ringId))
+            {
+                return fileSubMechanismSettings[mechanismId][subMechanismId][ringId];
+            }
+
+            return defaultSubMechanismSettings[failureMechanismType][subMechanismId];
+        }
+
+        private void InitializeDefaultSubMechanismSettings()
         {
             defaultSubMechanismSettings = new Dictionary<HydraRingFailureMechanismType, IDictionary<int, SubMechanismSettings>>
             {
@@ -176,17 +210,6 @@ namespace Ringtoets.HydraRing.Calculation.Settings
                     }
                 }
             };
-        }
-
-        /// <summary>
-        /// Returns <see cref="SubMechanismSettings"/> based on the provided <see cref="HydraRingFailureMechanismType"/> and sub mechanism id.
-        /// </summary>
-        /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="FailureMechanismSettings"/> for.</param>
-        /// <param name="subMechanismId">The sub mechanism id to obtain the <see cref="FailureMechanismSettings"/> for.</param>
-        /// <returns>The <see cref="FailureMechanismSettings"/> corresponding to the provided <see cref="HydraRingFailureMechanismType"/> and sub mechanism id.</returns>
-        public SubMechanismSettings GetSubMechanismSettings(HydraRingFailureMechanismType failureMechanismType, int subMechanismId)
-        {
-            return defaultSubMechanismSettings[failureMechanismType][subMechanismId];
         }
     }
 }

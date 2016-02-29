@@ -29,6 +29,33 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
     public class SubMechanismSettingsProviderTest
     {
         [Test]
+        public void GetSubMechanismSettings_KnownRingId_ReturnsExpectedSubMechanismSettings()
+        {
+            // Setup
+            var subMechanismSettingsProvider = new SubMechanismSettingsProvider();
+            var expectedValues = GetExpectedSubMechanismSettings();
+
+            // Call
+            var settings = subMechanismSettingsProvider.GetSubMechanismSettings(HydraRingFailureMechanismType.AssessmentLevel, 1, "205");
+
+            // Assert
+            Assert.AreEqual(expectedValues.CalculationTechniqueId, settings.CalculationTechniqueId);
+            Assert.AreEqual(expectedValues.FormStartMethod, settings.FormStartMethod);
+            Assert.AreEqual(expectedValues.FormNumberOfIterations, settings.FormNumberOfIterations);
+            Assert.AreEqual(expectedValues.FormRelaxationFactor, settings.FormRelaxationFactor);
+            Assert.AreEqual(expectedValues.FormEpsBeta, settings.FormEpsBeta);
+            Assert.AreEqual(expectedValues.FormEpsHoh, settings.FormEpsHoh);
+            Assert.AreEqual(expectedValues.FormEpsZFunc, settings.FormEpsZFunc);
+            Assert.AreEqual(expectedValues.DsStartMethod, settings.DsStartMethod);
+            Assert.AreEqual(expectedValues.DsMaxNumberOfIterations, settings.DsMaxNumberOfIterations);
+            Assert.AreEqual(expectedValues.DsMinNumberOfIterations, settings.DsMinNumberOfIterations);
+            Assert.AreEqual(expectedValues.DsVarCoefficient, settings.DsVarCoefficient);
+            Assert.AreEqual(expectedValues.NiNumberSteps, settings.NiNumberSteps);
+            Assert.AreEqual(expectedValues.NiUMax, settings.NiUMax);
+            Assert.AreEqual(expectedValues.NiUMin, settings.NiUMin);
+        }
+
+        [Test]
         [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 1, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.QVariant, 3, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.QVariant, 4, 1, 4)]
@@ -58,13 +85,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 433, 1, 1)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 434, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 435, 1, 4)]
-        public void GetSubMechanismSettings_DefaultsOnly_ReturnsExpectedSubMechanismSettings(HydraRingFailureMechanismType failureMechanismType, int subMechanismId, int expectedCalculationTechniqueId, int expectedFormStartMethod)
+        public void GetSubMechanismSettings_UnknownRingId_ReturnsExpectedDefaultSubMechanismSettings(HydraRingFailureMechanismType failureMechanismType, int subMechanismId, int expectedCalculationTechniqueId, int expectedFormStartMethod)
         {
             // Setup
             var subMechanismSettingsProvider = new SubMechanismSettingsProvider();
 
             // Call
-            var subMechanismSettings = subMechanismSettingsProvider.GetSubMechanismSettings(failureMechanismType, subMechanismId);
+            var subMechanismSettings = subMechanismSettingsProvider.GetSubMechanismSettings(failureMechanismType, subMechanismId, "unknown ringId");
 
             // Assert
             Assert.AreEqual(expectedCalculationTechniqueId, subMechanismSettings.CalculationTechniqueId);
@@ -81,6 +108,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
             Assert.AreEqual(-6.0, subMechanismSettings.NiUMin);
             Assert.AreEqual(6.0, subMechanismSettings.NiUMax);
             Assert.AreEqual(25, subMechanismSettings.NiNumberSteps);
+        }
+
+        private static SubMechanismSettings GetExpectedSubMechanismSettings()
+        {
+            return new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 20000, 100000, 0.1, -6, 6, 25);
         }
     }
 }

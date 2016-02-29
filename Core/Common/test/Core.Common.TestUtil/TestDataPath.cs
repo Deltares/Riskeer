@@ -34,17 +34,10 @@ namespace Core.Common.TestUtil
 
             public static class Components
             {
-                public static readonly TestDataPath DotSpatial = System.IO.Path.Combine("Core", "Components", "test", "Core.Components.DotSpatial.Test");
-
                 public static class Gis
                 {
                     public static readonly TestDataPath IO = System.IO.Path.Combine("Core", "Components", "test", "Core.Components.Gis.IO.Test");
                 }
-            }
-
-            public static class Plugins
-            {
-                public static readonly TestDataPath DotSpatial = System.IO.Path.Combine("Core", "Plugins", "test", "Core.Plugins.DotSpatial.Test");
             }
         }
 
@@ -58,6 +51,7 @@ namespace Core.Common.TestUtil
             public static class HydraRing
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "HydraRing", "test", "Ringtoets.HydraRing.IO.Test");
+                public static readonly TestDataPath Calculation = System.IO.Path.Combine("Ringtoets", "HydraRing", "test", "Ringtoets.HydraRing.Calculation.Test");
             }
 
             public static class Integration
