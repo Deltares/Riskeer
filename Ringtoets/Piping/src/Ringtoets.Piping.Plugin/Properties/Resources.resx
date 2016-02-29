@@ -133,11 +133,11 @@
     <value>Inlezen '{0}'</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped" xml:space="preserve">
-    <value>{0}
+    <value>{0} 
 Het bestand wordt overgeslagen.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped" xml:space="preserve">
-    <value>{0}
+    <value>{0} 
 Deze profielmeting wordt overgeslagen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_Adding_imported_data_to_model" xml:space="preserve">
@@ -150,11 +150,11 @@ Deze profielmeting wordt overgeslagen.</value>
     <value>Inlezen van de D-Soil Model database</value>
   </data>
   <data name="PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped" xml:space="preserve">
-    <value>{0}
+    <value>{0} 
 Het bestand wordt overgeslagen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipped" xml:space="preserve">
-    <value>{0}
+    <value>{0} 
 Deze ondergrondschematisering wordt overgeslagen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_ReadingSoilProfiles" xml:space="preserve">
@@ -167,7 +167,7 @@ Deze ondergrondschematisering wordt overgeslagen.</value>
     <value>Geen karakteristieke punten-bestand gevonden naast het profielmetingenbestand. (Verwacht bestand: {0})</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped" xml:space="preserve">
-    <value>{0}
+    <value>{0} 
 Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_" xml:space="preserve">

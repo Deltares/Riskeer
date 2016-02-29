@@ -244,6 +244,8 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         {
             columnsInFile.Clear();
 
+            lineNumber = 1;
+
             string[] tokenizedHeader = TokenizeString(header.ToLowerInvariant().Replace(' ', '_'));
 
             if (!DetermineIdColumn(tokenizedHeader))

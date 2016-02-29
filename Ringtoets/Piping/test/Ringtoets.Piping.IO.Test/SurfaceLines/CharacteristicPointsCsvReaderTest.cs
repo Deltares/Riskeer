@@ -506,7 +506,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 0").Build(string.Format(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_, ';'));
+                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(string.Format(Resources.CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_, ';'));
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
