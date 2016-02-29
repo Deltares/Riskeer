@@ -67,10 +67,6 @@
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
-      <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
-      <Name>Ringtoets.HydraRing.Data</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
