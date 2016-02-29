@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 
+using Core.Common.Base;
+
 using Ringtoets.Common.Data;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
@@ -29,7 +31,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for <see cref="IFailureMechanism.Sections"/>.
     /// </summary>
-    public class FailureMechanismSectionsContext
+    public class FailureMechanismSectionsContext : Observable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSectionsContext"/> class.

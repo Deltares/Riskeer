@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using Core.Common.Base.Geometry;
@@ -39,7 +41,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void Import_ValidFileCorrespondingToReferenceLine_ImportSections()
+        public void Import_ValidFileCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections()
         {
             // Setup
             var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1.shp");
@@ -70,6 +72,94 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             AssertSectionsAreValidForReferenceLine(sections, assessmentSection.ReferenceLine);
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void Import_FilePathIsDirectory_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1.shp");
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var referenceLineImporter = new ReferenceLineImporter();
+            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+
+            var importer = new FailureMechanismSectionsImporter();
+
+            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            bool importSuccesful = true;
+            Action call = () => importSuccesful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+
+            // Assert
+            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.", sectionsFilePath) + Environment.NewLine +
+                                  "Er is geen vakindeling geïmporteerd.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccesful);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanismSectionsContext.WrappedData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_PathToDirectory_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1.shp");
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist.shp");
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var referenceLineImporter = new ReferenceLineImporter();
+            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+
+            var importer = new FailureMechanismSectionsImporter();
+
+            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            bool importSuccesful = true;
+            Action call = () => importSuccesful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+
+            // Assert
+            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", sectionsFilePath) + Environment.NewLine +
+                      "Er is geen vakindeling geïmporteerd.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccesful);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanismSectionsContext.WrappedData);
+            mocks.VerifyAll();
+        }
+
+        // TODO: ReferenceLine not set
+        // TODO: Has endpoint not on surfaceline
+        // TODO: Has startpoint not on surfaceline
+        // TODO: Has some other point not on surfaceline
+        // TODO: Definite start not on refereline start
+        // TODO: Definite end not on referenceline end
+        // TODO: File is empty -> error
+        // TODO: Has sections and Confirm cancel -> No changes and return false
+        // TODO: Has sections and Confirm continue -> replace sections, clear failure mechanism calculations
+        // TODO: Has sections and Cancel during Confirm -> generate log message
+        // TODO: Progress
+        // TODO: Reused of cancelled importer
+        // TODO: DoPostImportUpdates when clearing failure mechanism calculations
+        // TODO: DoPostImportUpdates notifies parent failure mechanism
+        // TODO: DoPostImportUpdates with cancel does not do notify
+        // TODO: DoPostImportUpdates for reused importer
+
 
         private void AssertSectionsAreValidForReferenceLine(FailureMechanismSection[] sections, ReferenceLine referenceLine)
         {

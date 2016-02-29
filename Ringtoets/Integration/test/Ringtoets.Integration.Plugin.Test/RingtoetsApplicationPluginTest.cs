@@ -63,8 +63,9 @@ namespace Ringtoets.Integration.Plugin.Test
             IFileImporter[] importers = plugin.GetFileImporters().ToArray();
 
             // Assert
-            Assert.AreEqual(1, importers.Length);
+            Assert.AreEqual(2, importers.Length);
             Assert.AreEqual(1, importers.Count(i => i is ReferenceLineImporter));
+            Assert.AreEqual(1, importers.Count(i => i is FailureMechanismSectionsImporter));
         }
 
         [Test]

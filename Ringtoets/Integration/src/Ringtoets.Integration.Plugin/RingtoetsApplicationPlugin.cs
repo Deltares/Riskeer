@@ -73,6 +73,7 @@ namespace Ringtoets.Integration.Plugin
         public override IEnumerable<IFileImporter> GetFileImporters()
         {
             yield return new ReferenceLineImporter();
+            yield return new FailureMechanismSectionsImporter();
         }
 
         private static string GetUniqueForAssessmentSectionName(Project project, string baseName)

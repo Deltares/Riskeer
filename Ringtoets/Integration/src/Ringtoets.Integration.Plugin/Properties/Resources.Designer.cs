@@ -61,6 +61,16 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}
+        ///Er is geen vakindeling geïmporteerd..
+        /// </summary>
+        internal static string FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Het bestand wordt overgeslagen..
         /// </summary>
         internal static string HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped {

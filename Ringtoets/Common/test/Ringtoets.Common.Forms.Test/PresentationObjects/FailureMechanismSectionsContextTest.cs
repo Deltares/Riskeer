@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 
 using NUnit.Framework;
@@ -44,6 +45,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Assert
+            Assert.IsInstanceOf<Observable>(context);
             Assert.AreSame(sectionsSequence, context.WrappedData);
             Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, context.ParentAssessmentSection);
