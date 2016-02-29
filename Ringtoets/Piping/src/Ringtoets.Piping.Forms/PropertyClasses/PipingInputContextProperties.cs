@@ -201,13 +201,18 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                if (double.IsNaN(value.DesignWaterLevel))
+                try
                 {
-                    string message = string.Format(Resources.PipingInputContextProperties_HydraulicBoundaryLocation_No_design_water_level_calculated, value.Name);
+                    data.WrappedData.AssessmentLevel = value.DesignWaterLevel;
+                }
+                catch (ArgumentException e)
+                {
+                    string message = string.Format(Resources.PipingInputContextProperties_HydraulicBoundaryLocation_Could_not_set_location_0_cause_1_, 
+                        value.Name,
+                        e.Message);
                     throw new ArgumentException(message);
                 }
                 data.WrappedData.HydraulicBoundaryLocation = value;
-                data.WrappedData.AssessmentLevel = value.DesignWaterLevel;
                 data.WrappedData.NotifyObservers();
             }
         }

@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                     IsAquifer = true
                 }
             });
-            var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(0.0);
 
             var inputParameters = new PipingInput
             {
@@ -144,7 +144,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var projectObserver = mocks.StrictMock<IObserver>();
-            int numberProperties = 25;
+            int numberProperties = 22;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
@@ -166,8 +166,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             double gravity = random.NextDouble();
             double meanDiameter70 = random.NextDouble();
             double beddingAngle = random.NextDouble();
-            double entryPointL = random.NextDouble();
-            double exitPointL = entryPointL + random.NextDouble() + 0.001;
             
             var dampingFactorExit = new LognormalDistribution();
             var phreaticLevelExit = new NormalDistribution();
@@ -179,10 +177,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             PipingSoilProfile soilProfile = new TestPipingSoilProfile();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
-            var inputContext = new PipingInputContextProperties
+            new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
@@ -209,8 +206,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 MeanDiameter70 = meanDiameter70,
                 BeddingAngle = beddingAngle,
                 SurfaceLine = surfaceLine,
-                SoilProfile = soilProfile,
-                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                SoilProfile = soilProfile
             };
 
             // Assert I
@@ -235,15 +231,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(meanDiameter70, inputParameters.MeanDiameter70);
             Assert.AreEqual(beddingAngle, inputParameters.BeddingAngle);
             Assert.AreEqual(soilProfile, inputParameters.SoilProfile);
-            Assert.AreEqual(hydraulicBoundaryLocation, inputParameters.HydraulicBoundaryLocation);
-            
-            // Call
-            inputContext.ExitPointL = exitPointL;
-            inputContext.EntryPointL = entryPointL;
-
-            // Assert II
-            Assert.AreEqual(exitPointL - entryPointL, inputParameters.SeepageLength.Mean);
-            Assert.AreEqual(exitPointL, inputParameters.ExitPointL);
 
             mocks.VerifyAll();
         }
@@ -260,6 +247,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var inputObserver = mocks.StrictMock<IObserver>();
+            int numberProperties = 1;
+            inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
             var random = new Random(22);
@@ -277,6 +267,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile
             };
+            inputParameters.Attach(inputObserver);
 
             var properties = new PipingInputContextProperties
             {
@@ -294,7 +285,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
             Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
 
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -308,6 +299,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var inputObserver = mocks.StrictMock<IObserver>();
+            int numberProperties = 2;
+            inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
             var random = new Random(22);
@@ -325,6 +319,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile
             };
+            inputParameters.Attach(inputObserver);
 
             var properties = new PipingInputContextProperties
             {
@@ -342,7 +337,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
             Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
 
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -351,6 +346,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var inputObserver = mocks.StrictMock<IObserver>();
+            int numberProperties = 2;
+            inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
             var random = new Random(22);
@@ -368,6 +366,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile
             };
+            inputParameters.Attach(inputObserver);
 
             var properties = new PipingInputContextProperties
             {
@@ -385,7 +384,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
             Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
 
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -394,6 +393,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var inputObserver = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             var random = new Random(22);
@@ -423,6 +423,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var l = 2.0;
             properties.ExitPointL = l;
 
+            inputParameters.Attach(inputObserver);
+
             // Call
             TestDelegate test = () => properties.EntryPointL = l;
 
@@ -430,7 +432,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var message = string.Format(Resources.PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length, l);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
 
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -439,6 +441,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var inputObserver = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             var random = new Random(22);
@@ -468,6 +471,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var l = -2.0;
             properties.EntryPointL = l;
 
+            inputParameters.Attach(inputObserver);
+
             // Call
             TestDelegate test = () => properties.ExitPointL = l;
 
@@ -475,7 +480,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var message = string.Format(Resources.PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length, l);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
 
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -508,7 +513,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
-            var message = string.Format("Voor locatie '{0}' is geen toetspeil berekend.", testName);
+            var message = string.Format("Kan locatie '{0}' niet gebruiken als invoer. Toetspeil moet een geldige waarde hebben.", testName);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
 
             Assert.AreEqual(0, properties.AssessmentLevelSellmeijer);
@@ -567,7 +572,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
         private class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
         {
-            public TestHydraulicBoundaryLocation() : base(0, string.Empty, 0, 0) { }
+            public TestHydraulicBoundaryLocation(double designWaterLevel) : base(0, string.Empty, 0, 0)
+            {
+                DesignWaterLevel = designWaterLevel;
+            }
         }
     }
 }

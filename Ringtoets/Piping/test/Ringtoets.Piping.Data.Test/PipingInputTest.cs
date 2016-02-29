@@ -2,6 +2,8 @@
 
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Properties;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 using Ringtoets.Piping.Data.Probabilistics;
@@ -169,6 +171,19 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(2.0, inputParameters.SeepageLength.Mean);
             Assert.AreEqual(thirdPointX - firstPointX, inputParameters.ExitPointL);
+        }
+
+        [Test]
+        public void AssessmentLevel_ValueIsNaN_ThrowsArgumentException()
+        {
+            // Setup
+            var pipingInput = new PipingInput();
+
+            // Call
+            TestDelegate test = () => pipingInput.AssessmentLevel = double.NaN;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, Properties.Resources.PipingInput_AssessmentLevel_Cannot_set_to_NaN);
         }
     }
 }

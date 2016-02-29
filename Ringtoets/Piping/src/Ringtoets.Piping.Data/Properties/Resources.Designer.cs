@@ -232,6 +232,15 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toetspeil moet een geldige waarde hebben..
+        /// </summary>
+        public static string PipingInput_AssessmentLevel_Cannot_set_to_NaN {
+            get {
+                return ResourceManager.GetString("PipingInput_AssessmentLevel_Cannot_set_to_NaN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} L moet in het bereik van [{1}, {2}] liggen..
         /// </summary>
         public static string RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range {

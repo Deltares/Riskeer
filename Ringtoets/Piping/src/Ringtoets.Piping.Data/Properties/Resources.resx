@@ -198,4 +198,7 @@
   <data name="CharacteristicPoint_DitchPolderSide" xml:space="preserve">
     <value>Insteek sloot polderzijde</value>
   </data>
+  <data name="PipingInput_AssessmentLevel_Cannot_set_to_NaN" xml:space="preserve">
+    <value>Toetspeil moet een geldige waarde hebben.</value>
+  </data>
 </root>

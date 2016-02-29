@@ -1031,12 +1031,12 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voor locatie &apos;{0}&apos; is geen toetspeil berekend..
+        ///   Looks up a localized string similar to Kan locatie &apos;{0}&apos; niet gebruiken als invoer. {1}.
         /// </summary>
-        public static string PipingInputContextProperties_HydraulicBoundaryLocation_No_design_water_level_calculated {
+        public static string PipingInputContextProperties_HydraulicBoundaryLocation_Could_not_set_location_0_cause_1_ {
             get {
-                return ResourceManager.GetString("PipingInputContextProperties_HydraulicBoundaryLocation_No_design_water_level_calc" +
-                        "ulated", resourceCulture);
+                return ResourceManager.GetString("PipingInputContextProperties_HydraulicBoundaryLocation_Could_not_set_location_0_c" +
+                        "ause_1_", resourceCulture);
             }
         }
         

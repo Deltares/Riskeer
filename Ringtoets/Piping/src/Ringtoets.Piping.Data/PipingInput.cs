@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Probabilistics;
+using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
 {
@@ -33,6 +34,7 @@ namespace Ringtoets.Piping.Data
     public class PipingInput : Observable
     {
         private RingtoetsPipingSurfaceLine surfaceLine;
+        private double assessmentLevel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
@@ -119,7 +121,22 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the outside high water level.
         /// [m]
         /// </summary>
-        public double AssessmentLevel { get; set; }
+        /// <exception cref="ArgumentException"><paramref name="value"/> is <see cref="double.NaN"/>.</exception>
+        public double AssessmentLevel
+        {
+            get
+            {
+                return assessmentLevel;
+            }
+            set
+            {
+                if (double.IsNaN(value))
+                {
+                    throw new ArgumentException(Resources.PipingInput_AssessmentLevel_Cannot_set_to_NaN);
+                }
+                assessmentLevel = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the piezometric head at the exit point.
