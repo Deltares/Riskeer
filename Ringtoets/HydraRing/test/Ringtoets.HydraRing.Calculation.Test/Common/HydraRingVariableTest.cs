@@ -20,8 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Common;
-using Ringtoets.HydraRing.Calculation.Types;
+using Ringtoets.HydraRing.Calculation.Data;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Common
 {

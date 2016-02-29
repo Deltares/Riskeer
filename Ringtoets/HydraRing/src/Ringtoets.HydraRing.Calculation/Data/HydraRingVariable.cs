@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.HydraRing.Calculation.Types;
-
-namespace Ringtoets.HydraRing.Calculation.Common
+namespace Ringtoets.HydraRing.Calculation.Data
 {
     /// <summary>
     /// Container for Hydra-Ring variable related data.

@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
+using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Settings;
-using Ringtoets.HydraRing.Calculation.Types;
 
-namespace Ringtoets.HydraRing.Calculation.Common
+namespace Ringtoets.HydraRing.Calculation
 {
     /// <summary>
     /// Container for all configurations that are necessary for performing a Hydra-Ring calculation.

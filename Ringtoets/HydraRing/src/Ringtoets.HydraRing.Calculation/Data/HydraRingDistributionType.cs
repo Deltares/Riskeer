@@ -19,25 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Types
+namespace Ringtoets.HydraRing.Calculation.Data
 {
     /// <summary>
-    /// Enumeration that defines the failure mechanism types supported by Hydra-Ring.
+    /// Enumeration that defines the distribution types supported by Hydra-Ring.
     /// </summary>
     /// <remarks>
-    /// The integer values DON'T correspond to failure mechanism ids defined within Hydra-Ring.
+    /// The integer values correspond to distribution ids defined within Hydra-Ring.
     /// </remarks>
-    public enum HydraRingFailureMechanismType
+    public enum HydraRingDistributionType
     {
-        AssessmentLevel,
-        QVariant,
-        WaveHeight,
-        WavePeakPeriod,
-        WaveSpectralPeriod,
-        DikesOvertopping,
-        DikesPiping,
-        StructuresOvertopping,
-        StructuresClosure,
-        StructuresStructuralFailure
+        Deterministic = 0,
+        Normal = 2,
+        LogNormal = 4 // Also applies to shifted log normal distributions
     }
 }

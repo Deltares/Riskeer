@@ -19,19 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Types
+namespace Ringtoets.HydraRing.Calculation.Data
 {
     /// <summary>
-    /// Enumeration that defines the uncertainties types supported by Hydra-Ring.
+    /// Enumeration that defines the time integration scheme types supported by Hydra-Ring.
     /// </summary>
     /// <remarks>
-    /// The integer values correspond to uncertainties ids defined within Hydra-Ring.
+    /// The integer values correspond to time integration scheme ids defined within Hydra-Ring.
     /// </remarks>
-    public enum HydraRingUncertaintiesType
+    public enum HydraRingTimeIntegrationSchemeType
     {
-        None = 0, // "No uncertainties"
-        All = 1, // "All uncertainties"
-        Model = 2, // "Only model uncertainties"
-        Statistic = 3 // "Only statistical uncertainties"
+        FBC = 1,
+        APT = 2,
+        NTI = 3
     }
 }

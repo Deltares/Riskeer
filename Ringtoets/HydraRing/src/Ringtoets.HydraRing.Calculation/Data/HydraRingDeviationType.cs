@@ -19,28 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Data;
-
-namespace Ringtoets.HydraRing.Calculation.Test.Types
+namespace Ringtoets.HydraRing.Calculation.Data
 {
-    [TestFixture]
-    public class HydraRingUncertaintiesTypeTest
+    /// <summary>
+    /// Enumeration that defines the deviation types supported by Hydra-Ring.
+    /// </summary>
+    /// <remarks>
+    /// The integer values correspond to deviation ids defined within Hydra-Ring.
+    /// </remarks>
+    public enum HydraRingDeviationType
     {
-        [Test]
-        public void Values_HasFour()
-        {
-            Assert.AreEqual(4, Enum.GetValues(typeof(HydraRingUncertaintiesType)).Length);
-        }
-
-        [Test]
-        public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
-        {
-            Assert.AreEqual(0, (int) HydraRingUncertaintiesType.None);
-            Assert.AreEqual(1, (int) HydraRingUncertaintiesType.All);
-            Assert.AreEqual(2, (int) HydraRingUncertaintiesType.Model);
-            Assert.AreEqual(3, (int) HydraRingUncertaintiesType.Statistic);
-        }
+        Standard = 0,
+        Variation = 1
     }
 }
