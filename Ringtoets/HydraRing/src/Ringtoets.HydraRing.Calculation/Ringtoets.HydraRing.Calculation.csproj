@@ -41,8 +41,8 @@
     </Compile>
     <Compile Include="Common\HydraRingDikeSection.cs" />
     <Compile Include="Common\HydraRingProfilePoint.cs" />
-    <Compile Include="Data\AssessmentLevelCalculationData.cs" />
-    <Compile Include="Common\HydraRingCalculationData.cs" />
+    <Compile Include="Data\AssessmentLevelCalculation.cs" />
+    <Compile Include="Common\HydraRingCalculation.cs" />
     <Compile Include="Settings\VariableDefaults.cs" />
     <Compile Include="Settings\VariableDefaultsProvider.cs" />
     <Compile Include="Types\HydraRingDistributionType.cs" />
@@ -56,7 +56,7 @@
     <Compile Include="Types\HydraRingFailureMechanismType.cs" />
     <Compile Include="Common\HydraRingConfiguration.cs" />
     <Compile Include="Settings\SubMechanismSettings.cs" />
-    <Compile Include="Data\HydraulicCalculationData.cs" />
+    <Compile Include="Data\HydraulicCalculation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\HydraRingTimeIntegrationSchemeType.cs" />
     <Compile Include="Types\HydraRingUncertaintiesType.cs" />

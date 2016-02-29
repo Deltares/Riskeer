@@ -48,7 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\HydraRingCalculationDataTest.cs" />
+    <Compile Include="Common\HydraRingCalculationTest.cs" />
     <Compile Include="Common\HydraRingConfigurationTest.cs" />
     <Compile Include="Common\HydraRingDikeSectionTest.cs" />
     <Compile Include="Common\HydraRingProfilePointTest.cs" />

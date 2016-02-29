@@ -33,9 +33,9 @@ namespace Ringtoets.HydraRing.Calculation.Test
         [Test]
         public void GenerateDataBaseCreationScript_HydraRingConfigurationWithAssessmentLevelCalculation_ReturnsExpectedCreationScript()
         {
-            var hydraRingConfiguration = new HydraRingConfiguration(HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All);
+            var hydraRingConfiguration = new HydraRingConfiguration("34-1", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All);
 
-            hydraRingConfiguration.AddHydraRingCalculation(new AssessmentLevelCalculationData(700004, 3.29053));
+            hydraRingConfiguration.AddHydraRingCalculation(new AssessmentLevelCalculation(700004, 3.29053));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +

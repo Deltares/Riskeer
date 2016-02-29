@@ -35,9 +35,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
         public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraRingConfiguration = new HydraRingConfiguration(HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
+            var hydraRingConfiguration = new HydraRingConfiguration("34-1", HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
 
             // Assert
+            Assert.AreEqual("34-1", hydraRingConfiguration.RingId);
             Assert.AreEqual(HydraRingTimeIntegrationSchemeType.NTI, hydraRingConfiguration.TimeIntegrationSchemeType);
             Assert.AreEqual(HydraRingUncertaintiesType.Model, hydraRingConfiguration.UncertaintiesType);
         }
@@ -45,9 +46,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
         [Test]
         public void GenerateDataBaseCreationScript_NonDefaultHydraRingConfiguration_ReturnsExpectedCreationScript()
         {
-            var hydraRingConfiguration = new HydraRingConfiguration(HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
+            var hydraRingConfiguration = new HydraRingConfiguration("34-1", HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
 
-            hydraRingConfiguration.AddHydraRingCalculation(new HydraulicCalculationDataImplementation(700004, 1.1));
+            hydraRingConfiguration.AddHydraRingCalculation(new HydraulicCalculationImplementation(700004, 1.1));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (3, 2, 'WTI 2017');" + Environment.NewLine +
@@ -112,9 +113,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
             Assert.AreEqual(expectedCreationScript, creationScript);
         }
 
-        private class HydraulicCalculationDataImplementation : HydraulicCalculationData
+        private class HydraulicCalculationImplementation : HydraulicCalculation
         {
-            public HydraulicCalculationDataImplementation(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId, beta)
+            public HydraulicCalculationImplementation(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId, beta)
             {
                 
             }

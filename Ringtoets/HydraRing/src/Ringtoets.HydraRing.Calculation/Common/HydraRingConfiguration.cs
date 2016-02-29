@@ -54,7 +54,7 @@ namespace Ringtoets.HydraRing.Calculation.Common
     public class HydraRingConfiguration
     {
         private readonly string ringId;
-        private readonly IList<HydraRingCalculationData> hydraRingCalculations;
+        private readonly IList<HydraRingCalculation> hydraRingCalculations;
         private readonly SubMechanismSettingsProvider subMechanismSettingsProvider = new SubMechanismSettingsProvider();
         private readonly FailureMechanismSettingsProvider failureMechanismSettingsProvider = new FailureMechanismSettingsProvider();
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
@@ -70,7 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Common
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the configured Hydra-Ring calculations.</param>
         public HydraRingConfiguration(string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType)
         {
-            hydraRingCalculations = new List<HydraRingCalculationData>();
+            hydraRingCalculations = new List<HydraRingCalculation>();
 
             this.ringId = ringId;
             this.timeIntegrationSchemeType = timeIntegrationSchemeType;
@@ -113,10 +113,10 @@ namespace Ringtoets.HydraRing.Calculation.Common
         /// <summary>
         /// Adds a Hydra-Ring calculation to the <see cref="HydraRingConfiguration"/>.
         /// </summary>
-        /// <param name="hydraRingCalculationData">The container that holds all data for configuring the calculation.</param>
-        public void AddHydraRingCalculation(HydraRingCalculationData hydraRingCalculationData)
+        /// <param name="hydraRingCalculation">The container that holds all data for configuring the calculation.</param>
+        public void AddHydraRingCalculation(HydraRingCalculation hydraRingCalculation)
         {
-            hydraRingCalculations.Add(hydraRingCalculationData);
+            hydraRingCalculations.Add(hydraRingCalculation);
         }
 
         /// <summary>
