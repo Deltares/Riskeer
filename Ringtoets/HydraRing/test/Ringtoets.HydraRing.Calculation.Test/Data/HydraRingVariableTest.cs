@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Common
+namespace Ringtoets.HydraRing.Calculation.Test.Data
 {
     [TestFixture]
     public class HydraRingVariableTest

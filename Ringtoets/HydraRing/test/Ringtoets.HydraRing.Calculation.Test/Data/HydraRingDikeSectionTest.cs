@@ -19,27 +19,29 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Types
+namespace Ringtoets.HydraRing.Calculation.Test.Data
 {
     [TestFixture]
-    public class HydraRingDistributionTypeTest
+    public class HydraRingDikeSectionTest
     {
         [Test]
-        public void Values_HasThree()
+        public void Constructor_ExpectedValues()
         {
-            Assert.AreEqual(3, Enum.GetValues(typeof(HydraRingDistributionType)).Length);
-        }
+            // Call
+            var hydraRingDikeSection = new HydraRingDikeSection(1, "Name", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7); 
 
-        [Test]
-        public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
-        {
-            Assert.AreEqual(0, (int) HydraRingDistributionType.Deterministic);
-            Assert.AreEqual(2, (int) HydraRingDistributionType.Normal);
-            Assert.AreEqual(4, (int) HydraRingDistributionType.LogNormal);
+            // Assert
+            Assert.AreEqual(1, hydraRingDikeSection.SectionId);
+            Assert.AreEqual("Name", hydraRingDikeSection.SectionName);
+            Assert.AreEqual(2.2, hydraRingDikeSection.SectionBeginCoordinate);
+            Assert.AreEqual(3.3, hydraRingDikeSection.SectionEndCoordinate);
+            Assert.AreEqual(4.4, hydraRingDikeSection.SectionLength);
+            Assert.AreEqual(5.5, hydraRingDikeSection.CrossSectionXCoordinate);
+            Assert.AreEqual(6.6, hydraRingDikeSection.CrossSectionYCoordinate);
+            Assert.AreEqual(7.7, hydraRingDikeSection.CrossSectionNormal);
         }
     }
 }

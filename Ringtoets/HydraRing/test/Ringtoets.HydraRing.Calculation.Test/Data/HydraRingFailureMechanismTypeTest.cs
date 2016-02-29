@@ -23,22 +23,15 @@ using System;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Types
+namespace Ringtoets.HydraRing.Calculation.Test.Data
 {
     [TestFixture]
-    public class HydraRingDeviationTypeTest
+    public class HydraRingFailureMechanismTypeTest
     {
         [Test]
-        public void Values_HasTwo()
+        public void Values_HasTen()
         {
-            Assert.AreEqual(2, Enum.GetValues(typeof(HydraRingDeviationType)).Length);
-        }
-
-        [Test]
-        public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
-        {
-            Assert.AreEqual(0, (int) HydraRingDeviationType.Standard);
-            Assert.AreEqual(1, (int) HydraRingDeviationType.Variation);
+            Assert.AreEqual(10, Enum.GetValues(typeof(HydraRingFailureMechanismType)).Length);
         }
     }
 }

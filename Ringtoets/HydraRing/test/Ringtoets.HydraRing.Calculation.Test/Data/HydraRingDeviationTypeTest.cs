@@ -19,29 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Common
+namespace Ringtoets.HydraRing.Calculation.Test.Data
 {
     [TestFixture]
-    public class HydraRingDikeSectionTest
+    public class HydraRingDeviationTypeTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Values_HasTwo()
         {
-            // Call
-            var hydraRingDikeSection = new HydraRingDikeSection(1, "Name", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7); 
+            Assert.AreEqual(2, Enum.GetValues(typeof(HydraRingDeviationType)).Length);
+        }
 
-            // Assert
-            Assert.AreEqual(1, hydraRingDikeSection.SectionId);
-            Assert.AreEqual("Name", hydraRingDikeSection.SectionName);
-            Assert.AreEqual(2.2, hydraRingDikeSection.SectionBeginCoordinate);
-            Assert.AreEqual(3.3, hydraRingDikeSection.SectionEndCoordinate);
-            Assert.AreEqual(4.4, hydraRingDikeSection.SectionLength);
-            Assert.AreEqual(5.5, hydraRingDikeSection.CrossSectionXCoordinate);
-            Assert.AreEqual(6.6, hydraRingDikeSection.CrossSectionYCoordinate);
-            Assert.AreEqual(7.7, hydraRingDikeSection.CrossSectionNormal);
+        [Test]
+        public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
+        {
+            Assert.AreEqual(0, (int) HydraRingDeviationType.Standard);
+            Assert.AreEqual(1, (int) HydraRingDeviationType.Variation);
         }
     }
 }

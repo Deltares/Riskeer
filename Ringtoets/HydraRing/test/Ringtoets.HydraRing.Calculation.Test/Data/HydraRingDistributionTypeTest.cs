@@ -23,24 +23,23 @@ using System;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Types
+namespace Ringtoets.HydraRing.Calculation.Test.Data
 {
     [TestFixture]
-    public class HydraRingUncertaintiesTypeTest
+    public class HydraRingDistributionTypeTest
     {
         [Test]
-        public void Values_HasFour()
+        public void Values_HasThree()
         {
-            Assert.AreEqual(4, Enum.GetValues(typeof(HydraRingUncertaintiesType)).Length);
+            Assert.AreEqual(3, Enum.GetValues(typeof(HydraRingDistributionType)).Length);
         }
 
         [Test]
         public void ConvertToInteger_ForAllValues_ReturnsExpectedInteger()
         {
-            Assert.AreEqual(0, (int) HydraRingUncertaintiesType.None);
-            Assert.AreEqual(1, (int) HydraRingUncertaintiesType.All);
-            Assert.AreEqual(2, (int) HydraRingUncertaintiesType.Model);
-            Assert.AreEqual(3, (int) HydraRingUncertaintiesType.Statistic);
+            Assert.AreEqual(0, (int) HydraRingDistributionType.Deterministic);
+            Assert.AreEqual(2, (int) HydraRingDistributionType.Normal);
+            Assert.AreEqual(4, (int) HydraRingDistributionType.LogNormal);
         }
     }
 }

@@ -19,19 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Types
+namespace Ringtoets.HydraRing.Calculation.Test.Data
 {
     [TestFixture]
-    public class HydraRingFailureMechanismTypeTest
+    public class HydraRingProfilePointTest
     {
         [Test]
-        public void Values_HasTen()
+        public void Constructor_ExpectedValues()
         {
-            Assert.AreEqual(10, Enum.GetValues(typeof(HydraRingFailureMechanismType)).Length);
+            // Call
+            var hydraRingProfilePoint = new HydraRingProfilePoint(1.1, 2.2);
+
+            // Assert
+            Assert.AreEqual(1.1, hydraRingProfilePoint.X);
+            Assert.AreEqual(2.2, hydraRingProfilePoint.Z);
+            Assert.AreEqual(1.0, hydraRingProfilePoint.Roughness);
         }
     }
 }

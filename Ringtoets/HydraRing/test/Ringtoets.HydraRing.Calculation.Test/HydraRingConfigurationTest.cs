@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Hydraulics;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Common
+namespace Ringtoets.HydraRing.Calculation.Test
 {
     [TestFixture]
     public class HydraRingConfigurationTest
