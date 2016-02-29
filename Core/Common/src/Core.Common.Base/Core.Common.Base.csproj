@@ -88,6 +88,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Geometry\Math2D.cs" />
+    <Compile Include="Data\ProjectComparer.cs" />
     <Compile Include="Geometry\Point2D.cs" />
     <Compile Include="Geometry\Point3D.cs" />
     <Compile Include="Geometry\Segment2D.cs" />

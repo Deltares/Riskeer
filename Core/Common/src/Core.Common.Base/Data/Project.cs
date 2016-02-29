@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-
 using Core.Common.Base.Properties;
 using Core.Common.Base.Storage;
 

@@ -78,7 +78,7 @@ namespace Core.Common.Gui.Commands
         public bool ContinueIfHasChanges()
         {
             var project = projectOwner.Project;
-            if (project == null || project.Equals(new Project()) || !projectPersistor.HasChanges(project))
+            if (project == null || ProjectComparer.EqualsToNew(project) || !projectPersistor.HasChanges(project))
             {
                 return true;
             }

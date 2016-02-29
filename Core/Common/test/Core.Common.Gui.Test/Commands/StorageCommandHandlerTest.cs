@@ -533,8 +533,6 @@ namespace Core.Common.Gui.Test.Commands
             var toolViewController = mocks.Stub<IToolViewController>();
             var projectMock = mocks.StrictMock<Project>();
             var projectStorageMock = mocks.Stub<IStoreProject>();
-            projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(false);
-
             var projectOwnerMock = mocks.Stub<IProjectOwner>();
             projectOwnerMock.Project = projectMock;
             mocks.ReplayAll();
@@ -561,6 +559,7 @@ namespace Core.Common.Gui.Test.Commands
             var mainWindowController = mocks.Stub<IMainWindowController>();
             var toolViewController = mocks.Stub<IToolViewController>();
             var projectMock = mocks.StrictMock<Project>();
+            projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
             projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(true);
 
@@ -601,6 +600,7 @@ namespace Core.Common.Gui.Test.Commands
             var mainWindowController = mocks.Stub<IMainWindowController>();
             var toolViewController = mocks.Stub<IToolViewController>();
             var projectMock = mocks.StrictMock<Project>();
+            projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
             projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(true);
 
@@ -641,7 +641,7 @@ namespace Core.Common.Gui.Test.Commands
             var mainWindowController = mocks.Stub<IMainWindowController>();
             var toolViewController = mocks.Stub<IToolViewController>();
             var projectMock = mocks.StrictMock<Project>();
-
+            projectMock.StorageId = 1234L;
             var projectFilePath = "some path";
 
             var projectStorageMock = mocks.Stub<IStoreProject>();
