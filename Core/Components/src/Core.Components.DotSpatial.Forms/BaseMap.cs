@@ -37,6 +37,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private MapData data;
         private Map map;
+        private IMapFunction mapFunctionSelectionZoom;
 
         /// <summary>
         /// Creates a new instance of <see cref="BaseMap"/>.
@@ -91,10 +92,15 @@ namespace Core.Components.DotSpatial.Forms
             if (!IsRectangleZoomingEnabled)
             {
                 ResetDefaultInteraction();
-                map.FunctionMode = FunctionMode.None;
+                map.FunctionMode = FunctionMode.Select;
                 IsRectangleZoomingEnabled = true;
 
-                map.ActivateMapFunction(new MapFunctionSelectionZoom(map));
+                if (mapFunctionSelectionZoom == null)
+                {
+                    mapFunctionSelectionZoom = new MapFunctionSelectionZoom(map);
+                }
+
+                map.ActivateMapFunction(mapFunctionSelectionZoom);
             }
         }
 

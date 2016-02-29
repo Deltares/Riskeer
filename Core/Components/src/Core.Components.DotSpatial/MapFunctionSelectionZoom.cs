@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -11,9 +32,9 @@ using Point = System.Drawing.Point;
 namespace Core.Components.DotSpatial
 {
     /// <summary>
-    /// <see cref="MapFunction"/> that can zoom into the map using left mouse clicks or rectangle dragging. It zooms out on right mouse clicks.
+    /// <see cref="MapFunction"/> that can zoom into the map using left mouse clicks or rectangle dragging..
     /// </summary>
-    /// <remarks>This is a copy of <see cref="DotSpatial.Controls.MapFunctionClickZoom"/> with the following changes:
+    /// <remarks>This is a copy of <see cref="MapFunctionClickZoom"/> with the following changes:
     /// <list type="bullet">
     /// <item>It does not zoom out on right mouse clicks.</item>
     /// <item>It does not zoom when the location of the cursus on <see cref="OnMouseUp"/> is equal to the location set at 
@@ -29,7 +50,7 @@ namespace Core.Components.DotSpatial
         /// <summary>
         /// Creates a new instance of <see cref="MapFunctionSelectionZoom"/>.
         /// </summary>
-        public MapFunctionSelectionZoom(IMap inMap) : base(inMap)
+        public MapFunctionSelectionZoom(IMap map) : base(map)
         {
             selectionPen = new Pen(Color.Black)
             {

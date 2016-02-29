@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
-
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using DotSpatial.Controls;
@@ -203,6 +202,31 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Assert
             Assert.IsTrue(map.IsRectangleZoomingEnabled);
             Assert.IsFalse(map.IsPanningEnabled);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ToggleRectangleZooming_Always_ChangesState(bool isRectangleZooming)
+        {
+            // Setup
+            var map = new BaseMap();
+            if (isRectangleZooming)
+            {
+                map.ToggleRectangleZooming();
+            }
+
+            // Precondition
+            Assert.AreEqual(isRectangleZooming, map.IsRectangleZoomingEnabled,
+                            String.Format("Precondition failed: IsRectangleZoomingEnabled is {0}", map.IsRectangleZoomingEnabled));
+            Assert.AreEqual(!isRectangleZooming, map.IsPanningEnabled,
+                            String.Format("Precondition failed: IsPanningEnabled is {0}", map.IsPanningEnabled));
+
+            // Call
+            map.ToggleRectangleZooming();
+
+            // Assert
+            Assert.IsTrue(map.IsRectangleZoomingEnabled);
         }
 
         [Test]
