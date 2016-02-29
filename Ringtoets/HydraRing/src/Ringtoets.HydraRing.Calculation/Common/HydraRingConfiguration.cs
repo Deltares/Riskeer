@@ -53,6 +53,7 @@ namespace Ringtoets.HydraRing.Calculation.Common
     /// </summary>
     public class HydraRingConfiguration
     {
+        private readonly string ringId;
         private readonly IList<HydraRingCalculationData> hydraRingCalculations;
         private readonly SubMechanismSettingsProvider subMechanismSettingsProvider = new SubMechanismSettingsProvider();
         private readonly FailureMechanismSettingsProvider failureMechanismSettingsProvider = new FailureMechanismSettingsProvider();
@@ -64,14 +65,27 @@ namespace Ringtoets.HydraRing.Calculation.Common
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.
         /// </summary>
+        /// <param name="ringId">The id of the ring to perform the configured Hydra-Ring calculations for.</param>
         /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the configured Hydra-Ring calculations.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the configured Hydra-Ring calculations.</param>
-        public HydraRingConfiguration(HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType)
+        public HydraRingConfiguration(string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType)
         {
             hydraRingCalculations = new List<HydraRingCalculationData>();
 
+            this.ringId = ringId;
             this.timeIntegrationSchemeType = timeIntegrationSchemeType;
             this.uncertaintiesType = uncertaintiesType;
+        }
+
+        /// <summary>
+        /// Gets the id of the ring to perform the configured Hydra-Ring calculations for.
+        /// </summary>
+        public string RingId
+        {
+            get
+            {
+                return ringId;
+            }
         }
 
         /// <summary>
