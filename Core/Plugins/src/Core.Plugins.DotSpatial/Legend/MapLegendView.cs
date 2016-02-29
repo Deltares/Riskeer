@@ -126,6 +126,16 @@ namespace Core.Plugins.DotSpatial.Legend
                 CanInsert = BaseMapCanInsert,
                 OnDrop = BaseMapOnDrop
             });
+
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapMultiLineData>
+            {
+                Text = mapMultiLineData => DotSpatialResources.MapData_MultiLine_data_label,
+                Image = mapMultiLineData => DotSpatialResources.LineIcon,
+                CanDrag = (mapMultiLineData, parentData) => true,
+                CanCheck = mapMultiLineData => true,
+                IsChecked = mapMultiLineData => mapMultiLineData.IsVisible,
+                OnNodeChecked = MapMultiLineDataOnNodeChecked
+            });
         }
 
         #region MapData
@@ -143,6 +153,18 @@ namespace Core.Plugins.DotSpatial.Legend
         private void MapPolygonDataOnNodeChecked(MapPolygonData mapPolygonData, object parentData)
         {
             PointBasedMapDataOnNodeChecked(mapPolygonData, parentData);
+        }
+
+        private void MapMultiLineDataOnNodeChecked(MapMultiLineData mapMultiLineData, object parentData)
+        {
+            mapMultiLineData.IsVisible = !mapMultiLineData.IsVisible;
+            mapMultiLineData.NotifyObservers();
+
+            var observableParent = parentData as IObservable;
+            if (observableParent != null)
+            {
+                observableParent.NotifyObservers();
+            }
         }
 
         private void PointBasedMapDataOnNodeChecked(PointBasedMapData pointBasedMapData, object parentData)

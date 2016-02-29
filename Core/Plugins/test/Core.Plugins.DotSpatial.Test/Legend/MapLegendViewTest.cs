@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
@@ -41,11 +43,72 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         }
 
         [Test]
-        public void Data_MapData_DataSet()
+        public void Data_MapDataCollection_DataSet()
         {
             // Setup
             var view = new MapLegendView();
             var mapData = new MapDataCollection(new List<MapData>());
+
+            // Call
+            view.Data = mapData;
+
+            // Assert
+            Assert.AreSame(mapData, view.Data);
+            Assert.IsInstanceOf<MapData>(view.Data);
+        }
+
+
+        [Test]
+        public void Data_MapPointData_DataSet()
+        {
+            // Setup
+            var view = new MapLegendView();
+            var mapData = new MapPointData(Enumerable.Empty<Point2D>());
+
+            // Call
+            view.Data = mapData;
+
+            // Assert
+            Assert.AreSame(mapData, view.Data);
+            Assert.IsInstanceOf<MapData>(view.Data);
+        }
+
+        [Test]
+        public void Data_MapLineData_DataSet()
+        {
+            // Setup
+            var view = new MapLegendView();
+            var mapData = new MapLineData(Enumerable.Empty<Point2D>());
+
+            // Call
+            view.Data = mapData;
+
+            // Assert
+            Assert.AreSame(mapData, view.Data);
+            Assert.IsInstanceOf<MapData>(view.Data);
+        }
+
+        [Test]
+        public void Data_MapPolygonData_DataSet()
+        {
+            // Setup
+            var view = new MapLegendView();
+            var mapData = new MapPolygonData(Enumerable.Empty<Point2D>());
+
+            // Call
+            view.Data = mapData;
+
+            // Assert
+            Assert.AreSame(mapData, view.Data);
+            Assert.IsInstanceOf<MapData>(view.Data);
+        }
+
+        [Test]
+        public void Data_MapMultiLineData_DataSet()
+        {
+            // Setup
+            var view = new MapLegendView();
+            var mapData = new MapMultiLineData(Enumerable.Empty<IEnumerable<Point2D>>());
 
             // Call
             view.Data = mapData;
