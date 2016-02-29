@@ -57,6 +57,11 @@ namespace Ringtoets.HydraRing.Calculation.Common
         }
 
         /// <summary>
+        /// Gets the dike section to perform the calculation for.
+        /// </summary>
+        public abstract HydraRingDikeSection DikeSection { get; }
+
+        /// <summary>
         /// Gets the variables to use during the calculation.
         /// </summary>
         public virtual IEnumerable<HydraRingVariable> Variables

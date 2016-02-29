@@ -127,6 +127,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Common
                 }
             }
 
+            public override HydraRingDikeSection DikeSection
+            {
+                get
+                {
+                    return new HydraRingDikeSection(1, "Name", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
+                }
+            }
+
             public override IEnumerable<HydraRingVariable> Variables
             {
                 get

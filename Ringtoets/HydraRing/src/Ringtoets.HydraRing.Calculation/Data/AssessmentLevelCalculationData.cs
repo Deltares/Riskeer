@@ -30,18 +30,31 @@ namespace Ringtoets.HydraRing.Calculation.Data
     /// </summary>
     public class AssessmentLevelCalculationData : HydraulicCalculationData
     {
+        private readonly HydraRingDikeSection dikeSection;
+
         /// <summary>
         /// Creates a new instance of the <see cref="AssessmentLevelCalculationData"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="beta">The target reliability index to use during the calculation.</param>
-        public AssessmentLevelCalculationData(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId, beta) {}
+        public AssessmentLevelCalculationData(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId, beta)
+        {
+            dikeSection = new HydraRingDikeSection(HydraulicBoundaryLocationId, HydraulicBoundaryLocationId.ToString(), double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+        }
 
         public override HydraRingFailureMechanismType FailureMechanismType
         {
             get
             {
                 return HydraRingFailureMechanismType.AssessmentLevel;
+            }
+        }
+
+        public override HydraRingDikeSection DikeSection
+        {
+            get
+            {
+                return dikeSection;
             }
         }
 
