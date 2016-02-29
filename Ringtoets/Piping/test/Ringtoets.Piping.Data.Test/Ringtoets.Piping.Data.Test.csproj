@@ -58,7 +58,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calculation\Math2DTest.cs" />
     <Compile Include="Exceptions\RingtoetsPipingSurfaceLineExceptionTest.cs" />
     <Compile Include="IPipingCalculationItemExtensionsTest.cs" />
     <Compile Include="PipingCalculationGroupTest.cs" />

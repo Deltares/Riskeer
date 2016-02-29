@@ -178,15 +178,6 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Punten voor een lijn moeten uit elkaar liggen om een lijn te kunnen vormen..
-        /// </summary>
-        public static string Math2D_LineIntersectionWithLine_Line_points_are_equal {
-            get {
-                return ResourceManager.GetString("Math2D_LineIntersectionWithLine_Line_points_are_equal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Nieuwe berekening.
         /// </summary>
         public static string PipingCalculation_DefaultName {

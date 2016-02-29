@@ -5,9 +5,8 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 
 using NUnit.Framework;
-using Ringtoets.Piping.Data.Calculation;
 
-namespace Ringtoets.Piping.Data.Test.Calculation
+namespace Core.Common.Base.Test.Geometry
 {
     [TestFixture]
     public class Math2DTest

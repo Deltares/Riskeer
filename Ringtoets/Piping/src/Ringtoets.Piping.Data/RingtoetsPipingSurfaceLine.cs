@@ -25,7 +25,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using MathNet.Numerics.LinearAlgebra.Double;
-using Ringtoets.Piping.Data.Calculation;
+
 using Ringtoets.Piping.Data.Exceptions;
 using Ringtoets.Piping.Data.Properties;
 

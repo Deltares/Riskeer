@@ -82,6 +82,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Geometry\Math2DTest.cs" />
     <Compile Include="Geometry\Point2DTest.cs" />
     <Compile Include="Geometry\Point3DTest.cs" />
     <Compile Include="Geometry\Segment2DTest.cs" />

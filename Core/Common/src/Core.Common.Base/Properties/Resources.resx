@@ -141,4 +141,7 @@
   <data name="Segment2D_Constructor_Segment_must_be_created_with_two_points" xml:space="preserve">
     <value>Voor het maken van een segment zijn twee punten nodig.</value>
   </data>
+  <data name="Math2D_LineIntersectionWithLine_Line_points_are_equal" xml:space="preserve">
+    <value>Punten voor een lijn moeten uit elkaar liggen om een lijn te kunnen vormen.</value>
+  </data>
 </root>
