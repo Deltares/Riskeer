@@ -25,17 +25,14 @@ using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Persistors;
 using Application.Ringtoets.Storage.Properties;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
-
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Application.Ringtoets.Storage
@@ -195,6 +192,31 @@ namespace Application.Ringtoets.Storage
             catch (InvalidOperationException exception)
             {
                 throw CreateStorageReaderException(string.Empty, exception);
+            }
+        }
+
+        public bool HasChanges(Project project)
+        {
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                return true;
+            }
+
+            using (var dbContext = new RingtoetsEntities(connectionString))
+            {
+                var projectEntityPersistor = new ProjectEntityPersistor(dbContext);
+
+                try
+                {
+                    ICollection<ProjectEntity> projectEntities = dbContext.ProjectEntities.ToList();
+
+                    projectEntityPersistor.UpdateModel(project);
+                    projectEntityPersistor.RemoveUnModifiedEntries(projectEntities);
+                    return dbContext.ChangeTracker.HasChanges();
+                }
+                catch (EntityNotFoundException) {}
+                catch (SystemException) {}
+                return false;
             }
         }
 

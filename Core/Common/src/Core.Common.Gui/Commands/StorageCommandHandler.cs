@@ -71,6 +71,20 @@ namespace Core.Common.Gui.Commands
             this.projectOwner.ProjectClosing += ApplicationProjectClosing;
         }
 
+        /// <summary>
+        /// Checks if an action may continue when changes are detected.
+        /// </summary>
+        /// <returns><c>True</c> if the action should continue, <c>false</c> otherwise.</returns>
+        public bool ContinueIfHasChanges()
+        {
+            var project = projectOwner.Project;
+            if (project == null || project.Equals(new Project()) || !projectPersistor.HasChanges(project))
+            {
+                return true;
+            }
+            return OpenSaveOrDiscardProjectDialog();
+        }
+
         public void UpdateObserver()
         {
             mainWindowController.RefreshGui();
@@ -78,6 +92,11 @@ namespace Core.Common.Gui.Commands
 
         public void CreateNewProject()
         {
+            if (!ContinueIfHasChanges())
+            {
+                log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_cancelled);
+                return;
+            }
             CloseProject();
 
             log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project);
@@ -97,7 +116,7 @@ namespace Core.Common.Gui.Commands
                 RestoreDirectory = true
             })
             {
-                if (openFileDialog.ShowDialog(mainWindowController.MainWindow) != DialogResult.Cancel)
+                if (openFileDialog.ShowDialog(mainWindowController.MainWindow) != DialogResult.Cancel && ContinueIfHasChanges())
                 {
                     return OpenExistingProject(openFileDialog.FileName);
                 }
@@ -204,6 +223,26 @@ namespace Core.Common.Gui.Commands
         {
             projectOwner.ProjectOpened -= ApplicationProjectOpened;
             projectOwner.ProjectClosing -= ApplicationProjectClosing;
+        }
+
+        private bool OpenSaveOrDiscardProjectDialog()
+        {
+            var confirmation = MessageBox.Show(
+                String.Format(Resources.StorageCommandHandler_OpenSaveOrDiscardProjectDialog_SaveChangesToProject_0, projectOwner.Project.Name),
+                Resources.StorageCommandHandler_ClosingProject_Title,
+                MessageBoxButtons.YesNoCancel);
+
+            switch (confirmation)
+            {
+                case DialogResult.Cancel:
+                    return false;
+                case DialogResult.Yes:
+                    SaveProject();
+                    break;
+                case DialogResult.No:
+                    break;
+            }
+            return true;
         }
 
         /// <summary>

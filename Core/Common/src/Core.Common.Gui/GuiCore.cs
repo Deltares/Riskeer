@@ -179,6 +179,13 @@ namespace Core.Common.Gui
                 return; //already got here before
             }
 
+            // Store project?
+            if (!storageCommandHandler.ContinueIfHasChanges())
+            {
+                // User pressed cancel
+                return;
+            }
+
             isExiting = true;
 
             CopyDefaultViewsToUserSettings();
@@ -300,7 +307,7 @@ namespace Core.Common.Gui
             var propertyCacheInfo = reflectTypeDescriptionProviderType.GetField("_propertyCache",
                                                                                 BindingFlags.Static |
                                                                                 BindingFlags.NonPublic);
-            var propertyCache = (Hashtable)propertyCacheInfo.GetValue(null);
+            var propertyCache = (Hashtable) propertyCacheInfo.GetValue(null);
             if (propertyCache != null)
             {
                 propertyCache.Clear();

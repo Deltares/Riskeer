@@ -6,6 +6,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Application.Ringtoets.Storage.Test
@@ -371,6 +372,79 @@ namespace Application.Ringtoets.Storage.Test
 
             // TearDown
             TearDownTempRingtoetsFile(tempRingtoetsFile);
+        }
+
+        [Test]
+        public void HasChanges_NoConnectionSet_ReturnsTrue()
+        {
+            // Setup
+            StorageSqLite storageSqLite = new StorageSqLite();
+            var mockingrepository = new MockRepository();
+            var projectMock = mockingrepository.StrictMock<Project>();
+
+            // Call
+            bool hasChanges = storageSqLite.HasChanges(projectMock);
+
+            // Assert
+            Assert.IsTrue(hasChanges);
+        }
+
+        [Test]
+        public void HasChanges_ValidProjectLoaded_ReturnsFalse()
+        {
+            // Setup
+            StorageSqLite storageSqLite = new StorageSqLite();
+            var dbFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
+            Project loadedProject = storageSqLite.LoadProject(dbFile);
+
+            // Call
+            bool hasChanges = storageSqLite.HasChanges(loadedProject);
+
+            // Assert
+            Assert.IsFalse(hasChanges);
+        }
+
+        [Test]
+        public void HasChanges_ValidProjectLoadedWithUnaffectedChange_ReturnsFalse()
+        {
+            // Setup
+            StorageSqLite storageSqLite = new StorageSqLite();
+            var dbFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
+            var changedName = "some name";
+
+            // Precondition
+            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
+            Project loadedProject = storageSqLite.LoadProject(dbFile);
+
+            // Call
+            loadedProject.Name = changedName;
+            bool hasChanges = storageSqLite.HasChanges(loadedProject);
+
+            // Assert
+            Assert.IsFalse(hasChanges);
+        }
+
+        [Test]
+        public void HasChanges_ValidProjectLoadedWithAffectedChange_ReturnsTrue()
+        {
+            // Setup
+            StorageSqLite storageSqLite = new StorageSqLite();
+            var dbFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
+            var changedDescription = "some description";
+
+            // Precondition
+            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
+            Project loadedProject = storageSqLite.LoadProject(dbFile);
+
+            // Call
+            loadedProject.Description = changedDescription;
+            bool hasChanges = storageSqLite.HasChanges(loadedProject);
+
+            // Assert
+            Assert.IsTrue(hasChanges);
         }
 
         private static void SetUpTempRingtoetsFile(string filePath)

@@ -1,20 +1,18 @@
 ﻿using System;
-
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Selection;
 using Core.Common.TestUtil;
-
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Commands
 {
     [TestFixture]
-    public class StorageCommandHandlerTest
+    public class StorageCommandHandlerTest : NUnitFormTest
     {
         private MockRepository mocks;
 
@@ -499,6 +497,184 @@ namespace Core.Common.Gui.Test.Commands
             Assert.AreEqual(fileName, projectOwner.Project.Name);
             Assert.IsNull(applicationSelection.Selection);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContinueIfHasChanges_NoProjectSet_ReturnsTrue()
+        {
+            // Setup
+            var projectStorage = mocks.Stub<IStoreProject>();
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            var toolViewController = mocks.StrictMock<IToolViewController>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            mocks.ReplayAll();
+
+            using (var commandHandler = new StorageCommandHandler(projectStorage, projectOwner, applicationSelection,
+                                                                  mainWindowController, toolViewController, viewCommands))
+            {
+                // Call
+                bool result = commandHandler.ContinueIfHasChanges();
+
+                // Assert
+                Assert.IsTrue(result);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContinueIfHasChanges_ProjectSetNoChange_ReturnsTrue()
+        {
+            // Setup
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            var toolViewController = mocks.Stub<IToolViewController>();
+            var projectMock = mocks.StrictMock<Project>();
+            var projectStorageMock = mocks.Stub<IStoreProject>();
+            projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(false);
+
+            var projectOwnerMock = mocks.Stub<IProjectOwner>();
+            projectOwnerMock.Project = projectMock;
+            mocks.ReplayAll();
+
+            using (var storageCommandHandler = new StorageCommandHandler(projectStorageMock, projectOwnerMock, applicationSelection,
+                                                                         mainWindowController, toolViewController, viewCommandsMock))
+            {
+                // Call
+                bool actionMaycontinue = storageCommandHandler.ContinueIfHasChanges();
+
+                // Assert
+                Assert.IsTrue(actionMaycontinue);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void ContinueIfHasChanges_ProjectSetWithChangeCancelPressed_ReturnsFalse()
+        {
+            // Setup
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            var toolViewController = mocks.Stub<IToolViewController>();
+            var projectMock = mocks.StrictMock<Project>();
+            var projectStorageMock = mocks.Stub<IStoreProject>();
+            projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(true);
+
+            var projectOwnerMock = mocks.Stub<IProjectOwner>();
+            projectOwnerMock.Project = projectMock;
+            mocks.ReplayAll();
+
+            string messageBoxText = null;
+            string expectedMessage = "Sla wijzigingen in het project op: Project?";
+
+            using (var storageCommandHandler = new StorageCommandHandler(projectStorageMock, projectOwnerMock, applicationSelection,
+                                                                         mainWindowController, toolViewController, viewCommandsMock))
+            {
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    messageBoxText = helper.Text;
+                    helper.ClickCancel();
+                };
+
+                // Call
+                bool actionMaycontinue = storageCommandHandler.ContinueIfHasChanges();
+
+                // Assert
+                Assert.IsFalse(actionMaycontinue);
+            }
+            mocks.VerifyAll();
+            Assert.AreEqual(expectedMessage, messageBoxText);
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void ContinueIfHasChanges_ProjectSetWithChangeNoPressed_ReturnsTrue()
+        {
+            // Setup
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            var toolViewController = mocks.Stub<IToolViewController>();
+            var projectMock = mocks.StrictMock<Project>();
+            var projectStorageMock = mocks.Stub<IStoreProject>();
+            projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(true);
+
+            var projectOwnerMock = mocks.Stub<IProjectOwner>();
+            projectOwnerMock.Project = projectMock;
+            mocks.ReplayAll();
+
+            string messageBoxText = null;
+            string expectedMessage = "Sla wijzigingen in het project op: Project?";
+
+            using (var storageCommandHandler = new StorageCommandHandler(projectStorageMock, projectOwnerMock, applicationSelection,
+                                                                         mainWindowController, toolViewController, viewCommandsMock))
+            {
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    messageBoxText = helper.Text;
+                    helper.SendCommand(MessageBoxTester.Command.No);
+                };
+
+                // Call
+                bool actionMaycontinue = storageCommandHandler.ContinueIfHasChanges();
+
+                // Assert
+                Assert.IsTrue(actionMaycontinue);
+            }
+            mocks.VerifyAll();
+            Assert.AreEqual(expectedMessage, messageBoxText);
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void ContinueIfHasChanges_ProjectSetWithChangeYesPressed_ReturnsTrue()
+        {
+            // Setup
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            var toolViewController = mocks.Stub<IToolViewController>();
+            var projectMock = mocks.StrictMock<Project>();
+
+            var projectFilePath = "some path";
+
+            var projectStorageMock = mocks.Stub<IStoreProject>();
+            projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(true);
+
+            var projectOwnerMock = mocks.Stub<IProjectOwner>();
+            projectOwnerMock.Project = projectMock;
+            projectOwnerMock.ProjectFilePath = projectFilePath;
+
+            projectStorageMock.Expect(p => p.SaveProject(projectFilePath, projectMock)).Return(1);
+            mocks.ReplayAll();
+
+            string messageBoxText = null;
+            string expectedMessage = "Sla wijzigingen in het project op: Project?";
+
+            using (var storageCommandHandler = new StorageCommandHandler(projectStorageMock, projectOwnerMock, applicationSelection,
+                                                                         mainWindowController, toolViewController, viewCommandsMock))
+            {
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    messageBoxText = helper.Text;
+                    helper.SendCommand(MessageBoxTester.Command.Yes);
+                };
+
+                // Call
+                bool actionMaycontinue = storageCommandHandler.ContinueIfHasChanges();
+
+                // Assert
+                Assert.IsTrue(actionMaycontinue);
+            }
+            mocks.VerifyAll();
+            Assert.AreEqual(expectedMessage, messageBoxText);
         }
     }
 }

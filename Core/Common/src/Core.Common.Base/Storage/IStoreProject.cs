@@ -55,11 +55,11 @@ namespace Core.Common.Base.Storage
         /// <summary>
         /// Converts <paramref name="project"/> to an existing entity in the storage.
         /// </summary>
-        /// <param name="connectionArguments"></param>
+        /// <param name="connectionArguments">Connection arguments.</param>
         /// <param name="project">The <see cref="Project"/> to save.</param>
         /// <returns>Returns the number of changes that were saved.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
-        /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="System.ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
         /// <item><paramref name="connectionArguments"/> does not exist.</item>
@@ -86,5 +86,12 @@ namespace Core.Common.Base.Storage
         /// </list>
         /// </exception>
         Project LoadProject(string connectionArguments);
+
+        /// <summary>
+        /// Checks if <paramref name="project"/> differs from the last saved or loaded <see cref="Project"/>, if any.
+        /// </summary>
+        /// <param name="project">The <see cref="Project"/> to save.</param>
+        /// <returns><c>true</c> if last <see cref="Project"/> was set and is different from <paramref name="project"/>, <c>false</c> otherwise.</returns>
+        bool HasChanges(Project project);
     }
 }

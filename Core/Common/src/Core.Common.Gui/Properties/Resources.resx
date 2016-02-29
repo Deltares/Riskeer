@@ -679,4 +679,13 @@
   <data name="GuiCore_UpdateTitle_Unknown" xml:space="preserve">
     <value>Onbekend</value>
   </data>
+  <data name="StorageCommandHandler_OpenSaveOrDiscardProjectDialog_SaveChangesToProject_0" xml:space="preserve">
+    <value>Sla wijzigingen in het project op: {0}?</value>
+  </data>
+  <data name="StorageCommandHandler_ClosingProject_Title" xml:space="preserve">
+    <value>Project aan het sluiten...</value>
+  </data>
+  <data name="StorageCommandHandler_NewProject_Creating_new_project_cancelled" xml:space="preserve">
+    <value>Openen van een nieuw Ringtoetsproject geannuleerd.</value>
+  </data>
 </root>
