@@ -166,4 +166,16 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline" xml:space="preserve">
     <value>Vakkenindeling komt niet overeen met de huidige referentielijn.</value>
   </data>
+  <data name="FailureMechanismSectionsImporter_Import_cancelled_no_data_read" xml:space="preserve">
+    <value>Vakindeling importeren afgebroken. Geen data ingelezen.</value>
+  </data>
+  <data name="FailureMechanismSectionsImporter_ProgressText_Reading_file" xml:space="preserve">
+    <value>Inlezen vakindeling.</value>
+  </data>
+  <data name="FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections" xml:space="preserve">
+    <value>Valideren ingelezen vakindeling.</value>
+  </data>
+  <data name="FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism" xml:space="preserve">
+    <value>Geïmporteerde data toevoegen aan het faalmechanisme.</value>
+  </data>
 </root>

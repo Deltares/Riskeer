@@ -74,6 +74,40 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void Import_ValidFileCorrespondingToReferenceLineAndHasSectionImported_ReplaceSections()
+        {
+            // Setup
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1.shp");
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1_vakken.shp");
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var referenceLineImporter = new ReferenceLineImporter();
+            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+
+            var importer = new FailureMechanismSectionsImporter();
+
+            var failureMechanism = new SimpleFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", assessmentSection.ReferenceLine.Points));
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            var importSuccesful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+
+            // Assert
+            Assert.IsTrue(importSuccesful);
+
+            FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
+            Assert.AreEqual(62, sections.Length);
+            AssertSectionsAreValidForReferenceLine(sections, assessmentSection.ReferenceLine);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_ValidArtificialFileImperfectlyCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections()
         {
             // Setup
@@ -103,6 +137,58 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
             Assert.AreEqual(7, sections.Length);
             AssertSectionsAreValidForReferenceLine(sections, assessmentSection.ReferenceLine);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ValidImport_GenerateExpectedProgressMessages()
+        {
+            // Setup
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA.shp");
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA_ValidVakken.shp");
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var referenceLineImporter = new ReferenceLineImporter();
+            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+
+            var progressChangeNotifications = new List<ProgressNotification>();
+
+            var importer = new FailureMechanismSectionsImporter
+            {
+                ProgressChanged = (description, step, steps) =>
+                {
+                    progressChangeNotifications.Add(new ProgressNotification(description, step, steps));
+                }
+            };
+
+            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            var importSuccesful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+
+            // Assert
+            Assert.IsTrue(importSuccesful);
+            var expectedProgressMessages = new[]
+            {
+                new ProgressNotification("Inlezen vakindeling.", 1, 3),
+                new ProgressNotification("Valideren ingelezen vakindeling.", 2, 3),
+                new ProgressNotification("Geïmporteerde data toevoegen aan het faalmechanisme.", 3, 3),
+            };
+            Assert.AreEqual(expectedProgressMessages.Length, progressChangeNotifications.Count);
+            for (int i = 0; i < expectedProgressMessages.Length; i++)
+            {
+                var notification = expectedProgressMessages[i];
+                var actualNotification = progressChangeNotifications[i];
+                Assert.AreEqual(notification.Text, actualNotification.Text);
+                Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
+                Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);
+            }
             mocks.VerifyAll();
         }
 
@@ -384,11 +470,42 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             CollectionAssert.IsEmpty(failureMechanismSectionsContext.WrappedData);
             mocks.VerifyAll();
         }
-        
-        // TODO: Has sections -> Replace
-        // TODO: Progress
-        // TODO: Reused of cancelled importer
-        // TODO: Cancel
+
+        [Test]
+        public void Import_ValidFileImportBeingCancelled_CancelImportWithInfoMessage()
+        {
+            // Setup
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1.shp");
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1_vakken.shp");
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var referenceLineImporter = new ReferenceLineImporter();
+            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+
+            var importer = new FailureMechanismSectionsImporter();
+
+            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            importer.Cancel();
+            Assert.IsFalse(importer.Import(failureMechanismSectionsContext, sectionsFilePath));
+
+            // Call
+            var importSuccesful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+
+            // Assert
+            Assert.IsTrue(importSuccesful);
+
+            FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
+            Assert.AreEqual(62, sections.Length);
+            AssertSectionsAreValidForReferenceLine(sections, assessmentSection.ReferenceLine);
+            mocks.VerifyAll();
+        }
 
         private void AssertSectionsAreValidForReferenceLine(FailureMechanismSection[] sections, ReferenceLine referenceLine)
         {
@@ -467,6 +584,20 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                     throw new System.NotImplementedException();
                 }
             }
+        }
+
+        private class ProgressNotification
+        {
+            public ProgressNotification(string description, int currentStep, int totalSteps)
+            {
+                Text = description;
+                CurrentStep = currentStep;
+                TotalSteps = totalSteps;
+            }
+
+            public string Text { get; private set; }
+            public int CurrentStep { get; private set; }
+            public int TotalSteps { get; private set; }
         }
     }
 }

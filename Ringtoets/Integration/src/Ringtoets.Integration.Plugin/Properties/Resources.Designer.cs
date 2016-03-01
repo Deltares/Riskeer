@@ -71,6 +71,15 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vakindeling importeren afgebroken. Geen data ingelezen..
+        /// </summary>
+        internal static string FailureMechanismSectionsImporter_Import_cancelled_no_data_read {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_cancelled_no_data_read", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vakkenindeling komt niet overeen met de huidige referentielijn..
         /// </summary>
         internal static string FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline {
@@ -95,6 +104,34 @@ namespace Ringtoets.Integration.Plugin.Properties {
         internal static string FailureMechanismSectionsImporter_Import_Required_referenceline_missing {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_Required_referenceline_missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het faalmechanisme..
+        /// </summary>
+        internal static string FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMech" +
+                        "anism", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen vakindeling..
+        /// </summary>
+        internal static string FailureMechanismSectionsImporter_ProgressText_Reading_file {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionsImporter_ProgressText_Reading_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valideren ingelezen vakindeling..
+        /// </summary>
+        internal static string FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections", resourceCulture);
             }
         }
         

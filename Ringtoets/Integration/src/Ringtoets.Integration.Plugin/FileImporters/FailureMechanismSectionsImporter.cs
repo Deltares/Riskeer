@@ -89,21 +89,47 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 return false;
             }
 
-            ReadResult<FailureMechanismSection> readResults = ReadFailureMechanismSections(filePath);
+            if (ImportIsCancelled)
+            {
+                HandleUserCancellingImport();
+                return false;
+            }
 
+            NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Reading_file, 1, 3);
+            ReadResult<FailureMechanismSection> readResults = ReadFailureMechanismSections(filePath);
             if (readResults.CriticalErrorOccurred)
             {
                 return false;
             }
 
+            if (ImportIsCancelled)
+            {
+                HandleUserCancellingImport();
+                return false;
+            }
+
+            NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections, 2, 3);
             if (!SectionsCorrespondToReferenceLine(context, readResults))
             {
                 LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline);
                 return false;
             }
 
+            if (ImportIsCancelled)
+            {
+                HandleUserCancellingImport();
+                return false;
+            }
+
+            NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism, 3, 3);
             AddImportedDataToModel(context, readResults);
             return true;
+        }
+
+        private void HandleUserCancellingImport()
+        {
+            log.Info(Resources.FailureMechanismSectionsImporter_Import_cancelled_no_data_read);
+            ImportIsCancelled = false;
         }
 
         private ReadResult<FailureMechanismSection> ReadFailureMechanismSections(string filePath)
@@ -208,6 +234,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         private void AddImportedDataToModel(FailureMechanismSectionsContext context, ReadResult<FailureMechanismSection> readResults)
         {
             IEnumerable<FailureMechanismSection> snappedSections = SnapReadSectionsToReferenceLine(readResults.ImportedItems, context.ParentAssessmentSection.ReferenceLine);
+            context.ParentFailureMechanism.ClearAllSections();
             foreach (FailureMechanismSection section in snappedSections)
             {
                 context.ParentFailureMechanism.AddSection(section);

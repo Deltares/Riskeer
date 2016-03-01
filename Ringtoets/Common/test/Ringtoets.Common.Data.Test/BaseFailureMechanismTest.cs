@@ -181,6 +181,26 @@ namespace Ringtoets.Common.Data.Test
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
+        [Test]
+        public void ClearAllSections_HasSections_DoNothing()
+        {
+            // Setup
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(1.1, 2.2),
+                new Point2D(3.3, 4.4)
+            });
+
+            var failureMechanism = new SimpleBaseFailureMechanism("A");
+            failureMechanism.AddSection(section);
+
+            // Call
+            failureMechanism.ClearAllSections();
+
+            // Assert
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+        }
+
         private class SimpleBaseFailureMechanism : BaseFailureMechanism
         {
             public override IEnumerable<ICalculationItem> CalculationItems

@@ -125,7 +125,7 @@ namespace Ringtoets.Common.Data
 
         public void ClearAllSections()
         {
-            throw new NotImplementedException();
+            sections.Clear();
         }
 
         /// <summary>
