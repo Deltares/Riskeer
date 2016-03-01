@@ -27,7 +27,15 @@ namespace Ringtoets.Integration.Plugin.FileImporters
     /// </summary>
     public class FailureMechanismSectionsImporter : FileImporterBase
     {
-        private const double snapLimit = 1;
+        /// <summary>
+        /// The snapping tolerance in meters.
+        /// </summary>
+        private const double snappingTolerance = 1;
+        /// <summary>
+        /// The length tolerance between the reference line and the imported FailureMechanismSections in meters.
+        /// </summary>
+        private const double lengthDifferenceTolerance = 1;
+
         private static readonly ILog log = LogManager.GetLogger(typeof(FailureMechanismSectionsImporter));
 
         public override string Name
@@ -90,7 +98,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
             if (!SectionsCorrespondToReferenceLine(context, readResults))
             {
-                LogCriticalFileReadError("Vakkenindeling komt niet overeen met de huidige referentielijn.");
+                LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline);
                 return false;
             }
 
@@ -172,13 +180,19 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         private bool SectionsCorrespondToReferenceLine(FailureMechanismSectionsContext context, ReadResult<FailureMechanismSection> readResults)
         {
             ICollection<FailureMechanismSection> failureMechanismSections = readResults.ImportedItems;
+            ReferenceLine referenceLine = context.ParentAssessmentSection.ReferenceLine;
+
             IEnumerable<Point2D> allStartAndEndPoints = failureMechanismSections.Select(s => s.GetStart()).Concat(failureMechanismSections.Select(s => s.GetLast()));
-            foreach (Point2D point in allStartAndEndPoints)
+            if (allStartAndEndPoints.Any(point => GetDistanceToReferenceLine(point, referenceLine) > snappingTolerance)) 
             {
-                if (GetDistanceToReferenceLine(point, context.ParentAssessmentSection.ReferenceLine) > snapLimit)
-                {
-                    return false;
-                }
+                return false;
+            }
+
+            var totalSectionsLength = failureMechanismSections.Sum(s => GetSectionLength(s));
+            var referenceLineLength = GetLengthOfLine(referenceLine.Points);
+            if (Math.Abs(totalSectionsLength - referenceLineLength) > lengthDifferenceTolerance)
+            {
+                return false;
             }
 
             return true;
@@ -202,35 +216,13 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private IEnumerable<FailureMechanismSection> SnapReadSectionsToReferenceLine(IEnumerable<FailureMechanismSection> readSections, ReferenceLine referenceLine)
         {
-            const double lengthDifferenceTolerance = 1;
             IList<FailureMechanismSection> orderedReadSections = OrderSections(readSections);
 
-            double[] orderedSectionLengths = orderedReadSections.Select(GetSectionLength).ToArray();
+            double[] orderedSectionLengths = GetReferenceLineCutoffLengths(referenceLine, orderedReadSections);
 
-            double difference = GetLengthOfLine(referenceLine.Points) - orderedSectionLengths.Sum(l => l);
-            if (Math.Abs(difference) < lengthDifferenceTolerance)
-            {
-                // Correct last section to fully match referenceLine length:
-                orderedSectionLengths[orderedSectionLengths.Length - 1] += difference;
-            }
-            else
-            {
-                // TODO Error condition
-            }
+            Point2D[][] splitResults = Math2D.SplitLineAtLengths(referenceLine.Points, orderedSectionLengths);
 
-            var splitResults = Math2D.SplitLineAtLengths(referenceLine.Points, orderedSectionLengths);
-
-            var snappedSections = new List<FailureMechanismSection>(orderedReadSections.Count);
-            for (int i = 0; i < orderedReadSections.Count; i++)
-            {
-                snappedSections.Add(new FailureMechanismSection(orderedReadSections[i].Name, splitResults[i]));
-            }
-            return snappedSections;
-        }
-
-        private double GetSectionLength(FailureMechanismSection section)
-        {
-            return GetLengthOfLine(section.Points);
+            return CreateFailureMechanismSectionsSnappedOnReferenceLine(orderedReadSections, splitResults);
         }
 
         private IList<FailureMechanismSection> OrderSections(IEnumerable<FailureMechanismSection> unorderedSections)
@@ -261,7 +253,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 foreach (var sectionConnectionDistance in sectionConnectionDistances)
                 {
                     double distance = sectionConnectionDistance.Key;
-                    if (distance < shortestDistance && distance <= snapLimit)
+                    if (distance < shortestDistance && distance <= snappingTolerance)
                     {
                         shortestDistance = sectionConnectionDistance.Key;
                         closestSectionToConnectWith = sectionConnectionDistance.Value;
@@ -292,7 +284,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 foreach (var sectionConnectionDistance in sectionConnectionDistances)
                 {
                     double distance = sectionConnectionDistance.Key;
-                    if (distance < shortestDistance && distance <= snapLimit)
+                    if (distance < shortestDistance && distance <= snappingTolerance)
                     {
                         shortestDistance = sectionConnectionDistance.Key;
                         closestSectionToConnectWith = sectionConnectionDistance.Value;
@@ -308,6 +300,32 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                     sourceList.Remove(closestSectionToConnectWith);
                 }
             }
+        }
+
+        private double[] GetReferenceLineCutoffLengths(ReferenceLine referenceLine, IList<FailureMechanismSection> orderedReadSections)
+        {
+            double[] orderedSectionLengths = orderedReadSections.Select(GetSectionLength).ToArray();
+
+            // Correct last section to fully match referenceLine length:
+            double difference = GetLengthOfLine(referenceLine.Points) - orderedSectionLengths.Sum(l => l);
+            orderedSectionLengths[orderedSectionLengths.Length - 1] += difference;
+
+            return orderedSectionLengths;
+        }
+
+        private static List<FailureMechanismSection> CreateFailureMechanismSectionsSnappedOnReferenceLine(IList<FailureMechanismSection> orderedReadSections, Point2D[][] splitResults)
+        {
+            var snappedSections = new List<FailureMechanismSection>(orderedReadSections.Count);
+            for (int i = 0; i < orderedReadSections.Count; i++)
+            {
+                snappedSections.Add(new FailureMechanismSection(orderedReadSections[i].Name, splitResults[i]));
+            }
+            return snappedSections;
+        }
+
+        private double GetSectionLength(FailureMechanismSection section)
+        {
+            return GetLengthOfLine(section.Points);
         }
 
         private double GetLengthOfLine(IEnumerable<Point2D> linePoints)
