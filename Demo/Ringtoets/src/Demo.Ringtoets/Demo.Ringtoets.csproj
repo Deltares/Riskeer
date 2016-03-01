@@ -128,6 +128,10 @@
       <Name>Ringtoets.Piping.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
+      <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
+      <Name>Ringtoets.Piping.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
       <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
       <Name>Ringtoets.Piping.Plugin</Name>

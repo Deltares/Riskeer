@@ -6,6 +6,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Plugin.FileImporter;
 
 namespace Demo.Ringtoets.Commands
@@ -96,7 +97,7 @@ namespace Demo.Ringtoets.Commands
             }
 
             var calculation = pipingFailureMechanism.CalculationsGroup.GetPipingCalculations().First();
-            calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
+            calculation.InputParameters.SetSurfaceLine(pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001"));
             calculation.InputParameters.SoilProfile = pipingFailureMechanism.SoilProfiles.First(sl => sl.Name == "AD640M00_Segment_36005_1D2");
             calculation.InputParameters.PhreaticLevelExit.Mean = 3;
         }

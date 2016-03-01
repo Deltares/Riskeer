@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Probabilistics;
@@ -33,8 +32,8 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingInput : Observable
     {
-        private RingtoetsPipingSurfaceLine surfaceLine;
         private double assessmentLevel;
+        public const double SeepageLengthStandardDeviationFraction = 0.1;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
@@ -61,6 +60,7 @@ namespace Ringtoets.Piping.Data
             };
             ThicknessCoverageLayer = new LognormalDistribution();
             SeepageLength = new LognormalDistribution();
+            SeepageLength.StandardDeviation = SeepageLength.Mean * SeepageLengthStandardDeviationFraction;
             Diameter70 = new LognormalDistribution();
             DarcyPermeability = new LognormalDistribution();
             ThicknessAquiferLayer = new LognormalDistribution();
@@ -173,18 +173,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or sets the surface line.
         /// </summary>
-        public RingtoetsPipingSurfaceLine SurfaceLine
-        {
-            get
-            {
-                return surfaceLine;
-            }
-            set
-            {
-                surfaceLine = value;
-                UpdateValuesBasedOnSurfaceLine();
-            }
-        }
+        public RingtoetsPipingSurfaceLine SurfaceLine { get; set; }
 
         /// <summary>
         /// Gets or sets the profile which contains a 1 dimensional definition of soil layers with properties.
@@ -195,30 +184,6 @@ namespace Ringtoets.Piping.Data
         /// Gets or set the hydraulic boundary location from which to use the assessment level.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
-
-        private void UpdateValuesBasedOnSurfaceLine()
-        {
-            var entryPointIndex = Array.IndexOf(surfaceLine.Points, surfaceLine.DikeToeAtRiver);
-            var exitPointIndex = Array.IndexOf(surfaceLine.Points, surfaceLine.DikeToeAtPolder);
-
-            var localGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
-
-            var entryPointL = localGeometry[0].X;
-            var exitPointL = localGeometry[localGeometry.Length - 1].X;
-
-            var differentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
-            if (differentPoints && exitPointIndex > 0)
-            {
-                exitPointL = localGeometry.ElementAt(exitPointIndex).X;
-            }
-            if (differentPoints && entryPointIndex > -1)
-            {
-                entryPointL = localGeometry.ElementAt(entryPointIndex).X;
-            }
-
-            ExitPointL = exitPointL;
-            SeepageLength.Mean = exitPointL - entryPointL;
-        }
 
         #region Probabilistic parameters
 

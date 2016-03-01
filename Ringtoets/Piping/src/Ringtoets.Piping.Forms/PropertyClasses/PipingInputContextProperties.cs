@@ -29,6 +29,7 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
+using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.TypeConverters;
@@ -167,7 +168,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.SurfaceLine = value;
+                data.WrappedData.SetSurfaceLine(value);
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -363,7 +364,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 try
                 {
-                    data.WrappedData.SeepageLength.Mean = data.WrappedData.ExitPointL - value;
+                    data.WrappedData.SetSeepageLengthMean(data.WrappedData.ExitPointL - value);
                 }
                 catch (ArgumentOutOfRangeException)
                 {
@@ -388,7 +389,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 try
                 {
-                    data.WrappedData.SeepageLength.Mean -= data.WrappedData.ExitPointL - value;
+                    var exitPointLChange = value - data.WrappedData.ExitPointL;
+                    data.WrappedData.SetSeepageLengthMean(data.WrappedData.SeepageLength.Mean + exitPointLChange);
                 }
                 catch (ArgumentOutOfRangeException)
                 {
