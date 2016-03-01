@@ -176,16 +176,112 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             mocks.VerifyAll();
         }
 
-        // TODO: ReferenceLine not set
-        // TODO: Has endpoint not on surfaceline
-        // TODO: Has startpoint not on surfaceline
+        [Test]
+        public void Import_NoReferenceLine_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1_vakken.shp");
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = null;
+            mocks.ReplayAll();
+
+            var importer = new FailureMechanismSectionsImporter();
+
+            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            bool importSuccesful = true;
+            Action call = () => importSuccesful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+
+            // Assert
+            var expectedMessage = "Er is geen referentielijn beschikbaar om een vakindeling voor de definiëren." + Environment.NewLine +
+                "Er is geen vakindeling geïmporteerd.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccesful);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanismSectionsContext.WrappedData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_EmptyArtificialFile_CancelImportWithErrorMessage()
+        {
+            // Setup
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA.shp");
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA_EmptyVakken.shp");
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var referenceLineImporter = new ReferenceLineImporter();
+            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+
+            var importer = new FailureMechanismSectionsImporter();
+
+            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            bool importSuccesful = true;
+            Action call = () => importSuccesful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+
+            // Assert
+            var expectedMessage = "Het bestand heeft geen vakindeling." + Environment.NewLine +
+                                  "Er is geen vakindeling geïmporteerd.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccesful);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanismSectionsContext.WrappedData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("Artificial_referencelijn_testA_InvalidVakken_SectionStartTooFarFromReferenceline.shp")]
+        [TestCase("Artificial_referencelijn_testA_InvalidVakken_SectionEndTooFarFromReferenceline.shp")]
+        public void Import_InvalidArtificialFileBecauseOfStartEndPointsTooFarFromReferenceLine_CancelImportWithErrorMessage(string shapeFileName)
+        {
+            // Setup
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA.shp");
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, shapeFileName);
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var referenceLineImporter = new ReferenceLineImporter();
+            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+
+            var importer = new FailureMechanismSectionsImporter();
+
+            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            bool importSuccesful = true;
+            Action call = () => importSuccesful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+
+            // Assert
+            var expectedMessage = "Vakkenindeling komt niet overeen met de huidige referentielijn." + Environment.NewLine +
+                                  "Er is geen vakindeling geïmporteerd.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccesful);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanismSectionsContext.WrappedData);
+            mocks.VerifyAll();
+        }
+
         // TODO: Has some other point not on surfaceline
         // TODO: Definite start not on refereline start
         // TODO: Definite end not on referenceline end
-        // TODO: File is empty -> error
-        // TODO: Has sections and Confirm cancel -> No changes and return false
-        // TODO: Has sections and Confirm continue -> replace sections, clear failure mechanism calculations
-        // TODO: Has sections and Cancel during Confirm -> generate log message
+        // TODO: Has sections -> Replace
         // TODO: Progress
         // TODO: Reused of cancelled importer
         // TODO: DoPostImportUpdates when clearing failure mechanism calculations

@@ -71,6 +71,33 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen referentielijn beschikbaar om een vakindeling voor de definiëren..
+        /// </summary>
+        internal static string FailureMechanismSectionsImporter_Import_Required_reference_line_is_missing {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_Required_reference_line_is_missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen referentielijn beschikbaar om een vakindeling voor de definiëren..
+        /// </summary>
+        internal static string FailureMechanismSectionsImporter_Import_Required_referenceline_missing {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_Required_referenceline_missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand heeft geen vakindeling..
+        /// </summary>
+        internal static string FailureMechanismSectionsImporter_ReadFile_File_is_empty {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionsImporter_ReadFile_File_is_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Het bestand wordt overgeslagen..
         /// </summary>
         internal static string HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped {
