@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.Extensions
 {
@@ -56,6 +57,44 @@ namespace Ringtoets.Piping.Forms.Extensions
         {
             input.SeepageLength.Mean = mean;
             input.SeepageLength.StandardDeviation = mean * PipingInput.SeepageLengthStandardDeviationFraction;
+        }
+
+        /// <summary>
+        /// Sets the L-coordinate of the entry point.
+        /// </summary>
+        /// <param name="input">The <see cref="PipingInput"/> to update the entry point for.</param>
+        /// <param name="entryPointL">The L-coordinate of the entry point to set.</param>
+        public static void SetEntryPointL(this PipingInput input, double entryPointL)
+        {
+            try
+            {
+                input.SetSeepageLengthMean(input.ExitPointL - entryPointL);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                var message = string.Format(Resources.PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length, entryPointL);
+                throw new ArgumentException(message);
+            }
+        }
+
+        /// <summary>
+        /// Sets the L-coordinate of the exit point.
+        /// </summary>
+        /// <param name="input">The <see cref="PipingInput"/> to update the entry point for.</param>
+        /// <param name="exitPointL">The L-coordinate of the entry point to set.</param>
+        public static void SetExitPointL(this PipingInput input, double exitPointL)
+        {
+            var exitPointLChange = exitPointL - input.ExitPointL;
+            try
+            {
+                input.SetSeepageLengthMean(input.SeepageLength.Mean + exitPointLChange);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                var message = string.Format(Resources.PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length, exitPointL);
+                throw new ArgumentException(message);
+            }
+            input.ExitPointL = exitPointL;
         }
     }
 }

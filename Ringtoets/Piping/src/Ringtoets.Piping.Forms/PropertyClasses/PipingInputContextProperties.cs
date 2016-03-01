@@ -362,16 +362,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                try
-                {
-                    data.WrappedData.SetSeepageLengthMean(data.WrappedData.ExitPointL - value);
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    var message = string.Format(Resources.PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length, value);
-                    throw new ArgumentException(message);
-                }
-
+                data.WrappedData.SetEntryPointL(value);
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -387,18 +378,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                try
-                {
-                    var exitPointLChange = value - data.WrappedData.ExitPointL;
-                    data.WrappedData.SetSeepageLengthMean(data.WrappedData.SeepageLength.Mean + exitPointLChange);
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    var message = string.Format(Resources.PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length, value);
-                    throw new ArgumentException(message);
-                }
-
-                data.WrappedData.ExitPointL = value;
+                data.WrappedData.SetExitPointL(value);
                 data.WrappedData.NotifyObservers();
             }
         }
