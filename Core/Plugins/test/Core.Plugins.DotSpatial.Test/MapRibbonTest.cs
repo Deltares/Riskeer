@@ -137,6 +137,88 @@ namespace Core.Plugins.DotSpatial.Test
 
         [Test]
         [RequiresSTA]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ValidateItems_Always_TogglePanningButtonIsCheckedEqualToPanningChecked(bool panningChecked)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var map = mocks.DynamicMock<IMap>();
+
+            map.Expect(m => m.IsPanningEnabled).Return(panningChecked);
+
+            mocks.ReplayAll();
+
+            var ribbon = new MapRibbon
+            {
+                Map = map
+            };
+
+            // Call
+            ribbon.ValidateItems();
+
+            // Assert
+            Assert.AreEqual(panningChecked, map.IsPanningEnabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ValidateItems_Always_ToggleRectangleZoomingButtonIsCheckedEqualToRectangleZoomChecked(bool rectangleZoomChecked)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var map = mocks.DynamicMock<IMap>();
+
+            map.Expect(m => m.IsRectangleZoomingEnabled).Return(rectangleZoomChecked);
+
+            mocks.ReplayAll();
+
+            var ribbon = new MapRibbon
+            {
+                Map = map
+            };
+
+            // Call
+            ribbon.ValidateItems();
+
+            // Assert
+            Assert.AreEqual(rectangleZoomChecked, map.IsRectangleZoomingEnabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ValidateItems_Always_ToggleMouseCoordinatesButtonIsCheckedEqualToMouseCoordinatesChecked(bool mouseCoordinatesChecked)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var map = mocks.DynamicMock<IMap>();
+
+            map.Expect(m => m.IsMouseCoordinatesEnabled).Return(mouseCoordinatesChecked);
+
+            mocks.ReplayAll();
+
+            var ribbon = new MapRibbon
+            {
+                Map = map
+            };
+
+            // Call
+            ribbon.ValidateItems();
+
+            // Assert
+            Assert.AreEqual(mouseCoordinatesChecked, map.IsMouseCoordinatesEnabled);
+            mocks.VerifyAll();
+        }
+				
+
+        [Test]
+        [RequiresSTA]
         public void ToggleLegendViewButton_OnClick_ExecutesToggleLegendViewCommand()
         {
             // Setup

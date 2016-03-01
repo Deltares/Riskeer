@@ -93,6 +93,7 @@ namespace Core.Plugins.DotSpatial
             ToggleLegendViewButton.IsChecked = ToggleLegendViewCommand != null && ToggleLegendViewCommand.Checked;
             TogglePanningButton.IsChecked = Map != null && Map.IsPanningEnabled;
             ToggleRectangleZoomingButton.IsChecked = Map != null && Map.IsRectangleZoomingEnabled;
+            ToggleMouseCoordinatesButton.IsChecked = Map != null && Map.IsMouseCoordinatesEnabled;
         }
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
