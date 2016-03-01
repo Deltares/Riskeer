@@ -848,7 +848,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Beginnen met het importeren van gegevens..
+        ///   Looks up a localized string similar to Begonnen met het importeren van gegevens..
         /// </summary>
         public static string GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data {
             get {

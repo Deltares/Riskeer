@@ -323,7 +323,7 @@
     <value>Licentie</value>
   </data>
   <data name="GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data" xml:space="preserve">
-    <value>Beginnen met het importeren van gegevens.</value>
+    <value>Begonnen met het importeren van gegevens.</value>
   </data>
   <data name="ViewList_Insert_No_default_location_specified_Cannot_add_a_view_without_location_parameter_" xml:space="preserve">
     <value>Er is geen standaardlocatie opgegeven. Kan geen documentvenster toevoegen zonder de locatie parameter.</value>
