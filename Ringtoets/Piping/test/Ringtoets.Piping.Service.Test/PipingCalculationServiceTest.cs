@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Ringtoets.Piping.Calculation.TestUtil;
 
 using NUnit.Framework;
-
+using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 
@@ -68,6 +69,69 @@ namespace Ringtoets.Piping.Service.Test
                 StringAssert.StartsWith("Piping berekening niet gelukt: ", msgs[1]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", invalidPipingCalculation.Name), msgs[2]);
             });
+        }
+
+        [Test]
+        public void CalculateThicknessCoverageLayer_ValidInput_ReturnsThickness()
+        {
+            // Setup
+            PipingInput input = new PipingInput();
+            input.ExitPointL = 10;
+            input.SurfaceLine = new RingtoetsPipingSurfaceLine();
+            input.SurfaceLine.SetGeometry(new []
+            {
+                new Point3D(0, 0, 10),
+                new Point3D(20, 0, 10)
+            });
+            input.SoilProfile = new PipingSoilProfile(string.Empty, 0, new []
+            {
+                new PipingSoilLayer(5)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(20)
+                {
+                    IsAquifer = false
+                }
+            });
+
+            // Call
+            var thickness = PipingCalculationService.CalculateThicknessCoverageLayer(input);
+
+            // Assert
+            Assert.AreEqual(5, thickness);
+        }
+
+        [Test]
+        public void CalculateThicknessCoverageLayer_SurfaceLineOutsideProfile_ThrowsPipingCalculatorException()
+        {
+            // Setup
+            PipingInput input = new PipingInput();
+            input.ExitPointL = 10;
+            input.SurfaceLine = new RingtoetsPipingSurfaceLine();
+            input.SurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 10),
+                new Point3D(10, 0, 20+1e-3),
+                new Point3D(20, 0, 10)
+            });
+            input.SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+            {
+                new PipingSoilLayer(5)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(20)
+                {
+                    IsAquifer = false
+                }
+            });
+
+            // Call
+            TestDelegate test = () => PipingCalculationService.CalculateThicknessCoverageLayer(input);
+
+            // Assert
+            Assert.Throws<PipingCalculatorException>(test);
         }
 
         [Test]

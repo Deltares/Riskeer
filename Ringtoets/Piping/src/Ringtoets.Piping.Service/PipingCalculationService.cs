@@ -100,6 +100,22 @@ namespace Ringtoets.Piping.Service
             }
         }
 
+        /// <summary>
+        /// Calculates the thickness of the coverage layer based on the values of the <see cref="PipingInput"/>.
+        /// </summary>
+        /// <returns>The thickness of the coverage layer, or -1 if the thickness could not be calculated.</returns>
+        /// <exception cref="PipingCalculatorException">Thrown when:
+        /// <list type="bullet">
+        /// <item>surface at exit point's x-coordinate is higher than the soil profile</item>
+        /// <item>surface line is <c>null</c></item>
+        /// <item>soil profile is <c>null</c></item>
+        /// <item>soil profile's aquifer layer</item>
+        /// </list></exception>
+        public static double CalculateThicknessCoverageLayer(PipingInput input)
+        {
+            return new PipingCalculator(CreateInputFromData(input)).CalculateThicknessCoverageLayer();
+        }
+
         private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters)
         {
             return new PipingCalculatorInput(

@@ -236,11 +236,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [TestCase(4, 2, 2)]
         [TestCase(2, 2, 0)]
-        [TestCase(2, 4, -2)]
-        [TestCase(0.5, 4, -3.5)]
-        [TestCase(1e-6, 4, -(4 - 1e-6))]
-        [TestCase(3, 1e-6, 3 - 1e-6)]
+        [TestCase(4 + 1e-6, 4,  1e-6)]
         [TestCase(0.5, 1e-6, 0.5-1e-6)]
         public void EntryPointL_ExitPointAndSeepageLengthSet_ExpectedValue(double exitPoint, double seepageLength, double entryPoint)
         {
@@ -252,14 +250,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
-            var random = new Random(22);
-
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
+            var soilProfile = new PipingSoilProfile(String.Empty, -1, new[]
             {
-                new PipingSoilLayer(random.NextDouble())
+                new PipingSoilLayer(0)
                 {
                     IsAquifer = true
+                },
+                new PipingSoilLayer(1)
+                {
+                    IsAquifer = false
                 }
             });
             var inputParameters = new PipingInput
@@ -281,7 +281,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.SeepageLength.Distribution.Mean = seepageLength;
 
             // Call & Assert
-            Assert.AreEqual(entryPoint, properties.EntryPointL);
+            Assert.AreEqual(entryPoint, properties.EntryPointL, 1e-6);
             Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
             Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
 
@@ -293,7 +293,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         [TestCase(2, 4, 2)]
         [TestCase(1e-6, 4, 4 - 1e-6)]
         [TestCase(1e-6, 3, 3 - 1e-6)]
-        [TestCase(0, 1e-6, 1e-6)]
+        [TestCase(1, 1 + 1e-6, 1e-6)]
         public void SeepageLength_ExitPointAndEntryPointSet_ExpectedValue(double entryPoint, double exitPoint, double seepageLength)
         {
             // Setup
@@ -304,14 +304,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
-            var random = new Random(22);
-
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var soilProfile = new PipingSoilProfile(string.Empty, random.NextDouble(), new[]
+            var soilProfile = new PipingSoilProfile(String.Empty, -1, new[]
             {
-                new PipingSoilLayer(random.NextDouble())
+                new PipingSoilLayer(0)
                 {
                     IsAquifer = true
+                },
+                new PipingSoilLayer(1)
+                {
+                    IsAquifer = false
                 }
             });
             var inputParameters = new PipingInput
@@ -333,7 +335,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.EntryPointL = entryPoint;
 
             // Call & Assert
-            Assert.AreEqual(seepageLength, properties.SeepageLength.Distribution.Mean);
+            Assert.AreEqual(seepageLength, properties.SeepageLength.Distribution.Mean, 1e-6);
             Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
             Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
 
@@ -351,14 +353,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
-            var random = new Random(22);
-
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var soilProfile = new PipingSoilProfile(string.Empty, random.NextDouble(), new[]
+            var soilProfile = new PipingSoilProfile(String.Empty, -1, new[]
             {
-                new PipingSoilLayer(random.NextDouble())
+                new PipingSoilLayer(0)
                 {
                     IsAquifer = true
+                },
+                new PipingSoilLayer(1)
+                {
+                    IsAquifer = false
                 }
             });
             var inputParameters = new PipingInput
@@ -396,14 +400,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var inputObserver = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var random = new Random(22);
-
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
+            var soilProfile = new PipingSoilProfile(String.Empty, -1, new[]
             {
-                new PipingSoilLayer(random.NextDouble())
+                new PipingSoilLayer(0)
                 {
                     IsAquifer = true
+                },
+                new PipingSoilLayer(1)
+                {
+                    IsAquifer = false
                 }
             });
             var inputParameters = new PipingInput

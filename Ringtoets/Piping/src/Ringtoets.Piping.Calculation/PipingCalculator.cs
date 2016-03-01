@@ -22,9 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Deltares.WTIPiping;
-
 using Ringtoets.Piping.Calculation.Properties;
 
 namespace Ringtoets.Piping.Calculation
@@ -67,7 +65,7 @@ namespace Ringtoets.Piping.Calculation
                 heaveResult.FoSh,
                 sellmeijerResult.Zp,
                 sellmeijerResult.FoSp
-            );
+                );
         }
 
         /// <summary>
@@ -92,6 +90,33 @@ namespace Ringtoets.Piping.Calculation
                 .Concat(heaveCalculatorValidationResults)
                 .Concat(sellmeijerCalculatorValidationResults)
                 .ToList();
+        }
+
+        /// <summary>
+        /// Calculates the thickness of the coverage layer based on the values of the <see cref="PipingCalculatorInput"/>.
+        /// </summary>
+        /// <returns>The thickness of the coverage layer.</returns>
+        /// <exception cref="PipingCalculatorException">Thrown when:
+        /// <list type="bullet">
+        /// <item>surface at exit point's x-coordinate is higher than the soil profile</item>
+        /// <item>surface line is <c>null</c></item>
+        /// <item>soil profile is <c>null</c></item>
+        /// <item>soil profile's aquifer layer</item>
+        /// </list></exception>
+        public double CalculateThicknessCoverageLayer()
+        {
+            try
+            {
+                return CalculateEffectiveThickness().EffectiveHeight;
+            }
+            catch (SoilVolumicMassCalculatorException e)
+            {
+                throw new PipingCalculatorException(e.Message, e);
+            }
+            catch (NullReferenceException e)
+            {
+                throw new PipingCalculatorException(e.Message, e);
+            }
         }
 
         private List<string> ValidateSurfaceLine()
@@ -192,7 +217,7 @@ namespace Ringtoets.Piping.Calculation
         {
             EffectiveThicknessCalculator calculatedEffectiveStressResult = CalculateEffectiveThickness();
             WTIUpliftCalculator upliftCalculator = CreateUpliftCalculator(calculatedEffectiveStressResult.EffectiveStress);
-            
+
             try
             {
                 upliftCalculator.Calculate();

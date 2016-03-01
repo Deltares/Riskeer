@@ -2,6 +2,7 @@
 using System.Linq;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Forms.Extensions
 {
@@ -21,42 +22,14 @@ namespace Ringtoets.Piping.Forms.Extensions
         public static void SetSurfaceLine(this PipingInput input, RingtoetsPipingSurfaceLine surfaceLine)
         {
             input.SurfaceLine = surfaceLine;
-            UpdateValuesBasedOnSurfaceLine(input);
+            input.UpdateValuesBasedOnSurfaceLine();
+            input.UpdateThicknessCoverageLayer();
         }
 
-        private static void UpdateValuesBasedOnSurfaceLine(PipingInput input)
+        public static void SetSoilProfile(this PipingInput input, PipingSoilProfile soilProfile)
         {
-            var entryPointIndex = Array.IndexOf(input.SurfaceLine.Points, input.SurfaceLine.DikeToeAtRiver);
-            var exitPointIndex = Array.IndexOf(input.SurfaceLine.Points, input.SurfaceLine.DikeToeAtPolder);
-
-            var localGeometry = input.SurfaceLine.ProjectGeometryToLZ().ToArray();
-
-            var tempEntryPointL = localGeometry[0].X;
-            var tempExitPointL = localGeometry[localGeometry.Length - 1].X;
-
-            var differentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
-            if (differentPoints && exitPointIndex > 0)
-            {
-                tempExitPointL = localGeometry.ElementAt(exitPointIndex).X;
-            }
-            if (differentPoints && entryPointIndex > -1)
-            {
-                tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
-            }
-
-            input.ExitPointL = tempExitPointL;
-            input.SetSeepageLengthMean(tempExitPointL - tempEntryPointL);
-        }
-
-        /// <summary>
-        /// Sets the mean of the seepage length stochast.
-        /// </summary>
-        /// <param name="input">The <see cref="PipingInput"/> to update the seepage length for.</param>
-        /// <param name="mean">The mean to set.</param>
-        public static void SetSeepageLengthMean(this PipingInput input, double mean)
-        {
-            input.SeepageLength.Mean = mean;
-            input.SeepageLength.StandardDeviation = mean * PipingInput.SeepageLengthStandardDeviationFraction;
+            input.SoilProfile = soilProfile;
+            input.UpdateThicknessCoverageLayer();
         }
 
         /// <summary>
@@ -95,6 +68,52 @@ namespace Ringtoets.Piping.Forms.Extensions
                 throw new ArgumentException(message);
             }
             input.ExitPointL = exitPointL;
+            input.UpdateThicknessCoverageLayer();
+        }
+
+        private static void UpdateThicknessCoverageLayer(this PipingInput input)
+        {
+            if (input.SurfaceLine == null || input.SoilProfile == null)
+            {
+                return;
+            }
+
+            input.ThicknessCoverageLayer.Mean = PipingCalculationService.CalculateThicknessCoverageLayer(input);
+        }
+
+        private static void UpdateValuesBasedOnSurfaceLine(this PipingInput input)
+        {
+            var entryPointIndex = Array.IndexOf(input.SurfaceLine.Points, input.SurfaceLine.DikeToeAtRiver);
+            var exitPointIndex = Array.IndexOf(input.SurfaceLine.Points, input.SurfaceLine.DikeToeAtPolder);
+
+            var localGeometry = input.SurfaceLine.ProjectGeometryToLZ().ToArray();
+
+            var tempEntryPointL = localGeometry[0].X;
+            var tempExitPointL = localGeometry[localGeometry.Length - 1].X;
+
+            var differentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
+            if (differentPoints && exitPointIndex > 0)
+            {
+                tempExitPointL = localGeometry.ElementAt(exitPointIndex).X;
+            }
+            if (differentPoints && entryPointIndex > -1)
+            {
+                tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
+            }
+
+            input.ExitPointL = tempExitPointL;
+            input.SetSeepageLengthMean(tempExitPointL - tempEntryPointL);
+        }
+
+        /// <summary>
+        /// Sets the mean of the seepage length stochast.
+        /// </summary>
+        /// <param name="input">The <see cref="PipingInput"/> to update the seepage length for.</param>
+        /// <param name="mean">The mean to set.</param>
+        private static void SetSeepageLengthMean(this PipingInput input, double mean)
+        {
+            input.SeepageLength.Mean = mean;
+            input.SeepageLength.StandardDeviation = mean*PipingInput.SeepageLengthStandardDeviationFraction;
         }
     }
 }
