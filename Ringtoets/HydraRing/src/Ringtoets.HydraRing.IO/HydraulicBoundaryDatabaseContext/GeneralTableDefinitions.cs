@@ -27,7 +27,8 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
     internal static class GeneralTableDefinitions
     {
         internal const string TableName = "General";
-        internal const string NameRegion = "NameRegion";
+        internal const string RegionName = "NameRegion";
+        internal const string RegionId = "GeneralId";
         internal const string CreationDate = "CreationDate";
         internal const string GeneratedVersion = "GeneratedVersion";
     }

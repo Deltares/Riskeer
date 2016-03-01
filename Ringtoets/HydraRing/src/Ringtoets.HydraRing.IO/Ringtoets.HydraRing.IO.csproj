@@ -50,7 +50,7 @@
     <Compile Include="HydraulicBoundaryDatabaseContext\HrdLocationsTableDefinitions.cs" />
     <Compile Include="Exceptions\HydraulicBoundaryDatabaseReadException.cs" />
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundaryDatabaseQueryBuilder.cs" />
-    <Compile Include="HydraulicBoundarySqLiteDatabaseReader.cs" />
+    <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundarySqLiteDatabaseReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

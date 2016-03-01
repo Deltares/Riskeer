@@ -28,10 +28,11 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
 using Ringtoets.HydraRing.IO.Properties;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
-namespace Ringtoets.HydraRing.IO.Test
+namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
 {
     [TestFixture]
     public class HydraulicBoundaryDatabaseReaderTest
@@ -93,15 +94,59 @@ namespace Ringtoets.HydraRing.IO.Test
         public void Constructor_ValidFile_ExpectedValues()
         {
             // Setup
-            const string version = "Dutch coast South19-11-2015 12:00";
+            var dbFile = Path.Combine(testDataPath, "complete.sqlite");
+
+            // Call
+            using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
+            {
+                Assert.IsFalse(hydraulicBoundarySqLiteDatabaseReader.HasNext);
+            }
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void GetLocationCount_ValidFile_ExpectedValues()
+        {
+            // Setup
             const int nrOfLocations = 18;
             var dbFile = Path.Combine(testDataPath, "complete.sqlite");
 
             // Call
             using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
             {
-                Assert.AreEqual(version, hydraulicBoundarySqLiteDatabaseReader.GetVersion());
                 Assert.AreEqual(nrOfLocations, hydraulicBoundarySqLiteDatabaseReader.GetLocationCount());
+                Assert.IsFalse(hydraulicBoundarySqLiteDatabaseReader.HasNext);
+            }
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void GetVersion_ValidFile_ExpectedValues()
+        {
+            // Setup
+            const string version = "Dutch coast South19-11-2015 12:00";
+            var dbFile = Path.Combine(testDataPath, "complete.sqlite");
+
+            // Call
+            using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
+            {
+                Assert.AreEqual(version, hydraulicBoundarySqLiteDatabaseReader.GetVersion());
+                Assert.IsFalse(hydraulicBoundarySqLiteDatabaseReader.HasNext);
+            }
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void GetRegionId_ValidFile_ExpectedValues()
+        {
+            // Setup
+            const int version = 13;
+            var dbFile = Path.Combine(testDataPath, "complete.sqlite");
+
+            // Call
+            using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
+            {
+                Assert.AreEqual(version, hydraulicBoundarySqLiteDatabaseReader.GetRegionId());
                 Assert.IsFalse(hydraulicBoundarySqLiteDatabaseReader.HasNext);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));

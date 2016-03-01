@@ -26,10 +26,9 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
 using Ringtoets.HydraRing.IO.Properties;
 
-namespace Ringtoets.HydraRing.IO
+namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
 {
     /// <summary>
     /// This class reads a SqLite database file and constructs <see cref="HydraulicBoundaryLocation"/> 
@@ -121,6 +120,40 @@ namespace Ringtoets.HydraRing.IO
                 try
                 {
                     return (string) dataReader[GeneralTableDefinitions.GeneratedVersion];
+                }
+                catch (InvalidCastException e)
+                {
+                    var message = new FileReaderErrorMessageBuilder(Path).
+                        Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                    throw new LineParseException(message, e);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the region id from the metadata table.
+        /// </summary>
+        /// <returns>The region id found in the database, or -1 if the region id
+        /// cannot be found.</returns>
+        /// <exception cref="LineParseException">Thrown when the database returned incorrect 
+        /// values for required properties.</exception>
+        public int GetRegionId()
+        {
+            string versionQuery = HydraulicBoundaryDatabaseQueryBuilder.GetRegionIdQuery();
+            var sqliteParameter = new SQLiteParameter
+            {
+                DbType = DbType.String
+            };
+            using (SQLiteDataReader dataReader = CreateDataReader(versionQuery, sqliteParameter))
+            {
+                if (!dataReader.Read())
+                {
+                    return -1;
+                }
+
+                try
+                {
+                    return Convert.ToInt32(dataReader[GeneralTableDefinitions.RegionId]);
                 }
                 catch (InvalidCastException e)
                 {

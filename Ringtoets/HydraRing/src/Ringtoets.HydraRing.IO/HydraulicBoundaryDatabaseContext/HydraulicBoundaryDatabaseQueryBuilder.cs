@@ -34,9 +34,22 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         {
             return string.Format(
                 "SELECT ({0} || {1}) as {2} FROM {3} LIMIT 0,1;",
-                GeneralTableDefinitions.NameRegion,
+                GeneralTableDefinitions.RegionName,
                 GeneralTableDefinitions.CreationDate,
                 GeneralTableDefinitions.GeneratedVersion,
+                GeneralTableDefinitions.TableName
+                );
+        }
+
+        /// <summary>
+        /// Returns the query to get the region id from the database.
+        /// </summary>
+        /// <returns>The query to get the region id from the database.</returns>
+        public static string GetRegionIdQuery()
+        {
+            return string.Format(
+                "SELECT {0} FROM {1} LIMIT 0,1;",
+                GeneralTableDefinitions.RegionId,
                 GeneralTableDefinitions.TableName
                 );
         }
@@ -70,7 +83,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
                 HrdLocationsTableDefinitions.YCoordinate,
                 HrdLocationsTableDefinitions.TableName,
                 HrdLocationsTableDefinitions.LocationTypeId // Value > 1 makes it relevant
-                ); 
+                );
         }
     }
 }
