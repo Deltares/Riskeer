@@ -177,6 +177,7 @@ namespace Core.Components.DotSpatial.Forms
             };
 
             mouseCoordinatesMapExtension = new MouseCoordinatesMapExtension(map);
+            ToggleMouseCoordinates();
 
             Controls.Add(map);
         }

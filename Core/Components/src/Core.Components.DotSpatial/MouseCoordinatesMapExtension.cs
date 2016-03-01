@@ -50,7 +50,6 @@ namespace Core.Components.DotSpatial
         public override void Activate()
         {
             map.GeoMouseMove += OnMouseMove;
-            textBox.Location = new Point(0, map.Height - 16);
             map.Controls.Add(textBox);
             base.Activate();
         }
@@ -65,9 +64,7 @@ namespace Core.Components.DotSpatial
 
         private void OnMouseMove(object sender, GeoMouseArgs e)
         {
-            var location = string.Format("X: {0:.#####} Y: {1:.#####}", e.GeographicLocation.X, e.GeographicLocation.Y);
-
-            textBox.Text = location;
+            textBox.Text = string.Format("X: {0:.#####} Y: {1:.#####}", e.GeographicLocation.X, e.GeographicLocation.Y);
         }
     }
 }
