@@ -77,5 +77,24 @@ namespace Ringtoets.HydraRing.IO.Properties {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bevragen van de database is mislukt..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn meerdere resultaten gevonden, wat niet voor zou mogen komen. Neem contact op met de leverancier. Het eerste resultaat zal worden gebruikt..
+        /// </summary>
+        public static string HydraulicLocationConfigurationSqLiteDatabaseReader_GetLocationIdFromDatabase_Ambiguous_Row_Found_Take_First {
+            get {
+                return ResourceManager.GetString("HydraulicLocationConfigurationSqLiteDatabaseReader_GetLocationIdFromDatabase_Ambi" +
+                        "guous_Row_Found_Take_First", resourceCulture);
+            }
+        }
     }
 }

@@ -29,18 +29,25 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
     public static class HydraulicLocationConfigurationDatabaseQueryBuilder
     {
         /// <summary>
-        /// Returns the query to get the LocationId from the database, based upon <paramref name="regionId"/> and <paramref name="hrdLocationId"/>.
+        /// Returns the query to get the LocationId from the database.
         /// </summary>
         /// <returns>The query to get the locationId from the database.</returns>
-        public static string GetLocationIdQuery(int regionId, int hrdLocationId)
+        public static string GetLocationIdQuery()
         {
-            return String.Format("SELECT {0} FROM {1} WHERE {2} = {3} AND {4} = {5};",
+            var countQuery = String.Format("Select COUNT({0}) FROM {1} WHERE {2} = @{2} AND {3} = @{3}",
+                                           LocationsTableDefinitions.LocationId,
+                                           LocationsTableDefinitions.TableName,
+                                           LocationsTableDefinitions.RegionId,
+                                           LocationsTableDefinitions.HrdLocationId);
+
+            return String.Format("SELECT {0}, ({1}) as {2} FROM {3} WHERE {4} = @{4} AND {5} = @{5};",
                                  LocationsTableDefinitions.LocationId,
+                                 countQuery,
+                                 LocationsTableDefinitions.Count,
                                  LocationsTableDefinitions.TableName,
                                  LocationsTableDefinitions.RegionId,
-                                 hrdLocationId,
-                                 LocationsTableDefinitions.HrdLocationId,
-                                 regionId);
+                                 LocationsTableDefinitions.HrdLocationId
+                );
         }
     }
 }

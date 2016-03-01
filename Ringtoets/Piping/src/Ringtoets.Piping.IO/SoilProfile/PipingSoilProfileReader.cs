@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </summary>
         public void MoveNext()
         {
-            HasNext = dataReader.Read() || (dataReader.NextResult() && dataReader.Read());
+            HasNext = MoveNext(dataReader);
         }
 
         /// <summary>
@@ -180,9 +180,28 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// Prepares a new data reader with queries for obtaining the profiles and updates the reader
         /// so that it points to the first row of the result set.
         /// </summary>
+        /// <exception cref="PipingSoilProfileReadException">Thrown when
+        /// <list type="bullet">
+        ///     <item>Version of the database does not match the required version.</item>
+        ///     <item>Version of the database could not be read.</item>
+        ///     <item>Amount of profiles in database could not be read.</item>
+        /// </list>
+        /// </exception>
+        /// <exception cref="CriticalFileReadException">A query could not be executed on the database schema.</exception>
         private void InitializeReader()
         {
-            PrepareReader();
+            try
+            {
+                PrepareReader();
+                CheckVersion();
+                GetCount();
+            }
+            catch (SQLiteException e)
+            {
+                Dispose();
+                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_SoilProfile_read_from_database);
+                throw new CriticalFileReadException(message, e);
+            }
             MoveNext();
         }
 
@@ -191,6 +210,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// to take an intersection from. Since two separate queries are used, the <see cref="dataReader"/> will
         /// have two result sets which the <see cref="MoveNext()"/> method takes into account.
         /// </summary>
+        /// <exception cref="SQLiteException">A query could not be executed on the database schema.</exception>
         private void PrepareReader()
         {
             string versionQuery = string.Format(
@@ -322,47 +342,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 layer2DPropertiesQuery,
                 mechanismParameterName);
 
-            CreateDataReader(versionQuery + countQuery + query2D + query1D, new SQLiteParameter
+            dataReader = CreateDataReader(versionQuery + countQuery + query2D + query1D, new SQLiteParameter
             {
                 DbType = DbType.String,
                 Value = pipingMechanismName,
                 ParameterName = mechanismParameterName
             });
-        }
-
-        /// <summary>
-        /// Creates a new data reader to use in this class.
-        /// </summary>
-        /// <exception cref="PipingSoilProfileReadException">Thrown when
-        /// <list type="bullet">
-        ///     <item>Version of the database doesn't match the required version.</item>
-        ///     <item>Version of the database could not be read.</item>
-        ///     <item>Amount of profiles in database could not be read.</item>
-        ///     <item>A query could not be executed on the database schema.</item>
-        /// </list>
-        /// </exception>
-        private void CreateDataReader(string queryString, params SQLiteParameter[] parameters)
-        {
-            using (var query = new SQLiteCommand(Connection)
-            {
-                CommandText = queryString
-            })
-            {
-                query.Parameters.AddRange(parameters);
-
-                try
-                {
-                    dataReader = query.ExecuteReader();
-                    CheckVersion();
-                    GetCount();
-                }
-                catch (SQLiteException e)
-                {
-                    Dispose();
-                    var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_SoilProfile_read_from_database);
-                    throw new CriticalFileReadException(message, e);
-                }
-            }
         }
 
         /// <summary>

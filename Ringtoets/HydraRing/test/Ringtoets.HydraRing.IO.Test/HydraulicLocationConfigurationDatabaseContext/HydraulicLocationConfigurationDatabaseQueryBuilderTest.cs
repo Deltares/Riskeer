@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
 
@@ -29,15 +28,15 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
     public class HydraulicLocationConfigurationDatabaseQueryBuilderTest
     {
         [Test]
-        [TestCase(1, 2)]
-        [TestCase(18, 8537)]
-        public void GetLocationIdQuery_Always_ReturnsExpectedValues(int regionId, int hrdLocationId)
+        public void GetLocationIdQuery_Always_ReturnsExpectedValues()
         {
             // Setup
-            string expectedQuery = String.Format("SELECT LocationId FROM Locations WHERE RegionId = {0} AND HRDLocationId = {1};", hrdLocationId, regionId);
+            string expectedQuery = "SELECT LocationId, " +
+                                   "(Select COUNT(LocationId) FROM Locations WHERE RegionId = @RegionId AND HRDLocationId = @HRDLocationId) as nrOfRows " +
+                                   "FROM Locations WHERE RegionId = @RegionId AND HRDLocationId = @HRDLocationId;";
 
             // Call
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdQuery(regionId, hrdLocationId);
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdQuery();
 
             // Assert
             Assert.AreEqual(expectedQuery, query);

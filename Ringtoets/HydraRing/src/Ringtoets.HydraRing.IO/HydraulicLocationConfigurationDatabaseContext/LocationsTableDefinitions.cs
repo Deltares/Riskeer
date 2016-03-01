@@ -31,5 +31,6 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         internal const string LocationId = "LocationId";
         internal const string HrdLocationId = "HRDLocationId";
         internal const string RegionId = "RegionId";
+        internal const string Count = "nrOfRows";
     }
 }

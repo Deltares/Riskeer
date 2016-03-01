@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -67,16 +68,36 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
-        public void GetVersion_InvalidColumns_ThrowsLineParseException()
+        public void GetVersion_InvalidColumns_DoesNotThrowException()
         {
             // Setup
             var dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
-            var expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+
+            // Precondition
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
+            using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
+            {
+                string version = "some version";
+                // Call
+                TestDelegate test = () => { version = hydraulicBoundarySqLiteDatabaseReader.GetVersion(); };
+
+                // Assert
+                Assert.DoesNotThrow(test);
+                Assert.AreEqual("Namedate", version);
+            }
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void GetVersion_EmptyDatabase_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            var dbFile = Path.Combine(testDataPath, "empty.sqlite");
+            string expectedException = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -84,8 +105,11 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             {
                 // Call
                 TestDelegate test = () => { hydraulicBoundarySqLiteDatabaseReader.GetVersion(); };
-                var exception = Assert.Throws<LineParseException>(test);
-                Assert.AreEqual(expectedMessage, exception.Message);
+
+                // Assert
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(expectedException, exception.Message);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -99,6 +123,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             // Call
             using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
             {
+                // Assert
                 Assert.IsFalse(hydraulicBoundarySqLiteDatabaseReader.HasNext);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -108,14 +133,39 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         public void GetLocationCount_ValidFile_ExpectedValues()
         {
             // Setup
-            const int nrOfLocations = 18;
+            const int expectedNrOfLocations = 18;
             var dbFile = Path.Combine(testDataPath, "complete.sqlite");
 
-            // Call
             using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
             {
-                Assert.AreEqual(nrOfLocations, hydraulicBoundarySqLiteDatabaseReader.GetLocationCount());
+                // Call
+                int nrOfLocations = hydraulicBoundarySqLiteDatabaseReader.GetLocationCount();
+
+                // Assert
+                Assert.AreEqual(expectedNrOfLocations, nrOfLocations);
                 Assert.IsFalse(hydraulicBoundarySqLiteDatabaseReader.HasNext);
+            }
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void GetLocationCount_EmptyDatabase_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            var dbFile = Path.Combine(testDataPath, "empty.sqlite");
+            string expectedException = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
+
+            // Precondition
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
+            using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => { hydraulicBoundarySqLiteDatabaseReader.GetLocationCount(); };
+
+                // Assert
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(expectedException, exception.Message);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -124,13 +174,16 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         public void GetVersion_ValidFile_ExpectedValues()
         {
             // Setup
-            const string version = "Dutch coast South19-11-2015 12:00";
+            const string expectedVersion = "Dutch coast South19-11-2015 12:00";
             var dbFile = Path.Combine(testDataPath, "complete.sqlite");
 
-            // Call
             using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
             {
-                Assert.AreEqual(version, hydraulicBoundarySqLiteDatabaseReader.GetVersion());
+                // Call
+                string version = hydraulicBoundarySqLiteDatabaseReader.GetVersion();
+
+                // Assert
+                Assert.AreEqual(expectedVersion, version);
                 Assert.IsFalse(hydraulicBoundarySqLiteDatabaseReader.HasNext);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
@@ -140,14 +193,62 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         public void GetRegionId_ValidFile_ExpectedValues()
         {
             // Setup
-            const int version = 13;
+            const int expectedRegionId = 13;
             var dbFile = Path.Combine(testDataPath, "complete.sqlite");
 
-            // Call
             using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
             {
-                Assert.AreEqual(version, hydraulicBoundarySqLiteDatabaseReader.GetRegionId());
+                // Call
+                int regionId = hydraulicBoundarySqLiteDatabaseReader.GetRegionId();
+
+                // Assert
+                Assert.AreEqual(expectedRegionId, regionId);
                 Assert.IsFalse(hydraulicBoundarySqLiteDatabaseReader.HasNext);
+            }
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void GetRegionId_EmptyDatabase_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            var dbFile = Path.Combine(testDataPath, "empty.sqlite");
+            string expectedException = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database);
+
+            // Precondition
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
+            using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => { hydraulicBoundarySqLiteDatabaseReader.GetRegionId(); };
+
+                // Assert
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+                Assert.AreEqual(expectedException, exception.Message);
+                Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
+            }
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void GetRegionId_InvalidColumns_ThrowsLineParseException()
+        {
+            // Setup
+            var dbFile = Path.Combine(testDataPath, "corruptschema.sqlite");
+            var expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+
+            // Precondition
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
+
+            using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
+            {
+                // Call
+                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetRegionId();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(test);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<InvalidCastException>(exception.InnerException);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -162,9 +263,9 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
-            // Call
             using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
             {
+                // Call
                 hydraulicBoundarySqLiteDatabaseReader.PrepareReadLocation();
                 TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.ReadLocation();
 
@@ -182,9 +283,9 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             // Setup
             var dbFile = Path.Combine(testDataPath, "complete.sqlite");
 
-            // Call
             using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
             {
+                // Call
                 hydraulicBoundarySqLiteDatabaseReader.PrepareReadLocation();
                 HydraulicBoundaryLocation location = hydraulicBoundarySqLiteDatabaseReader.ReadLocation();
 
@@ -203,20 +304,20 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             var boundaryLocations = new List<HydraulicBoundaryLocation>();
             CollectionAssert.IsEmpty(boundaryLocations);
 
-            // Call
             using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
             {
+                // Call
                 hydraulicBoundarySqLiteDatabaseReader.PrepareReadLocation();
                 for (int i = 0; i < nrOfLocations; i++)
                 {
                     boundaryLocations.Add(hydraulicBoundarySqLiteDatabaseReader.ReadLocation());
                 }
 
+                // Assert
                 Assert.IsFalse(hydraulicBoundarySqLiteDatabaseReader.HasNext);
                 Assert.IsNull(hydraulicBoundarySqLiteDatabaseReader.ReadLocation());
             }
 
-            // Assert
             CollectionAssert.AllItemsAreInstancesOfType(boundaryLocations, typeof(HydraulicBoundaryLocation));
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
