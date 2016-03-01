@@ -135,5 +135,10 @@ namespace Core.Plugins.DotSpatial
             Map.ToggleRectangleZooming();
             ValidateItems();
         }
+
+        private void ButtonToggleMouseCoordinates_Click(object sender, RoutedEventArgs e)
+        {
+            Map.ToggleMouseCoordinates();
+        }
     }
 }

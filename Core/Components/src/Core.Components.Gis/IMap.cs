@@ -29,14 +29,19 @@ namespace Core.Components.Gis
     public interface IMap
     {
         /// <summary>
-        /// Gets a value indicating whether or not the chart can be panned with the left mouse button.
+        /// Gets a value indicating whether or not the map can be panned with the left mouse button.
         /// </summary>
         bool IsPanningEnabled { get; }
 
         /// <summary>
-        /// Gets a value indicating whether or not the chart can be zoomed by rectangle with the left mouse button.
+        /// Gets a value indicating whether or not the map can be zoomed by rectangle with the left mouse button.
         /// </summary>
         bool IsRectangleZoomingEnabled { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether or not the map coordinates of the mouse should be shown.
+        /// </summary>
+        bool IsMouseCoordinatesEnabled { get; }
 
         /// <summary>
         /// Gets or sets the data to show in the <see cref="IMap"/>.
@@ -57,5 +62,10 @@ namespace Core.Components.Gis
         /// Toggles rectangle zooming of the <see cref="IMap"/>. Rectangle zooming is invoked by clicking the left mouse-button.
         /// </summary>
         void ToggleRectangleZooming();
+
+        /// <summary>
+        /// Toggles mouse coordinates of the <see cref="IMap"/>.
+        /// </summary>
+        void ToggleMouseCoordinates();
     }
 }

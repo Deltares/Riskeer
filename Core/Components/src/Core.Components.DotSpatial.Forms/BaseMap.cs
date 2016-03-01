@@ -54,6 +54,7 @@ namespace Core.Components.DotSpatial.Forms
         public bool IsPanningEnabled { get; private set; }
 
         public bool IsRectangleZoomingEnabled { get; private set; }
+        public bool IsMouseCoordinatesEnabled { get; private set; }
 
         public MapData Data
         {
@@ -104,6 +105,20 @@ namespace Core.Components.DotSpatial.Forms
                 }
 
                 map.ActivateMapFunction(mapFunctionSelectionZoom);
+            }
+        }
+
+        public void ToggleMouseCoordinates()
+        {
+            if (!IsMouseCoordinatesEnabled)
+            {
+                mouseCoordinatesMapExtension.Activate();
+                IsMouseCoordinatesEnabled = true;
+            }
+            else
+            {
+                mouseCoordinatesMapExtension.Deactivate();
+                IsMouseCoordinatesEnabled = false;
             }
         }
 

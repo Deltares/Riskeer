@@ -10,6 +10,7 @@ using Core.Plugins.DotSpatial.Legend;
 using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Button = Fluent.Button;
 using ToggleButton = Fluent.ToggleButton;
 
 namespace Core.Plugins.DotSpatial.Test
@@ -153,6 +154,114 @@ namespace Core.Plugins.DotSpatial.Test
 
             // Precondition
             Assert.IsNotNull(button, "Ribbon should have a toggle legend view button");
+
+            // Call
+            button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void TogglePanning_OnClick_TogglePanning()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var map = mocks.DynamicMock<IMap>();
+            map.Expect(c => c.TogglePanning());
+
+            mocks.ReplayAll();
+
+            var ribbon = new MapRibbon
+            {
+                Map = map
+            };
+            var button = ribbon.GetRibbonControl().FindName("TogglePanningButton") as ToggleButton;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have a toggle panning button.");
+
+            // Call
+            button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void ToggleRectangleZooming_OnClick_ToggleRectangleZooming()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var map = mocks.DynamicMock<IMap>();
+            map.Expect(c => c.ToggleRectangleZooming());
+
+            mocks.ReplayAll();
+
+            var ribbon = new MapRibbon
+            {
+                Map = map
+            };
+            var button = ribbon.GetRibbonControl().FindName("ToggleRectangleZoomingButton") as ToggleButton;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have a toggle rectangle zooming button.");
+
+            // Call
+            button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+
+            // Assert
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        [RequiresSTA]
+        public void ZoomToAll_OnClick_ZoomToAll()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var map = mocks.DynamicMock<IMap>();
+            map.Expect(c => c.ZoomToAll());
+
+            mocks.ReplayAll();
+
+            var ribbon = new MapRibbon
+            {
+                Map = map
+            };
+            var button = ribbon.GetRibbonControl().FindName("ZoomToAllButton") as Button;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have a zoom to all button.");
+
+            // Call
+            button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void ToggleMouseCoordinates_OnClick_ToggleMouseCoordinates()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var map = mocks.DynamicMock<IMap>();
+            map.Expect(c => c.ToggleMouseCoordinates());
+
+            mocks.ReplayAll();
+
+            var ribbon = new MapRibbon
+            {
+                Map = map
+            };
+            var button = ribbon.GetRibbonControl().FindName("ToggleMouseCoordinatesButton") as ToggleButton;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have a toggle mouse coordinates button.");
 
             // Call
             button.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));

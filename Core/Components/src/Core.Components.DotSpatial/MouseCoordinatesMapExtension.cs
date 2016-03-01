@@ -42,7 +42,8 @@ namespace Core.Components.DotSpatial
             textBox = new TextBox
             {
                 AutoSize = true,
-                BorderStyle = BorderStyle.None
+                BorderStyle = BorderStyle.None,
+                Width = 160
             };
         }
 

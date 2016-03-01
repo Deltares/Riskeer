@@ -230,6 +230,30 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ToggleMouseCoordinates_Always_ChangesState(bool isShowingCoordinates)
+        {
+            // Setup
+            var map = new BaseMap();
+
+            if (isShowingCoordinates)
+            {
+                // Make sure the state is correct
+                map.ToggleMouseCoordinates();
+
+                // Precondition
+                Assert.IsTrue(map.IsMouseCoordinatesEnabled);
+            }
+
+            // Call
+            map.ToggleMouseCoordinates();
+
+            // Assert
+            Assert.AreNotEqual(isShowingCoordinates, map.IsMouseCoordinatesEnabled);
+        }
+
+        [Test]
         [RequiresSTA]
         public void UpdateObserver_MapInForm_MapLayersRenewed()
         {
