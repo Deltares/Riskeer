@@ -74,6 +74,39 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void Import_ValidArtificialFileImperfectlyCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections()
+        {
+            // Setup
+            var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA.shp");
+            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA_ValidVakken.shp");
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var referenceLineContext = new ReferenceLineContext(assessmentSection);
+
+            var referenceLineImporter = new ReferenceLineImporter();
+            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+
+            var importer = new FailureMechanismSectionsImporter();
+
+            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            var importSuccesful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+
+            // Assert
+            Assert.IsTrue(importSuccesful);
+
+            FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
+            Assert.AreEqual(7, sections.Length);
+            AssertSectionsAreValidForReferenceLine(sections, assessmentSection.ReferenceLine);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_FilePathIsDirectory_CancelImportWithErrorMessage()
         {
             // Setup
@@ -214,15 +247,15 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
         private IEnumerable<Segment2D> GetLineSegments(IEnumerable<Point2D> linePoints)
         {
-            Point2D firstPoint = null;
+            Point2D endPoint = null;
             foreach (Point2D linePoint in linePoints)
             {
-                Point2D secondPoint = firstPoint;
-                firstPoint = linePoint;
+                Point2D startPoint = endPoint;
+                endPoint = linePoint;
 
-                if (secondPoint != null)
+                if (startPoint != null)
                 {
-                    yield return new Segment2D(firstPoint, secondPoint);
+                    yield return new Segment2D(startPoint, endPoint);
                 }
             }
         }
