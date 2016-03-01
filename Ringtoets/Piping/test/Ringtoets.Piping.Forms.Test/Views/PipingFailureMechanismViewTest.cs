@@ -113,18 +113,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var view = new PipingFailureMechanismView();
             var map = (BaseMap)view.Controls[0];
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
-
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
             assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
-            assessmentSectionBase.Attach(observer);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionBase);
@@ -141,7 +134,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreNotEqual(mapData, map.Data);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -150,12 +142,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var view = new PipingFailureMechanismView();
             var map = (BaseMap)view.Controls[0];
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
@@ -166,7 +152,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(1.0, 2.0),
                 new Point2D(2.0, 1.0)
             });
-            assessmentSectionBase.Attach(observer);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionBase);
@@ -186,7 +171,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreNotEqual(mapData, map.Data);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -196,15 +180,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var view = new PipingFailureMechanismView();
             var map = (BaseMap)view.Controls[0];
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
-
             var assessmentSectionBase = new TestAssessmentSectionBase();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            ((IObservable)pipingFailureMechanism.SurfaceLines).Attach(observer);
 
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionBase);
 
@@ -225,7 +202,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreNotEqual(mapData, map.Data);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -234,12 +210,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var view = new PipingFailureMechanismView();
             var map = (BaseMap)view.Controls[0];
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
@@ -252,7 +222,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(1.0, 2.0),
                 new Point2D(2.0, 1.0)
             });
-            assessmentSectionBase.Attach(observer);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionBase);
@@ -270,7 +239,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(2.0, 1.0),
                 new Point2D(4.0, 3.0)
             });
-            assessmentSectionBase2.Attach(observer);
 
             // Call
             assessmentSectionBase2.NotifyObservers();
@@ -278,7 +246,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreEqual(pipingContext, view.Data);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -287,12 +254,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var view = new PipingFailureMechanismView();
             var map = (BaseMap)view.Controls[0];
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
@@ -311,8 +272,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             view.Data = pipingContext;
 
-            assessmentSectionBase.Attach(observer);
-
             view.Data = null;
             MapData dataBeforeUpdate = map.Data;
 
@@ -328,7 +287,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(dataBeforeUpdate, map.Data);
-            mocks.VerifyAll();
         }
 
         [Test]

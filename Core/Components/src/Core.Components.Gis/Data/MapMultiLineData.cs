@@ -32,7 +32,7 @@ namespace Core.Components.Gis.Data
     public class MapMultiLineData : MapData
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MapLineData"/>.
+        /// Creates a new instance of <see cref="MapMultiLineData"/>.
         /// </summary>
         /// <param name="lines">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> as (X,Y) lines.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="lines"/> is <c>null</c>.</exception>
@@ -40,7 +40,7 @@ namespace Core.Components.Gis.Data
         {
             if (lines == null)
             {
-                var message = String.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData));
+                var message = String.Format("A lines collection is required when creating a subclass of {0}.", typeof(MapMultiLineData));
                 throw new ArgumentNullException("lines", message);
             }
             Lines = lines.ToArray();
@@ -48,7 +48,7 @@ namespace Core.Components.Gis.Data
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the <see cref="PointBasedMapData"/> is visible.
+        /// Gets or sets a value indicating whether the <see cref="MapMultiLineData"/> is visible.
         /// </summary>
         public bool IsVisible { get; set; }
 

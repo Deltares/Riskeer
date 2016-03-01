@@ -108,36 +108,36 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 if (HasReferenceLinePoints())
                 {
-                    mapDataList.Add(GetReferenceLineData());
+                    mapDataList.Add(GetReferenceLineMapData());
                 }
 
                 if (HasHydraulicBoundaryLocations())
                 {
-                    mapDataList.Add(GetHydraulicBoundaryLocations());
+                    mapDataList.Add(GetHydraulicBoundaryLocationsMapData());
                 }
 
                 if (HasSurfaceLines())
                 {
-                    mapDataList.Add(GetSurfaceLines());
+                    mapDataList.Add(GetSurfaceLinesMapData());
                 }
             }
 
             map.Data = new MapDataCollection(mapDataList);
         }
 
-        private MapData GetReferenceLineData()
+        private MapData GetReferenceLineMapData()
         {
             Point2D[] referenceLinePoints = data.Parent.ReferenceLine.Points.ToArray();
             return new MapLineData(referenceLinePoints);
         }
 
-        private MapData GetHydraulicBoundaryLocations()
+        private MapData GetHydraulicBoundaryLocationsMapData()
         {
             Point2D[] hrLocations = data.Parent.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
             return new MapPointData(hrLocations);
         }
 
-        private MapData GetSurfaceLines()
+        private MapData GetSurfaceLinesMapData()
         {
             IEnumerable<IEnumerable<Point2D>> surfaceLines = data.WrappedData.SurfaceLines.Select(sl => sl.Points.Select(p => new Point2D(p.X, p.Y)));
             return new MapMultiLineData(surfaceLines);

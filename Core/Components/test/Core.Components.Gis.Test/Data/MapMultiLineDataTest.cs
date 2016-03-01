@@ -20,7 +20,7 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate test = () => new MapMultiLineData(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, string.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData)));
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, string.Format("A lines collection is required when creating a subclass of {0}.", typeof(MapMultiLineData)));
         }
 
         [Test]
