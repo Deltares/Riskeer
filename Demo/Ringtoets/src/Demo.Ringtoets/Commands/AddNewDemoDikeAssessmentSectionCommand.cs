@@ -2,6 +2,7 @@
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
@@ -54,6 +55,7 @@ namespace Demo.Ringtoets.Commands
             };
             InitializeDemoReferenceLine(demoAssessmentSection);
             InitializeDemoHydraulicBoundaryDatabase(demoAssessmentSection);
+            InitializeDemoFailureMechanismSections(demoAssessmentSection);
             InitializeDemoPipingData(demoAssessmentSection);
             return demoAssessmentSection;
         }
@@ -76,6 +78,20 @@ namespace Demo.Ringtoets.Commands
                 {
                     hydraulicBoundaryDatabaseImporter.ValidateAndConnectTo(tempPath.FilePath);
                     hydraulicBoundaryDatabaseImporter.Import(new HydraulicBoundaryDatabaseContext(demoAssessmentSection), tempPath.FilePath);
+                }
+            }
+        }
+
+        private void InitializeDemoFailureMechanismSections(DikeAssessmentSection demoAssessmentSection)
+        {
+            using (var temporaryShapeFile = new TemporaryImportFile("traject_10-1_vakken.shp",
+                                                                    "traject_10-1_vakken.dbf", "traject_10-1_vakken.prj", "traject_10-1_vakken.shx"))
+            {
+                var importer = new FailureMechanismSectionsImporter();
+                foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
+                {
+                    var context = new FailureMechanismSectionsContext(failureMechanism, demoAssessmentSection);
+                    importer.Import(context, temporaryShapeFile.FilePath);
                 }
             }
         }

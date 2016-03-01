@@ -106,6 +106,10 @@
       <Name>Ringtoets.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+      <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
+      <Name>Ringtoets.Common.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
@@ -146,6 +150,10 @@
     <EmbeddedResource Include="Resources\traject_10-1.prj" />
     <EmbeddedResource Include="Resources\traject_10-1.shp" />
     <EmbeddedResource Include="Resources\traject_10-1.shx" />
+    <EmbeddedResource Include="Resources\traject_10-1_vakken.dbf" />
+    <EmbeddedResource Include="Resources\traject_10-1_vakken.prj" />
+    <EmbeddedResource Include="Resources\traject_10-1_vakken.shp" />
+    <EmbeddedResource Include="Resources\traject_10-1_vakken.shx" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Ribbons\RingtoetsDemoProjectRibbon.xaml">

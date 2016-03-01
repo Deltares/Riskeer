@@ -77,6 +77,11 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(1, demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Count);
             var calculation = demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.GetPipingCalculations().First();
             AssertCalculationAbleToCalculate(calculation);
+
+            foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
+            {
+                Assert.AreEqual(130, failureMechanism.Sections.Count());
+            }
             mocks.VerifyAll();
         }
 

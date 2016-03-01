@@ -64,6 +64,11 @@ namespace Demo.Ringtoets.Test.Commands
             var hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
             Assert.AreEqual(18, hydraulicBoundaryLocations.Length);
 
+            foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
+            {
+                Assert.AreEqual(130, failureMechanism.Sections.Count());
+            }
+
             mocks.VerifyAll();
         }
     }
