@@ -97,6 +97,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converter\MapMultiLineDataConverterTest.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Converter\MapDataFactoryTest.cs" />
     <Compile Include="Converter\MapPointDataConverterTest.cs" />
     <Compile Include="MapFunctionSelectionZoomTest.cs" />
+    <Compile Include="MouseCoordinatesMapExtensionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

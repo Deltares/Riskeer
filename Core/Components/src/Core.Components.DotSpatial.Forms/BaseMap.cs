@@ -19,11 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.Gis.Data;
 using DotSpatial.Controls;
+using DotSpatial.Extensions;
 using IMap = Core.Components.Gis.IMap;
 
 namespace Core.Components.DotSpatial.Forms
@@ -38,6 +40,7 @@ namespace Core.Components.DotSpatial.Forms
         private MapData data;
         private Map map;
         private IMapFunction mapFunctionSelectionZoom;
+        private IExtension mouseCoordinatesMapExtension;
 
         /// <summary>
         /// Creates a new instance of <see cref="BaseMap"/>.
@@ -155,8 +158,10 @@ namespace Core.Components.DotSpatial.Forms
             {
                 ProjectionModeDefine = ActionMode.Never,
                 Dock = DockStyle.Fill,
-                FunctionMode = FunctionMode.Pan
+                FunctionMode = FunctionMode.Pan,
             };
+
+            mouseCoordinatesMapExtension = new MouseCoordinatesMapExtension(map);
 
             Controls.Add(map);
         }
