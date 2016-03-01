@@ -36,7 +36,6 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Placeholder;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -44,7 +43,6 @@ using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
-
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -202,6 +200,17 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
+        #region FailureMechanismSectionsContext
+
+        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddImportItem()
+                      .Build();
+        }
+
+        #endregion
+
         # region AssessmentSectionBase
 
         private object[] AssessmentSectionBaseChildNodeObjects(AssessmentSectionBase nodeData)
@@ -341,17 +350,6 @@ namespace Ringtoets.Integration.Plugin
         }
 
         # endregion
-
-        #region FailureMechanismSectionsContext
-
-        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddImportItem()
-                      .Build();
-        }
-
-        #endregion
 
         # region PlaceholderWithReadonlyName
 
@@ -570,7 +568,7 @@ namespace Ringtoets.Integration.Plugin
 
             nodeData.Parent.NotifyObservers();
             nodeData.NotifyObservers();
-            log.InfoFormat(RingtoetsFormsResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked, selectedFile);
+            log.InfoFormat(RingtoetsFormsResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked, nodeData.Parent.HydraulicBoundaryDatabase.FilePath);
         }
 
         #endregion
