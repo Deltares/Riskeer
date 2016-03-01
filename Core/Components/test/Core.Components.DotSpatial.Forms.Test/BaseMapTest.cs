@@ -237,13 +237,13 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             var map = new BaseMap();
 
-            if (isShowingCoordinates)
+            if (!isShowingCoordinates)
             {
                 // Make sure the state is correct
                 map.ToggleMouseCoordinates();
 
                 // Precondition
-                Assert.IsTrue(map.IsMouseCoordinatesEnabled);
+                Assert.IsFalse(map.IsMouseCoordinatesEnabled);
             }
 
             // Call
