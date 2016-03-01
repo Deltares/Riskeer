@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 
 using NUnit.Framework;
 
@@ -205,6 +207,214 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(intersectionHeights.Select(y => new Point2D(x, y)), result);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        public void ConvertLinePointsToLineSegments_TooFewPoints_ReturnEmpty(int pointCount)
+        {
+            // Setup
+            var linePoints = Enumerable.Repeat(new Point2D(), pointCount);
+
+            // Call
+            IEnumerable<Segment2D> segments = Math2D.ConvertLinePointsToLineSegments(linePoints);
+
+            // Assert
+            CollectionAssert.IsEmpty(segments);
+        }
+
+        [Test]
+        public void ConvertLinePointsToLineSegments_TwoPoints_ReturnOneSegmentOfThoseTwoPoints()
+        {
+            // Setup
+            var linePoints = new[]
+            {
+                new Point2D(1.1, 2.2),
+                new Point2D(3.3, 4.4),
+            };
+
+            // Call
+            Segment2D[] segments = Math2D.ConvertLinePointsToLineSegments(linePoints).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, segments.Length);
+            Assert.AreEqual(linePoints[0], segments[0].FirstPoint);
+            Assert.AreEqual(linePoints[1], segments[0].SecondPoint);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        public void SplitLineAtLengths_TooFewPoints_ThrowArgumentException(int pointCount)
+        {
+            // Setup
+            var originalLine = Enumerable.Repeat(new Point2D(0.0, 0.0), pointCount);
+
+            var lengths = new[]
+            {
+                0.0
+            };
+
+            // Call
+            TestDelegate call = () => Math2D.SplitLineAtLengths(originalLine, lengths);
+
+            // Assert
+            var expectedMessage = "Er zijn niet genoeg punten beschikbaar om een lijn te definiëren.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void SplitLineAtLengths_NegativeLength_ThrowArgumentException()
+        {
+            // Setup
+            var originalLine = new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(6.0, 0.0)
+            };
+
+            var lengths = new[]
+            {
+                2.0,
+                6.0,
+                -2.0
+            };
+
+            // Call
+            TestDelegate call = () => Math2D.SplitLineAtLengths(originalLine, lengths);
+
+            // Assert
+            var expectedMessage = "Er mogen geen negatieve lengtes worden opgegeven om de lijn mee op te knippen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(0.0)]
+        [TestCase(2.0 - 1.1e-6)]
+        [TestCase(2.0 + 1.1e-6)]
+        [TestCase(67.8)]
+        public void SplitLineAtLengths_LengthsDoNotFullyCoverLine_ThrowArgumentException(double l)
+        {
+            // Setup
+            var originalLine = new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(6.0, 0.0)
+            };
+
+            var lengths = new[]
+            {
+                2.0,
+                2.0,
+                l
+            };
+
+            // Call
+            TestDelegate call = () => Math2D.SplitLineAtLengths(originalLine, lengths);
+
+            // Assert
+            var expectedMessage = "De som van alle lengtes moet gelijk zijn aan de lengte van de opgegeven lijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void SplitLineAtLengths_OneLengthsForWholeLine_ReturnAllLinePoints()
+        {
+            // Setup
+            var originalLine = new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(2.0, 0.0),
+                new Point2D(4.0, 0.0),
+                new Point2D(6.0, 0.0)
+            };
+
+            var lengths = new[]
+            {
+                6.0
+            };
+
+            // Call
+            IEnumerable<Point2D>[] lineSplits = Math2D.SplitLineAtLengths(originalLine, lengths);
+
+            // Assert
+            Assert.AreEqual(1, lineSplits.Length);
+            Assert.AreNotSame(originalLine, lineSplits[0]);
+            CollectionAssert.AreEqual(originalLine, lineSplits[0]);
+        }
+
+        [Test]
+        public void SplitLineAtLengths_LongLineSplitInFourPieces_ReturnFourSplitResults()
+        {
+            // Setup
+            var originalLine = new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(20.0, 60.0),
+            };
+
+            var lengths = GetLengthsBasedOnReletative(new[]
+            {
+                0.25,
+                0.25,
+                0.15,
+                0.35
+            }, originalLine);
+
+            // Call
+            Point2D[][] lineSplits = Math2D.SplitLineAtLengths(originalLine, lengths);
+
+            // Assert
+            var doubleToleranceComparer = new Point2DComparerWithTolerance(1e-6);
+            Assert.AreEqual(4, lineSplits.Length);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(0,0), 
+                new Point2D(5.0, 15.0)
+            }, lineSplits[0], doubleToleranceComparer);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(5.0, 15.0),
+                new Point2D(10.0, 30)
+            }, lineSplits[1], doubleToleranceComparer);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(10.0, 30.0),
+                new Point2D(13.0, 39.0)
+            }, lineSplits[2], doubleToleranceComparer);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(13.0, 39.0),
+                new Point2D(20.0, 60.0)
+            }, lineSplits[3], doubleToleranceComparer);
+        }
+
+        private double[] GetLengthsBasedOnReletative(double[] relativeLengths, IEnumerable<Point2D> lineGeometryPoints)
+        {
+            var lineLength = Math2D.ConvertLinePointsToLineSegments(lineGeometryPoints).Sum(s => s.Length);
+            return relativeLengths.Select(l => lineLength * l).ToArray();
+        }
+
+        private class Point2DComparerWithTolerance : IComparer<Point2D>, IComparer
+        {
+            private readonly double tolerance;
+
+            public Point2DComparerWithTolerance(double tolerance)
+            {
+                this.tolerance = tolerance;
+            }
+
+            public int Compare(Point2D p0, Point2D p1)
+            {
+                double diff = p0.GetEuclideanDistanceTo(p1);
+                return Math.Abs(diff) < tolerance ? 0 : 1;
+            }
+
+            public int Compare(object x, object y)
+            {
+                return Compare(x as Point2D, y as Point2D);
+            }
         }
     }
 }

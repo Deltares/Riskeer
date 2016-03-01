@@ -144,4 +144,13 @@
   <data name="Math2D_LineIntersectionWithLine_Line_points_are_equal" xml:space="preserve">
     <value>Punten voor een lijn moeten uit elkaar liggen om een lijn te kunnen vormen.</value>
   </data>
+  <data name="Math2D_SplitLineAtLengths_Sum_of_lengths_must_equal_line_length" xml:space="preserve">
+    <value>De som van alle lengtes moet gelijk zijn aan de lengte van de opgegeven lijn.</value>
+  </data>
+  <data name="Math2D_SplitLineAtLengths_All_lengths_cannot_be_negative" xml:space="preserve">
+    <value>Er mogen geen negatieve lengtes worden opgegeven om de lijn mee op te knippen.</value>
+  </data>
+  <data name="Math2D_SplitLineAtLengths_Not_enough_points_to_make_line" xml:space="preserve">
+    <value>Er zijn niet genoeg punten beschikbaar om een lijn te definiëren.</value>
+  </data>
 </root>

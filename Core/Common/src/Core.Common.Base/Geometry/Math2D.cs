@@ -26,6 +26,8 @@ using System.Linq;
 
 using Core.Common.Base.Properties;
 
+using Vector = MathNet.Numerics.LinearAlgebra.Double.Vector;
+
 namespace Core.Common.Base.Geometry
 {
     /// <summary>
@@ -37,6 +39,114 @@ namespace Core.Common.Base.Geometry
         /// Constant which is used to precision errors in <see cref="double"/> comparisons.
         /// </summary>
         private const double epsilonForComparisons = 1e-8;
+
+        /// <summary>
+        /// Splits the line geometry at given lengths.
+        /// </summary>
+        /// <param name="linePoints">The line to split.</param>
+        /// <param name="lengths">The lengths where the splits should be placed.</param>
+        /// <returns>A sequence of line geometries of N elements long where N is the number
+        /// of elements in <paramref name="lengths"/>.</returns>
+        /// <exception cref="ArgumentException">When the sum of all elements in <paramref name="lengths"/>
+        /// does not fully cover the line given by <paramref name="linePoints"/> - or - when
+        /// <paramref name="lengths"/> contains negative values - or - </exception>
+        public static Point2D[][] SplitLineAtLengths(IEnumerable<Point2D> linePoints, double[] lengths)
+        {
+            if (lengths.Any(l => l < 0))
+            {
+                throw new ArgumentException(Resources.Math2D_SplitLineAtLengths_All_lengths_cannot_be_negative, "lengths");
+            }
+            if (linePoints.Count() <= 1)
+            {
+                throw new ArgumentException(Resources.Math2D_SplitLineAtLengths_Not_enough_points_to_make_line, "linePoints");
+            }
+            Segment2D[] lineSegments = ConvertLinePointsToLineSegments(linePoints).ToArray();
+
+            if (Math.Abs(lengths.Sum(l => l) - lineSegments.Sum(s => s.Length)) > 1e-6)
+            {
+                throw new ArgumentException(Resources.Math2D_SplitLineAtLengths_Sum_of_lengths_must_equal_line_length, "lengths");
+            }
+
+            var splitResults = new Point2D[lengths.Length][];
+
+            int index = 0;
+            double lineSegmentRemainder = lineSegments[index].Length;
+            double distanceOnSegment = 0;
+            Point2D startPoint = lineSegments[index].FirstPoint;
+            for (int i = 0; i < lengths.Length; i++)
+            {
+                double splitDistance = lengths[i];
+                var subLine = new List<Point2D>
+                {
+                    startPoint
+                };
+
+                while (splitDistance > lineSegmentRemainder)
+                {
+                    splitDistance -= lineSegmentRemainder;
+                    subLine.Add(lineSegments[index].SecondPoint);
+
+                    if (index < lineSegments.Length - 1)
+                    {
+                        lineSegmentRemainder = lineSegments[++index].Length;
+                        distanceOnSegment = 0;
+                    }
+                }
+
+                if (i < lengths.Length - 1)
+                {
+                    Point2D interpolatedPoint = GetInterpolatedPoint(lineSegments[index], distanceOnSegment + splitDistance);
+                    subLine.Add(interpolatedPoint);
+
+                    distanceOnSegment += splitDistance;
+                    lineSegmentRemainder -= splitDistance;
+                    startPoint = interpolatedPoint;
+                }
+                else
+                {
+                    // Working on the last segment
+                    if (!subLine.Contains(lineSegments[index].SecondPoint))
+                    {
+                        subLine.Add(lineSegments[index].SecondPoint);
+                    }
+                }
+                
+                splitResults[i] = subLine.ToArray();
+            }
+
+            return splitResults;
+        }
+
+        private static Point2D GetInterpolatedPoint(Segment2D lineSegment, double splitDistance)
+        {
+            var interpolationFactor = splitDistance / lineSegment.Length;
+            Vector segmentVector = lineSegment.SecondPoint - lineSegment.FirstPoint;
+            double interpolatedX = lineSegment.FirstPoint.X + interpolationFactor * segmentVector[0];
+            double interpolatedY = lineSegment.FirstPoint.Y + interpolationFactor * segmentVector[1];
+
+            return new Point2D(interpolatedX, interpolatedY);
+        }
+
+        /// <summary>
+        /// Creates an enumerator that converts a sequence of line points to a sequence of line segments.
+        /// </summary>
+        /// <param name="linePoints">The line points.</param>
+        /// <returns>A sequence of N elements, where N is the number of elements in <paramref name="linePoints"/>
+        /// - 1, or 0 if <paramref name="linePoints"/> only has one or no elements.</returns>
+        public static IEnumerable<Segment2D> ConvertLinePointsToLineSegments(IEnumerable<Point2D> linePoints)
+        {
+            Point2D endPoint = null;
+            foreach (Point2D linePoint in linePoints)
+            {
+                Point2D startPoint = endPoint;
+                endPoint = linePoint;
+
+                if (startPoint != null)
+                {
+                    yield return new Segment2D(startPoint, endPoint);
+                }
+            }
+        }
 
         /// <summary>
         /// Determines the intersection point of a line which passes through the <paramref name="line1Point1"/> and 

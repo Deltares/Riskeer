@@ -125,6 +125,33 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er mogen geen negatieve lengtes worden opgegeven om de lijn mee op te knippen..
+        /// </summary>
+        public static string Math2D_SplitLineAtLengths_All_lengths_cannot_be_negative {
+            get {
+                return ResourceManager.GetString("Math2D_SplitLineAtLengths_All_lengths_cannot_be_negative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn niet genoeg punten beschikbaar om een lijn te definiëren..
+        /// </summary>
+        public static string Math2D_SplitLineAtLengths_Not_enough_points_to_make_line {
+            get {
+                return ResourceManager.GetString("Math2D_SplitLineAtLengths_Not_enough_points_to_make_line", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De som van alle lengtes moet gelijk zijn aan de lengte van de opgegeven lijn..
+        /// </summary>
+        public static string Math2D_SplitLineAtLengths_Sum_of_lengths_must_equal_line_length {
+            get {
+                return ResourceManager.GetString("Math2D_SplitLineAtLengths_Sum_of_lengths_must_equal_line_length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project.
         /// </summary>
         public static string Project_Constructor_Default_name {
