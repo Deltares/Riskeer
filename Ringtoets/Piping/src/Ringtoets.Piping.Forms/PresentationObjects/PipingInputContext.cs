@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {

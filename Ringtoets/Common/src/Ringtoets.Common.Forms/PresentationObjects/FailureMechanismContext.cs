@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Ringtoets.Common.Data;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
@@ -43,6 +44,16 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             Parent = parent;
         }
 
+        /// <summary>
+        /// Gets the parent of <see cref="WrappedData"/>.
+        /// </summary>
+        public AssessmentSectionBase Parent { get; private set; }
+
+        /// <summary>
+        /// Gets the wrapped failure mechanism.
+        /// </summary>
+        public T WrappedData { get; private set; }
+
         private void AssertInputsAreNotNull(T wrappedFailureMechanism, AssessmentSectionBase parent)
         {
             if (wrappedFailureMechanism == null)
@@ -56,14 +67,35 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             }
         }
 
-        /// <summary>
-        /// Gets the parent of <see cref="WrappedData"/>.
-        /// </summary>
-        public AssessmentSectionBase Parent { get; private set; }
+        #region Equals implementation
 
-        /// <summary>
-        /// Gets the wrapped failure mechanism.
-        /// </summary>
-        public T WrappedData { get; private set; }
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((FailureMechanismContext<T>) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return EqualityComparer<T>.Default.GetHashCode(WrappedData);
+        }
+
+        private bool Equals(FailureMechanismContext<T> other)
+        {
+            return EqualityComparer<T>.Default.Equals(WrappedData, other.WrappedData);
+        }
+
+        #endregion
     }
 }
