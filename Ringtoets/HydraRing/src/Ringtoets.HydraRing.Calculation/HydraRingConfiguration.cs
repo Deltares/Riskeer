@@ -62,6 +62,10 @@ namespace Ringtoets.HydraRing.Calculation
         private readonly HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType;
         private readonly HydraRingUncertaintiesType uncertaintiesType;
 
+        private const double defaultLayerId = 1;
+        private const double defaultAlternativeId = 1;
+        private const double defaultHydraRingValue = 0.0;
+
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.
         /// </summary>
@@ -248,10 +252,10 @@ namespace Ringtoets.HydraRing.Calculation
                         "MechanismId", failureMechanismDefaults.MechanismId
                     },
                     {
-                        "LayerId", null // Fixed: no support for revetments
+                        "LayerId", defaultLayerId // Fixed: no support for revetments
                     },
                     {
-                        "AlternativeId", null // Fixed: no support for piping
+                        "AlternativeId", defaultAlternativeId // Fixed: no support for piping
                     },
                     {
                         "Method", failureMechanismDefaults.CalculationTypeId
@@ -260,16 +264,16 @@ namespace Ringtoets.HydraRing.Calculation
                         "VariableId", failureMechanismDefaults.VariableId
                     },
                     {
-                        "LoadVariableId", null // Fixed: not relevant
+                        "LoadVariableId", defaultHydraRingValue // Fixed: not relevant
                     },
                     {
-                        "TableMin", null // Fixed: no support for type 3 computations (see "Method")
+                        "TableMin", defaultHydraRingValue // Fixed: no support for type 3 computations (see "Method")
                     },
                     {
-                        "TableMax", null // Fixed: no support for type 3 computations (see "Method")
+                        "TableMax", defaultHydraRingValue // Fixed: no support for type 3 computations (see "Method")
                     },
                     {
-                        "TableStepSize", null // Fixed: no support for type 3 computations (see "Method")
+                        "TableStepSize", defaultHydraRingValue // Fixed: no support for type 3 computations (see "Method")
                     },
                     {
                         "ValueMin", GetHydraRingValue(failureMechanismSettings.ValueMin)
@@ -307,10 +311,10 @@ namespace Ringtoets.HydraRing.Calculation
                             "MechanismId", failureMechanismDefaults.MechanismId
                         },
                         {
-                            "LayerId", null // Fixed: no support for revetments
+                            "LayerId", defaultLayerId // Fixed: no support for revetments
                         },
                         {
-                            "AlternativeId", null // Fixed: no support for piping
+                            "AlternativeId", defaultAlternativeId // Fixed: no support for piping
                         },
                         {
                             "SubMechanismId", subMechanimsId
@@ -388,10 +392,10 @@ namespace Ringtoets.HydraRing.Calculation
                             "MechanismId", failureMechanismDefaults.MechanismId
                         },
                         {
-                            "LayerId", null // Fixed: no support for revetments
+                            "LayerId", defaultLayerId // Fixed: no support for revetments
                         },
                         {
-                            "AlternativeId", null // Fixed: no support for piping
+                            "AlternativeId", defaultAlternativeId // Fixed: no support for piping
                         },
                         {
                             "VariableId", hydraRingVariable.VariableId
@@ -399,7 +403,7 @@ namespace Ringtoets.HydraRing.Calculation
                         {
                             "Value", hydraRingVariable.DistributionType == HydraRingDistributionType.Deterministic
                                          ? GetHydraRingValue(hydraRingVariable.Value)
-                                         : null
+                                         : defaultHydraRingValue
                         },
                         {
                             "DistributionType", (int?) hydraRingVariable.DistributionType
@@ -407,21 +411,21 @@ namespace Ringtoets.HydraRing.Calculation
                         {
                             "Parameter1", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic
                                               ? GetHydraRingValue(hydraRingVariable.Mean)
-                                              : null
+                                              : defaultHydraRingValue
                         },
                         {
                             "Parameter2", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic
                                           && hydraRingVariable.DeviationType == HydraRingDeviationType.Standard
                                               ? GetHydraRingValue(hydraRingVariable.Variability)
-                                              : null
+                                              : defaultHydraRingValue
                         },
                         {
                             "Parameter3", hydraRingVariable.DistributionType == HydraRingDistributionType.LogNormal
                                               ? GetHydraRingValue(hydraRingVariable.Shift)
-                                              : null
+                                              : defaultHydraRingValue
                         },
                         {
-                            "Parameter4", null // Fixed: Not relevant
+                            "Parameter4", defaultHydraRingValue // Fixed: Not relevant
                         },
                         {
                             "DeviationType", (int?) hydraRingVariable.DeviationType
@@ -430,7 +434,7 @@ namespace Ringtoets.HydraRing.Calculation
                             "CoefficientOfVariation", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic
                                                       && hydraRingVariable.DeviationType == HydraRingDeviationType.Variation
                                                           ? GetHydraRingValue(hydraRingVariable.Variability)
-                                                          : null
+                                                          : defaultHydraRingValue
                         },
                         {
                             "CorrelationLength", GetHydraRingValue(variableDefaults.CorrelationLength)
@@ -494,10 +498,10 @@ namespace Ringtoets.HydraRing.Calculation
                         "MechanismId", failureMechanismDefaults.MechanismId
                     },
                     {
-                        "LayerId", null // Fixed: no support for revetments
+                        "LayerId", defaultLayerId // Fixed: no support for revetments
                     },
                     {
-                        "AlternativeId", null // Fixed: no support for piping
+                        "AlternativeId", defaultAlternativeId // Fixed: no support for piping
                     },
                     {
                         "FaultTreeModelId", failureMechanismSettings.FaultTreeModelId
@@ -531,10 +535,10 @@ namespace Ringtoets.HydraRing.Calculation
                                 "MechanismId", failureMechanismDefaults.MechanismId
                             },
                             {
-                                "LayerId", null // Fixed: no support for revetments
+                                "LayerId", defaultLayerId // Fixed: no support for revetments
                             },
                             {
-                                "AlternativeId", null // Fixed: no support for piping
+                                "AlternativeId", defaultAlternativeId // Fixed: no support for piping
                             },
                             {
                                 "SubMechanismId", subMechanismId
@@ -698,7 +702,7 @@ namespace Ringtoets.HydraRing.Calculation
 
         private double? GetHydraRingValue(double value)
         {
-            return !double.IsNaN(value) ? (double?) value : null;
+            return !double.IsNaN(value) ? value : defaultHydraRingValue;
         }
     }
 }
