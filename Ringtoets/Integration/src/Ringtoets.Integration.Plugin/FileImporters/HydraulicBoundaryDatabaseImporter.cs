@@ -20,11 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using Core.Common.IO.Exceptions;
+using Core.Common.Utils.Builders;
 using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
+using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.Properties;
 
@@ -36,18 +39,35 @@ namespace Ringtoets.Integration.Plugin.FileImporters
     /// </summary>
     public class HydraulicBoundaryDatabaseImporter : IDisposable
     {
+        private string hydraulicBoundaryDatabaseFilePath;
         private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryDatabaseImporter));
 
         private HydraulicBoundarySqLiteDatabaseReader hydraulicBoundaryDatabaseReader;
+        private HydraulicLocationConfigurationSqLiteDatabaseReader hydraulicLocationConfigurationDatabaseReader;
 
         /// <summary>
         /// Validates the file and opens a connection.
         /// </summary>
         /// <param name="filePath">The path to the file to read.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when the given file at <paramref name="filePath"/> cannot be read.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when: <list type="bullet">
+        /// <item>The given file at <paramref name="filePath"/> cannot be read.</item>
+        /// <item>The file 'HLCD.sqlite' in the same folder as <paramref name="filePath"/> cannot be read.</item></list></exception>
         public void ValidateAndConnectTo(string filePath)
         {
             hydraulicBoundaryDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(filePath);
+            hydraulicBoundaryDatabaseFilePath = filePath;
+            var fileDirectory = Path.GetDirectoryName(filePath);
+            if (fileDirectory == null)
+            {
+                throw new ArgumentNullException("filePath");
+            }
+            var hlcdFilePath = Path.Combine(fileDirectory, "hlcd.sqlite");
+            if (!File.Exists(hlcdFilePath))
+            {
+                var message = new FileReaderErrorMessageBuilder(filePath).Build(Resources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
+                throw new CriticalFileReadException(message);
+            }
+            hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath);
         }
 
         /// <summary>
@@ -60,22 +80,20 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         }
 
         /// <summary>
-        /// Based upon the data read from the hydraulic boundary database file located at 
-        /// <paramref name="filePath"/>, a new instance of <see cref="HydraulicBoundaryDatabase"/>, 
-        /// and saved into <paramref name="targetItem"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>, based upon the data read from 
+        /// the hydraulic boundary database file, and saved into <paramref name="targetItem"/>.
         /// </summary>
         /// <param name="targetItem"><see cref="HydraulicBoundaryDatabaseContext"/> to set the newly 
         /// created <see cref="HydraulicBoundaryDatabase"/>.</param>
-        /// <param name="filePath">The path of the hydraulic boundary database file to open.</param>
         /// <returns><c>True</c> if the import was successful, <c>false</c> otherwise.</returns>
-        public bool Import(HydraulicBoundaryDatabaseContext targetItem, string filePath)
+        public bool Import(HydraulicBoundaryDatabaseContext targetItem)
         {
             if (hydraulicBoundaryDatabaseReader == null)
             {
                 throw new InvalidOperationException(Resources.HydraulicBoundaryDatabaseImporter_File_not_opened);
             }
 
-            var importResult = GetHydraulicBoundaryDatabase(filePath);
+            var importResult = GetHydraulicBoundaryDatabase(hydraulicBoundaryDatabaseFilePath);
 
             if (importResult == null)
             {
@@ -94,6 +112,11 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 hydraulicBoundaryDatabaseReader.Dispose();
                 hydraulicBoundaryDatabaseReader = null;
             }
+            if (hydraulicLocationConfigurationDatabaseReader != null)
+            {
+                hydraulicLocationConfigurationDatabaseReader.Dispose();
+                hydraulicLocationConfigurationDatabaseReader = null;
+            }
         }
 
         private void HandleException(Exception e)
@@ -104,6 +127,13 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase(string path)
         {
+            // Get region
+            var regionId = GetRegionId();
+            if (regionId == 0)
+            {
+                return null;
+            }
+
             try
             {
                 var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -117,23 +147,41 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 {
                     try
                     {
-                        hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryDatabaseReader.ReadLocation());
+                        HrdLocation hrdLocation = hydraulicBoundaryDatabaseReader.ReadLocation();
+                        var locationId = hydraulicLocationConfigurationDatabaseReader.GetLocationId(regionId, hrdLocation.HrdLocationId);
+                        var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(locationId, hrdLocation.Name, hrdLocation.LocationX, hrdLocation.LocationY);
+
+                        hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
                     }
-                    catch (CriticalFileReadException e)
+                    catch (LineParseException e)
                     {
-                        var message = string.Format(Resources.HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped, path);
-                        log.Error(message, e);
-                        return null;
+                        HandleException(e);
                     }
                 }
                 return hydraulicBoundaryDatabase;
             }
-            catch (LineParseException e)
+            catch (CriticalFileReadException e)
             {
                 HandleException(e);
             }
-
             return null;
+        }
+
+        private long GetRegionId()
+        {
+            try
+            {
+                return hydraulicBoundaryDatabaseReader.GetRegionId();
+            }
+            catch (Exception e)
+            {
+                if (e is LineParseException || e is CriticalFileReadException)
+                {
+                    HandleException(e);
+                    return 0;
+                }
+                throw;
+            }
         }
 
         private static void AddImportedDataToModel(AssessmentSectionBase assessmentSection, HydraulicBoundaryDatabase importedData)

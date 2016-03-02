@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
-
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -72,12 +71,12 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeDemoHydraulicBoundaryDatabase(DikeAssessmentSection demoAssessmentSection)
         {
-            using (var tempPath = new TemporaryImportFile("HRD_dutchcoastsouth.sqlite"))
+            using (var tempPath = new TemporaryImportFile("HRD_dutchcoastsouth.sqlite", "HLCD.sqlite"))
             {
                 using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
                 {
                     hydraulicBoundaryDatabaseImporter.ValidateAndConnectTo(tempPath.FilePath);
-                    hydraulicBoundaryDatabaseImporter.Import(new HydraulicBoundaryDatabaseContext(demoAssessmentSection), tempPath.FilePath);
+                    hydraulicBoundaryDatabaseImporter.Import(new HydraulicBoundaryDatabaseContext(demoAssessmentSection));
                 }
             }
         }

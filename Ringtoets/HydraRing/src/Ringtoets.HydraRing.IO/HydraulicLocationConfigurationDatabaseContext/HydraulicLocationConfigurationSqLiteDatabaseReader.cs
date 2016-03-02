@@ -59,7 +59,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
         /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        public int GetLocationId(int regionId, int hrdLocationId)
+        public int GetLocationId(long regionId, long hrdLocationId)
         {
             var locationIdQuery = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdQuery();
             var regionParameter = new SQLiteParameter

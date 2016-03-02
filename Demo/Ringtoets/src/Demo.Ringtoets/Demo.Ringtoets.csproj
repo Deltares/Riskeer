@@ -177,6 +177,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\HRD_dutchcoastsouth.sqlite" />
     <EmbeddedResource Include="Resources\DR6_surfacelines.krp.csv" />
+    <EmbeddedResource Include="Resources\HLCD.sqlite" />
     <None Include="Resources\map.png" />
   </ItemGroup>
   <ItemGroup>

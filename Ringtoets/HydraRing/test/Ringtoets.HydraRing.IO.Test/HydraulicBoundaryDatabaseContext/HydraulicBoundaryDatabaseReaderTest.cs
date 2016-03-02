@@ -28,7 +28,6 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
 using Ringtoets.HydraRing.IO.Properties;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
@@ -193,13 +192,13 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         public void GetRegionId_ValidFile_ExpectedValues()
         {
             // Setup
-            const int expectedRegionId = 13;
+            const long expectedRegionId = 13;
             var dbFile = Path.Combine(testDataPath, "complete.sqlite");
 
             using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
             {
                 // Call
-                int regionId = hydraulicBoundarySqLiteDatabaseReader.GetRegionId();
+                long regionId = hydraulicBoundarySqLiteDatabaseReader.GetRegionId();
 
                 // Assert
                 Assert.AreEqual(expectedRegionId, regionId);
@@ -287,10 +286,10 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             {
                 // Call
                 hydraulicBoundarySqLiteDatabaseReader.PrepareReadLocation();
-                HydraulicBoundaryLocation location = hydraulicBoundarySqLiteDatabaseReader.ReadLocation();
+                HrdLocation location = hydraulicBoundarySqLiteDatabaseReader.ReadLocation();
 
                 // Assert
-                Assert.IsInstanceOf<HydraulicBoundaryLocation>(location);
+                Assert.IsInstanceOf<HrdLocation>(location);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -301,7 +300,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             // Setup
             const int nrOfLocations = 18;
             var dbFile = Path.Combine(testDataPath, "complete.sqlite");
-            var boundaryLocations = new List<HydraulicBoundaryLocation>();
+            var boundaryLocations = new List<HrdLocation>();
             CollectionAssert.IsEmpty(boundaryLocations);
 
             using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
@@ -318,7 +317,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
                 Assert.IsNull(hydraulicBoundarySqLiteDatabaseReader.ReadLocation());
             }
 
-            CollectionAssert.AllItemsAreInstancesOfType(boundaryLocations, typeof(HydraulicBoundaryLocation));
+            CollectionAssert.AllItemsAreInstancesOfType(boundaryLocations, typeof(HrdLocation));
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
@@ -373,7 +372,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition failed: The file should be writable to begin with.");
 
             HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = null;
-            HydraulicBoundaryLocation boundaryLocation;
+            HrdLocation boundaryLocation;
             try
             {
                 hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile);

@@ -77,7 +77,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             MoveNext();
         }
 
-        public HydraulicBoundaryLocation ReadLocation()
+        public HrdLocation ReadLocation()
         {
             if (!HasNext)
             {
@@ -86,7 +86,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
 
             try
             {
-                return ReadHydraulicBoundaryLocation();
+                return ReadHrdLocation();
             }
             catch (InvalidCastException e)
             {
@@ -122,12 +122,12 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         /// <summary>
         /// Gets the region id from the metadata table.
         /// </summary>
-        /// <returns>The region id found in the database, or -1 if the region id
+        /// <returns>The region id found in the database, or 0 if the region id
         /// cannot be found.</returns>
         /// <exception cref="InvalidCastException">Thrown when the database returned incorrect 
         /// values for required properties.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when a query could not be executed on the database schema.</exception>
-        public int GetRegionId()
+        public long GetRegionId()
         {
             string versionQuery = HydraulicBoundaryDatabaseQueryBuilder.GetRegionIdQuery();
             var sqliteParameter = new SQLiteParameter
@@ -138,7 +138,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             {
                 using (SQLiteDataReader dataReader = CreateDataReader(versionQuery, sqliteParameter))
                 {
-                    return !dataReader.Read() ? 0 : Convert.ToInt32(dataReader[GeneralTableDefinitions.RegionId]);
+                    return !dataReader.Read() ? 0 : Convert.ToInt64(dataReader[GeneralTableDefinitions.RegionId]);
                 }
             }
             catch (InvalidCastException exception)
@@ -213,12 +213,12 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
         }
 
         /// <summary>
-        /// Reads the current row into a new instance of <see cref="HydraulicBoundaryLocation"/>.
+        /// Reads the current row into a new instance of <see cref="HrdLocation"/>.
         /// </summary>
-        /// <returns>A new instance of <see cref="HydraulicBoundaryLocation"/>, based upon the current row.</returns>
+        /// <returns>A new instance of <see cref="HrdLocation"/>, based upon the current row.</returns>
         /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        private HydraulicBoundaryLocation ReadHydraulicBoundaryLocation()
+        private HrdLocation ReadHrdLocation()
         {
             try
             {
@@ -227,7 +227,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
                 var x = Read<double>(HrdLocationsTableDefinitions.XCoordinate);
                 var y = Read<double>(HrdLocationsTableDefinitions.YCoordinate);
                 MoveNext();
-                return new HydraulicBoundaryLocation(id, name, x, y);
+                return new HrdLocation(id, name, x, y);
             }
             catch (InvalidCastException)
             {

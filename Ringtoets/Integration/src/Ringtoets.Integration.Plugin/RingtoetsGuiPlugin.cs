@@ -489,7 +489,7 @@ namespace Ringtoets.Integration.Plugin
 
                 if (nodeData.Parent.HydraulicBoundaryDatabase == null)
                 {
-                    ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, selectedFile);
+                    ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter);
                     return;
                 }
 
@@ -508,7 +508,7 @@ namespace Ringtoets.Integration.Plugin
             if (currentVersion != newVersion)
             {
                 // Show dialog
-                ShowCleanDialog(nodeData, hydraulicBoundaryLocationsImporter, selectedFile);
+                ShowCleanDialog(nodeData, hydraulicBoundaryLocationsImporter);
                 return;
             }
 
@@ -520,8 +520,7 @@ namespace Ringtoets.Integration.Plugin
         }
 
         private static void ShowCleanDialog(HydraulicBoundaryDatabaseContext nodeData,
-                                            HydraulicBoundaryDatabaseImporter hydraulicBoundaryLocationsImporter,
-                                            string filePath)
+                                            HydraulicBoundaryDatabaseImporter hydraulicBoundaryLocationsImporter)
         {
             var confirmation = MessageBox.Show(
                 RingtoetsFormsResources.Delete_Calculations_Text,
@@ -532,7 +531,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 ClearCalculations(nodeData.Parent);
 
-                ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter, filePath);
+                ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter);
             }
         }
 
@@ -550,10 +549,9 @@ namespace Ringtoets.Integration.Plugin
         }
 
         private static void ImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData,
-                                               HydraulicBoundaryDatabaseImporter hydraulicBoundaryLocationsImporter,
-                                               string selectedFile)
+                                               HydraulicBoundaryDatabaseImporter hydraulicBoundaryLocationsImporter)
         {
-            if (hydraulicBoundaryLocationsImporter.Import(nodeData, selectedFile))
+            if (hydraulicBoundaryLocationsImporter.Import(nodeData))
             {
                 SetBoundaryDatabaseData(nodeData);
             }

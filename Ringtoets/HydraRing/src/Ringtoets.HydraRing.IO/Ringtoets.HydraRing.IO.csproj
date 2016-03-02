@@ -51,6 +51,9 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="HydraulicBoundaryDatabaseContext\GeneralTableDefinitions.cs" />
+    <Compile Include="HydraulicBoundaryDatabaseContext\HrdLocation.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="HydraulicBoundaryDatabaseContext\HrdLocationsTableDefinitions.cs" />
     <Compile Include="Exceptions\HydraulicBoundaryDatabaseReadException.cs" />
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundaryDatabaseQueryBuilder.cs" />

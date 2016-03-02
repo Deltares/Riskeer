@@ -132,8 +132,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_ConnectionNotOpened_ThrowsInValidOperationException()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
@@ -143,7 +141,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var expectedMessage = "Er is nog geen bestand geopend.";
 
             // Call
-            TestDelegate call = () => importer.Import(context, validFilePath);
+            TestDelegate call = () => importer.Import(context);
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(call);
@@ -169,7 +167,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Call
             var importResult = false;
-            Action call = () => importResult = importer.Import(importTarget, validFilePath);
+            Action call = () => importResult = importer.Import(importTarget);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -205,7 +203,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             importer.ValidateAndConnectTo(corruptPath);
 
             // Call
-            Action call = () => importResult = importer.Import(importTarget, corruptPath);
+            Action call = () => importResult = importer.Import(importTarget);
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
