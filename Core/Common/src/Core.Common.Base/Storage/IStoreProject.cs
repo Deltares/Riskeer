@@ -55,7 +55,7 @@ namespace Core.Common.Base.Storage
         /// <summary>
         /// Converts <paramref name="project"/> to an existing entity in the storage.
         /// </summary>
-        /// <param name="connectionArguments">Connection arguments.</param>
+        /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
         /// <param name="project">The <see cref="Project"/> to save.</param>
         /// <returns>Returns the number of changes that were saved.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>

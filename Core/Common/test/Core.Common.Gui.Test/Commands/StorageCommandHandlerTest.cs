@@ -3,6 +3,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.Properties;
 using Core.Common.Gui.Selection;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -672,6 +673,47 @@ namespace Core.Common.Gui.Test.Commands
 
                 // Assert
                 Assert.IsTrue(actionMaycontinue);
+            }
+            mocks.VerifyAll();
+            Assert.AreEqual(expectedMessage, messageBoxText);
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void CreateNewProject_ProjectSetWithChangeCancelPressed_CancelAndLog()
+        {
+            // Setup
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationSelection = mocks.Stub<IApplicationSelection>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            var toolViewController = mocks.Stub<IToolViewController>();
+            var projectMock = mocks.StrictMock<Project>();
+            projectMock.StorageId = 1234L;
+            var projectStorageMock = mocks.Stub<IStoreProject>();
+            projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(true);
+
+            var projectOwnerMock = mocks.Stub<IProjectOwner>();
+            projectOwnerMock.Project = projectMock;
+            mocks.ReplayAll();
+
+            string messageBoxText = null;
+            string expectedMessage = "Sla wijzigingen in het project op: Project?";
+
+            using (var storageCommandHandler = new StorageCommandHandler(projectStorageMock, projectOwnerMock, applicationSelection,
+                                                                         mainWindowController, toolViewController, viewCommandsMock))
+            {
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var helper = new MessageBoxTester(wnd);
+                    messageBoxText = helper.Text;
+                    helper.SendCommand(MessageBoxTester.Command.Cancel);
+                };
+
+                // Call
+                Action call = () => storageCommandHandler.CreateNewProject();
+
+                // Assert
+                TestHelper.AssertLogMessageIsGenerated(call, Resources.StorageCommandHandler_NewProject_Creating_new_project_cancelled, 1);
             }
             mocks.VerifyAll();
             Assert.AreEqual(expectedMessage, messageBoxText);

@@ -379,14 +379,16 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             StorageSqLite storageSqLite = new StorageSqLite();
-            var mockingrepository = new MockRepository();
-            var projectMock = mockingrepository.StrictMock<Project>();
+            var mockRepository = new MockRepository();
+            var projectMock = mockRepository.StrictMock<Project>();
+            mockRepository.ReplayAll();
 
             // Call
             bool hasChanges = storageSqLite.HasChanges(projectMock);
 
             // Assert
             Assert.IsTrue(hasChanges);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -445,6 +447,31 @@ namespace Application.Ringtoets.Storage.Test
 
             // Assert
             Assert.IsTrue(hasChanges);
+        }
+
+        [Test]
+        public void HasChanges_EmptyDatabaseFile_ReturnsFalse()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var projectMock = mockRepository.StrictMock<Project>();
+            projectMock.StorageId = 1234L;
+            mockRepository.ReplayAll();
+
+            var tempFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
+            var storage = new StorageSqLite();
+            bool hasChanges = true;
+
+            // Precondition, ignore return value
+            TestDelegate loadProjectToSetFilePath = () => storage.LoadProject(tempFile);
+            Assert.DoesNotThrow(loadProjectToSetFilePath, "Precondition failed: LoadProject failed");
+
+            // Call
+            hasChanges = storage.HasChanges(projectMock);
+
+            // Assert
+            Assert.IsFalse(hasChanges);
+            mockRepository.VerifyAll();
         }
 
         private static void SetUpTempRingtoetsFile(string filePath)
