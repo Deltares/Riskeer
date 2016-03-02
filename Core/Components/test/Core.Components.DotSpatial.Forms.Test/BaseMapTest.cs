@@ -45,6 +45,9 @@ namespace Core.Components.DotSpatial.Forms.Test
             Assert.IsInstanceOf<Control>(map);
             Assert.IsInstanceOf<IMap>(map);
             Assert.IsNull(map.Data);
+            Assert.IsTrue(map.IsPanningEnabled);
+            Assert.IsFalse(map.IsRectangleZoomingEnabled);
+            Assert.IsTrue(map.IsMouseCoordinatesVisible);
         }
 
         [Test]
@@ -134,7 +137,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void Data__SetToNull_DetachObserver()
+        public void Data_SetToNull_DetachObserver()
         {
             // Setup
             var map = new BaseMap();
@@ -232,7 +235,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ToggleMouseCoordinates_Always_ChangesState(bool isShowingCoordinates)
+        public void ToggleMouseCoordinatesVisibility_Always_ChangesState(bool isShowingCoordinates)
         {
             // Setup
             var map = new BaseMap();
@@ -240,17 +243,17 @@ namespace Core.Components.DotSpatial.Forms.Test
             if (!isShowingCoordinates)
             {
                 // Make sure the state is correct
-                map.ToggleMouseCoordinates();
+                map.ToggleMouseCoordinatesVisibility();
 
                 // Precondition
-                Assert.IsFalse(map.IsMouseCoordinatesEnabled);
+                Assert.IsFalse(map.IsMouseCoordinatesVisible);
             }
 
             // Call
-            map.ToggleMouseCoordinates();
+            map.ToggleMouseCoordinatesVisibility();
 
             // Assert
-            Assert.AreNotEqual(isShowingCoordinates, map.IsMouseCoordinatesEnabled);
+            Assert.AreNotEqual(isShowingCoordinates, map.IsMouseCoordinatesVisible);
         }
 
         [Test]

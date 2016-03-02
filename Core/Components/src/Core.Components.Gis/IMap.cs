@@ -41,7 +41,7 @@ namespace Core.Components.Gis
         /// <summary>
         /// Gets a value indicating whether or not the map coordinates of the mouse should be shown.
         /// </summary>
-        bool IsMouseCoordinatesEnabled { get; }
+        bool IsMouseCoordinatesVisible { get; }
 
         /// <summary>
         /// Gets or sets the data to show in the <see cref="IMap"/>.
@@ -64,8 +64,8 @@ namespace Core.Components.Gis
         void ToggleRectangleZooming();
 
         /// <summary>
-        /// Toggles mouse coordinates of the <see cref="IMap"/>.
+        /// Toggles the visibility mouse coordinates of the <see cref="IMap"/>.
         /// </summary>
-        void ToggleMouseCoordinates();
+        void ToggleMouseCoordinatesVisibility();
     }
 }

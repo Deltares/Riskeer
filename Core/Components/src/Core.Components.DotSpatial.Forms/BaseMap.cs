@@ -53,7 +53,7 @@ namespace Core.Components.DotSpatial.Forms
         public bool IsPanningEnabled { get; private set; }
 
         public bool IsRectangleZoomingEnabled { get; private set; }
-        public bool IsMouseCoordinatesEnabled { get; private set; }
+        public bool IsMouseCoordinatesVisible { get; private set; }
 
         public MapData Data
         {
@@ -107,17 +107,17 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        public void ToggleMouseCoordinates()
+        public void ToggleMouseCoordinatesVisibility()
         {
-            if (!IsMouseCoordinatesEnabled)
+            if (!IsMouseCoordinatesVisible)
             {
                 mouseCoordinatesMapExtension.Activate();
-                IsMouseCoordinatesEnabled = true;
+                IsMouseCoordinatesVisible = true;
             }
             else
             {
                 mouseCoordinatesMapExtension.Deactivate();
-                IsMouseCoordinatesEnabled = false;
+                IsMouseCoordinatesVisible = false;
             }
         }
 
@@ -176,7 +176,7 @@ namespace Core.Components.DotSpatial.Forms
             };
 
             mouseCoordinatesMapExtension = new MouseCoordinatesMapExtension(map);
-            ToggleMouseCoordinates();
+            ToggleMouseCoordinatesVisibility();
 
             Controls.Add(map);
         }

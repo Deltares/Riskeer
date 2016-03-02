@@ -144,9 +144,7 @@ namespace Core.Plugins.DotSpatial.Test
             // Setup
             var mocks = new MockRepository();
             var map = mocks.DynamicMock<IMap>();
-
-            map.Expect(m => m.IsPanningEnabled).Return(panningChecked);
-
+            map.Stub(m => m.IsPanningEnabled).Return(panningChecked);
             mocks.ReplayAll();
 
             var ribbon = new MapRibbon
@@ -154,11 +152,16 @@ namespace Core.Plugins.DotSpatial.Test
                 Map = map
             };
 
+            var button = ribbon.GetRibbonControl().FindName("TogglePanningButton") as ToggleButton;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have a toggle panning button.");
+
             // Call
             ribbon.ValidateItems();
 
             // Assert
-            Assert.AreEqual(panningChecked, map.IsPanningEnabled);
+            Assert.AreEqual(panningChecked, button.IsChecked);
             mocks.VerifyAll();
         }
 
@@ -171,9 +174,7 @@ namespace Core.Plugins.DotSpatial.Test
             // Setup
             var mocks = new MockRepository();
             var map = mocks.DynamicMock<IMap>();
-
-            map.Expect(m => m.IsRectangleZoomingEnabled).Return(rectangleZoomChecked);
-
+            map.Stub(m => m.IsRectangleZoomingEnabled).Return(rectangleZoomChecked);
             mocks.ReplayAll();
 
             var ribbon = new MapRibbon
@@ -181,11 +182,16 @@ namespace Core.Plugins.DotSpatial.Test
                 Map = map
             };
 
+            var button = ribbon.GetRibbonControl().FindName("ToggleRectangleZoomingButton") as ToggleButton;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have a toggle rectangle zooming button.");
+
             // Call
             ribbon.ValidateItems();
 
             // Assert
-            Assert.AreEqual(rectangleZoomChecked, map.IsRectangleZoomingEnabled);
+            Assert.AreEqual(rectangleZoomChecked, button.IsChecked);
             mocks.VerifyAll();
         }
 
@@ -198,9 +204,7 @@ namespace Core.Plugins.DotSpatial.Test
             // Setup
             var mocks = new MockRepository();
             var map = mocks.DynamicMock<IMap>();
-
-            map.Expect(m => m.IsMouseCoordinatesEnabled).Return(mouseCoordinatesChecked);
-
+            map.Stub(m => m.IsMouseCoordinatesVisible).Return(mouseCoordinatesChecked);
             mocks.ReplayAll();
 
             var ribbon = new MapRibbon
@@ -208,15 +212,19 @@ namespace Core.Plugins.DotSpatial.Test
                 Map = map
             };
 
+            var button = ribbon.GetRibbonControl().FindName("ToggleMouseCoordinatesButton") as ToggleButton;
+
+            // Precondition
+            Assert.IsNotNull(button, "Ribbon should have a toggle mouse coordinate visibility button.");
+
             // Call
             ribbon.ValidateItems();
 
             // Assert
-            Assert.AreEqual(mouseCoordinatesChecked, map.IsMouseCoordinatesEnabled);
+            Assert.AreEqual(mouseCoordinatesChecked, button.IsChecked);
             mocks.VerifyAll();
         }
 				
-
         [Test]
         [RequiresSTA]
         public void ToggleLegendViewButton_OnClick_ExecutesToggleLegendViewCommand()
@@ -327,13 +335,12 @@ namespace Core.Plugins.DotSpatial.Test
 
         [Test]
         [RequiresSTA]
-        public void ToggleMouseCoordinates_OnClick_ToggleMouseCoordinates()
+        public void ToggleMouseCoordinatesVisibility_OnClick_ToggleMouseCoordinates()
         {
             // Setup
             var mocks = new MockRepository();
             var map = mocks.DynamicMock<IMap>();
-            map.Expect(c => c.ToggleMouseCoordinates());
-
+            map.Expect(c => c.ToggleMouseCoordinatesVisibility());
             mocks.ReplayAll();
 
             var ribbon = new MapRibbon
