@@ -194,6 +194,6 @@
     <value>Toon coördinaten</value>
   </data>
   <data name="Ribbon_Toggle_Coordinates_ToolTip" xml:space="preserve">
-    <value>Toon de coördinaten van uw muis op de kaart.</value>
+    <value>Toon de coördinaten van de cursor op de kaart.</value>
   </data>
 </root>

@@ -212,7 +212,7 @@ namespace Core.Plugins.DotSpatial.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toon de coördinaten van uw muis op de kaart..
+        ///   Looks up a localized string similar to Toon de coördinaten van de cursor op de kaart..
         /// </summary>
         public static string Ribbon_Toggle_Coordinates_ToolTip {
             get {

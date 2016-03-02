@@ -31,7 +31,7 @@ namespace Core.Components.DotSpatial
     public class MouseCoordinatesMapExtension : Extension
     {
         private readonly Map map;
-        private readonly TextBox textBox;
+        private readonly Label label;
 
         /// <summary>
         /// Creates a new instance of <see cref="MouseCoordinatesMapExtension"/>.
@@ -46,7 +46,7 @@ namespace Core.Components.DotSpatial
             }
             this.map = map;
 
-            textBox = new TextBox
+            label = new Label
             {
                 AutoSize = true,
                 BorderStyle = BorderStyle.None,
@@ -60,7 +60,7 @@ namespace Core.Components.DotSpatial
         public override void Activate()
         {
             map.GeoMouseMove += OnMouseMove;
-            map.Controls.Add(textBox);
+            map.Controls.Add(label);
             base.Activate();
         }
 
@@ -70,14 +70,14 @@ namespace Core.Components.DotSpatial
         public override void Deactivate()
         {
             map.GeoMouseMove -= OnMouseMove;
-            map.Controls.Remove(textBox);
+            map.Controls.Remove(label);
 
             base.Deactivate();
         }
 
         private void OnMouseMove(object sender, GeoMouseArgs e)
         {
-            textBox.Text = string.Format("X: {0:.#####} Y: {1:.#####}", e.GeographicLocation.X, e.GeographicLocation.Y);
+            label.Text = string.Format("X: {0:.#####} Y: {1:.#####}", e.GeographicLocation.X, e.GeographicLocation.Y);
         }
     }
 }
