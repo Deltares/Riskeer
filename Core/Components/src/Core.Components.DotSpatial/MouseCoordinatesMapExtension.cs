@@ -28,7 +28,7 @@ namespace Core.Components.DotSpatial
     /// <summary>
     /// An extension for the <see cref="Map"/> which shows the map coordinates of the mouse.
     /// </summary>
-    public class MouseCoordinatesMapExtension : Extension
+    public class MouseCoordinatesMapExtension : Extension, IDisposable
     {
         private readonly Map map;
         private readonly Label label;
@@ -78,6 +78,11 @@ namespace Core.Components.DotSpatial
         private void OnMouseMove(object sender, GeoMouseArgs e)
         {
             label.Text = string.Format("X: {0:.#####} Y: {1:.#####}", e.GeographicLocation.X, e.GeographicLocation.Y);
+        }
+
+        public void Dispose()
+        {
+            label.Dispose();
         }
     }
 }

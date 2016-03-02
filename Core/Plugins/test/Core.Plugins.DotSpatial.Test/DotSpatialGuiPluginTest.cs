@@ -104,9 +104,8 @@ namespace Core.Plugins.DotSpatial.Test
         {
             // Setup
             using (var plugin = new DotSpatialGuiPlugin())
+            using (var view = new MapDataView())
             {
-                var view = new MapDataView();
-
                 // Call
                 var views = plugin.GetViewInfos().ToArray();
 

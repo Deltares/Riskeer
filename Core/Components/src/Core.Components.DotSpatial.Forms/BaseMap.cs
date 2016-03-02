@@ -24,7 +24,6 @@ using Core.Common.Base;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.Gis.Data;
 using DotSpatial.Controls;
-using DotSpatial.Extensions;
 using IMap = Core.Components.Gis.IMap;
 
 namespace Core.Components.DotSpatial.Forms
@@ -39,7 +38,7 @@ namespace Core.Components.DotSpatial.Forms
         private MapData data;
         private Map map;
         private IMapFunction mapFunctionSelectionZoom;
-        private IExtension mouseCoordinatesMapExtension;
+        private MouseCoordinatesMapExtension mouseCoordinatesMapExtension;
 
         /// <summary>
         /// Creates a new instance of <see cref="BaseMap"/>.
@@ -124,6 +123,13 @@ namespace Core.Components.DotSpatial.Forms
         public void UpdateObserver()
         {
             DrawFeatureSets();
+        }
+
+        protected override void Dispose(bool disposing)
+        {;
+            map.Dispose();
+            mouseCoordinatesMapExtension.Dispose();
+            base.Dispose(disposing);
         }
 
         private void ResetDefaultInteraction()

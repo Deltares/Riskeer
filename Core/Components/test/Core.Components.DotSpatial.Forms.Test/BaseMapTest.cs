@@ -39,130 +39,143 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            var map = new BaseMap();
-
-            // Assert
-            Assert.IsInstanceOf<Control>(map);
-            Assert.IsInstanceOf<IMap>(map);
-            Assert.IsNull(map.Data);
-            Assert.IsTrue(map.IsPanningEnabled);
-            Assert.IsFalse(map.IsRectangleZoomingEnabled);
-            Assert.IsTrue(map.IsMouseCoordinatesVisible);
+            using (var map = new BaseMap())
+            {
+                // Assert
+                Assert.IsInstanceOf<Control>(map);
+                Assert.IsInstanceOf<IMap>(map);
+                Assert.IsNull(map.Data);
+                Assert.IsTrue(map.IsPanningEnabled);
+                Assert.IsFalse(map.IsRectangleZoomingEnabled);
+                Assert.IsTrue(map.IsMouseCoordinatesVisible);
+            }
         }
 
         [Test]
         public void Data_UnknownMapData_ThrowsNotSupportedException()
         {
             // Setup
-            var map = new BaseMap();
-            var testData = new TestMapData("test data");
+            using (var map = new BaseMap())
+            {
+                var testData = new TestMapData("test data");
 
-            // Call
-            TestDelegate test = () => map.Data = testData;
+                // Call
+                TestDelegate test = () => map.Data = testData;
 
-            // Assert
-            Assert.Throws<NotSupportedException>(test);
+                // Assert
+                Assert.Throws<NotSupportedException>(test);
+            }
         }
 
         [Test]
         public void Data_Null_ReturnsNull()
         {
             // Setup
-            var map = new BaseMap();
+            using (var map = new BaseMap())
+            {
+                // Call
+                map.Data = null;
 
-            // Call
-            map.Data = null;
-
-            // Assert
-            Assert.IsNull(map.Data);
+                // Assert
+                Assert.IsNull(map.Data);
+            }
         }
 
         [Test]
         public void Data_NotNull_ReturnsData()
         {
             // Setup
-            var map = new BaseMap();
-            var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
+            using (var map = new BaseMap())
+            {
+                var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
 
-            // Call
-            map.Data = testData;
+                // Call
+                map.Data = testData;
 
-            // Assert
-            Assert.AreSame(testData, map.Data);
+                // Assert
+                Assert.AreSame(testData, map.Data);
+            }
         }
 
         [Test]
         public void Data_SetPointData_MapPointLayerAdded()
         {
             // Setup
-            var map = new BaseMap();
-            var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
-            var mapView = map.Controls.OfType<Map>().First();
+            using (var map = new BaseMap())
+            {
+                var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
+                var mapView = map.Controls.OfType<Map>().First();
 
-            // Call
-            map.Data = testData;
+                // Call
+                map.Data = testData;
 
-            // Assert
-            Assert.IsInstanceOf<MapPointData>(map.Data);
-            Assert.AreEqual(1, mapView.Layers.Count);
-            Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+                // Assert
+                Assert.IsInstanceOf<MapPointData>(map.Data);
+                Assert.AreEqual(1, mapView.Layers.Count);
+                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+            }
         }
 
         [Test]
         public void UpdateObserver_UpdateData_UpdateMap()
         {
             // Setup
-            var map = new BaseMap();
-            var mapView = map.Controls.OfType<Map>().First();
-            var testData = new MapDataCollection(new List<MapData>
+            using (var map = new BaseMap())
             {
-                new MapPointData(Enumerable.Empty<Point2D>(), "test data")
-            }, "test data");
+                var mapView = map.Controls.OfType<Map>().First();
+                var testData = new MapDataCollection(new List<MapData>
+                {
 
-            map.Data = testData;
+                    new MapPointData(Enumerable.Empty<Point2D>(), "test data")
+                }, "test data");
 
-            // Precondition
-            Assert.AreEqual(1, mapView.Layers.Count);
-            Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+                map.Data = testData;
 
-            testData.List.Add(new MapLineData(Enumerable.Empty<Point2D>(), "test data"));
+                // Precondition
+                Assert.AreEqual(1, mapView.Layers.Count);
+                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
 
-            // Call
-            map.UpdateObserver();
+                testData.List.Add(new MapLineData(Enumerable.Empty<Point2D>(), "test data"));
 
-            // Assert
-            Assert.AreEqual(2, mapView.Layers.Count);
-            Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
-            Assert.IsInstanceOf<MapLineLayer>(mapView.Layers[1]);
+                // Call
+                map.UpdateObserver();
+
+                // Assert
+                Assert.AreEqual(2, mapView.Layers.Count);
+                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+                Assert.IsInstanceOf<MapLineLayer>(mapView.Layers[1]);
+            }
         }
 
         [Test]
         public void Data_SetToNull_DetachObserver()
         {
             // Setup
-            var map = new BaseMap();
-            var mapView = map.Controls.OfType<Map>().First();
-            var testData = new MapDataCollection(new List<MapData>
+            using (var map = new BaseMap())
             {
-                new MapPointData(Enumerable.Empty<Point2D>(), "test data")
-            }, "test data");
+                var mapView = map.Controls.OfType<Map>().First();
+                var testData = new MapDataCollection(new List<MapData>
+                {
+                    new MapPointData(Enumerable.Empty<Point2D>(), "test data")
+                }, "test data");
 
-            map.Data = testData;
+                map.Data = testData;
 
-            // Precondition
-            Assert.AreEqual(1, mapView.Layers.Count);
-            Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+                // Precondition
+                Assert.AreEqual(1, mapView.Layers.Count);
+                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
 
-            map.Data = null;
+                map.Data = null;
 
-            testData.List.Add(new MapPointData(Enumerable.Empty<Point2D>(), "test data"));
+                testData.List.Add(new MapPointData(Enumerable.Empty<Point2D>(), "test data"));
 
-            // Call
-            map.UpdateObserver();
+                // Call
+                map.UpdateObserver();
 
-            // Assert
-            Assert.IsNull(map.Data);
-            Assert.AreEqual(0, mapView.Layers.Count);
+                // Assert
+                Assert.IsNull(map.Data);
+                Assert.AreEqual(0, mapView.Layers.Count);
+            }
         }
 
         [Test]
@@ -170,41 +183,45 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAll_MapInForm_ViewInvalidatedLayersSame()
         {
             // Setup
-            var form = new Form();
-            var map = new BaseMap();
-            var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
-            var mapView = map.Controls.OfType<Map>().First();
-            var invalidated = 0;
+            using (var form = new Form())
+            {
+                var map = new BaseMap();
+                var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
+                var mapView = map.Controls.OfType<Map>().First();
+                var invalidated = 0;
 
-            map.Data = testData;
-            form.Controls.Add(map);
+                map.Data = testData;
+                form.Controls.Add(map);
 
-            mapView.Invalidated += (sender, args) => { invalidated++; };
+                mapView.Invalidated += (sender, args) => { invalidated++; };
 
-            form.Show();
-            Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");
+                form.Show();
+                Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");
 
-            // Call
-            map.ZoomToAll();
+                // Call
+                map.ZoomToAll();
 
-            // Assert
-            Assert.AreEqual(2, invalidated);
-            Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
+                // Assert
+                Assert.AreEqual(2, invalidated);
+                Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
+            }
         }
 
         [Test]
         public void ToggleRectangleZooming_PanningIsEnabled_RectangleZoomingIsEnabled()
         {
             // Setup
-            var map = new BaseMap();
-            Assert.IsFalse(map.IsRectangleZoomingEnabled, "Precondition failed: IsRectangleZoomingEnabled is true");
+            using (var map = new BaseMap())
+            {
+                Assert.IsFalse(map.IsRectangleZoomingEnabled, "Precondition failed: IsRectangleZoomingEnabled is true");
 
-            // Call
-            map.ToggleRectangleZooming();
+                // Call
+                map.ToggleRectangleZooming();
 
-            // Assert
-            Assert.IsTrue(map.IsRectangleZoomingEnabled);
-            Assert.IsFalse(map.IsPanningEnabled);
+                // Assert
+                Assert.IsTrue(map.IsRectangleZoomingEnabled);
+                Assert.IsFalse(map.IsPanningEnabled);
+            }
         }
 
         [Test]
@@ -213,23 +230,25 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ToggleRectangleZooming_Always_ChangesState(bool isRectangleZooming)
         {
             // Setup
-            var map = new BaseMap();
-            if (isRectangleZooming)
+            using (var map = new BaseMap())
             {
+                if (isRectangleZooming)
+                {
+                    map.ToggleRectangleZooming();
+                }
+
+                // Precondition
+                Assert.AreEqual(isRectangleZooming, map.IsRectangleZoomingEnabled,
+                                String.Format("Precondition failed: IsRectangleZoomingEnabled is {0}", map.IsRectangleZoomingEnabled));
+                Assert.AreEqual(!isRectangleZooming, map.IsPanningEnabled,
+                                String.Format("Precondition failed: IsPanningEnabled is {0}", map.IsPanningEnabled));
+
+                // Call
                 map.ToggleRectangleZooming();
+
+                // Assert
+                Assert.IsTrue(map.IsRectangleZoomingEnabled);
             }
-
-            // Precondition
-            Assert.AreEqual(isRectangleZooming, map.IsRectangleZoomingEnabled,
-                            String.Format("Precondition failed: IsRectangleZoomingEnabled is {0}", map.IsRectangleZoomingEnabled));
-            Assert.AreEqual(!isRectangleZooming, map.IsPanningEnabled,
-                            String.Format("Precondition failed: IsPanningEnabled is {0}", map.IsPanningEnabled));
-
-            // Call
-            map.ToggleRectangleZooming();
-
-            // Assert
-            Assert.IsTrue(map.IsRectangleZoomingEnabled);
         }
 
         [Test]
@@ -238,22 +257,23 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ToggleMouseCoordinatesVisibility_Always_ChangesState(bool isShowingCoordinates)
         {
             // Setup
-            var map = new BaseMap();
-
-            if (!isShowingCoordinates)
+            using (var map = new BaseMap())
             {
-                // Make sure the state is correct
+                if (!isShowingCoordinates)
+                {
+                    // Make sure the state is correct
+                    map.ToggleMouseCoordinatesVisibility();
+
+                    // Precondition
+                    Assert.IsFalse(map.IsMouseCoordinatesVisible);
+                }
+
+                // Call
                 map.ToggleMouseCoordinatesVisibility();
 
-                // Precondition
-                Assert.IsFalse(map.IsMouseCoordinatesVisible);
+                // Assert
+                Assert.AreNotEqual(isShowingCoordinates, map.IsMouseCoordinatesVisible);
             }
-
-            // Call
-            map.ToggleMouseCoordinatesVisibility();
-
-            // Assert
-            Assert.AreNotEqual(isShowingCoordinates, map.IsMouseCoordinatesVisible);
         }
 
         [Test]
@@ -261,24 +281,26 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void UpdateObserver_MapInForm_MapLayersRenewed()
         {
             // Setup
-            var form = new Form();
-            var map = new BaseMap();
-            var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
-            var view = map.Controls.OfType<Map>().First();
+            using (var form = new Form())
+            {
+                var map = new BaseMap();
+                var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
+                var view = map.Controls.OfType<Map>().First();
 
-            map.Data = testData;
-            var layers = view.Layers.ToList();
+                map.Data = testData;
+                var layers = view.Layers.ToList();
 
-            form.Controls.Add(map);
+                form.Controls.Add(map);
 
-            form.Show();
+                form.Show();
 
-            // Call
-            map.UpdateObserver();
+                // Call
+                map.UpdateObserver();
 
-            // Assert
-            Assert.AreEqual(1, view.Layers.Count);
-            Assert.AreNotSame(layers[0], view.Layers[0]);
+                // Assert
+                Assert.AreEqual(1, view.Layers.Count);
+                Assert.AreNotSame(layers[0], view.Layers[0]);
+            }
         }
     }
 }
