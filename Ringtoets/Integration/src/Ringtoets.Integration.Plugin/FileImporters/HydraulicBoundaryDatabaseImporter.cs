@@ -142,32 +142,36 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                     Version = hydraulicBoundaryDatabaseReader.GetVersion()
                 };
 
+                // Locations directory of HLCD location ids and HRD location ids
                 var locationidsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationsIdByRegionId(regionId);
+
+                // Prepare query to fetch hrd locations
                 hydraulicBoundaryDatabaseReader.PrepareReadLocation();
                 while (hydraulicBoundaryDatabaseReader.HasNext)
                 {
-                    try
-                    {
-                        HrdLocation hrdLocation = hydraulicBoundaryDatabaseReader.ReadLocation();
+                    HrdLocation hrdLocation = hydraulicBoundaryDatabaseReader.ReadLocation();
 
-                        long locationId;
-                        locationidsDictionary.TryGetValue(hrdLocation.HrdLocationId, out locationId);
-                        var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(locationId, hrdLocation.Name, hrdLocation.LocationX, hrdLocation.LocationY);
+                    long locationId;
+                    locationidsDictionary.TryGetValue(hrdLocation.HrdLocationId, out locationId);
 
-                        hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-                    }
-                    catch (LineParseException e)
-                    {
-                        HandleException(e);
-                    }
+                    var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(
+                        locationId,
+                        hrdLocation.Name,
+                        hrdLocation.LocationX,
+                        hrdLocation.LocationY);
+                    hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
                 }
                 return hydraulicBoundaryDatabase;
             }
-            catch (CriticalFileReadException e)
+            catch (Exception e)
             {
-                HandleException(e);
+                if (e is LineParseException || e is CriticalFileReadException)
+                {
+                    HandleException(e);
+                    return null;
+                }
+                throw;
             }
-            return null;
         }
 
         private long GetRegionId()
