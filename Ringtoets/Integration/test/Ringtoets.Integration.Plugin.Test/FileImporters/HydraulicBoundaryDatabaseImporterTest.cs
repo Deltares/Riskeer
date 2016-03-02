@@ -114,7 +114,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");
-            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build("Het bijbehorende HLCD bestand is niet gevonden in de folder.");
+            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build("Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.");
 
             // Call
             TestDelegate test = () => importer.ValidateAndConnectTo(validFilePath);
