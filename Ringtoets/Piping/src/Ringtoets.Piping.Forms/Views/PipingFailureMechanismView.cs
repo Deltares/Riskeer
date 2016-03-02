@@ -31,6 +31,7 @@ using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Forms;
 
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -165,7 +166,7 @@ namespace Ringtoets.Piping.Forms.Views
         private MapData GetSectionsMapData()
         {
             IEnumerable<IEnumerable<Point2D>> sectionLines = data.WrappedData.Sections.Select(sl => sl.Points);
-            return new MapMultiLineData(sectionLines);
+            return new MapMultiLineData(sectionLines, Resources.PipingFailureMechanismView_GetSectionsMapData_Sections);
         }
 
         private bool HasReferenceLinePoints()
