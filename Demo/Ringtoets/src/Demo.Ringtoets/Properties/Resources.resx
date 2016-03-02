@@ -157,4 +157,16 @@
   <data name="OpenChartView_ToolTip" xml:space="preserve">
     <value>Open een documentvenster met een diagram.</value>
   </data>
+  <data name="OpenMapViewCommand_Execute_Point_demo_data" xml:space="preserve">
+    <value>Punt demo data</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Line_demo_data" xml:space="preserve">
+    <value>Lijn demo data</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_Polygon_demo_data" xml:space="preserve">
+    <value>Polygoon demo data</value>
+  </data>
+  <data name="OpenMapViewCommand_Execute_List" xml:space="preserve">
+    <value>Lijst</value>
+  </data>
 </root>

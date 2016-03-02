@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 
 namespace Core.Components.Gis.Data
@@ -26,5 +27,23 @@ namespace Core.Components.Gis.Data
     /// <summary>
     /// Abstract class for data with the purpose of becoming visible in map components.
     /// </summary>
-    public abstract class MapData : Observable {}
+    public abstract class MapData : Observable
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="MapData"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="MapData"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
+        protected MapData(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException("name", "A name must be set to map data");
+            }
+
+            Name = name;
+        }
+
+        public string Name { get; private set; }
+    }
 }

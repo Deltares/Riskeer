@@ -31,7 +31,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapPointDataConverter();
-            var pointData = new MapPointData(new Collection<Point2D>());
+            var pointData = new MapPointData(new Collection<Point2D>(), "test data");
 
             // Call
             var canConvert = converter.CanConvertMapData(pointData);
@@ -45,7 +45,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapPointDataConverter();
-            var mapData = new TestMapData();
+            var mapData = new TestMapData("test data");
 
             // Call
             var canConvert = converter.CanConvertMapData(mapData);
@@ -68,7 +68,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                 points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
-            var pointData = new MapPointData(points);
+            var pointData = new MapPointData(points, "test data");
 
             // Call
             var mapLayers = converter.Convert(pointData);
@@ -101,7 +101,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var testConverter = new MapPointDataConverter();
-            var testMapData = new TestMapData();
+            var testMapData = new TestMapData("test data");
             var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testMapData.GetType());
             // Precondition
             Assert.IsFalse(testConverter.CanConvertMapData(testMapData));

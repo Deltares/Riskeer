@@ -15,11 +15,38 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_NullPoints_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MapPolygonData(null);
+            TestDelegate test = () => new MapPolygonData(null, "test data");
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, string.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData)));
         }
+
+        [Test]
+        public void Constructor_NullName_ThrowsArgumentNullExcpetion()
+        {
+            // Setup
+            var points = new Collection<Point2D>();
+
+            // Call
+            TestDelegate test = () => new MapPolygonData(points, null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
+        }
+
+        [Test]
+        public void Constructor_EmptyName_ThrowsArgumentNullExcpetion()
+        {
+            // Setup
+            var points = new Collection<Point2D>();
+
+            // Call
+            TestDelegate test = () => new MapPolygonData(points, "");
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
+        }
+
 
         [Test]
         public void Constructor_WithEmptyPoints_CreatesNewMapPolygonData()
@@ -28,7 +55,7 @@ namespace Core.Components.Gis.Test.Data
             var points = new Collection<Point2D>();
 
             // Call
-            var data = new MapPolygonData(points);
+            var data = new MapPolygonData(points, "test data");
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);
@@ -42,12 +69,26 @@ namespace Core.Components.Gis.Test.Data
             var points = CreateTestPoints();
 
             // Call
-            var data = new MapPolygonData(points);
+            var data = new MapPolygonData(points, "test data");
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);
             Assert.AreNotSame(points, data.Points);
             CollectionAssert.AreEqual(points, data.Points);
+        }
+
+        [Test]
+        public void Constructor_WithName_SetsName()
+        {
+            // Setup
+            var points = new Collection<Point2D>();
+            var name = "Some name";
+
+            // Call
+            var data = new MapPolygonData(points, name);
+
+            // Assert
+            Assert.AreEqual(name, data.Name);
         }
 
         private static Collection<Point2D> CreateTestPoints()

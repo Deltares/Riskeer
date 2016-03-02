@@ -17,10 +17,36 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_NullCollection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MapMultiLineData(null);
+            TestDelegate test = () => new MapMultiLineData(null, "test data");
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, string.Format("A lines collection is required when creating a subclass of {0}.", typeof(MapMultiLineData)));
+        }
+
+        [Test]
+        public void Constructor_NullName_ThrowsArgumentNullExcpetion()
+        {
+            // Setup
+            var collection = new Collection<IEnumerable<Point2D>>();
+
+            // Call
+            TestDelegate test = () => new MapMultiLineData(collection, null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
+        }
+
+        [Test]
+        public void Constructor_EmptyName_ThrowsArgumentNullExcpetion()
+        {
+            // Setup
+            var collection = new Collection<IEnumerable<Point2D>>();
+
+            // Call
+            TestDelegate test = () => new MapMultiLineData(collection, "");
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
         }
 
         [Test]
@@ -30,7 +56,7 @@ namespace Core.Components.Gis.Test.Data
             var collection = new Collection<IEnumerable<Point2D>>();
 
             // Call
-            var data = new MapMultiLineData(collection);
+            var data = new MapMultiLineData(collection, "test data");
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);
@@ -44,12 +70,26 @@ namespace Core.Components.Gis.Test.Data
             var lines = CreateTestLines();
 
             // Call
-            var data = new MapMultiLineData(lines);
+            var data = new MapMultiLineData(lines, "test data");
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);
             Assert.AreNotSame(lines, data.Lines);
             CollectionAssert.AreEqual(lines, data.Lines);
+        }
+
+        [Test]
+        public void Constructor_WithName_SetsName()
+        {
+            // Setup
+            var collection = new Collection<IEnumerable<Point2D>>();
+            var name = "Some name";
+
+            // Call
+            var data = new MapMultiLineData(collection, name);
+
+            // Assert
+            Assert.AreEqual(name, data.Name);
         }
 
         private static IEnumerable<IEnumerable<Point2D>> CreateTestLines()

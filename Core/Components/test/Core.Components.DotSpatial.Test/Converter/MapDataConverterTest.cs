@@ -19,9 +19,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             var testConverter = new TestMapDataConverter<Class>();
 
             // Call
-            var mapDataResult = testConverter.CanConvertMapData(new TestMapData());
-            var classResult = testConverter.CanConvertMapData(new Class());
-            var childResult = testConverter.CanConvertMapData(new Child());
+            var mapDataResult = testConverter.CanConvertMapData(new TestMapData("test data"));
+            var classResult = testConverter.CanConvertMapData(new Class("test data"));
+            var childResult = testConverter.CanConvertMapData(new Child("test data"));
 
             // Assert
             Assert.IsFalse(mapDataResult);
@@ -47,7 +47,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var testConverter = new TestMapDataConverter<Class>();
-            var testMapData = new TestMapData();
+            var testMapData = new TestMapData("test data");
             var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testMapData.GetType());
 
             // Precondition
@@ -65,7 +65,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var testConverter = new TestMapDataConverter<TestMapData>();
-            var testMapData = new TestMapData();
+            var testMapData = new TestMapData("test data");
 
             // Precondition
             Assert.IsTrue(testConverter.CanConvertMapData(testMapData));
@@ -77,9 +77,13 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.IsNotNull(result);
         }
 
-        private class Class : MapData {}
+        private class Class : MapData {
+            public Class(string name) : base(name) {}
+        }
 
-        private class Child : Class {}
+        private class Child : Class {
+            public Child(string name) : base(name) {}
+        }
 
         private class TestMapDataConverter<T> : MapDataConverter<T> where T : MapData
         {

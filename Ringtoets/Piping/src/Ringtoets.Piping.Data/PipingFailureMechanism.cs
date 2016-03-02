@@ -36,7 +36,8 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
         /// </summary>
-        public PipingFailureMechanism() : base(Resources.PipingFailureMechanism_DisplayName)
+        public PipingFailureMechanism()
+            : base(RingtoetsCommonDataResources.PipingFailureMechanism_DisplayName)
         {
             SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
             SoilProfiles = new ObservableList<PipingSoilProfile>();

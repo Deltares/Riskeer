@@ -23,15 +23,12 @@ using System;
 using System.Data;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
-
 using DotSpatial.Data;
-
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 
@@ -94,7 +91,7 @@ namespace Core.Components.Gis.IO
         /// <returns>The <see cref="MapLineData"/> representing the read line shape, or 
         /// <c>null</c> when at the end of the shapefile.</returns>
         /// <exception cref="ElementReadException">When reading a multi-line feature.</exception>
-        public MapLineData ReadLine()
+        public MapLineData ReadLine(string name = null)
         {
             if (readIndex == lineShapeFile.Features.Count)
             {
@@ -104,7 +101,7 @@ namespace Core.Components.Gis.IO
             try
             {
                 IFeature lineFeature = GetSingleLineFeature(readIndex);
-                return ConvertSingleLineFeatureToMapLineData(lineFeature);
+                return ConvertSingleLineFeatureToMapLineData(lineFeature, name ?? GisIOResources.PolylineShapeFileReader_ReadLine_Line);
             }
             finally
             {
@@ -147,9 +144,9 @@ namespace Core.Components.Gis.IO
             return lineFeature;
         }
 
-        private MapLineData ConvertSingleLineFeatureToMapLineData(IFeature lineFeature)
+        private MapLineData ConvertSingleLineFeatureToMapLineData(IFeature lineFeature, string name)
         {
-            var lineData = new MapLineData(lineFeature.Coordinates.Select(c => new Point2D(c.X, c.Y)));
+            var lineData = new MapLineData(lineFeature.Coordinates.Select(c => new Point2D(c.X, c.Y)), name);
             DataTable table = lineShapeFile.GetAttributes(readIndex, 1);
             DataRow dataRow = table.Rows[0];
             for (int i = 0; i < table.Columns.Count; i++)

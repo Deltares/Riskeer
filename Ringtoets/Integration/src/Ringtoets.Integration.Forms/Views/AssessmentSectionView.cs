@@ -30,7 +30,8 @@ using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Forms;
 
 using Ringtoets.Common.Data;
-using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -103,19 +104,19 @@ namespace Ringtoets.Integration.Forms.Views
                 mapDataList.Add(GetHydraulicBoundaryLocations());
             }
 
-            map.Data = new MapDataCollection(mapDataList);
+            map.Data = new MapDataCollection(mapDataList, Resources.TrajectMap_DisplayName);
         }
 
         private MapData GetReferenceLineData()
         {
             Point2D[] referenceLinePoints = data.ReferenceLine.Points.ToArray();
-            return new MapLineData(referenceLinePoints);
+            return new MapLineData(referenceLinePoints, RingtoetsCommonDataResources.ReferenceLine_DisplayName);
         }
 
         private MapData GetHydraulicBoundaryLocations()
         {
             Point2D[] hrLocations = data.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
-            return new MapPointData(hrLocations);
+            return new MapPointData(hrLocations, RingtoetsCommonDataResources.HydraulicBoundareyConditions_DisplayName);
         }
 
         private bool HasReferenceLinePoints()

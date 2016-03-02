@@ -126,4 +126,7 @@
   <data name="PolylineShapeFileReader_GetSingleLineFeature_At_shapefile_index_0_" xml:space="preserve">
     <value>op index {0}</value>
   </data>
+  <data name="PolylineShapeFileReader_ReadLine_Line" xml:space="preserve">
+    <value>Lijn</value>
+  </data>
 </root>

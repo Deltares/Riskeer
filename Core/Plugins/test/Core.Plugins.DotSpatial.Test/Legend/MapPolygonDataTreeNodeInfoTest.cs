@@ -52,11 +52,17 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         [Test]
         public void Text_Always_ReturnsTextFromResource()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var mapPolygonData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>(), "MapPolygonData");
+            mocks.ReplayAll();
+
             // Call
-            var text = info.Text(null);
+            var text = info.Text(mapPolygonData);
 
             // Assert
-            Assert.AreEqual(DotSpatialResources.MapData_Polygon_data_label, text);
+            Assert.AreEqual(mapPolygonData.Name, text);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -74,7 +80,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var mocks = new MockRepository();
-            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>());
+            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>(), "test data");
 
             mocks.ReplayAll();
 
@@ -93,7 +99,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var mocks = new MockRepository();
-            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>());
+            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>(), "test data");
 
             lineData.IsVisible = isVisible;
 
@@ -114,7 +120,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var mocks = new MockRepository();
-            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>());
+            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>(), "test data");
 
             mocks.ReplayAll();
 
@@ -136,7 +142,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             // Setup
             var mocks = new MockRepository();
             var observable = mocks.StrictMock<IObservable>();
-            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>());
+            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>(), "test data");
 
             observable.Expect(o => o.NotifyObservers());
 
@@ -158,7 +164,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var mocks = new MockRepository();
-            var polygonData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>());
+            var polygonData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<Point2D>(), "test data");
 
             mocks.ReplayAll();
 

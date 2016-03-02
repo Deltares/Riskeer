@@ -34,6 +34,7 @@ using Ringtoets.Common.Data;
 
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.IO
 {
@@ -116,7 +117,7 @@ namespace Ringtoets.Common.IO
 
             try
             {
-                return lineShapeReader.ReadLine();
+                return lineShapeReader.ReadLine(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
             }
             catch (ElementReadException e)
             {

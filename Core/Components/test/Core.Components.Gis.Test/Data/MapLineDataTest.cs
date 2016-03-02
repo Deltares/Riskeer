@@ -16,11 +16,32 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_NullPoints_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MapLineData(null);
+            TestDelegate test = () => new MapLineData(null, "test data");
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, string.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData)));
         }
+
+        [Test]
+        public void Constructor_NullName_ThrowsArgumentNullExcpetion()
+        {
+            // Call
+            TestDelegate test = () => new MapLineData(Enumerable.Empty<Point2D>(), null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
+        }
+
+        [Test]
+        public void Constructor_EmptyName_ThrowsArgumentNullExcpetion()
+        {
+            // Call
+            TestDelegate test = () => new MapLineData(Enumerable.Empty<Point2D>(), "");
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
+        }
+				
 
         [Test]
         public void Constructor_WithEmptyPoints_CreatesNewMapLineData()
@@ -29,7 +50,7 @@ namespace Core.Components.Gis.Test.Data
             var points = new Collection<Point2D>();
 
             // Call
-            var data = new MapLineData(points);
+            var data = new MapLineData(points, "test data");
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);
@@ -44,7 +65,7 @@ namespace Core.Components.Gis.Test.Data
             var points = CreateTestPoints();
 
             // Call
-            var data = new MapLineData(points);
+            var data = new MapLineData(points, "test data");
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);
@@ -54,10 +75,24 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
+        public void Constructor_WithName_SetsName()
+        {
+            // Setup
+            var points = new Collection<Point2D>();
+            var name = "Some name";
+
+            // Call
+            var data = new MapLineData(points, name);
+
+            // Assert
+            Assert.AreEqual(name, data.Name);
+        }
+
+        [Test]
         public void MetaData_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            var data = new MapLineData(Enumerable.Empty<Point2D>());
+            var data = new MapLineData(Enumerable.Empty<Point2D>(), "test data");
 
             const string key = "<some key>";
             var newValue = new object();

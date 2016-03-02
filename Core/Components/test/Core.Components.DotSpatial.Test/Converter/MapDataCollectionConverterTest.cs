@@ -30,7 +30,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapDataCollectionConverter();
-            var collectionData = new MapDataCollection(new List<MapData>());
+            var collectionData = new MapDataCollection(new List<MapData>(), "test data");
 
             // Call
             var canConvert = converter.CanConvertMapData(collectionData);
@@ -44,7 +44,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapDataCollectionConverter();
-            var mapData = new TestMapData();
+            var mapData = new TestMapData("test data");
 
             // Call
             var canConvert = converter.CanConvertMapData(mapData);
@@ -71,7 +71,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var testConverter = new MapDataCollectionConverter();
-            var testMapData = new TestMapData();
+            var testMapData = new TestMapData("test data");
             var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testMapData.GetType());
 
             // Precondition
@@ -100,9 +100,9 @@ namespace Core.Components.DotSpatial.Test.Converter
                 linePoints.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
-            var collectionData = new MapDataCollection(new List<MapData>());
-            var pointData = new MapPointData(points);
-            var lineData = new MapLineData(linePoints);
+            var collectionData = new MapDataCollection(new List<MapData>(), "test data");
+            var pointData = new MapPointData(points, "test data");
+            var lineData = new MapLineData(linePoints, "test data");
 
             collectionData.List.Add(pointData);
             collectionData.List.Add(lineData);

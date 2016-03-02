@@ -34,7 +34,13 @@ namespace Core.Components.Gis.Data
         /// Creates a new instance of <see cref="MapPolygonData"/>.
         /// </summary>
         /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> which describes a closed area in 2D space.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        public MapPolygonData(IEnumerable<Point2D> points) : base(points) {}
+        /// <param name="name">The name of the <see cref="MapData"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when 
+        /// <list type="bullet">
+        /// <item><paramref name="points"/> is <c>null</c>.</item>
+        /// <item><paramref name="name"/> is <c>null</c> or only whitespace.</item>
+        /// </list>
+        /// </exception>
+        public MapPolygonData(IEnumerable<Point2D> points, string name) : base(points, name) {}
     }
 }

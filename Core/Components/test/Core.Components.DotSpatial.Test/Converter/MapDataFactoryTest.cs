@@ -22,7 +22,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var testData = CreateTestData();
 
             // Call
-            IList<IMapFeatureLayer> layers = factory.Create(new MapPointData(testData));
+            IList<IMapFeatureLayer> layers = factory.Create(new MapPointData(testData, "test data"));
 
             // Assert
             Assert.IsInstanceOf<IList<IMapFeatureLayer>>(layers);
@@ -38,7 +38,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var testData = CreateTestData();
 
             // Call
-            IList<IMapFeatureLayer> layers = factory.Create(new MapLineData(testData));
+            IList<IMapFeatureLayer> layers = factory.Create(new MapLineData(testData, "test data"));
 
             // Assert
             Assert.IsInstanceOf<IList<IMapFeatureLayer>>(layers);
@@ -54,7 +54,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var testData = CreateTestData();
 
             // Call
-            IList<IMapFeatureLayer> layers = factory.Create(new MapPolygonData(testData));
+            IList<IMapFeatureLayer> layers = factory.Create(new MapPolygonData(testData, "test data"));
 
             // Assert
             Assert.IsInstanceOf<IList<IMapFeatureLayer>>(layers);
@@ -73,10 +73,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             var testData = CreateTestData();
             var mapDataCollection = new MapDataCollection(new List<MapData>
             {
-                new MapPointData(testData),
-                new MapLineData(testData),
-                new MapPolygonData(testData)
-            });
+                new MapPointData(testData, "test data"),
+                new MapLineData(testData, "test data"),
+                new MapPolygonData(testData, "test data")
+            }, "test data");
 
             // Call
             IList<IMapFeatureLayer> layers = factory.Create(mapDataCollection);
@@ -109,7 +109,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var factory = new MapDataFactory();
-            var testData = new TestMapData();
+            var testData = new TestMapData("test data");
 
             // Call
             TestDelegate test = () => factory.Create(testData);

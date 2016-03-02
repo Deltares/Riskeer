@@ -39,6 +39,7 @@ using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Service;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
@@ -68,7 +69,7 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new ViewInfo<PipingFailureMechanismContext, PipingFailureMechanismView>
             {
-                GetViewName = (view, mechanism) => PipingDataResources.PipingFailureMechanism_DisplayName,
+                GetViewName = (view, mechanism) => RingtoetsCommonDataResources.PipingFailureMechanism_DisplayName,
                 Image = PipingFormsResources.PipingIcon
             };
         }

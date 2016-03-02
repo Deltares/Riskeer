@@ -15,10 +15,36 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_NullPoints_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MapPointData(null);
+            TestDelegate test = () => new MapPointData(null, "test data");
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, string.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData)));
+        }
+
+        [Test]
+        public void Constructor_NullName_ThrowsArgumentNullExcpetion()
+        {
+            // Setup
+            var points = new Collection<Point2D>();
+
+            // Call
+            TestDelegate test = () => new MapPointData(points, null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
+        }
+
+        [Test]
+        public void Constructor_EmptyName_ThrowsArgumentNullExcpetion()
+        {
+            // Setup
+            var points = new Collection<Point2D>();
+
+            // Call
+            TestDelegate test = () => new MapPointData(points, "");
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
         }
 
         [Test]
@@ -28,7 +54,7 @@ namespace Core.Components.Gis.Test.Data
             var points = new Collection<Point2D>();
 
             // Call
-            var data = new MapPointData(points);
+            var data = new MapPointData(points, "test data");
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);
@@ -42,7 +68,7 @@ namespace Core.Components.Gis.Test.Data
             var points = CreateTestPoints();
 
             // Call
-            var data = new MapPointData(points);
+            var data = new MapPointData(points, "test data");
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);

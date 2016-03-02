@@ -44,7 +44,8 @@ namespace Core.Components.DotSpatial.Converter
 
             var layer = new MapPolygonLayer(featureSet)
             {
-                IsVisible = data.IsVisible
+                IsVisible = data.IsVisible,
+                Name = data.Name
             };
 
             return new List<IMapFeatureLayer>

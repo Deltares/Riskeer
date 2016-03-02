@@ -35,8 +35,14 @@ namespace Core.Components.Gis.Data
         /// Creates a new instance of <see cref="MapMultiLineData"/>.
         /// </summary>
         /// <param name="lines">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> as (X,Y) lines.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="lines"/> is <c>null</c>.</exception>
-        public MapMultiLineData(IEnumerable<IEnumerable<Point2D>> lines)
+        /// <param name="name">The name of the <see cref="MapData"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when 
+        /// <list type="bullet">
+        /// <item><paramref name="lines"/> is <c>null</c>.</item>
+        /// <item><paramref name="name"/> is <c>null</c> or only whitespace.</item>
+        /// </list>
+        /// </exception>
+        public MapMultiLineData(IEnumerable<IEnumerable<Point2D>> lines, string name): base(name)
         {
             if (lines == null)
             {

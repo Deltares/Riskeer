@@ -48,7 +48,8 @@ namespace Core.Components.DotSpatial.Converter
 
             var layer = new MapLineLayer(featureSet)
             {
-                IsVisible = data.IsVisible
+                IsVisible = data.IsVisible,
+                Name = data.Name
             };
 
             return new List<IMapFeatureLayer>

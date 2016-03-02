@@ -133,7 +133,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<ReferenceLineContext>
             {
-                Text = context => RingtoetsFormsResources.ReferenceLine_DisplayName,
+                Text = context => RingtoetsCommonDataResources.ReferenceLine_DisplayName,
                 Image = context => RingtoetsFormsResources.ReferenceLineIcon,
                 ForeColor = context => context.WrappedData == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :

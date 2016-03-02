@@ -89,7 +89,7 @@ namespace Core.Plugins.DotSpatial.Legend
         {
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPointData>
             {
-                Text = mapPointData => DotSpatialResources.MapData_Point_data_label,
+                Text = mapPointData => mapPointData.Name,
                 Image = mapPointData => DotSpatialResources.PointsIcon,
                 CanDrag = (mapPointData, parentData) => true,
                 CanCheck = mapPointData => true,
@@ -99,7 +99,7 @@ namespace Core.Plugins.DotSpatial.Legend
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapLineData>
             {
-                Text = mapLineData => DotSpatialResources.MapData_Line_data_label,
+                Text = mapLineData => mapLineData.Name,
                 Image = mapLineData => DotSpatialResources.LineIcon,
                 CanDrag = (mapLineData, parentData) => true,
                 CanCheck = mapLineData => true,
@@ -109,7 +109,7 @@ namespace Core.Plugins.DotSpatial.Legend
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPolygonData>
             {
-                Text = mapPolygonData => DotSpatialResources.MapData_Polygon_data_label,
+                Text = mapPolygonData => mapPolygonData.Name,
                 Image = mapPolygonData => DotSpatialResources.AreaIcon,
                 CanDrag = (mapPolygonData, parentData) => true,
                 CanCheck = mapPolygonData => true,
@@ -119,7 +119,7 @@ namespace Core.Plugins.DotSpatial.Legend
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapDataCollection>
             {
-                Text = mapDataCollection => DotSpatialResources.General_Map,
+                Text = mapDataCollection => mapDataCollection.Name,
                 Image = mapDataCollection => GuiResources.folder,
                 ChildNodeObjects = mapDataCollection => mapDataCollection.List.Reverse().Cast<object>().ToArray(),
                 CanDrop = BaseMapCanDrop,
@@ -129,7 +129,7 @@ namespace Core.Plugins.DotSpatial.Legend
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapMultiLineData>
             {
-                Text = mapMultiLineData => DotSpatialResources.MapData_MultiLine_data_label,
+                Text = mapMultiLineData => mapMultiLineData.Name,
                 Image = mapMultiLineData => DotSpatialResources.LineIcon,
                 CanDrag = (mapMultiLineData, parentData) => true,
                 CanCheck = mapMultiLineData => true,

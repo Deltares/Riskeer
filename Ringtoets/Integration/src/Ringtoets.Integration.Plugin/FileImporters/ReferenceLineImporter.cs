@@ -39,6 +39,7 @@ using Ringtoets.Integration.Plugin.Properties;
 
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.FileImporters
@@ -57,7 +58,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         {
             get
             {
-                return RingtoetsIntegrationFormsResources.ReferenceLine_DisplayName;
+                return RingtoetsDataResources.ReferenceLine_DisplayName;
             }
         }
 
@@ -90,7 +91,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             get
             {
                 return String.Format("{0} shapefile (*.shp)|*.shp",
-                                     RingtoetsIntegrationFormsResources.ReferenceLine_DisplayName);
+                                     RingtoetsDataResources.ReferenceLine_DisplayName);
             }
         }
 

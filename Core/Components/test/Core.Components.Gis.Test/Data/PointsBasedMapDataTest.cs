@@ -16,11 +16,37 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_WithoutPoints_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestPointBasedMapData(null);
+            TestDelegate test = () => new TestPointBasedMapData(null, "some name");
 
             // Assert
             var expectedMessage = "A point collection is required when creating a subclass of Core.Components.Gis.Data.PointBasedMapData.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void Constructor_NullName_ThrowsArgumentNullExcpetion()
+        {
+            // Setup
+            var points = new Collection<Point2D>();
+
+            // Call
+            TestDelegate test = () => new TestPointBasedMapData(points, null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
+        }
+
+        [Test]
+        public void Constructor_EmptyName_ThrowsArgumentNullExcpetion()
+        {
+            // Setup
+            var points = new Collection<Point2D>();
+
+            // Call
+            TestDelegate test = () => new TestPointBasedMapData(points, "");
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
         }
 
         [Test]
@@ -34,7 +60,7 @@ namespace Core.Components.Gis.Test.Data
             };
 
             // Call
-            var data = new TestPointBasedMapData(points);
+            var data = new TestPointBasedMapData(points, "some name");
 
             // Assert
             Assert.AreNotSame(points, data.Points);
@@ -42,9 +68,23 @@ namespace Core.Components.Gis.Test.Data
             Assert.IsTrue(data.IsVisible);
         }
 
+        [Test]
+        public void Constructor_WithName_SetsName()
+        {
+            // Setup
+            var points = new Collection<Point2D>();
+            var name = "Some name";
+
+            // Call
+            var data = new TestPointBasedMapData(points, name);
+
+            // Assert
+            Assert.AreEqual(name, data.Name);
+        }
+
         private class TestPointBasedMapData : PointBasedMapData
         {
-            public TestPointBasedMapData(IEnumerable<Point2D> points) : base(points) { }
+            public TestPointBasedMapData(IEnumerable<Point2D> points, string name) : base(points, name) { }
         }
     }
 }

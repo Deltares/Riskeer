@@ -52,13 +52,19 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         }
 
         [Test]
-        public void Text_Always_ReturnsTextFromResource()
+        public void Text_Always_ReturnsNameFromMapData()
         {
+            // Setup
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>(), "Collectie");
+
+            mocks.ReplayAll();
+
             // Call
-            var text = info.Text(null);
+            var text = info.Text(mapDataCollection);
 
             // Assert
-            Assert.AreEqual(DotSpatialResources.General_Map, text);
+            Assert.AreEqual(mapDataCollection.Name, text);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -75,15 +81,15 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void ChildNodeObjects_Always_ReturnsChildsOnDataReversed()
         {
             // Setup
-            var mapData1 = mocks.StrictMock<MapData>();
-            var mapData2 = mocks.StrictMock<MapData>();
-            var mapData3 = mocks.StrictMock<MapData>();
+            var mapData1 = mocks.StrictMock<MapData>("test data");
+            var mapData2 = mocks.StrictMock<MapData>("test data");
+            var mapData3 = mocks.StrictMock<MapData>("test data");
             var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>
             {
                 mapData1,
                 mapData2,
                 mapData3
-            });
+            }, "test data");
 
             mocks.ReplayAll();
 
@@ -105,7 +111,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void CanDrop_SourceNodeTagIsNoMapData_ReturnsFalse()
         {
             // Setup
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>());
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -122,8 +128,8 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void CanDrop_SourceNodeTagIsMapData_ReturnsTrue()
         {
             // Setup
-            var mapData = mocks.StrictMock<MapData>();
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>());
+            var mapData = mocks.StrictMock<MapData>("test data");
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -140,7 +146,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void CanInsert_SourceNodeTagIsNoMapData_ReturnsFalse()
         {
             // Setup
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>());
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -157,8 +163,8 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void CanInsert_SourceNodeTagIsMapData_ReturnsTrue()
         {
             // Setup
-            var mapData = mocks.StrictMock<MapData>();
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>());
+            var mapData = mocks.StrictMock<MapData>("test data");
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -179,15 +185,15 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
-            var mapData1 = mocks.StrictMock<MapData>();
-            var mapData2 = mocks.StrictMock<MapData>();
-            var mapData3 = mocks.StrictMock<MapData>();
+            var mapData1 = mocks.StrictMock<MapData>("test data");
+            var mapData2 = mocks.StrictMock<MapData>("test data");
+            var mapData3 = mocks.StrictMock<MapData>("test data");
             var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>
             {
                 mapData1,
                 mapData2,
                 mapData3
-            });
+            }, "test data");
 
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
@@ -216,15 +222,15 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
-            var mapData1 = mocks.StrictMock<MapData>();
-            var mapData2 = mocks.StrictMock<MapData>();
-            var mapData3 = mocks.StrictMock<MapData>();
+            var mapData1 = mocks.StrictMock<MapData>("test data");
+            var mapData2 = mocks.StrictMock<MapData>("test data");
+            var mapData3 = mocks.StrictMock<MapData>("test data");
             var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>
             {
                 mapData1,
                 mapData2,
                 mapData3
-            });
+            }, "test data");
 
             mapDataCollection.Attach(observer);
 

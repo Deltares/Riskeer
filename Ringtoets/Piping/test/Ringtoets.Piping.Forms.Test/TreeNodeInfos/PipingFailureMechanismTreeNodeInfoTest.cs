@@ -16,11 +16,11 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var text = info.Text(mechanismContext);
 
             // Assert
-            Assert.AreEqual(Resources.PipingFailureMechanism_DisplayName, text);
+            Assert.AreEqual(RingtoetsDataResources.PipingFailureMechanism_DisplayName, text);
             mocks.VerifyAll();
         }
 

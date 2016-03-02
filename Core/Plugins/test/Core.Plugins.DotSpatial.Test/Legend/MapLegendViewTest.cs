@@ -47,7 +47,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var view = new MapLegendView();
-            var mapData = new MapDataCollection(new List<MapData>());
+            var mapData = new MapDataCollection(new List<MapData>(), "test data");
 
             // Call
             view.Data = mapData;
@@ -63,7 +63,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var view = new MapLegendView();
-            var mapData = new MapPointData(Enumerable.Empty<Point2D>());
+            var mapData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
 
             // Call
             view.Data = mapData;
@@ -78,7 +78,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var view = new MapLegendView();
-            var mapData = new MapLineData(Enumerable.Empty<Point2D>());
+            var mapData = new MapLineData(Enumerable.Empty<Point2D>(), "test data");
 
             // Call
             view.Data = mapData;
@@ -93,7 +93,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var view = new MapLegendView();
-            var mapData = new MapPolygonData(Enumerable.Empty<Point2D>());
+            var mapData = new MapPolygonData(Enumerable.Empty<Point2D>(), "test data");
 
             // Call
             view.Data = mapData;
@@ -108,7 +108,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var view = new MapLegendView();
-            var mapData = new MapMultiLineData(Enumerable.Empty<IEnumerable<Point2D>>());
+            var mapData = new MapMultiLineData(Enumerable.Empty<IEnumerable<Point2D>>(), "test data");
 
             // Call
             view.Data = mapData;

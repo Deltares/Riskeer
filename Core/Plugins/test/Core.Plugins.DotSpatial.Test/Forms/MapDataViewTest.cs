@@ -74,7 +74,7 @@ namespace Core.Plugins.DotSpatial.Test.Forms
             // Setup
             var mapView = new MapDataView();
             var map = (BaseMap) mapView.Controls[0];
-            var pointData = new MapPointData(Enumerable.Empty<Point2D>());
+            var pointData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
 
             // Call
             mapView.Data = pointData;
