@@ -27,24 +27,8 @@ using Rhino.Mocks;
 namespace Core.Components.DotSpatial.Test
 {
     [TestFixture]
-    public class MapFunctionSelectionZoomTest
+    public class MapFunctionPanTest
     {
-        [Test]
-        public void Constructor_Always_ExpectedValues()
-        {
-            // Setup
-            var mockingRepository = new MockRepository();
-            var mapMock = mockingRepository.StrictMock<IMap>();
-            mockingRepository.ReplayAll();
-
-            // Call
-            MapFunctionSelectionZoom mapFunction = new MapFunctionSelectionZoom(mapMock);
-
-            // Assert
-            Assert.IsInstanceOf<MapFunction>(mapFunction);
-            mockingRepository.VerifyAll();
-        }
-
         [Test]
         public void Constructor_ActivateEvent_ExpectedValues()
         {
@@ -55,7 +39,7 @@ namespace Core.Components.DotSpatial.Test
             mockingRepository.ReplayAll();
 
             // Call
-            MapFunctionSelectionZoom mapFunction = new MapFunctionSelectionZoom(mapMock);
+            MapFunctionPan mapFunction = new MapFunctionPan(mapMock);
             mapFunction.Activate();
 
             // Assert

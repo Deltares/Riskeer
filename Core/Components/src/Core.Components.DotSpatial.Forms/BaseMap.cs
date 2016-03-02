@@ -39,6 +39,7 @@ namespace Core.Components.DotSpatial.Forms
         private Map map;
         private IMapFunction mapFunctionSelectionZoom;
         private MouseCoordinatesMapExtension mouseCoordinatesMapExtension;
+        private IMapFunction mapFunctionPanning;
 
         /// <summary>
         /// Creates a new instance of <see cref="BaseMap"/>.
@@ -86,6 +87,13 @@ namespace Core.Components.DotSpatial.Forms
                 ResetDefaultInteraction();
                 map.FunctionMode = FunctionMode.Pan;
                 IsPanningEnabled = true;
+                map.Cursor = Cursors.Hand;
+
+                if (mapFunctionPanning == null)
+                {
+                    mapFunctionPanning = new MapFunctionPan(map);
+                }
+                map.ActivateMapFunction(mapFunctionPanning);
             }
         }
 
@@ -101,7 +109,6 @@ namespace Core.Components.DotSpatial.Forms
                 {
                     mapFunctionSelectionZoom = new MapFunctionSelectionZoom(map);
                 }
-
                 map.ActivateMapFunction(mapFunctionSelectionZoom);
             }
         }
@@ -126,7 +133,8 @@ namespace Core.Components.DotSpatial.Forms
         }
 
         protected override void Dispose(bool disposing)
-        {;
+        {
+            ;
             map.Dispose();
             mouseCoordinatesMapExtension.Dispose();
             base.Dispose(disposing);

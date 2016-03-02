@@ -42,6 +42,7 @@ namespace Core.Components.DotSpatial
     public class MapFunctionSelectionZoom : MapFunction
     {
         private readonly Pen selectionPen;
+        private readonly Cursor defaultCursor = Cursors.Default;
         private Point currentPoint;
         private Coordinate geoStartPoint;
         private bool isDragging;
@@ -50,6 +51,7 @@ namespace Core.Components.DotSpatial
         /// <summary>
         /// Creates a new instance of <see cref="MapFunctionSelectionZoom"/>.
         /// </summary>
+        /// <param name="map">Any valid <see cref="IMap"/> interface.</param>
         public MapFunctionSelectionZoom(IMap map) : base(map)
         {
             selectionPen = new Pen(Color.Black)
@@ -153,12 +155,12 @@ namespace Core.Components.DotSpatial
 
             base.OnMouseUp(e);
             Map.IsBusy = false;
-            Map.Cursor = Cursors.Default;
+            Map.Cursor = defaultCursor;
         }
 
         private void ActivateFunction(object sender, EventArgs e)
         {
-            Map.Cursor = Cursors.Default;
+            Map.Cursor = defaultCursor;
         }
     }
 }
