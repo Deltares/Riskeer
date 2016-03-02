@@ -60,50 +60,52 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
             // Setup
             var testFile = Path.Combine(testDataPath, "HydraRingSettingsTest.csv");
 
-            var streamReader = new StreamReader(testFile);
-            var fileContents = streamReader.ReadToEnd();
-
-            var reader = new HydraRingSettingsCsvReader(fileContents);
-            var expectedDictionary = GetDictionary();
-
-            // Call
-            var settings = reader.ReadSettings();
-
-            // Assert
-            Assert.IsInstanceOf<IDictionary<int, IDictionary<int, IDictionary<string, SubMechanismSettings>>>>(settings);
-            Assert.AreEqual(2, settings.Count);
-
-            foreach (KeyValuePair<int, IDictionary<int, IDictionary<string, SubMechanismSettings>>> expectedMechanism in expectedDictionary)
+            using (var streamReader = new StreamReader(testFile))
             {
-                Assert.IsTrue(settings.ContainsKey(expectedMechanism.Key));
-                Assert.IsInstanceOf<IDictionary<int, IDictionary<string, SubMechanismSettings>>>(settings[expectedMechanism.Key]);
+                var fileContents = streamReader.ReadToEnd();
 
-                foreach (KeyValuePair<int, IDictionary<string, SubMechanismSettings>> expectedSubMechanism in expectedMechanism.Value)
+                var reader = new HydraRingSettingsCsvReader(fileContents);
+                var expectedDictionary = GetDictionary();
+
+                // Call
+                var settings = reader.ReadSettings();
+
+                // Assert
+                Assert.IsInstanceOf<IDictionary<int, IDictionary<int, IDictionary<string, SubMechanismSettings>>>>(settings);
+                Assert.AreEqual(2, settings.Count);
+
+                foreach (KeyValuePair<int, IDictionary<int, IDictionary<string, SubMechanismSettings>>> expectedMechanism in expectedDictionary)
                 {
-                    Assert.IsTrue(settings[expectedMechanism.Key].ContainsKey(expectedSubMechanism.Key));
-                    Assert.IsInstanceOf<IDictionary<string, SubMechanismSettings>>(settings[expectedMechanism.Key][expectedSubMechanism.Key]);
+                    Assert.IsTrue(settings.ContainsKey(expectedMechanism.Key));
+                    Assert.IsInstanceOf<IDictionary<int, IDictionary<string, SubMechanismSettings>>>(settings[expectedMechanism.Key]);
 
-                    foreach (KeyValuePair<string, SubMechanismSettings> expectedSubMechanismSettings in expectedSubMechanism.Value)
+                    foreach (KeyValuePair<int, IDictionary<string, SubMechanismSettings>> expectedSubMechanism in expectedMechanism.Value)
                     {
-                        Assert.IsTrue(settings[expectedMechanism.Key][expectedSubMechanism.Key].ContainsKey(expectedSubMechanismSettings.Key));
-                        Assert.IsInstanceOf<SubMechanismSettings>(settings[expectedMechanism.Key][expectedSubMechanism.Key][expectedSubMechanismSettings.Key]);
+                        Assert.IsTrue(settings[expectedMechanism.Key].ContainsKey(expectedSubMechanism.Key));
+                        Assert.IsInstanceOf<IDictionary<string, SubMechanismSettings>>(settings[expectedMechanism.Key][expectedSubMechanism.Key]);
 
-                        SubMechanismSettings setting = settings[expectedMechanism.Key][expectedSubMechanism.Key][expectedSubMechanismSettings.Key];
+                        foreach (KeyValuePair<string, SubMechanismSettings> expectedSubMechanismSettings in expectedSubMechanism.Value)
+                        {
+                            Assert.IsTrue(settings[expectedMechanism.Key][expectedSubMechanism.Key].ContainsKey(expectedSubMechanismSettings.Key));
+                            Assert.IsInstanceOf<SubMechanismSettings>(settings[expectedMechanism.Key][expectedSubMechanism.Key][expectedSubMechanismSettings.Key]);
 
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.CalculationTechniqueId, setting.CalculationTechniqueId);
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.FormStartMethod, setting.FormStartMethod);
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.FormNumberOfIterations, setting.FormNumberOfIterations);
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.FormRelaxationFactor, setting.FormRelaxationFactor);
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.FormEpsBeta, setting.FormEpsBeta);
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.FormEpsHoh, setting.FormEpsHoh);
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.FormEpsZFunc, setting.FormEpsZFunc);
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.DsStartMethod, setting.DsStartMethod);
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.DsMaxNumberOfIterations, setting.DsMaxNumberOfIterations);
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.DsMinNumberOfIterations, setting.DsMinNumberOfIterations);
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.DsVarCoefficient, setting.DsVarCoefficient);
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.NiNumberSteps, setting.NiNumberSteps);
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.NiUMax, setting.NiUMax);
-                        Assert.AreEqual(expectedSubMechanismSettings.Value.NiUMin, setting.NiUMin);
+                            SubMechanismSettings setting = settings[expectedMechanism.Key][expectedSubMechanism.Key][expectedSubMechanismSettings.Key];
+
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.CalculationTechniqueId, setting.CalculationTechniqueId);
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.FormStartMethod, setting.FormStartMethod);
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.FormNumberOfIterations, setting.FormNumberOfIterations);
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.FormRelaxationFactor, setting.FormRelaxationFactor);
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.FormEpsBeta, setting.FormEpsBeta);
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.FormEpsHoh, setting.FormEpsHoh);
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.FormEpsZFunc, setting.FormEpsZFunc);
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.DsStartMethod, setting.DsStartMethod);
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.DsMaxNumberOfIterations, setting.DsMaxNumberOfIterations);
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.DsMinNumberOfIterations, setting.DsMinNumberOfIterations);
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.DsVarCoefficient, setting.DsVarCoefficient);
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.NiNumberSteps, setting.NiNumberSteps);
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.NiUMax, setting.NiUMax);
+                            Assert.AreEqual(expectedSubMechanismSettings.Value.NiUMin, setting.NiUMin);
+                        }
                     }
                 }
             }

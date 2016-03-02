@@ -28,13 +28,13 @@ using Ringtoets.HydraRing.Calculation.Settings;
 namespace Ringtoets.HydraRing.Calculation.IO
 {
     /// <summary>
-    /// The reader for the HydraRingSettings in csv format.
+    /// The reader for the Hydra- Ring settings in csv format.
     /// </summary>
     public class HydraRingSettingsCsvReader
     {
         private const char separator = ';';
 
-        private readonly string filePath;
+        private readonly string fileContents;
 
         private readonly IDictionary<int, IDictionary<int, IDictionary<string, SubMechanismSettings>>> settings = new Dictionary<int, IDictionary<int, IDictionary<string, SubMechanismSettings>>>();
 
@@ -49,14 +49,14 @@ namespace Ringtoets.HydraRing.Calculation.IO
             {formRelaxationFactorKey, 6},
             {formEpsBetaKey, 7},
             {formEpsHohKey, 8},
-            {formEpsZFunc, 9},
-            {dsStartMethod, 10},
-            {dsMinNumberOfIterations, 11},
-            {dsMaxNumberOfIterations, 12},
-            {dsVarCoefficient, 13},
-            {niUMin, 14},
-            {niUMax, 15},
-            {niNumberSteps, 16}
+            {formEpsZFuncKey, 9},
+            {dsStartMethodKey, 10},
+            {dsMinNumberOfIterationsKey, 11},
+            {dsMaxNumberOfIterationsKey, 12},
+            {dsVarCoefficientKey, 13},
+            {niUMinKey, 14},
+            {niUMaxKey, 15},
+            {niNumberStepsKey, 16}
         };
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
                 throw new ArgumentNullException("file", "A file must be set.");
             }
 
-            filePath = file;
+            fileContents = file;
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         /// <returns>A <see cref="Dictionary{TKey,TValue}"/> with the settings.</returns>
         public IDictionary<int, IDictionary<int, IDictionary<string, SubMechanismSettings>>> ReadSettings()
         {
-            string[] lines = filePath.Split('\n');
+            string[] lines = fileContents.Split('\n');
 
             foreach (string line in lines.Skip(1).Where(s => !string.IsNullOrEmpty(s)))
             {
@@ -90,8 +90,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
             return settings;
         }
 
-
-        private void CreateSetting(string[] line)
+        private void CreateSetting(IList<string> line)
         {
             // Get failure mechanism
             int failureMechanismType = GetFailureMechanismType(line);
@@ -123,7 +122,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
             return GetIntValueFromElement(line[columns[mechanismIdKey]]);
         }
 
-        private int GetSubMechanismType(string[] line)
+        private int GetSubMechanismType(IList<string> line)
         {
             return GetIntValueFromElement(line[columns[subMechanismIdKey]]);
         }
@@ -141,14 +140,14 @@ namespace Ringtoets.HydraRing.Calculation.IO
                                             GetDoubleValueFromElement(line[columns[formRelaxationFactorKey]]),
                                             GetDoubleValueFromElement(line[columns[formEpsBetaKey]]),
                                             GetDoubleValueFromElement(line[columns[formEpsHohKey]]),
-                                            GetDoubleValueFromElement(line[columns[formEpsZFunc]]),
-                                            GetIntValueFromElement(line[columns[dsStartMethod]]),
-                                            GetIntValueFromElement(line[columns[dsMinNumberOfIterations]]),
-                                            GetIntValueFromElement(line[columns[dsMaxNumberOfIterations]]),
-                                            GetDoubleValueFromElement(line[columns[dsVarCoefficient]]),
-                                            GetDoubleValueFromElement(line[columns[niUMin]]),
-                                            GetDoubleValueFromElement(line[columns[niUMax]]),
-                                            GetIntValueFromElement(line[columns[niNumberSteps]]));
+                                            GetDoubleValueFromElement(line[columns[formEpsZFuncKey]]),
+                                            GetIntValueFromElement(line[columns[dsStartMethodKey]]),
+                                            GetIntValueFromElement(line[columns[dsMinNumberOfIterationsKey]]),
+                                            GetIntValueFromElement(line[columns[dsMaxNumberOfIterationsKey]]),
+                                            GetDoubleValueFromElement(line[columns[dsVarCoefficientKey]]),
+                                            GetDoubleValueFromElement(line[columns[niUMinKey]]),
+                                            GetDoubleValueFromElement(line[columns[niUMaxKey]]),
+                                            GetIntValueFromElement(line[columns[niNumberStepsKey]]));
         }
 
         private static int GetIntValueFromElement(string element)
@@ -183,14 +182,14 @@ namespace Ringtoets.HydraRing.Calculation.IO
         private const string formRelaxationFactorKey = "FORM_RelaxationFactor";
         private const string formEpsBetaKey = "FORM_EpsBeta";
         private const string formEpsHohKey = "FORM_EpsHOH";
-        private const string formEpsZFunc = "FORM_EpsZFunc";
-        private const string dsStartMethod = "Ds_StartMethod";
-        private const string dsMinNumberOfIterations = "Ds_Min";
-        private const string dsMaxNumberOfIterations = "Ds_Max";
-        private const string dsVarCoefficient = "Ds_VarCoefficient";
-        private const string niUMin = "NI_UMin";
-        private const string niUMax = "NI_Umax";
-        private const string niNumberSteps = "NI_NumberSteps";
+        private const string formEpsZFuncKey = "FORM_EpsZFunc";
+        private const string dsStartMethodKey = "Ds_StartMethod";
+        private const string dsMinNumberOfIterationsKey = "Ds_Min";
+        private const string dsMaxNumberOfIterationsKey = "Ds_Max";
+        private const string dsVarCoefficientKey = "Ds_VarCoefficient";
+        private const string niUMinKey = "NI_UMin";
+        private const string niUMaxKey = "NI_Umax";
+        private const string niNumberStepsKey = "NI_NumberSteps";
 
         #endregion
     }

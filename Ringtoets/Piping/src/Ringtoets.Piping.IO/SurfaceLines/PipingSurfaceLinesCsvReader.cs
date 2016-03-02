@@ -27,6 +27,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.IO;
 using Core.Common.IO.Exceptions;
+using Core.Common.IO.Readers;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.Data;

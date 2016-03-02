@@ -25,7 +25,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Common.Utils.Properties;
 
-namespace Core.Common.IO
+namespace Core.Common.IO.Readers
 {
     /// <summary>
     /// This class provides helper functions for reading UTF8 encoded files.
