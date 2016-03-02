@@ -65,6 +65,13 @@ namespace Core.Common.Base.IO
         ProgressChangedDelegate ProgressChanged { set; }
 
         /// <summary>
+        /// Determines whether this importer can import data to target item.
+        /// </summary>
+        /// <param name="targetItem">The item to perform the import on.</param>
+        /// <returns><c>True</c> if the import was successful; <c>false</c> otherwise.</returns>
+        bool CanImportOn(object targetItem);
+
+        /// <summary>
         /// This method imports the data to an item from a file at the given location.
         /// </summary>
         /// <param name="targetItem">The item to perform the import on.</param>

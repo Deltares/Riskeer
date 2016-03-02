@@ -31,6 +31,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         /// The snapping tolerance in meters.
         /// </summary>
         private const double snappingTolerance = 1;
+
         /// <summary>
         /// The length tolerance between the reference line and the imported FailureMechanismSections in meters.
         /// </summary>
@@ -80,6 +81,11 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
+        public override bool CanImportOn(object targetItem)
+        {
+            return base.CanImportOn(targetItem) && ReferenceLineAvailable(targetItem);
+        }
+
         public override bool Import(object targetItem, string filePath)
         {
             var context = (FailureMechanismSectionsContext)targetItem;
@@ -124,6 +130,11 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism, 3, 3);
             AddImportedDataToModel(context, readResults);
             return true;
+        }
+
+        private static bool ReferenceLineAvailable(object targetItem)
+        {
+            return ((FailureMechanismSectionsContext)targetItem).ParentAssessmentSection.ReferenceLine != null;
         }
 
         private void HandleUserCancellingImport()
@@ -209,7 +220,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             ReferenceLine referenceLine = context.ParentAssessmentSection.ReferenceLine;
 
             IEnumerable<Point2D> allStartAndEndPoints = failureMechanismSections.Select(s => s.GetStart()).Concat(failureMechanismSections.Select(s => s.GetLast()));
-            if (allStartAndEndPoints.Any(point => GetDistanceToReferenceLine(point, referenceLine) > snappingTolerance)) 
+            if (allStartAndEndPoints.Any(point => GetDistanceToReferenceLine(point, referenceLine) > snappingTolerance))
             {
                 return false;
             }

@@ -26,6 +26,51 @@ namespace Core.Common.Base.Test.IO
         }
 
         [Test]
+        public void CanImportOn_ObjectIsOfCorrectType_ReturnTrue()
+        {
+            // Setup
+            var importer = new SimpleFileImporter();
+
+            var targetItem = new SimpleFileImporterTargetType();
+
+            // Call
+            var canImportOn = importer.CanImportOn(targetItem);
+
+            // Assert
+            Assert.IsTrue(canImportOn);
+        }
+
+        [Test]
+        public void CanImportOn_ObjectInheritsOfCorrectType_ReturnTrue()
+        {
+            // Setup
+            var importer = new SimpleFileImporter();
+
+            var targetItem = new InheritorOfImporterTargetType();
+
+            // Call
+            var canImportOn = importer.CanImportOn(targetItem);
+
+            // Assert
+            Assert.IsTrue(canImportOn);
+        }
+
+        [Test]
+        public void CanImportOn_ObjectTypeDoesNotMatch_ReturnFalse()
+        {
+            // Setup
+            var importer = new SimpleFileImporter();
+
+            var targetItem = new object();
+
+            // Call
+            var canImportOn = importer.CanImportOn(targetItem);
+
+            // Assert
+            Assert.IsFalse(canImportOn);
+        }
+
+        [Test]
         public void DoPostImportUpdates_TargetIsObservable_NotifyObservers()
         {
             // Setup
@@ -164,7 +209,7 @@ namespace Core.Common.Base.Test.IO
             {
                 get
                 {
-                    throw new NotImplementedException();
+                    return typeof(SimpleFileImporterTargetType);
                 }
             }
 
@@ -193,6 +238,16 @@ namespace Core.Common.Base.Test.IO
             {
                 NotifyProgress(currentStepName, currentStep, totalNumberOfSteps);
             }
+        }
+
+        private class SimpleFileImporterTargetType
+        {
+            
+        }
+
+        private class InheritorOfImporterTargetType : SimpleFileImporterTargetType
+        {
+            
         }
     }
 }

@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
+using Core.Common.Utils.Reflection;
+
 namespace Core.Common.Base.IO
 {
     /// <summary>
@@ -47,6 +49,11 @@ namespace Core.Common.Base.IO
         public abstract Type SupportedItemType { get; }
         public abstract string FileFilter { get; }
         public abstract ProgressChangedDelegate ProgressChanged { protected get; set; }
+
+        public virtual bool CanImportOn(object targetItem)
+        {
+            return targetItem.GetType().Implements(SupportedItemType);
+        }
 
         public abstract bool Import(object targetItem, string filePath);
 

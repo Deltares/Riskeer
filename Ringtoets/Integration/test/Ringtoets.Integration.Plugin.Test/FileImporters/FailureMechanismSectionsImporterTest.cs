@@ -41,6 +41,50 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void CanImportOn_ValidContextWithReferenceLine_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            mocks.ReplayAll();
+
+            var targetContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var importer = new FailureMechanismSectionsImporter();
+
+            // Call
+            var canImport = importer.CanImportOn(targetContext);
+
+            // Assert
+            Assert.IsTrue(canImport);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanImportOn_ValidContextWithoutReferenceLine_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = null;
+            mocks.ReplayAll();
+
+            var targetContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var importer = new FailureMechanismSectionsImporter();
+
+            // Call
+            var canImport = importer.CanImportOn(targetContext);
+
+            // Assert
+            Assert.IsFalse(canImport);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_ValidFileCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections()
         {
             // Setup

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
@@ -43,8 +42,7 @@ namespace Core.Common.Gui.Test.Commands
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var objectImporter = mocks.Stub<IFileImporter>();
-            objectImporter.Stub(i => i.SupportedItemType)
-                          .Return(target.GetType());
+            objectImporter.Stub(i => i.CanImportOn(target)).Return(true);
 
             var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
             objectApplicationPluginMock.Stub(p => p.Activate());
@@ -61,10 +59,43 @@ namespace Core.Common.Gui.Test.Commands
             var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore);
 
             // Call
-            var isImportPossible = commandHandler.CanImportOn(new object());
+            var isImportPossible = commandHandler.CanImportOn(target);
 
             // Assert
             Assert.IsTrue(isImportPossible);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanImportOn_HasOneFileImporterForTargetThatCannotImportOnTarget_ReturnFalse()
+        {
+            // Setup
+            var target = new object();
+
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            var objectImporter = mocks.Stub<IFileImporter>();
+            objectImporter.Stub(i => i.CanImportOn(target)).Return(false);
+
+            var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
+            objectApplicationPluginMock.Stub(p => p.Activate());
+            objectApplicationPluginMock.Expect(p => p.GetFileImporters())
+                                       .Return(new[]
+                                       {
+                                           objectImporter
+                                       });
+            mocks.ReplayAll();
+
+            var applicationCore = new ApplicationCore();
+            applicationCore.AddPlugin(objectApplicationPluginMock);
+
+            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore);
+
+            // Call
+            var isImportPossible = commandHandler.CanImportOn(target);
+
+            // Assert
+            Assert.IsFalse(isImportPossible);
             mocks.VerifyAll();
         }
 
@@ -77,11 +108,9 @@ namespace Core.Common.Gui.Test.Commands
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var objectImporter1 = mocks.Stub<IFileImporter>();
-            objectImporter1.Stub(i => i.SupportedItemType)
-                           .Return(target.GetType());
+            objectImporter1.Stub(i => i.CanImportOn(target)).Return(false);
             var objectImporter2 = mocks.Stub<IFileImporter>();
-            objectImporter2.Stub(i => i.SupportedItemType)
-                           .Return(target.GetType());
+            objectImporter2.Stub(i => i.CanImportOn(target)).Return(true);
 
             var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
             objectApplicationPluginMock.Stub(p => p.Activate());
@@ -99,10 +128,46 @@ namespace Core.Common.Gui.Test.Commands
             var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore);
 
             // Call
-            var isImportPossible = commandHandler.CanImportOn(new object());
+            var isImportPossible = commandHandler.CanImportOn(target);
 
             // Assert
             Assert.IsTrue(isImportPossible);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanImportOn_HasMultipleFileImporterForTargetThatCannotBeUsedForImporting_ReturnFalse()
+        {
+            // Setup
+            var target = new object();
+
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            var objectImporter1 = mocks.Stub<IFileImporter>();
+            objectImporter1.Stub(i => i.CanImportOn(target)).Return(false);
+            var objectImporter2 = mocks.Stub<IFileImporter>();
+            objectImporter2.Stub(i => i.CanImportOn(target)).Return(false);
+
+            var objectApplicationPluginMock = mocks.Stub<ApplicationPlugin>();
+            objectApplicationPluginMock.Stub(p => p.Activate());
+            objectApplicationPluginMock.Expect(p => p.GetFileImporters())
+                                       .Return(new[]
+                                       {
+                                           objectImporter1,
+                                           objectImporter2
+                                       });
+            mocks.ReplayAll();
+
+            var applicationCore = new ApplicationCore();
+            applicationCore.AddPlugin(objectApplicationPluginMock);
+
+            var commandHandler = new ExportImportCommandHandler(dialogParent, applicationCore);
+
+            // Call
+            var isImportPossible = commandHandler.CanImportOn(target);
+
+            // Assert
+            Assert.IsFalse(isImportPossible);
             mocks.VerifyAll();
         }
 

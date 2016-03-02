@@ -79,10 +79,8 @@ namespace Core.Common.Base.Plugin
                 return Enumerable.Empty<IFileImporter>();
             }
 
-            var targetType = target.GetType();
-
             return plugins.SelectMany(plugin => plugin.GetFileImporters())
-                          .Where(fileImporter => (fileImporter.SupportedItemType == targetType || targetType.Implements(fileImporter.SupportedItemType)));
+                          .Where(fileImporter => fileImporter.CanImportOn(target));
         }
 
         /// <summary>

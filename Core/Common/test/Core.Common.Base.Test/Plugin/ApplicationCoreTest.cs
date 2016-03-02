@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
@@ -42,11 +43,12 @@ namespace Core.Common.Base.Test.Plugin
         public void AddPlugin_SimpleApplicationPluginWithImporter_ShouldExposePluginDefinitions()
         {
             // Setup
-            var mocks = new MockRepository();
             var targetItem = new object();
-            var fileImporter = mocks.Stub<IFileImporter>();
 
-            fileImporter.Stub(i => i.SupportedItemType).Return(typeof(object));
+            var mocks = new MockRepository();
+
+            var fileImporter = mocks.Stub<IFileImporter>();
+            fileImporter.Stub(i => i.CanImportOn(targetItem)).Return(true);
 
             mocks.ReplayAll();
 
@@ -63,7 +65,7 @@ namespace Core.Common.Base.Test.Plugin
             applicationCore.AddPlugin(applicationPlugin);
 
             // Assert
-            var supportedFileImporters = applicationCore.GetSupportedFileImporters(targetItem).ToArray();
+            IFileImporter[] supportedFileImporters = applicationCore.GetSupportedFileImporters(targetItem).ToArray();
             Assert.AreEqual(1, supportedFileImporters.Length);
             Assert.AreSame(fileImporter, supportedFileImporters[0]);
         }
@@ -89,11 +91,12 @@ namespace Core.Common.Base.Test.Plugin
         public void RemovePlugin_SimpleApplicationPluginWithImport_ShouldNoLongerExposePluginDefinitions()
         {
             // Setup
-            var mocks = new MockRepository();
             var targetItem = new object();
-            var fileImporter = mocks.Stub<IFileImporter>();
 
-            fileImporter.Stub(i => i.SupportedItemType).Return(typeof(object));
+            var mocks = new MockRepository();
+            
+            var fileImporter = mocks.Stub<IFileImporter>();
+            fileImporter.Stub(i => i.CanImportOn(targetItem)).Return(true);
 
             mocks.ReplayAll();
 
@@ -122,22 +125,16 @@ namespace Core.Common.Base.Test.Plugin
         public void GetSupportedFileImporters_SimpleApplicationPluginWithImportersAdded_ShouldOnlyProvideSupportedImporters()
         {
             // Setup
-            var mocks = new MockRepository();
             var targetItem = new B();
-            var supportedFileImporter1 = mocks.Stub<IFileImporter>();
-            var supportedFileImporter2 = mocks.Stub<IFileImporter>();
-            var unsupportedFileImporter = mocks.Stub<IFileImporter>();
 
-            supportedFileImporter1.Stub(i => i.SupportedItemType).Return(typeof(B));
-            supportedFileImporter2.Stub(i => i.SupportedItemType).Return(typeof(A));
-            unsupportedFileImporter.Stub(i => i.SupportedItemType).Return(typeof(C)); // Wrong type
-
-            mocks.ReplayAll();
+            var supportedFileImporter1 = new SimpleFileImporter<B>();
+            var supportedFileImporter2 = new SimpleFileImporter<A>();
+            var unsupportedFileImporter = new SimpleFileImporter<C>();
 
             var applicationCore = new ApplicationCore();
             var applicationPlugin = new SimpleApplicationPlugin
             {
-                FileImporters = new[]
+                FileImporters = new IFileImporter[]
                 {
                     supportedFileImporter1,
                     supportedFileImporter2,
@@ -161,9 +158,9 @@ namespace Core.Common.Base.Test.Plugin
         {
             // Setup
             var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileImporter>();
 
-            fileImporter.Stub(i => i.SupportedItemType).Return(null);
+            var fileImporter = mocks.Stub<IFileImporter>();
+            fileImporter.Stub(i => i.CanImportOn(Arg<object>.Is.Anything)).Return(true);
 
             mocks.ReplayAll();
 
@@ -178,8 +175,71 @@ namespace Core.Common.Base.Test.Plugin
 
             applicationCore.AddPlugin(applicationPlugin);
 
-            // Call / Assert
-            CollectionAssert.IsEmpty(applicationCore.GetSupportedFileImporters(null));
+            // Assert
+            IEnumerable<IFileImporter> supportedImporters = applicationCore.GetSupportedFileImporters(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(supportedImporters);
+        }
+
+        [Test]
+        public void GetSupportedFileImporters_ImporterCannotImportToTargetObject_ReturnEmpty()
+        {
+            // Setup
+            var targetObject = new object();
+            var mocks = new MockRepository();
+
+            var fileImporter = mocks.Stub<IFileImporter>();
+            fileImporter.Stub(i => i.CanImportOn(targetObject)).Return(false);
+
+            mocks.ReplayAll();
+
+            var applicationCore = new ApplicationCore();
+            var applicationPlugin = new SimpleApplicationPlugin
+            {
+                FileImporters = new[]
+                {
+                    fileImporter
+                }
+            };
+
+            applicationCore.AddPlugin(applicationPlugin);
+
+            // Assert
+            IEnumerable<IFileImporter> supportedImporters = applicationCore.GetSupportedFileImporters(targetObject);
+
+            // Assert
+            CollectionAssert.IsEmpty(supportedImporters);
+        }
+
+        [Test]
+        public void GetSupportedFileImporters_ImporterCanImportToTargetObject_ReturnImporter()
+        {
+            // Setup
+            var targetObject = new object();
+            var mocks = new MockRepository();
+
+            var fileImporter = mocks.Stub<IFileImporter>();
+            fileImporter.Stub(i => i.CanImportOn(targetObject)).Return(true);
+
+            mocks.ReplayAll();
+
+            var applicationCore = new ApplicationCore();
+            var applicationPlugin = new SimpleApplicationPlugin
+            {
+                FileImporters = new[]
+                {
+                    fileImporter
+                }
+            };
+
+            applicationCore.AddPlugin(applicationPlugin);
+
+            // Assert
+            IEnumerable<IFileImporter> supportedImporters = applicationCore.GetSupportedFileImporters(targetObject);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]{fileImporter}, supportedImporters);
         }
 
         [Test]
@@ -351,6 +411,56 @@ namespace Core.Common.Base.Test.Plugin
             public override IEnumerable<DataItemInfo> GetDataItemInfos()
             {
                 return DataItemInfos;
+            }
+        }
+
+        private class SimpleFileImporter<T> : FileImporterBase
+        {
+            public override string Name
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public override string Category
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public override Bitmap Image
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public override Type SupportedItemType
+            {
+                get
+                {
+                    return typeof(T);
+                }
+            }
+
+            public override string FileFilter
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public override ProgressChangedDelegate ProgressChanged { protected get; set; }
+
+            public override bool Import(object targetItem, string filePath)
+            {
+                throw new NotImplementedException();
             }
         }
 
