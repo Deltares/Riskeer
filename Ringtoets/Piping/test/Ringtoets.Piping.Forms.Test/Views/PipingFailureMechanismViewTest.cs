@@ -76,10 +76,21 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var view = new PipingFailureMechanismView();
             var map = (BaseMap)view.Controls[0];
+
+            var refereceGeometryPoints = new[]
+            {
+                new Point2D(0.0, 0.0), 
+                new Point2D(2.0, 0.0), 
+                new Point2D(4.0, 4.0), 
+                new Point2D(6.0, 4.0)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(refereceGeometryPoints);
+
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
-                ReferenceLine = new ReferenceLine(),
+                ReferenceLine = referenceLine
             };
             assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
             assessmentSectionBase.ReferenceLine.SetGeometry(new List<Point2D>
@@ -90,6 +101,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.SurfaceLines.Add(new RingtoetsPipingSurfaceLine());
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("A", refereceGeometryPoints.Take(2)));
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("B", refereceGeometryPoints.Skip(1).Take(2)));
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("C", refereceGeometryPoints.Skip(2).Take(2)));
 
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionBase);
 
@@ -101,9 +115,46 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
             var mapData = map.Data as MapDataCollection;
             Assert.IsNotNull(mapData);
-            Assert.AreEqual(1, mapData.List.Count(md => md is MapPointData));
-            Assert.AreEqual(1, mapData.List.Count(md => md is MapLineData));
-            Assert.AreEqual(1, mapData.List.Count(md => md is MapMultiLineData));
+
+            AssertReferenceMapData(referenceLine, mapData.List[0]);
+            AssertHydraulicBoundaryLocationsMapData(assessmentSectionBase.HydraulicBoundaryDatabase, mapData.List[1]);
+            AssertFailureMechanismSectionsMapData(pipingFailureMechanism.Sections, mapData.List[2]);
+            AssertSurfacelinesMapData(pipingFailureMechanism.SurfaceLines, mapData.List[3]);
+            
+        }
+
+        private void AssertReferenceMapData(ReferenceLine referenceLine, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapLineData>(mapData);
+            var referenceLineData = (MapLineData)mapData;
+            CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Points);
+        }
+
+        private void AssertHydraulicBoundaryLocationsMapData(HydraulicBoundaryDatabase database, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapPointData>(mapData);
+            var hydraulicLocationsMapData = (MapPointData)mapData;
+            CollectionAssert.AreEqual(database.Locations.Select(hrp => hrp.Location), hydraulicLocationsMapData.Points);
+        }
+
+        private void AssertFailureMechanismSectionsMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapMultiLineData>(mapData);
+            var sectionsMapLinesData = (MapMultiLineData)mapData;
+            foreach (var failureMechanismSection in sections)
+            {
+                CollectionAssert.Contains(sectionsMapLinesData.Lines, failureMechanismSection.Points);
+            }
+        }
+
+        private void AssertSurfacelinesMapData(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapMultiLineData>(mapData);
+            var surfacelinesMapData = (MapMultiLineData)mapData;
+            foreach (var surfaceLine in surfaceLines)
+            {
+                CollectionAssert.Contains(surfacelinesMapData.Lines, surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)));
+            }
         }
 
         [Test]

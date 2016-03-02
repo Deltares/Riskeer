@@ -22,17 +22,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Forms;
+
 using Ringtoets.Piping.Forms.PresentationObjects;
 
 namespace Ringtoets.Piping.Forms.Views
 {
-    public partial class PipingFailureMechanismView :  UserControl, IMapView, IObserver
+    /// <summary>
+    /// This class is a view showing map data for a piping failure mechanism.
+    /// </summary>
+    public partial class PipingFailureMechanismView : UserControl, IMapView, IObserver
     {
         private readonly BaseMap map;
         private PipingFailureMechanismContext data;
@@ -66,6 +71,22 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
+        public IMap Map
+        {
+            get
+            {
+                return map;
+            }
+        }
+
+        public void UpdateObserver()
+        {
+            if (data != null)
+            {
+                SetDataToMap();
+            }
+        }
+
         private void AttachToData()
         {
             if (data != null)
@@ -92,14 +113,6 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        public IMap Map
-        {
-            get
-            {
-                return map;
-            }
-        }
-
         private void SetDataToMap()
         {
             var mapDataList = new List<MapData>();
@@ -114,6 +127,11 @@ namespace Ringtoets.Piping.Forms.Views
                 if (HasHydraulicBoundaryLocations())
                 {
                     mapDataList.Add(GetHydraulicBoundaryLocationsMapData());
+                }
+
+                if (HasSections())
+                {
+                    mapDataList.Add(GetSectionsMapData());
                 }
 
                 if (HasSurfaceLines())
@@ -143,6 +161,12 @@ namespace Ringtoets.Piping.Forms.Views
             return new MapMultiLineData(surfaceLines);
         }
 
+        private MapData GetSectionsMapData()
+        {
+            IEnumerable<IEnumerable<Point2D>> sectionLines = data.WrappedData.Sections.Select(sl => sl.Points);
+            return new MapMultiLineData(sectionLines);
+        }
+
         private bool HasReferenceLinePoints()
         {
             return data.Parent.ReferenceLine != null && data.Parent.ReferenceLine.Points.Any();
@@ -158,12 +182,9 @@ namespace Ringtoets.Piping.Forms.Views
             return data.WrappedData.SurfaceLines.Any();
         }
 
-        public void UpdateObserver()
+        private bool HasSections()
         {
-            if (data != null)
-            {
-                SetDataToMap();
-            }
+            return data.WrappedData.Sections.Any();
         }
     }
 }
