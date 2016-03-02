@@ -232,10 +232,15 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
-        private void ClearFailureMechanismSections(IFailureMechanism failureMechanisms)
+        private void ClearFailureMechanismSections(IFailureMechanism failureMechanism)
         {
-            // TODO: WTI-365 - Clear all 'vakindelingen'
-            //changedObservables.Add(clearedInstance);
+            failureMechanism.ClearAllSections();
+
+            var observableFailureMechanism = failureMechanism as IObservable;
+            if (observableFailureMechanism != null)
+            {
+                changedObservables.Add(observableFailureMechanism);
+            }
         }
 
         private void ClearHydraulicBoundaryOutput(AssessmentSectionBase assessmentSection)

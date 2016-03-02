@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<Observable>(context);
+            Assert.IsInstanceOf<IObservable>(context);
             Assert.AreSame(sectionsSequence, context.WrappedData);
             Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, context.ParentAssessmentSection);
@@ -82,6 +82,51 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             // Assert
             Assert.Throws<ArgumentNullException>(call);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void NotifyObservers_HasPipingCalculationAndObserverAttached_NotifyObserver()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var observer = mocks.StrictMock<IObserver>();
+
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Expect(fm => fm.Attach(observer));
+            failureMechanism.Expect(fm => fm.NotifyObservers());
+            mocks.ReplayAll();
+
+            var presentationObject = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            presentationObject.Attach(observer);
+
+            // Call
+            presentationObject.NotifyObservers();
+
+            // Assert
+            mocks.VerifyAll(); // Expect attach and notify observers on failure mechanism
+        }
+
+        [Test]
+        public void NotifyObservers_HasPipingCalculationAndObserverDetached_NoCallsOnObserver()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var observer = mocks.StrictMock<IObserver>();
+
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Expect(fm => fm.Detach(observer));
+            mocks.ReplayAll();
+
+            var presentationObject = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            presentationObject.Detach(observer);
+
+            // Assert
+            mocks.VerifyAll(); // Expect detach from failure mechanism
         }
     }
 }

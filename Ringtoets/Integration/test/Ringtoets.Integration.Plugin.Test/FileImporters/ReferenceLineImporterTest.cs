@@ -239,6 +239,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             calculation4.Expect(c => c.ClearOutput());
 
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();
+            failureMechanism1.Expect(fm => fm.ClearAllSections());
             failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
             {
                 calculation1,
@@ -246,6 +247,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             });
 
             var failureMechanism2 = mocks.Stub<IFailureMechanism>();
+            failureMechanism2.Expect(fm => fm.ClearAllSections());
             failureMechanism2.Stub(fm => fm.CalculationItems).Return(new[]
             {
                 calculation3,
@@ -294,7 +296,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                Environment.NewLine + "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
 
-            // TODO: Clear 'vakindelingen' on all failure mechanisms
             // TODO: Clear calculated HR
             mocks.VerifyAll(); // Expect calculation output cleared
         }
@@ -310,6 +311,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var calculation2 = mocks.Stub<ICalculationItem>();
 
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();
+            failureMechanism1.Expect(fm => fm.ClearAllSections());
             failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
             {
                 calculation1,
@@ -320,7 +322,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             assessmentSection.ReferenceLine = originalReferenceLine;
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
-                failureMechanism1,
+                failureMechanism1
             });
             mocks.ReplayAll();
 
@@ -485,6 +487,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             calculation4.Expect(c => c.NotifyObservers());
 
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();
+            failureMechanism1.Expect(fm => fm.ClearAllSections());
+            failureMechanism1.Expect(fm => fm.NotifyObservers());
             failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
             {
                 calculation1,
@@ -492,6 +496,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             });
 
             var failureMechanism2 = mocks.Stub<IFailureMechanism>();
+            failureMechanism2.Expect(fm => fm.ClearAllSections());
+            failureMechanism2.Expect(fm => fm.NotifyObservers());
             failureMechanism2.Stub(fm => fm.CalculationItems).Return(new[]
             {
                 calculation3,
@@ -642,6 +648,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             calculation4.Expect(c => c.NotifyObservers());
 
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();
+            failureMechanism1.Expect(fm => fm.ClearAllSections()).Repeat.Twice();
+            failureMechanism1.Expect(fm => fm.NotifyObservers());
             failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
             {
                 calculation1,
@@ -649,6 +657,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             });
 
             var failureMechanism2 = mocks.Stub<IFailureMechanism>();
+            failureMechanism2.Expect(fm => fm.ClearAllSections()).Repeat.Twice();
+            failureMechanism2.Expect(fm => fm.NotifyObservers());
             failureMechanism2.Stub(fm => fm.CalculationItems).Return(new[]
             {
                 calculation3,

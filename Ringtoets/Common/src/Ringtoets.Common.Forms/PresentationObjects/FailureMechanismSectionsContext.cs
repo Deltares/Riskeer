@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for <see cref="IFailureMechanism.Sections"/>.
     /// </summary>
-    public class FailureMechanismSectionsContext : Observable
+    public class FailureMechanismSectionsContext : IObservable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSectionsContext"/> class.
@@ -75,5 +75,25 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// Gets the assessment section that owns <see cref="ParentFailureMechanism"/>.
         /// </summary>
         public AssessmentSectionBase ParentAssessmentSection { get; private set; }
+
+        #region IObservable
+
+        public void Attach(IObserver observer)
+        {
+            ParentFailureMechanism.Attach(observer);
+        }
+
+        public void Detach(IObserver observer)
+        {
+            ParentFailureMechanism.Detach(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            ParentFailureMechanism.NotifyObservers();
+        }
+
+        #endregion
+
     }
 }

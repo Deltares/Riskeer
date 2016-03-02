@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+
+using Core.Common.Base;
 using Core.Common.Base.Storage;
 
 namespace Ringtoets.Common.Data
@@ -28,7 +30,7 @@ namespace Ringtoets.Common.Data
     /// <summary>
     /// Defines a failure mechanism.
     /// </summary>
-    public interface IFailureMechanism : IStorable
+    public interface IFailureMechanism : IStorable, IObservable
     {
         /// <summary>
         /// Gets the amount of contribution as a percentage (0-100) for the <see cref="IFailureMechanism"/>
