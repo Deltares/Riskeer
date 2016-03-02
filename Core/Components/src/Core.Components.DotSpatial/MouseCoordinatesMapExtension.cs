@@ -20,17 +20,24 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 using DotSpatial.Controls;
 
 namespace Core.Components.DotSpatial
 {
+    /// <summary>
+    /// An extension for the <see cref="Map"/> which shows the map coordinates of the mouse.
+    /// </summary>
     public class MouseCoordinatesMapExtension : Extension
     {
         private readonly Map map;
         private readonly TextBox textBox;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="MouseCoordinatesMapExtension"/>.
+        /// </summary>
+        /// <param name="map">The <see cref="Map"/> wich the extension applies to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="map"/> is <c>null</c>.</exception>
         public MouseCoordinatesMapExtension(Map map)
         {
             if (map == null)
@@ -47,6 +54,9 @@ namespace Core.Components.DotSpatial
             };
         }
 
+        /// <summary>
+        /// Actives the extension by keeping track of the mouse and showing the coordinates on the <see cref="Map"/>.
+        /// </summary>
         public override void Activate()
         {
             map.GeoMouseMove += OnMouseMove;
@@ -54,6 +64,9 @@ namespace Core.Components.DotSpatial
             base.Activate();
         }
 
+        /// <summary>
+        /// Deactives the extension so it won't keep track of the mouse and doesn't show the coordinates on the <see cref="Map"/>.
+        /// </summary>
         public override void Deactivate()
         {
             map.GeoMouseMove -= OnMouseMove;
