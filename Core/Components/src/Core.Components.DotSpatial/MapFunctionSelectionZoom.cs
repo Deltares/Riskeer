@@ -57,6 +57,7 @@ namespace Core.Components.DotSpatial
                 DashStyle = DashStyle.Dash
             };
             YieldStyle = YieldStyles.LeftButton | YieldStyles.RightButton;
+            FunctionActivated += ActivateFunction;
         }
 
         protected override void OnDraw(MapDrawArgs e)
@@ -81,6 +82,7 @@ namespace Core.Components.DotSpatial
                 geoStartPoint = e.GeographicLocation;
                 isDragging = true;
                 Map.IsBusy = true;
+                Map.Cursor = Cursors.SizeNWSE;
             }
             base.OnMouseDown(e);
         }
@@ -151,6 +153,12 @@ namespace Core.Components.DotSpatial
 
             base.OnMouseUp(e);
             Map.IsBusy = false;
+            Map.Cursor = Cursors.Default;
+        }
+
+        private void ActivateFunction(object sender, EventArgs e)
+        {
+            Map.Cursor = Cursors.Default;
         }
     }
 }
