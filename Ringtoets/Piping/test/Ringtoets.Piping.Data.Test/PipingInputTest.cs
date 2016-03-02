@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(1, inputParameters.DampingFactorExit.Mean);
             Assert.AreEqual(defaultLogNormalStandardDev, inputParameters.DampingFactorExit.StandardDeviation);
             Assert.IsInstanceOf<LognormalDistribution>(inputParameters.ThicknessCoverageLayer);
-            Assert.AreEqual(defaultLogNormalMean, inputParameters.ThicknessCoverageLayer.Mean);
+            Assert.IsNaN(inputParameters.ThicknessCoverageLayer.Mean);
             Assert.AreEqual(defaultLogNormalStandardDev, inputParameters.ThicknessCoverageLayer.StandardDeviation);
             Assert.IsInstanceOf<LognormalDistribution>(inputParameters.SeepageLength);
             Assert.AreEqual(defaultLogNormalMean, inputParameters.SeepageLength.Mean);

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using log4net;
+using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Service;
@@ -13,6 +15,8 @@ namespace Ringtoets.Piping.Forms.Extensions
     /// </summary>
     public static class PipingInputExtensions
     {
+        private static ILog logger = LogManager.GetLogger(typeof(PipingInput));
+
         /// <summary>
         /// Updates the <see cref="PipingInput.SurfaceLine"/> property and propagates changes to dependent
         /// properties.
@@ -73,36 +77,57 @@ namespace Ringtoets.Piping.Forms.Extensions
 
         private static void UpdateThicknessCoverageLayer(this PipingInput input)
         {
-            if (input.SurfaceLine == null || input.SoilProfile == null)
+            if (input.SurfaceLine != null && input.SoilProfile != null)
             {
-                return;
+                try
+                {
+                    input.ThicknessCoverageLayer.Mean = PipingCalculationService.CalculateThicknessCoverageLayer(input);
+                    return;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    // error handling performed after try-catch
+                }
+                catch (PipingCalculatorException)
+                {
+                    // error handling performed after try-catch
+                }
             }
 
-            input.ThicknessCoverageLayer.Mean = PipingCalculationService.CalculateThicknessCoverageLayer(input);
+            logger.Warn(Resources.PipingInputExtensions_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer);
+            input.ThicknessCoverageLayer.Mean = double.NaN;
         }
 
         private static void UpdateValuesBasedOnSurfaceLine(this PipingInput input)
         {
-            var entryPointIndex = Array.IndexOf(input.SurfaceLine.Points, input.SurfaceLine.DikeToeAtRiver);
-            var exitPointIndex = Array.IndexOf(input.SurfaceLine.Points, input.SurfaceLine.DikeToeAtPolder);
-
-            var localGeometry = input.SurfaceLine.ProjectGeometryToLZ().ToArray();
-
-            var tempEntryPointL = localGeometry[0].X;
-            var tempExitPointL = localGeometry[localGeometry.Length - 1].X;
-
-            var differentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
-            if (differentPoints && exitPointIndex > 0)
+            if (input.SurfaceLine == null)
             {
-                tempExitPointL = localGeometry.ElementAt(exitPointIndex).X;
+                input.ExitPointL = double.NaN;
+                input.SeepageLength.Mean = double.NaN;
             }
-            if (differentPoints && entryPointIndex > -1)
+            else
             {
-                tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
-            }
+                var entryPointIndex = Array.IndexOf(input.SurfaceLine.Points, input.SurfaceLine.DikeToeAtRiver);
+                var exitPointIndex = Array.IndexOf(input.SurfaceLine.Points, input.SurfaceLine.DikeToeAtPolder);
 
-            input.ExitPointL = tempExitPointL;
-            input.SetSeepageLengthMean(tempExitPointL - tempEntryPointL);
+                var localGeometry = input.SurfaceLine.ProjectGeometryToLZ().ToArray();
+
+                var tempEntryPointL = localGeometry[0].X;
+                var tempExitPointL = localGeometry[localGeometry.Length - 1].X;
+
+                var differentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
+                if (differentPoints && exitPointIndex > 0)
+                {
+                    tempExitPointL = localGeometry.ElementAt(exitPointIndex).X;
+                }
+                if (differentPoints && entryPointIndex > -1)
+                {
+                    tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
+                }
+
+                input.ExitPointL = tempExitPointL;
+                input.SetSeepageLengthMean(tempExitPointL - tempEntryPointL);
+            }
         }
 
         /// <summary>

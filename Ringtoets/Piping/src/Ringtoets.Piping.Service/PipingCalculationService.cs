@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Service
         {
             foreach (var errorMessage in errorMessages)
             {
-                pipingCalculationLogger.Error(string.Format(format, errorMessage));
+                pipingCalculationLogger.ErrorFormat(format, errorMessage);
             }
         }
 

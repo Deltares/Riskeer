@@ -58,7 +58,10 @@ namespace Ringtoets.Piping.Data
             {
                 Mean = 1.0
             };
-            ThicknessCoverageLayer = new LognormalDistribution();
+            ThicknessCoverageLayer = new LognormalDistribution
+            {
+                Mean = double.NaN
+            };
             SeepageLength = new LognormalDistribution();
             SeepageLength.StandardDeviation = SeepageLength.Mean * SeepageLengthStandardDeviationFraction;
             Diameter70 = new LognormalDistribution();

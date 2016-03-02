@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -115,6 +116,7 @@ namespace Demo.Ringtoets.Commands
             calculation.InputParameters.SetSurfaceLine(pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001"));
             calculation.InputParameters.SoilProfile = pipingFailureMechanism.SoilProfiles.First(sl => sl.Name == "AD640M00_Segment_36005_1D2");
             calculation.InputParameters.PhreaticLevelExit.Mean = 3;
+            calculation.InputParameters.ThicknessCoverageLayer.Mean = Math.Exp(-0.5);
         }
     }
 }

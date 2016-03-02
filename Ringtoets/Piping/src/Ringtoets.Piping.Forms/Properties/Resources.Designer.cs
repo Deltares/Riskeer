@@ -1041,6 +1041,16 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan deklaagdikte niet afleiden op basis van de invoer..
+        /// </summary>
+        public static string PipingInputExtensions_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer {
+            get {
+                return ResourceManager.GetString("PipingInputExtensions_UpdateThicknessCoverageLayer_Cannot_determine_thickness_cov" +
+                        "erage_layer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap PipingInputIcon {

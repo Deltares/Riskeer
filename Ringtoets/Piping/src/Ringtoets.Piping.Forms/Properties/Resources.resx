@@ -580,4 +580,7 @@
   <data name="PipingInputContextProperties_HydraulicBoundaryLocation_Could_not_set_Location_0_Cause_1_" xml:space="preserve">
     <value>Kan locatie '{0}' niet gebruiken als invoer. {1}</value>
   </data>
+  <data name="PipingInputExtensions_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer" xml:space="preserve">
+    <value>Kan deklaagdikte niet afleiden op basis van de invoer.</value>
+  </data>
 </root>

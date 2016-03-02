@@ -185,7 +185,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.SoilProfile = value;
+                data.WrappedData.SetSoilProfile(value);
                 data.WrappedData.NotifyObservers();
             }
         }
