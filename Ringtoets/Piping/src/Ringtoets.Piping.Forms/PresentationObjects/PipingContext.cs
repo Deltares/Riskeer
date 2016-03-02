@@ -117,6 +117,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="wrappedData">The wrapped data.</param>
         /// <param name="surfaceLines">The surface lines.</param>
         /// <param name="soilProfiles">The soil profiles.</param>
+        /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
         private static void AssertInputsAreNotNull(object wrappedData, object surfaceLines, object soilProfiles, object assessmentSection)
         {

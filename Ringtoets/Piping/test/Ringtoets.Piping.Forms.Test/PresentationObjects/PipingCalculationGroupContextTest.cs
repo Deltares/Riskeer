@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             TestDelegate call = () => new PipingCalculationGroupContext(group, surfaceLines, soilProfiles, pipingFailureMechanismMock, null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het dijktraject mag niet 'null' zijn.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
 
             mocks.VerifyAll();
         }

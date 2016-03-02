@@ -208,7 +208,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 }
                 catch (ArgumentException e)
                 {
-                    string message = string.Format(Resources.PipingInputContextProperties_HydraulicBoundaryLocation_Could_not_set_location_0_cause_1_, 
+                    string message = string.Format(Resources.PipingInputContextProperties_HydraulicBoundaryLocation_Could_not_set_Location_0_Cause_1_, 
                         value.Name,
                         e.Message);
                     throw new ArgumentException(message);

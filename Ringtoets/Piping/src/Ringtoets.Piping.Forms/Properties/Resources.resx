@@ -569,7 +569,7 @@
     <value>Kon waarde {0} voor het intredepunt niet zetten omdat dit zou resulteren in een ongeldige kwelweglengte.</value>
   </data>
   <data name="PipingContext_DataDescription_AssessmentSection" xml:space="preserve">
-    <value>Het dijktraject</value>
+    <value>Het traject</value>
   </data>
   <data name="PipingInput_HydraulicBoundaryLocation_Description" xml:space="preserve">
     <value>De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.</value>
@@ -577,7 +577,7 @@
   <data name="PipingInput_HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
     <value>Locatie met hydraulische randvoorwaarden</value>
   </data>
-  <data name="PipingInputContextProperties_HydraulicBoundaryLocation_Could_not_set_location_0_cause_1_" xml:space="preserve">
+  <data name="PipingInputContextProperties_HydraulicBoundaryLocation_Could_not_set_Location_0_Cause_1_" xml:space="preserve">
     <value>Kan locatie '{0}' niet gebruiken als invoer. {1}</value>
   </data>
 </root>

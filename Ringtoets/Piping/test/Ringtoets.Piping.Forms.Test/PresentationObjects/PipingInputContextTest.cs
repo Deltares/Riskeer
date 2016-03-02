@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             TestDelegate call = () => new PipingInputContext(input, surfaceLines, soilProfiles, null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het dijktraject mag niet 'null' zijn.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
         }
 
         [Test]
