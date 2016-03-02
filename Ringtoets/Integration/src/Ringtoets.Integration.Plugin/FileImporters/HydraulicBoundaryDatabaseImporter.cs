@@ -39,8 +39,8 @@ namespace Ringtoets.Integration.Plugin.FileImporters
     /// </summary>
     public class HydraulicBoundaryDatabaseImporter : IDisposable
     {
-        private string hydraulicBoundaryDatabaseFilePath;
         private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryDatabaseImporter));
+        private string hydraulicBoundaryDatabaseFilePath;
 
         private HydraulicBoundarySqLiteDatabaseReader hydraulicBoundaryDatabaseReader;
         private HydraulicLocationConfigurationSqLiteDatabaseReader hydraulicLocationConfigurationDatabaseReader;
@@ -142,13 +142,16 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                     Version = hydraulicBoundaryDatabaseReader.GetVersion()
                 };
 
+                var locationidsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationsIdByRegionId(regionId);
                 hydraulicBoundaryDatabaseReader.PrepareReadLocation();
                 while (hydraulicBoundaryDatabaseReader.HasNext)
                 {
                     try
                     {
                         HrdLocation hrdLocation = hydraulicBoundaryDatabaseReader.ReadLocation();
-                        var locationId = hydraulicLocationConfigurationDatabaseReader.GetLocationId(regionId, hrdLocation.HrdLocationId);
+
+                        long locationId;
+                        locationidsDictionary.TryGetValue(hrdLocation.HrdLocationId, out locationId);
                         var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(locationId, hrdLocation.Name, hrdLocation.LocationX, hrdLocation.LocationY);
 
                         hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);

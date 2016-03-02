@@ -22,7 +22,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.Integration.Plugin.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         ///   Looks up a localized string similar to {0}
         ///Er is geen vakindeling geïmporteerd..
         /// </summary>
-        internal static string FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported {
+        public static string FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported", resourceCulture);
             }
@@ -73,7 +73,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Vakindeling importeren afgebroken. Geen data ingelezen..
         /// </summary>
-        internal static string FailureMechanismSectionsImporter_Import_cancelled_no_data_read {
+        public static string FailureMechanismSectionsImporter_Import_cancelled_no_data_read {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_cancelled_no_data_read", resourceCulture);
             }
@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Vakkenindeling komt niet overeen met de huidige referentielijn..
         /// </summary>
-        internal static string FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline {
+        public static string FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_cu" +
                         "rrent_referenceline", resourceCulture);
@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is geen referentielijn beschikbaar om een vakindeling voor de definiëren..
         /// </summary>
-        internal static string FailureMechanismSectionsImporter_Import_Required_reference_line_is_missing {
+        public static string FailureMechanismSectionsImporter_Import_Required_reference_line_is_missing {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_Required_reference_line_is_missing", resourceCulture);
             }
@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is geen referentielijn beschikbaar om een vakindeling voor de definiëren..
         /// </summary>
-        internal static string FailureMechanismSectionsImporter_Import_Required_referenceline_missing {
+        public static string FailureMechanismSectionsImporter_Import_Required_referenceline_missing {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_Required_referenceline_missing", resourceCulture);
             }
@@ -110,7 +110,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het faalmechanisme..
         /// </summary>
-        internal static string FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism {
+        public static string FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMech" +
                         "anism", resourceCulture);
@@ -120,7 +120,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Inlezen vakindeling..
         /// </summary>
-        internal static string FailureMechanismSectionsImporter_ProgressText_Reading_file {
+        public static string FailureMechanismSectionsImporter_ProgressText_Reading_file {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionsImporter_ProgressText_Reading_file", resourceCulture);
             }
@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Valideren ingelezen vakindeling..
         /// </summary>
-        internal static string FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections {
+        public static string FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections", resourceCulture);
             }
@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het bestand heeft geen vakindeling..
         /// </summary>
-        internal static string FailureMechanismSectionsImporter_ReadFile_File_is_empty {
+        public static string FailureMechanismSectionsImporter_ReadFile_File_is_empty {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionsImporter_ReadFile_File_is_empty", resourceCulture);
             }
@@ -147,7 +147,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} Het bestand wordt overgeslagen..
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped {
+        public static string HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped", resourceCulture);
             }
@@ -156,16 +156,16 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is nog geen bestand geopend..
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_File_not_opened {
+        public static string HydraulicBoundaryDatabaseImporter_File_not_opened {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_File_not_opened", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bijbehorende HLCD.sqlite is niet gevonden in de folder..
+        ///   Looks up a localized string similar to Het bijbehorende HLCD bestand is niet gevonden in de folder..
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found {
+        public static string HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found", resourceCulture);
             }
@@ -174,7 +174,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De hydraulische randvoorwaarden locaties zijn ingelezen..
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read {
+        public static string HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read", resourceCulture);
             }
@@ -185,7 +185,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
-        internal static string ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed {
+        public static string ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed {
             get {
                 return ResourceManager.GetString("ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_dat" +
                         "a_when_performed", resourceCulture);
@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         ///   Looks up a localized string similar to {0}
         ///Er is geen referentielijn geïmporteerd..
         /// </summary>
-        internal static string ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported {
+        public static string ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported {
             get {
                 return ResourceManager.GetString("ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_import" +
                         "ed", resourceCulture);
@@ -206,7 +206,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het traject..
         /// </summary>
-        internal static string ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsection {
+        public static string ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsection {
             get {
                 return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsec" +
                         "tion", resourceCulture);
@@ -216,7 +216,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Referentielijn importeren afgebroken. Geen data ingelezen..
         /// </summary>
-        internal static string ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read {
+        public static string ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read {
             get {
                 return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Inlezen referentielijn..
         /// </summary>
-        internal static string ReferenceLineImporter_ProgressText_Reading_referenceline {
+        public static string ReferenceLineImporter_ProgressText_Reading_referenceline {
             get {
                 return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Reading_referenceline", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Wissen rekenresultaten en vakindelingen van faalmechanismen..
         /// </summary>
-        internal static string ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections {
+        public static string ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections {
             get {
                 return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechan" +
                         "ism_sections", resourceCulture);
@@ -244,7 +244,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Verwijderen uitvoer van hydraulische randvoorwaarden..
         /// </summary>
-        internal static string ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output {
+        public static string ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output {
             get {
                 return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output", resourceCulture);
             }

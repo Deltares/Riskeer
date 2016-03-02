@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using Core.Common.IO.Exceptions;
@@ -51,33 +52,25 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
         public HydraulicLocationConfigurationSqLiteDatabaseReader(string databaseFilePath) : base(databaseFilePath) {}
 
         /// <summary>
-        /// Gets the location id from the database, based upon <paramref name="regionId"/> and <paramref name="hrdLocationId"/>.
+        /// Gets the location ids from the database, based upon <paramref name="regionId"/>.
         /// </summary>
         /// <param name="regionId">Hydraulic boundary region id.</param>
-        /// <param name="hrdLocationId">Hydraulic boundary location id.</param>
-        /// <returns>The location id found in the database, or <c>0</c> otherwise.</returns>
+        /// <returns>List of location id and Hrd location id found in the database.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the database query failed.</exception>
         /// <exception cref="InvalidCastException">Thrown when the database returned incorrect values for 
         /// required properties.</exception>
-        public int GetLocationId(long regionId, long hrdLocationId)
+        public Dictionary<long, long> GetLocationsIdByRegionId(long regionId)
         {
-            var locationIdQuery = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdQuery();
             var regionParameter = new SQLiteParameter
             {
                 DbType = DbType.String,
                 ParameterName = LocationsTableDefinitions.RegionId,
                 Value = regionId
             };
-            var hrdLocationParameter = new SQLiteParameter
-            {
-                DbType = DbType.String,
-                ParameterName = LocationsTableDefinitions.HrdLocationId,
-                Value = hrdLocationId
-            };
 
             try
             {
-                return GetLocationIdFromDatabase(locationIdQuery, regionParameter, hrdLocationParameter);
+                return GetLocationIdsFromDatabase(regionParameter);
             }
             catch (InvalidCastException exception)
             {
@@ -91,23 +84,29 @@ namespace Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext
             }
         }
 
-        private int GetLocationIdFromDatabase(string locationIdQuery, SQLiteParameter regionParameter, SQLiteParameter hrdLocationParameter)
+        private Dictionary<long, long> GetLocationIdsFromDatabase(SQLiteParameter regionParameter)
         {
-            using (SQLiteDataReader dataReader = CreateDataReader(locationIdQuery, regionParameter, hrdLocationParameter))
+            var dictionary = new Dictionary<long, long>();
+            var locationIdQuery = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsIdByRegionIdQuery();
+            using (SQLiteDataReader dataReader = CreateDataReader(locationIdQuery, regionParameter))
             {
-                if (!dataReader.Read())
+                while (MoveNext(dataReader))
                 {
-                    return 0;
-                }
-                var locationCount = Convert.ToInt32(dataReader[LocationsTableDefinitions.Count]);
+                    var key = Convert.ToInt64(dataReader[LocationsTableDefinitions.HrdLocationId]);
+                    var value = Convert.ToInt64(dataReader[LocationsTableDefinitions.LocationId]);
 
-                // Must be unique
-                if (locationCount > 1)
-                {
-                    log.Warn(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_GetLocationIdFromDatabase_Ambiguous_Row_Found_Take_First);
+                    // Must be unique
+                    if (dictionary.ContainsKey(key))
+                    {
+                        log.Warn(Resources.HydraulicLocationConfigurationSqLiteDatabaseReader_GetLocationIdFromDatabase_Ambiguous_Row_Found_Take_First);
+                    }
+                    else
+                    {
+                        dictionary.Add(key, value);
+                    }
                 }
-                return Convert.ToInt32(dataReader[LocationsTableDefinitions.LocationId]);
             }
+            return dictionary;
         }
     }
 }

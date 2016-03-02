@@ -28,15 +28,13 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicLocationConfigurationDatabaseCont
     public class HydraulicLocationConfigurationDatabaseQueryBuilderTest
     {
         [Test]
-        public void GetLocationIdQuery_Always_ReturnsExpectedValues()
+        public void GetLocationsIdByRegionIdQuery_Always_ReturnsExpectedValues()
         {
             // Setup
-            string expectedQuery = "SELECT LocationId, " +
-                                   "(Select COUNT(LocationId) FROM Locations WHERE RegionId = @RegionId AND HRDLocationId = @HRDLocationId) as nrOfRows " +
-                                   "FROM Locations WHERE RegionId = @RegionId AND HRDLocationId = @HRDLocationId;";
+            string expectedQuery = "SELECT LocationId, HRDLocationId FROM Locations WHERE RegionId = @RegionId ORDER BY HRDLocationId;";
 
             // Call
-            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationIdQuery();
+            string query = HydraulicLocationConfigurationDatabaseQueryBuilder.GetLocationsIdByRegionIdQuery();
 
             // Assert
             Assert.AreEqual(expectedQuery, query);

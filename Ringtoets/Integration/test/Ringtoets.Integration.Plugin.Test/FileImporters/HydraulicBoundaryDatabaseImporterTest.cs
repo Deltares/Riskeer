@@ -23,21 +23,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
-
+using Core.Common.Utils.Builders;
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -115,6 +110,21 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void ValidateAndConnectTo_ExistingFileWithoutHlcd_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");
+            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build("Het bijbehorende HLCD bestand is niet gevonden in de folder.");
+
+            // Call
+            TestDelegate test = () => importer.ValidateAndConnectTo(validFilePath);
+
+            // Assert
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
         public void GetHydraulicBoundaryDatabaseVersion_ValidFile_GetDatabaseVersion()
         {
             // Setup
@@ -146,6 +156,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -180,6 +191,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.AreEqual(18, importedLocations.Count);
             CollectionAssert.AllItemsAreNotNull(importedLocations);
             CollectionAssert.AllItemsAreUnique(importedLocations);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -211,6 +223,33 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.IsNull(importTarget.Parent.HydraulicBoundaryDatabase, "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
 
             mocks.VerifyAll(); // Expect no calls on 'observer'
+        }
+
+        [Test]
+        public void Import_CorruptSchemaFile_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var importTarget = mocks.StrictMock<HydraulicBoundaryDatabaseContext>(assessmentSectionMock);
+            mocks.ReplayAll();
+
+            string validFilePath = Path.Combine(testDataPath, "corruptschema.sqlite");
+            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath)
+                .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.");
+            var importResult = true;
+
+            // Precondition
+            TestDelegate precondition = () => importer.ValidateAndConnectTo(validFilePath);
+            Assert.DoesNotThrow(precondition, "Precodition failed: ValidateAndConnectTo failed");
+
+            // Call
+            Action call = () => importResult = importer.Import(importTarget);
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importResult);
+            mocks.VerifyAll();
         }
     }
 }
