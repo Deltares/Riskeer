@@ -27,7 +27,7 @@ using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Settings;
 
-namespace Ringtoets.HydraRing.Calculation
+namespace Ringtoets.HydraRing.Calculation.Base
 {
     /// <summary>
     /// Container for all configurations that are necessary for performing a Hydra-Ring calculation.

@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Base;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Hydraulics;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Hydraulics
+namespace Ringtoets.HydraRing.Calculation.Test.Base
 {
     [TestFixture]
     public class IterateTowardsTargetProbabilityCalculationTest

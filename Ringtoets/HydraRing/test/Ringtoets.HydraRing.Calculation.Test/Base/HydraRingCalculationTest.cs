@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Base;
 using Ringtoets.HydraRing.Calculation.Data;
 
-namespace Ringtoets.HydraRing.Calculation.Test
+namespace Ringtoets.HydraRing.Calculation.Test.Base
 {
     [TestFixture]
     public class HydraRingCalculationTest

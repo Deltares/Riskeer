@@ -23,15 +23,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using Ringtoets.HydraRing.Calculation.Base;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Settings;
 
-namespace Ringtoets.HydraRing.Calculation
+namespace Ringtoets.HydraRing.Calculation.Service
 {
     /// <summary>
     /// Static class that provides methods for performing Hydra-Ring calculations.
     /// </summary>
-    public static class HydraRingCalculator
+    public static class HydraRingCalculationService
     {
         /// <summary>
         /// This method performs a single failure mechanism calculation via Hydra-Ring.

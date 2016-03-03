@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Hydraulics
+namespace Ringtoets.HydraRing.Calculation.Base
 {
     /// <summary>
     /// Container of all data necessary for performing a type-2 calculation via Hydra-Ring ("iterate towards a target probability, provided as reliability index").

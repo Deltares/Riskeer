@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Ringtoets.HydraRing.Calculation.Base;
 using Ringtoets.HydraRing.Calculation.Data;
 
-namespace Ringtoets.HydraRing.Calculation.Hydraulics
+namespace Ringtoets.HydraRing.Calculation.Service.Hydraulics
 {
     /// <summary>
     /// Container of all data necessary for performing an assessment level calculation via Hydra-Ring.

@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data;
 
-namespace Ringtoets.HydraRing.Calculation
+namespace Ringtoets.HydraRing.Calculation.Base
 {
     /// <summary>
     /// Container of all data necessary for performing a Hydra-Ring calculation.

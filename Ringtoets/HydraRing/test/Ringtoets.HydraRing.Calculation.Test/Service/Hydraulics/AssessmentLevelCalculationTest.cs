@@ -22,9 +22,9 @@
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Hydraulics;
+using Ringtoets.HydraRing.Calculation.Service.Hydraulics;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Hydraulics
+namespace Ringtoets.HydraRing.Calculation.Test.Service.Hydraulics
 {
     [TestFixture]
     public class AssessmentLevelCalculationTest

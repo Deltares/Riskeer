@@ -40,10 +40,9 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Placeholder;
-using Ringtoets.HydraRing.Calculation;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Hydraulics;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.Calculation.Service;
+using Ringtoets.HydraRing.Calculation.Service.Hydraulics;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -611,7 +610,7 @@ namespace Ringtoets.Integration.Plugin
 
             protected override void OnRun()
             {
-                HydraRingCalculator.PerformFailureMechanismCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, new AssessmentLevelCalculation(hydraulicBoundaryLocationId, beta));
+                HydraRingCalculationService.PerformFailureMechanismCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, new AssessmentLevelCalculation(hydraulicBoundaryLocationId, beta));
             }
 
             protected override void OnCancel()
