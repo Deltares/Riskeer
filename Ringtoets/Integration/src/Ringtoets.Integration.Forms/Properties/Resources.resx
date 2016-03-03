@@ -151,7 +151,7 @@
   <data name="ReferenceLineContext_Parent_assessment_section_cannot_be_null" xml:space="preserve">
     <value>Kan geen presentatie object maken voor een referentielijn zonder een traject als eigenaar.</value>
   </data>
-  <data name="TrajectMap_DisplayName" xml:space="preserve">
+  <data name="AssessmentSectionMap_DisplayName" xml:space="preserve">
     <value>Trajectkaart</value>
   </data>
   <data name="Map" type="System.Resources.ResXFileRef, System.Windows.Forms">

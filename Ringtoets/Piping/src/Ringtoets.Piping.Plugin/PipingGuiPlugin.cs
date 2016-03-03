@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new ViewInfo<PipingFailureMechanismContext, PipingFailureMechanismView>
             {
-                GetViewName = (view, mechanism) => RingtoetsCommonDataResources.PipingFailureMechanism_DisplayName,
+                GetViewName = (view, mechanism) => PipingDataResources.PipingFailureMechanism_DisplayName,
                 Image = PipingFormsResources.PipingIcon
             };
         }

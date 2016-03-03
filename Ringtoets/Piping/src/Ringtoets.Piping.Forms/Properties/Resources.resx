@@ -583,7 +583,4 @@
   <data name="PipingInputExtensions_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer" xml:space="preserve">
     <value>Kan deklaagdikte niet afleiden op basis van de invoer.</value>
   </data>
-  <data name="PipingFailureMechanismView_GetSectionsMapData_Sections" xml:space="preserve">
-    <value>Vakindelingen</value>
-  </data>
 </root>

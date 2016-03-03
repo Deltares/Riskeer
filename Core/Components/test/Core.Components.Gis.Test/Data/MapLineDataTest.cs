@@ -23,25 +23,17 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        public void Constructor_NullName_ThrowsArgumentNullExcpetion()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("     ")]
+        public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
-            TestDelegate test = () => new MapLineData(Enumerable.Empty<Point2D>(), null);
+            TestDelegate test = () => new MapLineData(Enumerable.Empty<Point2D>(), invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to map data");
         }
-
-        [Test]
-        public void Constructor_EmptyName_ThrowsArgumentNullExcpetion()
-        {
-            // Call
-            TestDelegate test = () => new MapLineData(Enumerable.Empty<Point2D>(), "");
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
-        }
-				
 
         [Test]
         public void Constructor_WithEmptyPoints_CreatesNewMapLineData()

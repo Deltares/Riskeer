@@ -34,14 +34,13 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Create a new instance of <see cref="PointBasedMapData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> which describe locations in 2D space.</param>
+        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> 
+        /// which describe locations in 2D space.</param>
         /// <param name="name">The name of the <see cref="MapData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when 
-        /// <list type="bullet">
-        /// <item><paramref name="points"/> is <c>null</c>.</item>
-        /// <item><paramref name="name"/> is <c>null</c> or only whitespace.</item>
-        /// </list>
-        /// </exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
         protected PointBasedMapData(IEnumerable<Point2D> points, string name) : base(name)
         {
             if (points == null)

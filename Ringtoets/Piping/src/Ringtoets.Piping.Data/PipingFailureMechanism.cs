@@ -25,6 +25,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.Piping.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Data
 {
@@ -37,7 +38,7 @@ namespace Ringtoets.Piping.Data
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
         /// </summary>
         public PipingFailureMechanism()
-            : base(RingtoetsCommonDataResources.PipingFailureMechanism_DisplayName)
+            : base(PipingDataResources.PipingFailureMechanism_DisplayName)
         {
             SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
             SoilProfiles = new ObservableList<PipingSoilProfile>();

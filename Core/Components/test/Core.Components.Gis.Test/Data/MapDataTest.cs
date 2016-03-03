@@ -10,37 +10,20 @@ namespace Core.Components.Gis.Test.Data
     public class MapDataTest
     {
         [Test]
-        public void Constructor_Values()
+        [TestCase(null)]
+        [TestCase("   ")]
+        [TestCase("")]
+        public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
-            var mapData = new MapDataChild("test data");
+            TestDelegate call = () => new MapDataChild(invalidName);
 
             // Assert
-            Assert.IsInstanceOf<Observable>(mapData);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "A name must be set to map data");
         }
 
         [Test]
-        public void Constructor_NameNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new MapDataChild(null);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "A name must be set to map data");
-        }
-
-        [Test]
-        public void Constructor_NameEmpty_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new MapDataChild("");
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "A name must be set to map data");
-        }
-
-        [Test]
-        public void Constructor_WithName_SetsName()
+        public void Constructor_WithName_ExpectedValues()
         {
             // Setup
             var name = "Some name";
@@ -49,6 +32,7 @@ namespace Core.Components.Gis.Test.Data
             var data = new MapDataChild(name);
 
             // Assert
+            Assert.IsInstanceOf<Observable>(data);
             Assert.AreEqual(name, data.Name);
         }
 

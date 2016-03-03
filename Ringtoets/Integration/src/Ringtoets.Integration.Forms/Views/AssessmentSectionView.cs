@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Forms.Views
                 mapDataList.Add(GetHydraulicBoundaryLocations());
             }
 
-            map.Data = new MapDataCollection(mapDataList, Resources.TrajectMap_DisplayName);
+            map.Data = new MapDataCollection(mapDataList, Resources.AssessmentSectionMap_DisplayName);
         }
 
         private MapData GetReferenceLineData()
@@ -116,7 +116,7 @@ namespace Ringtoets.Integration.Forms.Views
         private MapData GetHydraulicBoundaryLocations()
         {
             Point2D[] hrLocations = data.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
-            return new MapPointData(hrLocations, RingtoetsCommonDataResources.HydraulicBoundareyConditions_DisplayName);
+            return new MapPointData(hrLocations, RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
         }
 
         private bool HasReferenceLinePoints()

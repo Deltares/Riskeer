@@ -34,12 +34,10 @@ namespace Core.Components.Gis.Data
         /// </summary>
         /// <param name="list">A <see cref="List{T}"/> of <see cref="MapData"/>.</param>
         /// <param name="name">The name of the <see cref="MapData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when 
-        /// <list type="bullet">
-        /// <item><paramref name="list"/> is <c>null</c>.</item>
-        /// <item><paramref name="name"/> is <c>null</c> or only whitespace.</item>
-        /// </list>
-        /// </exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> is 
+        /// <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
         public MapDataCollection(IList<MapData> list, string name) : base(name)
         {
             if (list == null)

@@ -22,29 +22,19 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        public void Constructor_NullName_ThrowsArgumentNullExcpetion()
+        [TestCase("")]
+        [TestCase("    ")]
+        [TestCase(null)]
+        public void Constructor_InvalidName_ThrowsArgumentExcpetion(string invalidName)
         {
             // Setup
             var list = Enumerable.Empty<MapData>().ToList();
 
             // Call
-            TestDelegate test = () => new MapDataCollection(list, null);
+            TestDelegate test = () => new MapDataCollection(list, invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
-        }
-
-        [Test]
-        public void Constructor_EmptyName_ThrowsArgumentNullExcpetion()
-        {
-            // Setup
-            var list = Enumerable.Empty<MapData>().ToList();
-
-            // Call
-            TestDelegate test = () => new MapDataCollection(list, "");
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to map data");
         }
 
         [Test]

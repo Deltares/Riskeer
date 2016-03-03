@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<AssessmentSectionBase, AssessmentSectionView>
             {
-                GetViewName = (v, o) => RingtoetsFormsResources.TrajectMap_DisplayName,
+                GetViewName = (v, o) => RingtoetsFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RingtoetsFormsResources.Map
             };
         }

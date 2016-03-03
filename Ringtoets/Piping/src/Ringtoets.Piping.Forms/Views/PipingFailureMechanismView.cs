@@ -28,8 +28,8 @@ using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -134,8 +134,7 @@ namespace Ringtoets.Piping.Forms.Views
                 }
             }
 
-            MapView.Data = new MapDataCollection(mapDataList, RingtoetsCommonDataResources.PipingFailureMechanism_DisplayName);
-        }
+            MapView.Data = new MapDataCollection(mapDataList, PipingDataResources.PipingFailureMechanism_DisplayName);        }
 
         private MapData GetReferenceLineMapData()
         {
@@ -146,7 +145,7 @@ namespace Ringtoets.Piping.Forms.Views
         private MapData GetHydraulicBoundaryLocationsMapData()
         {
             Point2D[] hrLocations = data.Parent.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
-            return new MapPointData(hrLocations, RingtoetsCommonDataResources.HydraulicBoundareyConditions_DisplayName);
+            return new MapPointData(hrLocations, RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
         }
 
         private MapData GetSurfaceLinesMapData()
@@ -158,7 +157,7 @@ namespace Ringtoets.Piping.Forms.Views
         private MapData GetSectionsMapData()
         {
             IEnumerable<IEnumerable<Point2D>> sectionLines = data.WrappedData.Sections.Select(sl => sl.Points);
-            return new MapMultiLineData(sectionLines, Resources.PipingFailureMechanismView_GetSectionsMapData_Sections);
+            return new MapMultiLineData(sectionLines, RingtoetsCommonDataResources.FailureMechanism_Sections_DisplayName);
         }
 
         private bool HasReferenceLinePoints()

@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var text = info.Text(mechanismContext);
 
             // Assert
-            Assert.AreEqual(RingtoetsDataResources.PipingFailureMechanism_DisplayName, text);
+            Assert.AreEqual("Dijken - Piping", text);
             mocks.VerifyAll();
         }
 

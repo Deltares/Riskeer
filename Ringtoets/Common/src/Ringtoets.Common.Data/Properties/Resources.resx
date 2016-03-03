@@ -156,11 +156,8 @@
   <data name="OtherFailureMechanism_DisplayName" xml:space="preserve">
     <value>Overig</value>
   </data>
-  <data name="HydraulicBoundareyConditions_DisplayName" xml:space="preserve">
+  <data name="HydraulicBoundaryConditions_DisplayName" xml:space="preserve">
     <value>Hydraulische randvoorwaarden</value>
-  </data>
-  <data name="PipingFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken - Piping</value>
   </data>
   <data name="ReferenceLine_DisplayName" xml:space="preserve">
     <value>Referentielijn</value>

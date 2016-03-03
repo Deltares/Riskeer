@@ -33,12 +33,12 @@ namespace Core.Components.Gis.Data
         /// Creates a new instance of <see cref="MapData"/>.
         /// </summary>
         /// <param name="name">The name of the <see cref="MapData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
         protected MapData(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentNullException("name", "A name must be set to map data");
+                throw new ArgumentException("A name must be set to map data", "name");
             }
 
             Name = name;

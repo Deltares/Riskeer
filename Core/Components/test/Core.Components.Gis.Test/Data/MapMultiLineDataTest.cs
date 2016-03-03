@@ -24,29 +24,19 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        public void Constructor_NullName_ThrowsArgumentNullExcpetion()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("  ")]
+        public void Constructor_NullName_ThrowsArgumentException(string invalidName)
         {
             // Setup
             var collection = new Collection<IEnumerable<Point2D>>();
 
             // Call
-            TestDelegate test = () => new MapMultiLineData(collection, null);
+            TestDelegate test = () => new MapMultiLineData(collection, invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
-        }
-
-        [Test]
-        public void Constructor_EmptyName_ThrowsArgumentNullExcpetion()
-        {
-            // Setup
-            var collection = new Collection<IEnumerable<Point2D>>();
-
-            // Call
-            TestDelegate test = () => new MapMultiLineData(collection, "");
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "A name must be set to map data");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to map data");
         }
 
         [Test]
