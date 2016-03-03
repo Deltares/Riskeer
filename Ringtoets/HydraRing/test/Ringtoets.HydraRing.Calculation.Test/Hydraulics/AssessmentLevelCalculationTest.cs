@@ -38,6 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Hydraulics
             // Assert
             Assert.AreEqual(1, assessmentLevelCalculation.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.AssessmentLevel, assessmentLevelCalculation.FailureMechanismType);
+            Assert.AreEqual(2, assessmentLevelCalculation.CalculationTypeId);
             CollectionAssert.IsEmpty(assessmentLevelCalculation.ProfilePoints);
             Assert.AreEqual(2.2, assessmentLevelCalculation.Beta);
             Assert.AreEqual(1, assessmentLevelCalculation.Variables.Count());

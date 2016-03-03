@@ -40,23 +40,57 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
         private readonly Dictionary<string, int> columns = new Dictionary<string, int>
         {
-            {ringIdKey, 0},
-            {mechanismIdKey, 1},
-            {subMechanismIdKey, 2},
-            {calculationMethodKey, 3},
-            {formStartMethodKey, 4},
-            {formIterationsKey, 5},
-            {formRelaxationFactorKey, 6},
-            {formEpsBetaKey, 7},
-            {formEpsHohKey, 8},
-            {formEpsZFuncKey, 9},
-            {dsStartMethodKey, 10},
-            {dsMinNumberOfIterationsKey, 11},
-            {dsMaxNumberOfIterationsKey, 12},
-            {dsVarCoefficientKey, 13},
-            {niUMinKey, 14},
-            {niUMaxKey, 15},
-            {niNumberStepsKey, 16}
+            {
+                ringIdKey, 0
+            },
+            {
+                mechanismIdKey, 1
+            },
+            {
+                subMechanismIdKey, 2
+            },
+            {
+                calculationMethodKey, 3
+            },
+            {
+                formStartMethodKey, 4
+            },
+            {
+                formIterationsKey, 5
+            },
+            {
+                formRelaxationFactorKey, 6
+            },
+            {
+                formEpsBetaKey, 7
+            },
+            {
+                formEpsHohKey, 8
+            },
+            {
+                formEpsZFuncKey, 9
+            },
+            {
+                dsStartMethodKey, 10
+            },
+            {
+                dsMinNumberOfIterationsKey, 11
+            },
+            {
+                dsMaxNumberOfIterationsKey, 12
+            },
+            {
+                dsVarCoefficientKey, 13
+            },
+            {
+                niUMinKey, 14
+            },
+            {
+                niUMaxKey, 15
+            },
+            {
+                niNumberStepsKey, 16
+            }
         };
 
         /// <summary>
@@ -164,7 +198,8 @@ namespace Ringtoets.HydraRing.Calculation.IO
         {
             if (!readText.Contains(separator))
             {
-                return new string[]{};
+                return new string[]
+                {};
             }
             return readText.Split(separator)
                            .TakeWhile(text => !string.IsNullOrEmpty(text))

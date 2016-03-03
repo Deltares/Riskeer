@@ -37,6 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Hydraulics
             // Assert
             Assert.AreEqual(1, iterateTowardsTargetProbabilityCalculationImplementation.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.DikesPiping, iterateTowardsTargetProbabilityCalculationImplementation.FailureMechanismType);
+            Assert.AreEqual(2, iterateTowardsTargetProbabilityCalculationImplementation.CalculationTypeId);
             CollectionAssert.IsEmpty(iterateTowardsTargetProbabilityCalculationImplementation.Variables);
             CollectionAssert.IsEmpty(iterateTowardsTargetProbabilityCalculationImplementation.ProfilePoints);
             Assert.AreEqual(2.2, iterateTowardsTargetProbabilityCalculationImplementation.Beta);

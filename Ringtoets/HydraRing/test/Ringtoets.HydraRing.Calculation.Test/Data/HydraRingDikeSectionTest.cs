@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
         public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraRingDikeSection = new HydraRingDikeSection(1, "Name", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7); 
+            var hydraRingDikeSection = new HydraRingDikeSection(1, "Name", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
 
             // Assert
             Assert.AreEqual(1, hydraRingDikeSection.SectionId);

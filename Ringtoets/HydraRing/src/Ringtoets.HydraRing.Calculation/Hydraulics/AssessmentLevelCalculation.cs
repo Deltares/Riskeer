@@ -67,7 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Hydraulics
 
         private class AssessmentLevelVariable : HydraRingVariable
         {
-            public AssessmentLevelVariable() : base(26, HydraRingDistributionType.Deterministic, 0, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN) { }
+            public AssessmentLevelVariable() : base(26, HydraRingDistributionType.Deterministic, 0, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN) {}
         }
     }
 }

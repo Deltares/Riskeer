@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Hydraulics;
 
 namespace Ringtoets.HydraRing.Calculation.Test
 {
@@ -47,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Test
         {
             var hydraRingConfiguration = new HydraRingConfiguration("34-1", HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
 
-            hydraRingConfiguration.AddHydraRingCalculation(new IterateTowardsTargetProbabilityCalculationImplementation(700004, 1.1));
+            hydraRingConfiguration.AddHydraRingCalculation(new HydraRingCalculationImplementation(700004));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (3, 2, 'WTI 2017');" + Environment.NewLine +
@@ -56,7 +55,7 @@ namespace Ringtoets.HydraRing.Calculation.Test
                                          "INSERT INTO [Sections] VALUES (9999, 1, 1, 'LocationName', 'LocationName', 2.2, 3.3, 5.5, 6.6, 700004, 700004, 100, 7.7, 4.4);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                         "INSERT INTO [DesignTables] VALUES (9999, 1, 1, 1, 2, 26, 0, 0, 0, 0, 0, 50, 1.1);" + Environment.NewLine +
+                                         "INSERT INTO [DesignTables] VALUES (9999, 1, 1, 1, 4, 26, 0, 0, 0, 0, 0, 50, 1.1);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Numerics];" + Environment.NewLine +
                                          "INSERT INTO [Numerics] VALUES (9999, 1, 1, 1, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 20000, 100000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -112,18 +111,23 @@ namespace Ringtoets.HydraRing.Calculation.Test
             Assert.AreEqual(expectedCreationScript, creationScript);
         }
 
-        private class IterateTowardsTargetProbabilityCalculationImplementation : IterateTowardsTargetProbabilityCalculation
+        private class HydraRingCalculationImplementation : HydraRingCalculation
         {
-            public IterateTowardsTargetProbabilityCalculationImplementation(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId, beta)
-            {
-                
-            }
+            public HydraRingCalculationImplementation(int hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId) {}
 
             public override HydraRingFailureMechanismType FailureMechanismType
             {
                 get
                 {
                     return HydraRingFailureMechanismType.AssessmentLevel;
+                }
+            }
+
+            public override int CalculationTypeId
+            {
+                get
+                {
+                    return 4;
                 }
             }
 
@@ -154,6 +158,14 @@ namespace Ringtoets.HydraRing.Calculation.Test
                 {
                     yield return new HydraRingProfilePointDerivative(1.1, 2.2, 3.3);
                     yield return new HydraRingProfilePointDerivative(11.1, 22.2, 33.3);
+                }
+            }
+
+            public override double Beta
+            {
+                get
+                {
+                    return 1.1;
                 }
             }
 

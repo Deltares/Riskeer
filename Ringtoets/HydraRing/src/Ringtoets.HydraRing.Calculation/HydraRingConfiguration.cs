@@ -53,6 +53,10 @@ namespace Ringtoets.HydraRing.Calculation
     /// </summary>
     public class HydraRingConfiguration
     {
+        private const double defaultLayerId = 1;
+        private const double defaultAlternativeId = 1;
+        private const double defaultHydraRingValue = 0.0;
+
         private readonly string ringId;
         private readonly IList<HydraRingCalculation> hydraRingCalculations;
         private readonly SubMechanismSettingsProvider subMechanismSettingsProvider = new SubMechanismSettingsProvider();
@@ -61,10 +65,6 @@ namespace Ringtoets.HydraRing.Calculation
         private readonly VariableDefaultsProvider variableDefaultsProvider = new VariableDefaultsProvider();
         private readonly HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType;
         private readonly HydraRingUncertaintiesType uncertaintiesType;
-
-        private const double defaultLayerId = 1;
-        private const double defaultAlternativeId = 1;
-        private const double defaultHydraRingValue = 0.0;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfiguration"/> class.

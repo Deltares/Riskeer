@@ -46,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
         private class HydraRingVariableImplementation : HydraRingVariable
         {
             public HydraRingVariableImplementation(int variableId, HydraRingDistributionType distributionType, double value, HydraRingDeviationType deviationType, double mean, double variability, double shift)
-                : base(variableId, distributionType, value, deviationType, mean, variability, shift) { }
+                : base(variableId, distributionType, value, deviationType, mean, variability, shift) {}
         }
     }
 }

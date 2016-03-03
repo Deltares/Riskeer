@@ -69,19 +69,19 @@ namespace Ringtoets.HydraRing.Calculation
 
             // Write the ini file
             File.WriteAllLines(Path.Combine(workingDirectory, iniFilePath), new List<string>
-                    {
-                        "section             = " + hydraulicBoundaryLocationId,
-                        "mechanism           = " + mechanismId,
-                        "alternative         = 1", // Fixed: no support for piping
-                        "layer               = 1", // Fixed: no support for revetments
-                        "logfile             = " + logFileName,
-                        "outputverbosity     = basic",
-                        "outputtofile        = file",
-                        "projectdbfilename   = " + dataBaseCreationScriptFileName,
-                        "outputfilename      = " + outputFileName,
-                        "configdbfilename    = " + configurationDatabaseFilePath,
-                        "hydraulicdbfilename = " + hlcdFilePath
-                    });
+            {
+                "section             = " + hydraulicBoundaryLocationId,
+                "mechanism           = " + mechanismId,
+                "alternative         = 1", // Fixed: no support for piping
+                "layer               = 1", // Fixed: no support for revetments
+                "logfile             = " + logFileName,
+                "outputverbosity     = basic",
+                "outputtofile        = file",
+                "projectdbfilename   = " + dataBaseCreationScriptFileName,
+                "outputfilename      = " + outputFileName,
+                "configdbfilename    = " + configurationDatabaseFilePath,
+                "hydraulicdbfilename = " + hlcdFilePath
+            });
 
             // Write the database creation script
             File.WriteAllText(dataBaseCreationScriptFilePath, hydraRingConfiguration.GenerateDataBaseCreationScript());
