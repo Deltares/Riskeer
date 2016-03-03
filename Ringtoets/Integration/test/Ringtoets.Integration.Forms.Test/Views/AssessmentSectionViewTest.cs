@@ -121,18 +121,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var view = new AssessmentSectionView();
             var map = (BaseMap)view.Controls[0];
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            
-            mocks.ReplayAll();
-
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
             assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
-            assessmentSectionBase.Attach(observer);
 
             view.Data = assessmentSectionBase;
             var mapData = map.Data;
@@ -146,7 +139,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             Assert.AreNotEqual(mapData, map.Data);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -155,12 +147,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             var view = new AssessmentSectionView();
             var map = (BaseMap)view.Controls[0];
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
@@ -171,7 +157,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(1.0, 2.0),
                 new Point2D(2.0, 1.0)
             });
-            assessmentSectionBase.Attach(observer);
 
             view.Data = assessmentSectionBase;
             var mapData = map.Data;
@@ -189,7 +174,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             Assert.AreNotEqual(mapData, map.Data);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -198,12 +182,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             var view = new AssessmentSectionView();
             var map = (BaseMap)view.Controls[0];
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
@@ -216,7 +194,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(1.0, 2.0),
                 new Point2D(2.0, 1.0)
             });
-            assessmentSectionBase.Attach(observer);
 
             view.Data = assessmentSectionBase;
 
@@ -231,7 +208,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new Point2D(2.0, 1.0),
                 new Point2D(4.0, 3.0)
             });
-            assessmentSectionBase2.Attach(observer);
 
             // Call
             assessmentSectionBase2.NotifyObservers();
@@ -239,7 +215,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             Assert.AreEqual(assessmentSectionBase, view.Data);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -248,12 +223,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             var view = new AssessmentSectionView();
             var map = (BaseMap)view.Controls[0];
-            
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            mocks.ReplayAll();
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
@@ -268,8 +237,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             });
 
             view.Data = assessmentSectionBase;
-            
-            assessmentSectionBase.Attach(observer);
 
             MapData dataBeforeUpdate = map.Data;
             view.Data = null;
@@ -287,7 +254,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             Assert.IsNull(view.Data);
             Assert.AreEqual(dataBeforeUpdate, map.Data);
-            mocks.VerifyAll();
         }
 
         private class TestAssessmentSectionBase : AssessmentSectionBase

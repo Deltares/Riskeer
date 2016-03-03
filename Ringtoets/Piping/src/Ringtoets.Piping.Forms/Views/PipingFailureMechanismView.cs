@@ -22,14 +22,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Forms;
-
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -41,7 +38,6 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public partial class PipingFailureMechanismView : UserControl, IMapView, IObserver
     {
-        private readonly BaseMap map;
         private PipingFailureMechanismContext data;
 
         /// <summary>
@@ -49,11 +45,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// </summary>
         public PipingFailureMechanismView()
         {
-            map = new BaseMap
-            {
-                Dock = DockStyle.Fill
-            };
-            Controls.Add(map);
+            InitializeComponent();
         }
 
         public object Data
@@ -77,7 +69,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return map;
+                return MapView;
             }
         }
 
@@ -142,7 +134,7 @@ namespace Ringtoets.Piping.Forms.Views
                 }
             }
 
-            map.Data = new MapDataCollection(mapDataList, RingtoetsCommonDataResources.PipingFailureMechanism_DisplayName);
+            MapView.Data = new MapDataCollection(mapDataList, RingtoetsCommonDataResources.PipingFailureMechanism_DisplayName);
         }
 
         private MapData GetReferenceLineMapData()
