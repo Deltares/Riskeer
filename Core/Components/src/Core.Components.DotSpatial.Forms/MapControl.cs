@@ -146,7 +146,6 @@ namespace Core.Components.DotSpatial.Forms
 
         protected override void Dispose(bool disposing)
         {
-            ;
             map.Dispose();
             mouseCoordinatesMapExtension.Dispose();
             base.Dispose(disposing);
@@ -198,7 +197,7 @@ namespace Core.Components.DotSpatial.Forms
             {
                 ProjectionModeDefine = ActionMode.Never,
                 Dock = DockStyle.Fill,
-                FunctionMode = FunctionMode.Pan,
+                FunctionMode = FunctionMode.Pan
             };
 
             mouseCoordinatesMapExtension = new MouseCoordinatesMapExtension(map);
