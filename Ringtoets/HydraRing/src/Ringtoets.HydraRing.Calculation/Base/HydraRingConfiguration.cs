@@ -58,7 +58,7 @@ namespace Ringtoets.HydraRing.Calculation.Base
         private const double defaultHydraRingValue = 0.0;
 
         private readonly string ringId;
-        private readonly IList<HydraRingCalculation> hydraRingCalculations;
+        private readonly IList<HydraRingCalculationInput> hydraRingCalculationInputs;
         private readonly SubMechanismSettingsProvider subMechanismSettingsProvider = new SubMechanismSettingsProvider();
         private readonly FailureMechanismSettingsProvider failureMechanismSettingsProvider = new FailureMechanismSettingsProvider();
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
@@ -74,7 +74,7 @@ namespace Ringtoets.HydraRing.Calculation.Base
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the configured Hydra-Ring calculations.</param>
         public HydraRingConfiguration(string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType)
         {
-            hydraRingCalculations = new List<HydraRingCalculation>();
+            hydraRingCalculationInputs = new List<HydraRingCalculationInput>();
 
             this.ringId = ringId;
             this.timeIntegrationSchemeType = timeIntegrationSchemeType;
@@ -117,10 +117,10 @@ namespace Ringtoets.HydraRing.Calculation.Base
         /// <summary>
         /// Adds a Hydra-Ring calculation to the <see cref="HydraRingConfiguration"/>.
         /// </summary>
-        /// <param name="hydraRingCalculation">The container that holds all data for configuring the calculation.</param>
-        public void AddHydraRingCalculation(HydraRingCalculation hydraRingCalculation)
+        /// <param name="hydraRingCalculationInput">The container that holds all data for configuring the calculation.</param>
+        public void AddHydraRingCalculation(HydraRingCalculationInput hydraRingCalculationInput)
         {
-            hydraRingCalculations.Add(hydraRingCalculation);
+            hydraRingCalculationInputs.Add(hydraRingCalculationInput);
         }
 
         /// <summary>
@@ -180,9 +180,9 @@ namespace Ringtoets.HydraRing.Calculation.Base
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
-            foreach (var hydraRingCalculation in hydraRingCalculations)
+            foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
-                var hydraRingDikeSection = hydraRingCalculation.DikeSection;
+                var hydraRingDikeSection = hydraRingCalculationInput.DikeSection;
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
@@ -214,10 +214,10 @@ namespace Ringtoets.HydraRing.Calculation.Base
                         "YCoordinate", GetHydraRingValue(hydraRingDikeSection.CrossSectionYCoordinate)
                     },
                     {
-                        "StationId1", hydraRingCalculation.HydraulicBoundaryLocationId
+                        "StationId1", hydraRingCalculationInput.HydraulicBoundaryLocationId
                     },
                     {
-                        "StationId2", hydraRingCalculation.HydraulicBoundaryLocationId // Same as "StationId1": no support for coupling two stations
+                        "StationId2", hydraRingCalculationInput.HydraulicBoundaryLocationId // Same as "StationId1": no support for coupling two stations
                     },
                     {
                         "Relative", 100.0 // Fixed: no support for coupling two stations
@@ -238,15 +238,15 @@ namespace Ringtoets.HydraRing.Calculation.Base
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
-            foreach (var hydraRingCalculation in hydraRingCalculations)
+            foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
-                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculation.FailureMechanismType);
-                var failureMechanismSettings = failureMechanismSettingsProvider.GetFailureMechanismSettings(hydraRingCalculation.FailureMechanismType);
+                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
+                var failureMechanismSettings = failureMechanismSettingsProvider.GetFailureMechanismSettings(hydraRingCalculationInput.FailureMechanismType);
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
                     {
-                        "SectionId", hydraRingCalculation.DikeSection.SectionId
+                        "SectionId", hydraRingCalculationInput.DikeSection.SectionId
                     },
                     {
                         "MechanismId", failureMechanismDefaults.MechanismId
@@ -258,7 +258,7 @@ namespace Ringtoets.HydraRing.Calculation.Base
                         "AlternativeId", defaultAlternativeId // Fixed: no support for piping
                     },
                     {
-                        "Method", hydraRingCalculation.CalculationTypeId
+                        "Method", hydraRingCalculationInput.CalculationTypeId
                     },
                     {
                         "VariableId", failureMechanismDefaults.VariableId
@@ -282,7 +282,7 @@ namespace Ringtoets.HydraRing.Calculation.Base
                         "ValueMax", GetHydraRingValue(failureMechanismSettings.ValueMax)
                     },
                     {
-                        "Beta", GetHydraRingValue(hydraRingCalculation.Beta)
+                        "Beta", GetHydraRingValue(hydraRingCalculationInput.Beta)
                     }
                 });
             }
@@ -294,18 +294,18 @@ namespace Ringtoets.HydraRing.Calculation.Base
         {
             var orderDictionaries = new List<OrderedDictionary>();
 
-            foreach (var hydraRingCalculation in hydraRingCalculations)
+            foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
-                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculation.FailureMechanismType);
+                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
 
                 foreach (var subMechanimsId in failureMechanismDefaults.SubMechanismIds)
                 {
-                    var subMechanismSettings = subMechanismSettingsProvider.GetSubMechanismSettings(hydraRingCalculation.FailureMechanismType, subMechanimsId, ringId);
+                    var subMechanismSettings = subMechanismSettingsProvider.GetSubMechanismSettings(hydraRingCalculationInput.FailureMechanismType, subMechanimsId, ringId);
 
                     orderDictionaries.Add(new OrderedDictionary
                     {
                         {
-                            "SectionId", hydraRingCalculation.DikeSection.SectionId
+                            "SectionId", hydraRingCalculationInput.DikeSection.SectionId
                         },
                         {
                             "MechanismId", failureMechanismDefaults.MechanismId
@@ -375,18 +375,18 @@ namespace Ringtoets.HydraRing.Calculation.Base
         {
             var orderDictionaries = new List<OrderedDictionary>();
 
-            foreach (var hydraRingCalculation in hydraRingCalculations)
+            foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
-                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculation.FailureMechanismType);
+                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
 
-                foreach (var hydraRingVariable in hydraRingCalculation.Variables)
+                foreach (var hydraRingVariable in hydraRingCalculationInput.Variables)
                 {
-                    var variableDefaults = variableDefaultsProvider.GetVariableDefaults(hydraRingCalculation.FailureMechanismType, hydraRingVariable.VariableId);
+                    var variableDefaults = variableDefaultsProvider.GetVariableDefaults(hydraRingCalculationInput.FailureMechanismType, hydraRingVariable.VariableId);
 
                     orderDictionaries.Add(new OrderedDictionary
                     {
                         {
-                            "SectionId", hydraRingCalculation.DikeSection.SectionId
+                            "SectionId", hydraRingCalculationInput.DikeSection.SectionId
                         },
                         {
                             "MechanismId", failureMechanismDefaults.MechanismId
@@ -450,16 +450,16 @@ namespace Ringtoets.HydraRing.Calculation.Base
         {
             var orderDictionaries = new List<OrderedDictionary>();
 
-            foreach (var hydraRingCalculation in hydraRingCalculations)
+            foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
-                for (var i = 0; i < hydraRingCalculation.ProfilePoints.Count(); i++)
+                for (var i = 0; i < hydraRingCalculationInput.ProfilePoints.Count(); i++)
                 {
-                    var hydraRingProfilePoint = hydraRingCalculation.ProfilePoints.ElementAt(i);
+                    var hydraRingProfilePoint = hydraRingCalculationInput.ProfilePoints.ElementAt(i);
 
                     orderDictionaries.Add(new OrderedDictionary
                     {
                         {
-                            "SectionId", hydraRingCalculation.DikeSection.SectionId
+                            "SectionId", hydraRingCalculationInput.DikeSection.SectionId
                         },
                         {
                             "SequenceNumber", i + 1
@@ -484,15 +484,15 @@ namespace Ringtoets.HydraRing.Calculation.Base
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
-            foreach (var hydraRingCalculation in hydraRingCalculations)
+            foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
-                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculation.FailureMechanismType);
-                var failureMechanismSettings = failureMechanismSettingsProvider.GetFailureMechanismSettings(hydraRingCalculation.FailureMechanismType);
+                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
+                var failureMechanismSettings = failureMechanismSettingsProvider.GetFailureMechanismSettings(hydraRingCalculationInput.FailureMechanismType);
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
                     {
-                        "SectionId", hydraRingCalculation.DikeSection.SectionId
+                        "SectionId", hydraRingCalculationInput.DikeSection.SectionId
                     },
                     {
                         "MechanismId", failureMechanismDefaults.MechanismId
@@ -516,20 +516,20 @@ namespace Ringtoets.HydraRing.Calculation.Base
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
-            foreach (var hydraRingCalculation in hydraRingCalculations)
+            foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
-                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculation.FailureMechanismType);
+                var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
 
                 foreach (var subMechanismId in failureMechanismDefaults.SubMechanismIds)
                 {
-                    var subMechanismModelId = hydraRingCalculation.GetSubMechanismModelId(subMechanismId);
+                    var subMechanismModelId = hydraRingCalculationInput.GetSubMechanismModelId(subMechanismId);
 
                     if (subMechanismModelId != null)
                     {
                         orderedDictionaries.Add(new OrderedDictionary
                         {
                             {
-                                "SectionId", hydraRingCalculation.DikeSection.SectionId
+                                "SectionId", hydraRingCalculationInput.DikeSection.SectionId
                             },
                             {
                                 "MechanismId", failureMechanismDefaults.MechanismId

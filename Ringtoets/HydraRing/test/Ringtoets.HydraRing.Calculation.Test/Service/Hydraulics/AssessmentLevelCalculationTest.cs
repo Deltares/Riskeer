@@ -33,7 +33,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Service.Hydraulics
         public void Constructor_ExpectedValues()
         {
             // Call
-            var assessmentLevelCalculation = new AssessmentLevelCalculation(1, 2.2);
+            var assessmentLevelCalculation = new AssessmentLevelCalculationInput(1, 2.2);
 
             // Assert
             Assert.AreEqual(1, assessmentLevelCalculation.HydraulicBoundaryLocationId);

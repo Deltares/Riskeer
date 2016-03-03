@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Service
         {
             var hydraRingConfiguration = new HydraRingConfiguration("34-1", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All);
 
-            hydraRingConfiguration.AddHydraRingCalculation(new AssessmentLevelCalculation(700004, 3.29053));
+            hydraRingConfiguration.AddHydraRingCalculation(new AssessmentLevelCalculationInput(700004, 3.29053));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +

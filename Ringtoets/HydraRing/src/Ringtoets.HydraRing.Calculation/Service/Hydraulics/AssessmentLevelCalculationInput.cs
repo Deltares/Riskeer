@@ -28,16 +28,16 @@ namespace Ringtoets.HydraRing.Calculation.Service.Hydraulics
     /// <summary>
     /// Container of all data necessary for performing an assessment level calculation via Hydra-Ring.
     /// </summary>
-    public class AssessmentLevelCalculation : IterateTowardsTargetProbabilityCalculation
+    public class AssessmentLevelCalculationInput : TargetProbabilityCalculationInput
     {
         private readonly HydraRingDikeSection dikeSection;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="AssessmentLevelCalculation"/> class.
+        /// Creates a new instance of the <see cref="AssessmentLevelCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="beta">The reliability index to use during the calculation.</param>
-        public AssessmentLevelCalculation(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId, beta)
+        public AssessmentLevelCalculationInput(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId, beta)
         {
             dikeSection = new HydraRingDikeSection(HydraulicBoundaryLocationId, HydraulicBoundaryLocationId.ToString(), double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
         }

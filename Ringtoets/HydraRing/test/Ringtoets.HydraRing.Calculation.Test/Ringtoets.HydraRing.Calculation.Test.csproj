@@ -48,14 +48,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\HydraRingCalculationTest.cs" />
+    <Compile Include="Base\HydraRingCalculationInputTest.cs" />
     <Compile Include="Base\HydraRingConfigurationTest.cs" />
     <Compile Include="Data\HydraRingDikeSectionTest.cs" />
     <Compile Include="Data\HydraRingProfilePointTest.cs" />
     <Compile Include="Data\HydraRingVariableTest.cs" />
     <Compile Include="Service\HydraRingConfigurationIntegrationTest.cs" />
     <Compile Include="Service\Hydraulics\AssessmentLevelCalculationTest.cs" />
-    <Compile Include="Base\IterateTowardsTargetProbabilityCalculationTest.cs" />
+    <Compile Include="Base\TargetProbabilityCalculationTest.cs" />
     <Compile Include="IO\HydraRingSettingsCsvReaderTest.cs" />
     <Compile Include="Settings\FailureMechanismDefaultsProviderTest.cs" />
     <Compile Include="Settings\FailureMechanismDefaultsTest.cs" />

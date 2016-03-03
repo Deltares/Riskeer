@@ -26,26 +26,26 @@ using Ringtoets.HydraRing.Calculation.Data;
 namespace Ringtoets.HydraRing.Calculation.Test.Base
 {
     [TestFixture]
-    public class IterateTowardsTargetProbabilityCalculationTest
+    public class TargetProbabilityCalculationTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var iterateTowardsTargetProbabilityCalculationImplementation = new IterateTowardsTargetProbabilityCalculationImplementation(1, 2.2);
+            var targetProbabilityCalculationInputImplementation = new TargetProbabilityCalculationInputImplementation(1, 2.2);
 
             // Assert
-            Assert.AreEqual(1, iterateTowardsTargetProbabilityCalculationImplementation.HydraulicBoundaryLocationId);
-            Assert.AreEqual(HydraRingFailureMechanismType.DikesPiping, iterateTowardsTargetProbabilityCalculationImplementation.FailureMechanismType);
-            Assert.AreEqual(2, iterateTowardsTargetProbabilityCalculationImplementation.CalculationTypeId);
-            CollectionAssert.IsEmpty(iterateTowardsTargetProbabilityCalculationImplementation.Variables);
-            CollectionAssert.IsEmpty(iterateTowardsTargetProbabilityCalculationImplementation.ProfilePoints);
-            Assert.AreEqual(2.2, iterateTowardsTargetProbabilityCalculationImplementation.Beta);
+            Assert.AreEqual(1, targetProbabilityCalculationInputImplementation.HydraulicBoundaryLocationId);
+            Assert.AreEqual(HydraRingFailureMechanismType.DikesPiping, targetProbabilityCalculationInputImplementation.FailureMechanismType);
+            Assert.AreEqual(2, targetProbabilityCalculationInputImplementation.CalculationTypeId);
+            CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.Variables);
+            CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.ProfilePoints);
+            Assert.AreEqual(2.2, targetProbabilityCalculationInputImplementation.Beta);
         }
 
-        private class IterateTowardsTargetProbabilityCalculationImplementation : IterateTowardsTargetProbabilityCalculation
+        private class TargetProbabilityCalculationInputImplementation : TargetProbabilityCalculationInput
         {
-            public IterateTowardsTargetProbabilityCalculationImplementation(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId, beta) {}
+            public TargetProbabilityCalculationInputImplementation(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId, beta) {}
 
             public override HydraRingFailureMechanismType FailureMechanismType
             {

@@ -610,7 +610,7 @@ namespace Ringtoets.Integration.Plugin
 
             protected override void OnRun()
             {
-                HydraRingCalculationService.PerformFailureMechanismCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, new AssessmentLevelCalculation(hydraulicBoundaryLocationId, beta));
+                HydraRingCalculationService.PerformFailureMechanismCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, new AssessmentLevelCalculationInput(hydraulicBoundaryLocationId, beta));
             }
 
             protected override void OnCancel()

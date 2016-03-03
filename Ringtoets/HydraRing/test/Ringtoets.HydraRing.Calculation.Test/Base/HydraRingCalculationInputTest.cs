@@ -26,38 +26,38 @@ using Ringtoets.HydraRing.Calculation.Data;
 namespace Ringtoets.HydraRing.Calculation.Test.Base
 {
     [TestFixture]
-    public class HydraRingCalculationTest
+    public class HydraRingCalculationInputTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraRingCalculation = new HydraRingCalculationImplementation(1);
+            var hydraRingCalculationInput = new HydraRingCalculationInputImplementation(1);
 
             // Assert
-            Assert.AreEqual(1, hydraRingCalculation.HydraulicBoundaryLocationId);
-            Assert.AreEqual(HydraRingFailureMechanismType.QVariant, hydraRingCalculation.FailureMechanismType);
-            Assert.AreEqual(4, hydraRingCalculation.CalculationTypeId);
-            CollectionAssert.IsEmpty(hydraRingCalculation.Variables);
-            CollectionAssert.IsEmpty(hydraRingCalculation.ProfilePoints);
-            Assert.IsNaN(hydraRingCalculation.Beta);
+            Assert.AreEqual(1, hydraRingCalculationInput.HydraulicBoundaryLocationId);
+            Assert.AreEqual(HydraRingFailureMechanismType.QVariant, hydraRingCalculationInput.FailureMechanismType);
+            Assert.AreEqual(4, hydraRingCalculationInput.CalculationTypeId);
+            CollectionAssert.IsEmpty(hydraRingCalculationInput.Variables);
+            CollectionAssert.IsEmpty(hydraRingCalculationInput.ProfilePoints);
+            Assert.IsNaN(hydraRingCalculationInput.Beta);
         }
 
         [Test]
         public void GetSubMechanismModelId_ReturnsExpectedValues()
         {
             // Call
-            var hydraRingCalculation = new HydraRingCalculationImplementation(1);
+            var hydraRingCalculationInput = new HydraRingCalculationInputImplementation(1);
 
             // Assert
-            Assert.AreEqual(10, hydraRingCalculation.GetSubMechanismModelId(1));
-            Assert.AreEqual(20, hydraRingCalculation.GetSubMechanismModelId(2));
-            Assert.IsNull(hydraRingCalculation.GetSubMechanismModelId(3));
+            Assert.AreEqual(10, hydraRingCalculationInput.GetSubMechanismModelId(1));
+            Assert.AreEqual(20, hydraRingCalculationInput.GetSubMechanismModelId(2));
+            Assert.IsNull(hydraRingCalculationInput.GetSubMechanismModelId(3));
         }
 
-        private class HydraRingCalculationImplementation : HydraRingCalculation
+        private class HydraRingCalculationInputImplementation : HydraRingCalculationInput
         {
-            public HydraRingCalculationImplementation(int hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId) {}
+            public HydraRingCalculationInputImplementation(int hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId) {}
 
             public override HydraRingFailureMechanismType FailureMechanismType
             {

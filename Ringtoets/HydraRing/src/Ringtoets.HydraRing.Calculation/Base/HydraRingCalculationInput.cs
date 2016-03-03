@@ -27,15 +27,15 @@ namespace Ringtoets.HydraRing.Calculation.Base
     /// <summary>
     /// Container of all data necessary for performing a Hydra-Ring calculation.
     /// </summary>
-    public abstract class HydraRingCalculation
+    public abstract class HydraRingCalculationInput
     {
         private readonly int hydraulicBoundaryLocationId;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="HydraRingCalculation"/> class.
+        /// Creates a new instance of the <see cref="HydraRingCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
-        protected HydraRingCalculation(int hydraulicBoundaryLocationId)
+        protected HydraRingCalculationInput(int hydraulicBoundaryLocationId)
         {
             this.hydraulicBoundaryLocationId = hydraulicBoundaryLocationId;
         }

@@ -42,8 +42,8 @@
     <Compile Include="Data\HydraRingDikeSection.cs" />
     <Compile Include="Data\HydraRingProfilePoint.cs" />
     <Compile Include="Service\HydraRingCalculationService.cs" />
-    <Compile Include="Service\Hydraulics\AssessmentLevelCalculation.cs" />
-    <Compile Include="Base\HydraRingCalculation.cs" />
+    <Compile Include="Service\Hydraulics\AssessmentLevelCalculationInput.cs" />
+    <Compile Include="Base\HydraRingCalculationInput.cs" />
     <Compile Include="IO\HydraRingSettingsCsvReader.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -63,7 +63,7 @@
     <Compile Include="Data\HydraRingFailureMechanismType.cs" />
     <Compile Include="Base\HydraRingConfiguration.cs" />
     <Compile Include="Settings\SubMechanismSettings.cs" />
-    <Compile Include="Base\IterateTowardsTargetProbabilityCalculation.cs" />
+    <Compile Include="Base\TargetProbabilityCalculationInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\HydraRingTimeIntegrationSchemeType.cs" />
     <Compile Include="Data\HydraRingUncertaintiesType.cs" />

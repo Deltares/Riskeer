@@ -47,7 +47,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Base
         {
             var hydraRingConfiguration = new HydraRingConfiguration("34-1", HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
 
-            hydraRingConfiguration.AddHydraRingCalculation(new HydraRingCalculationImplementation(700004));
+            hydraRingConfiguration.AddHydraRingCalculation(new HydraRingCalculationInputImplementation(700004));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (3, 2, 'WTI 2017');" + Environment.NewLine +
@@ -112,9 +112,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Base
             Assert.AreEqual(expectedCreationScript, creationScript);
         }
 
-        private class HydraRingCalculationImplementation : HydraRingCalculation
+        private class HydraRingCalculationInputImplementation : HydraRingCalculationInput
         {
-            public HydraRingCalculationImplementation(int hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId) {}
+            public HydraRingCalculationInputImplementation(int hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId) {}
 
             public override HydraRingFailureMechanismType FailureMechanismType
             {

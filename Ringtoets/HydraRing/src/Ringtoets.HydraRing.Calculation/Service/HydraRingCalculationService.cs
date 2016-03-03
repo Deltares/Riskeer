@@ -41,15 +41,15 @@ namespace Ringtoets.HydraRing.Calculation.Service
         /// <param name="ringId">The id of the ring to perform the failure mechanism calculation for.</param>
         /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the failure mechanism calculation.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the failure mechanism calculation.</param>
-        /// <param name="hydraRingCalculation">The failure mechanism calculation to perform.</param>
-        public static void PerformFailureMechanismCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculation hydraRingCalculation)
+        /// <param name="hydraRingCalculationInput">The failure mechanism calculation to perform.</param>
+        public static void PerformFailureMechanismCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculationInput hydraRingCalculationInput)
         {
-            var hydraulicBoundaryLocationId = hydraRingCalculation.HydraulicBoundaryLocationId;
-            var mechanismId = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(hydraRingCalculation.FailureMechanismType).MechanismId;
+            var hydraulicBoundaryLocationId = hydraRingCalculationInput.HydraulicBoundaryLocationId;
+            var mechanismId = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType).MechanismId;
 
             // Create a Hydra-Ring configuration
             var hydraRingConfiguration = new HydraRingConfiguration(ringId, timeIntegrationSchemeType, uncertaintiesType);
-            hydraRingConfiguration.AddHydraRingCalculation(hydraRingCalculation);
+            hydraRingConfiguration.AddHydraRingCalculation(hydraRingCalculationInput);
 
             // Calculation file names
             var outputFileName = "designTable.txt";
