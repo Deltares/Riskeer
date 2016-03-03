@@ -41,6 +41,7 @@
     </Compile>
     <Compile Include="Data\HydraRingDikeSection.cs" />
     <Compile Include="Data\HydraRingProfilePoint.cs" />
+    <Compile Include="Data\Output\TargetProbabilityCalculationOutput.cs" />
     <Compile Include="Service\HydraRingCalculationService.cs" />
     <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInput.cs" />
     <Compile Include="Data\Input\HydraRingCalculationInput.cs" />
