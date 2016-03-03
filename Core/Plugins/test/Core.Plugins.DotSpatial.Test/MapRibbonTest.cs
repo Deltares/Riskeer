@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Components.Gis.Forms;
 using Core.Plugins.DotSpatial.Commands;
 using Core.Plugins.DotSpatial.Legend;
@@ -47,9 +48,10 @@ namespace Core.Plugins.DotSpatial.Test
             // Setup
             var mocks = new MockRepository();
             var toolViewController = mocks.Stub<IToolViewController>();
+            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
             mocks.ReplayAll();
 
-            var toggleLegendViewCommand = new ToggleMapLegendViewCommand(new MapLegendController(toolViewController));
+            var toggleLegendViewCommand = new ToggleMapLegendViewCommand(new MapLegendController(toolViewController, contextMenuBuilderProvider));
 
             var ribbon = new MapRibbon
             {

@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Components.Gis.Data;
 
 namespace Core.Plugins.DotSpatial.Legend
@@ -32,6 +33,7 @@ namespace Core.Plugins.DotSpatial.Legend
     public class MapLegendController
     {
         private readonly IToolViewController toolViewController;
+        private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
 
         public EventHandler<EventArgs> OnOpenLegend;
         private IView legendView;
@@ -40,13 +42,20 @@ namespace Core.Plugins.DotSpatial.Legend
         /// Creates a new instance of <see cref="MapLegendController"/>.
         /// </summary>
         /// <param name="toolViewController">The <see cref="IToolViewController"/> to invoke actions upon.</param>
-        public MapLegendController(IToolViewController toolViewController)
+        /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> to create context menus.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="toolViewController"/> or <paramref name="contextMenuBuilderProvider"/> is <c>null</c>.</exception>
+        public MapLegendController(IToolViewController toolViewController, IContextMenuBuilderProvider contextMenuBuilderProvider)
         {
             if (toolViewController == null)
             {
                 throw new ArgumentNullException("toolViewController", "Cannot create a MapLegendController when the tool view controller is null.");
             }
+            if (contextMenuBuilderProvider == null)
+            {
+                throw new ArgumentNullException("contextMenuBuilderProvider", "Cannot create a MapLegendController when the context menu builder provider is null.");
+            }
             this.toolViewController = toolViewController;
+            this.contextMenuBuilderProvider = contextMenuBuilderProvider;
         }
 
         /// <summary>
@@ -91,7 +100,7 @@ namespace Core.Plugins.DotSpatial.Legend
         /// </summary>
         private void OpenLegendView()
         {
-            legendView = new MapLegendView();
+            legendView = new MapLegendView(contextMenuBuilderProvider);
             toolViewController.OpenToolView(legendView);
             if (OnOpenLegend != null)
             {

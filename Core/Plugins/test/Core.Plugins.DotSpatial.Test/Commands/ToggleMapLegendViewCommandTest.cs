@@ -1,5 +1,6 @@
 ﻿using Core.Common.Controls.Commands;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Plugins.DotSpatial.Commands;
 using Core.Plugins.DotSpatial.Legend;
 using NUnit.Framework;
@@ -40,9 +41,11 @@ namespace Core.Plugins.DotSpatial.Test.Commands
             var plugin = mocks.StrictMock<IToolViewController>();
             plugin.Expect(p => p.IsToolWindowOpen<MapLegendView>()).Return(open);
 
+            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+
             mocks.ReplayAll();
 
-            var controller = new MapLegendController(plugin);
+            var controller = new MapLegendController(plugin, contextMenuBuilderProvider);
             var command = new ToggleMapLegendViewCommand(controller);
 
             // Call
@@ -59,6 +62,7 @@ namespace Core.Plugins.DotSpatial.Test.Commands
             // Setup
             var mocks = new MockRepository();
             var plugin = mocks.StrictMock<IToolViewController>();
+            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
 
             // Open first
             using (mocks.Ordered())
@@ -72,7 +76,7 @@ namespace Core.Plugins.DotSpatial.Test.Commands
             }
             mocks.ReplayAll();
 
-            var controller = new MapLegendController(plugin);
+            var controller = new MapLegendController(plugin, contextMenuBuilderProvider);
             var command = new ToggleMapLegendViewCommand(controller);
 
             // Call

@@ -5,22 +5,42 @@ using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
+using Core.Common.Gui.ContextMenu;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using Core.Plugins.DotSpatial.Legend;
 using Core.Plugins.DotSpatial.Properties;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Plugins.DotSpatial.Test.Legend
 {
     [TestFixture]
     public class MapLegendViewTest
     {
+        private MockRepository mocks;
+        private IContextMenuBuilderProvider contextMenuBuilderProvider;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mocks = new MockRepository();
+            contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
+        }
+
         [Test]
-        public void DefaultConstructor_CreatesUserControl()
+        public void Constructor_CreatesUserControl()
         {
             // Call
-            var view = new MapLegendView();
+            var view = new MapLegendView(contextMenuBuilderProvider);
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
@@ -30,10 +50,20 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         }
 
         [Test]
+        public void Constructor_ContextMenuBuilderProviderNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new MapLegendView(null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot create a MapLegendView when the context menu builder provider is null");
+        }
+				
+        [Test]
         public void DefaultConstructor_CreatesTreeViewControl()
         {
             // Call
-            var view = new MapLegendView();
+            var view = new MapLegendView(contextMenuBuilderProvider);
 
             var treeView = TypeUtils.GetField<TreeViewControl>(view, "treeViewControl");
 
@@ -46,7 +76,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void Data_MapDataCollection_DataSet()
         {
             // Setup
-            var view = new MapLegendView();
+            var view = new MapLegendView(contextMenuBuilderProvider);
             var mapData = new MapDataCollection(new List<MapData>(), "test data");
 
             // Call
@@ -62,7 +92,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void Data_MapPointData_DataSet()
         {
             // Setup
-            var view = new MapLegendView();
+            var view = new MapLegendView(contextMenuBuilderProvider);
             var mapData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
 
             // Call
@@ -77,7 +107,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void Data_MapLineData_DataSet()
         {
             // Setup
-            var view = new MapLegendView();
+            var view = new MapLegendView(contextMenuBuilderProvider);
             var mapData = new MapLineData(Enumerable.Empty<Point2D>(), "test data");
 
             // Call
@@ -92,7 +122,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void Data_MapPolygonData_DataSet()
         {
             // Setup
-            var view = new MapLegendView();
+            var view = new MapLegendView(contextMenuBuilderProvider);
             var mapData = new MapPolygonData(Enumerable.Empty<Point2D>(), "test data");
 
             // Call
@@ -107,7 +137,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void Data_MapMultiLineData_DataSet()
         {
             // Setup
-            var view = new MapLegendView();
+            var view = new MapLegendView(contextMenuBuilderProvider);
             var mapData = new MapMultiLineData(Enumerable.Empty<IEnumerable<Point2D>>(), "test data");
 
             // Call
@@ -122,7 +152,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void Data_ForNull_NullSet()
         {
             // Setup
-            var view = new MapLegendView();
+            var view = new MapLegendView(contextMenuBuilderProvider);
 
             // Call
             view.Data = null;
@@ -135,7 +165,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void Data_OtherObject_ThrowsInvalidCastException()
         {
             // Setup 
-            var view = new MapLegendView();
+            var view = new MapLegendView(contextMenuBuilderProvider);
 
             // Call
             TestDelegate test = () => view.Data = new object();

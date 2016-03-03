@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
@@ -25,7 +26,8 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void SetUp()
         {
             mocks = new MockRepository();
-            mapLegendView = new MapLegendView();
+            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            mapLegendView = new MapLegendView(contextMenuBuilderProvider);
 
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
             var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");

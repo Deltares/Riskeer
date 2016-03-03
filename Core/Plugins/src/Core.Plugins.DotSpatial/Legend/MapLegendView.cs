@@ -19,11 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
+using Core.Common.Gui.ContextMenu;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 
@@ -37,13 +39,22 @@ namespace Core.Plugins.DotSpatial.Legend
     /// </summary>
     public sealed partial class MapLegendView : UserControl, IView
     {
+        private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
         private readonly TreeViewControl treeViewControl;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapLegendView"/>.
         /// </summary>
-        public MapLegendView()
+        /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> to create context menus.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="contextMenuBuilderProvider"/> is <c>null</c>.</exception>
+        public MapLegendView(IContextMenuBuilderProvider contextMenuBuilderProvider)
         {
+            if (contextMenuBuilderProvider == null)
+            {
+                throw new ArgumentNullException("contextMenuBuilderProvider", "Cannot create a MapLegendView when the context menu builder provider is null");
+            }
+
+            this.contextMenuBuilderProvider = contextMenuBuilderProvider;
             InitializeComponent();
             Text = DotSpatialResources.General_Map;
 

@@ -80,7 +80,7 @@ namespace Core.Plugins.DotSpatial
 
         private MapLegendController CreateLegendController(IToolViewController toolViewController)
         {
-            var controller = new MapLegendController(toolViewController);
+            var controller = new MapLegendController(toolViewController, Gui);
             controller.OnOpenLegend += (s, e) => UpdateComponentsForActiveView();
             return controller;
         }
