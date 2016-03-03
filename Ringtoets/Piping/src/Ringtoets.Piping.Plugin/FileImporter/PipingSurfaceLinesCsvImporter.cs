@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <para><c>Id;X1;Y1;Z1;...(Xn;Yn;Zn)</c></para>
     /// <para>Where Xn;Yn;Zn form the n-th 3D point describing the geometry of the surface line.</para>
     /// </summary>
-    public class PipingSurfaceLinesCsvImporter : FileImporterBase
+    public class PipingSurfaceLinesCsvImporter : FileImporterBase<ICollection<RingtoetsPipingSurfaceLine>>
     {
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSurfaceLinesCsvImporter));
 
@@ -72,14 +72,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             get
             {
                 return PipingFormsResources.PipingSurfaceLineIcon;
-            }
-        }
-
-        public override Type SupportedItemType
-        {
-            get
-            {
-                return typeof(ICollection<RingtoetsPipingSurfaceLine>);
             }
         }
 

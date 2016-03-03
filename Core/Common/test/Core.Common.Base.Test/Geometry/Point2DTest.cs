@@ -33,17 +33,6 @@ namespace Core.Common.Base.Test.Geometry
     public class Point2DTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
-        {
-            // Call
-            var point = new Point2D();
-
-            // Assert
-            Assert.AreEqual(0, point.X);
-            Assert.AreEqual(0, point.Y);
-        }
-
-        [Test]
         public void Constructor_WithXandY_SetPropeties()
         {
             // Setup
@@ -63,7 +52,7 @@ namespace Core.Common.Base.Test.Geometry
         public void Equals_ToNull_ReturnsFalse()
         {
             // Setup
-            var point = new Point2D();
+            var point = new Point2D(0, 0);
 
             // Call
             var result = point.Equals(null);
@@ -76,10 +65,10 @@ namespace Core.Common.Base.Test.Geometry
         public void Equals_ToOtherType_ReturnsFalse()
         {
             // Setup
-            var point = new Point2D();
+            var point = new Point2D(0, 0);
 
             // Call
-            var result = point.Equals(new Point3D(0,0,0));
+            var result = point.Equals(new Point3D(0, 0, 0));
 
             // Assert
             Assert.IsFalse(result);
@@ -89,7 +78,7 @@ namespace Core.Common.Base.Test.Geometry
         public void Equals_ToItself_ReturnsTrue()
         {
             // Setup
-            var point = new Point2D();
+            var point = new Point2D(0, 0);
 
             // Call
             var result = point.Equals(point);

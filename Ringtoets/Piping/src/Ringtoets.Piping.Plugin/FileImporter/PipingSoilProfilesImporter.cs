@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Imports .soil files (SqlLite database files) created with the DSoilModel application.
     /// </summary>
-    public class PipingSoilProfilesImporter : FileImporterBase
+    public class PipingSoilProfilesImporter : FileImporterBase<ICollection<PipingSoilProfile>>
     {
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSoilProfilesImporter));
 
@@ -64,14 +64,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             get
             {
                 return PipingFormsResources.PipingSoilProfileIcon;
-            }
-        }
-
-        public override Type SupportedItemType
-        {
-            get
-            {
-                return typeof(ICollection<PipingSoilProfile>);
             }
         }
 

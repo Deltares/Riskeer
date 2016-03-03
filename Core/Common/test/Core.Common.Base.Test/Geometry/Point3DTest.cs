@@ -46,7 +46,7 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point3D(0,0,0);
 
             // Call
-            var result = point.Equals(new Point2D());
+            var result = point.Equals(new Point2D(0, 0));
 
             // Assert
             Assert.IsFalse(result);

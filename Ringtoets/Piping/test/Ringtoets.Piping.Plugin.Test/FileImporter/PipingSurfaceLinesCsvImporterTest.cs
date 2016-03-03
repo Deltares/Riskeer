@@ -36,12 +36,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importer = new PipingSurfaceLinesCsvImporter();
 
             // Assert
-            Assert.IsInstanceOf<IFileImporter>(importer);
+            Assert.IsInstanceOf<FileImporterBase<ICollection<RingtoetsPipingSurfaceLine>>>(importer);
             Assert.AreEqual(PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, importer.Name);
             Assert.AreEqual(RingtoetsFormsResources.Ringtoets_Category, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
-            Assert.AreEqual(typeof(ICollection<RingtoetsPipingSurfaceLine>), importer.SupportedItemType);
             var expectedFileFilter = String.Format("{0} {1} (*.csv)|*.csv",
                                                    PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, ApplicationResources.Csv_file_name);
             Assert.AreEqual(expectedFileFilter, importer.FileFilter);

@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vakkenindeling komt niet overeen met de huidige referentielijn..
+        ///   Looks up a localized string similar to Vakindeling komt niet overeen met de huidige referentielijn..
         /// </summary>
         public static string FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline {
             get {
@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen referentielijn beschikbaar om een vakindeling voor de definiëren..
+        ///   Looks up a localized string similar to Er is geen referentielijn beschikbaar om een vakindeling voor te definiëren..
         /// </summary>
         public static string FailureMechanismSectionsImporter_Import_Required_referenceline_missing {
             get {

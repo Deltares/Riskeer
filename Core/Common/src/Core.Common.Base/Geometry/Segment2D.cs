@@ -28,9 +28,9 @@ using MathNet.Numerics.LinearAlgebra.Double;
 namespace Core.Common.Base.Geometry
 {
     /// <summary>
-    /// This class represents lines between two <see cref="Point2D"/>.
+    /// This class represents an immutable line-segment between two <see cref="Point2D"/>.
     /// </summary>
-    public class Segment2D
+    public sealed class Segment2D
     {
         /// <summary>
         /// Creates a new instance of <see cref="Segment2D"/>, with the <see cref="FirstPoint"/> set to
@@ -123,8 +123,8 @@ namespace Core.Common.Base.Geometry
                 return point.GetEuclideanDistanceTo(FirstPoint);
             }
             // 2. Use denominator part of vector projection to determine relative location of 'point':
-            double dotProdcutSegmentVector = segmentVector.DotProduct(segmentVector);
-            if (dotProdcutSegmentVector <= dotProductOrientationVector)
+            double dotProductSegmentVector = segmentVector.DotProduct(segmentVector);
+            if (dotProductSegmentVector <= dotProductOrientationVector)
             {
                 // 'point' falls outside the perpendicular area defined by segment, specifically: Zone C
                 return point.GetEuclideanDistanceTo(SecondPoint);
@@ -132,7 +132,7 @@ namespace Core.Common.Base.Geometry
 
             // 'point' falls within the perpendicular area defined by the segment (zone B).
             // 3. Use remainder of vector projection to determine point on segment for perpendicular line:
-            double projectionFactor = dotProductOrientationVector / dotProdcutSegmentVector;
+            double projectionFactor = dotProductOrientationVector / dotProductSegmentVector;
             double perpendicularOnSegmentX = FirstPoint.X + projectionFactor * segmentVector[0];
             double perpendicularOnSegmentY = FirstPoint.Y + projectionFactor * segmentVector[1];
             var perpendicularLineIntersectionPoint = new Point2D(perpendicularOnSegmentX, perpendicularOnSegmentY);

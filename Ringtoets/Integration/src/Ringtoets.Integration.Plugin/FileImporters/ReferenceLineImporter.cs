@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
     /// Imports a <see cref="ReferenceLine"/> and stores in on a <see cref="AssessmentSectionBase"/>,
     /// taking data from a shapefile containing a single polyline.
     /// </summary>
-    public class ReferenceLineImporter : FileImporterBase
+    public class ReferenceLineImporter : FileImporterBase<ReferenceLineContext>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ReferenceLineImporter));
 
@@ -75,14 +75,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             get
             {
                 return RingtoetsIntegrationFormsResources.ReferenceLineIcon;
-            }
-        }
-
-        public override Type SupportedItemType
-        {
-            get
-            {
-                return typeof(ReferenceLineContext);
             }
         }
 

@@ -30,11 +30,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var importer = new ReferenceLineImporter();
 
             // Assert
-            Assert.IsInstanceOf<IFileImporter>(importer);
+            Assert.IsInstanceOf<FileImporterBase<ReferenceLineContext>>(importer);
             Assert.AreEqual("Referentielijn", importer.Name);
             Assert.AreEqual("Algemeen", importer.Category);
             TestHelper.AssertImagesAreEqual(RingtoetsIntegrationFormsResources.ReferenceLineIcon, importer.Image);
-            Assert.AreEqual(typeof(ReferenceLineContext), importer.SupportedItemType);
             Assert.AreEqual("Referentielijn shapefile (*.shp)|*.shp", importer.FileFilter);
         }
 

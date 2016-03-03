@@ -40,12 +40,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importer = new PipingSoilProfilesImporter();
 
             // Assert
-            Assert.IsInstanceOf<IFileImporter>(importer);
+            Assert.IsInstanceOf<FileImporterBase<ICollection<PipingSoilProfile>>>(importer);
             Assert.AreEqual(PipingFormsResources.PipingSoilProfilesCollection_DisplayName, importer.Name);
             Assert.AreEqual(RingtoetsFormsResources.Ringtoets_Category, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
-            Assert.AreEqual(typeof(ICollection<PipingSoilProfile>), importer.SupportedItemType);
             Assert.AreEqual(expectedFileFilter, importer.FileFilter);
         }
 

@@ -46,11 +46,6 @@ namespace Core.Common.Base.IO
         Bitmap Image { get; }
 
         /// <summary>
-        /// Gets the <see cref="Type"/> of the item supported by the <see cref="IFileImporter"/>.
-        /// </summary>
-        Type SupportedItemType { get; }
-
-        /// <summary>
         /// Gets the file filter of the <see cref="IFileImporter"/>.
         /// </summary>
         /// <example>

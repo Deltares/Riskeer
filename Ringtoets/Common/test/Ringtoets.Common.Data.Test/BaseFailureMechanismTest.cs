@@ -182,7 +182,7 @@ namespace Ringtoets.Common.Data.Test
         }
 
         [Test]
-        public void ClearAllSections_HasSections_DoNothing()
+        public void ClearAllSections_HasSections_ClearSections()
         {
             // Setup
             var section = new FailureMechanismSection("A", new[]

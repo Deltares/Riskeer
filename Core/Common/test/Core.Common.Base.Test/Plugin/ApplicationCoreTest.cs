@@ -414,7 +414,7 @@ namespace Core.Common.Base.Test.Plugin
             }
         }
 
-        private class SimpleFileImporter<T> : FileImporterBase
+        private class SimpleFileImporter<T> : FileImporterBase<T>
         {
             public override string Name
             {
@@ -437,14 +437,6 @@ namespace Core.Common.Base.Test.Plugin
                 get
                 {
                     throw new NotImplementedException();
-                }
-            }
-
-            public override Type SupportedItemType
-            {
-                get
-                {
-                    return typeof(T);
                 }
             }
 

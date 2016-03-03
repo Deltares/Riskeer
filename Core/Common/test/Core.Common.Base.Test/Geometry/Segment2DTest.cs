@@ -13,8 +13,8 @@ namespace Core.Common.Base.Test.Geometry
         public void Constructor_WithTwoPoints_ReturnsSegmentWithPointsSet()
         {
             // Setup
-            var firstPoint = new Point2D();
-            var secondPoint = new Point2D();
+            var firstPoint = new Point2D(0, 0);
+            var secondPoint = new Point2D(0, 0);
 
             // Call
             var segment = new Segment2D(firstPoint, secondPoint);
@@ -28,7 +28,7 @@ namespace Core.Common.Base.Test.Geometry
         public void Constructor_WithNullFirstPoint_ThrowsArgumentNullException()
         {
             // Setup
-            var secondPoint = new Point2D();
+            var secondPoint = new Point2D(0, 0);
 
             // Call
             TestDelegate test = () => new Segment2D(null, secondPoint);
@@ -42,7 +42,7 @@ namespace Core.Common.Base.Test.Geometry
         public void Constructor_WithNullSecondPoint_ThrowsArgumentNullException()
         {
             // Setup
-            var firstPoint = new Point2D();
+            var firstPoint = new Point2D(0, 0);
 
             // Call
             TestDelegate test = () => new Segment2D(firstPoint, null);

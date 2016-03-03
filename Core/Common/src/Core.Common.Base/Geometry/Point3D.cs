@@ -24,9 +24,9 @@ using System;
 namespace Core.Common.Base.Geometry
 {
     /// <summary>
-    /// Defines a mathematical point in 3D Euclidean space.
+    /// Defines a mathematical, immutable point in 3D Euclidean space.
     /// </summary>
-    public class Point3D
+    public sealed class Point3D
     {
         /// <summary>
         /// Creates a new instance of <see cref="Point3D"/>.
@@ -94,7 +94,7 @@ namespace Core.Common.Base.Geometry
         /// </summary>
         /// <param name="other">A <see cref="Point3D"/> to compare with.</param>
         /// <returns>True if the coordinates of the <see cref="Point3D"/> matches the coordinate of <paramref name="other"/>. False otherwise.</returns>
-        protected bool Equals(Point3D other)
+        private bool Equals(Point3D other)
         {
             return X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
         }

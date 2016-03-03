@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Data
 
         /// <summary>
         /// Gets the sections that define area's for which a calculation could determine
-        /// a representative result.
+        /// a representative result. Cannot return null.
         /// </summary>
         IEnumerable<FailureMechanismSection> Sections { get; }
 

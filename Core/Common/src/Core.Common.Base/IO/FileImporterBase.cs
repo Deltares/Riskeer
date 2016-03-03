@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -33,8 +32,9 @@ namespace Core.Common.Base.IO
     /// change notifications for <see cref="IObservable"/> objects that have been affected
     /// during the import.
     /// </summary>
+    /// <typeparam name="T">The type of the item supported by the importer.</typeparam>
     /// <seealso cref="IFileImporter" />
-    public abstract class FileImporterBase : IFileImporter
+    public abstract class FileImporterBase<T> : IFileImporter
     {
         /// <summary>
         /// Indicates if a cancel request has been made. When true, no changes should be
@@ -46,13 +46,12 @@ namespace Core.Common.Base.IO
         public abstract string Name { get; }
         public abstract string Category { get; }
         public abstract Bitmap Image { get; }
-        public abstract Type SupportedItemType { get; }
         public abstract string FileFilter { get; }
         public abstract ProgressChangedDelegate ProgressChanged { protected get; set; }
 
         public virtual bool CanImportOn(object targetItem)
         {
-            return targetItem.GetType().Implements(SupportedItemType);
+            return targetItem.GetType().Implements<T>();
         }
 
         public abstract bool Import(object targetItem, string filePath);

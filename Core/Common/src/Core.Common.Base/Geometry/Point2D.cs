@@ -26,16 +26,10 @@ using MathNet.Numerics.LinearAlgebra.Double;
 namespace Core.Common.Base.Geometry
 {
     /// <summary>
-    /// Defines a mathematical point in 2D Euclidean space.
+    /// Defines a mathematical, immutable point in 2D Euclidean space.
     /// </summary>
-    public class Point2D
+    public sealed class Point2D
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="Point2D"/>, with <see cref="X"/> set to <c>0</c>
-        /// and <see cref="Y"/> set to <c>0</c>.
-        /// </summary>
-        public Point2D() {}
-
         /// <summary>
         /// Creates a new instance of <see cref="Point2D"/>, with <see cref="X"/> set to <paramref name="x"/>
         /// and <see cref="Y"/> set to <paramref name="y"/>.

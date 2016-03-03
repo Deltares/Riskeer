@@ -215,7 +215,7 @@ namespace Core.Common.Base.Test.Geometry
         public void ConvertLinePointsToLineSegments_TooFewPoints_ReturnEmpty(int pointCount)
         {
             // Setup
-            var linePoints = Enumerable.Repeat(new Point2D(), pointCount);
+            var linePoints = Enumerable.Repeat(new Point2D(0, 0), pointCount);
 
             // Call
             IEnumerable<Segment2D> segments = Math2D.ConvertLinePointsToLineSegments(linePoints);

@@ -160,7 +160,7 @@ namespace Core.Common.Base.Test.Service
             mocks.VerifyAll();
         }
 
-        private class SimpleFileImporter : FileImporterBase
+        private class SimpleFileImporter : FileImporterBase<Object>
         {
             public override string Name
             {
@@ -179,14 +179,6 @@ namespace Core.Common.Base.Test.Service
             }
 
             public override Bitmap Image
-            {
-                get
-                {
-                    return null;
-                }
-            }
-
-            public override Type SupportedItemType
             {
                 get
                 {

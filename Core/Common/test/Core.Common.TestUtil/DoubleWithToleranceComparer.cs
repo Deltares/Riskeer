@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-using Core.Common.Base.Geometry;
-
 namespace Core.Common.TestUtil
 {
     /// <summary>
@@ -23,7 +21,7 @@ namespace Core.Common.TestUtil
         {
             var diff = firstDouble - secondDouble;
 
-            var tolerable = Math.Abs(diff) < tolerance;
+            var tolerable = Math.Abs(diff) <= tolerance;
 
             var nonTolerableDiff = !tolerable && diff < 0 ? -1 : 1;
 
@@ -34,7 +32,7 @@ namespace Core.Common.TestUtil
         {
             if (!(x is double) || !(y is double))
             {
-                throw new NotSupportedException(string.Format("Cannot compare objects other than {0} with this comparer.", typeof(Double)));
+                throw new ArgumentException(string.Format("Cannot compare objects other than {0} with this comparer.", typeof(Double)));
             }
             return Compare((double)x, (double)y);
         }

@@ -179,7 +179,7 @@ namespace Core.Common.Base.Test.IO
             Assert.AreEqual(1, progressChangedCallCount);
         }
 
-        private class SimpleFileImporter : FileImporterBase
+        private class SimpleFileImporter : FileImporterBase<SimpleFileImporterTargetType>
         {
             public override string Name
             {
@@ -202,14 +202,6 @@ namespace Core.Common.Base.Test.IO
                 get
                 {
                     throw new NotImplementedException();
-                }
-            }
-
-            public override Type SupportedItemType
-            {
-                get
-                {
-                    return typeof(SimpleFileImporterTargetType);
                 }
             }
 

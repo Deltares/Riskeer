@@ -100,7 +100,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void CanImportOn_HasMultipleFileImporterForTarget_ReturnTrue()
+        public void CanImportOn_HasMultipleFileImporterForTargetWhereAtLeastOneCanHandleTargetItem_ReturnTrue()
         {
             // Setup
             var target = new object();

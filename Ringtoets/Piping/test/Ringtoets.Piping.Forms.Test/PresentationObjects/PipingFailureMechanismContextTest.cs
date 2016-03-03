@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+
+using NUnit.Framework;
 
 using Rhino.Mocks;
 
@@ -28,6 +30,35 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<PipingFailureMechanism>>(context);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new PipingFailureMechanismContext(null, assessmentSection);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            // Call
+            TestDelegate call = () => new PipingFailureMechanismContext(failureMechanism, null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
         }
     }
 }

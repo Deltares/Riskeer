@@ -158,13 +158,13 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Er is geen referentielijn beschikbaar om een vakindeling voor de definiëren.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_Import_Required_referenceline_missing" xml:space="preserve">
-    <value>Er is geen referentielijn beschikbaar om een vakindeling voor de definiëren.</value>
+    <value>Er is geen referentielijn beschikbaar om een vakindeling voor te definiëren.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_ReadFile_File_is_empty" xml:space="preserve">
     <value>Het bestand heeft geen vakindeling.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline" xml:space="preserve">
-    <value>Vakkenindeling komt niet overeen met de huidige referentielijn.</value>
+    <value>Vakindeling komt niet overeen met de huidige referentielijn.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_Import_cancelled_no_data_read" xml:space="preserve">
     <value>Vakindeling importeren afgebroken. Geen data ingelezen.</value>

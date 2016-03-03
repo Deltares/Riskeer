@@ -38,7 +38,7 @@ namespace Core.Common.Base.Geometry
         /// <summary>
         /// Constant which is used to precision errors in <see cref="double"/> comparisons.
         /// </summary>
-        private const double epsilonForComparisons = 1e-8;
+        private const double epsilonForComparisons = 1e-6;
 
         /// <summary>
         /// Splits the line geometry at given lengths.
@@ -49,7 +49,8 @@ namespace Core.Common.Base.Geometry
         /// of elements in <paramref name="lengths"/>.</returns>
         /// <exception cref="ArgumentException">When the sum of all elements in <paramref name="lengths"/>
         /// does not fully cover the line given by <paramref name="linePoints"/> - or - when
-        /// <paramref name="lengths"/> contains negative values - or - </exception>
+        /// <paramref name="lengths"/> contains negative values - or - when <paramref name="linePoints"/>
+        /// does not have 2 or more elements.</exception>
         public static Point2D[][] SplitLineAtLengths(IEnumerable<Point2D> linePoints, double[] lengths)
         {
             if (lengths.Any(l => l < 0))
@@ -62,7 +63,7 @@ namespace Core.Common.Base.Geometry
             }
             Segment2D[] lineSegments = ConvertLinePointsToLineSegments(linePoints).ToArray();
 
-            if (Math.Abs(lengths.Sum(l => l) - lineSegments.Sum(s => s.Length)) > 1e-6)
+            if (Math.Abs(lengths.Sum(l => l) - lineSegments.Sum(s => s.Length)) > epsilonForComparisons)
             {
                 throw new ArgumentException(Resources.Math2D_SplitLineAtLengths_Sum_of_lengths_must_equal_line_length, "lengths");
             }
@@ -172,15 +173,15 @@ namespace Core.Common.Base.Geometry
             Point2D startPoint = lineSegments[index].FirstPoint;
             for (int i = 0; i < lengths.Length; i++)
             {
-                double splitDistance = lengths[i];
+                double splitDistanceRemainder = lengths[i];
                 var subLine = new List<Point2D>
                 {
                     startPoint
                 };
 
-                while (splitDistance > lineSegmentRemainder)
+                while (splitDistanceRemainder > lineSegmentRemainder)
                 {
-                    splitDistance -= lineSegmentRemainder;
+                    splitDistanceRemainder -= lineSegmentRemainder;
                     subLine.Add(lineSegments[index].SecondPoint);
 
                     if (index < lineSegments.Length - 1)
@@ -192,11 +193,11 @@ namespace Core.Common.Base.Geometry
 
                 if (i < lengths.Length - 1)
                 {
-                    Point2D interpolatedPoint = GetInterpolatedPoint(lineSegments[index], distanceOnSegment + splitDistance);
+                    Point2D interpolatedPoint = GetInterpolatedPoint(lineSegments[index], distanceOnSegment + splitDistanceRemainder);
                     subLine.Add(interpolatedPoint);
 
-                    distanceOnSegment += splitDistance;
-                    lineSegmentRemainder -= splitDistance;
+                    distanceOnSegment += splitDistanceRemainder;
+                    lineSegmentRemainder -= splitDistanceRemainder;
                     startPoint = interpolatedPoint;
                 }
                 else
