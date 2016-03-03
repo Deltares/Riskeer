@@ -47,8 +47,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
             Assert.AreEqual(expectedValues.FormEpsHoh, settings.FormEpsHoh);
             Assert.AreEqual(expectedValues.FormEpsZFunc, settings.FormEpsZFunc);
             Assert.AreEqual(expectedValues.DsStartMethod, settings.DsStartMethod);
-            Assert.AreEqual(expectedValues.DsMaxNumberOfIterations, settings.DsMaxNumberOfIterations);
             Assert.AreEqual(expectedValues.DsMinNumberOfIterations, settings.DsMinNumberOfIterations);
+            Assert.AreEqual(expectedValues.DsMaxNumberOfIterations, settings.DsMaxNumberOfIterations);
             Assert.AreEqual(expectedValues.DsVarCoefficient, settings.DsVarCoefficient);
             Assert.AreEqual(expectedValues.NiNumberSteps, settings.NiNumberSteps);
             Assert.AreEqual(expectedValues.NiUMax, settings.NiUMax);
@@ -102,8 +102,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
             Assert.AreEqual(0.01, subMechanismSettings.FormEpsHoh);
             Assert.AreEqual(0.01, subMechanismSettings.FormEpsZFunc);
             Assert.AreEqual(2, subMechanismSettings.DsStartMethod);
-            Assert.AreEqual(10000, subMechanismSettings.DsMinNumberOfIterations);
-            Assert.AreEqual(20000, subMechanismSettings.DsMaxNumberOfIterations);
+            Assert.AreEqual(20000, subMechanismSettings.DsMinNumberOfIterations);
+            Assert.AreEqual(100000, subMechanismSettings.DsMaxNumberOfIterations);
             Assert.AreEqual(0.1, subMechanismSettings.DsVarCoefficient);
             Assert.AreEqual(-6.0, subMechanismSettings.NiUMin);
             Assert.AreEqual(6.0, subMechanismSettings.NiUMax);

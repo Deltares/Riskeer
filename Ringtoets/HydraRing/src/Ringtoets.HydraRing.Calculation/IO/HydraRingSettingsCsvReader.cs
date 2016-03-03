@@ -129,7 +129,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
         private string GetRingId(IList<string> line)
         {
-            return line[columns[ringIdKey]].Trim();
+            return line[columns[ringIdKey]].Trim().Replace("\"", "");
         }
 
         private SubMechanismSettings GetSubMechanismSetting(IList<string> line)
