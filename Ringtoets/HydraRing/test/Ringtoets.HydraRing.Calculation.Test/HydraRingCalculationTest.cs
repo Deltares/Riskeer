@@ -36,6 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Test
             // Assert
             Assert.AreEqual(1, hydraRingCalculation.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.QVariant, hydraRingCalculation.FailureMechanismType);
+            Assert.AreEqual(4, hydraRingCalculation.CalculationTypeId);
             CollectionAssert.IsEmpty(hydraRingCalculation.Variables);
             CollectionAssert.IsEmpty(hydraRingCalculation.ProfilePoints);
             Assert.IsNaN(hydraRingCalculation.Beta);
@@ -62,6 +63,14 @@ namespace Ringtoets.HydraRing.Calculation.Test
                 get
                 {
                     return HydraRingFailureMechanismType.QVariant;
+                }
+            }
+
+            public override int CalculationTypeId
+            {
+                get
+                {
+                    return 4;
                 }
             }
 

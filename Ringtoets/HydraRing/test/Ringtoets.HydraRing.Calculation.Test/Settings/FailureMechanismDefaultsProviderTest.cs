@@ -29,46 +29,46 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
     [TestFixture]
     public class FailureMechanismDefaultsProviderTest
     {
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 1, 2, 26, new[]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 1, 26, new[]
         {
             1
         })]
-        [TestCase(HydraRingFailureMechanismType.QVariant, 3, 6, 114, new[]
+        [TestCase(HydraRingFailureMechanismType.QVariant, 3, 114, new[]
         {
             3,
             4,
             5
         })]
-        [TestCase(HydraRingFailureMechanismType.WaveHeight, 11, 2, 28, new[]
+        [TestCase(HydraRingFailureMechanismType.WaveHeight, 11, 28, new[]
         {
             11
         })]
-        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 11, 2, 29, new[]
+        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 11, 29, new[]
         {
             14
         })]
-        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 11, 2, 29, new[]
+        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 11, 29, new[]
         {
             16
         })]
-        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 101, 1, 1, new[]
+        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 101, 1, new[]
         {
             102,
             103
         })]
-        [TestCase(HydraRingFailureMechanismType.DikesPiping, 103, 1, 44, new[]
+        [TestCase(HydraRingFailureMechanismType.DikesPiping, 103, 44, new[]
         {
             311,
             313,
             314
         })]
-        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 110, 1, 60, new[]
+        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 110, 60, new[]
         {
             421,
             422,
             423
         })]
-        [TestCase(HydraRingFailureMechanismType.StructuresClosure, 111, 1, 65, new[]
+        [TestCase(HydraRingFailureMechanismType.StructuresClosure, 111, 65, new[]
         {
             422,
             424,
@@ -76,7 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
             426,
             427
         })]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 112, 1, 65, new[]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 112, 65, new[]
         {
             422,
             424,
@@ -88,7 +88,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
             434,
             435
         })]
-        public void GetFailureMechanismDefaults_ReturnsExpectedFailureMechanismDefaults(HydraRingFailureMechanismType failureMechanismType, int expectedMechanismId, int expectedCalculationTypeId, int expectedVariableId, IEnumerable<int> expectedSubMechanismIds)
+        public void GetFailureMechanismDefaults_ReturnsExpectedFailureMechanismDefaults(HydraRingFailureMechanismType failureMechanismType, int expectedMechanismId, int expectedVariableId, IEnumerable<int> expectedSubMechanismIds)
         {
             // Setup
             var failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
@@ -98,7 +98,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
 
             // Assert
             Assert.AreEqual(expectedMechanismId, failureMechanismDefaults.MechanismId);
-            Assert.AreEqual(expectedCalculationTypeId, failureMechanismDefaults.CalculationTypeId);
             Assert.AreEqual(expectedVariableId, failureMechanismDefaults.VariableId);
             Assert.AreEqual(expectedSubMechanismIds, failureMechanismDefaults.SubMechanismIds);
         }

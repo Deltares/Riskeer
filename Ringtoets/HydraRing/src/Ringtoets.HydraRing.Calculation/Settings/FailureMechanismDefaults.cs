@@ -31,21 +31,18 @@ namespace Ringtoets.HydraRing.Calculation.Settings
     {
         private readonly int variableId;
         private readonly int mechanismId;
-        private readonly int calculationTypeId;
         private readonly IEnumerable<int> subMechanismIds;
 
         /// <summary>
         /// Creates a new instance of the <see cref="FailureMechanismDefaults"/> class.
         /// </summary>
         /// <param name="mechanismId">The mechanism id that corresponds to a specific <see cref="HydraRingFailureMechanismType"/>.</param>
-        /// <param name="calculationTypeId">The calculation type id that is applicable for a specific <see cref="HydraRingFailureMechanismType"/>.</param>
         /// <param name="variableId">The id of the variable that is relevant for a specific <see cref="HydraRingFailureMechanismType"/>.</param>
         /// <param name="subMechanismIds">The sub mechanism ids that are applicable for a specific <see cref="HydraRingFailureMechanismType"/>.</param>
-        public FailureMechanismDefaults(int mechanismId, int calculationTypeId, int variableId, IEnumerable<int> subMechanismIds)
+        public FailureMechanismDefaults(int mechanismId, int variableId, IEnumerable<int> subMechanismIds)
         {
             this.mechanismId = mechanismId;
             this.variableId = variableId;
-            this.calculationTypeId = calculationTypeId;
             this.subMechanismIds = subMechanismIds;
         }
 
@@ -57,17 +54,6 @@ namespace Ringtoets.HydraRing.Calculation.Settings
             get
             {
                 return mechanismId;
-            }
-        }
-
-        /// <summary>
-        /// Gets the calculation type id that is applicable for a specific <see cref="HydraRingFailureMechanismType"/>.
-        /// </summary>
-        public int CalculationTypeId
-        {
-            get
-            {
-                return calculationTypeId;
             }
         }
 

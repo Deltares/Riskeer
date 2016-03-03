@@ -38,6 +38,14 @@ namespace Ringtoets.HydraRing.Calculation.Hydraulics
             this.beta = beta;
         }
 
+        public override int CalculationTypeId
+        {
+            get
+            {
+                return 2;
+            }
+        }
+
         public override double Beta
         {
             get

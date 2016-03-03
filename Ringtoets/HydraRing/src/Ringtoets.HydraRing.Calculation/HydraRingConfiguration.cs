@@ -258,7 +258,7 @@ namespace Ringtoets.HydraRing.Calculation
                         "AlternativeId", defaultAlternativeId // Fixed: no support for piping
                     },
                     {
-                        "Method", failureMechanismDefaults.CalculationTypeId
+                        "Method", hydraRingCalculation.CalculationTypeId
                     },
                     {
                         "VariableId", failureMechanismDefaults.VariableId

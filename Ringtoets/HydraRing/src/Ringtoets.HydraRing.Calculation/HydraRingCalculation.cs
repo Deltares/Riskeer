@@ -46,6 +46,11 @@ namespace Ringtoets.HydraRing.Calculation
         public abstract HydraRingFailureMechanismType FailureMechanismType { get; }
 
         /// <summary>
+        /// Gets the id corresponding to the type of calculation that should be performed.
+        /// </summary>
+        public abstract int CalculationTypeId { get; }
+
+        /// <summary>
         /// Gets the id of the hydraulic station to use during the calculation.
         /// </summary>
         public int HydraulicBoundaryLocationId

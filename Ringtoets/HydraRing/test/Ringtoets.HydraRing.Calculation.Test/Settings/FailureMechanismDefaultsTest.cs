@@ -31,20 +31,19 @@ namespace Ringtoets.HydraRing.Calculation.Test.Settings
         public void Constructor_ExpectedValues()
         {
             // Call
-            var failureMechanismDefaults = new FailureMechanismDefaults(1, 2, 3, new[]
+            var failureMechanismDefaults = new FailureMechanismDefaults(1, 2, new[]
             {
-                4,
-                5
+                3,
+                4
             });
 
             // Assert
             Assert.AreEqual(1, failureMechanismDefaults.MechanismId);
-            Assert.AreEqual(2, failureMechanismDefaults.CalculationTypeId);
-            Assert.AreEqual(3, failureMechanismDefaults.VariableId);
+            Assert.AreEqual(2, failureMechanismDefaults.VariableId);
             CollectionAssert.AreEqual(new[]
             {
-                4,
-                5
+                3,
+                4
             }, failureMechanismDefaults.SubMechanismIds);
         }
     }
