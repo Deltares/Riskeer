@@ -28,7 +28,6 @@ using Core.Common.Controls.Views;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.Views;
@@ -81,7 +80,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             var mapData = (MapDataCollection) map.Data;
 
-            Assert.AreEqual(0, mapData.List.Count);
+            Assert.AreEqual(2, mapData.List.Count);
+
+            var referenceLineMapData = (MapLineData)mapData.List[0];
+            CollectionAssert.IsEmpty(referenceLineMapData.Points);
+            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+            Assert.IsTrue(referenceLineMapData.IsVisible);
+
+            var hrLocationsMapData = (MapPointData)mapData.List[1];
+            CollectionAssert.IsEmpty(hrLocationsMapData.Points);
+            Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
+            Assert.IsTrue(hrLocationsMapData.IsVisible);
         }
 
         [Test]
@@ -90,17 +99,22 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             var view = new AssessmentSectionView();
             var map = (MapControl) view.Controls[0];
-            var assessmentSectionBase = new TestAssessmentSectionBase
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
-                ReferenceLine = new ReferenceLine()
-            };
-            assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
-            assessmentSectionBase.ReferenceLine.SetGeometry(new List<Point2D>
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
             {
                 new Point2D(1.0, 2.0),
                 new Point2D(2.0, 1.0)
             });
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
+
+            var assessmentSectionBase = new TestAssessmentSectionBase
+            {
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase,
+                ReferenceLine = referenceLine
+            };
 
             // Call
             view.Data = assessmentSectionBase;
@@ -110,8 +124,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
             var mapData = map.Data as MapDataCollection;
             Assert.IsNotNull(mapData);
-            Assert.IsTrue(mapData.List.Any(md => md is MapPointData));
-            Assert.IsTrue(mapData.List.Any(md => md is MapLineData));
+
+            var referenceLineMapData = (MapLineData)mapData.List[0];
+            CollectionAssert.AreEqual(referenceLine.Points, referenceLineMapData.Points);
+            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+            Assert.IsTrue(referenceLineMapData.IsVisible);
+
+            var hrLocationsMapData = (MapPointData)mapData.List[1];
+            CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations.Select(l => l.Location), hrLocationsMapData.Points);
+            Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
+            Assert.IsTrue(hrLocationsMapData.IsVisible);
         }
 
         [Test]

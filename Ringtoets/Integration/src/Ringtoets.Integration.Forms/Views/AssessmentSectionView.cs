@@ -28,6 +28,7 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -92,39 +93,31 @@ namespace Ringtoets.Integration.Forms.Views
         {
             var mapDataList = new List<MapData>();
 
-            if (HasReferenceLinePoints())
+            if (data != null)
             {
                 mapDataList.Add(GetReferenceLineData());
-            }
-
-            if (HasHydraulicBoundaryLocations())
-            {
                 mapDataList.Add(GetHydraulicBoundaryLocations());
             }
-
+            
             mapControl.Data = new MapDataCollection(mapDataList, Resources.AssessmentSectionMap_DisplayName);
         }
 
         private MapData GetReferenceLineData()
         {
-            Point2D[] referenceLinePoints = data.ReferenceLine.Points.ToArray();
+            ReferenceLine referenceLine = data.ReferenceLine;
+            IEnumerable<Point2D> referenceLinePoints = referenceLine == null ?
+                                                           Enumerable.Empty<Point2D>() :
+                                                           referenceLine.Points;
             return new MapLineData(referenceLinePoints, RingtoetsCommonDataResources.ReferenceLine_DisplayName);
         }
 
         private MapData GetHydraulicBoundaryLocations()
         {
-            Point2D[] hrLocations = data.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.HydraulicBoundaryDatabase;
+            IEnumerable<Point2D> hrLocations = hydraulicBoundaryDatabase == null ?
+                                                   Enumerable.Empty<Point2D>() :
+                                                   hydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
             return new MapPointData(hrLocations, RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
-        }
-
-        private bool HasReferenceLinePoints()
-        {
-            return data.ReferenceLine != null && data.ReferenceLine.Points.Any();
-        }
-
-        private bool HasHydraulicBoundaryLocations()
-        {
-            return data.HydraulicBoundaryDatabase != null && data.HydraulicBoundaryDatabase.Locations.Any();
         }
     }
 }

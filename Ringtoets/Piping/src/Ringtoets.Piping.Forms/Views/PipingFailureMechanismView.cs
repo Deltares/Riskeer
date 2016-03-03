@@ -28,6 +28,8 @@ using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 
+using Ringtoets.Common.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -115,25 +117,10 @@ namespace Ringtoets.Piping.Forms.Views
 
             if (data != null)
             {
-                if (HasReferenceLinePoints())
-                {
-                    mapDataList.Add(GetReferenceLineMapData());
-                }
-
-                if (HasHydraulicBoundaryLocations())
-                {
-                    mapDataList.Add(GetHydraulicBoundaryLocationsMapData());
-                }
-
-                if (HasSections())
-                {
-                    mapDataList.Add(GetSectionsMapData());
-                }
-
-                if (HasSurfaceLines())
-                {
-                    mapDataList.Add(GetSurfaceLinesMapData());
-                }
+                mapDataList.Add(GetReferenceLineMapData());
+                mapDataList.Add(GetHydraulicBoundaryLocationsMapData());
+                mapDataList.Add(GetSectionsMapData());
+                mapDataList.Add(GetSurfaceLinesMapData());
             }
 
             mapControl.Data = new MapDataCollection(mapDataList, PipingDataResources.PipingFailureMechanism_DisplayName);
@@ -141,13 +128,20 @@ namespace Ringtoets.Piping.Forms.Views
 
         private MapData GetReferenceLineMapData()
         {
-            Point2D[] referenceLinePoints = data.Parent.ReferenceLine.Points.ToArray();
+            ReferenceLine referenceLine = data.Parent.ReferenceLine;
+            IEnumerable<Point2D> referenceLinePoints = referenceLine == null ?
+                                                           Enumerable.Empty<Point2D>() :
+                                                           referenceLine.Points;
             return new MapLineData(referenceLinePoints, RingtoetsCommonDataResources.ReferenceLine_DisplayName);
         }
 
         private MapData GetHydraulicBoundaryLocationsMapData()
         {
-            Point2D[] hrLocations = data.Parent.HydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
+
+            IEnumerable<Point2D> hrLocations = hydraulicBoundaryDatabase == null ?
+                                                   Enumerable.Empty<Point2D>() :
+                                                   hydraulicBoundaryDatabase.Locations.Select(h => h.Location);
             return new MapPointData(hrLocations, RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
         }
 
@@ -161,26 +155,6 @@ namespace Ringtoets.Piping.Forms.Views
         {
             IEnumerable<IEnumerable<Point2D>> sectionLines = data.WrappedData.Sections.Select(sl => sl.Points);
             return new MapMultiLineData(sectionLines, RingtoetsCommonDataResources.FailureMechanism_Sections_DisplayName);
-        }
-
-        private bool HasReferenceLinePoints()
-        {
-            return data.Parent.ReferenceLine != null && data.Parent.ReferenceLine.Points.Any();
-        }
-
-        private bool HasHydraulicBoundaryLocations()
-        {
-            return data.Parent.HydraulicBoundaryDatabase != null && data.Parent.HydraulicBoundaryDatabase.Locations.Any();
-        }
-
-        private bool HasSurfaceLines()
-        {
-            return data.WrappedData.SurfaceLines.Any();
-        }
-
-        private bool HasSections()
-        {
-            return data.WrappedData.Sections.Any();
         }
     }
 }
