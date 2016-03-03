@@ -98,8 +98,8 @@ namespace Core.Components.DotSpatial
 
         private void OnMouseMove(object sender, GeoMouseArgs e)
         {
-            xLabel.Text = string.Format("X: {0:.#####}", e.GeographicLocation.X);
-            yLabel.Text = string.Format("Y: {0:.#####}", e.GeographicLocation.Y);
+            xLabel.Text = string.Format("X: {0:0.#####}", e.GeographicLocation.X);
+            yLabel.Text = string.Format("Y: {0:0.#####}", e.GeographicLocation.Y);
         }
 
         public void Dispose()
