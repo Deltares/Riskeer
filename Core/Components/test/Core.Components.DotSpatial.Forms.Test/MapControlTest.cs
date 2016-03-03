@@ -223,6 +223,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             // Precondition
             Assert.AreEqual(3, mapView.Layers.Count, "Precondition failed: mapView.Layers != 3");
+            Assert.IsFalse(mapView.Layers.All(l=>l.IsVisible), "Precondition failed: not all map layers should be visible.");
 
             // Call
             map.ZoomToAllVisibleLayers();

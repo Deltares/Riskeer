@@ -21,6 +21,7 @@
 
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Base;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.MapFunctions;
@@ -30,6 +31,7 @@ using Core.Components.Gis.Forms;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Topology;
+
 using MapFunctionPan = Core.Components.DotSpatial.MapFunctions.MapFunctionPan;
 
 namespace Core.Components.DotSpatial.Forms
@@ -83,12 +85,7 @@ namespace Core.Components.DotSpatial.Forms
 
         public void ZoomToAllVisibleLayers()
         {
-            IEnvelope envelope = new Envelope();
-            foreach (IMapLayer layer in map.Layers.Where(layer => layer.IsVisible))
-            {
-                envelope.ExpandToInclude(layer.Extent.ToEnvelope());
-            }
-
+            IEnvelope envelope = CreateEnvelopeForAllVisibleLayers();
             map.ViewExtents = envelope.ToExtent();
         }
 
@@ -149,6 +146,16 @@ namespace Core.Components.DotSpatial.Forms
             map.Dispose();
             mouseCoordinatesMapExtension.Dispose();
             base.Dispose(disposing);
+        }
+
+        private IEnvelope CreateEnvelopeForAllVisibleLayers()
+        {
+            IEnvelope envelope = new Envelope();
+            foreach (IMapLayer layer in map.Layers.Where(layer => layer.IsVisible))
+            {
+                envelope.ExpandToInclude(layer.Extent.ToEnvelope());
+            }
+            return envelope;
         }
 
         private void ResetDefaultInteraction()
