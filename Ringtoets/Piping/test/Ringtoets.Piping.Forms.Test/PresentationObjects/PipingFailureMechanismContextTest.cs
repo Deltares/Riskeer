@@ -29,6 +29,8 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<PipingFailureMechanism>>(context);
+            Assert.AreSame(assessmentSection, context.Parent);
+            Assert.AreSame(failureMechanism, context.WrappedData);
             mocks.VerifyAll();
         }
 
