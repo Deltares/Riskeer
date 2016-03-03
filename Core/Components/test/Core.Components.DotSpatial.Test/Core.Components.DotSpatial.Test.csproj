@@ -107,8 +107,8 @@
     <Compile Include="Converter\MapDataConverterTest.cs" />
     <Compile Include="Converter\MapDataFactoryTest.cs" />
     <Compile Include="Converter\MapPointDataConverterTest.cs" />
-    <Compile Include="MapFunctionPanTest.cs" />
-    <Compile Include="MapFunctionSelectionZoomTest.cs" />
+    <Compile Include="MapFunctions\MapFunctionPanTest.cs" />
+    <Compile Include="MapFunctions\MapFunctionSelectionZoomTest.cs" />
     <Compile Include="MouseCoordinatesMapExtensionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

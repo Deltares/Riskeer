@@ -24,13 +24,13 @@ using Core.Common.Controls.Views;
 namespace Core.Components.Gis.Forms
 {
     /// <summary>
-    /// Interface describing <see cref="Core.Common.Controls.Views.IView"/> that contain a <see cref="Core.Components.Gis.IMap"/> as one of its components.
+    /// Interface describing <see cref="IView"/> that contain a <see cref="IMapControl"/> as one of its components.
     /// </summary>
     public interface IMapView : IView
     {
         /// <summary>
-        /// Gets the <see cref="Core.Components.Gis.IMap"/> set for this <see cref="IMapView"/>.
+        /// Gets the <see cref="IMapControl"/> set for this <see cref="IMapView"/>.
         /// </summary>
-        IMap Map { get; }
+        IMapControl Map { get; }
     }
 }

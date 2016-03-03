@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
-using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data;
@@ -39,7 +38,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class AssessmentSectionView : UserControl, IMapView, IObserver
     {
-        private readonly BaseMap map;
+        private readonly MapControl mapControl;
         private AssessmentSectionBase data;
 
         /// <summary>
@@ -47,11 +46,11 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         public AssessmentSectionView()
         {
-            map = new BaseMap
+            mapControl = new MapControl
             {
                 Dock = DockStyle.Fill
             };
-            Controls.Add(map);
+            Controls.Add(mapControl);
         }
 
         public object Data
@@ -73,11 +72,11 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        public IMap Map
+        public IMapControl Map
         {
             get
             {
-                return map;
+                return mapControl;
             }
         }
 
@@ -103,7 +102,7 @@ namespace Ringtoets.Integration.Forms.Views
                 mapDataList.Add(GetHydraulicBoundaryLocations());
             }
 
-            map.Data = new MapDataCollection(mapDataList, Resources.AssessmentSectionMap_DisplayName);
+            mapControl.Data = new MapDataCollection(mapDataList, Resources.AssessmentSectionMap_DisplayName);
         }
 
         private MapData GetReferenceLineData()

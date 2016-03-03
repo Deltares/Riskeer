@@ -20,11 +20,16 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+
 using DotSpatial.Controls;
+
 using NUnit.Framework;
+
 using Rhino.Mocks;
 
-namespace Core.Components.DotSpatial.Test
+using MapFunctionPan = Core.Components.DotSpatial.MapFunctions.MapFunctionPan;
+
+namespace Core.Components.DotSpatial.Test.MapFunctions
 {
     [TestFixture]
     public class MapFunctionPanTest

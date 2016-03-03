@@ -48,7 +48,6 @@
     <Compile Include="Data\MapPointData.cs" />
     <Compile Include="Data\MapPolygonData.cs" />
     <Compile Include="Data\PointBasedMapData.cs" />
-    <Compile Include="IMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

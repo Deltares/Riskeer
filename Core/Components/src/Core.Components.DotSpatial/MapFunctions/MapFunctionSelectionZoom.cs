@@ -23,13 +23,15 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
+
 using Point = System.Drawing.Point;
 
-namespace Core.Components.DotSpatial
+namespace Core.Components.DotSpatial.MapFunctions
 {
     /// <summary>
     /// <see cref="MapFunction"/> that can zoom into the map using left mouse clicks or rectangle dragging..
@@ -38,7 +40,9 @@ namespace Core.Components.DotSpatial
     /// <list type="bullet">
     /// <item>It does not zoom out on right mouse clicks.</item>
     /// <item>It does not zoom when the location of the cursus on <see cref="OnMouseUp"/> is equal to the location set at 
-    /// <see cref="OnMouseDown"/>.</item></list></remarks>
+    /// <see cref="OnMouseDown"/>.</item>
+    /// </list>
+    /// </remarks>
     public class MapFunctionSelectionZoom : MapFunction
     {
         private readonly Pen selectionPen;
@@ -133,22 +137,6 @@ namespace Core.Components.DotSpatial
 
                 if (handled == false)
                 {
-                    Rectangle r = e.Map.MapFrame.View;
-                    var w = r.Width;
-                    var h = r.Height;
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        r.Inflate(-r.Width/4, -r.Height/4);
-                        // The mouse cursor should anchor the geographic location during zoom.
-                        r.X += (e.X/2) - w/4;
-                        r.Y += (e.Y/2) - h/4;
-                        e.Map.MapFrame.View = r;
-                    }
-                    else if (e.Button == MouseButtons.Right)
-                    {
-                        startPoint = Point.Empty;
-                    }
-
                     e.Map.MapFrame.ResetExtents();
                 }
             }

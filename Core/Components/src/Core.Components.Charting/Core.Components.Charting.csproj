@@ -43,7 +43,6 @@
     <Compile Include="Data\LineData.cs" />
     <Compile Include="Data\PointData.cs" />
     <Compile Include="Data\PointBasedChartData.cs" />
-    <Compile Include="IChart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

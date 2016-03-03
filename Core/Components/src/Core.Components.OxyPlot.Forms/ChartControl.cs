@@ -23,7 +23,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Components.Charting;
+using Core.Components.Charting.Forms;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Converter;
 using OxyPlot.WindowsForms;
@@ -33,7 +33,7 @@ namespace Core.Components.OxyPlot.Forms
     /// <summary>
     /// This class describes a plot view with configured representation of axes.
     /// </summary>
-    public sealed class BaseChart : Control, IObserver, IChart
+    public sealed class ChartControl : Control, IObserver, IChartControl
     {
         private readonly SeriesFactory seriesFactory = new SeriesFactory();
 
@@ -43,16 +43,16 @@ namespace Core.Components.OxyPlot.Forms
         private DynamicPlotController controller;
 
         /// <summary>
-        /// Creates a new instance of <see cref="BaseChart"/>.
+        /// Creates a new instance of <see cref="ChartControl"/>.
         /// </summary>
-        public BaseChart()
+        public ChartControl()
         {
             InitializePlotView();
             MinimumSize = new Size(50, 75);
         }
 
         /// <summary>
-        /// Attaches the <see cref="BaseChart"/> to the currently set <see cref="Data"/>, if there is any.
+        /// Attaches the <see cref="ChartControl"/> to the currently set <see cref="Data"/>, if there is any.
         /// </summary>
         private void AttachToData()
         {
@@ -63,7 +63,7 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
-        /// Detaches the <see cref="BaseChart"/> to the currently set <see cref="Data"/>, if there is any.
+        /// Detaches the <see cref="ChartControl"/> to the currently set <see cref="Data"/>, if there is any.
         /// </summary>
         private void DetachFromData()
         {
@@ -74,7 +74,7 @@ namespace Core.Components.OxyPlot.Forms
         }
 
         /// <summary>
-        /// Initialize the <see cref="PlotView"/> for the <see cref="BaseChart"/>.
+        /// Initialize the <see cref="PlotView"/> for the <see cref="ChartControl"/>.
         /// </summary>
         private void InitializePlotView()
         {

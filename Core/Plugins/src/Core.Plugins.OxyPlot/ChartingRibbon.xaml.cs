@@ -23,7 +23,8 @@ using System.Collections.Generic;
 using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
-using Core.Components.Charting;
+using Core.Components.Charting.Forms;
+
 using Fluent;
 
 namespace Core.Plugins.OxyPlot
@@ -33,7 +34,7 @@ namespace Core.Plugins.OxyPlot
     /// </summary>
     public partial class ChartingRibbon : IRibbonCommandHandler
     {
-        private IChart chart;
+        private IChartControl chart;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChartingRibbon"/>.
@@ -44,9 +45,9 @@ namespace Core.Plugins.OxyPlot
         }
 
         /// <summary>
-        /// Sets the <see cref="IChart"/> to show the ribbon for.
+        /// Sets the <see cref="IChartControl"/> to show the ribbon for.
         /// </summary>
-        public IChart Chart
+        public IChartControl Chart
         {
             private get
             {

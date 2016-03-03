@@ -26,7 +26,7 @@ namespace Core.Plugins.DotSpatial.Test.Forms
         }
 
         [Test]
-        public void DefaultConstructor_Always_AddsBaseMap()
+        public void DefaultConstructor_Always_AddsMapControl()
         {
             // Call
             using (var mapView = new MapDataView())
@@ -34,21 +34,21 @@ namespace Core.Plugins.DotSpatial.Test.Forms
                 // Assert
                 Assert.AreEqual(1, mapView.Controls.Count);
                 object mapObject = mapView.Controls[0];
-                Assert.IsInstanceOf<BaseMap>(mapObject);
+                Assert.IsInstanceOf<MapControl>(mapObject);
 
-                var map = (BaseMap)mapObject;
+                var map = (MapControl)mapObject;
                 Assert.AreEqual(DockStyle.Fill, map.Dock);
                 Assert.NotNull(mapView.Map);
             }
         }
 
         [Test]
-        public void Data_SetToNull_BaseMapNoFeatures()
+        public void Data_SetToNull_MapControlNoFeatures()
         {
             // Setup
             using (var mapView = new MapDataView())
             {
-                var map = (BaseMap)mapView.Controls[0];
+                var map = (MapControl)mapView.Controls[0];
 
                 // Call
                 TestDelegate testDelegate = () => mapView.Data = null;
@@ -79,7 +79,7 @@ namespace Core.Plugins.DotSpatial.Test.Forms
             // Setup
             using (var mapView = new MapDataView())
             {
-                var map = (BaseMap)mapView.Controls[0];
+                var map = (MapControl)mapView.Controls[0];
                 var pointData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
 
                 // Call

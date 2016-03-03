@@ -2,7 +2,7 @@
 using System.Windows;
 
 using Core.Common.Gui;
-using Core.Components.Charting;
+using Core.Components.Charting.Forms;
 using Core.Plugins.OxyPlot.Commands;
 using Core.Plugins.OxyPlot.Legend;
 using Fluent;
@@ -81,7 +81,7 @@ namespace Core.Plugins.OxyPlot.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var chart = mocks.DynamicMock<IChart>();
+            var chart = mocks.DynamicMock<IChartControl>();
             chart.Expect(c => c.TogglePanning());
 
             mocks.ReplayAll();
@@ -108,7 +108,7 @@ namespace Core.Plugins.OxyPlot.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var chart = mocks.DynamicMock<IChart>();
+            var chart = mocks.DynamicMock<IChartControl>();
             chart.Expect(c => c.ToggleRectangleZooming());
 
             mocks.ReplayAll();
@@ -163,7 +163,7 @@ namespace Core.Plugins.OxyPlot.Test
             // Setup
             var ribbon = new ChartingRibbon();
             var mocks = new MockRepository();
-            var chart = mocks.StrictMock<IChart>();
+            var chart = mocks.StrictMock<IChartControl>();
 
             chart.Expect(c => c.IsPanningEnabled).Return(true);
             chart.Expect(c => c.IsRectangleZoomingEnabled).Return(true);
@@ -193,7 +193,7 @@ namespace Core.Plugins.OxyPlot.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var chart = mocks.StrictMock<IChart>();
+            var chart = mocks.StrictMock<IChartControl>();
             var ribbon = new ChartingRibbon();
 
             chart.Expect(c => c.IsPanningEnabled).Return(buttonChecked);
@@ -225,7 +225,7 @@ namespace Core.Plugins.OxyPlot.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var chart = mocks.Stub<IChart>();
+            var chart = mocks.Stub<IChartControl>();
 
             mocks.ReplayAll();
 
@@ -283,7 +283,7 @@ namespace Core.Plugins.OxyPlot.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var chart = mocks.StrictMock<IChart>();
+            var chart = mocks.StrictMock<IChartControl>();
 
             var ribbon = new ChartingRibbon();
 

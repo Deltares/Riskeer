@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-using Core.Components.Charting;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 
@@ -58,11 +57,11 @@ namespace Core.Plugins.OxyPlot.Forms
             }
         }
 
-        public IChart Chart
+        public IChartControl Chart
         {
             get
             {
-                return chart;
+                return chartControl;
             }
         }
     }

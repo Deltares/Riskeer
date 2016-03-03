@@ -21,12 +21,12 @@
 
 using Core.Components.Gis.Data;
 
-namespace Core.Components.Gis
+namespace Core.Components.Gis.Forms
 {
     /// <summary>
     /// Interface describing general map interactions.
     /// </summary>
-    public interface IMap
+    public interface IMapControl
     {
         /// <summary>
         /// Gets a value indicating whether or not the map can be panned with the left mouse button.
@@ -44,7 +44,7 @@ namespace Core.Components.Gis
         bool IsMouseCoordinatesVisible { get; }
 
         /// <summary>
-        /// Gets or sets the data to show in the <see cref="IMap"/>.
+        /// Gets or sets the data to show in the <see cref="IMapControl"/>.
         /// </summary>
         MapData Data { get; set; }
 
@@ -54,17 +54,17 @@ namespace Core.Components.Gis
         void ZoomToAll();
 
         /// <summary>
-        /// Toggles panning of the <see cref="IMap"/>. Panning is invoked by clicking the left mouse-button.
+        /// Toggles panning of the <see cref="IMapControl"/>. Panning is invoked by clicking the left mouse-button.
         /// </summary>
         void TogglePanning();
 
         /// <summary>
-        /// Toggles rectangle zooming of the <see cref="IMap"/>. Rectangle zooming is invoked by clicking the left mouse-button.
+        /// Toggles rectangle zooming of the <see cref="IMapControl"/>. Rectangle zooming is invoked by clicking the left mouse-button.
         /// </summary>
         void ToggleRectangleZooming();
 
         /// <summary>
-        /// Toggles the visibility mouse coordinates of the <see cref="IMap"/>.
+        /// Toggles the visibility mouse coordinates of the <see cref="IMapControl"/>.
         /// </summary>
         void ToggleMouseCoordinatesVisibility();
     }

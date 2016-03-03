@@ -25,7 +25,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             var axes = view.Model.Axes;
             Assert.AreEqual(2, axes.Count);
             CollectionAssert.AllItemsAreInstancesOfType(axes, typeof(LinearAxis));
-            CollectionAssert.AreEqual(new [] {Resources.BaseChart_XAxisTitle, Resources.BaseChart_YAxisTitle} , axes.Select(a => a.Title));
+            CollectionAssert.AreEqual(new [] {Resources.ChartControl_XAxisTitle, Resources.ChartControl_YAxisTitle} , axes.Select(a => a.Title));
             CollectionAssert.AreEqual(new [] {AxisPosition.Bottom, AxisPosition.Left} , axes.Select(a => a.Position));
             CollectionAssert.AreEqual(new [] {TickStyle.None, TickStyle.None} , axes.Select(a => a.TickStyle));
             CollectionAssert.AreEqual(new [] {new[] { 0.0 }, new[] { 0.0 }} , axes.Select(a => a.ExtraGridlines));

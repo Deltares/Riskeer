@@ -1,6 +1,5 @@
 ﻿using System.Windows.Forms;
 using Core.Components.DotSpatial.Forms;
-using Core.Components.Gis;
 using Core.Components.Gis.Forms;
 
 namespace Core.Plugins.DotSpatial.Test
@@ -12,11 +11,11 @@ namespace Core.Plugins.DotSpatial.Test
     {
         public object Data { get; set; }
 
-        public IMap Map
+        public IMapControl Map
         {
             get
             {
-                return (BaseMap) Data;
+                return (MapControl) Data;
             }
         }
     }

@@ -21,7 +21,6 @@
 
 using System.Windows.Forms;
 using Core.Components.DotSpatial.Forms;
-using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 
@@ -32,7 +31,7 @@ namespace Core.Plugins.DotSpatial.Forms
     /// </summary>
     public partial class MapDataView : UserControl, IMapView
     {
-        private readonly BaseMap baseMap;
+        private readonly MapControl mapControl;
         private MapData data;
 
         /// <summary>
@@ -40,11 +39,11 @@ namespace Core.Plugins.DotSpatial.Forms
         /// </summary>
         public MapDataView()
         {
-            baseMap = new BaseMap
+            mapControl = new MapControl
             {
                 Dock = DockStyle.Fill
             };
-            Controls.Add(baseMap);
+            Controls.Add(mapControl);
         }
 
         public object Data
@@ -64,11 +63,11 @@ namespace Core.Plugins.DotSpatial.Forms
             }
         }
 
-        public IMap Map
+        public IMapControl Map
         {
             get
             {
-                return baseMap;
+                return mapControl;
             }
         }
     }

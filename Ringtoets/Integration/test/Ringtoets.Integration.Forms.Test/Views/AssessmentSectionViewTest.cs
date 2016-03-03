@@ -53,14 +53,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_Always_AddsBaseMap()
+        public void DefaultConstructor_Always_AddsMapControl()
         {
             // Call
             var view = new AssessmentSectionView();
 
             // Assert
             Assert.AreEqual(1, view.Controls.Count);
-            var mapObject = view.Controls[0] as BaseMap;
+            var mapObject = view.Controls[0] as MapControl;
             Assert.NotNull(mapObject);
             Assert.AreEqual(DockStyle.Fill, mapObject.Dock);
             Assert.IsNull(mapObject.Data);
@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var view = new AssessmentSectionView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (MapControl)view.Controls[0];
 
             var assessmentSectionBase = new TestAssessmentSectionBase();
 
@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var view = new AssessmentSectionView();
-            var map = (BaseMap) view.Controls[0];
+            var map = (MapControl) view.Controls[0];
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var view = new AssessmentSectionView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (MapControl)view.Controls[0];
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
@@ -146,7 +146,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var view = new AssessmentSectionView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (MapControl)view.Controls[0];
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
@@ -181,7 +181,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var view = new AssessmentSectionView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (MapControl)view.Controls[0];
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
@@ -222,7 +222,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var view = new AssessmentSectionView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (MapControl)view.Controls[0];
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {

@@ -27,18 +27,18 @@ namespace Core.Plugins.OxyPlot.Test.Legend
         }
 
         [Test]
-        public void Data_BaseChart_DataSet()
+        public void Data_ChartControl_DataSet()
         {
             // Setup 
             using (var view = new LegendView())
             {
-                var baseChart = new ChartDataCollection(new List<ChartData>());
+                var chartDataCollection = new ChartDataCollection(new List<ChartData>());
 
                 // Call
-                view.Data = baseChart;
+                view.Data = chartDataCollection;
 
                 // Assert
-                Assert.AreSame(baseChart, view.Data);
+                Assert.AreSame(chartDataCollection, view.Data);
             }
         }
 

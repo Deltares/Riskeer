@@ -24,7 +24,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -65,11 +64,11 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        public IMap Map
+        public IMapControl Map
         {
             get
             {
-                return MapView;
+                return mapControl;
             }
         }
 
@@ -134,7 +133,7 @@ namespace Ringtoets.Piping.Forms.Views
                 }
             }
 
-            MapView.Data = new MapDataCollection(mapDataList, PipingDataResources.PipingFailureMechanism_DisplayName);        }
+            mapControl.Data = new MapDataCollection(mapDataList, PipingDataResources.PipingFailureMechanism_DisplayName);        }
 
         private MapData GetReferenceLineMapData()
         {

@@ -23,7 +23,8 @@ using System.Collections.Generic;
 using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
-using Core.Components.Gis;
+using Core.Components.Gis.Forms;
+
 using Fluent;
 
 namespace Core.Plugins.DotSpatial
@@ -33,7 +34,7 @@ namespace Core.Plugins.DotSpatial
     /// </summary>
     public partial class MapRibbon : IRibbonCommandHandler
     {
-        private IMap map;
+        private IMapControl map;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapRibbon"/>.
@@ -44,9 +45,9 @@ namespace Core.Plugins.DotSpatial
         }
 
         /// <summary>
-        /// Sets the <see cref="IMap"/> to show the ribbon for.
+        /// Sets the <see cref="IMapControl"/> to show the ribbon for.
         /// </summary>
-        public IMap Map
+        public IMapControl Map
         {
             private get
             {

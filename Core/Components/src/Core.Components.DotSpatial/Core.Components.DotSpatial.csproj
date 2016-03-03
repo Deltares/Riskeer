@@ -97,9 +97,9 @@
     <Compile Include="Converter\MapMultiLineDataConverter.cs" />
     <Compile Include="Converter\MapPointDataConverter.cs" />
     <Compile Include="Converter\MapPolygonDataConverter.cs" />
-    <Compile Include="MapFunctionPan.cs" />
+    <Compile Include="MapFunctions\MapFunctionPan.cs" />
+    <Compile Include="MapFunctions\MapFunctionSelectionZoom.cs" />
     <Compile Include="MouseCoordinatesMapExtension.cs" />
-    <Compile Include="MapFunctionSelectionZoom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

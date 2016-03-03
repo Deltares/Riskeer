@@ -9,7 +9,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
-using Core.Components.Charting;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using Core.Components.Charting.TestUtil;
@@ -64,7 +63,7 @@ namespace Core.Plugins.OxyPlot.Test
             if (useChartView)
             {
                 var chartView = mocks.Stub<IChartView>();
-                var chart = mocks.Stub<IChart>();
+                var chart = mocks.Stub<IChartControl>();
                 chart.Data = new TestChartData();
                 chartView.Stub(v => v.Chart).Return(chart);
                 view = chartView;
@@ -133,7 +132,7 @@ namespace Core.Plugins.OxyPlot.Test
             {
                 var plugin = new OxyPlotGuiPlugin();
                 var testChartView = new TestChartView();
-                var chart = new BaseChart();
+                var chart = new ChartControl();
                 IView viewMock = visible ? (IView) testChartView : new TestView();
 
                 testChartView.Data = chart;

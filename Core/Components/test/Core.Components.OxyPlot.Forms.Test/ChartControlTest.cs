@@ -12,13 +12,13 @@ using OxyPlot.WindowsForms;
 namespace Core.Components.OxyPlot.Forms.Test
 {
     [TestFixture]
-    public class BaseChartTest
+    public class ChartControlTest
     {
         [Test]
         public void DefaultConstructor_PropertiesSet()
         {
             // Call
-            var chart = new BaseChart();
+            var chart = new ChartControl();
 
             // Assert
             Assert.IsInstanceOf<Control>(chart);
@@ -33,7 +33,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void Data_NotKnownChartData_ThrowsNotSupportedException()
         {
             // Setup
-            var chart = new BaseChart();
+            var chart = new ChartControl();
             var testData = new TestChartData();
 
             // Call
@@ -47,7 +47,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void Data_Null_ReturnsNull()
         {
             // Setup
-            var chart = new BaseChart();
+            var chart = new ChartControl();
 
             // Call
             chart.Data = null;
@@ -57,10 +57,10 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void Data_KnownChartData_BaseChartAttachedSeriesAdded()
+        public void Data_KnownChartData_ChartControlAttachedSeriesAdded()
         {
             // Setup
-            var chart = new BaseChart();
+            var chart = new ChartControl();
             var testData = new LineData(Enumerable.Empty<Tuple<double, double>>());
             var observers = TypeUtils.GetField<ICollection<IObserver>>(testData, "observers");
             var view = TypeUtils.GetField<PlotView>(chart, "view");
@@ -77,10 +77,10 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void Data_NewDataSet_BaseChartDetachedFromOldAttachedToNewSeriesUpdated()
+        public void Data_NewDataSet_ChartControlDetachedFromOldAttachedToNewSeriesUpdated()
         {
             // Setup
-            var chart = new BaseChart();
+            var chart = new ChartControl();
             var testDataOld = new LineData(Enumerable.Empty<Tuple<double, double>>());
             var testDataNew = new LineData(Enumerable.Empty<Tuple<double, double>>());
             var observersOld = TypeUtils.GetField<ICollection<IObserver>>(testDataOld, "observers");
@@ -101,10 +101,10 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void Data_DataSetNewValueIsNull_BaseChartDetachedSeriesCleared()
+        public void Data_DataSetNewValueIsNull_ChartControlDetachedSeriesCleared()
         {
             // Setup
-            var chart = new BaseChart();
+            var chart = new ChartControl();
             var testData = new LineData(Enumerable.Empty<Tuple<double, double>>());
             var observers = TypeUtils.GetField<ICollection<IObserver>>(testData, "observers");
             var view = TypeUtils.GetField<PlotView>(chart, "view");
@@ -126,7 +126,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void TogglePanning_Always_PanningEnabled()
         {
             // Setup
-            var chart = new BaseChart();
+            var chart = new ChartControl();
 
             // Precondition
             Assert.IsTrue(chart.IsPanningEnabled);
@@ -145,7 +145,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void ToggleRectangleZooming_Always_ChangesState(bool isRectangleZooming)
         {
             // Setup
-            var chart = new BaseChart();
+            var chart = new ChartControl();
             if (isRectangleZooming)
             {
                 chart.ToggleRectangleZooming();
@@ -167,7 +167,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             // Setup
             var form = new Form();
-            var chart = new BaseChart();
+            var chart = new ChartControl();
             var testData = new LineData(Enumerable.Empty<Tuple<double, double>>());
             var view = TypeUtils.GetField<PlotView>(chart, "view");
             var invalidated = 0;
@@ -193,7 +193,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         {
             // Setup
             var form = new Form();
-            var chart = new BaseChart();
+            var chart = new ChartControl();
             var testData = new LineData(Enumerable.Empty<Tuple<double, double>>());
             var view = TypeUtils.GetField<PlotView>(chart, "view");
             var invalidated = 0;

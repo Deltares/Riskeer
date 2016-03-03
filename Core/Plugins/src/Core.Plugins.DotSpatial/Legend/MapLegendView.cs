@@ -33,7 +33,7 @@ using GuiResources = Core.Common.Gui.Properties.Resources;
 namespace Core.Plugins.DotSpatial.Legend
 {
     /// <summary>
-    /// The view which shows the data that is added to a <see cref="BaseMap"/>.
+    /// The view which shows the data that is added to a <see cref="MapControl"/>.
     /// </summary>
     public sealed partial class MapLegendView : UserControl, IView
     {
@@ -122,9 +122,9 @@ namespace Core.Plugins.DotSpatial.Legend
                 Text = mapDataCollection => mapDataCollection.Name,
                 Image = mapDataCollection => GuiResources.folder,
                 ChildNodeObjects = mapDataCollection => mapDataCollection.List.Reverse().Cast<object>().ToArray(),
-                CanDrop = BaseMapCanDrop,
-                CanInsert = BaseMapCanInsert,
-                OnDrop = BaseMapOnDrop
+                CanDrop = MapControlCanDrop,
+                CanInsert = MapControlCanInsert,
+                OnDrop = MapControlOnDrop
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapMultiLineData>
@@ -183,17 +183,17 @@ namespace Core.Plugins.DotSpatial.Legend
 
         # region MapDataCollection
 
-        private static bool BaseMapCanDrop(object draggedData, object targetData)
+        private static bool MapControlCanDrop(object draggedData, object targetData)
         {
             return draggedData is MapData;
         }
 
-        private static bool BaseMapCanInsert(object draggedData, object targetData)
+        private static bool MapControlCanInsert(object draggedData, object targetData)
         {
             return draggedData is MapData;
         }
 
-        private static void BaseMapOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
+        private static void MapControlOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
         {
             var mapData = (MapData)droppedData;
             var target = (MapDataCollection)newParentData;

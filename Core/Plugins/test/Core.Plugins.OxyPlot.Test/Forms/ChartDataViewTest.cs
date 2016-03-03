@@ -12,7 +12,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
     public class ChartDataViewTest
     {
         [Test]
-        public void DefaultConstructor_Always_AddsBaseChart()
+        public void DefaultConstructor_Always_AddsChartControl()
         {
             // Call
             var chartView = new ChartDataView();
@@ -20,19 +20,19 @@ namespace Core.Plugins.OxyPlot.Test.Forms
             // Assert
             Assert.AreEqual(1, chartView.Controls.Count);
             object chartObject = chartView.Controls[0];
-            Assert.IsInstanceOf<BaseChart>(chartObject);
+            Assert.IsInstanceOf<ChartControl>(chartObject);
 
-            var chart = (BaseChart)chartObject;
+            var chart = (ChartControl)chartObject;
             Assert.AreEqual(DockStyle.Fill, chart.Dock);
             Assert.NotNull(chartView.Chart);
         }
 
         [Test]
-        public void Data_SetToNull_BaseChartNoSeries()
+        public void Data_SetToNull_ChartControlNoSeries()
         {
             // Setup
             var chartView = new ChartDataView();
-            var chart = (BaseChart)chartView.Controls[0];
+            var chart = (ChartControl)chartView.Controls[0];
 
             // Call
             chartView.Data = null;
@@ -59,7 +59,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
         {
             // Setup
             var chartView = new ChartDataView();
-            var chart = (BaseChart)chartView.Controls[0];
+            var chart = (ChartControl)chartView.Controls[0];
             var lineData = new LineData(Enumerable.Empty<Tuple<double, double>>());
 
             // Call
@@ -75,7 +75,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
         {
             // Setup
             var chartView = new ChartDataView();
-            var chart = (BaseChart)chartView.Controls[0];
+            var chart = (ChartControl)chartView.Controls[0];
             var pointData = new PointData(Enumerable.Empty<Tuple<double, double>>());
 
             // Call
@@ -91,7 +91,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
         {
             // Setup
             var chartView = new ChartDataView();
-            var chart = (BaseChart)chartView.Controls[0];
+            var chart = (ChartControl)chartView.Controls[0];
             var areaData = new AreaData(Enumerable.Empty<Tuple<double, double>>());
 
             // Call
@@ -107,7 +107,7 @@ namespace Core.Plugins.OxyPlot.Test.Forms
         {
             // Setup
             var chartView = new ChartDataView();
-            var chart = (BaseChart)chartView.Controls[0];
+            var chart = (ChartControl)chartView.Controls[0];
             var chartDataCollection = new ChartDataCollection(new ChartData[0]);
 
             // Call

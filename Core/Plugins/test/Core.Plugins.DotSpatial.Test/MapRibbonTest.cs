@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
-using Core.Components.Gis;
+using Core.Components.Gis.Forms;
 using Core.Plugins.DotSpatial.Commands;
 using Core.Plugins.DotSpatial.Legend;
 using Fluent;
@@ -86,7 +86,7 @@ namespace Core.Plugins.DotSpatial.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var map = mocks.Stub<IMap>();
+            var map = mocks.Stub<IMapControl>();
 
             mocks.ReplayAll();
 
@@ -143,7 +143,7 @@ namespace Core.Plugins.DotSpatial.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var map = mocks.DynamicMock<IMap>();
+            var map = mocks.DynamicMock<IMapControl>();
             map.Stub(m => m.IsPanningEnabled).Return(panningChecked);
             mocks.ReplayAll();
 
@@ -173,7 +173,7 @@ namespace Core.Plugins.DotSpatial.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var map = mocks.DynamicMock<IMap>();
+            var map = mocks.DynamicMock<IMapControl>();
             map.Stub(m => m.IsRectangleZoomingEnabled).Return(rectangleZoomChecked);
             mocks.ReplayAll();
 
@@ -203,7 +203,7 @@ namespace Core.Plugins.DotSpatial.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var map = mocks.DynamicMock<IMap>();
+            var map = mocks.DynamicMock<IMapControl>();
             map.Stub(m => m.IsMouseCoordinatesVisible).Return(mouseCoordinatesChecked);
             mocks.ReplayAll();
 
@@ -258,7 +258,7 @@ namespace Core.Plugins.DotSpatial.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var map = mocks.DynamicMock<IMap>();
+            var map = mocks.DynamicMock<IMapControl>();
             map.Expect(c => c.TogglePanning());
 
             mocks.ReplayAll();
@@ -285,7 +285,7 @@ namespace Core.Plugins.DotSpatial.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var map = mocks.DynamicMock<IMap>();
+            var map = mocks.DynamicMock<IMapControl>();
             map.Expect(c => c.ToggleRectangleZooming());
 
             mocks.ReplayAll();
@@ -312,7 +312,7 @@ namespace Core.Plugins.DotSpatial.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var map = mocks.DynamicMock<IMap>();
+            var map = mocks.DynamicMock<IMapControl>();
             map.Expect(c => c.ZoomToAll());
 
             mocks.ReplayAll();
@@ -339,7 +339,7 @@ namespace Core.Plugins.DotSpatial.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var map = mocks.DynamicMock<IMap>();
+            var map = mocks.DynamicMock<IMapControl>();
             map.Expect(c => c.ToggleMouseCoordinatesVisibility());
             mocks.ReplayAll();
 

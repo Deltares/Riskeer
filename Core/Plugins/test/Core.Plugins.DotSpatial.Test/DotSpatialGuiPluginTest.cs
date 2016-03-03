@@ -10,7 +10,6 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.DotSpatial.TestUtil;
-using Core.Components.Gis;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Core.Plugins.DotSpatial.Forms;
@@ -65,7 +64,7 @@ namespace Core.Plugins.DotSpatial.Test
             if (useMapView)
             {
                 var mapView = mocks.Stub<IMapView>();
-                var map = mocks.Stub<IMap>();
+                var map = mocks.Stub<IMapControl>();
                 map.Data = new TestMapData("test data");
                 mapView.Stub(v => v.Map).Return(map);
                 view = mapView;
@@ -135,7 +134,7 @@ namespace Core.Plugins.DotSpatial.Test
             {
                 var plugin = new DotSpatialGuiPlugin();
                 var testMapView = new TestMapView();
-                var map = new BaseMap();
+                var map = new MapControl();
                 IView viewMock = visible ? (IView) testMapView : new TestView();
 
                 testMapView.Data = map;

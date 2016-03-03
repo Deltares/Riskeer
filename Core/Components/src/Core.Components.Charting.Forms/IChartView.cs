@@ -24,13 +24,13 @@ using Core.Common.Controls.Views;
 namespace Core.Components.Charting.Forms
 {
     /// <summary>
-    /// Interface describing <see cref="Core.Common.Controls.Views.IView"/> that contain a <see cref="Core.Components.Charting.IChart"/> as one of its components.
+    /// Interface describing <see cref="Core.Common.Controls.Views.IView"/> that contain a <see cref="IChartControl"/> as one of its components.
     /// </summary>
     public interface IChartView : IView
     {
         /// <summary>
-        /// Gets the <see cref="Core.Components.Charting.IChart"/> set for this <see cref="IChartView"/>.
+        /// Gets the <see cref="IChartControl"/> set for this <see cref="IChartView"/>.
         /// </summary>
-        IChart Chart { get; }
+        IChartControl Chart { get; }
     }
 }

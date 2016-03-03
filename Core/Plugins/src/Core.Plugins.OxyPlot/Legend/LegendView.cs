@@ -34,7 +34,7 @@ using GuiResources = Core.Common.Gui.Properties.Resources;
 namespace Core.Plugins.OxyPlot.Legend
 {
     /// <summary>
-    /// This class defines a view which shows the data that have been added to a <see cref="BaseChart"/>.
+    /// This class defines a view which shows the data that have been added to a <see cref="ChartControl"/>.
     /// </summary>
     public sealed partial class LegendView : UserControl, IView
     {
@@ -78,12 +78,12 @@ namespace Core.Plugins.OxyPlot.Legend
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartDataCollection>
             {
-                Text = baseChart => OxyPlotResources.General_Chart,
-                Image = baseChart => GuiResources.folder,
-                ChildNodeObjects = baseChart => baseChart.List.Reverse().Cast<object>().ToArray(),
-                CanDrop = BaseChartCanDrop,
-                CanInsert = BaseChartCanInsert,
-                OnDrop = BaseChartOnDrop
+                Text = chartControl => OxyPlotResources.General_Chart,
+                Image = chartControl => GuiResources.folder,
+                ChildNodeObjects = chartControl => chartControl.List.Reverse().Cast<object>().ToArray(),
+                CanDrop = ChartControlCanDrop,
+                CanInsert = ChartControlCanInsert,
+                OnDrop = ChartControlOnDrop
             });
         }
 
@@ -149,17 +149,17 @@ namespace Core.Plugins.OxyPlot.Legend
 
         # region ChartDataCollection
 
-        private static bool BaseChartCanDrop(object draggedData, object targetData)
+        private static bool ChartControlCanDrop(object draggedData, object targetData)
         {
             return draggedData is ChartData;
         }
 
-        private static bool BaseChartCanInsert(object draggedData, object targetData)
+        private static bool ChartControlCanInsert(object draggedData, object targetData)
         {
             return draggedData is ChartData;
         }
 
-        private static void BaseChartOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
+        private static void ChartControlOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
         {
             var chartData = (ChartData) droppedData;
             var target = (ChartDataCollection) newParentData;

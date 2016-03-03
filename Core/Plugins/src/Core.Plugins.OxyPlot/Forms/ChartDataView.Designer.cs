@@ -27,21 +27,21 @@ namespace Core.Plugins.OxyPlot.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChartDataView));
-            this.chart = new Core.Components.OxyPlot.Forms.BaseChart();
+            this.chartControl = new Core.Components.OxyPlot.Forms.ChartControl();
             this.SuspendLayout();
             // 
             // chart
             // 
-            this.chart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chart.Location = new System.Drawing.Point(0, 0);
-            this.chart.MinimumSize = new System.Drawing.Size(50, 75);
-            this.chart.Name = "chart";
-            this.chart.Size = new System.Drawing.Size(150, 150);
-            this.chart.TabIndex = 0;
+            this.chartControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartControl.Location = new System.Drawing.Point(0, 0);
+            this.chartControl.MinimumSize = new System.Drawing.Size(50, 75);
+            this.chartControl.Name = "chartControl";
+            this.chartControl.Size = new System.Drawing.Size(150, 150);
+            this.chartControl.TabIndex = 0;
             // 
             // ChartDataView
             // 
-            this.Controls.Add(this.chart);
+            this.Controls.Add(this.chartControl);
             this.MinimumSize = new System.Drawing.Size(0, 1);
             this.Name = "ChartDataView";
             this.ResumeLayout(false);
@@ -50,6 +50,6 @@ namespace Core.Plugins.OxyPlot.Forms
 
         #endregion
 
-        private BaseChart chart;
+        private ChartControl chartControl;
     }
 }

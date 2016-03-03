@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BaseChart_XAxisTitle" xml:space="preserve">
+  <data name="ChartControl_XAxisTitle" xml:space="preserve">
     <value>L</value>
   </data>
-  <data name="BaseChart_YAxisTitle" xml:space="preserve">
+  <data name="ChartControl_YAxisTitle" xml:space="preserve">
     <value>Hoogte</value>
   </data>
 </root>

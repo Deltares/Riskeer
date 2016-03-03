@@ -35,14 +35,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_Always_AddsBaseMapWithoutData()
+        public void DefaultConstructor_Always_AddsMapControlWithoutData()
         {
             // Call
             var view = new PipingFailureMechanismView();
 
             // Assert
             Assert.AreEqual(1, view.Controls.Count);
-            var mapObject = view.Controls[0] as BaseMap;
+            var mapObject = view.Controls[0] as MapControl;
             Assert.NotNull(mapObject);
             Assert.AreEqual(DockStyle.Fill, mapObject.Dock);
             Assert.IsNull(mapObject.Data);
@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var view = new PipingFailureMechanismView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (MapControl)view.Controls[0];
 
             var assessmentSectionBase = new TestAssessmentSectionBase();
 
@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var view = new PipingFailureMechanismView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (MapControl)view.Controls[0];
 
             var refereceGeometryPoints = new[]
             {
@@ -162,7 +162,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var view = new PipingFailureMechanismView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (MapControl)view.Controls[0];
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
@@ -192,7 +192,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var view = new PipingFailureMechanismView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (MapControl)view.Controls[0];
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
@@ -229,7 +229,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var view = new PipingFailureMechanismView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (MapControl)view.Controls[0];
 
             var assessmentSectionBase = new TestAssessmentSectionBase();
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -260,7 +260,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var view = new PipingFailureMechanismView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (MapControl)view.Controls[0];
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
@@ -304,7 +304,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var view = new PipingFailureMechanismView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (MapControl)view.Controls[0];
 
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
@@ -359,7 +359,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var oldPipingFailureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), oldAssessmentSectionMock);
             var newPipingFailureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), newAssessmentSectionMock);
             var view = new PipingFailureMechanismView();
-            var map = (BaseMap)view.Controls[0];
+            var map = (MapControl)view.Controls[0];
 
             view.Data = oldPipingFailureMechanismContext;
             view.Data = newPipingFailureMechanismContext;

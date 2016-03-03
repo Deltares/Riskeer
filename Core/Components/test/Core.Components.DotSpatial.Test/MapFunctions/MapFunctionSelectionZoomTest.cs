@@ -20,11 +20,16 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+
+using Core.Components.DotSpatial.MapFunctions;
+
 using DotSpatial.Controls;
+
 using NUnit.Framework;
+
 using Rhino.Mocks;
 
-namespace Core.Components.DotSpatial.Test
+namespace Core.Components.DotSpatial.Test.MapFunctions
 {
     [TestFixture]
     public class MapFunctionSelectionZoomTest

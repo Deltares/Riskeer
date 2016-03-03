@@ -21,12 +21,12 @@
 
 using Core.Components.Charting.Data;
 
-namespace Core.Components.Charting
+namespace Core.Components.Charting.Forms
 {
     /// <summary>
     /// Interface describing general chart interactions.
     /// </summary>
-    public interface IChart
+    public interface IChartControl
     {
         /// <summary>
         /// Gets a value indicating whether or not the chart can be panned with the left mouse button.
@@ -39,17 +39,17 @@ namespace Core.Components.Charting
         bool IsRectangleZoomingEnabled { get; }
 
         /// <summary>
-        /// Gets or sets the data to show in the <see cref="IChart"/>.
+        /// Gets or sets the data to show in the <see cref="IChartControl"/>.
         /// </summary>
         ChartData Data { get; set; }
 
         /// <summary>
-        /// Toggles panning of the <see cref="IChart"/>. Panning is invoked by clicking the left mouse-button.
+        /// Toggles panning of the <see cref="IChartControl"/>. Panning is invoked by clicking the left mouse-button.
         /// </summary>
         void TogglePanning();
 
         /// <summary>
-        /// Toggles rectangle zooming of the <see cref="IChart"/>. Rectangle zooming is invoked by clicking the left mouse-button.
+        /// Toggles rectangle zooming of the <see cref="IChartControl"/>. Rectangle zooming is invoked by clicking the left mouse-button.
         /// </summary>
         void ToggleRectangleZooming();
 

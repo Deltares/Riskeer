@@ -22,16 +22,20 @@
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.DotSpatial.Converter;
+using Core.Components.DotSpatial.MapFunctions;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Forms;
+
 using DotSpatial.Controls;
-using IMap = Core.Components.Gis.IMap;
+
+using MapFunctionPan = Core.Components.DotSpatial.MapFunctions.MapFunctionPan;
 
 namespace Core.Components.DotSpatial.Forms
 {
     /// <summary>
     /// This class describes a map view with configured projection and function mode.
     /// </summary>
-    public sealed class BaseMap : Control, IMap, IObserver
+    public sealed class MapControl : Control, IMapControl, IObserver
     {
         private readonly MapDataFactory mapDataFactory = new MapDataFactory();
 
@@ -42,9 +46,9 @@ namespace Core.Components.DotSpatial.Forms
         private IMapFunction mapFunctionPanning;
 
         /// <summary>
-        /// Creates a new instance of <see cref="BaseMap"/>.
+        /// Creates a new instance of <see cref="MapControl"/>.
         /// </summary>
-        public BaseMap()
+        public MapControl()
         {
             InitializeMapView();
             TogglePanning();
@@ -147,7 +151,7 @@ namespace Core.Components.DotSpatial.Forms
         }
 
         /// <summary>
-        /// Attaches the <see cref="BaseMap"/> to the currently set <see cref="Data"/>, if there is any.
+        /// Attaches the <see cref="MapControl"/> to the currently set <see cref="Data"/>, if there is any.
         /// </summary>
         private void AttachToData()
         {
@@ -158,7 +162,7 @@ namespace Core.Components.DotSpatial.Forms
         }
 
         /// <summary>
-        /// Detaches the <see cref="BaseMap"/> to the currently set <see cref="Data"/>, if there is any.
+        /// Detaches the <see cref="MapControl"/> to the currently set <see cref="Data"/>, if there is any.
         /// </summary>
         private void DetachFromData()
         {

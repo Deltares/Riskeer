@@ -44,8 +44,8 @@ namespace Core.Components.OxyPlot.Forms
             {
                 Axes =
                 {
-                    CreateAxis(Resources.BaseChart_XAxisTitle, AxisPosition.Bottom),
-                    CreateAxis(Resources.BaseChart_YAxisTitle, AxisPosition.Left)
+                    CreateAxis(Resources.ChartControl_XAxisTitle, AxisPosition.Bottom),
+                    CreateAxis(Resources.ChartControl_YAxisTitle, AxisPosition.Left)
                 }
             };
 

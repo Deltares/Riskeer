@@ -26,24 +26,25 @@ using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Forms;
+
 using DotSpatial.Controls;
 using NUnit.Framework;
-using IMap = Core.Components.Gis.IMap;
 
 namespace Core.Components.DotSpatial.Forms.Test
 {
     [TestFixture]
-    public class BaseMapTest
+    public class MapControlTest
     {
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            using (var map = new BaseMap())
+            using (var map = new MapControl())
             {
                 // Assert
                 Assert.IsInstanceOf<Control>(map);
-                Assert.IsInstanceOf<IMap>(map);
+                Assert.IsInstanceOf<IMapControl>(map);
                 Assert.IsNull(map.Data);
                 Assert.IsTrue(map.IsPanningEnabled);
                 Assert.IsFalse(map.IsRectangleZoomingEnabled);
@@ -55,7 +56,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void Data_UnknownMapData_ThrowsNotSupportedException()
         {
             // Setup
-            using (var map = new BaseMap())
+            using (var map = new MapControl())
             {
                 var testData = new TestMapData("test data");
 
@@ -71,7 +72,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void Data_Null_ReturnsNull()
         {
             // Setup
-            using (var map = new BaseMap())
+            using (var map = new MapControl())
             {
                 // Call
                 map.Data = null;
@@ -85,7 +86,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void Data_NotNull_ReturnsData()
         {
             // Setup
-            using (var map = new BaseMap())
+            using (var map = new MapControl())
             {
                 var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
 
@@ -101,7 +102,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void Data_SetPointData_MapPointLayerAdded()
         {
             // Setup
-            using (var map = new BaseMap())
+            using (var map = new MapControl())
             {
                 var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
                 var mapView = map.Controls.OfType<Map>().First();
@@ -120,7 +121,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void UpdateObserver_UpdateData_UpdateMap()
         {
             // Setup
-            using (var map = new BaseMap())
+            using (var map = new MapControl())
             {
                 var mapView = map.Controls.OfType<Map>().First();
                 var testData = new MapDataCollection(new List<MapData>
@@ -151,7 +152,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void Data_SetToNull_DetachObserver()
         {
             // Setup
-            using (var map = new BaseMap())
+            using (var map = new MapControl())
             {
                 var mapView = map.Controls.OfType<Map>().First();
                 var testData = new MapDataCollection(new List<MapData>
@@ -185,7 +186,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                var map = new BaseMap();
+                var map = new MapControl();
                 var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
                 var mapView = map.Controls.OfType<Map>().First();
                 var invalidated = 0;
@@ -211,7 +212,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ToggleRectangleZooming_PanningIsEnabled_RectangleZoomingIsEnabled()
         {
             // Setup
-            using (var map = new BaseMap())
+            using (var map = new MapControl())
             {
                 Assert.IsFalse(map.IsRectangleZoomingEnabled, "Precondition failed: IsRectangleZoomingEnabled is true");
 
@@ -230,7 +231,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ToggleRectangleZooming_Always_ChangesState(bool isRectangleZooming)
         {
             // Setup
-            using (var map = new BaseMap())
+            using (var map = new MapControl())
             {
                 if (isRectangleZooming)
                 {
@@ -257,7 +258,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ToggleMouseCoordinatesVisibility_Always_ChangesState(bool isShowingCoordinates)
         {
             // Setup
-            using (var map = new BaseMap())
+            using (var map = new MapControl())
             {
                 if (!isShowingCoordinates)
                 {
@@ -283,7 +284,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                var map = new BaseMap();
+                var map = new MapControl();
                 var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
                 var view = map.Controls.OfType<Map>().First();
 
