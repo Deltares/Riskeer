@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
@@ -29,6 +30,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 
 using DotSpatial.Controls;
+using DotSpatial.Data;
 using NUnit.Framework;
 
 namespace Core.Components.DotSpatial.Forms.Test
@@ -181,7 +183,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         [Test]
         [RequiresSTA]
-        public void ZoomToAll_MapInForm_ViewInvalidatedLayersSame()
+        public void ZoomToAllVisibleLayers_MapInForm_ViewInvalidatedLayersSame()
         {
             // Setup
             using (var form = new Form())
@@ -200,12 +202,34 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");
 
                 // Call
-                map.ZoomToAll();
+                map.ZoomToAllVisibleLayers();
 
                 // Assert
                 Assert.AreEqual(2, invalidated);
                 Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
             }
+        }
+
+        [Test]
+        public void ZoomToAllVisibleLayers_NotAllLayersVisible_ZoomToVisibleLayersExtent()
+        {
+            // Setup
+            var map = new MapControl();
+            var mapView = map.Controls.OfType<Map>().First();
+            var testData = GetTestData();
+            map.Data = testData;
+
+            var expectedExtent = new Extent(0.0, 0.5, 1.6, 2.1);
+
+            // Precondition
+            Assert.AreEqual(3, mapView.Layers.Count, "Precondition failed: mapView.Layers != 3");
+
+            // Call
+            map.ZoomToAllVisibleLayers();
+
+            // Assert
+            Assert.AreNotEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
+            Assert.AreEqual(expectedExtent, mapView.ViewExtents);
         }
 
         [Test]
@@ -302,6 +326,36 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(1, view.Layers.Count);
                 Assert.AreNotSame(layers[0], view.Layers[0]);
             }
+        }
+
+        private static MapDataCollection GetTestData()
+        {
+            var points = new MapPointData(new Collection<Point2D>
+            {
+                new Point2D(1.5, 2),
+                new Point2D(1.1, 1),
+                new Point2D(0.8, 0.5)
+            }, "test data");
+            var lines = new MapLineData(new Collection<Point2D>
+            {
+                new Point2D(0.0, 1.1),
+                new Point2D(1.0, 2.1),
+                new Point2D(1.6, 1.6)
+            }, "test data");
+            var polygons = new MapPolygonData(new Collection<Point2D>
+            {
+                new Point2D(1.0, 1.3),
+                new Point2D(3.0, 2.6),
+                new Point2D(5.6, 1.6)
+            }, "test data")
+            {
+                IsVisible = false
+            };
+
+            return new MapDataCollection(new List<MapData>
+            {
+                points, lines, polygons
+            }, "test data");
         }
     }
 }

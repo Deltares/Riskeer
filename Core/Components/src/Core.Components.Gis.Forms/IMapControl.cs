@@ -49,9 +49,9 @@ namespace Core.Components.Gis.Forms
         MapData Data { get; set; }
 
         /// <summary>
-        /// Zooms to a level so that everything is in view.
+        /// Zooms to a level so that all visible layers are in view.
         /// </summary>
-        void ZoomToAll();
+        void ZoomToAllVisibleLayers();
 
         /// <summary>
         /// Toggles panning of the <see cref="IMapControl"/>. Panning is invoked by clicking the left mouse-button.

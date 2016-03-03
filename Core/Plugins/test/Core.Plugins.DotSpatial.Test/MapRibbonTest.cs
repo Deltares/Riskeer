@@ -313,7 +313,7 @@ namespace Core.Plugins.DotSpatial.Test
             // Setup
             var mocks = new MockRepository();
             var map = mocks.DynamicMock<IMapControl>();
-            map.Expect(c => c.ZoomToAll());
+            map.Expect(c => c.ZoomToAllVisibleLayers());
 
             mocks.ReplayAll();
 

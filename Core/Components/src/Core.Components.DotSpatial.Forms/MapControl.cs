@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.DotSpatial.Converter;
@@ -27,7 +28,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 
 using DotSpatial.Controls;
-
+using DotSpatial.Data;
+using DotSpatial.Topology;
 using MapFunctionPan = Core.Components.DotSpatial.MapFunctions.MapFunctionPan;
 
 namespace Core.Components.DotSpatial.Forms
@@ -79,9 +81,15 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        public void ZoomToAll()
+        public void ZoomToAllVisibleLayers()
         {
-            map.ZoomToMaxExtent();
+            IEnvelope envelope = new Envelope();
+            foreach (IMapLayer layer in map.Layers.Where(layer => layer.IsVisible))
+            {
+                envelope.ExpandToInclude(layer.Extent.ToEnvelope());
+            }
+
+            map.ViewExtents = envelope.ToExtent();
         }
 
         public void TogglePanning()

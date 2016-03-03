@@ -123,7 +123,7 @@ namespace Core.Plugins.DotSpatial
 
         private void ButtonZoomToAll_Click(object sender, RoutedEventArgs e)
         {
-            Map.ZoomToAll();
+            Map.ZoomToAllVisibleLayers();
         }
 
         private void ButtonTogglePanning_Click(object sender, RoutedEventArgs e)
