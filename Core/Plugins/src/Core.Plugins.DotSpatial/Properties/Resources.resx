@@ -176,7 +176,7 @@
     <value>Zoom naar alles</value>
   </data>
   <data name="Ribbon_ZoomToAll_ToolTip" xml:space="preserve">
-    <value>Zoom naar een niveau waarop alles in de kaart zichtbaar is.</value>
+    <value>Zet het zoomniveau van de kaart dusdanig dat alle zichtbare elementen precies in het beeld passen.</value>
   </data>
   <data name="ZoomToAllIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\zoomextents.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
