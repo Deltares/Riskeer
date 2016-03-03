@@ -2,11 +2,11 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <PropertyGroup>
-    <ProjectGuid>{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}</ProjectGuid>
+    <ProjectGuid>{2465CCA1-C505-4827-9454-4FD5FD9194CD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Components.Gis.Forms</RootNamespace>
-    <AssemblyName>Core.Components.Gis.Forms</AssemblyName>
+    <RootNamespace>Core.Components.Charting.Forms</RootNamespace>
+    <AssemblyName>Core.Components.Charting.Forms</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,30 +39,25 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="IMapView.cs" />
+    <Compile Include="IChartView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
-      <Name>Core.Common.Controls</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Version\Core.Common.Version.csproj">
-      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
-      <Name>Core.Common.Version</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
-      <Name>Core.Components.Gis</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>Core.Common.Controls</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Components.Charting\Core.Components.Charting.csproj">
+      <Project>{516ebc95-b8f2-428c-b7f6-733f01bf8fdd}</Project>
+      <Name>Core.Components.Charting</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

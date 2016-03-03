@@ -19,19 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Controls.Views;
-using Core.Components.Charting;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
-namespace Core.Plugins.OxyPlot.Forms
-{
-    /// <summary>
-    /// Interface describing <see cref="IView"/> that contain a <see cref="IChart"/> as one of its components.
-    /// </summary>
-    public interface IChartView : IView
-    {
-        /// <summary>
-        /// Gets the <see cref="IChart"/> set for this <see cref="IChartView"/>.
-        /// </summary>
-        IChart Chart { get; }
-    }
-}
+[assembly: AssemblyTitle("Core.Components.DotSpatial")]
+[assembly: AssemblyProduct("Core.Components.DotSpatial")]
+[assembly: Guid("2465CCA1-C505-4827-9454-4FD5FD9194CD")]

@@ -1,7 +1,7 @@
 using System.Windows.Forms;
 using Core.Components.Charting;
+using Core.Components.Charting.Forms;
 using Core.Components.OxyPlot.Forms;
-using Core.Plugins.OxyPlot.Forms;
 
 namespace Core.Plugins.OxyPlot.Test
 {

@@ -19,51 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Forms;
-using Core.Components.Charting;
-using Core.Components.Charting.Data;
-using Core.Components.Charting.Forms;
+using Core.Common.Controls.Views;
 
-namespace Core.Plugins.OxyPlot.Forms
+namespace Core.Components.Charting.Forms
 {
     /// <summary>
-    /// This class represents a simple view with a chart, to which data can be added.
+    /// Interface describing <see cref="Core.Common.Controls.Views.IView"/> that contain a <see cref="Core.Components.Charting.IChart"/> as one of its components.
     /// </summary>
-    public partial class ChartDataView : UserControl, IChartView
+    public interface IChartView : IView
     {
-        private ChartData data;
-
         /// <summary>
-        /// Creates a new instance of <see cref="ChartDataView"/>.
+        /// Gets the <see cref="Core.Components.Charting.IChart"/> set for this <see cref="IChartView"/>.
         /// </summary>
-        public ChartDataView()
-        {
-            InitializeComponent();
-        }
-
-        public object Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = (ChartData) value;
-
-                if (data != null)
-                {
-                    Chart.Data = data;
-                }
-            }
-        }
-
-        public IChart Chart
-        {
-            get
-            {
-                return chart;
-            }
-        }
+        IChart Chart { get; }
     }
 }
