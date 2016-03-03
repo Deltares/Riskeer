@@ -59,7 +59,7 @@ namespace Ringtoets.HydraRing.Calculation.Test
                                          "INSERT INTO [DesignTables] VALUES (9999, 1, 1, 1, 2, 26, 0, 0, 0, 0, 0, 50, 1.1);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Numerics];" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (9999, 1, 1, 1, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (9999, 1, 1, 1, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 20000, 100000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (9999, 1, 1, 1, 26, 2.2, 0, 0, 0, 0, 0, 0, 0, 300);" + Environment.NewLine +
