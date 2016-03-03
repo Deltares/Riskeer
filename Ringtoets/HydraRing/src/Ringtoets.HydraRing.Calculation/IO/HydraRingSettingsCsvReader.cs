@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Ringtoets.HydraRing.Calculation.Settings;
+using Ringtoets.HydraRing.Calculation.Data.Settings;
 
 namespace Ringtoets.HydraRing.Calculation.IO
 {

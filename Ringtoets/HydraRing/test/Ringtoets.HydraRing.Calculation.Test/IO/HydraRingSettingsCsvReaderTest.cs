@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Data.Settings;
 using Ringtoets.HydraRing.Calculation.IO;
-using Ringtoets.HydraRing.Calculation.Settings;
 
 namespace Ringtoets.HydraRing.Calculation.Test.IO
 {

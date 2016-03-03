@@ -23,9 +23,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using Ringtoets.HydraRing.Calculation.Base;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Settings;
+using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.Providers;
 
 namespace Ringtoets.HydraRing.Calculation.Service
 {
@@ -47,9 +47,9 @@ namespace Ringtoets.HydraRing.Calculation.Service
             var hydraulicBoundaryLocationId = hydraRingCalculationInput.HydraulicBoundaryLocationId;
             var mechanismId = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType).MechanismId;
 
-            // Create a Hydra-Ring configuration
-            var hydraRingConfiguration = new HydraRingConfiguration(ringId, timeIntegrationSchemeType, uncertaintiesType);
-            hydraRingConfiguration.AddHydraRingCalculation(hydraRingCalculationInput);
+            // Create a Hydra-Ring configuration service
+            var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, timeIntegrationSchemeType, uncertaintiesType);
+            hydraRingConfigurationService.AddHydraRingCalculation(hydraRingCalculationInput);
 
             // Calculation file names
             var outputFileName = "designTable.txt";
@@ -85,7 +85,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
             });
 
             // Write the database creation script
-            File.WriteAllText(dataBaseCreationScriptFilePath, hydraRingConfiguration.GenerateDataBaseCreationScript());
+            File.WriteAllText(dataBaseCreationScriptFilePath, hydraRingConfigurationService.GenerateDataBaseCreationScript());
 
             // Perform the calculation
             var hydraRingProcess = new Process
