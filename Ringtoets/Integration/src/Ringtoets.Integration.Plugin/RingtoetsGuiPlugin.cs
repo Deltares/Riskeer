@@ -23,19 +23,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
+using Core.Common.Base.Service;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.IO.Exceptions;
 using log4net;
+using MathNet.Numerics.Distributions;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Placeholder;
+using Ringtoets.HydraRing.Calculation;
+using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Hydraulics;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -49,6 +57,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
+using PropertyInfo = Core.Common.Gui.Plugin.PropertyInfo;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -68,7 +77,7 @@ namespace Ringtoets.Integration.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="PropertyInfo"/> instances provided for data of <see cref="RingtoetsGuiPlugin"/>.
+        /// Returns all <see cref="Core.Common.Gui.Plugin.PropertyInfo"/> instances provided for data of <see cref="RingtoetsGuiPlugin"/>.
         /// </summary>
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -95,7 +104,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new ViewInfo<AssessmentSectionBase, AssessmentSectionView>
             {
                 GetViewName = (v, o) => RingtoetsFormsResources.TrajectMap_DisplayName,
-                Image = RingtoetsFormsResources.Map,
+                Image = RingtoetsFormsResources.Map
             };
         }
 
@@ -438,7 +447,15 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsFormsResources.DesignWaterLevel_Calculate,
                 RingtoetsFormsResources.DesignWaterLevel_Calculate_ToolTip,
                 RingtoetsFormsResources.FailureMechanismIcon,
-                null);
+                (sender, args) =>
+                {
+                    var beta = -Normal.InvCDF(0.0, 1.0, 1.0 / nodeData.Parent.FailureMechanismContribution.Norm);
+                    var hlcdDirectory = Path.GetDirectoryName(nodeData.Parent.HydraulicBoundaryDatabase.FilePath);
+                    var activities = nodeData.Parent.HydraulicBoundaryDatabase.Locations.Select(hbl => new AssessmentLevelActivity(hlcdDirectory, "", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, (int) hbl.Id, beta));
+
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
+                }
+                );
 
             if (nodeData.Parent.HydraulicBoundaryDatabase == null)
             {
@@ -570,5 +587,52 @@ namespace Ringtoets.Integration.Plugin
         }
 
         #endregion
+
+        # region Nested types
+
+        private class AssessmentLevelActivity : Activity
+        {
+            private readonly string hlcdDirectory;
+            private readonly string ringId;
+            private readonly HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType;
+            private readonly HydraRingUncertaintiesType uncertaintiesType;
+            private readonly int hydraulicBoundaryLocationId;
+            private readonly double beta;
+
+            public AssessmentLevelActivity(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, int hydraulicBoundaryLocationId, double beta)
+            {
+                this.hlcdDirectory = hlcdDirectory;
+                this.ringId = ringId;
+                this.timeIntegrationSchemeType = timeIntegrationSchemeType;
+                this.uncertaintiesType = uncertaintiesType;
+                this.hydraulicBoundaryLocationId = hydraulicBoundaryLocationId;
+                this.beta = beta;
+            }
+
+            protected override void OnRun()
+            {
+                HydraRingCalculator.PerformFailureMechanismCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, new AssessmentLevelCalculation(hydraulicBoundaryLocationId, beta));
+            }
+
+            protected override void OnCancel()
+            {
+                // Unable to cancel a running kernel, so nothing can be done.
+            }
+
+            protected override void OnFinish()
+            {
+
+            }
+
+            public override string Name
+            {
+                get
+                {
+                    return "Toetspeilen berekenen...";
+                }
+            }
+        }
+
+        # endregion
     }
 }
