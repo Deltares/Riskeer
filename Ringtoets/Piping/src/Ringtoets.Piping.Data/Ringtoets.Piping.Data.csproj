@@ -54,6 +54,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Exceptions\RingtoetsPipingSurfaceLineException.cs" />
+    <Compile Include="GeneralPipingInput.cs" />
     <Compile Include="IPipingCalculationItem.cs" />
     <Compile Include="IPipingCalculationItemExtensions.cs" />
     <Compile Include="PipingCalculation.cs" />

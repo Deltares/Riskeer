@@ -28,7 +28,8 @@ using Ringtoets.Piping.Data.Properties;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Class that holds all piping calculation input parameters.
+    /// Class that holds all piping calculation specific input parameters, e.g. the values
+    /// that can differ various calculations.
     /// </summary>
     public class PipingInput : Observable
     {

@@ -1,8 +1,6 @@
 ﻿using System;
 
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
-using Core.Common.Base.Properties;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 

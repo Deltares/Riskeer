@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+
 using Core.Common.Base;
+
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
-using Ringtoets.Piping.Data.Properties;
+
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
@@ -40,13 +42,22 @@ namespace Ringtoets.Piping.Data
         public PipingFailureMechanism()
             : base(PipingDataResources.PipingFailureMechanism_DisplayName)
         {
+            GeneralInput = new GeneralPipingInput();
             SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
             SoilProfiles = new ObservableList<PipingSoilProfile>();
             BoundaryConditions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_BoundaryConditions_DisplayName);
-            var pipingCalculationGroup = new PipingCalculationGroup(Resources.PipingFailureMechanism_Calculations_DisplayName, false);
+            var pipingCalculationGroup = new PipingCalculationGroup(PipingDataResources.PipingFailureMechanism_Calculations_DisplayName, false);
             pipingCalculationGroup.Children.Add(new PipingCalculation());
             CalculationsGroup = pipingCalculationGroup;
             AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
+        }
+
+        public override IEnumerable<ICalculationItem> CalculationItems
+        {
+            get
+            {
+                return CalculationsGroup.GetPipingCalculations();
+            }
         }
 
         /// <summary>
@@ -74,12 +85,9 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public OutputPlaceholder AssessmentResult { get; private set; }
 
-        public override IEnumerable<ICalculationItem> CalculationItems
-        {
-            get
-            {
-                return CalculationsGroup.GetPipingCalculations();
-            }
-        }
+        /// <summary>
+        /// Gets the general piping calculation input parameters that apply to each piping calculation.
+        /// </summary>
+        public GeneralPipingInput GeneralInput { get; private set; }
     }
 }

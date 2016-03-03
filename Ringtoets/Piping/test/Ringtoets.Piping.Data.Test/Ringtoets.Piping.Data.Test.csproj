@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\RingtoetsPipingSurfaceLineExceptionTest.cs" />
+    <Compile Include="GeneralPipingInputTest.cs" />
     <Compile Include="IPipingCalculationItemExtensionsTest.cs" />
     <Compile Include="PipingCalculationGroupTest.cs" />
     <Compile Include="PipingCalculationTest.cs" />

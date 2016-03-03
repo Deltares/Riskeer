@@ -27,6 +27,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // assert
             Assert.IsInstanceOf<BaseFailureMechanism>(piping);
+            Assert.IsInstanceOf<GeneralPipingInput>(piping.GeneralInput);
             CollectionAssert.IsEmpty(piping.Sections);
             CollectionAssert.IsEmpty(piping.SurfaceLines);
             Assert.IsInstanceOf<ObservableList<RingtoetsPipingSurfaceLine>>(piping.SurfaceLines);
