@@ -82,15 +82,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             Assert.AreEqual(2, mapData.List.Count);
 
-            var referenceLineMapData = (MapLineData)mapData.List[0];
-            CollectionAssert.IsEmpty(referenceLineMapData.Points);
-            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
-            Assert.IsTrue(referenceLineMapData.IsVisible);
-
-            var hrLocationsMapData = (MapPointData)mapData.List[1];
+            var hrLocationsMapData = (MapPointData)mapData.List[0];
             CollectionAssert.IsEmpty(hrLocationsMapData.Points);
             Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
             Assert.IsTrue(hrLocationsMapData.IsVisible);
+
+            var referenceLineMapData = (MapLineData)mapData.List[1];
+            CollectionAssert.IsEmpty(referenceLineMapData.Points);
+            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+            Assert.IsTrue(referenceLineMapData.IsVisible);
         }
 
         [Test]
@@ -125,15 +125,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var mapData = map.Data as MapDataCollection;
             Assert.IsNotNull(mapData);
 
-            var referenceLineMapData = (MapLineData)mapData.List[0];
-            CollectionAssert.AreEqual(referenceLine.Points, referenceLineMapData.Points);
-            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
-            Assert.IsTrue(referenceLineMapData.IsVisible);
-
-            var hrLocationsMapData = (MapPointData)mapData.List[1];
+            var hrLocationsMapData = (MapPointData)mapData.List[0];
             CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations.Select(l => l.Location), hrLocationsMapData.Points);
             Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
             Assert.IsTrue(hrLocationsMapData.IsVisible);
+
+            var referenceLineMapData = (MapLineData)mapData.List[1];
+            CollectionAssert.AreEqual(referenceLine.Points, referenceLineMapData.Points);
+            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+            Assert.IsTrue(referenceLineMapData.IsVisible);
         }
 
         [Test]

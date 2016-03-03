@@ -117,10 +117,12 @@ namespace Ringtoets.Piping.Forms.Views
 
             if (data != null)
             {
-                mapDataList.Add(GetReferenceLineMapData());
-                mapDataList.Add(GetHydraulicBoundaryLocationsMapData());
-                mapDataList.Add(GetSectionsMapData());
+                // Bottom most layer
                 mapDataList.Add(GetSurfaceLinesMapData());
+                mapDataList.Add(GetSectionsMapData());
+                mapDataList.Add(GetHydraulicBoundaryLocationsMapData());
+                mapDataList.Add(GetReferenceLineMapData());
+                // Topmost layer
             }
 
             mapControl.Data = new MapDataCollection(mapDataList, PipingDataResources.PipingFailureMechanism_DisplayName);

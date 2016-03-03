@@ -68,10 +68,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mapData = (MapDataCollection)map.Data;
 
             Assert.AreEqual(4, mapData.List.Count);
-            AssertReferenceMapData(assessmentSectionBase.ReferenceLine, mapData.List[0]);
-            AssertHydraulicBoundaryLocationsMapData(assessmentSectionBase.HydraulicBoundaryDatabase, mapData.List[1]);
-            AssertFailureMechanismSectionsMapData(pipingFailureMechanism.Sections, mapData.List[2]);
-            AssertSurfacelinesMapData(pipingFailureMechanism.SurfaceLines, mapData.List[3]);
+            AssertSurfacelinesMapData(pipingFailureMechanism.SurfaceLines, mapData.List[0]);
+            AssertFailureMechanismSectionsMapData(pipingFailureMechanism.Sections, mapData.List[1]);
+            AssertHydraulicBoundaryLocationsMapData(assessmentSectionBase.HydraulicBoundaryDatabase, mapData.List[2]);
+            AssertReferenceMapData(assessmentSectionBase.ReferenceLine, mapData.List[3]);
         }
 
         [Test]
@@ -119,11 +119,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
             var mapData = map.Data as MapDataCollection;
             Assert.IsNotNull(mapData);
-
-            AssertReferenceMapData(referenceLine, mapData.List[0]);
-            AssertHydraulicBoundaryLocationsMapData(assessmentSectionBase.HydraulicBoundaryDatabase, mapData.List[1]);
-            AssertFailureMechanismSectionsMapData(pipingFailureMechanism.Sections, mapData.List[2]);
-            AssertSurfacelinesMapData(pipingFailureMechanism.SurfaceLines, mapData.List[3]);
+            
+            AssertSurfacelinesMapData(pipingFailureMechanism.SurfaceLines, mapData.List[0]);
+            AssertFailureMechanismSectionsMapData(pipingFailureMechanism.Sections, mapData.List[1]);
+            AssertHydraulicBoundaryLocationsMapData(assessmentSectionBase.HydraulicBoundaryDatabase, mapData.List[2]);
+            AssertReferenceMapData(referenceLine, mapData.List[3]);
         }
 
         private void AssertReferenceMapData(ReferenceLine referenceLine, MapData mapData)

@@ -95,8 +95,10 @@ namespace Ringtoets.Integration.Forms.Views
 
             if (data != null)
             {
-                mapDataList.Add(GetReferenceLineData());
+                // Bottommost layer
                 mapDataList.Add(GetHydraulicBoundaryLocations());
+                mapDataList.Add(GetReferenceLineData());
+                // Topmost layer
             }
             
             mapControl.Data = new MapDataCollection(mapDataList, Resources.AssessmentSectionMap_DisplayName);
