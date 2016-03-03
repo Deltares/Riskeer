@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
-using Core.Plugins.DotSpatial.Forms;
+using Core.Components.Gis.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;

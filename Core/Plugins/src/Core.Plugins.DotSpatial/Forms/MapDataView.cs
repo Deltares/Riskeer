@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Forms;
 
 namespace Core.Plugins.DotSpatial.Forms
 {

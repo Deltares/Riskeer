@@ -27,8 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
-using Core.Plugins.DotSpatial.Forms;
-
+using Core.Components.Gis.Forms;
 using Ringtoets.Common.Data;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;

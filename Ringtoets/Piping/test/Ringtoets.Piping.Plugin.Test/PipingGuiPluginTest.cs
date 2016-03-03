@@ -9,7 +9,6 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -52,7 +51,6 @@ namespace Ringtoets.Piping.Plugin.Test
                 TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingIcon, contributionViewInfo.Image);
             }
         }
-				
 
         [Test]
         public void GetPropertyInfos_ReturnsSupportedPropertyClasses()

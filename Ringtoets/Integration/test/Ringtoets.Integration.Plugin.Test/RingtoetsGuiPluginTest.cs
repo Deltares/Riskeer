@@ -8,7 +8,6 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -83,7 +82,6 @@ namespace Ringtoets.Integration.Plugin.Test
                 TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Map, mapViewInfo.Image);
             }
         }
-				
 
         [Test]
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()

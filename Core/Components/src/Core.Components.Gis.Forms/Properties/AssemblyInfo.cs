@@ -19,19 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Controls.Views;
-using Core.Components.Gis;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
-namespace Core.Plugins.DotSpatial.Forms
-{
-    /// <summary>
-    /// Interface describing <see cref="IView"/> that contain a <see cref="IMap"/> as one of its components.
-    /// </summary>
-    public interface IMapView : IView
-    {
-        /// <summary>
-        /// Gets the <see cref="IMap"/> set for this <see cref="IMapView"/>.
-        /// </summary>
-        IMap Map { get; }
-    }
-}
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+[assembly: AssemblyTitle("Core.Components.Gis.Forms")]
+[assembly: AssemblyProduct("Core.Components.Gis.Forms")]
+
+// The following GUID is for the ID of the typelib if this project is exposed to COM
+[assembly: Guid("4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5")]

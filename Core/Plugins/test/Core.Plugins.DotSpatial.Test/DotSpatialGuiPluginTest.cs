@@ -12,6 +12,7 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Forms;
 using Core.Plugins.DotSpatial.Forms;
 using Core.Plugins.DotSpatial.Legend;
 using NUnit.Framework;
@@ -104,16 +105,18 @@ namespace Core.Plugins.DotSpatial.Test
         {
             // Setup
             using (var plugin = new DotSpatialGuiPlugin())
-            using (var view = new MapDataView())
             {
-                // Call
-                var views = plugin.GetViewInfos().ToArray();
+                using (var view = new MapDataView())
+                {
+                    // Call
+                    var views = plugin.GetViewInfos().ToArray();
 
-                // Assert
-                Assert.AreEqual(1, views.Length);
-                Assert.AreEqual(typeof(MapData), views[0].DataType);
-                Assert.AreEqual(typeof(MapDataView), views[0].ViewType);
-                Assert.AreEqual("Kaart", views[0].GetViewName(view, null));
+                    // Assert
+                    Assert.AreEqual(1, views.Length);
+                    Assert.AreEqual(typeof(MapData), views[0].DataType);
+                    Assert.AreEqual(typeof(MapDataView), views[0].ViewType);
+                    Assert.AreEqual("Kaart", views[0].GetViewName(view, null));
+                }
             }
         }
 

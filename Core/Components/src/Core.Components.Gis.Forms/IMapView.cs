@@ -19,14 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+using Core.Common.Controls.Views;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("Core.Components.Gis.IO")]
-[assembly: AssemblyProduct("Core.Components.Gis.IO")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("FD264FAD-E6F9-47CC-97CD-770199A8E629")]
+namespace Core.Components.Gis.Forms
+{
+    /// <summary>
+    /// Interface describing <see cref="Core.Common.Controls.Views.IView"/> that contain a <see cref="Core.Components.Gis.IMap"/> as one of its components.
+    /// </summary>
+    public interface IMapView : IView
+    {
+        /// <summary>
+        /// Gets the <see cref="Core.Components.Gis.IMap"/> set for this <see cref="IMapView"/>.
+        /// </summary>
+        IMap Map { get; }
+    }
+}
