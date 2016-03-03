@@ -31,7 +31,9 @@ namespace Core.Components.DotSpatial
     public class MouseCoordinatesMapExtension : Extension, IDisposable
     {
         private readonly Map map;
-        private readonly Label label;
+        private readonly TableLayoutPanel panel;
+        private readonly Label xLabel;
+        private readonly Label yLabel;
 
         /// <summary>
         /// Creates a new instance of <see cref="MouseCoordinatesMapExtension"/>.
@@ -46,11 +48,30 @@ namespace Core.Components.DotSpatial
             }
             this.map = map;
 
-            label = new Label
+            xLabel = new Label
             {
                 AutoSize = true,
                 BorderStyle = BorderStyle.None,
-                Width = 160
+                Margin = new Padding(0, 0, 10, 0)
+            };
+
+            yLabel = new Label
+            {
+                AutoSize = true,
+                BorderStyle = BorderStyle.None
+            };
+
+            panel = new TableLayoutPanel
+            {
+                BorderStyle = BorderStyle.None,
+                AutoSize = true,
+                Height = 16,
+                Controls =
+                {
+                    xLabel, yLabel
+                },
+                RowCount = 1,
+                ColumnCount = 2,
             };
         }
 
@@ -60,7 +81,7 @@ namespace Core.Components.DotSpatial
         public override void Activate()
         {
             map.GeoMouseMove += OnMouseMove;
-            map.Controls.Add(label);
+            map.Controls.Add(panel);
             base.Activate();
         }
 
@@ -70,19 +91,22 @@ namespace Core.Components.DotSpatial
         public override void Deactivate()
         {
             map.GeoMouseMove -= OnMouseMove;
-            map.Controls.Remove(label);
+            map.Controls.Remove(panel);
 
             base.Deactivate();
         }
 
         private void OnMouseMove(object sender, GeoMouseArgs e)
         {
-            label.Text = string.Format("X: {0:.#####} Y: {1:.#####}", e.GeographicLocation.X, e.GeographicLocation.Y);
+            xLabel.Text = string.Format("X: {0:.#####}", e.GeographicLocation.X);
+            yLabel.Text = string.Format("Y: {0:.#####}", e.GeographicLocation.Y);
         }
 
         public void Dispose()
         {
-            label.Dispose();
+            xLabel.Dispose();
+            yLabel.Dispose();
+            panel.Dispose();
         }
     }
 }
