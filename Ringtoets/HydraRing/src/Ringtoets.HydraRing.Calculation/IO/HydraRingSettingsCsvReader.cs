@@ -28,7 +28,7 @@ using Ringtoets.HydraRing.Calculation.Settings;
 namespace Ringtoets.HydraRing.Calculation.IO
 {
     /// <summary>
-    /// The reader for the Hydra- Ring settings in csv format.
+    /// The reader for the Hydra-Ring settings in csv format.
     /// </summary>
     public class HydraRingSettingsCsvReader
     {

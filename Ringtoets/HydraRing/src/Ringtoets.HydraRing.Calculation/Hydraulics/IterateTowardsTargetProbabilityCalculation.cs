@@ -22,18 +22,18 @@
 namespace Ringtoets.HydraRing.Calculation.Hydraulics
 {
     /// <summary>
-    /// Container of all data necessary for performing an hydraulic data calculation via Hydra-Ring.
+    /// Container of all data necessary for performing a type-2 calculation via Hydra-Ring ("iterate towards a target probability, provided as reliability index").
     /// </summary>
-    public abstract class HydraulicCalculation : HydraRingCalculation
+    public abstract class IterateTowardsTargetProbabilityCalculation : HydraRingCalculation
     {
         private readonly double beta;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="HydraulicCalculation"/> class.
+        /// Creates a new instance of the <see cref="IterateTowardsTargetProbabilityCalculation"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
-        /// <param name="beta">The target reliability index to use during the calculation.</param>
-        protected HydraulicCalculation(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId)
+        /// <param name="beta">The reliability index to use during the calculation.</param>
+        protected IterateTowardsTargetProbabilityCalculation(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId)
         {
             this.beta = beta;
         }

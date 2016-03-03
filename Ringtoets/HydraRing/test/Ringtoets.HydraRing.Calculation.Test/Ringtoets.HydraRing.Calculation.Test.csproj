@@ -55,7 +55,7 @@
     <Compile Include="Data\HydraRingVariableTest.cs" />
     <Compile Include="HydraRingConfigurationIntegrationTest.cs" />
     <Compile Include="Hydraulics\AssessmentLevelCalculationTest.cs" />
-    <Compile Include="Hydraulics\HydraulicCalculationTest.cs" />
+    <Compile Include="Hydraulics\IterateTowardsTargetProbabilityCalculationTest.cs" />
     <Compile Include="IO\HydraRingSettingsCsvReaderTest.cs" />
     <Compile Include="Settings\FailureMechanismDefaultsProviderTest.cs" />
     <Compile Include="Settings\FailureMechanismDefaultsTest.cs" />

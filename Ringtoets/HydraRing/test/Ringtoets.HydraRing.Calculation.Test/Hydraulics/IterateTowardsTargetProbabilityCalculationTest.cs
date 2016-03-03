@@ -26,25 +26,25 @@ using Ringtoets.HydraRing.Calculation.Hydraulics;
 namespace Ringtoets.HydraRing.Calculation.Test.Hydraulics
 {
     [TestFixture]
-    public class HydraulicCalculationTest
+    public class IterateTowardsTargetProbabilityCalculationTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraulicCalculation = new HydraulicCalculationImplementation(1, 2.2);
+            var iterateTowardsTargetProbabilityCalculationImplementation = new IterateTowardsTargetProbabilityCalculationImplementation(1, 2.2);
 
             // Assert
-            Assert.AreEqual(1, hydraulicCalculation.HydraulicBoundaryLocationId);
-            Assert.AreEqual(HydraRingFailureMechanismType.DikesPiping, hydraulicCalculation.FailureMechanismType);
-            CollectionAssert.IsEmpty(hydraulicCalculation.Variables);
-            CollectionAssert.IsEmpty(hydraulicCalculation.ProfilePoints);
-            Assert.AreEqual(2.2, hydraulicCalculation.Beta);
+            Assert.AreEqual(1, iterateTowardsTargetProbabilityCalculationImplementation.HydraulicBoundaryLocationId);
+            Assert.AreEqual(HydraRingFailureMechanismType.DikesPiping, iterateTowardsTargetProbabilityCalculationImplementation.FailureMechanismType);
+            CollectionAssert.IsEmpty(iterateTowardsTargetProbabilityCalculationImplementation.Variables);
+            CollectionAssert.IsEmpty(iterateTowardsTargetProbabilityCalculationImplementation.ProfilePoints);
+            Assert.AreEqual(2.2, iterateTowardsTargetProbabilityCalculationImplementation.Beta);
         }
 
-        private class HydraulicCalculationImplementation : HydraulicCalculation
+        private class IterateTowardsTargetProbabilityCalculationImplementation : IterateTowardsTargetProbabilityCalculation
         {
-            public HydraulicCalculationImplementation(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId, beta) {}
+            public IterateTowardsTargetProbabilityCalculationImplementation(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId, beta) {}
 
             public override HydraRingFailureMechanismType FailureMechanismType
             {
