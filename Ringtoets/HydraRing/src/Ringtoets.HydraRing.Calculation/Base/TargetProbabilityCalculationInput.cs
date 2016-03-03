@@ -22,7 +22,7 @@
 namespace Ringtoets.HydraRing.Calculation.Base
 {
     /// <summary>
-    /// Container of all data necessary for performing a type-2 calculation via Hydra-Ring ("iterate towards a target probability, provided as reliability index").
+    /// Container of all data necessary for performing a type 2 calculation via Hydra-Ring ("iterate towards a target probability, provided as reliability index").
     /// </summary>
     public abstract class TargetProbabilityCalculationInput : HydraRingCalculationInput
     {

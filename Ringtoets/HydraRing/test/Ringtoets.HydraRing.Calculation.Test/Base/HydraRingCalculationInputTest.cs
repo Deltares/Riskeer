@@ -35,9 +35,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Base
             var hydraRingCalculationInput = new HydraRingCalculationInputImplementation(1);
 
             // Assert
-            Assert.AreEqual(1, hydraRingCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.QVariant, hydraRingCalculationInput.FailureMechanismType);
             Assert.AreEqual(4, hydraRingCalculationInput.CalculationTypeId);
+            Assert.AreEqual(1, hydraRingCalculationInput.HydraulicBoundaryLocationId);
+            Assert.AreEqual(1, hydraRingCalculationInput.DikeSection.SectionId);
             CollectionAssert.IsEmpty(hydraRingCalculationInput.Variables);
             CollectionAssert.IsEmpty(hydraRingCalculationInput.ProfilePoints);
             Assert.IsNaN(hydraRingCalculationInput.Beta);

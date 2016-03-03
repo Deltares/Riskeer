@@ -89,7 +89,7 @@ namespace Ringtoets.HydraRing.Calculation.Base
         }
 
         /// <summary>
-        /// Gets the target reliability index to use during the calculation.
+        /// Gets the reliability index to use during the calculation.
         /// </summary>
         /// <remarks>Only relevant for type 2 computations.</remarks>
         public virtual double Beta
