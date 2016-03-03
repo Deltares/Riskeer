@@ -33,17 +33,28 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_ExpectedValues()
         {
             // Call
-            var assessmentLevelCalculation = new AssessmentLevelCalculationInput(1, 2.2);
+            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, 2.2);
 
             // Assert
-            Assert.AreEqual(1, assessmentLevelCalculation.HydraulicBoundaryLocationId);
-            Assert.AreEqual(HydraRingFailureMechanismType.AssessmentLevel, assessmentLevelCalculation.FailureMechanismType);
-            Assert.AreEqual(2, assessmentLevelCalculation.CalculationTypeId);
-            CollectionAssert.IsEmpty(assessmentLevelCalculation.ProfilePoints);
-            Assert.AreEqual(2.2, assessmentLevelCalculation.Beta);
-            Assert.AreEqual(1, assessmentLevelCalculation.Variables.Count());
+            Assert.AreEqual(HydraRingFailureMechanismType.AssessmentLevel, assessmentLevelCalculationInput.FailureMechanismType);
+            Assert.AreEqual(2, assessmentLevelCalculationInput.CalculationTypeId);
+            Assert.AreEqual(1, assessmentLevelCalculationInput.HydraulicBoundaryLocationId);
+            Assert.IsNotNull(assessmentLevelCalculationInput.DikeSection);
+            Assert.AreEqual(1, assessmentLevelCalculationInput.Variables.Count());
+            CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ProfilePoints);
+            Assert.AreEqual(2.2, assessmentLevelCalculationInput.Beta);
 
-            var assessmentLevelVariable = assessmentLevelCalculation.Variables.First();
+            var dikeSection = assessmentLevelCalculationInput.DikeSection;
+            Assert.AreEqual(1, dikeSection.SectionId);
+            Assert.AreEqual("1", dikeSection.SectionName);
+            Assert.IsNaN(dikeSection.SectionBeginCoordinate);
+            Assert.IsNaN(dikeSection.SectionEndCoordinate);
+            Assert.IsNaN(dikeSection.SectionLength);
+            Assert.IsNaN(dikeSection.CrossSectionXCoordinate);
+            Assert.IsNaN(dikeSection.CrossSectionYCoordinate);
+            Assert.IsNaN(dikeSection.CrossSectionNormal);
+
+            var assessmentLevelVariable = assessmentLevelCalculationInput.Variables.First();
             Assert.AreEqual(26, assessmentLevelVariable.VariableId);
             Assert.AreEqual(HydraRingDistributionType.Deterministic, assessmentLevelVariable.DistributionType);
             Assert.AreEqual(0.0, assessmentLevelVariable.Value);
@@ -51,6 +62,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsNaN(assessmentLevelVariable.Mean);
             Assert.IsNaN(assessmentLevelVariable.Variability);
             Assert.IsNaN(assessmentLevelVariable.Shift);
+        }
+
+        [Test]
+        public void GetSubMechanismModelId_ReturnsExpectedValues()
+        {
+            // Call
+            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, 2.2);
+
+            // Assert
+            Assert.IsNull(assessmentLevelCalculationInput.GetSubMechanismModelId(1));
         }
     }
 }

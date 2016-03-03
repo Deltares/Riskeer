@@ -299,9 +299,9 @@ namespace Ringtoets.HydraRing.Calculation.Service
             {
                 var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
 
-                foreach (var subMechanimsId in failureMechanismDefaults.SubMechanismIds)
+                foreach (var subMechanismId in failureMechanismDefaults.SubMechanismIds)
                 {
-                    var subMechanismSettings = subMechanismSettingsProvider.GetSubMechanismSettings(hydraRingCalculationInput.FailureMechanismType, subMechanimsId, ringId);
+                    var subMechanismSettings = subMechanismSettingsProvider.GetSubMechanismSettings(hydraRingCalculationInput.FailureMechanismType, subMechanismId, ringId);
 
                     orderDictionaries.Add(new OrderedDictionary
                     {
@@ -318,7 +318,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
                             "AlternativeId", defaultAlternativeId // Fixed: no support for piping
                         },
                         {
-                            "SubMechanismId", subMechanimsId
+                            "SubMechanismId", subMechanismId
                         },
                         {
                             "Method", subMechanismSettings.CalculationTechniqueId

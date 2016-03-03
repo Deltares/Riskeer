@@ -24,7 +24,7 @@ using System.Collections.Generic;
 namespace Ringtoets.HydraRing.Calculation.Data.Defaults
 {
     /// <summary>
-    /// Container for failure mechanims defaults.
+    /// Container for failure mechanism defaults.
     /// </summary>
     public class FailureMechanismDefaults
     {
@@ -35,9 +35,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
         /// <summary>
         /// Creates a new instance of the <see cref="FailureMechanismDefaults"/> class.
         /// </summary>
-        /// <param name="mechanismId">The mechanism id that corresponds to a specific <see cref="HydraRingFailureMechanismType"/>.</param>
-        /// <param name="variableId">The id of the variable that is relevant for a specific <see cref="HydraRingFailureMechanismType"/>.</param>
-        /// <param name="subMechanismIds">The sub mechanism ids that are applicable for a specific <see cref="HydraRingFailureMechanismType"/>.</param>
+        /// <param name="mechanismId">The mechanism id.</param>
+        /// <param name="variableId">The id of the variable that is relevant.</param>
+        /// <param name="subMechanismIds">The sub mechanism ids that are applicable.</param>
         public FailureMechanismDefaults(int mechanismId, int variableId, IEnumerable<int> subMechanismIds)
         {
             this.mechanismId = mechanismId;
@@ -46,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
         }
 
         /// <summary>
-        /// Gets the mechanism id that corresponds to a specific <see cref="HydraRingFailureMechanismType"/>.
+        /// Gets the mechanism id.
         /// </summary>
         public int MechanismId
         {
@@ -57,7 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
         }
 
         /// <summary>
-        /// Gets the id of the variable that is relevant for a specific <see cref="HydraRingFailureMechanismType"/>.
+        /// Gets the id of the variable that is relevant.
         /// </summary>
         public int VariableId
         {
@@ -68,7 +68,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
         }
 
         /// <summary>
-        /// Gets the sub mechanism ids that are applicable for a specific <see cref="HydraRingFailureMechanismType"/>.
+        /// Gets the sub mechanism ids that are applicable.
         /// </summary>
         public IEnumerable<int> SubMechanismIds
         {

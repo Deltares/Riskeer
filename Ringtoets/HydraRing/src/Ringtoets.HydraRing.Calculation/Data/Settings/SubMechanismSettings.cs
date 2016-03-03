@@ -22,7 +22,7 @@
 namespace Ringtoets.HydraRing.Calculation.Data.Settings
 {
     /// <summary>
-    /// Container for sub mechanims settings.
+    /// Container for sub mechanism settings.
     /// </summary>
     public class SubMechanismSettings
     {
