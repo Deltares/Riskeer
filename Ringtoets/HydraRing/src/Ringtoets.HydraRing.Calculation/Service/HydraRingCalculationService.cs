@@ -30,7 +30,7 @@ using Ringtoets.HydraRing.Calculation.Providers;
 namespace Ringtoets.HydraRing.Calculation.Service
 {
     /// <summary>
-    /// Static class that provides methods for performing Hydra-Ring calculations.
+    /// Service that provides methods for performing Hydra-Ring calculations.
     /// </summary>
     public static class HydraRingCalculationService
     {
@@ -49,7 +49,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
 
             // Create a Hydra-Ring configuration service
             var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, timeIntegrationSchemeType, uncertaintiesType);
-            hydraRingConfigurationService.AddHydraRingCalculation(hydraRingCalculationInput);
+            hydraRingConfigurationService.AddHydraRingCalculationInput(hydraRingCalculationInput);
 
             // Calculation file names
             var outputFileName = "designTable.txt";

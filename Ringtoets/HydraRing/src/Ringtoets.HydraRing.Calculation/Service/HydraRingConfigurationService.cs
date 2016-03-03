@@ -31,7 +31,7 @@ using Ringtoets.HydraRing.Calculation.Providers;
 namespace Ringtoets.HydraRing.Calculation.Service
 {
     /// <summary>
-    /// Container for all configurations that are necessary for performing a Hydra-Ring calculation.
+    /// Service for generating the database initialization script that is necessary for performing Hydra-Ring calculations.
     /// The following Hydra-Ring features are not exposed (yet):
     /// <list type="bullet">
     /// <item>
@@ -70,9 +70,9 @@ namespace Ringtoets.HydraRing.Calculation.Service
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfigurationService"/> class.
         /// </summary>
-        /// <param name="ringId">The id of the ring to perform the configured Hydra-Ring calculations for.</param>
-        /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the configured Hydra-Ring calculations.</param>
-        /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the configured Hydra-Ring calculations.</param>
+        /// <param name="ringId">The id of the ring to perform Hydra-Ring calculations for.</param>
+        /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while performing Hydra-Ring calculations.</param>
+        /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while performing Hydra-Ring calculations.</param>
         public HydraRingConfigurationService(string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType)
         {
             hydraRingCalculationInputs = new List<HydraRingCalculationInput>();
@@ -83,7 +83,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
         }
 
         /// <summary>
-        /// Gets the id of the ring to perform the configured Hydra-Ring calculations for.
+        /// Gets the id of the ring to perform Hydra-Ring calculations for.
         /// </summary>
         public string RingId
         {
@@ -94,7 +94,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the configured Hydra-Ring calculations.
+        /// Gets the <see cref="HydraRingTimeIntegrationSchemeType"/> to use while performing Hydra-Ring calculations.
         /// </summary>
         public HydraRingTimeIntegrationSchemeType? TimeIntegrationSchemeType
         {
@@ -105,7 +105,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraRingUncertaintiesType"/> to use while executing the configured Hydra-Ring calculations.
+        /// Gets the <see cref="HydraRingUncertaintiesType"/> to use while performing Hydra-Ring calculations.
         /// </summary>
         public HydraRingUncertaintiesType? UncertaintiesType
         {
@@ -116,19 +116,18 @@ namespace Ringtoets.HydraRing.Calculation.Service
         }
 
         /// <summary>
-        /// Adds a Hydra-Ring calculation to the <see cref="HydraRingConfigurationService"/>.
+        /// Adds Hydra-Ring calculation input to the configuration.
         /// </summary>
-        /// <param name="hydraRingCalculationInput">The container that holds all data for configuring the calculation.</param>
-        public void AddHydraRingCalculation(HydraRingCalculationInput hydraRingCalculationInput)
+        /// <param name="hydraRingCalculationInput">The calculation input to add to the configuration.</param>
+        public void AddHydraRingCalculationInput(HydraRingCalculationInput hydraRingCalculationInput)
         {
             hydraRingCalculationInputs.Add(hydraRingCalculationInput);
         }
 
         /// <summary>
-        /// Generates a database creation script that can be used to perform a Hydra-Ring calculation.
+        /// Generates the database creation script necessary for performing Hydra-Ring calculations.
         /// </summary>
         /// <returns>The database creation script.</returns>
-        /// <exception cref="InvalidOperationException">Thrown when one of the relevant input properties is not set.</exception>
         public string GenerateDataBaseCreationScript()
         {
             var configurationDictionary = new Dictionary<string, List<OrderedDictionary>>();
@@ -701,7 +700,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
             return string.Join(Environment.NewLine, lines);
         }
 
-        private double? GetHydraRingValue(double value)
+        private static double? GetHydraRingValue(double value)
         {
             return !double.IsNaN(value) ? value : defaultHydraRingValue;
         }
