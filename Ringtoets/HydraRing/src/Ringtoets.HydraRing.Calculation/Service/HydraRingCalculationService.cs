@@ -19,12 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.Providers;
 
 namespace Ringtoets.HydraRing.Calculation.Service
@@ -35,21 +38,23 @@ namespace Ringtoets.HydraRing.Calculation.Service
     public static class HydraRingCalculationService
     {
         /// <summary>
-        /// This method performs a single failure mechanism calculation via Hydra-Ring.
+        /// This method performs a type 2 calculation via Hydra-Ring ("iterate towards a target probability, provided as reliability index").
         /// </summary>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the failure mechanism calculation.</param>
-        /// <param name="ringId">The id of the ring to perform the failure mechanism calculation for.</param>
-        /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the failure mechanism calculation.</param>
-        /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the failure mechanism calculation.</param>
-        /// <param name="hydraRingCalculationInput">The failure mechanism calculation to perform.</param>
-        public static void PerformFailureMechanismCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculationInput hydraRingCalculationInput)
+        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
+        /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
+        /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
+        /// <param name="hydraRingCalculationInput">The input of the calculation to perform.</param>
+        /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> or <c>null</c> when something went wrong.</returns>
+        public static TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculationInput hydraRingCalculationInput)
+        {
+            return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, hydraRingCalculationInput, (outputFilePath, ouputDatabasePath) => TargetProbabilityCalculationParser.Parse(outputFilePath, hydraRingCalculationInput.DikeSection.SectionId));
+        }
+
+        private static T PerformCalculation<T>(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculationInput hydraRingCalculationInput, Func<string, string, T> parseFunction)
         {
             var hydraulicBoundaryLocationId = hydraRingCalculationInput.HydraulicBoundaryLocationId;
             var mechanismId = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType).MechanismId;
-
-            // Create a Hydra-Ring configuration service
-            var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, timeIntegrationSchemeType, uncertaintiesType);
-            hydraRingConfigurationService.AddHydraRingCalculationInput(hydraRingCalculationInput);
 
             // Calculation file names
             var outputFileName = "designTable.txt";
@@ -59,6 +64,8 @@ namespace Ringtoets.HydraRing.Calculation.Service
 
             // Obtain some calculation file paths
             var workingDirectory = CreateWorkingDirectory(hydraulicBoundaryLocationId.ToString());
+            var outputFilePath = Path.Combine(workingDirectory, outputFileName);
+            var outputDatabasePath = Path.Combine(workingDirectory, "temp.sqlite");
             var iniFilePath = Path.Combine(workingDirectory, iniFileName);
             var dataBaseCreationScriptFilePath = Path.Combine(workingDirectory, dataBaseCreationScriptFileName);
             var hlcdFilePath = Path.Combine(hlcdDirectory, "HLCD.sqlite");
@@ -85,6 +92,8 @@ namespace Ringtoets.HydraRing.Calculation.Service
             });
 
             // Write the database creation script
+            var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, timeIntegrationSchemeType, uncertaintiesType);
+            hydraRingConfigurationService.AddHydraRingCalculationInput(hydraRingCalculationInput);
             File.WriteAllText(dataBaseCreationScriptFilePath, hydraRingConfigurationService.GenerateDataBaseCreationScript());
 
             // Perform the calculation
@@ -101,7 +110,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
             hydraRingProcess.Start();
             hydraRingProcess.WaitForExit();
 
-            // TODO: Parse output
+            return parseFunction(outputFilePath, outputDatabasePath);
         }
 
         private static string CreateWorkingDirectory(string folderName)

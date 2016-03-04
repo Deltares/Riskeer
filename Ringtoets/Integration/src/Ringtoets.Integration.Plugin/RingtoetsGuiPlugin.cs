@@ -610,7 +610,7 @@ namespace Ringtoets.Integration.Plugin
 
             protected override void OnRun()
             {
-                HydraRingCalculationService.PerformFailureMechanismCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, new AssessmentLevelCalculationInput(hydraulicBoundaryLocationId, beta));
+                HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, new AssessmentLevelCalculationInput(hydraulicBoundaryLocationId, beta));
             }
 
             protected override void OnCancel()
@@ -627,7 +627,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 get
                 {
-                    return "Toetspeilen berekenen...";
+                    return string.Format("Toetspeil berekenen voor locatie {0}...", hydraulicBoundaryLocationId);
                 }
             }
         }
