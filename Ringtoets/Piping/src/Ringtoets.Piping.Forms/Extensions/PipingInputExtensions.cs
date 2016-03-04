@@ -15,7 +15,7 @@ namespace Ringtoets.Piping.Forms.Extensions
     /// </summary>
     public static class PipingInputExtensions
     {
-        private static ILog logger = LogManager.GetLogger(typeof(PipingInput));
+        private static readonly ILog logger = LogManager.GetLogger(typeof(PipingInput));
 
         /// <summary>
         /// Updates the <see cref="PipingInput.SurfaceLine"/> property and propagates changes to dependent

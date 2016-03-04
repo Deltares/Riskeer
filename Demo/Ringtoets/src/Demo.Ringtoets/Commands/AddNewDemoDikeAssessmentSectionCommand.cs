@@ -7,6 +7,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Plugin.FileImporter;
 
@@ -116,7 +117,9 @@ namespace Demo.Ringtoets.Commands
             calculation.InputParameters.SetSurfaceLine(pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001"));
             calculation.InputParameters.SoilProfile = pipingFailureMechanism.SoilProfiles.First(sl => sl.Name == "AD640M00_Segment_36005_1D2");
             calculation.InputParameters.PhreaticLevelExit.Mean = 3;
-            calculation.InputParameters.ThicknessCoverageLayer.Mean = Math.Exp(-0.5);
+            calculation.InputParameters.AssessmentLevel = 0.0;
+            calculation.InputParameters.ThicknessCoverageLayer = new LognormalDistribution();
+            calculation.InputParameters.ThicknessAquiferLayer = new LognormalDistribution();
         }
     }
 }

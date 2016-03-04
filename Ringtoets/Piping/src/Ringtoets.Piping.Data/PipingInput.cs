@@ -34,6 +34,7 @@ namespace Ringtoets.Piping.Data
     public class PipingInput : Observable
     {
         private double assessmentLevel;
+        private double exitPointL;
         public const double SeepageLengthStandardDeviationFraction = 0.1;
 
         /// <summary>
@@ -54,6 +55,7 @@ namespace Ringtoets.Piping.Data
             SellmeijerReductionFactor = 0.3;
             CriticalHeaveGradient = 0.3;
 
+            ExitPointL = double.NaN;
             PhreaticLevelExit = new NormalDistribution();
             DampingFactorExit = new LognormalDistribution
             {
@@ -61,13 +63,22 @@ namespace Ringtoets.Piping.Data
             };
             ThicknessCoverageLayer = new LognormalDistribution
             {
-                Mean = double.NaN
+                Mean = double.NaN,
+                StandardDeviation = 0.5
             };
-            SeepageLength = new LognormalDistribution();
-            SeepageLength.StandardDeviation = SeepageLength.Mean * SeepageLengthStandardDeviationFraction;
+            SeepageLength = new LognormalDistribution
+            {
+                Mean = double.NaN,
+                StandardDeviation = double.NaN
+            };
             Diameter70 = new LognormalDistribution();
             DarcyPermeability = new LognormalDistribution();
-            ThicknessAquiferLayer = new LognormalDistribution();
+            ThicknessAquiferLayer = new LognormalDistribution
+            {
+                Mean = double.NaN,
+                StandardDeviation = 0.5
+            };
+            assessmentLevel = double.NaN;
         }
 
         /// <summary>
@@ -163,7 +174,22 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the L-coordinate of the exit point.
         /// [m]
         /// </summary>
-        public double ExitPointL { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less or equal to 0.</exception>
+        public double ExitPointL
+        {
+            get
+            {
+                return exitPointL;
+            }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentOutOfRangeException("value", Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
+                }
+                exitPointL = value;
+            }
+        }
 
         #region Constants
 

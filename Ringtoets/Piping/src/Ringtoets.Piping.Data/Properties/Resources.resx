@@ -198,4 +198,7 @@
   <data name="PipingFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken - Piping</value>
   </data>
+  <data name="PipingInput_ExitPointL_Value_must_be_greater_than_zero" xml:space="preserve">
+    <value>De waarde voor het L-coördinaat van het uittredepunt moet groter zijn dan 0.</value>
+  </data>
 </root>

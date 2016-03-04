@@ -11,6 +11,7 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
+using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -251,21 +252,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var soilProfile = new PipingSoilProfile(String.Empty, -1, new[]
-            {
-                new PipingSoilLayer(0)
-                {
-                    IsAquifer = true
-                },
-                new PipingSoilLayer(1)
-                {
-                    IsAquifer = false
-                }
-            });
             var inputParameters = new PipingInput
             {
-                SurfaceLine = surfaceLine,
-                SoilProfile = soilProfile
+                SurfaceLine = surfaceLine
             };
             inputParameters.Attach(inputObserver);
 
@@ -274,10 +263,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<PipingSoilProfile>(),
-                                              assessmentSectionMock)
+                                              assessmentSectionMock),
+                ExitPointL = exitPoint
             };
 
-            properties.ExitPointL = exitPoint;
             properties.SeepageLength.Distribution.Mean = seepageLength;
 
             // Call & Assert
@@ -305,21 +294,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var soilProfile = new PipingSoilProfile(String.Empty, -1, new[]
-            {
-                new PipingSoilLayer(0)
-                {
-                    IsAquifer = true
-                },
-                new PipingSoilLayer(1)
-                {
-                    IsAquifer = false
-                }
-            });
             var inputParameters = new PipingInput
             {
-                SurfaceLine = surfaceLine,
-                SoilProfile = soilProfile
+                SurfaceLine = surfaceLine
             };
             inputParameters.Attach(inputObserver);
 
@@ -328,11 +305,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<PipingSoilProfile>(),
-                                              assessmentSectionMock)
+                                              assessmentSectionMock),
+                ExitPointL = exitPoint,
+                EntryPointL = entryPoint
             };
 
-            properties.ExitPointL = exitPoint;
-            properties.EntryPointL = entryPoint;
 
             // Call & Assert
             Assert.AreEqual(seepageLength, properties.SeepageLength.Distribution.Mean, 1e-6);
@@ -354,22 +331,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var soilProfile = new PipingSoilProfile(String.Empty, -1, new[]
-            {
-                new PipingSoilLayer(0)
-                {
-                    IsAquifer = true
-                },
-                new PipingSoilLayer(1)
-                {
-                    IsAquifer = false
-                }
-            });
-            var inputParameters = new PipingInput
-            {
-                SurfaceLine = surfaceLine,
-                SoilProfile = soilProfile
-            };
+            var inputParameters = new PipingInput();
+            inputParameters.SetSurfaceLine(surfaceLine);
             inputParameters.Attach(inputObserver);
 
             var properties = new PipingInputContextProperties
@@ -377,14 +340,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<PipingSoilProfile>(),
-                                              assessmentSectionMock)
+                                              assessmentSectionMock),
+                EntryPointL = 0.5,
+                ExitPointL = 2
             };
 
-            properties.EntryPointL = -1;
-            properties.ExitPointL = 2;
 
             // Call & Assert
-            Assert.AreEqual(3, properties.SeepageLength.Distribution.Mean);
+            Assert.AreEqual(1.5, properties.SeepageLength.Distribution.Mean);
             Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
             Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
 
@@ -401,21 +364,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var soilProfile = new PipingSoilProfile(String.Empty, -1, new[]
-            {
-                new PipingSoilLayer(0)
-                {
-                    IsAquifer = true
-                },
-                new PipingSoilLayer(1)
-                {
-                    IsAquifer = false
-                }
-            });
             var inputParameters = new PipingInput
             {
-                SurfaceLine = surfaceLine,
-                SoilProfile = soilProfile
+                SurfaceLine = surfaceLine
             };
 
             var properties = new PipingInputContextProperties
@@ -426,7 +377,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               assessmentSectionMock)
             };
 
-            var l = 2.0;
+            const double l = 2.0;
             properties.ExitPointL = l;
 
             inputParameters.Attach(inputObserver);
@@ -450,21 +401,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var inputObserver = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var random = new Random(22);
-
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
-            {
-                new PipingSoilLayer(random.NextDouble())
-                {
-                    IsAquifer = true
-                }
-            });
-            var inputParameters = new PipingInput
-            {
-                SurfaceLine = surfaceLine,
-                SoilProfile = soilProfile
-            };
+            var inputParameters = new PipingInput();
+            inputParameters.SetSurfaceLine(surfaceLine);
 
             var properties = new PipingInputContextProperties
             {
@@ -474,7 +413,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               assessmentSectionMock)
             };
 
-            var l = -2.0;
+            const double l = 2.0;
             properties.EntryPointL = l;
 
             inputParameters.Attach(inputObserver);
@@ -498,7 +437,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var projectObserver = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var inputParameters = new PipingInput();
+            double assessmentLevel = new Random(21).NextDouble();
+            var inputParameters = new PipingInput
+            {
+                AssessmentLevel = assessmentLevel
+            };
             inputParameters.Attach(projectObserver);
 
             var properties = new PipingInputContextProperties
@@ -522,8 +465,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var message = string.Format("Kan locatie '{0}' niet gebruiken als invoer. Toetspeil moet een geldige waarde hebben.", testName);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
 
-            Assert.AreEqual(0, properties.AssessmentLevelSellmeijer);
-            Assert.AreEqual(0, properties.AssessmentLevelUplift);
+            Assert.AreEqual(assessmentLevel, properties.AssessmentLevelSellmeijer);
+            Assert.AreEqual(assessmentLevel, properties.AssessmentLevelUplift);
 
             mocks.VerifyAll();
         }
