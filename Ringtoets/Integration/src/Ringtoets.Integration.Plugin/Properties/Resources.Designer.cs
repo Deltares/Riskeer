@@ -193,7 +193,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}
+        ///   Looks up a localized string similar to {0} 
         ///Er is geen referentielijn geïmporteerd..
         /// </summary>
         public static string ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported {
