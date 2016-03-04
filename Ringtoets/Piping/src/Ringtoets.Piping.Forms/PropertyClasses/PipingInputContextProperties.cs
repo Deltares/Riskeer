@@ -301,7 +301,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.ExitPointL - data.WrappedData.SeepageLength.Mean;
+                return data.WrappedData.EntryPointL;
             }
             set
             {
@@ -322,7 +322,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 data.WrappedData.SetExitPointL(value);
-                data.WrappedData.NotifyObservers();
+                data.WrappedData.NotifyObservers(); 
             }
         }
 

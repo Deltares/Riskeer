@@ -39,6 +39,7 @@ namespace Ringtoets.Piping.Data
         private readonly GeneralPipingInput generalInputParameters;
         private double assessmentLevel;
         private double exitPointL;
+        private double entryPointL;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
@@ -56,8 +57,10 @@ namespace Ringtoets.Piping.Data
 
             this.generalInputParameters = generalInputParameters;
 
-            // Defaults as they have been defined in 'functional design semi-probabilistic assessments 1209431-008-ZWS-0009 Version 2 Final'
-            ExitPointL = double.NaN;
+            exitPointL = double.NaN;
+            entryPointL = double.NaN;
+            assessmentLevel = double.NaN;
+
             PhreaticLevelExit = new NormalDistribution();
             DampingFactorExit = new LognormalDistribution
             {
@@ -80,7 +83,6 @@ namespace Ringtoets.Piping.Data
                 Mean = double.NaN,
                 StandardDeviation = 0.5
             };
-            assessmentLevel = double.NaN;
         }
 
         /// <summary>
@@ -105,10 +107,36 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.
+        /// Gets or sets the l-coordinate of the entry point, which, together with
+        /// the l-coordinate of the exit point, is used to determine the seepage 
+        /// length of <see cref="PipingInput"/>.
         /// [m]
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less or equal to 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than 0.</exception>
+        public double EntryPointL
+        {
+            get
+            {
+                return entryPointL;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("value", Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
+                }
+                entryPointL = value;
+                UpdateSeepageLength();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the l-coordinate of the exit point, which, together with
+        /// the l-coordinate of the exit point, is used to determine the seepage 
+        /// length of <see cref="PipingInput"/>.
+        /// [m]
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than or equal to 0.</exception>
         public double ExitPointL
         {
             get
@@ -122,6 +150,7 @@ namespace Ringtoets.Piping.Data
                     throw new ArgumentOutOfRangeException("value", Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
                 }
                 exitPointL = value;
+                UpdateSeepageLength();
             }
         }
 
@@ -279,6 +308,23 @@ namespace Ringtoets.Piping.Data
             {
                 return generalInputParameters.CriticalHeaveGradient;
             }
+        }
+
+        /// <summary>
+        /// Updates the mean of the seepage length stochast based on the <see cref="EntryPointL"/> and
+        /// <see cref="ExitPointL"/>.
+        /// </summary>
+        private void UpdateSeepageLength()
+        {
+            try
+            {
+                SeepageLength.Mean = ExitPointL - EntryPointL;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                SeepageLength.Mean = double.NaN;
+            }
+            SeepageLength.StandardDeviation = SeepageLength.Mean * SeepageLengthStandardDeviationFraction;
         }
 
         #endregion

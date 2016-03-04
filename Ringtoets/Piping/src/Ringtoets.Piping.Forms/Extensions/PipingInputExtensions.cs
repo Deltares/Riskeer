@@ -41,17 +41,11 @@ namespace Ringtoets.Piping.Forms.Extensions
         /// </summary>
         /// <param name="input">The <see cref="PipingInput"/> to update the entry point for.</param>
         /// <param name="entryPointL">The L-coordinate of the entry point to set.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="entryPointL"/> is less than or equal to 0.</exception>
+        /// <exception cref="ArgumentException"><paramref name="entryPointL"/> is <see cref="double.NaN"/>.</exception>
         public static void SetEntryPointL(this PipingInput input, double entryPointL)
         {
-            try
-            {
-                input.SetSeepageLengthMean(input.ExitPointL - entryPointL);
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                var message = string.Format(Resources.PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length, entryPointL);
-                throw new ArgumentException(message);
-            }
+            input.EntryPointL = entryPointL;
         }
 
         /// <summary>
@@ -59,18 +53,14 @@ namespace Ringtoets.Piping.Forms.Extensions
         /// </summary>
         /// <param name="input">The <see cref="PipingInput"/> to update the entry point for.</param>
         /// <param name="exitPointL">The L-coordinate of the entry point to set.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="exitPointL"/> is less or equal to 0.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="exitPointL"/> is <see cref="double.NaN"/></item>
+        /// <item>Setting the value would result in an invalid seepage length.</item>
+        /// </list></exception>
         public static void SetExitPointL(this PipingInput input, double exitPointL)
         {
-            var exitPointLChange = exitPointL - input.ExitPointL;
-            try
-            {
-                input.SetSeepageLengthMean(input.SeepageLength.Mean + exitPointLChange);
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                var message = string.Format(Resources.PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length, exitPointL);
-                throw new ArgumentException(message);
-            }
             input.ExitPointL = exitPointL;
             input.UpdateThicknessCoverageLayer();
         }
@@ -81,8 +71,12 @@ namespace Ringtoets.Piping.Forms.Extensions
             {
                 try
                 {
-                    input.ThicknessCoverageLayer.Mean = PipingCalculationService.CalculateThicknessCoverageLayer(input);
-                    return;
+                    double derivedThickness = PipingCalculationService.CalculateThicknessCoverageLayer(input);
+                    if (!double.IsNaN(derivedThickness))
+                    {
+                        input.ThicknessCoverageLayer.Mean = derivedThickness;
+                        return;
+                    }
                 }
                 catch (ArgumentOutOfRangeException)
                 {
@@ -126,19 +120,8 @@ namespace Ringtoets.Piping.Forms.Extensions
                 }
 
                 input.ExitPointL = tempExitPointL;
-                input.SetSeepageLengthMean(tempExitPointL - tempEntryPointL);
+                input.EntryPointL = tempEntryPointL;
             }
-        }
-
-        /// <summary>
-        /// Sets the mean of the seepage length stochast.
-        /// </summary>
-        /// <param name="input">The <see cref="PipingInput"/> to update the seepage length for.</param>
-        /// <param name="mean">The mean to set.</param>
-        private static void SetSeepageLengthMean(this PipingInput input, double mean)
-        {
-            input.SeepageLength.Mean = mean;
-            input.SeepageLength.StandardDeviation = mean*PipingInput.SeepageLengthStandardDeviationFraction;
         }
     }
 }

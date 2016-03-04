@@ -562,12 +562,6 @@
   <data name="PipingInput_ExitPointL_DisplayName" xml:space="preserve">
     <value>Uittredepunt</value>
   </data>
-  <data name="PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length" xml:space="preserve">
-    <value>Kon waarde {0} voor het uittredepunt niet zetten omdat dit zou resulteren in een ongeldige kwelweglengte.</value>
-  </data>
-  <data name="PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length" xml:space="preserve">
-    <value>Kon waarde {0} voor het intredepunt niet zetten omdat dit zou resulteren in een ongeldige kwelweglengte.</value>
-  </data>
   <data name="PipingContext_DataDescription_AssessmentSection" xml:space="preserve">
     <value>Het traject</value>
   </data>
@@ -582,6 +576,12 @@
   </data>
   <data name="PipingInputExtensions_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer" xml:space="preserve">
     <value>Kan deklaagdikte niet afleiden op basis van de invoer.</value>
+  </data>
+  <data name="PipingInputExtensions_SetEntryPointL_Value_must_be_greater_than_or_equal_to_zero" xml:space="preserve">
+    <value>De waarde van het L-coördinaat voor het intredepunt mag niet kleiner zijn dan 0.</value>
+  </data>
+  <data name="PipingInputExtensions_NaN_is_not_valid_for_Property_0_" xml:space="preserve">
+    <value>NaN is geen geldige waarde voor {0}</value>
   </data>
   <data name="Categories_SemiProbabilisticParameters" xml:space="preserve">
     <value>Semi-probabilistische parameters</value>

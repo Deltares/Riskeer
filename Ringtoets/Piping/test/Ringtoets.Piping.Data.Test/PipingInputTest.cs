@@ -71,6 +71,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsNaN(inputParameters.SeepageLength.StandardDeviation);
 
             Assert.IsNaN(inputParameters.ExitPointL);
+            Assert.IsNaN(inputParameters.EntryPointL);
             Assert.IsNaN(inputParameters.AssessmentLevel);
         }
 
@@ -103,7 +104,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(0)]
         [TestCase(-1e-6)]
         [TestCase(-21)]
-        public void ExitPointL_ValueLessOrEqualToZero_ThrowsArgumentOutOfRangeException(double value)
+        public void ExitPointL_ValueLessThanOrEqualToZero_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
             var pipingInput = new PipingInput(new GeneralPipingInput());
@@ -113,6 +114,57 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
+        }
+
+        [Test]
+        [TestCase(-1e-6)]
+        [TestCase(-21)]
+        public void EntryPointL_ValueLessThanZero_ThrowsArgumentOutOfRangeException(double value)
+        {
+            // Setup
+            var pipingInput = new PipingInput(new GeneralPipingInput());
+
+            // Call
+            TestDelegate test = () => pipingInput.EntryPointL = value;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
+        }
+
+        [Test]
+        [TestCase(double.NaN, double.NaN, double.NaN)]
+        [TestCase(double.NaN, 3, double.NaN)]
+        [TestCase(2, double.NaN, double.NaN)]
+        [TestCase(2, 4, 2.0)]
+        [TestCase(1e-6, 3, 3.0 - 1e-6)]
+        public void SeepageLength_DifferentCombinationsOfEntryAndExitPoint_SeepageLengthUpdatedAsExpected(double entryPointL, double exitPointL, double seepageLength)
+        {
+            // Setup
+            var pipingInput = new PipingInput(new GeneralPipingInput());
+
+            // Call
+            pipingInput.ExitPointL = exitPointL;
+            pipingInput.EntryPointL = entryPointL;
+
+            // Assert
+            Assert.AreEqual(seepageLength, pipingInput.SeepageLength.Mean);
+            Assert.AreEqual(seepageLength * 0.1, pipingInput.SeepageLength.StandardDeviation);
+        }
+
+        [Test]
+        [TestCase(4, 2)]
+        [TestCase(3 + 1e-6, 3)]
+        public void SeepageLength_SettingEntryPastExitPoint_SeepageLengthSetToNaN(double entryPointL, double exitPointL)
+        {
+            // Setup
+            var pipingInput = new PipingInput(new GeneralPipingInput());
+            pipingInput.ExitPointL = exitPointL;
+
+            // Call
+            pipingInput.EntryPointL = entryPointL;
+
+            // Assert
+            Assert.IsNaN(pipingInput.SeepageLength.Mean);
         }
     }
 }

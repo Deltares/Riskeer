@@ -232,6 +232,15 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor het L-coördinaat van het intredepunt mag niet kleiner zijn dan 0..
+        /// </summary>
+        public static string PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero {
+            get {
+                return ResourceManager.GetString("PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor het L-coördinaat van het uittredepunt moet groter zijn dan 0..
         /// </summary>
         public static string PipingInput_ExitPointL_Value_must_be_greater_than_zero {

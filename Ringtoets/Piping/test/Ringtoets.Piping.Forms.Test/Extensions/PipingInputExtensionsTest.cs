@@ -148,64 +148,81 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         }
 
         [Test]
-        [TestCase(2, 0, 2)]
-        [TestCase(2, -2, 4)]
-        [TestCase(0.5, -3.5, 4)]
-        [TestCase(1e-6, -(4 - 1e-6), 4)]
-        [TestCase(3 + 1e-6, 3, 1e-6)]
-        [TestCase(0.5, 0.5 - 1e-6, 1e-6)]
-        public void SetEntryPointL_ExitPointAndSeepageLengthSet_UpdatesSeepageLength(double exitPoint, double entryPoint, double seepageLength)
+        [TestCase(-1e-6)]
+        [TestCase(-6)]
+        public void SetEntryPointL_ValueLessThanZero_ThrowsArgumentOutOfRangeException(double entryPoint)
         {
             // Setup
-            var random = new Random(22);
+            var input = new PipingInput(new GeneralPipingInput());
 
-            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
-            {
-                new PipingSoilLayer(random.NextDouble())
-                {
-                    IsAquifer = true
-                }
-            });
-            var input = new PipingInput(new GeneralPipingInput())
-            {
-                SurfaceLine = surfaceLine,
-                SoilProfile = soilProfile,
-                ExitPointL = exitPoint
-            };
+            // Call
+            TestDelegate test = () => input.SetEntryPointL(entryPoint);
 
-            input.SetEntryPointL(entryPoint);
-
-            // Call & Assert
-            Assert.AreEqual(exitPoint, input.ExitPointL);
-            Assert.AreEqual(seepageLength, input.SeepageLength.Mean, 1e-6);
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde voor het L-coördinaat van het intredepunt mag niet kleiner zijn dan 0.");
         }
 
         [Test]
-        [TestCase(3, 2, 1)]
-        [TestCase(4, 2, 2)]
-        [TestCase(4, 0.5, 0.5)]
-        [TestCase(1 + 1e-6, 3, 1e-6)]
-        [TestCase(3.5, 0.5 + 1e-6, 1e-6)]
-        public void SetExitPointL_ExitPointAndSeepageLengthSet_UpdatesSeepageLength(double seepageLength, double exitPoint, double newSeepageLength)
+        [TestCase(2, 0, 2)]
+        [TestCase(3, 0, 3)]
+        [TestCase(1 + 1e-6, 1, 1e-6)]
+        [TestCase(2, 2 - 1e-6, 1e-6)]
+        public void SetEntryPointL_ExitPointAndSeepageLengthSet_UpdatesSeepageLength(double exitPoint, double entryPoint, double seepageLength)
         {
             // Setup
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var input = new PipingInput(new GeneralPipingInput());
             input.SetSurfaceLine(surfaceLine);
+            input.SetExitPointL(exitPoint);
 
-            input.SeepageLength.Mean = seepageLength; // L-coordinate of entry point at 4.0 - seepageLength
+            // Call
+            input.SetEntryPointL(entryPoint);
+
+            // Assert
+            Assert.AreEqual(exitPoint, input.ExitPointL);
+            Assert.AreEqual(seepageLength, input.SeepageLength.Mean, 1e-6);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(-1e-6)]
+        [TestCase(-6)]
+        public void SetExitPointL_ValueZeroOrLess_ThrowsArgumentOutOfRangeException(double exitPoint)
+        {
+            // Setup
+            var input = new PipingInput(new GeneralPipingInput());
+
+            // Call
+            TestDelegate test = () => input.SetExitPointL(exitPoint);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde voor het L-coördinaat van het uittredepunt moet groter zijn dan 0.");
+        }
+
+        [Test]
+        [TestCase(1, 2, 1)]
+        [TestCase(0, 2, 2)]
+        [TestCase(0, 0.5, 0.5)]
+        [TestCase(3 - 1e-6, 3, 1e-6)]
+        [TestCase(0.5, 0.5 + 1e-6, 1e-6)]
+        public void SetExitPointL_ExitPointAndSeepageLengthSet_UpdatesSeepageLength(double entryPoint, double exitPoint, double seepageLength)
+        {
+            // Setup
+            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            var input = new PipingInput(new GeneralPipingInput());
+            input.SetSurfaceLine(surfaceLine);
+            input.SetEntryPointL(entryPoint);
 
             // Call
             input.SetExitPointL(exitPoint);
 
             // Assert
             Assert.AreEqual(exitPoint, input.ExitPointL);
-            Assert.AreEqual(newSeepageLength, input.SeepageLength.Mean, 1e-6);
+            Assert.AreEqual(seepageLength, input.SeepageLength.Mean, 1e-6);
         }
 
         [Test]
-        public void SetEntryPointL_SetResultInInvalidSeePage_ThrowsArgumentException()
+        public void SetEntryPointL_SetResultInInvalidSeePage_SeepageSetToNaN()
         {
             // Setup
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -218,34 +235,30 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             };
 
             // Call
-            TestDelegate test = () => input.SetEntryPointL(l);
+            input.SetEntryPointL(l);
 
             // Assert
-            var message = string.Format(Resources.PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length, l);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+            Assert.IsNaN(input.SeepageLength.Mean);
+            Assert.IsNaN(input.SeepageLength.StandardDeviation);
         }
 
         [Test]
-        public void SetExitPointL_SetResultInInvalidSeePage_ThrowsArgumentException()
+        public void SetExitPointL_SetResultInInvalidSeePage_SeePageSetToNaN()
         {
             // Setup
             var exitPointOld = 4.0;
-            var seepageLength = 3.0;
             var surfaceLine = ValidSurfaceLine(0.0, exitPointOld);
             var input = new PipingInput(new GeneralPipingInput());
             input.SetSurfaceLine(surfaceLine);
-            input.SeepageLength.Mean = seepageLength;
-            var entryPointL = exitPointOld - seepageLength;
+            var entryPointL = 1.0;
+            input.SetEntryPointL(entryPointL);
 
             // Call
-            TestDelegate test = () =>
-            {
-                input.SetExitPointL(entryPointL);
-            };
+            input.SetExitPointL(entryPointL);
 
             // Assert
-            var message = string.Format(Resources.PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length, entryPointL);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+            Assert.IsNaN(input.SeepageLength.Mean);
+            Assert.IsNaN(input.SeepageLength.StandardDeviation);
         }
 
         [Test]

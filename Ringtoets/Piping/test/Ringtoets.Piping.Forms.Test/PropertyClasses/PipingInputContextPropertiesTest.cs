@@ -195,47 +195,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(4, 2, 2)]
-        [TestCase(2, 2, 0)]
-        [TestCase(4 + 1e-6, 4,  1e-6)]
-        [TestCase(0.5, 1e-6, 0.5-1e-6)]
-        public void EntryPointL_ExitPointAndSeepageLengthSet_ExpectedValue(double exitPoint, double seepageLength, double entryPoint)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
-            var inputObserver = mocks.StrictMock<IObserver>();
-            int numberProperties = 1;
-            inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
-            mocks.ReplayAll();
-
-            var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var inputParameters = new PipingInput(new GeneralPipingInput())
-            {
-                SurfaceLine = surfaceLine
-            };
-            inputParameters.Attach(inputObserver);
-
-            var properties = new PipingInputContextProperties
-            {
-                Data = new PipingInputContext(inputParameters,
-                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>(),
-                                              assessmentSectionMock),
-                ExitPointL = exitPoint
-            };
-
-            properties.SeepageLength.Distribution.Mean = seepageLength;
-
-            // Call & Assert
-            Assert.AreEqual(entryPoint, properties.EntryPointL, 1e-6);
-            Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
-            Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCase(0, 3, 3)]
         [TestCase(2, 4, 2)]
         [TestCase(1e-6, 4, 4 - 1e-6)]
@@ -313,12 +272,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void EntryPointL_SetResultInInvalidSeePage_ThrowsArgumentException()
+        public void EntryPointL_SetResultInInvalidSeePage_SeepageLengthValueNaN()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var inputObserver = mocks.StrictMock<IObserver>();
+            inputObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -341,11 +301,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             inputParameters.Attach(inputObserver);
 
             // Call
-            TestDelegate test = () => properties.EntryPointL = l;
+            properties.EntryPointL = l;
 
             // Assert
-            var message = string.Format(Resources.PipingInputContextProperties_EntryPointL_Value_0_results_in_invalid_seepage_length, l);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+            Assert.IsNaN(properties.SeepageLength.GetDesignValue());
 
             mocks.VerifyAll();
         }
@@ -357,6 +316,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var inputObserver = mocks.StrictMock<IObserver>();
+            inputObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -377,11 +337,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             inputParameters.Attach(inputObserver);
 
             // Call
-            TestDelegate test = () => properties.ExitPointL = l;
+            properties.ExitPointL = l;
 
             // Assert
-            var message = string.Format(Resources.PipingInputContextProperties_ExitPointL_Value_0_results_in_invalid_seepage_length, l);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+            Assert.IsNaN(properties.SeepageLength.GetDesignValue());
 
             mocks.VerifyAll();
         }
