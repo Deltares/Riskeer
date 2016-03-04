@@ -57,6 +57,10 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
+            yield return new PropertyInfo<PipingFailureMechanismContext, GeneralPipingInputProperties>
+            {
+                GetObjectPropertiesData = mechanism => mechanism.WrappedData.GeneralInput
+            };
             yield return new PropertyInfo<PipingCalculationContext, PipingCalculationContextProperties>();
             yield return new PropertyInfo<PipingCalculationGroupContext, PipingCalculationGroupContextProperties>();
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>();
@@ -346,7 +350,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void AddCalculation(PipingFailureMechanism failureMechanism)
         {
-            var calculation = new PipingCalculation
+            var calculation = new PipingCalculation(failureMechanism.GeneralInput)
             {
                 Name = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
             };
@@ -555,7 +559,7 @@ namespace Ringtoets.Piping.Plugin
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation_ToolTip,
                 PipingFormsResources.PipingIcon, (o, args) =>
                 {
-                    var calculation = new PipingCalculation
+                    var calculation = new PipingCalculation(nodeData.PipingFailureMechanism.GeneralInput)
                     {
                         Name = NamingHelper.GetUniqueName(group.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
                     };

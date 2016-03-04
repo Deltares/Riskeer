@@ -130,16 +130,16 @@
   <data name="PipingInput_AssessmentLevel_DisplayName" xml:space="preserve">
     <value>Toetspeil [m+NAP]</value>
   </data>
-  <data name="PipingInput_BeddingAngle_Description" xml:space="preserve">
+  <data name="GeneralPipingInput_BeddingAngle_Description" xml:space="preserve">
     <value>Hoek in het krachtenevenwicht die aangeeft hoeveel weerstand de korrels bieden tegen rollen; ook beddingshoek genoemd.</value>
   </data>
-  <data name="PipingInput_BeddingAngle_DisplayName" xml:space="preserve">
+  <data name="GeneralPipingInput_BeddingAngle_DisplayName" xml:space="preserve">
     <value>Rolweerstandshoek [º]</value>
   </data>
-  <data name="PipingInput_CriticalHeaveGradient_Description" xml:space="preserve">
+  <data name="GeneralPipingInput_CriticalHeaveGradient_Description" xml:space="preserve">
     <value>Kritiek verhang met betrekking tot heave.</value>
   </data>
-  <data name="PipingInput_CriticalHeaveGradient_DisplayName" xml:space="preserve">
+  <data name="GeneralPipingInput_CriticalHeaveGradient_DisplayName" xml:space="preserve">
     <value>Kritiek verhang m.b.t. heave [-]</value>
   </data>
   <data name="PipingInput_DampingFactorExit_Description" xml:space="preserve">
@@ -160,16 +160,16 @@
   <data name="PipingInput_Diameter70_DisplayName" xml:space="preserve">
     <value>70%-fraktiel van de korreldiameter in de bovenste zandlaag [m]</value>
   </data>
-  <data name="PipingInput_Gravity_Description" xml:space="preserve">
+  <data name="GeneralPipingInput_Gravity_Description" xml:space="preserve">
     <value>Valversnelling</value>
   </data>
-  <data name="PipingInput_Gravity_DisplayName" xml:space="preserve">
+  <data name="GeneralPipingInput_Gravity_DisplayName" xml:space="preserve">
     <value>Valversnelling [m/s²]</value>
   </data>
-  <data name="PipingInput_MeanDiameter70_Description" xml:space="preserve">
+  <data name="GeneralPipingInput_MeanDiameter70_Description" xml:space="preserve">
     <value>Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit.</value>
   </data>
-  <data name="PipingInput_MeanDiameter70_DisplayName" xml:space="preserve">
+  <data name="GeneralPipingInput_MeanDiameter70_DisplayName" xml:space="preserve">
     <value>Referentiewaarde voor 70%-fraktiel in Sellmeijer regel [m]</value>
   </data>
   <data name="PipingInput_PhreaticLevelExit_Description" xml:space="preserve">
@@ -193,10 +193,10 @@
   <data name="PipingCalculationContextProperties_DisplayName" xml:space="preserve">
     <value>Piping</value>
   </data>
-  <data name="PipingInput_SandParticlesVolumicWeight_Description" xml:space="preserve">
+  <data name="GeneralPipingInput_SandParticlesVolumicWeight_Description" xml:space="preserve">
     <value>Het (ondergedompelde) volumegewicht van zandkorrelmateriaal van een zandlaag.</value>
   </data>
-  <data name="PipingInput_SandParticlesVolumicWeight_DisplayName" xml:space="preserve">
+  <data name="GeneralPipingInput_SandParticlesVolumicWeight_DisplayName" xml:space="preserve">
     <value>Volumiek gewicht van de zandkorrels onder water [kN/m³]</value>
   </data>
   <data name="PipingInput_SeepageLength_Description" xml:space="preserve">
@@ -205,16 +205,16 @@
   <data name="PipingInput_SeepageLength_DisplayName" xml:space="preserve">
     <value>Kwelweglengte [m]</value>
   </data>
-  <data name="PipingInput_SellmeijerModelFactor_Description" xml:space="preserve">
+  <data name="GeneralPipingInput_SellmeijerModelFactor_Description" xml:space="preserve">
     <value>Rekenwaarde om de modelonzekerheid in het model van Sellmeijer in rekening te brengen.</value>
   </data>
-  <data name="PipingInput_SellmeijerModelFactor_DisplayName" xml:space="preserve">
+  <data name="GeneralPipingInput_SellmeijerModelFactor_DisplayName" xml:space="preserve">
     <value>Modelfactor piping toegepast op Sellmeijermodel [-]</value>
   </data>
-  <data name="PipingInput_SellmeijerReductionFactor_Description" xml:space="preserve">
+  <data name="GeneralPipingInput_SellmeijerReductionFactor_Description" xml:space="preserve">
     <value>Reductiefactor Sellmeijer.</value>
   </data>
-  <data name="PipingInput_SellmeijerReductionFactor_DisplayName" xml:space="preserve">
+  <data name="GeneralPipingInput_SellmeijerReductionFactor_DisplayName" xml:space="preserve">
     <value>Reductiefactor Sellmeijer [-]</value>
   </data>
   <data name="PipingInput_ThicknessAquiferLayer_Description" xml:space="preserve">
@@ -229,28 +229,28 @@
   <data name="PipingInput_ThicknessCoverageLayer_DisplayName" xml:space="preserve">
     <value>Totale deklaagdikte bij uittredepunt [m]</value>
   </data>
-  <data name="PipingInput_UpliftModelFactor_Description" xml:space="preserve">
+  <data name="GeneralPipingInput_UpliftModelFactor_Description" xml:space="preserve">
     <value>Rekenwaarde om de modelonzekerheid in het model van opbarsten in rekening te brengen.</value>
   </data>
-  <data name="PipingInput_UpliftModelFactor_DisplayName" xml:space="preserve">
+  <data name="GeneralPipingInput_UpliftModelFactor_DisplayName" xml:space="preserve">
     <value>Modelfactor opbarsten [-]</value>
   </data>
-  <data name="PipingInput_WaterKinematicViscosity_Description" xml:space="preserve">
+  <data name="GeneralPipingInput_WaterKinematicViscosity_Description" xml:space="preserve">
     <value>Kinematische viscositeit van water bij 10º Celsius.</value>
   </data>
-  <data name="PipingInput_WaterKinematicViscosity_DisplayName" xml:space="preserve">
+  <data name="GeneralPipingInput_WaterKinematicViscosity_DisplayName" xml:space="preserve">
     <value>Kinematische viscositeit van water bij 10º Celsius [m²/s]</value>
   </data>
-  <data name="PipingInput_WaterVolumetricWeight_Description" xml:space="preserve">
+  <data name="GeneralPipingInput_WaterVolumetricWeight_Description" xml:space="preserve">
     <value>Volumiek gewicht van water.</value>
   </data>
-  <data name="PipingInput_WaterVolumetricWeight_DisplayName" xml:space="preserve">
+  <data name="GeneralPipingInput_WaterVolumetricWeight_DisplayName" xml:space="preserve">
     <value>Volumiek gewicht van water [kN/m³]</value>
   </data>
-  <data name="PipingInput_WhitesDragCoefficient_Description" xml:space="preserve">
+  <data name="GeneralPipingInput_WhitesDragCoefficient_Description" xml:space="preserve">
     <value>Sleepkrachtfactor volgens White.</value>
   </data>
-  <data name="PipingInput_WhitesDragCoefficient_DisplayName" xml:space="preserve">
+  <data name="GeneralPipingInput_WhitesDragCoefficient_DisplayName" xml:space="preserve">
     <value>Coëfficiënt van White [-]</value>
   </data>
   <data name="PipingIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -582,5 +582,20 @@
   </data>
   <data name="PipingInputExtensions_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer" xml:space="preserve">
     <value>Kan deklaagdikte niet afleiden op basis van de invoer.</value>
+  </data>
+  <data name="Categories_SemiProbabilisticParameters" xml:space="preserve">
+    <value>Semi-probabilistische parameters</value>
+  </data>
+  <data name="GeneralPipingInput_A_Description" xml:space="preserve">
+    <value>De parameter 'a' die gebruikt wordt voor het lengte effect in berekening van de maximaal toelaatbare faalkans.</value>
+  </data>
+  <data name="GeneralPipingInput_A_DisplayName" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="GeneralPipingInput_B_Description" xml:space="preserve">
+    <value>De parameter 'b' die gebruikt wordt voor het lengte effect in berekening van de maximaal toelaatbare faalkans.</value>
+  </data>
+  <data name="GenerapPipingInput_B_DisplayName" xml:space="preserve">
+    <value>b</value>
   </data>
 </root>

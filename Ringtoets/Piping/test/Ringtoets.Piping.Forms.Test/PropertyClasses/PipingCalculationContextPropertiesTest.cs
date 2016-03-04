@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             const string name = "<very cool name>";
-            var calculation = new PipingCalculation
+            var calculation = new PipingCalculation(new GeneralPipingInput())
             {
                 Name = name
             };
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculation();
+            var calculation = new PipingCalculation(new GeneralPipingInput());
             calculation.Attach(projectObserver);
 
             var properties = new PipingCalculationContextProperties
@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculation();
+            var calculation = new PipingCalculation(new GeneralPipingInput());
             calculation.Attach(projectObserver);
 
             var properties = new PipingCalculationContextProperties

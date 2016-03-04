@@ -15,7 +15,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         public void SetSurfaceLine_WithDikeToeDikeSideAndDikeToeRiverSide_SetsExitPointLAndSeePageLength()
         {
             // Setup
-            var inputParameters = new PipingInput();
+            var inputParameters = new PipingInput(new GeneralPipingInput());
             RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
             var firstPointX = 1.0;
             var secondPointX = 4.0;
@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         public void SetSurfaceLine_Null_SetsExitPointLAndSeePageLengthMeanToNaN()
         {
             // Setup
-            var inputParameters = new PipingInput();
+            var inputParameters = new PipingInput(new GeneralPipingInput());
             RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
             var firstPointX = 1.0;
             var secondPointX = 4.0;
@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         public void SetSurfaceLine_WithoutDikeToeDikeSideAndDikeToeRiverSide_ExitPointAtEndAndSeePageLengthIsLengthInX()
         {
             // Setup
-            var inputParameters = new PipingInput();
+            var inputParameters = new PipingInput(new GeneralPipingInput());
             RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
             var firstPointX = 1.0;
             var secondPointX = 4.0;
@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         public void SetSurfaceLine_WithoutDikeToeDikeSide_ExitPointSetSeePageLengthStartToExitPointInX()
         {
             // Setup
-            var inputParameters = new PipingInput();
+            var inputParameters = new PipingInput(new GeneralPipingInput());
             RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
             var firstPointX = 1.0;
             var secondPointX = 3.0;
@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         public void SetSurfaceLine_WithoutDikeToeRiverSide_ExitPointAtEndSeePageLengthLessThanLengthInX()
         {
             // Setup
-            var inputParameters = new PipingInput();
+            var inputParameters = new PipingInput(new GeneralPipingInput());
             RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
             var firstPointX = 1.0;
             var secondPointX = 3.0;
@@ -167,7 +167,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
                     IsAquifer = true
                 }
             });
-            var input = new PipingInput
+            var input = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile,
@@ -191,7 +191,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         {
             // Setup
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var input = new PipingInput();
+            var input = new PipingInput(new GeneralPipingInput());
             input.SetSurfaceLine(surfaceLine);
 
             input.SeepageLength.Mean = seepageLength; // L-coordinate of entry point at 4.0 - seepageLength
@@ -211,7 +211,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
 
             var l = 2.0;
-            var input = new PipingInput
+            var input = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine,
                 ExitPointL = l
@@ -232,7 +232,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             var exitPointOld = 4.0;
             var seepageLength = 3.0;
             var surfaceLine = ValidSurfaceLine(0.0, exitPointOld);
-            var input = new PipingInput();
+            var input = new PipingInput(new GeneralPipingInput());
             input.SetSurfaceLine(surfaceLine);
             input.SeepageLength.Mean = seepageLength;
             var entryPointL = exitPointOld - seepageLength;
@@ -271,7 +271,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
                     IsAquifer = false
                 }
             });
-            var input = new PipingInput();
+            var input = new PipingInput(new GeneralPipingInput());
 
             // Call
             Action call = null;
@@ -306,8 +306,10 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
                     IsAquifer = false
                 }
             });
-            var input = new PipingInput();
-            input.SoilProfile = soilProfile;
+            var input = new PipingInput(new GeneralPipingInput())
+            {
+                SoilProfile = soilProfile
+            };
 
             // Call
             Action call = () => input.SetSurfaceLine(surfaceLine);
@@ -340,7 +342,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
                     IsAquifer = false
                 }
             });
-            var input = new PipingInput();
+            var input = new PipingInput(new GeneralPipingInput());
             input.SetSurfaceLine(surfaceLine);
             input.SetSoilProfile(soilProfile);
 
@@ -378,7 +380,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
                 }
             });
 
-            var input = new PipingInput();
+            var input = new PipingInput(new GeneralPipingInput());
 
             input.SetSurfaceLine(surfaceLine);
             input.SetExitPointL(0.5);
@@ -415,7 +417,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
                     IsAquifer = false
                 }
             });
-            var input = new PipingInput
+            var input = new PipingInput(new GeneralPipingInput())
             {
                 SoilProfile = soilProfile,
                 ExitPointL = 0.5
@@ -455,7 +457,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
                     IsAquifer = false
                 }
             });
-            var input = new PipingInput
+            var input = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine,
                 ExitPointL = 0.5
@@ -495,7 +497,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
                     IsAquifer = false
                 }
             });
-            var input = new PipingInput
+            var input = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile

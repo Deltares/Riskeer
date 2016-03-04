@@ -20,7 +20,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var pipingInput = new PipingInput();
+            var pipingInput = new PipingInput(new GeneralPipingInput());
             var surfaceLines = new[] { new RingtoetsPipingSurfaceLine() };
             var profiles = new[] { new TestPipingSoilProfile() };
 
@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var input = new PipingInput();
+            var input = new PipingInput(new GeneralPipingInput());
             var surfaceLines = new[]
             {
                 new RingtoetsPipingSurfaceLine()
@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var presentationObject = new PipingInputContext(new PipingInput(),
+            var presentationObject = new PipingInputContext(new PipingInput(new GeneralPipingInput()),
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                             Enumerable.Empty<PipingSoilProfile>(),
                                                             assessmentSectionMock);
@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var presentationObject = new PipingInputContext(new PipingInput(),
+            var presentationObject = new PipingInputContext(new PipingInput(new GeneralPipingInput()),
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                             Enumerable.Empty<PipingSoilProfile>(),
                                                             assessmentSectionMock);
@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var pipingInput = new PipingInput();
+            var pipingInput = new PipingInput(new GeneralPipingInput());
             var presentationObject = new PipingInputContext(pipingInput,
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                             Enumerable.Empty<PipingSoilProfile>(),

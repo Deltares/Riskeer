@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
-            var pipingInput = new PipingInput
+            var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
             };
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            var pipingInput = new PipingInput
+            var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };

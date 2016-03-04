@@ -55,7 +55,16 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingCalculation invalidPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
-            invalidPipingCalculation.InputParameters.BeddingAngle = -1;
+
+            // Make invalid by having surfaceline partially above soil profile:
+            double highestLevelSurfaceLine = invalidPipingCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
+            invalidPipingCalculation.InputParameters.SoilProfile = new PipingSoilProfile("A", 0, new[]
+            {
+                new PipingSoilLayer(highestLevelSurfaceLine-0.5)
+                {
+                    IsAquifer = true
+                } 
+            });
 
             // Call
             Action call = () => PipingCalculationService.Calculate(invalidPipingCalculation);
@@ -75,9 +84,11 @@ namespace Ringtoets.Piping.Service.Test
         public void CalculateThicknessCoverageLayer_ValidInput_ReturnsThickness()
         {
             // Setup
-            PipingInput input = new PipingInput();
-            input.ExitPointL = 10;
-            input.SurfaceLine = new RingtoetsPipingSurfaceLine();
+            PipingInput input = new PipingInput(new GeneralPipingInput())
+            {
+                ExitPointL = 10,
+                SurfaceLine = new RingtoetsPipingSurfaceLine()
+            };
             input.SurfaceLine.SetGeometry(new []
             {
                 new Point3D(0, 0, 10),
@@ -106,9 +117,11 @@ namespace Ringtoets.Piping.Service.Test
         public void CalculateThicknessCoverageLayer_SurfaceLineOutsideProfile_ThrowsPipingCalculatorException()
         {
             // Setup
-            PipingInput input = new PipingInput();
-            input.ExitPointL = 10;
-            input.SurfaceLine = new RingtoetsPipingSurfaceLine();
+            PipingInput input = new PipingInput(new GeneralPipingInput())
+            {
+                ExitPointL = 10,
+                SurfaceLine = new RingtoetsPipingSurfaceLine()
+            };
             input.SurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 10),

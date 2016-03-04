@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var assessmentSectionMock = mockRepository.StrictMock<AssessmentSectionBase>();
 
-            var pipingInput = new PipingInput
+            var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = ValidSurfaceLine()
             };
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                 new Point3D(0.0, 0.0, 0.0), 
                 new Point3D(1.0, 0.0, 1.0)
             });
-            var pipingInput = new PipingInput
+            var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine
             };

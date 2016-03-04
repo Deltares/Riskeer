@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new TestPipingSoilProfile()
             };
-            var calculation = new PipingCalculation();
+            var calculation = new PipingCalculation(new GeneralPipingInput());
 
             var mocks = new MockRepository();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new TestPipingSoilProfile()
             };
-            var calculation = new PipingCalculation();
+            var calculation = new PipingCalculation(new GeneralPipingInput());
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new TestPipingSoilProfile()
             };
-            var calculation = new PipingCalculation();
+            var calculation = new PipingCalculation(new GeneralPipingInput());
             var mocks = new MockRepository();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new TestPipingSoilProfile()
             };
-            var calculation = new PipingCalculation();
+            var calculation = new PipingCalculation(new GeneralPipingInput());
 
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
@@ -142,7 +142,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new TestPipingSoilProfile()
             };
-            var calculation = new PipingCalculation();
+            var calculation = new PipingCalculation(new GeneralPipingInput());
 
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();

@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var assessmentSectionMock = mockRepository.StrictMock<AssessmentSectionBase>();
 
-            var pipingInput = new PipingInput
+            var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var assessmentSectionMock = mockRepository.StrictMock<AssessmentSectionBase>();
 
             var soilProfile = new TestPipingSoilProfile();
-            var pipingInput = new PipingInput
+            var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 SoilProfile = soilProfile
             };

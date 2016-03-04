@@ -12,7 +12,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetPipingCalculations_FromPipingCalculation_ReturnThatCalculationInstance()
         {
             // Setup
-            IPipingCalculationItem calculation = new PipingCalculation();
+            IPipingCalculationItem calculation = new PipingCalculation(new GeneralPipingInput());
 
             // Call
             IEnumerable<PipingCalculation> result = calculation.GetPipingCalculations();
@@ -56,10 +56,11 @@ namespace Ringtoets.Piping.Data.Test
         public void GetPipingCalculations_FromPipingCalculationGroupWithGroupsAndCalculations_ReturnAllCalculationsRecursiveslyInAnyOrder()
         {
             // Setup
-            var calculation1 = new PipingCalculation();
-            var calculation2 = new PipingCalculation();
-            var calculation3 = new PipingCalculation();
-            var calculation4 = new PipingCalculation();
+            var generalPipingInput = new GeneralPipingInput();
+            var calculation1 = new PipingCalculation(generalPipingInput);
+            var calculation2 = new PipingCalculation(generalPipingInput);
+            var calculation3 = new PipingCalculation(generalPipingInput);
+            var calculation4 = new PipingCalculation(generalPipingInput);
 
             var subsubGroup = new PipingCalculationGroup();
             subsubGroup.Children.Add(calculation4);
@@ -109,8 +110,9 @@ namespace Ringtoets.Piping.Data.Test
         public void GetPipingCalculations_FromArrayWithCalculations_ReturnAllThoseCalculationsInAnyOrder()
         {
             // Setup
-            var calculation1 = new PipingCalculation();
-            var calculation2 = new PipingCalculation();
+            var generalInputParameters = new GeneralPipingInput();
+            var calculation1 = new PipingCalculation(generalInputParameters);
+            var calculation2 = new PipingCalculation(generalInputParameters);
             IEnumerable<IPipingCalculationItem> calculationArray = new[] { calculation1, calculation2 };
 
             // Call
@@ -139,11 +141,12 @@ namespace Ringtoets.Piping.Data.Test
         public void GetPipingCalculations_FromArrayWithMixedGroupsAndCalculations_ReturnAllCalculationsInAnyOrder()
         {
             // Setup
-            var rootcalculation = new PipingCalculation();
-            var calculation1 = new PipingCalculation();
-            var calculation2 = new PipingCalculation();
-            var calculation3 = new PipingCalculation();
-            var calculation4 = new PipingCalculation();
+            var generalInputParameters = new GeneralPipingInput();
+            var rootcalculation = new PipingCalculation(generalInputParameters);
+            var calculation1 = new PipingCalculation(generalInputParameters);
+            var calculation2 = new PipingCalculation(generalInputParameters);
+            var calculation3 = new PipingCalculation(generalInputParameters);
+            var calculation4 = new PipingCalculation(generalInputParameters);
 
             var subsubGroup = new PipingCalculationGroup();
             subsubGroup.Children.Add(calculation4);

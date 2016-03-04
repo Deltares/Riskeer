@@ -1,6 +1,4 @@
-﻿using Core.Common.Base;
-
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -14,8 +12,6 @@ namespace Ringtoets.Piping.Data.Test
             var inputParameters = new GeneralPipingInput();
 
             // Assert
-            Assert.IsInstanceOf<Observable>(inputParameters);
-
             Assert.AreEqual(1.0, inputParameters.UpliftModelFactor);
             Assert.AreEqual(1.0, inputParameters.SellmeijerModelFactor);
 

@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Children_AddPipingCalculation_CalculationAddedToCollection()
         {
             // Setup
-            var calculation = new PipingCalculation();
+            var calculation = new PipingCalculation(new GeneralPipingInput());
 
             var group = new PipingCalculationGroup();
 
@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Children_RemovePipingCalculation_CalculationRemovedFromCollection()
         {
             // Setup
-            var calculation = new PipingCalculation();
+            var calculation = new PipingCalculation(new GeneralPipingInput());
 
             var group = new PipingCalculationGroup();
             group.Children.Add(calculation);
@@ -122,8 +122,9 @@ namespace Ringtoets.Piping.Data.Test
         public void Children_AddPipingCalculationAtIndex_CalculationAddedToCollectionAtIndex(int index)
         {
             // Setup
-            var calculation = new PipingCalculation();
-            var calculationToInsert = new PipingCalculation();
+            var generalInputParameters = new GeneralPipingInput();
+            var calculation = new PipingCalculation(generalInputParameters);
+            var calculationToInsert = new PipingCalculation(generalInputParameters);
 
             var group = new PipingCalculationGroup();
             group.Children.Add(calculation);

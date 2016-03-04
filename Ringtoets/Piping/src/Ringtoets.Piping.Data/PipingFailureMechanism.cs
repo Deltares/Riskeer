@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Data
             SoilProfiles = new ObservableList<PipingSoilProfile>();
             BoundaryConditions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_BoundaryConditions_DisplayName);
             var pipingCalculationGroup = new PipingCalculationGroup(PipingDataResources.PipingFailureMechanism_Calculations_DisplayName, false);
-            pipingCalculationGroup.Children.Add(new PipingCalculation());
+            pipingCalculationGroup.Children.Add(new PipingCalculation(GeneralInput));
             CalculationsGroup = pipingCalculationGroup;
             AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
         }

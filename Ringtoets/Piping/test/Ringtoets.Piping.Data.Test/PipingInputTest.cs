@@ -13,10 +13,13 @@ namespace Ringtoets.Piping.Data.Test
     public class PipingInputTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
+            // Setup
+            var generalInputParameters = new GeneralPipingInput();
+
             // Call
-            var inputParameters = new PipingInput();
+            var inputParameters = new PipingInput(generalInputParameters);
 
             // Assert
             Assert.IsInstanceOf<Observable>(inputParameters);
@@ -43,17 +46,17 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsNull(inputParameters.SoilProfile);
             Assert.IsNull(inputParameters.HydraulicBoundaryLocation);
 
-            Assert.AreEqual(1.0, inputParameters.UpliftModelFactor);
-            Assert.AreEqual(1, inputParameters.SellmeijerModelFactor);
-            Assert.AreEqual(0.3, inputParameters.CriticalHeaveGradient);
-            Assert.AreEqual(0.3, inputParameters.SellmeijerReductionFactor);
-            Assert.AreEqual(9.81, inputParameters.Gravity);
-            Assert.AreEqual(1.33e-6, inputParameters.WaterKinematicViscosity);
-            Assert.AreEqual(10.0, inputParameters.WaterVolumetricWeight);
-            Assert.AreEqual(16.5, inputParameters.SandParticlesVolumicWeight);
-            Assert.AreEqual(0.25, inputParameters.WhitesDragCoefficient);
-            Assert.AreEqual(37, inputParameters.BeddingAngle);
-            Assert.AreEqual(2.08e-4, inputParameters.MeanDiameter70);
+            Assert.AreEqual(generalInputParameters.UpliftModelFactor, inputParameters.UpliftModelFactor);
+            Assert.AreEqual(generalInputParameters.SellmeijerModelFactor, inputParameters.SellmeijerModelFactor);
+            Assert.AreEqual(generalInputParameters.CriticalHeaveGradient, inputParameters.CriticalHeaveGradient);
+            Assert.AreEqual(generalInputParameters.SellmeijerReductionFactor, inputParameters.SellmeijerReductionFactor);
+            Assert.AreEqual(generalInputParameters.Gravity, inputParameters.Gravity);
+            Assert.AreEqual(generalInputParameters.WaterKinematicViscosity, inputParameters.WaterKinematicViscosity);
+            Assert.AreEqual(generalInputParameters.WaterVolumetricWeight, inputParameters.WaterVolumetricWeight);
+            Assert.AreEqual(generalInputParameters.SandParticlesVolumicWeight, inputParameters.SandParticlesVolumicWeight);
+            Assert.AreEqual(generalInputParameters.WhitesDragCoefficient, inputParameters.WhitesDragCoefficient);
+            Assert.AreEqual(generalInputParameters.BeddingAngle, inputParameters.BeddingAngle);
+            Assert.AreEqual(generalInputParameters.MeanDiameter70, inputParameters.MeanDiameter70);
 
             Assert.IsInstanceOf<LognormalDistribution>(inputParameters.ThicknessCoverageLayer);
             Assert.IsNaN(inputParameters.ThicknessCoverageLayer.Mean);
@@ -72,10 +75,22 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void Constructor_GeneralPipingInputIsNull_ArgumentNullException()
+        {
+            // Setup
+
+            // Call
+            TestDelegate call = () => new PipingInput(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
         public void AssessmentLevel_ValueIsNaN_ThrowsArgumentException()
         {
             // Setup
-            var pipingInput = new PipingInput();
+            var pipingInput = new PipingInput(new GeneralPipingInput());
 
             // Call
             TestDelegate test = () => pipingInput.AssessmentLevel = double.NaN;
@@ -91,7 +106,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ExitPointL_ValueLessOrEqualToZero_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
-            var pipingInput = new PipingInput();
+            var pipingInput = new PipingInput(new GeneralPipingInput());
 
             // Call
             TestDelegate test = () => pipingInput.ExitPointL = value;

@@ -7,7 +7,7 @@ namespace Ringtoets.Piping.Data.TestUtil
     {
         public static PipingCalculation CreateCalculationWithInvalidData()
         {
-            return new PipingCalculation();
+            return new PipingCalculation(new GeneralPipingInput());
         }
 
         public static PipingCalculation CreateCalculationWithValidInput()
@@ -28,12 +28,11 @@ namespace Ringtoets.Piping.Data.TestUtil
                 new Point3D(0.0, 0.0, 0.0), 
                 new Point3D(1.0, 0.0, top)
             });
-            return new PipingCalculation
+            return new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
                     AssessmentLevel = 1.0,
-                    BeddingAngle = 1.0,
                     DampingFactorExit =
                     {
                         Mean = 1.0
@@ -47,21 +46,16 @@ namespace Ringtoets.Piping.Data.TestUtil
                         Mean = 1.0
                     },
                     ExitPointL = 1.0,
-                    Gravity = 1.0,
-                    MeanDiameter70 = 1.0,
                     PiezometricHeadExit = 1.0,
                     PiezometricHeadPolder = 1.0,
                     PhreaticLevelExit =
                     {
                         Mean = 2.0
                     },
-                    SandParticlesVolumicWeight = 1.0,
                     SeepageLength =
                     {
                         Mean = 1.0
                     },
-                    SellmeijerModelFactor = 1.0,
-                    SellmeijerReductionFactor = 1.0,
                     ThicknessAquiferLayer =
                     {
                         Mean = 1.0
@@ -70,10 +64,6 @@ namespace Ringtoets.Piping.Data.TestUtil
                     {
                         Mean = 1.0
                     },
-                    UpliftModelFactor = 1.0,
-                    WaterKinematicViscosity = 1.0,
-                    WaterVolumetricWeight = 1.0,
-                    WhitesDragCoefficient = 1.0,
                     SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile
                 }

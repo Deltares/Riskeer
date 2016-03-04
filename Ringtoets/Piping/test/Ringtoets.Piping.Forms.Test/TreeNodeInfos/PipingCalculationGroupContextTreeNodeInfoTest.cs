@@ -144,7 +144,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var calculationItem = mocks.StrictMock<IPipingCalculationItem>();
 
-            var childCalculation = new PipingCalculation();
+            var childCalculation = new PipingCalculation(new GeneralPipingInput());
 
             var childGroup = new PipingCalculationGroup();
 
@@ -190,7 +190,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var group = new PipingCalculationGroup();
 
             parentGroup.Children.Add(group);
-            group.Children.Add(new PipingCalculation
+            group.Children.Add(new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             });
@@ -308,7 +308,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var group = new PipingCalculationGroup();
 
-            group.Children.Add(new PipingCalculation
+            group.Children.Add(new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             });
@@ -415,7 +415,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var group = new PipingCalculationGroup();
 
-            group.Children.Add(new PipingCalculation
+            group.Children.Add(new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             });
@@ -1376,7 +1376,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             switch (type)
             {
                 case PipingCalculationItemType.Calculation:
-                    var calculation = new PipingCalculation();
+                    var calculation = new PipingCalculation(new GeneralPipingInput());
                     if (initialName != null)
                     {
                         calculation.Name = initialName;

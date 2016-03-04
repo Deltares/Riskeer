@@ -19,15 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
-
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// Class that holds all the overarching piping calculation input parameters, e.g. the
     /// values that apply for all calculations.
     /// </summary>
-    public class GeneralPipingInput : Observable
+    public class GeneralPipingInput
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralPipingInput"/> class.
@@ -49,20 +47,6 @@ namespace Ringtoets.Piping.Data
             B = 350.0;
         }
 
-        #region Model Factors
-
-        /// <summary>
-        /// Gets the calculation value used to account for uncertainty in the model for uplift.
-        /// </summary>
-        public double UpliftModelFactor { get; private set; }
-
-        /// <summary>
-        /// Gets the calculation value used to account for uncertainty in the model for Sellmeijer.
-        /// </summary>
-        public double SellmeijerModelFactor { get; private set; }
-
-        #endregion
-
         #region General parameters (use by multiple calculations)
 
         /// <summary>
@@ -79,6 +63,20 @@ namespace Ringtoets.Piping.Data
         /// Gets the critical exit gradient for heave.
         /// </summary>
         public double CriticalHeaveGradient { get; private set; }
+
+        #endregion
+
+        #region Model Factors
+
+        /// <summary>
+        /// Gets the calculation value used to account for uncertainty in the model for uplift.
+        /// </summary>
+        public double UpliftModelFactor { get; private set; }
+
+        /// <summary>
+        /// Gets the calculation value used to account for uncertainty in the model for Sellmeijer.
+        /// </summary>
+        public double SellmeijerModelFactor { get; private set; }
 
         #endregion
 

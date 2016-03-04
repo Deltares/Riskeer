@@ -9,6 +9,8 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -59,10 +61,22 @@ namespace Ringtoets.Piping.Plugin.Test
             using (var guiPlugin = new PipingGuiPlugin())
             {
                 // call
+                var mocks = new MockRepository();
+                var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+                mocks.ReplayAll();
+
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(6, propertyInfos.Length);
+                Assert.AreEqual(7, propertyInfos.Length);
+
+                var pipingFailureMechanism = new PipingFailureMechanism();
+                var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
+                var pipingFailureMechanismContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingFailureMechanismContext));
+                Assert.AreEqual(typeof(GeneralPipingInputProperties), pipingFailureMechanismContextProperties.PropertyObjectType);
+                Assert.IsNull(pipingFailureMechanismContextProperties.AdditionalDataCheck);
+                Assert.AreSame(pipingFailureMechanism.GeneralInput, pipingFailureMechanismContextProperties.GetObjectPropertiesData(pipingFailureMechanismContext));
+                Assert.IsNull(pipingFailureMechanismContextProperties.AfterCreate);
 
                 var pipingCalculationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingCalculationContext));
                 Assert.AreEqual(typeof(PipingCalculationContextProperties), pipingCalculationContextProperties.PropertyObjectType);
@@ -99,6 +113,8 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsNull(pipingSoilProfileProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingSoilProfileProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingSoilProfileProperties.AfterCreate);
+
+                mocks.VerifyAll();
             }
         }
 

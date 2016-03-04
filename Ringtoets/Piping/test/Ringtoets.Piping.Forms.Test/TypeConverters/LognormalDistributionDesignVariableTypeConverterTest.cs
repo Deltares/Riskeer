@@ -138,7 +138,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var inputParameters = new PipingInput();
+            var inputParameters = new PipingInput(new GeneralPipingInput());
             var inputParametersContext = new PipingInputContext(inputParameters,
                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                 Enumerable.Empty<PipingSoilProfile>(),

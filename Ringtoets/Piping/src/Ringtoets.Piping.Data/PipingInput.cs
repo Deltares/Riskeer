@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+
 using Core.Common.Base;
+
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Data.Properties;
@@ -33,28 +35,28 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingInput : Observable
     {
+        public const double SeepageLengthStandardDeviationFraction = 0.1;
+        private readonly GeneralPipingInput generalInputParameters;
         private double assessmentLevel;
         private double exitPointL;
-        public const double SeepageLengthStandardDeviationFraction = 0.1;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
         /// </summary>
-        public PipingInput()
+        /// <param name="generalInputParameters">General piping calculation parameters that
+        /// are the same across all piping calculations.</param>
+        /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/>
+        /// is <c>null</c>.</exception>
+        public PipingInput(GeneralPipingInput generalInputParameters)
         {
-            // Defaults as they have been defined in 'functional design semi-probabilistic assessments 1209431-008-ZWS-0009 Version 2 Final'
-            UpliftModelFactor = 1.0;
-            SellmeijerModelFactor = 1.0;
-            WaterVolumetricWeight = 10.0;
-            WhitesDragCoefficient = 0.25;
-            SandParticlesVolumicWeight = 16.5;
-            WaterKinematicViscosity = 1.33e-6;
-            Gravity = 9.81;
-            MeanDiameter70 = 2.08e-4;
-            BeddingAngle = 37.0;
-            SellmeijerReductionFactor = 0.3;
-            CriticalHeaveGradient = 0.3;
+            if (generalInputParameters == null)
+            {
+                throw new ArgumentNullException("generalInputParameters");
+            }
 
+            this.generalInputParameters = generalInputParameters;
+
+            // Defaults as they have been defined in 'functional design semi-probabilistic assessments 1209431-008-ZWS-0009 Version 2 Final'
             ExitPointL = double.NaN;
             PhreaticLevelExit = new NormalDistribution();
             DampingFactorExit = new LognormalDistribution
@@ -82,57 +84,6 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the reduction factor Sellmeijer.
-        /// </summary>
-        public double SellmeijerReductionFactor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the volumetric weight of water.
-        /// [kN/m³]
-        /// </summary>
-        public double WaterVolumetricWeight { get; set; }
-
-        /// <summary>
-        /// Gets or sets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
-        /// [kN/m³]
-        /// </summary>
-        public double SandParticlesVolumicWeight { get; set; }
-
-        /// <summary>
-        /// Gets or sets the White's drag coefficient.
-        /// </summary>
-        public double WhitesDragCoefficient { get; set; }
-
-        /// <summary>
-        /// Gets or sets the kinematic viscosity of water at 10 degrees Celsius.
-        /// [m²/s]
-        /// </summary>
-        public double WaterKinematicViscosity { get; set; }
-
-        /// <summary>
-        /// Gets or sets the gravitational acceleration.
-        /// [m/s²]
-        /// </summary>
-        public double Gravity { get; set; }
-
-        /// <summary>
-        /// Gets or sets the mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.
-        /// [m]
-        /// </summary>
-        public double MeanDiameter70 { get; set; }
-
-        /// <summary>
-        /// Gets or sets the angle of the force balance representing the amount in which sand grains resist rolling.
-        /// [°]
-        /// </summary>
-        public double BeddingAngle { get; set; }
-
-        /// <summary>
-        /// Gets or sets the calculation value used to account for uncertainty in the model for uplift.
-        /// </summary>
-        public double UpliftModelFactor { get; set; }
-
-        /// <summary>
         /// Gets or sets the outside high water level.
         /// [m]
         /// </summary>
@@ -154,24 +105,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the piezometric head at the exit point.
-        /// [m]
-        /// </summary>
-        public double PiezometricHeadExit { get; set; }
-
-        /// <summary>
-        /// Gets or sets the piezometric head in the hinterland.
-        /// [m]
-        /// </summary>
-        public double PiezometricHeadPolder { get; set; }
-
-        /// <summary>
-        /// Gets or sets the calculation value used to account for uncertainty in the model for Sellmeijer.
-        /// </summary>
-        public double SellmeijerModelFactor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the L-coordinate of the exit point.
+        /// Gets or sets the mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.
         /// [m]
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less or equal to 0.</exception>
@@ -191,14 +125,17 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        #region Constants
+        /// <summary>
+        /// Gets or sets the piezometric head at the exit point.
+        /// [m]
+        /// </summary>
+        public double PiezometricHeadExit { get; set; }
 
         /// <summary>
-        /// Gets or sets the critical exit gradient for heave.
+        /// Gets or sets the piezometric head in the hinterland.
+        /// [m]
         /// </summary>
-        public double CriticalHeaveGradient { get; private set; }
-
-        #endregion
+        public double PiezometricHeadPolder { get; set; }
 
         /// <summary>
         /// Gets or sets the surface line.
@@ -214,6 +151,137 @@ namespace Ringtoets.Piping.Data
         /// Gets or set the hydraulic boundary location from which to use the assessment level.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+
+        #region General input parameters
+
+        /// <summary>
+        /// Gets or sets the reduction factor Sellmeijer.
+        /// </summary>
+        public double SellmeijerReductionFactor
+        {
+            get
+            {
+                return generalInputParameters.SellmeijerReductionFactor;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the volumetric weight of water.
+        /// [kN/m³]
+        /// </summary>
+        public double WaterVolumetricWeight
+        {
+            get
+            {
+                return generalInputParameters.WaterVolumetricWeight;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
+        /// [kN/m³]
+        /// </summary>
+        public double SandParticlesVolumicWeight
+        {
+            get
+            {
+                return generalInputParameters.SandParticlesVolumicWeight;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the White's drag coefficient.
+        /// </summary>
+        public double WhitesDragCoefficient
+        {
+            get
+            {
+                return generalInputParameters.WhitesDragCoefficient;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the kinematic viscosity of water at 10 degrees Celsius.
+        /// [m²/s]
+        /// </summary>
+        public double WaterKinematicViscosity
+        {
+            get
+            {
+                return generalInputParameters.WaterKinematicViscosity;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the gravitational acceleration.
+        /// [m/s²]
+        /// </summary>
+        public double Gravity
+        {
+            get
+            {
+                return generalInputParameters.Gravity;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.
+        /// [m]
+        /// </summary>
+        public double MeanDiameter70
+        {
+            get
+            {
+                return generalInputParameters.MeanDiameter70;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the angle of the force balance representing the amount in which sand grains resist rolling.
+        /// [°]
+        /// </summary>
+        public double BeddingAngle
+        {
+            get
+            {
+                return generalInputParameters.BeddingAngle;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the calculation value used to account for uncertainty in the model for uplift.
+        /// </summary>
+        public double UpliftModelFactor
+        {
+            get
+            {
+                return generalInputParameters.UpliftModelFactor;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the calculation value used to account for uncertainty in the model for Sellmeijer.
+        /// </summary>
+        public double SellmeijerModelFactor
+        {
+            get
+            {
+                return generalInputParameters.SellmeijerModelFactor;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the critical exit gradient for heave.
+        /// </summary>
+        public double CriticalHeaveGradient
+        {
+            get
+            {
+                return generalInputParameters.CriticalHeaveGradient;
+            }
+        }
+
+        #endregion
 
         #region Probabilistic parameters
 

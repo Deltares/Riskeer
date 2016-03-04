@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
@@ -34,12 +36,20 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Constructs a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.
         /// </summary>
-        public PipingCalculation()
+        /// <param name="generalInputParameters">General piping calculation parameters that
+        /// are the same across all piping calculations.</param>
+        /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/>
+        /// is <c>null</c>.</exception>
+        public PipingCalculation(GeneralPipingInput generalInputParameters)
         {
+            if (generalInputParameters == null)
+            {
+                throw new ArgumentNullException("generalInputParameters");
+            }
             Name = Resources.PipingCalculation_DefaultName;
 
             Comments = new InputPlaceholder(Resources.Comments_DisplayName);
-            InputParameters = new PipingInput();
+            InputParameters = new PipingInput(generalInputParameters);
         }
 
         /// <summary>

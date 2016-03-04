@@ -116,6 +116,15 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Semi-probabilistische parameters.
+        /// </summary>
+        public static string Categories_SemiProbabilisticParameters {
+            get {
+                return ResourceManager.GetString("Categories_SemiProbabilisticParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opbarsten.
         /// </summary>
         public static string Categories_Uplift {
@@ -194,6 +203,240 @@ namespace Ringtoets.Piping.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("FolderIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;a&apos; die gebruikt wordt voor het lengte effect in berekening van de maximaal toelaatbare faalkans..
+        /// </summary>
+        public static string GeneralPipingInput_A_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_A_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to a.
+        /// </summary>
+        public static string GeneralPipingInput_A_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_A_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;b&apos; die gebruikt wordt voor het lengte effect in berekening van de maximaal toelaatbare faalkans..
+        /// </summary>
+        public static string GeneralPipingInput_B_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_B_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hoek in het krachtenevenwicht die aangeeft hoeveel weerstand de korrels bieden tegen rollen; ook beddingshoek genoemd..
+        /// </summary>
+        public static string GeneralPipingInput_BeddingAngle_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_BeddingAngle_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rolweerstandshoek [º].
+        /// </summary>
+        public static string GeneralPipingInput_BeddingAngle_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_BeddingAngle_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritiek verhang met betrekking tot heave..
+        /// </summary>
+        public static string GeneralPipingInput_CriticalHeaveGradient_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_CriticalHeaveGradient_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritiek verhang m.b.t. heave [-].
+        /// </summary>
+        public static string GeneralPipingInput_CriticalHeaveGradient_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_CriticalHeaveGradient_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valversnelling.
+        /// </summary>
+        public static string GeneralPipingInput_Gravity_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_Gravity_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valversnelling [m/s²].
+        /// </summary>
+        public static string GeneralPipingInput_Gravity_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_Gravity_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit..
+        /// </summary>
+        public static string GeneralPipingInput_MeanDiameter70_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_MeanDiameter70_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Referentiewaarde voor 70%-fraktiel in Sellmeijer regel [m].
+        /// </summary>
+        public static string GeneralPipingInput_MeanDiameter70_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_MeanDiameter70_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het (ondergedompelde) volumegewicht van zandkorrelmateriaal van een zandlaag..
+        /// </summary>
+        public static string GeneralPipingInput_SandParticlesVolumicWeight_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_SandParticlesVolumicWeight_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volumiek gewicht van de zandkorrels onder water [kN/m³].
+        /// </summary>
+        public static string GeneralPipingInput_SandParticlesVolumicWeight_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_SandParticlesVolumicWeight_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde om de modelonzekerheid in het model van Sellmeijer in rekening te brengen..
+        /// </summary>
+        public static string GeneralPipingInput_SellmeijerModelFactor_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_SellmeijerModelFactor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modelfactor piping toegepast op Sellmeijermodel [-].
+        /// </summary>
+        public static string GeneralPipingInput_SellmeijerModelFactor_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_SellmeijerModelFactor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reductiefactor Sellmeijer..
+        /// </summary>
+        public static string GeneralPipingInput_SellmeijerReductionFactor_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_SellmeijerReductionFactor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reductiefactor Sellmeijer [-].
+        /// </summary>
+        public static string GeneralPipingInput_SellmeijerReductionFactor_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_SellmeijerReductionFactor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde om de modelonzekerheid in het model van opbarsten in rekening te brengen..
+        /// </summary>
+        public static string GeneralPipingInput_UpliftModelFactor_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_UpliftModelFactor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modelfactor opbarsten [-].
+        /// </summary>
+        public static string GeneralPipingInput_UpliftModelFactor_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_UpliftModelFactor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kinematische viscositeit van water bij 10º Celsius..
+        /// </summary>
+        public static string GeneralPipingInput_WaterKinematicViscosity_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_WaterKinematicViscosity_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kinematische viscositeit van water bij 10º Celsius [m²/s].
+        /// </summary>
+        public static string GeneralPipingInput_WaterKinematicViscosity_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_WaterKinematicViscosity_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volumiek gewicht van water..
+        /// </summary>
+        public static string GeneralPipingInput_WaterVolumetricWeight_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_WaterVolumetricWeight_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volumiek gewicht van water [kN/m³].
+        /// </summary>
+        public static string GeneralPipingInput_WaterVolumetricWeight_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_WaterVolumetricWeight_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sleepkrachtfactor volgens White..
+        /// </summary>
+        public static string GeneralPipingInput_WhitesDragCoefficient_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_WhitesDragCoefficient_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coëfficiënt van White [-].
+        /// </summary>
+        public static string GeneralPipingInput_WhitesDragCoefficient_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_WhitesDragCoefficient_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to b.
+        /// </summary>
+        public static string GenerapPipingInput_B_DisplayName {
+            get {
+                return ResourceManager.GetString("GenerapPipingInput_B_DisplayName", resourceCulture);
             }
         }
         
@@ -552,42 +795,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hoek in het krachtenevenwicht die aangeeft hoeveel weerstand de korrels bieden tegen rollen; ook beddingshoek genoemd..
-        /// </summary>
-        public static string PipingInput_BeddingAngle_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_BeddingAngle_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rolweerstandshoek [º].
-        /// </summary>
-        public static string PipingInput_BeddingAngle_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_BeddingAngle_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kritiek verhang met betrekking tot heave..
-        /// </summary>
-        public static string PipingInput_CriticalHeaveGradient_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_CriticalHeaveGradient_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kritiek verhang m.b.t. heave [-].
-        /// </summary>
-        public static string PipingInput_CriticalHeaveGradient_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_CriticalHeaveGradient_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand..
         /// </summary>
         public static string PipingInput_DampingFactorExit_Description {
@@ -678,24 +885,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valversnelling.
-        /// </summary>
-        public static string PipingInput_Gravity_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_Gravity_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valversnelling [m/s²].
-        /// </summary>
-        public static string PipingInput_Gravity_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_Gravity_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt..
         /// </summary>
         public static string PipingInput_HydraulicBoundaryLocation_Description {
@@ -710,24 +899,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingInput_HydraulicBoundaryLocation_DisplayName {
             get {
                 return ResourceManager.GetString("PipingInput_HydraulicBoundaryLocation_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit..
-        /// </summary>
-        public static string PipingInput_MeanDiameter70_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_MeanDiameter70_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Referentiewaarde voor 70%-fraktiel in Sellmeijer regel [m].
-        /// </summary>
-        public static string PipingInput_MeanDiameter70_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_MeanDiameter70_DisplayName", resourceCulture);
             }
         }
         
@@ -786,24 +957,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het (ondergedompelde) volumegewicht van zandkorrelmateriaal van een zandlaag..
-        /// </summary>
-        public static string PipingInput_SandParticlesVolumicWeight_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_SandParticlesVolumicWeight_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Volumiek gewicht van de zandkorrels onder water [kN/m³].
-        /// </summary>
-        public static string PipingInput_SandParticlesVolumicWeight_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_SandParticlesVolumicWeight_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De horizontale afstand tussen intrede- en uittredepunt die het kwelwater ondergronds aflegt voordat het weer aan de oppervlakte komt..
         /// </summary>
         public static string PipingInput_SeepageLength_Description {
@@ -818,42 +971,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingInput_SeepageLength_DisplayName {
             get {
                 return ResourceManager.GetString("PipingInput_SeepageLength_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde om de modelonzekerheid in het model van Sellmeijer in rekening te brengen..
-        /// </summary>
-        public static string PipingInput_SellmeijerModelFactor_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_SellmeijerModelFactor_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modelfactor piping toegepast op Sellmeijermodel [-].
-        /// </summary>
-        public static string PipingInput_SellmeijerModelFactor_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_SellmeijerModelFactor_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reductiefactor Sellmeijer..
-        /// </summary>
-        public static string PipingInput_SellmeijerReductionFactor_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_SellmeijerReductionFactor_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reductiefactor Sellmeijer [-].
-        /// </summary>
-        public static string PipingInput_SellmeijerReductionFactor_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_SellmeijerReductionFactor_DisplayName", resourceCulture);
             }
         }
         
@@ -926,78 +1043,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingInput_ThicknessCoverageLayer_DisplayName {
             get {
                 return ResourceManager.GetString("PipingInput_ThicknessCoverageLayer_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde om de modelonzekerheid in het model van opbarsten in rekening te brengen..
-        /// </summary>
-        public static string PipingInput_UpliftModelFactor_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_UpliftModelFactor_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modelfactor opbarsten [-].
-        /// </summary>
-        public static string PipingInput_UpliftModelFactor_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_UpliftModelFactor_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kinematische viscositeit van water bij 10º Celsius..
-        /// </summary>
-        public static string PipingInput_WaterKinematicViscosity_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_WaterKinematicViscosity_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kinematische viscositeit van water bij 10º Celsius [m²/s].
-        /// </summary>
-        public static string PipingInput_WaterKinematicViscosity_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_WaterKinematicViscosity_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Volumiek gewicht van water..
-        /// </summary>
-        public static string PipingInput_WaterVolumetricWeight_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_WaterVolumetricWeight_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Volumiek gewicht van water [kN/m³].
-        /// </summary>
-        public static string PipingInput_WaterVolumetricWeight_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_WaterVolumetricWeight_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sleepkrachtfactor volgens White..
-        /// </summary>
-        public static string PipingInput_WhitesDragCoefficient_Description {
-            get {
-                return ResourceManager.GetString("PipingInput_WhitesDragCoefficient_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Coëfficiënt van White [-].
-        /// </summary>
-        public static string PipingInput_WhitesDragCoefficient_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingInput_WhitesDragCoefficient_DisplayName", resourceCulture);
             }
         }
         

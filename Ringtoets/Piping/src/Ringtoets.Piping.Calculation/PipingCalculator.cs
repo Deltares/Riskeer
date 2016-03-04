@@ -290,16 +290,23 @@ namespace Ringtoets.Piping.Calculation
 
         private EffectiveThicknessCalculator CalculateEffectiveThickness()
         {
-            var calculator = new EffectiveThicknessCalculator
+            try
             {
-                ExitPointXCoordinate = input.ExitPointXCoordinate,
-                PhreaticLevel = input.PhreaticLevelExit,
-                SoilProfile = PipingProfileCreator.Create(input.SoilProfile),
-                SurfaceLine = PipingSurfaceLineCreator.Create(input.SurfaceLine),
-                VolumicWeightOfWater = input.WaterVolumetricWeight
-            };
-            calculator.Calculate();
-            return calculator;
+                var calculator = new EffectiveThicknessCalculator
+                {
+                    ExitPointXCoordinate = input.ExitPointXCoordinate,
+                    PhreaticLevel = input.PhreaticLevelExit,
+                    SoilProfile = PipingProfileCreator.Create(input.SoilProfile),
+                    SurfaceLine = PipingSurfaceLineCreator.Create(input.SurfaceLine),
+                    VolumicWeightOfWater = input.WaterVolumetricWeight
+                };
+                calculator.Calculate();
+                return calculator;
+            }
+            catch (SoilVolumicMassCalculatorException e)
+            {
+                throw new PipingCalculatorException(e.Message, e);
+            }
         }
     }
 }
