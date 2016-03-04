@@ -72,9 +72,9 @@ namespace Ringtoets.Piping.Data.Probabilistics
             }
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_than_zero);
+                    throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_than_or_equal_to_zero);
                 }
                 standardDeviation = value;
             }

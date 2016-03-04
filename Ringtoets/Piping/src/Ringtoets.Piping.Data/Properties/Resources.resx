@@ -120,8 +120,8 @@
   <data name="Error_Cannot_Construct_PipingSoilProfile_Without_Layers" xml:space="preserve">
     <value>Geen lagen gevonden voor het profiel.</value>
   </data>
-  <data name="StandardDeviation_Should_be_greater_than_zero" xml:space="preserve">
-    <value>Standaard afwijking (σ) moet groter zijn dan 0.</value>
+  <data name="StandardDeviation_Should_be_greater_than_or_equal_to_zero" xml:space="preserve">
+    <value>Standaard afwijking (σ) moet groter zijn dan of gelijk zijn aan 0.</value>
   </data>
   <data name="DesignVariable_Percentile_must_be_in_range" xml:space="preserve">
     <value>Percentiel moet in het bereik van [0, 1] vallen.</value>

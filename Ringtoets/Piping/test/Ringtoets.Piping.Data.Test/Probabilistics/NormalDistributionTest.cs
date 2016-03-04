@@ -22,7 +22,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
         }
 
         [Test]
-        [TestCase(0)]
+        [TestCase(0 - 1e-6)]
         [TestCase(-4)]
         public void StandardDeviation_SettingNotGreaterThan0_ThrowArgumentOutOfRangeException(double newStd)
         {
@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             // Assert
             ArgumentException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             string customMessagePart = exception.Message.Split(new []{Environment.NewLine}, StringSplitOptions.None)[0];
-            Assert.AreEqual("Standaard afwijking (\u03C3) moet groter zijn dan 0.", customMessagePart);
+            Assert.AreEqual("Standaard afwijking (\u03C3) moet groter zijn dan of gelijk zijn aan 0.", customMessagePart);
         }
     }
 }

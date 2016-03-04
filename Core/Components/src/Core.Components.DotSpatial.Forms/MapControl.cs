@@ -86,7 +86,10 @@ namespace Core.Components.DotSpatial.Forms
         public void ZoomToAllVisibleLayers()
         {
             IEnvelope envelope = CreateEnvelopeForAllVisibleLayers();
-            map.ViewExtents = envelope.ToExtent();
+            if (!envelope.IsNull)
+            {
+                map.ViewExtents = envelope.ToExtent();
+            }
         }
 
         public void TogglePanning()
