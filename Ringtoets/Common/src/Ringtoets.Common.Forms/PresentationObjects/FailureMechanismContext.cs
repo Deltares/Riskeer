@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Ringtoets.Common.Data;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
@@ -88,12 +87,12 @@ namespace Ringtoets.Common.Forms.PresentationObjects
 
         public override int GetHashCode()
         {
-            return EqualityComparer<T>.Default.GetHashCode(WrappedData);
+            return WrappedData.GetHashCode();
         }
 
         private bool Equals(FailureMechanismContext<T> other)
         {
-            return EqualityComparer<T>.Default.Equals(WrappedData, other.WrappedData);
+            return WrappedData.Equals(other.WrappedData);
         }
 
         #endregion
