@@ -151,7 +151,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>{0} Het bestand wordt overgeslagen.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported" xml:space="preserve">
-    <value>{0}
+    <value>{0} 
 Er is geen vakindeling geïmporteerd.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_Import_Required_reference_line_is_missing" xml:space="preserve">

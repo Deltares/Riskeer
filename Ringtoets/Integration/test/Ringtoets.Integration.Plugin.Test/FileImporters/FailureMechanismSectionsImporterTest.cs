@@ -261,7 +261,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
 
             // Assert
-            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.", sectionsFilePath) + Environment.NewLine +
+            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen. ", sectionsFilePath) + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -296,7 +296,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
 
             // Assert
-            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", sectionsFilePath) + Environment.NewLine +
+            var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Het bestand bestaat niet. ", sectionsFilePath) + Environment.NewLine +
                       "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -326,7 +326,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
 
             // Assert
-            var expectedMessage = "Er is geen referentielijn beschikbaar om een vakindeling voor te definiëren." + Environment.NewLine +
+            var expectedMessage = "Er is geen referentielijn beschikbaar om een vakindeling voor te definiëren. " + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -361,7 +361,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
 
             // Assert
-            var expectedMessage = "Het bestand heeft geen vakindeling." + Environment.NewLine +
+            var expectedMessage = "Het bestand heeft geen vakindeling. " + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -398,7 +398,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
 
             // Assert
-            var expectedMessage = "Vakindeling komt niet overeen met de huidige referentielijn." + Environment.NewLine +
+            var expectedMessage = "Vakindeling komt niet overeen met de huidige referentielijn. " + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -435,7 +435,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
 
             // Assert
-            var expectedMessage = "Vakindeling komt niet overeen met de huidige referentielijn." + Environment.NewLine +
+            var expectedMessage = "Vakindeling komt niet overeen met de huidige referentielijn. " + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -470,7 +470,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
 
             // Assert
-            var expectedMessage = "Vakindeling komt niet overeen met de huidige referentielijn." + Environment.NewLine +
+            var expectedMessage = "Vakindeling komt niet overeen met de huidige referentielijn. " + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -505,7 +505,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
 
             // Assert
-            var expectedMessage = "Vakindeling komt niet overeen met de huidige referentielijn." + Environment.NewLine +
+            var expectedMessage = "Vakindeling komt niet overeen met de huidige referentielijn. " + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
