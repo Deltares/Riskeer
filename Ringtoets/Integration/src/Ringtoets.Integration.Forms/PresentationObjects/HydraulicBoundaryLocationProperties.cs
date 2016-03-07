@@ -100,7 +100,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         {
             get
             {
-                return double.IsNaN(data.DesignWaterLevel) ? "" : data.DesignWaterLevel.ToString("G2", CultureInfo.InvariantCulture);
+                return double.IsNaN(data.DesignWaterLevel) ? "" : data.DesignWaterLevel.ToString("F4", CultureInfo.InvariantCulture);
             }
         }
 
