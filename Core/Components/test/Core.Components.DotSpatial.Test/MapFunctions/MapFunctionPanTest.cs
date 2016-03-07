@@ -51,5 +51,44 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             Assert.IsInstanceOf<MapFunction>(mapFunction);
             mockingRepository.VerifyAll();
         }
+
+        [Test]
+        public void OnMouseUp_Always_SetsCursorToDefault()
+        {
+            // Setup
+            var mockingRepository = new MockRepository();
+            var mapMock = mockingRepository.Stub<IMap>();
+            mockingRepository.ReplayAll();
+
+            mapMock.Cursor = Cursors.Cross;
+            MapFunctionPan mapFunction = new MapFunctionPan(mapMock);
+
+            // Call
+            mapFunction.DoMouseUp(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0), mapMock));
+
+            // Assert
+            Assert.AreEqual(Cursors.Default, mapMock.Cursor);
+            mockingRepository.VerifyAll();
+        }
+
+        [Test]
+        public void OnMouseDown_Always_SetsCursorToHand()
+        {
+            // Setup
+            var mockingRepository = new MockRepository();
+            var mapMock = mockingRepository.Stub<IMap>();
+            mapMock.MapFrame = mockingRepository.Stub<IMapFrame>();
+            mockingRepository.ReplayAll();
+
+            mapMock.Cursor = Cursors.Cross;
+            MapFunctionPan mapFunction = new MapFunctionPan(mapMock);
+
+            // Call
+            mapFunction.DoMouseDown(new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0), mapMock));
+
+            // Assert
+            Assert.AreEqual(Cursors.Hand, mapMock.Cursor);
+            mockingRepository.VerifyAll();
+        }
     }
 }
