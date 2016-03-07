@@ -133,6 +133,7 @@
     <Compile Include="ContextMenu\IContextMenuBuilderProvider.cs" />
     <Compile Include="Converters\ExpandableArrayConverter.cs" />
     <Compile Include="Converters\PngToIconConverter.cs" />
+    <Compile Include="Converters\RoundDoubleToDecimalPlacesConverter.cs" />
     <Compile Include="Forms\ControlHelper.cs" />
     <Compile Include="Forms\MainWindow\MainWindowCommands.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowDialog.cs">
