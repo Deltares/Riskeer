@@ -21,26 +21,22 @@
 
 using System;
 using System.Data;
-using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
 using DotSpatial.Data;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 
-namespace Core.Components.Gis.IO
+namespace Core.Components.Gis.IO.Readers
 {
     /// <summary>
     /// Class to be used to read polylines from a shapefile.
     /// </summary>
-    public class PolylineShapeFileReader : IDisposable
+    public class PolylineShapeFileReader : ShapeFileReaderBase
     {
-        private readonly string filePath;
-        private readonly LineShapefile lineShapeFile;
         private int readIndex;
 
         /// <summary>
@@ -52,22 +48,13 @@ namespace Core.Components.Gis.IO
         /// <list type="bullet">
         /// <item><paramref name="shapeFilePath"/> points to a file that doesn't exist.</item>
         /// <item>The shapefile has non-line geometries in it.</item>
-        /// </list></exception>
-        public PolylineShapeFileReader(string shapeFilePath)
+        /// </list>
+        /// </exception>
+        public PolylineShapeFileReader(string shapeFilePath) : base(shapeFilePath)
         {
-            FileUtils.ValidateFilePath(shapeFilePath);
-            if (!File.Exists(shapeFilePath))
-            {
-                string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(CoreCommonUtilsResources.Error_File_does_not_exist);
-                throw new CriticalFileReadException(message);
-            }
-
-            filePath = shapeFilePath;
-
             try
             {
-                lineShapeFile = new LineShapefile(shapeFilePath);
+                ShapeFile = new LineShapefile(shapeFilePath);
             }
             catch (ArgumentException e)
             {
@@ -78,29 +65,21 @@ namespace Core.Components.Gis.IO
         }
 
         /// <summary>
-        /// Gets the number of lines in the shapefile.
-        /// </summary>
-        public int GetNumberOfLines()
-        {
-            return lineShapeFile.Features.Count;
-        }
-
-        /// <summary>
         /// Reads a line shape from the file.
         /// </summary>
-        /// <returns>The <see cref="MapLineData"/> representing the read line shape, or 
+        /// <returns>The <see cref="PointBasedMapData"/> representing the read line shape, or 
         /// <c>null</c> when at the end of the shapefile.</returns>
         /// <exception cref="ElementReadException">When reading a multi-line feature.</exception>
-        public MapLineData ReadLine(string name = null)
+        public override PointBasedMapData ReadLine(string name = null)
         {
-            if (readIndex == lineShapeFile.Features.Count)
+            if (readIndex == GetNumberOfLines())
             {
                 return null;
             }
 
             try
             {
-                IFeature lineFeature = GetSingleLineFeature(readIndex);
+                IFeature lineFeature = GetFeature(readIndex);
                 return ConvertSingleLineFeatureToMapLineData(lineFeature, name ?? GisIOResources.PolylineShapeFileReader_ReadLine_Line);
             }
             finally
@@ -110,34 +89,18 @@ namespace Core.Components.Gis.IO
         }
 
         /// <summary>
-        /// Determines whether the specified attribute has been defined in the shapefile attributes.
-        /// </summary>
-        /// <param name="attributeName">Name of the attribute.</param>
-        /// <returns><c>True</c> is the attribute is defined, <c>false</c> otherwise.</returns>
-        /// <remarks>This check is case-sensitive.</remarks>
-        public bool HasAttribute(string attributeName)
-        {
-            return lineShapeFile.Attributes.Columns.Any(c => c.ColumnName == attributeName);
-        }
-
-        public void Dispose()
-        {
-            lineShapeFile.Close();
-        }
-
-        /// <summary>
         /// Gets the single line feature at the given index.
         /// </summary>
         /// <param name="index">The index of which feature to retrieve.</param>
         /// <returns>The feature that consists out of 1 whole polyline.</returns>
         /// <exception cref="ElementReadException">When reading a multi-line feature.</exception>
-        private IFeature GetSingleLineFeature(int index)
+        public override IFeature GetFeature(int index)
         {
-            IFeature lineFeature = lineShapeFile.Features[index];
+            IFeature lineFeature = ShapeFile.Features[index];
             if (lineFeature.NumGeometries > 1)
             {
-                string message = new FileReaderErrorMessageBuilder(filePath)
-                    .WithLocation(string.Format(GisIOResources.PolylineShapeFileReader_GetSingleLineFeature_At_shapefile_index_0_, index))
+                string message = new FileReaderErrorMessageBuilder(FilePath)
+                    .WithLocation(string.Format(GisIOResources.ShapeFileReaderBase_GetFeature_At_shapefile_index_0_, index))
                     .Build(GisIOResources.PolylineShapeFileReader_ReadLine_Read_unsupported_multipolyline);
                 throw new ElementReadException(message);
             }
@@ -147,7 +110,7 @@ namespace Core.Components.Gis.IO
         private MapLineData ConvertSingleLineFeatureToMapLineData(IFeature lineFeature, string name)
         {
             var lineData = new MapLineData(lineFeature.Coordinates.Select(c => new Point2D(c.X, c.Y)), name);
-            DataTable table = lineShapeFile.GetAttributes(readIndex, 1);
+            DataTable table = ShapeFile.GetAttributes(readIndex, 1);
             DataRow dataRow = table.Rows[0];
             for (int i = 0; i < table.Columns.Count; i++)
             {

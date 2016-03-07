@@ -1,14 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
-
+using Core.Components.Gis.IO.Readers;
 using NUnit.Framework;
 
-namespace Core.Components.Gis.IO.Test
+namespace Core.Components.Gis.IO.Test.Readers
 {
     [TestFixture]
     public class PolylineShapeFileReaderTest
@@ -24,73 +23,8 @@ namespace Core.Components.Gis.IO.Test
             using (var reader = new PolylineShapeFileReader(testFilePath))
             {
                 // Assert
-                Assert.IsInstanceOf<IDisposable>(reader);
+                Assert.IsInstanceOf<ShapeFileReaderBase>(reader);
             }
-        }
-
-        [Test]
-        [TestCase("")]
-        [TestCase("      ")]
-        [TestCase(null)]
-        public void ParameteredConstructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
-        {
-            // Call
-            TestDelegate call = () => new PolylineShapeFileReader(invalidFilePath);
-
-            // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet leeg of ongedefinieerd zijn.",
-                                                invalidFilePath);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void ParameteredConstructor_FileDoesNotExist_ThrowArgumentException()
-        {
-            // Call
-            string pathToNotExistingShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                           "I_do_not_exist.shp");
-            TestDelegate call = () => new PolylineShapeFileReader(pathToNotExistingShapeFile);
-
-            // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
-                                                pathToNotExistingShapeFile);
-            var message = Assert.Throws<CriticalFileReadException>(call).Message;
-            Assert.AreEqual(expectedMessage, message);
-        }
-
-        [Test]
-        public void ParameteredConstructor_FilePathHasInvalidPathCharacter_ThrowArgumentException()
-        {
-            // Setup
-            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
-
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                              "traject_10-1.shp");
-            string invalidFilePath = validFilePath.Replace("_", invalidFileNameChars[0].ToString());
-
-            // Call
-            TestDelegate call = () => new PolylineShapeFileReader(invalidFilePath);
-
-            // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet de volgende tekens bevatten: {1}",
-                                                invalidFilePath, String.Join(", ", invalidFileNameChars));
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void ParameteredConstructor_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
-        {
-            // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                Path.DirectorySeparatorChar.ToString());
-
-            // Call
-            TestDelegate call = () => new PolylineShapeFileReader(invalidFilePath);
-
-            // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.",
-                                                invalidFilePath);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
@@ -172,9 +106,10 @@ namespace Core.Components.Gis.IO.Test
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = reader.ReadLine();
+                MapLineData line = reader.ReadLine() as MapLineData;
 
                 // Assert
+                Assert.IsNotNull(line);
                 var points = line.Points.ToArray();
                 Assert.AreEqual(1669, points.Length);
                 Assert.AreEqual(202714.219, points[457].X, 1e-6);
@@ -194,18 +129,18 @@ namespace Core.Components.Gis.IO.Test
         public void ReadLine_ShapeFileWithMultipleLineFeatures_ReturnShapes()
         {
             // Setup
-            string shapeWithOneLine = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+            string shapeWithMultipleLines = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                                  "Multiple_PolyLine_with_ID.shp");
-            using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
+            using (var reader = new PolylineShapeFileReader(shapeWithMultipleLines))
             {
                 // Precondition
                 Assert.AreEqual(4, reader.GetNumberOfLines());
 
                 // Call
-                MapLineData line1 = reader.ReadLine();
-                MapLineData line2 = reader.ReadLine();
-                MapLineData line3 = reader.ReadLine();
-                MapLineData line4 = reader.ReadLine();
+                MapLineData line1 = reader.ReadLine() as MapLineData;
+                MapLineData line2 = reader.ReadLine() as MapLineData;
+                MapLineData line3 = reader.ReadLine() as MapLineData;
+                MapLineData line4 = reader.ReadLine() as MapLineData;
 
                 // Assert
 
@@ -276,7 +211,7 @@ namespace Core.Components.Gis.IO.Test
                 }
 
                 // Call
-                MapLineData line = reader.ReadLine();
+                MapLineData line = reader.ReadLine() as MapLineData;
 
                 // Assert
                 Assert.IsNull(line);

@@ -53,7 +53,7 @@ namespace Core.Plugins.OxyPlot.Legend
                 CanDrag = (pointData, parentData) => true,
                 CanCheck = pointData => true,
                 IsChecked = pointData => pointData.IsVisible,
-                OnNodeChecked = PointDataOnNodeChecked
+                OnNodeChecked = PointBasedChartDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<LineData>
@@ -63,7 +63,7 @@ namespace Core.Plugins.OxyPlot.Legend
                 CanDrag = (lineData, parentData) => true,
                 CanCheck = lineData => true,
                 IsChecked = lineData => lineData.IsVisible,
-                OnNodeChecked = LineDataOnNodeChecked
+                OnNodeChecked = PointBasedChartDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<AreaData>
@@ -73,7 +73,7 @@ namespace Core.Plugins.OxyPlot.Legend
                 CanDrag = (areaData, parentData) => true,
                 CanCheck = areaData => true,
                 IsChecked = areaData => areaData.IsVisible,
-                OnNodeChecked = AreaDataOnNodeChecked
+                OnNodeChecked = PointBasedChartDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<ChartDataCollection>
@@ -117,21 +117,6 @@ namespace Core.Plugins.OxyPlot.Legend
         }
 
         # region ChartData
-
-        private static void PointDataOnNodeChecked(PointData pointData, object parentData)
-        {
-            PointBasedChartDataOnNodeChecked(pointData, parentData);
-        }
-
-        private static void LineDataOnNodeChecked(LineData lineData, object parentData)
-        {
-            PointBasedChartDataOnNodeChecked(lineData, parentData);
-        }
-
-        private static void AreaDataOnNodeChecked(AreaData areaData, object parentData)
-        {
-            PointBasedChartDataOnNodeChecked(areaData, parentData);
-        }
 
         private static void PointBasedChartDataOnNodeChecked(PointBasedChartData pointBasedChartData, object parentData)
         {

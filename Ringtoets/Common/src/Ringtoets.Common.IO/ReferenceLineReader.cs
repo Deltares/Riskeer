@@ -29,7 +29,7 @@ using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO;
-
+using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.Data;
 
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
@@ -103,7 +103,8 @@ namespace Ringtoets.Common.IO
         /// When either:
         /// <list type="bullet">
         /// <item>There isn't exactly 1 polyline in the shapefile.</item>
-        /// <item>Shapefile contains a multi-polyline.</item>
+        /// <item>The shapefile doesn't contains lines.</item>
+        /// <item>The shapefile contains a multi-polyline.</item>
         /// </list>
         /// </exception>
         private static MapLineData GetReferenceLineMapData(PolylineShapeFileReader lineShapeReader, string shapeFilePath)
@@ -117,13 +118,19 @@ namespace Ringtoets.Common.IO
 
             try
             {
-                return lineShapeReader.ReadLine(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
+                return (MapLineData) lineShapeReader.ReadLine(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
             }
             catch (ElementReadException e)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
                     .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_contains_unsupported_multi_polyline);
                 throw new CriticalFileReadException(message, e);
+            }
+            catch (InvalidCastException exception)
+            {
+                string message = new FileReaderErrorMessageBuilder(shapeFilePath)
+                    .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_must_contain_1_polyline);
+                throw new CriticalFileReadException(message, exception);
             }
         }
 

@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -12,6 +11,8 @@ using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Button = Fluent.Button;
+using ButtonBase = System.Windows.Controls.Primitives.ButtonBase;
+using Control = System.Windows.Controls.Control;
 using ToggleButton = Fluent.ToggleButton;
 
 namespace Core.Plugins.DotSpatial.Test
@@ -49,9 +50,11 @@ namespace Core.Plugins.DotSpatial.Test
             var mocks = new MockRepository();
             var toolViewController = mocks.Stub<IToolViewController>();
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var parentWindow = mocks.StrictMock<IWin32Window>();
+
             mocks.ReplayAll();
 
-            var toggleLegendViewCommand = new ToggleMapLegendViewCommand(new MapLegendController(toolViewController, contextMenuBuilderProvider));
+            var toggleLegendViewCommand = new ToggleMapLegendViewCommand(new MapLegendController(toolViewController, contextMenuBuilderProvider, parentWindow));
 
             var ribbon = new MapRibbon
             {

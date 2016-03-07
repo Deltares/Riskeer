@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Windows.Forms.VisualStyles;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ViewManager;
@@ -80,7 +82,12 @@ namespace Core.Plugins.DotSpatial
 
         private MapLegendController CreateLegendController(IToolViewController toolViewController)
         {
-            var controller = new MapLegendController(toolViewController, Gui);
+            if (toolViewController == null)
+            {
+                throw new ArgumentNullException("toolViewController", "Cannot create a MapLegendController when the tool view controller is null");
+            }
+
+            var controller = new MapLegendController(toolViewController, Gui, Gui.MainWindow);
             controller.OnOpenLegend += (s, e) => UpdateComponentsForActiveView();
             return controller;
         }

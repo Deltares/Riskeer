@@ -30,7 +30,7 @@ using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO;
-
+using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.Data;
 
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
@@ -93,12 +93,7 @@ namespace Ringtoets.Common.IO
             ValidateExistenceOfRequiredAttributes();
 
             var lineData = ReadMapLineData();
-            if (lineData == null)
-            {
-                return null;
-            }
-
-            return CreateFailureMechanismSection(lineData);
+            return lineData == null ? null : CreateFailureMechanismSection(lineData);
         }
 
         public void Dispose()
@@ -144,7 +139,7 @@ namespace Ringtoets.Common.IO
         {
             try
             {
-                return polylineShapeFileReader.ReadLine();
+                return polylineShapeFileReader.ReadLine() as MapLineData;
             }
             catch (ElementReadException e)
             {

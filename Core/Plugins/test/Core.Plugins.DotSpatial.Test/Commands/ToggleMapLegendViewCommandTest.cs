@@ -1,4 +1,5 @@
-﻿using Core.Common.Controls.Commands;
+﻿using System.Windows.Forms;
+using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Plugins.DotSpatial.Commands;
@@ -39,13 +40,14 @@ namespace Core.Plugins.DotSpatial.Test.Commands
             // Setup
             var mocks = new MockRepository();
             var plugin = mocks.StrictMock<IToolViewController>();
+            var parentWindow = mocks.StrictMock<IWin32Window>();
             plugin.Expect(p => p.IsToolWindowOpen<MapLegendView>()).Return(open);
 
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
 
             mocks.ReplayAll();
 
-            var controller = new MapLegendController(plugin, contextMenuBuilderProvider);
+            var controller = new MapLegendController(plugin, contextMenuBuilderProvider, parentWindow);
             var command = new ToggleMapLegendViewCommand(controller);
 
             // Call
@@ -63,6 +65,7 @@ namespace Core.Plugins.DotSpatial.Test.Commands
             var mocks = new MockRepository();
             var plugin = mocks.StrictMock<IToolViewController>();
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var parentWindow = mocks.StrictMock<IWin32Window>();
 
             // Open first
             using (mocks.Ordered())
@@ -76,7 +79,7 @@ namespace Core.Plugins.DotSpatial.Test.Commands
             }
             mocks.ReplayAll();
 
-            var controller = new MapLegendController(plugin, contextMenuBuilderProvider);
+            var controller = new MapLegendController(plugin, contextMenuBuilderProvider, parentWindow);
             var command = new ToggleMapLegendViewCommand(controller);
 
             // Call

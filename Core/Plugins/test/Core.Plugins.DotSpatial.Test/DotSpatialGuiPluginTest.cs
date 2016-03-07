@@ -78,12 +78,15 @@ namespace Core.Plugins.DotSpatial.Test
             {
                 var gui = mocks.StrictMock<IGui>();
 
+                var mainWindow = mocks.StrictMock<IMainWindow>();
+
                 gui.Stub(g => g.IsToolWindowOpen<MapLegendView>()).Return(false);
 
                 gui.Expect(g => g.OpenToolView(Arg<MapLegendView>.Matches(c => true)));
                 gui.Expect(g => g.ActiveViewChanged += null).IgnoreArguments();
                 gui.Expect(g => g.ActiveViewChanged -= null).IgnoreArguments();
                 gui.Expect(g => g.ActiveView).Return(view);
+                gui.Expect(g => g.MainWindow).Return(mainWindow);
 
                 mocks.ReplayAll();
 

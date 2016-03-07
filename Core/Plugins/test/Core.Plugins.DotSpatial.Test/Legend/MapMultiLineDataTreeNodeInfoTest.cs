@@ -17,41 +17,32 @@ using DotSpatialResources = Core.Plugins.DotSpatial.Properties.Resources;
 namespace Core.Plugins.DotSpatial.Test.Legend
 {
     [TestFixture]
-    public class MapPointDataTreeNodeInfoTest
+    public class MapMultiLineDataTreeNodeInfoTest
     {
+        private MockRepository mocks;
         private MapLegendView mapLegendView;
         private TreeNodeInfo info;
-        private MockRepository mockRepository;
 
         [SetUp]
         public void SetUp()
         {
-            mockRepository = new MockRepository();
-            var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mockRepository.StrictMock<IWin32Window>();
-            mockRepository.ReplayAll();
-
+            mocks = new MockRepository();
+            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var parentWindow = mocks.StrictMock<IWin32Window>();
             mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
 
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
             var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
-            info = treeNodeInfoLookup[typeof(MapPointData)];
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            mockRepository.VerifyAll();
+            info = treeNodeInfoLookup[typeof(MapMultiLineData)];
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MapPointData), info.TagType);
+            Assert.AreEqual(typeof(MapMultiLineData), info.TagType);
             Assert.IsNull(info.ForeColor);
-            Assert.IsNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
@@ -64,18 +55,18 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         }
 
         [Test]
-        public void Text_Always_ReturnsTextFromResource()
+        public void Text_Always_ReturnsNameFromMapData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var mapPointData = mocks.StrictMock<MapPointData>(Enumerable.Empty<Point2D>(), "MapPointData");
+            var mapMultiLineData = mocks.StrictMock<MapMultiLineData>(Enumerable.Empty<IEnumerable<Point2D>>(), "Collectie");
+
             mocks.ReplayAll();
 
             // Call
-            var text = info.Text(mapPointData);
+            var text = info.Text(mapMultiLineData);
 
             // Assert
-            Assert.AreEqual(mapPointData.Name, text);
+            Assert.AreEqual(mapMultiLineData.Name, text);
             mocks.VerifyAll();
         }
 
@@ -86,15 +77,14 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             var image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(DotSpatialResources.PointsIcon, image);
+            TestHelper.AssertImagesAreEqual(DotSpatialResources.LineIcon, image);
         }
 
         [Test]
         public void CanCheck_Always_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<Point2D>(), "test data");
+            var lineData = mocks.StrictMock<MapMultiLineData>(Enumerable.Empty<IEnumerable<Point2D>>(), "test data");
 
             mocks.ReplayAll();
 
@@ -112,8 +102,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void IsChecked_Always_ReturnsAccordingToVisibleStateOfLineData(bool isVisible)
         {
             // Setup
-            var mocks = new MockRepository();
-            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<Point2D>(), "test data");
+            var lineData = mocks.StrictMock<MapMultiLineData>(Enumerable.Empty<IEnumerable<Point2D>>(), "test data");
 
             lineData.IsVisible = isVisible;
 
@@ -133,8 +122,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void OnNodeChecked_LineDataNodeWithoutParent_SetsLineDataVisibility(bool initialVisibleState)
         {
             // Setup
-            var mocks = new MockRepository();
-            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<Point2D>(), "test data");
+            var lineData = mocks.StrictMock<MapMultiLineData>(Enumerable.Empty<IEnumerable<Point2D>>(), "test data");
 
             mocks.ReplayAll();
 
@@ -154,9 +142,8 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void OnNodeChecked_LineDataNodeWithObservableParent_SetsLineDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
         {
             // Setup
-            var mocks = new MockRepository();
             var observable = mocks.StrictMock<IObservable>();
-            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<Point2D>(), "test data");
+            var lineData = mocks.StrictMock<MapMultiLineData>(Enumerable.Empty<IEnumerable<Point2D>>(), "test data");
 
             observable.Expect(o => o.NotifyObservers());
 
@@ -177,13 +164,12 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void CanDrag_Always_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var pointData = mocks.StrictMock<MapPointData>(Enumerable.Empty<Point2D>(), "test data");
+            var lineData = mocks.StrictMock<MapMultiLineData>(Enumerable.Empty<IEnumerable<Point2D>>(), "test data");
 
             mocks.ReplayAll();
 
             // Call
-            var canDrag = info.CanDrag(pointData, null);
+            var canDrag = info.CanDrag(lineData, null);
 
             // Assert
             Assert.IsTrue(canDrag);

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -34,6 +35,7 @@ namespace Core.Plugins.DotSpatial.Legend
     {
         private readonly IToolViewController toolViewController;
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
+        private readonly IWin32Window parentWindow;
 
         public EventHandler<EventArgs> OnOpenLegend;
         private IView legendView;
@@ -43,8 +45,9 @@ namespace Core.Plugins.DotSpatial.Legend
         /// </summary>
         /// <param name="toolViewController">The <see cref="IToolViewController"/> to invoke actions upon.</param>
         /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> to create context menus.</param>
+        /// <param name="parentWindow">The <see cref="IWin32Window"/> to show dialogs.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="toolViewController"/> or <paramref name="contextMenuBuilderProvider"/> is <c>null</c>.</exception>
-        public MapLegendController(IToolViewController toolViewController, IContextMenuBuilderProvider contextMenuBuilderProvider)
+        public MapLegendController(IToolViewController toolViewController, IContextMenuBuilderProvider contextMenuBuilderProvider, IWin32Window parentWindow)
         {
             if (toolViewController == null)
             {
@@ -54,8 +57,13 @@ namespace Core.Plugins.DotSpatial.Legend
             {
                 throw new ArgumentNullException("contextMenuBuilderProvider", "Cannot create a MapLegendController when the context menu builder provider is null.");
             }
+            if (parentWindow == null)
+            {
+                throw new ArgumentNullException("parentWindow", "Cannot create a MapLegendController when the parent window is null");
+            }
             this.toolViewController = toolViewController;
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
+            this.parentWindow = parentWindow;
         }
 
         /// <summary>
@@ -100,7 +108,7 @@ namespace Core.Plugins.DotSpatial.Legend
         /// </summary>
         private void OpenLegendView()
         {
-            legendView = new MapLegendView(contextMenuBuilderProvider);
+            legendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
             toolViewController.OpenToolView(legendView);
             if (OnOpenLegend != null)
             {

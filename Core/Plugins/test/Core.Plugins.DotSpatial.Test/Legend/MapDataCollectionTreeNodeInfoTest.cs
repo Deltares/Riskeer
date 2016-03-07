@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
@@ -21,13 +23,15 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         private MockRepository mocks;
         private MapLegendView mapLegendView;
         private TreeNodeInfo info;
+        private IContextMenuBuilderProvider contextMenuBuilderProvider;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            mapLegendView = new MapLegendView(contextMenuBuilderProvider);
+            contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var parentWindow = mocks.StrictMock<IWin32Window>();
+            mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
 
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
             var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
@@ -41,7 +45,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             // Assert
             Assert.AreEqual(typeof(MapDataCollection), info.TagType);
             Assert.IsNull(info.ForeColor);
-            Assert.IsNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
@@ -57,7 +60,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void Text_Always_ReturnsNameFromMapData()
         {
             // Setup
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>(), "Collectie");
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "Collectie");
 
             mocks.ReplayAll();
 
@@ -113,7 +116,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void CanDrop_SourceNodeTagIsNoMapData_ReturnsFalse()
         {
             // Setup
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>(), "test data");
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -131,7 +134,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var mapData = mocks.StrictMock<MapData>("test data");
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>(), "test data");
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -148,7 +151,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void CanInsert_SourceNodeTagIsNoMapData_ReturnsFalse()
         {
             // Setup
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>(), "test data");
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -166,7 +169,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var mapData = mocks.StrictMock<MapData>("test data");
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>(), "test data");
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
 
             mocks.ReplayAll();
 
@@ -248,5 +251,50 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             mocks.VerifyAll(); // UpdateObserver should be not called
         }
+
+        [Test]
+        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
+
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControlMock)).Return(menuBuilderMock);
+
+            mocks.ReplayAll();
+
+            // Call
+            info.ContextMenuStrip(mapDataCollection, null, treeViewControlMock);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_ContainsAddMapLayerMenuItem()
+        {
+            // Setup
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
+
+            contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+            mocks.ReplayAll();
+
+            // Call
+            var contextMenu = info.ContextMenuStrip(mapDataCollection, null, treeViewControlMock);
+
+            // Assert
+            const string expectedItemText = "&Voeg kaartlaag toe...";
+            const string expectedItemTooltip = "Importeer een nieuwe kaartlaag en voeg deze toe.";
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, DotSpatialResources.MapIcon);
+            mocks.VerifyAll();
+        }
+				
     }
 }

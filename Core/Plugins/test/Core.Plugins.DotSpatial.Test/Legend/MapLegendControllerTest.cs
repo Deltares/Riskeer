@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Plugins.DotSpatial.Legend;
@@ -16,10 +17,11 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             // Setup
             var mocks = new MockRepository();
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var parentWindow = mocks.StrictMock<IWin32Window>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new MapLegendController(null, contextMenuBuilderProvider);
+            TestDelegate test = () => new MapLegendController(null, contextMenuBuilderProvider, parentWindow);
 
             // Assert
             ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
@@ -28,19 +30,38 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         }
 
         [Test]
-        public void Constructor_WithoutContextMenuBuilderProvicer_ThrowsArgumentNullException()
+        public void Constructor_WithoutContextMenuBuilderProvider_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
             var toolViewController = mocks.StrictMock<IToolViewController>();
+            var parentWindow = mocks.StrictMock<IWin32Window>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new MapLegendController(toolViewController, null);
+            TestDelegate test = () => new MapLegendController(toolViewController, null, parentWindow);
 
             // Assert
             ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("contextMenuBuilderProvider", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithoutParentWindow_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var toolViewController = mocks.StrictMock<IToolViewController>();
+            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new MapLegendController(toolViewController, contextMenuBuilderProvider, null);
+
+            // Assert
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("parentWindow", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -51,11 +72,12 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             var mocks = new MockRepository();
             var toolViewController = mocks.StrictMock<IToolViewController>();
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var parentWindow = mocks.StrictMock<IWin32Window>();
 
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new MapLegendController(toolViewController, contextMenuBuilderProvider);
+            TestDelegate test = () => new MapLegendController(toolViewController, contextMenuBuilderProvider, parentWindow);
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -71,11 +93,12 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             var mocks = new MockRepository();
             var plugin = mocks.StrictMock<IToolViewController>();
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var parentWindow = mocks.StrictMock<IWin32Window>();
             plugin.Expect(p => p.IsToolWindowOpen<MapLegendView>()).Return(open);
 
             mocks.ReplayAll();
 
-            var controller = new MapLegendController(plugin, contextMenuBuilderProvider);
+            var controller = new MapLegendController(plugin, contextMenuBuilderProvider, parentWindow);
 
             // Call
             var result = controller.IsLegendViewOpen();
@@ -94,6 +117,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             var mocks = new MockRepository();
             var plugin = mocks.StrictMock<IToolViewController>();
             var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
+            var parentWindow = mocks.StrictMock<IWin32Window>();
 
             if (open)
             {
@@ -109,7 +133,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             mocks.ReplayAll();
 
-            var controller = new MapLegendController(plugin, contextMenuBuilderProvider);
+            var controller = new MapLegendController(plugin, contextMenuBuilderProvider, parentWindow);
 
             if (open)
             {

@@ -26,9 +26,13 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.IO.Exceptions;
+using Core.Common.Utils.Builders;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
-
+using Core.Components.Gis.IO.Readers;
+using DotSpatial.Data;
+using DotSpatial.Topology;
 using DotSpatialResources = Core.Plugins.DotSpatial.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -40,21 +44,28 @@ namespace Core.Plugins.DotSpatial.Legend
     public sealed partial class MapLegendView : UserControl, IView
     {
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
+        private readonly IWin32Window parentWindow;
         private readonly TreeViewControl treeViewControl;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapLegendView"/>.
         /// </summary>
         /// <param name="contextMenuBuilderProvider">The <see cref="IContextMenuBuilderProvider"/> to create context menus.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="contextMenuBuilderProvider"/> is <c>null</c>.</exception>
-        public MapLegendView(IContextMenuBuilderProvider contextMenuBuilderProvider)
+        /// <param name="parentWindow"></param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="contextMenuBuilderProvider"/> or <paramref name="parentWindow"/> is <c>null</c>.</exception>
+        public MapLegendView(IContextMenuBuilderProvider contextMenuBuilderProvider, IWin32Window parentWindow)
         {
             if (contextMenuBuilderProvider == null)
             {
                 throw new ArgumentNullException("contextMenuBuilderProvider", "Cannot create a MapLegendView when the context menu builder provider is null");
             }
+            if (parentWindow == null)
+            {
+                throw new ArgumentNullException("parentWindow" ,"Cannot create a MapLegendView when the parent window is null");
+            }
 
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
+            this.parentWindow = parentWindow;
             InitializeComponent();
             Text = DotSpatialResources.General_Map;
 
@@ -105,7 +116,7 @@ namespace Core.Plugins.DotSpatial.Legend
                 CanDrag = (mapPointData, parentData) => true,
                 CanCheck = mapPointData => true,
                 IsChecked = mapPointData => mapPointData.IsVisible,
-                OnNodeChecked = MapPointDataOnNodeChecked
+                OnNodeChecked = PointBasedMapDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapLineData>
@@ -115,7 +126,7 @@ namespace Core.Plugins.DotSpatial.Legend
                 CanDrag = (mapLineData, parentData) => true,
                 CanCheck = mapLineData => true,
                 IsChecked = mapLineData => mapLineData.IsVisible,
-                OnNodeChecked = MapLineDataOnNodeChecked
+                OnNodeChecked = PointBasedMapDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPolygonData>
@@ -125,17 +136,7 @@ namespace Core.Plugins.DotSpatial.Legend
                 CanDrag = (mapPolygonData, parentData) => true,
                 CanCheck = mapPolygonData => true,
                 IsChecked = mapPolygonData => mapPolygonData.IsVisible,
-                OnNodeChecked = MapPolygonDataOnNodeChecked
-            });
-
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapDataCollection>
-            {
-                Text = mapDataCollection => mapDataCollection.Name,
-                Image = mapDataCollection => GuiResources.folder,
-                ChildNodeObjects = mapDataCollection => mapDataCollection.List.Reverse().Cast<object>().ToArray(),
-                CanDrop = MapControlCanDrop,
-                CanInsert = MapControlCanInsert,
-                OnDrop = MapControlOnDrop
+                OnNodeChecked = PointBasedMapDataOnNodeChecked
             });
 
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapMultiLineData>
@@ -147,26 +148,22 @@ namespace Core.Plugins.DotSpatial.Legend
                 IsChecked = mapMultiLineData => mapMultiLineData.IsVisible,
                 OnNodeChecked = MapMultiLineDataOnNodeChecked
             });
+
+            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapDataCollection>
+            {
+                Text = mapDataCollection => mapDataCollection.Name,
+                Image = mapDataCollection => GuiResources.folder,
+                ChildNodeObjects = mapDataCollection => mapDataCollection.List.Reverse().Cast<object>().ToArray(),
+                CanDrop = MapControlCanDrop,
+                CanInsert = MapControlCanInsert,
+                OnDrop = MapControlOnDrop,
+                ContextMenuStrip = MapDataCollectionContextMenuStrip
+            });
         }
 
         #region MapData
 
-        private void MapPointDataOnNodeChecked(MapPointData mapPointData, object parentData)
-        {
-            PointBasedMapDataOnNodeChecked(mapPointData, parentData);
-        }
-
-        private void MapLineDataOnNodeChecked(MapLineData mapLineData, object parentData)
-        {
-            PointBasedMapDataOnNodeChecked(mapLineData, parentData);
-        }
-
-        private void MapPolygonDataOnNodeChecked(MapPolygonData mapPolygonData, object parentData)
-        {
-            PointBasedMapDataOnNodeChecked(mapPolygonData, parentData);
-        }
-
-        private void MapMultiLineDataOnNodeChecked(MapMultiLineData mapMultiLineData, object parentData)
+        private static void MapMultiLineDataOnNodeChecked(MapMultiLineData mapMultiLineData, object parentData)
         {
             mapMultiLineData.IsVisible = !mapMultiLineData.IsVisible;
             mapMultiLineData.NotifyObservers();
@@ -178,7 +175,7 @@ namespace Core.Plugins.DotSpatial.Legend
             }
         }
 
-        private void PointBasedMapDataOnNodeChecked(PointBasedMapData pointBasedMapData, object parentData)
+        private static void PointBasedMapDataOnNodeChecked(PointBasedMapData pointBasedMapData, object parentData)
         {
             pointBasedMapData.IsVisible = !pointBasedMapData.IsVisible;
             pointBasedMapData.NotifyObservers();
@@ -214,6 +211,89 @@ namespace Core.Plugins.DotSpatial.Legend
             target.NotifyObservers();
         }
 
+        private ContextMenuStrip MapDataCollectionContextMenuStrip(MapDataCollection mapDataCollection, object parentData, TreeViewControl treeView)
+        {
+            StrictContextMenuItem addMapLayerMenuItem = new StrictContextMenuItem(
+                DotSpatialResources.MapLegendView_MapDataCollectionContextMenuStrip__Add_MapLayer, 
+                DotSpatialResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip, 
+                DotSpatialResources.MapPlusIcon, 
+                (sender, args) => ShowSelectShapeFileDialog(sender, args, mapDataCollection));
+
+            return contextMenuBuilderProvider.Get(mapDataCollection, treeView).AddCustomItem(addMapLayerMenuItem).Build();
+        }
+
         # endregion
+
+        #region ShapeFileImporter
+
+        private void ShowSelectShapeFileDialog(object sender, EventArgs eventArgs, MapDataCollection mapDataCollection)
+        {
+            var windowTitle = DotSpatialResources.MapLegendView_ShowSelectShapeFileDialog_Select_Shape_File_;
+            using (var dialog = new OpenFileDialog
+            {
+                Filter = string.Format("{0} (*.shp)|*.shp", DotSpatialResources.MapLegendView_ShowSelectShapeFileDialog_Shape_file),
+                Multiselect = false,
+                Title = windowTitle,
+                RestoreDirectory = true,
+                CheckFileExists = false,
+            })
+            {
+                if (dialog.ShowDialog(parentWindow) == DialogResult.OK)
+                {
+                    CheckDataFormat(dialog.FileName, System.IO.Path.GetFileNameWithoutExtension(dialog.FileName), mapDataCollection);
+                }
+            }
+        }
+
+        private void CheckDataFormat(string filePath, string title, MapDataCollection mapDataCollection)
+        {
+            PointBasedMapData importedData;
+
+            var featureSet = Shapefile.OpenFile(filePath);
+
+            switch (featureSet.FeatureType)
+            {
+                case FeatureType.Point:
+                    using (ShapeFileReaderBase reader = new PointShapeFileReader(filePath))
+                    {
+                        importedData = GetShapeFileData(reader, filePath, title);
+                    }
+                    break;
+                case FeatureType.Line:
+                    using (ShapeFileReaderBase reader = new PolylineShapeFileReader(filePath))
+                    {
+                        importedData = GetShapeFileData(reader, filePath, title);
+                    }
+                    break;
+                case FeatureType.Polygon:
+                    using (ShapeFileReaderBase reader = new PolygonShapeFileReader(filePath))
+                    {
+                        importedData = GetShapeFileData(reader, filePath, title);
+                    }
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+            
+            
+            mapDataCollection.List.Add(importedData);
+            mapDataCollection.NotifyObservers();
+        }
+
+        private PointBasedMapData GetShapeFileData(ShapeFileReaderBase reader, string filePath, string title)
+        {
+            try
+            {
+                return reader.ReadLine(title);
+            }
+            catch (ElementReadException e)
+            {
+                string message = new FileReaderErrorMessageBuilder(filePath)
+                    .Build("Het bestand bevat data, welke niet ondersteund wordt.");
+                throw new CriticalFileReadException(message, e);
+            }
+        }
+
+        #endregion
     }
 }

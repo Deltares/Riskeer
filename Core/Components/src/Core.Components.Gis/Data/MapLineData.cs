@@ -47,8 +47,8 @@ namespace Core.Components.Gis.Data
         }
 
         /// <summary>
-        /// Gets the meta data associated with the line data.
+        /// Gets the meta data associated with the map data.
         /// </summary>
-        public IDictionary<string,object> MetaData { get; private set; }
+        public IDictionary<string, object> MetaData { get; private set; }
     }
 }

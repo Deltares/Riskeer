@@ -70,11 +70,38 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to op index {0}.
+        ///   Looks up a localized string similar to Bestand bevat geometrieën die geen punt zijn..
         /// </summary>
-        internal static string PolylineShapeFileReader_GetSingleLineFeature_At_shapefile_index_0_ {
+        internal static string PointShapeFileReader_File_contains_geometries_not_points {
             get {
-                return ResourceManager.GetString("PolylineShapeFileReader_GetSingleLineFeature_At_shapefile_index_0_", resourceCulture);
+                return ResourceManager.GetString("PointShapeFileReader_File_contains_geometries_not_points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bestand bevat geometrieën die geen polygonen zijn..
+        /// </summary>
+        internal static string PointShapeFileReader_File_contains_geometries_not_polygons {
+            get {
+                return ResourceManager.GetString("PointShapeFileReader_File_contains_geometries_not_polygons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punten.
+        /// </summary>
+        internal static string PointShapeFileReader_ReadLine_Points {
+            get {
+                return ResourceManager.GetString("PointShapeFileReader_ReadLine_Points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Polygoon.
+        /// </summary>
+        internal static string PolygonShapeFileReader_ReadLine_Polygon {
+            get {
+                return ResourceManager.GetString("PolygonShapeFileReader_ReadLine_Polygon", resourceCulture);
             }
         }
         
@@ -93,6 +120,15 @@ namespace Core.Components.Gis.IO.Properties {
         internal static string PolylineShapeFileReader_ReadLine_Read_unsupported_multipolyline {
             get {
                 return ResourceManager.GetString("PolylineShapeFileReader_ReadLine_Read_unsupported_multipolyline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to op index {0}.
+        /// </summary>
+        internal static string ShapeFileReaderBase_GetFeature_At_shapefile_index_0_ {
+            get {
+                return ResourceManager.GetString("ShapeFileReaderBase_GetFeature_At_shapefile_index_0_", resourceCulture);
             }
         }
     }

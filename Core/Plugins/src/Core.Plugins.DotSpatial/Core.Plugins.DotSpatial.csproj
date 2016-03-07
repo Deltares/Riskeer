@@ -32,6 +32,26 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotSpatial.Data, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c29dbf30e059ca9d, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\DotSpatial.Data.1.7\lib\net40-Client\DotSpatial.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotSpatial.Mono, Version=1.7.0.0, Culture=neutral, PublicKeyToken=425ba4de41127026, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\DotSpatial.Mono.1.7\lib\net40-Client\DotSpatial.Mono.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotSpatial.Projections, Version=1.7.0.0, Culture=neutral, PublicKeyToken=272632bddd08a38b, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\DotSpatial.Projections.1.7\lib\net40-Client\DotSpatial.Projections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotSpatial.Serialization, Version=1.7.0.0, Culture=neutral, PublicKeyToken=441f200f827611e7, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\DotSpatial.Serialization.1.7\lib\net40-Client\DotSpatial.Serialization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotSpatial.Topology, Version=1.7.0.0, Culture=neutral, PublicKeyToken=a66b5e9434ca3671, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\DotSpatial.Topology.1.7\lib\net40-Client\DotSpatial.Topology.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fluent, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Fluent.dll</HintPath>
       <Private>True</Private>
@@ -95,6 +115,16 @@
       <Name>Core.Common.Gui</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{e344867e-9ac9-44c8-88a5-8185681679a9}</Project>
+      <Name>Core.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Version\Core.Common.Version.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Core.Common.Version</Name>
@@ -107,6 +137,11 @@
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
       <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
       <Name>Core.Components.Gis.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj">
+      <Project>{fd264fad-e6f9-47cc-97cd-770199a8e629}</Project>
+      <Name>Core.Components.Gis.IO</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
@@ -156,6 +191,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\map-pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\map--plus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

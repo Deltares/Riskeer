@@ -11,7 +11,6 @@ using Rhino.Mocks;
 
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;

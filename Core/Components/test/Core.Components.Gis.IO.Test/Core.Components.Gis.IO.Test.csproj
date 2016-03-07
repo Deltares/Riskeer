@@ -61,8 +61,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PolylineShapeFileReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Readers\PointShapeFileReaderTest.cs" />
+    <Compile Include="Readers\PolygonShapeFileReaderTest.cs" />
+    <Compile Include="Readers\PolylineShapeFileReaderTest.cs" />
+    <Compile Include="Readers\ShapeFileReaderBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
