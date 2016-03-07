@@ -177,29 +177,32 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             try
             {
                 var ringtoetsPipingSurfaceLine = reader.ReadSurfaceLine();
-                ValidateForExistingSurfaceLine(list, ringtoetsPipingSurfaceLine);
+                if (ValidateForExistingSurfaceLine(list, ringtoetsPipingSurfaceLine))
+                {
+                    PruneConsecutiveDuplicateGeometryPoints(ringtoetsPipingSurfaceLine);
+                    list.Add(ringtoetsPipingSurfaceLine);
+                }
 
-                PruneConsecutiveDuplicateGeometryPoints(ringtoetsPipingSurfaceLine);
-                list.Add(ringtoetsPipingSurfaceLine);
             }
             catch (LineParseException e)
             {
                 var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
                                             e.Message);
-                log.Error(message);
+                log.WarnFormat(message);
             }
         }
 
-        private static void ValidateForExistingSurfaceLine(ICollection<RingtoetsPipingSurfaceLine> readSurfaceLineIdentifiers, RingtoetsPipingSurfaceLine ringtoetsPipingSurfaceLine)
+        private bool ValidateForExistingSurfaceLine(ICollection<RingtoetsPipingSurfaceLine> readSurfaceLineIdentifiers, RingtoetsPipingSurfaceLine ringtoetsPipingSurfaceLine)
         {
             if (readSurfaceLineIdentifiers.Any(i => i.Name == ringtoetsPipingSurfaceLine.Name))
             {
-                var message = string.Format(
+                log.WarnFormat(
                     RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_,
                     ringtoetsPipingSurfaceLine.Name);
 
-                throw new CriticalFileReadException(message);
+                return false;
             }
+            return true;
         }
 
         private int GetNumberOfSurfaceLines(PipingSurfaceLinesCsvReader reader)
@@ -327,26 +330,28 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 CharacteristicPoints location = reader.ReadCharacteristicPointsLocation();
 
-                ValidateForExistingCharacteristicPointsLocations(list, location);
-
-                list.Add(location);
+                if (ValidateForExistingCharacteristicPointsLocations(list, location))
+                {
+                    list.Add(location);
+                }
             }
             catch (LineParseException e)
             {
                 var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped,
                                             e.Message);
-                log.Error(message);
+                log.WarnFormat(message);
             }
         }
 
-        private static void ValidateForExistingCharacteristicPointsLocations(ICollection<CharacteristicPoints> list, CharacteristicPoints location)
+        private bool ValidateForExistingCharacteristicPointsLocations(ICollection<CharacteristicPoints> list, CharacteristicPoints location)
         {
             if (list.Any(i => i.Name == location.Name))
             {
-                string message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_,
+                log.WarnFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_,
                                                location.Name);
-                throw new CriticalFileReadException(message);
+                return false;
             }
+            return true;
         }
 
         private int GetNumberOfCharacteristicPointLocations(CharacteristicPointsCsvReader reader)

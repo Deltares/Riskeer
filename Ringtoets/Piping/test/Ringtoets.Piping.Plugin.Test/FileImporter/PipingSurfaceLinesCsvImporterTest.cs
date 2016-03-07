@@ -209,7 +209,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
@@ -233,6 +232,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsTrue(importResult);
             var importTargetArray = observableSurfaceLinesList.ToArray();
             Assert.AreEqual(expectedNumberOfSurfaceLines, importTargetArray.Length);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -333,36 +333,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_FileHasDuplicateIdentifier_AbortImportAndLog()
-        {
-            // Setup
-            string corruptPath = Path.Combine(pluginTestDataPath, "TwoValidSurfaceLines_DuplicateIdentifier.csv");
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var importer = new PipingSurfaceLinesCsvImporter();
-
-            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
-            observableSurfaceLinesList.Attach(observer);
-
-            var importResult = true;
-
-            // Call
-            Action call = () => importResult = importer.Import(observableSurfaceLinesList, corruptPath);
-
-            // Assert
-            var innerMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_, "Rotterdam1");
-            var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, innerMessage);
-            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
-            Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(observableSurfaceLinesList,
-                                     "No items should be added to collection when import is aborted.");
-            mocks.VerifyAll(); // Expect no calls on 'observer'
-        }
-
-        [Test]
         public void Import_InvalidHeader_AbortImportAndLog()
         {
             // Setup
@@ -442,6 +412,46 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                     File.Delete(copyTargetPath);
                 }
             }
+        }
+
+        [Test]
+        public void Import_FileHasDuplicateIdentifier_AbortImportAndLog()
+        {
+            // Setup
+            var fileName = "TwoValidSurfaceLines_DuplicateIdentifier";
+            string corruptPath = Path.Combine(pluginTestDataPath, string.Format(surfaceLineFormat, fileName));
+            string expectedCharacteristicPointsFile = Path.Combine(pluginTestDataPath, string.Format(krpFormat, fileName));
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = importer.Import(observableSurfaceLinesList, corruptPath);
+
+            // Assert
+            var duplicateDefinitionMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_, "Rotterdam1");
+            var expectedLogMessages = new[]
+            {
+                duplicateDefinitionMessage,
+                string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_, expectedCharacteristicPointsFile)
+            };
+
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
+            Assert.IsTrue(importResult);
+
+            Assert.AreEqual(1, observableSurfaceLinesList.Count,
+                            "Ensure only the one valid surfaceline has been imported.");
+            Assert.AreEqual(1, observableSurfaceLinesList.Count(sl => sl.Name == "Rotterdam1"));
+            Assert.AreEqual(3, observableSurfaceLinesList.First(sl => sl.Name == "Rotterdam1").Points.Length, "First line should have been added to the model.");
+            mocks.VerifyAll(); // Expect no calls on 'observer'
         }
 
         [Test]
@@ -805,7 +815,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_CharacteristicPointsFileHasDuplicateIdentifier_AbortImportAndLog()
+        public void Import_CharacteristicPointsFileHasDuplicateIdentifier_LogAndSkipsLine()
         {
             // Setup
             const string fileName = "TwoValidSurfaceLines_DuplicateIdentifiersCharacteristicPoints";
@@ -827,17 +837,21 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(observableSurfaceLinesList, surfaceLineFile);
 
             // Assert
-            var innerMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_,
+            var duplicateDefinitionMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_,
                 "Rotterdam1");
             var expectedLogMessages = new[]
             {
                 string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_file_0_, corruptPath),
-                string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, innerMessage)
+                duplicateDefinitionMessage
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
-            Assert.IsFalse(importResult);
-            CollectionAssert.IsEmpty(observableSurfaceLinesList,
-                                     "No items should be added to collection when import is aborted.");
+            Assert.IsTrue(importResult);
+
+            Assert.AreEqual(2, observableSurfaceLinesList.Count,
+                            "Ensure only the two valid surfacelines have been imported.");
+            Assert.AreEqual(1, observableSurfaceLinesList.Count(sl => sl.Name == "Rotterdam1"));
+            Assert.AreEqual(-1.02, observableSurfaceLinesList.First(sl => sl.Name == "Rotterdam1").DitchPolderSide.Z, "First characteristic points definition should be added to data model.");
+            Assert.AreEqual(1, observableSurfaceLinesList.Count(sl => sl.Name == "ArtifcialLocal"));
             mocks.VerifyAll(); // Expect no calls on 'observer'
         }
 
