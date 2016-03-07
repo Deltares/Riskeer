@@ -31,7 +31,7 @@ using Ringtoets.HydraRing.Calculation.Providers;
 namespace Ringtoets.HydraRing.Calculation.Service
 {
     /// <summary>
-    /// Service for generating the database initialization script that is necessary for performing Hydra-Ring calculations.
+    /// Service for generating the database creation script that is necessary for performing Hydra-Ring calculations.
     /// The following Hydra-Ring features are not exposed (yet):
     /// <list type="bullet">
     /// <item>
