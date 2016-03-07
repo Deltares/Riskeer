@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Service;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
@@ -37,6 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
         private readonly HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType;
         private readonly HydraRingUncertaintiesType uncertaintiesType;
         private readonly TargetProbabilityCalculationInput targetProbabilityCalculationInput;
+        private readonly Action<TargetProbabilityCalculationOutput> handleCalculationOutputAction;
         private TargetProbabilityCalculationOutput targetProbabilityCalculationOutput;
 
         /// <summary>
@@ -48,13 +50,15 @@ namespace Ringtoets.HydraRing.Calculation.Service
         /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="targetProbabilityCalculationInput">The input of the calculation to perform.</param>
+        /// <param name="handleCalculationOutputAction">The action to perform after the calculation is performed.</param>
         public TargetProbabilityCalculationActivity(
             string name,
             string hlcdDirectory,
             string ringId,
             HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
             HydraRingUncertaintiesType uncertaintiesType,
-            TargetProbabilityCalculationInput targetProbabilityCalculationInput)
+            TargetProbabilityCalculationInput targetProbabilityCalculationInput,
+            Action<TargetProbabilityCalculationOutput> handleCalculationOutputAction)
         {
             this.name = name;
             this.hlcdDirectory = hlcdDirectory;
@@ -62,6 +66,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
             this.timeIntegrationSchemeType = timeIntegrationSchemeType;
             this.uncertaintiesType = uncertaintiesType;
             this.targetProbabilityCalculationInput = targetProbabilityCalculationInput;
+            this.handleCalculationOutputAction = handleCalculationOutputAction;
         }
 
         public override string Name
@@ -84,7 +89,10 @@ namespace Ringtoets.HydraRing.Calculation.Service
 
         protected override void OnFinish()
         {
-            // TODO: Implement logic for correctly handling the targetProbabilityCalculationOutput
+            if (targetProbabilityCalculationOutput != null)
+            {
+                handleCalculationOutputAction(targetProbabilityCalculationOutput);
+            }
         }
     }
 }
