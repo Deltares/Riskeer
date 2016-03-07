@@ -157,7 +157,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er konden geen karakteristieke punten gevonden worden voor profielmeting &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Er konden geen karakteristieke punten gevonden worden voor locatie &apos;{0}&apos;..
         /// </summary>
         public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_ {
             get {

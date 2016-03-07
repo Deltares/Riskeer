@@ -199,7 +199,7 @@
     <value>Regel ontbreekt het verwachte scheidingsteken (het karakter: {0}).</value>
   </data>
   <data name="CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points" xml:space="preserve">
-    <value>De locatie heeft een incorrect aantal kolommen.</value>
+    <value>Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst.</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length" xml:space="preserve">
     <value>Profielmeting heeft een geometrie die een lijn met lengte 0 beschrijft.</value>
