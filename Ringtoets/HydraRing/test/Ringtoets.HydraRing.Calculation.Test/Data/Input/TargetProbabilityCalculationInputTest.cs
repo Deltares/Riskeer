@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using MathNet.Numerics.Distributions;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
@@ -32,7 +33,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
         public void Constructor_ExpectedValues()
         {
             // Call
-            var targetProbabilityCalculationInputImplementation = new TargetProbabilityCalculationInputImplementation(1, 2.2);
+            var norm = 10000;
+            var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0 / norm);
+            var targetProbabilityCalculationInputImplementation = new TargetProbabilityCalculationInputImplementation(1, norm);
 
             // Assert
             Assert.AreEqual(1, targetProbabilityCalculationInputImplementation.HydraulicBoundaryLocationId);
@@ -41,7 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             Assert.AreEqual(1, targetProbabilityCalculationInputImplementation.DikeSection.SectionId);
             CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.Variables);
             CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.ProfilePoints);
-            Assert.AreEqual(2.2, targetProbabilityCalculationInputImplementation.Beta);
+            Assert.AreEqual(expectedBeta, targetProbabilityCalculationInputImplementation.Beta);
         }
 
         private class TargetProbabilityCalculationInputImplementation : TargetProbabilityCalculationInput

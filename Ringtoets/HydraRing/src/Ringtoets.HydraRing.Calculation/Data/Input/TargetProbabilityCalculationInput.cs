@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using MathNet.Numerics.Distributions;
+
 namespace Ringtoets.HydraRing.Calculation.Data.Input
 {
     /// <summary>
@@ -32,10 +34,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         /// Creates a new instance of the <see cref="TargetProbabilityCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
-        /// <param name="beta">The reliability index to use during the calculation.</param>
-        protected TargetProbabilityCalculationInput(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId)
+        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
+        protected TargetProbabilityCalculationInput(int hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId)
         {
-            this.beta = beta;
+            beta = -Normal.InvCDF(0.0, 1.0, 1.0 / norm);
         }
 
         public override int CalculationTypeId

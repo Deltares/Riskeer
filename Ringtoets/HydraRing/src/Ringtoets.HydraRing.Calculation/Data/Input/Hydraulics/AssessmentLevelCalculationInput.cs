@@ -34,8 +34,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// Creates a new instance of the <see cref="AssessmentLevelCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
-        /// <param name="beta">The reliability index to use during the calculation.</param>
-        public AssessmentLevelCalculationInput(int hydraulicBoundaryLocationId, double beta) : base(hydraulicBoundaryLocationId, beta)
+        /// <param name="norm">The norm to use during the calculation.</param>
+        public AssessmentLevelCalculationInput(int hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId, norm)
         {
             dikeSection = new HydraRingDikeSection(HydraulicBoundaryLocationId, HydraulicBoundaryLocationId.ToString(), double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
         }

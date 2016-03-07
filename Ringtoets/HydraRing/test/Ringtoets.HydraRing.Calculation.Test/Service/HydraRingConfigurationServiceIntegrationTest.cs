@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Service
         {
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All);
 
-            hydraRingConfigurationService.AddHydraRingCalculationInput(new AssessmentLevelCalculationInput(700004, 3.29053));
+            hydraRingConfigurationService.AddHydraRingCalculationInput(new AssessmentLevelCalculationInput(700004, 10000));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -44,7 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Service
                                          "INSERT INTO [Sections] VALUES (700004, 1, 1, '700004', '700004', 0, 0, 0, 0, 700004, 700004, 100, 0, 0);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                         "INSERT INTO [DesignTables] VALUES (700004, 1, 1, 1, 2, 26, 0, 0, 0, 0, 0, 50, 3.29053);" + Environment.NewLine +
+                                         "INSERT INTO [DesignTables] VALUES (700004, 1, 1, 1, 2, 26, 0, 0, 0, 0, 0, 50, 3.71901648545568);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Numerics];" + Environment.NewLine +
                                          "INSERT INTO [Numerics] VALUES (700004, 1, 1, 1, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 20000, 100000, 0.1, -6, 6, 25);" + Environment.NewLine +

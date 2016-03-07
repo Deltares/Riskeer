@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using MathNet.Numerics.Distributions;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -33,7 +34,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_ExpectedValues()
         {
             // Call
-            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, 2.2);
+            var norm = 10000;
+            var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0 / norm);
+            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, norm);
 
             // Assert
             Assert.AreEqual(HydraRingFailureMechanismType.AssessmentLevel, assessmentLevelCalculationInput.FailureMechanismType);
@@ -42,7 +45,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsNotNull(assessmentLevelCalculationInput.DikeSection);
             Assert.AreEqual(1, assessmentLevelCalculationInput.Variables.Count());
             CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ProfilePoints);
-            Assert.AreEqual(2.2, assessmentLevelCalculationInput.Beta);
+            Assert.AreEqual(expectedBeta, assessmentLevelCalculationInput.Beta);
 
             var dikeSection = assessmentLevelCalculationInput.DikeSection;
             Assert.AreEqual(1, dikeSection.SectionId);

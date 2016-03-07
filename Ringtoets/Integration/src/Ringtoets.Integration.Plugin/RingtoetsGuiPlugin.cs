@@ -34,7 +34,6 @@ using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.IO.Exceptions;
 using log4net;
-using MathNet.Numerics.Distributions;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -447,9 +446,13 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsFormsResources.FailureMechanismIcon,
                 (sender, args) =>
                 {
-                    var beta = -Normal.InvCDF(0.0, 1.0, 1.0 / nodeData.Parent.FailureMechanismContribution.Norm);
                     var hlcdDirectory = Path.GetDirectoryName(nodeData.Parent.HydraulicBoundaryDatabase.FilePath);
-                    var activities = nodeData.Parent.HydraulicBoundaryDatabase.Locations.Select(hbl => new TargetProbabilityCalculationActivity(string.Format(Resources.RingtoetsGuiPlugin_Calculate_assessment_level_for_location_0_, hbl.Id), hlcdDirectory, "", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, new AssessmentLevelCalculationInput((int) hbl.Id, beta)));
+                    var activities = nodeData.Parent.HydraulicBoundaryDatabase.Locations.Select(hbl => new TargetProbabilityCalculationActivity(string.Format(Resources.RingtoetsGuiPlugin_Calculate_assessment_level_for_location_0_, hbl.Id),
+                        hlcdDirectory,
+                        "",
+                        HydraRingTimeIntegrationSchemeType.FBC,
+                        HydraRingUncertaintiesType.All,
+                        new AssessmentLevelCalculationInput((int) hbl.Id, nodeData.Parent.FailureMechanismContribution.Norm)));
 
                     ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
                 }
