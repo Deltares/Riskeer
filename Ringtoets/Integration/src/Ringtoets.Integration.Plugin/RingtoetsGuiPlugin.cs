@@ -454,7 +454,11 @@ namespace Ringtoets.Integration.Plugin
                                                                                                            HydraRingTimeIntegrationSchemeType.FBC,
                                                                                                            HydraRingUncertaintiesType.All,
                                                                                                            new AssessmentLevelCalculationInput((int) hbl.Id, nodeData.Parent.FailureMechanismContribution.Norm),
-                                                                                                           output => hbl.DesignWaterLevel = output.Result)).ToList();
+                                                                                                           output =>
+                                                                                                           {
+                                                                                                               hbl.DesignWaterLevel = output.Result;
+                                                                                                               hbl.NotifyObservers();
+                                                                                                           })).ToList();
 
                     ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
                 }

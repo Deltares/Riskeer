@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -55,6 +56,7 @@ namespace Ringtoets.HydraRing.Data.Test
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
 
             // Assert
+            Assert.IsInstanceOf<Observable>(hydraulicBoundaryLocation);
             Assert.IsInstanceOf<HydraulicBoundaryLocation>(hydraulicBoundaryLocation);
             Assert.AreEqual(id, hydraulicBoundaryLocation.Id);
             Assert.AreEqual(name, hydraulicBoundaryLocation.Name);
