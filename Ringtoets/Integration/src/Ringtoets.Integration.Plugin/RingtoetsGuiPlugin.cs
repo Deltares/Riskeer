@@ -159,7 +159,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
             {
-                Text = context => RingtoetsCommonDataResources.FailureMechanism_Sections_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.Sections,
                 ForeColor = context => context.WrappedData.Any() ?
                                            Color.FromKnownColor(KnownColor.ControlText) :

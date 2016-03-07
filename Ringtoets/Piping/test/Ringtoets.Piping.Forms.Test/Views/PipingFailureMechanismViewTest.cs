@@ -67,11 +67,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             var mapData = (MapDataCollection)map.Data;
 
-            Assert.AreEqual(4, mapData.List.Count);
+            Assert.AreEqual(6, mapData.List.Count);
             AssertSurfacelinesMapData(pipingFailureMechanism.SurfaceLines, mapData.List[0]);
             AssertFailureMechanismSectionsMapData(pipingFailureMechanism.Sections, mapData.List[1]);
-            AssertHydraulicBoundaryLocationsMapData(assessmentSectionBase.HydraulicBoundaryDatabase, mapData.List[2]);
-            AssertReferenceMapData(assessmentSectionBase.ReferenceLine, mapData.List[3]);
+            AssertFailureMechanismSectionsStartPointMapData(pipingFailureMechanism.Sections, mapData.List[2]);
+            AssertFailureMechanismSectionsEndPointMapData(pipingFailureMechanism.Sections, mapData.List[3]);
+            AssertHydraulicBoundaryLocationsMapData(assessmentSectionBase.HydraulicBoundaryDatabase, mapData.List[4]);
+            AssertReferenceMapData(assessmentSectionBase.ReferenceLine, mapData.List[5]);
         }
 
         [Test]
@@ -119,63 +121,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
             var mapData = map.Data as MapDataCollection;
             Assert.IsNotNull(mapData);
-            
+
+            Assert.AreEqual(6, mapData.List.Count);
             AssertSurfacelinesMapData(pipingFailureMechanism.SurfaceLines, mapData.List[0]);
             AssertFailureMechanismSectionsMapData(pipingFailureMechanism.Sections, mapData.List[1]);
-            AssertHydraulicBoundaryLocationsMapData(assessmentSectionBase.HydraulicBoundaryDatabase, mapData.List[2]);
-            AssertReferenceMapData(referenceLine, mapData.List[3]);
-        }
-
-        private void AssertReferenceMapData(ReferenceLine referenceLine, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapLineData>(mapData);
-            var referenceLineData = (MapLineData)mapData;
-            if (referenceLine == null)
-            {
-                CollectionAssert.IsEmpty(referenceLineData.Points);
-            }
-            else
-            {
-                CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Points);
-            }
-            Assert.AreEqual("Referentielijn", mapData.Name);
-        }
-
-        private void AssertHydraulicBoundaryLocationsMapData(HydraulicBoundaryDatabase database, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapPointData>(mapData);
-            var hydraulicLocationsMapData = (MapPointData)mapData;
-            if (database == null)
-            {
-                CollectionAssert.IsEmpty(hydraulicLocationsMapData.Points);
-            }
-            else
-            {
-                CollectionAssert.AreEqual(database.Locations.Select(hrp => hrp.Location), hydraulicLocationsMapData.Points);
-            }
-            Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
-        }
-
-        private void AssertFailureMechanismSectionsMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapMultiLineData>(mapData);
-            var sectionsMapLinesData = (MapMultiLineData)mapData;
-            foreach (var failureMechanismSection in sections)
-            {
-                CollectionAssert.Contains(sectionsMapLinesData.Lines, failureMechanismSection.Points);
-            }
-            Assert.AreEqual("Vakindeling", mapData.Name);
-        }
-
-        private void AssertSurfacelinesMapData(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapMultiLineData>(mapData);
-            var surfacelinesMapData = (MapMultiLineData)mapData;
-            foreach (var surfaceLine in surfaceLines)
-            {
-                CollectionAssert.Contains(surfacelinesMapData.Lines, surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)));
-            }
-            Assert.AreEqual("Profielmetingen", mapData.Name);
+            AssertFailureMechanismSectionsStartPointMapData(pipingFailureMechanism.Sections, mapData.List[2]);
+            AssertFailureMechanismSectionsEndPointMapData(pipingFailureMechanism.Sections, mapData.List[3]);
+            AssertHydraulicBoundaryLocationsMapData(assessmentSectionBase.HydraulicBoundaryDatabase, mapData.List[4]);
+            AssertReferenceMapData(assessmentSectionBase.ReferenceLine, mapData.List[5]);
         }
 
         [Test]
@@ -395,6 +348,74 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(dataBeforeUpdate, map.Data);
 
             mocks.VerifyAll();
+        }
+
+        private void AssertReferenceMapData(ReferenceLine referenceLine, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapLineData>(mapData);
+            var referenceLineData = (MapLineData)mapData;
+            if (referenceLine == null)
+            {
+                CollectionAssert.IsEmpty(referenceLineData.Points);
+            }
+            else
+            {
+                CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Points);
+            }
+            Assert.AreEqual("Referentielijn", mapData.Name);
+        }
+
+        private void AssertHydraulicBoundaryLocationsMapData(HydraulicBoundaryDatabase database, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapPointData>(mapData);
+            var hydraulicLocationsMapData = (MapPointData)mapData;
+            if (database == null)
+            {
+                CollectionAssert.IsEmpty(hydraulicLocationsMapData.Points);
+            }
+            else
+            {
+                CollectionAssert.AreEqual(database.Locations.Select(hrp => hrp.Location), hydraulicLocationsMapData.Points);
+            }
+            Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
+        }
+
+        private void AssertFailureMechanismSectionsMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapMultiLineData>(mapData);
+            var sectionsMapLinesData = (MapMultiLineData)mapData;
+            foreach (var failureMechanismSection in sections)
+            {
+                CollectionAssert.Contains(sectionsMapLinesData.Lines, failureMechanismSection.Points);
+            }
+            Assert.AreEqual("Vakindeling", mapData.Name);
+        }
+
+        private void AssertFailureMechanismSectionsStartPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapPointData>(mapData);
+            var sectionsStartPointData = (MapPointData)mapData;
+            CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Points);
+            Assert.AreEqual("Vakindeling (startpunten)", mapData.Name);
+        }
+
+        private void AssertFailureMechanismSectionsEndPointMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapPointData>(mapData);
+            var sectionsStartPointData = (MapPointData)mapData;
+            CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsStartPointData.Points);
+            Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
+        }
+
+        private void AssertSurfacelinesMapData(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, MapData mapData)
+        {
+            Assert.IsInstanceOf<MapMultiLineData>(mapData);
+            var surfacelinesMapData = (MapMultiLineData)mapData;
+            foreach (var surfaceLine in surfaceLines)
+            {
+                CollectionAssert.Contains(surfacelinesMapData.Lines, surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)));
+            }
+            Assert.AreEqual("Profielmetingen", mapData.Name);
         }
 
         private class TestAssessmentSectionBase : AssessmentSectionBase

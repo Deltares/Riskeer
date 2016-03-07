@@ -106,15 +106,6 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vakindeling.
-        /// </summary>
-        public static string FailureMechanism_Sections_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Sections_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan geen bijdrageoverzicht maken zonder faalmechanismen..
         /// </summary>
         public static string FailureMechanismContribution_FailureMechanismContribution_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection {

@@ -15,7 +15,6 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.Integration.Plugin.Properties;
 
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
@@ -43,7 +42,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         {
             get
             {
-                return RingtoetsCommonDataResources.FailureMechanism_Sections_DisplayName;
+                return RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName;
             }
         }
 

@@ -29,6 +29,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 
@@ -120,6 +121,8 @@ namespace Ringtoets.Piping.Forms.Views
                 // Bottom most layer
                 mapDataList.Add(GetSurfaceLinesMapData());
                 mapDataList.Add(GetSectionsMapData());
+                mapDataList.Add(GetSectionsStartPointsMapData());
+                mapDataList.Add(GetSectionsEndPointsMapData());
                 mapDataList.Add(GetHydraulicBoundaryLocationsMapData());
                 mapDataList.Add(GetReferenceLineMapData());
                 // Topmost layer
@@ -156,7 +159,25 @@ namespace Ringtoets.Piping.Forms.Views
         private MapData GetSectionsMapData()
         {
             IEnumerable<IEnumerable<Point2D>> sectionLines = data.WrappedData.Sections.Select(sl => sl.Points);
-            return new MapMultiLineData(sectionLines, RingtoetsCommonDataResources.FailureMechanism_Sections_DisplayName);
+            return new MapMultiLineData(sectionLines, Resources.FailureMechanism_Sections_DisplayName);
+        }
+
+        private MapData GetSectionsStartPointsMapData()
+        {
+            IEnumerable<Point2D> startPoints = data.WrappedData.Sections.Select(sl => sl.GetStart());
+            string mapDataName = string.Format("{0} ({1})",
+                                               Resources.FailureMechanism_Sections_DisplayName,
+                                               Resources.FailureMechanismSections_StartPoints_DisplayName);
+            return new MapPointData(startPoints, mapDataName);
+        }
+
+        private MapData GetSectionsEndPointsMapData()
+        {
+            IEnumerable<Point2D> startPoints = data.WrappedData.Sections.Select(sl => sl.GetLast());
+            string mapDataName = string.Format("{0} ({1})",
+                                               Resources.FailureMechanism_Sections_DisplayName,
+                                               Resources.FailureMechanismSections_EndPoints_DisplayName);
+            return new MapPointData(startPoints, mapDataName);
         }
     }
 }

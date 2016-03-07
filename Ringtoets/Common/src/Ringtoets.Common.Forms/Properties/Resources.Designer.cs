@@ -201,6 +201,33 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vakindeling.
+        /// </summary>
+        public static string FailureMechanism_Sections_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Sections_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eindpunten.
+        /// </summary>
+        public static string FailureMechanismSections_EndPoints_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSections_EndPoints_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to startpunten.
+        /// </summary>
+        public static string FailureMechanismSections_StartPoints_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSections_StartPoints_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap GeneralFolderIcon {
