@@ -249,5 +249,14 @@ namespace Ringtoets.Integration.Plugin.Properties {
                 return ResourceManager.GetString("ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetspeil berekenen voor locatie &apos;{0}&apos;.
+        /// </summary>
+        public static string RingtoetsGuiPlugin_Calculate_assessment_level_for_location_0_ {
+            get {
+                return ResourceManager.GetString("RingtoetsGuiPlugin_Calculate_assessment_level_for_location_0_", resourceCulture);
+            }
+        }
     }
 }

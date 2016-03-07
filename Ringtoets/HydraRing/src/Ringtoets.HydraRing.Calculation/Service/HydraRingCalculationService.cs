@@ -44,11 +44,11 @@ namespace Ringtoets.HydraRing.Calculation.Service
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
-        /// <param name="hydraRingCalculationInput">The input of the calculation to perform.</param>
+        /// <param name="targetProbabilityCalculationInput">The input of the calculation to perform.</param>
         /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> or <c>null</c> when something went wrong.</returns>
-        public static TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculationInput hydraRingCalculationInput)
+        public static TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, TargetProbabilityCalculationInput targetProbabilityCalculationInput)
         {
-            return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, hydraRingCalculationInput, (outputFilePath, ouputDatabasePath) => TargetProbabilityCalculationParser.Parse(outputFilePath, hydraRingCalculationInput.DikeSection.SectionId));
+            return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, (outputFilePath, ouputDatabasePath) => TargetProbabilityCalculationParser.Parse(outputFilePath, targetProbabilityCalculationInput.DikeSection.SectionId));
         }
 
         private static T PerformCalculation<T>(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculationInput hydraRingCalculationInput, Func<string, string, T> parseFunction)
@@ -103,7 +103,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
                 {
                     WorkingDirectory = workingDirectory,
                     UseShellExecute = false,
-                    CreateNoWindow = true
+                    CreateNoWindow = false
                 }
             };
 
