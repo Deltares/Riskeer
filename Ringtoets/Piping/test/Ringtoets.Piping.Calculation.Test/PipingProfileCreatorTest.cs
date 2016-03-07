@@ -19,7 +19,7 @@ namespace Ringtoets.Piping.Calculation.Test
             // Setup
             var random = new Random(22);
             var expectedTop = random.NextDouble();
-            var expectedBottom = random.NextDouble();
+            var expectedBottom = expectedTop - random.NextDouble();
             var belowPhreaticLevel = random.NextDouble();
             var abovePhreaticLevel = random.NextDouble();
             var dryUnitWeight = random.NextDouble();
@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.Calculation.Test
             var expectedTopA = random.NextDouble();
             var expectedTopB = expectedTopA - random.NextDouble();
             var expectedTopC = expectedTopB - random.NextDouble();
-            var expectedBottom = random.NextDouble();
+            var expectedBottom = expectedTopC - random.NextDouble();
             IEnumerable<PipingSoilLayer> layers = new[]
             {
                 new PipingSoilLayer(expectedTopA)
@@ -99,7 +99,7 @@ namespace Ringtoets.Piping.Calculation.Test
             var expectedTopA = random.NextDouble();
             var expectedTopB = random.NextDouble() + expectedTopA;
             var expectedTopC = random.NextDouble() + expectedTopB;
-            var expectedBottom = random.NextDouble();
+            var expectedBottom = expectedTopA - random.NextDouble();
             IEnumerable<PipingSoilLayer> layers = new[]
             {
                 new PipingSoilLayer(expectedTopA)

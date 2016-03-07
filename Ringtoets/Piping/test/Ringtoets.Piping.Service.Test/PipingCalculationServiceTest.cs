@@ -58,9 +58,11 @@ namespace Ringtoets.Piping.Service.Test
 
             // Make invalid by having surfaceline partially above soil profile:
             double highestLevelSurfaceLine = invalidPipingCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
-            invalidPipingCalculation.InputParameters.SoilProfile = new PipingSoilProfile("A", 0, new[]
+            var soilProfileTop = highestLevelSurfaceLine - 0.5;
+            var soilProfileBottom = soilProfileTop - 0.5;
+            invalidPipingCalculation.InputParameters.SoilProfile = new PipingSoilProfile("A", soilProfileBottom, new[]
             {
-                new PipingSoilLayer(highestLevelSurfaceLine-0.5)
+                new PipingSoilLayer(soilProfileTop)
                 {
                     IsAquifer = true
                 } 

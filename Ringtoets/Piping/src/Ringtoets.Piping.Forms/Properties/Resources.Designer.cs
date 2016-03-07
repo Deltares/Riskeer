@@ -1084,6 +1084,16 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer..
+        /// </summary>
+        public static string PipingInputExtensions_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer {
+            get {
+                return ResourceManager.GetString("PipingInputExtensions_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aqui" +
+                        "fer_layer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan deklaagdikte niet afleiden op basis van de invoer..
         /// </summary>
         public static string PipingInputExtensions_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer {

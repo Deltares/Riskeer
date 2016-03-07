@@ -53,8 +53,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var profileName = "SomeProfile";
             var random = new Random(22);
             var bottom = random.NextDouble();
-            var top = random.NextDouble();
-            var top2 = random.NextDouble();
+            var top = bottom + random.NextDouble();
+            var top2 = bottom + random.NextDouble();
 
             var builder = new SoilProfileBuilder1D(profileName, bottom);
             builder.Add(new PipingSoilLayer(top)

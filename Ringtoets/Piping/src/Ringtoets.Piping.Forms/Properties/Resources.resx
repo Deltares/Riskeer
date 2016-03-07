@@ -598,4 +598,7 @@
   <data name="GenerapPipingInput_B_DisplayName" xml:space="preserve">
     <value>b</value>
   </data>
+  <data name="PipingInputExtensions_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer" xml:space="preserve">
+    <value>Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.</value>
+  </data>
 </root>

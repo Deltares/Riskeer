@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
@@ -78,12 +77,38 @@ namespace Ringtoets.Piping.Data
                 {
                     throw new ArgumentNullException(@"value", string.Format(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers));
                 }
-                if(!value.Any())
+                if (!value.Any())
                 {
-                    throw new ArgumentException(string.Format(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers));
+                    throw new ArgumentException(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers);
+                }
+                if (value.Any(l => l.Top < Bottom))
+                {
+                    throw new ArgumentException(Resources.PipingSoilProfile_Layers_Layer_top_below_profile_bottom);
                 }
                 layers = value.OrderByDescending(l => l.Top).ToArray();
             }
+        }
+
+        /// <summary>
+        /// Gets the thickness of the given layer in the <see cref="PipingSoilProfile"/>.
+        /// Thickness of a layer is determined by its top and the top of the layer below it.
+        /// </summary>
+        /// <param name="layer">The <see cref="PipingSoilLayer"/> to determine the thickness of.</param>
+        /// <returns>The thickness of the <paramref name="layer"/>.</returns>
+        /// <exception cref="ArgumentException"><see cref="Layers"/> does not contain <paramref name="layer"/>.</exception>
+        public double GetLayerThickness(PipingSoilLayer layer)
+        {
+            var orderedLayers = layers.OrderBy(l => l.Top);
+            var previousLevel = Bottom;
+            foreach (var oLayer in orderedLayers)
+            {
+                if (ReferenceEquals(layer, oLayer))
+                {
+                    return layer.Top - previousLevel;
+                }
+                previousLevel = oLayer.Top;
+            }
+            throw new ArgumentException("Layer not found in profile.");
         }
 
         public override string ToString()

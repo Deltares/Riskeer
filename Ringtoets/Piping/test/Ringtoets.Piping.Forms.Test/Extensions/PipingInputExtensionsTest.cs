@@ -264,6 +264,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         [Test]
         [TestCase(0)]
         [TestCase(1)]
+        [TestCase(2)]
         public void ThicknessCoverageLayer_WithMissingInput_ThicknessSetToNaNAndLog(int inputIndexMissing)
         {
             // Setup
@@ -295,6 +296,10 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             if (inputIndexMissing != 1)
             {
                 call = () => input.SetSoilProfile(soilProfile);
+            }
+            if (inputIndexMissing != 2)
+            {
+                call = () => input.SetExitPointL(0.5);
             }
             
             // Assert
@@ -335,7 +340,8 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         [Test]
         [TestCase(0)]
         [TestCase(1)]
-        public void ThicknessCoverageLayer_HadThicknessCoverageLayerChangeToMissingInput_ThicknessSetToNaNAndLog(int inputIndexMissing)
+        [TestCase(2)]
+        public void ThicknessCoverageLayer_ChangeToMissingInput_ThicknessSetToNaNAndLog(int inputIndexMissing)
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -369,6 +375,10 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             {
                 call = () => input.SetSoilProfile(null);
             }
+            if (inputIndexMissing == 2)
+            {
+                call = () => input.SetExitPointL(double.NaN);
+            }
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, Resources.PipingInputExtensions_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer);
@@ -390,6 +400,10 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
                 new PipingSoilLayer(2.0)
                 {
                     IsAquifer = true
+                },
+                new PipingSoilLayer(2.0)
+                {
+                    IsAquifer = false
                 }
             });
 
@@ -450,7 +464,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         }
 
         [Test]
-        public void SetSoilProfile_WithSurfaceLineAndExitPointL_ThicknessUpdated()
+        public void SetSoilProfile_WithSurfaceLineAndExitPointL_CoverageThicknessUpdated()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -487,6 +501,259 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             Assert.AreSame(soilProfile, input.SoilProfile);
             Assert.AreNotEqual(previousResult, result);
             Assert.AreEqual(1.0, result);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void ThicknessAquiferLayer_WithMissingInput_ThicknessSetToNaNAndLog(int inputIndexMissing)
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0,0,2.0), 
+                new Point3D(1.0,0,2.0), 
+            });
+            var soilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+            {
+                new PipingSoilLayer(1.0)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(2.0)
+                {
+                    IsAquifer = false
+                }
+            });
+            var input = new PipingInput(new GeneralPipingInput());
+
+            // Call
+            Action call = null;
+            if (inputIndexMissing != 0)
+            {
+                call = () => input.SetSurfaceLine(surfaceLine);
+            }
+            if (inputIndexMissing != 1)
+            {
+                call = () => input.SetSoilProfile(soilProfile);
+            }
+            if (inputIndexMissing != 2)
+            {
+                call = () => input.SetExitPointL(0.5);
+            }
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, Resources.PipingInputExtensions_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer);
+            Assert.IsNaN(input.ThicknessAquiferLayer.Mean);
+        }
+
+        [Test]
+        public void ThicknessAquiferLayer_SoilProfileSingleAquiferUnderSurfaceLine_MeanSet()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0,0,2.0), 
+                new Point3D(1.0,0,2.0), 
+            });
+            var soilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+            {
+                new PipingSoilLayer(1.0)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(2.0)
+                {
+                    IsAquifer = false
+                }
+            });
+            var input = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = surfaceLine,
+                ExitPointL = 0.5
+            };
+
+            input.SetSoilProfile(soilProfile);
+
+            // Call
+            var result = input.ThicknessAquiferLayer.Mean;
+
+            // Assert
+            Assert.AreSame(soilProfile, input.SoilProfile);
+            Assert.AreEqual(1.0, result);
+        }
+
+        [Test]
+        [TestCase(1e-6)]
+        [TestCase(1)]
+        public void ThicknessAquiferLayer_SoilProfileSingleAquiferAboveSurfaceLine_MeanSetToNaN(double deltaAboveSurfaceLine)
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLineTopLevel = 2.0;
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0,0,surfaceLineTopLevel), 
+                new Point3D(1.0,0,surfaceLineTopLevel), 
+            });
+            var soilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+            {
+                new PipingSoilLayer(surfaceLineTopLevel + deltaAboveSurfaceLine)
+                {
+                    IsAquifer = false
+                },
+                new PipingSoilLayer(surfaceLineTopLevel + deltaAboveSurfaceLine + 1)
+                {
+                    IsAquifer = true
+                }
+            });
+            var input = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = surfaceLine,
+                ExitPointL = 0.5
+            };
+
+            input.SetSoilProfile(soilProfile);
+
+            // Call
+            var result = input.ThicknessAquiferLayer.Mean;
+
+            // Assert
+            Assert.AreSame(soilProfile, input.SoilProfile);
+            Assert.IsNaN(result);
+        }
+
+        [Test]
+        public void ThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_MeanSetToTopAquiferThickness()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var firstAquiferThickness = 1.1;
+            var secondAquiferThickness = 2.2;
+            var totalAquiferThickness = firstAquiferThickness + secondAquiferThickness;
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0,0,totalAquiferThickness), 
+                new Point3D(1.0,0,totalAquiferThickness), 
+            });
+            var soilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+            {
+                new PipingSoilLayer(firstAquiferThickness)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(firstAquiferThickness + secondAquiferThickness)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(totalAquiferThickness + 1)
+                {
+                    IsAquifer = false
+                }
+            });
+            var input = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = surfaceLine,
+                ExitPointL = 0.5
+            };
+
+            input.SetSoilProfile(soilProfile);
+
+            // Call
+            var result = input.ThicknessAquiferLayer.Mean;
+
+            // Assert
+            Assert.AreSame(soilProfile, input.SoilProfile);
+            Assert.AreEqual(secondAquiferThickness, result);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void ThicknessAquiferLayer_ChangeToMissingInput_ThicknessSetToNaNAndLog(int inputIndexMissing)
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0,0,2.0), 
+                new Point3D(1.0,0,2.0), 
+            });
+            var soilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+            {
+                new PipingSoilLayer(1.0)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(2.0)
+                {
+                    IsAquifer = false
+                }
+            });
+            var input = new PipingInput(new GeneralPipingInput());
+            input.SetSurfaceLine(surfaceLine);
+            input.SetSoilProfile(soilProfile);
+
+            // Call
+            Action call = null;
+            if (inputIndexMissing == 0)
+            {
+                call = () => input.SetSurfaceLine(null);
+            }
+            if (inputIndexMissing == 1)
+            {
+                call = () => input.SetSoilProfile(null);
+            }
+            if (inputIndexMissing == 2)
+            {
+                call = () => input.SetExitPointL(double.NaN);
+            }
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.");
+            Assert.IsNaN(input.ThicknessAquiferLayer.Mean);
+        }
+
+        [Test]
+        public void ThicknessAquiferLayer_InputResultsInZeroThickness_ThicknessSetToNaNAndLog()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0,0,2.0), 
+                new Point3D(1.0,0,2.0), 
+            });
+            var soilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+            {
+                new PipingSoilLayer(0.0)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(2.0)
+                {
+                    IsAquifer = false
+                }
+            });
+
+            var input = new PipingInput(new GeneralPipingInput());
+
+            input.SetSurfaceLine(surfaceLine);
+            input.SetExitPointL(0.5);
+
+            // Call
+            input.SetSoilProfile(soilProfile);
+
+            // Call
+            Action call = () => input.SetSoilProfile(soilProfile);
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, Resources.PipingInputExtensions_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer);
+            Assert.IsNaN(input.ThicknessAquiferLayer.Mean);
         }
 
         [Test]
