@@ -24,7 +24,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
     /// <summary>
     /// Container for variable defaults.
     /// </summary>
-    public class VariableDefaults
+    internal class VariableDefaults
     {
         private readonly double correlationLength;
 

@@ -54,6 +54,9 @@ namespace Ringtoets.HydraRing.Calculation.Service
             return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, (outputFilePath, ouputDatabasePath) => TargetProbabilityCalculationParser.Parse(outputFilePath, targetProbabilityCalculationInput.DikeSection.SectionId));
         }
 
+        /// <summary>
+        /// Cancels any currently running Hydra-Ring calculation.
+        /// </summary>
         public static void CancelRunningCalculation()
         {
             if (hydraRingProcess != null && !hydraRingProcess.HasExited)

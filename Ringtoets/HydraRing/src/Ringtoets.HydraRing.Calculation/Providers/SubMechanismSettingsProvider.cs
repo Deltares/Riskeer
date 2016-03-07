@@ -30,7 +30,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
     /// <summary>
     /// Provider of <see cref="SubMechanismSettings"/>.
     /// </summary>
-    public class SubMechanismSettingsProvider
+    internal class SubMechanismSettingsProvider
     {
         private readonly IDictionary<int, IDictionary<int, IDictionary<string, SubMechanismSettings>>> fileSubMechanismSettings;
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider;

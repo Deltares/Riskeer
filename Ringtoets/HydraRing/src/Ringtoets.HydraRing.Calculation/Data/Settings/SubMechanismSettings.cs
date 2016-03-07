@@ -24,7 +24,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
     /// <summary>
     /// Container for sub mechanism settings.
     /// </summary>
-    public class SubMechanismSettings
+    internal class SubMechanismSettings
     {
         private readonly int calculationTechniqueId;
         private readonly int formStartMethod;

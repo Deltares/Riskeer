@@ -24,7 +24,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
     /// <summary>
     /// Container for failure mechanism settings.
     /// </summary>
-    public class FailureMechanismSettings
+    internal class FailureMechanismSettings
     {
         private readonly double valueMin;
         private readonly double valueMax;

@@ -30,7 +30,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// <summary>
     /// Parser for the output of a Hydra-Ring type 2 calculation ("iterate towards a target probability, provided as reliability index").
     /// </summary>
-    public static class TargetProbabilityCalculationParser
+    internal static class TargetProbabilityCalculationParser
     {
         /// <summary>
         /// Tries to parse a <see cref="TargetProbabilityCalculationOutput"/> object from the provided output file path for the provided section id.

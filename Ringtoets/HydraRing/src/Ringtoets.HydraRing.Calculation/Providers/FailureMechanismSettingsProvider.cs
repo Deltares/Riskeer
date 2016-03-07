@@ -28,7 +28,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
     /// <summary>
     /// Provider of <see cref="FailureMechanismSettings"/>.
     /// </summary>
-    public class FailureMechanismSettingsProvider
+    internal class FailureMechanismSettingsProvider
     {
         private readonly IDictionary<HydraRingFailureMechanismType, FailureMechanismSettings> defaultFailureMechanismSettings;
 

@@ -28,7 +28,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
     /// <summary>
     /// Provider of <see cref="VariableDefaults"/>.
     /// </summary>
-    public class VariableDefaultsProvider
+    internal class VariableDefaultsProvider
     {
         private readonly IDictionary<HydraRingFailureMechanismType, IDictionary<int, VariableDefaults>> variableDefaults;
 

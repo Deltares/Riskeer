@@ -52,7 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
     /// </list>
     /// In the end, the configuration can be used to generate a Hydra-Ring database creation script.
     /// </summary>
-    public class HydraRingConfigurationService
+    internal class HydraRingConfigurationService
     {
         private const double defaultLayerId = 1;
         private const double defaultAlternativeId = 1;

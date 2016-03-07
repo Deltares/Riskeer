@@ -30,7 +30,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
     /// <summary>
     /// The reader for the Hydra-Ring settings in csv format.
     /// </summary>
-    public class HydraRingSettingsCsvReader
+    internal class HydraRingSettingsCsvReader
     {
         private const char separator = ';';
 
@@ -206,7 +206,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
                            .ToArray();
         }
 
-        #region csv column names
+        #region Csv column names
 
         private const string ringIdKey = "TrajectID";
         private const string mechanismIdKey = "MechanismID";
