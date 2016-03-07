@@ -35,8 +35,11 @@ namespace Ringtoets.HydraRing.Calculation.Service
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations.
     /// </summary>
+    /// <remarks>The current implementation of this service is not thread safe (calculations should be performed one at a time).</remarks>
     public static class HydraRingCalculationService
     {
+        private static Process hydraRingProcess;
+
         /// <summary>
         /// This method performs a type 2 calculation via Hydra-Ring ("iterate towards a target probability, provided as reliability index").
         /// </summary>
@@ -49,6 +52,14 @@ namespace Ringtoets.HydraRing.Calculation.Service
         public static TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, TargetProbabilityCalculationInput targetProbabilityCalculationInput)
         {
             return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, (outputFilePath, ouputDatabasePath) => TargetProbabilityCalculationParser.Parse(outputFilePath, targetProbabilityCalculationInput.DikeSection.SectionId));
+        }
+
+        public static void CancelRunningCalculation()
+        {
+            if (hydraRingProcess != null && !hydraRingProcess.HasExited)
+            {
+                hydraRingProcess.StandardInput.WriteLine("b");
+            }
         }
 
         private static T PerformCalculation<T>(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculationInput hydraRingCalculationInput, Func<string, string, T> parseFunction)
@@ -97,13 +108,16 @@ namespace Ringtoets.HydraRing.Calculation.Service
             File.WriteAllText(dataBaseCreationScriptFilePath, hydraRingConfigurationService.GenerateDataBaseCreationScript());
 
             // Perform the calculation
-            var hydraRingProcess = new Process
+            hydraRingProcess = new Process
             {
                 StartInfo = new ProcessStartInfo(mechanismComputationExeFilePath, iniFilePath)
                 {
                     WorkingDirectory = workingDirectory,
                     UseShellExecute = false,
-                    CreateNoWindow = false
+                    CreateNoWindow = true,
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
                 }
             };
 

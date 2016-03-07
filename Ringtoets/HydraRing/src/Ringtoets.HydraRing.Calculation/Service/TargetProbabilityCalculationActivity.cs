@@ -84,7 +84,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
 
         protected override void OnCancel()
         {
-            // Unable to cancel a running kernel, so nothing can be done.
+            HydraRingCalculationService.CancelRunningCalculation();
         }
 
         protected override void OnFinish()
