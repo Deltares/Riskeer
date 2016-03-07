@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Data
             B = 350.0;
         }
 
-        #region General parameters (use by multiple calculations)
+        #region General parameters (used by multiple calculations)
 
         /// <summary>
         /// Gets the volumetric weight of water.

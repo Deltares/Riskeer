@@ -31,11 +31,11 @@ namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// Class that holds all piping calculation specific input parameters, e.g. the values
-    /// that can differ various calculations.
+    /// that can differ across various calculations.
     /// </summary>
     public class PipingInput : Observable
     {
-        public const double SeepageLengthStandardDeviationFraction = 0.1;
+        private const double seepageLengthStandardDeviationFraction = 0.1;
         private readonly GeneralPipingInput generalInputParameters;
         private double assessmentLevel;
         private double exitPointL;
@@ -184,7 +184,7 @@ namespace Ringtoets.Piping.Data
         #region General input parameters
 
         /// <summary>
-        /// Gets or sets the reduction factor Sellmeijer.
+        /// Gets the reduction factor Sellmeijer.
         /// </summary>
         public double SellmeijerReductionFactor
         {
@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the volumetric weight of water.
+        /// Gets the volumetric weight of water.
         /// [kN/m³]
         /// </summary>
         public double WaterVolumetricWeight
@@ -207,7 +207,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
+        /// Gets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
         /// [kN/m³]
         /// </summary>
         public double SandParticlesVolumicWeight
@@ -219,7 +219,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the White's drag coefficient.
+        /// Gets the White's drag coefficient.
         /// </summary>
         public double WhitesDragCoefficient
         {
@@ -230,7 +230,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the kinematic viscosity of water at 10 degrees Celsius.
+        /// Gets the kinematic viscosity of water at 10 degrees Celsius.
         /// [m²/s]
         /// </summary>
         public double WaterKinematicViscosity
@@ -242,7 +242,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the gravitational acceleration.
+        /// Gets the gravitational acceleration.
         /// [m/s²]
         /// </summary>
         public double Gravity
@@ -254,7 +254,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.
+        /// Gets the mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.
         /// [m]
         /// </summary>
         public double MeanDiameter70
@@ -266,7 +266,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the angle of the force balance representing the amount in which sand grains resist rolling.
+        /// Gets the angle of the force balance representing the amount in which sand grains resist rolling.
         /// [°]
         /// </summary>
         public double BeddingAngle
@@ -278,7 +278,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the calculation value used to account for uncertainty in the model for uplift.
+        /// Gets the calculation value used to account for uncertainty in the model for uplift.
         /// </summary>
         public double UpliftModelFactor
         {
@@ -289,7 +289,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the calculation value used to account for uncertainty in the model for Sellmeijer.
+        /// Gets the calculation value used to account for uncertainty in the model for Sellmeijer.
         /// </summary>
         public double SellmeijerModelFactor
         {
@@ -300,7 +300,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the critical exit gradient for heave.
+        /// Gets the critical exit gradient for heave.
         /// </summary>
         public double CriticalHeaveGradient
         {
@@ -324,7 +324,7 @@ namespace Ringtoets.Piping.Data
             {
                 SeepageLength.Mean = double.NaN;
             }
-            SeepageLength.StandardDeviation = SeepageLength.Mean * SeepageLengthStandardDeviationFraction;
+            SeepageLength.StandardDeviation = SeepageLength.Mean * seepageLengthStandardDeviationFraction;
         }
 
         #endregion
