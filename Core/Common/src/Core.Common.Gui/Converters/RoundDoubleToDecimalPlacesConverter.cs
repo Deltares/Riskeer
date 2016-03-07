@@ -47,22 +47,22 @@ namespace Core.Common.Gui.Converters
         {
             if (destinationType == typeof(double))
             {
-                decimal numberAsDecimal = ConvertValueToDecimal(value);
-                decimal roundedDecimal = Math.Round(numberAsDecimal, numberOfDecimalPlaces);
-                return Convert.ToDouble(roundedDecimal);
+                return ConvertValueToRoundedDouble(value);
             }
             if (destinationType == typeof(string))
             {
-                decimal numberAsDecimal = ConvertValueToDecimal(value);
-                decimal roundedDecimal = Math.Round(numberAsDecimal, numberOfDecimalPlaces);
-                return roundedDecimal.ToString(GetStringFormat());
+                return ConvertValueToRoundedFixedPointString(value);
             }
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
-        private string GetStringFormat()
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            return "F"+numberOfDecimalPlaces;
+            if (value is double || value is string)
+            {
+                return ConvertValueToRoundedDouble(value);
+            }
+            return base.ConvertFrom(context, culture, value);
         }
 
         private static decimal ConvertValueToDecimal(object value)
@@ -81,6 +81,29 @@ namespace Core.Common.Gui.Converters
                 string message = string.Format("De waarde '{0}' is te groot of te klein om te kunnen verwerken.", value);
                 throw new NotSupportedException(message, overflowException);
             }
+        }
+
+        private decimal ConvertValueToRoundedDecimal(object value)
+        {
+            decimal numberAsDecimal = ConvertValueToDecimal(value);
+            return Math.Round(numberAsDecimal, numberOfDecimalPlaces);
+        }
+
+        private object ConvertValueToRoundedDouble(object value)
+        {
+            var roundedDecimal = ConvertValueToRoundedDecimal(value);
+            return Convert.ToDouble(roundedDecimal);
+        }
+
+        private object ConvertValueToRoundedFixedPointString(object value)
+        {
+            var roundedDecimal = ConvertValueToRoundedDecimal(value);
+            return roundedDecimal.ToString(GetStringFormat());
+        }
+
+        private string GetStringFormat()
+        {
+            return "F" + numberOfDecimalPlaces;
         }
     }
 
