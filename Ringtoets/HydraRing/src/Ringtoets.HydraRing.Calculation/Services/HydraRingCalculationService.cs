@@ -27,7 +27,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Parsers;
 
-namespace Ringtoets.HydraRing.Calculation.Service
+namespace Ringtoets.HydraRing.Calculation.Services
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations.

@@ -24,8 +24,9 @@ using Core.Common.Base.Service;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.Calculation.Services;
 
-namespace Ringtoets.HydraRing.Calculation.Service
+namespace Ringtoets.HydraRing.Calculation.Activities
 {
     /// <summary>
     /// <see cref="Activity"/> for running a type 2 calculation via Hydra-Ring ("iterate towards a target probability, provided as reliability index").

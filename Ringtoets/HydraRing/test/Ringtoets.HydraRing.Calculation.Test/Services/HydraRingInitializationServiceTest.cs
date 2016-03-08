@@ -24,9 +24,9 @@ using System.IO;
 using System.Reflection;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Service;
+using Ringtoets.HydraRing.Calculation.Services;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Service
+namespace Ringtoets.HydraRing.Calculation.Test.Services
 {
     [TestFixture]
     public class HydraRingInitializationServiceTest

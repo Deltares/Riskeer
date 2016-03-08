@@ -22,12 +22,13 @@
 using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Output;
-using Ringtoets.HydraRing.Calculation.Service;
+using Ringtoets.HydraRing.Calculation.Services;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Service
+namespace Ringtoets.HydraRing.Calculation.Test.Activities
 {
     [TestFixture]
     public class TargetProbabilityCalculationActivityTest

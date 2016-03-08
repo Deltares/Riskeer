@@ -23,8 +23,9 @@ using System;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.Calculation.Services;
 
-namespace Ringtoets.HydraRing.Calculation.Service
+namespace Ringtoets.HydraRing.Calculation.Activities
 {
     /// <summary>
     /// Factory for creating Hydra-Ring activities.
