@@ -24,6 +24,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIPiping;
 using Ringtoets.Piping.Calculation.Properties;
+using Ringtoets.Piping.Calculation.SubCalculator;
+
+using EffectiveThicknessCalculator = Ringtoets.Piping.Calculation.SubCalculator.EffectiveThicknessCalculator;
+using HeaveCalculator = Ringtoets.Piping.Calculation.SubCalculator.HeaveCalculator;
+using UpliftCalculator = Ringtoets.Piping.Calculation.SubCalculator.UpliftCalculator;
 
 namespace Ringtoets.Piping.Calculation
 {
@@ -165,7 +170,7 @@ namespace Ringtoets.Piping.Calculation
         {
             try
             {
-                EffectiveThicknessCalculator effectiveThicknessCalculator = CalculateEffectiveThickness();
+                IEffectiveThicknessCalculator effectiveThicknessCalculator = CalculateEffectiveThickness();
                 return CreateUpliftCalculator(effectiveThicknessCalculator.EffectiveStress).Validate();
             }
             catch (Exception exception)
@@ -177,9 +182,9 @@ namespace Ringtoets.Piping.Calculation
             }
         }
 
-        private Sellmeijer2011Calculator CalculateSellmeijer()
+        private ISellmeijerCalculator CalculateSellmeijer()
         {
-            Sellmeijer2011Calculator sellmeijerCalculator = CreateSellmeijerCalculator();
+            ISellmeijerCalculator sellmeijerCalculator = CreateSellmeijerCalculator();
 
             try
             {
@@ -197,7 +202,7 @@ namespace Ringtoets.Piping.Calculation
             return sellmeijerCalculator;
         }
 
-        private HeaveCalculator CalculateHeave()
+        private IHeaveCalculator CalculateHeave()
         {
             var heaveCalculator = CreateHeaveCalculator();
 
@@ -213,10 +218,10 @@ namespace Ringtoets.Piping.Calculation
             return heaveCalculator;
         }
 
-        private WTIUpliftCalculator CalculateUplift()
+        private IUpliftCalculator CalculateUplift()
         {
-            EffectiveThicknessCalculator calculatedEffectiveStressResult = CalculateEffectiveThickness();
-            WTIUpliftCalculator upliftCalculator = CreateUpliftCalculator(calculatedEffectiveStressResult.EffectiveStress);
+            IEffectiveThicknessCalculator calculatedEffectiveStressResult = CalculateEffectiveThickness();
+            IUpliftCalculator upliftCalculator = CreateUpliftCalculator(calculatedEffectiveStressResult.EffectiveStress);
 
             try
             {
@@ -234,7 +239,7 @@ namespace Ringtoets.Piping.Calculation
             return upliftCalculator;
         }
 
-        private HeaveCalculator CreateHeaveCalculator()
+        private IHeaveCalculator CreateHeaveCalculator()
         {
             var calculator = new HeaveCalculator
             {
@@ -248,9 +253,9 @@ namespace Ringtoets.Piping.Calculation
             return calculator;
         }
 
-        private WTIUpliftCalculator CreateUpliftCalculator(double effectiveStress)
+        private IUpliftCalculator CreateUpliftCalculator(double effectiveStress)
         {
-            var calculator = new WTIUpliftCalculator
+            var calculator = new UpliftCalculator
             {
                 VolumetricWeightOfWater = input.WaterVolumetricWeight,
                 ModelFactorUplift = input.UpliftModelFactor,
@@ -264,9 +269,9 @@ namespace Ringtoets.Piping.Calculation
             return calculator;
         }
 
-        private Sellmeijer2011Calculator CreateSellmeijerCalculator()
+        private ISellmeijerCalculator CreateSellmeijerCalculator()
         {
-            var calculator = new Sellmeijer2011Calculator
+            var calculator = new SellmeijerCalculator
             {
                 ModelFactorPiping = input.SellmeijerModelFactor,
                 HRiver = input.AssessmentLevel,
@@ -288,7 +293,7 @@ namespace Ringtoets.Piping.Calculation
             return calculator;
         }
 
-        private EffectiveThicknessCalculator CalculateEffectiveThickness()
+        private IEffectiveThicknessCalculator CalculateEffectiveThickness()
         {
             try
             {

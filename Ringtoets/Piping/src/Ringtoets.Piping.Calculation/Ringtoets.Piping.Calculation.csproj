@@ -63,6 +63,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SubCalculator\EffectiveThicknessCalculator.cs" />
+    <Compile Include="SubCalculator\HeaveCalculator.cs" />
+    <Compile Include="SubCalculator\IEffectiveThicknessCalculator.cs" />
+    <Compile Include="SubCalculator\IHeaveCalculator.cs" />
+    <Compile Include="SubCalculator\IPipingSubCalculatorFactory.cs" />
+    <Compile Include="SubCalculator\ISellmeijerCalculator.cs" />
+    <Compile Include="SubCalculator\IUpliftCalculator.cs" />
+    <Compile Include="SubCalculator\SellmeijerCalculator.cs" />
+    <Compile Include="SubCalculator\UpliftCalculator.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
