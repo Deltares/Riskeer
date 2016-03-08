@@ -111,8 +111,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             var expectedRectangle = new Rectangle(x, y, mx - x, my - y);
             
             var mapMock = mockingRepository.Stub<IMap>();
-            mapMock.Expect(e => e.PixelToProj(Arg.Is(new Point(startPointX, startPointY)))).Return(null);
-            mapMock.Expect(e => e.PixelToProj(Arg.Is(new Point(endPointX, endPointY)))).Return(null);
+            mapMock.Stub(e => e.PixelToProj(Arg<Point>.Is.Anything)).Return(null);
             mapMock.Expect(e => e.Invalidate(Arg<Rectangle>.Matches(m => m.Equals(expectedRectangle))));
             mockingRepository.ReplayAll();
 
@@ -157,14 +156,14 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
         public void OnMouseUp_DraggingToOtherLocation_ZoomsToCoordinates(int startPointX, int startPointY, int endPointX, int endPointY)
         {
             // Setup
-            double geoStartPointX = 0.0 + startPointX;
-            double geoStartPointY = 0.0 + startPointY;
-            double geoEndPointX = 0.0 + endPointX;
-            double geoEndPointY = 0.0 + endPointY;
+            double geoStartPointX = startPointX;
+            double geoStartPointY = startPointY;
+            double geoEndPointX = endPointX;
+            double geoEndPointY = endPointY;
 
             var mapMock = mockingRepository.Stub<IMap>();
-            mapMock.Expect(e => e.PixelToProj(Arg.Is(new Point(startPointX, startPointY)))).Return(new Coordinate(geoStartPointX, geoStartPointY));
-            mapMock.Expect(e => e.PixelToProj(Arg.Is(new Point(endPointX, endPointY)))).Return(new Coordinate(geoEndPointX, geoEndPointY));
+            mapMock.Expect(e => e.PixelToProj(new Point(startPointX, startPointY))).Return(new Coordinate(geoStartPointX, geoStartPointY));
+            mapMock.Expect(e => e.PixelToProj(new Point(endPointX, endPointY))).Return(new Coordinate(geoEndPointX, geoEndPointY));
             mapMock.Expect(e => e.Invalidate());
             mockingRepository.ReplayAll();
 
@@ -193,10 +192,10 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             var mapFrame = mockingRepository.Stub<IMapFrame>();
             mapMock.MapFrame = mapFrame;
 
-            double geoStartPointX = 0.0 + startPointX;
-            double geoStartPointY = 0.0 + startPointY;
+            double geoStartPointX = startPointX;
+            double geoStartPointY = startPointY;
 
-            mapMock.Expect(e => e.PixelToProj(Arg.Is(new Point(startPointX, startPointY)))).Return(new Coordinate(geoStartPointX, geoStartPointY));
+            mapMock.Expect(e => e.PixelToProj(new Point(startPointX, startPointY))).Return(new Coordinate(geoStartPointX, geoStartPointY));
             mapMock.Expect(e => e.Invalidate());
             mapFrame.Expect(e => e.ResetExtents());
             mockingRepository.ReplayAll();
