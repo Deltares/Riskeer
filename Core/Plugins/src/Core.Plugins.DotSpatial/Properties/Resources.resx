@@ -211,4 +211,7 @@
   <data name="MapLegendView_ShowSelectShapeFileDialog_Shape_file" xml:space="preserve">
     <value>Shape file</value>
   </data>
+  <data name="MapLegendView_GetShapeFileData_The_File_Contains_Non_Supported_Data_" xml:space="preserve">
+    <value>Het bestand bevat data, welke niet ondersteund wordt.</value>
+  </data>
 </root>

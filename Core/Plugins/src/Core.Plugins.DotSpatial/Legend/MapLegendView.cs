@@ -262,12 +262,12 @@ namespace Core.Plugins.DotSpatial.Legend
         {
             try
             {
-                return reader.ReadLine(title);
+                return reader.ReadShapeFile(title);
             }
             catch (ElementReadException e)
             {
                 string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build("Het bestand bevat data, welke niet ondersteund wordt.");
+                    .Build(DotSpatialResources.MapLegendView_GetShapeFileData_The_File_Contains_Non_Supported_Data_);
                 throw new CriticalFileReadException(message, e);
             }
         }

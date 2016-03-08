@@ -136,6 +136,15 @@ namespace Core.Plugins.DotSpatial.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het bestand bevat data, welke niet ondersteund wordt..
+        /// </summary>
+        public static string MapLegendView_GetShapeFileData_The_File_Contains_Non_Supported_Data_ {
+            get {
+                return ResourceManager.GetString("MapLegendView_GetShapeFileData_The_File_Contains_Non_Supported_Data_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Voeg kaartlaag toe....
         /// </summary>
         public static string MapLegendView_MapDataCollectionContextMenuStrip__Add_MapLayer {
