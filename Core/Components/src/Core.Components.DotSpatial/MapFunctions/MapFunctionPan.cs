@@ -21,13 +21,12 @@
 
 using System;
 using System.Windows.Forms;
-
 using DotSpatial.Controls;
 
 namespace Core.Components.DotSpatial.MapFunctions
 {
     /// <summary>
-    /// <see cref="MapFunctionPan"/> that handles events to update <see cref="Cursor"/>.
+    /// A <see cref="MapFunction"/> that can pan the map and handles events to update <see cref="Cursor"/>.
     /// </summary>
     public class MapFunctionPan : global::DotSpatial.Controls.MapFunctionPan
     {

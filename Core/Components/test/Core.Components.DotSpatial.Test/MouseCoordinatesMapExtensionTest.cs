@@ -58,14 +58,15 @@ namespace Core.Components.DotSpatial.Test
         {
             // Setup
             using (var map = new Map())
-            using (var extension = new MouseCoordinatesMapExtension(map))
             {
+                using (var extension = new MouseCoordinatesMapExtension(map))
+                {
+                    // Call
+                    extension.Activate();
 
-                // Call
-                extension.Activate();
-
-                // Assert
-                Assert.AreEqual(1, map.Controls.Count);
+                    // Assert
+                    Assert.AreEqual(1, map.Controls.Count);
+                }
             }
         }
 
@@ -74,18 +75,20 @@ namespace Core.Components.DotSpatial.Test
         {
             // Setup
             using (var map = new Map())
-            using (var extension = new MouseCoordinatesMapExtension(map))
             {
-                extension.Activate();
+                using (var extension = new MouseCoordinatesMapExtension(map))
+                {
+                    extension.Activate();
 
-                // Precondition
-                Assert.AreEqual(1, map.Controls.Count);
+                    // Precondition
+                    Assert.AreEqual(1, map.Controls.Count);
 
-                // Call
-                extension.Deactivate();
+                    // Call
+                    extension.Deactivate();
 
-                // Assert
-                Assert.AreEqual(0, map.Controls.Count);
+                    // Assert
+                    Assert.AreEqual(0, map.Controls.Count);
+                }
             }
         }
     }
