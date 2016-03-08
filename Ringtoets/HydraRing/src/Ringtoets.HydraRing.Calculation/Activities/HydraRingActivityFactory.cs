@@ -45,6 +45,8 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="targetProbabilityCalculationInput">The input of the calculation to perform.</param>
         /// <param name="handleCalculationOutputAction">The action to perform after the calculation is performed.</param>
+        /// <exception cref="ArgumentException">Thrown when one of the <c>string</c> arguments is null or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when one of the other arguments is <c>null</c>.</exception>
         public static TargetProbabilityCalculationActivity Create(string name,
                                                                   string hlcdDirectory,
                                                                   string ringId,
@@ -53,6 +55,31 @@ namespace Ringtoets.HydraRing.Calculation.Activities
                                                                   TargetProbabilityCalculationInput targetProbabilityCalculationInput,
                                                                   Action<TargetProbabilityCalculationOutput> handleCalculationOutputAction)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Name should be set.", "name");
+            }
+
+            if (string.IsNullOrEmpty(hlcdDirectory))
+            {
+                throw new ArgumentException("HLCD directory should be set.", "hlcdDirectory");
+            }
+
+            if (string.IsNullOrEmpty(ringId))
+            {
+                throw new ArgumentException("Ring id should be set.", "ringId");
+            }
+
+            if (targetProbabilityCalculationInput == null)
+            {
+                throw new ArgumentNullException("targetProbabilityCalculationInput", "Calculation input should be set.");
+            }
+
+            if (handleCalculationOutputAction == null)
+            {
+                throw new ArgumentNullException("handleCalculationOutputAction", "Handle calculation output action should be set.");
+            }
+
             return new TargetProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, handleCalculationOutputAction, hydraRingCalculationService);
         }
     }
