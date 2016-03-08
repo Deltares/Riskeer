@@ -186,7 +186,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>Karakteristieke punten gevonden zonder bijbehorende profielmeting voor locatie '{0}'.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_" xml:space="preserve">
-    <value>Meerdere karakteristieke punten definities gevonden voor locatie '{0}'. Alleen de eerste definitie wordt geïmporteerd. Alleen de eerste definitie wordt geïmporteerd.</value>
+    <value>Meerdere karakteristieke punten definities gevonden voor locatie '{0}'. Alleen de eerste definitie wordt geïmporteerd.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_" xml:space="preserve">
     <value>Meerdere definities gevonden voor profielmeting '{0}'. Alleen de eerste definitie wordt geïmporteerd.</value>
