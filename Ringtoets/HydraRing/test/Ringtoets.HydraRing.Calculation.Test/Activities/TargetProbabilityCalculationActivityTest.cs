@@ -39,12 +39,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             // Setup
             var mocks = new MockRepository();
             var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
-            var targetProbabilityCalculationInputImplementation = new TargetProbabilityCalculationInputImplementation(1, 10000);
+            var targetProbabilityCalculationInput = mocks.StrictMock<TargetProbabilityCalculationInput>(1, 10000);
 
             mocks.ReplayAll();
 
             // Call
-            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInputImplementation, null, hydraRingCalculationService);
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, null, hydraRingCalculationService);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -60,18 +60,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             var mocks = new MockRepository();
             var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
             var targetProbabilityCalculationOutput = mocks.StrictMock<TargetProbabilityCalculationOutput>(1.1, 2.2);
-            var targetProbabilityCalculationInputImplementation = new TargetProbabilityCalculationInputImplementation(1, 10000);
+            var targetProbabilityCalculationInput = mocks.StrictMock<TargetProbabilityCalculationInput>(1, 10000);
 
             const string hlcdDirectory = "hlcdDirectory";
             const string ringId = "ringId";
             const HydraRingUncertaintiesType uncertaintiesType = HydraRingUncertaintiesType.All;
             const HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC;
 
-            hydraRingCalculationService.Expect(hcs => hcs.PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInputImplementation)).Return(targetProbabilityCalculationOutput);
+            hydraRingCalculationService.Expect(hcs => hcs.PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput)).Return(targetProbabilityCalculationOutput);
 
             mocks.ReplayAll();
 
-            var activity = new TargetProbabilityCalculationActivity("Name of activity", hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInputImplementation, null, hydraRingCalculationService);
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, null, hydraRingCalculationService);
 
             // Call
             activity.Run();
@@ -86,13 +86,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             // Setup
             var mocks = new MockRepository();
             var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
-            var targetProbabilityCalculationInputImplementation = new TargetProbabilityCalculationInputImplementation(1, 10000);
+            var targetProbabilityCalculationInput = mocks.StrictMock<TargetProbabilityCalculationInput>(1, 10000);
 
             hydraRingCalculationService.Expect(hcs => hcs.CancelRunningCalculation());
 
             mocks.ReplayAll();
 
-            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInputImplementation, null, hydraRingCalculationService);
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, null, hydraRingCalculationService);
 
             // Call
             activity.Cancel();
@@ -108,38 +108,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             var count = 0;
             var mocks = new MockRepository();
             var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
-            var targetProbabilityCalculationInputImplementation = new TargetProbabilityCalculationInputImplementation(1, 10000);
+            var targetProbabilityCalculationInput = mocks.StrictMock<TargetProbabilityCalculationInput>(1, 10000);
 
             mocks.ReplayAll();
 
-            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInputImplementation, output => { count++; }, hydraRingCalculationService);
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, output => { count++; }, hydraRingCalculationService);
 
             // Call
             activity.Finish();
 
             // Assert
             Assert.AreEqual(1, count);
-        }
-
-        private class TargetProbabilityCalculationInputImplementation : TargetProbabilityCalculationInput
-        {
-            public TargetProbabilityCalculationInputImplementation(int hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId, norm) {}
-
-            public override HydraRingFailureMechanismType FailureMechanismType
-            {
-                get
-                {
-                    return HydraRingFailureMechanismType.QVariant;
-                }
-            }
-
-            public override HydraRingDikeSection DikeSection
-            {
-                get
-                {
-                    return new HydraRingDikeSection(1, "Name", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
-                }
-            }
         }
     }
 }
