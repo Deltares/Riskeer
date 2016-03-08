@@ -29,8 +29,11 @@ namespace Ringtoets.HydraRing.Calculation.Service
     /// <summary>
     /// Factory for creating Hydra-Ring activities.
     /// </summary>
+    /// <remarks>The current implementation of this factory is not thread safe (calculations should be performed one at a time).</remarks>
     public static class HydraRingActivityFactory
     {
+        private static readonly HydraRingCalculationService hydraRingCalculationService = new HydraRingCalculationService();
+
         /// <summary>
         /// Creates a new instance of the <see cref="TargetProbabilityCalculationActivity"/> class.
         /// </summary>
@@ -49,7 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
                                                                   TargetProbabilityCalculationInput targetProbabilityCalculationInput,
                                                                   Action<TargetProbabilityCalculationOutput> handleCalculationOutputAction)
         {
-            return new TargetProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, handleCalculationOutputAction);
+            return new TargetProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, handleCalculationOutputAction, hydraRingCalculationService);
         }
     }
 }

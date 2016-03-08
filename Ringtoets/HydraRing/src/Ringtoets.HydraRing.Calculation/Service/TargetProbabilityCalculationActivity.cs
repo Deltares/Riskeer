@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
         private readonly HydraRingUncertaintiesType uncertaintiesType;
         private readonly TargetProbabilityCalculationInput targetProbabilityCalculationInput;
         private readonly Action<TargetProbabilityCalculationOutput> handleCalculationOutputAction;
-        private readonly HydraRingCalculationService hydraRingCalculationService = new HydraRingCalculationService();
+        private readonly HydraRingCalculationService hydraRingCalculationService;
         private TargetProbabilityCalculationOutput targetProbabilityCalculationOutput;
 
         /// <summary>
@@ -52,6 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="targetProbabilityCalculationInput">The input of the calculation to perform.</param>
         /// <param name="handleCalculationOutputAction">The action to perform after the calculation is performed.</param>
+        /// <param name="hydraRingCalculationService">The service to use for performing the calculation.</param>
         internal TargetProbabilityCalculationActivity(
             string name,
             string hlcdDirectory,
@@ -59,7 +60,8 @@ namespace Ringtoets.HydraRing.Calculation.Service
             HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
             HydraRingUncertaintiesType uncertaintiesType,
             TargetProbabilityCalculationInput targetProbabilityCalculationInput,
-            Action<TargetProbabilityCalculationOutput> handleCalculationOutputAction)
+            Action<TargetProbabilityCalculationOutput> handleCalculationOutputAction,
+            HydraRingCalculationService hydraRingCalculationService)
         {
             this.name = name;
             this.hlcdDirectory = hlcdDirectory;
@@ -68,6 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
             this.uncertaintiesType = uncertaintiesType;
             this.targetProbabilityCalculationInput = targetProbabilityCalculationInput;
             this.handleCalculationOutputAction = handleCalculationOutputAction;
+            this.hydraRingCalculationService = hydraRingCalculationService;
         }
 
         public override string Name

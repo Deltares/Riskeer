@@ -21,6 +21,7 @@
 
 using Core.Common.Base.Service;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Service;
@@ -34,10 +35,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Service
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
             var targetProbabilityCalculationInputImplementation = new TargetProbabilityCalculationInputImplementation(1, 10000);
 
+            mocks.ReplayAll();
+
             // Call
-            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInputImplementation, output => { });
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInputImplementation, output => { }, hydraRingCalculationService);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
