@@ -78,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\HydraRingTimeIntegrationSchemeTypeTest.cs" />
     <Compile Include="Data\HydraRingUncertaintiesTypeTest.cs" />
+    <Compile Include="Service\HydraRingInitializationServiceTest.cs" />
     <Compile Include="Service\TargetProbabilityCalculationActivityTest.cs" />
   </ItemGroup>
   <ItemGroup>

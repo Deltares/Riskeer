@@ -46,6 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Service
         [Test]
         public void GenerateDataBaseCreationScript_SingleHydraRingCalculationInputAddedToConfiguration_ReturnsExpectedCreationScript()
         {
+            // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004));
@@ -108,14 +109,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Service
                                          "DELETE FROM [Projects];" + Environment.NewLine +
                                          "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine;
 
+            // Call
             var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
 
+            // Assert
             Assert.AreEqual(expectedCreationScript, creationScript);
         }
 
         [Test]
         public void GenerateDataBaseCreationScript_MultipleHydraRingCalculationInputsAddedToConfiguration_ReturnsExpectedCreationScript()
         {
+            // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004));
@@ -206,8 +210,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Service
                                          "DELETE FROM [Projects];" + Environment.NewLine +
                                          "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine;
 
+            // Call
             var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
 
+            // Assert
             Assert.AreEqual(expectedCreationScript, creationScript);
         }
 

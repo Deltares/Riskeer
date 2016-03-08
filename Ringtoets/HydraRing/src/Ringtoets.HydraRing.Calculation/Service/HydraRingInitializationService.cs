@@ -146,7 +146,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
         {
             get
             {
-                return outputDataBasePath;
+                return hlcdFilePath;
             }
         }
 
