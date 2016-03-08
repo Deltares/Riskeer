@@ -28,7 +28,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
     /// </summary>
     internal class FailureMechanismDefaults
     {
-        private readonly int variableId;
         private readonly int mechanismId;
         private readonly IEnumerable<int> subMechanismIds;
 
@@ -36,12 +35,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
         /// Creates a new instance of the <see cref="FailureMechanismDefaults"/> class.
         /// </summary>
         /// <param name="mechanismId">The mechanism id.</param>
-        /// <param name="variableId">The id of the variable that is relevant.</param>
         /// <param name="subMechanismIds">The sub mechanism ids that are applicable.</param>
-        public FailureMechanismDefaults(int mechanismId, int variableId, IEnumerable<int> subMechanismIds)
+        public FailureMechanismDefaults(int mechanismId, IEnumerable<int> subMechanismIds)
         {
             this.mechanismId = mechanismId;
-            this.variableId = variableId;
             this.subMechanismIds = subMechanismIds;
         }
 
@@ -53,17 +50,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
             get
             {
                 return mechanismId;
-            }
-        }
-
-        /// <summary>
-        /// Gets the id of the variable that is relevant.
-        /// </summary>
-        public int VariableId
-        {
-            get
-            {
-                return variableId;
             }
         }
 

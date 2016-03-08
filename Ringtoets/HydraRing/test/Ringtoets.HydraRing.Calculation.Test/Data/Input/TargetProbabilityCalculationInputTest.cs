@@ -41,6 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             Assert.AreEqual(1, targetProbabilityCalculationInputImplementation.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.DikesPiping, targetProbabilityCalculationInputImplementation.FailureMechanismType);
             Assert.AreEqual(2, targetProbabilityCalculationInputImplementation.CalculationTypeId);
+            Assert.AreEqual(5, targetProbabilityCalculationInputImplementation.VariableId);
             Assert.AreEqual(1, targetProbabilityCalculationInputImplementation.DikeSection.SectionId);
             CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.Variables);
             CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.ProfilePoints);
@@ -56,6 +57,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
                 get
                 {
                     return HydraRingFailureMechanismType.DikesPiping;
+                }
+            }
+
+            public override int VariableId
+            {
+                get
+                {
+                    return 5;
                 }
             }
 

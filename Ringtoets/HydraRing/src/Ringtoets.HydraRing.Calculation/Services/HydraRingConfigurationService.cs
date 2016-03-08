@@ -261,7 +261,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "Method", hydraRingCalculationInput.CalculationTypeId
                     },
                     {
-                        "VariableId", failureMechanismDefaults.VariableId
+                        "VariableId", hydraRingCalculationInput.VariableId
                     },
                     {
                         "LoadVariableId", defaultHydraRingValue // Fixed: not relevant

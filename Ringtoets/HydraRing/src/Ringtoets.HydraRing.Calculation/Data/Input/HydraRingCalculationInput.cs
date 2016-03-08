@@ -50,6 +50,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         public abstract int CalculationTypeId { get; }
 
         /// <summary>
+        /// Gets the id of the variable that is relevant during the calculation.
+        /// </summary>
+        public abstract int VariableId { get; }
+
+        /// <summary>
         /// Gets the id of the hydraulic station to use during the calculation.
         /// </summary>
         public int HydraulicBoundaryLocationId

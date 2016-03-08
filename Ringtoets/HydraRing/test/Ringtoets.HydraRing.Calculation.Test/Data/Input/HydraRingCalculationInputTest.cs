@@ -37,6 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             // Assert
             Assert.AreEqual(HydraRingFailureMechanismType.QVariant, hydraRingCalculationInput.FailureMechanismType);
             Assert.AreEqual(4, hydraRingCalculationInput.CalculationTypeId);
+            Assert.AreEqual(5, hydraRingCalculationInput.VariableId);
             Assert.AreEqual(1, hydraRingCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(1, hydraRingCalculationInput.DikeSection.SectionId);
             CollectionAssert.IsEmpty(hydraRingCalculationInput.Variables);
@@ -73,6 +74,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
                 get
                 {
                     return 4;
+                }
+            }
+
+            public override int VariableId
+            {
+                get
+                {
+                    return 5;
                 }
             }
 

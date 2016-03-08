@@ -48,6 +48,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             }
         }
 
+        public override int VariableId
+        {
+            get
+            {
+                return 26;
+            }
+        }
+
         public override HydraRingDikeSection DikeSection
         {
             get
