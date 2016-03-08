@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
@@ -9,6 +10,8 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using Core.Plugins.DotSpatial.Legend;
 using Core.Plugins.DotSpatial.Properties;
 using NUnit.Framework;
@@ -96,7 +99,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var view = new MapLegendView(contextMenuBuilderProvider, parentWindow);
-            var mapData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
+            var mapData = new MapPointData(CreateFeature(), "test data");
 
             // Call
             view.Data = mapData;
@@ -111,7 +114,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var view = new MapLegendView(contextMenuBuilderProvider, parentWindow);
-            var mapData = new MapLineData(Enumerable.Empty<Point2D>(), "test data");
+            var mapData = new MapLineData(CreateFeature(), "test data");
 
             // Call
             view.Data = mapData;
@@ -126,7 +129,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         {
             // Setup
             var view = new MapLegendView(contextMenuBuilderProvider, parentWindow);
-            var mapData = new MapPolygonData(Enumerable.Empty<Point2D>(), "test data");
+            var mapData = new MapPolygonData(CreateFeature(), "test data");
 
             // Call
             view.Data = mapData;
@@ -175,6 +178,17 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
             // Assert
             Assert.Throws<InvalidCastException>(test);
+        }
+
+        private Collection<MapFeature> CreateFeature()
+        {
+            return new Collection<MapFeature> 
+            {
+                new MapFeature(new Collection<MapGeometry>
+                {
+                    new MapGeometry(Enumerable.Empty<Point2D>())
+                })
+            };
         }
     }
 }

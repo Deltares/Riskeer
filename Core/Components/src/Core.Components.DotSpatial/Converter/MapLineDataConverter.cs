@@ -36,11 +36,18 @@ namespace Core.Components.DotSpatial.Converter
     {
         protected override IList<IMapFeatureLayer> Convert(MapLineData data)
         {
-            var coordinates = data.Points.Select(p => new Coordinate(p.X, p.Y));
-            var lineString = new LineString(coordinates);
-            var featureSet = new FeatureSet(FeatureType.Line);            
+            var featureSet = new FeatureSet(FeatureType.Line);
 
-            featureSet.Features.Add(lineString);
+            foreach (var mapFeature in data.Features)
+            {
+                foreach (var mapGeometry in mapFeature.MapGeometries)
+                {
+                    var coordinates = mapGeometry.Points.Select(p => new Coordinate(p.X, p.Y));
+                    var lineString = new LineString(coordinates);
+
+                    featureSet.Features.Add(lineString);
+                }
+            }
 
             var layer = new MapLineLayer(featureSet)
             {

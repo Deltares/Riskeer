@@ -20,12 +20,14 @@
 // All rights reserved.
 
 using System;
-using System.Data;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
@@ -64,7 +66,30 @@ namespace Core.Components.Gis.IO.Readers
             }
         }
 
-        public override PointBasedMapData ReadLine(string name = null)
+        public override FeatureBasedMapData ReadShapeFile(string name = null)
+        {
+            List<IFeature> featureList = new List<IFeature>();
+            while (readIndex != GetNumberOfLines())
+            {
+                featureList.Add(ReadFeatureLine());
+            }
+
+            return ConvertPointFeaturesToMapPointData(featureList, !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PointShapeFileReader_ReadLine_Points);
+        }
+
+        private IFeature ReadFeatureLine()
+        {
+            try
+            {
+                return GetFeature(readIndex);
+            }
+            finally
+            {
+                readIndex++;
+            }
+        }
+
+        public override FeatureBasedMapData ReadLine(string name = null)
         {
             if (readIndex == GetNumberOfLines())
             {
@@ -74,7 +99,7 @@ namespace Core.Components.Gis.IO.Readers
             try
             {
                 IFeature pointFeature = GetFeature(readIndex);
-                return ConvertPointFeatureToMapPointData(pointFeature, name ?? GisIOResources.PointShapeFileReader_ReadLine_Points);
+                return ConvertPointFeatureToMapPointData(pointFeature, !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PointShapeFileReader_ReadLine_Points);
             }
             finally
             {
@@ -88,9 +113,33 @@ namespace Core.Components.Gis.IO.Readers
             return pointFeature;
         }
 
-        private PointBasedMapData ConvertPointFeatureToMapPointData(IFeature pointFeature, string name)
+        private FeatureBasedMapData ConvertPointFeatureToMapPointData(IFeature pointFeature, string name)
         {
-            return new MapPointData(pointFeature.Coordinates.Select(c => new Point2D(c.X, c.Y)), name);
+            var feature = new MapFeature(pointFeature.Coordinates.Select(c => new MapGeometry(new List<Point2D>
+            {
+                new Point2D(c.X, c.Y)
+            })));
+
+            return new MapPointData(new List<MapFeature>
+            {
+                feature
+            }, name);
+        }
+
+        private FeatureBasedMapData ConvertPointFeaturesToMapPointData(List<IFeature> featureList, string name)
+        {
+            var mapFeatureList = new List<MapFeature>();
+            foreach (var feature in featureList)
+            {
+                var f = new MapFeature(feature.Coordinates.Select(c => new MapGeometry(new List<Point2D>
+                {
+                    new Point2D(c.X, c.Y)
+                })));
+
+                mapFeatureList.Add(f);
+            }
+
+            return new MapPointData(mapFeatureList, name);
         }
     }
 }

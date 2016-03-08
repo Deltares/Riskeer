@@ -20,12 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
@@ -67,10 +70,9 @@ namespace Core.Components.Gis.IO.Readers
         /// <summary>
         /// Reads a line shape from the file.
         /// </summary>
-        /// <returns>The <see cref="PointBasedMapData"/> representing the read line shape, or 
+        /// <returns>The <see cref="FeatureBasedMapData"/> representing the read line shape, or 
         /// <c>null</c> when at the end of the shapefile.</returns>
-        /// <exception cref="ElementReadException">When reading a multi-line feature.</exception>
-        public override PointBasedMapData ReadLine(string name = null)
+        public override FeatureBasedMapData ReadLine(string name = null)
         {
             if (readIndex == GetNumberOfLines())
             {
@@ -80,7 +82,30 @@ namespace Core.Components.Gis.IO.Readers
             try
             {
                 IFeature lineFeature = GetFeature(readIndex);
-                return ConvertSingleLineFeatureToMapLineData(lineFeature, name ?? GisIOResources.PolylineShapeFileReader_ReadLine_Line);
+                return ConvertSingleLineFeatureToMapLineData(lineFeature, !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PolylineShapeFileReader_ReadLine_Line);
+            }
+            finally
+            {
+                readIndex++;
+            }
+        }
+
+        public override FeatureBasedMapData ReadShapeFile(string name = null)
+        {
+            List<IFeature> featureList = new List<IFeature>();
+            while (readIndex != GetNumberOfLines())
+            {
+                featureList.Add(ReadFeatureLine());
+            }
+
+            return ConvertMultiLineFeatureToMapLineData(featureList, !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PolylineShapeFileReader_ReadLine_Line);
+        }
+
+        private IFeature ReadFeatureLine()
+        {
+            try
+            {
+                return GetFeature(readIndex);
             }
             finally
             {
@@ -93,30 +118,64 @@ namespace Core.Components.Gis.IO.Readers
         /// </summary>
         /// <param name="index">The index of which feature to retrieve.</param>
         /// <returns>The feature that consists out of 1 whole polyline.</returns>
-        /// <exception cref="ElementReadException">When reading a multi-line feature.</exception>
         public override IFeature GetFeature(int index)
         {
             IFeature lineFeature = ShapeFile.Features[index];
-            if (lineFeature.NumGeometries > 1)
-            {
-                string message = new FileReaderErrorMessageBuilder(FilePath)
-                    .WithLocation(string.Format(GisIOResources.ShapeFileReaderBase_GetFeature_At_shapefile_index_0_, index))
-                    .Build(GisIOResources.PolylineShapeFileReader_ReadLine_Read_unsupported_multipolyline);
-                throw new ElementReadException(message);
-            }
             return lineFeature;
         }
 
         private MapLineData ConvertSingleLineFeatureToMapLineData(IFeature lineFeature, string name)
         {
-            var lineData = new MapLineData(lineFeature.Coordinates.Select(c => new Point2D(c.X, c.Y)), name);
+            var geometries = new List<MapGeometry>();
+            for (int i = 0; i < lineFeature.BasicGeometry.NumGeometries; i++)
+            {
+                var polygonFeatureGeometry = lineFeature.BasicGeometry.GetBasicGeometryN(i);
+
+                geometries.Add(new MapGeometry(polygonFeatureGeometry.Coordinates.Select(c => new Point2D(c.X, c.Y))));
+            }
+
+            var feature = new MapFeature(geometries);
+
             DataTable table = ShapeFile.GetAttributes(readIndex, 1);
             DataRow dataRow = table.Rows[0];
             for (int i = 0; i < table.Columns.Count; i++)
             {
-                lineData.MetaData[table.Columns[i].ColumnName] = dataRow[i];
+                feature.MetaData[table.Columns[i].ColumnName] = dataRow[i];
             }
-            return lineData;
+
+            return new MapLineData(new List<MapFeature>
+            {
+                feature
+            }, name);
+        }
+
+        private MapLineData ConvertMultiLineFeatureToMapLineData(List<IFeature> lineFeatures, string name)
+        {
+            var mapFeatureList = new List<MapFeature>();
+            for (int featureIndex = 0; featureIndex < lineFeatures.Count; featureIndex++)
+            {
+                var lineFeature = lineFeatures[featureIndex];
+                var geometries = new List<MapGeometry>();
+                for (int i = 0; i < lineFeature.BasicGeometry.NumGeometries; i++)
+                {
+                    var polygonFeatureGeometry = lineFeature.BasicGeometry.GetBasicGeometryN(i);
+
+                    geometries.Add(new MapGeometry(polygonFeatureGeometry.Coordinates.Select(c => new Point2D(c.X, c.Y))));
+                }
+
+                var feature = new MapFeature(geometries);
+
+                DataTable table = ShapeFile.GetAttributes(featureIndex, 1);
+                DataRow dataRow = table.Rows[0];
+                for (int i = 0; i < table.Columns.Count; i++)
+                {
+                    feature.MetaData[table.Columns[i].ColumnName] = dataRow[i];
+                }
+
+                mapFeatureList.Add(feature);
+            }
+
+            return new MapLineData(mapFeatureList, name);
         }
     }
 }

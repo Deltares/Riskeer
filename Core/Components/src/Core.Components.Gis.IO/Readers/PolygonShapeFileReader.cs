@@ -20,12 +20,14 @@
 // All rights reserved.
 
 using System;
-using System.Data;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
@@ -64,7 +66,7 @@ namespace Core.Components.Gis.IO.Readers
             }
         }
 
-        public override PointBasedMapData ReadLine(string name = null)
+        public override FeatureBasedMapData ReadLine(string name = null)
         {
             if (readIndex == GetNumberOfLines())
             {
@@ -74,12 +76,23 @@ namespace Core.Components.Gis.IO.Readers
             try
             {
                 IFeature polygonFeature = GetFeature(readIndex);
-                return ConvertPolygonFeatureToMapPolygonData(polygonFeature, name ?? GisIOResources.PolygonShapeFileReader_ReadLine_Polygon);
+                return ConvertPolygonFeatureToMapPolygonData(polygonFeature, !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PolygonShapeFileReader_ReadLine_Polygon);
             }
             finally
             {
                 readIndex++;
             }
+        }
+
+        public override FeatureBasedMapData ReadShapeFile(string name = null)
+        {
+            List<IFeature> featureList = new List<IFeature>();
+            while (readIndex != GetNumberOfLines())
+            {
+                featureList.Add(ReadFeatureLine());
+            }
+
+            return ConvertPolygonFeaturesToMapPointData(featureList, !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PolygonShapeFileReader_ReadLine_Polygon);
         }
 
         public override IFeature GetFeature(int index)
@@ -88,9 +101,55 @@ namespace Core.Components.Gis.IO.Readers
             return polygonFeature;
         }
 
-        private PointBasedMapData ConvertPolygonFeatureToMapPolygonData(IFeature polygonFeature, string name)
+        private IFeature ReadFeatureLine()
         {
-            return new MapPolygonData(polygonFeature.Coordinates.Select(c => new Point2D(c.X, c.Y)), name);
+            try
+            {
+                return GetFeature(readIndex);
+            }
+            finally
+            {
+                readIndex++;
+            }
+        }
+
+        private FeatureBasedMapData ConvertPolygonFeatureToMapPolygonData(IFeature polygonFeature, string name)
+        {
+            var geometries = new List<MapGeometry>();
+
+            for (int i = 0; i < polygonFeature.BasicGeometry.NumGeometries; i++)
+            {
+                var polygonFeatureGeometry = polygonFeature.BasicGeometry.GetBasicGeometryN(i);
+
+                geometries.Add(new MapGeometry(polygonFeatureGeometry.Coordinates.Select(c => new Point2D(c.X, c.Y))));
+            }
+
+            return new MapPolygonData(new List<MapFeature>
+            {
+                new MapFeature(geometries)
+            }, name);
+        }
+
+        private FeatureBasedMapData ConvertPolygonFeaturesToMapPointData(List<IFeature> featureList, string name)
+        {
+            var mapFeatureList = new List<MapFeature>();
+            foreach (var feature in featureList)
+            {
+                var featureGeometry = new List<MapGeometry>();
+
+                for (int i = 0; i < feature.BasicGeometry.NumGeometries; i++)
+                {
+                    var polygonFeatureGeometry = feature.BasicGeometry.GetBasicGeometryN(i);
+
+                    featureGeometry.Add(new MapGeometry(polygonFeatureGeometry.Coordinates.Select(c => new Point2D(c.X, c.Y))));
+                }
+
+                var polygonFeature = new MapFeature(featureGeometry);
+
+                mapFeatureList.Add(polygonFeature);
+            }
+
+            return new MapPolygonData(mapFeatureList, name);
         }
     }
 }

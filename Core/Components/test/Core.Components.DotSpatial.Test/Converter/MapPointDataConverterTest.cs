@@ -7,6 +7,8 @@ using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using DotSpatial.Topology;
 using NUnit.Framework;
@@ -30,8 +32,16 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void CanConvertMapData_MapPointData_ReturnsTrue()
         {
             // Setup
+            var feature = new List<MapFeature>
+            {
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(Enumerable.Empty<Point2D>())
+                })
+            };
+
             var converter = new MapPointDataConverter();
-            var pointData = new MapPointData(new Collection<Point2D>(), "test data");
+            var pointData = new MapPointData(feature, "test data");
 
             // Call
             var canConvert = converter.CanConvertMapData(pointData);
@@ -61,14 +71,21 @@ namespace Core.Components.DotSpatial.Test.Converter
             var converter = new MapPointDataConverter();
             var random = new Random(21);
             var randomCount = random.Next(5, 10);
-            var points = new Collection<Point2D>();
+            var features = new List<MapFeature>();
 
             for (int i = 0; i < randomCount; i++)
             {
-                points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
-            }
+                features.Add(new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(new List<Point2D>
+                    {
+                        new Point2D(random.NextDouble(), random.NextDouble())
+                    })
+                }));
+            }            
+            
 
-            var pointData = new MapPointData(points, "test data");
+            var pointData = new MapPointData(features, "test data");
 
             // Call
             var mapLayers = converter.Convert(pointData);
@@ -77,10 +94,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.IsInstanceOf<IList<IMapFeatureLayer>>(mapLayers);
             var layer = mapLayers[0];
 
-            Assert.AreEqual(pointData.Points.ToArray().Length, layer.DataSet.Features.Count);
+            Assert.AreEqual(pointData.Features.ToArray().Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPointLayer>(layer);
             Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
-            CollectionAssert.AreNotEqual(pointData.Points, layer.DataSet.Features[0].Coordinates);
+            CollectionAssert.AreNotEqual(pointData.Features.First().MapGeometries.First().Points, layer.DataSet.Features[0].Coordinates);
         }
 
         [Test]

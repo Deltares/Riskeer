@@ -356,11 +356,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var referenceLineData = (MapLineData)mapData;
             if (referenceLine == null)
             {
-                CollectionAssert.IsEmpty(referenceLineData.Points);
+                CollectionAssert.IsEmpty(referenceLineData.Features.First().MapGeometries.First().Points);
             }
             else
             {
-                CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Points);
+                CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Features.First().MapGeometries.First().Points);
             }
             Assert.AreEqual("Referentielijn", mapData.Name);
         }
@@ -371,11 +371,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var hydraulicLocationsMapData = (MapPointData)mapData;
             if (database == null)
             {
-                CollectionAssert.IsEmpty(hydraulicLocationsMapData.Points);
+                CollectionAssert.IsEmpty(hydraulicLocationsMapData.Features.First().MapGeometries.First().Points);
             }
             else
             {
-                CollectionAssert.AreEqual(database.Locations.Select(hrp => hrp.Location), hydraulicLocationsMapData.Points);
+                CollectionAssert.AreEqual(database.Locations.Select(hrp => hrp.Location), hydraulicLocationsMapData.Features.First().MapGeometries.First().Points);
             }
             Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
         }
@@ -395,7 +395,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
             var sectionsStartPointData = (MapPointData)mapData;
-            CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Points);
+            CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().Points);
             Assert.AreEqual("Vakindeling (startpunten)", mapData.Name);
         }
 
@@ -403,7 +403,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
             var sectionsStartPointData = (MapPointData)mapData;
-            CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsStartPointData.Points);
+            CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsStartPointData.Features.First().MapGeometries.First().Points);
             Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
         }
 

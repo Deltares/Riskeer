@@ -27,8 +27,9 @@ using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
-
+using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using NUnit.Framework;
@@ -90,7 +91,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var map = new MapControl())
             {
-                var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
+                var testData = new MapPointData(Enumerable.Empty<MapFeature>(), "test data");
 
                 // Call
                 map.Data = testData;
@@ -106,7 +107,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var map = new MapControl())
             {
-                var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
+                var testData = new MapPointData(Enumerable.Empty<MapFeature>(), "test data");
                 var mapView = map.Controls.OfType<Map>().First();
 
                 // Call
@@ -128,8 +129,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapView = map.Controls.OfType<Map>().First();
                 var testData = new MapDataCollection(new List<MapData>
                 {
-
-                    new MapPointData(Enumerable.Empty<Point2D>(), "test data")
+                    new MapPointData(Enumerable.Empty<MapFeature>(), "test data")
                 }, "test data");
 
                 map.Data = testData;
@@ -138,7 +138,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(1, mapView.Layers.Count);
                 Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
 
-                testData.List.Add(new MapLineData(Enumerable.Empty<Point2D>(), "test data"));
+                testData.List.Add(new MapLineData(Enumerable.Empty<MapFeature>(), "test data"));
 
                 // Call
                 map.UpdateObserver();
@@ -159,7 +159,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapView = map.Controls.OfType<Map>().First();
                 var testData = new MapDataCollection(new List<MapData>
                 {
-                    new MapPointData(Enumerable.Empty<Point2D>(), "test data")
+                    new MapPointData(Enumerable.Empty<MapFeature>(), "test data")
                 }, "test data");
 
                 map.Data = testData;
@@ -170,7 +170,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 map.Data = null;
 
-                testData.List.Add(new MapPointData(Enumerable.Empty<Point2D>(), "test data"));
+                testData.List.Add(new MapPointData(Enumerable.Empty<MapFeature>(), "test data"));
 
                 // Call
                 map.UpdateObserver();
@@ -189,7 +189,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var form = new Form())
             {
                 var map = new MapControl();
-                var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
+                var testData = new MapPointData(Enumerable.Empty<MapFeature>(), "test data");
                 var mapView = map.Controls.OfType<Map>().First();
                 var invalidated = 0;
 
@@ -223,7 +223,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             // Precondition
             Assert.AreEqual(3, mapView.Layers.Count, "Precondition failed: mapView.Layers != 3");
-            Assert.IsFalse(mapView.Layers.All(l=>l.IsVisible), "Precondition failed: not all map layers should be visible.");
+            Assert.IsFalse(mapView.Layers.All(l => l.IsVisible), "Precondition failed: not all map layers should be visible.");
 
             // Call
             map.ZoomToAllVisibleLayers();
@@ -310,7 +310,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var form = new Form())
             {
                 var map = new MapControl();
-                var testData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
+                var testData = new MapPointData(Enumerable.Empty<MapFeature>(), "test data");
                 var view = map.Controls.OfType<Map>().First();
 
                 map.Data = testData;
@@ -331,23 +331,47 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         private static MapDataCollection GetTestData()
         {
-            var points = new MapPointData(new Collection<Point2D>
+            var points = new MapPointData(new Collection<MapFeature>
             {
-                new Point2D(1.5, 2),
-                new Point2D(1.1, 1),
-                new Point2D(0.8, 0.5)
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(new List<Point2D>
+                    {
+                        new Point2D(1.5, 2)
+                    }),
+                    new MapGeometry(new List<Point2D>
+                    {
+                        new Point2D(1.1, 1)
+                    }),
+                    new MapGeometry(new List<Point2D>
+                    {
+                        new Point2D(0.8, 0.5)
+                    })
+                })
             }, "test data");
-            var lines = new MapLineData(new Collection<Point2D>
+            var lines = new MapLineData(new Collection<MapFeature>
             {
-                new Point2D(0.0, 1.1),
-                new Point2D(1.0, 2.1),
-                new Point2D(1.6, 1.6)
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(new List<Point2D>
+                    {
+                        new Point2D(0.0, 1.1),
+                        new Point2D(1.0, 2.1),
+                        new Point2D(1.6, 1.6)
+                    })
+                })
             }, "test data");
-            var polygons = new MapPolygonData(new Collection<Point2D>
+            var polygons = new MapPolygonData(new Collection<MapFeature>
             {
-                new Point2D(1.0, 1.3),
-                new Point2D(3.0, 2.6),
-                new Point2D(5.6, 1.6)
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(new List<Point2D>
+                    {
+                        new Point2D(1.0, 1.3),
+                        new Point2D(3.0, 2.6),
+                        new Point2D(5.6, 1.6)
+                    })
+                })
             }, "test data")
             {
                 IsVisible = false

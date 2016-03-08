@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-
+using System.Linq;
 using Core.Components.Gis.Data;
 using DotSpatial.Controls;
 using DotSpatial.Data;
@@ -37,7 +37,7 @@ namespace Core.Components.DotSpatial.Converter
         {
             var featureSet = new FeatureSet(FeatureType.Point);
 
-            foreach (var point in data.Points)
+            foreach (var point in data.Features.SelectMany(features => features.MapGeometries.SelectMany(mapGeometry => mapGeometry.Points))) 
             {
                 featureSet.Features.Add(new Coordinate(point.X, point.Y));
             }

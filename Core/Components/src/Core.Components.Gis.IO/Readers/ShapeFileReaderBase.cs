@@ -86,9 +86,17 @@ namespace Core.Components.Gis.IO.Readers
         /// <summary>
         /// Reads a line shape from the file.
         /// </summary>
-        /// <returns>The <see cref="PointBasedMapData"/> representing the shape, or 
+        /// <param name="name">The name of the <see cref="FeatureBasedMapData"/>. When <c>null</c> a default value will be set.</param>
+        /// <returns>The <see cref="FeatureBasedMapData"/> representing the shape, or 
         /// <c>null</c> when at the end of the shapefile.</returns>
-        public abstract PointBasedMapData ReadLine(string name = null);
+        public abstract FeatureBasedMapData ReadLine(string name = null);
+
+        /// <summary>
+        /// Reads all lines from the shape file.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="FeatureBasedMapData"/>. When <c>null</c> a default value will be set.</param>
+        /// <returns>The <see cref="FeatureBasedMapData"/> representing the shape.</returns>
+        public abstract FeatureBasedMapData ReadShapeFile(string name = null);
 
         /// <summary>
         /// Gets the feature at the given index.

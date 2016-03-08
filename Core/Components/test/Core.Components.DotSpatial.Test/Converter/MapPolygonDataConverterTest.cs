@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using DotSpatial.Topology;
 using NUnit.Framework;
@@ -29,8 +32,16 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void CanConvertMapData_MapPolygonData_ReturnsTrue()
         {
             // Setup
+            var feature = new List<MapFeature>
+            {
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(Enumerable.Empty<Point2D>())
+                })
+            };
+
             var converter = new MapPolygonDataConverter();
-            var polygonData = new MapPolygonData(new Collection<Point2D>(), "test data");
+            var polygonData = new MapPolygonData(feature, "test data");
 
             // Call
             var canConvert = converter.CanConvertMapData(polygonData);
@@ -67,7 +78,15 @@ namespace Core.Components.DotSpatial.Test.Converter
                 polygonPoints.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
-            var polygonData = new MapPolygonData(polygonPoints, "test data");
+            var feature = new List<MapFeature>
+            {
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(polygonPoints)
+                })
+            };
+
+            var polygonData = new MapPolygonData(feature, "test data");
 
             // Call
             var mapLayers = converter.Convert(polygonData);
@@ -78,7 +97,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(1, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPolygonLayer>(layer);
             Assert.AreEqual(FeatureType.Polygon, layer.DataSet.FeatureType);
-            CollectionAssert.AreNotEqual(polygonData.Points, layer.DataSet.Features[0].Coordinates);
+            CollectionAssert.AreNotEqual(polygonData.Features.First().MapGeometries.First().Points, layer.DataSet.Features[0].Coordinates);
         }
 
         [Test]

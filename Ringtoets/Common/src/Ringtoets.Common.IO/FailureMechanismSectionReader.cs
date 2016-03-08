@@ -29,6 +29,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.IO;
 using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.Data;
@@ -134,34 +135,40 @@ namespace Ringtoets.Common.IO
         /// Reads a new <see cref="MapLineData"/> from the file.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="CriticalFileReadException">When the line being read is a multi-polyline.</exception>
         private MapLineData ReadMapLineData()
         {
-            try
-            {
-                return polylineShapeFileReader.ReadLine() as MapLineData;
-            }
-            catch (ElementReadException e)
-            {
-                throw new CriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline, e);
-            }
+           return polylineShapeFileReader.ReadLine() as MapLineData;
         }
 
         private FailureMechanismSection CreateFailureMechanismSection(MapLineData lineData)
         {
-            string name = GetSectionName(lineData);
-            IEnumerable<Point2D> geometryPoints = GetSectionGeometry(lineData);
+            var features = lineData.Features.ToArray();
+            if (features.Length > 1)
+            {
+                throw new CriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
+            }
+
+            var feature = features.First();
+
+            string name = GetSectionName(feature);
+            IEnumerable<Point2D> geometryPoints = GetSectionGeometry(feature);
             return new FailureMechanismSection(name, geometryPoints);
         }
 
-        private string GetSectionName(MapLineData lineData)
+        private string GetSectionName(MapFeature lineFeature)
         {
-            return (string)lineData.MetaData[SectionNameAttributeKey];
+            return (string)lineFeature.MetaData[SectionNameAttributeKey];
         }
 
-        private IEnumerable<Point2D> GetSectionGeometry(MapLineData lineData)
+        private IEnumerable<Point2D> GetSectionGeometry(MapFeature lineFeature)
         {
-            return lineData.Points.Select(p => new Point2D(p.X, p.Y));
+            var mapGeometries = lineFeature.MapGeometries.ToArray();
+            if (mapGeometries.Length > 1)
+            {
+                throw new CriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
+            }
+
+            return mapGeometries.First().Points.Select(p => new Point2D(p.X, p.Y));
         }
     }
 }

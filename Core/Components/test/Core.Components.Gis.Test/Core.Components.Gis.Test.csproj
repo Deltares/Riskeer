@@ -47,7 +47,9 @@
     <Compile Include="Data\MapLineDataTest.cs" />
     <Compile Include="Data\MapPointDataTest.cs" />
     <Compile Include="Data\MapPolygonDataTest.cs" />
-    <Compile Include="Data\PointsBasedMapDataTest.cs" />
+    <Compile Include="Data\FeatureBasedMapDataTest.cs" />
+    <Compile Include="Features\MapFeatureTest.cs" />
+    <Compile Include="Geometries\MapGeometryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

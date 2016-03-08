@@ -175,10 +175,10 @@ namespace Core.Plugins.DotSpatial.Legend
             }
         }
 
-        private static void PointBasedMapDataOnNodeChecked(PointBasedMapData pointBasedMapData, object parentData)
+        private static void PointBasedMapDataOnNodeChecked(FeatureBasedMapData featureBasedMapData, object parentData)
         {
-            pointBasedMapData.IsVisible = !pointBasedMapData.IsVisible;
-            pointBasedMapData.NotifyObservers();
+            featureBasedMapData.IsVisible = !featureBasedMapData.IsVisible;
+            featureBasedMapData.NotifyObservers();
 
             var observableParent = parentData as IObservable;
             if (observableParent != null)
@@ -247,7 +247,7 @@ namespace Core.Plugins.DotSpatial.Legend
 
         private void CheckDataFormat(string filePath, string title, MapDataCollection mapDataCollection)
         {
-            PointBasedMapData importedData;
+            FeatureBasedMapData importedData;
 
             var featureSet = Shapefile.OpenFile(filePath);
 
@@ -280,7 +280,7 @@ namespace Core.Plugins.DotSpatial.Legend
             mapDataCollection.NotifyObservers();
         }
 
-        private PointBasedMapData GetShapeFileData(ShapeFileReaderBase reader, string filePath, string title)
+        private FeatureBasedMapData GetShapeFileData(ShapeFileReaderBase reader, string filePath, string title)
         {
             try
             {

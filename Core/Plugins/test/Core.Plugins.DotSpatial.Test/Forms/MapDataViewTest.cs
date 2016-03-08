@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using Core.Plugins.DotSpatial.Forms;
 using NUnit.Framework;
 
@@ -77,10 +80,18 @@ namespace Core.Plugins.DotSpatial.Test.Forms
         public void Data_SetToMapPointData_MapDataSet()
         {
             // Setup
+            var features = new Collection<MapFeature> 
+            {
+                new MapFeature(new Collection<MapGeometry>
+                {
+                    new MapGeometry(Enumerable.Empty<Point2D>())
+                })
+            };
+
             using (var mapView = new MapDataView())
             {
                 var map = (MapControl)mapView.Controls[0];
-                var pointData = new MapPointData(Enumerable.Empty<Point2D>(), "test data");
+                var pointData = new MapPointData(features, "test data");
 
                 // Call
                 mapView.Data = pointData;

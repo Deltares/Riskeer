@@ -6,6 +6,8 @@ using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using DotSpatial.Topology;
 using NUnit.Framework;
@@ -91,8 +93,8 @@ namespace Core.Components.DotSpatial.Test.Converter
             var converter = new MapDataCollectionConverter();
             var random = new Random(21);
             var randomCount = random.Next(5, 10);
-            var points = new Collection<Point2D>();
-            var linePoints = new Collection<Point2D>();
+            var points = new List<Point2D>();
+            var linePoints = new List<Point2D>();
 
             for (int i = 0; i < randomCount; i++)
             {
@@ -100,9 +102,25 @@ namespace Core.Components.DotSpatial.Test.Converter
                 linePoints.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
+            var pointFeature = new List<MapFeature>
+            {
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(points)
+                })
+            };
+
+            var lineFeature = new List<MapFeature>
+            {
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(linePoints)
+                })
+            };
+
             var collectionData = new MapDataCollection(new List<MapData>(), "test data");
-            var pointData = new MapPointData(points, "test data");
-            var lineData = new MapLineData(linePoints, "test data");
+            var pointData = new MapPointData(pointFeature, "test data");
+            var lineData = new MapLineData(lineFeature, "test data");
 
             collectionData.List.Add(pointData);
             collectionData.List.Add(lineData);

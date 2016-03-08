@@ -36,11 +36,18 @@ namespace Core.Components.DotSpatial.Converter
     {
         protected override IList<IMapFeatureLayer> Convert(MapPolygonData data)
         {
-            var coordinates = data.Points.Select(p => new Coordinate(p.X, p.Y));
-            var polygon = new Polygon(coordinates);
             var featureSet = new FeatureSet(FeatureType.Polygon);
 
-            featureSet.Features.Add(polygon);
+            foreach (var mapFeature in data.Features)
+            {
+                foreach (var mapGeometry in mapFeature.MapGeometries)
+                {
+                    var coordinates = mapGeometry.Points.Select(p => new Coordinate(p.X, p.Y));
+                    var polygon = new Polygon(coordinates);
+
+                    featureSet.Features.Add(polygon);
+                }
+            }
 
             var layer = new MapPolygonLayer(featureSet)
             {

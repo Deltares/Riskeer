@@ -21,26 +21,27 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base.Geometry;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 
 namespace Core.Components.Gis.Data
 {
     /// <summary>
     /// This class represents data in 2D space which is visible as points.
     /// </summary>
-    public class MapPointData : PointBasedMapData
+    public class MapPointData : FeatureBasedMapData
     {
         /// <summary>
         /// Create a new instance of <see cref="MapPointData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> which describes points in 2D space.</param>
+        /// <param name="features">A <see cref="IEnumerable{T}"/> of <see cref="MapFeature"/> which describes a <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>.</param>
         /// <param name="name">The name of the <see cref="MapData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when 
         /// <list type="bullet">
-        /// <item><paramref name="points"/> is <c>null</c>.</item>
+        /// <item><paramref name="features"/> is <c>null</c>.</item>
         /// <item><paramref name="name"/> is <c>null</c> or only whitespace.</item>
         /// </list>
         /// </exception>
-        public MapPointData(IEnumerable<Point2D> points, string name) : base(points, name) {}
+        public MapPointData(IEnumerable<MapFeature> features, string name) : base(features, name) { }
     }
 }

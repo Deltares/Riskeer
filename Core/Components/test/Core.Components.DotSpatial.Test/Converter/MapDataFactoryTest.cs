@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using DotSpatial.Topology;
 using NUnit.Framework;
@@ -78,6 +80,8 @@ namespace Core.Components.DotSpatial.Test.Converter
                 new MapPolygonData(testData, "test data")
             }, "test data");
 
+            var points = testData.First().MapGeometries.First().Points.ToArray();
+
             // Call
             IList<IMapFeatureLayer> layers = factory.Create(mapDataCollection);
 
@@ -86,7 +90,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(3, layers.Count);
 
             var layer = layers[0];
-            Assert.AreEqual(testData.Count, layer.DataSet.Features.Count);
+            Assert.AreEqual(points.Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPointLayer>(layer);
             Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
             CollectionAssert.AreNotEqual(testData, layer.DataSet.Features[0].Coordinates);
@@ -118,13 +122,19 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.Throws<NotSupportedException>(test);
         }
 
-        private static Collection<Point2D> CreateTestData()
+        private static List<MapFeature> CreateTestData()
         {
-            return new Collection<Point2D>
+            return new List<MapFeature>
             {
-                new Point2D(1.2, 3.4),
-                new Point2D(3.2, 3.4),
-                new Point2D(0.2, 2.4)
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(new List<Point2D>
+                    {
+                        new Point2D(1.2, 3.4),
+                        new Point2D(3.2, 3.4),
+                        new Point2D(0.2, 2.4)
+                    })
+                })
             };
         }
     }

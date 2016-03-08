@@ -22,44 +22,45 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Geometry;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 
 namespace Core.Components.Gis.Data
 {
     /// <summary>
     /// Base class for <see cref="MapData"/> which is based on a collection of points.
     /// </summary>
-    public abstract class PointBasedMapData : MapData
+    public abstract class FeatureBasedMapData : MapData
     {
         /// <summary>
-        /// Create a new instance of <see cref="PointBasedMapData"/>.
+        /// Create a new instance of <see cref="FeatureBasedMapData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> 
-        /// which describe locations in 2D space.</param>
+        /// <param name="features">A <see cref="IEnumerable{T}"/> of <see cref="MapFeature"/> which describes a <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>.</param>
         /// <param name="name">The name of the <see cref="MapData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="features"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        protected PointBasedMapData(IEnumerable<Point2D> points, string name) : base(name)
+        protected FeatureBasedMapData(IEnumerable<MapFeature> features, string name) : base(name)
         {
-            if (points == null)
+            if (features == null)
             {
-                var message = String.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData));
-                throw new ArgumentNullException("points", message);
+                var message = String.Format("A feature collection is required when creating a subclass of {0}.", typeof(FeatureBasedMapData));
+                throw new ArgumentNullException("features", message);
             }
-            Points = points.ToArray();
+
+            Features = features.ToArray();
             IsVisible = true;
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the <see cref="PointBasedMapData"/> is visible.
+        /// Gets or sets a value indicating whether the <see cref="FeatureBasedMapData"/> is visible.
         /// </summary>
         public bool IsVisible { get; set; }
 
         /// <summary>
-        /// Gets the collection of points in 2D space.
+        /// Gets the collection of features.
         /// </summary>
-        public IEnumerable<Point2D> Points { get; private set; }
+        public IEnumerable<MapFeature> Features { get; private set; }
     }
 }

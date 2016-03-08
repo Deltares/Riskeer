@@ -69,7 +69,7 @@ namespace Ringtoets.Common.IO
             using (PolylineShapeFileReader lineShapeReader = OpenPolyLineShapeFile(shapeFilePath))
             {
                 MapLineData lineMapData = GetReferenceLineMapData(lineShapeReader, shapeFilePath);
-                return CreateReferenceLine(lineMapData);
+                return CreateReferenceLine(lineMapData, shapeFilePath);
             }
         }
 
@@ -104,7 +104,6 @@ namespace Ringtoets.Common.IO
         /// <list type="bullet">
         /// <item>There isn't exactly 1 polyline in the shapefile.</item>
         /// <item>The shapefile doesn't contains lines.</item>
-        /// <item>The shapefile contains a multi-polyline.</item>
         /// </list>
         /// </exception>
         private static MapLineData GetReferenceLineMapData(PolylineShapeFileReader lineShapeReader, string shapeFilePath)
@@ -120,12 +119,6 @@ namespace Ringtoets.Common.IO
             {
                 return (MapLineData) lineShapeReader.ReadLine(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
             }
-            catch (ElementReadException e)
-            {
-                string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_contains_unsupported_multi_polyline);
-                throw new CriticalFileReadException(message, e);
-            }
             catch (InvalidCastException exception)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
@@ -134,10 +127,30 @@ namespace Ringtoets.Common.IO
             }
         }
 
-        private static ReferenceLine CreateReferenceLine(MapLineData lineMapData)
+        private static ReferenceLine CreateReferenceLine(MapLineData lineMapData, string shapeFilePath)
         {
+            var lineFeatures = lineMapData.Features.ToArray();
+
+            if (lineFeatures.Length > 1)
+            {
+                string message = new FileReaderErrorMessageBuilder(shapeFilePath)
+                    .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_contains_unsupported_multi_polyline);
+                throw new CriticalFileReadException(message);
+            }
+
             var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(lineMapData.Points.Select(t => new Point2D(t.X, t.Y)));
+            var referenceLineFeature = lineMapData.Features.First();
+            var referenceGeometries = referenceLineFeature.MapGeometries.ToArray();
+
+            if (referenceGeometries.Length > 1)
+            {
+                string message = new FileReaderErrorMessageBuilder(shapeFilePath)
+                    .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_contains_unsupported_multi_polyline);
+                throw new CriticalFileReadException(message);
+            }
+
+            var referenceGeometry = referenceGeometries.First();
+            referenceLine.SetGeometry(referenceGeometry.Points.Select(t => new Point2D(t.X, t.Y)));
             return referenceLine;
         }
     }

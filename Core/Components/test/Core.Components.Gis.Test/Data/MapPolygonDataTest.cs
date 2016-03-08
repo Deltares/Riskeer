@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
-
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 
 namespace Core.Components.Gis.Test.Data
@@ -18,7 +20,7 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate test = () => new MapPolygonData(null, "test data");
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, string.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData)));
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, string.Format("A feature collection is required when creating a subclass of {0}.", typeof(FeatureBasedMapData)));
         }
 
         [Test]
@@ -28,10 +30,16 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Setup
-            var points = new Collection<Point2D>();
+            var features = new Collection<MapFeature> 
+            {
+                new MapFeature(new Collection<MapGeometry>
+                {
+                    new MapGeometry(Enumerable.Empty<Point2D>())
+                })
+            };
 
             // Call
-            TestDelegate test = () => new MapPolygonData(points, invalidName);
+            TestDelegate test = () => new MapPolygonData(features, invalidName);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to map data");
@@ -41,40 +49,58 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_WithEmptyPoints_CreatesNewMapPolygonData()
         {
             // Setup
-            var points = new Collection<Point2D>();
+            var features = new Collection<MapFeature> 
+            {
+                new MapFeature(new Collection<MapGeometry>
+                {
+                    new MapGeometry(Enumerable.Empty<Point2D>())
+                })
+            };
 
             // Call
-            var data = new MapPolygonData(points, "test data");
+            var data = new MapPolygonData(features, "test data");
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);
-            Assert.AreNotSame(points, data.Points);
+            Assert.AreNotSame(features, data.Features);
         }
 
         [Test]
         public void Constructor_WithPoints_CreatesNewMapPolygonData()
         {
             // Setup
-            var points = CreateTestPoints();
+            var features = new Collection<MapFeature> 
+            {
+                new MapFeature(new Collection<MapGeometry>
+                {
+                    new MapGeometry(CreateTestPoints())
+                })
+            };
 
             // Call
-            var data = new MapPolygonData(points, "test data");
+            var data = new MapPolygonData(features, "test data");
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);
-            Assert.AreNotSame(points, data.Points);
-            CollectionAssert.AreEqual(points, data.Points);
+            Assert.AreNotSame(features, data.Features);
+            CollectionAssert.AreEqual(CreateTestPoints(), data.Features.First().MapGeometries.First().Points);
         }
 
         [Test]
         public void Constructor_WithName_SetsName()
         {
             // Setup
-            var points = new Collection<Point2D>();
+            var features = new Collection<MapFeature> 
+            {
+                new MapFeature(new Collection<MapGeometry>
+                {
+                    new MapGeometry(Enumerable.Empty<Point2D>())                    
+                })
+            };
             var name = "Some name";
 
             // Call
-            var data = new MapPolygonData(points, name);
+            var data = new MapPolygonData(features, name);
 
             // Assert
             Assert.AreEqual(name, data.Name);

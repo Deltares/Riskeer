@@ -26,8 +26,9 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
-
+using Core.Components.Gis.Geometries;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
@@ -137,7 +138,7 @@ namespace Ringtoets.Piping.Forms.Views
             IEnumerable<Point2D> referenceLinePoints = referenceLine == null ?
                                                            Enumerable.Empty<Point2D>() :
                                                            referenceLine.Points;
-            return new MapLineData(referenceLinePoints, RingtoetsCommonDataResources.ReferenceLine_DisplayName);
+            return new MapLineData(GetMapFeature(referenceLinePoints), RingtoetsCommonDataResources.ReferenceLine_DisplayName);
         }
 
         private MapData GetHydraulicBoundaryLocationsMapData()
@@ -147,7 +148,7 @@ namespace Ringtoets.Piping.Forms.Views
             IEnumerable<Point2D> hrLocations = hydraulicBoundaryDatabase == null ?
                                                    Enumerable.Empty<Point2D>() :
                                                    hydraulicBoundaryDatabase.Locations.Select(h => h.Location);
-            return new MapPointData(hrLocations, RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
+            return new MapPointData(GetMapFeature(hrLocations), RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
         }
 
         private MapData GetSurfaceLinesMapData()
@@ -168,7 +169,7 @@ namespace Ringtoets.Piping.Forms.Views
             string mapDataName = string.Format("{0} ({1})",
                                                Resources.FailureMechanism_Sections_DisplayName,
                                                Resources.FailureMechanismSections_StartPoints_DisplayName);
-            return new MapPointData(startPoints, mapDataName);
+            return new MapPointData(GetMapFeature(startPoints), mapDataName);
         }
 
         private MapData GetSectionsEndPointsMapData()
@@ -177,7 +178,19 @@ namespace Ringtoets.Piping.Forms.Views
             string mapDataName = string.Format("{0} ({1})",
                                                Resources.FailureMechanism_Sections_DisplayName,
                                                Resources.FailureMechanismSections_EndPoints_DisplayName);
-            return new MapPointData(startPoints, mapDataName);
+            return new MapPointData(GetMapFeature(startPoints), mapDataName);
+        }
+
+        private IEnumerable<MapFeature> GetMapFeature(IEnumerable<Point2D> points)
+        {
+            var features = new List<MapFeature>
+            {
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(points)
+                })
+            };
+            return features;
         }
     }
 }

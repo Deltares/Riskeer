@@ -83,12 +83,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(2, mapData.List.Count);
 
             var hrLocationsMapData = (MapPointData)mapData.List[0];
-            CollectionAssert.IsEmpty(hrLocationsMapData.Points);
+            CollectionAssert.IsEmpty(hrLocationsMapData.Features.First().MapGeometries.First().Points);
             Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
             Assert.IsTrue(hrLocationsMapData.IsVisible);
 
             var referenceLineMapData = (MapLineData)mapData.List[1];
-            CollectionAssert.IsEmpty(referenceLineMapData.Points);
+            CollectionAssert.IsEmpty(referenceLineMapData.Features.First().MapGeometries.First().Points);
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             Assert.IsTrue(referenceLineMapData.IsVisible);
         }
@@ -126,12 +126,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsNotNull(mapData);
 
             var hrLocationsMapData = (MapPointData)mapData.List[0];
-            CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations.Select(l => l.Location), hrLocationsMapData.Points);
+            CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations.Select(l => l.Location), hrLocationsMapData.Features.First().MapGeometries.First().Points);
             Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
             Assert.IsTrue(hrLocationsMapData.IsVisible);
 
             var referenceLineMapData = (MapLineData)mapData.List[1];
-            CollectionAssert.AreEqual(referenceLine.Points, referenceLineMapData.Points);
+            CollectionAssert.AreEqual(referenceLine.Points, referenceLineMapData.Features.First().MapGeometries.First().Points);
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             Assert.IsTrue(referenceLineMapData.IsVisible);
         }

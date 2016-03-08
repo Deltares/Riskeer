@@ -294,7 +294,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             const string expectedItemTooltip = "Importeer een nieuwe kaartlaag en voeg deze toe.";
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, DotSpatialResources.MapIcon);
             mocks.VerifyAll();
-        }
-				
+        }			
     }
 }

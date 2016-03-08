@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using NUnit.Framework;
 
@@ -28,8 +31,15 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void CanConvertMapData_MapLineData_ReturnTrue()
         {
             // Setup
+            var feature = new List<MapFeature>
+            {
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(Enumerable.Empty<Point2D>())
+                })
+            };
             var converter = new MapLineDataConverter();
-            var lineData = new MapLineData(new Collection<Point2D>(), "test data");
+            var lineData = new MapLineData(feature, "test data");
 
             // Call
             var canConvert = converter.CanConvertMapData(lineData);
@@ -89,7 +99,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapLineDataConverter();
             var random = new Random(21);
-            var randomCount = random.Next(5, 10);
+            var randomCount = random.Next(5, 10);           
             var points = new Collection<Point2D>();
 
             for (int i = 0; i < randomCount; i++)
@@ -97,7 +107,15 @@ namespace Core.Components.DotSpatial.Test.Converter
                 points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
-            var lineData = new MapLineData(points, "test data");
+            var feature = new List<MapFeature>
+            {
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(points)
+                })
+            };
+
+            var lineData = new MapLineData(feature, "test data");
 
             // Call
             var mapLayers = converter.Convert(lineData);

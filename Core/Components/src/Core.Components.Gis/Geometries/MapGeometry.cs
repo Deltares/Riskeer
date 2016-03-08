@@ -21,27 +21,32 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Components.Gis.Features;
-using Core.Components.Gis.Geometries;
+using Core.Common.Base.Geometry;
 
-namespace Core.Components.Gis.Data
+namespace Core.Components.Gis.Geometries
 {
     /// <summary>
-    /// This class represents data in 2D space which is visible as a line.
+    /// The geometry containing the points.
     /// </summary>
-    public class MapLineData : FeatureBasedMapData
+    public class MapGeometry
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MapLineData"/>.
+        /// Creates a new instance of <see cref="MapGeometry"/>.
         /// </summary>
-        /// <param name="features">A <see cref="IEnumerable{T}"/> of <see cref="MapFeature"/> which describes a <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>.</param>
-        /// <param name="name">The name of the <see cref="MapData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when 
-        /// <list type="bullet">
-        /// <item><paramref name="features"/> is <c>null</c>.</item>
-        /// <item><paramref name="name"/> is <c>null</c> or only whitespace.</item>
-        /// </list>
-        /// </exception>
-        public MapLineData(IEnumerable<MapFeature> features, string name) : base(features, name) {}
+        /// <param name="points">An <see cref="IEnumerable{T}"/> of <see cref="Point2D"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
+        public MapGeometry(IEnumerable<Point2D> points)
+        {
+            if (points == null)
+            {
+                throw new ArgumentNullException("points", "MapGeometry can't be created without points.");
+            }
+            Points = points;
+        }
+
+        /// <summary>
+        /// Gets the points associated with the <see cref="MapGeometry"/>.
+        /// </summary>
+        public IEnumerable<Point2D> Points { get; private set; }
     }
 }

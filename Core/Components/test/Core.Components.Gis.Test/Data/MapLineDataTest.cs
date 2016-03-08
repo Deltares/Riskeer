@@ -4,7 +4,8 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
-
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 
 namespace Core.Components.Gis.Test.Data
@@ -19,7 +20,7 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate test = () => new MapLineData(null, "test data");
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, string.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedMapData)));
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, string.Format("A feature collection is required when creating a subclass of {0}.", typeof(FeatureBasedMapData)));
         }
 
         [Test]
@@ -29,52 +30,70 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
-            TestDelegate test = () => new MapLineData(Enumerable.Empty<Point2D>(), invalidName);
+            TestDelegate test = () => new MapLineData(Enumerable.Empty<MapFeature>(), invalidName);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to map data");
         }
 
         [Test]
-        public void Constructor_WithEmptyPoints_CreatesNewMapLineData()
+        public void Constructor_WithEmptyMapGeometryPoints_CreatesNewMapLineData()
         {
             // Setup
-            var points = new Collection<Point2D>();
+            var features = new Collection<MapFeature> 
+            {
+                new MapFeature(new Collection<MapGeometry>
+                {
+                    new MapGeometry(Enumerable.Empty<Point2D>())
+                })
+            };
 
             // Call
-            var data = new MapLineData(points, "test data");
+            var data = new MapLineData(features, "test data");
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);
-            Assert.AreNotSame(points, data.Points);
-            CollectionAssert.IsEmpty(data.MetaData);
+            Assert.AreNotSame(features, data.Features);
+            CollectionAssert.IsEmpty(data.Features.First().MapGeometries.First().Points);
         }
 
         [Test]
         public void Constructor_WithPoints_CreatesNewMapLineData()
         {
             // Setup
-            var points = CreateTestPoints();
+            var features = new Collection<MapFeature>
+            {
+                new MapFeature(new Collection<MapGeometry>
+                {
+                    new MapGeometry(CreateTestPoints())
+                })
+            };
 
             // Call
-            var data = new MapLineData(points, "test data");
+            var data = new MapLineData(features, "test data");
 
             // Assert
             Assert.IsInstanceOf<MapData>(data);
-            Assert.AreNotSame(points, data.Points);
-            CollectionAssert.AreEqual(points, data.Points);
-            CollectionAssert.IsEmpty(data.MetaData);
+            Assert.AreNotSame(features, data.Features);
+            CollectionAssert.AreEqual(CreateTestPoints(), data.Features.First().MapGeometries.First().Points);
+            CollectionAssert.IsEmpty(data.Features.First().MetaData);
         }
 
         [Test]
         public void Constructor_WithName_SetsName()
         {
             // Setup
-            var points = new Collection<Point2D>();
+            var features = new Collection<MapFeature> 
+            {
+                new MapFeature(new Collection<MapGeometry>
+                {
+                    new MapGeometry(Enumerable.Empty<Point2D>())
+                })
+            };
             var name = "Some name";
 
             // Call
-            var data = new MapLineData(points, name);
+            var data = new MapLineData(features, name);
 
             // Assert
             Assert.AreEqual(name, data.Name);
@@ -84,16 +103,24 @@ namespace Core.Components.Gis.Test.Data
         public void MetaData_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            var data = new MapLineData(Enumerable.Empty<Point2D>(), "test data");
+            var features = new Collection<MapFeature> 
+            {
+                new MapFeature(new Collection<MapGeometry>
+                {
+                    new MapGeometry(Enumerable.Empty<Point2D>())
+                })
+            };
+
+            var data = new MapLineData(features, "test data");
 
             const string key = "<some key>";
             var newValue = new object();
 
             // Call
-            data.MetaData[key] = newValue;
+            data.Features.First().MetaData[key] = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, data.MetaData[key]);
+            Assert.AreEqual(newValue, data.Features.First().MetaData[key]);
         }
 
         private static Collection<Point2D> CreateTestPoints()
