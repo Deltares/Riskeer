@@ -39,6 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
         private readonly HydraRingUncertaintiesType uncertaintiesType;
         private readonly TargetProbabilityCalculationInput targetProbabilityCalculationInput;
         private readonly Action<TargetProbabilityCalculationOutput> handleCalculationOutputAction;
+        private readonly HydraRingCalculationService hydraRingCalculationService = new HydraRingCalculationService();
         private TargetProbabilityCalculationOutput targetProbabilityCalculationOutput;
 
         /// <summary>
@@ -79,12 +80,12 @@ namespace Ringtoets.HydraRing.Calculation.Service
 
         protected override void OnRun()
         {
-            targetProbabilityCalculationOutput = HydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput);
+            targetProbabilityCalculationOutput = hydraRingCalculationService.PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput);
         }
 
         protected override void OnCancel()
         {
-            HydraRingCalculationService.CancelRunningCalculation();
+            hydraRingCalculationService.CancelRunningCalculation();
         }
 
         protected override void OnFinish()

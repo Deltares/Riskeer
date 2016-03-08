@@ -32,8 +32,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations.
     /// </summary>
-    /// <remarks>The current implementation of this service is not thread safe (calculations should be performed one at a time).</remarks>
-    public static class HydraRingCalculationService
+    public class HydraRingCalculationService
     {
         private static Process hydraRingProcess;
 
@@ -46,7 +45,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="targetProbabilityCalculationInput">The input of the calculation to perform.</param>
         /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> or <c>null</c> when something went wrong.</returns>
-        public static TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, TargetProbabilityCalculationInput targetProbabilityCalculationInput)
+        public TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, TargetProbabilityCalculationInput targetProbabilityCalculationInput)
         {
             return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, (outputFilePath, ouputDatabasePath) => TargetProbabilityCalculationParser.Parse(outputFilePath, targetProbabilityCalculationInput.DikeSection.SectionId));
         }
@@ -54,7 +53,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
         /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.
         /// </summary>
-        public static void CancelRunningCalculation()
+        public void CancelRunningCalculation()
         {
             if (hydraRingProcess != null && !hydraRingProcess.HasExited)
             {
