@@ -67,7 +67,6 @@
     <Compile Include="Legend\MapLegendControllerTest.cs" />
     <Compile Include="Legend\MapLegendViewTest.cs" />
     <Compile Include="Legend\MapLineDataTreeNodeInfoTest.cs" />
-    <Compile Include="Legend\MapMultiLineDataTreeNodeInfoTest.cs" />
     <Compile Include="Legend\MapPointDataTreeNodeInfoTest.cs" />
     <Compile Include="Legend\MapPolygonDataTreeNodeInfoTest.cs" />
     <Compile Include="MapRibbonTest.cs" />

@@ -139,16 +139,6 @@ namespace Core.Plugins.DotSpatial.Legend
                 OnNodeChecked = PointBasedMapDataOnNodeChecked
             });
 
-            treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapMultiLineData>
-            {
-                Text = mapMultiLineData => mapMultiLineData.Name,
-                Image = mapMultiLineData => DotSpatialResources.LineIcon,
-                CanDrag = (mapMultiLineData, parentData) => true,
-                CanCheck = mapMultiLineData => true,
-                IsChecked = mapMultiLineData => mapMultiLineData.IsVisible,
-                OnNodeChecked = MapMultiLineDataOnNodeChecked
-            });
-
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapDataCollection>
             {
                 Text = mapDataCollection => mapDataCollection.Name,
@@ -162,18 +152,6 @@ namespace Core.Plugins.DotSpatial.Legend
         }
 
         #region MapData
-
-        private static void MapMultiLineDataOnNodeChecked(MapMultiLineData mapMultiLineData, object parentData)
-        {
-            mapMultiLineData.IsVisible = !mapMultiLineData.IsVisible;
-            mapMultiLineData.NotifyObservers();
-
-            var observableParent = parentData as IObservable;
-            if (observableParent != null)
-            {
-                observableParent.NotifyObservers();
-            }
-        }
 
         private static void PointBasedMapDataOnNodeChecked(FeatureBasedMapData featureBasedMapData, object parentData)
         {

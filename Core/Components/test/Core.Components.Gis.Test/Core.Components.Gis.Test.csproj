@@ -41,7 +41,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\MapMultiLineDataTest.cs" />
     <Compile Include="Data\MapDataCollectionTest.cs" />
     <Compile Include="Data\MapDataTest.cs" />
     <Compile Include="Data\MapLineDataTest.cs" />

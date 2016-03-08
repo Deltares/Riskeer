@@ -153,14 +153,22 @@ namespace Ringtoets.Piping.Forms.Views
 
         private MapData GetSurfaceLinesMapData()
         {
-            IEnumerable<IEnumerable<Point2D>> surfaceLines = data.WrappedData.SurfaceLines.Select(sl => sl.Points.Select(p => new Point2D(p.X, p.Y)));
-            return new MapMultiLineData(surfaceLines, RingtoetsCommonDataResources.SurfaceLine_DisplayName);
+            var mapFeatures = new List<MapFeature>
+            {
+                new MapFeature(data.WrappedData.SurfaceLines.Select(surfaceLine => new MapGeometry(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)))))
+            };
+
+            return new MapLineData(mapFeatures, RingtoetsCommonDataResources.SurfaceLine_DisplayName);
         }
 
         private MapData GetSectionsMapData()
         {
-            IEnumerable<IEnumerable<Point2D>> sectionLines = data.WrappedData.Sections.Select(sl => sl.Points);
-            return new MapMultiLineData(sectionLines, Resources.FailureMechanism_Sections_DisplayName);
+            var mapFeatures = new List<MapFeature>
+            {
+                new MapFeature(data.WrappedData.Sections.Select(section => new MapGeometry(section.Points.Select(p => new Point2D(p.X, p.Y)))))
+            };
+
+            return new MapLineData(mapFeatures, Resources.FailureMechanism_Sections_DisplayName);
         }
 
         private MapData GetSectionsStartPointsMapData()

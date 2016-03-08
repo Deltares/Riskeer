@@ -140,21 +140,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         }
 
         [Test]
-        public void Data_MapMultiLineData_DataSet()
-        {
-            // Setup
-            var view = new MapLegendView(contextMenuBuilderProvider, parentWindow);
-            var mapData = new MapMultiLineData(Enumerable.Empty<IEnumerable<Point2D>>(), "test data");
-
-            // Call
-            view.Data = mapData;
-
-            // Assert
-            Assert.AreSame(mapData, view.Data);
-            Assert.IsInstanceOf<MapData>(view.Data);
-        }
-
-        [Test]
         public void Data_ForNull_NullSet()
         {
             // Setup

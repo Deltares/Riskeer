@@ -382,11 +382,19 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private void AssertFailureMechanismSectionsMapData(IEnumerable<FailureMechanismSection> sections, MapData mapData)
         {
-            Assert.IsInstanceOf<MapMultiLineData>(mapData);
-            var sectionsMapLinesData = (MapMultiLineData)mapData;
-            foreach (var failureMechanismSection in sections)
+            Assert.IsInstanceOf<MapLineData>(mapData);
+            var sectionsMapLinesData = (MapLineData)mapData;
+            var sectionMapLinesFeatures = sectionsMapLinesData.Features.ToArray();
+            Assert.AreEqual(1, sectionMapLinesFeatures.Length);
+
+            var geometries = sectionMapLinesFeatures.First().MapGeometries.ToArray();
+            var sectionsArray = sections.ToArray();
+            Assert.AreEqual(sectionsArray.Length, geometries.Length);
+
+            for (int index = 0; index < sectionsArray.Length; index++)
             {
-                CollectionAssert.Contains(sectionsMapLinesData.Lines, failureMechanismSection.Points);
+                var failureMechanismSection = sectionsArray[index];
+                CollectionAssert.AreEquivalent(geometries[index].Points, failureMechanismSection.Points);
             }
             Assert.AreEqual("Vakindeling", mapData.Name);
         }
@@ -409,11 +417,19 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private void AssertSurfacelinesMapData(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, MapData mapData)
         {
-            Assert.IsInstanceOf<MapMultiLineData>(mapData);
-            var surfacelinesMapData = (MapMultiLineData)mapData;
-            foreach (var surfaceLine in surfaceLines)
+            Assert.IsInstanceOf<MapLineData>(mapData);
+            var surfacelinesMapData = (MapLineData)mapData;
+            var surfacelineFeatures = surfacelinesMapData.Features.ToArray();
+            Assert.AreEqual(1, surfacelineFeatures.Length);
+            
+            var geometries = surfacelineFeatures.First().MapGeometries.ToArray();
+            var surfaceLinesArray = surfaceLines.ToArray();
+            Assert.AreEqual(surfaceLinesArray.Length, geometries.Length);
+
+            for (int index = 0; index < surfaceLinesArray.Length; index++)
             {
-                CollectionAssert.Contains(surfacelinesMapData.Lines, surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)));
+                var surfaceLine = surfaceLinesArray[index];
+                CollectionAssert.AreEquivalent(geometries[index].Points, surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)));
             }
             Assert.AreEqual("Profielmetingen", mapData.Name);
         }

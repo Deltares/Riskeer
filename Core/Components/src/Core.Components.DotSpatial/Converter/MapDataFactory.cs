@@ -41,7 +41,6 @@ namespace Core.Components.DotSpatial.Converter
             new MapDataCollectionConverter(),
             new MapPointDataConverter(),
             new MapLineDataConverter(),
-            new MapMultiLineDataConverter(),
             new MapPolygonDataConverter()
         };
 

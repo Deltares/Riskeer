@@ -101,7 +101,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter\MapMultiLineDataConverterTest.cs" />
     <Compile Include="Converter\MapDataCollectionConverterTest.cs" />
     <Compile Include="Converter\MapLineDataConverterTest.cs" />
     <Compile Include="Converter\MapPolygonDataConverterTest.cs" />
