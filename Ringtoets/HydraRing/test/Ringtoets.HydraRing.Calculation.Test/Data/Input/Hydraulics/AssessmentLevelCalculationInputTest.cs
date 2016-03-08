@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         {
             // Call
             var norm = 10000;
-            var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0 / norm);
+            var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0/norm);
             var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, norm);
 
             // Assert

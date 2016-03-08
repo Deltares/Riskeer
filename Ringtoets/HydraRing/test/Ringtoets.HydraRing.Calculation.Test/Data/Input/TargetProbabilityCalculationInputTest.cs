@@ -34,7 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
         {
             // Call
             var norm = 10000;
-            var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0 / norm);
+            var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0/norm);
             var targetProbabilityCalculationInputImplementation = new TargetProbabilityCalculationInputImplementation(1, norm);
 
             // Assert
