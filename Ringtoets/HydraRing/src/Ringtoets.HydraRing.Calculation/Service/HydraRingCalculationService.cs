@@ -45,7 +45,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="targetProbabilityCalculationInput">The input of the calculation to perform.</param>
         /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> or <c>null</c> when something went wrong.</returns>
-        public TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, TargetProbabilityCalculationInput targetProbabilityCalculationInput)
+        public virtual TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, TargetProbabilityCalculationInput targetProbabilityCalculationInput)
         {
             return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, (outputFilePath, ouputDatabasePath) => TargetProbabilityCalculationParser.Parse(outputFilePath, targetProbabilityCalculationInput.DikeSection.SectionId));
         }
@@ -53,7 +53,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
         /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.
         /// </summary>
-        public void CancelRunningCalculation()
+        public virtual void CancelRunningCalculation()
         {
             if (hydraRingProcess != null && !hydraRingProcess.HasExited)
             {

@@ -93,10 +93,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
 
         protected override void OnFinish()
         {
-            if (targetProbabilityCalculationOutput != null)
-            {
-                handleCalculationOutputAction(targetProbabilityCalculationOutput);
-            }
+            handleCalculationOutputAction(targetProbabilityCalculationOutput);
         }
     }
 }

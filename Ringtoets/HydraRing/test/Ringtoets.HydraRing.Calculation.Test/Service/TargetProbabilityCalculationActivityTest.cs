@@ -24,6 +24,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Service;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Service
@@ -42,13 +43,81 @@ namespace Ringtoets.HydraRing.Calculation.Test.Service
             mocks.ReplayAll();
 
             // Call
-            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInputImplementation, output => { }, hydraRingCalculationService);
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInputImplementation, null, hydraRingCalculationService);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
             Assert.AreEqual("Name of activity", activity.Name);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
+        }
+
+        [Test]
+        public void Run_TargetProbabilityCalculationActivity_PerformCalculationCalledWithCorrectParameters()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
+            var targetProbabilityCalculationOutput = mocks.StrictMock<TargetProbabilityCalculationOutput>(1.1, 2.2);
+            var targetProbabilityCalculationInputImplementation = new TargetProbabilityCalculationInputImplementation(1, 10000);
+
+            const string hlcdDirectory = "hlcdDirectory";
+            const string ringId = "ringId";
+            const HydraRingUncertaintiesType uncertaintiesType = HydraRingUncertaintiesType.All;
+            const HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType = HydraRingTimeIntegrationSchemeType.FBC;
+
+            hydraRingCalculationService.Expect(hcs => hcs.PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInputImplementation)).Return(targetProbabilityCalculationOutput);
+
+            mocks.ReplayAll();
+
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInputImplementation, null, hydraRingCalculationService);
+
+            // Call
+            activity.Run();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Cancel_TargetProbabilityCalculationActivity_CancelRunningCalculationCalled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
+            var targetProbabilityCalculationInputImplementation = new TargetProbabilityCalculationInputImplementation(1, 10000);
+
+            hydraRingCalculationService.Expect(hcs => hcs.CancelRunningCalculation());
+
+            mocks.ReplayAll();
+
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInputImplementation, null, hydraRingCalculationService);
+
+            // Call
+            activity.Cancel();
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Finish_TargetProbabilityCalculationActivity_OutputActionPerformed()
+        {
+            // Setup
+            var count = 0;
+            var mocks = new MockRepository();
+            var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
+            var targetProbabilityCalculationInputImplementation = new TargetProbabilityCalculationInputImplementation(1, 10000);
+
+            mocks.ReplayAll();
+
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInputImplementation, output => { count++; }, hydraRingCalculationService);
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            Assert.AreEqual(1, count);
         }
 
         private class TargetProbabilityCalculationInputImplementation : TargetProbabilityCalculationInput
