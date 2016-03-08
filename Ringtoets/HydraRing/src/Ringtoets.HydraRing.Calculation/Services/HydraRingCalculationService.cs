@@ -63,13 +63,13 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
         private static T PerformCalculation<T>(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculationInput hydraRingCalculationInput, Func<string, string, T> parseFunction)
         {
-            var hydraulicBoundaryLocationId = hydraRingCalculationInput.HydraulicBoundaryLocationId;
+            var sectionId = hydraRingCalculationInput.DikeSection.SectionId;
 
             // Create a working directory
-            var workingDirectory = CreateWorkingDirectory(hydraulicBoundaryLocationId.ToString());
+            var workingDirectory = CreateWorkingDirectory(sectionId.ToString());
 
             // Write the initialization script
-            var hydraRingInitializationService = new HydraRingInitializationService(hydraRingCalculationInput.FailureMechanismType, hydraulicBoundaryLocationId, hlcdDirectory, workingDirectory);
+            var hydraRingInitializationService = new HydraRingInitializationService(hydraRingCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, workingDirectory);
             File.WriteAllText(hydraRingInitializationService.IniFilePath, hydraRingInitializationService.GenerateInitializationScript());
 
             // Write the database creation script
