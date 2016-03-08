@@ -34,7 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="mechanismComputationExeFilePath">The path to the MechanismComputation.exe file that should be used for the calculation.</param>
         /// <param name="iniFilePath">The path to the ini file that should be used during the calculation.</param>
         /// <param name="workingDirectory">The working directory that should be used during the calculation.</param>
-        /// <returns></returns>
+        /// <returns>The created process.</returns>
         public static Process Create(string mechanismComputationExeFilePath, string iniFilePath, string workingDirectory)
         {
             return new Process

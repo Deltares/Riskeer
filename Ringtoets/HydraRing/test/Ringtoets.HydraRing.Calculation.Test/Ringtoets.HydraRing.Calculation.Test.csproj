@@ -53,9 +53,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\HydraRingActivityFactoryTest.cs" />
     <Compile Include="Data\Input\HydraRingCalculationInputTest.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutputTest.cs" />
     <Compile Include="Parsers\TargetProbabilityCalculationParserTest.cs" />
