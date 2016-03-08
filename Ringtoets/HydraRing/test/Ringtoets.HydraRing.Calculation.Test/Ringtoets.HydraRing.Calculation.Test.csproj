@@ -60,7 +60,7 @@
     <Compile Include="Data\HydraRingDikeSectionTest.cs" />
     <Compile Include="Data\HydraRingProfilePointTest.cs" />
     <Compile Include="Data\HydraRingVariableTest.cs" />
-    <Compile Include="Service\HydraRingConfigurationServiceIntegrationTest.cs" />
+    <Compile Include="Integration\HydraRingConfigurationServiceIntegrationTest.cs" />
     <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInputTest.cs" />
     <Compile Include="Data\Input\TargetProbabilityCalculationInputTest.cs" />
     <Compile Include="IO\HydraRingSettingsCsvReaderTest.cs" />

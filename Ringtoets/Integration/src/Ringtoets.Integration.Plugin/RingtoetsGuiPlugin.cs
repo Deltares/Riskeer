@@ -447,18 +447,19 @@ namespace Ringtoets.Integration.Plugin
                 (sender, args) =>
                 {
                     var hlcdDirectory = Path.GetDirectoryName(nodeData.Parent.HydraulicBoundaryDatabase.FilePath);
-                    var activities = nodeData.Parent.HydraulicBoundaryDatabase.Locations.Select(hbl => new TargetProbabilityCalculationActivity(
-                                                                                                           string.Format(Resources.RingtoetsGuiPlugin_Calculate_assessment_level_for_location_0_, hbl.Id),
-                                                                                                           hlcdDirectory,
-                                                                                                           "",
-                                                                                                           HydraRingTimeIntegrationSchemeType.FBC,
-                                                                                                           HydraRingUncertaintiesType.All,
-                                                                                                           new AssessmentLevelCalculationInput((int) hbl.Id, nodeData.Parent.FailureMechanismContribution.Norm),
-                                                                                                           output =>
-                                                                                                           {
-                                                                                                               hbl.DesignWaterLevel = output.Result;
-                                                                                                               hbl.NotifyObservers();
-                                                                                                           })).ToList();
+                    var activities = nodeData.Parent.HydraulicBoundaryDatabase.Locations
+                                             .Select(hbl => HydraRingActivityFactory.Create(
+                                                 string.Format(Resources.RingtoetsGuiPlugin_Calculate_assessment_level_for_location_0_, hbl.Id),
+                                                 hlcdDirectory,
+                                                 "",
+                                                 HydraRingTimeIntegrationSchemeType.FBC,
+                                                 HydraRingUncertaintiesType.All,
+                                                 new AssessmentLevelCalculationInput((int) hbl.Id, nodeData.Parent.FailureMechanismContribution.Norm),
+                                                 output =>
+                                                 {
+                                                     hbl.DesignWaterLevel = output.Result;
+                                                     hbl.NotifyObservers();
+                                                 })).ToList();
 
                     ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
                 }

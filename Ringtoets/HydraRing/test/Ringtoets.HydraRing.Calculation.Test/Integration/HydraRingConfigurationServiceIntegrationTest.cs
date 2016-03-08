@@ -25,7 +25,7 @@ using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Service;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Service
+namespace Ringtoets.HydraRing.Calculation.Test.Integration
 {
     [TestFixture]
     public class HydraRingConfigurationServiceIntegrationTest
