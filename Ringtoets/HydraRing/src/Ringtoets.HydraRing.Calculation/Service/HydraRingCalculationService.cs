@@ -78,19 +78,7 @@ namespace Ringtoets.HydraRing.Calculation.Service
             File.WriteAllText(hydraRingInitializationService.DataBaseCreationScriptFilePath, hydraRingConfigurationService.GenerateDataBaseCreationScript());
 
             // Perform the calculation
-            hydraRingProcess = new Process
-            {
-                StartInfo = new ProcessStartInfo(hydraRingInitializationService.MechanismComputationExeFilePath, hydraRingInitializationService.IniFilePath)
-                {
-                    WorkingDirectory = workingDirectory,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    RedirectStandardInput = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true
-                }
-            };
-
+            hydraRingProcess = HydraRingProcessFactory.Create(hydraRingInitializationService.MechanismComputationExeFilePath, hydraRingInitializationService.IniFilePath, workingDirectory);
             hydraRingProcess.Start();
             hydraRingProcess.WaitForExit();
 
