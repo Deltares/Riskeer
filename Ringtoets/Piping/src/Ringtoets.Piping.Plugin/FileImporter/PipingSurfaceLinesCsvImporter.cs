@@ -188,7 +188,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped,
                                             e.Message);
-                log.WarnFormat(message);
+                log.ErrorFormat(message);
             }
         }
 
@@ -339,7 +339,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 var message = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped,
                                             e.Message);
-                log.WarnFormat(message);
+                log.ErrorFormat(message);
             }
         }
 
