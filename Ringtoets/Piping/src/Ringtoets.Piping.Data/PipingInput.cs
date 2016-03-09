@@ -22,6 +22,7 @@
 using System;
 
 using Core.Common.Base;
+using Core.Common.Base.Data;
 
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Probabilistics;
@@ -37,7 +38,7 @@ namespace Ringtoets.Piping.Data
     {
         private const double seepageLengthStandardDeviationFraction = 0.1;
         private readonly GeneralPipingInput generalInputParameters;
-        private double assessmentLevel;
+        private RoundedDouble assessmentLevel;
         private double exitPointL;
         private double entryPointL;
 
@@ -59,7 +60,7 @@ namespace Ringtoets.Piping.Data
 
             exitPointL = double.NaN;
             entryPointL = double.NaN;
-            assessmentLevel = double.NaN;
+            assessmentLevel = new RoundedDouble(2, double.NaN);
 
             PhreaticLevelExit = new NormalDistribution();
             DampingFactorExit = new LognormalDistribution
@@ -90,7 +91,7 @@ namespace Ringtoets.Piping.Data
         /// [m]
         /// </summary>
         /// <exception cref="ArgumentException"><paramref name="value"/> is <see cref="double.NaN"/>.</exception>
-        public double AssessmentLevel
+        public RoundedDouble AssessmentLevel
         {
             get
             {
@@ -98,11 +99,7 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                if (double.IsNaN(value))
-                {
-                    throw new ArgumentException(Resources.PipingInput_AssessmentLevel_Cannot_set_to_NaN);
-                }
-                assessmentLevel = value;
+                assessmentLevel.Value = value.Value;
             }
         }
 

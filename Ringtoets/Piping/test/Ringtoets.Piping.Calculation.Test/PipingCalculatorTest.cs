@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Core.Common.Base.Data;
+
 using NUnit.Framework;
 
 using Ringtoets.Piping.Calculation.TestUtil;
@@ -216,7 +218,7 @@ namespace Ringtoets.Piping.Calculation.Test
             // Setup
             PipingCalculatorInput input = new TestPipingInput
             {
-                AssessmentLevel = assessmentLevel,
+                AssessmentLevel = new RoundedDouble(2, assessmentLevel),
                 PhreaticLevelExit = phreaticLevelExit,
                 SellmeijerReductionFactor = sellmeijerReductionFactor,
                 ThicknessCoverageLayer = thicknessCoverageLayer
@@ -325,7 +327,7 @@ namespace Ringtoets.Piping.Calculation.Test
             // Setup
             PipingCalculatorInput input = new TestPipingInput
             {
-                AssessmentLevel = 0,
+                AssessmentLevel = new RoundedDouble(2, 0),
                 PhreaticLevelExit = 0,
                 SellmeijerReductionFactor = 0,
                 ThicknessCoverageLayer = 0

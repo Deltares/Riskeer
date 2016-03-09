@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
@@ -13,7 +14,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
@@ -118,10 +118,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               assessmentSectionMock)
             };
 
-            // Call & Assert
-            const double assessmentLevel = 0.12;
-            properties.AssessmentLevelSellmeijer = assessmentLevel;
-            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel);
+            const double entryPointL = 0.12;
+
+            // Call
+            properties.EntryPointL = entryPointL;
+
+            // Assert
+            Assert.AreEqual(entryPointL, inputParameters.EntryPointL);
             mocks.VerifyAll();
         }
 
@@ -163,7 +166,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<PipingSoilProfile>(),
                                               assessmentSectionMock),
-                AssessmentLevelSellmeijer = assessmentLevel,
                 PiezometricHeadExitUplift = piezometricHeadExit,
                 DampingFactorExitHeave = new LognormalDistributionDesignVariable(dampingFactorExit),
                 PhreaticLevelExitHeave = new NormalDistributionDesignVariable(phreaticLevelExit),
@@ -174,11 +176,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 DarcyPermeability = new LognormalDistributionDesignVariable(darcyPermeability),
                 ThicknessAquiferLayer = new LognormalDistributionDesignVariable(thicknessAquiferLayer),
                 SurfaceLine = surfaceLine,
-                SoilProfile = soilProfile
+                SoilProfile = soilProfile,
+                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(assessmentLevel)
             };
 
             // Assert
-            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel);
+            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel, 1e-2);
             Assert.AreEqual(piezometricHeadExit, inputParameters.PiezometricHeadExit);
             Assert.AreEqual(dampingFactorExit, inputParameters.DampingFactorExit);
             Assert.AreEqual(phreaticLevelExit, inputParameters.PhreaticLevelExit);
@@ -357,7 +360,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             double assessmentLevel = new Random(21).NextDouble();
             var inputParameters = new PipingInput(new GeneralPipingInput())
             {
-                AssessmentLevel = assessmentLevel
+                AssessmentLevel =
+                {
+                    Value = assessmentLevel
+                }
             };
             inputParameters.Attach(projectObserver);
 
@@ -375,6 +381,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 DesignWaterLevel = double.NaN
             };
 
+            double originalRoundedAssessmentLevel = inputParameters.AssessmentLevel;
+
             // Call
             TestDelegate test = () => properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
@@ -382,8 +390,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var message = string.Format("Kan locatie '{0}' niet gebruiken als invoer. Toetspeil moet een geldige waarde hebben.", testName);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
 
-            Assert.AreEqual(assessmentLevel, properties.AssessmentLevelSellmeijer);
-            Assert.AreEqual(assessmentLevel, properties.AssessmentLevelUplift);
+            Assert.AreEqual(originalRoundedAssessmentLevel, properties.AssessmentLevelSellmeijer.Value);
+            Assert.AreEqual(originalRoundedAssessmentLevel, properties.AssessmentLevelUplift.Value);
 
             mocks.VerifyAll();
         }
@@ -419,8 +427,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
-            Assert.AreEqual(testLevel, properties.AssessmentLevelSellmeijer);
-            Assert.AreEqual(testLevel, properties.AssessmentLevelUplift);
+            Assert.AreEqual(testLevel, properties.AssessmentLevelSellmeijer.Value, 1e-2);
+            Assert.AreEqual(testLevel, properties.AssessmentLevelUplift.Value, 1e-2);
 
             mocks.VerifyAll();
         }

@@ -23,6 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.HydraRing.Data;
@@ -79,7 +81,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        private double AssessmentLevel
+        private RoundedDouble AssessmentLevel
         {
             get
             {
@@ -192,17 +194,15 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                try
+                if (double.IsNaN(value.DesignWaterLevel))
                 {
-                    data.WrappedData.AssessmentLevel = value.DesignWaterLevel;
-                }
-                catch (ArgumentException e)
-                {
-                    string message = string.Format(Resources.PipingInputContextProperties_HydraulicBoundaryLocation_Could_not_set_Location_0_Cause_1_, 
-                        value.Name,
-                        e.Message);
+                    string message = string.Format(Resources.PipingInputContextProperties_HydraulicBoundaryLocation_Could_not_set_Location_0_Cause_1_,
+                                                   value.Name,
+                                                   Resources.PipingInputContextProperties_AssessmentLevel_cannot_be_NaN);
                     throw new ArgumentException(message);
                 }
+
+                data.WrappedData.AssessmentLevel.Value = value.DesignWaterLevel;
                 data.WrappedData.HydraulicBoundaryLocation = value;
                 data.WrappedData.NotifyObservers();
             }
@@ -329,15 +329,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_AssessmentLevel_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_AssessmentLevel_Description")]
-        public double AssessmentLevelUplift
+        public RoundedDouble AssessmentLevelUplift
         {
             get
             {
                 return AssessmentLevel;
-            }
-            set
-            {
-                AssessmentLevel = value;
             }
         }
 
@@ -410,15 +406,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_AssessmentLevel_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_AssessmentLevel_Description")]
-        public double AssessmentLevelSellmeijer
+        public RoundedDouble AssessmentLevelSellmeijer
         {
             get
             {
                 return AssessmentLevel;
-            }
-            set
-            {
-                AssessmentLevel = value;
             }
         }
 

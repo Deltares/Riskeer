@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
@@ -72,7 +73,10 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.IsNaN(inputParameters.ExitPointL);
             Assert.IsNaN(inputParameters.EntryPointL);
-            Assert.IsNaN(inputParameters.AssessmentLevel);
+
+            Assert.IsInstanceOf<RoundedDouble>(inputParameters.AssessmentLevel);
+            Assert.AreEqual(2, inputParameters.AssessmentLevel.NumberOfDecimalPlaces);
+            Assert.IsNaN(inputParameters.AssessmentLevel.Value);
         }
 
         [Test]
@@ -85,19 +89,6 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
-        }
-
-        [Test]
-        public void AssessmentLevel_ValueIsNaN_ThrowsArgumentException()
-        {
-            // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput());
-
-            // Call
-            TestDelegate test = () => pipingInput.AssessmentLevel = double.NaN;
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, Resources.PipingInput_AssessmentLevel_Cannot_set_to_NaN);
         }
 
         [Test]

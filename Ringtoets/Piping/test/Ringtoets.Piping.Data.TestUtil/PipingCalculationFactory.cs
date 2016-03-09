@@ -1,4 +1,6 @@
 ﻿using System;
+
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
 namespace Ringtoets.Piping.Data.TestUtil
@@ -32,7 +34,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             {
                 InputParameters =
                 {
-                    AssessmentLevel = 1.0,
+                    AssessmentLevel = new RoundedDouble(2, 1.0),
                     DampingFactorExit =
                     {
                         Mean = 1.0

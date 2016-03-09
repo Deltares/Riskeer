@@ -14,7 +14,8 @@ namespace Core.Common.Base.Data
         private double value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RoundedDouble"/> class.
+        /// Initializes a new instance of the <see cref="RoundedDouble"/> class with a value
+        /// of 0.
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">
@@ -29,6 +30,29 @@ namespace Core.Common.Base.Data
             }
 
             NumberOfDecimalPlaces = numberOfDecimalPlaces;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RoundedDouble"/> class with a 
+        /// given value.
+        /// </summary>
+        /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
+        /// <param name="value">The value to initalize the instance with.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, 28].
+        /// </exception>
+        /// <exception cref="OverflowException">When <paramref name="value"/> is too big
+        /// or too small to be represented as a rounded double.</exception>
+        public RoundedDouble(int numberOfDecimalPlaces, double value)
+        {
+            if (numberOfDecimalPlaces < 0 || numberOfDecimalPlaces > 28)
+            {
+                throw new ArgumentOutOfRangeException("numberOfDecimalPlaces",
+                                                      "Value must be in range [0, 28].");
+            }
+
+            NumberOfDecimalPlaces = numberOfDecimalPlaces;
+            Value = value;
         }
 
         /// <summary>

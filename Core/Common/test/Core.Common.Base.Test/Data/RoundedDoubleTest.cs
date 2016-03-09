@@ -27,6 +27,48 @@ namespace Core.Common.Base.Test.Data
         }
 
         [Test]
+        [TestCase(1.0, 2, 1.00)]
+        [TestCase(123456789.0, 3, 123456789.000)]
+        [TestCase(12345678.90, 2, 12345678.90)]
+        [TestCase(12345678.90, 3, 12345678.900)]
+        [TestCase(1234567.890, 2, 1234567.89)]
+        [TestCase(1234567.890, 3, 1234567.890)]
+        [TestCase(123456.7890, 2, 123456.79)]
+        [TestCase(123456.7890, 3, 123456.789)]
+        [TestCase(12345.67890, 2, 12345.68)]
+        [TestCase(12345.67890, 3, 12345.679)]
+        [TestCase(1234.567890, 2, 1234.57)]
+        [TestCase(1234.567890, 3, 1234.568)]
+        [TestCase(123.4567890, 2, 123.46)]
+        [TestCase(123.4567890, 3, 123.457)]
+        [TestCase(12.34567890, 2, 12.35)]
+        [TestCase(12.34567890, 3, 12.346)]
+        [TestCase(1.234567890, 2, 1.23)]
+        [TestCase(1.234567890, 3, 1.235)]
+        [TestCase(0.1234567890, 2, 0.12)]
+        [TestCase(0.1234567890, 3, 0.123)]
+        [TestCase(0.01234567890, 2, 0.01)]
+        [TestCase(0.01234567890, 3, 0.012)]
+        [TestCase(0.001234567890, 2, 0.00)]
+        [TestCase(0.001234567890, 3, 0.001)]
+        [TestCase(0.0001234567890, 2, 0.00)]
+        [TestCase(0.0001234567890, 3, 0.000)]
+        [TestCase(double.NaN, 2, double.NaN)]
+        [TestCase(double.PositiveInfinity, 4, double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity, 3, double.NegativeInfinity)]
+        public void Constructor_ExpectedValues(double doubleValue, int numberOfDecimalPlaces, double expectedRoundedValue)
+        {
+            // Call
+            var roundedDouble = new RoundedDouble(numberOfDecimalPlaces, doubleValue);
+
+            // Assert
+            Assert.IsInstanceOf<IEquatable<RoundedDouble>>(roundedDouble);
+            Assert.IsInstanceOf<IEquatable<double>>(roundedDouble);
+            Assert.AreEqual(numberOfDecimalPlaces, roundedDouble.NumberOfDecimalPlaces);
+            Assert.AreEqual(expectedRoundedValue, roundedDouble.Value);
+        }
+
+        [Test]
         [TestCase(-45678)]
         [TestCase(-1)]
         [TestCase(29)]

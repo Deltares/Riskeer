@@ -601,4 +601,7 @@
   <data name="PipingInputExtensions_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer" xml:space="preserve">
     <value>Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.</value>
   </data>
+  <data name="PipingInputContextProperties_AssessmentLevel_cannot_be_NaN" xml:space="preserve">
+    <value>Toetspeil moet een geldige waarde hebben.</value>
+  </data>
 </root>

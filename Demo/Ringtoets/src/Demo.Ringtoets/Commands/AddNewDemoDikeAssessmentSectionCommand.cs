@@ -117,7 +117,7 @@ namespace Demo.Ringtoets.Commands
             calculation.InputParameters.SetSurfaceLine(pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001"));
             calculation.InputParameters.SoilProfile = pipingFailureMechanism.SoilProfiles.First(sl => sl.Name == "AD640M00_Segment_36005_1D2");
             calculation.InputParameters.PhreaticLevelExit.Mean = 3;
-            calculation.InputParameters.AssessmentLevel = 0.0;
+            calculation.InputParameters.AssessmentLevel.Value = 0.0;
             calculation.InputParameters.ThicknessCoverageLayer = new LognormalDistribution();
             calculation.InputParameters.ThicknessAquiferLayer = new LognormalDistribution();
         }

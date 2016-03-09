@@ -1,5 +1,6 @@
 using System;
 
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
 using Ringtoets.Piping.Data;
@@ -10,7 +11,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
     {
         public double WaterVolumetricWeight;
         public double UpliftModelFactor;
-        public double AssessmentLevel;
+        public RoundedDouble AssessmentLevel;
         public double PiezometricHeadExit;
         public double DampingFactorExit;
         public double PhreaticLevelExit;
@@ -40,7 +41,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
         {
             WaterVolumetricWeight = NextIncrementalDouble();
             UpliftModelFactor = NextIncrementalDouble();
-            AssessmentLevel = NextIncrementalDouble();
+            AssessmentLevel = new RoundedDouble(2, NextIncrementalDouble());
             PiezometricHeadExit = NextIncrementalDouble();
             PhreaticLevelExit = NextIncrementalDouble();
             DampingFactorExit = NextIncrementalDouble();
