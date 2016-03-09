@@ -70,6 +70,7 @@
     <Compile Include="SubCalculator\IPipingSubCalculatorFactory.cs" />
     <Compile Include="SubCalculator\ISellmeijerCalculator.cs" />
     <Compile Include="SubCalculator\IUpliftCalculator.cs" />
+    <Compile Include="SubCalculator\PipingSubCalculatorFactory.cs" />
     <Compile Include="SubCalculator\SellmeijerCalculator.cs" />
     <Compile Include="SubCalculator\UpliftCalculator.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />

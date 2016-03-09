@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Core.Common.Base.Data;
-
+using Core.Common.TestUtil;
 using NUnit.Framework;
-
+using Ringtoets.Piping.Calculation.SubCalculator;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 
@@ -15,12 +15,35 @@ namespace Ringtoets.Piping.Calculation.Test
     public class PipingCalculatorTest
     {
         [Test]
+        public void Constructor_WithoutInput_ArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new PipingCalculator(null, null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "PipingCalculatorInput required for creating a PipingCalculator.");
+        }
+
+        [Test]
+        public void Constructor_FactoryNull_ArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new PipingCalculator(new TestPipingInput().AsRealInput(), null);
+            
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "PipingSubCalculatorFactory required for creating a PipingCalculator.");
+        }
+
+        [Test]
         public void Calculate_CompleteValidInput_ReturnsResultWithNoNaN()
         {
+            // Setup
             PipingCalculatorInput input = new TestPipingInput().AsRealInput();
 
-            PipingCalculatorResult actual = new PipingCalculator(input).Calculate();
+            // Call
+            PipingCalculatorResult actual = new PipingCalculator(input, new PipingSubCalculatorFactory()).Calculate();
 
+            // Assert
             Assert.IsNotNull(actual);
             Assert.IsFalse(double.IsNaN(actual.UpliftZValue));
             Assert.IsFalse(double.IsNaN(actual.UpliftFactorOfSafety));
@@ -35,7 +58,7 @@ namespace Ringtoets.Piping.Calculation.Test
         {
             // Setup
             PipingCalculatorInput input = new TestPipingInput().AsRealInput();
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -56,7 +79,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 SeepageLength = seepageLength
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -78,7 +101,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 ThicknessAquiferLayer = aquiferThickness
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -99,7 +122,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 BeddingAngle = beddingAngle
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -121,7 +144,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 PhreaticLevelExit = level
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -141,7 +164,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 DampingFactorExit = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -160,7 +183,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 ThicknessCoverageLayer = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -179,7 +202,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 ThicknessAquiferLayer = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -198,7 +221,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 WaterVolumetricWeight = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -224,7 +247,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 ThicknessCoverageLayer = thicknessCoverageLayer
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -243,7 +266,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 SurfaceLine = null,
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -262,7 +285,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 SoilProfile = null,
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -284,7 +307,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 })
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -310,7 +333,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 })
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -333,7 +356,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 ThicknessCoverageLayer = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input);
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
             List<string> validationMessages = calculation.Validate();

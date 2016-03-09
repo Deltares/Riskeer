@@ -24,6 +24,7 @@ using System;
 using log4net;
 
 using Ringtoets.Piping.Calculation;
+using Ringtoets.Piping.Calculation.SubCalculator;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service.Properties;
 
@@ -37,6 +38,7 @@ namespace Ringtoets.Piping.Service
     public static class PipingCalculationService
     {
         private static readonly ILog pipingCalculationLogger = LogManager.GetLogger(typeof(PipingCalculation));
+        private static readonly PipingSubCalculatorFactory subCalculatorFactory = new PipingSubCalculatorFactory();
 
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
@@ -49,7 +51,7 @@ namespace Ringtoets.Piping.Service
             pipingCalculationLogger.Info(String.Format(Resources.Validation_Subject_0_started_Time_1_,
                                                        calculation.Name, DateTimeService.CurrentTimeAsString));
 
-            var validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters)).Validate();
+            var validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters), subCalculatorFactory).Validate();
             LogMessagesAsError(Resources.Error_in_piping_validation_0, validationResults.ToArray());
 
             pipingCalculationLogger.Info(String.Format(Resources.Validation_Subject_0_ended_Time_1_,
@@ -72,7 +74,7 @@ namespace Ringtoets.Piping.Service
 
             try
             {
-                var pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters)).Calculate();
+                var pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters), subCalculatorFactory).Calculate();
 
                 calculation.Output = new PipingOutput(pipingResult.UpliftZValue,
                                                      pipingResult.UpliftFactorOfSafety,
@@ -113,7 +115,7 @@ namespace Ringtoets.Piping.Service
         /// </list></exception>
         public static double CalculateThicknessCoverageLayer(PipingInput input)
         {
-            return new PipingCalculator(CreateInputFromData(input)).CalculateThicknessCoverageLayer();
+            return new PipingCalculator(CreateInputFromData(input), subCalculatorFactory).CalculateThicknessCoverageLayer();
         }
 
         private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters)

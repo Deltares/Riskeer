@@ -28,7 +28,6 @@ using Ringtoets.Piping.Calculation.SubCalculator;
 
 using EffectiveThicknessCalculator = Ringtoets.Piping.Calculation.SubCalculator.EffectiveThicknessCalculator;
 using HeaveCalculator = Ringtoets.Piping.Calculation.SubCalculator.HeaveCalculator;
-using UpliftCalculator = Ringtoets.Piping.Calculation.SubCalculator.UpliftCalculator;
 
 namespace Ringtoets.Piping.Calculation
 {
@@ -39,6 +38,7 @@ namespace Ringtoets.Piping.Calculation
     public class PipingCalculator
     {
         private readonly PipingCalculatorInput input;
+        private readonly PipingSubCalculatorFactory factory;
 
         /// <summary>
         /// Constructs a new <see cref="PipingCalculator"/>. The <paramref name="input"/> is used to
@@ -46,9 +46,20 @@ namespace Ringtoets.Piping.Calculation
         /// </summary>
         /// <param name="input">The <see cref="PipingCalculatorInput"/> containing all the values required
         /// for performing a piping calculation.</param>
-        public PipingCalculator(PipingCalculatorInput input)
+        /// <param name="factory"></param>
+        /// <exception cref="ArgumentNullException"><paramref name="input"/> or <paramref name="factory"/> is <c>null</c>.</exception>
+        public PipingCalculator(PipingCalculatorInput input, PipingSubCalculatorFactory factory)
         {
+            if (input == null)
+            {
+                throw new ArgumentNullException("input", "PipingCalculatorInput required for creating a PipingCalculator.");
+            }
+            if (factory == null)
+            {
+                throw new ArgumentNullException("factory", "PipingSubCalculatorFactory required for creating a PipingCalculator.");
+            }
             this.input = input;
+            this.factory = factory;
         }
 
         /// <summary>
@@ -241,55 +252,49 @@ namespace Ringtoets.Piping.Calculation
 
         private IHeaveCalculator CreateHeaveCalculator()
         {
-            var calculator = new HeaveCalculator
-            {
-                Ich = input.CriticalHeaveGradient,
-                PhiExit = input.PiezometricHeadExit,
-                DTotal = input.ThicknessCoverageLayer,
-                PhiPolder = input.PiezometricHeadPolder,
-                RExit = input.DampingFactorExit,
-                HExit = input.PhreaticLevelExit
-            };
+            var calculator = factory.CreateHeaveCalculator();
+            calculator.Ich = input.CriticalHeaveGradient;
+            calculator.PhiExit = input.PiezometricHeadExit;
+            calculator.DTotal = input.ThicknessCoverageLayer;
+            calculator.PhiPolder = input.PiezometricHeadPolder;
+            calculator.RExit = input.DampingFactorExit;
+            calculator.HExit = input.PhreaticLevelExit;
             return calculator;
         }
 
         private IUpliftCalculator CreateUpliftCalculator(double effectiveStress)
         {
-            var calculator = new UpliftCalculator
-            {
-                VolumetricWeightOfWater = input.WaterVolumetricWeight,
-                ModelFactorUplift = input.UpliftModelFactor,
-                EffectiveStress = effectiveStress,
-                HRiver = input.AssessmentLevel,
-                PhiExit = input.PiezometricHeadExit,
-                RExit = input.DampingFactorExit,
-                HExit = input.PhreaticLevelExit,
-                PhiPolder = input.PiezometricHeadPolder
-            };
+            var calculator = factory.CreateUpliftCalculator();
+            calculator.VolumetricWeightOfWater = input.WaterVolumetricWeight;
+            calculator.ModelFactorUplift = input.UpliftModelFactor;
+            calculator.EffectiveStress = effectiveStress;
+            calculator.HRiver = input.AssessmentLevel;
+            calculator.PhiExit = input.PiezometricHeadExit;
+            calculator.RExit = input.DampingFactorExit;
+            calculator.HExit = input.PhreaticLevelExit;
+            calculator.PhiPolder = input.PiezometricHeadPolder;
             return calculator;
         }
 
         private ISellmeijerCalculator CreateSellmeijerCalculator()
         {
-            var calculator = new SellmeijerCalculator
-            {
-                ModelFactorPiping = input.SellmeijerModelFactor,
-                HRiver = input.AssessmentLevel,
-                HExit = input.PhreaticLevelExit,
-                Rc = input.SellmeijerReductionFactor,
-                DTotal = input.ThicknessCoverageLayer,
-                SeepageLength = input.SeepageLength,
-                GammaSubParticles = input.SandParticlesVolumicWeight,
-                WhitesDragCoefficient = input.WhitesDragCoefficient,
-                D70 = input.Diameter70,
-                VolumetricWeightOfWater = input.WaterVolumetricWeight,
-                DarcyPermeability = input.DarcyPermeability,
-                KinematicViscosityWater = input.WaterKinematicViscosity,
-                Gravity = input.Gravity,
-                DAquifer = input.ThicknessAquiferLayer,
-                D70Mean = input.MeanDiameter70,
-                BeddingAngle = input.BeddingAngle
-            };
+            var calculator = factory.CreateSellmeijerCalculator();
+            calculator.ModelFactorPiping = input.SellmeijerModelFactor;
+            calculator.HRiver = input.AssessmentLevel;
+            calculator.HExit = input.PhreaticLevelExit;
+            calculator.Rc = input.SellmeijerReductionFactor;
+            calculator.DTotal = input.ThicknessCoverageLayer;
+            calculator.SeepageLength = input.SeepageLength;
+            calculator.GammaSubParticles = input.SandParticlesVolumicWeight;
+            calculator.WhitesDragCoefficient = input.WhitesDragCoefficient;
+            calculator.D70 = input.Diameter70;
+            calculator.VolumetricWeightOfWater = input.WaterVolumetricWeight;
+            calculator.DarcyPermeability = input.DarcyPermeability;
+            calculator.KinematicViscosityWater = input.WaterKinematicViscosity;
+            calculator.Gravity = input.Gravity;
+            calculator.DAquifer = input.ThicknessAquiferLayer;
+            calculator.D70Mean = input.MeanDiameter70;
+            calculator.BeddingAngle = input.BeddingAngle;
             return calculator;
         }
 
@@ -297,14 +302,12 @@ namespace Ringtoets.Piping.Calculation
         {
             try
             {
-                var calculator = new EffectiveThicknessCalculator
-                {
-                    ExitPointXCoordinate = input.ExitPointXCoordinate,
-                    PhreaticLevel = input.PhreaticLevelExit,
-                    SoilProfile = PipingProfileCreator.Create(input.SoilProfile),
-                    SurfaceLine = PipingSurfaceLineCreator.Create(input.SurfaceLine),
-                    VolumicWeightOfWater = input.WaterVolumetricWeight
-                };
+                var calculator = factory.CreateEffectiveThicknessCalculator();
+                calculator.ExitPointXCoordinate = input.ExitPointXCoordinate;
+                calculator.PhreaticLevel = input.PhreaticLevelExit;
+                calculator.SoilProfile = PipingProfileCreator.Create(input.SoilProfile);
+                calculator.SurfaceLine = PipingSurfaceLineCreator.Create(input.SurfaceLine);
+                calculator.VolumicWeightOfWater = input.WaterVolumetricWeight;
                 calculator.Calculate();
                 return calculator;
             }
