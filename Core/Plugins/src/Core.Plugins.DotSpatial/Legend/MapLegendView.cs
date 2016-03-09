@@ -238,19 +238,19 @@ namespace Core.Plugins.DotSpatial.Legend
                 case FeatureType.MultiPoint:
                     using (ShapeFileReaderBase reader = new PointShapeFileReader(filePath))
                     {
-                        importedData = GetShapeFileData(reader, filePath, title);
+                        importedData = GetShapeFileData(reader, title);
                     }
                     break;
                 case FeatureType.Line:
                     using (ShapeFileReaderBase reader = new PolylineShapeFileReader(filePath))
                     {
-                        importedData = GetShapeFileData(reader, filePath, title);
+                        importedData = GetShapeFileData(reader, title);
                     }
                     break;
                 case FeatureType.Polygon:
                     using (ShapeFileReaderBase reader = new PolygonShapeFileReader(filePath))
                     {
-                        importedData = GetShapeFileData(reader, filePath, title);
+                        importedData = GetShapeFileData(reader, title);
                     }
                     break;
                 default:
@@ -263,7 +263,7 @@ namespace Core.Plugins.DotSpatial.Legend
             mapDataCollection.NotifyObservers();
         }
 
-        private FeatureBasedMapData GetShapeFileData(ShapeFileReaderBase reader, string filePath, string title)
+        private FeatureBasedMapData GetShapeFileData(ShapeFileReaderBase reader, string title)
         {
             return reader.ReadShapeFile(title);
         }

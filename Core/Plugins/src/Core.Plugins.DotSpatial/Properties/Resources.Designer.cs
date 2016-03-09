@@ -136,7 +136,7 @@ namespace Core.Plugins.DotSpatial.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De shape file bevat data welke niet wordt ondersteund..
+        ///   Looks up a localized string similar to Het shapebestand bevat data welke niet wordt ondersteund..
         /// </summary>
         public static string MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data {
             get {
@@ -145,20 +145,11 @@ namespace Core.Plugins.DotSpatial.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De shape file is geimporteerd..
+        ///   Looks up a localized string similar to Het shapebestand is geimporteerd..
         /// </summary>
         public static string MapLegendView_CheckDataFormat_Shapefile_Is_Imported {
             get {
                 return ResourceManager.GetString("MapLegendView_CheckDataFormat_Shapefile_Is_Imported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bestand bevat data, welke niet ondersteund wordt..
-        /// </summary>
-        public static string MapLegendView_GetShapeFileData_The_File_Contains_Non_Supported_Data {
-            get {
-                return ResourceManager.GetString("MapLegendView_GetShapeFileData_The_File_Contains_Non_Supported_Data", resourceCulture);
             }
         }
         
@@ -181,7 +172,7 @@ namespace Core.Plugins.DotSpatial.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteer shape file..
+        ///   Looks up a localized string similar to Selecteer shapebestand..
         /// </summary>
         public static string MapLegendView_ShowSelectShapeFileDialog_Select_Shape_File {
             get {
