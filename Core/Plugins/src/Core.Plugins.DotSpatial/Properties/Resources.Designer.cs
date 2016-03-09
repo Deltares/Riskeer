@@ -138,27 +138,27 @@ namespace Core.Plugins.DotSpatial.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De shape file bevat data welke niet wordt ondersteund..
         /// </summary>
-        public static string MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data_ {
+        public static string MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data {
             get {
-                return ResourceManager.GetString("MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data_", resourceCulture);
+                return ResourceManager.GetString("MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De shape file is geimporteerd..
         /// </summary>
-        public static string MapLegendView_CheckDataFormat_Shapefile_Is_Imported_ {
+        public static string MapLegendView_CheckDataFormat_Shapefile_Is_Imported {
             get {
-                return ResourceManager.GetString("MapLegendView_CheckDataFormat_Shapefile_Is_Imported_", resourceCulture);
+                return ResourceManager.GetString("MapLegendView_CheckDataFormat_Shapefile_Is_Imported", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het bestand bevat data, welke niet ondersteund wordt..
         /// </summary>
-        public static string MapLegendView_GetShapeFileData_The_File_Contains_Non_Supported_Data_ {
+        public static string MapLegendView_GetShapeFileData_The_File_Contains_Non_Supported_Data {
             get {
-                return ResourceManager.GetString("MapLegendView_GetShapeFileData_The_File_Contains_Non_Supported_Data_", resourceCulture);
+                return ResourceManager.GetString("MapLegendView_GetShapeFileData_The_File_Contains_Non_Supported_Data", resourceCulture);
             }
         }
         
@@ -183,9 +183,9 @@ namespace Core.Plugins.DotSpatial.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Selecteer shape file..
         /// </summary>
-        public static string MapLegendView_ShowSelectShapeFileDialog_Select_Shape_File_ {
+        public static string MapLegendView_ShowSelectShapeFileDialog_Select_Shape_File {
             get {
-                return ResourceManager.GetString("MapLegendView_ShowSelectShapeFileDialog_Select_Shape_File_", resourceCulture);
+                return ResourceManager.GetString("MapLegendView_ShowSelectShapeFileDialog_Select_Shape_File", resourceCulture);
             }
         }
         
