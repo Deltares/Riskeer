@@ -204,4 +204,7 @@
   <data name="PipingSoilProfile_Layers_Layer_top_below_profile_bottom" xml:space="preserve">
     <value>Eén of meerdere lagen hebben een top onder de bodem van het profiel.</value>
   </data>
+  <data name="PipingSoilProfile_GetTopAquiferLayerThicknessBelowLevel_Level_0_below_Bottom_1_" xml:space="preserve">
+    <value>Level {0} is below the bottom of the soil profile {1}.</value>
+  </data>
 </root>

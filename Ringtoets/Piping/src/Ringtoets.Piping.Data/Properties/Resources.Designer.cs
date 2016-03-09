@@ -241,6 +241,15 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Level {0} is below the bottom of the soil profile {1}..
+        /// </summary>
+        public static string PipingSoilProfile_GetTopAquiferLayerThicknessBelowLevel_Level_0_below_Bottom_1_ {
+            get {
+                return ResourceManager.GetString("PipingSoilProfile_GetTopAquiferLayerThicknessBelowLevel_Level_0_below_Bottom_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Eén of meerdere lagen hebben een top onder de bodem van het profiel..
         /// </summary>
         public static string PipingSoilProfile_Layers_Layer_top_below_profile_bottom {

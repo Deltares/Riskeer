@@ -665,7 +665,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SetExitPointL(input.ExitPointL);
 
             // Assert
-            Assert.AreEqual(expectedThickness, input.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(expectedThickness, input.ThicknessAquiferLayer.Mean, 1e-8);
         }
 
         [Test]
@@ -801,7 +801,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SetSurfaceLine(input.SurfaceLine);
 
             // Assert
-            Assert.AreEqual(expectedThickness, input.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(expectedThickness, input.ThicknessAquiferLayer.Mean, 1e-8);
         }
 
         [Test]
@@ -937,7 +937,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SetSoilProfile(input.SoilProfile);
 
             // Assert
-            Assert.AreEqual(expectedThickness, input.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(expectedThickness, input.ThicknessAquiferLayer.Mean, 1e-8);
         }
 
         [Test]
@@ -961,13 +961,13 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             var input = CreateInputWithAquiferAndCoverageLayer();
             input.SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
             {
-                new PipingSoilLayer(0.0)
-                {
-                    IsAquifer = true
-                },
                 new PipingSoilLayer(2.0)
                 {
                     IsAquifer = false
+                },
+                new PipingSoilLayer(0.0)
+                {
+                    IsAquifer = true
                 }
             });
 
@@ -986,11 +986,11 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             var input = CreateInputWithAquiferAndCoverageLayer();
             input.SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
             {
-                new PipingSoilLayer(1.5)
+                new PipingSoilLayer(2.5)
                 {
                     IsAquifer = true
                 },
-                new PipingSoilLayer(2.5)
+                new PipingSoilLayer(1.5)
                 {
                     IsAquifer = true
                 }
@@ -1028,13 +1028,13 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             });
             var soilProfile = new PipingSoilProfile(String.Empty, 0, new[]
             {
-                new PipingSoilLayer(1.0)
-                {
-                    IsAquifer = true
-                },
                 new PipingSoilLayer(2.0)
                 {
                     IsAquifer = false
+                },
+                new PipingSoilLayer(1.0)
+                {
+                    IsAquifer = true
                 }
             });
             var input = new PipingInput(new GeneralPipingInput());
@@ -1086,27 +1086,24 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         private static PipingInput CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out double expectedThickness)
         {
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var firstAquiferThickness = 1.1;
-            var secondAquiferThickness = 2.2;
-            var totalAquiferThickness = firstAquiferThickness + secondAquiferThickness;
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D(0, 0, totalAquiferThickness),
-                new Point3D(1.0, 0, totalAquiferThickness),
+                new Point3D(0, 0, 3.3),
+                new Point3D(1.0, 0, 3.3),
             });
             var soilProfile = new PipingSoilProfile(String.Empty, 0, new[]
             {
-                new PipingSoilLayer(firstAquiferThickness)
-                {
-                    IsAquifer = true
-                },
-                new PipingSoilLayer(firstAquiferThickness + secondAquiferThickness)
-                {
-                    IsAquifer = true
-                },
-                new PipingSoilLayer(totalAquiferThickness + 1)
+                new PipingSoilLayer(4.3)
                 {
                     IsAquifer = false
+                },
+                new PipingSoilLayer(3.3)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(1.1)
+                {
+                    IsAquifer = true
                 }
             });
             var input = new PipingInput(new GeneralPipingInput())
@@ -1115,7 +1112,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
                 SoilProfile = soilProfile,
                 ExitPointL = 0.5
             };
-            expectedThickness = secondAquiferThickness;
+            expectedThickness = 2.2;
             return input;
         }
         #endregion

@@ -137,6 +137,255 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void GetTopAquiferLayerThicknessBelowLevel_NoAquiferLayer_NaN()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(2.1),
+                new PipingSoilLayer(1.1)
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers);
+
+            // Call
+            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.0);
+
+            // Assert
+            Assert.IsNaN(result);
+        }
+
+        [Test]
+        public void GetTopAquiferLayerThicknessBelowLevel_AquiferLayerAboveLevel_NaN()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(2.1)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(1.1)
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers);
+
+            // Call
+            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.0);
+
+            // Assert
+            Assert.IsNaN(result);
+        }
+
+        [Test]
+        public void GetTopAquiferLayerThicknessBelowLevel_AquiferLayerCompletelyBelowLevel_ReturnAquiferLayerThickness()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(2.1)
+                {
+                    IsAquifer = true
+                },
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers);
+
+            // Call
+            var result = profile.GetTopAquiferLayerThicknessBelowLevel(2.2);
+
+            // Assert
+            Assert.AreEqual(2.1, result);
+        }
+
+        [Test]
+        public void GetTopAquiferLayerThicknessBelowLevel_AquiferLayerPartlyBelowLevel_ReturnAquiferLayerThicknessUpTillLevel()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(2.1)
+                {
+                    IsAquifer = true
+                },
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers);
+
+            // Call
+            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.6);
+
+            // Assert
+            Assert.AreEqual(1.6, result);
+        }
+
+        [Test]
+        public void GetTopAquiferLayerThicknessBelowLevel_AquiferLayerTopEqualToLevel_ReturnAquiferLayerThickness()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(1.6)
+                {
+                    IsAquifer = true
+                },
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers);
+
+            // Call
+            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.6);
+
+            // Assert
+            Assert.AreEqual(1.6, result);
+        }
+
+        [Test]
+        public void GetTopAquiferLayerThicknessBelowLevel_TwoAquiferLayersCompletelyBelowLevel_ReturnTopAquiferLayerThickness()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(2.1)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(1.1)
+                {
+                    IsAquifer = true
+                }
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers);
+
+            // Call
+            var result = profile.GetTopAquiferLayerThicknessBelowLevel(2.2);
+
+            // Assert
+            Assert.AreEqual(1.0, result);
+        }
+
+        [Test]
+        public void GetTopAquiferLayerThicknessBelowLevel_TopmostAquiferLayerTopEqualToLevel_ReturnTopAquiferLayerThickness()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(2.1)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(1.1)
+                {
+                    IsAquifer = true
+                }
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers);
+
+            // Call
+            var result = profile.GetTopAquiferLayerThicknessBelowLevel(2.1);
+
+            // Assert
+            Assert.AreEqual(1.0, result);
+        }
+
+        [Test]
+        public void GetTopAquiferLayerThicknessBelowLevel_TopmostAquiferLayerCompletelyAboveLevel_ReturnBottomAquiferLayerThickness()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(2.1)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(1.5)
+                {
+                    IsAquifer = false
+                },
+                new PipingSoilLayer(1.1)
+                {
+                    IsAquifer = true
+                }
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers);
+
+            // Call
+            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.3);
+
+            // Assert
+            Assert.AreEqual(1.1, result);
+        }
+
+        [Test]
+        public void GetTopAquiferLayerThicknessBelowLevel_TopmostAquiferLayerPartlyAboveLevel_ReturnTopAquiferLayerThicknessUpTillLevel()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(2.1)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(1.1)
+                {
+                    IsAquifer = true
+                }
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers);
+
+            // Call
+            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.5);
+
+            // Assert
+            Assert.AreEqual(0.4, result, 1e-8);
+        }
+
+
+        [Test]
+        public void GetTopAquiferLayerThicknessBelowLevel_AllAquiferLayersAboveLevel_NaN()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(2.1)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(1.1)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(0.6)
+                {
+                    IsAquifer = false
+                }
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers);
+
+            // Call
+            var result = profile.GetTopAquiferLayerThicknessBelowLevel(0.5);
+
+            // Assert
+            Assert.IsNaN(result);
+        }
+
+        [Test]
+        public void GetTopAquiferLayerThicknessBelowLevel_LevelBelowProfile_ArgumentException()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(1.1)
+                {
+                    IsAquifer = true
+                }
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.5, pipingSoilLayers);
+
+            // Call
+            TestDelegate call = () => profile.GetTopAquiferLayerThicknessBelowLevel(0.0);
+
+            // Assert
+            var message = string.Format("Level {0} is below the bottom of the soil profile {1}.", 0.0, 0.5);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
+        }
+
+        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("some name")]

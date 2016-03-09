@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Forms.Extensions
 
             if (soilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
             {
-                thicknessTopAquiferLayer = GetTopAquiferLayerThicknessBelowSurfaceLine(soilProfile, surfaceLine, exitPointL);
+                thicknessTopAquiferLayer = soilProfile.GetTopAquiferLayerThicknessBelowLevel(surfaceLine.GetZAtL(exitPointL));
             }
 
             return thicknessTopAquiferLayer;
@@ -106,37 +106,6 @@ namespace Ringtoets.Piping.Forms.Extensions
             {
                 input.ThicknessAquiferLayer.Mean = double.NaN;
             }
-        }
-
-        private static double GetTopAquiferLayerThicknessBelowSurfaceLine(PipingSoilProfile profile, RingtoetsPipingSurfaceLine surfaceLine, double atL)
-        {
-            double surfaceLineTop = surfaceLine.GetZAtL(atL);
-            PipingSoilLayer[] layers = profile.Layers.ToArray();
-            PipingSoilLayer topAquiferLayer = null;
-            var thickness = double.NaN;
-
-            var i = layers.Length - 1;
-
-            while (i >= 0)
-            {
-                PipingSoilLayer pipingSoilLayer = layers.ElementAt(i);
-                if (pipingSoilLayer.Top < surfaceLineTop && topAquiferLayer != null)
-                {
-                    break;
-                }
-                if (pipingSoilLayer.IsAquifer)
-                {
-                    topAquiferLayer = pipingSoilLayer;
-                }
-                i--;
-            }
-
-            if (topAquiferLayer != null)
-            {
-                thickness = profile.GetLayerThickness(topAquiferLayer);
-                thickness -= Math.Max(0, topAquiferLayer.Top - surfaceLineTop);
-            }
-            return thickness;
         }
 
         private static void UpdateThicknessCoverageLayer(this PipingInput input)
