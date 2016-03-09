@@ -153,4 +153,10 @@
   <data name="Math2D_SplitLineAtLengths_Not_enough_points_to_make_line" xml:space="preserve">
     <value>Er zijn niet genoeg punten beschikbaar om een lijn te definiëren.</value>
   </data>
+  <data name="RoundedDouble_ToString_PositiveInfinity" xml:space="preserve">
+    <value>Oneindig</value>
+  </data>
+  <data name="RoundedDouble_ToString_NegativeInfinity" xml:space="preserve">
+    <value>-Oneindig</value>
+  </data>
 </root>

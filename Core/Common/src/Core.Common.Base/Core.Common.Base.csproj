@@ -87,6 +87,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Data\RoundedDouble.cs" />
     <Compile Include="Geometry\Math2D.cs" />
     <Compile Include="Data\ProjectComparer.cs" />
     <Compile Include="Geometry\Point2D.cs" />

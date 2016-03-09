@@ -161,6 +161,24 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -Oneindig.
+        /// </summary>
+        public static string RoundedDouble_ToString_NegativeInfinity {
+            get {
+                return ResourceManager.GetString("RoundedDouble_ToString_NegativeInfinity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oneindig.
+        /// </summary>
+        public static string RoundedDouble_ToString_PositiveInfinity {
+            get {
+                return ResourceManager.GetString("RoundedDouble_ToString_PositiveInfinity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Voor het maken van een segment zijn twee punten nodig..
         /// </summary>
         public static string Segment2D_Constructor_Segment_must_be_created_with_two_points {
