@@ -73,19 +73,36 @@ namespace Ringtoets.Piping.Data
             }
             private set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(@"value", string.Format(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers));
-                }
-                if (!value.Any())
-                {
-                    throw new ArgumentException(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers);
-                }
-                if (value.Any(l => l.Top < Bottom))
-                {
-                    throw new ArgumentException(Resources.PipingSoilProfile_Layers_Layer_top_below_profile_bottom);
-                }
+                ValidateLayersCollection(value);
                 layers = value.OrderByDescending(l => l.Top).ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Validates the given <paramref name="collection"/>. A valid <paramref name="collection"/> has layers which 
+        /// all have values for <see cref="PipingSoilLayer.Top"/> which are greater than or equal to <see cref="Bottom"/>.
+        /// </summary>
+        /// <param name="collection">The collection of <see cref="PipingSoilLayer"/> to validate.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when
+        /// <list type="bullet">
+        /// <item><paramref name="collection"/> contains no layers</item>
+        /// <item><paramref name="collection"/> contains a layer with the <see cref="PipingSoilLayer.Top"/> less than
+        /// <see cref="Bottom"/></item>
+        /// </list></exception>
+        private void ValidateLayersCollection(IEnumerable<PipingSoilLayer> collection)
+        {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(@"collection", string.Format(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers));
+            }
+            if (!collection.Any())
+            {
+                throw new ArgumentException(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers);
+            }
+            if (collection.Any(l => l.Top < Bottom))
+            {
+                throw new ArgumentException(Resources.PipingSoilProfile_Layers_Layer_top_below_profile_bottom);
             }
         }
 
