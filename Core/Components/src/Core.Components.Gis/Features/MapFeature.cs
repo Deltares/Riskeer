@@ -26,7 +26,7 @@ using Core.Components.Gis.Geometries;
 namespace Core.Components.Gis.Features
 {
     /// <summary>
-    /// Features containing a <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>.
+    /// Features containing an <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>.
     /// </summary>
     public class MapFeature
     {
@@ -39,7 +39,7 @@ namespace Core.Components.Gis.Features
         {
             if (mapGeometries == null)
             {
-                throw new ArgumentNullException("mapGeometries", "MapFeature can't be created without map geometries.");
+                throw new ArgumentNullException("mapGeometries", "MapFeature cannot be created without map geometries.");
             }
 
             MapGeometries = mapGeometries;

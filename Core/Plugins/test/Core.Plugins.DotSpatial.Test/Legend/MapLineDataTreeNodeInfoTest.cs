@@ -21,29 +21,6 @@ namespace Core.Plugins.DotSpatial.Test.Legend
     {
         private MapLegendView mapLegendView;
         private TreeNodeInfo info;
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-            var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mockRepository.StrictMock<IWin32Window>();
-            mockRepository.ReplayAll();
-
-            mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
-
-            var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
-            var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
-
-            info = treeNodeInfoLookup[typeof(MapLineData)];
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            mockRepository.VerifyAll();
-        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -67,7 +44,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var mocks = new MockRepository();
+            var mocks = CreateDefaultMocks();
             var mapLineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "MapLineData");
             mocks.ReplayAll();
 
@@ -93,7 +70,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void CanCheck_Always_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
+            var mocks = CreateDefaultMocks();
             var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
 
             mocks.ReplayAll();
@@ -112,7 +89,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void IsChecked_Always_ReturnsAccordingToVisibleStateOfLineData(bool isVisible)
         {
             // Setup
-            var mocks = new MockRepository();
+            var mocks = CreateDefaultMocks();
             var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
 
             lineData.IsVisible = isVisible;
@@ -133,7 +110,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void OnNodeChecked_LineDataNodeWithoutParent_SetsLineDataVisibility(bool initialVisibleState)
         {
             // Setup
-            var mocks = new MockRepository();
+            var mocks = CreateDefaultMocks();
             var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
 
             mocks.ReplayAll();
@@ -154,7 +131,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void OnNodeChecked_LineDataNodeWithObservableParent_SetsLineDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
         {
             // Setup
-            var mocks = new MockRepository();
+            var mocks = CreateDefaultMocks();
             var observable = mocks.StrictMock<IObservable>();
             var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
 
@@ -177,7 +154,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void CanDrag_Always_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
+            var mocks = CreateDefaultMocks();
             var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
 
             mocks.ReplayAll();
@@ -189,6 +166,22 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             Assert.IsTrue(canDrag);
 
             mocks.VerifyAll();
+        }
+
+        private MockRepository CreateDefaultMocks()
+        {
+            var mockRepository = new MockRepository();
+            var contextMenuBuilderProvider = mockRepository.StrictMock<IContextMenuBuilderProvider>();
+            var parentWindow = mockRepository.StrictMock<IWin32Window>();
+
+            mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
+
+            var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
+            var treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
+
+            info = treeNodeInfoLookup[typeof(MapLineData)];
+
+            return mockRepository;
         }
     }
 }

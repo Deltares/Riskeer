@@ -20,21 +20,22 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.IO.Exceptions;
-using Core.Common.Utils.Builders;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Readers;
 using DotSpatial.Data;
 using DotSpatial.Topology;
+using log4net;
 using DotSpatialResources = Core.Plugins.DotSpatial.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
+using ILog = log4net.ILog;
 
 namespace Core.Plugins.DotSpatial.Legend
 {
@@ -43,6 +44,8 @@ namespace Core.Plugins.DotSpatial.Legend
     /// </summary>
     public sealed partial class MapLegendView : UserControl, IView
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(MapLegendView));
+
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
         private readonly IWin32Window parentWindow;
         private readonly TreeViewControl treeViewControl;
@@ -57,11 +60,11 @@ namespace Core.Plugins.DotSpatial.Legend
         {
             if (contextMenuBuilderProvider == null)
             {
-                throw new ArgumentNullException("contextMenuBuilderProvider", "Cannot create a MapLegendView when the context menu builder provider is null");
+                throw new ArgumentNullException("contextMenuBuilderProvider", "Cannot create a MapLegendView when the context menu builder provider is null.");
             }
             if (parentWindow == null)
             {
-                throw new ArgumentNullException("parentWindow" ,"Cannot create a MapLegendView when the parent window is null");
+                throw new ArgumentNullException("parentWindow", "Cannot create a MapLegendView when the parent window is null.");
             }
 
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
@@ -181,8 +184,8 @@ namespace Core.Plugins.DotSpatial.Legend
 
         private static void MapControlOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl control)
         {
-            var mapData = (MapData)droppedData;
-            var target = (MapDataCollection)newParentData;
+            var mapData = (MapData) droppedData;
+            var target = (MapDataCollection) newParentData;
 
             target.List.Remove(mapData);
             target.List.Insert(target.List.Count - position, mapData); // Note: target is the same as the previous parent in this case
@@ -192,9 +195,9 @@ namespace Core.Plugins.DotSpatial.Legend
         private ContextMenuStrip MapDataCollectionContextMenuStrip(MapDataCollection mapDataCollection, object parentData, TreeViewControl treeView)
         {
             StrictContextMenuItem addMapLayerMenuItem = new StrictContextMenuItem(
-                DotSpatialResources.MapLegendView_MapDataCollectionContextMenuStrip__Add_MapLayer, 
-                DotSpatialResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip, 
-                DotSpatialResources.MapPlusIcon, 
+                DotSpatialResources.MapLegendView_MapDataCollectionContextMenuStrip__Add_MapLayer,
+                DotSpatialResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,
+                DotSpatialResources.MapPlusIcon,
                 (sender, args) => ShowSelectShapeFileDialog(sender, args, mapDataCollection));
 
             return contextMenuBuilderProvider.Get(mapDataCollection, treeView).AddCustomItem(addMapLayerMenuItem).Build();
@@ -218,7 +221,7 @@ namespace Core.Plugins.DotSpatial.Legend
             {
                 if (dialog.ShowDialog(parentWindow) == DialogResult.OK)
                 {
-                    CheckDataFormat(dialog.FileName, System.IO.Path.GetFileNameWithoutExtension(dialog.FileName), mapDataCollection);
+                    CheckDataFormat(dialog.FileName, Path.GetFileNameWithoutExtension(dialog.FileName), mapDataCollection);
                 }
             }
         }
@@ -232,6 +235,7 @@ namespace Core.Plugins.DotSpatial.Legend
             switch (featureSet.FeatureType)
             {
                 case FeatureType.Point:
+                case FeatureType.MultiPoint:
                     using (ShapeFileReaderBase reader = new PointShapeFileReader(filePath))
                     {
                         importedData = GetShapeFileData(reader, filePath, title);
@@ -250,26 +254,18 @@ namespace Core.Plugins.DotSpatial.Legend
                     }
                     break;
                 default:
-                    throw new NotSupportedException();
+                    log.Error(DotSpatialResources.MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data_);
+                    return;
             }
-            
-            
+
             mapDataCollection.List.Add(importedData);
+            log.Info(DotSpatialResources.MapLegendView_CheckDataFormat_Shapefile_Is_Imported_);
             mapDataCollection.NotifyObservers();
         }
 
         private FeatureBasedMapData GetShapeFileData(ShapeFileReaderBase reader, string filePath, string title)
         {
-            try
-            {
-                return reader.ReadShapeFile(title);
-            }
-            catch (ElementReadException e)
-            {
-                string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(DotSpatialResources.MapLegendView_GetShapeFileData_The_File_Contains_Non_Supported_Data_);
-                throw new CriticalFileReadException(message, e);
-            }
+            return reader.ReadShapeFile(title);
         }
 
         #endregion

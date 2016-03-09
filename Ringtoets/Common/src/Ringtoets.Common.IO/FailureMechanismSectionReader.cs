@@ -23,17 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Core.Components.Gis.IO;
 using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.Data;
-
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
@@ -137,7 +134,7 @@ namespace Ringtoets.Common.IO
         /// <returns></returns>
         private MapLineData ReadMapLineData()
         {
-           return polylineShapeFileReader.ReadLine() as MapLineData;
+            return polylineShapeFileReader.ReadLine() as MapLineData;
         }
 
         private FailureMechanismSection CreateFailureMechanismSection(MapLineData lineData)
@@ -157,7 +154,7 @@ namespace Ringtoets.Common.IO
 
         private string GetSectionName(MapFeature lineFeature)
         {
-            return (string)lineFeature.MetaData[SectionNameAttributeKey];
+            return (string) lineFeature.MetaData[SectionNameAttributeKey];
         }
 
         private IEnumerable<Point2D> GetSectionGeometry(MapFeature lineFeature)

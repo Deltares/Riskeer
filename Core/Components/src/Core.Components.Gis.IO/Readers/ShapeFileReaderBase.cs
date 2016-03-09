@@ -94,7 +94,7 @@ namespace Core.Components.Gis.IO.Readers
         /// <summary>
         /// Reads all lines from the shape file.
         /// </summary>
-        /// <param name="name">The name of the <see cref="FeatureBasedMapData"/>. When <c>null</c> a default value will be set.</param>
+        /// <param name="name">The name of the <see cref="FeatureBasedMapData"/>. When <c>null</c>, a default value will be set.</param>
         /// <returns>The <see cref="FeatureBasedMapData"/> representing the shape.</returns>
         public abstract FeatureBasedMapData ReadShapeFile(string name = null);
 

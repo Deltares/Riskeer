@@ -66,7 +66,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         }
 
         [Test]
-        public void Constructor_WithToolViewControllerAndContextMenuBuilderProvider_DoesNotThrow()
+        public void Constructor_WithToolViewControllerAndContextMenuBuilderProvider_DoesNotThrowException()
         {
             // Setup
             var mocks = new MockRepository();

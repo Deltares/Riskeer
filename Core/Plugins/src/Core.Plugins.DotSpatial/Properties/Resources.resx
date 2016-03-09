@@ -214,4 +214,10 @@
   <data name="MapLegendView_GetShapeFileData_The_File_Contains_Non_Supported_Data_" xml:space="preserve">
     <value>Het bestand bevat data, welke niet ondersteund wordt.</value>
   </data>
+  <data name="MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data_" xml:space="preserve">
+    <value>De shape file bevat data welke niet wordt ondersteund.</value>
+  </data>
+  <data name="MapLegendView_CheckDataFormat_Shapefile_Is_Imported_" xml:space="preserve">
+    <value>De shape file is geimporteerd.</value>
+  </data>
 </root>

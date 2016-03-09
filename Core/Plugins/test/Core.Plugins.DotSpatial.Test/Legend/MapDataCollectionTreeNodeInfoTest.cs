@@ -24,13 +24,14 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         private MapLegendView mapLegendView;
         private TreeNodeInfo info;
         private IContextMenuBuilderProvider contextMenuBuilderProvider;
+        private IWin32Window parentWindow;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
             contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mocks.StrictMock<IWin32Window>();
+            parentWindow = mocks.Stub<IWin32Window>();
             mapLegendView = new MapLegendView(contextMenuBuilderProvider, parentWindow);
 
             var treeViewControl = TypeUtils.GetField<TreeViewControl>(mapLegendView, "treeViewControl");
@@ -279,6 +280,8 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         public void ContextMenuStrip_Always_ContainsAddMapLayerMenuItem()
         {
             // Setup
+            const string expectedItemText = "&Voeg kaartlaag toe...";
+            const string expectedItemTooltip = "Importeer een nieuwe kaartlaag en voeg deze toe.";
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
 
@@ -290,10 +293,8 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             var contextMenu = info.ContextMenuStrip(mapDataCollection, null, treeViewControlMock);
 
             // Assert
-            const string expectedItemText = "&Voeg kaartlaag toe...";
-            const string expectedItemTooltip = "Importeer een nieuwe kaartlaag en voeg deze toe.";
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, DotSpatialResources.MapIcon);
             mocks.VerifyAll();
-        }			
+        }
     }
 }
