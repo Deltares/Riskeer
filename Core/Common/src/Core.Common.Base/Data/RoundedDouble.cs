@@ -9,7 +9,7 @@ namespace Core.Common.Base.Data
     /// This class represents a <see cref="double"/> that is being rounded to a certain
     /// number of places.
     /// </summary>
-    public sealed class RoundedDouble : IEquatable<RoundedDouble>
+    public sealed class RoundedDouble : IEquatable<RoundedDouble>, IEquatable<Double>
     {
         private double value;
 
@@ -55,6 +55,21 @@ namespace Core.Common.Base.Data
             }
         }
 
+        public static bool operator ==(RoundedDouble left, RoundedDouble right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(RoundedDouble left, RoundedDouble right)
+        {
+            return !Equals(left, right);
+        }
+
+        public static implicit operator double(RoundedDouble d)
+        {
+            return d.Value;
+        }
+
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
@@ -90,6 +105,11 @@ namespace Core.Common.Base.Data
             return Value.ToString(GetFormat(), CultureInfo.CurrentCulture);
         }
 
+        public bool Equals(double other)
+        {
+            return Value.Equals(other);
+        }
+
         public bool Equals(RoundedDouble other)
         {
             if (ReferenceEquals(null, other))
@@ -101,16 +121,6 @@ namespace Core.Common.Base.Data
                 return true;
             }
             return Value.Equals(other.Value);
-        }
-
-        public static bool operator ==(RoundedDouble left, RoundedDouble right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(RoundedDouble left, RoundedDouble right)
-        {
-            return !Equals(left, right);
         }
 
         private static bool IsSpecialDoubleValue(double value)

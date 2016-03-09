@@ -21,6 +21,7 @@ namespace Core.Common.Base.Test.Data
 
             // Assert
             Assert.IsInstanceOf<IEquatable<RoundedDouble>>(roundedDouble);
+            Assert.IsInstanceOf<IEquatable<double>>(roundedDouble);
             Assert.AreEqual(numberOfDecimalPlaces, roundedDouble.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, roundedDouble.Value);
         }
@@ -379,6 +380,190 @@ namespace Core.Common.Base.Test.Data
             Assert.IsFalse(isNotEqual2);
         }
 
+        [Test]
+        [TestCase(987654321.0, 5)]
+        [TestCase(-9876543.1200, 2)]
+        public void Equals_RoundedDoubleEqualToDouble_ReturnTrue(
+            double value, int numberOfDecimalPlaces)
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(numberOfDecimalPlaces)
+            {
+                Value = value
+            };
 
+            // Call
+            var isEqual1 = roundedDouble.Equals(value);
+            var isEqual2 = value.Equals(roundedDouble);
+
+            // Assert
+            Assert.IsTrue(isEqual1);
+            Assert.IsTrue(isEqual2);
+        }
+
+        [Test]
+        [TestCase(987654321.1, 0)]
+        [TestCase(-9876543.1234, 2)]
+        public void Equals_RoundedDoubleNotEqualToDouble_ReturnFalse(
+            double value, int numberOfDecimalPlaces)
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(numberOfDecimalPlaces)
+            {
+                Value = value
+            };
+
+            // Call
+            var isEqual1 = roundedDouble.Equals(value);
+            var isEqual2 = value.Equals(roundedDouble);
+
+            // Assert
+            Assert.IsFalse(isEqual1);
+            Assert.IsFalse(isEqual2);
+        }
+
+        [Test]
+        public void Equals_RoundedDoubleTotallyDifferentFromDouble_ReturnFalse()
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(2)
+            {
+                Value = 1.23
+            };
+            double otherValue = 4.56;
+
+            // Call
+            var isEqual1 = roundedDouble.Equals(otherValue);
+            var isEqual2 = otherValue.Equals(roundedDouble);
+
+            // Assert
+            Assert.IsFalse(isEqual1);
+            Assert.IsFalse(isEqual2);
+        }
+
+        [Test]
+        public void GetHashCode_RoundedDoubleEqualToDouble_ReturnSameHashCode()
+        {
+            // Setup
+            double otherValue = 4.56;
+            var roundedDouble = new RoundedDouble(2)
+            {
+                Value = otherValue
+            };
+
+            // Precondition:
+            Assert.IsTrue(otherValue.Equals(roundedDouble));
+            
+            // Call
+            var hash1 = roundedDouble.GetHashCode();
+            var hash2 = otherValue.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(hash1, hash2);
+        }
+
+        [Test]
+        public void DoubleEqualityOperator_DoubleIsEqualToRoundedDouble_ReturnTrue()
+        {
+            // Setup
+            double value = 1.234;
+            var roundedDouble = new RoundedDouble(4)
+            {
+                Value = value
+            };
+
+            // Precondition
+            Assert.IsTrue(roundedDouble.Equals(value));
+
+            // Call
+            var isEqual1 = value == roundedDouble;
+            var isEqual2 = roundedDouble == value;
+
+            // Assert
+            Assert.IsTrue(isEqual1);
+            Assert.IsTrue(isEqual2);
+        }
+
+        [Test]
+        public void DoubleEqualityOperator_DoubleIsNotEqualToRoundedDouble_ReturnFalse()
+        {
+            // Setup
+            double value = 1.234;
+            var roundedDouble = new RoundedDouble(4)
+            {
+                Value = 3.21543
+            };
+
+            // Precondition
+            Assert.IsFalse(roundedDouble.Equals(value));
+
+            // Call
+            var isEqual1 = value == roundedDouble;
+            var isEqual2 = roundedDouble == value;
+
+            // Assert
+            Assert.IsFalse(isEqual1);
+            Assert.IsFalse(isEqual2);
+        }
+
+        [Test]
+        public void DoubleInequalityOperator_DoubleIsEqualToRoundedDouble_ReturnFalse()
+        {
+            // Setup
+            double value = 1.234;
+            var roundedDouble = new RoundedDouble(4)
+            {
+                Value = value
+            };
+
+            // Precondition
+            Assert.IsTrue(roundedDouble.Equals(value));
+
+            // Call
+            var isEqual1 = value != roundedDouble;
+            var isEqual2 = roundedDouble != value;
+
+            // Assert
+            Assert.IsFalse(isEqual1);
+            Assert.IsFalse(isEqual2);
+        }
+
+        [Test]
+        public void DoubleInequalityOperator_DoubleIsNotEqualToRoundedDouble_ReturnTrue()
+        {
+            // Setup
+            double value = 1.234;
+            var roundedDouble = new RoundedDouble(4)
+            {
+                Value = 3.21543
+            };
+
+            // Precondition
+            Assert.IsFalse(roundedDouble.Equals(value));
+
+            // Call
+            var isEqual1 = value != roundedDouble;
+            var isEqual2 = roundedDouble != value;
+
+            // Assert
+            Assert.IsTrue(isEqual1);
+            Assert.IsTrue(isEqual2);
+        }
+
+        [Test]
+        public void ImplicitConversion_FromRoundedDoubleToDouble_ConvertedValueIsEqual()
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(4)
+            {
+                Value = 3.2154
+            };
+            
+            // Call
+            double convertedValue = roundedDouble;
+
+            // Assert
+            Assert.AreEqual(roundedDouble.Value, convertedValue);
+        }
     }
 }
