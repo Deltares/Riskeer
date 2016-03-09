@@ -209,7 +209,7 @@ namespace Core.Plugins.DotSpatial.Legend
 
         private void ShowSelectShapeFileDialog(object sender, EventArgs eventArgs, MapDataCollection mapDataCollection)
         {
-            var windowTitle = DotSpatialResources.MapLegendView_ShowSelectShapeFileDialog_Select_Shape_File_;
+            var windowTitle = DotSpatialResources.MapLegendView_ShowSelectShapeFileDialog_Select_Shape_File;
             using (var dialog = new OpenFileDialog
             {
                 Filter = string.Format("{0} (*.shp)|*.shp", DotSpatialResources.MapLegendView_ShowSelectShapeFileDialog_Shape_file),
@@ -254,12 +254,12 @@ namespace Core.Plugins.DotSpatial.Legend
                     }
                     break;
                 default:
-                    log.Error(DotSpatialResources.MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data_);
+                    log.Error(DotSpatialResources.MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data);
                     return;
             }
 
             mapDataCollection.List.Add(importedData);
-            log.Info(DotSpatialResources.MapLegendView_CheckDataFormat_Shapefile_Is_Imported_);
+            log.Info(DotSpatialResources.MapLegendView_CheckDataFormat_Shapefile_Is_Imported);
             mapDataCollection.NotifyObservers();
         }
 
