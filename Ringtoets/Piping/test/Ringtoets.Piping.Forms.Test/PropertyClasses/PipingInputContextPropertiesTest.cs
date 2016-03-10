@@ -361,10 +361,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             double assessmentLevel = new Random(21).NextDouble();
             var inputParameters = new PipingInput(new GeneralPipingInput())
             {
-                AssessmentLevel =
-                {
-                    Value = assessmentLevel
-                }
+                AssessmentLevel = (RoundedDouble)assessmentLevel
             };
             inputParameters.Attach(projectObserver);
 

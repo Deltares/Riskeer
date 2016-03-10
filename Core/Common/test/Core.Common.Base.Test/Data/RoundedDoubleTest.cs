@@ -117,10 +117,7 @@ namespace Core.Common.Base.Test.Data
             double value, int numberOfDecimals, double expectedReturnValue)
         {
             // Setup
-            var roundedValue = new RoundedDouble(numberOfDecimals)
-            {
-                Value = value
-            };
+            var roundedValue = new RoundedDouble(numberOfDecimals, value);
 
             // Call
             double returnValue = roundedValue.Value;
@@ -164,10 +161,7 @@ namespace Core.Common.Base.Test.Data
             double value, int numberOfDecimals, string expectedText)
         {
             // Setup
-            var roundedValue = new RoundedDouble(numberOfDecimals)
-            {
-                Value = value
-            };
+            var roundedValue = new RoundedDouble(numberOfDecimals, value);
 
             // Call
             string text = roundedValue.ToString();
@@ -184,20 +178,6 @@ namespace Core.Common.Base.Test.Data
 
             // Call
             bool isEqual = roundedDouble.Equals((object)null);
-
-            // Assert
-            Assert.IsFalse(isEqual);
-        }
-
-        [Test]
-        public void Equals_ToNullRoundedDouble_ReturnFalse()
-        {
-            // Setup
-            var roundedDouble = new RoundedDouble(2);
-            RoundedDouble nullValue = null;
-
-            // Call
-            bool isEqual = roundedDouble.Equals(nullValue);
 
             // Assert
             Assert.IsFalse(isEqual);
@@ -253,14 +233,8 @@ namespace Core.Common.Base.Test.Data
             int numberOfPlaces, double value)
         {
             // Setup
-            var baseRoundedDouble = new RoundedDouble(3)
-            {
-                Value = 1.234
-            };
-            object comparisonRoundedDouble = new RoundedDouble(numberOfPlaces)
-            {
-                Value = value
-            };
+            var baseRoundedDouble = new RoundedDouble(3, 1.234);
+            object comparisonRoundedDouble = new RoundedDouble(numberOfPlaces, value);
 
             // Call
             var isEqual1 = baseRoundedDouble.Equals(comparisonRoundedDouble);
@@ -279,14 +253,8 @@ namespace Core.Common.Base.Test.Data
             int numberOfPlaces, double value)
         {
             // Setup
-            var baseRoundedDouble = new RoundedDouble(3)
-            {
-                Value = 1.234
-            };
-            object comparisonRoundedDouble = new RoundedDouble(numberOfPlaces)
-            {
-                Value = value
-            };
+            var baseRoundedDouble = new RoundedDouble(3, 1.234);
+            object comparisonRoundedDouble = new RoundedDouble(numberOfPlaces, value);
 
             // Call
             int hash1 = baseRoundedDouble.GetHashCode();
@@ -300,14 +268,8 @@ namespace Core.Common.Base.Test.Data
         public void EqualityOperator_TwoUnequalRoundedValues_ReturnFalse()
         {
             // Setup
-            var roundedDouble1 = new RoundedDouble(2)
-            {
-                Value = 1.23
-            };
-            var roundedDouble2 = new RoundedDouble(1)
-            {
-                Value = 1.2
-            };
+            var roundedDouble1 = new RoundedDouble(2, 1.23);
+            var roundedDouble2 = new RoundedDouble(1, 1.2);
 
             // Call
             var isEqual1 = roundedDouble1 == roundedDouble2;
@@ -322,14 +284,8 @@ namespace Core.Common.Base.Test.Data
         public void EqualityOperator_TwoEqualRoundedValues_ReturnFalse()
         {
             // Setup
-            var roundedDouble1 = new RoundedDouble(2)
-            {
-                Value = 1.20
-            };
-            var roundedDouble2 = new RoundedDouble(1)
-            {
-                Value = 1.2
-            };
+            var roundedDouble1 = new RoundedDouble(2, 1.20);
+            var roundedDouble2 = new RoundedDouble(1, 1.2);
 
             // Call
             var isEqual1 = roundedDouble1 == roundedDouble2;
@@ -344,14 +300,8 @@ namespace Core.Common.Base.Test.Data
         public void InequalityOperator_TwoUnequalRoundedValues_ReturnTrue()
         {
             // Setup
-            var roundedDouble1 = new RoundedDouble(2)
-            {
-                Value = 1.23
-            };
-            var roundedDouble2 = new RoundedDouble(1)
-            {
-                Value = 1.2
-            };
+            var roundedDouble1 = new RoundedDouble(2, 1.23);
+            var roundedDouble2 = new RoundedDouble(1, 1.2);
 
             // Precondition:
             Assert.IsFalse(roundedDouble1.Equals(roundedDouble2));
@@ -369,14 +319,8 @@ namespace Core.Common.Base.Test.Data
         public void InequalityOperator_TwoEqualRoundedValues_ReturnFalse()
         {
             // Setup
-            var roundedDouble1 = new RoundedDouble(2)
-            {
-                Value = 1.20
-            };
-            var roundedDouble2 = new RoundedDouble(1)
-            {
-                Value = 1.2
-            };
+            var roundedDouble1 = new RoundedDouble(2, 1.20);
+            var roundedDouble2 = new RoundedDouble(1, 1.2);
 
             // Precondition:
             Assert.IsTrue(roundedDouble1.Equals(roundedDouble2));
@@ -397,10 +341,7 @@ namespace Core.Common.Base.Test.Data
             double value, int numberOfDecimalPlaces)
         {
             // Setup
-            var roundedDouble = new RoundedDouble(numberOfDecimalPlaces)
-            {
-                Value = value
-            };
+            var roundedDouble = new RoundedDouble(numberOfDecimalPlaces, value);
 
             // Call
             var isEqual1 = roundedDouble.Equals(value);
@@ -418,10 +359,7 @@ namespace Core.Common.Base.Test.Data
             double value, int numberOfDecimalPlaces)
         {
             // Setup
-            var roundedDouble = new RoundedDouble(numberOfDecimalPlaces)
-            {
-                Value = value
-            };
+            var roundedDouble = new RoundedDouble(numberOfDecimalPlaces, value);
 
             // Call
             var isEqual1 = roundedDouble.Equals(value);
@@ -436,10 +374,7 @@ namespace Core.Common.Base.Test.Data
         public void Equals_RoundedDoubleTotallyDifferentFromDouble_ReturnFalse()
         {
             // Setup
-            var roundedDouble = new RoundedDouble(2)
-            {
-                Value = 1.23
-            };
+            var roundedDouble = new RoundedDouble(2, 1.23);
             double otherValue = 4.56;
 
             // Call
@@ -456,10 +391,7 @@ namespace Core.Common.Base.Test.Data
         {
             // Setup
             double otherValue = 4.56;
-            var roundedDouble = new RoundedDouble(2)
-            {
-                Value = otherValue
-            };
+            var roundedDouble = new RoundedDouble(2, otherValue);
 
             // Precondition:
             Assert.IsTrue(otherValue.Equals(roundedDouble));
@@ -477,10 +409,7 @@ namespace Core.Common.Base.Test.Data
         {
             // Setup
             double value = 1.234;
-            var roundedDouble = new RoundedDouble(4)
-            {
-                Value = value
-            };
+            var roundedDouble = new RoundedDouble(4, value);
 
             // Precondition
             Assert.IsTrue(roundedDouble.Equals(value));
@@ -499,10 +428,7 @@ namespace Core.Common.Base.Test.Data
         {
             // Setup
             double value = 1.234;
-            var roundedDouble = new RoundedDouble(4)
-            {
-                Value = 3.21543
-            };
+            var roundedDouble = new RoundedDouble(4, 3.21543);
 
             // Precondition
             Assert.IsFalse(roundedDouble.Equals(value));
@@ -521,10 +447,7 @@ namespace Core.Common.Base.Test.Data
         {
             // Setup
             double value = 1.234;
-            var roundedDouble = new RoundedDouble(4)
-            {
-                Value = value
-            };
+            var roundedDouble = new RoundedDouble(4, value);
 
             // Precondition
             Assert.IsTrue(roundedDouble.Equals(value));
@@ -543,10 +466,7 @@ namespace Core.Common.Base.Test.Data
         {
             // Setup
             double value = 1.234;
-            var roundedDouble = new RoundedDouble(4)
-            {
-                Value = 3.21543
-            };
+            var roundedDouble = new RoundedDouble(4, 3.21543);
 
             // Precondition
             Assert.IsFalse(roundedDouble.Equals(value));
@@ -564,10 +484,7 @@ namespace Core.Common.Base.Test.Data
         public void ImplicitConversion_FromRoundedDoubleToDouble_ConvertedValueIsEqual()
         {
             // Setup
-            var roundedDouble = new RoundedDouble(4)
-            {
-                Value = 3.2154
-            };
+            var roundedDouble = new RoundedDouble(4, 3.2154);
             
             // Call
             double convertedValue = roundedDouble;
@@ -588,6 +505,24 @@ namespace Core.Common.Base.Test.Data
             // Assert
             Assert.AreEqual(doubleValue, roundedDoubleValue.Value);
             Assert.AreEqual(15, roundedDoubleValue.NumberOfDecimalPlaces);
+        }
+
+        [Test]
+        [TestCase(0, 1d)]
+        [TestCase(2, 1.24)]
+        [TestCase(3, 1.236)]
+        [TestCase(15, 1.236000000000000)]
+        public void ToPrecision_VariousScenarios_ReturnRoundedDouble(int newPrecision, double expectedValue)
+        {
+            // Setup
+            var original = new RoundedDouble(3, 1.236);
+
+            // Call
+            RoundedDouble convertedResult = original.ToPrecision(newPrecision);
+
+            // Assert
+            Assert.AreEqual(newPrecision, convertedResult.NumberOfDecimalPlaces);
+            Assert.AreEqual(expectedValue, convertedResult.Value);
         }
     }
 }

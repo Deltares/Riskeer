@@ -9,14 +9,15 @@ namespace Core.Common.Base.Data
     /// This class represents a <see cref="double"/> that is being rounded to a certain
     /// number of places.
     /// </summary>
-    public sealed class RoundedDouble : IEquatable<RoundedDouble>, IEquatable<Double>
+    public struct RoundedDouble : IEquatable<RoundedDouble>, IEquatable<Double>
     {
         /// <summary>
         /// The maximum number of decimal places supported by this class.
         /// </summary>
         public const int MaximumNumberOfDecimalPlaces = 15;
 
-        private double value;
+        private readonly double value;
+        private readonly int numberOfDecimalPlaces;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RoundedDouble"/> class with a 
@@ -31,29 +32,29 @@ namespace Core.Common.Base.Data
         {
             ValidateNumberOfDecimalPlaces(numberOfDecimalPlaces);
 
-            NumberOfDecimalPlaces = numberOfDecimalPlaces;
-            Value = value;
+            this.numberOfDecimalPlaces = numberOfDecimalPlaces;
+            this.value = RoundDouble(value, numberOfDecimalPlaces);
         }
 
         /// <summary>
         /// Gets the number of decimal places use to round <see cref="Value"/> to.
         /// </summary>
-        public int NumberOfDecimalPlaces { get; private set; }
+        public int NumberOfDecimalPlaces
+        {
+            get
+            {
+                return numberOfDecimalPlaces;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the value.
+        /// Gets the value.
         /// </summary>
         public double Value
         {
             get
             {
                 return value;
-            }
-            set
-            {
-                this.value = IsSpecialDoubleValue(value) ?
-                                 value :
-                                 ConvertIntoRoundedDouble(value);
             }
         }
 
@@ -77,15 +78,26 @@ namespace Core.Common.Base.Data
             return new RoundedDouble(MaximumNumberOfDecimalPlaces, d);
         }
 
+        /// <summary>
+        /// Converts this value to another <see cref="RoundedDouble"/> but with the givenTo the precision
+        /// number of decimal places instead.
+        /// </summary>
+        /// <param name="newNumberOfDecimalPlaces">The new number of decimal places.</param>
+        /// <returns>The converted <see cref="RoundedDouble"/>.</returns>
+        public RoundedDouble ToPrecision(int newNumberOfDecimalPlaces)
+        {
+            if (newNumberOfDecimalPlaces == NumberOfDecimalPlaces)
+            {
+                return this;
+            }
+            return new RoundedDouble(newNumberOfDecimalPlaces, value);
+        }
+
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
             {
                 return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
             }
             if (obj.GetType() != GetType())
             {
@@ -119,15 +131,14 @@ namespace Core.Common.Base.Data
 
         public bool Equals(RoundedDouble other)
         {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
             return Value.Equals(other.Value);
+        }
+
+        private static double RoundDouble(double value, int numberOfDecimalPlaces)
+        {
+            return IsSpecialDoubleValue(value) ?
+                       value :
+                       Math.Round(value, numberOfDecimalPlaces, MidpointRounding.AwayFromZero);
         }
 
         /// <summary>
@@ -158,11 +169,6 @@ namespace Core.Common.Base.Data
         private string GetFormat()
         {
             return "F" + NumberOfDecimalPlaces;
-        }
-
-        private double ConvertIntoRoundedDouble(double valueToConvert)
-        {
-            return Math.Round(valueToConvert, NumberOfDecimalPlaces, MidpointRounding.AwayFromZero);
         }
     }
 }

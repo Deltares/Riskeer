@@ -92,6 +92,22 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void ExitPointL_SetToValueWithTooManyDecimalPlaces_ValueIsRounded()
+        {
+            // Setup
+            var pipingInput = new PipingInput(new GeneralPipingInput());
+
+            int originalNumberOfDecimalPlaces = pipingInput.ExitPointL.NumberOfDecimalPlaces;
+
+            // Call
+            pipingInput.ExitPointL = new RoundedDouble(5, 1.23456);
+
+            // Assert
+            Assert.AreEqual(originalNumberOfDecimalPlaces, pipingInput.ExitPointL.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, pipingInput.ExitPointL.Value);
+        }
+
+        [Test]
         [TestCase(0)]
         [TestCase(-1e-6)]
         [TestCase(-21)]
@@ -120,6 +136,22 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
+        }
+
+        [Test]
+        public void EntryPointL_SetToNewValueWithTooManyDecimalPlaces_ValueIsRounded()
+        {
+            // Setup
+            var pipingInput = new PipingInput(new GeneralPipingInput());
+
+            int originalNumberOfDecimalPlaces = pipingInput.EntryPointL.NumberOfDecimalPlaces;
+
+            // Call
+            pipingInput.EntryPointL = new RoundedDouble(5, 9.87654);
+
+            // Assert
+            Assert.AreEqual(originalNumberOfDecimalPlaces, pipingInput.EntryPointL.NumberOfDecimalPlaces);
+            Assert.AreEqual(9.88, pipingInput.EntryPointL.Value);
         }
 
         [Test]
@@ -157,6 +189,22 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsNaN(pipingInput.SeepageLength.Mean);
+        }
+
+        [Test]
+        public void AssessmentLevel_SetToNewValueWithTooManyDecimalPlaces_ValueIsRounded()
+        {
+            // Setup
+            var pipingInput = new PipingInput(new GeneralPipingInput());
+
+            int originalNumberOfDecimalPlaces = pipingInput.AssessmentLevel.NumberOfDecimalPlaces;
+
+            // Call
+            pipingInput.AssessmentLevel = new RoundedDouble(5, -8.29292);
+
+            // Assert
+            Assert.AreEqual(originalNumberOfDecimalPlaces, pipingInput.AssessmentLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(-8.29, pipingInput.AssessmentLevel.Value);
         }
     }
 }

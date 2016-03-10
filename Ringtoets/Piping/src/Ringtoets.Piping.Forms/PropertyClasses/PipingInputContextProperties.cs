@@ -203,7 +203,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                     throw new ArgumentException(message);
                 }
 
-                data.WrappedData.AssessmentLevel.Value = value.DesignWaterLevel;
+                data.WrappedData.AssessmentLevel = (RoundedDouble)value.DesignWaterLevel;
                 data.WrappedData.HydraulicBoundaryLocation = value;
                 data.WrappedData.NotifyObservers();
             }

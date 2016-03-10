@@ -38,9 +38,9 @@ namespace Ringtoets.Piping.Data
     {
         private const double seepageLengthStandardDeviationFraction = 0.1;
         private readonly GeneralPipingInput generalInputParameters;
-        private readonly RoundedDouble assessmentLevel;
-        private readonly RoundedDouble exitPointL;
-        private readonly RoundedDouble entryPointL;
+        private RoundedDouble assessmentLevel;
+        private RoundedDouble exitPointL;
+        private RoundedDouble entryPointL;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
@@ -99,7 +99,7 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                assessmentLevel.Value = value;
+                assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
         }
 
@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.Data
                 {
                     throw new ArgumentOutOfRangeException("value", Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
                 }
-                entryPointL.Value = value;
+                entryPointL = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
                 UpdateSeepageLength();
             }
         }
@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.Data
                 {
                     throw new ArgumentOutOfRangeException("value", Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
                 }
-                exitPointL.Value = value;
+                exitPointL = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
                 UpdateSeepageLength();
             }
         }
