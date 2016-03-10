@@ -3,6 +3,9 @@ using Ringtoets.Piping.Calculation.SubCalculator;
 
 namespace Ringtoets.Piping.Calculation.TestUtil.SubCalculator
 {
+    /// <summary>
+    /// Stub for the real Sellmeijer sub calculator of piping.
+    /// </summary>
     public class SellmeijerCalculatorStub : ISellmeijerCalculator {
         public double BeddingAngle { get; set; }
         public double D70 { get; set; }
@@ -24,12 +27,11 @@ namespace Ringtoets.Piping.Calculation.TestUtil.SubCalculator
         public double FoSp { get; private set; }
         public void Calculate()
         {
-            throw new System.NotImplementedException();
         }
 
         public List<string> Validate()
         {
-            throw new System.NotImplementedException();
+            return new List<string>();
         }
     }
 }

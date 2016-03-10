@@ -13,7 +13,6 @@ namespace Ringtoets.Piping.Calculation.TestUtil.SubCalculator
         public double EffectiveStress { get; private set; }
         public void Calculate()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

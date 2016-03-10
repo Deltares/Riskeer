@@ -8,8 +8,10 @@ using Ringtoets.Piping.Calculation.TestUtil;
 
 using NUnit.Framework;
 using Ringtoets.Piping.Calculation;
+using Ringtoets.Piping.Calculation.TestUtil.SubCalculator;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Piping.Service.TestUtil;
 
 namespace Ringtoets.Piping.Service.Test
 {
@@ -212,5 +214,114 @@ namespace Ringtoets.Piping.Service.Test
             // Assert
             Assert.AreNotSame(output, validPipingCalculation.Output);
         }
+
+        [Test]
+        public void Validate_CompleteInput_InputSetOnSubCalculators()
+        {
+            // Setup
+            PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingInput input = validPipingCalculation.InputParameters;
+
+            using (new PipingCalculationServiceConfig())
+            {
+                // Call
+                PipingCalculationService.Validate(validPipingCalculation);
+
+                // Assert
+                var testFactory = (TestPipingSubCalculatorFactory) PipingCalculationService.SubCalculatorFactory;
+                var heaveCalculator = testFactory.LastCreatedHeaveCalculator;
+                var upliftCalculator = testFactory.LastCreatedUpliftCalculator;
+                var effectiveThicknessCalculator = testFactory.LastCreatedEffectiveThicknessCalculator;
+                var sellmeijerCalculator = testFactory.LastCreatedSellmeijerCalculator;
+
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(input).GetDesignValue(), heaveCalculator.DTotal);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), heaveCalculator.HExit);
+                Assert.AreEqual(input.CriticalHeaveGradient, heaveCalculator.Ich);
+                Assert.AreEqual(input.PiezometricHeadExit, heaveCalculator.PhiExit);
+                Assert.AreEqual(input.PiezometricHeadPolder, heaveCalculator.PhiPolder);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), heaveCalculator.RExit);
+
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), upliftCalculator.HExit);
+                Assert.AreEqual(input.AssessmentLevel.Value, upliftCalculator.HRiver);
+                Assert.AreEqual(input.UpliftModelFactor, upliftCalculator.ModelFactorUplift);
+                Assert.AreEqual(input.PiezometricHeadExit, upliftCalculator.PhiExit);
+                Assert.AreEqual(input.PiezometricHeadPolder, upliftCalculator.PhiPolder);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), upliftCalculator.RExit);
+                Assert.AreEqual(input.WaterVolumetricWeight, upliftCalculator.VolumetricWeightOfWater);
+                Assert.AreEqual(effectiveThicknessCalculator.EffectiveStress, upliftCalculator.EffectiveStress);
+
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(input).GetDesignValue(), sellmeijerCalculator.SeepageLength);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), sellmeijerCalculator.HExit);
+                Assert.AreEqual(input.AssessmentLevel.Value, sellmeijerCalculator.HRiver);
+                Assert.AreEqual(input.WaterKinematicViscosity, sellmeijerCalculator.KinematicViscosityWater);
+                Assert.AreEqual(input.SellmeijerModelFactor, sellmeijerCalculator.ModelFactorPiping);
+                Assert.AreEqual(input.SellmeijerReductionFactor, sellmeijerCalculator.Rc);
+                Assert.AreEqual(input.WaterVolumetricWeight, sellmeijerCalculator.VolumetricWeightOfWater);
+                Assert.AreEqual(input.WhitesDragCoefficient, sellmeijerCalculator.WhitesDragCoefficient);
+                Assert.AreEqual(input.BeddingAngle, sellmeijerCalculator.BeddingAngle);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(input).GetDesignValue(), sellmeijerCalculator.DTotal);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDiameter70(input).GetDesignValue(), sellmeijerCalculator.D70);
+                Assert.AreEqual(input.MeanDiameter70, sellmeijerCalculator.D70Mean);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(input).GetDesignValue(), sellmeijerCalculator.DAquifer);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(input).GetDesignValue(), sellmeijerCalculator.DarcyPermeability);
+                Assert.AreEqual(input.SandParticlesVolumicWeight, sellmeijerCalculator.GammaSubParticles);
+                Assert.AreEqual(input.Gravity, sellmeijerCalculator.Gravity);
+            }
+        }
+
+        [Test]
+        public void Calculate_CompleteInput_InputSetOnSubCalculators()
+        {
+            // Setup
+            PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingInput input = validPipingCalculation.InputParameters;
+
+            using (new PipingCalculationServiceConfig())
+            {
+                // Call
+                PipingCalculationService.Calculate(validPipingCalculation);
+
+                // Assert
+                var testFactory = (TestPipingSubCalculatorFactory)PipingCalculationService.SubCalculatorFactory;
+                var heaveCalculator = testFactory.LastCreatedHeaveCalculator;
+                var upliftCalculator = testFactory.LastCreatedUpliftCalculator;
+                var effectiveThicknessCalculator = testFactory.LastCreatedEffectiveThicknessCalculator;
+                var sellmeijerCalculator = testFactory.LastCreatedSellmeijerCalculator;
+
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(input).GetDesignValue(), heaveCalculator.DTotal);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), heaveCalculator.HExit);
+                Assert.AreEqual(input.CriticalHeaveGradient, heaveCalculator.Ich);
+                Assert.AreEqual(input.PiezometricHeadExit, heaveCalculator.PhiExit);
+                Assert.AreEqual(input.PiezometricHeadPolder, heaveCalculator.PhiPolder);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), heaveCalculator.RExit);
+
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), upliftCalculator.HExit);
+                Assert.AreEqual(input.AssessmentLevel.Value, upliftCalculator.HRiver);
+                Assert.AreEqual(input.UpliftModelFactor, upliftCalculator.ModelFactorUplift);
+                Assert.AreEqual(input.PiezometricHeadExit, upliftCalculator.PhiExit);
+                Assert.AreEqual(input.PiezometricHeadPolder, upliftCalculator.PhiPolder);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), upliftCalculator.RExit);
+                Assert.AreEqual(input.WaterVolumetricWeight, upliftCalculator.VolumetricWeightOfWater);
+                Assert.AreEqual(effectiveThicknessCalculator.EffectiveStress, upliftCalculator.EffectiveStress);
+
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(input).GetDesignValue(), sellmeijerCalculator.SeepageLength);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), sellmeijerCalculator.HExit);
+                Assert.AreEqual(input.AssessmentLevel.Value, sellmeijerCalculator.HRiver);
+                Assert.AreEqual(input.WaterKinematicViscosity, sellmeijerCalculator.KinematicViscosityWater);
+                Assert.AreEqual(input.SellmeijerModelFactor, sellmeijerCalculator.ModelFactorPiping);
+                Assert.AreEqual(input.SellmeijerReductionFactor, sellmeijerCalculator.Rc);
+                Assert.AreEqual(input.WaterVolumetricWeight, sellmeijerCalculator.VolumetricWeightOfWater);
+                Assert.AreEqual(input.WhitesDragCoefficient, sellmeijerCalculator.WhitesDragCoefficient);
+                Assert.AreEqual(input.BeddingAngle, sellmeijerCalculator.BeddingAngle);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(input).GetDesignValue(), sellmeijerCalculator.DTotal);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDiameter70(input).GetDesignValue(), sellmeijerCalculator.D70);
+                Assert.AreEqual(input.MeanDiameter70, sellmeijerCalculator.D70Mean);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(input).GetDesignValue(), sellmeijerCalculator.DAquifer);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(input).GetDesignValue(), sellmeijerCalculator.DarcyPermeability);
+                Assert.AreEqual(input.SandParticlesVolumicWeight, sellmeijerCalculator.GammaSubParticles);
+                Assert.AreEqual(input.Gravity, sellmeijerCalculator.Gravity);
+            }
+        }
+
     }
 }

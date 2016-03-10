@@ -3,6 +3,9 @@ using Ringtoets.Piping.Calculation.SubCalculator;
 
 namespace Ringtoets.Piping.Calculation.TestUtil.SubCalculator
 {
+    /// <summary>
+    /// Stub for the real heave sub calculator of piping.
+    /// </summary>
     public class HeaveCalculatorStub : IHeaveCalculator {
         public double DTotal { get; set; }
         public double HExit { get; set; }
@@ -14,12 +17,11 @@ namespace Ringtoets.Piping.Calculation.TestUtil.SubCalculator
         public double FoSh { get; private set; }
         public void Calculate()
         {
-            throw new System.NotImplementedException();
         }
 
         public List<string> Validate()
         {
-            throw new System.NotImplementedException();
+            return new List<string>();
         }
     }
 }
