@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -46,19 +47,20 @@ namespace Core.Plugins.DotSpatial.Test.Forms
         }
 
         [Test]
-        public void Data_SetToNull_MapControlNoFeatures()
+        public void Data_SetToNull_MapControlNotUpdated()
         {
             // Setup
             using (var mapView = new MapDataView())
             {
                 var map = (MapControl)mapView.Controls[0];
+                var mapData = map.Data;
 
                 // Call
                 TestDelegate testDelegate = () => mapView.Data = null;
 
                 // Assert
                 Assert.DoesNotThrow(testDelegate);
-                Assert.IsNull(map.Data);
+                Assert.AreSame(mapData, map.Data);
             }
         }
 
@@ -77,7 +79,7 @@ namespace Core.Plugins.DotSpatial.Test.Forms
         }
 
         [Test]
-        public void Data_SetToMapPointData_MapDataSet()
+        public void Data_SetToMapCollectionData_MapDataSet()
         {
             // Setup
             var features = new Collection<MapFeature> 
@@ -92,13 +94,17 @@ namespace Core.Plugins.DotSpatial.Test.Forms
             {
                 var map = (MapControl)mapView.Controls[0];
                 var pointData = new MapPointData(features, "test data");
+                var collection = new MapDataCollection(new List<MapData>
+                {
+                    pointData
+                }, "test");
 
                 // Call
-                mapView.Data = pointData;
+                mapView.Data = collection;
 
                 // Assert
-                Assert.AreSame(pointData, map.Data);
-                Assert.AreSame(pointData, mapView.Data);
+                Assert.AreSame(pointData, map.Data.List.First());
+                Assert.AreSame(collection, mapView.Data);
             }
         }
     }

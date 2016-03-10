@@ -51,5 +51,66 @@ namespace Core.Components.Gis.Data
         /// Gets the list of <see cref="MapData"/> of the <see cref="MapDataCollection"/>.
         /// </summary>
         public IList<MapData> List { get; private set; }
+
+        /// <summary>
+        /// Adds an element to the list of <see cref="MapData"/>.
+        /// </summary>
+        /// <param name="elementToAdd">The <see cref="MapData"/> element to add to the list.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="elementToAdd"/> is <c>null</c>.</exception>
+        public void Add(MapData elementToAdd)
+        {
+            if (elementToAdd == null)
+            {
+                throw new ArgumentNullException("elementToAdd", "An element cannot be null when adding it to the collection.");
+            }
+            List.Add(elementToAdd);
+        }
+
+        /// <summary>
+        /// Replaces an element in the list of <see cref="MapData"/>.
+        /// </summary>
+        /// <param name="oldElement">The <see cref="MapData"/> element to replace.</param>
+        /// <param name="newElement">The <see cref="MapData"/> element to replace with.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="oldElement"/> or 
+        /// <paramref name="newElement"/> is <c>null</c>.</exception>
+        public void Replace(MapData oldElement, MapData newElement)
+        {
+            if (newElement == null)
+            {
+                throw new ArgumentNullException("newElement", "An element cannot be replaced with null. Use Remove instead.");
+            }
+
+            if (oldElement == null)
+            {
+                throw new ArgumentNullException("oldElement", "A null element cannot be replaced. User Add instead.");
+            }
+
+            for (var i = 0; i < List.Count; i++)
+            {
+                if (List[i].Equals(oldElement))
+                {
+                    List[i] = newElement;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Removes the given element from the list of <see cref="MapData"/>.
+        /// </summary>
+        /// <param name="elementToRemove">The <see cref="MapData"/> element to remove.</param>
+        public void Remove(MapData elementToRemove)
+        {
+            List.Remove(elementToRemove);
+        }
+
+        /// <summary>
+        /// Inserts the given element to the list of <see cref="MapData"/> on the given index.
+        /// </summary>
+        /// <param name="indexToInsert">The index to insert on.</param>
+        /// <param name="elementToAdd">The <see cref="MapData"/> element to insert.</param>
+        public void Insert(int indexToInsert, MapData elementToAdd)
+        {
+            List.Insert(indexToInsert, elementToAdd);
+        }
     }
 }

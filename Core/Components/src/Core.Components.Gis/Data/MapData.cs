@@ -47,6 +47,6 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// The name of the <see cref="MapData"/>.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; set; }
     }
 }

@@ -32,8 +32,7 @@
             this.SuspendLayout();
             // 
             // MapView
-            // 
-            this.mapControl.Data = null;
+            //
             this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mapControl.Location = new System.Drawing.Point(0, 0);
             this.mapControl.Name = "mapControl";

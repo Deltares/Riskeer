@@ -188,8 +188,8 @@ namespace Core.Plugins.DotSpatial.Legend
             var mapData = (MapData) droppedData;
             var target = (MapDataCollection) newParentData;
 
-            target.List.Remove(mapData);
-            target.List.Insert(target.List.Count - position, mapData); // Note: target is the same as the previous parent in this case
+            target.Remove(mapData);
+            target.Insert(target.List.Count - position, mapData); // Note: target is the same as the previous parent in this case
             target.NotifyObservers();
         }
 
@@ -261,7 +261,8 @@ namespace Core.Plugins.DotSpatial.Legend
                         return;
                 }
 
-                mapDataCollection.List.Add(importedData);
+                mapDataCollection.Add(importedData);
+
                 log.Info(DotSpatialResources.MapLegendView_CheckDataFormat_Shapefile_Is_Imported);
                 mapDataCollection.NotifyObservers();
             }

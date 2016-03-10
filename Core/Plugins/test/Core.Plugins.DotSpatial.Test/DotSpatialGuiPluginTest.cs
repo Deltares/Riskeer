@@ -64,8 +64,8 @@ namespace Core.Plugins.DotSpatial.Test
             if (useMapView)
             {
                 var mapView = mocks.Stub<IMapView>();
-                var map = mocks.Stub<IMapControl>();
-                map.Data = new TestMapData("test data");
+                var map = new MapControl();
+                map.Data.Add(new TestMapData("test data"));
                 mapView.Stub(v => v.Map).Return(map);
                 view = mapView;
             }

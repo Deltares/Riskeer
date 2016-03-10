@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -43,6 +44,9 @@ namespace Ringtoets.Integration.Forms.Views
     {
         private readonly MapControl mapControl;
         private AssessmentSectionBase data;
+
+        private MapData hydraulicBoundaryDatabaseLocations;
+        private MapData referenceLineData;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionView"/>.
@@ -93,17 +97,34 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SetDataToMap()
         {
-            var mapDataList = new List<MapData>();
-
+            mapControl.Data.Name = Resources.AssessmentSectionMap_DisplayName;
+            
             if (data != null)
             {
                 // Bottommost layer
-                mapDataList.Add(GetHydraulicBoundaryLocations());
-                mapDataList.Add(GetReferenceLineData());
+                hydraulicBoundaryDatabaseLocations = AddOrUpdateMapData(hydraulicBoundaryDatabaseLocations, GetHydraulicBoundaryLocations);
+                referenceLineData = AddOrUpdateMapData(referenceLineData, GetReferenceLineData);
                 // Topmost layer
             }
-            
-            mapControl.Data = new MapDataCollection(mapDataList, Resources.AssessmentSectionMap_DisplayName);
+
+            mapControl.Data.NotifyObservers();
+
+        }
+
+        private MapData AddOrUpdateMapData(MapData oldMapData, Func<MapData> creationMethod)
+        {
+            MapData newMapData = creationMethod();
+
+            if (oldMapData == null)
+            {
+                mapControl.Data.Add(newMapData);
+            }
+            else
+            {
+                mapControl.Data.Replace(oldMapData, newMapData);
+            }
+
+            return newMapData;
         }
 
         private MapData GetReferenceLineData()

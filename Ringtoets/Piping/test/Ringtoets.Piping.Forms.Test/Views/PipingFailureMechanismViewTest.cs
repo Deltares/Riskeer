@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_Always_AddsMapControlWithoutData()
+        public void DefaultConstructor_Always_AddsMapControlWithEmptyCollectionData()
         {
             // Call
             var view = new PipingFailureMechanismView();
@@ -45,7 +45,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mapObject = view.Controls[0] as MapControl;
             Assert.NotNull(mapObject);
             Assert.AreEqual(DockStyle.Fill, mapObject.Dock);
-            Assert.IsNull(mapObject.Data);
+            Assert.IsNotNull(mapObject.Data);
+            CollectionAssert.IsEmpty(mapObject.Data.List);
         }
 
         [Test]
@@ -150,6 +151,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             view.Data = pipingContext;
             var mapData = map.Data;
 
+            var mapDataElementBeforeUpdate = mapData.List.ElementAt(4) as MapPointData;
+            var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().Points.First();
+
+            // Precondition
+            Assert.AreEqual(geometryBeforeUpdate, new Point2D(1.0, 2.0));
+
             assessmentSectionBase.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             assessmentSectionBase.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
 
@@ -157,8 +164,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             assessmentSectionBase.NotifyObservers();
 
             // Assert
-            Assert.AreNotEqual(mapData, map.Data);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
+            Assert.AreEqual(mapData, map.Data);
+            CollectionAssert.AreEquivalent(mapData.List, map.Data.List);
+
+            var mapDataElementAfterUpdate = map.Data.List.ElementAt(4) as MapPointData;
+            var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().Points.First();
+
+            Assert.AreEqual(geometryAfterUpdate, new Point2D(2.0, 3.0));
         }
 
         [Test]
@@ -168,15 +181,23 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var view = new PipingFailureMechanismView();
             var map = (MapControl)view.Controls[0];
 
+            var points = new List<Point2D>
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            };
+
+            var pointsUpdate = new List<Point2D>
+            {
+                new Point2D(2.0, 5.0),
+                new Point2D(4.0, 3.0)
+            };
+
             var assessmentSectionBase = new TestAssessmentSectionBase
             {
                 ReferenceLine = new ReferenceLine()
             };
-            assessmentSectionBase.ReferenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            });
+            assessmentSectionBase.ReferenceLine.SetGeometry(points);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionBase);
@@ -184,18 +205,26 @@ namespace Ringtoets.Piping.Forms.Test.Views
             view.Data = pipingContext;
             var mapData = map.Data;
 
-            assessmentSectionBase.ReferenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(2.0, 5.0),
-                new Point2D(4.0, 3.0)
-            });
+            var mapDataElementBeforeUpdate = mapData.List.ElementAt(5) as MapLineData;
+            var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().Points;
+
+            // Precondition
+            CollectionAssert.AreEquivalent(geometryBeforeUpdate, points);
+
+            assessmentSectionBase.ReferenceLine.SetGeometry(pointsUpdate);
 
             // Call
             assessmentSectionBase.NotifyObservers();
 
             // Assert
-            Assert.AreNotEqual(mapData, map.Data);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
+            Assert.AreEqual(mapData, map.Data);
+            CollectionAssert.AreEquivalent(mapData.List, map.Data.List);
+
+            var mapDataElementAfterUpdate = map.Data.List.ElementAt(5) as MapLineData;
+            var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().Points;
+
+            CollectionAssert.AreEquivalent(geometryAfterUpdate, pointsUpdate);
         }
 
         [Test]
@@ -225,7 +254,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             ((IObservable)pipingFailureMechanism.SurfaceLines).NotifyObservers();
 
             // Assert
-            Assert.AreNotEqual(mapData, map.Data);
+            Assert.AreEqual(mapData, map.Data);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
         }
 

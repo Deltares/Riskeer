@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms.VisualStyles;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ViewManager;

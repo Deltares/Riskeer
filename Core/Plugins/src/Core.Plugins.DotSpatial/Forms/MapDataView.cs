@@ -32,7 +32,7 @@ namespace Core.Plugins.DotSpatial.Forms
     public partial class MapDataView : UserControl, IMapView
     {
         private readonly MapControl mapControl;
-        private MapData data;
+        private MapDataCollection data;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapDataView"/>.
@@ -54,11 +54,17 @@ namespace Core.Plugins.DotSpatial.Forms
             }
             set
             {
-                data = (MapData) value;
+                data = (MapDataCollection) value;
 
                 if (data != null)
                 {
-                    Map.Data = data;
+                    foreach (var mapData in data.List)
+                    {
+                        Map.Data.Add(mapData);
+                    }
+
+                    Map.Data.Name = data.Name;
+                    Map.Data.NotifyObservers();
                 }
             }
         }

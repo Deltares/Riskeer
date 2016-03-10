@@ -250,7 +250,7 @@ namespace Core.Plugins.DotSpatial.Test.Legend
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);
 
-            mocks.VerifyAll(); // UpdateObserver should be not called
+            mocks.VerifyAll(); // UpdateObserver should not be called
         }
 
         [Test]

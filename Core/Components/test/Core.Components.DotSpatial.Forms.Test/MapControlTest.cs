@@ -48,40 +48,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Assert
                 Assert.IsInstanceOf<Control>(map);
                 Assert.IsInstanceOf<IMapControl>(map);
-                Assert.IsNull(map.Data);
+                Assert.IsInstanceOf<MapDataCollection>(map.Data);
+                Assert.IsNotNull(map.Data);
+                CollectionAssert.IsEmpty(map.Data.List);
                 Assert.IsTrue(map.IsPanningEnabled);
                 Assert.IsFalse(map.IsRectangleZoomingEnabled);
                 Assert.IsTrue(map.IsMouseCoordinatesVisible);
-            }
-        }
-
-        [Test]
-        public void Data_UnknownMapData_ThrowsNotSupportedException()
-        {
-            // Setup
-            using (var map = new MapControl())
-            {
-                var testData = new TestMapData("test data");
-
-                // Call
-                TestDelegate test = () => map.Data = testData;
-
-                // Assert
-                Assert.Throws<NotSupportedException>(test);
-            }
-        }
-
-        [Test]
-        public void Data_Null_ReturnsNull()
-        {
-            // Setup
-            using (var map = new MapControl())
-            {
-                // Call
-                map.Data = null;
-
-                // Assert
-                Assert.IsNull(map.Data);
             }
         }
 
@@ -94,29 +66,10 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var testData = new MapPointData(Enumerable.Empty<MapFeature>(), "test data");
 
                 // Call
-                map.Data = testData;
+                map.Data.Add(testData);
 
                 // Assert
-                Assert.AreSame(testData, map.Data);
-            }
-        }
-
-        [Test]
-        public void Data_SetPointData_MapPointLayerAdded()
-        {
-            // Setup
-            using (var map = new MapControl())
-            {
-                var testData = new MapPointData(Enumerable.Empty<MapFeature>(), "test data");
-                var mapView = map.Controls.OfType<Map>().First();
-
-                // Call
-                map.Data = testData;
-
-                // Assert
-                Assert.IsInstanceOf<MapPointData>(map.Data);
-                Assert.AreEqual(1, mapView.Layers.Count);
-                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
+                Assert.AreSame(testData, map.Data.List.First());
             }
         }
 
@@ -127,18 +80,16 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 var mapView = map.Controls.OfType<Map>().First();
-                var testData = new MapDataCollection(new List<MapData>
-                {
-                    new MapPointData(Enumerable.Empty<MapFeature>(), "test data")
-                }, "test data");
+                var testData = new MapPointData(Enumerable.Empty<MapFeature>(), "test data");
 
-                map.Data = testData;
+                map.Data.Add(testData);
+                map.UpdateObserver();
 
                 // Precondition
                 Assert.AreEqual(1, mapView.Layers.Count);
                 Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
 
-                testData.List.Add(new MapLineData(Enumerable.Empty<MapFeature>(), "test data"));
+                map.Data.Add(new MapLineData(Enumerable.Empty<MapFeature>(), "test data"));
 
                 // Call
                 map.UpdateObserver();
@@ -147,37 +98,6 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(2, mapView.Layers.Count);
                 Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
                 Assert.IsInstanceOf<MapLineLayer>(mapView.Layers[1]);
-            }
-        }
-
-        [Test]
-        public void Data_SetToNull_DetachObserver()
-        {
-            // Setup
-            using (var map = new MapControl())
-            {
-                var mapView = map.Controls.OfType<Map>().First();
-                var testData = new MapDataCollection(new List<MapData>
-                {
-                    new MapPointData(Enumerable.Empty<MapFeature>(), "test data")
-                }, "test data");
-
-                map.Data = testData;
-
-                // Precondition
-                Assert.AreEqual(1, mapView.Layers.Count);
-                Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
-
-                map.Data = null;
-
-                testData.List.Add(new MapPointData(Enumerable.Empty<MapFeature>(), "test data"));
-
-                // Call
-                map.UpdateObserver();
-
-                // Assert
-                Assert.IsNull(map.Data);
-                Assert.AreEqual(0, mapView.Layers.Count);
             }
         }
 
@@ -193,7 +113,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapView = map.Controls.OfType<Map>().First();
                 var invalidated = 0;
 
-                map.Data = testData;
+                map.Data.Add(testData);
+                map.Data.NotifyObservers();
                 form.Controls.Add(map);
 
                 mapView.Invalidated += (sender, args) => { invalidated++; };
@@ -217,7 +138,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             var map = new MapControl();
             var mapView = map.Controls.OfType<Map>().First();
             var testData = GetTestData();
-            map.Data = testData;
+            map.Data.Add(testData);
+            map.Data.NotifyObservers();
 
             var expectedExtent = new Extent(0.0, 0.5, 1.6, 2.1);
 
@@ -313,7 +235,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var testData = new MapPointData(Enumerable.Empty<MapFeature>(), "test data");
                 var view = map.Controls.OfType<Map>().First();
 
-                map.Data = testData;
+                map.Data.Add(testData);
+                map.Data.NotifyObservers();
+
                 var layers = view.Layers.ToList();
 
                 form.Controls.Add(map);

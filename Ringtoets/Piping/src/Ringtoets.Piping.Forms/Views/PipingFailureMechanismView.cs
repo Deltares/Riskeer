@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -45,6 +46,13 @@ namespace Ringtoets.Piping.Forms.Views
     public partial class PipingFailureMechanismView : UserControl, IMapView, IObserver
     {
         private PipingFailureMechanismContext data;
+
+        private MapData hydraulicBoundaryDatabaseLocations;
+        private MapData referenceLineData;
+        private MapData surfaceLinesMapData;
+        private MapData sectionsMapData;
+        private MapData sectionsStartPointsMapData;
+        private MapData sectionsEndPointMapData;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismView"/>.
@@ -115,21 +123,37 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void SetDataToMap()
         {
-            var mapDataList = new List<MapData>();
+            mapControl.Data.Name = PipingDataResources.PipingFailureMechanism_DisplayName;
 
             if (data != null)
             {
                 // Bottom most layer
-                mapDataList.Add(GetSurfaceLinesMapData());
-                mapDataList.Add(GetSectionsMapData());
-                mapDataList.Add(GetSectionsStartPointsMapData());
-                mapDataList.Add(GetSectionsEndPointsMapData());
-                mapDataList.Add(GetHydraulicBoundaryLocationsMapData());
-                mapDataList.Add(GetReferenceLineMapData());
+                surfaceLinesMapData = AddOrUpdateMapData(surfaceLinesMapData, GetSurfaceLinesMapData);
+                sectionsMapData = AddOrUpdateMapData(sectionsMapData, GetSectionsMapData);
+                sectionsStartPointsMapData = AddOrUpdateMapData(sectionsStartPointsMapData, GetSectionsStartPointsMapData);
+                sectionsEndPointMapData = AddOrUpdateMapData(sectionsEndPointMapData, GetSectionsEndPointsMapData);
+                hydraulicBoundaryDatabaseLocations = AddOrUpdateMapData(hydraulicBoundaryDatabaseLocations, GetHydraulicBoundaryLocationsMapData);
+                referenceLineData = AddOrUpdateMapData(referenceLineData, GetReferenceLineMapData);
                 // Topmost layer
             }
 
-            mapControl.Data = new MapDataCollection(mapDataList, PipingDataResources.PipingFailureMechanism_DisplayName);
+            mapControl.Data.NotifyObservers();
+        }
+
+        private MapData AddOrUpdateMapData(MapData oldMapData, Func<MapData> creationMethod)
+        {
+            MapData newMapData = creationMethod();
+
+            if (oldMapData == null)
+            {
+                mapControl.Data.Add(newMapData);
+            }
+            else
+            {
+                mapControl.Data.Replace(oldMapData, newMapData);
+            }
+
+            return newMapData;
         }
 
         private MapData GetReferenceLineMapData()

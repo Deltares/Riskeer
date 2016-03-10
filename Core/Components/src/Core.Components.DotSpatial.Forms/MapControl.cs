@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -43,7 +44,7 @@ namespace Core.Components.DotSpatial.Forms
     {
         private readonly MapDataFactory mapDataFactory = new MapDataFactory();
 
-        private MapData data;
+        private MapDataCollection data;
         private Map map;
         private IMapFunction mapFunctionSelectionZoom;
         private MouseCoordinatesMapExtension mouseCoordinatesMapExtension;
@@ -56,6 +57,11 @@ namespace Core.Components.DotSpatial.Forms
         {
             InitializeMapView();
             TogglePanning();
+
+            data = new MapDataCollection(new List<MapData>(), "Root");
+            data.Attach(this);
+
+            DrawFeatureSets();
         }
 
         public bool IsPanningEnabled { get; private set; }
@@ -63,23 +69,11 @@ namespace Core.Components.DotSpatial.Forms
         public bool IsRectangleZoomingEnabled { get; private set; }
         public bool IsMouseCoordinatesVisible { get; private set; }
 
-        public MapData Data
+        public MapDataCollection Data
         {
             get
             {
                 return data;
-            }
-            set
-            {
-                if (IsDisposed)
-                {
-                    return;
-                }
-
-                DetachFromData();
-                data = value;
-                AttachToData();
-                DrawFeatureSets();
             }
         }
 
@@ -165,28 +159,6 @@ namespace Core.Components.DotSpatial.Forms
         {
             IsPanningEnabled = false;
             IsRectangleZoomingEnabled = false;
-        }
-
-        /// <summary>
-        /// Attaches the <see cref="MapControl"/> to the currently set <see cref="Data"/>, if there is any.
-        /// </summary>
-        private void AttachToData()
-        {
-            if (data != null)
-            {
-                data.Attach(this);
-            }
-        }
-
-        /// <summary>
-        /// Detaches the <see cref="MapControl"/> to the currently set <see cref="Data"/>, if there is any.
-        /// </summary>
-        private void DetachFromData()
-        {
-            if (data != null)
-            {
-                data.Detach(this);
-            }
         }
 
         private void DrawFeatureSets()
