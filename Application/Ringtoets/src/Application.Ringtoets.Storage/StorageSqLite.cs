@@ -300,9 +300,9 @@ namespace Application.Ringtoets.Storage
                     dbContext.Database.Initialize(true);
                     dbContext.Versions.Load();
                 }
-                catch
+                catch (Exception exception)
                 {
-                    throw CreateStorageReaderException(string.Empty, new StorageValidationException(string.Format(Resources.Error_Validating_Database_0, filePath)));
+                    throw CreateStorageReaderException(string.Empty, new StorageValidationException(string.Format(Resources.Error_Validating_Database_0, filePath), exception));
                 }
             }
         }

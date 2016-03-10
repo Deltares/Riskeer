@@ -1,4 +1,5 @@
-﻿using Application.Ringtoets.Storage.DbContext;
+﻿using System;
+using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.Test.DbContext
@@ -24,7 +25,7 @@ namespace Application.Ringtoets.Storage.Test.DbContext
             // Setup
             const long expectedParentId = 1L;
             const long expectedId = 1024L;
-            int failureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism;
+            short failureMechanismType = Convert.ToInt16(FailureMechanismType.DikesPipingFailureMechanism);
 
             // Call
             FailureMechanismEntity failureMechanismEntity = new FailureMechanismEntity

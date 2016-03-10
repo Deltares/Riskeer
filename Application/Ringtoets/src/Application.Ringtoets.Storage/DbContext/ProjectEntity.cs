@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.DbContext
     
         public long ProjectEntityId { get; set; }
         public string Description { get; set; }
-        public Nullable<long> LastUpdated { get; set; }
+        public Nullable<decimal> LastUpdated { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; set; }

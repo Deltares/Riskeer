@@ -62,11 +62,14 @@
     <Compile Include="DbContext\DuneAssessmentSectionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\FailureMechanismType.cs" />
     <Compile Include="DbContext\FailureMechanismEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\FailureMechanismType.cs" />
     <Compile Include="DbContext\ProjectEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\Version.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistors\DikeAssessmentSectionEntityPersistor.cs" />
@@ -104,9 +107,6 @@
     </Compile>
     <Compile Include="SqLiteConnectionStringBuilder.cs" />
     <Compile Include="StorageSqLite.cs" />
-    <Compile Include="DbContext\Version.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
