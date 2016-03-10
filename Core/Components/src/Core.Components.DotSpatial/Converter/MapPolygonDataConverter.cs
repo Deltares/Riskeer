@@ -40,13 +40,20 @@ namespace Core.Components.DotSpatial.Converter
 
             foreach (var mapFeature in data.Features)
             {
+                var feature = new Feature();
+                var geometryList = new List<IPolygon>();
+                
                 foreach (var mapGeometry in mapFeature.MapGeometries)
                 {
                     var coordinates = mapGeometry.Points.Select(p => new Coordinate(p.X, p.Y));
-                    var polygon = new Polygon(coordinates);
-
-                    featureSet.Features.Add(polygon);
+                    IPolygon polygon = new Polygon(coordinates);
+                    geometryList.Add(polygon);
                 }
+
+                GeometryFactory factory = new GeometryFactory();
+                feature.BasicGeometry = factory.CreateMultiPolygon(geometryList.ToArray());
+               
+                featureSet.Features.Add(feature);
             }
 
             var layer = new MapPolygonLayer(featureSet)

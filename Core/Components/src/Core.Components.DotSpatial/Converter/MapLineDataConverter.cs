@@ -40,13 +40,20 @@ namespace Core.Components.DotSpatial.Converter
 
             foreach (var mapFeature in data.Features)
             {
+                var feature = new Feature();
+                var geometryList = new List<IBasicLineString>();
+
                 foreach (var mapGeometry in mapFeature.MapGeometries)
                 {
                     var coordinates = mapGeometry.Points.Select(p => new Coordinate(p.X, p.Y));
-                    var lineString = new LineString(coordinates);
-
-                    featureSet.Features.Add(lineString);
+                    IBasicLineString lineString = new LineString(coordinates);
+                    geometryList.Add(lineString);
                 }
+
+                GeometryFactory factory = new GeometryFactory();
+                feature.BasicGeometry = factory.CreateMultiLineString(geometryList.ToArray());
+
+                featureSet.Features.Add(feature);
             }
 
             var layer = new MapLineLayer(featureSet)

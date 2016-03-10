@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -101,6 +100,52 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
+        public void Convert_MultipleFeatures_ReturnsAllFeaturesWithOneGeometry()
+        {
+            // Setup
+            var converter = new MapPointDataConverter();
+            var features = new List<MapFeature>
+            {
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(new List<Point2D>
+                    {
+                        new Point2D(1, 2)
+                    })
+                }),
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(new List<Point2D>
+                    {
+                        new Point2D(2, 3)
+                    })
+                }),
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(new List<Point2D>
+                    {
+                        new Point2D(4, 6)
+                    })
+                })
+            };
+
+            var pointData = new MapPointData(features, "test");
+
+            // Call
+            var layers = converter.Convert(pointData);
+
+            // Assert
+            var layer = layers.First();
+            Assert.AreEqual(features.Count, layer.DataSet.Features.Count);
+            Assert.AreEqual(3, layer.DataSet.ShapeIndices.Count);
+
+            foreach (var shapeIndex in layer.DataSet.ShapeIndices)
+            {
+                Assert.AreEqual(1, shapeIndex.NumParts);
+            }
+        }
+
+        [Test]
         public void Convert_DataNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -128,6 +173,41 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Convert_DataIsVisible_LayerIsVisibleSameAsData(bool isVisible)
+        {
+            // Setup
+            var converter = new MapPointDataConverter();
+            var data = new MapPointData(Enumerable.Empty<MapFeature>(), "test")
+            {
+                IsVisible = isVisible
+            };
+
+            // Call
+            var layers = converter.Convert(data);
+
+            // Assert
+            Assert.AreEqual(isVisible, layers.First().IsVisible);
+        }
+
+        [Test]
+        public void Convert_DataName_LayerNameSameAsData()
+        {
+            // Setup
+            var name = "<Some name>";
+            var converter = new MapPointDataConverter();
+            var data = new MapPointData(Enumerable.Empty<MapFeature>(), name);
+
+            // Call
+            var layers = converter.Convert(data);
+
+            // Assert
+            var layer = layers.First() as MapPointLayer;
+            Assert.AreEqual(name, layer.Name);
         }
     }
 }
