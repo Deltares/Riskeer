@@ -136,6 +136,24 @@ namespace Core.Plugins.DotSpatial.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het bestand is niet toegankelijk..
+        /// </summary>
+        public static string MapLegendView_CheckDataFormat_An_Error_Occured_When_Trying_To_Read_The_File {
+            get {
+                return ResourceManager.GetString("MapLegendView_CheckDataFormat_An_Error_Occured_When_Trying_To_Read_The_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand of andere benodigde bestanden zijn niet gevonden..
+        /// </summary>
+        public static string MapLegendView_CheckDataFormat_File_Does_Not_Exist_Or_Misses_Needed_Files {
+            get {
+                return ResourceManager.GetString("MapLegendView_CheckDataFormat_File_Does_Not_Exist_Or_Misses_Needed_Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het shapebestand bevat data welke niet wordt ondersteund..
         /// </summary>
         public static string MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data {

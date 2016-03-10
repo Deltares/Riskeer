@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Utils.Builders;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Readers;
@@ -230,37 +231,52 @@ namespace Core.Plugins.DotSpatial.Legend
         {
             FeatureBasedMapData importedData;
 
-            var featureSet = Shapefile.OpenFile(filePath);
-
-            switch (featureSet.FeatureType)
+            try
             {
-                case FeatureType.Point:
-                case FeatureType.MultiPoint:
-                    using (ShapeFileReaderBase reader = new PointShapeFileReader(filePath))
-                    {
-                        importedData = GetShapeFileData(reader, title);
-                    }
-                    break;
-                case FeatureType.Line:
-                    using (ShapeFileReaderBase reader = new PolylineShapeFileReader(filePath))
-                    {
-                        importedData = GetShapeFileData(reader, title);
-                    }
-                    break;
-                case FeatureType.Polygon:
-                    using (ShapeFileReaderBase reader = new PolygonShapeFileReader(filePath))
-                    {
-                        importedData = GetShapeFileData(reader, title);
-                    }
-                    break;
-                default:
-                    log.Error(DotSpatialResources.MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data);
-                    return;
-            }
+                var featureSet = Shapefile.OpenFile(filePath);
 
-            mapDataCollection.List.Add(importedData);
-            log.Info(DotSpatialResources.MapLegendView_CheckDataFormat_Shapefile_Is_Imported);
-            mapDataCollection.NotifyObservers();
+                switch (featureSet.FeatureType)
+                {
+                    case FeatureType.Point:
+                    case FeatureType.MultiPoint:
+                        using (ShapeFileReaderBase reader = new PointShapeFileReader(filePath))
+                        {
+                            importedData = GetShapeFileData(reader, title);
+                        }
+                        break;
+                    case FeatureType.Line:
+                        using (ShapeFileReaderBase reader = new PolylineShapeFileReader(filePath))
+                        {
+                            importedData = GetShapeFileData(reader, title);
+                        }
+                        break;
+                    case FeatureType.Polygon:
+                        using (ShapeFileReaderBase reader = new PolygonShapeFileReader(filePath))
+                        {
+                            importedData = GetShapeFileData(reader, title);
+                        }
+                        break;
+                    default:
+                        log.Error(DotSpatialResources.MapLegendView_CheckDataFormat_ShapeFile_Contains_Unsupported_Data);
+                        return;
+                }
+
+                mapDataCollection.List.Add(importedData);
+                log.Info(DotSpatialResources.MapLegendView_CheckDataFormat_Shapefile_Is_Imported);
+                mapDataCollection.NotifyObservers();
+            }
+            catch (FileNotFoundException)
+            {
+                string message = new FileReaderErrorMessageBuilder(filePath)
+                    .Build(DotSpatialResources.MapLegendView_CheckDataFormat_File_Does_Not_Exist_Or_Misses_Needed_Files);
+                log.Error(message);
+            }
+            catch (IOException)
+            {
+                string message = new FileReaderErrorMessageBuilder(filePath)
+                    .Build(DotSpatialResources.MapLegendView_CheckDataFormat_An_Error_Occured_When_Trying_To_Read_The_File);
+                log.Error(message);
+            }
         }
 
         private FeatureBasedMapData GetShapeFileData(ShapeFileReaderBase reader, string title)
