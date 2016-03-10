@@ -1,4 +1,6 @@
 ﻿using System;
+
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -35,7 +37,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
 
             // Assert
             Assert.AreEqual(secondPointX - firstPointX, inputParameters.SeepageLength.Mean);
-            Assert.AreEqual(secondPointX - firstPointX, inputParameters.ExitPointL);
+            Assert.AreEqual(secondPointX - firstPointX, inputParameters.ExitPointL.Value);
         }
 
         [Test]
@@ -87,7 +89,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
 
             // Assert
             Assert.AreEqual(secondPointX - firstPointX, inputParameters.SeepageLength.Mean);
-            Assert.AreEqual(secondPointX - firstPointX, inputParameters.ExitPointL);
+            Assert.AreEqual(secondPointX - firstPointX, inputParameters.ExitPointL.Value);
         }
 
         [Test]
@@ -116,7 +118,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             // Assert
             Assert.AreEqual(2.0, inputParameters.SeepageLength.Mean);
             Assert.AreEqual(0.2, inputParameters.SeepageLength.StandardDeviation);
-            Assert.AreEqual(secondPointX - firstPointX, inputParameters.ExitPointL);
+            Assert.AreEqual(secondPointX - firstPointX, inputParameters.ExitPointL.Value);
         }
 
         [Test]
@@ -145,7 +147,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             // Assert
             Assert.AreEqual(2.0, inputParameters.SeepageLength.Mean);
             Assert.AreEqual(0.2, inputParameters.SeepageLength.StandardDeviation);
-            Assert.AreEqual(thirdPointX - firstPointX, inputParameters.ExitPointL);
+            Assert.AreEqual(thirdPointX - firstPointX, inputParameters.ExitPointL.Value);
         }
 
         [Test]
@@ -157,7 +159,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             var input = new PipingInput(new GeneralPipingInput());
 
             // Call
-            TestDelegate test = () => input.SetEntryPointL(entryPoint);
+            TestDelegate test = () => input.SetEntryPointL((RoundedDouble)entryPoint);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde voor het L-coördinaat van het intredepunt mag niet kleiner zijn dan 0.");
@@ -166,21 +168,21 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         [Test]
         [TestCase(2, 0, 2)]
         [TestCase(3, 0, 3)]
-        [TestCase(1 + 1e-6, 1, 1e-6)]
-        [TestCase(2, 2 - 1e-6, 1e-6)]
+        [TestCase(1 + 1e-2, 1, 1e-2)]
+        [TestCase(2, 2 - 1e-2, 1e-2)]
         public void SetEntryPointL_ExitPointAndSeepageLengthSet_UpdatesSeepageLength(double exitPoint, double entryPoint, double seepageLength)
         {
             // Setup
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var input = new PipingInput(new GeneralPipingInput());
             input.SetSurfaceLine(surfaceLine);
-            input.SetExitPointL(exitPoint);
+            input.SetExitPointL((RoundedDouble)exitPoint);
 
             // Call
-            input.SetEntryPointL(entryPoint);
+            input.SetEntryPointL((RoundedDouble)entryPoint);
 
             // Assert
-            Assert.AreEqual(exitPoint, input.ExitPointL);
+            Assert.AreEqual(exitPoint, input.ExitPointL.Value);
             Assert.AreEqual(seepageLength, input.SeepageLength.Mean, 1e-6);
         }
 
@@ -194,11 +196,11 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             var input = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine,
-                ExitPointL = l
+                ExitPointL = (RoundedDouble)l
             };
 
             // Call
-            input.SetEntryPointL(l);
+            input.SetEntryPointL((RoundedDouble)l);
 
             // Assert
             Assert.IsNaN(input.SeepageLength.Mean);
@@ -215,7 +217,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             var input = new PipingInput(new GeneralPipingInput());
 
             // Call
-            TestDelegate test = () => input.SetExitPointL(exitPoint);
+            TestDelegate test = () => input.SetExitPointL((RoundedDouble)exitPoint);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, "De waarde voor het L-coördinaat van het uittredepunt moet groter zijn dan 0.");
@@ -225,21 +227,21 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         [TestCase(1, 2, 1)]
         [TestCase(0, 2, 2)]
         [TestCase(0, 0.5, 0.5)]
-        [TestCase(3 - 1e-6, 3, 1e-6)]
-        [TestCase(0.5, 0.5 + 1e-6, 1e-6)]
+        [TestCase(3 - 1e-2, 3, 1e-2)]
+        [TestCase(0.5, 0.5 + 1e-2, 1e-2)]
         public void SetExitPointL_ExitPointAndSeepageLengthSet_UpdatesSeepageLength(double entryPoint, double exitPoint, double seepageLength)
         {
             // Setup
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var input = new PipingInput(new GeneralPipingInput());
             input.SetSurfaceLine(surfaceLine);
-            input.SetEntryPointL(entryPoint);
+            input.SetEntryPointL((RoundedDouble)entryPoint);
 
             // Call
-            input.SetExitPointL(exitPoint);
+            input.SetExitPointL((RoundedDouble)exitPoint);
 
             // Assert
-            Assert.AreEqual(exitPoint, input.ExitPointL);
+            Assert.AreEqual(exitPoint, input.ExitPointL.Value);
             Assert.AreEqual(seepageLength, input.SeepageLength.Mean, 1e-6);
         }
 
@@ -252,10 +254,10 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             var input = new PipingInput(new GeneralPipingInput());
             input.SetSurfaceLine(surfaceLine);
             var entryPointL = 1.0;
-            input.SetEntryPointL(entryPointL);
+            input.SetEntryPointL((RoundedDouble)entryPointL);
 
             // Call
-            input.SetExitPointL(entryPointL);
+            input.SetExitPointL((RoundedDouble)entryPointL);
 
             // Assert
             Assert.IsNaN(input.SeepageLength.Mean);
@@ -267,13 +269,13 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            input.EntryPointL = double.NaN;
+            input.EntryPointL = (RoundedDouble)double.NaN;
 
             // Call
             input.SetSurfaceLine(input.SurfaceLine);
 
             // Assert
-            Assert.AreEqual(0.0, input.EntryPointL);
+            Assert.AreEqual(0.0, input.EntryPointL.Value);
         }
 
         #region thickness of the coverage layer
@@ -300,7 +302,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SurfaceLine = null;
 
             // Call
-            Action call = () => input.SetExitPointL(0.5);
+            Action call = () => input.SetExitPointL((RoundedDouble)0.5);
             
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, Resources.PipingInputExtensions_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer);
@@ -315,7 +317,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SoilProfile = null;
 
             // Call
-            Action call = () => input.SetExitPointL(0.5);
+            Action call = () => input.SetExitPointL((RoundedDouble)0.5);
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, Resources.PipingInputExtensions_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer);
@@ -329,7 +331,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             var input = CreateInputWithAquiferAndCoverageLayer(true);
 
             // Call
-            Action call = () => input.SetExitPointL(double.NaN);
+            Action call = () => input.SetExitPointL((RoundedDouble)double.NaN);
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, Resources.PipingInputExtensions_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer);
@@ -402,13 +404,13 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = double.NaN;
+            input.ExitPointL = (RoundedDouble)double.NaN;
 
             // Call
             input.SetSurfaceLine(input.SurfaceLine);
 
             // Assert
-            Assert.AreEqual(1.0, input.ExitPointL);
+            Assert.AreEqual(1.0, input.ExitPointL.Value);
             Assert.AreEqual(1.0, input.ThicknessCoverageLayer.Mean);
         }
 
@@ -521,7 +523,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = double.NaN;
+            input.ExitPointL = (RoundedDouble)double.NaN;
 
             // Call
             Action call = () => input.SetSoilProfile(input.SoilProfile);
@@ -675,7 +677,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             var input = CreateInputWithAquiferAndCoverageLayer(true);
 
             // Call
-            Action call = () => input.SetExitPointL(double.NaN);
+            Action call = () => input.SetExitPointL((RoundedDouble)double.NaN);
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.");
@@ -749,13 +751,13 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = double.NaN;
+            input.ExitPointL = (RoundedDouble)double.NaN;
 
             // Call
             input.SetSurfaceLine(input.SurfaceLine);
 
             // Assert
-            Assert.AreEqual(1.0, input.ExitPointL);
+            Assert.AreEqual(1.0, input.ExitPointL.Value);
             Assert.AreEqual(1.0, input.ThicknessAquiferLayer.Mean);
         }
 
@@ -885,7 +887,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = double.NaN;
+            input.ExitPointL = (RoundedDouble)double.NaN;
 
             // Call
             Action call = () => input.SetSoilProfile(input.SoilProfile);
@@ -1043,13 +1045,13 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             {
                 input.SetSurfaceLine(surfaceLine);
                 input.SetSoilProfile(soilProfile);
-                input.SetExitPointL(exitPointL);
+                input.SetExitPointL((RoundedDouble)exitPointL);
             }
             else
             {
                 input.SurfaceLine = surfaceLine;
                 input.SoilProfile = soilProfile;
-                input.ExitPointL = exitPointL;
+                input.ExitPointL = (RoundedDouble)exitPointL;
             }
             return input;
         }
@@ -1078,7 +1080,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             {
                 SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile,
-                ExitPointL = 0.5
+                ExitPointL = (RoundedDouble)0.5
             };
             return input;
         }
@@ -1110,7 +1112,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             {
                 SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile,
-                ExitPointL = 0.5
+                ExitPointL = (RoundedDouble)0.5
             };
             expectedThickness = 2.2;
             return input;

@@ -13,7 +13,7 @@ namespace Core.Common.Base.Test.Data
         [Test]
         [TestCase(0)]
         [TestCase(12)]
-        [TestCase(28)]
+        [TestCase(15)]
         public void Constructor_ExpectedValues(int numberOfDecimalPlaces)
         {
             // Call
@@ -71,8 +71,8 @@ namespace Core.Common.Base.Test.Data
         [Test]
         [TestCase(-45678)]
         [TestCase(-1)]
-        [TestCase(29)]
-        [TestCase(-1)]
+        [TestCase(16)]
+        [TestCase(34567)]
         public void Constructor_InvalidNumberOfPlaces_ThrowArgumentOutOfRangeException(int invalidNumberOfPlaces)
         {
             // Call
@@ -80,7 +80,7 @@ namespace Core.Common.Base.Test.Data
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
-                "Value must be in range [0, 28].");
+                "Value must be in range [0, 15].");
         }
 
         [Test]
@@ -127,38 +127,6 @@ namespace Core.Common.Base.Test.Data
 
             // Assert
             Assert.AreEqual(expectedReturnValue, returnValue);
-        }
-
-        [Test]
-        public void Value_SetValueTooBig_ThrowOverflowException()
-        {
-            // Setup
-            var roundedDouble = new RoundedDouble(5);
-
-            double tooBigDouble = Convert.ToDouble(decimal.MaxValue);
-
-            // Call
-            TestDelegate call = () => roundedDouble.Value = tooBigDouble;
-
-            // Assert
-            Assert.Throws<OverflowException>(call,
-                "Double having lower accuracy than decimals, Decimal.MaxValue cannot be represented in a double without error.");
-        }
-
-        [Test]
-        public void Value_SetValueTooSmall_ThrowOverflowException()
-        {
-            // Setup
-            var roundedDouble = new RoundedDouble(5);
-
-            double tooSmallDouble = Convert.ToDouble(decimal.MinValue);
-
-            // Call
-            TestDelegate call = () => roundedDouble.Value = tooSmallDouble;
-
-            // Assert
-            Assert.Throws<OverflowException>(call,
-                "Double having lower accuracy than decimals, Decimal.MinValue cannot be represented in a double without error.");
         }
 
         [Test]
@@ -606,6 +574,20 @@ namespace Core.Common.Base.Test.Data
 
             // Assert
             Assert.AreEqual(roundedDouble.Value, convertedValue);
+        }
+
+        [Test]
+        public void ExplicitConversion_FromDoubleToRoundedDouble_ConvertedValueIsEqual()
+        {
+            // Setup
+            double doubleValue = 1.23456789;
+
+            // Call
+            RoundedDouble roundedDoubleValue = (RoundedDouble)doubleValue;
+
+            // Assert
+            Assert.AreEqual(doubleValue, roundedDoubleValue.Value);
+            Assert.AreEqual(15, roundedDoubleValue.NumberOfDecimalPlaces);
         }
     }
 }

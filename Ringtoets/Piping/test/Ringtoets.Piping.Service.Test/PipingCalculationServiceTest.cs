@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Ringtoets.Piping.Calculation.TestUtil;
@@ -88,7 +90,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             PipingInput input = new PipingInput(new GeneralPipingInput())
             {
-                ExitPointL = 10,
+                ExitPointL = (RoundedDouble)10,
                 SurfaceLine = new RingtoetsPipingSurfaceLine()
             };
             input.SurfaceLine.SetGeometry(new []
@@ -121,7 +123,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             PipingInput input = new PipingInput(new GeneralPipingInput())
             {
-                ExitPointL = 10,
+                ExitPointL = (RoundedDouble)10,
                 SurfaceLine = new RingtoetsPipingSurfaceLine()
             };
             input.SurfaceLine.SetGeometry(new[]

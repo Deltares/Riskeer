@@ -241,7 +241,7 @@ namespace Ringtoets.Piping.Calculation.Test
             // Setup
             PipingCalculatorInput input = new TestPipingInput
             {
-                AssessmentLevel = new RoundedDouble(2, assessmentLevel),
+                AssessmentLevel = (RoundedDouble)assessmentLevel,
                 PhreaticLevelExit = phreaticLevelExit,
                 SellmeijerReductionFactor = sellmeijerReductionFactor,
                 ThicknessCoverageLayer = thicknessCoverageLayer
@@ -350,7 +350,7 @@ namespace Ringtoets.Piping.Calculation.Test
             // Setup
             PipingCalculatorInput input = new TestPipingInput
             {
-                AssessmentLevel = new RoundedDouble(2, 0),
+                AssessmentLevel = (RoundedDouble) 0,
                 PhreaticLevelExit = 0,
                 SellmeijerReductionFactor = 0,
                 ThicknessCoverageLayer = 0

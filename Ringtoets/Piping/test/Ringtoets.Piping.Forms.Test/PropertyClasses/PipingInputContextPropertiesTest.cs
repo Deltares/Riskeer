@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
@@ -121,10 +122,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             const double entryPointL = 0.12;
 
             // Call
-            properties.EntryPointL = entryPointL;
+            properties.EntryPointL = (RoundedDouble)entryPointL;
 
             // Assert
-            Assert.AreEqual(entryPointL, inputParameters.EntryPointL);
+            Assert.AreEqual(entryPointL, inputParameters.EntryPointL.Value);
             mocks.VerifyAll();
         }
 
@@ -200,9 +201,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         [Test]
         [TestCase(0, 3, 3)]
         [TestCase(2, 4, 2)]
-        [TestCase(1e-6, 4, 4 - 1e-6)]
-        [TestCase(1e-6, 3, 3 - 1e-6)]
-        [TestCase(1, 1 + 1e-6, 1e-6)]
+        [TestCase(1e-2, 4, 4 - 1e-2)]
+        [TestCase(1e-2, 3, 3 - 1e-2)]
+        [TestCase(1, 1 + 1e-2, 1e-2)]
         public void SeepageLength_ExitPointAndEntryPointSet_ExpectedValue(double entryPoint, double exitPoint, double seepageLength)
         {
             // Setup
@@ -226,8 +227,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<PipingSoilProfile>(),
                                               assessmentSectionMock),
-                ExitPointL = exitPoint,
-                EntryPointL = entryPoint
+                ExitPointL = (RoundedDouble)exitPoint,
+                EntryPointL = (RoundedDouble)entryPoint
             };
 
 
@@ -261,8 +262,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<PipingSoilProfile>(),
                                               assessmentSectionMock),
-                EntryPointL = 0.5,
-                ExitPointL = 2
+                EntryPointL = (RoundedDouble)0.5,
+                ExitPointL = (RoundedDouble)2
             };
 
 
@@ -299,12 +300,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             const double l = 2.0;
-            properties.ExitPointL = l;
+            properties.ExitPointL = (RoundedDouble)l;
 
             inputParameters.Attach(inputObserver);
 
             // Call
-            properties.EntryPointL = l;
+            properties.EntryPointL = (RoundedDouble)l;
 
             // Assert
             Assert.IsNaN(properties.SeepageLength.GetDesignValue());
@@ -335,12 +336,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             const double l = 2.0;
-            properties.EntryPointL = l;
+            properties.EntryPointL = (RoundedDouble)l;
 
             inputParameters.Attach(inputObserver);
 
             // Call
-            properties.ExitPointL = l;
+            properties.ExitPointL = (RoundedDouble)l;
 
             // Assert
             Assert.IsNaN(properties.SeepageLength.GetDesignValue());

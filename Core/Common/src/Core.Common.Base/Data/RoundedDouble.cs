@@ -11,26 +11,12 @@ namespace Core.Common.Base.Data
     /// </summary>
     public sealed class RoundedDouble : IEquatable<RoundedDouble>, IEquatable<Double>
     {
-        private double value;
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="RoundedDouble"/> class with a value
-        /// of 0.
+        /// The maximum number of decimal places supported by this class.
         /// </summary>
-        /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
-        /// <exception cref="System.ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, 28].
-        /// </exception>
-        public RoundedDouble(int numberOfDecimalPlaces)
-        {
-            if (numberOfDecimalPlaces < 0 || numberOfDecimalPlaces > 28)
-            {
-                throw new ArgumentOutOfRangeException("numberOfDecimalPlaces",
-                                                      "Value must be in range [0, 28].");
-            }
+        public const int MaximumNumberOfDecimalPlaces = 15;
 
-            NumberOfDecimalPlaces = numberOfDecimalPlaces;
-        }
+        private double value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RoundedDouble"/> class with a 
@@ -39,17 +25,11 @@ namespace Core.Common.Base.Data
         /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
         /// <param name="value">The value to initalize the instance with.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, 28].
+        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, 15].
         /// </exception>
-        /// <exception cref="OverflowException">When <paramref name="value"/> is too big
-        /// or too small to be represented as a rounded double.</exception>
-        public RoundedDouble(int numberOfDecimalPlaces, double value)
+        public RoundedDouble(int numberOfDecimalPlaces, double value = 0.0)
         {
-            if (numberOfDecimalPlaces < 0 || numberOfDecimalPlaces > 28)
-            {
-                throw new ArgumentOutOfRangeException("numberOfDecimalPlaces",
-                                                      "Value must be in range [0, 28].");
-            }
+            ValidateNumberOfDecimalPlaces(numberOfDecimalPlaces);
 
             NumberOfDecimalPlaces = numberOfDecimalPlaces;
             Value = value;
@@ -63,8 +43,6 @@ namespace Core.Common.Base.Data
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
-        /// <exception cref="OverflowException">When <paramref name="value"/> is too big
-        /// or too small to be represented as a rounded double.</exception>
         public double Value
         {
             get
@@ -92,6 +70,11 @@ namespace Core.Common.Base.Data
         public static implicit operator double(RoundedDouble d)
         {
             return d.Value;
+        }
+
+        public static explicit operator RoundedDouble(Double d)
+        {
+            return new RoundedDouble(MaximumNumberOfDecimalPlaces, d);
         }
 
         public override bool Equals(object obj)
@@ -147,6 +130,24 @@ namespace Core.Common.Base.Data
             return Value.Equals(other.Value);
         }
 
+        /// <summary>
+        /// Validates <see cref="NumberOfDecimalPlaces"/>.
+        /// </summary>
+        /// <param name="numberOfDecimalPlaces">The new value for <see cref="NumberOfDecimalPlaces"/>.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, 15].
+        /// </exception>
+        private static void ValidateNumberOfDecimalPlaces(int numberOfDecimalPlaces)
+        {
+            if (numberOfDecimalPlaces < 0 || numberOfDecimalPlaces > MaximumNumberOfDecimalPlaces)
+            {
+                string message = string.Format("Value must be in range [0, {0}].",
+                                               MaximumNumberOfDecimalPlaces);
+                throw new ArgumentOutOfRangeException("numberOfDecimalPlaces",
+                                                      message);
+            }
+        }
+
         private static bool IsSpecialDoubleValue(double value)
         {
             return double.IsNaN(value) ||
@@ -161,9 +162,7 @@ namespace Core.Common.Base.Data
 
         private double ConvertIntoRoundedDouble(double valueToConvert)
         {
-            decimal decimalValue = Convert.ToDecimal(valueToConvert);
-            decimal roundedDecimal = Math.Round(decimalValue, NumberOfDecimalPlaces);
-            return Convert.ToDouble(roundedDecimal);
+            return Math.Round(valueToConvert, NumberOfDecimalPlaces, MidpointRounding.AwayFromZero);
         }
     }
 }

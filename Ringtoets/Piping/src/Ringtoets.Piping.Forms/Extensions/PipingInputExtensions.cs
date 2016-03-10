@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using log4net;
 using Ringtoets.Piping.Calculation;
@@ -46,7 +48,7 @@ namespace Ringtoets.Piping.Forms.Extensions
         /// <param name="entryPointL">The L-coordinate of the entry point to set.</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="entryPointL"/> is less than or equal to 0.</exception>
         /// <exception cref="ArgumentException"><paramref name="entryPointL"/> is <see cref="double.NaN"/>.</exception>
-        public static void SetEntryPointL(this PipingInput input, double entryPointL)
+        public static void SetEntryPointL(this PipingInput input, RoundedDouble entryPointL)
         {
             input.EntryPointL = entryPointL;
         }
@@ -62,7 +64,7 @@ namespace Ringtoets.Piping.Forms.Extensions
         /// <item><paramref name="exitPointL"/> is <see cref="double.NaN"/></item>
         /// <item>Setting the value would result in an invalid seepage length.</item>
         /// </list></exception>
-        public static void SetExitPointL(this PipingInput input, double exitPointL)
+        public static void SetExitPointL(this PipingInput input, RoundedDouble exitPointL)
         {
             input.ExitPointL = exitPointL;
             input.UpdateThicknessCoverageLayer();
@@ -151,7 +153,7 @@ namespace Ringtoets.Piping.Forms.Extensions
         {
             if (input.SurfaceLine == null)
             {
-                input.ExitPointL = double.NaN;
+                input.ExitPointL = (RoundedDouble)double.NaN;
                 input.SeepageLength.Mean = double.NaN;
             }
             else
@@ -174,8 +176,8 @@ namespace Ringtoets.Piping.Forms.Extensions
                     tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
                 }
 
-                input.ExitPointL = tempExitPointL;
-                input.EntryPointL = tempEntryPointL;
+                input.ExitPointL = (RoundedDouble)tempExitPointL;
+                input.EntryPointL = (RoundedDouble)tempEntryPointL;
             }
         }
     }

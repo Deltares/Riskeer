@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
         public double DarcyPermeability;
         public double WaterKinematicViscosity;
         public double Gravity;
-        public double ExitPointXCoordinate;
+        public RoundedDouble ExitPointXCoordinate;
         public double BeddingAngle;
         public double MeanDiameter70;
         public double ThicknessAquiferLayer;
@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
         {
             WaterVolumetricWeight = NextIncrementalDouble();
             UpliftModelFactor = NextIncrementalDouble();
-            AssessmentLevel = new RoundedDouble(2, NextIncrementalDouble());
+            AssessmentLevel = (RoundedDouble)NextIncrementalDouble();
             PiezometricHeadExit = NextIncrementalDouble();
             PhreaticLevelExit = NextIncrementalDouble();
             DampingFactorExit = NextIncrementalDouble();
@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
             DarcyPermeability = NextIncrementalDouble();
             WaterKinematicViscosity = NextIncrementalDouble();
             Gravity = NextIncrementalDouble();
-            ExitPointXCoordinate = NextIncrementalDouble();
+            ExitPointXCoordinate = (RoundedDouble)NextIncrementalDouble();
             BeddingAngle = NextIncrementalDouble();
             MeanDiameter70 = NextIncrementalDouble();
             ThicknessAquiferLayer = NextIncrementalDouble();

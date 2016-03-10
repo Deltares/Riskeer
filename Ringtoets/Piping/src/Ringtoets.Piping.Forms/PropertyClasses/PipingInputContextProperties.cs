@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 
 using Core.Common.Base.Data;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.HydraRing.Data;
@@ -294,10 +295,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #region Uplift 
 
+        [TypeConverter(typeof(RoundedDoubleConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_EntryPointL_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_EntryPointL_Description")]
-        public double EntryPointL
+        public RoundedDouble EntryPointL
         {
             get
             {
@@ -310,10 +312,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [TypeConverter(typeof(RoundedDoubleConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_ExitPointL_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_ExitPointL_Description")]
-        public double ExitPointL
+        public RoundedDouble ExitPointL
         {
             get
             {

@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Data.Test
             var pipingInput = new PipingInput(new GeneralPipingInput());
 
             // Call
-            TestDelegate test = () => pipingInput.ExitPointL = value;
+            TestDelegate test = () => pipingInput.ExitPointL = (RoundedDouble)value;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Data.Test
             var pipingInput = new PipingInput(new GeneralPipingInput());
 
             // Call
-            TestDelegate test = () => pipingInput.EntryPointL = value;
+            TestDelegate test = () => pipingInput.EntryPointL = (RoundedDouble)value;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
@@ -127,19 +127,20 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(double.NaN, 3, double.NaN)]
         [TestCase(2, double.NaN, double.NaN)]
         [TestCase(2, 4, 2.0)]
-        [TestCase(1e-6, 3, 3.0 - 1e-6)]
-        public void SeepageLength_DifferentCombinationsOfEntryAndExitPoint_SeepageLengthUpdatedAsExpected(double entryPointL, double exitPointL, double seepageLength)
+        [TestCase(0, 3, 3.0)]
+        [TestCase(4e-3, 6, 6.0)]
+        public void SeepageLength_DifferentCombinationsOfEntryAndExitPoint_SeepageLengthUpdatedAsExpected(double entryPointL, double exitPointL, double expectedSeepageLength)
         {
             // Setup
             var pipingInput = new PipingInput(new GeneralPipingInput());
 
             // Call
-            pipingInput.ExitPointL = exitPointL;
-            pipingInput.EntryPointL = entryPointL;
+            pipingInput.ExitPointL = (RoundedDouble)exitPointL;
+            pipingInput.EntryPointL = (RoundedDouble)entryPointL;
 
             // Assert
-            Assert.AreEqual(seepageLength, pipingInput.SeepageLength.Mean);
-            Assert.AreEqual(seepageLength * 0.1, pipingInput.SeepageLength.StandardDeviation);
+            Assert.AreEqual(expectedSeepageLength, pipingInput.SeepageLength.Mean);
+            Assert.AreEqual(expectedSeepageLength * 0.1, pipingInput.SeepageLength.StandardDeviation);
         }
 
         [Test]
@@ -149,10 +150,10 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var pipingInput = new PipingInput(new GeneralPipingInput());
-            pipingInput.ExitPointL = exitPointL;
+            pipingInput.ExitPointL = (RoundedDouble)exitPointL;
 
             // Call
-            pipingInput.EntryPointL = entryPointL;
+            pipingInput.EntryPointL = (RoundedDouble)entryPointL;
 
             // Assert
             Assert.IsNaN(pipingInput.SeepageLength.Mean);

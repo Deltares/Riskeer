@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             {
                 InputParameters =
                 {
-                    AssessmentLevel = new RoundedDouble(2, 1.0),
+                    AssessmentLevel = (RoundedDouble)1.0,
                     DampingFactorExit =
                     {
                         Mean = 1.0
@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                     {
                         Mean = 1.0
                     },
-                    ExitPointL = 1.0,
+                    ExitPointL = (RoundedDouble)1.0,
                     PiezometricHeadExit = 1.0,
                     PiezometricHeadPolder = 1.0,
                     PhreaticLevelExit =

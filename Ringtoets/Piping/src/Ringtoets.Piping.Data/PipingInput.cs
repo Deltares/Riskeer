@@ -38,9 +38,9 @@ namespace Ringtoets.Piping.Data
     {
         private const double seepageLengthStandardDeviationFraction = 0.1;
         private readonly GeneralPipingInput generalInputParameters;
-        private RoundedDouble assessmentLevel;
-        private double exitPointL;
-        private double entryPointL;
+        private readonly RoundedDouble assessmentLevel;
+        private readonly RoundedDouble exitPointL;
+        private readonly RoundedDouble entryPointL;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
@@ -58,8 +58,8 @@ namespace Ringtoets.Piping.Data
 
             this.generalInputParameters = generalInputParameters;
 
-            exitPointL = double.NaN;
-            entryPointL = double.NaN;
+            exitPointL = new RoundedDouble(2, double.NaN);
+            entryPointL = new RoundedDouble(2, double.NaN);
             assessmentLevel = new RoundedDouble(2, double.NaN);
 
             PhreaticLevelExit = new NormalDistribution();
@@ -99,7 +99,7 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                assessmentLevel.Value = value.Value;
+                assessmentLevel.Value = value;
             }
         }
 
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Data
         /// [m]
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than 0.</exception>
-        public double EntryPointL
+        public RoundedDouble EntryPointL
         {
             get
             {
@@ -118,11 +118,11 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                if (value < 0)
+                if (value < 0.0)
                 {
                     throw new ArgumentOutOfRangeException("value", Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
                 }
-                entryPointL = value;
+                entryPointL.Value = value;
                 UpdateSeepageLength();
             }
         }
@@ -134,7 +134,7 @@ namespace Ringtoets.Piping.Data
         /// [m]
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than or equal to 0.</exception>
-        public double ExitPointL
+        public RoundedDouble ExitPointL
         {
             get
             {
@@ -142,11 +142,11 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                if (value <= 0)
+                if (value <= 0.0)
                 {
                     throw new ArgumentOutOfRangeException("value", Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
                 }
-                exitPointL = value;
+                exitPointL.Value = value;
                 UpdateSeepageLength();
             }
         }
