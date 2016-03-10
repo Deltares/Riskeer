@@ -256,7 +256,7 @@ namespace Ringtoets.Piping.Calculation
             calculator.Ich = input.CriticalHeaveGradient;
             calculator.PhiExit = input.PiezometricHeadExit;
             calculator.DTotal = input.ThicknessCoverageLayer;
-            calculator.PhiPolder = input.PiezometricHeadPolder;
+            calculator.PhiPolder = input.PhreaticLevelExit;
             calculator.RExit = input.DampingFactorExit;
             calculator.HExit = input.PhreaticLevelExit;
             return calculator;
@@ -272,7 +272,7 @@ namespace Ringtoets.Piping.Calculation
             calculator.PhiExit = input.PiezometricHeadExit;
             calculator.RExit = input.DampingFactorExit;
             calculator.HExit = input.PhreaticLevelExit;
-            calculator.PhiPolder = input.PiezometricHeadPolder;
+            calculator.PhiPolder = input.PhreaticLevelExit;
             return calculator;
         }
 

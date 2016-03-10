@@ -150,5 +150,146 @@ namespace Ringtoets.Piping.Calculation.Test
             Assert.AreEqual(name, actual.Name);
             CollectionAssert.IsEmpty(actual.Points);
         }
+
+        [Test]
+        public void Create_SurfaceLineWithDikeToePolderSide_CreateSurfaceLineWithDikeToePolderSideSet()
+        {
+            // Setup
+            const string name = "Surfaceline without points";
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = name
+            };
+            var point = new Point3D (1.0, 1.0, 2.2);
+            surfaceLine.SetGeometry(new[]
+            {
+                point, 
+            });
+            surfaceLine.SetDikeToeAtPolderAt(point);
+
+            // Call
+            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+
+            // Assert
+            Assert.AreEqual(name, actual.Name);
+            Assert.AreEqual(1, actual.Points.Count);
+            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DikeToeAtPolder);
+        }
+
+        [Test]
+        public void Create_SurfaceLineWithDitchDikeSide_CreateSurfaceLineWithDitchDikeSideSet()
+        {
+            // Setup
+            const string name = "Surfaceline without points";
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = name
+            };
+            var point = new Point3D(1.0, 1.0, 2.2);
+            surfaceLine.SetGeometry(new[]
+            {
+                point, 
+            });
+            surfaceLine.SetDitchDikeSideAt(point);
+
+            // Call
+            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+
+            // Assert
+            Assert.AreEqual(name, actual.Name);
+            Assert.AreEqual(1, actual.Points.Count);
+            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DitchDikeSide);
+        }
+
+        [Test]
+        public void Create_SurfaceLineWithBottomDitchDikeSide_CreateSurfaceLineWithBottomDitchDikeSideSet()
+        {
+            // Setup
+            const string name = "Surfaceline without points";
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = name
+            };
+            var point = new Point3D(1.0, 1.0, 2.2);
+            surfaceLine.SetGeometry(new[]
+            {
+                point, 
+            });
+            surfaceLine.SetBottomDitchDikeSideAt(point);
+
+            // Call
+            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+
+            // Assert
+            Assert.AreEqual(name, actual.Name);
+            Assert.AreEqual(1, actual.Points.Count);
+            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.BottomDitchDikeSide);
+        }
+
+        [Test]
+        public void Create_SurfaceLineWithBottomPolderDikeSide_CreateSurfaceLineWithBottomDitchPolderSideSet()
+        {
+            // Setup
+            const string name = "Surfaceline without points";
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = name
+            };
+            var point = new Point3D(1.0, 1.0, 2.2);
+            surfaceLine.SetGeometry(new[]
+            {
+                point, 
+            });
+            surfaceLine.SetBottomDitchPolderSideAt(point);
+
+            // Call
+            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+
+            // Assert
+            Assert.AreEqual(name, actual.Name);
+            Assert.AreEqual(1, actual.Points.Count);
+            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.BottomDitchPolderSide);
+        }
+
+        [Test]
+        public void Create_SurfaceLineWithPolderDikeSide_CreateSurfaceLineWithDitchPolderSideSet()
+        {
+            // Setup
+            const string name = "Surfaceline without points";
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = name
+            };
+            var point = new Point3D(1.0, 1.0, 2.2);
+            surfaceLine.SetGeometry(new[]
+            {
+                point, 
+            });
+            surfaceLine.SetDitchPolderSideAt(point);
+
+            // Call
+            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
+
+            // Assert
+            Assert.AreEqual(name, actual.Name);
+            Assert.AreEqual(1, actual.Points.Count);
+            AssertPointsAreEqual(new Point3D(0.0, 0.0, 2.2), actual.DitchPolderSide);
+        }
+
+        private void AssertPointsAreEqual(Point3D point, PipingPoint otherPoint)
+        {
+            if (point == null)
+            {
+                Assert.IsNull(otherPoint);
+                return;
+            }
+            if (otherPoint == null)
+            {
+                Assert.Fail("Expected value for otherPoint.");
+            }
+            Assert.AreEqual(point.X, otherPoint.X);
+            Assert.AreEqual(point.Y, otherPoint.Y);
+            Assert.AreEqual(point.Z, otherPoint.Z);
+        }
     }
 }

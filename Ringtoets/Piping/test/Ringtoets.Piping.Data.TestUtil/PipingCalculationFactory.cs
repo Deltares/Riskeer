@@ -25,11 +25,27 @@ namespace Ringtoets.Piping.Data.TestUtil
                 }
             });
             var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, top / 6);
+            var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, 2 * top / 6);
+            var thirdCharacteristicPointLocation = new Point3D(0.4, 0.0, 3 * top / 6);
+            var fourthCharacteristicPointLocation = new Point3D(0.5, 0.0, 4 * top / 6);
+            var fifthCharacteristicPointLocation = new Point3D(0.6, 0.0, 5 * top / 6);
             surfaceLine.SetGeometry(new []
             {
                 new Point3D(0.0, 0.0, 0.0), 
+                firstCharacteristicPointLocation, 
+                secondCharacteristicPointLocation, 
+                thirdCharacteristicPointLocation, 
+                fourthCharacteristicPointLocation, 
+                fifthCharacteristicPointLocation, 
                 new Point3D(1.0, 0.0, top)
             });
+            surfaceLine.SetDikeToeAtPolderAt(firstCharacteristicPointLocation);
+            surfaceLine.SetDitchDikeSideAt(secondCharacteristicPointLocation);
+            surfaceLine.SetBottomDitchDikeSideAt(thirdCharacteristicPointLocation);
+            surfaceLine.SetBottomDitchPolderSideAt(fourthCharacteristicPointLocation);
+            surfaceLine.SetDitchPolderSideAt(fifthCharacteristicPointLocation);
+            
             return new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =

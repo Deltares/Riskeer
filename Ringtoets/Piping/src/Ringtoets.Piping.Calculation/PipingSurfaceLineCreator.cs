@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-
+using Core.Common.Base.Geometry;
 using Deltares.WTIPiping;
 
 using Ringtoets.Piping.Data;
@@ -49,13 +49,50 @@ namespace Ringtoets.Piping.Calculation
             {
                 surfaceLine.Points.AddRange(CreatePoints(line));
             }
-
+            
             return surfaceLine;
         }
 
         private static IEnumerable<PipingPoint> CreatePoints(RingtoetsPipingSurfaceLine line)
         {
-            return line.ProjectGeometryToLZ().Select(p => new PipingPoint(p.X, 0.0, p.Y));
+            var projectedPoints = line.ProjectGeometryToLZ().ToArray();
+            var pipingPoints = new List<PipingPoint>();
+            for (int i = 0; i < line.Points.Length; i++)
+            {
+                var pipingPoint = CreatePoint(line, projectedPoints, i);
+                pipingPoints.Add(pipingPoint);
+            }
+            return pipingPoints;
+        }
+
+        private static PipingPoint CreatePoint(RingtoetsPipingSurfaceLine line, Point2D[] projectedPoints, int index)
+        {
+            var surfaceLinePoint = line.Points[index];
+            var projectedPoint = projectedPoints[index];
+            var pipingPoint = new PipingPoint(projectedPoint.X, 0.0, projectedPoint.Y);
+
+            if (ReferenceEquals(line.DitchPolderSide, surfaceLinePoint))
+            {
+                pipingPoint.Type = PipingCharacteristicPointType.DitchPolderSide;
+            }
+            if (ReferenceEquals(line.BottomDitchPolderSide, surfaceLinePoint))
+            {
+                pipingPoint.Type = PipingCharacteristicPointType.BottomDitchPolderSide;
+            }
+            if (ReferenceEquals(line.BottomDitchDikeSide, surfaceLinePoint))
+            {
+                pipingPoint.Type = PipingCharacteristicPointType.BottomDitchDikeSide;
+            }
+            if (ReferenceEquals(line.DitchDikeSide, surfaceLinePoint))
+            {
+                pipingPoint.Type = PipingCharacteristicPointType.DitchDikeSide;
+            }
+            if (ReferenceEquals(line.DikeToeAtPolder, surfaceLinePoint))
+            {
+                pipingPoint.Type = PipingCharacteristicPointType.DikeToeAtPolder;
+            }
+
+            return pipingPoint;
         }
     }
 }
