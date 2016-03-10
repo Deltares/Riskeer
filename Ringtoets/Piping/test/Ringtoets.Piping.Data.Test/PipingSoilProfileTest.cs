@@ -335,7 +335,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0.4, result, 1e-8);
         }
 
-
         [Test]
         public void GetTopAquiferLayerThicknessBelowLevel_AllAquiferLayersAboveLevel_NaN()
         {
@@ -362,6 +361,30 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsNaN(result);
+        }
+
+        [Test]
+        public void GetTopAquiferLayerThicknessBelowLevel_BottomAquiferLayerTopEqualToLevel_BottomAquiferLayerThickness()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(2.1)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(1.1)
+                {
+                    IsAquifer = true
+                },
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers);
+
+            // Call
+            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.1);
+
+            // Assert
+            Assert.AreEqual(1.1, result);
         }
 
         [Test]

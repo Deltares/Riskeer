@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.Data
                 {
                     currentTopAquiferLayer = null;
                 }
-                if (currentTopAquiferLayer != null && pipingSoilLayer.Top <= level)
+                if (currentTopAquiferLayer != null && pipingSoilLayer.Top < level)
                 {
                     break;
                 }
