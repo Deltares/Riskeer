@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             Point2D coordinates = new Point2D(x, y);
             string name = "<some name>";
             double designWaterLevel = 5.123456;
-            string expectedDesignWaterLevel = designWaterLevel.ToString("F4", CultureInfo.InvariantCulture);
+            string expectedDesignWaterLevel = designWaterLevel.ToString("F2", CultureInfo.InvariantCulture);
 
             var mockRepository = new MockRepository();
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(id, name, x, y);

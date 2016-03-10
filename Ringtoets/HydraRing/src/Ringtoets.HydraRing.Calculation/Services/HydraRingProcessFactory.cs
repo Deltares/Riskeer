@@ -26,7 +26,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
     /// <summary>
     /// Factory for creating <see cref="Process"/> instances that can be used for performing Hydra-Ring calculations.
     /// </summary>
-    public static class HydraRingProcessFactory
+    internal static class HydraRingProcessFactory
     {
         /// <summary>
         /// Creates a <see cref="Process"/> that can be used for performing a Hydra-Ring calculation.
