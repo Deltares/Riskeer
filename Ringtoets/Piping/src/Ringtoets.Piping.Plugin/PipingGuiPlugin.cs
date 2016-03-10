@@ -679,7 +679,7 @@ namespace Ringtoets.Piping.Plugin
 
         private bool PipingCalculationGroupContextCanRenameNode(PipingCalculationGroupContext pipingCalculationGroupContext, object parentData)
         {
-            return !(parentData is PipingFailureMechanism);
+            return !(parentData is PipingFailureMechanismContext);
         }
 
         private void PipingCalculationGroupContextOnNodeRenamed(PipingCalculationGroupContext nodeData, string newName)
@@ -711,7 +711,7 @@ namespace Ringtoets.Piping.Plugin
 
         private bool PipingCalculationGroupContextCanDrag(PipingCalculationGroupContext nodeData, object parentData)
         {
-            if (parentData is PipingFailureMechanism)
+            if (parentData is PipingFailureMechanismContext)
             {
                 return false;
             }

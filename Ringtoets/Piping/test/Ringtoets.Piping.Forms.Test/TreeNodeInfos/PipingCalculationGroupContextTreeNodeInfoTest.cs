@@ -409,7 +409,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_ParentWithFailureMechanism_ReturnContextMenuWithoutRenameRemove()
+        public void ContextMenuStrip_WithFailureMechanismContextParent_ReturnContextMenuWithoutRenameRemove()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
@@ -423,7 +423,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
 
-            var parentData = new PipingFailureMechanism();
+            var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              Enumerable.Empty<PipingSoilProfile>(),
@@ -850,15 +850,17 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRenameNode_ParentIsPipingFailureMechanismNode_ReturnFalse()
+        public void CanRenameNode_ParentIsPipingFailureMechanismContext_ReturnFalse()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingFailureMechanismContextMock = mocks.StrictMock<PipingFailureMechanismContext>(pipingFailureMechanismMock, assessmentSectionMock);
 
             mocks.ReplayAll();
 
             // Call
-            bool isRenamingAllowed = info.CanRename(null, failureMechanism);
+            bool isRenamingAllowed = info.CanRename(null, pipingFailureMechanismContextMock);
 
             // Assert
             Assert.IsFalse(isRenamingAllowed);
@@ -1056,12 +1058,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanDrag_ParentIsPipingFailureMechanism_ReturnFalse()
+        public void CanDrag_ParentIsPipingFailureMechanismContext_ReturnFalse()
         {
             // Setup
             var group = new PipingCalculationGroup();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingFailureMechanismContextMock = mocks.StrictMock<PipingFailureMechanismContext>(pipingFailureMechanismMock, assessmentSectionMock);
+
             mocks.ReplayAll();
 
             var groupContext = new PipingCalculationGroupContext(group,
@@ -1071,7 +1075,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                  assessmentSectionMock);
 
             // Call
-            var canDrag = info.CanDrag(groupContext, pipingFailureMechanismMock);
+            var canDrag = info.CanDrag(groupContext, pipingFailureMechanismContextMock);
 
             // Assert
             Assert.IsFalse(canDrag);
