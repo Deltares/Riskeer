@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Service
     public static class PipingCalculationService
     {
         private static readonly ILog pipingCalculationLogger = LogManager.GetLogger(typeof(PipingCalculation));
-        private static readonly PipingSubCalculatorFactory subCalculatorFactory = new PipingSubCalculatorFactory();
+        private static readonly IPipingSubCalculatorFactory subCalculatorFactory = new PipingSubCalculatorFactory();
 
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during

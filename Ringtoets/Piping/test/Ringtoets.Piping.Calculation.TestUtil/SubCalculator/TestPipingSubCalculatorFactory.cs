@@ -1,0 +1,40 @@
+﻿using Ringtoets.Piping.Calculation.SubCalculator;
+
+namespace Ringtoets.Piping.Calculation.TestUtil.SubCalculator
+{
+    /// <summary>
+    /// This class allows for retrieving the created sub calculators, so that
+    /// tests can be performed upon them.
+    /// </summary>
+    public class TestPipingSubCalculatorFactory : IPipingSubCalculatorFactory
+    {
+        public IUpliftCalculator CreateUpliftCalculator()
+        {
+            LastCreatedUpliftCalculator = new UpliftCalculatorStub();
+            return LastCreatedUpliftCalculator;
+        }
+
+        public IHeaveCalculator CreateHeaveCalculator()
+        {
+            LastCreatedHeaveCalculator = new HeaveCalculatorStub();
+            return LastCreatedHeaveCalculator;
+        }
+
+        public ISellmeijerCalculator CreateSellmeijerCalculator()
+        {
+            LastCreatedSellmeijerCalculator = new SellmeijerCalculatorStub();
+            return LastCreatedSellmeijerCalculator;
+        }
+
+        public IEffectiveThicknessCalculator CreateEffectiveThicknessCalculator()
+        {
+            LastCreatedEffectiveThicknessCalculator = new EffectiveThicknessCalculatorStub();
+            return LastCreatedEffectiveThicknessCalculator;
+        }
+
+        public EffectiveThicknessCalculatorStub LastCreatedEffectiveThicknessCalculator { get; private set; }
+        public UpliftCalculatorStub LastCreatedUpliftCalculator { get; private set; }
+        public SellmeijerCalculatorStub LastCreatedSellmeijerCalculator { get; private set; }
+        public HeaveCalculatorStub LastCreatedHeaveCalculator { get; private set; }
+    }
+}

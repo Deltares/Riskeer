@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Calculation.Test
             TestDelegate call = () => new PipingCalculator(new TestPipingInput().AsRealInput(), null);
             
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "PipingSubCalculatorFactory required for creating a PipingCalculator.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "IPipingSubCalculatorFactory required for creating a PipingCalculator.");
         }
 
         [Test]

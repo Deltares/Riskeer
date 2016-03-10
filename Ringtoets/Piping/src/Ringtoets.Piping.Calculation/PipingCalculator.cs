@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Calculation
     public class PipingCalculator
     {
         private readonly PipingCalculatorInput input;
-        private readonly PipingSubCalculatorFactory factory;
+        private readonly IPipingSubCalculatorFactory factory;
 
         /// <summary>
         /// Constructs a new <see cref="PipingCalculator"/>. The <paramref name="input"/> is used to
@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Calculation
         /// for performing a piping calculation.</param>
         /// <param name="factory"></param>
         /// <exception cref="ArgumentNullException"><paramref name="input"/> or <paramref name="factory"/> is <c>null</c>.</exception>
-        public PipingCalculator(PipingCalculatorInput input, PipingSubCalculatorFactory factory)
+        public PipingCalculator(PipingCalculatorInput input, IPipingSubCalculatorFactory factory)
         {
             if (input == null)
             {
@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Calculation
             }
             if (factory == null)
             {
-                throw new ArgumentNullException("factory", "PipingSubCalculatorFactory required for creating a PipingCalculator.");
+                throw new ArgumentNullException("factory", "IPipingSubCalculatorFactory required for creating a PipingCalculator.");
             }
             this.input = input;
             this.factory = factory;
