@@ -36,6 +36,26 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual(name, data.Name);
         }
 
+        [Test]
+        public void Name_SetName_ReturnsNewName()
+        {
+            // setup
+            var name = "Some name";
+            var newName = "Something";
+            var data = new MapDataChild(name);
+
+            // Precondition
+            Assert.AreEqual(name, data.Name);
+
+            // Call
+            data.Name = newName;
+
+            // Assert
+            Assert.AreNotEqual(name, data.Name);
+            Assert.AreEqual(newName, data.Name);
+
+        }
+
         private class MapDataChild : MapData {
             public MapDataChild(string name) : base(name) {}
         }
