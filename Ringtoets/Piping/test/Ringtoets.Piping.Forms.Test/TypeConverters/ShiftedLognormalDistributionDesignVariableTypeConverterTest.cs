@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             {
                 Mean = (RoundedDouble)1.1,
                 StandardDeviation = (RoundedDouble)2.2,
-                Shift = 3.3
+                Shift = (RoundedDouble)3.3
             };
             var designVariable = new ShiftedLognormalDistributionDesignVariable(distribution);
             var converter = new ShiftedLognormalDistributionDesignVariableTypeConverter();
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             var shiftPropertyDescriptor = properties[3];
             Assert.AreEqual(distribution.GetType(), shiftPropertyDescriptor.ComponentType);
-            Assert.AreEqual(typeof(double), shiftPropertyDescriptor.PropertyType);
+            Assert.AreEqual(typeof(RoundedDouble), shiftPropertyDescriptor.PropertyType);
             Assert.IsFalse(shiftPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Verschuiving", shiftPropertyDescriptor.DisplayName);
             Assert.AreEqual("De hoeveelheid waarmee de kansverdeling naar rechts (richting van positieve X-as) verschoven is.", shiftPropertyDescriptor.Description);

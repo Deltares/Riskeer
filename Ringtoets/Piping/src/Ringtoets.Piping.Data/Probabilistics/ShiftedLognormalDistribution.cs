@@ -29,6 +29,8 @@ namespace Ringtoets.Piping.Data.Probabilistics
     /// </summary>
     public class ShiftedLognormalDistribution : LognormalDistribution
     {
+        private RoundedDouble shift;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ShiftedLognormalDistribution"/> class,
         /// initialized as the standard log-normal distribution (mu=0, sigma=1).
@@ -37,11 +39,24 @@ namespace Ringtoets.Piping.Data.Probabilistics
         /// <exception cref="System.ArgumentOutOfRangeException">
         /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
         /// </exception>
-        public ShiftedLognormalDistribution(int numberOfDecimalPlaces) : base(numberOfDecimalPlaces) {}
+        public ShiftedLognormalDistribution(int numberOfDecimalPlaces) : base(numberOfDecimalPlaces)
+        {
+            shift = new RoundedDouble(numberOfDecimalPlaces);
+        }
 
         /// <summary>
         /// Gets or sets the shift applied to the log-normal distribution.
         /// </summary>
-        public double Shift { get; set; }
+        public RoundedDouble Shift
+        {
+            get
+            {
+                return shift;
+            }
+            set
+            {
+                shift = value.ToPrecision(shift.NumberOfDecimalPlaces);
+            }
+        }
     }
 }
