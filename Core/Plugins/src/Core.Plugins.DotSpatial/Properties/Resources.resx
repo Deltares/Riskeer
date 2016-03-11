@@ -215,7 +215,7 @@
     <value>Het shapebestand bevat data welke niet wordt ondersteund.</value>
   </data>
   <data name="MapLegendView_CheckDataFormat_Shapefile_Is_Imported" xml:space="preserve">
-    <value>Het shapebestand is geimporteerd.</value>
+    <value>Het shapebestand is geïmporteerd.</value>
   </data>
   <data name="MapLegendView_CheckDataFormat_File_Does_Not_Exist_Or_Misses_Needed_Files" xml:space="preserve">
     <value>Het bestand of andere benodigde bestanden zijn niet gevonden.</value>
