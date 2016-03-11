@@ -598,4 +598,16 @@
   <data name="PipingInputContextProperties_AssessmentLevel_cannot_be_NaN" xml:space="preserve">
     <value>Toetspeil moet een geldige waarde hebben.</value>
   </data>
+  <data name="Categories_HydraulicData" xml:space="preserve">
+    <value>Hydraulische gegevens</value>
+  </data>
+  <data name="Categories_ModelSettings" xml:space="preserve">
+    <value>Modelinstellingen</value>
+  </data>
+  <data name="Categories_Schematization" xml:space="preserve">
+    <value>Schematization</value>
+  </data>
+  <data name="Categories_SoilProperties" xml:space="preserve">
+    <value>Grondeigenschappen</value>
+  </data>
 </root>

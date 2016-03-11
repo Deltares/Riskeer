@@ -155,15 +155,15 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             inputParameters.Attach(observer);
 
-            DesignVariable<LognormalDistribution> dampingFactorExitHeave = inputParameterContextProperties.DampingFactorExitHeave;
-            var properties = new LognormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, dampingFactorExitHeave);
+            DesignVariable<LognormalDistribution> dampingFactorExit = inputParameterContextProperties.DampingFactorExit;
+            var properties = new LognormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, dampingFactorExit);
 
             // Precondition
             Assert.IsNotNull(properties);
 
             // Event
             const double newDoubleValue = 2.3;
-            properties[propertyIndexToChange].SetValue(dampingFactorExitHeave, (RoundedDouble)newDoubleValue);
+            properties[propertyIndexToChange].SetValue(dampingFactorExit, (RoundedDouble)newDoubleValue);
             
             // Result
             switch (propertyIndexToChange)
