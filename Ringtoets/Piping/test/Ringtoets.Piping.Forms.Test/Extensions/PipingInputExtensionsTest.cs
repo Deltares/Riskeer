@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
 
             // Assert
             Assert.AreEqual(2.0, inputParameters.SeepageLength.Mean.Value);
-            Assert.AreEqual(0.2, inputParameters.SeepageLength.StandardDeviation);
+            Assert.AreEqual(0.2, inputParameters.SeepageLength.StandardDeviation.Value);
             Assert.AreEqual(secondPointX - firstPointX, inputParameters.ExitPointL.Value);
         }
 
@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
 
             // Assert
             Assert.AreEqual(2.0, inputParameters.SeepageLength.Mean.Value);
-            Assert.AreEqual(0.2, inputParameters.SeepageLength.StandardDeviation);
+            Assert.AreEqual(0.2, inputParameters.SeepageLength.StandardDeviation.Value);
             Assert.AreEqual(thirdPointX - firstPointX, inputParameters.ExitPointL.Value);
         }
 

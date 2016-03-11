@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             var distribution = new LognormalDistribution(1)
             {
                 Mean = (RoundedDouble)1.1,
-                StandardDeviation = 2.2
+                StandardDeviation = (RoundedDouble)2.2
             };
             var designVariable = new LognormalDistributionDesignVariable(distribution);
 
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             var stdPropertyDescriptor = properties[2];
             Assert.AreEqual(distribution.GetType(), stdPropertyDescriptor.ComponentType);
-            Assert.AreEqual(typeof(double), stdPropertyDescriptor.PropertyType);
+            Assert.AreEqual(typeof(RoundedDouble), stdPropertyDescriptor.PropertyType);
             Assert.IsFalse(stdPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Standaardafwijking", stdPropertyDescriptor.DisplayName);
             Assert.AreEqual("De standaardafwijking van de lognormale verdeling.", stdPropertyDescriptor.Description);
@@ -163,14 +163,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             // Event
             const double newDoubleValue = 2.3;
-            if (propertyIndexToChange == 1)
-            {
-                properties[propertyIndexToChange].SetValue(dampingFactorExitHeave, (RoundedDouble)newDoubleValue);
-            }
-            else
-            {
-                properties[propertyIndexToChange].SetValue(dampingFactorExitHeave, newDoubleValue);
-            }
+            properties[propertyIndexToChange].SetValue(dampingFactorExitHeave, (RoundedDouble)newDoubleValue);
             
             // Result
             switch (propertyIndexToChange)
@@ -179,7 +172,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
                     Assert.AreEqual(newDoubleValue, inputParameters.DampingFactorExit.Mean.Value);
                     break;
                 case 2:
-                    Assert.AreEqual(newDoubleValue, inputParameters.DampingFactorExit.StandardDeviation);
+                    Assert.AreEqual(newDoubleValue, inputParameters.DampingFactorExit.StandardDeviation.Value);
                     break;
             }
             mocks.VerifyAll();

@@ -28,26 +28,33 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<NormalDistribution>(inputParameters.PhreaticLevelExit);
             Assert.AreEqual(0, inputParameters.PhreaticLevelExit.Mean.Value);
             Assert.AreEqual(3, inputParameters.PhreaticLevelExit.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, inputParameters.PhreaticLevelExit.StandardDeviation);
+            Assert.AreEqual(1, inputParameters.PhreaticLevelExit.StandardDeviation.Value);
+            Assert.AreEqual(3, inputParameters.PhreaticLevelExit.StandardDeviation.NumberOfDecimalPlaces);
 
             double defaultLogNormalMean = Math.Exp(-0.5);
             double defaultLogNormalStandardDev = Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1));
             Assert.IsInstanceOf<LognormalDistribution>(inputParameters.DampingFactorExit);
             Assert.AreEqual(1, inputParameters.DampingFactorExit.Mean.Value);
             Assert.AreEqual(3, inputParameters.DampingFactorExit.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(defaultLogNormalStandardDev, inputParameters.DampingFactorExit.StandardDeviation);
+            Assert.AreEqual(defaultLogNormalStandardDev, inputParameters.DampingFactorExit.StandardDeviation,
+                            GetErrorTolerance(inputParameters.DampingFactorExit.StandardDeviation));
+            Assert.AreEqual(3, inputParameters.DampingFactorExit.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.IsInstanceOf<LognormalDistribution>(inputParameters.Diameter70);
             Assert.AreEqual(defaultLogNormalMean, inputParameters.Diameter70.Mean,
-                            Math.Pow(10.0, -inputParameters.Diameter70.Mean.NumberOfDecimalPlaces));
+                            GetErrorTolerance(inputParameters.Diameter70.Mean));
             Assert.AreEqual(2, inputParameters.Diameter70.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(defaultLogNormalStandardDev, inputParameters.Diameter70.StandardDeviation);
+            Assert.AreEqual(defaultLogNormalStandardDev, inputParameters.Diameter70.StandardDeviation,
+                            GetErrorTolerance(inputParameters.Diameter70.StandardDeviation));
+            Assert.AreEqual(2, inputParameters.Diameter70.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.IsInstanceOf<LognormalDistribution>(inputParameters.DarcyPermeability);
             Assert.AreEqual(defaultLogNormalMean, inputParameters.DarcyPermeability.Mean,
-                            Math.Pow(10.0, -inputParameters.DarcyPermeability.Mean.NumberOfDecimalPlaces));
+                            GetErrorTolerance(inputParameters.DarcyPermeability.Mean));
             Assert.AreEqual(3, inputParameters.DarcyPermeability.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(defaultLogNormalStandardDev, inputParameters.DarcyPermeability.StandardDeviation);
+            Assert.AreEqual(defaultLogNormalStandardDev, inputParameters.DarcyPermeability.StandardDeviation,
+                            GetErrorTolerance(inputParameters.DarcyPermeability.StandardDeviation));
+            Assert.AreEqual(3, inputParameters.DarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.AreEqual(0, inputParameters.PiezometricHeadExit);
             Assert.AreEqual(0, inputParameters.PiezometricHeadPolder);
@@ -70,17 +77,20 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<LognormalDistribution>(inputParameters.ThicknessCoverageLayer);
             Assert.IsNaN(inputParameters.ThicknessCoverageLayer.Mean);
             Assert.AreEqual(2, inputParameters.ThicknessCoverageLayer.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.5, inputParameters.ThicknessCoverageLayer.StandardDeviation);
+            Assert.AreEqual(0.5, inputParameters.ThicknessCoverageLayer.StandardDeviation.Value);
+            Assert.AreEqual(2, inputParameters.ThicknessCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.IsInstanceOf<LognormalDistribution>(inputParameters.ThicknessAquiferLayer);
             Assert.IsNaN(inputParameters.ThicknessAquiferLayer.Mean);
             Assert.AreEqual(2, inputParameters.ThicknessAquiferLayer.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.5, inputParameters.ThicknessAquiferLayer.StandardDeviation);
+            Assert.AreEqual(0.5, inputParameters.ThicknessAquiferLayer.StandardDeviation.Value);
+            Assert.AreEqual(2, inputParameters.ThicknessAquiferLayer.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.IsInstanceOf<LognormalDistribution>(inputParameters.SeepageLength);
             Assert.IsNaN(inputParameters.SeepageLength.Mean);
             Assert.AreEqual(2, inputParameters.SeepageLength.Mean.NumberOfDecimalPlaces);
             Assert.IsNaN(inputParameters.SeepageLength.StandardDeviation);
+            Assert.AreEqual(2, inputParameters.SeepageLength.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.IsNaN(inputParameters.ExitPointL);
             Assert.AreEqual(2, inputParameters.ExitPointL.NumberOfDecimalPlaces);
@@ -90,6 +100,11 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<RoundedDouble>(inputParameters.AssessmentLevel);
             Assert.AreEqual(2, inputParameters.AssessmentLevel.NumberOfDecimalPlaces);
             Assert.IsNaN(inputParameters.AssessmentLevel);
+        }
+
+        private static double GetErrorTolerance(RoundedDouble roundedDouble)
+        {
+            return Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -185,7 +200,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(expectedSeepageLength, pipingInput.SeepageLength.Mean.Value);
-            Assert.AreEqual(expectedSeepageLength * 0.1, pipingInput.SeepageLength.StandardDeviation);
+            Assert.AreEqual(expectedSeepageLength * 0.1, pipingInput.SeepageLength.StandardDeviation, GetErrorTolerance(pipingInput.SeepageLength.StandardDeviation));
         }
 
         [Test]

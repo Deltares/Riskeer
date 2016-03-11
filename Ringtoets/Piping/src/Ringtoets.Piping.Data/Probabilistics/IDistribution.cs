@@ -39,6 +39,6 @@ namespace Ringtoets.Piping.Data.Probabilistics
         /// Gets or sets the standard deviation (square root of the Var(X)) of the distribution.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Standard deviation is less than 0.</exception>
-        double StandardDeviation { get; set; }
+        RoundedDouble StandardDeviation { get; set; }
     }
 }

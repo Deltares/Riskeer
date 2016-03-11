@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             var distribution = new ShiftedLognormalDistribution(5)
             {
                 Mean = (RoundedDouble)1.1,
-                StandardDeviation = 2.2,
+                StandardDeviation = (RoundedDouble)2.2,
                 Shift = 3.3
             };
             var designVariable = new ShiftedLognormalDistributionDesignVariable(distribution);
@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             var stdPropertyDescriptor = properties[2];
             Assert.AreEqual(distribution.GetType().BaseType, stdPropertyDescriptor.ComponentType);
-            Assert.AreEqual(typeof(double), stdPropertyDescriptor.PropertyType);
+            Assert.AreEqual(typeof(RoundedDouble), stdPropertyDescriptor.PropertyType);
             Assert.IsFalse(stdPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Standaardafwijking", stdPropertyDescriptor.DisplayName);
             Assert.AreEqual("De standaardafwijking van de verschoven lognormale verdeling.", stdPropertyDescriptor.Description);

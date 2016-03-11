@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
     /// </summary>
     public class LognormalDistribution : IDistribution
     {
-        private double standardDeviation;
+        private RoundedDouble standardDeviation;
         private RoundedDouble mean;
 
         /// <summary>
@@ -49,11 +49,11 @@ namespace Ringtoets.Piping.Data.Probabilistics
             {
                 // This causes the default initialization set mean to 0, which is invalid.
                 throw new ArgumentOutOfRangeException("numberOfDecimalPlaces",
-                    "Value must be in range [1, 15]");
+                    "Value must be in range [1, 15].");
             }
             // Simplified calculation mean and standard deviation given mu=0 and sigma=1.
             mean = new RoundedDouble(numberOfDecimalPlaces, Math.Exp(-0.5));
-            StandardDeviation = Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1));
+            standardDeviation = new RoundedDouble(numberOfDecimalPlaces, Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1)));
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
             }
         }
 
-        public double StandardDeviation
+        public RoundedDouble StandardDeviation
         {
             get
             {
@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
                 {
                     throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_than_or_equal_to_zero);
                 }
-                standardDeviation = value;
+                standardDeviation = value.ToPrecision(standardDeviation.NumberOfDecimalPlaces);
             }
         }
     }

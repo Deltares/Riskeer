@@ -70,19 +70,19 @@ namespace Ringtoets.Piping.Data
             ThicknessCoverageLayer = new LognormalDistribution(2)
             {
                 Mean = (RoundedDouble)double.NaN,
-                StandardDeviation = 0.5
+                StandardDeviation = (RoundedDouble)0.5
             };
             SeepageLength = new LognormalDistribution(2)
             {
                 Mean = (RoundedDouble)double.NaN,
-                StandardDeviation = double.NaN
+                StandardDeviation = (RoundedDouble)double.NaN
             };
             Diameter70 = new LognormalDistribution(2);
             DarcyPermeability = new LognormalDistribution(3);
             ThicknessAquiferLayer = new LognormalDistribution(2)
             {
                 Mean = (RoundedDouble)double.NaN,
-                StandardDeviation = 0.5
+                StandardDeviation = (RoundedDouble)0.5
             };
         }
 

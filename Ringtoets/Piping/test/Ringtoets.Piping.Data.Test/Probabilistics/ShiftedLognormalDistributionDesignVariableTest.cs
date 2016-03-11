@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             var shiftedLognormalDistribution = new ShiftedLognormalDistribution(4)
             {
                 Mean = (RoundedDouble)expectedValue,
-                StandardDeviation = Math.Sqrt(variance),
+                StandardDeviation = (RoundedDouble)Math.Sqrt(variance),
                 Shift = shift
             };
 
@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             var shiftedLognormalDistribution = new ShiftedLognormalDistribution(6)
             {
                 Mean = (RoundedDouble)expectedValue,
-                StandardDeviation = Math.Sqrt(variance),
+                StandardDeviation = (RoundedDouble)Math.Sqrt(variance),
                 Shift = 0
             };
 

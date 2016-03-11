@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             var lognormalDistribution = new LognormalDistribution(4)
             {
                 Mean = (RoundedDouble)expectedValue,
-                StandardDeviation = Math.Sqrt(variance)
+                StandardDeviation = (RoundedDouble)Math.Sqrt(variance)
             };
 
             var designVariable = new LognormalDistributionDesignVariable(lognormalDistribution)

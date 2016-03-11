@@ -567,5 +567,70 @@ namespace Core.Common.Base.Test.Data
             Assert.AreEqual(lowestNumberOfDecimalPlaces, diff.NumberOfDecimalPlaces);
             Assert.AreEqual(8.9, diff.Value);
         }
+
+        [Test]
+        public void OperatorTimes_RoundedDoubleTimesDouble_ReturnResultAsRoundedDoublePreservingNumberOfDecimalPlaces()
+        {
+            // Setup
+            var roundedDouble = new RoundedDouble(3, 1.234);
+            double doubleValue = 5.67891234;
+
+            // Call
+            RoundedDouble result1 = roundedDouble * doubleValue;
+            RoundedDouble result2 = doubleValue * roundedDouble;
+
+            // Assert
+            Assert.AreEqual(roundedDouble.NumberOfDecimalPlaces, result1.NumberOfDecimalPlaces);
+            Assert.AreEqual(roundedDouble.NumberOfDecimalPlaces, result2.NumberOfDecimalPlaces);
+            const double expectedValue = 7.008;
+            Assert.AreEqual(expectedValue, result1.Value);
+            Assert.AreEqual(expectedValue, result2.Value);
+        }
+
+        [Test]
+        public void OperatorTimes_LeftHasLeastPrecision_ResultIsRoundedDoubleWithLeastNumberOfDecimalPlaces()
+        {
+            // Setup
+            var roundedDouble1 = new RoundedDouble(2, 1.23);
+            var roundedDouble2 = new RoundedDouble(5, -3.45678);
+
+            // Call
+            RoundedDouble result = roundedDouble1 * roundedDouble2;
+
+            // Assert
+            Assert.AreEqual(2, result.NumberOfDecimalPlaces);
+            Assert.AreEqual(-4.25, result.Value);
+        }
+
+        [Test]
+        public void OperatorTimes_RightHasLeastPrecision_ResultIsRoundedDoubleWithLeastNumberOfDecimalPlaces()
+        {
+            // Setup
+            var roundedDouble1 = new RoundedDouble(4, -4.5678);
+            var roundedDouble2 = new RoundedDouble(3, -9.123);
+
+            // Call
+            RoundedDouble result = roundedDouble1 * roundedDouble2;
+
+            // Assert
+            Assert.AreEqual(3, result.NumberOfDecimalPlaces);
+            Assert.AreEqual(41.672, result.Value);
+        }
+
+        [Test]
+        public void OperatorTimes_TwoRoundedDoubles_MultiplicationIsCommutative()
+        {
+            // Setup
+            var roundedDouble1 = new RoundedDouble(1, 1.1);
+            var roundedDouble2 = new RoundedDouble(2, 2.22);
+
+            // Call
+            RoundedDouble result1 = roundedDouble1 * roundedDouble2;
+            RoundedDouble result2 = roundedDouble2 * roundedDouble1;
+
+            // Assert
+            Assert.AreEqual(result1.NumberOfDecimalPlaces, result2.NumberOfDecimalPlaces);
+            Assert.AreEqual(result1.Value, result2.Value);
+        }
     }
 }

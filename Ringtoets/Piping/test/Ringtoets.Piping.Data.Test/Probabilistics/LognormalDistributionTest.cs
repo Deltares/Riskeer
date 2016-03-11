@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 
 using NUnit.Framework;
 
@@ -22,13 +23,14 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
 
             // Assert
             Assert.IsInstanceOf<IDistribution>(distribution);
-            Assert.AreEqual(Math.Exp(-0.5), distribution.Mean, Math.Pow(10.0, -numberOfDecimalPlaces));
+            double expectedAccuracy = Math.Pow(10.0, -numberOfDecimalPlaces);
+            Assert.AreEqual(Math.Exp(-0.5), distribution.Mean, expectedAccuracy);
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(Math.Sqrt((Math.Exp(1)-1)*Math.Exp(1)), distribution.StandardDeviation);
+            Assert.AreEqual(Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1)), distribution.StandardDeviation, expectedAccuracy);
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.StandardDeviation.NumberOfDecimalPlaces);
         }
 
         [Test]
-        [TestCase(0)]
         public void Constructor_InvalidNumberOfDecimalPlaces_ThrowArgumentOutOfRangeException()
         {
             // Setup
@@ -37,7 +39,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             TestDelegate call = () => new LognormalDistribution(0);
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(call);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "Value must be in range [1, 15].");
         }
 
         [Test]
@@ -63,30 +65,68 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
         public void Mean_SettingValidValue_ValueIsSet(double newMean)
         {
             // Setup
-            var distribution = new LognormalDistribution(4);
+            const int numberOfDecimalPlaces = 4;
+            var distribution = new LognormalDistribution(numberOfDecimalPlaces);
 
             // Call
             distribution.Mean = (RoundedDouble)newMean;
 
             // Assert
             Assert.AreEqual(newMean, distribution.Mean, 1e-4);
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
         }
 
         [Test]
-        [TestCase(0 - 1e-6)]
+        [TestCase(1, 1.2)]
+        [TestCase(3, 1.235)]
+        [TestCase(4, 1.2345)]
+        [TestCase(15, 1.234500000000000)]
+        public void Mean_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
+        {
+            // Setup
+            var distribution = new LognormalDistribution(numberOfDecimalPlaces);
+
+            // Call
+            distribution.Mean = new RoundedDouble(4, 1.2345);
+
+            // Assert
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(expectedStandardDeviation, distribution.Mean.Value);
+        }
+
+        [Test]
+        [TestCase(0 - 1e-4)]
         [TestCase(-4)]
-        public void StandardDeviation_SettingNotGreaterThan0_ThrowArgumentOutOfRangeException(double newStd)
+        public void StandardDeviation_SettingToLessThan0_ThrowArgumentOutOfRangeException(double newStd)
         {
             // Setup
             var distribution = new LognormalDistribution(4);
 
             // Call
-            TestDelegate call = () => distribution.StandardDeviation = newStd;
+            TestDelegate call = () => distribution.StandardDeviation = (RoundedDouble)newStd;
 
             // Assert
             ArgumentException exception = Assert.Throws<ArgumentOutOfRangeException>(call);
             string customMessagePart = exception.Message.Split(new []{Environment.NewLine}, StringSplitOptions.None)[0];
             Assert.AreEqual("Standaard afwijking (\u03C3) moet groter zijn dan of gelijk zijn aan 0.", customMessagePart);
+        }
+
+        [Test]
+        [TestCase(1, 5.7)]
+        [TestCase(2, 5.68)]
+        [TestCase(3, 5.678)]
+        [TestCase(15, 5.678000000000000)]
+        public void StandardDeviation_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
+        {
+            // Setup
+            var distribution = new LognormalDistribution(numberOfDecimalPlaces);
+
+            // Call
+            distribution.StandardDeviation = new RoundedDouble(3, 5.678);
+
+            // Assert
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(expectedStandardDeviation, distribution.StandardDeviation.Value);
         }
     }
 }

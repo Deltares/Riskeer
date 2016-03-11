@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             var distribution = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble)1.1,
-                StandardDeviation = 2.2
+                StandardDeviation = (RoundedDouble)2.2
             };
             var designVariable = new NormalDistributionDesignVariable(distribution);
             var converter = new NormalDistributionDesignVariableTypeConverter();
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             var stdPropertyDescriptor = properties[2];
             Assert.AreEqual(distribution.GetType(), stdPropertyDescriptor.ComponentType);
-            Assert.AreEqual(typeof(double), stdPropertyDescriptor.PropertyType);
+            Assert.AreEqual(typeof(RoundedDouble), stdPropertyDescriptor.PropertyType);
             Assert.IsFalse(stdPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Standaardafwijking", stdPropertyDescriptor.DisplayName);
             Assert.AreEqual("De standaardafwijking van de normale verdeling.", stdPropertyDescriptor.Description);
@@ -161,14 +161,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             // Event
             const double newValue = 2.3;
-            if (propertyIndexToChange == 1)
-            {
-                properties[propertyIndexToChange].SetValue(phreaticLevelExitHeave, (RoundedDouble)newValue);
-            }
-            else
-            {
-                properties[propertyIndexToChange].SetValue(phreaticLevelExitHeave, newValue);
-            }
+            properties[propertyIndexToChange].SetValue(phreaticLevelExitHeave, (RoundedDouble)newValue);
 
             // Result
             switch (propertyIndexToChange)
@@ -177,7 +170,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
                     Assert.AreEqual(newValue, inputParameters.PhreaticLevelExit.Mean.Value);
                     break;
                 case 2:
-                    Assert.AreEqual(newValue, inputParameters.PhreaticLevelExit.StandardDeviation);
+                    Assert.AreEqual(newValue, inputParameters.PhreaticLevelExit.StandardDeviation.Value);
                     break;
             }
             mocks.VerifyAll();
