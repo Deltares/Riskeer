@@ -21,6 +21,8 @@
 
 using System;
 
+using Core.Common.Base.Data;
+
 using MathNet.Numerics.Distributions;
 
 using Ringtoets.Piping.Data.Properties;
@@ -90,7 +92,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
         /// Gets the design value based on the <see cref="Distribution"/> and <see cref="Percentile"/>.
         /// </summary>
         /// <returns>A design value.</returns>
-        public abstract double GetDesignValue();
+        public abstract RoundedDouble GetDesignValue();
 
         /// <summary>
         /// Determines the design value based on a 'normal space' expected value and standard deviation.
@@ -98,12 +100,12 @@ namespace Ringtoets.Piping.Data.Probabilistics
         /// <param name="expectedValue">The expected value.</param>
         /// <param name="standardDeviation">The standard deviation.</param>
         /// <returns>The design value</returns>
-        protected double DetermineDesignValue(double expectedValue, double standardDeviation)
+        protected RoundedDouble DetermineDesignValue(RoundedDouble expectedValue, RoundedDouble standardDeviation)
         {
             // Design factor is determined using the 'probit function', which is the inverse
             // CDF function of the standard normal distribution. For more information see:
             // "Quantile function" https://en.wikipedia.org/wiki/Normal_distribution
-            var designFactor = Normal.InvCDF(0.0, 1.0, Percentile);
+            double designFactor = Normal.InvCDF(0.0, 1.0, Percentile);
             return expectedValue + designFactor * standardDeviation;
         }
     }

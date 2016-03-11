@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             Assert.AreEqual("De hoeveelheid waarmee de kansverdeling naar rechts (richting van positieve X-as) verschoven is.", shiftPropertyDescriptor.Description);
 
             var designValuePropertyDescriptor = properties[4];
-            Assert.AreEqual(typeof(double), designValuePropertyDescriptor.PropertyType);
+            Assert.AreEqual(typeof(RoundedDouble), designValuePropertyDescriptor.PropertyType);
             Assert.IsTrue(designValuePropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Rekenwaarde", designValuePropertyDescriptor.DisplayName);
             Assert.AreEqual("De representatieve waarde die gebruikt wordt door de berekening.", designValuePropertyDescriptor.Description);

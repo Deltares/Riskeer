@@ -78,6 +78,13 @@ namespace Core.Common.Base.Data
                                      left.value - right.value);
         }
 
+        public static RoundedDouble operator +(RoundedDouble left, RoundedDouble right)
+        {
+            int smallestNumberOfDecimalPlaces = Math.Min(left.numberOfDecimalPlaces, right.numberOfDecimalPlaces);
+            return new RoundedDouble(smallestNumberOfDecimalPlaces,
+                                     left.value + right.value);
+        }
+
         public static RoundedDouble operator *(RoundedDouble left, double right)
         {
             return new RoundedDouble(left.numberOfDecimalPlaces, left.value * right);

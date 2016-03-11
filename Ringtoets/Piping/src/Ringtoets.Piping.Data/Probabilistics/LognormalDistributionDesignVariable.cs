@@ -21,6 +21,8 @@
 
 using System;
 
+using Core.Common.Base.Data;
+
 namespace Ringtoets.Piping.Data.Probabilistics
 {
     /// <summary>
@@ -34,9 +36,9 @@ namespace Ringtoets.Piping.Data.Probabilistics
         /// <param name="distribution">A lognormal distribution.</param>
         public LognormalDistributionDesignVariable(LognormalDistribution distribution) : base(distribution) {}
 
-        public override double GetDesignValue()
+        public override RoundedDouble GetDesignValue()
         {
-            var normalSpaceDesignValue = DetermineDesignValueInNormalDistributionSpace();
+            RoundedDouble normalSpaceDesignValue = DetermineDesignValueInNormalDistributionSpace();
             return ProjectFromNormalToLognormalSpace(normalSpaceDesignValue);
         }
 
@@ -45,7 +47,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
         /// distribution' space and calculates the design value for that value space.
         /// </summary>
         /// <returns>The design value in 'normal distribution' space.</returns>
-        private double DetermineDesignValueInNormalDistributionSpace()
+        private RoundedDouble DetermineDesignValueInNormalDistributionSpace()
         {
             // Determine normal distribution parameters from log-normal parameters, as
             // design value can only be determined in 'normal distribution' space.
@@ -54,12 +56,13 @@ namespace Ringtoets.Piping.Data.Probabilistics
             double sigmaLogOverMuLog = Distribution.StandardDeviation / Distribution.Mean;
             double sigmaNormal = Math.Sqrt(Math.Log(sigmaLogOverMuLog * sigmaLogOverMuLog + 1.0));
             double muNormal = Math.Log(Distribution.Mean) - 0.5 * sigmaNormal * sigmaNormal;
-            return DetermineDesignValue(muNormal, sigmaNormal);
+            return DetermineDesignValue(new RoundedDouble(Distribution.Mean.NumberOfDecimalPlaces, muNormal),
+                                        new RoundedDouble(Distribution.StandardDeviation.NumberOfDecimalPlaces, sigmaNormal));
         }
 
-        private static double ProjectFromNormalToLognormalSpace(double normalSpaceDesignValue)
+        private static RoundedDouble ProjectFromNormalToLognormalSpace(RoundedDouble normalSpaceDesignValue)
         {
-            return Math.Exp(normalSpaceDesignValue);
+            return new RoundedDouble(normalSpaceDesignValue.NumberOfDecimalPlaces, Math.Exp(normalSpaceDesignValue));
         }
     }
 }

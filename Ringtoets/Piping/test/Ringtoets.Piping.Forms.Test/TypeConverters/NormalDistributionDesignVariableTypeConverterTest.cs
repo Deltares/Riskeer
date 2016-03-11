@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             Assert.AreEqual("De standaardafwijking van de normale verdeling.", stdPropertyDescriptor.Description);
 
             var designValuePropertyDescriptor = properties[3];
-            Assert.AreEqual(typeof(double), designValuePropertyDescriptor.PropertyType);
+            Assert.AreEqual(typeof(RoundedDouble), designValuePropertyDescriptor.PropertyType);
             Assert.IsTrue(designValuePropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Rekenwaarde", designValuePropertyDescriptor.DisplayName);
             Assert.AreEqual("De representatieve waarde die gebruikt wordt door de berekening.", designValuePropertyDescriptor.Description);

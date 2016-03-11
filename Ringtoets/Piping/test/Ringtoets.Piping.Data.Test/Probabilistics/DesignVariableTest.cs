@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Core.Common.Base.Data;
+
 using NUnit.Framework;
 
 using Rhino.Mocks;
@@ -108,7 +110,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
         {
             public SimpleDesignVariable(IDistribution distribution) : base(distribution) {}
 
-            public override double GetDesignValue()
+            public override RoundedDouble GetDesignValue()
             {
                 throw new NotImplementedException();
             }

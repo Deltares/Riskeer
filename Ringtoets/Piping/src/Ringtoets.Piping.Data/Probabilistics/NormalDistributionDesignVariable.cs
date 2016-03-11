@@ -19,13 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
+
 namespace Ringtoets.Piping.Data.Probabilistics
 {
     public class NormalDistributionDesignVariable : DesignVariable<NormalDistribution>
     {
         public NormalDistributionDesignVariable(NormalDistribution distribution) : base(distribution) {}
 
-        public override double GetDesignValue()
+        public override RoundedDouble GetDesignValue()
         {
             return DetermineDesignValue(Distribution.Mean, Distribution.StandardDeviation);
         }

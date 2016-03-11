@@ -569,6 +569,40 @@ namespace Core.Common.Base.Test.Data
         }
 
         [Test]
+        public void OperatorPlus_LeftHasLowestPrecision_ReturnRoundedDoubleWithSumRoundedToLeastNumberOfDecimalPlaces()
+        {
+            // Setup
+            const int lowestNumberOfDecimalPlaces = 2;
+
+            var value1 = new RoundedDouble(lowestNumberOfDecimalPlaces, 1.12);
+            var value2 = new RoundedDouble(3, 3.456);
+
+            // Call
+            RoundedDouble diff = value1 + value2;
+
+            // Assert
+            Assert.AreEqual(lowestNumberOfDecimalPlaces, diff.NumberOfDecimalPlaces);
+            Assert.AreEqual(4.58, diff.Value);
+        }
+
+        [Test]
+        public void OperatorPlus_RightHasLowestPrecision_ReturnRoundedDoubleWithSumRoundedToLeastNumberOfDecimalPlaces()
+        {
+            // Setup
+            const int lowestNumberOfDecimalPlaces = 1;
+
+            var value1 = new RoundedDouble(6, 1.123456);
+            var value2 = new RoundedDouble(lowestNumberOfDecimalPlaces, -7.8);
+
+            // Call
+            RoundedDouble diff = value1 + value2;
+
+            // Assert
+            Assert.AreEqual(lowestNumberOfDecimalPlaces, diff.NumberOfDecimalPlaces);
+            Assert.AreEqual(-6.7, diff.Value);
+        }
+
+        [Test]
         public void OperatorTimes_RoundedDoubleTimesDouble_ReturnResultAsRoundedDoublePreservingNumberOfDecimalPlaces()
         {
             // Setup

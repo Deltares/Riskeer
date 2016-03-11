@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
+
 namespace Ringtoets.Piping.Data.Probabilistics
 {
     /// <summary>
@@ -37,7 +39,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
             this.distribution = distribution;
         }
 
-        public override double GetDesignValue()
+        public override RoundedDouble GetDesignValue()
         {
             return new LognormalDistributionDesignVariable(Distribution)
             {
