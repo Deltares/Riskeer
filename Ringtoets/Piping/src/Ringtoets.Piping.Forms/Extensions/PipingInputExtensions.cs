@@ -66,9 +66,18 @@ namespace Ringtoets.Piping.Forms.Extensions
         /// </list></exception>
         public static void SetExitPointL(this PipingInput input, RoundedDouble exitPointL)
         {
-            input.ExitPointL = exitPointL;
-            input.UpdateThicknessCoverageLayer();
-            input.UpdateThicknessAquiferLayer();
+            var oldValue = input.ExitPointL;
+            try
+            {
+                input.ExitPointL = exitPointL;
+                input.UpdateThicknessCoverageLayer();
+                input.UpdateThicknessAquiferLayer();
+            }
+            catch
+            {
+                input.ExitPointL = oldValue;
+                throw;
+            }
         }
 
         private static void UpdateThicknessAquiferLayer(this PipingInput input)

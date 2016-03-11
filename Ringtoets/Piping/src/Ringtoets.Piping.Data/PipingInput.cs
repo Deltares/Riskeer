@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Data
             };
             SaturatedVolumicWeightOfCoverageLayer = new ShiftedLognormalDistribution(2)
             {
-                Shift = 10,
+                Shift = (RoundedDouble) 10,
                 Mean = (RoundedDouble) 17.5,
                 StandardDeviation = (RoundedDouble)0
             };

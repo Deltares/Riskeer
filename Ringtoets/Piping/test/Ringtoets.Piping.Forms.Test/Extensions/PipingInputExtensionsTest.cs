@@ -730,6 +730,22 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             Assert.AreEqual(0.5, input.ThicknessAquiferLayer.Mean.Value);
         }
 
+
+        [Test]
+        public void SetExitPointL_ExitPointPastSurfaceLine_ThrowsArgumentOutOfRangeExceptionExitPointLNotChanged()
+        {
+            // Setup
+            var input = CreateInputWithAquiferAndCoverageLayer();
+            var exitPointBefore = input.ExitPointL;
+
+            // Call
+            TestDelegate test = () => input.SetExitPointL((RoundedDouble)1.1);
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(test);
+            Assert.AreEqual(exitPointBefore, input.ExitPointL);
+        }
+
         [Test]
         public void SetSurfaceLine_SoilProfileSingleAquiferUnderSurfaceLine_ThicknessAquiferLayerMeanSet()
         {
