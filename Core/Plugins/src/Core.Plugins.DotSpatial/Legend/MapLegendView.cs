@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
@@ -277,6 +278,10 @@ namespace Core.Plugins.DotSpatial.Legend
                 string message = new FileReaderErrorMessageBuilder(filePath)
                     .Build(DotSpatialResources.MapLegendView_CheckDataFormat_An_Error_Occured_When_Trying_To_Read_The_File);
                 log.Error(message);
+            }
+            catch (CriticalFileReadException e)
+            {
+                log.Error(e.Message);
             }
         }
 
