@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui;
@@ -29,7 +30,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         public void SaveProjectAs_SaveAsNewFile_ProjectAsEntitiesInBothFiles()
         {
             // Setup
-            Project fullProject = GetFullProject();
+            Project fullProject = RingtoetsProjectHelper.GetFullTestProject();
             var tempFile = Path.Combine(testDataPath, "tempProjectAsFile.rtd");
 
             StorageSqLite storage = new StorageSqLite();
@@ -83,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             // Setup
             StorageSqLite storage = new StorageSqLite();
-            Project fullProject = GetFullProject();
+            Project fullProject = RingtoetsProjectHelper.GetFullTestProject();
             TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, fullProject);
             Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
 
@@ -107,13 +108,19 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         public void GivenRingtoetsGuiWithStorageSql_WhenRunWithValidFile_ProjectSet()
         {
             // Setup
-            var testFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
             var projectStore = new StorageSqLite();
+            Project fullProject = RingtoetsProjectHelper.GetFullTestProject();
+            var expectedProjectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
+            var expectedProjectDescritpion = fullProject.Description;
+
+            // Precondition
+            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, fullProject);
+            Assert.DoesNotThrow(precondition, "Precondition failed: creating database file failed");
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {
                 // Call
-                Action action = () => gui.Run(testFile);
+                Action action = () => gui.Run(tempRingtoetsFile);
 
                 // Assert
                 var expectedMessages = new[]
@@ -122,12 +129,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     "Bestaand Ringtoetsproject succesvol geopend.",
                 };
                 TestHelper.AssertLogMessagesAreGenerated(action, expectedMessages, 11);
-                Assert.AreEqual(testFile, gui.ProjectFilePath);
+                Assert.AreEqual(tempRingtoetsFile, gui.ProjectFilePath);
                 Assert.NotNull(gui.Project);
-                Assert.AreEqual("ValidRingtoetsDatabase", gui.Project.Name);
-                Assert.AreEqual("Test description", gui.Project.Description);
-                CollectionAssert.IsEmpty(gui.Project.Items);
+                Assert.AreEqual(expectedProjectName, gui.Project.Name);
+                Assert.AreEqual(expectedProjectDescritpion, gui.Project.Description);
             }
+
+            // TearDown
+            TearDownTempRingtoetsFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -187,26 +196,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.IsEmpty(gui.Project.Description);
                 CollectionAssert.IsEmpty(gui.Project.Items);
             }
-        }
-
-        private static Project GetFullProject()
-        {
-            return new Project()
-            {
-                Name = "tempProjectFile",
-                Description = "description",
-                Items =
-                {
-                    new DikeAssessmentSection
-                    {
-                        Name = "dikeAssessmentSection"
-                    },
-                    new DuneAssessmentSection
-                    {
-                        Name = "duneAssessmentSection"
-                    }
-                }
-            };
         }
 
         private void TearDownTempRingtoetsFile(string filePath)

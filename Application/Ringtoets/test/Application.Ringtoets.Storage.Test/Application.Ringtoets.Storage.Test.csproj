@@ -28,7 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-	<PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
     <OutputPath>bin\ReleaseForCodeCoverage\</OutputPath>
@@ -89,6 +89,7 @@
     <Compile Include="DbContext\DikeAssessmentSectionEntityTest.cs" />
     <Compile Include="DbContext\DuneAssessmentSectionEntityTest.cs" />
     <Compile Include="DbContext\ProjectEntityTest.cs" />
+    <Compile Include="RingtoetsDatabaseCreator.cs" />
     <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
     <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />
     <Compile Include="Persistors\DikeAssessmentSectionEntityPersistorTest.cs" />
@@ -136,8 +137,15 @@
       <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
       <Name>Application.Ringtoets.Storage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Application.Ringtoets.Storage.TestUtil\Application.Ringtoets.Storage.TestUtil.csproj">
+      <Project>{03DBE353-99F7-47D6-B826-60D694FFB9AC}</Project>
+      <Name>Application.Ringtoets.Storage.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>

@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
@@ -20,7 +21,7 @@ namespace Application.Ringtoets.Storage.Test
         [TestFixtureTearDown]
         public void TearDownTempRingtoetsFile()
         {
-            TearDownTempRingtoetsFile(tempRingtoetsFile);
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -93,17 +94,20 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        [TestCase("corruptRingtoetsDatabase.rtd")]
-        public void LoadProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace(string validPath)
+        public void LoadProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace()
         {
             // Setup
-            var tempFile = Path.Combine(testDataPath, validPath);
-            var expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': ", tempFile);
+            SetUpTempRingtoetsFile(tempRingtoetsFile);
+
+            var expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': ", tempRingtoetsFile);
             var expectedInnerExceptionMessage = "An error occurred while executing the command definition. See the inner exception for details.";
             var expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database\r\nno such table: ProjectEntity";
 
+            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateDatabaseFile(tempRingtoetsFile, SqLiteDatabaseHelper.GetCorruptSchema());
+            Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
+
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(tempFile);
+            TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
 
             // Assert
             StorageException exception = Assert.Throws<StorageException>(test);
@@ -115,28 +119,38 @@ namespace Application.Ringtoets.Storage.Test
 
             Assert.IsInstanceOf<SQLiteException>(exception.InnerException.InnerException);
             Assert.AreEqual(expectedInnerExceptionInnerExceptionMessage, exception.InnerException.InnerException.Message);
+
+            // TearDown
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
-        [TestCase("ValidRingtoetsDatabase.rtd")]
-        public void LoadProject_ValidDatabase_ReturnsProject(string validPath)
+        public void LoadProject_ValidDatabase_ReturnsProject()
         {
             // Setup
-            var dbFile = Path.Combine(testDataPath, validPath);
-            var projectName = Path.GetFileNameWithoutExtension(validPath);
+            var projectName = Path.GetFileNameWithoutExtension(tempRingtoetsFile);
             var storage = new StorageSqLite();
+            var mockRepository = new MockRepository();
+            var projectMock = mockRepository.StrictMock<Project>();
+            projectMock.Description = "<some description>";
+            projectMock.StorageId = 1L;
+            SetUpTempRingtoetsFile(tempRingtoetsFile);
 
             // Precondition
-            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
+            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, projectMock);
+            Assert.DoesNotThrow(precondition, "Precondition failed: creating database file failed");
 
             // Call
-            Project loadedProject = storage.LoadProject(dbFile);
+            Project loadedProject = storage.LoadProject(tempRingtoetsFile);
 
             // Assert
             Assert.IsInstanceOf<Project>(loadedProject);
-            Assert.AreEqual(1, loadedProject.StorageId);
+            Assert.AreEqual(1L, loadedProject.StorageId);
             Assert.AreEqual(projectName, loadedProject.Name);
-            Assert.AreEqual("Test description", loadedProject.Description);
+            Assert.AreEqual(projectMock.Description, loadedProject.Description);
+
+            // TearDown
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -171,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test
             Assert.Throws<ArgumentNullException>(test);
 
             // Tear Down
-            TearDownTempRingtoetsFile(tempRingtoetsFile);
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -188,7 +202,7 @@ namespace Application.Ringtoets.Storage.Test
             Assert.DoesNotThrow(test);
 
             // Tear Down
-            TearDownTempRingtoetsFile(tempRingtoetsFile);
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -206,7 +220,7 @@ namespace Application.Ringtoets.Storage.Test
             Assert.DoesNotThrow(test);
 
             // Tear Down
-            TearDownTempRingtoetsFile(tempRingtoetsFile);
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -233,7 +247,7 @@ namespace Application.Ringtoets.Storage.Test
             Assert.AreEqual(expectedMessage, exception.Message);
 
             // Tear Down
-            TearDownTempRingtoetsFile(tempRingtoetsFile);
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -259,14 +273,21 @@ namespace Application.Ringtoets.Storage.Test
         public void SaveProject_InvalidProject_ThrowsArgumentNullException()
         {
             // Setup
-            var tempFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
             var storage = new StorageSqLite();
+            Project storedProject = new Project();
+
+            // Precondition
+            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
+            Assert.DoesNotThrow(precondition, "Precondition failed: creating database file failed");
 
             // Call
-            TestDelegate test = () => storage.SaveProject(tempFile, null);
+            TestDelegate test = () => storage.SaveProject(tempRingtoetsFile, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
+
+            // TearDown
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -293,48 +314,62 @@ namespace Application.Ringtoets.Storage.Test
             Assert.IsInstanceOf<CouldNotConnectException>(exception.InnerException);
             Assert.AreEqual(expectedInnerMessage, exception.InnerException.Message);
 
-            // Tear Down
-            TearDownTempRingtoetsFile(tempFile);
+            // TearDown
+            SqLiteDatabaseHelper.TearDownTempFile(tempFile);
         }
 
         [Test]
         public void SaveProject_EmptyDatabaseFile_ThrowsStorageException()
         {
             // Setup
-            var project = new Project
+            var savedProject = new Project
+            {
+                StorageId = 1L
+            };
+            var projectWithIncorrectStorageId = new Project
             {
                 StorageId = 1234L
             };
-            var tempFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
             var storage = new StorageSqLite();
-            var expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}'{1}: {2}", tempFile, "",
-                                                String.Format("Het object '{0}' met id '{1}' is niet gevonden.", "project", project.StorageId));
+            var expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}'{1}: {2}", tempRingtoetsFile, "",
+                                                String.Format("Het object '{0}' met id '{1}' is niet gevonden.", "project", projectWithIncorrectStorageId.StorageId));
+
+            // Precondition
+            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, savedProject);
+            Assert.DoesNotThrow(precondition, "Precondition failed: creating database file failed");
 
             // Call
-            TestDelegate test = () => storage.SaveProject(tempFile, project);
+            TestDelegate test = () => storage.SaveProject(tempRingtoetsFile, projectWithIncorrectStorageId);
 
             // Assert
             StorageException exception = Assert.Throws<StorageException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
+
+            // TearDown
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
-        [TestCase("corruptRingtoetsDatabase.rtd")]
-        public void SaveProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace(string validPath)
+        public void SaveProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace()
         {
             // Setup
+            SetUpTempRingtoetsFile(tempRingtoetsFile);
+
             var project = new Project
             {
                 StorageId = 1234L
             };
-            var tempFile = Path.Combine(testDataPath, validPath);
+
             var storage = new StorageSqLite();
-            var expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}'{1}: {2}", tempFile, "", "Een fout is opgetreden met het updaten van het Ringtoets bestand.");
+            var expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}'{1}: {2}", tempRingtoetsFile, "", "Een fout is opgetreden met het updaten van het Ringtoets bestand.");
             var expectedInnerExceptionMessage = "An error occurred while executing the command definition. See the inner exception for details.";
             var expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database\r\nno such table: ProjectEntity";
 
+            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateDatabaseFile(tempRingtoetsFile, SqLiteDatabaseHelper.GetCorruptSchema());
+            Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
+
             // Call
-            TestDelegate test = () => storage.SaveProject(tempFile, project);
+            TestDelegate test = () => storage.SaveProject(tempRingtoetsFile, project);
 
             // Assert
             StorageException exception = Assert.Throws<StorageException>(test);
@@ -346,6 +381,9 @@ namespace Application.Ringtoets.Storage.Test
 
             Assert.IsInstanceOf<SQLiteException>(exception.InnerException.InnerException);
             Assert.AreEqual(expectedInnerExceptionInnerExceptionMessage, exception.InnerException.InnerException.Message);
+
+            // TearDown
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -371,7 +409,7 @@ namespace Application.Ringtoets.Storage.Test
             Assert.AreEqual(projectName, project.Name);
 
             // TearDown
-            TearDownTempRingtoetsFile(tempRingtoetsFile);
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -396,17 +434,23 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             StorageSqLite storageSqLite = new StorageSqLite();
-            var dbFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
+            Project storedProject = new Project();
 
             // Precondition
-            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
-            Project loadedProject = storageSqLite.LoadProject(dbFile);
+            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
+            Assert.DoesNotThrow(precondition, "Precondition failed: creating database file failed");
+
+            // Precondition
+            Project loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
 
             // Call
             bool hasChanges = storageSqLite.HasChanges(loadedProject);
 
             // Assert
             Assert.IsFalse(hasChanges);
+
+            // TearDown
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -414,12 +458,15 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             StorageSqLite storageSqLite = new StorageSqLite();
-            var dbFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
+            Project storedProject = new Project();
             var changedName = "some name";
 
             // Precondition
-            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
-            Project loadedProject = storageSqLite.LoadProject(dbFile);
+            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
+            Assert.DoesNotThrow(precondition, "Precondition failed: creating database file failed");
+
+            // Precondition
+            Project loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
 
             // Call
             loadedProject.Name = changedName;
@@ -427,6 +474,9 @@ namespace Application.Ringtoets.Storage.Test
 
             // Assert
             Assert.IsFalse(hasChanges);
+
+            // TearDown
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -434,12 +484,15 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             StorageSqLite storageSqLite = new StorageSqLite();
-            var dbFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
+            Project storedProject = new Project();
             var changedDescription = "some description";
 
             // Precondition
-            Assert.IsTrue(File.Exists(dbFile), "Precondition: file must exist.");
-            Project loadedProject = storageSqLite.LoadProject(dbFile);
+            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
+            Assert.DoesNotThrow(precondition, "Precondition failed: creating database file failed");
+
+            // Precondition
+            Project loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
 
             // Call
             loadedProject.Description = changedDescription;
@@ -447,6 +500,9 @@ namespace Application.Ringtoets.Storage.Test
 
             // Assert
             Assert.IsTrue(hasChanges);
+
+            // TearDown
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         [Test]
@@ -458,13 +514,14 @@ namespace Application.Ringtoets.Storage.Test
             projectMock.StorageId = 1234L;
             mockRepository.ReplayAll();
 
-            var tempFile = Path.Combine(testDataPath, "ValidRingtoetsDatabase.rtd");
+            SetUpTempRingtoetsFile(tempRingtoetsFile);
+
             var storage = new StorageSqLite();
             bool hasChanges = true;
 
-            // Precondition, ignore return value
-            TestDelegate loadProjectToSetFilePath = () => storage.LoadProject(tempFile);
-            Assert.DoesNotThrow(loadProjectToSetFilePath, "Precondition failed: LoadProject failed");
+            // Precondition, required to set the connection string
+            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, projectMock);
+            Assert.DoesNotThrow(precondition, "Precondition failed: creating database file failed");
 
             // Call
             hasChanges = storage.HasChanges(projectMock);
@@ -472,25 +529,18 @@ namespace Application.Ringtoets.Storage.Test
             // Assert
             Assert.IsFalse(hasChanges);
             mockRepository.VerifyAll();
+
+            // TearDown
+            SqLiteDatabaseHelper.TearDownTempFile(tempRingtoetsFile);
         }
 
         private static void SetUpTempRingtoetsFile(string filePath)
         {
             if (File.Exists(filePath))
             {
-                TearDownTempRingtoetsFile(filePath);
+                SqLiteDatabaseHelper.TearDownTempFile(filePath);
             }
             using (File.Create(filePath)) {}
-        }
-
-        private static void TearDownTempRingtoetsFile(string filePath)
-        {
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            if (!string.IsNullOrWhiteSpace(filePath) && File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
         }
     }
 }
