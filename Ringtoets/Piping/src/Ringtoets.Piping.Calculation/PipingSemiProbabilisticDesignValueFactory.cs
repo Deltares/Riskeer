@@ -32,6 +32,14 @@ namespace Ringtoets.Piping.Calculation
         #region General parameters
 
         /// <summary>
+        /// Creates the design variable for <see cref="PipingInput.SaturatedVolumicWeightOfCoverageLayer"/>.
+        /// </summary>
+        public static DesignVariable<LognormalDistribution> GetSaturatedVolumicWeightOfCoverageLayer(PipingInput parameters)
+        {
+            return CreateDesignVariable(parameters.SaturatedVolumicWeightOfCoverageLayer, 0.05);
+        }
+
+        /// <summary>
         /// Creates the design variable for <see cref="PipingInput.ThicknessCoverageLayer"/>.
         /// </summary>
         public static DesignVariable<LognormalDistribution> GetThicknessCoverageLayer(PipingInput parameters)

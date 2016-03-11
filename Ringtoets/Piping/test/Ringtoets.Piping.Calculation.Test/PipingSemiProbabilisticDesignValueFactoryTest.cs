@@ -24,6 +24,20 @@ namespace Ringtoets.Piping.Calculation.Test
         }
 
         [Test]
+        public void GetSaturatedVolumicWeightOfCoverageLayer_ValidPipingCalculation_CreateDesignVariableForThicknessCoverageLayer()
+        {
+            // Setup
+            var inputParameters = new PipingInput(new GeneralPipingInput());
+
+            // Call
+            var saturatedVolumicWeightOfCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters);
+
+            // Assert
+            Assert.AreSame(inputParameters.SaturatedVolumicWeightOfCoverageLayer, saturatedVolumicWeightOfCoverageLayer.Distribution);
+            Assert.AreEqual(0.05, saturatedVolumicWeightOfCoverageLayer.Percentile);
+        }
+
+        [Test]
         public void GetPhreaticLevelExit_ValidPipingCalculation_CreateDesignVariableForPhreaticLevelExit()
         {
             // Setup

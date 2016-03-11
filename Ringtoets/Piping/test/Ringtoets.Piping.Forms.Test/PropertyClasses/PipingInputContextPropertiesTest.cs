@@ -82,8 +82,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             Assert.AreEqual(inputParameters.PiezometricHeadExit, properties.PiezometricHeadExitHeave);
             Assert.AreEqual(inputParameters.PiezometricHeadExit, properties.PiezometricHeadExitUplift);
-            Assert.AreEqual(inputParameters.PiezometricHeadPolder, properties.PiezometricHeadPolderHeave);
-            Assert.AreEqual(inputParameters.PiezometricHeadPolder, properties.PiezometricHeadPolderUplift);
             Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevelSellmeijer);
             Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevelUplift);
 
@@ -136,7 +134,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var projectObserver = mocks.StrictMock<IObserver>();
-            int numberProperties = 12;
+            int numberProperties = 11;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
@@ -147,7 +145,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             double assessmentLevel = random.NextDouble();
             double piezometricHeadExit = random.NextDouble();
-            double piezometricHeadPolder = random.NextDouble();
             
             var dampingFactorExit = new LognormalDistribution(3);
             var phreaticLevelExit = new NormalDistribution(2);
@@ -170,7 +167,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 PiezometricHeadExitUplift = piezometricHeadExit,
                 DampingFactorExitHeave = new LognormalDistributionDesignVariable(dampingFactorExit),
                 PhreaticLevelExitHeave = new NormalDistributionDesignVariable(phreaticLevelExit),
-                PiezometricHeadPolderHeave = piezometricHeadPolder,
                 ThicknessCoverageLayerSellmeijer = new LognormalDistributionDesignVariable(thicknessCoverageLayer),
                 SeepageLength = new LognormalDistributionDesignVariable(seepageLength),
                 Diameter70 = new LognormalDistributionDesignVariable(diameter70),
@@ -186,7 +182,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(piezometricHeadExit, inputParameters.PiezometricHeadExit);
             Assert.AreEqual(dampingFactorExit, inputParameters.DampingFactorExit);
             Assert.AreEqual(phreaticLevelExit, inputParameters.PhreaticLevelExit);
-            Assert.AreEqual(piezometricHeadPolder, inputParameters.PiezometricHeadPolder);
             Assert.AreEqual(thicknessCoverageLayer, inputParameters.ThicknessCoverageLayer);
             Assert.AreEqual(seepageLength, inputParameters.SeepageLength);
             Assert.AreEqual(diameter70, inputParameters.Diameter70);

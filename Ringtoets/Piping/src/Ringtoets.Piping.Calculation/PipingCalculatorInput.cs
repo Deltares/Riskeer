@@ -34,7 +34,6 @@ namespace Ringtoets.Piping.Calculation
         private readonly double piezometricHeadExit;
         private readonly double dampingFactorExit;
         private readonly double phreaticLevelExit;
-        private readonly double piezometricHeadPolder;
         private readonly double criticalHeaveGradient;
         private readonly double thicknessCoverageLayer;
         private readonly double sellmeijerModelFactor;
@@ -65,7 +64,6 @@ namespace Ringtoets.Piping.Calculation
         /// <param name="piezometricHeadExit">The piezometric head at the exit point. [m]</param>
         /// <param name="dampingFactorExit">The damping factor at the exit point. </param>
         /// <param name="phreaticLevelExit">The phreatic level at the exit point. [m]</param>
-        /// <param name="piezometricHeadPolder">The piezometric head in the hinterland. [m]</param>
         /// <param name="criticalHeaveGradient">The critical exit gradient for heave.</param>
         /// <param name="thicknessCoverageLayer">The total thickness of the coverage layer at the exit point. [m]</param>
         /// <param name="sellmeijerModelFactor">The calculation value used to account for uncertainty in the model for Sellmeijer.</param>
@@ -83,7 +81,7 @@ namespace Ringtoets.Piping.Calculation
         /// <param name="exitPointXCoordinate">The x coordinate of the exit point. [m]</param>
         /// <param name="surfaceLine">The surface line.</param>
         /// <param name="soilProfile">The profile which contains a 1 dimensional definition of soil layers with properties.</param>
-        public PipingCalculatorInput(double waterVolumetricWeight, double saturatedVolumicWeightOfCoverageLayer, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double piezometricHeadPolder, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
+        public PipingCalculatorInput(double waterVolumetricWeight, double saturatedVolumicWeightOfCoverageLayer, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
         {
             this.waterVolumetricWeight = waterVolumetricWeight;
             this.saturatedVolumicWeightOfCoverageLayer = saturatedVolumicWeightOfCoverageLayer;
@@ -92,7 +90,6 @@ namespace Ringtoets.Piping.Calculation
             this.piezometricHeadExit = piezometricHeadExit;
             this.dampingFactorExit = dampingFactorExit;
             this.phreaticLevelExit = phreaticLevelExit;
-            this.piezometricHeadPolder = piezometricHeadPolder;
             this.criticalHeaveGradient = criticalHeaveGradient;
             this.thicknessCoverageLayer = thicknessCoverageLayer;
             this.sellmeijerModelFactor = sellmeijerModelFactor;
@@ -181,18 +178,6 @@ namespace Ringtoets.Piping.Calculation
             get
             {
                 return phreaticLevelExit;
-            }
-        }
-
-        /// <summary>
-        /// Gets the piezometric head in the hinterland.
-        /// [m]
-        /// </summary>
-        public double PiezometricHeadPolder
-        {
-            get
-            {
-                return piezometricHeadPolder;
             }
         }
 

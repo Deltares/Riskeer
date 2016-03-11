@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Calculation
             {
                 upliftCalculatorValidationResults = ValidateUpliftCalculator();
             }
-            List<string> heaveCalculatorValidationResults = CreateHeaveCalculator(CalculatePiezometricHeadAtExit()).Validate();
+            List<string> heaveCalculatorValidationResults = CreateHeaveCalculator().Validate();
             List<string> sellmeijerCalculatorValidationResults = CreateSellmeijerCalculator().Validate();
 
             return upliftCalculatorValidationResults
@@ -203,7 +203,7 @@ namespace Ringtoets.Piping.Calculation
         {
             try
             {
-                return CreateUpliftCalculator(CalculatePiezometricHeadAtExit()).Validate();
+                return CreateUpliftCalculator().Validate();
             }
             catch (Exception exception)
             {
@@ -236,7 +236,7 @@ namespace Ringtoets.Piping.Calculation
 
         private IHeaveCalculator CalculateHeave()
         {
-            var heaveCalculator = CreateHeaveCalculator(CalculatePiezometricHeadAtExit());
+            var heaveCalculator = CreateHeaveCalculator();
 
             try
             {
@@ -252,7 +252,7 @@ namespace Ringtoets.Piping.Calculation
 
         private IUpliftCalculator CalculateUplift()
         {
-            IUpliftCalculator upliftCalculator = CreateUpliftCalculator(CalculatePiezometricHeadAtExit());
+            IUpliftCalculator upliftCalculator = CreateUpliftCalculator();
 
             try
             {
@@ -270,11 +270,11 @@ namespace Ringtoets.Piping.Calculation
             return upliftCalculator;
         }
 
-        private IHeaveCalculator CreateHeaveCalculator(double phiExit)
+        private IHeaveCalculator CreateHeaveCalculator()
         {
             var calculator = factory.CreateHeaveCalculator();
             calculator.Ich = input.CriticalHeaveGradient;
-            calculator.PhiExit = phiExit;
+            calculator.PhiExit = input.PiezometricHeadExit;
             calculator.DTotal = input.ThicknessCoverageLayer;
             calculator.PhiPolder = input.PhreaticLevelExit;
             calculator.RExit = input.DampingFactorExit;
@@ -282,7 +282,7 @@ namespace Ringtoets.Piping.Calculation
             return calculator;
         }
 
-        private IUpliftCalculator CreateUpliftCalculator(double phiExit)
+        private IUpliftCalculator CreateUpliftCalculator()
         {
             var effectiveStress = DetermineEffectiveStressForOneLayerProfile(input.ThicknessCoverageLayer, input.SaturatedVolumicWeightOfCoverageLayer, input.WaterVolumetricWeight);
 
@@ -291,7 +291,7 @@ namespace Ringtoets.Piping.Calculation
             calculator.ModelFactorUplift = input.UpliftModelFactor;
             calculator.EffectiveStress = effectiveStress;
             calculator.HRiver = input.AssessmentLevel;
-            calculator.PhiExit = phiExit;
+            calculator.PhiExit = input.PiezometricHeadExit;
             calculator.RExit = input.DampingFactorExit;
             calculator.HExit = input.PhreaticLevelExit;
             calculator.PhiPolder = input.PhreaticLevelExit;

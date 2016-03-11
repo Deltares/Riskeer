@@ -16,7 +16,6 @@ namespace Ringtoets.Piping.Calculation.TestUtil
         public double PiezometricHeadExit;
         public double DampingFactorExit;
         public double PhreaticLevelExit;
-        public double PiezometricHeadPolder;
         public double CriticalHeaveGradient;
         public double ThicknessCoverageLayer;
         public double SellmeijerModelFactor;
@@ -47,7 +46,6 @@ namespace Ringtoets.Piping.Calculation.TestUtil
             PiezometricHeadExit = NextIncrementalDouble();
             PhreaticLevelExit = NextIncrementalDouble();
             DampingFactorExit = NextIncrementalDouble();
-            PiezometricHeadPolder = NextIncrementalDouble();
             CriticalHeaveGradient = NextIncrementalDouble();
             ThicknessCoverageLayer = NextIncrementalDouble();
             SellmeijerModelFactor = NextIncrementalDouble();
@@ -113,7 +111,6 @@ namespace Ringtoets.Piping.Calculation.TestUtil
                 PiezometricHeadExit,
                 DampingFactorExit,
                 PhreaticLevelExit,
-                PiezometricHeadPolder,
                 CriticalHeaveGradient,
                 ThicknessCoverageLayer,
                 SellmeijerModelFactor,

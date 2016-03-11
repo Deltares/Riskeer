@@ -72,6 +72,12 @@ namespace Ringtoets.Piping.Data
                 Mean = (RoundedDouble)double.NaN,
                 StandardDeviation = (RoundedDouble)0.5
             };
+            SaturatedVolumicWeightOfCoverageLayer = new ShiftedLognormalDistribution(2)
+            {
+                Shift = 10,
+                Mean = (RoundedDouble) 17.5,
+                StandardDeviation = (RoundedDouble)0
+            };
             SeepageLength = new LognormalDistribution(2)
             {
                 Mean = (RoundedDouble)double.NaN,
@@ -156,12 +162,6 @@ namespace Ringtoets.Piping.Data
         /// [m]
         /// </summary>
         public double PiezometricHeadExit { get; set; }
-
-        /// <summary>
-        /// Gets or sets the piezometric head in the hinterland.
-        /// [m]
-        /// </summary>
-        public double PiezometricHeadPolder { get; set; }
 
         /// <summary>
         /// Gets or sets the surface line.
@@ -317,7 +317,7 @@ namespace Ringtoets.Piping.Data
             {
                 SeepageLength.Mean = ExitPointL - EntryPointL;
             }
-            catch (ArgumentOutOfRangeException e)
+            catch (ArgumentOutOfRangeException)
             {
                 SeepageLength.Mean = (RoundedDouble)double.NaN;
             }
@@ -368,6 +368,11 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the damping factor at the exit point.
         /// </summary>
         public LognormalDistribution DampingFactorExit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the volumic weight of the saturated coverage layer.
+        /// </summary>
+        public ShiftedLognormalDistribution SaturatedVolumicWeightOfCoverageLayer { get; set; }
 
         #endregion
     }

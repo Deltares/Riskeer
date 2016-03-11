@@ -69,19 +69,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             return data.AvailableHydraulicBoundaryLocations;
         }
 
-        private double PiezometricHeadPolder
-        {
-            get
-            {
-                return data.WrappedData.PiezometricHeadPolder;
-            }
-            set
-            {
-                data.WrappedData.PiezometricHeadPolder = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
         private RoundedDouble AssessmentLevel
         {
             get
@@ -244,21 +231,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "Categories_Heave")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInput_PiezometricHeadPolder_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInput_PiezometricHeadPolder_Description")]
-        public double PiezometricHeadPolderHeave
-        {
-            get
-            {
-                return PiezometricHeadPolder;
-            }
-            set
-            {
-                PiezometricHeadPolder = value;
-            }
-        }
-
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Heave")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_DampingFactorExit_DisplayName")]
@@ -382,21 +354,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             set
             {
                 PhreaticLevelExit = value;
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInput_PiezometricHeadPolder_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInput_PiezometricHeadPolder_Description")]
-        public double PiezometricHeadPolderUplift
-        {
-            get
-            {
-                return PiezometricHeadPolder;
-            }
-            set
-            {
-                PiezometricHeadPolder = value;
             }
         }
 

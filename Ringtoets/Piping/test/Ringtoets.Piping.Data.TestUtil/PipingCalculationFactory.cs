@@ -65,7 +65,6 @@ namespace Ringtoets.Piping.Data.TestUtil
                     },
                     ExitPointL = (RoundedDouble)1.0,
                     PiezometricHeadExit = 1.0,
-                    PiezometricHeadPolder = 1.0,
                     PhreaticLevelExit =
                     {
                         Mean = (RoundedDouble)2.0

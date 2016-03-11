@@ -631,7 +631,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             calculation.InputParameters.ExitPointL = validPipingInput.ExitPointXCoordinate;
             calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble)validPipingInput.PhreaticLevelExit;
             calculation.InputParameters.PiezometricHeadExit = validPipingInput.PiezometricHeadExit;
-            calculation.InputParameters.PiezometricHeadPolder = validPipingInput.PiezometricHeadPolder;
             calculation.InputParameters.SeepageLength.Mean = (RoundedDouble)validPipingInput.SeepageLength;
             calculation.InputParameters.ThicknessAquiferLayer.Mean = (RoundedDouble)validPipingInput.ThicknessAquiferLayer;
             calculation.InputParameters.ThicknessCoverageLayer.Mean = (RoundedDouble)validPipingInput.ThicknessCoverageLayer;

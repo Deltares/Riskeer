@@ -20,7 +20,6 @@ namespace Ringtoets.Piping.Calculation.Test
             double phiExitValue = random.NextDouble();
             double rExitValue = random.NextDouble();
             double hExitValue = random.NextDouble();
-            double phiPolderValue = random.NextDouble();
             double ichValue = random.NextDouble();
             double dTotalValue = random.NextDouble();
             double sellmeijerModelFactorValue = random.NextDouble();
@@ -53,7 +52,6 @@ namespace Ringtoets.Piping.Calculation.Test
                 phiExitValue,
                 rExitValue,
                 hExitValue,
-                phiPolderValue,
                 ichValue,
                 dTotalValue,
                 sellmeijerModelFactorValue,
@@ -79,7 +77,6 @@ namespace Ringtoets.Piping.Calculation.Test
             Assert.AreEqual(phiExitValue, input.PiezometricHeadExit);
             Assert.AreEqual(rExitValue, input.DampingFactorExit);
             Assert.AreEqual(hExitValue, input.PhreaticLevelExit);
-            Assert.AreEqual(phiPolderValue, input.PiezometricHeadPolder);
             Assert.AreEqual(ichValue, input.CriticalHeaveGradient);
             Assert.AreEqual(dTotalValue, input.ThicknessCoverageLayer);
             Assert.AreEqual(sellmeijerModelFactorValue, input.SellmeijerModelFactor);

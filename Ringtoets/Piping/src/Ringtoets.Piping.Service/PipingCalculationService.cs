@@ -123,13 +123,12 @@ namespace Ringtoets.Piping.Service
         {
             return new PipingCalculatorInput(
                 inputParameters.WaterVolumetricWeight,
-                inputParameters.WaterVolumetricWeight,
+                PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
                 inputParameters.UpliftModelFactor,
                 inputParameters.AssessmentLevel,
                 inputParameters.PiezometricHeadExit,
                 PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
                 PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
-                inputParameters.PiezometricHeadPolder,
                 inputParameters.CriticalHeaveGradient,
                 PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(),
                 inputParameters.SellmeijerModelFactor,

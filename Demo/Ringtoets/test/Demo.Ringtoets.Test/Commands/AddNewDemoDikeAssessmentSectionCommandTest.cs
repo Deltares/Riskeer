@@ -135,9 +135,9 @@ namespace Demo.Ringtoets.Test.Commands
             PipingCalculationService.Calculate(calculation);
             Assert.IsTrue(calculation.HasOutput);
             Assert.AreEqual(99.0, calculation.Output.HeaveFactorOfSafety, 1e-3);
-            Assert.AreEqual(1.148, calculation.Output.HeaveZValue, 1e-3);
+            Assert.AreEqual(0.531, calculation.Output.HeaveZValue, 1e-3);
             Assert.AreEqual(99.0, calculation.Output.UpliftFactorOfSafety, 1e-3);
-            Assert.AreEqual(4.968, calculation.Output.UpliftZValue, 1e-3);
+            Assert.AreEqual(5.751, calculation.Output.UpliftZValue, 1e-3);
             Assert.AreEqual(-0.366, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
             Assert.AreEqual(4.253, calculation.Output.SellmeijerZValue, 1e-3);
         }
@@ -150,7 +150,6 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(10.0, inputParameters.WaterVolumetricWeight, 1e-3);
             Assert.AreEqual(0.0, inputParameters.AssessmentLevel, 1e-3);
             Assert.AreEqual(0.0, inputParameters.PiezometricHeadExit, 1e-3);
-            Assert.AreEqual(0.0, inputParameters.PiezometricHeadPolder, 1e-3);
             Assert.AreEqual(0.3, inputParameters.SellmeijerReductionFactor, 1e-3);
             Assert.AreEqual(16.5, inputParameters.SandParticlesVolumicWeight, 1e-3);
             Assert.AreEqual(0.25, inputParameters.WhitesDragCoefficient, 1e-3);

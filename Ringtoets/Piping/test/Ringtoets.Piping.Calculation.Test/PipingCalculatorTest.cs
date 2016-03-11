@@ -140,8 +140,8 @@ namespace Ringtoets.Piping.Calculation.Test
             // Setup
             PipingCalculatorInput input = new TestPipingInput
             {
-                PhreaticLevelExit = level,
-                AssessmentLevel = (RoundedDouble) level
+                PiezometricHeadExit = level,
+                PhreaticLevelExit = level
             }.AsRealInput();
 
             var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
@@ -170,10 +170,8 @@ namespace Ringtoets.Piping.Calculation.Test
             List<string> validationMessages = calculation.Validate();
 
             // Assert
-            Assert.AreEqual(4, validationMessages.Count);
+            Assert.AreEqual(2, validationMessages.Count);
             Assert.AreEqual(2, validationMessages.Count(message => message.Contains("Rexit")));
-            Assert.AreEqual(1, validationMessages.Count(message => message.Contains("PhiExit -  HExit")));
-            Assert.AreEqual(1, validationMessages.Count(message => message.Contains("phiExit - hExit")));
         }
 
         [Test]

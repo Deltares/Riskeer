@@ -57,7 +57,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(3, inputParameters.DarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.AreEqual(0, inputParameters.PiezometricHeadExit);
-            Assert.AreEqual(0, inputParameters.PiezometricHeadPolder);
             Assert.IsNull(inputParameters.SurfaceLine);
             Assert.IsNull(inputParameters.SoilProfile);
             Assert.IsNull(inputParameters.HydraulicBoundaryLocation);
@@ -79,6 +78,12 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(2, inputParameters.ThicknessCoverageLayer.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(0.5, inputParameters.ThicknessCoverageLayer.StandardDeviation.Value);
             Assert.AreEqual(2, inputParameters.ThicknessCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
+
+            Assert.IsInstanceOf<ShiftedLognormalDistribution>(inputParameters.SaturatedVolumicWeightOfCoverageLayer);
+            Assert.AreEqual(17.5, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.Value);
+            Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(0, inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value);
+            Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.IsInstanceOf<LognormalDistribution>(inputParameters.ThicknessAquiferLayer);
             Assert.IsNaN(inputParameters.ThicknessAquiferLayer.Mean);
