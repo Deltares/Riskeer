@@ -2,6 +2,9 @@
 
 namespace Ringtoets.Piping.Calculation.SubCalculator
 {
+    /// <summary>
+    /// Interface with operations for performing an effective thickness sub calculation.
+    /// </summary>
     public interface IEffectiveThicknessCalculator
     {
         /// <summary>

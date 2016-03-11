@@ -125,14 +125,7 @@ namespace Ringtoets.Piping.Forms.Extensions
         {
             if (input.SurfaceLine != null && input.SoilProfile != null && !double.IsNaN(input.ExitPointL))
             {
-                try
-                {
-                    return PipingCalculationService.CalculateThicknessCoverageLayer(input);
-                }
-                catch (PipingCalculatorException)
-                {
-                    return double.NaN;
-                }
+                return PipingCalculationService.CalculateThicknessCoverageLayer(input);
             }
             return double.NaN;
         }

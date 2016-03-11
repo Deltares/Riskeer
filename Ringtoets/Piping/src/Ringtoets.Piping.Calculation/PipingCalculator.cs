@@ -25,7 +25,6 @@ using System.Linq;
 using Deltares.WTIPiping;
 using Ringtoets.Piping.Calculation.Properties;
 using Ringtoets.Piping.Calculation.SubCalculator;
-
 using EffectiveThicknessCalculator = Ringtoets.Piping.Calculation.SubCalculator.EffectiveThicknessCalculator;
 using HeaveCalculator = Ringtoets.Piping.Calculation.SubCalculator.HeaveCalculator;
 
@@ -97,7 +96,7 @@ namespace Ringtoets.Piping.Calculation
             {
                 upliftCalculatorValidationResults = ValidateUpliftCalculator();
             }
-            List<string> heaveCalculatorValidationResults = CreateHeaveCalculator().Validate();
+            List<string> heaveCalculatorValidationResults = CreateHeaveCalculator(CalculatePiezometricHeadAtExit()).Validate();
             List<string> sellmeijerCalculatorValidationResults = CreateSellmeijerCalculator().Validate();
 
             return upliftCalculatorValidationResults
@@ -123,7 +122,15 @@ namespace Ringtoets.Piping.Calculation
         {
             try
             {
-                return CalculateEffectiveThickness().EffectiveHeight;
+                var calculator = factory.CreateEffectiveThicknessCalculator();
+                calculator.ExitPointXCoordinate = input.ExitPointXCoordinate;
+                calculator.PhreaticLevel = input.PhreaticLevelExit;
+                calculator.SoilProfile = PipingProfileCreator.Create(input.SoilProfile);
+                calculator.SurfaceLine = PipingSurfaceLineCreator.Create(input.SurfaceLine);
+                calculator.VolumicWeightOfWater = input.WaterVolumetricWeight;
+                calculator.Calculate();
+
+                return calculator.EffectiveHeight;
             }
             catch (SoilVolumicMassCalculatorException e)
             {
@@ -133,6 +140,21 @@ namespace Ringtoets.Piping.Calculation
             {
                 throw new PipingCalculatorException(e.Message, e);
             }
+        }
+
+        /// <summary>
+        /// Calculates the piezometric head at the exit point based on the values of the <see cref="PipingCalculatorInput"/>.
+        /// </summary>
+        /// <returns>The piezometric head at the exit point.</returns>
+        public double CalculatePiezometricHeadAtExit()
+        {
+            var calculator = factory.CreatePiezometricHeadAtExitCalculator();
+            calculator.PhiPolder = input.PhreaticLevelExit;
+            calculator.HRiver = input.AssessmentLevel;
+            calculator.RExit = input.DampingFactorExit;
+            calculator.Calculate();
+
+            return calculator.PhiExit;
         }
 
         private List<string> ValidateSurfaceLine()
@@ -181,8 +203,7 @@ namespace Ringtoets.Piping.Calculation
         {
             try
             {
-                IEffectiveThicknessCalculator effectiveThicknessCalculator = CalculateEffectiveThickness();
-                return CreateUpliftCalculator(effectiveThicknessCalculator.EffectiveStress).Validate();
+                return CreateUpliftCalculator(CalculatePiezometricHeadAtExit()).Validate();
             }
             catch (Exception exception)
             {
@@ -215,7 +236,7 @@ namespace Ringtoets.Piping.Calculation
 
         private IHeaveCalculator CalculateHeave()
         {
-            var heaveCalculator = CreateHeaveCalculator();
+            var heaveCalculator = CreateHeaveCalculator(CalculatePiezometricHeadAtExit());
 
             try
             {
@@ -231,8 +252,7 @@ namespace Ringtoets.Piping.Calculation
 
         private IUpliftCalculator CalculateUplift()
         {
-            IEffectiveThicknessCalculator calculatedEffectiveStressResult = CalculateEffectiveThickness();
-            IUpliftCalculator upliftCalculator = CreateUpliftCalculator(calculatedEffectiveStressResult.EffectiveStress);
+            IUpliftCalculator upliftCalculator = CreateUpliftCalculator(CalculatePiezometricHeadAtExit());
 
             try
             {
@@ -250,11 +270,11 @@ namespace Ringtoets.Piping.Calculation
             return upliftCalculator;
         }
 
-        private IHeaveCalculator CreateHeaveCalculator()
+        private IHeaveCalculator CreateHeaveCalculator(double phiExit)
         {
             var calculator = factory.CreateHeaveCalculator();
             calculator.Ich = input.CriticalHeaveGradient;
-            calculator.PhiExit = input.PiezometricHeadExit;
+            calculator.PhiExit = phiExit;
             calculator.DTotal = input.ThicknessCoverageLayer;
             calculator.PhiPolder = input.PhreaticLevelExit;
             calculator.RExit = input.DampingFactorExit;
@@ -262,14 +282,16 @@ namespace Ringtoets.Piping.Calculation
             return calculator;
         }
 
-        private IUpliftCalculator CreateUpliftCalculator(double effectiveStress)
+        private IUpliftCalculator CreateUpliftCalculator(double phiExit)
         {
+            var effectiveStress = DetermineEffectiveStressForOneLayerProfile(input.ThicknessCoverageLayer, input.SaturatedVolumicWeightOfCoverageLayer, input.WaterVolumetricWeight);
+
             var calculator = factory.CreateUpliftCalculator();
             calculator.VolumetricWeightOfWater = input.WaterVolumetricWeight;
             calculator.ModelFactorUplift = input.UpliftModelFactor;
             calculator.EffectiveStress = effectiveStress;
             calculator.HRiver = input.AssessmentLevel;
-            calculator.PhiExit = input.PiezometricHeadExit;
+            calculator.PhiExit = phiExit;
             calculator.RExit = input.DampingFactorExit;
             calculator.HExit = input.PhreaticLevelExit;
             calculator.PhiPolder = input.PhreaticLevelExit;
@@ -298,23 +320,16 @@ namespace Ringtoets.Piping.Calculation
             return calculator;
         }
 
-        private IEffectiveThicknessCalculator CalculateEffectiveThickness()
+        /// <summary>
+        /// Determines the effective stress for a one layer profile.
+        /// </summary>
+        /// <param name="thicknessOfCoverageLayer">The thickness of aquitard layer.</param>
+        /// <param name="volumicWeightOfCoverageLayer">The saturated volumic weight of aquitard layer.</param>
+        /// <param name="waterVolumetricWeight"></param>
+        /// <returns></returns>
+        private static double DetermineEffectiveStressForOneLayerProfile(double thicknessOfCoverageLayer, double volumicWeightOfCoverageLayer, double waterVolumetricWeight)
         {
-            try
-            {
-                var calculator = factory.CreateEffectiveThicknessCalculator();
-                calculator.ExitPointXCoordinate = input.ExitPointXCoordinate;
-                calculator.PhreaticLevel = input.PhreaticLevelExit;
-                calculator.SoilProfile = PipingProfileCreator.Create(input.SoilProfile);
-                calculator.SurfaceLine = PipingSurfaceLineCreator.Create(input.SurfaceLine);
-                calculator.VolumicWeightOfWater = input.WaterVolumetricWeight;
-                calculator.Calculate();
-                return calculator;
-            }
-            catch (SoilVolumicMassCalculatorException e)
-            {
-                throw new PipingCalculatorException(e.Message, e);
-            }
+            return thicknessOfCoverageLayer * (volumicWeightOfCoverageLayer - waterVolumetricWeight);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Ringtoets.Piping.Calculation.Test
             var random = new Random(22);
 
             double volumetricWeightOfWaterValue = random.NextDouble();
+            double saturatedVolumicWeightOfCoverageLayer = random.NextDouble();
             double modelFactorUpliftValue = random.NextDouble();
             double hRiverValue = random.NextDouble();
             double phiExitValue = random.NextDouble();
@@ -46,6 +47,7 @@ namespace Ringtoets.Piping.Calculation.Test
 
             var input = new PipingCalculatorInput(
                 volumetricWeightOfWaterValue,
+                saturatedVolumicWeightOfCoverageLayer,
                 modelFactorUpliftValue,
                 hRiverValue,
                 phiExitValue,
@@ -71,6 +73,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 soilProfile);
 
             Assert.AreEqual(volumetricWeightOfWaterValue, input.WaterVolumetricWeight);
+            Assert.AreEqual(saturatedVolumicWeightOfCoverageLayer, input.SaturatedVolumicWeightOfCoverageLayer);
             Assert.AreEqual(modelFactorUpliftValue, input.UpliftModelFactor);
             Assert.AreEqual(hRiverValue, input.AssessmentLevel);
             Assert.AreEqual(phiExitValue, input.PiezometricHeadExit);

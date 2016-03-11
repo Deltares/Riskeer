@@ -24,5 +24,10 @@
         {
             return new EffectiveThicknessCalculator();
         }
+
+        public IPiezoHeadCalculator CreatePiezometricHeadAtExitCalculator()
+        {
+            return new PiezoHeadCalculator();
+        }
     }
 }

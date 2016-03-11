@@ -135,9 +135,9 @@ namespace Demo.Ringtoets.Test.Commands
             PipingCalculationService.Calculate(calculation);
             Assert.IsTrue(calculation.HasOutput);
             Assert.AreEqual(99.0, calculation.Output.HeaveFactorOfSafety, 1e-3);
-            Assert.AreEqual(116.586, calculation.Output.HeaveZValue, 1e-3);
+            Assert.AreEqual(426.608, calculation.Output.HeaveZValue, 1e-3);
             Assert.AreEqual(99.0, calculation.Output.UpliftFactorOfSafety, 1e-3);
-            Assert.AreEqual(3.655, calculation.Output.UpliftZValue, 1e-3);
+            Assert.AreEqual(4.968, calculation.Output.UpliftZValue, 1e-3);
             Assert.AreEqual(-1.391, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
             Assert.AreEqual(3.249, calculation.Output.SellmeijerZValue, 1e-3);
         }

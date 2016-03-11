@@ -28,5 +28,11 @@
         /// </summary>
         /// <returns>A new <see cref="IEffectiveThicknessCalculator"/>.</returns>
         IEffectiveThicknessCalculator CreateEffectiveThicknessCalculator();
+
+        /// <summary>
+        /// Creates the piezometric head at exit calculator.
+        /// </summary>
+        /// <returns>A new <see cref="IPiezoHeadCalculator"/>.</returns>
+        IPiezoHeadCalculator CreatePiezometricHeadAtExitCalculator();
     }
 }

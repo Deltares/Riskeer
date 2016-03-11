@@ -52,12 +52,14 @@ namespace Ringtoets.Piping.Calculation
         private readonly double exitPointXCoordinate;
         private readonly RingtoetsPipingSurfaceLine surfaceLine;
         private readonly PipingSoilProfile soilProfile;
+        private readonly double saturatedVolumicWeightOfCoverageLayer;
 
         /// <summary>
         /// Constructs a new <see cref="PipingCalculatorInput"/>, which contains values for the parameters used
         /// in the piping sub calculations.
         /// </summary>
         /// <param name="waterVolumetricWeight">The volumetric weight of water. [kN/m³]</param>
+        /// <param name="saturatedVolumicWeightOfCoverageLayer"></param>
         /// <param name="upliftModelFactor">The calculation value used to account for uncertainty in the model for uplift.</param>
         /// <param name="assessmentLevel">The outside high water level. [m]</param>
         /// <param name="piezometricHeadExit">The piezometric head at the exit point. [m]</param>
@@ -81,9 +83,10 @@ namespace Ringtoets.Piping.Calculation
         /// <param name="exitPointXCoordinate">The x coordinate of the exit point. [m]</param>
         /// <param name="surfaceLine">The surface line.</param>
         /// <param name="soilProfile">The profile which contains a 1 dimensional definition of soil layers with properties.</param>
-        public PipingCalculatorInput(double waterVolumetricWeight, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double piezometricHeadPolder, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
+        public PipingCalculatorInput(double waterVolumetricWeight, double saturatedVolumicWeightOfCoverageLayer, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double piezometricHeadPolder, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
         {
             this.waterVolumetricWeight = waterVolumetricWeight;
+            this.saturatedVolumicWeightOfCoverageLayer = saturatedVolumicWeightOfCoverageLayer;
             this.upliftModelFactor = upliftModelFactor;
             this.assessmentLevel = assessmentLevel;
             this.piezometricHeadExit = piezometricHeadExit;
@@ -388,6 +391,16 @@ namespace Ringtoets.Piping.Calculation
             get
             {
                 return soilProfile;
+            }
+        }
+
+        /// <summary>
+        /// Gets the volumic weight of the coverage layer when saturated.
+        /// </summary>
+        public double SaturatedVolumicWeightOfCoverageLayer {
+            get
+            {
+                return saturatedVolumicWeightOfCoverageLayer;
             }
         }
 

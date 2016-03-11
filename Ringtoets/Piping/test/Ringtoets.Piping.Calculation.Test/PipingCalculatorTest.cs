@@ -140,8 +140,8 @@ namespace Ringtoets.Piping.Calculation.Test
             // Setup
             PipingCalculatorInput input = new TestPipingInput
             {
-                PiezometricHeadExit = level,
-                PhreaticLevelExit = level
+                PhreaticLevelExit = level,
+                AssessmentLevel = (RoundedDouble) level
             }.AsRealInput();
 
             var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
@@ -151,12 +151,12 @@ namespace Ringtoets.Piping.Calculation.Test
 
             // Assert
             Assert.AreEqual(2, validationMessages.Count);
-            Assert.IsTrue(validationMessages.Any(message => message.Contains("PhiExit -  HExit")));
-            Assert.IsTrue(validationMessages.Any(message => message.Contains("phiExit - hExit")));
+            Assert.AreEqual(1, validationMessages.Count(message => message.Contains("PhiExit -  HExit")));
+            Assert.AreEqual(1, validationMessages.Count(message => message.Contains("phiExit - hExit")));
         }
 
         [Test]
-        public void Validate_PhreaticLevelExitZero_TwoValidationMessageForRExit()
+        public void Validate_DampingFactorExitZero_TwoValidationMessageForRExitTwoValidationMessagesForPhiExitAndHExitDifference()
         {
             // Setup
             PipingCalculatorInput input = new TestPipingInput
@@ -170,8 +170,10 @@ namespace Ringtoets.Piping.Calculation.Test
             List<string> validationMessages = calculation.Validate();
 
             // Assert
-            Assert.AreEqual(2, validationMessages.Count);
+            Assert.AreEqual(4, validationMessages.Count);
             Assert.AreEqual(2, validationMessages.Count(message => message.Contains("Rexit")));
+            Assert.AreEqual(1, validationMessages.Count(message => message.Contains("PhiExit -  HExit")));
+            Assert.AreEqual(1, validationMessages.Count(message => message.Contains("phiExit - hExit")));
         }
 
         [Test]
@@ -233,7 +235,7 @@ namespace Ringtoets.Piping.Calculation.Test
 
         [Test] // Validate_DifferenceAssessmentLevelAndPhreaticLevelExitEqualToSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidationMessageForHRiverHExitRcDTotal
         [TestCase(2, 1, 2, 0.5, TestName = "AssessmntLvlPhreaticLevelExitEqualsSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidateMsgHRiverHExitRcDTotal(2,1,2,0.5)")]
-        [TestCase(1, 1, 0, 2, TestName = "AssessmntLvlPhreaticLevelExitEqualsSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidateMsgHRiverHExitRcDTotal(1,1,0,2)")]
+        [TestCase(2, 1.5, 0.5, 1, TestName = "AssessmntLvlPhreaticLevelExitEqualsSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidateMsgHRiverHExitRcDTotal(2,1.5,0.5,1)")]
         [TestCase(8, 4, 2, 2, TestName = "AssessmntLvlPhreaticLevelExitEqualsSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidateMsgHRiverHExitRcDTotal(8,4,2,2)")]
         public void Validate_DifferenceAssessmentLevelAndPhreaticLevelExitEqualToSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidationMessageForHRiverHExitRcDTotal(
             double assessmentLevel, double phreaticLevelExit, double sellmeijerReductionFactor, double thicknessCoverageLayer)
@@ -294,30 +296,7 @@ namespace Ringtoets.Piping.Calculation.Test
             Assert.AreEqual(1, validationMessages.Count);
             Assert.AreEqual("Een ondergrondschematisering moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.", validationMessages[0]);
         }
-
-        [Test]
-        public void Validate_SoilProfileWithoutAquiferSet_ValidationWithDefaultNullReferenceMessage()
-        {
-            // Setup
-            PipingCalculatorInput input = new TestPipingInput
-            {
-                SoilProfile = new PipingSoilProfile(String.Empty, -1.0,new []
-                {
-                    new PipingSoilLayer(0) 
-                })
-            }.AsRealInput();
-
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
-
-            // Call
-            List<string> validationMessages = calculation.Validate();
-
-            // Assert
-            Assert.AreEqual(1, validationMessages.Count);
-            var nullReferenceException = new NullReferenceException();
-            Assert.IsTrue(validationMessages.Any(vm => vm.Contains(nullReferenceException.Message)));
-        }
-
+        
         [Test]
         [TestCase(-1e-8)]
         [TestCase(0)]
@@ -345,27 +324,73 @@ namespace Ringtoets.Piping.Calculation.Test
         }
 
         [Test]
-        public void Validate_AssessmentLevelPhreaticLevelExitSellmeijerReductionFactorThicknessCoverageLayerZero_ValidationMessageForHRiverHExitRcDTotalAndDTotal()
+        public void CalculateThicknessCoverageLayer_SoilProfileWithoutAquiferSet_ThrowsPipingCalculatorException()
         {
             // Setup
             PipingCalculatorInput input = new TestPipingInput
             {
-                AssessmentLevel = (RoundedDouble) 0,
-                PhreaticLevelExit = 0,
-                SellmeijerReductionFactor = 0,
-                ThicknessCoverageLayer = 0
+                SoilProfile = new PipingSoilProfile(String.Empty, -1.0, new[]
+                {
+                    new PipingSoilLayer(0) 
+                })
             }.AsRealInput();
 
             var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
 
             // Call
-            List<string> validationMessages = calculation.Validate();
+            TestDelegate call = () => calculation.CalculateThicknessCoverageLayer();
 
             // Assert
-            Assert.AreEqual(2, validationMessages.Count);
-            Assert.IsTrue(validationMessages.Any(message => message.Contains("HRiver - HExit - (Rc*DTotal)")));
-            Assert.IsTrue(validationMessages.Any(message => message.Contains("Dtotal")));
+            var exception = Assert.Throws<PipingCalculatorException>(call);
+            Assert.IsInstanceOf<NullReferenceException>(exception.InnerException);
         }
 
+        [Test]
+        public void CalculateThicknessCoverageLayer_WithValidInput_ReturnsSomeThickness()
+        {
+            // Setup
+            PipingCalculatorInput input = new TestPipingInput().AsRealInput();
+
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+
+            // Call
+            var result = calculation.CalculateThicknessCoverageLayer();
+
+            // Assert
+            Assert.IsFalse(double.IsNaN(result));
+        }
+
+        [Test]
+        public void CalculateThicknessCoverageLayer_WithExitPointLBeyondSurfaceLineInput_ReturnsNaN()
+        {
+            // Setup
+            PipingCalculatorInput input = new TestPipingInput
+            {
+                ExitPointXCoordinate = (RoundedDouble)2.1
+            }.AsRealInput();
+
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+
+            // Call
+            var result = calculation.CalculateThicknessCoverageLayer();
+
+            // Assert
+            Assert.IsNaN(result);
+        }
+
+        [Test]
+        public void CalculatePiezometricHeadAtExit_WithValidInput_ReturnsSomeValue()
+        {
+            // Setup
+            PipingCalculatorInput input = new TestPipingInput().AsRealInput();
+
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+
+            // Call
+            var result = calculation.CalculatePiezometricHeadAtExit();
+
+            // Assert
+            Assert.IsFalse(double.IsNaN(result));
+        }
     }
 }

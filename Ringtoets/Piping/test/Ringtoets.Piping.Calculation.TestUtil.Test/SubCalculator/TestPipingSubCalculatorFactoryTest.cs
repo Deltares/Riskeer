@@ -72,5 +72,18 @@ namespace Ringtoets.Piping.Calculation.TestUtil.Test.SubCalculator
             // Assert
             Assert.AreSame(factory.LastCreatedSellmeijerCalculator, subCalculator);
         }
+
+        [Test]
+        public void CreatePiezometricHeadAtExitCalculator_Always_LastCreatedPiezometricHeadAtExitSetToReturnValue()
+        {
+            // Setup
+            var factory = new TestPipingSubCalculatorFactory();
+
+            // Call
+            var subCalculator = factory.CreatePiezometricHeadAtExitCalculator();
+
+            // Assert
+            Assert.AreSame(factory.LastCreatedPiezometricHeadAtExitCalculator, subCalculator);
+        }
     }
 }

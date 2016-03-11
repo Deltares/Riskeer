@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCalculator\EffectiveThicknessCalculatorStub.cs" />
     <Compile Include="SubCalculator\HeaveCalculatorStub.cs" />
+    <Compile Include="SubCalculator\PiezoHeadCalculatorStub.cs" />
     <Compile Include="SubCalculator\SellmeijerCalculatorStub.cs" />
     <Compile Include="SubCalculator\TestPipingSubCalculatorFactory.cs" />
     <Compile Include="SubCalculator\UpliftCalculatorStub.cs" />

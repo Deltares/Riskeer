@@ -129,6 +129,9 @@
   <data name="Error_in_piping_validation_0" xml:space="preserve">
     <value>Validatie mislukt: {0}</value>
   </data>
+  <data name="Error_in_thickness_coverage_calculation_0" xml:space="preserve">
+    <value>Berekenen van de dikte van de deklaag niet gelukt: {0}</value>
+  </data>
   <data name="Validation_Subject_0_ended_Time_1_" xml:space="preserve">
     <value>Validatie van '{0}' beëindigd om: {1}</value>
   </data>

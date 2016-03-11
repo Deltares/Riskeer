@@ -10,6 +10,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
     public class TestPipingInput
     {
         public double WaterVolumetricWeight;
+        public double SaturatedVolumicWeightOfCoverageLayer;
         public double UpliftModelFactor;
         public RoundedDouble AssessmentLevel;
         public double PiezometricHeadExit;
@@ -40,6 +41,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
         public TestPipingInput()
         {
             WaterVolumetricWeight = NextIncrementalDouble();
+            SaturatedVolumicWeightOfCoverageLayer = NextIncrementalDouble();
             UpliftModelFactor = NextIncrementalDouble();
             AssessmentLevel = (RoundedDouble)NextIncrementalDouble();
             PiezometricHeadExit = NextIncrementalDouble();
@@ -57,7 +59,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
             DarcyPermeability = NextIncrementalDouble();
             WaterKinematicViscosity = NextIncrementalDouble();
             Gravity = NextIncrementalDouble();
-            ExitPointXCoordinate = (RoundedDouble)NextIncrementalDouble();
+            ExitPointXCoordinate = (RoundedDouble) 0.5;
             BeddingAngle = NextIncrementalDouble();
             MeanDiameter70 = NextIncrementalDouble();
             ThicknessAquiferLayer = NextIncrementalDouble();
@@ -105,6 +107,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
         {
             return new PipingCalculatorInput(
                 WaterVolumetricWeight,
+                SaturatedVolumicWeightOfCoverageLayer,
                 UpliftModelFactor,
                 AssessmentLevel,
                 PiezometricHeadExit,

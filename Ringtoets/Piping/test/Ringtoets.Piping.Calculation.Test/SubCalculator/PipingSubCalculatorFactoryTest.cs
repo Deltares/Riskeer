@@ -17,7 +17,7 @@ namespace Ringtoets.Piping.Calculation.Test.SubCalculator
         }
 
         [Test]
-        public void CreateHeaveCalculator_WithInput_NewHeaveCalculator()
+        public void CreateHeaveCalculator_Always_NewHeaveCalculator()
         {
             // Setup
             var factory = new PipingSubCalculatorFactory();
@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.Calculation.Test.SubCalculator
         }
 
         [Test]
-        public void CreateUpliftCalculator_WithInput_NewUpliftCalculator()
+        public void CreateUpliftCalculator_Always_NewUpliftCalculator()
         {
             // Setup
             var factory = new PipingSubCalculatorFactory();
@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Calculation.Test.SubCalculator
         }
 
         [Test]
-        public void CreateSellmeijerCalculator_WithInput_NewSellmeijerCalculator()
+        public void CreateSellmeijerCalculator_Always_NewSellmeijerCalculator()
         {
             // Setup
             var factory = new PipingSubCalculatorFactory();
@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Calculation.Test.SubCalculator
         }
 
         [Test]
-        public void CreateEffectiveThicknessCalculator_WithInput_NewSellmeijerCalculator()
+        public void CreateEffectiveThicknessCalculator_Always_NewSellmeijerCalculator()
         {
             // Setup
             var factory = new PipingSubCalculatorFactory();
@@ -66,6 +66,19 @@ namespace Ringtoets.Piping.Calculation.Test.SubCalculator
 
             // Assert
             Assert.IsInstanceOf<IEffectiveThicknessCalculator>(calculator);
+        }
+
+        [Test]
+        public void CreatPiezometricHeadAtExitCalculator_Always_NewPizometricHeadAtExitCalculator()
+        {
+            // Setup
+            var factory = new PipingSubCalculatorFactory();
+
+            // Call
+            var calculator = factory.CreatePiezometricHeadAtExitCalculator();
+
+            // Assert
+            Assert.IsInstanceOf<IPiezoHeadCalculator>(calculator);
         }
     }
 }

@@ -106,21 +106,23 @@ namespace Ringtoets.Piping.Service
         /// Calculates the thickness of the coverage layer based on the values of the <see cref="PipingInput"/>.
         /// </summary>
         /// <returns>The thickness of the coverage layer, or -1 if the thickness could not be calculated.</returns>
-        /// <exception cref="PipingCalculatorException">Thrown when:
-        /// <list type="bullet">
-        /// <item>surface at exit point's x-coordinate is higher than the soil profile</item>
-        /// <item>surface line is <c>null</c></item>
-        /// <item>soil profile is <c>null</c></item>
-        /// <item>soil profile's aquifer layer</item>
-        /// </list></exception>
         public static double CalculateThicknessCoverageLayer(PipingInput input)
         {
-            return new PipingCalculator(CreateInputFromData(input), SubCalculatorFactory).CalculateThicknessCoverageLayer();
+            try
+            {
+                return new PipingCalculator(CreateInputFromData(input), SubCalculatorFactory).CalculateThicknessCoverageLayer();
+            }
+            catch (PipingCalculatorException e)
+            {
+                LogMessagesAsError(Resources.Error_in_thickness_coverage_calculation_0, e.Message);
+            }
+            return double.NaN;
         }
 
         private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters)
         {
             return new PipingCalculatorInput(
+                inputParameters.WaterVolumetricWeight,
                 inputParameters.WaterVolumetricWeight,
                 inputParameters.UpliftModelFactor,
                 inputParameters.AssessmentLevel,
@@ -146,6 +148,11 @@ namespace Ringtoets.Piping.Service
                 inputParameters.SurfaceLine,
                 inputParameters.SoilProfile
                 );
+        }
+
+        public static double CalculatePiezometricHeadAtExit(PipingInput input)
+        {
+            return new PipingCalculator(CreateInputFromData(input), SubCalculatorFactory).CalculatePiezometricHeadAtExit();
         }
     }
 }
