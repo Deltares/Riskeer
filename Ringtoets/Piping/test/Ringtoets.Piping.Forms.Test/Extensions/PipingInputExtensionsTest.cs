@@ -730,13 +730,15 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             Assert.AreEqual(0.5, input.ThicknessAquiferLayer.Mean.Value);
         }
 
-
         [Test]
         public void SetExitPointL_ExitPointPastSurfaceLine_ThrowsArgumentOutOfRangeExceptionExitPointLNotChanged()
         {
             // Setup
-            var input = CreateInputWithAquiferAndCoverageLayer();
+            var input = CreateInputWithAquiferAndCoverageLayer(true);
+
             var exitPointBefore = input.ExitPointL;
+            var thicknessCoverageLayerBefore = input.ThicknessCoverageLayer.Mean;
+            var thicknessAquiferLayerBefore = input.ThicknessAquiferLayer.Mean;
 
             // Call
             TestDelegate test = () => input.SetExitPointL((RoundedDouble)1.1);
@@ -744,6 +746,8 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(test);
             Assert.AreEqual(exitPointBefore, input.ExitPointL);
+            Assert.AreEqual(thicknessCoverageLayerBefore, input.ThicknessCoverageLayer.Mean);
+            Assert.AreEqual(thicknessAquiferLayerBefore, input.ThicknessAquiferLayer.Mean);
         }
 
         [Test]

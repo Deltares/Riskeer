@@ -76,6 +76,8 @@ namespace Ringtoets.Piping.Forms.Extensions
             catch
             {
                 input.ExitPointL = oldValue;
+                input.UpdateThicknessCoverageLayer();
+                input.UpdateThicknessAquiferLayer();
                 throw;
             }
         }
