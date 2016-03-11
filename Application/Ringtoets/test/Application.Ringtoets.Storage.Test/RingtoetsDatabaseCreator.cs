@@ -28,6 +28,7 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Storage.Test
 {
     [TestFixture]
+    [Explicit]
     public class RingtoetsDatabaseCreator
     {
         private static readonly string pathToStorageProject = Path.Combine(TestHelper.TestDataDirectory, "Application", "Ringtoets", "src", "Application.Ringtoets.Storage");
@@ -36,7 +37,6 @@ namespace Application.Ringtoets.Storage.Test
         /// Creates a new Ringtoets.rtd file in the root of the <see cref="Application.Ringtoets.Storage"/>, which is used to auto-generate the datbase code.
         /// </summary>
         [Test]
-        [Explicit]
         public void RingtoetsDatabaseCreator_Explicit_CreatesRingtoetsProjectDatabaseFile()
         {
             // Setup
