@@ -25,6 +25,7 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 
 using Ringtoets.Piping.Data.Probabilistics;
@@ -136,6 +137,20 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         /// <typeparam name="DistributionType">Type of object which as the parameter.</typeparam>
         protected class ParameterDefinition<DistributionType>
         {
+            readonly Func<DistributionType, RoundedDouble> getRoundedDouble;
+
+            /// <summary>
+            /// Instantiates a new instance of <see cref="ParameterDefinition{T}"/> for a
+            /// given parameter.
+            /// </summary>
+            /// <param name="expression">The parameter expression.</param>
+            public ParameterDefinition(Expression<Func<DistributionType, RoundedDouble>> expression)
+            {
+                PropertyName = ((MemberExpression)expression.Body).Member.Name;
+                getRoundedDouble = expression.Compile();
+                GetValue = type => getRoundedDouble(type).Value;
+            }
+
             /// <summary>
             /// Instantiates a new instance of <see cref="ParameterDefinition{T}"/> for a
             /// given parameter.
@@ -177,6 +192,8 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             {
                 return String.Format("{0} = {1}",
                                      Symbol,
+                                     getRoundedDouble != null ?
+                                     getRoundedDouble(distribution).ToString() :
                                      GetValue(distribution).ToString(culture));
             }
         }

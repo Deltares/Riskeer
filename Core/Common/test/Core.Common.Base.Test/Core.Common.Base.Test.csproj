@@ -102,6 +102,7 @@
     <Compile Include="Storage\StorageValidationExceptionTest.cs" />
     <Compile Include="Storage\CouldNotConnectExceptionTest.cs" />
     <Compile Include="Storage\UpdateStorageExceptionTest.cs" />
+    <Compile Include="TypeConverters\RoundedDoubleConverterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">

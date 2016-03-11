@@ -53,34 +53,34 @@ namespace Ringtoets.Piping.Data.TestUtil
                     AssessmentLevel = (RoundedDouble)1.0,
                     DampingFactorExit =
                     {
-                        Mean = 1.0
+                        Mean = (RoundedDouble)1.0
                     },
                     DarcyPermeability =
                     {
-                        Mean = 1.0
+                        Mean = (RoundedDouble)1.0
                     },
                     Diameter70 =
                     {
-                        Mean = 1.0
+                        Mean = (RoundedDouble)1.0
                     },
                     ExitPointL = (RoundedDouble)1.0,
                     PiezometricHeadExit = 1.0,
                     PiezometricHeadPolder = 1.0,
                     PhreaticLevelExit =
                     {
-                        Mean = 2.0
+                        Mean = (RoundedDouble)2.0
                     },
                     SeepageLength =
                     {
-                        Mean = 1.0
+                        Mean = (RoundedDouble)1.0
                     },
                     ThicknessAquiferLayer =
                     {
-                        Mean = 1.0
+                        Mean = (RoundedDouble)1.0
                     },
                     ThicknessCoverageLayer =
                     {
-                        Mean = 1.0
+                        Mean = (RoundedDouble)1.0
                     },
                     SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile

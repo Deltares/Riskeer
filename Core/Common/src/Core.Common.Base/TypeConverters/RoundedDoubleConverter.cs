@@ -24,9 +24,9 @@ using System.ComponentModel;
 using System.Globalization;
 
 using Core.Common.Base.Data;
-using Core.Common.Gui.Properties;
+using Core.Common.Base.Properties;
 
-namespace Core.Common.Gui.Converters
+namespace Core.Common.Base.TypeConverters
 {
     /// <summary>
     /// Class that converts <see cref="String"/> representations of a number to a corresponding

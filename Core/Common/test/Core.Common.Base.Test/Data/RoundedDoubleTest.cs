@@ -1,6 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Linq;
 
 using Core.Common.Base.Data;
+using Core.Common.Base.TypeConverters;
 using Core.Common.TestUtil;
 
 using NUnit.Framework;
@@ -14,7 +17,7 @@ namespace Core.Common.Base.Test.Data
         [TestCase(0)]
         [TestCase(12)]
         [TestCase(15)]
-        public void Constructor_ExpectedValues(int numberOfDecimalPlaces)
+        public void Constructor_WithoutValue_ExpectedValues(int numberOfDecimalPlaces)
         {
             // Call
             var roundedDouble = new RoundedDouble(numberOfDecimalPlaces);
@@ -24,6 +27,12 @@ namespace Core.Common.Base.Test.Data
             Assert.IsInstanceOf<IEquatable<double>>(roundedDouble);
             Assert.AreEqual(numberOfDecimalPlaces, roundedDouble.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, roundedDouble.Value);
+
+            TypeConverterAttribute[] typeAttributes = roundedDouble.GetType().GetCustomAttributes(typeof(TypeConverterAttribute), false)
+                                                                   .Cast<TypeConverterAttribute>()
+                                                                   .ToArray();
+            Assert.AreEqual(1, typeAttributes.Length);
+            Assert.AreEqual(new TypeConverterAttribute(typeof(RoundedDoubleConverter)), typeAttributes[0]);
         }
 
         [Test]
@@ -523,6 +532,40 @@ namespace Core.Common.Base.Test.Data
             // Assert
             Assert.AreEqual(newPrecision, convertedResult.NumberOfDecimalPlaces);
             Assert.AreEqual(expectedValue, convertedResult.Value);
+        }
+
+        [Test]
+        public void OperatorMinus_LeftHasLowestPrecision_ReturnRoundedDoubleWithDifferenceRoundedToLeastNumberOfDecimalPlaces()
+        {
+            // Setup
+            const int lowestNumberOfDecimalPlaces = 2;
+
+            var value1 = new RoundedDouble(lowestNumberOfDecimalPlaces, 1.12);
+            var value2 = new RoundedDouble(3, 3.456);
+
+            // Call
+            RoundedDouble diff = value1 - value2;
+
+            // Assert
+            Assert.AreEqual(lowestNumberOfDecimalPlaces, diff.NumberOfDecimalPlaces);
+            Assert.AreEqual(-2.34, diff.Value);
+        }
+
+        [Test]
+        public void OperatorMinus_RightHasLowestPrecision_ReturnRoundedDoubleWithDifferenceRoundedToLeastNumberOfDecimalPlaces()
+        {
+            // Setup
+            const int lowestNumberOfDecimalPlaces = 1;
+
+            var value1 = new RoundedDouble(6, 1.123456);
+            var value2 = new RoundedDouble(lowestNumberOfDecimalPlaces, -7.8);
+
+            // Call
+            RoundedDouble diff = value1 - value2;
+
+            // Assert
+            Assert.AreEqual(lowestNumberOfDecimalPlaces, diff.NumberOfDecimalPlaces);
+            Assert.AreEqual(8.9, diff.Value);
         }
     }
 }

@@ -21,6 +21,8 @@
 
 using System;
 
+using Core.Common.Base.Data;
+
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data.Probabilistics
@@ -31,18 +33,33 @@ namespace Ringtoets.Piping.Data.Probabilistics
     public class NormalDistribution : IDistribution
     {
         private double standardDeviation;
+        private RoundedDouble mean;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NormalDistribution"/> class,
         /// initialized as the standard normal distribution.
         /// </summary>
-        public NormalDistribution()
+        /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
+        /// </exception>
+        public NormalDistribution(int numberOfDecimalPlaces)
         {
-            Mean = 0.0;
+            mean = new RoundedDouble(numberOfDecimalPlaces, 0.0);
             StandardDeviation = 1.0;
         }
 
-        public double Mean { get; set; }
+        public RoundedDouble Mean
+        {
+            get
+            {
+                return mean;
+            }
+            set
+            {
+                mean = value.ToPrecision(mean.NumberOfDecimalPlaces);
+            }
+        }
 
         public double StandardDeviation
         {

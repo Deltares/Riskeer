@@ -3,11 +3,11 @@ using System.ComponentModel;
 using System.Globalization;
 
 using Core.Common.Base.Data;
-using Core.Common.Gui.Converters;
+using Core.Common.Base.TypeConverters;
 
 using NUnit.Framework;
 
-namespace Core.Common.Gui.Test.Converters
+namespace Core.Common.Base.Test.TypeConverters
 {
     [TestFixture]
     public class RoundedDoubleConverterTest

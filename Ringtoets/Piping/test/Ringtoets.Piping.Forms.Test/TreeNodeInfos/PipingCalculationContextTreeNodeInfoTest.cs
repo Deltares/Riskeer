@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -624,16 +625,16 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             plugin.Gui = gui;
 
             calculation.InputParameters.AssessmentLevel = validPipingInput.AssessmentLevel;
-            calculation.InputParameters.DampingFactorExit.Mean = validPipingInput.DampingFactorExit;
-            calculation.InputParameters.DarcyPermeability.Mean = validPipingInput.DarcyPermeability;
-            calculation.InputParameters.Diameter70.Mean = validPipingInput.Diameter70;
+            calculation.InputParameters.DampingFactorExit.Mean = (RoundedDouble)validPipingInput.DampingFactorExit;
+            calculation.InputParameters.DarcyPermeability.Mean = (RoundedDouble)validPipingInput.DarcyPermeability;
+            calculation.InputParameters.Diameter70.Mean = (RoundedDouble)validPipingInput.Diameter70;
             calculation.InputParameters.ExitPointL = validPipingInput.ExitPointXCoordinate;
-            calculation.InputParameters.PhreaticLevelExit.Mean = validPipingInput.PhreaticLevelExit;
+            calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble)validPipingInput.PhreaticLevelExit;
             calculation.InputParameters.PiezometricHeadExit = validPipingInput.PiezometricHeadExit;
             calculation.InputParameters.PiezometricHeadPolder = validPipingInput.PiezometricHeadPolder;
-            calculation.InputParameters.SeepageLength.Mean = validPipingInput.SeepageLength;
-            calculation.InputParameters.ThicknessAquiferLayer.Mean = validPipingInput.ThicknessAquiferLayer;
-            calculation.InputParameters.ThicknessCoverageLayer.Mean = validPipingInput.ThicknessCoverageLayer;
+            calculation.InputParameters.SeepageLength.Mean = (RoundedDouble)validPipingInput.SeepageLength;
+            calculation.InputParameters.ThicknessAquiferLayer.Mean = (RoundedDouble)validPipingInput.ThicknessAquiferLayer;
+            calculation.InputParameters.ThicknessCoverageLayer.Mean = (RoundedDouble)validPipingInput.ThicknessCoverageLayer;
             calculation.InputParameters.SurfaceLine = validPipingInput.SurfaceLine;
             calculation.InputParameters.SoilProfile = validPipingInput.SoilProfile;
 

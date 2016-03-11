@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 
 using Core.Common.Base.Properties;
+using Core.Common.Base.TypeConverters;
 
 namespace Core.Common.Base.Data
 {
@@ -9,6 +11,7 @@ namespace Core.Common.Base.Data
     /// This class represents a <see cref="double"/> that is being rounded to a certain
     /// number of places.
     /// </summary>
+    [TypeConverter(typeof(RoundedDoubleConverter))]
     public struct RoundedDouble : IEquatable<RoundedDouble>, IEquatable<Double>
     {
         /// <summary>
@@ -24,9 +27,9 @@ namespace Core.Common.Base.Data
         /// given value.
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
-        /// <param name="value">The value to initalize the instance with.</param>
+        /// <param name="value">The value to initialize the instance with.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, 15].
+        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, <see cref="MaximumNumberOfDecimalPlaces"/>].
         /// </exception>
         public RoundedDouble(int numberOfDecimalPlaces, double value = 0.0)
         {
@@ -66,6 +69,12 @@ namespace Core.Common.Base.Data
         public static bool operator !=(RoundedDouble left, RoundedDouble right)
         {
             return !Equals(left, right);
+        }
+
+        public static RoundedDouble operator -(RoundedDouble left, RoundedDouble right)
+        {
+            return new RoundedDouble(Math.Min(left.numberOfDecimalPlaces, right.numberOfDecimalPlaces),
+                                     left.value - right.value);
         }
 
         public static implicit operator double(RoundedDouble d)

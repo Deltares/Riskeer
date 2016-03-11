@@ -21,6 +21,8 @@
 
 using System;
 
+using Core.Common.Base.Data;
+
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data.Probabilistics
@@ -31,16 +33,26 @@ namespace Ringtoets.Piping.Data.Probabilistics
     public class LognormalDistribution : IDistribution
     {
         private double standardDeviation;
-        private double mean;
+        private RoundedDouble mean;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LognormalDistribution"/> class,
         /// initialized as the standard log-normal distribution (mu=0, sigma=1).
         /// </summary>
-        public LognormalDistribution()
+        /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [1, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
+        /// </exception>
+        public LognormalDistribution(int numberOfDecimalPlaces)
         {
+            if (numberOfDecimalPlaces == 0)
+            {
+                // This causes the default initialization set mean to 0, which is invalid.
+                throw new ArgumentOutOfRangeException("numberOfDecimalPlaces",
+                    "Value must be in range [1, 15]");
+            }
             // Simplified calculation mean and standard deviation given mu=0 and sigma=1.
-            mean = Math.Exp(-0.5);
+            mean = new RoundedDouble(numberOfDecimalPlaces, Math.Exp(-0.5));
             StandardDeviation = Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1));
         }
 
@@ -48,7 +60,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
         /// Gets or sets the mean (expected value, E(X)) of the distribution.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Expected value is less then or equal to 0.</exception>
-        public double Mean
+        public RoundedDouble Mean
         {
             get
             {
@@ -60,7 +72,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
                 {
                     throw new ArgumentOutOfRangeException("value", Resources.LognormalDistribution_Mean_must_be_greater_equal_to_zero);
                 }
-                mean = value;
+                mean = value.ToPrecision(mean.NumberOfDecimalPlaces);
             }
         }
 

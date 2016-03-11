@@ -149,13 +149,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             double piezometricHeadExit = random.NextDouble();
             double piezometricHeadPolder = random.NextDouble();
             
-            var dampingFactorExit = new LognormalDistribution();
-            var phreaticLevelExit = new NormalDistribution();
-            var thicknessCoverageLayer = new LognormalDistribution();
-            var seepageLength = new LognormalDistribution();
-            var diameter70 = new LognormalDistribution();
-            var darcyPermeability = new LognormalDistribution();
-            var thicknessAquiferLayer = new LognormalDistribution();
+            var dampingFactorExit = new LognormalDistribution(3);
+            var phreaticLevelExit = new NormalDistribution(2);
+            var thicknessCoverageLayer = new LognormalDistribution(2);
+            var seepageLength = new LognormalDistribution(2);
+            var diameter70 = new LognormalDistribution(2);
+            var darcyPermeability = new LognormalDistribution(3);
+            var thicknessAquiferLayer = new LognormalDistribution(2);
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             PipingSoilProfile soilProfile = new TestPipingSoilProfile();
@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
 
             // Call & Assert
-            Assert.AreEqual(1.5, properties.SeepageLength.Distribution.Mean);
+            Assert.AreEqual(1.5, properties.SeepageLength.Distribution.Mean.Value);
             Assert.AreEqual(properties.ExitPointL, inputParameters.ExitPointL);
             Assert.AreEqual(properties.SeepageLength.Distribution.Mean, inputParameters.SeepageLength.Mean);
 

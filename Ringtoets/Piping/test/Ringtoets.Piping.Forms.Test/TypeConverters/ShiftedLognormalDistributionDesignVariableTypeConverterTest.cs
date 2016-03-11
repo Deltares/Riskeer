@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 
+using Core.Common.Base.Data;
+
 using NUnit.Framework;
 
 using Ringtoets.Piping.Data.Probabilistics;
@@ -37,9 +39,9 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void ConvertTo_DestinationTypeIsString_ReturnNormalDistributionSpecs()
         {
             // Setup
-            var distribution = new ShiftedLognormalDistribution
+            var distribution = new ShiftedLognormalDistribution(5)
             {
-                Mean = 1.1,
+                Mean = (RoundedDouble)1.1,
                 StandardDeviation = 2.2,
                 Shift = 3.3
             };
@@ -72,7 +74,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GetProperties_Always_ReturnMeanAndStandardDeviation()
         {
             // Setup
-            var distribution = new ShiftedLognormalDistribution();
+            var distribution = new ShiftedLognormalDistribution(3);
             var designVariable = new ShiftedLognormalDistributionDesignVariable(distribution);
             var converter = new ShiftedLognormalDistributionDesignVariableTypeConverter();
 
@@ -93,7 +95,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             var meanPropertyDescriptor = properties[1];
             Assert.AreEqual(distribution.GetType().BaseType, meanPropertyDescriptor.ComponentType);
-            Assert.AreEqual(typeof(double), meanPropertyDescriptor.PropertyType);
+            Assert.AreEqual(typeof(RoundedDouble), meanPropertyDescriptor.PropertyType);
             Assert.IsFalse(meanPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Verwachtingswaarde", meanPropertyDescriptor.DisplayName);
             Assert.AreEqual("De gemiddelde waarde van de verschoven lognormale verdeling.", meanPropertyDescriptor.Description);

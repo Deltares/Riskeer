@@ -1490,25 +1490,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De tekst moet een getal zijn..
-        /// </summary>
-        public static string RoundedDoubleConverter_ConvertFrom_String_must_represent_number {
-            get {
-                return ResourceManager.GetString("RoundedDoubleConverter_ConvertFrom_String_must_represent_number", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden..
-        /// </summary>
-        public static string RoundedDoubleConverter_ConvertFrom_String_too_small_or_too_big_to_represent_as_double {
-            get {
-                return ResourceManager.GetString("RoundedDoubleConverter_ConvertFrom_String_too_small_or_too_big_to_represent_as_do" +
-                        "uble", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap SaveAsHH {

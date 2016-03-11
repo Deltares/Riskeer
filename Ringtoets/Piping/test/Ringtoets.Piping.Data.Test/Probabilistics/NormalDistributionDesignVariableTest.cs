@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Core.Common.Base.Data;
+
 using NUnit.Framework;
 
 using Ringtoets.Piping.Data.Probabilistics;
@@ -13,7 +15,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
         public void ParameterdConstructor_ValidLognormalDistribution_ExpectedValues()
         {
             // Setup
-            var normalDistribution = new NormalDistribution();
+            var normalDistribution = new NormalDistribution(3);
 
             // Call
             var designValue = new NormalDistributionDesignVariable(normalDistribution);
@@ -44,9 +46,9 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             double expectedResult)
         {
             // Setup
-            var normalDistribution = new NormalDistribution
+            var normalDistribution = new NormalDistribution(4)
             {
-                Mean = expectedValue,
+                Mean = (RoundedDouble)expectedValue,
                 StandardDeviation = Math.Sqrt(variance)
             };
 
@@ -59,7 +61,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             double result = designVariable.GetDesignValue();
 
             // Assert
-            Assert.AreEqual(expectedResult, result, 1e-6);
+            Assert.AreEqual(expectedResult, result, 1e-4);
         }
     }
 }

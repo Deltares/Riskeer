@@ -8,10 +8,13 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
     public class ShiftedLognormalDistributionTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        [TestCase(1)]
+        [TestCase(4)]
+        [TestCase(15)]
+        public void DefaultConstructor_ExpectedValues(int numberOfDecimalPlaces)
         {
             // Call
-            var distribution = new ShiftedLognormalDistribution();
+            var distribution = new ShiftedLognormalDistribution(numberOfDecimalPlaces);
 
             // Assert
             Assert.IsInstanceOf<LognormalDistribution>(distribution);

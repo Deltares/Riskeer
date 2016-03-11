@@ -112,7 +112,6 @@
     <Compile Include="Converters\ExpandableArrayConverterTest.cs" />
     <Compile Include="Converters\PngToIconConverterTest.cs" />
     <Compile Include="Converters\RoundDoubleToDecimalPlacesConverterTest.cs" />
-    <Compile Include="Converters\RoundedDoubleConverterTest.cs" />
     <Compile Include="Forms\MainWindow\MainWindowTest.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowLogAppenderTest.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowTest.cs" />

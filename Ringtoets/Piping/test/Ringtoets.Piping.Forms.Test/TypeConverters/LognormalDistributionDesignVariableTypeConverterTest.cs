@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 
 using NUnit.Framework;
@@ -46,9 +47,9 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void ConvertTo_DestinationTypeIsString_ReturnLognormalDistributionSpecs()
         {
             // Setup
-            var distribution = new LognormalDistribution
+            var distribution = new LognormalDistribution(1)
             {
-                Mean = 1.1,
+                Mean = (RoundedDouble)1.1,
                 StandardDeviation = 2.2
             };
             var designVariable = new LognormalDistributionDesignVariable(distribution);
@@ -81,7 +82,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GetProperties_Always_ReturnMeanAndStandardDeviation()
         {
             // Setup
-            var distribution = new LognormalDistribution();
+            var distribution = new LognormalDistribution(2);
             var designVariable = new LognormalDistributionDesignVariable(distribution);
             var converter = new LognormalDistributionDesignVariableTypeConverter();
 
@@ -102,7 +103,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             var meanPropertyDescriptor = properties[1];
             Assert.AreEqual(distribution.GetType(), meanPropertyDescriptor.ComponentType);
-            Assert.AreEqual(typeof(double), meanPropertyDescriptor.PropertyType);
+            Assert.AreEqual(typeof(RoundedDouble), meanPropertyDescriptor.PropertyType);
             Assert.IsFalse(meanPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Verwachtingswaarde", meanPropertyDescriptor.DisplayName);
             Assert.AreEqual("De gemiddelde waarde van de lognormale verdeling.", meanPropertyDescriptor.Description);
@@ -161,17 +162,24 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             Assert.IsNotNull(properties);
 
             // Event
-            const double newValue = 2.3;
-            properties[propertyIndexToChange].SetValue(dampingFactorExitHeave, newValue);
-
+            const double newDoubleValue = 2.3;
+            if (propertyIndexToChange == 1)
+            {
+                properties[propertyIndexToChange].SetValue(dampingFactorExitHeave, (RoundedDouble)newDoubleValue);
+            }
+            else
+            {
+                properties[propertyIndexToChange].SetValue(dampingFactorExitHeave, newDoubleValue);
+            }
+            
             // Result
             switch (propertyIndexToChange)
             {
                 case 1:
-                    Assert.AreEqual(newValue, inputParameters.DampingFactorExit.Mean);
+                    Assert.AreEqual(newDoubleValue, inputParameters.DampingFactorExit.Mean.Value);
                     break;
                 case 2:
-                    Assert.AreEqual(newValue, inputParameters.DampingFactorExit.StandardDeviation);
+                    Assert.AreEqual(newDoubleValue, inputParameters.DampingFactorExit.StandardDeviation);
                     break;
             }
             mocks.VerifyAll();

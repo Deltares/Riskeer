@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 
 using NUnit.Framework;
@@ -46,9 +47,9 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void ConvertTo_DestinationTypeIsString_ReturnNormalDistributionSpecs()
         {
             // Setup
-            var distribution = new NormalDistribution
+            var distribution = new NormalDistribution(2)
             {
-                Mean = 1.1,
+                Mean = (RoundedDouble)1.1,
                 StandardDeviation = 2.2
             };
             var designVariable = new NormalDistributionDesignVariable(distribution);
@@ -80,7 +81,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GetProperties_Always_ReturnMeanAndStandardDeviation()
         {
             // Setup
-            var distribution = new NormalDistribution();
+            var distribution = new NormalDistribution(1);
             var designVariable = new NormalDistributionDesignVariable(distribution);
             var converter = new NormalDistributionDesignVariableTypeConverter();
 
@@ -101,7 +102,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             var meanPropertyDescriptor = properties[1];
             Assert.AreEqual(distribution.GetType(), meanPropertyDescriptor.ComponentType);
-            Assert.AreEqual(typeof(double), meanPropertyDescriptor.PropertyType);
+            Assert.AreEqual(typeof(RoundedDouble), meanPropertyDescriptor.PropertyType);
             Assert.IsFalse(meanPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Verwachtingswaarde", meanPropertyDescriptor.DisplayName);
             Assert.AreEqual("De gemiddelde waarde van de normale verdeling.", meanPropertyDescriptor.Description);
@@ -160,13 +161,20 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             // Event
             const double newValue = 2.3;
-            properties[propertyIndexToChange].SetValue(phreaticLevelExitHeave, newValue);
+            if (propertyIndexToChange == 1)
+            {
+                properties[propertyIndexToChange].SetValue(phreaticLevelExitHeave, (RoundedDouble)newValue);
+            }
+            else
+            {
+                properties[propertyIndexToChange].SetValue(phreaticLevelExitHeave, newValue);
+            }
 
             // Result
             switch (propertyIndexToChange)
             {
                 case 1:
-                    Assert.AreEqual(newValue, inputParameters.PhreaticLevelExit.Mean);
+                    Assert.AreEqual(newValue, inputParameters.PhreaticLevelExit.Mean.Value);
                     break;
                 case 2:
                     Assert.AreEqual(newValue, inputParameters.PhreaticLevelExit.StandardDeviation);

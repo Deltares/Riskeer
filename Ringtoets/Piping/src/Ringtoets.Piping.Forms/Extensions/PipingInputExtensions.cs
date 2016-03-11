@@ -102,11 +102,11 @@ namespace Ringtoets.Piping.Forms.Extensions
         {
             try
             {
-                input.ThicknessAquiferLayer.Mean = thicknessTopAquiferLayer;
+                input.ThicknessAquiferLayer.Mean = (RoundedDouble)thicknessTopAquiferLayer;
             }
             catch (ArgumentOutOfRangeException)
             {
-                input.ThicknessAquiferLayer.Mean = double.NaN;
+                input.ThicknessAquiferLayer.Mean = (RoundedDouble)double.NaN;
             }
         }
 
@@ -141,11 +141,11 @@ namespace Ringtoets.Piping.Forms.Extensions
         {
             try
             {
-                input.ThicknessCoverageLayer.Mean = derivedThickness;
+                input.ThicknessCoverageLayer.Mean = (RoundedDouble)derivedThickness;
             }
             catch (ArgumentOutOfRangeException)
             {
-                input.ThicknessCoverageLayer.Mean = Double.NaN;
+                input.ThicknessCoverageLayer.Mean = (RoundedDouble)Double.NaN;
             }
         }
 
@@ -154,7 +154,7 @@ namespace Ringtoets.Piping.Forms.Extensions
             if (input.SurfaceLine == null)
             {
                 input.ExitPointL = (RoundedDouble)double.NaN;
-                input.SeepageLength.Mean = double.NaN;
+                input.SeepageLength.Mean = (RoundedDouble)double.NaN;
             }
             else
             {

@@ -62,26 +62,26 @@ namespace Ringtoets.Piping.Data
             entryPointL = new RoundedDouble(2, double.NaN);
             assessmentLevel = new RoundedDouble(2, double.NaN);
 
-            PhreaticLevelExit = new NormalDistribution();
-            DampingFactorExit = new LognormalDistribution
+            PhreaticLevelExit = new NormalDistribution(3);
+            DampingFactorExit = new LognormalDistribution(3)
             {
-                Mean = 1.0
+                Mean = (RoundedDouble)1.0
             };
-            ThicknessCoverageLayer = new LognormalDistribution
+            ThicknessCoverageLayer = new LognormalDistribution(2)
             {
-                Mean = double.NaN,
+                Mean = (RoundedDouble)double.NaN,
                 StandardDeviation = 0.5
             };
-            SeepageLength = new LognormalDistribution
+            SeepageLength = new LognormalDistribution(2)
             {
-                Mean = double.NaN,
+                Mean = (RoundedDouble)double.NaN,
                 StandardDeviation = double.NaN
             };
-            Diameter70 = new LognormalDistribution();
-            DarcyPermeability = new LognormalDistribution();
-            ThicknessAquiferLayer = new LognormalDistribution
+            Diameter70 = new LognormalDistribution(2);
+            DarcyPermeability = new LognormalDistribution(3);
+            ThicknessAquiferLayer = new LognormalDistribution(2)
             {
-                Mean = double.NaN,
+                Mean = (RoundedDouble)double.NaN,
                 StandardDeviation = 0.5
             };
         }
@@ -319,7 +319,7 @@ namespace Ringtoets.Piping.Data
             }
             catch (ArgumentOutOfRangeException e)
             {
-                SeepageLength.Mean = double.NaN;
+                SeepageLength.Mean = (RoundedDouble)double.NaN;
             }
             SeepageLength.StandardDeviation = SeepageLength.Mean * seepageLengthStandardDeviationFraction;
         }

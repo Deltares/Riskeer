@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
+
 namespace Ringtoets.Piping.Data.Probabilistics
 {
     /// <summary>
@@ -27,6 +29,16 @@ namespace Ringtoets.Piping.Data.Probabilistics
     /// </summary>
     public class ShiftedLognormalDistribution : LognormalDistribution
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ShiftedLognormalDistribution"/> class,
+        /// initialized as the standard log-normal distribution (mu=0, sigma=1).
+        /// </summary>
+        /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
+        /// </exception>
+        public ShiftedLognormalDistribution(int numberOfDecimalPlaces) : base(numberOfDecimalPlaces) {}
+
         /// <summary>
         /// Gets or sets the shift applied to the log-normal distribution.
         /// </summary>

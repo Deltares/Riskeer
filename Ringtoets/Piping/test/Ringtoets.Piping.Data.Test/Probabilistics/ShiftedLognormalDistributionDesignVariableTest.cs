@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Core.Common.Base.Data;
+
 using NUnit.Framework;
 
 using Ringtoets.Piping.Data.Probabilistics;
@@ -13,7 +15,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
         public void ParameterdConstructor_ValidLognormalDistribution_ExpectedValues()
         {
             // Setup
-            var shiftedLognormalDistribution = new ShiftedLognormalDistribution();
+            var shiftedLognormalDistribution = new ShiftedLognormalDistribution(1);
 
             // Call
             var designValue = new ShiftedLognormalDistributionDesignVariable(shiftedLognormalDistribution);
@@ -47,9 +49,9 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             double expectedResult)
         {
             // Setup
-            var shiftedLognormalDistribution = new ShiftedLognormalDistribution
+            var shiftedLognormalDistribution = new ShiftedLognormalDistribution(4)
             {
-                Mean = expectedValue,
+                Mean = (RoundedDouble)expectedValue,
                 StandardDeviation = Math.Sqrt(variance),
                 Shift = shift
             };
@@ -78,9 +80,9 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             double expectedValue, double variance, double percentile)
         {
             // Setup
-            var shiftedLognormalDistribution = new ShiftedLognormalDistribution
+            var shiftedLognormalDistribution = new ShiftedLognormalDistribution(6)
             {
-                Mean = expectedValue,
+                Mean = (RoundedDouble)expectedValue,
                 StandardDeviation = Math.Sqrt(variance),
                 Shift = 0
             };

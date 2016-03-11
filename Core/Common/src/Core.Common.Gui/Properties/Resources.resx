@@ -688,10 +688,4 @@
   <data name="StorageCommandHandler_NewProject_Creating_new_project_cancelled" xml:space="preserve">
     <value>Openen van een nieuw Ringtoetsproject geannuleerd.</value>
   </data>
-  <data name="RoundedDoubleConverter_ConvertFrom_String_must_represent_number" xml:space="preserve">
-    <value>De tekst moet een getal zijn.</value>
-  </data>
-  <data name="RoundedDoubleConverter_ConvertFrom_String_too_small_or_too_big_to_represent_as_double" xml:space="preserve">
-    <value>De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden.</value>
-  </data>
 </root>

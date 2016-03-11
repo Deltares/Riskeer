@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             inputParameters.SetSurfaceLine(surfaceLine);
 
             // Assert
-            Assert.AreEqual(secondPointX - firstPointX, inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(secondPointX - firstPointX, inputParameters.SeepageLength.Mean.Value);
             Assert.AreEqual(secondPointX - firstPointX, inputParameters.ExitPointL.Value);
         }
 
@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             inputParameters.SetSurfaceLine(surfaceLine);
 
             // Assert
-            Assert.AreEqual(secondPointX - firstPointX, inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(secondPointX - firstPointX, inputParameters.SeepageLength.Mean.Value);
             Assert.AreEqual(secondPointX - firstPointX, inputParameters.ExitPointL.Value);
         }
 
@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             inputParameters.SetSurfaceLine(surfaceLine);
 
             // Assert
-            Assert.AreEqual(2.0, inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(2.0, inputParameters.SeepageLength.Mean.Value);
             Assert.AreEqual(0.2, inputParameters.SeepageLength.StandardDeviation);
             Assert.AreEqual(secondPointX - firstPointX, inputParameters.ExitPointL.Value);
         }
@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             inputParameters.SetSurfaceLine(surfaceLine);
 
             // Assert
-            Assert.AreEqual(2.0, inputParameters.SeepageLength.Mean);
+            Assert.AreEqual(2.0, inputParameters.SeepageLength.Mean.Value);
             Assert.AreEqual(0.2, inputParameters.SeepageLength.StandardDeviation);
             Assert.AreEqual(thirdPointX - firstPointX, inputParameters.ExitPointL.Value);
         }
@@ -290,8 +290,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SetExitPointL(input.ExitPointL);
 
             // Assert
-            var thickness = input.ThicknessCoverageLayer.Mean;
-            Assert.AreEqual(1.0, thickness);
+            Assert.AreEqual(1.0, input.ThicknessCoverageLayer.Mean.Value);
         }
 
         [Test]
@@ -395,8 +394,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SetSurfaceLine(input.SurfaceLine);
 
             // Assert
-            var thickness = input.ThicknessCoverageLayer.Mean;
-            Assert.AreEqual(1.0, thickness);
+            Assert.AreEqual(1.0, input.ThicknessCoverageLayer.Mean.Value);
         }
 
         [Test]
@@ -411,7 +409,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
 
             // Assert
             Assert.AreEqual(1.0, input.ExitPointL.Value);
-            Assert.AreEqual(1.0, input.ThicknessCoverageLayer.Mean);
+            Assert.AreEqual(1.0, input.ThicknessCoverageLayer.Mean.Value);
         }
 
         [Test]
@@ -499,8 +497,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SetSoilProfile(input.SoilProfile);
 
             // Assert
-            var thickness = input.ThicknessCoverageLayer.Mean;
-            Assert.AreEqual(1.0, thickness);
+            Assert.AreEqual(1.0, input.ThicknessCoverageLayer.Mean.Value);
         }
 
         [Test]
@@ -607,7 +604,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SetExitPointL(input.ExitPointL);
 
             // Assert
-            Assert.AreEqual(1.0, input.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(1.0, input.ThicknessAquiferLayer.Mean.Value);
         }
 
         [Test]
@@ -730,7 +727,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SetExitPointL(input.ExitPointL);
 
             // Assert
-            Assert.AreEqual(0.5, input.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(0.5, input.ThicknessAquiferLayer.Mean.Value);
         }
 
         [Test]
@@ -743,7 +740,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SetSurfaceLine(input.SurfaceLine);
 
             // Assert
-            Assert.AreEqual(1.0, input.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(1.0, input.ThicknessAquiferLayer.Mean.Value);
         }
 
         [Test]
@@ -758,7 +755,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
 
             // Assert
             Assert.AreEqual(1.0, input.ExitPointL.Value);
-            Assert.AreEqual(1.0, input.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(1.0, input.ThicknessAquiferLayer.Mean.Value);
         }
 
         [Test]
@@ -866,7 +863,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SetSurfaceLine(input.SurfaceLine);
 
             // Assert
-            Assert.AreEqual(0.5, input.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(0.5, input.ThicknessAquiferLayer.Mean.Value);
         }
 
         [Test]
@@ -879,7 +876,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SetSoilProfile(input.SoilProfile);
 
             // Assert
-            Assert.AreEqual(1.0, input.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(1.0, input.ThicknessAquiferLayer.Mean.Value);
         }
 
         [Test]
@@ -1002,7 +999,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             input.SetSoilProfile(input.SoilProfile);
 
             // Assert
-            Assert.AreEqual(0.5, input.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(0.5, input.ThicknessAquiferLayer.Mean.Value);
         }
 
         #endregion
