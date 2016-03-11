@@ -108,7 +108,7 @@ namespace Demo.Ringtoets.Commands
                 surfaceLinesImporter.Import(pipingFailureMechanism.SurfaceLines, tempPath.FilePath);
             }
 
-            using (var tempPath = new TemporaryImportFile("complete.soil"))
+            using (var tempPath = new TemporaryImportFile("DR6.soil"))
             {
                 var surfaceLinesImporter = new PipingSoilProfilesImporter();
                 surfaceLinesImporter.Import(pipingFailureMechanism.SoilProfiles, tempPath.FilePath);
@@ -116,11 +116,9 @@ namespace Demo.Ringtoets.Commands
 
             var calculation = pipingFailureMechanism.CalculationsGroup.GetPipingCalculations().First();
             calculation.InputParameters.SetSurfaceLine(pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001"));
-            calculation.InputParameters.SoilProfile = pipingFailureMechanism.SoilProfiles.First(sl => sl.Name == "AD640M00_Segment_36005_1D2");
+            calculation.InputParameters.SetSoilProfile(pipingFailureMechanism.SoilProfiles.First(sl => sl.Name == "W1-6_0_1D1"));
             calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble)3;
             calculation.InputParameters.AssessmentLevel = (RoundedDouble)0.0;
-            calculation.InputParameters.ThicknessCoverageLayer = new LognormalDistribution(2);
-            calculation.InputParameters.ThicknessAquiferLayer = new LognormalDistribution(2);
         }
     }
 }

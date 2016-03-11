@@ -145,7 +145,6 @@
   <ItemGroup>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\DR6_surfacelines.csv" />
-    <EmbeddedResource Include="Resources\complete.soil" />
     <EmbeddedResource Include="Resources\traject_10-1.dbf" />
     <EmbeddedResource Include="Resources\traject_10-1.prj" />
     <EmbeddedResource Include="Resources\traject_10-1.shp" />
@@ -178,6 +177,7 @@
     <EmbeddedResource Include="Resources\HRD_dutchcoastsouth.sqlite" />
     <EmbeddedResource Include="Resources\DR6_surfacelines.krp.csv" />
     <EmbeddedResource Include="Resources\HLCD.sqlite" />
+    <EmbeddedResource Include="Resources\DR6.soil" />
     <None Include="Resources\map.png" />
   </ItemGroup>
   <ItemGroup>
