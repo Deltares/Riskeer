@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             double result = designVariable.GetDesignValue();
 
             // Assert
-            Assert.AreEqual(expectedResult, result, 1e-6);
+            Assert.AreEqual(expectedResult, result, 1e-4);
         }
 
         [Test]

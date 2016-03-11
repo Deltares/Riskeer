@@ -101,7 +101,7 @@
       <Name>Ringtoets.Piping.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.Service.TestUtil\Ringtoets.Piping.Service.TestUtil.csproj">
-      <Project>{C05B4F73-480E-46A4-B037-40954F8276DC}</Project>
+      <Project>{c05b4f73-480e-46a4-b037-40954f8276dc}</Project>
       <Name>Ringtoets.Piping.Service.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
