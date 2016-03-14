@@ -23,9 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 using Core.Common.Base.Properties;
-
 using MathNet.Numerics.LinearAlgebra.Double;
 
 namespace Core.Common.Base.Geometry
@@ -137,6 +135,60 @@ namespace Core.Common.Base.Geometry
         }
 
         /// <summary>
+        /// Determines the intersection points between multiple segments.
+        /// </summary>
+        /// <param name="segments">A <see cref="List{T}"/> of <see cref="Segment2D"/>.</param>
+        /// <param name="segmentsToCompare">Another <see cref="List{T}"/> of <see cref="Segment2D"/> which may or may not intersect with the <see cref="Segment2D"/> from <paramref name="segments"/>.</param>
+        /// <returns>A <see cref="List{T}"/> of <see cref="Point2D"/> intersection points.</returns>
+        public static IEnumerable<Point2D> SegmentsIntersectionsWithSegments(IEnumerable<Segment2D> segments, IEnumerable<Segment2D> segmentsToCompare)
+        {
+            return segments.SelectMany(segment => segmentsToCompare, SingleSegmentIntersectionWithSingleSegment).Where(intersection => intersection != null).Distinct().ToList();
+        }
+
+        /// <summary>
+        /// Determines the intersection points between two <see cref="Segment2D"/> segments.
+        /// </summary>
+        /// <param name="segment1">A <see cref="Segment2D"/> segment.</param>
+        /// <param name="segment2">Another <see cref="Segment2D"/> segment which may or may not intersect with the <see cref="Segment2D"/> from <paramref name="segment1"/>.</param>
+        /// <returns>A <see cref="Point2D"/> intersection point, or <c>null</c> when there is no intersection.</returns>
+        public static Point2D SingleSegmentIntersectionWithSingleSegment(Segment2D segment1, Segment2D segment2)
+        {
+            if (AreEqualPoints(segment1.FirstPoint, segment1.SecondPoint))
+            {
+                return segment1.FirstPoint;
+            }
+            if (AreEqualPoints(segment1.SecondPoint, segment2.FirstPoint))
+            {
+                return segment1.SecondPoint;
+            }
+
+            double intersectionPoint;
+            var intersects = Intersects(segment1.FirstPoint, segment1.SecondPoint, segment2.FirstPoint, segment2.SecondPoint, out intersectionPoint);
+
+            if (!intersects)
+            {
+                return null;
+            }
+
+            return new Point2D
+                (
+                segment1.FirstPoint.X + intersectionPoint*(segment1.SecondPoint.X - segment1.FirstPoint.X),
+                segment1.FirstPoint.Y + intersectionPoint*(segment1.SecondPoint.Y - segment1.FirstPoint.Y)
+                );
+        }
+
+        /// <summary>
+        /// Determines if two <see cref="Point2D"/> points are equal.
+        /// </summary>
+        /// <param name="point1">The first <see cref="Point2D"/> point.</param>
+        /// <param name="point2">The second <see cref="Point2D"/> point.</param>
+        /// <returns><c>True</c> when the points are equal. <c>False</c> otherwise.</returns>
+        public static bool AreEqualPoints(Point2D point1, Point2D point2)
+        {
+            return Math.Abs(point1.X - point2.X) < epsilonForComparisons && Math.Abs(point1.Y - point2.Y) < epsilonForComparisons;
+        }
+
+        /// <summary>
         /// Determines the intersection points of a <see cref="IEnumerable{T}"/> of <see cref="Segment2D"/> with a vertical line
         /// which is plotted at x=<paramref name="verticalLineX"/>.
         /// </summary>
@@ -161,6 +213,25 @@ namespace Core.Common.Base.Geometry
             }
 
             return intersectionPointY;
+        }
+
+        private static bool Intersects(Point2D point1, Point2D point2, Point2D point3, Point2D point4, out double result)
+        {
+            var aLine = (point1.Y - point3.Y)*(point4.X - point3.X) - (point1.X - point3.X)*(point4.Y - point3.Y);
+            var bLine = (point2.X - point1.X)*(point4.Y - point3.Y) - (point2.Y - point1.Y)*(point4.X - point3.X);
+
+            if (Math.Abs(bLine) < epsilonForComparisons) // parallel lines so no intersection anywhere in space (in curved space, maybe, but not here in Euclidian space.)
+            {
+                result = 0;
+                return false;
+            }
+
+            result = aLine/bLine;
+
+            aLine = (point1.Y - point3.Y)*(point2.X - point1.X) - (point1.X - point3.X)*(point2.Y - point1.Y);
+            var cLine = aLine/bLine;
+
+            return ((result >= 0 && result <= 1) && cLine >= 0) && cLine <= 1;
         }
 
         private static Point2D[][] SplitLineSegmentsAtLengths(Segment2D[] lineSegments, double[] lengths)

@@ -2,10 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Properties;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
 
 namespace Core.Common.Base.Test.Geometry
@@ -26,24 +25,24 @@ namespace Core.Common.Base.Test.Geometry
             // /\
             var testCaseDatadata1 = new TestCaseData(new[]
             {
-                new Point2D(0.0,0.0),
-                new Point2D(1.0,1.0),
-                new Point2D(1.0,0.0),
-                new Point2D(0.0,1.0),
-                new Point2D(0.5,0.5)
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(0.0, 1.0),
+                new Point2D(0.5, 0.5)
             }, "IntersectingSegments 1");
-            yield return testCaseDatadata1; 
+            yield return testCaseDatadata1;
 
             // __
             //  /
             // /
             var testCaseDatadata2 = new TestCaseData(new[]
             {
-                new Point2D(0.0,0.0),
-                new Point2D(1.0,1.0),
-                new Point2D(0.0,1.0),
-                new Point2D(1.0,1.0),
-                new Point2D(1.0,1.0)
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(0.0, 1.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(1.0, 1.0)
             }, "IntersectingSegments 2");
             yield return testCaseDatadata2;
 
@@ -52,13 +51,41 @@ namespace Core.Common.Base.Test.Geometry
             // /__
             var testCaseDatadata3 = new TestCaseData(new[]
             {
-                new Point2D(0.0,0.0),
-                new Point2D(1.0,0.0),
-                new Point2D(0.0,0.0),
-                new Point2D(1.0,1.0),
-                new Point2D(0.0,0.0)
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(0.0, 0.0)
             }, "IntersectingSegments 3");
             yield return testCaseDatadata3;
+        }
+
+        /// <summary>
+        /// Test cases for intersecting segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
+        /// which represent the coordinate of a point. Each pair of coordinates form a segment. 
+        /// The last 2 point2D values are the expected intersection points.
+        /// </summary>
+        private static IEnumerable MultipleIntersectingSegments()
+        {
+            //  _|_
+            // / | \
+            // \_|_/
+            var testCaseDatadata1 = new TestCaseData(new[]
+            {
+                new Point2D(1.0, 0.0),
+                new Point2D(0.0, 1.0),
+                new Point2D(1.0, 2.0),
+                new Point2D(3.0, 2.0),
+                new Point2D(4.0, 1.0),
+                new Point2D(3.0, 0.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(2.0, 0.0),
+                new Point2D(2.0, 2.0),
+                new Point2D(2.0, 0.0),
+                new Point2D(2.0, 2.0)
+            }, "MultipleIntersectingSegments 1");
+            yield return testCaseDatadata1;
+
         }
 
         /// <summary>
@@ -67,7 +94,6 @@ namespace Core.Common.Base.Test.Geometry
         /// </summary>
         private static IEnumerable ParallelSegments()
         {
-
             // __
             // __
             var testCaseDatadata1 = new TestCaseData(new[]
@@ -77,10 +103,9 @@ namespace Core.Common.Base.Test.Geometry
                 new Point2D(0.0, 1.0),
                 new Point2D(1.0, 1.0)
             }, "ParallelSegments");
-            yield return testCaseDatadata1; 
+            yield return testCaseDatadata1;
 
-            
-           // ____ (connected in single point)
+            // ____ (connected in single point)
             var testCaseDatadata2 = new TestCaseData(new[]
             {
                 new Point2D(0.0, 0.0),
@@ -89,7 +114,6 @@ namespace Core.Common.Base.Test.Geometry
                 new Point2D(2.0, 0.0)
             }, "ParallelSegments, connected in single point");
             yield return testCaseDatadata2;
-
 
             // __ (overlap)
             var testCaseDatadata3 = new TestCaseData(new[]
@@ -112,11 +136,11 @@ namespace Core.Common.Base.Test.Geometry
             // ___
             new[]
             {
-                new Point2D(0.0,0.0),
-                new Point2D(1.0,0.0),
-                new Point2D(0.5,1.0),
-                new Point2D(0.5,0.5),
-                new Point2D(0.5,0.0)
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(0.5, 1.0),
+                new Point2D(0.5, 0.5),
+                new Point2D(0.5, 0.0)
             }
         };
 
@@ -136,7 +160,7 @@ namespace Core.Common.Base.Test.Geometry
         [Test]
         [TestCaseSource("ParallelSegments")]
         // String testname was added because the Teamcity report only counts the unique signatures that were tested
-        public void LineIntersectionWithLine_DifferentParallelLineSegments_ReturnsNoPoint(Point2D[] points, string testname="")
+        public void LineIntersectionWithLine_DifferentParallelLineSegments_ReturnsNoPoint(Point2D[] points, string testname = "")
         {
             // Call
             var result = Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
@@ -160,14 +184,14 @@ namespace Core.Common.Base.Test.Geometry
         public void LineIntersectionWithLine_WithEqualPoints_ThrowsArgumentException()
         {
             // Call
-            TestDelegate testA = () => Math2D.LineIntersectionWithLine(new Point2D(0,0), new Point2D(0,0), new Point2D(1,0), new Point2D(0,1));
+            TestDelegate testA = () => Math2D.LineIntersectionWithLine(new Point2D(0, 0), new Point2D(0, 0), new Point2D(1, 0), new Point2D(0, 1));
             TestDelegate testB = () => Math2D.LineIntersectionWithLine(new Point2D(0, 1), new Point2D(0, 0), new Point2D(1, 1), new Point2D(1, 1));
 
             // Assert
             var exceptionA = Assert.Throws<ArgumentException>(testA);
             var exceptionB = Assert.Throws<ArgumentException>(testB);
-            Assert.AreEqual(Properties.Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal, exceptionA.Message);
-            Assert.AreEqual(Properties.Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal,exceptionB.Message);
+            Assert.AreEqual(Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal, exceptionA.Message);
+            Assert.AreEqual(Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal, exceptionB.Message);
         }
 
         [Test]
@@ -182,7 +206,7 @@ namespace Core.Common.Base.Test.Geometry
             var result = Math2D.LineIntersectionWithLine(new Point2D(start, y1), new Point2D(start + 1, y2), new Point2D(start + 0.5, 0), new Point2D(start + 0.5, 1));
 
             // Assert
-            Assert.AreEqual((y1+y2)/2, result.Y, 1e-8);
+            Assert.AreEqual((y1 + y2)/2, result.Y, 1e-8);
         }
 
         [Test]
@@ -195,11 +219,11 @@ namespace Core.Common.Base.Test.Geometry
             // Setup
             var segments = new[]
             {
-                new Segment2D(new Point2D(2.2,3.3), new Point2D(3.3,3.3)),
-                new Segment2D(new Point2D(1.1,5.0), new Point2D(1.1,2.0)), // vertical
-                new Segment2D(new Point2D(5.5,2.0), new Point2D(5.5,2.0)), // no length
-                new Segment2D(new Point2D(-2.0,1.0), new Point2D(-1.0,2.0)),
-                new Segment2D(new Point2D(-1.0,2.0), new Point2D(-2.0,5.5))
+                new Segment2D(new Point2D(2.2, 3.3), new Point2D(3.3, 3.3)),
+                new Segment2D(new Point2D(1.1, 5.0), new Point2D(1.1, 2.0)), // vertical
+                new Segment2D(new Point2D(5.5, 2.0), new Point2D(5.5, 2.0)), // no length
+                new Segment2D(new Point2D(-2.0, 1.0), new Point2D(-1.0, 2.0)),
+                new Segment2D(new Point2D(-1.0, 2.0), new Point2D(-2.0, 5.5))
             };
 
             // Call
@@ -370,7 +394,7 @@ namespace Core.Common.Base.Test.Geometry
             Assert.AreEqual(4, lineSplits.Length);
             CollectionAssert.AreEqual(new[]
             {
-                new Point2D(0,0), 
+                new Point2D(0, 0),
                 new Point2D(5.0, 15.0)
             }, lineSplits[0], doubleToleranceComparer);
             CollectionAssert.AreEqual(new[]
@@ -393,7 +417,7 @@ namespace Core.Common.Base.Test.Geometry
         private double[] GetLengthsBasedOnReletative(double[] relativeLengths, IEnumerable<Point2D> lineGeometryPoints)
         {
             var lineLength = Math2D.ConvertLinePointsToLineSegments(lineGeometryPoints).Sum(s => s.Length);
-            return relativeLengths.Select(l => lineLength * l).ToArray();
+            return relativeLengths.Select(l => lineLength*l).ToArray();
         }
 
         private class Point2DComparerWithTolerance : IComparer<Point2D>, IComparer
@@ -405,16 +429,191 @@ namespace Core.Common.Base.Test.Geometry
                 this.tolerance = tolerance;
             }
 
+            public int Compare(object x, object y)
+            {
+                return Compare(x as Point2D, y as Point2D);
+            }
+
             public int Compare(Point2D p0, Point2D p1)
             {
                 double diff = p0.GetEuclideanDistanceTo(p1);
                 return Math.Abs(diff) < tolerance ? 0 : 1;
             }
+        }
 
-            public int Compare(object x, object y)
+        [Test]
+        [TestCaseSource("IntersectingSegments")]
+        public void SingleSegmentIntersectionWithSingleSegment_DifferentLineSegmentsWithIntersections_ReturnsPoint(Point2D[] points, string testname = "")
+        {
+            // Call
+            var result = Math2D.SingleSegmentIntersectionWithSingleSegment(new Segment2D(points[0], points[1]), new Segment2D(points[2], points[3]));
+
+            // Assert
+            Assert.AreEqual(points[4], result);
+        }
+
+        [Test]
+        [TestCaseSource("ParallelSegments")]
+        // String testname was added because the Teamcity report only counts the unique signatures that were tested
+        public void SingleSegmentIntersectionWithSingleSegment_DifferentParallelLineSegments_ReturnsPointWhenConnectedOtherwiseNull(Point2D[] points, string testname = "")
+        {
+            // Call
+            var result = Math2D.SingleSegmentIntersectionWithSingleSegment(new Segment2D(points[0], points[1]), new Segment2D(points[2], points[3]));
+
+            // Assert
+            if (Math2D.AreEqualPoints(points[1], points[2]))
             {
-                return Compare(x as Point2D, y as Point2D);
+                Assert.AreEqual(points[1], result);
             }
+            else
+            {
+                Assert.IsNull(result);
+            }
+        }
+
+        [Test]
+        [TestCaseSource("NonIntersectingSegments")]
+        public void SingleSegmentIntersectionWithSingleSegment_DifferentLineSegmentsWithNoIntersection_ReturnsNull(Point2D[] points)
+        {
+            // Call
+            var result = Math2D.SingleSegmentIntersectionWithSingleSegment(new Segment2D(points[0], points[1]), new Segment2D(points[2], points[3]));
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        public void SingleSegmentIntersectionWithSingleSegment_InterSectionsHigherUpX_ReturnsNull()
+        {
+            // Setup
+            var y1 = 5.925;
+            var y2 = 5.890;
+            var start = 133;
+
+            // Call
+            var result = Math2D.SingleSegmentIntersectionWithSingleSegment(new Segment2D(new Point2D(start, y1), new Point2D(start + 1, y2)), new Segment2D(new Point2D(start + 0.5, 0), new Point2D(start + 0.5, 1)));
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        [TestCaseSource("MultipleIntersectingSegments")]
+        public void SegmentsIntersectionsWithSegments_DifferentLinesWithMultipleIntersections_ReturnsMultiplePoints(Point2D[] points, string testname = "")
+        {
+            // Setup
+            var segments = Math2D.ConvertLinePointsToLineSegments(new List<Point2D>
+            {
+                points[0], points[1], points[2], points[3], points[4], points[5], points[6]
+            });
+
+            var lineSegments = Math2D.ConvertLinePointsToLineSegments(new List<Point2D>
+            {
+                points[7], points[8]
+            });
+
+            // Call
+            var result = Math2D.SegmentsIntersectionsWithSegments(segments, lineSegments).ToArray();
+
+            // Assert
+            Assert.AreEqual(2, result.Length);
+            Assert.AreEqual(points[9], result[1]);
+            Assert.AreEqual(points[10], result[0]);
+        }
+
+        [Test]
+        [TestCaseSource("IntersectingSegments")]
+        public void SegmentsIntersectionsWithSegments_DifferentLineSegmentsWithIntersections_ReturnsPoint(Point2D[] points, string testname = "")
+        {
+            // Call
+            var result = Math2D.SegmentsIntersectionsWithSegments(new List<Segment2D> {new Segment2D(points[0], points[1])}, new List<Segment2D> {new Segment2D(points[2], points[3])});
+
+            // Assert
+            CollectionAssert.AreEquivalent(new [] {points[4]}, result);
+        }
+
+        [Test]
+        [TestCaseSource("ParallelSegments")]
+        // String testname was added because the Teamcity report only counts the unique signatures that were tested
+        public void SegmentsIntersectionsWithSegments_DifferentParallelLineSegments_ReturnsPointWhenConnectedOtherwiseEmptyList(Point2D[] points, string testname = "")
+        {
+            // Call
+            var result = Math2D.SegmentsIntersectionsWithSegments(new List<Segment2D> { new Segment2D(points[0], points[1]) }, new List<Segment2D> { new Segment2D(points[2], points[3]) });
+
+            // Assert
+            if (Math2D.AreEqualPoints(points[1], points[2]))
+            {
+                CollectionAssert.AreEquivalent(new [] {points[1]}, result);
+            }
+            else
+            {
+                CollectionAssert.IsEmpty(result);
+            }
+        }
+
+        [Test]
+        [TestCaseSource("NonIntersectingSegments")]
+        public void SegmentsIntersectionsWithSegments_DifferentLineSegmentsWithNoIntersection_ReturnsEmtpyList(Point2D[] points)
+        {
+            // Call
+            var result = Math2D.SegmentsIntersectionsWithSegments(new List<Segment2D> { new Segment2D(points[0], points[1]) }, new List<Segment2D> { new Segment2D(points[2], points[3]) });
+
+            // Assert
+            CollectionAssert.IsEmpty(result);
+        }
+
+        [Test]
+        public void SegmentsIntersectionsWithSegments_WithEqualPoints_ReturnsMultiplePoints()
+        {
+            // Setup
+            var segments1 = new List<Segment2D>
+            {
+                new Segment2D(new Point2D(0, 0), new Point2D(0, 0)), new Segment2D(new Point2D(1, 0), new Point2D(0, 1))
+            };
+            var segments2 = new List<Segment2D>
+            {
+                new Segment2D(new Point2D(0, 1), new Point2D(0, 0)), new Segment2D(new Point2D(1, 1), new Point2D(1, 1))
+            };
+            // Call
+            var result = Math2D.SegmentsIntersectionsWithSegments(segments1, segments2);
+
+            // Assert
+            CollectionAssert.AreEquivalent(new[] { new Point2D(0, 0), new Point2D(0, 1) }, result);
+        }
+
+        [Test]
+        public void SegmentsIntersectionsWithSegments_InterSectionsHigherUpX_ReturnsEmptyList()
+        {
+            // Setup
+            var y1 = 5.925;
+            var y2 = 5.890;
+            var start = 133;
+
+            // Call
+            var result = Math2D.SegmentsIntersectionsWithSegments(new List<Segment2D> {new Segment2D(new Point2D(start, y1), new Point2D(start + 1, y2))}, new List<Segment2D> {new Segment2D(new Point2D(start + 0.5, 0), new Point2D(start + 0.5, 1))});
+
+            // Assert
+            CollectionAssert.IsEmpty(result);
+        }
+
+        [Test]
+        public void AreEqualPoints_PointsEqual_ReturnsTrue()
+        {
+            // Call
+            var result = Math2D.AreEqualPoints(new Point2D(0, 0), new Point2D(0, 0));
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void AreEqualPoints_PointsNotEqual_ReturnsFalse()
+        {
+            // Call
+            var result = Math2D.AreEqualPoints(new Point2D(1, 0), new Point2D(4, 9));
+
+            // Assert
+            Assert.IsFalse(result);
         }
     }
 }
