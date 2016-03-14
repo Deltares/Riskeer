@@ -258,5 +258,14 @@ namespace Ringtoets.Integration.Plugin.Properties {
                 return ResourceManager.GetString("RingtoetsGuiPlugin_Calculate_assessment_level_for_location_0_", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de berekening: inspecteer het logbestand..
+        /// </summary>
+        public static string RingtoetsGuiPlugin_Error_during_assessment_level_calculation {
+            get {
+                return ResourceManager.GetString("RingtoetsGuiPlugin_Error_during_assessment_level_calculation", resourceCulture);
+            }
+        }
     }
 }

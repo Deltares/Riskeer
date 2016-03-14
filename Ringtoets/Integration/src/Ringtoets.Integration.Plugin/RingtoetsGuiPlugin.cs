@@ -556,6 +556,10 @@ namespace Ringtoets.Integration.Plugin
                 hydraulicBoundaryLocation.DesignWaterLevel = output.Result;
                 hydraulicBoundaryLocation.NotifyObservers();
             }
+            else
+            {
+                throw new InvalidOperationException(Resources.RingtoetsGuiPlugin_Error_during_assessment_level_calculation);
+            }
         }
 
         private static void ShowCleanDialog(HydraulicBoundaryDatabaseContext nodeData,
