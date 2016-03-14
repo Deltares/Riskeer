@@ -31,8 +31,9 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 
 using log4net;
-
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.IO.SurfaceLines;
 
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
@@ -47,7 +48,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <para><c>Id;X1;Y1;Z1;...(Xn;Yn;Zn)</c></para>
     /// <para>Where Xn;Yn;Zn form the n-th 3D point describing the geometry of the surface line.</para>
     /// </summary>
-    public class PipingSurfaceLinesCsvImporter : FileImporterBase<ICollection<RingtoetsPipingSurfaceLine>>
+    public class PipingSurfaceLinesCsvImporter : FileImporterBase<RingtoetsPipingSurfaceLineContext>
     {
         private const string characteristicPointsFileSubExtension = ".krp";
         private const string csvFileExtension = ".csv";
@@ -90,6 +91,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public override bool Import(object targetItem, string filePath)
         {
+            var targetObject = (RingtoetsPipingSurfaceLineContext) targetItem;
+
             var importSurfaceLinesResult = ReadPipingSurfaceLines(filePath);
             if (importSurfaceLinesResult.CriticalErrorOccurred)
             {
@@ -114,7 +117,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            AddImportedDataToModel(targetItem, importSurfaceLinesResult.ImportedItems, importCharacteristicPointsResult.ImportedItems);
+            AddImportedDataToModel(targetObject, importSurfaceLinesResult.ImportedItems, importCharacteristicPointsResult.ImportedItems);
 
             return true;
         }
@@ -126,11 +129,11 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return new ReadResult<T>(true);
         }
 
-        private void AddImportedDataToModel(object target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines, ICollection<CharacteristicPoints> readCharacteristicPointsLocations)
+        private void AddImportedDataToModel(RingtoetsPipingSurfaceLineContext target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines, ICollection<CharacteristicPoints> readCharacteristicPointsLocations)
         {
             NotifyProgress(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, readSurfaceLines.Count, readSurfaceLines.Count);
 
-            var targetCollection = (ICollection<RingtoetsPipingSurfaceLine>)target;
+            var targetCollection = target.FailureMechanism.SurfaceLines;
             List<string> readCharacteristicPointsLocationNames = readCharacteristicPointsLocations.Select(cpl => cpl.Name).ToList();
             foreach (var readSurfaceLine in readSurfaceLines)
             {

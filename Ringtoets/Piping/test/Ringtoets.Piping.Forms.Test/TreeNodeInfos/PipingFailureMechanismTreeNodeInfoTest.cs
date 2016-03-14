@@ -122,12 +122,15 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreSame(pipingFailureMechanism, failureMechanismSectionsContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
+            var surfaceLinesContext = (RingtoetsPipingSurfaceLineContext) inputsFolder.Contents[1];
+            Assert.AreSame(pipingFailureMechanism, surfaceLinesContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, surfaceLinesContext.AssessmentSection);
+
             CollectionAssert.AreEqual(new object[]
             {
-                pipingFailureMechanism.SurfaceLines,
                 pipingFailureMechanism.SoilProfiles,
                 pipingFailureMechanism.BoundaryConditions
-            }, inputsFolder.Contents.Cast<object>().Skip(1));
+            }, inputsFolder.Contents.Cast<object>().Skip(2));
 
             var calculationsFolder = (PipingCalculationGroupContext) children[1];
             Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);

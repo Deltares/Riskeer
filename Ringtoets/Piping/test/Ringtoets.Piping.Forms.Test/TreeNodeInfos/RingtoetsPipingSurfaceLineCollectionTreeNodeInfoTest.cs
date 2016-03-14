@@ -7,7 +7,9 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Plugin;
 
@@ -25,14 +27,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(IEnumerable<RingtoetsPipingSurfaceLine>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLineContext));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(IEnumerable<RingtoetsPipingSurfaceLine>), info.TagType);
+            Assert.AreEqual(typeof(RingtoetsPipingSurfaceLineContext), info.TagType);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
@@ -51,7 +53,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var ringtoetsPipingSurfaceLines = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var failureMechanism = new PipingFailureMechanism();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLineContext>(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -68,7 +72,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var ringtoetsPipingSurfaceLines = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
+            var failureMechanism = new PipingFailureMechanism();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLineContext>(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -85,9 +91,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ForeColor_CollectionWithoutSurfaceLines_ReturnsGrayText()
         {
             // Setup
-            var ringtoetsPipingSurfaceLines = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
-
-            ringtoetsPipingSurfaceLines.Expect(collection => collection.GetEnumerator());
+            var failureMechanism = new PipingFailureMechanism();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLineContext>(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -104,14 +110,20 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ForeColor_CollectionWithSurfaceLines_ReturnsControlText()
         {
             // Setup
-            IEnumerable<RingtoetsPipingSurfaceLine> ringtoetsPipingSurfaceLines = new[]
-            {
-                new RingtoetsPipingSurfaceLine(),
-                new RingtoetsPipingSurfaceLine()
-            };
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var ringtoetsPipingSurfaceLine1 = new RingtoetsPipingSurfaceLine();
+            var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SurfaceLines.Add(ringtoetsPipingSurfaceLine1);
+            failureMechanism.SurfaceLines.Add(ringtoetsPipingSurfaceLine2);
+
+            var ringtoetsPipingSurfaceLineContext = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+
+            mocks.ReplayAll();
 
             // Call
-            var foreColor = info.ForeColor(ringtoetsPipingSurfaceLines);
+            var foreColor = info.ForeColor(ringtoetsPipingSurfaceLineContext);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), foreColor);
@@ -123,18 +135,20 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsChildsOnData()
         {
             // Setup
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             var ringtoetsPipingSurfaceLine1 = new RingtoetsPipingSurfaceLine();
             var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine();
-            IEnumerable<RingtoetsPipingSurfaceLine> ringtoetsPipingSurfaceLines = new[]
-            {
-                ringtoetsPipingSurfaceLine1,
-                ringtoetsPipingSurfaceLine2
-            };
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SurfaceLines.Add(ringtoetsPipingSurfaceLine1);
+            failureMechanism.SurfaceLines.Add(ringtoetsPipingSurfaceLine2);
+
+            var ringtoetsPipingSurfaceLineContext = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
             // Call
-            var objects = info.ChildNodeObjects(ringtoetsPipingSurfaceLines);
+            var objects = info.ChildNodeObjects(ringtoetsPipingSurfaceLineContext);
 
             // Assert
             CollectionAssert.AreEqual(new[] { ringtoetsPipingSurfaceLine1, ringtoetsPipingSurfaceLine2 }, objects);

@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Extensions\PipingInputExtensionsTest.cs" />
     <Compile Include="PresentationObjects\PipingFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLineContextTest.cs" />
     <Compile Include="PropertyClasses\GeneralPipingInputPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingCalculationReportTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingOutputTreeNodeInfoTest.cs" />

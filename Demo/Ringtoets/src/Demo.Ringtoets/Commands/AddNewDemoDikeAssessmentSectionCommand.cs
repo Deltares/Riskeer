@@ -10,6 +10,7 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Extensions;
+using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin.FileImporter;
 
 namespace Demo.Ringtoets.Commands
@@ -103,7 +104,8 @@ namespace Demo.Ringtoets.Commands
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
             {
                 var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter();
-                surfaceLinesImporter.Import(pipingFailureMechanism.SurfaceLines, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
+                var context = new RingtoetsPipingSurfaceLineContext(pipingFailureMechanism, demoAssessmentSection);
+                surfaceLinesImporter.Import(context, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
             }
 
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "DR6.soil"))
