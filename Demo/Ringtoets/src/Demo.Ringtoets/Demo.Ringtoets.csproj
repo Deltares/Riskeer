@@ -174,7 +174,7 @@
     <Resource Include="Resources\folder-horizontal.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\HRD_dutchcoastsouth.sqlite" />
+    <EmbeddedResource Include="Resources\HRD dutch coast south.sqlite" />
     <EmbeddedResource Include="Resources\DR6_surfacelines.krp.csv" />
     <EmbeddedResource Include="Resources\HLCD.sqlite" />
     <EmbeddedResource Include="Resources\DR6.soil" />

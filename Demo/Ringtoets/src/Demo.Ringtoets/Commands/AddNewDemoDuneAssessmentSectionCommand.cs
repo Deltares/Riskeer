@@ -67,11 +67,11 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeDemoHydraulicBoundaryDatabase(DuneAssessmentSection demoAssessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(false, "HRD_dutchcoastsouth.sqlite", "HLCD.sqlite"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(false, "HRD dutch coast south.sqlite", "HLCD.sqlite"))
             {
                 using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
                 {
-                    hydraulicBoundaryDatabaseImporter.ValidateAndConnectTo(Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD_dutchcoastsouth.sqlite"));
+                    hydraulicBoundaryDatabaseImporter.ValidateAndConnectTo(Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite"));
                     hydraulicBoundaryDatabaseImporter.Import(new HydraulicBoundaryDatabaseContext(demoAssessmentSection));
                 }
             }
