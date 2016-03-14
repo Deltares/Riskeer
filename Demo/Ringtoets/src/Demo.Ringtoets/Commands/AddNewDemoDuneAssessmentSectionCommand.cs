@@ -1,9 +1,9 @@
-﻿using Core.Common.Controls.Commands;
+﻿using System.IO;
+using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
 
@@ -62,7 +62,7 @@ namespace Demo.Ringtoets.Commands
                                                                     "traject_10-1.dbf", "traject_10-1.prj", "traject_10-1.shx"))
             {
                 var importer = new ReferenceLineImporter();
-                importer.Import(new ReferenceLineContext(demoAssessmentSection), temporaryShapeFile.FilePath);
+                importer.Import(new ReferenceLineContext(demoAssessmentSection), Path.Combine(temporaryShapeFile.TargetFolderPath, "traject_10-1.shp"));
             }
         }
 
@@ -72,7 +72,7 @@ namespace Demo.Ringtoets.Commands
             {
                 using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
                 {
-                    hydraulicBoundaryDatabaseImporter.ValidateAndConnectTo(tempPath.FilePath);
+                    hydraulicBoundaryDatabaseImporter.ValidateAndConnectTo(Path.Combine(tempPath.TargetFolderPath, "HRD_dutchcoastsouth.sqlite"));
                     hydraulicBoundaryDatabaseImporter.Import(new HydraulicBoundaryDatabaseContext(demoAssessmentSection));
                 }
             }
@@ -87,7 +87,7 @@ namespace Demo.Ringtoets.Commands
                 foreach (IFailureMechanism failureMechanism in demoAssessmentSection.GetFailureMechanisms())
                 {
                     var context = new FailureMechanismSectionsContext(failureMechanism, demoAssessmentSection);
-                    importer.Import(context, temporaryShapeFile.FilePath);
+                    importer.Import(context, Path.Combine(temporaryShapeFile.TargetFolderPath, "traject_10-1_vakken.shp"));
                 }
             }
         }

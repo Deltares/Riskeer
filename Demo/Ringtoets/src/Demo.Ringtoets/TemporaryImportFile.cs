@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-
 using Core.Common.Utils.Reflection;
 
 namespace Demo.Ringtoets
@@ -11,28 +10,35 @@ namespace Demo.Ringtoets
     /// </summary>
     internal class TemporaryImportFile : IDisposable
     {
-        private readonly string tempTargetFolderPath;
-        private readonly string fullFilePath;
+        private readonly string targetFolderPath;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TemporaryImportFile"/> class.
         /// </summary>
-        /// <param name="embeddedResourceFileName">Name of the file with build action 'Embedded Resource' within this project.</param>
-        /// <param name="supportFiles">Names of extra files required for importing the <paramref name="embeddedResourceFileName"/>.</param>
-        public TemporaryImportFile(string embeddedResourceFileName, params string[] supportFiles)
+        /// <param name="embeddedResourceFileNames">The names of the 'Embedded Resource' files to temporary copy to the file system.</param>
+        public TemporaryImportFile(params string[] embeddedResourceFileNames)
         {
-            tempTargetFolderPath = Path.Combine(Path.GetTempPath(), "demo_traject");
-            Directory.CreateDirectory(tempTargetFolderPath);
+            targetFolderPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
-            fullFilePath = Path.Combine(tempTargetFolderPath, embeddedResourceFileName);
+            Directory.CreateDirectory(targetFolderPath);
 
-            WriteEmbeddedResourceToTemporaryFile(embeddedResourceFileName, fullFilePath);
-
-            foreach (string supportFile in supportFiles)
+            foreach (string embeddedResourceFileName in embeddedResourceFileNames)
             {
-                var filePath = Path.Combine(tempTargetFolderPath, supportFile);
-                WriteEmbeddedResourceToTemporaryFile(supportFile, filePath);
+                WriteEmbeddedResourceToTemporaryFile(embeddedResourceFileName, Path.Combine(targetFolderPath, embeddedResourceFileName));
             }
+        }
+
+        public string TargetFolderPath
+        {
+            get
+            {
+                return targetFolderPath;
+            }
+        }
+
+        public void Dispose()
+        {
+            Directory.Delete(targetFolderPath, true);
         }
 
         private void WriteEmbeddedResourceToTemporaryFile(string embeddedResourceFileName, string filePath)
@@ -44,19 +50,6 @@ namespace Demo.Ringtoets
             File.WriteAllBytes(filePath, bytes);
         }
 
-        public string FilePath
-        {
-            get
-            {
-                return fullFilePath;
-            }
-        }
-
-        public void Dispose()
-        {
-            Directory.Delete(tempTargetFolderPath, true);
-        }
-
         private Stream GetStreamToFileInResource(string embeddedResourceFileName)
         {
             return AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly, embeddedResourceFileName);
@@ -66,7 +59,7 @@ namespace Demo.Ringtoets
         {
             var bytes = new byte[stream.Length];
             var reader = new BinaryReader(stream);
-            reader.Read(bytes, 0, (int)stream.Length);
+            reader.Read(bytes, 0, (int) stream.Length);
             return bytes;
         }
     }

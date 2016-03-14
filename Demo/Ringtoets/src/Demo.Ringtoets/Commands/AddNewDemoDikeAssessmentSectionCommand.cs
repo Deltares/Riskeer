@@ -1,5 +1,5 @@
-﻿using System.Linq;
-
+﻿using System.IO;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
@@ -9,7 +9,6 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Plugin.FileImporter;
 
@@ -69,7 +68,7 @@ namespace Demo.Ringtoets.Commands
                                                                     "traject_10-1.dbf", "traject_10-1.prj", "traject_10-1.shx"))
             {
                 var importer = new ReferenceLineImporter();
-                importer.Import(new ReferenceLineContext(demoAssessmentSection), temporaryShapeFile.FilePath);
+                importer.Import(new ReferenceLineContext(demoAssessmentSection), Path.Combine(temporaryShapeFile.TargetFolderPath, "traject_10-1.shp"));
             }
         }
 
@@ -79,7 +78,7 @@ namespace Demo.Ringtoets.Commands
             {
                 using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
                 {
-                    hydraulicBoundaryDatabaseImporter.ValidateAndConnectTo(tempPath.FilePath);
+                    hydraulicBoundaryDatabaseImporter.ValidateAndConnectTo(Path.Combine(tempPath.TargetFolderPath, "HRD_dutchcoastsouth.sqlite"));
                     hydraulicBoundaryDatabaseImporter.Import(new HydraulicBoundaryDatabaseContext(demoAssessmentSection));
                 }
             }
@@ -94,7 +93,7 @@ namespace Demo.Ringtoets.Commands
                 foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
                 {
                     var context = new FailureMechanismSectionsContext(failureMechanism, demoAssessmentSection);
-                    importer.Import(context, temporaryShapeFile.FilePath);
+                    importer.Import(context, Path.Combine(temporaryShapeFile.TargetFolderPath, "traject_10-1_vakken.shp"));
                 }
             }
         }
@@ -106,19 +105,19 @@ namespace Demo.Ringtoets.Commands
             using (var tempPath = new TemporaryImportFile("DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
             {
                 var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter();
-                surfaceLinesImporter.Import(pipingFailureMechanism.SurfaceLines, tempPath.FilePath);
+                surfaceLinesImporter.Import(pipingFailureMechanism.SurfaceLines, Path.Combine(tempPath.TargetFolderPath, "DR6_surfacelines.csv"));
             }
 
             using (var tempPath = new TemporaryImportFile("DR6.soil"))
             {
                 var surfaceLinesImporter = new PipingSoilProfilesImporter();
-                surfaceLinesImporter.Import(pipingFailureMechanism.SoilProfiles, tempPath.FilePath);
+                surfaceLinesImporter.Import(pipingFailureMechanism.SoilProfiles, Path.Combine(tempPath.TargetFolderPath, "DR6.soil"));
             }
 
             var calculation = pipingFailureMechanism.CalculationsGroup.GetPipingCalculations().First();
             calculation.InputParameters.SetSurfaceLine(pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001"));
             calculation.InputParameters.SetSoilProfile(pipingFailureMechanism.SoilProfiles.First(sl => sl.Name == "W1-6_0_1D1"));
-            calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble)3;
+            calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble) 3;
             calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
             {
                 DesignWaterLevel = 0.0
