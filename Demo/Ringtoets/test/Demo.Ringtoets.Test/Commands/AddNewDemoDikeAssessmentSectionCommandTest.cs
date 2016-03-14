@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -65,6 +66,8 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual("Demo dijktraject", demoAssessmentSection.Name);
 
             Assert.IsNotEmpty(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath);
+            Assert.IsTrue(File.Exists(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath));
+            Assert.IsTrue(File.Exists(Path.Combine(Path.GetDirectoryName(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath), "HLCD.sqlite")));
             var hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
             Assert.AreEqual(18, hydraulicBoundaryLocations.Length);
 
