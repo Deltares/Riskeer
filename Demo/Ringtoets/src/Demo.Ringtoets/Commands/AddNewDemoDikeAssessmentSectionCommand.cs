@@ -4,6 +4,7 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
@@ -118,7 +119,10 @@ namespace Demo.Ringtoets.Commands
             calculation.InputParameters.SetSurfaceLine(pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001"));
             calculation.InputParameters.SetSoilProfile(pipingFailureMechanism.SoilProfiles.First(sl => sl.Name == "W1-6_0_1D1"));
             calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble)3;
-            calculation.InputParameters.AssessmentLevel = (RoundedDouble)0.0;
+            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
+            {
+                DesignWaterLevel = 0.0
+            };
         }
     }
 }

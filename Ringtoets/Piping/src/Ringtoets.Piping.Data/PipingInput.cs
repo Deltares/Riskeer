@@ -41,6 +41,7 @@ namespace Ringtoets.Piping.Data
         private RoundedDouble assessmentLevel;
         private RoundedDouble exitPointL;
         private RoundedDouble entryPointL;
+        private HydraulicBoundaryLocation hydraulicBoundaryLocation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
@@ -103,7 +104,7 @@ namespace Ringtoets.Piping.Data
             {
                 return assessmentLevel;
             }
-            set
+            private set
             {
                 assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
@@ -158,12 +159,6 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the piezometric head at the exit point.
-        /// [m]
-        /// </summary>
-        public double PiezometricHeadExit { get; set; }
-
-        /// <summary>
         /// Gets or sets the surface line.
         /// </summary>
         public RingtoetsPipingSurfaceLine SurfaceLine { get; set; }
@@ -176,7 +171,18 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or set the hydraulic boundary location from which to use the assessment level.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation
+        {
+            get
+            {
+                return hydraulicBoundaryLocation;
+            }
+            set
+            {
+                AssessmentLevel = (RoundedDouble)value.DesignWaterLevel;
+                hydraulicBoundaryLocation = value;
+            }
+        }
 
         #region General input parameters
 

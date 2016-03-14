@@ -4,9 +4,13 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Piping.Calculation;
+using Ringtoets.Piping.Calculation.TestUtil.SubCalculator;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.Service;
+using Ringtoets.Piping.Service.TestUtil;
 
 namespace Ringtoets.Piping.Forms.Test.Extensions
 {
@@ -1024,6 +1028,31 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
 
         #endregion
 
+        [Test]
+        public void GetPiezometricHeadExit_Always_SetsParametersForCalculatorAndReturnRoundedDouble()
+        {
+            // Setup
+            var input = new PipingInput(new GeneralPipingInput());
+
+            using (new PipingCalculationServiceConfig())
+            {
+                // Call
+                var result = input.GetPiezometricHeadExit();
+
+                // Assert
+                Assert.AreEqual(2, result.NumberOfDecimalPlaces);
+
+                var factory = (TestPipingSubCalculatorFactory) PipingCalculationService.SubCalculatorFactory;
+                var piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
+
+                Assert.AreEqual(input.AssessmentLevel.Value, piezometricHeadAtExitCalculator.HRiver);
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.PhiPolder,
+                                GetAccuracy(input.PhreaticLevelExit.Mean));
+                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.RExit,
+                                GetAccuracy(input.DampingFactorExit.Mean));
+            }
+        }
+
         #region test input creation helpers
 
         private static RingtoetsPipingSurfaceLine ValidSurfaceLine(double xMin, double xMax)
@@ -1136,5 +1165,9 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
         }
         #endregion
 
+        private static double GetAccuracy(RoundedDouble roundedDouble)
+        {
+            return Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
+        }
     }
 }

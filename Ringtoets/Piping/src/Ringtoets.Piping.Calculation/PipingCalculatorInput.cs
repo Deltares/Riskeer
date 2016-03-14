@@ -31,7 +31,6 @@ namespace Ringtoets.Piping.Calculation
         private readonly double waterVolumetricWeight;
         private readonly double upliftModelFactor;
         private readonly double assessmentLevel;
-        private readonly double piezometricHeadExit;
         private readonly double dampingFactorExit;
         private readonly double phreaticLevelExit;
         private readonly double criticalHeaveGradient;
@@ -61,7 +60,6 @@ namespace Ringtoets.Piping.Calculation
         /// <param name="saturatedVolumicWeightOfCoverageLayer"></param>
         /// <param name="upliftModelFactor">The calculation value used to account for uncertainty in the model for uplift.</param>
         /// <param name="assessmentLevel">The outside high water level. [m]</param>
-        /// <param name="piezometricHeadExit">The piezometric head at the exit point. [m]</param>
         /// <param name="dampingFactorExit">The damping factor at the exit point. </param>
         /// <param name="phreaticLevelExit">The phreatic level at the exit point. [m]</param>
         /// <param name="criticalHeaveGradient">The critical exit gradient for heave.</param>
@@ -81,13 +79,12 @@ namespace Ringtoets.Piping.Calculation
         /// <param name="exitPointXCoordinate">The x coordinate of the exit point. [m]</param>
         /// <param name="surfaceLine">The surface line.</param>
         /// <param name="soilProfile">The profile which contains a 1 dimensional definition of soil layers with properties.</param>
-        public PipingCalculatorInput(double waterVolumetricWeight, double saturatedVolumicWeightOfCoverageLayer, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
+        public PipingCalculatorInput(double waterVolumetricWeight, double saturatedVolumicWeightOfCoverageLayer, double upliftModelFactor, double assessmentLevel, double dampingFactorExit, double phreaticLevelExit, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
         {
             this.waterVolumetricWeight = waterVolumetricWeight;
             this.saturatedVolumicWeightOfCoverageLayer = saturatedVolumicWeightOfCoverageLayer;
             this.upliftModelFactor = upliftModelFactor;
             this.assessmentLevel = assessmentLevel;
-            this.piezometricHeadExit = piezometricHeadExit;
             this.dampingFactorExit = dampingFactorExit;
             this.phreaticLevelExit = phreaticLevelExit;
             this.criticalHeaveGradient = criticalHeaveGradient;
@@ -143,18 +140,6 @@ namespace Ringtoets.Piping.Calculation
             get
             {
                 return assessmentLevel;
-            }
-        }
-
-        /// <summary>
-        /// Gets the piezometric head at the exit point.
-        /// [m]
-        /// </summary>
-        public double PiezometricHeadExit
-        {
-            get
-            {
-                return piezometricHeadExit;
             }
         }
 

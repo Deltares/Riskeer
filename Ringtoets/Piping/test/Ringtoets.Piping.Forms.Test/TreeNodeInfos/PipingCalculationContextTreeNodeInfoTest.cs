@@ -12,6 +12,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -624,18 +625,19 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             plugin.Gui = gui;
 
-            calculation.InputParameters.AssessmentLevel = validPipingInput.AssessmentLevel;
             calculation.InputParameters.DampingFactorExit.Mean = (RoundedDouble)validPipingInput.DampingFactorExit;
             calculation.InputParameters.DarcyPermeability.Mean = (RoundedDouble)validPipingInput.DarcyPermeability;
             calculation.InputParameters.Diameter70.Mean = (RoundedDouble)validPipingInput.Diameter70;
             calculation.InputParameters.ExitPointL = validPipingInput.ExitPointXCoordinate;
             calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble)validPipingInput.PhreaticLevelExit;
-            calculation.InputParameters.PiezometricHeadExit = validPipingInput.PiezometricHeadExit;
             calculation.InputParameters.SeepageLength.Mean = (RoundedDouble)validPipingInput.SeepageLength;
             calculation.InputParameters.ThicknessAquiferLayer.Mean = (RoundedDouble)validPipingInput.ThicknessAquiferLayer;
             calculation.InputParameters.ThicknessCoverageLayer.Mean = (RoundedDouble)validPipingInput.ThicknessCoverageLayer;
             calculation.InputParameters.SurfaceLine = validPipingInput.SurfaceLine;
             calculation.InputParameters.SoilProfile = validPipingInput.SoilProfile;
+            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty,0.0,0.0) {
+                DesignWaterLevel = validPipingInput.AssessmentLevel
+            };
 
             calculation.Attach(observer);
 

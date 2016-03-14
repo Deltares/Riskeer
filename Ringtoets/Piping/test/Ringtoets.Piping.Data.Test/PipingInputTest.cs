@@ -4,7 +4,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Data.Properties;
 
@@ -56,7 +56,6 @@ namespace Ringtoets.Piping.Data.Test
                             GetErrorTolerance(inputParameters.DarcyPermeability.StandardDeviation));
             Assert.AreEqual(3, inputParameters.DarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
 
-            Assert.AreEqual(0, inputParameters.PiezometricHeadExit);
             Assert.IsNull(inputParameters.SurfaceLine);
             Assert.IsNull(inputParameters.SoilProfile);
             Assert.IsNull(inputParameters.HydraulicBoundaryLocation);
@@ -225,15 +224,18 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssessmentLevel_SetToNewValueWithTooManyDecimalPlaces_ValueIsRounded()
+        public void HydraulicBoundary_SetToNewValue_AssessmentLevelValueIsRounded()
         {
             // Setup
             var pipingInput = new PipingInput(new GeneralPipingInput());
-
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
+            {
+                DesignWaterLevel = -8.29292
+            };
             int originalNumberOfDecimalPlaces = pipingInput.AssessmentLevel.NumberOfDecimalPlaces;
 
             // Call
-            pipingInput.AssessmentLevel = new RoundedDouble(5, -8.29292);
+            pipingInput.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, pipingInput.AssessmentLevel.NumberOfDecimalPlaces);

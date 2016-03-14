@@ -17,7 +17,6 @@ namespace Ringtoets.Piping.Calculation.Test
             double saturatedVolumicWeightOfCoverageLayer = random.NextDouble();
             double modelFactorUpliftValue = random.NextDouble();
             double hRiverValue = random.NextDouble();
-            double phiExitValue = random.NextDouble();
             double rExitValue = random.NextDouble();
             double hExitValue = random.NextDouble();
             double ichValue = random.NextDouble();
@@ -49,7 +48,6 @@ namespace Ringtoets.Piping.Calculation.Test
                 saturatedVolumicWeightOfCoverageLayer,
                 modelFactorUpliftValue,
                 hRiverValue,
-                phiExitValue,
                 rExitValue,
                 hExitValue,
                 ichValue,
@@ -74,7 +72,6 @@ namespace Ringtoets.Piping.Calculation.Test
             Assert.AreEqual(saturatedVolumicWeightOfCoverageLayer, input.SaturatedVolumicWeightOfCoverageLayer);
             Assert.AreEqual(modelFactorUpliftValue, input.UpliftModelFactor);
             Assert.AreEqual(hRiverValue, input.AssessmentLevel);
-            Assert.AreEqual(phiExitValue, input.PiezometricHeadExit);
             Assert.AreEqual(rExitValue, input.DampingFactorExit);
             Assert.AreEqual(hExitValue, input.PhreaticLevelExit);
             Assert.AreEqual(ichValue, input.CriticalHeaveGradient);

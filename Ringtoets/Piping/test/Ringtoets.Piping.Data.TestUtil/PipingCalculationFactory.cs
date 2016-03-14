@@ -2,6 +2,7 @@
 
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Piping.Data.TestUtil
 {
@@ -45,12 +46,15 @@ namespace Ringtoets.Piping.Data.TestUtil
             surfaceLine.SetBottomDitchDikeSideAt(thirdCharacteristicPointLocation);
             surfaceLine.SetBottomDitchPolderSideAt(fourthCharacteristicPointLocation);
             surfaceLine.SetDitchPolderSideAt(fifthCharacteristicPointLocation);
-            
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
+            {
+                DesignWaterLevel = (RoundedDouble) 1.0
+            };
             return new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
-                    AssessmentLevel = (RoundedDouble)1.0,
                     DampingFactorExit =
                     {
                         Mean = (RoundedDouble)1.0
@@ -64,7 +68,6 @@ namespace Ringtoets.Piping.Data.TestUtil
                         Mean = (RoundedDouble)1.0
                     },
                     ExitPointL = (RoundedDouble)1.0,
-                    PiezometricHeadExit = 1.0,
                     PhreaticLevelExit =
                     {
                         Mean = (RoundedDouble)2.0
@@ -82,7 +85,8 @@ namespace Ringtoets.Piping.Data.TestUtil
                         Mean = (RoundedDouble)1.0
                     },
                     SurfaceLine = surfaceLine,
-                    SoilProfile = soilProfile
+                    SoilProfile = soilProfile,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
         }

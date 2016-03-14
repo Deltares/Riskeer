@@ -274,7 +274,7 @@ namespace Ringtoets.Piping.Calculation
         {
             var calculator = factory.CreateHeaveCalculator();
             calculator.Ich = input.CriticalHeaveGradient;
-            calculator.PhiExit = input.PiezometricHeadExit;
+            calculator.PhiExit = CalculatePiezometricHeadAtExit();
             calculator.DTotal = input.ThicknessCoverageLayer;
             calculator.PhiPolder = input.PhreaticLevelExit;
             calculator.RExit = input.DampingFactorExit;
@@ -291,7 +291,7 @@ namespace Ringtoets.Piping.Calculation
             calculator.ModelFactorUplift = input.UpliftModelFactor;
             calculator.EffectiveStress = effectiveStress;
             calculator.HRiver = input.AssessmentLevel;
-            calculator.PhiExit = input.PiezometricHeadExit;
+            calculator.PhiExit = CalculatePiezometricHeadAtExit();
             calculator.RExit = input.DampingFactorExit;
             calculator.HExit = input.PhreaticLevelExit;
             calculator.PhiPolder = input.PhreaticLevelExit;

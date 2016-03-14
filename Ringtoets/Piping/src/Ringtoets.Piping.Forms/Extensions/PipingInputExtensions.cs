@@ -82,6 +82,11 @@ namespace Ringtoets.Piping.Forms.Extensions
             }
         }
 
+        public static RoundedDouble GetPiezometricHeadExit(this PipingInput input)
+        {
+            return new RoundedDouble(2, PipingCalculationService.CalculatePiezometricHeadAtExit(input));
+        }
+
         private static void UpdateThicknessAquiferLayer(this PipingInput input)
         {
             PipingSoilProfile soilProfile = input.SoilProfile;

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
@@ -82,15 +81,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                if (double.IsNaN(value.DesignWaterLevel))
-                {
-                    string message = string.Format(Resources.PipingInputContextProperties_HydraulicBoundaryLocation_Could_not_set_Location_0_Cause_1_,
-                                                   value.Name,
-                                                   Resources.PipingInputContextProperties_AssessmentLevel_cannot_be_NaN);
-                    throw new ArgumentException(message);
-                }
-
-                data.WrappedData.AssessmentLevel = (RoundedDouble)value.DesignWaterLevel;
                 data.WrappedData.HydraulicBoundaryLocation = value;
                 data.WrappedData.NotifyObservers();
             }
@@ -110,16 +100,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_PiezometricHeadExit_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_PiezometricHeadExit_Description")]
-        public double PiezometricHeadExit
+        public RoundedDouble PiezometricHeadExit
         {
             get
             {
-                return data.WrappedData.PiezometricHeadExit;
-            }
-            set
-            {
-                data.WrappedData.PiezometricHeadExit = value;
-                data.WrappedData.NotifyObservers();
+                return data.WrappedData.GetPiezometricHeadExit();
             }
         }
 
