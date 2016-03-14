@@ -5,19 +5,22 @@ using Core.Common.Utils.Reflection;
 namespace Demo.Ringtoets
 {
     /// <summary>
-    /// Class for creating a temporary file in the windows Temp directory based on a file 
-    /// stored in Embedded Resources.
+    /// Class for writing Embedded Resources to the Windows Temp directory.
     /// </summary>
-    internal class TemporaryImportFile : IDisposable
+    internal class EmbeddedResourceFileWriter : IDisposable
     {
+        private readonly bool removeFilesOnDispose;
         private readonly string targetFolderPath;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TemporaryImportFile"/> class.
+        /// Initializes a new instance of the <see cref="EmbeddedResourceFileWriter"/> class.
         /// </summary>
-        /// <param name="embeddedResourceFileNames">The names of the 'Embedded Resource' files to temporary copy to the file system.</param>
-        public TemporaryImportFile(params string[] embeddedResourceFileNames)
+        /// <param name="removeFilesOnDispose">Whether or not the files should be removed after disposing the created <see cref="EmbeddedResourceFileWriter"/> instance.</param>
+        /// <param name="embeddedResourceFileNames">The names of the Embedded Resource files to (temporary) write to the Windows Temp directory.</param>
+        public EmbeddedResourceFileWriter(bool removeFilesOnDispose, params string[] embeddedResourceFileNames)
         {
+            this.removeFilesOnDispose = removeFilesOnDispose;
+
             targetFolderPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
             Directory.CreateDirectory(targetFolderPath);
@@ -28,6 +31,9 @@ namespace Demo.Ringtoets
             }
         }
 
+        /// <summary>
+        /// Gets the target folder path.
+        /// </summary>
         public string TargetFolderPath
         {
             get
@@ -36,15 +42,20 @@ namespace Demo.Ringtoets
             }
         }
 
+        /// <summary>
+        /// Disposes the <see cref="EmbeddedResourceFileWriter"/> instance.
+        /// </summary>
         public void Dispose()
         {
-            Directory.Delete(targetFolderPath, true);
+            if (removeFilesOnDispose)
+            {
+                Directory.Delete(targetFolderPath, true);
+            }
         }
 
         private void WriteEmbeddedResourceToTemporaryFile(string embeddedResourceFileName, string filePath)
         {
             var stream = GetStreamToFileInResource(embeddedResourceFileName);
-
             var bytes = GetBinaryDataOfStream(stream);
 
             File.WriteAllBytes(filePath, bytes);

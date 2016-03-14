@@ -64,21 +64,20 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeDemoReferenceLine(DikeAssessmentSection demoAssessmentSection)
         {
-            using (var temporaryShapeFile = new TemporaryImportFile("traject_10-1.shp",
-                                                                    "traject_10-1.dbf", "traject_10-1.prj", "traject_10-1.shx"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "traject_10-1.shp", "traject_10-1.dbf", "traject_10-1.prj", "traject_10-1.shx"))
             {
                 var importer = new ReferenceLineImporter();
-                importer.Import(new ReferenceLineContext(demoAssessmentSection), Path.Combine(temporaryShapeFile.TargetFolderPath, "traject_10-1.shp"));
+                importer.Import(new ReferenceLineContext(demoAssessmentSection), Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_10-1.shp"));
             }
         }
 
         private void InitializeDemoHydraulicBoundaryDatabase(DikeAssessmentSection demoAssessmentSection)
         {
-            using (var tempPath = new TemporaryImportFile("HRD_dutchcoastsouth.sqlite", "HLCD.sqlite"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(false, "HRD_dutchcoastsouth.sqlite", "HLCD.sqlite"))
             {
                 using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
                 {
-                    hydraulicBoundaryDatabaseImporter.ValidateAndConnectTo(Path.Combine(tempPath.TargetFolderPath, "HRD_dutchcoastsouth.sqlite"));
+                    hydraulicBoundaryDatabaseImporter.ValidateAndConnectTo(Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD_dutchcoastsouth.sqlite"));
                     hydraulicBoundaryDatabaseImporter.Import(new HydraulicBoundaryDatabaseContext(demoAssessmentSection));
                 }
             }
@@ -86,14 +85,13 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeDemoFailureMechanismSections(DikeAssessmentSection demoAssessmentSection)
         {
-            using (var temporaryShapeFile = new TemporaryImportFile("traject_10-1_vakken.shp",
-                                                                    "traject_10-1_vakken.dbf", "traject_10-1_vakken.prj", "traject_10-1_vakken.shx"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "traject_10-1_vakken.shp", "traject_10-1_vakken.dbf", "traject_10-1_vakken.prj", "traject_10-1_vakken.shx"))
             {
                 var importer = new FailureMechanismSectionsImporter();
                 foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
                 {
                     var context = new FailureMechanismSectionsContext(failureMechanism, demoAssessmentSection);
-                    importer.Import(context, Path.Combine(temporaryShapeFile.TargetFolderPath, "traject_10-1_vakken.shp"));
+                    importer.Import(context, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_10-1_vakken.shp"));
                 }
             }
         }
@@ -102,16 +100,16 @@ namespace Demo.Ringtoets.Commands
         {
             var pipingFailureMechanism = demoAssessmentSection.PipingFailureMechanism;
 
-            using (var tempPath = new TemporaryImportFile("DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
             {
                 var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter();
-                surfaceLinesImporter.Import(pipingFailureMechanism.SurfaceLines, Path.Combine(tempPath.TargetFolderPath, "DR6_surfacelines.csv"));
+                surfaceLinesImporter.Import(pipingFailureMechanism.SurfaceLines, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
             }
 
-            using (var tempPath = new TemporaryImportFile("DR6.soil"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "DR6.soil"))
             {
                 var surfaceLinesImporter = new PipingSoilProfilesImporter();
-                surfaceLinesImporter.Import(pipingFailureMechanism.SoilProfiles, Path.Combine(tempPath.TargetFolderPath, "DR6.soil"));
+                surfaceLinesImporter.Import(pipingFailureMechanism.SoilProfiles, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
             }
 
             var calculation = pipingFailureMechanism.CalculationsGroup.GetPipingCalculations().First();
