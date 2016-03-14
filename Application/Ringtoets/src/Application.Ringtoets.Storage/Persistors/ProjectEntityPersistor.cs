@@ -45,7 +45,6 @@ namespace Application.Ringtoets.Storage.Persistors
         private readonly ICollection<ProjectEntity> modifiedList = new List<ProjectEntity>();
 
         private readonly DikeAssessmentSectionEntityPersistor dikeAssessmentSectionEntityPersistor;
-        private readonly DuneAssessmentSectionEntityPersistor duneAssessmentSectionEntityPersistor;
 
         /// <summary>
         /// Instantiate a new ProjectEntityPersistor.
@@ -64,7 +63,6 @@ namespace Application.Ringtoets.Storage.Persistors
             converter = new ProjectEntityConverter();
 
             dikeAssessmentSectionEntityPersistor = new DikeAssessmentSectionEntityPersistor(dbContext);
-            duneAssessmentSectionEntityPersistor = new DuneAssessmentSectionEntityPersistor(dbContext);
         }
 
         /// <summary>
@@ -81,17 +79,12 @@ namespace Application.Ringtoets.Storage.Persistors
             }
             var project = converter.ConvertEntityToModel(entry);
 
-            var nrOfItems = entry.DikeAssessmentSectionEntities.Count + entry.DuneAssessmentSectionEntities.Count;
+            var nrOfItems = entry.DikeAssessmentSectionEntities.Count;
             var assessmentSections = new object[nrOfItems];
 
             foreach (var sectionEntity in entry.DikeAssessmentSectionEntities)
             {
                 assessmentSections[sectionEntity.Order] = dikeAssessmentSectionEntityPersistor.LoadModel(sectionEntity);
-            }
-
-            foreach (var sectionEntity in entry.DuneAssessmentSectionEntities)
-            {
-                assessmentSections[sectionEntity.Order] = duneAssessmentSectionEntityPersistor.LoadModel(sectionEntity);
             }
 
             // Add to items sorted 
@@ -201,7 +194,6 @@ namespace Application.Ringtoets.Storage.Persistors
         {
             UpdateStorageIdsInModel();
             dikeAssessmentSectionEntityPersistor.PerformPostSaveActions();
-            duneAssessmentSectionEntityPersistor.PerformPostSaveActions();
         }
 
         /// <summary>
@@ -217,15 +209,10 @@ namespace Application.Ringtoets.Storage.Persistors
                 if (item is DikeAssessmentSection)
                 {
                     dikeAssessmentSectionEntityPersistor.UpdateModel(entity.DikeAssessmentSectionEntities, (DikeAssessmentSection) item, order);
+                    order++;
                 }
-                else if (item is DuneAssessmentSection)
-                {
-                    duneAssessmentSectionEntityPersistor.UpdateModel(entity.DuneAssessmentSectionEntities, (DuneAssessmentSection) item, order);
-                }
-                order++;
             }
             dikeAssessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.DikeAssessmentSectionEntities);
-            duneAssessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.DuneAssessmentSectionEntities);
         }
 
         /// <summary>
@@ -241,15 +228,10 @@ namespace Application.Ringtoets.Storage.Persistors
                 if (item is DikeAssessmentSection)
                 {
                     dikeAssessmentSectionEntityPersistor.InsertModel(entity.DikeAssessmentSectionEntities, (DikeAssessmentSection) item, order);
+                    order++;
                 }
-                else if (item is DuneAssessmentSection)
-                {
-                    duneAssessmentSectionEntityPersistor.InsertModel(entity.DuneAssessmentSectionEntities, (DuneAssessmentSection) item, order);
-                }
-                order++;
             }
             dikeAssessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.DikeAssessmentSectionEntities);
-            duneAssessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.DuneAssessmentSectionEntities);
         }
 
         /// <summary>

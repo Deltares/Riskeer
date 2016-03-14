@@ -36,7 +36,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             string expectedProjectName = "tempProjectFile";
             string expectedDescription = "description";
             string expectedDikeAssessmentSectionName = "dikeAssessmentSection";
-            string expectedDuneAssessmentSectionName = "duneAssessmentSection";
 
             // Call
             Project project = RingtoetsProjectHelper.GetFullTestProject();
@@ -48,10 +47,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             DikeAssessmentSection dikeAssessmentSection = project.Items.OfType<DikeAssessmentSection>().FirstOrDefault();
             Assert.IsInstanceOf<DikeAssessmentSection>(dikeAssessmentSection);
             Assert.AreEqual(expectedDikeAssessmentSectionName, dikeAssessmentSection.Name);
-
-            DuneAssessmentSection duneAssessmentSection = project.Items.OfType<DuneAssessmentSection>().FirstOrDefault();
-            Assert.IsInstanceOf<DuneAssessmentSection>(duneAssessmentSection);
-            Assert.AreEqual(expectedDuneAssessmentSectionName, duneAssessmentSection.Name);
         }
     }
 }

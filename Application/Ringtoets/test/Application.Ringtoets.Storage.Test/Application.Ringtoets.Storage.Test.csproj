@@ -81,21 +81,16 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\DuneAssessmentSectionEntityConverterTest.cs" />
     <Compile Include="Converters\ProjectEntityConverterTest.cs" />
     <Compile Include="DbContext\FailureMechanismEntityTest.cs" />
     <Compile Include="DbContext\DbTestSet.cs" />
     <Compile Include="Converters\DikeAssessmentSectionEntityConverterTest.cs" />
     <Compile Include="DbContext\DikeAssessmentSectionEntityTest.cs" />
-    <Compile Include="DbContext\DuneAssessmentSectionEntityTest.cs" />
     <Compile Include="DbContext\ProjectEntityTest.cs" />
     <Compile Include="RingtoetsDatabaseCreator.cs" />
     <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
     <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />
     <Compile Include="Persistors\DikeAssessmentSectionEntityPersistorTest.cs" />
-    <Compile Include="Persistors\DuneAssessmentSectionEntityPersistorTest.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Persistors\DikesPipingFailureMechanismEntityPersistorTest.cs" />
     <Compile Include="Persistors\ProjectEntityPersistorTest.cs">
       <SubType>Code</SubType>

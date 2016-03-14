@@ -44,10 +44,6 @@ namespace Application.Ringtoets.Storage.TestUtil
                     new DikeAssessmentSection
                     {
                         Name = "dikeAssessmentSection"
-                    },
-                    new DuneAssessmentSection
-                    {
-                        Name = "duneAssessmentSection"
                     }
                 }
             };

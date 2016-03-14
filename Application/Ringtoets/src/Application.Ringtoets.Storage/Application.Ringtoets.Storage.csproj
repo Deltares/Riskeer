@@ -53,13 +53,9 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Converters\DikeAssessmentSectionEntityConverter.cs" />
-    <Compile Include="Converters\DuneAssessmentSectionEntityConverter.cs" />
     <Compile Include="Converters\ProjectEntityConverter.cs" />
     <Compile Include="Converters\IEntityConverter.cs" />
     <Compile Include="DbContext\DikeAssessmentSectionEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\DuneAssessmentSectionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\FailureMechanismEntity.cs">
@@ -73,9 +69,6 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistors\DikeAssessmentSectionEntityPersistor.cs" />
-    <Compile Include="Persistors\DuneAssessmentSectionEntityPersistor.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Persistors\FailureMechanismEntityPersistorBase.cs" />
     <Compile Include="Persistors\IPersistor.cs" />
     <Compile Include="Persistors\DikesPipingFailureMechanismEntityPersistor.cs" />

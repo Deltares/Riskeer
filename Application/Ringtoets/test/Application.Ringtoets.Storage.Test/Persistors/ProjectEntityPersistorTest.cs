@@ -177,14 +177,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                             Norm = 1,
                             Order = 0
                         }
-                    },
-                    DuneAssessmentSectionEntities = new List<DuneAssessmentSectionEntity>
-                    {
-                        new DuneAssessmentSectionEntity
-                        {
-                            Norm = 1,
-                            Order = 1
-                        }
                     }
                 }
             });
@@ -200,9 +192,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.IsInstanceOf<Project>(model);
             Assert.AreEqual(storageId, model.StorageId);
             Assert.AreEqual(description, model.Description);
-            Assert.AreEqual(2, model.Items.Count);
+            Assert.AreEqual(1, model.Items.Count);
             Assert.AreEqual(1, model.Items.Count(i => i is DikeAssessmentSection));
-            Assert.AreEqual(1, model.Items.Count(i => i is DuneAssessmentSection));
 
             mockRepository.VerifyAll();
         }
@@ -281,8 +272,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 Description = description,
                 Items =
                 {
-                    new DikeAssessmentSection(),
-                    new DuneAssessmentSection()
+                    new DikeAssessmentSection()
                 }
             };
 
@@ -308,7 +298,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(storageId, projectEntity.ProjectEntityId);
             Assert.AreEqual(description, projectEntity.Description);
             Assert.AreEqual(1, projectEntity.DikeAssessmentSectionEntities.Count);
-            Assert.AreEqual(1, projectEntity.DuneAssessmentSectionEntities.Count);
 
             mockRepository.VerifyAll();
         }
@@ -460,8 +449,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 Description = description,
                 Items =
                 {
-                    new DikeAssessmentSection(),
-                    new DuneAssessmentSection()
+                    new DikeAssessmentSection()
                 }
             };
 
@@ -483,7 +471,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(storageId, projectEntity.ProjectEntityId);
             Assert.AreEqual(description, projectEntity.Description);
             Assert.AreEqual(1, projectEntity.DikeAssessmentSectionEntities.Count);
-            Assert.AreEqual(1, projectEntity.DuneAssessmentSectionEntities.Count);
 
             mockRepository.VerifyAll();
         }

@@ -39,7 +39,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public ProjectEntity()
         {
             this.DikeAssessmentSectionEntities = new HashSet<DikeAssessmentSectionEntity>();
-            this.DuneAssessmentSectionEntities = new HashSet<DuneAssessmentSectionEntity>();
         }
     
         public long ProjectEntityId { get; set; }
@@ -48,7 +47,5 @@ namespace Application.Ringtoets.Storage.DbContext
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DuneAssessmentSectionEntity> DuneAssessmentSectionEntities { get; set; }
     }
 }

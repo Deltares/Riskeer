@@ -15,23 +15,13 @@
           <Property Name="Norm" Type="int" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="DuneAssessmentSectionEntity">
-          <Key>
-            <PropertyRef Name="DuneAssessmentSectionEntityId" />
-          </Key>
-          <Property Name="DuneAssessmentSectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProjectEntityId" Type="integer" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="2147483647" Nullable="false" />
-          <Property Name="Norm" Type="int" Nullable="false" />
-          <Property Name="Order" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="FailureMechanismEntity">
           <Key>
             <PropertyRef Name="FailureMechanismEntityId" />
           </Key>
           <Property Name="FailureMechanismEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FailureMechanismType" Type="smallint" Nullable="false" />
           <Property Name="DikeAssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="FailureMechanismType" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="ProjectEntity">
           <Key>
@@ -62,18 +52,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DuneAssessmentSectionEntity_0_0">
-          <End Role="ProjectEntity" Type="Self.ProjectEntity" Multiplicity="1" />
-          <End Role="DuneAssessmentSectionEntity" Type="Self.DuneAssessmentSectionEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectEntity">
-              <PropertyRef Name="ProjectEntityId" />
-            </Principal>
-            <Dependent Role="DuneAssessmentSectionEntity">
-              <PropertyRef Name="ProjectEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_FailureMechanismEntity_0_0">
           <End Role="DikeAssessmentSectionEntity" Type="Self.DikeAssessmentSectionEntity" Multiplicity="1" />
           <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="*" />
@@ -88,17 +66,12 @@
         </Association>
         <EntityContainer Name="RingtoetsEntitiesModelStoreContainer">
           <EntitySet Name="DikeAssessmentSectionEntity" EntityType="Self.DikeAssessmentSectionEntity" store:Type="Tables" />
-          <EntitySet Name="DuneAssessmentSectionEntity" EntityType="Self.DuneAssessmentSectionEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismEntity" EntityType="Self.FailureMechanismEntity" store:Type="Tables" />
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="Version" EntityType="Self.Version" store:Type="Tables" />
           <AssociationSet Name="FK_DikeAssessmentSectionEntity_0_0" Association="Self.FK_DikeAssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntity" />
             <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DuneAssessmentSectionEntity_0_0" Association="Self.FK_DuneAssessmentSectionEntity_0_0">
-            <End Role="ProjectEntity" EntitySet="ProjectEntity" />
-            <End Role="DuneAssessmentSectionEntity" EntitySet="DuneAssessmentSectionEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_FailureMechanismEntity_0_0" Association="Self.FK_FailureMechanismEntity_0_0">
             <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntity" />
@@ -111,7 +84,6 @@
       <Schema Namespace="RingtoetsEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RingtoetsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DikeAssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" />
-          <EntitySet Name="DuneAssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.DuneAssessmentSectionEntity" />
           <EntitySet Name="FailureMechanismEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" />
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="Versions" EntityType="RingtoetsEntitiesModel.Version" />
@@ -122,10 +94,6 @@
           <AssociationSet Name="FK_FailureMechanismEntity_0_0" Association="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0">
             <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntities" />
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DuneAssessmentSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_DuneAssessmentSectionEntity_0_0">
-            <End Role="ProjectEntity" EntitySet="ProjectEntities" />
-            <End Role="DuneAssessmentSectionEntity" EntitySet="DuneAssessmentSectionEntities" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="DikeAssessmentSectionEntity">
@@ -140,24 +108,13 @@
           <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0" FromRole="DikeAssessmentSectionEntity" ToRole="ProjectEntity" />
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="DikeAssessmentSectionEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
-        <EntityType Name="DuneAssessmentSectionEntity">
-          <Key>
-            <PropertyRef Name="DuneAssessmentSectionEntityId" />
-          </Key>
-          <Property Name="DuneAssessmentSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="false" />
-          <Property Name="Norm" Type="Int32" Nullable="false" />
-          <Property Name="Order" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_DuneAssessmentSectionEntity_0_0" FromRole="DuneAssessmentSectionEntity" ToRole="ProjectEntity" />
-        </EntityType>
         <EntityType Name="FailureMechanismEntity">
           <Key>
             <PropertyRef Name="FailureMechanismEntityId" />
           </Key>
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FailureMechanismType" Type="Int16" Nullable="false" />
           <Property Name="DikeAssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="FailureMechanismType" Type="Int16" Nullable="false" />
           <NavigationProperty Name="DikeAssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DikeAssessmentSectionEntity" />
         </EntityType>
         <EntityType Name="ProjectEntity">
@@ -168,7 +125,6 @@
           <Property Name="Description" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="LastUpdated" Type="Decimal" Precision="53" Scale="0" />
           <NavigationProperty Name="DikeAssessmentSectionEntities" Relationship="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0" FromRole="ProjectEntity" ToRole="DikeAssessmentSectionEntity" />
-          <NavigationProperty Name="DuneAssessmentSectionEntities" Relationship="RingtoetsEntitiesModel.FK_DuneAssessmentSectionEntity_0_0" FromRole="ProjectEntity" ToRole="DuneAssessmentSectionEntity" />
         </EntityType>
         <EntityType Name="Version">
           <Key>
@@ -203,18 +159,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DuneAssessmentSectionEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.ProjectEntity" Role="ProjectEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.DuneAssessmentSectionEntity" Role="DuneAssessmentSectionEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProjectEntity">
-              <PropertyRef Name="ProjectEntityId" />
-            </Principal>
-            <Dependent Role="DuneAssessmentSectionEntity">
-              <PropertyRef Name="ProjectEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -232,22 +176,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DuneAssessmentSectionEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.DuneAssessmentSectionEntity">
-              <MappingFragment StoreEntitySet="DuneAssessmentSectionEntity">
-                <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="Norm" ColumnName="Norm" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ProjectEntityId" ColumnName="ProjectEntityId" />
-                <ScalarProperty Name="DuneAssessmentSectionEntityId" ColumnName="DuneAssessmentSectionEntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="FailureMechanismEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.FailureMechanismEntity">
               <MappingFragment StoreEntitySet="FailureMechanismEntity">
-                <ScalarProperty Name="DikeAssessmentSectionEntityId" ColumnName="DikeAssessmentSectionEntityId" />
                 <ScalarProperty Name="FailureMechanismType" ColumnName="FailureMechanismType" />
+                <ScalarProperty Name="DikeAssessmentSectionEntityId" ColumnName="DikeAssessmentSectionEntityId" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
               </MappingFragment>
             </EntityTypeMapping>

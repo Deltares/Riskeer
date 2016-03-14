@@ -41,11 +41,6 @@ namespace Application.Ringtoets.Storage.DbContext
         IDbSet<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; }
 
         /// <summary>
-        /// <see cref="IDbSet{TEntity}"/> of <see cref="DuneAssessmentSectionEntity"/>
-        /// </summary>
-        IDbSet<DuneAssessmentSectionEntity> DuneAssessmentSectionEntities { get; }
-
-        /// <summary>
         /// <see cref="IDbSet{TEntity}"/> of <see cref="FailureMechanismEntity"/>
         /// </summary>
         IDbSet<FailureMechanismEntity> FailureMechanismEntities { get; }
