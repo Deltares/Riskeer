@@ -59,6 +59,7 @@
     <Compile Include="Data\Input\HydraRingCalculationInputTest.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutputTest.cs" />
     <Compile Include="Parsers\TargetProbabilityCalculationParserTest.cs" />
+    <Compile Include="Services\HydraRingCalculationServiceTest.cs" />
     <Compile Include="Services\HydraRingConfigurationServiceTest.cs" />
     <Compile Include="Data\HydraRingDikeSectionTest.cs" />
     <Compile Include="Data\HydraRingProfilePointTest.cs" />
