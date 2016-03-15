@@ -13,6 +13,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
         public double SaturatedVolumicWeightOfCoverageLayer;
         public double UpliftModelFactor;
         public RoundedDouble AssessmentLevel;
+        public RoundedDouble PiezometricHeadExit;
         public double DampingFactorExit;
         public double PhreaticLevelExit;
         public double CriticalHeaveGradient;
@@ -42,6 +43,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
             SaturatedVolumicWeightOfCoverageLayer = NextIncrementalDouble();
             UpliftModelFactor = NextIncrementalDouble();
             AssessmentLevel = (RoundedDouble)NextIncrementalDouble();
+            PiezometricHeadExit = (RoundedDouble)NextIncrementalDouble();
             PhreaticLevelExit = NextIncrementalDouble();
             DampingFactorExit = NextIncrementalDouble();
             CriticalHeaveGradient = NextIncrementalDouble();
@@ -106,6 +108,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
                 SaturatedVolumicWeightOfCoverageLayer,
                 UpliftModelFactor,
                 AssessmentLevel,
+                PiezometricHeadExit,
                 DampingFactorExit,
                 PhreaticLevelExit,
                 CriticalHeaveGradient,

@@ -126,6 +126,7 @@ namespace Ringtoets.Piping.Service
                 PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
                 inputParameters.UpliftModelFactor,
                 inputParameters.AssessmentLevel,
+                inputParameters.PiezometricHeadExit,
                 PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
                 PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                 inputParameters.CriticalHeaveGradient,

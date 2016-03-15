@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Commands;
@@ -9,7 +10,6 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin.FileImporter;
 
@@ -115,13 +115,34 @@ namespace Demo.Ringtoets.Commands
             }
 
             var calculation = pipingFailureMechanism.CalculationsGroup.GetPipingCalculations().First();
-            calculation.InputParameters.SetSurfaceLine(pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001"));
-            calculation.InputParameters.SetSoilProfile(pipingFailureMechanism.SoilProfiles.First(sl => sl.Name == "W1-6_0_1D1"));
+            calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
+            calculation.InputParameters.SoilProfile = pipingFailureMechanism.SoilProfiles.First(sp => sp.Name == "W1-6_0_1D1");
+            calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+
+            SetHydraulicBoundaryLocationValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
             calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble) 3;
-            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
-            {
-                DesignWaterLevel = 0.0
-            };
+            calculation.InputParameters.NotifyObservers();
+        }
+
+        private void SetHydraulicBoundaryLocationValues(ICollection<HydraulicBoundaryLocation> locations)
+        {
+            locations.ElementAt(0).DesignWaterLevel = 5.78;
+            locations.ElementAt(1).DesignWaterLevel = 5.77;
+            locations.ElementAt(2).DesignWaterLevel = 5.77;
+            locations.ElementAt(3).DesignWaterLevel = 5.77;
+            locations.ElementAt(4).DesignWaterLevel = 5.77;
+            locations.ElementAt(5).DesignWaterLevel = 5.93;
+            locations.ElementAt(6).DesignWaterLevel = 5.93;
+            locations.ElementAt(7).DesignWaterLevel = 5.93;
+            locations.ElementAt(8).DesignWaterLevel = 5.93;
+            locations.ElementAt(9).DesignWaterLevel = 5.93;
+            locations.ElementAt(10).DesignWaterLevel = 5.93;
+            locations.ElementAt(11).DesignWaterLevel = 5.93;
+            locations.ElementAt(12).DesignWaterLevel = 5.93;
+            locations.ElementAt(13).DesignWaterLevel = 5.93;
+            locations.ElementAt(14).DesignWaterLevel = 5.93;
+            locations.ElementAt(15).DesignWaterLevel = 5.54;
+            locations.ElementAt(16).DesignWaterLevel = 5.86;
         }
     }
 }

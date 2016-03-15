@@ -59,7 +59,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\PipingInputExtensionsTest.cs" />
     <Compile Include="PresentationObjects\PipingFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLineContextTest.cs" />
     <Compile Include="PropertyClasses\GeneralPipingInputPropertiesTest.cs" />

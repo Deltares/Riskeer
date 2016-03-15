@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-
+using Core.Common.Base.Geometry;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Data.Properties;
@@ -36,12 +36,12 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingInput : Observable
     {
-        private const double seepageLengthStandardDeviationFraction = 0.1;
         private readonly GeneralPipingInput generalInputParameters;
         private RoundedDouble assessmentLevel;
         private RoundedDouble exitPointL;
         private RoundedDouble entryPointL;
-        private HydraulicBoundaryLocation hydraulicBoundaryLocation;
+        private RoundedDouble piezometricHeadExit;
+        private RingtoetsPipingSurfaceLine surfaceLine;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
@@ -62,6 +62,7 @@ namespace Ringtoets.Piping.Data
             exitPointL = new RoundedDouble(2, double.NaN);
             entryPointL = new RoundedDouble(2, double.NaN);
             assessmentLevel = new RoundedDouble(2, double.NaN);
+            piezometricHeadExit = new RoundedDouble(2, double.NaN);
 
             PhreaticLevelExit = new NormalDistribution(3);
             DampingFactorExit = new LognormalDistribution(3)
@@ -104,9 +105,25 @@ namespace Ringtoets.Piping.Data
             {
                 return assessmentLevel;
             }
-            private set
+            set
             {
                 assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the piezometric head at the exit point.
+        /// [m]
+        /// </summary>
+        public RoundedDouble PiezometricHeadExit
+        {
+            get
+            {
+                return piezometricHeadExit;
+            }
+            set
+            {
+                piezometricHeadExit = value.ToPrecision(piezometricHeadExit.NumberOfDecimalPlaces);
             }
         }
 
@@ -130,7 +147,6 @@ namespace Ringtoets.Piping.Data
                     throw new ArgumentOutOfRangeException("value", Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
                 }
                 entryPointL = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
-                UpdateSeepageLength();
             }
         }
 
@@ -154,14 +170,24 @@ namespace Ringtoets.Piping.Data
                     throw new ArgumentOutOfRangeException("value", Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
                 }
                 exitPointL = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
-                UpdateSeepageLength();
             }
         }
 
         /// <summary>
         /// Gets or sets the surface line.
         /// </summary>
-        public RingtoetsPipingSurfaceLine SurfaceLine { get; set; }
+        public RingtoetsPipingSurfaceLine SurfaceLine
+        {
+            get
+            {
+                return surfaceLine;
+            }
+            set
+            {
+                surfaceLine = value;
+                UpdateEntryAndExitPoint();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the profile which contains a 1 dimensional definition of soil layers with properties.
@@ -171,18 +197,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or set the hydraulic boundary location from which to use the assessment level.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation
-        {
-            get
-            {
-                return hydraulicBoundaryLocation;
-            }
-            set
-            {
-                AssessmentLevel = (RoundedDouble)value.DesignWaterLevel;
-                hydraulicBoundaryLocation = value;
-            }
-        }
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         #region General input parameters
 
@@ -313,23 +328,6 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        /// <summary>
-        /// Updates the mean of the seepage length stochast based on the <see cref="EntryPointL"/> and
-        /// <see cref="ExitPointL"/>.
-        /// </summary>
-        private void UpdateSeepageLength()
-        {
-            try
-            {
-                SeepageLength.Mean = ExitPointL - EntryPointL;
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                SeepageLength.Mean = (RoundedDouble)double.NaN;
-            }
-            SeepageLength.StandardDeviation = SeepageLength.Mean * seepageLengthStandardDeviationFraction;
-        }
-
         #endregion
 
         #region Probabilistic parameters
@@ -379,7 +377,39 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the volumic weight of the saturated coverage layer.
         /// </summary>
         public ShiftedLognormalDistribution SaturatedVolumicWeightOfCoverageLayer { get; set; }
-
+        
         #endregion
+
+        private void UpdateEntryAndExitPoint()
+        {
+            if (SurfaceLine == null)
+            {
+                ExitPointL = (RoundedDouble)double.NaN;
+                SeepageLength.Mean = (RoundedDouble)double.NaN;
+            }
+            else
+            {
+                int entryPointIndex = Array.IndexOf(SurfaceLine.Points, SurfaceLine.DikeToeAtRiver);
+                int exitPointIndex = Array.IndexOf(SurfaceLine.Points, SurfaceLine.DikeToeAtPolder);
+
+                Point2D[] localGeometry = SurfaceLine.ProjectGeometryToLZ().ToArray();
+
+                double tempEntryPointL = localGeometry[0].X;
+                double tempExitPointL = localGeometry[localGeometry.Length - 1].X;
+
+                bool isDifferentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
+                if (isDifferentPoints && exitPointIndex > 0)
+                {
+                    tempExitPointL = localGeometry.ElementAt(exitPointIndex).X;
+                }
+                if (isDifferentPoints && entryPointIndex > -1)
+                {
+                    tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
+                }
+
+                ExitPointL = (RoundedDouble)tempExitPointL;
+                EntryPointL = (RoundedDouble)tempEntryPointL;
+            }
+        }
     }
 }

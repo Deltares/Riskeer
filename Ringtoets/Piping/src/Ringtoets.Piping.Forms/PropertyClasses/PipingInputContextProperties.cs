@@ -30,7 +30,6 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
-using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.TypeConverters;
@@ -104,7 +103,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.GetPiezometricHeadExit();
+                return data.WrappedData.PiezometricHeadExit;
             }
         }
 
@@ -141,7 +140,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.SetSurfaceLine(value);
+                data.WrappedData.SurfaceLine = value;
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -158,7 +157,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.SetSoilProfile(value);
+                data.WrappedData.SoilProfile = value;
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -174,7 +173,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.SetEntryPointL(value);
+                data.WrappedData.EntryPointL = value;
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -190,7 +189,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.SetExitPointL(value);
+                data.WrappedData.ExitPointL = value;
                 data.WrappedData.NotifyObservers();
             }
         }

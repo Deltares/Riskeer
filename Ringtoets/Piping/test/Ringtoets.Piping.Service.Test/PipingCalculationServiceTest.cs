@@ -8,7 +8,6 @@ using Deltares.WTIPiping;
 using Ringtoets.Piping.Calculation.TestUtil;
 
 using NUnit.Framework;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Calculation.TestUtil.SubCalculator;
 using Ringtoets.Piping.Data;
@@ -89,17 +88,14 @@ namespace Ringtoets.Piping.Service.Test
         public void CalculateThicknessCoverageLayer_ValidInput_ReturnsThickness()
         {
             // Setup
-            PipingInput input = new PipingInput(new GeneralPipingInput())
-            {
-                ExitPointL = (RoundedDouble)10,
-                SurfaceLine = new RingtoetsPipingSurfaceLine()
-            };
-            input.SurfaceLine.SetGeometry(new[]
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, 0, 10),
                 new Point3D(20, 0, 10)
             });
-            input.SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
+
+            var soilProfile = new PipingSoilProfile(string.Empty, 0, new[]
             {
                 new PipingSoilLayer(5)
                 {
@@ -110,6 +106,13 @@ namespace Ringtoets.Piping.Service.Test
                     IsAquifer = false
                 }
             });
+
+            PipingInput input = new PipingInput(new GeneralPipingInput())
+            {
+                ExitPointL = (RoundedDouble) 10,
+                SurfaceLine = surfaceLine,
+                SoilProfile = soilProfile
+            };
 
             // Call
             var thickness = PipingCalculationService.CalculateThicknessCoverageLayer(input);
@@ -124,10 +127,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             PipingInput input = new PipingInput(new GeneralPipingInput())
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
-                {
-                    DesignWaterLevel = (RoundedDouble) 0.0
-                }
+                AssessmentLevel = (RoundedDouble) 0.0
             };
 
             // Call
@@ -290,7 +290,6 @@ namespace Ringtoets.Piping.Service.Test
             var heaveCalculator = testFactory.LastCreatedHeaveCalculator;
             var upliftCalculator = testFactory.LastCreatedUpliftCalculator;
             var sellmeijerCalculator = testFactory.LastCreatedSellmeijerCalculator;
-            var piezometricHeadAtExitCalculator = testFactory.LastCreatedPiezometricHeadAtExitCalculator;
             
             Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(input).GetDesignValue(), heaveCalculator.DTotal,
                             GetAccuracy(input.ThicknessCoverageLayer.Mean));
@@ -299,7 +298,7 @@ namespace Ringtoets.Piping.Service.Test
             Assert.AreEqual(input.CriticalHeaveGradient, heaveCalculator.Ich);
             Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), heaveCalculator.PhiPolder,
                             GetAccuracy(input.PhreaticLevelExit.Mean));
-            Assert.AreEqual(piezometricHeadAtExitCalculator.PhiExit, heaveCalculator.PhiExit);
+            Assert.AreEqual(input.PiezometricHeadExit.Value, heaveCalculator.PhiExit);
             Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), heaveCalculator.RExit,
                             GetAccuracy(input.DampingFactorExit.Mean));
 
@@ -307,7 +306,7 @@ namespace Ringtoets.Piping.Service.Test
                             GetAccuracy(input.PhreaticLevelExit.Mean));
             Assert.AreEqual(input.AssessmentLevel.Value, upliftCalculator.HRiver);
             Assert.AreEqual(input.UpliftModelFactor, upliftCalculator.ModelFactorUplift);
-            Assert.AreEqual(piezometricHeadAtExitCalculator.PhiExit, upliftCalculator.PhiExit);
+            Assert.AreEqual(input.PiezometricHeadExit.Value, upliftCalculator.PhiExit);
             Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), upliftCalculator.PhiPolder,
                             GetAccuracy(input.PhreaticLevelExit.Mean));
             Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), upliftCalculator.RExit,

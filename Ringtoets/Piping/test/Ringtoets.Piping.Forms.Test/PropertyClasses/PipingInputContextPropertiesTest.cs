@@ -5,7 +5,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
@@ -13,10 +12,8 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
-using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
-using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
@@ -58,8 +55,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 HydraulicBoundaryLocation = testHydraulicBoundaryLocation
             };
-            inputParameters.SetSurfaceLine(surfaceLine);
-            inputParameters.SetSoilProfile(soilProfile);
+            inputParameters.SurfaceLine = surfaceLine;
+            inputParameters.SoilProfile = (soilProfile);
 
             var properties = new PipingInputContextProperties
             {
@@ -78,7 +75,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreSame(inputParameters.ThicknessAquiferLayer, properties.ThicknessAquiferLayer.Distribution);
 
             Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevel);
-            Assert.AreEqual(inputParameters.GetPiezometricHeadExit(), properties.PiezometricHeadExit);
+            Assert.AreEqual(inputParameters.PiezometricHeadExit, properties.PiezometricHeadExit);
 
             Assert.AreSame(inputParameters.SeepageLength, properties.SeepageLength.Distribution);
             Assert.AreEqual(inputParameters.SeepageLength.Mean, properties.ExitPointL - properties.EntryPointL);
@@ -240,7 +237,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var inputParameters = new PipingInput(new GeneralPipingInput());
-            inputParameters.SetSurfaceLine(surfaceLine);
+            inputParameters.SurfaceLine = surfaceLine;
             inputParameters.Attach(inputObserver);
 
             var properties = new PipingInputContextProperties
@@ -312,7 +309,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             var inputParameters = new PipingInput(new GeneralPipingInput());
-            inputParameters.SetSurfaceLine(surfaceLine);
+            inputParameters.SurfaceLine = surfaceLine;
 
             var properties = new PipingInputContextProperties
             {

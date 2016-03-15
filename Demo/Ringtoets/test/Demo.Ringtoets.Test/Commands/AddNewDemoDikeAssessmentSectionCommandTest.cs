@@ -9,6 +9,7 @@ using Core.Common.Gui;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Data;
@@ -70,6 +71,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.IsTrue(File.Exists(Path.Combine(Path.GetDirectoryName(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath), "HLCD.sqlite")));
             var hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
             Assert.AreEqual(18, hydraulicBoundaryLocations.Length);
+            AssertValuesOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
 
             Assert.AreEqual(1669, demoAssessmentSection.ReferenceLine.Points.Count());
 
@@ -88,6 +90,28 @@ namespace Demo.Ringtoets.Test.Commands
                 Assert.AreEqual(130, failureMechanism.Sections.Count());
             }
             mocks.VerifyAll();
+        }
+
+        private void AssertValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
+        {
+            Assert.AreEqual(5.78, hydraulicBoundaryLocations[0].DesignWaterLevel);
+            Assert.AreEqual(5.77, hydraulicBoundaryLocations[1].DesignWaterLevel);
+            Assert.AreEqual(5.77, hydraulicBoundaryLocations[2].DesignWaterLevel);
+            Assert.AreEqual(5.77, hydraulicBoundaryLocations[3].DesignWaterLevel);
+            Assert.AreEqual(5.77, hydraulicBoundaryLocations[4].DesignWaterLevel);
+            Assert.AreEqual(5.93, hydraulicBoundaryLocations[5].DesignWaterLevel);
+            Assert.AreEqual(5.93, hydraulicBoundaryLocations[6].DesignWaterLevel);
+            Assert.AreEqual(5.93, hydraulicBoundaryLocations[7].DesignWaterLevel);
+            Assert.AreEqual(5.93, hydraulicBoundaryLocations[8].DesignWaterLevel);
+            Assert.AreEqual(5.93, hydraulicBoundaryLocations[9].DesignWaterLevel);
+            Assert.AreEqual(5.93, hydraulicBoundaryLocations[10].DesignWaterLevel);
+            Assert.AreEqual(5.93, hydraulicBoundaryLocations[11].DesignWaterLevel);
+            Assert.AreEqual(5.93, hydraulicBoundaryLocations[12].DesignWaterLevel);
+            Assert.AreEqual(5.93, hydraulicBoundaryLocations[13].DesignWaterLevel);
+            Assert.AreEqual(5.93, hydraulicBoundaryLocations[14].DesignWaterLevel);
+            Assert.AreEqual(5.54, hydraulicBoundaryLocations[15].DesignWaterLevel);
+            Assert.AreEqual(5.86, hydraulicBoundaryLocations[16].DesignWaterLevel);
+            Assert.IsNaN(hydraulicBoundaryLocations[17].DesignWaterLevel);
         }
 
         private void AssertCharacteristicPointsOnSurfaceLines(RingtoetsPipingSurfaceLine[] surfaceLines)
@@ -137,14 +161,17 @@ namespace Demo.Ringtoets.Test.Commands
             AssertExpectedPipingInput(inputParameters);
 
             Assert.IsTrue(PipingCalculationService.Validate(calculation));
+
+            PipingInputSynchronizer.Synchronize(inputParameters);
+
             PipingCalculationService.Calculate(calculation);
             Assert.IsTrue(calculation.HasOutput);
-            Assert.AreEqual(99.0, calculation.Output.HeaveFactorOfSafety, 1e-3);
-            Assert.AreEqual(1.154, calculation.Output.HeaveZValue, 1e-3);
-            Assert.AreEqual(99.0, calculation.Output.UpliftFactorOfSafety, 1e-3);
-            Assert.AreEqual(9.296, calculation.Output.UpliftZValue, 1e-3);
-            Assert.AreEqual(-0.346, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
-            Assert.AreEqual(4.171, calculation.Output.SellmeijerZValue, 1e-3);
+            Assert.AreEqual(0.108, calculation.Output.HeaveFactorOfSafety, 1e-3);
+            Assert.AreEqual(-2.489, calculation.Output.HeaveZValue, 1e-3);
+            Assert.AreEqual(0.267, calculation.Output.UpliftFactorOfSafety, 1e-3);
+            Assert.AreEqual(-11.870, calculation.Output.UpliftZValue, 1e-3);
+            Assert.AreEqual(0.400, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
+            Assert.AreEqual(-1.609, calculation.Output.SellmeijerZValue, 1e-3);
         }
 
         private static void AssertExpectedPipingInput(PipingInput inputParameters)
@@ -153,7 +180,6 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(1.0, inputParameters.SellmeijerModelFactor, 1e-3);
 
             Assert.AreEqual(10.0, inputParameters.WaterVolumetricWeight, 1e-3);
-            Assert.AreEqual(0.0, inputParameters.AssessmentLevel, 1e-3);
             Assert.AreEqual(0.3, inputParameters.SellmeijerReductionFactor, 1e-3);
             Assert.AreEqual(16.5, inputParameters.SandParticlesVolumicWeight, 1e-3);
             Assert.AreEqual(0.25, inputParameters.WhitesDragCoefficient, 1e-3);
@@ -164,21 +190,17 @@ namespace Demo.Ringtoets.Test.Commands
 
             Assert.AreEqual("PK001_0001", inputParameters.SurfaceLine.Name);
             Assert.AreEqual("W1-6_0_1D1", inputParameters.SoilProfile.Name);
+            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
+            Assert.AreEqual(5.78, inputParameters.HydraulicBoundaryLocation.DesignWaterLevel, 1e-3);
 
             Assert.AreEqual(3.661, PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DampingFactorExit));
             Assert.AreEqual(1.355, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.PhreaticLevelExit));
-            Assert.AreEqual(5.810, PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(),
-                            GetAccuracy(inputParameters.ThicknessCoverageLayer));
-            Assert.AreEqual(81.450, PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters).GetDesignValue(),
-                            GetAccuracy(inputParameters.SeepageLength));
             Assert.AreEqual(0.011, PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.Diameter70));
             Assert.AreEqual(2.347, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DarcyPermeability));
-            Assert.AreEqual(20.290, PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters).GetDesignValue(),
-                            GetAccuracy(inputParameters.ThicknessAquiferLayer));
         }
 
         private static double GetAccuracy(IDistribution distribution)

@@ -2,6 +2,7 @@
 
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
@@ -100,6 +101,8 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(2, inputParameters.ExitPointL.NumberOfDecimalPlaces);
             Assert.IsNaN(inputParameters.EntryPointL);
             Assert.AreEqual(2, inputParameters.EntryPointL.NumberOfDecimalPlaces);
+            Assert.IsNaN(inputParameters.PiezometricHeadExit);
+            Assert.AreEqual(2, inputParameters.PiezometricHeadExit.NumberOfDecimalPlaces);
 
             Assert.IsInstanceOf<RoundedDouble>(inputParameters.AssessmentLevel);
             Assert.AreEqual(2, inputParameters.AssessmentLevel.NumberOfDecimalPlaces);
@@ -187,59 +190,27 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(double.NaN, double.NaN, double.NaN)]
-        [TestCase(double.NaN, 3, double.NaN)]
-        [TestCase(2, double.NaN, double.NaN)]
-        [TestCase(2, 4, 2.0)]
-        [TestCase(0, 3, 3.0)]
-        [TestCase(4e-3, 6, 6.0)]
-        public void SeepageLength_DifferentCombinationsOfEntryAndExitPoint_SeepageLengthUpdatedAsExpected(double entryPointL, double exitPointL, double expectedSeepageLength)
+        public void SurfaceLine_WithDikeToes_ThenExitPointLAndEntryPointLUpdated()
         {
-            // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput());
+            // Given
+            var input = new PipingInput(new GeneralPipingInput());
 
-            // Call
-            pipingInput.ExitPointL = (RoundedDouble)exitPointL;
-            pipingInput.EntryPointL = (RoundedDouble)entryPointL;
-
-            // Assert
-            Assert.AreEqual(expectedSeepageLength, pipingInput.SeepageLength.Mean.Value);
-            Assert.AreEqual(expectedSeepageLength * 0.1, pipingInput.SeepageLength.StandardDeviation, GetErrorTolerance(pipingInput.SeepageLength.StandardDeviation));
-        }
-
-        [Test]
-        [TestCase(4, 2)]
-        [TestCase(3 + 1e-6, 3)]
-        public void SeepageLength_SettingEntryPastExitPoint_SeepageLengthSetToNaN(double entryPointL, double exitPointL)
-        {
-            // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput());
-            pipingInput.ExitPointL = (RoundedDouble)exitPointL;
-
-            // Call
-            pipingInput.EntryPointL = (RoundedDouble)entryPointL;
-
-            // Assert
-            Assert.IsNaN(pipingInput.SeepageLength.Mean);
-        }
-
-        [Test]
-        public void HydraulicBoundary_SetToNewValue_AssessmentLevelValueIsRounded()
-        {
-            // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput());
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
             {
-                DesignWaterLevel = -8.29292
-            };
-            int originalNumberOfDecimalPlaces = pipingInput.AssessmentLevel.NumberOfDecimalPlaces;
+                new Point3D(0, 0, 0), 
+                new Point3D(1, 0, 2), 
+                new Point3D(2, 0, 3)
+            });
+            surfaceLine.SetDikeToeAtRiverAt(new Point3D(1, 0, 2));
+            surfaceLine.SetDikeToeAtPolderAt(new Point3D(2, 0, 3));
 
             // Call
-            pipingInput.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            input.SurfaceLine = surfaceLine;
 
             // Assert
-            Assert.AreEqual(originalNumberOfDecimalPlaces, pipingInput.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(-8.29, pipingInput.AssessmentLevel.Value);
+            Assert.AreEqual(new RoundedDouble(2, 1), input.EntryPointL);
+            Assert.AreEqual(new RoundedDouble(2, 2), input.ExitPointL);
         }
     }
 }
