@@ -241,11 +241,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var msgs = messages.GetEnumerator();
                 Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("The system cannot find the file specified", msgs.Current);
-                Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("The system cannot find the file specified", msgs.Current);
+                StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening: inspecteer het logbestand.", msgs.Current);
                 Assert.IsTrue(msgs.MoveNext());
                 StringAssert.StartsWith("Uitvoeren van 'Toetspeil berekenen voor locatie '100001'' is mislukt.", msgs.Current);
+                Assert.IsTrue(msgs.MoveNext());
+                StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening: inspecteer het logbestand.", msgs.Current);
                 Assert.IsTrue(msgs.MoveNext());
                 StringAssert.StartsWith("Uitvoeren van 'Toetspeil berekenen voor locatie '100002'' is mislukt.", msgs.Current);
             });
