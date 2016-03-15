@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Service;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.HydraRing.Calculation.Activities;
@@ -101,8 +102,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             mocks.VerifyAll();
         }
 
-        [Test]
-        public void Finish_TargetProbabilityCalculationActivity_OutputActionPerformed()
+        [TestCase(ActivityState.None, false)]
+        [TestCase(ActivityState.Executed, true)]
+        [TestCase(ActivityState.Cancelled, false)]
+        [TestCase(ActivityState.Failed, false)]
+        [TestCase(ActivityState.Finished, false)]
+        public void Finish_TargetProbabilityCalculationActivityWithSpecificState_OutputActionPerformedAsExpected(ActivityState state, bool outputActionPerformed)
         {
             // Setup
             var count = 0;
@@ -114,11 +119,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
 
             var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, output => { count++; }, hydraRingCalculationService);
 
+            TypeUtils.SetPrivatePropertyValue(activity, "State", state);
+
             // Call
             activity.Finish();
 
             // Assert
-            Assert.AreEqual(1, count);
+            Assert.AreEqual(outputActionPerformed, count > 0);
         }
     }
 }

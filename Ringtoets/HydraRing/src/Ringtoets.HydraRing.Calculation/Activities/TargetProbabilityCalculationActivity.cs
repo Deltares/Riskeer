@@ -94,7 +94,10 @@ namespace Ringtoets.HydraRing.Calculation.Activities
 
         protected override void OnFinish()
         {
-            handleCalculationOutputAction(targetProbabilityCalculationOutput);
+            if (State == ActivityState.Executed)
+            {
+                handleCalculationOutputAction(targetProbabilityCalculationOutput);
+            }
         }
     }
 }
