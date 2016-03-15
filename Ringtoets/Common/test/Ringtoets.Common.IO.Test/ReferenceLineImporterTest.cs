@@ -1,24 +1,18 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
-
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data;
-using Ringtoets.Integration.Forms.PresentationObjects;
-using Ringtoets.Integration.Plugin.FileImporters;
+using Ringtoets.Common.Forms.PresentationObjects;
+using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
-
-namespace Ringtoets.Integration.Plugin.Test.FileImporters
+namespace Ringtoets.Common.IO.Test
 {
     [TestFixture]
     public class ReferenceLineImporterTest : NUnitFormsAssertTest
@@ -33,7 +27,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.IsInstanceOf<FileImporterBase<ReferenceLineContext>>(importer);
             Assert.AreEqual("Referentielijn", importer.Name);
             Assert.AreEqual("Algemeen", importer.Category);
-            TestHelper.AssertImagesAreEqual(RingtoetsIntegrationFormsResources.ReferenceLineIcon, importer.Image);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ReferenceLineIcon, importer.Image);
             Assert.AreEqual("Referentielijn shapefile (*.shp)|*.shp", importer.FileFilter);
         }
 
@@ -58,7 +52,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.IsTrue(importSuccesful);
             Assert.IsInstanceOf<ReferenceLine>(assessmentSection.ReferenceLine);
             Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
-            Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
+            Point2D[] point2Ds = Enumerable.ToArray<Point2D>(assessmentSection.ReferenceLine.Points);
             Assert.AreEqual(803, point2Ds.Length);
             Assert.AreEqual(193515.719, point2Ds[467].X, 1e-6);
             Assert.AreEqual(511444.750, point2Ds[467].Y, 1e-6);
@@ -285,7 +279,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             // Assert
             Assert.IsTrue(importSuccesful);
             Assert.AreNotSame(originalReferenceLine, assessmentSection.ReferenceLine);
-            Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
+            Point2D[] point2Ds = Enumerable.ToArray<Point2D>(assessmentSection.ReferenceLine.Points);
             Assert.AreEqual(803, point2Ds.Length);
             Assert.AreEqual(198237.375, point2Ds[123].X, 1e-6);
             Assert.AreEqual(514879.781, point2Ds[123].Y, 1e-6);
@@ -458,7 +452,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.IsTrue(importSuccesful);
             Assert.IsInstanceOf<ReferenceLine>(assessmentSection.ReferenceLine);
             Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
-            Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
+            Point2D[] point2Ds = Enumerable.ToArray<Point2D>(assessmentSection.ReferenceLine.Points);
             Assert.AreEqual(803, point2Ds.Length);
             Assert.AreEqual(195203.563, point2Ds[321].X, 1e-6);
             Assert.AreEqual(512826.406, point2Ds[321].Y, 1e-6);

@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base;
-
 using Ringtoets.Common.Data;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.Properties;
+using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects
+namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for <see cref="ReferenceLine"/> instances.

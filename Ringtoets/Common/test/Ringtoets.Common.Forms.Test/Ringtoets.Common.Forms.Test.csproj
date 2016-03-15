@@ -58,6 +58,7 @@
     <Compile Include="PresentationObjects\FailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolderTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismSectionsContextTest.cs" />
+    <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

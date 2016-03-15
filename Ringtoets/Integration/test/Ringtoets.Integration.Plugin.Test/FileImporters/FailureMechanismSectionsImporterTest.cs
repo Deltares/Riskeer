@@ -13,7 +13,7 @@ using Rhino.Mocks;
 
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Common.IO;
 using Ringtoets.Integration.Plugin.FileImporters;
 
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;

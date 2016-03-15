@@ -215,6 +215,29 @@ namespace Core.Common.Base.Geometry
             return intersectionPointY;
         }
 
+        /// <summary>
+        /// Creates an enumerator that converts a sequence of <see cref="Point3D"/> line points to a sequence of line segments.
+        /// </summary>
+        /// <param name="linePoints">The <see cref="Point3D"/> points to convert.</param>
+        /// <returns>A sequence of N elements, where N is the number of elements in <paramref name="linePoints"/>
+        /// - 1, or 0 if <paramref name="linePoints"/> only has one or no elements.</returns>
+        public static IEnumerable<Segment2D> Convert3DPointsToLineSegments(IEnumerable<Point3D> linePoints)
+        {
+            var points = new Collection<Point2D>();
+
+            foreach (var point in linePoints)
+            {
+                points.Add(Convert3DPointTo2DPoint(point));
+            }
+
+            return ConvertLinePointsToLineSegments(points);
+        }
+
+        private static Point2D Convert3DPointTo2DPoint(Point3D point)
+        {
+            return new Point2D(point.X, point.Y);
+        }
+
         private static bool Intersects(Point2D point1, Point2D point2, Point2D point3, Point2D point4, out double result)
         {
             var aLine = (point1.Y - point3.Y)*(point4.X - point3.X) - (point1.X - point3.X)*(point4.Y - point3.Y);

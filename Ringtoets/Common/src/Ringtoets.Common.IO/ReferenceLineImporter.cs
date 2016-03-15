@@ -24,25 +24,19 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-
 using log4net;
-
 using Ringtoets.Common.Data;
-using Ringtoets.Common.IO;
-using Ringtoets.Integration.Forms.PresentationObjects;
-using Ringtoets.Integration.Plugin.Properties;
-
+using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.IO.Properties;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.FileImporters
+namespace Ringtoets.Common.IO
 {
     /// <summary>
     /// Imports a <see cref="ReferenceLine"/> and stores in on a <see cref="AssessmentSectionBase"/>,
@@ -74,7 +68,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         {
             get
             {
-                return RingtoetsIntegrationFormsResources.ReferenceLineIcon;
+                return RingtoetsFormsResources.ReferenceLineIcon;
             }
         }
 
@@ -182,7 +176,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private static ReadResult<ReferenceLine> HandleCriticalFileReadError(Exception e)
         {
-            var errorMessage = String.Format(Resources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
+            var errorMessage = String.Format((string) Resources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
                                              e.Message);
             log.Error(errorMessage);
             return new ReadResult<ReferenceLine>(true);

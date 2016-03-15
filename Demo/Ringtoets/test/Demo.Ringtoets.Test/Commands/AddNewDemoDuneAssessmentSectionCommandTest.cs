@@ -59,7 +59,7 @@ namespace Demo.Ringtoets.Test.Commands
             var demoAssessmentSection = (DuneAssessmentSection) project.Items[0];
             Assert.AreEqual("Demo duintraject", demoAssessmentSection.Name);
 
-            Assert.AreEqual(1669, demoAssessmentSection.ReferenceLine.Points.Count());
+            Assert.AreEqual(2380, demoAssessmentSection.ReferenceLine.Points.Count());
 
             Assert.IsNotEmpty(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath);
             Assert.IsTrue(File.Exists(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath));
@@ -69,7 +69,7 @@ namespace Demo.Ringtoets.Test.Commands
 
             foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
             {
-                Assert.AreEqual(130, failureMechanism.Sections.Count());
+                Assert.AreEqual(283, failureMechanism.Sections.Count());
             }
 
             mocks.VerifyAll();

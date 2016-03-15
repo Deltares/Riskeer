@@ -5,6 +5,7 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.IO;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -65,10 +66,10 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeDemoReferenceLine(DikeAssessmentSection demoAssessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "traject_10-1.shp", "traject_10-1.dbf", "traject_10-1.prj", "traject_10-1.shx"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "traject_6-3.shp", "traject_6-3.dbf", "traject_6-3.prj", "traject_6-3.shx"))
             {
                 var importer = new ReferenceLineImporter();
-                importer.Import(new ReferenceLineContext(demoAssessmentSection), Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_10-1.shp"));
+                importer.Import(new ReferenceLineContext(demoAssessmentSection), Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp"));
             }
         }
 
@@ -86,13 +87,13 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeDemoFailureMechanismSections(DikeAssessmentSection demoAssessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "traject_10-1_vakken.shp", "traject_10-1_vakken.dbf", "traject_10-1_vakken.prj", "traject_10-1_vakken.shx"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "traject_6-3_vakken.shp", "traject_6-3_vakken.dbf", "traject_6-3_vakken.prj", "traject_6-3_vakken.shx"))
             {
                 var importer = new FailureMechanismSectionsImporter();
                 foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
                 {
                     var context = new FailureMechanismSectionsContext(failureMechanism, demoAssessmentSection);
-                    importer.Import(context, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_10-1_vakken.shp"));
+                    importer.Import(context, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp"));
                 }
             }
         }

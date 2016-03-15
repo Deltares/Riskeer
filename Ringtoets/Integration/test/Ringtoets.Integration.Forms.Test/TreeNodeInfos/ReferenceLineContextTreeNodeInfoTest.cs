@@ -11,11 +11,11 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Common.Data;
-using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var image = info.Image(referenceLineContext);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsIntegrationFormsResources.ReferenceLineIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ReferenceLineIcon, image);
 
             mocks.VerifyAll();
         }

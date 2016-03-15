@@ -73,7 +73,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(18, hydraulicBoundaryLocations.Length);
             AssertValuesOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
 
-            Assert.AreEqual(1669, demoAssessmentSection.ReferenceLine.Points.Count());
+            Assert.AreEqual(2380, demoAssessmentSection.ReferenceLine.Points.Count());
 
             var profiles = demoAssessmentSection.PipingFailureMechanism.SoilProfiles.ToArray();
             Assert.AreEqual(4, profiles.Length);
@@ -87,7 +87,7 @@ namespace Demo.Ringtoets.Test.Commands
 
             foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
             {
-                Assert.AreEqual(130, failureMechanism.Sections.Count());
+                Assert.AreEqual(283, failureMechanism.Sections.Count());
             }
             mocks.VerifyAll();
         }
