@@ -1,15 +1,18 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
@@ -188,6 +191,72 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void GivenHydraulicBoundaryDatabaseWithNonExistingFilePath_WhenCalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedAndPreviousOutputNotAffected()
+        {
+            // Given
+            var gui = mocks.DynamicMock<IGui>();
+            var mainWindow = mocks.DynamicMock<IMainWindow>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var contextMenuRunAssessmentLevelCalculationsIndex = 3;
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)
+            {
+                DesignWaterLevel = 4.2
+            };
+            var assessmentSectionBase = new AssessmentSectionBaseImplementation
+            {
+                Name = "Dummy",
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation1,
+                        hydraulicBoundaryLocation2
+                    },
+                    FilePath = "D:/nonExistingDirectory/nonExistingFile",
+                    Version = "random"
+                }
+            };
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionBase);
+
+            gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            gui.Expect(g => g.MainWindow).Return(mainWindow);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            var contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControlMock);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Don't care about dialogs in this test.
+            };
+
+            // When
+            Action action = () => { contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick(); };
+
+            // Then
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.GetEnumerator();
+                Assert.IsTrue(msgs.MoveNext());
+                StringAssert.StartsWith("The system cannot find the file specified", msgs.Current);
+                Assert.IsTrue(msgs.MoveNext());
+                StringAssert.StartsWith("The system cannot find the file specified", msgs.Current);
+                Assert.IsTrue(msgs.MoveNext());
+                StringAssert.StartsWith("Uitvoeren van 'Toetspeil berekenen voor locatie '100001'' is mislukt.", msgs.Current);
+                Assert.IsTrue(msgs.MoveNext());
+                StringAssert.StartsWith("Uitvoeren van 'Toetspeil berekenen voor locatie '100002'' is mislukt.", msgs.Current);
+            });
+
+            Assert.IsNaN(hydraulicBoundaryLocation1.DesignWaterLevel); // No result set
+            Assert.AreEqual(4.2, hydraulicBoundaryLocation2.DesignWaterLevel); // Previous result not cleared
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void ForeColor_ContextHasNoReferenceLine_ReturnDisabledColor()
         {
             // Setup
@@ -220,6 +289,19 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             mocks.VerifyAll();
+        }
+
+        private class AssessmentSectionBaseImplementation : AssessmentSectionBase
+        {
+            public AssessmentSectionBaseImplementation()
+            {
+                FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 10, 30000);
+            }
+
+            public override IEnumerable<IFailureMechanism> GetFailureMechanisms()
+            {
+                yield break;
+            }
         }
     }
 }
