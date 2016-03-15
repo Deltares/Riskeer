@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 
 using Core.Common.Base;
@@ -14,6 +15,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
+using Ringtoets.Piping.Forms.TypeConverters;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
@@ -409,6 +411,46 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(testLevel, properties.AssessmentLevel.Value, 1e-2);
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void GivenCompletePipingInputContextProperties_WhenPhreaticLevelExitPropertiesSetThroughProperties_ThenPiezometricHeadExitUpdated(int propertyIndexToChange)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var typeDescriptorContextMock = mocks.StrictMock<ITypeDescriptorContext>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+
+            var inputParameters = new PipingInput(new GeneralPipingInput());
+            var contextProperties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              assessmentSectionMock)
+            };
+            inputParameters.PiezometricHeadExit = (RoundedDouble)double.NaN;
+            inputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
+            {
+                DesignWaterLevel = 1.0
+            };
+
+            var dynamicPropertyBag = new DynamicPropertyBag(contextProperties);
+            typeDescriptorContextMock.Expect(tdc => tdc.Instance).Return(dynamicPropertyBag);
+            mocks.ReplayAll();
+
+            DesignVariable<NormalDistribution> phreaticLevelExitProperty = contextProperties.PhreaticLevelExit;
+            PropertyDescriptorCollection properties = new NormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, phreaticLevelExitProperty);
+            Assert.NotNull(properties);
+
+            // When
+            properties[propertyIndexToChange].SetValue(phreaticLevelExitProperty, (RoundedDouble)2.3);
+
+            // Then
+            Assert.IsFalse(double.IsNaN(inputParameters.PiezometricHeadExit));
             mocks.VerifyAll();
         }
 
