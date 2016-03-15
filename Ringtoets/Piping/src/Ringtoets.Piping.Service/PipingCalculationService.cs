@@ -112,11 +112,10 @@ namespace Ringtoets.Piping.Service
             {
                 return new PipingCalculator(CreateInputFromData(input), SubCalculatorFactory).CalculateThicknessCoverageLayer();
             }
-            catch (PipingCalculatorException e)
+            catch (PipingCalculatorException)
             {
-                LogMessagesAsError(Resources.Error_in_thickness_coverage_calculation_0, e.Message);
+                return double.NaN;
             }
-            return double.NaN;
         }
 
         private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters)

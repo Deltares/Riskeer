@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Calculation.SubCalculator;
@@ -356,7 +357,28 @@ namespace Ringtoets.Piping.Calculation.Test
             var result = calculation.CalculateThicknessCoverageLayer();
 
             // Assert
-            Assert.IsFalse(double.IsNaN(result));
+            Assert.AreEqual(1.0, result);
+        }
+
+        [Test]
+        public void CalculateThicknessCoverageLayer_WithValidInputWithAquiferAboveSurfaceLine_ReturnsNegativeThickness()
+        {
+            // Setup
+            PipingCalculatorInput input = new TestPipingInput().AsRealInput();
+            input.SurfaceLine.SetGeometry(new []
+            {
+                new Point3D(0, 0, 0.5), 
+                new Point3D(1, 0, 1.5), 
+                new Point3D(2, 0, -1) 
+            });
+
+            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+
+            // Call
+            var result = calculation.CalculateThicknessCoverageLayer();
+
+            // Assert
+            Assert.AreEqual(result, -3.0);
         }
 
         [Test]

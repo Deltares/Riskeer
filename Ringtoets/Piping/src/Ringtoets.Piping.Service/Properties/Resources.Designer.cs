@@ -97,11 +97,22 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekenen van de dikte van de deklaag niet gelukt: {0}.
+        ///   Looks up a localized string similar to Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer..
         /// </summary>
-        internal static string Error_in_thickness_coverage_calculation_0 {
+        internal static string PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer {
             get {
-                return ResourceManager.GetString("Error_in_thickness_coverage_calculation_0", resourceCulture);
+                return ResourceManager.GetString("PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aq" +
+                        "uifer_layer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan de dikte van de deklaag niet afleiden op basis van de invoer..
+        /// </summary>
+        internal static string PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer {
+            get {
+                return ResourceManager.GetString("PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_c" +
+                        "overage_layer", resourceCulture);
             }
         }
         

@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void CalculateThicknessCoverageLayer_InValidPipingCalculationWithOutput_LogsError()
+        public void CalculateThicknessCoverageLayer_InValidPipingCalculationWithOutput_ReturnsNaN()
         {
             // Setup
             PipingCalculation invalidPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
@@ -74,14 +74,10 @@ namespace Ringtoets.Piping.Service.Test
             });
 
             // Call
-            Action call = () => PipingCalculationService.CalculateThicknessCoverageLayer(invalidPipingCalculation.InputParameters);
+            var result = PipingCalculationService.CalculateThicknessCoverageLayer(invalidPipingCalculation.InputParameters);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                StringAssert.StartsWith("Berekenen van de dikte van de deklaag niet gelukt: ", msgs[0]);
-            });
+            Assert.IsNaN(result);
         }
 
         [Test]

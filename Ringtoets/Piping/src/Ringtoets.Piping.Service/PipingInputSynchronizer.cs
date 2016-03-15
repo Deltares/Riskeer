@@ -1,12 +1,17 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Properties;
+using log4net;
 using Ringtoets.Piping.Data;
+using Resources = Ringtoets.Piping.Service.Properties.Resources;
 
 namespace Ringtoets.Piping.Service
 {
     public class PipingInputSynchronizer : IObserver
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(PipingInputSynchronizer));
+
         private const double seepageLengthStandardDeviationFraction = 0.1;
 
         private readonly PipingInput input;
@@ -52,32 +57,19 @@ namespace Ringtoets.Piping.Service
             RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
             double exitPointL = input.ExitPointL;
 
-            double thicknessTopAquiferLayer = GetThicknessTopAquiferLayer(soilProfile, surfaceLine, exitPointL);
-            TrySetThicknessAquiferLayerMean(input, thicknessTopAquiferLayer);
-        }
-
-        private static double GetThicknessTopAquiferLayer(PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine, double exitPointL)
-        {
-            var thicknessTopAquiferLayer = double.NaN;
-
             if (soilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
             {
-                thicknessTopAquiferLayer = TryGetThicknessTopAquiferLayer(soilProfile, surfaceLine, exitPointL);
-            }
+                double thicknessTopAquiferLayer = GetThicknessTopAquiferLayer(soilProfile, surfaceLine, exitPointL);
+                TrySetThicknessAquiferLayerMean(input, thicknessTopAquiferLayer);
 
-            return thicknessTopAquiferLayer;
-        }
-
-        private static double TryGetThicknessTopAquiferLayer(PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine, double exitPointL)
-        {
-            try
-            {
-                var zAtL = surfaceLine.GetZAtL(exitPointL);
-                return soilProfile.GetTopAquiferLayerThicknessBelowLevel(zAtL);
+                if (double.IsNaN(input.ThicknessAquiferLayer.Mean))
+                {
+                    log.Warn(Resources.PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer);
+                }
             }
-            catch (ArgumentOutOfRangeException)
+            else
             {
-                return double.NaN;
+                input.ThicknessAquiferLayer.Mean = (RoundedDouble) double.NaN;
             }
         }
 
@@ -93,15 +85,45 @@ namespace Ringtoets.Piping.Service
             }
         }
 
-        private void UpdateThicknessCoverageLayer()
+        private static double GetThicknessTopAquiferLayer(PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine, double exitPointL)
         {
             try
             {
-                input.ThicknessCoverageLayer.Mean = (RoundedDouble) PipingCalculationService.CalculateThicknessCoverageLayer(input);
+                var zAtL = surfaceLine.GetZAtL(exitPointL);
+                return soilProfile.GetTopAquiferLayerThicknessBelowLevel(zAtL);
             }
             catch (ArgumentOutOfRangeException)
             {
-                input.ThicknessCoverageLayer.Mean = (RoundedDouble) double.NaN;
+                return double.NaN;
+            }
+        }
+
+        private void UpdateThicknessCoverageLayer()
+        {
+            if (input.SurfaceLine != null && input.SoilProfile != null & !double.IsNaN(input.ExitPointL))
+            {
+                TrySetThicknessCoverageLayer();
+
+                if (double.IsNaN(input.ThicknessCoverageLayer.Mean))
+                {
+                    log.Warn(Resources.PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer);
+                }
+            }
+            else
+            {
+                input.ThicknessCoverageLayer.Mean = (RoundedDouble)double.NaN;
+            }
+        }
+
+        private void TrySetThicknessCoverageLayer()
+        {
+            try
+            {
+                input.ThicknessCoverageLayer.Mean = (RoundedDouble)PipingCalculationService.CalculateThicknessCoverageLayer(input);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                input.ThicknessCoverageLayer.Mean = (RoundedDouble)double.NaN;
             }
         }
 

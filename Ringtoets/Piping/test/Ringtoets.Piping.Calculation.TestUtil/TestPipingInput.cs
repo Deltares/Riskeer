@@ -69,7 +69,8 @@ namespace Ringtoets.Piping.Calculation.TestUtil
         {
             return new PipingSoilProfile(String.Empty, -2, new []
             {
-                new PipingSoilLayer(9)
+                new PipingSoilLayer(9),
+                new PipingSoilLayer(4)
                 {
                     IsAquifer = true
                 },
