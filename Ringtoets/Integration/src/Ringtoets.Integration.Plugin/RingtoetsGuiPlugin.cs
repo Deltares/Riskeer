@@ -452,6 +452,9 @@ namespace Ringtoets.Integration.Plugin
                     var activities = nodeData.Parent.HydraulicBoundaryDatabase.Locations.Select(hbl => CreateHydraRingActivity(nodeData.Parent, hbl, hlcdDirectory)).ToList();
 
                     ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
+
+                    nodeData.Parent.NotifyObservers();
+                    nodeData.NotifyObservers();
                 }
                 );
 
@@ -554,7 +557,6 @@ namespace Ringtoets.Integration.Plugin
             if (output != null)
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = output.Result;
-                hydraulicBoundaryLocation.NotifyObservers();
             }
             else
             {

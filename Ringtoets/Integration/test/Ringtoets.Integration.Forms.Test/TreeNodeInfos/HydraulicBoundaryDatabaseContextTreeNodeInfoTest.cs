@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -191,10 +192,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenHydraulicBoundaryDatabaseWithNonExistingFilePath_WhenCalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedAndPreviousOutputNotAffected()
+        public void GivenHydraulicBoundaryDatabaseWithNonExistingFilePath_WhenCalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffectedAndObserversNotified()
         {
             // Given
             var gui = mocks.DynamicMock<IGui>();
+
+            var assessmentSectionBaseObserver = mocks.StrictMock<IObserver>();
+            var hydraulicBoundaryDatabaseContextObserver = mocks.StrictMock<IObserver>();
+
             var mainWindow = mocks.DynamicMock<IMainWindow>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var contextMenuRunAssessmentLevelCalculationsIndex = 3;
@@ -219,10 +224,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             };
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionBase);
 
+            assessmentSectionBaseObserver.Expect(o => o.UpdateObserver());
+            hydraulicBoundaryDatabaseContextObserver.Expect(o => o.UpdateObserver());
             gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
             gui.Expect(g => g.MainWindow).Return(mainWindow);
 
             mocks.ReplayAll();
+
+            assessmentSectionBase.Attach(assessmentSectionBaseObserver);
+            hydraulicBoundaryDatabaseContext.Attach(hydraulicBoundaryDatabaseContextObserver);
 
             plugin.Gui = gui;
 
