@@ -9,7 +9,10 @@ namespace Ringtoets.Piping.Calculation.SemiProbabilistic
     /// </summary>
     public class PipingSemiProbabilisticResultTransformer
     {
-        private readonly PipingOutput result;
+        private readonly double heaveFactorOfSafety;
+        private readonly double upliftFactorOfSafety;
+        private readonly double sellmeijerFactorOfSafety;
+
         private readonly int returnPeriod;
         private readonly double constantA;
         private readonly double constantB;
@@ -17,17 +20,47 @@ namespace Ringtoets.Piping.Calculation.SemiProbabilistic
         private readonly double contribution;
 
         /// <summary>
+        /// Calculates the semi-probabilistic results given a <see cref="PipingCalculation"/> with <see cref="PipingOutput"/>.
+        /// </summary>
+        /// <param name="calculation"></param>
+        /// <returns></returns>
+        public static void Transform(PipingCalculation calculation)
+        {
+            GeneralPipingInput semiProbabilisticParameters = calculation.SemiProbabilisticParameters;
+            var result = calculation.Output;
+
+            var calculator = new PipingSemiProbabilisticResultTransformer(
+                result.SellmeijerFactorOfSafety,
+                result.UpliftFactorOfSafety,
+                result.HeaveFactorOfSafety,
+                semiProbabilisticParameters.Norm,
+                semiProbabilisticParameters.A,
+                semiProbabilisticParameters.B,
+                semiProbabilisticParameters.SectionLength,
+                semiProbabilisticParameters.Contribution/100);
+
+            calculation.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput
+            {
+                PipingFactorOfSafety = calculator.FactorOfSafety()
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="PipingSemiProbabilisticResultTransformer"/>.
         /// </summary>
-        /// <param name="result">The object containing results for piping's sub mechanisms.</param>
+        /// <param name="sellmeijerFactorOfSafety"></param>
+        /// <param name="upliftFactorOfSafety"></param>
+        /// <param name="heaveFactorOfSafety"></param>
         /// <param name="returnPeriod">The return period.</param>
         /// <param name="constantA">The constant a.</param>
         /// <param name="constantB">The constant b.</param>
         /// <param name="assessmentSectionLength">The length of the assessment section.</param>
         /// <param name="contribution">The contribution of piping to the total failure.</param>
-        public PipingSemiProbabilisticResultTransformer(PipingOutput result, int returnPeriod, double constantA, double constantB, double assessmentSectionLength, double contribution)
+        public PipingSemiProbabilisticResultTransformer(double sellmeijerFactorOfSafety, double upliftFactorOfSafety, double heaveFactorOfSafety, int returnPeriod, double constantA, double constantB, double assessmentSectionLength, double contribution)
         {
-            this.result = result;
+            this.heaveFactorOfSafety = heaveFactorOfSafety;
+            this.upliftFactorOfSafety = upliftFactorOfSafety;
+            this.sellmeijerFactorOfSafety = sellmeijerFactorOfSafety;
             this.returnPeriod = returnPeriod;
             this.constantA = constantA;
             this.constantB = constantB;
@@ -41,8 +74,7 @@ namespace Ringtoets.Piping.Calculation.SemiProbabilistic
         /// <returns>A value represening failure probability.</returns>
         public double FailureProbabilityUplift()
         {
-            var factorOfSafety = result.UpliftFactorOfSafety;
-            return FailureProbability(factorOfSafety, upliftFactors);
+            return FailureProbability(upliftFactorOfSafety, upliftFactors);
         }
 
         /// <summary>
@@ -51,8 +83,7 @@ namespace Ringtoets.Piping.Calculation.SemiProbabilistic
         /// <returns>A value represening failure probability.</returns>
         public double FailureProbabilityHeave()
         {
-            var factorOfSafety = result.HeaveFactorOfSafety;
-            return FailureProbability(factorOfSafety, heaveFactors);
+            return FailureProbability(heaveFactorOfSafety, heaveFactors);
         }
 
         /// <summary>
@@ -61,8 +92,7 @@ namespace Ringtoets.Piping.Calculation.SemiProbabilistic
         /// <returns>A value represening failure probability.</returns>
         public double FailureProbabilitySellmeijer()
         {
-            var factorOfSafety = result.SellmeijerFactorOfSafety;
-            return FailureProbability(factorOfSafety, sellmeijerFactors);
+            return FailureProbability(sellmeijerFactorOfSafety, sellmeijerFactors);
         }
 
         /// <summary>

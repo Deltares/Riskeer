@@ -50,12 +50,18 @@ namespace Ringtoets.Piping.Data
 
             Comments = new InputPlaceholder(Resources.Comments_DisplayName);
             InputParameters = new PipingInput(generalInputParameters);
+            SemiProbabilisticParameters = generalInputParameters;
         }
 
         /// <summary>
         /// Gets the user notes for this calculation.
         /// </summary>
         public PlaceholderWithReadonlyName Comments { get; private set; }
+
+        /// <summary>
+        /// Gets the parameters required to perform a semi-probabilistic assessment.
+        /// </summary>
+        public GeneralPipingInput SemiProbabilisticParameters { get; private set; }
 
         /// <summary>
         /// Gets the input parameters to perform a piping calculation with.
@@ -66,6 +72,11 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets <see cref="PipingOutput"/>, which contains the results of a Piping calculation.
         /// </summary>
         public PipingOutput Output { get; set; }
+
+        /// <summary>
+        /// Gets or sets the semi-probabilistic calculation result.
+        /// </summary>
+        public PipingSemiProbabilisticOutput SemiProbabilisticOutput { get; set; }
 
         /// <summary>
         /// Gets or sets the name of this calculation.

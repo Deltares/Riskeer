@@ -3,6 +3,7 @@
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Piping.Calculation.SemiProbabilistic;
 using Ringtoets.Piping.Calculation.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
@@ -36,6 +37,7 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Output);
+            Assert.IsNull(calculation.SemiProbabilisticOutput);
         }
 
         [Test]
