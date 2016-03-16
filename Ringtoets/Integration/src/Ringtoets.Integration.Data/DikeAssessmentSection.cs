@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Data
             set
             {
                 base.ReferenceLine = value;
-                PipingFailureMechanism.GeneralInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
+                PipingFailureMechanism.SemiProbabilisticInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
             }
         }
 
@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Data
             protected set
             {
                 base.FailureMechanismContribution = value;
-                PipingFailureMechanism.GeneralInput.Norm = value.Norm;
+                PipingFailureMechanism.SemiProbabilisticInput.Norm = value.Norm;
             }
         }
 

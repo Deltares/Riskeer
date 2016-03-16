@@ -3,6 +3,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
@@ -10,7 +11,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="GeneralPipingInput"/> for properties panel.
     /// </summary>
-    public class GeneralPipingInputProperties : ObjectProperties<GeneralPipingInput>
+    public class PipingFailureMechanismContextProperties : ObjectProperties<PipingFailureMechanismContext>
     {
         #region Model Factors
 
@@ -22,7 +23,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.UpliftModelFactor;
+                return data.WrappedData.GeneralInput.UpliftModelFactor;
             }
         }
 
@@ -34,7 +35,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SellmeijerModelFactor;
+                return data.WrappedData.GeneralInput.SellmeijerModelFactor;
             }
         }
 
@@ -50,7 +51,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WaterVolumetricWeight;
+                return data.WrappedData.GeneralInput.WaterVolumetricWeight;
             }
         }
 
@@ -66,7 +67,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.CriticalHeaveGradient;
+                return data.WrappedData.GeneralInput.CriticalHeaveGradient;
             }
         }
 
@@ -82,7 +83,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SandParticlesVolumicWeight;
+                return data.WrappedData.GeneralInput.SandParticlesVolumicWeight;
             }
         }
 
@@ -94,7 +95,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WhitesDragCoefficient;
+                return data.WrappedData.GeneralInput.WhitesDragCoefficient;
             }
         }
 
@@ -106,7 +107,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.BeddingAngle;
+                return data.WrappedData.GeneralInput.BeddingAngle;
             }
         }
 
@@ -118,7 +119,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.WaterKinematicViscosity;
+                return data.WrappedData.GeneralInput.WaterKinematicViscosity;
             }
         }
 
@@ -130,7 +131,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.Gravity;
+                return data.WrappedData.GeneralInput.Gravity;
             }
         }
 
@@ -142,7 +143,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.MeanDiameter70;
+                return data.WrappedData.GeneralInput.MeanDiameter70;
             }
         }
 
@@ -154,7 +155,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SellmeijerReductionFactor;
+                return data.WrappedData.GeneralInput.SellmeijerReductionFactor;
             }
         }
 
@@ -170,7 +171,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.A;
+                return data.WrappedData.SemiProbabilisticInput.A;
             }
         }
 
@@ -182,7 +183,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.B;
+                return data.WrappedData.SemiProbabilisticInput.B;
             }
         }
 

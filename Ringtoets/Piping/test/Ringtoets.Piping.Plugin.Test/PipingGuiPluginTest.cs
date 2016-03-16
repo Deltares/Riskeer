@@ -62,7 +62,6 @@ namespace Ringtoets.Piping.Plugin.Test
             {
                 // call
                 var mocks = new MockRepository();
-                var assessmentSection = mocks.Stub<AssessmentSectionBase>();
                 mocks.ReplayAll();
 
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
@@ -70,12 +69,10 @@ namespace Ringtoets.Piping.Plugin.Test
                 // assert
                 Assert.AreEqual(7, propertyInfos.Length);
 
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
                 var pipingFailureMechanismContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingFailureMechanismContext));
-                Assert.AreEqual(typeof(GeneralPipingInputProperties), pipingFailureMechanismContextProperties.PropertyObjectType);
+                Assert.AreEqual(typeof(PipingFailureMechanismContextProperties), pipingFailureMechanismContextProperties.PropertyObjectType);
                 Assert.IsNull(pipingFailureMechanismContextProperties.AdditionalDataCheck);
-                Assert.AreSame(pipingFailureMechanism.GeneralInput, pipingFailureMechanismContextProperties.GetObjectPropertiesData(pipingFailureMechanismContext));
+                Assert.IsNull(pipingFailureMechanismContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingFailureMechanismContextProperties.AfterCreate);
 
                 var pipingCalculationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingCalculationContext));

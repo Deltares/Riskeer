@@ -26,13 +26,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(9.81, inputParameters.Gravity);
             Assert.AreEqual(2.08e-4, inputParameters.MeanDiameter70);
             Assert.AreEqual(0.3, inputParameters.SellmeijerReductionFactor);
-
-            Assert.AreEqual(1.0, inputParameters.A);
-            Assert.AreEqual(350.0, inputParameters.B);
-
-            Assert.IsNaN(inputParameters.SectionLength);
-            Assert.AreEqual(0, inputParameters.Norm);
-            Assert.IsNaN(inputParameters.Contribution);
         }
     }
 }

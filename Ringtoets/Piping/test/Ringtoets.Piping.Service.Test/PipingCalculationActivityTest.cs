@@ -20,7 +20,7 @@ namespace Ringtoets.Piping.Service.Test
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             // Call
             var activity = new PipingCalculationActivity(calculation);

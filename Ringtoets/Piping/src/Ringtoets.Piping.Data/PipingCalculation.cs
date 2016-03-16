@@ -38,19 +38,25 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="generalInputParameters">General piping calculation parameters that
         /// are the same across all piping calculations.</param>
+        /// <param name="semiProbabilisticInputParameters">General semi-probabilistic parameters that 
+        /// are used in a semi-probabilistic piping assessment.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
-        public PipingCalculation(GeneralPipingInput generalInputParameters)
+        public PipingCalculation(GeneralPipingInput generalInputParameters, SemiProbabilisticPipingInput semiProbabilisticInputParameters)
         {
             if (generalInputParameters == null)
             {
                 throw new ArgumentNullException("generalInputParameters");
             }
+            if (semiProbabilisticInputParameters == null)
+            {
+                throw new ArgumentNullException("semiProbabilisticInputParameters");
+            }
             Name = Resources.PipingCalculation_DefaultName;
 
             Comments = new InputPlaceholder(Resources.Comments_DisplayName);
             InputParameters = new PipingInput(generalInputParameters);
-            SemiProbabilisticParameters = generalInputParameters;
+            SemiProbabilisticParameters = semiProbabilisticInputParameters;
         }
 
         /// <summary>
@@ -61,7 +67,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the parameters required to perform a semi-probabilistic assessment.
         /// </summary>
-        public GeneralPipingInput SemiProbabilisticParameters { get; private set; }
+        public SemiProbabilisticPipingInput SemiProbabilisticParameters { get; private set; }
 
         /// <summary>
         /// Gets the input parameters to perform a piping calculation with.

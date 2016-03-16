@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Children_AddPipingCalculation_CalculationAddedToCollection()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             var group = new PipingCalculationGroup();
 
@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Children_RemovePipingCalculation_CalculationRemovedFromCollection()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             var group = new PipingCalculationGroup();
             group.Children.Add(calculation);
@@ -123,8 +123,9 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
-            var calculation = new PipingCalculation(generalInputParameters);
-            var calculationToInsert = new PipingCalculation(generalInputParameters);
+            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
+            var calculation = new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters);
+            var calculationToInsert = new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters);
 
             var group = new PipingCalculationGroup();
             group.Children.Add(calculation);

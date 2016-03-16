@@ -61,7 +61,7 @@
   <ItemGroup>
     <Compile Include="PresentationObjects\PipingFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLineContextTest.cs" />
-    <Compile Include="PropertyClasses\GeneralPipingInputPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\PipingFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingCalculationReportTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingCalculationGroupContextTreeNodeInfoTest.cs" />

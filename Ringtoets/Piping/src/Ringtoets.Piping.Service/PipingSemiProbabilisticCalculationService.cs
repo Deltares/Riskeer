@@ -22,17 +22,20 @@ namespace Ringtoets.Piping.Service
         /// <summary>
         /// Calculates the semi-probabilistic results given a <see cref="PipingCalculation"/> with <see cref="PipingOutput"/>.
         /// </summary>
-        /// <param name="calculation"></param>
-        /// <returns></returns>
+        /// <param name="calculation">The calculation which is used as input for the semi-probabilistic assessment. If the semi-
+        /// probabilistic calculation is successful, <see cref="PipingCalculation.SemiProbabilisticOutput"/> is set.</param>
+        /// <exception cref="ArgumentNullException">Thrown when calculation has no output from a piping calculation.</exception>
         public static void Calculate(PipingCalculation calculation)
         {
-            GeneralPipingInput semiProbabilisticParameters = calculation.SemiProbabilisticParameters;
-            var result = calculation.Output;
+            ValidateOutputOnCalculation(calculation);
+
+            SemiProbabilisticPipingInput semiProbabilisticParameters = calculation.SemiProbabilisticParameters;
+            var pipingOutput = calculation.Output;
 
             var calculator = new PipingSemiProbabilisticCalculationService(
-                result.SellmeijerFactorOfSafety,
-                result.UpliftFactorOfSafety,
-                result.HeaveFactorOfSafety,
+                pipingOutput.SellmeijerFactorOfSafety,
+                pipingOutput.UpliftFactorOfSafety,
+                pipingOutput.HeaveFactorOfSafety,
                 semiProbabilisticParameters.Norm,
                 semiProbabilisticParameters.A,
                 semiProbabilisticParameters.B,
@@ -43,6 +46,14 @@ namespace Ringtoets.Piping.Service
             {
                 PipingFactorOfSafety = calculator.FactorOfSafety()
             };
+        }
+
+        private static void ValidateOutputOnCalculation(PipingCalculation calculation)
+        {
+            if (!calculation.HasOutput)
+            {
+                throw new ArgumentNullException("calculation", "Cannot perform a semi-probabilistic calculation without output form the piping kernel.");
+            }
         }
 
         /// <summary>

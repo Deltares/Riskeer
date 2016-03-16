@@ -22,9 +22,10 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
+            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
 
             // Call
-            var calculation = new PipingCalculation(generalInputParameters);
+            var calculation = new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters);
 
             // Assert
             Assert.IsInstanceOf<IPipingCalculationItem>(calculation);
@@ -43,7 +44,17 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_GeneralPipingInputIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PipingCalculation(null);
+            TestDelegate call = () => new PipingCalculation(null, new SemiProbabilisticPipingInput());
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void Constructor_SemiProbabilisticPipingInputIsNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new PipingCalculation(new GeneralPipingInput(), null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
@@ -58,7 +69,7 @@ namespace Ringtoets.Piping.Data.Test
 
             mockRepository.ReplayAll();
 
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             
             calculation.Attach(observer);
 
@@ -74,7 +85,7 @@ namespace Ringtoets.Piping.Data.Test
             observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mockRepository.ReplayAll();
 
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             
             calculation.Attach(observer);
             calculation.Detach(observer);
@@ -95,7 +106,7 @@ namespace Ringtoets.Piping.Data.Test
 
             mockRepository.ReplayAll();
 
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             calculation.Attach(observerA);
             calculation.Attach(observerB);
@@ -116,7 +127,7 @@ namespace Ringtoets.Piping.Data.Test
 
             mockRepository.ReplayAll();
 
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             calculation.Attach(observerA);
             calculation.Attach(observerB);
@@ -132,7 +143,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var observer = mockRepository.StrictMock<IObserver>();
 
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             // Call & Assert
             calculation.Detach(observer);
@@ -142,7 +153,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
-            var data = new PipingCalculation(new GeneralPipingInput())
+            var data = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = new TestPipingOutput()
             };
@@ -158,7 +169,7 @@ namespace Ringtoets.Piping.Data.Test
         public void HasOutput_OutputNull_ReturnsFalse()
         {
             // Setup
-            var data = new PipingCalculation(new GeneralPipingInput())
+            var data = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = null
             };
@@ -171,7 +182,7 @@ namespace Ringtoets.Piping.Data.Test
         public void HasOutput_OutputSet_ReturnsTrue()
         {
             // Setup
-            var data = new PipingCalculation(new GeneralPipingInput())
+            var data = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = new TestPipingOutput()
             };

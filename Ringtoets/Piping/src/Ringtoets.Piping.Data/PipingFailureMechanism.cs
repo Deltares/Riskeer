@@ -42,16 +42,17 @@ namespace Ringtoets.Piping.Data
         public PipingFailureMechanism()
             : base(PipingDataResources.PipingFailureMechanism_DisplayName)
         {
+            SemiProbabilisticInput = new SemiProbabilisticPipingInput();
             GeneralInput = new GeneralPipingInput();
             SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
             SoilProfiles = new ObservableList<PipingSoilProfile>();
             BoundaryConditions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_BoundaryConditions_DisplayName);
             var pipingCalculationGroup = new PipingCalculationGroup(PipingDataResources.PipingFailureMechanism_Calculations_DisplayName, false);
-            pipingCalculationGroup.Children.Add(new PipingCalculation(GeneralInput));
+            pipingCalculationGroup.Children.Add(new PipingCalculation(GeneralInput, SemiProbabilisticInput));
             CalculationsGroup = pipingCalculationGroup;
             AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
         }
-
+        
         public override IEnumerable<ICalculationItem> CalculationItems
         {
             get
@@ -64,11 +65,11 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return GeneralInput.Contribution;
+                return SemiProbabilisticInput.Contribution;
             }
             set
             {
-                GeneralInput.Contribution = value;
+                SemiProbabilisticInput.Contribution = value;
             }
         }
 
@@ -101,5 +102,11 @@ namespace Ringtoets.Piping.Data
         /// Gets the general piping calculation input parameters that apply to each piping calculation.
         /// </summary>
         public GeneralPipingInput GeneralInput { get; private set; }
+
+        /// <summary>
+        /// Gets the general semi-probabilistic calculation input parameters that apply to each calculation 
+        /// in a semi-probabilistic assessment.
+        /// </summary>
+        public SemiProbabilisticPipingInput SemiProbabilisticInput { get; set; }
     }
 }

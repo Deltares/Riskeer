@@ -103,8 +103,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var pipingFailureMechanism = new PipingFailureMechanism();
             var generalInputParameters = new GeneralPipingInput();
-            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculation(generalInputParameters));
-            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculation(generalInputParameters));
+            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
+            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters));
+            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters));
 
             var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
@@ -158,11 +159,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var generalInputParameters = new GeneralPipingInput();
-            var pipingCalculation1 = new PipingCalculation(generalInputParameters)
+            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
+            var pipingCalculation1 = new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters)
             {
                 Output = new TestPipingOutput()
             };
-            var pipingCalculation2 = new PipingCalculation(generalInputParameters)
+            var pipingCalculation2 = new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters)
             {
                 Output = new TestPipingOutput()
             };
@@ -320,7 +322,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            var pipingCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = new TestPipingOutput()
             };
@@ -436,7 +438,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Clear();
-            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()));
 
             var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);

@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var testname = "testName";
-            var calculation = new PipingCalculation(new GeneralPipingInput())
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Name = testname
             };
@@ -99,7 +99,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void EnsureVisibleOnCreate_Always_ReturnsTrue()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput())
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
             };
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_WithOutputData_ReturnOutputChildNode()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput())
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
             };
@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var pipingCalculationContext = new PipingCalculationContext(new PipingCalculation(new GeneralPipingInput()),
+            var pipingCalculationContext = new PipingCalculationContext(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()),
                                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                         Enumerable.Empty<PipingSoilProfile>(),
                                                                         pipingFailureMechanismMock,
@@ -219,7 +219,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var observerMock = mocks.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
-            var calculation = new PipingCalculation(new GeneralPipingInput())
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Name = "<Original name>"
             };
@@ -260,7 +260,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var gui = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var nodeData = new PipingCalculationContext(calculation,
@@ -291,7 +291,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             var gui = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var calculation = new PipingCalculation(new GeneralPipingInput())
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = new TestPipingOutput()
             };
@@ -329,7 +329,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
-            var nodeData = new PipingCalculationContext(new PipingCalculation(new GeneralPipingInput()),
+            var nodeData = new PipingCalculationContext(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()),
                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                         Enumerable.Empty<PipingSoilProfile>(),
                                                         pipingFailureMechanismMock,
@@ -370,7 +370,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void CanRemove_ParentIsPipingCalculationGroupWithCalculation_ReturnTrue(bool groupNameEditable)
         {
             // Setup
-            var calculationToBeRemoved = new PipingCalculation(new GeneralPipingInput());
+            var calculationToBeRemoved = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var group = new PipingCalculationGroup("", groupNameEditable);
             group.Children.Add(calculationToBeRemoved);
 
@@ -402,7 +402,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void CanRemove_ParentIsPipingCalculationGroupWithoutCalculation_ReturnFalse(bool groupNameEditable)
         {
             // Setup
-            var calculationToBeRemoved = new PipingCalculation(new GeneralPipingInput());
+            var calculationToBeRemoved = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var group = new PipingCalculationGroup("", groupNameEditable);
 
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
@@ -436,7 +436,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var nodeMock = new PipingCalculationContext(new PipingCalculation(new GeneralPipingInput()),
+            var nodeMock = new PipingCalculationContext(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()),
                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                         Enumerable.Empty<PipingSoilProfile>(),
                                                         pipingFailureMechanismMock,
@@ -459,11 +459,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var elementToBeRemoved = new PipingCalculation(new GeneralPipingInput());
+            var elementToBeRemoved = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             var group = new PipingCalculationGroup();
             group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new PipingCalculation(new GeneralPipingInput()));
+            group.Children.Add(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()));
             group.Attach(observer);
 
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
@@ -503,7 +503,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var mainWindow = mocks.DynamicMock<IMainWindow>();
             var observer = mocks.StrictMock<IObserver>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var pipingCalculationContext = new PipingCalculationContext(calculation,
@@ -562,7 +562,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.DynamicMock<IGui>();
             var observer = mocks.StrictMock<IObserver>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var pipingCalculationContext = new PipingCalculationContext(calculation,
@@ -606,7 +606,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var calculateContextMenuItemIndex = 1;
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var validPipingInput = new TestPipingInput();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
@@ -679,7 +679,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.DynamicMock<IGui>();
             var observer = mocks.StrictMock<IObserver>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var pipingCalculationContext = new PipingCalculationContext(calculation,

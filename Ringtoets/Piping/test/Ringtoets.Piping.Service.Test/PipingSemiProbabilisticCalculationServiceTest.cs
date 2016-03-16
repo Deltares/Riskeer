@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using Core.Common.TestUtil;
+using NUnit.Framework;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Service.Test
@@ -150,17 +152,18 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void Transform_CompleteInput_ReturnsPipingSemiProbabilisticOutputWithValues()
+        public void Calculate_CompleteInput_ReturnsPipingSemiProbabilisticOutputWithValues()
         {
             // Setup
-            var generalInput = new GeneralPipingInput
+
+            var semiProbabilisticPipingInput = new SemiProbabilisticPipingInput
             {
                 SectionLength = 6000,
                 Norm = 30000,
                 Contribution = 24
             };
             var pipingOutput = new PipingOutput(double.NaN, 1.2, double.NaN, 0.6, double.NaN, 0.9);
-            var pipingCalculation = new PipingCalculation(generalInput)
+            var pipingCalculation = new PipingCalculation(new GeneralPipingInput(), semiProbabilisticPipingInput)
             {
                 Output = pipingOutput
             };
@@ -170,6 +173,20 @@ namespace Ringtoets.Piping.Service.Test
 
             // Assert
             Assert.AreEqual(1.134713444, pipingCalculation.SemiProbabilisticOutput.PipingFactorOfSafety, 1e-8);
+        }
+
+        [Test]
+        public void Calculate_MissingOutput_ThrowsArgumentNullException()
+        {
+            // Setup
+            var generalInput = new GeneralPipingInput();
+            var pipingCalculation = new PipingCalculation(generalInput, new SemiProbabilisticPipingInput());
+
+            // Call
+            TestDelegate test = () => PipingSemiProbabilisticCalculationService.Calculate(pipingCalculation);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot perform a semi-probabilistic calculation without output form the piping kernel.");
         }
     }
 }

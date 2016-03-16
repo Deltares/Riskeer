@@ -12,7 +12,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetPipingCalculations_FromPipingCalculation_ReturnThatCalculationInstance()
         {
             // Setup
-            IPipingCalculationItem calculation = new PipingCalculation(new GeneralPipingInput());
+            IPipingCalculationItem calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             // Call
             IEnumerable<PipingCalculation> result = calculation.GetPipingCalculations();
@@ -57,10 +57,11 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var generalPipingInput = new GeneralPipingInput();
-            var calculation1 = new PipingCalculation(generalPipingInput);
-            var calculation2 = new PipingCalculation(generalPipingInput);
-            var calculation3 = new PipingCalculation(generalPipingInput);
-            var calculation4 = new PipingCalculation(generalPipingInput);
+            var semiProbabilisticInput = new SemiProbabilisticPipingInput();
+            var calculation1 = new PipingCalculation(generalPipingInput, semiProbabilisticInput);
+            var calculation2 = new PipingCalculation(generalPipingInput, semiProbabilisticInput);
+            var calculation3 = new PipingCalculation(generalPipingInput, semiProbabilisticInput);
+            var calculation4 = new PipingCalculation(generalPipingInput, semiProbabilisticInput);
 
             var subsubGroup = new PipingCalculationGroup();
             subsubGroup.Children.Add(calculation4);
@@ -111,8 +112,9 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
-            var calculation1 = new PipingCalculation(generalInputParameters);
-            var calculation2 = new PipingCalculation(generalInputParameters);
+            var semiProbabilisticInput = new SemiProbabilisticPipingInput();
+            var calculation1 = new PipingCalculation(generalInputParameters, semiProbabilisticInput);
+            var calculation2 = new PipingCalculation(generalInputParameters, semiProbabilisticInput);
             IEnumerable<IPipingCalculationItem> calculationArray = new[] { calculation1, calculation2 };
 
             // Call
@@ -142,11 +144,12 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
-            var rootcalculation = new PipingCalculation(generalInputParameters);
-            var calculation1 = new PipingCalculation(generalInputParameters);
-            var calculation2 = new PipingCalculation(generalInputParameters);
-            var calculation3 = new PipingCalculation(generalInputParameters);
-            var calculation4 = new PipingCalculation(generalInputParameters);
+            var semiProbabilisticInput = new SemiProbabilisticPipingInput();
+            var rootcalculation = new PipingCalculation(generalInputParameters, semiProbabilisticInput);
+            var calculation1 = new PipingCalculation(generalInputParameters, semiProbabilisticInput);
+            var calculation2 = new PipingCalculation(generalInputParameters, semiProbabilisticInput);
+            var calculation3 = new PipingCalculation(generalInputParameters, semiProbabilisticInput);
+            var calculation4 = new PipingCalculation(generalInputParameters, semiProbabilisticInput);
 
             var subsubGroup = new PipingCalculationGroup();
             subsubGroup.Children.Add(calculation4);
