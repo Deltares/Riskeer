@@ -71,7 +71,10 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                 for (var i = 0; i < activityCount; i++)
                 {
                     // Check for cancellation
-                    cancellationToken.ThrowIfCancellationRequested();
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        break;
+                    }
 
                     runningActivity = activities.ElementAt(i);
 
