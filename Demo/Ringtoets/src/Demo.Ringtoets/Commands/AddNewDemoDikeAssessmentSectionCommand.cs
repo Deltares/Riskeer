@@ -144,6 +144,7 @@ namespace Demo.Ringtoets.Commands
             locations.ElementAt(14).DesignWaterLevel = 5.93;
             locations.ElementAt(15).DesignWaterLevel = 5.54;
             locations.ElementAt(16).DesignWaterLevel = 5.86;
+            locations.ElementAt(17).DesignWaterLevel = 6.0;
         }
     }
 }

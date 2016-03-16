@@ -28,11 +28,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
     [TestFixture]
     public class FailureMechanismSettingsProviderTest
     {
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 0.0, 50.0, 1)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, 0.0, 50.0, 7)]
-        [TestCase(HydraRingFailureMechanismType.WaveHeight, 0.0, 50.0, 11)]
-        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 0.0, 50.0, 14)]
-        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 0.0, 50.0, 16)]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 5.0, 15.0, 1)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, 5.0, 15.0, 7)]
+        [TestCase(HydraRingFailureMechanismType.WaveHeight, 5.0, 15.0, 11)]
+        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 5.0, 15.0, 14)]
+        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 5.0, 15.0, 16)]
         [TestCase(HydraRingFailureMechanismType.DikesOvertopping, double.NaN, double.NaN, 1017)]
         [TestCase(HydraRingFailureMechanismType.DikesPiping, double.NaN, double.NaN, 3015)]
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, double.NaN, double.NaN, 4404)]

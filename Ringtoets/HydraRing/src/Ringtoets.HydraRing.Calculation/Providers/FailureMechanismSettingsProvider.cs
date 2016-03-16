@@ -41,23 +41,23 @@ namespace Ringtoets.HydraRing.Calculation.Providers
             {
                 {
                     HydraRingFailureMechanismType.AssessmentLevel,
-                    new FailureMechanismSettings(0, 50, 1)
+                    new FailureMechanismSettings(5, 15, 1)
                 },
                 {
                     HydraRingFailureMechanismType.WaveHeight,
-                    new FailureMechanismSettings(0, 50, 11)
+                    new FailureMechanismSettings(5, 15, 11)
                 },
                 {
                     HydraRingFailureMechanismType.WavePeakPeriod,
-                    new FailureMechanismSettings(0, 50, 14)
+                    new FailureMechanismSettings(5, 15, 14)
                 },
                 {
                     HydraRingFailureMechanismType.WaveSpectralPeriod,
-                    new FailureMechanismSettings(0, 50, 16)
+                    new FailureMechanismSettings(5, 15, 16)
                 },
                 {
                     HydraRingFailureMechanismType.QVariant,
-                    new FailureMechanismSettings(0, 50, 7)
+                    new FailureMechanismSettings(5, 15, 7)
                 },
                 {
                     HydraRingFailureMechanismType.DikesOvertopping,
