@@ -95,5 +95,36 @@ namespace Ringtoets.Common.Forms.PresentationObjects
 
         #endregion
 
+        #region Equatible
+
+        private bool Equals(FailureMechanismSectionsContext other)
+        {
+            return Equals(ParentFailureMechanism, other.ParentFailureMechanism);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((FailureMechanismSectionsContext)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return ParentFailureMechanism.GetHashCode();
+        }
+
+        #endregion
+
     }
 }

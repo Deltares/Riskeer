@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for <see cref="ReferenceLine"/> instances.
     /// </summary>
-    public class ReferenceLineContext : Observable, IEquatable<ReferenceLineContext>
+    public class ReferenceLineContext : Observable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ReferenceLineContext"/> class.
@@ -63,16 +63,8 @@ namespace Ringtoets.Common.Forms.PresentationObjects
 
         #region Implementation: IEquatable<ReferenceLineContext>
 
-        public bool Equals(ReferenceLineContext other)
+        private bool Equals(ReferenceLineContext other)
         {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
             return Parent.Equals(other.Parent);
         }
 

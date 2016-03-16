@@ -128,5 +128,114 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             // Assert
             mocks.VerifyAll(); // Expect detach from failure mechanism
         }
+
+        [Test]
+        public void Equals_ToItself_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(context);
+
+            // Assert
+            Assert.IsTrue(isEqual);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Equals_ToNull_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(null);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Equals_ToEqualOtherInstance_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var otherContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(otherContext);
+            bool isEqual2 = otherContext.Equals(context);
+
+            // Assert
+            Assert.IsTrue(isEqual);
+            Assert.IsTrue(isEqual2);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Equals_ToInequalOtherInstance_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var otherContext = new FailureMechanismSectionsContext(otherFailureMechanism, assessmentSection);
+
+            // Call
+            bool isEqual = context.Equals(otherContext);
+            bool isEqual2 = otherContext.Equals(context);
+
+            // Assert
+            Assert.IsFalse(isEqual);
+            Assert.IsFalse(isEqual2);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetHashCode_TwoContextInstancesEqualToEachOther_ReturnIdenticalHashes()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var otherContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+            // Precondition
+            Assert.True(context.Equals(otherContext));
+
+            // Call
+            int contextHashCode = context.GetHashCode();
+            int otherContextHashCode = otherContext.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(contextHashCode, otherContextHashCode);
+            mocks.VerifyAll();
+        }
     }
 }

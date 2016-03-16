@@ -27,7 +27,6 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<Observable>(referenceLineContext);
-            Assert.IsInstanceOf<IEquatable<ReferenceLineContext>>(referenceLineContext);
             Assert.AreSame(referenceLine, referenceLineContext.WrappedData);
             Assert.AreSame(assessmentSection, referenceLineContext.Parent);
             mocks.VerifyAll();
@@ -122,6 +121,28 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             Assert.IsFalse(isEqual);
             mocks.VerifyAll();
         }
-    }
 
+        [Test]
+        public void GetHashCode_TwoContextInstancesEqualToEachOther_ReturnIdenticalHashes()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var context = new ReferenceLineContext(assessmentSection);
+
+            var otherContext = new ReferenceLineContext(assessmentSection);
+            // Precondition
+            Assert.True(context.Equals(otherContext));
+
+            // Call
+            int contextHashCode = context.GetHashCode();
+            int otherContextHashCode = otherContext.GetHashCode();
+
+            // Assert
+            Assert.AreEqual(contextHashCode, otherContextHashCode);
+            mocks.VerifyAll();
+        }
+    }
 }

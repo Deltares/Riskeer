@@ -74,5 +74,36 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         }
 
         #endregion
+
+        #region Equatible
+
+        private bool Equals(RingtoetsPipingSurfaceLineContext other)
+        {
+            return Equals(FailureMechanism, other.FailureMechanism);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((RingtoetsPipingSurfaceLineContext)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return FailureMechanism.GetHashCode();
+        }
+
+        #endregion
     }
 }
