@@ -604,4 +604,10 @@
   <data name="Categories_SoilProperties" xml:space="preserve">
     <value>Grondeigenschappen</value>
   </data>
+  <data name="PipingOutput_PipingFactorOfSafety_Description" xml:space="preserve">
+    <value>De veiligheidsfactor voor het piping faalmechanisme.</value>
+  </data>
+  <data name="PipingOutput_PipingFactorOfSafety_DisplayName" xml:space="preserve">
+    <value>Veiligheidsfactor [-]</value>
+  </data>
 </root>

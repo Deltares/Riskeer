@@ -1166,6 +1166,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De veiligheidsfactor voor het piping faalmechanisme..
+        /// </summary>
+        public static string PipingOutput_PipingFactorOfSafety_Description {
+            get {
+                return ResourceManager.GetString("PipingOutput_PipingFactorOfSafety_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veiligheidsfactor [-].
+        /// </summary>
+        public static string PipingOutput_PipingFactorOfSafety_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingOutput_PipingFactorOfSafety_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Piping resultaten.
         /// </summary>
         public static string PipingOutput_Properties_DisplayName {

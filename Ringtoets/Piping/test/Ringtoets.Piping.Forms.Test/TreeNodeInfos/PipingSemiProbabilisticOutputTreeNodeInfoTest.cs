@@ -12,7 +12,7 @@ using Ringtoets.Piping.Plugin;
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingOutputTreeNodeInfoTest
+    public class PipingSemiProbabilisticOutputTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingGuiPlugin plugin;
@@ -23,14 +23,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingOutput));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingSemiProbabilisticOutput));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingOutput), info.TagType);
+            Assert.AreEqual(typeof(PipingSemiProbabilisticOutput), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var pipingOutput = mocks.StrictMock<PipingOutput>(0, 0, 0, 0, 0, 0);
+            var pipingOutput = mocks.StrictMock<PipingSemiProbabilisticOutput>(0, 0, 0, 0);
 
             mocks.ReplayAll();
 
@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var pipingOutput = mocks.StrictMock<PipingOutput>(0, 0, 0, 0, 0, 0);
+            var pipingOutput = mocks.StrictMock<PipingSemiProbabilisticOutput>(0, 0, 0, 0);
 
             mocks.ReplayAll();
 

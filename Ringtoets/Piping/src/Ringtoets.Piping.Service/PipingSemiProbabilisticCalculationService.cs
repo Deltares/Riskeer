@@ -33,19 +33,21 @@ namespace Ringtoets.Piping.Service
             var pipingOutput = calculation.Output;
 
             var calculator = new PipingSemiProbabilisticCalculationService(
-                pipingOutput.SellmeijerFactorOfSafety,
-                pipingOutput.UpliftFactorOfSafety,
+				pipingOutput.UpliftFactorOfSafety,
                 pipingOutput.HeaveFactorOfSafety,
+                pipingOutput.SellmeijerFactorOfSafety,
                 semiProbabilisticParameters.Norm,
                 semiProbabilisticParameters.A,
                 semiProbabilisticParameters.B,
                 semiProbabilisticParameters.SectionLength,
                 semiProbabilisticParameters.Contribution/100);
 
-            calculation.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput
-            {
-                PipingFactorOfSafety = calculator.FactorOfSafety()
-            };
+            calculation.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(
+                pipingOutput.UpliftFactorOfSafety,
+                pipingOutput.HeaveFactorOfSafety,
+                pipingOutput.SellmeijerFactorOfSafety,
+                calculator.FactorOfSafety()
+            );
         }
 
         private static void ValidateOutputOnCalculation(PipingCalculation calculation)
@@ -59,15 +61,15 @@ namespace Ringtoets.Piping.Service
         /// <summary>
         /// Creates a new instance of <see cref="PipingSemiProbabilisticCalculationService"/>.
         /// </summary>
-        /// <param name="sellmeijerFactorOfSafety"></param>
-        /// <param name="upliftFactorOfSafety"></param>
-        /// <param name="heaveFactorOfSafety"></param>
+        /// <param name="upliftFactorOfSafety">The factor of safety for the uplift sub calculation.</param>
+        /// <param name="heaveFactorOfSafety">The factor of safety for the heave sub calculation.</param>
+        /// <param name="sellmeijerFactorOfSafety">The factor of safety for the Sellmeijer sub calculation.</param>
         /// <param name="returnPeriod">The return period.</param>
         /// <param name="constantA">The constant a.</param>
         /// <param name="constantB">The constant b.</param>
         /// <param name="assessmentSectionLength">The length of the assessment section.</param>
         /// <param name="contribution">The contribution of piping to the total failure.</param>
-        public PipingSemiProbabilisticCalculationService(double sellmeijerFactorOfSafety, double upliftFactorOfSafety, double heaveFactorOfSafety, int returnPeriod, double constantA, double constantB, double assessmentSectionLength, double contribution)
+        public PipingSemiProbabilisticCalculationService(double upliftFactorOfSafety, double heaveFactorOfSafety, double sellmeijerFactorOfSafety, int returnPeriod, double constantA, double constantB, double assessmentSectionLength, double contribution)
         {
             this.heaveFactorOfSafety = heaveFactorOfSafety;
             this.upliftFactorOfSafety = upliftFactorOfSafety;
