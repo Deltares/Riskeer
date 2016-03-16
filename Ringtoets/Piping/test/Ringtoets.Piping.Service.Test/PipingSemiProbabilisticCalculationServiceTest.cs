@@ -1,12 +1,10 @@
-﻿using System;
-using NUnit.Framework;
-using Ringtoets.Piping.Calculation.SemiProbabilistic;
+﻿using NUnit.Framework;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
+namespace Ringtoets.Piping.Service.Test
 {
     [TestFixture]
-    public class PipingSemiProbabilisticResultTransformerTest
+    public class PipingSemiProbabilisticCalculationServiceTest
     {
         [Test]
         [TestCase(30000, 1.2, 7.36633E-06)]
@@ -17,7 +15,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, factorOfSafety, double.NaN, double.NaN, double.NaN, double.NaN);
-            var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, double.NaN, double.NaN, double.NaN, double.NaN);
+            var transformer = new PipingSemiProbabilisticCalculationService(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Call
             double result = transformer.FailureProbabilityUplift();
@@ -35,7 +33,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, factorOfSafety, double.NaN, double.NaN);
-            var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, double.NaN, double.NaN, double.NaN, double.NaN);
+            var transformer = new PipingSemiProbabilisticCalculationService(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Call
             double result = transformer.FailureProbabilityHeave();
@@ -53,7 +51,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, factorOfSafety);
-            var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, double.NaN, double.NaN, double.NaN, double.NaN);
+            var transformer = new PipingSemiProbabilisticCalculationService(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Call
             double result = transformer.FailureProbabilitySellmeijer();
@@ -73,7 +71,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
-            var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, double.NaN, double.NaN, double.NaN, double.NaN);
+            var transformer = new PipingSemiProbabilisticCalculationService(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Call
             double result = transformer.BetaCrossPiping();
@@ -92,7 +90,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, a, b, assessmentSectionLength, contribution);
+            var transformer = new PipingSemiProbabilisticCalculationService(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, a, b, assessmentSectionLength, contribution);
 
             // Call
             double result = transformer.BetaCrossAllowed();
@@ -116,7 +114,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
             double expectedResult = 1.134713444;
 
             var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
-            var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, a, b, assessmentSectionLength, contribution);
+            var transformer = new PipingSemiProbabilisticCalculationService(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, a, b, assessmentSectionLength, contribution);
 
             // Call
             double result = transformer.FactorOfSafety();
@@ -139,7 +137,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
-            var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, a, b, assessmentSectionLength, contribution);
+            var transformer = new PipingSemiProbabilisticCalculationService(calculatorResult.SellmeijerFactorOfSafety, calculatorResult.UpliftFactorOfSafety, calculatorResult.HeaveFactorOfSafety, norm, a, b, assessmentSectionLength, contribution);
 
             var betaAllowed = transformer.BetaCrossAllowed();
             var betaPiping = transformer.BetaCrossPiping();
@@ -168,7 +166,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
             };
 
             // Call
-            PipingSemiProbabilisticResultTransformer.Transform(pipingCalculation);
+            PipingSemiProbabilisticCalculationService.Calculate(pipingCalculation);
 
             // Assert
             Assert.AreEqual(1.134713444, pipingCalculation.SemiProbabilisticOutput.PipingFactorOfSafety, 1e-8);

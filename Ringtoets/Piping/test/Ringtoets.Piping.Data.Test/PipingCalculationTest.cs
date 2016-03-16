@@ -3,7 +3,6 @@
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Piping.Calculation.SemiProbabilistic;
 using Ringtoets.Piping.Calculation.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base.Service;
-using Ringtoets.Piping.Calculation.SemiProbabilistic;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Service
@@ -61,7 +60,7 @@ namespace Ringtoets.Piping.Service
             calculation.Output = null;
 
             PipingCalculationService.Calculate(calculation);
-            PipingSemiProbabilisticResultTransformer.Transform(calculation);
+            PipingSemiProbabilisticCalculationService.Calculate(calculation);
         }
 
         protected override void OnCancel()
