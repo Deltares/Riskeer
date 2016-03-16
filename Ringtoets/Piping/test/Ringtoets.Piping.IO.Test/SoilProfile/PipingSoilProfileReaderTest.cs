@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -12,11 +33,11 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
-using Ringtoets.Piping.IO.Test.TestHelpers;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Test.SoilProfile
 {
+    [TestFixture]
     public class PipingSoilProfileReaderTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingSoilProfilesReader");
@@ -94,7 +115,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             var dbName = "emptyschema.soil";
             var dbFile = Path.Combine(testDataPath, dbName);
-
 
             // Call
             using (var pipingSoilProfileReader = new PipingSoilProfileReader(dbFile))
@@ -238,9 +258,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 Assert.AreEqual("Profile", profile.Name);
                 Assert.AreEqual(3, profile.Layers.Count());
                 CollectionAssert.AreEqual(Enumerable.Repeat(false, 3), profile.Layers.Select(l => l.IsAquifer));
-                CollectionAssert.AreEqual(Enumerable.Repeat((double?)null, 3), profile.Layers.Select(l => l.AbovePhreaticLevel));
-                CollectionAssert.AreEqual(Enumerable.Repeat((double?)null, 3), profile.Layers.Select(l => l.BelowPhreaticLevel));
-                CollectionAssert.AreEqual(Enumerable.Repeat((double?)null, 3), profile.Layers.Select(l => l.DryUnitWeight));
+                CollectionAssert.AreEqual(Enumerable.Repeat((double?) null, 3), profile.Layers.Select(l => l.AbovePhreaticLevel));
+                CollectionAssert.AreEqual(Enumerable.Repeat((double?) null, 3), profile.Layers.Select(l => l.BelowPhreaticLevel));
+                CollectionAssert.AreEqual(Enumerable.Repeat((double?) null, 3), profile.Layers.Select(l => l.DryUnitWeight));
             }
         }
 

@@ -1,0 +1,73 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+
+namespace Ringtoets.Piping.IO.SoilProfile
+{
+    public static class DSoilQueryBuilder
+    {
+        public static string GetStochasticSoilModelOfPipingMechanismQuery()
+        {
+            return String.Format(@"SELECT SP.{8}, SP.{9}, S.{10}, SSM.{11}, SSM.{12} " +
+                                 "FROM {0} M " +
+                                 "INNER JOIN {1} S USING({4}) " +
+                                 "INNER JOIN {2} SSM USING({5}) " +
+                                 "INNER JOIN {3} SP USING({6}) " +
+                                 "WHERE M.{7} = @{7} ORDER BY SSM.{12};",
+                                 MechanismDatabaseColumns.TableName,
+                                 SegmentDatabaseColumns.TableName,
+                                 StochasticSoilModelDatabaseColumns.TableName,
+                                 SegmentPointsDatabaseColumns.TableName,
+                                 SegmentDatabaseColumns.MechanismId,
+                                 StochasticSoilModelDatabaseColumns.StochasticSoilModelId,
+                                 SegmentPointsDatabaseColumns.SegmentId,
+                                 MechanismDatabaseColumns.MechanismName,
+                                 SegmentPointsDatabaseColumns.CoordinateX,
+                                 SegmentPointsDatabaseColumns.CoordinateY,
+                                 SegmentDatabaseColumns.SegmentName,
+                                 StochasticSoilModelDatabaseColumns.StochasticSoilModelName,
+                                 StochasticSoilModelDatabaseColumns.StochasticSoilModelId
+                );
+        }
+
+        public static string GetAllStochasticSoilProfileQuery()
+        {
+            return String.Format("SELECT {1}, {2}, {3}, {4} FROM {0} ORDER BY {1};",
+                                 StochasticSoilProfileDatabaseColumns.TableName,
+                                 StochasticSoilProfileDatabaseColumns.StochasticSoilModelId,
+                                 StochasticSoilProfileDatabaseColumns.Probability,
+                                 StochasticSoilProfileDatabaseColumns.SoilProfile1DId,
+                                 StochasticSoilProfileDatabaseColumns.SoilProfile2DId
+                );
+        }
+
+        public static string GetCheckVersionQuery()
+        {
+            return String.Format(
+                "SELECT {2} FROM {0} WHERE {1} = 'VERSION' AND {2} = @{2};",
+                MetaDataDatabaseColumns.TableName,
+                MetaDataDatabaseColumns.Key,
+                MetaDataDatabaseColumns.Value
+                );
+        }
+    }
+}

@@ -204,4 +204,13 @@
   <data name="PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length" xml:space="preserve">
     <value>Profielmeting heeft een geometrie die een lijn met lengte 0 beschrijft.</value>
   </data>
+  <data name="StochasticSoilModelDatabaseReader_failed_to_read_soil_model" xml:space="preserve">
+    <value>Het uitlezen van een stochastisch ondergrondsmodel misgelukt, deze zal worden overgeslagen.</value>
+  </data>
+  <data name="StochasticSoilModelDatabaseReader_failed_to_read_database" xml:space="preserve">
+    <value>Kon geen ondergrond modellen verkrijgen van de database.</value>
+  </data>
+  <data name="StochasticSoilModelDatabaseReader_SegmentPoint_has_invalid_value" xml:space="preserve">
+    <value>De coördinaten van het stochastisch ondergrondsmodel bevatten geen geldige waarde.</value>
+  </data>
 </root>

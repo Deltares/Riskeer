@@ -317,6 +317,33 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kon geen ondergrond modellen verkrijgen van de database..
+        /// </summary>
+        public static string StochasticSoilModelDatabaseReader_failed_to_read_database {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelDatabaseReader_failed_to_read_database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het uitlezen van een stochastisch ondergrondsmodel misgelukt, deze zal worden overgeslagen..
+        /// </summary>
+        public static string StochasticSoilModelDatabaseReader_failed_to_read_soil_model {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelDatabaseReader_failed_to_read_soil_model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De coördinaten van het stochastisch ondergrondsmodel bevatten geen geldige waarde..
+        /// </summary>
+        public static string StochasticSoilModelDatabaseReader_SegmentPoint_has_invalid_value {
+            get {
+                return ResourceManager.GetString("StochasticSoilModelDatabaseReader_SegmentPoint_has_invalid_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to op regel {0}.
         /// </summary>
         public static string TextFile_On_LineNumber_0_ {
