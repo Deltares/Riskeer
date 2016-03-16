@@ -1,7 +1,6 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Properties;
 using log4net;
 using Ringtoets.Piping.Data;
 using Resources = Ringtoets.Piping.Service.Properties.Resources;
