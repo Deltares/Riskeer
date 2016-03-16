@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(ioTestDataPath, twovalidsurfacelinesCsv);
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
@@ -136,7 +136,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new []
             {
@@ -212,7 +212,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -275,7 +275,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
@@ -313,7 +313,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -359,7 +359,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
@@ -394,7 +394,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
@@ -428,7 +428,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
@@ -464,7 +464,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
@@ -504,7 +504,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 var mocks = new MockRepository();
                 var observer = mocks.StrictMock<IObserver>();
-                var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+                var assessmentSection = mocks.Stub<AssessmentSectionBase>();
                 assessmentSection.ReferenceLine = new ReferenceLine();
                 var failureMechanism = new PipingFailureMechanism();
                 mocks.ReplayAll();
@@ -554,7 +554,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new []
             {
@@ -602,7 +602,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -661,7 +661,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
@@ -710,7 +710,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
@@ -758,7 +758,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
@@ -797,7 +797,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -843,7 +843,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
@@ -887,7 +887,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
@@ -940,7 +940,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 var mocks = new MockRepository();
                 var observer = mocks.StrictMock<IObserver>();
-                var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+                var assessmentSection = mocks.Stub<AssessmentSectionBase>();
                 assessmentSection.ReferenceLine = new ReferenceLine();
                 var failureMechanism = new PipingFailureMechanism();
                 mocks.ReplayAll();
@@ -1004,7 +1004,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -1056,7 +1056,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -1118,7 +1118,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -1174,7 +1174,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -1238,7 +1238,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -1306,7 +1306,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -1401,7 +1401,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -1454,7 +1454,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
