@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Data
         /// <summary>
         /// Gets or sets the reference line defining the geometry of the dike assessment section.
         /// </summary>
-        public ReferenceLine ReferenceLine { get; set; }
+        public virtual ReferenceLine ReferenceLine { get; set; }
 
         /// <summary>
         /// Gets or sets the contribution of each failure mechanism available in this assessment section.

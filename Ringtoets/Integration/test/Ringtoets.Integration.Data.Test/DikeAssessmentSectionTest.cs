@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 
 using Ringtoets.Common.Data;
@@ -144,6 +147,30 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(30, contribution[9].Contribution);
             Assert.AreEqual(norm, contribution[9].Norm);
             Assert.AreEqual((norm / contribution[9].Contribution) * 100, 100000);
+        }
+
+        [Test]
+        public void ReferenceLine_SomeReferenceLine_GeneralPipingInputSectionLengthSet()
+        {
+            // Setup
+            var random = new Random(21);
+            var assessmentSection = new DikeAssessmentSection();
+            ReferenceLine referenceLine = new ReferenceLine();
+
+            Point2D[] somePointsCollection =
+            {
+                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble())
+            };
+            referenceLine.SetGeometry(somePointsCollection);
+
+            // Call
+            assessmentSection.ReferenceLine = referenceLine;
+
+            // Assert
+            Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.PipingFailureMechanism.GeneralInput.SectionLength);
         }
     }
 }

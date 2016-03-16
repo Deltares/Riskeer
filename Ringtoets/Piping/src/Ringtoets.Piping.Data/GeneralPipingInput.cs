@@ -45,6 +45,7 @@ namespace Ringtoets.Piping.Data
             SellmeijerReductionFactor = 0.3;
             A = 1.0;
             B = 350.0;
+            SectionLength = double.NaN;
         }
 
         #region General parameters (used by multiple calculations)
@@ -140,6 +141,11 @@ namespace Ringtoets.Piping.Data
         /// maximum tolerated probability of failure.
         /// </summary>
         public double B { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the length of the assessment section.
+        /// </summary>
+        public double SectionLength { get; set; }
 
         #endregion
     }

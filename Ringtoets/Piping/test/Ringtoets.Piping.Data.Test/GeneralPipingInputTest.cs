@@ -29,6 +29,7 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.AreEqual(1.0, inputParameters.A);
             Assert.AreEqual(350.0, inputParameters.B);
+            Assert.IsNaN(inputParameters.SectionLength);
         }
     }
 }

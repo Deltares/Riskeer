@@ -615,5 +615,87 @@ namespace Core.Common.Base.Test.Geometry
             // Assert
             Assert.IsFalse(result);
         }
+
+        [Test]
+        public void Length_EmptyCollection_ReturnsZero()
+        {
+            // Setup
+            var points = new Point2D[0];
+
+            // Call
+            var length = Math2D.Length(points);
+
+            // Assert
+            Assert.AreEqual(0, length);
+        }
+
+        [Test]
+        public void Length_CollectionWithSinglePoint_ReturnsZero()
+        {
+            // Setup
+            var random = new Random(21);
+            var points = new []
+            {
+                new Point2D(random.NextDouble(), random.NextDouble()), 
+            };
+
+            // Call
+            var length = Math2D.Length(points);
+
+            // Assert
+            Assert.AreEqual(0, length);
+        }
+
+        [Test]
+        public void Length_CollectionWithTwoPoints_ReturnsDistanceBetweenPoints()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var point1 = new Point2D(random.NextDouble(), random.NextDouble());
+            var point2 = new Point2D(random.NextDouble(), random.NextDouble());
+
+            var points = new[]
+            {
+                point1,
+                point2
+            };
+
+            // Call
+            var length = Math2D.Length(points);
+
+            // Assert
+            Assert.AreEqual(point2.GetEuclideanDistanceTo(point1), length);
+        }
+
+        [Test]
+        [TestCase(3)]
+        [TestCase(5)]
+        public void Length_CollectionWithMoreThanTwoPoints_ReturnsSumOfDistanceBetweenPoints(int count)
+        {
+            // Setup
+            var random = new Random(21);
+
+            var points = new List<Point2D>(count);
+            double expectedLength = 0;
+            Point2D previousPoint = null;
+
+            for (int i = 0; i < count; i++)
+            {
+                var point = new Point2D(random.NextDouble(), random.NextDouble());
+                if (previousPoint != null)
+                {
+                    expectedLength += previousPoint.GetEuclideanDistanceTo(point);
+                }
+                points.Add(point);
+                previousPoint = point;
+            }
+
+            // Call
+            var length = Math2D.Length(points);
+
+            // Assert
+            Assert.AreEqual(expectedLength, length);
+        }
     }
 }

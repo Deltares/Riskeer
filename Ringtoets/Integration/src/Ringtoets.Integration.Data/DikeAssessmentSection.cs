@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Integration.Data.Placeholders;
@@ -78,6 +80,19 @@ namespace Ringtoets.Integration.Data
             };
 
             FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
+        }
+
+        public override ReferenceLine ReferenceLine
+        {
+            get
+            {
+                return base.ReferenceLine;
+            }
+            set
+            {
+                PipingFailureMechanism.GeneralInput.SectionLength = Math2D.Length(value.Points);
+                base.ReferenceLine = value;
+            }
         }
 
         /// <summary>

@@ -117,20 +117,20 @@ namespace Core.Common.Base.Geometry
 
             var aLine = line1Point2.Y - line1Point1.Y;
             var bLine = line1Point1.X - line1Point2.X;
-            var cLine = aLine * line1Point1.X + bLine * line1Point1.Y;
+            var cLine = aLine*line1Point1.X + bLine*line1Point1.Y;
 
             var aOtherLine = line2Point2.Y - line2Point1.Y;
             var bOtherLine = line2Point1.X - line2Point2.X;
-            var cOtherLine = aOtherLine * line2Point1.X + bOtherLine * line2Point1.Y;
+            var cOtherLine = aOtherLine*line2Point1.X + bOtherLine*line2Point1.Y;
 
-            var determinant = aLine * bOtherLine - aOtherLine * bLine;
+            var determinant = aLine*bOtherLine - aOtherLine*bLine;
             if (Math.Abs(determinant) < epsilonForComparisons)
             {
                 return null;
             }
 
-            var x = (bOtherLine * cLine - bLine * cOtherLine) / determinant;
-            var y = (aLine * cOtherLine - aOtherLine * cLine) / determinant;
+            var x = (bOtherLine*cLine - bLine*cOtherLine)/determinant;
+            var y = (aLine*cOtherLine - aOtherLine*cLine)/determinant;
             return new Point2D(x, y);
         }
 
@@ -233,6 +233,28 @@ namespace Core.Common.Base.Geometry
             return ConvertLinePointsToLineSegments(points);
         }
 
+        /// <summary>
+        /// Calculates the length of a line defined as a collection of <see cref="Point2D"/>.
+        /// </summary>
+        /// <param name="points">The points that make up a 2D line.</param>
+        /// <returns>The sum of the distances between consecutive points.</returns>
+        public static double Length(IEnumerable<Point2D> points)
+        {
+            double length = 0;
+            Point2D previousPoint = null;
+
+            foreach (Point2D point in points)
+            {
+                if (previousPoint != null)
+                {
+                    length += previousPoint.GetEuclideanDistanceTo(point);
+                }
+                previousPoint = point;
+            }
+
+            return length;
+        }
+
         private static Point2D Convert3DPointTo2DPoint(Point3D point)
         {
             return new Point2D(point.X, point.Y);
@@ -315,10 +337,10 @@ namespace Core.Common.Base.Geometry
 
         private static Point2D GetInterpolatedPoint(Segment2D lineSegment, double splitDistance)
         {
-            var interpolationFactor = splitDistance / lineSegment.Length;
+            var interpolationFactor = splitDistance/lineSegment.Length;
             Vector segmentVector = lineSegment.SecondPoint - lineSegment.FirstPoint;
-            double interpolatedX = lineSegment.FirstPoint.X + interpolationFactor * segmentVector[0];
-            double interpolatedY = lineSegment.FirstPoint.Y + interpolationFactor * segmentVector[1];
+            double interpolatedX = lineSegment.FirstPoint.X + interpolationFactor*segmentVector[0];
+            double interpolatedY = lineSegment.FirstPoint.Y + interpolationFactor*segmentVector[1];
 
             return new Point2D(interpolatedX, interpolatedY);
         }
