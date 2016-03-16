@@ -9,8 +9,9 @@ namespace Ringtoets.Piping.Service
     /// </summary>
     public class PipingSemiProbabilisticCalculationService
     {
-        private readonly double heaveFactorOfSafety;
+        // Inputs
         private readonly double upliftFactorOfSafety;
+        private readonly double heaveFactorOfSafety;
         private readonly double sellmeijerFactorOfSafety;
 
         private readonly int returnPeriod;
@@ -19,44 +20,22 @@ namespace Ringtoets.Piping.Service
         private readonly double assessmentSectionLength;
         private readonly double contribution;
 
-        /// <summary>
-        /// Calculates the semi-probabilistic results given a <see cref="PipingCalculation"/> with <see cref="PipingOutput"/>.
-        /// </summary>
-        /// <param name="calculation">The calculation which is used as input for the semi-probabilistic assessment. If the semi-
-        /// probabilistic calculation is successful, <see cref="PipingCalculation.SemiProbabilisticOutput"/> is set.</param>
-        /// <exception cref="ArgumentNullException">Thrown when calculation has no output from a piping calculation.</exception>
-        public static void Calculate(PipingCalculation calculation)
-        {
-            ValidateOutputOnCalculation(calculation);
+        // Intermediate results
+        private double heaveReliability;
+        private double upliftReliability;
+        private double sellmeijerReliability;
 
-            SemiProbabilisticPipingInput semiProbabilisticParameters = calculation.SemiProbabilisticParameters;
-            var pipingOutput = calculation.Output;
+        private double heaveProbability;
+        private double upliftProbability;
+        private double sellmeijerProbability;
 
-            var calculator = new PipingSemiProbabilisticCalculationService(
-				pipingOutput.UpliftFactorOfSafety,
-                pipingOutput.HeaveFactorOfSafety,
-                pipingOutput.SellmeijerFactorOfSafety,
-                semiProbabilisticParameters.Norm,
-                semiProbabilisticParameters.A,
-                semiProbabilisticParameters.B,
-                semiProbabilisticParameters.SectionLength,
-                semiProbabilisticParameters.Contribution/100);
+        private double pipingProbability;
+        private double pipingReliability;
 
-            calculation.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(
-                pipingOutput.UpliftFactorOfSafety,
-                pipingOutput.HeaveFactorOfSafety,
-                pipingOutput.SellmeijerFactorOfSafety,
-                calculator.FactorOfSafety()
-            );
-        }
+        private double requiredProbability;
+        private double requiredReliability;
 
-        private static void ValidateOutputOnCalculation(PipingCalculation calculation)
-        {
-            if (!calculation.HasOutput)
-            {
-                throw new ArgumentNullException("calculation", "Cannot perform a semi-probabilistic calculation without output form the piping kernel.");
-            }
-        }
+        private double pipingFactorOfSafety;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingSemiProbabilisticCalculationService"/>.
@@ -82,12 +61,66 @@ namespace Ringtoets.Piping.Service
         }
 
         /// <summary>
+        /// Calculates the semi-probabilistic results given a <see cref="PipingCalculation"/> with <see cref="PipingOutput"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation which is used as input for the semi-probabilistic assessment. If the semi-
+        /// probabilistic calculation is successful, <see cref="PipingCalculation.SemiProbabilisticOutput"/> is set.</param>
+        /// <exception cref="ArgumentNullException">Thrown when calculation has no output from a piping calculation.</exception>
+        public static void Calculate(PipingCalculation calculation)
+        {
+            ValidateOutputOnCalculation(calculation);
+
+            SemiProbabilisticPipingInput semiProbabilisticParameters = calculation.SemiProbabilisticParameters;
+            var pipingOutput = calculation.Output;
+
+            var calculator = new PipingSemiProbabilisticCalculationService(
+                pipingOutput.UpliftFactorOfSafety,
+                pipingOutput.HeaveFactorOfSafety,
+                pipingOutput.SellmeijerFactorOfSafety,
+                semiProbabilisticParameters.Norm,
+                semiProbabilisticParameters.A,
+                semiProbabilisticParameters.B,
+                semiProbabilisticParameters.SectionLength,
+                semiProbabilisticParameters.Contribution / 100);
+            calculator.Calculate();
+
+            calculation.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(
+                calculator.upliftFactorOfSafety,
+                calculator.upliftReliability,
+                calculator.upliftProbability,
+                calculator.heaveFactorOfSafety,
+                calculator.heaveReliability,
+                calculator.heaveProbability,
+                calculator.sellmeijerFactorOfSafety,
+                calculator.sellmeijerReliability,
+                calculator.sellmeijerProbability,
+                calculator.requiredProbability,
+                calculator.requiredReliability,
+                calculator.pipingProbability,
+                calculator.pipingReliability,
+                calculator.pipingFactorOfSafety
+                );
+        }
+
+        private void Calculate()
+        {
+            FailureProbabilityUplift();
+            FailureProbabilityHeave();
+            FailureProbabilitySellmeijer();
+            BetaCrossPiping();
+            BetaCrossRequired();
+            FactorOfSafety();
+        }
+
+        /// <summary>
         /// Returns the failure probability of the uplift sub mechanism.
         /// </summary>
         /// <returns>A value represening failure probability.</returns>
         public double FailureProbabilityUplift()
         {
-            return FailureProbability(upliftFactorOfSafety, upliftFactors);
+            upliftReliability = SubMechanismReliability(upliftFactorOfSafety, upliftFactors);
+            upliftProbability = ReliabilityToProbability(upliftReliability);
+            return upliftProbability;
         }
 
         /// <summary>
@@ -96,7 +129,9 @@ namespace Ringtoets.Piping.Service
         /// <returns>A value represening failure probability.</returns>
         public double FailureProbabilityHeave()
         {
-            return FailureProbability(heaveFactorOfSafety, heaveFactors);
+            heaveReliability = SubMechanismReliability(heaveFactorOfSafety, heaveFactors);
+            heaveProbability = ReliabilityToProbability(heaveReliability);
+            return heaveProbability;
         }
 
         /// <summary>
@@ -105,7 +140,9 @@ namespace Ringtoets.Piping.Service
         /// <returns>A value represening failure probability.</returns>
         public double FailureProbabilitySellmeijer()
         {
-            return FailureProbability(sellmeijerFactorOfSafety, sellmeijerFactors);
+            sellmeijerReliability = SubMechanismReliability(sellmeijerFactorOfSafety, sellmeijerFactors);
+            sellmeijerProbability = ReliabilityToProbability(sellmeijerReliability);
+            return sellmeijerProbability;
         }
 
         /// <summary>
@@ -114,18 +151,20 @@ namespace Ringtoets.Piping.Service
         /// <returns>A value representing the reliability.</returns>
         public double BetaCrossPiping()
         {
-            var minFailureProbability = Math.Min(Math.Min(FailureProbabilityHeave(), FailureProbabilityUplift()), FailureProbabilitySellmeijer());
-            return Normal.InvCDF(0.0, 1.0, 1 - minFailureProbability);
+            pipingProbability = Math.Min(Math.Min(heaveProbability, upliftProbability), sellmeijerProbability);
+            pipingReliability = ProbabilityToReliability(pipingProbability);
+            return pipingReliability;
         }
 
         /// <summary>
-        /// Returns the allowed reliability of the piping failure mechanism for the complete assessment section.
+        /// Returns the required reliability of the piping failure mechanism for the complete assessment section.
         /// </summary>
-        /// <returns>A value representing the allowed reliability.</returns>
-        public double BetaCrossAllowed()
+        /// <returns>A value representing the required reliability.</returns>
+        public double BetaCrossRequired()
         {
-            var normCross = (contribution/returnPeriod)/(1 + (constantA*assessmentSectionLength)/constantB);
-            return Normal.InvCDF(0, 1, 1 - normCross);
+            requiredProbability = (contribution/returnPeriod)/(1 + (constantA*assessmentSectionLength)/constantB);
+            requiredReliability = ProbabilityToReliability(requiredProbability);
+            return requiredReliability;
         }
 
         /// <summary>
@@ -135,17 +174,34 @@ namespace Ringtoets.Piping.Service
         /// <returns>A factor of safety value.</returns>
         public double FactorOfSafety()
         {
-            return BetaCrossAllowed()/BetaCrossPiping();
+            pipingFactorOfSafety = requiredReliability/pipingReliability;
+            return pipingFactorOfSafety;
         }
 
-        private double FailureProbability(double factorOfSafety, SubCalculationFactors factors)
+        private static void ValidateOutputOnCalculation(PipingCalculation calculation)
+        {
+            if (!calculation.HasOutput)
+            {
+                throw new ArgumentNullException("calculation", "Cannot perform a semi-probabilistic calculation without output form the piping kernel.");
+            }
+        }
+
+        private double SubMechanismReliability(double factorOfSafety, SubCalculationFactors factors)
         {
             var norm = (1.0/returnPeriod);
-            var bNorm = Normal.InvCDF(0, 1, 1 - norm);
+            var bNorm = ProbabilityToReliability(norm);
 
-            var betaCross = (1/factors.A)*(Math.Log(factorOfSafety/factors.B) + (factors.C*bNorm));
+            return (1/factors.A)*(Math.Log(factorOfSafety/factors.B) + (factors.C*bNorm));
+        }
 
-            return Normal.CDF(0, 1, -betaCross);
+        private double ReliabilityToProbability(double reliability)
+        {
+            return Normal.CDF(0, 1, -reliability);
+        }
+
+        private double ProbabilityToReliability(double probability)
+        {
+            return Normal.InvCDF(0, 1, 1 - probability);
         }
 
         #region sub-calculation constants
