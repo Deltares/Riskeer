@@ -128,8 +128,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             CollectionAssert.AreEqual(new object[]
             {
-                pipingFailureMechanism.SoilProfiles,
-                pipingFailureMechanism.BoundaryConditions
+                pipingFailureMechanism.SoilProfiles
             }, inputsFolder.Contents.Cast<object>().Skip(2));
 
             var calculationsFolder = (PipingCalculationGroupContext) children[1];

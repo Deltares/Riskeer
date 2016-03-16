@@ -375,8 +375,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection),
-                failureMechanism.SoilProfiles,
-                failureMechanism.BoundaryConditions
+                failureMechanism.SoilProfiles
             };
         }
 
