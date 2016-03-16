@@ -111,7 +111,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(5.93, hydraulicBoundaryLocations[14].DesignWaterLevel);
             Assert.AreEqual(5.54, hydraulicBoundaryLocations[15].DesignWaterLevel);
             Assert.AreEqual(5.86, hydraulicBoundaryLocations[16].DesignWaterLevel);
-            Assert.IsNaN(hydraulicBoundaryLocations[17].DesignWaterLevel);
+            Assert.AreEqual(6.0, hydraulicBoundaryLocations[17].DesignWaterLevel);
         }
 
         private void AssertCharacteristicPointsOnSurfaceLines(RingtoetsPipingSurfaceLine[] surfaceLines)
