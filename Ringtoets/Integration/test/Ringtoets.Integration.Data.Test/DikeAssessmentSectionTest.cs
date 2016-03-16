@@ -32,7 +32,8 @@ namespace Ringtoets.Integration.Data.Test
             var asphaltName = "Dijken - Asfaltbekledingen";
             var grassRevetmentName = "Dijken - Grasbekledingen";
 
-            var contributions = new double[] { 24, 24, 4, 2, 4, 2, 4, 3, 3, 30 };
+            var pipingContribution = 24;
+            var contributions = new double[] { pipingContribution, 24, 4, 2, 4, 2, 4, 3, 3, 30 };
             var names = new[] {
                 pipingName,
                 grassErosionName,
@@ -80,6 +81,10 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(contributions, section.FailureMechanismContribution.Distribution.Select(d => d.Contribution));
             Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
             Assert.AreEqual(Enumerable.Repeat(30000.0, 10), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
+
+            Assert.AreEqual(pipingContribution, section.PipingFailureMechanism.GeneralInput.Contribution);
+            Assert.AreEqual(30000.0, section.PipingFailureMechanism.GeneralInput.Norm);
+            Assert.AreEqual(double.NaN, section.PipingFailureMechanism.GeneralInput.SectionLength);
 
             Assert.AreEqual(100, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
         }
@@ -171,6 +176,19 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.PipingFailureMechanism.GeneralInput.SectionLength);
+        }
+
+        [Test]
+        public void ReferenceLine_Null_GeneralPipingInputSectionLengthNaN()
+        {
+            // Setup
+            var assessmentSection = new DikeAssessmentSection();
+
+            // Call
+            assessmentSection.ReferenceLine = null;
+
+            // Assert
+            Assert.AreEqual(double.NaN, assessmentSection.PipingFailureMechanism.GeneralInput.SectionLength);
         }
     }
 }

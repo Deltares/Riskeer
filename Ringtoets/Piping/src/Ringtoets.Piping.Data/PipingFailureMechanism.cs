@@ -60,6 +60,18 @@ namespace Ringtoets.Piping.Data
             }
         }
 
+        public override double Contribution
+        {
+            get
+            {
+                return GeneralInput.Contribution;
+            }
+            set
+            {
+                GeneralInput.Contribution = value;
+            }
+        }
+
         /// <summary>
         /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.
         /// </summary>

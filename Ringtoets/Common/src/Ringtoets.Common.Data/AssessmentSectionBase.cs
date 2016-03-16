@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Data
         /// <summary>
         /// Gets or sets the contribution of each failure mechanism available in this assessment section.
         /// </summary>
-        public FailureMechanismContribution FailureMechanismContribution { get; protected set; }
+        public virtual FailureMechanismContribution FailureMechanismContribution { get; protected set; }
 
         /// <summary>
         /// Gets or sets the hydraulic boundary database.

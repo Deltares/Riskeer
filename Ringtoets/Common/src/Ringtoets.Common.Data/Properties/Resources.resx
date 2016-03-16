@@ -123,7 +123,7 @@
   <data name="FailureMechanism_BoundaryConditions_DisplayName" xml:space="preserve">
     <value>Randvoorwaarden</value>
   </data>
-  <data name="FailureMechanism_Contribution_Value_should_be_in_interval_0_100" xml:space="preserve">
+  <data name="Contribution_Value_should_be_in_interval_0_100" xml:space="preserve">
     <value>De waarde voor de toegestane bijdrage aan faalkans moet in interval (0,100] liggen.</value>
   </data>
   <data name="FailureMechanism_Locations_DisplayName" xml:space="preserve">

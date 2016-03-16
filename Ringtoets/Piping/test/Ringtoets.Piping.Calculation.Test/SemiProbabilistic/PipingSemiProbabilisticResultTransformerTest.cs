@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Ringtoets.Piping.Calculation.SemiProbabilistic;
+using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
 {
@@ -14,7 +15,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
         public void FailureProbabilityUplift_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
         {
             // Setup
-            var calculatorResult = new PipingCalculatorResult(double.NaN, factorOfSafety, double.NaN, double.NaN, double.NaN, double.NaN);
+            var calculatorResult = new PipingOutput(double.NaN, factorOfSafety, double.NaN, double.NaN, double.NaN, double.NaN);
             var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult, norm, double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Call
@@ -32,7 +33,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
         public void FailureProbabilityHeave_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
         {
             // Setup
-            var calculatorResult = new PipingCalculatorResult(double.NaN, double.NaN, double.NaN, factorOfSafety, double.NaN, double.NaN);
+            var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, factorOfSafety, double.NaN, double.NaN);
             var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult, norm, double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Call
@@ -50,7 +51,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
         public void FailureProbabilitySellmeijer_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
         {
             // Setup
-            var calculatorResult = new PipingCalculatorResult(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, factorOfSafety);
+            var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, factorOfSafety);
             var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult, norm, double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Call
@@ -70,7 +71,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
         public void BetaCrossPiping_DifferentInputs_ReturnsExpectedValue(int norm, double fosUplift, double fosHeave, double fosSellmeijer, double expectedResult)
         {
             // Setup
-            var calculatorResult = new PipingCalculatorResult(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
+            var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
             var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult, norm, double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Call
@@ -89,7 +90,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
         public void BetaCrossAllowed_DifferentInputs_ReturnsExpectedValue(int norm, double a, double b, double assessmentSectionLength, double contribution, double expectedResult)
         {
             // Setup
-            var calculatorResult = new PipingCalculatorResult(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult, norm, a, b, assessmentSectionLength, contribution);
 
             // Call
@@ -113,7 +114,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
             double fosSellmeijer = 0.9;
             double expectedResult = 1.134713444;
 
-            var calculatorResult = new PipingCalculatorResult(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
+            var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
             var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult, norm, a, b, assessmentSectionLength, contribution);
 
             // Call
@@ -136,7 +137,7 @@ namespace Ringtoets.Piping.Calculation.Test.SemiProbabilistic
             [Values(0.9, 1.1)] double fosSellmeijer)
         {
             // Setup
-            var calculatorResult = new PipingCalculatorResult(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
+            var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
             var transformer = new PipingSemiProbabilisticResultTransformer(calculatorResult, norm, a, b, assessmentSectionLength, contribution);
 
             var betaAllowed = transformer.BetaCrossAllowed();

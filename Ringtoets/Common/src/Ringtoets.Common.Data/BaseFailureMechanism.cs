@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Data
         /// as part of the overall verdict.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> is not in interval (0-100].</exception>
-        public double Contribution
+        public virtual double Contribution
         {
             get
             {
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Data
             {
                 if (value <= 0 || value > 100)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.FailureMechanism_Contribution_Value_should_be_in_interval_0_100);
+                    throw new ArgumentOutOfRangeException("value", Resources.Contribution_Value_should_be_in_interval_0_100);
                 }
                 contribution = value;
             }

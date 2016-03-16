@@ -101,7 +101,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             };
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Common.Data.Properties.Resources.FailureMechanism_Contribution_Value_should_be_in_interval_0_100);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Properties.Resources.Contribution_Value_should_be_in_interval_0_100);
         }
 
         [Test]

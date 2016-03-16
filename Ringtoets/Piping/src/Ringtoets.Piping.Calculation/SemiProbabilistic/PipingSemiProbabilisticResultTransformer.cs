@@ -1,5 +1,6 @@
 using System;
 using MathNet.Numerics.Distributions;
+using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Calculation.SemiProbabilistic
 {
@@ -8,7 +9,7 @@ namespace Ringtoets.Piping.Calculation.SemiProbabilistic
     /// </summary>
     public class PipingSemiProbabilisticResultTransformer
     {
-        private readonly PipingCalculatorResult result;
+        private readonly PipingOutput result;
         private readonly int returnPeriod;
         private readonly double constantA;
         private readonly double constantB;
@@ -24,7 +25,7 @@ namespace Ringtoets.Piping.Calculation.SemiProbabilistic
         /// <param name="constantB">The constant b.</param>
         /// <param name="assessmentSectionLength">The length of the assessment section.</param>
         /// <param name="contribution">The contribution of piping to the total failure.</param>
-        public PipingSemiProbabilisticResultTransformer(PipingCalculatorResult result, int returnPeriod, double constantA, double constantB, double assessmentSectionLength, double contribution)
+        public PipingSemiProbabilisticResultTransformer(PipingOutput result, int returnPeriod, double constantA, double constantB, double assessmentSectionLength, double contribution)
         {
             this.result = result;
             this.returnPeriod = returnPeriod;

@@ -66,6 +66,7 @@
     <Compile Include="PipingFailureMechanismTest.cs" />
     <Compile Include="PipingInputTest.cs" />
     <Compile Include="PipingOutputTest.cs" />
+    <Compile Include="PipingSemiProbabilisticOutputTest.cs" />
     <Compile Include="PipingSoilLayerTest.cs" />
     <Compile Include="PipingSoilProfileTest.cs" />
     <Compile Include="Probabilistics\DesignVariableTest.cs" />
