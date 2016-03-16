@@ -309,7 +309,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 SoilProfile = new PipingSoilProfile(String.Empty, bottom, new[]
                 {
                     new PipingSoilLayer(top) 
-                })
+                }, 0)
             }.AsRealInput();
 
             var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
@@ -332,7 +332,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 SoilProfile = new PipingSoilProfile(String.Empty, -1.0, new[]
                 {
                     new PipingSoilLayer(0) 
-                })
+                }, 0)
             }.AsRealInput();
 
             var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());

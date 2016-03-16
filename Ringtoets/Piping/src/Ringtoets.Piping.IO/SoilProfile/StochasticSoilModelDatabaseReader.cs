@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <exception cref="CriticalFileReadException">Thrown when failed to read the database.</exception>
         public IEnumerable<StochasticSoilModelSegment> GetStochasticSoilModelSegmentOfPiping()
         {
-            var stochasticSoilModelSegmentsQuery = DSoilQueryBuilder.GetStochasticSoilModelOfPipingMechanismQuery();
+            var stochasticSoilModelSegmentsQuery = DSoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
             var sqliteParameter = new SQLiteParameter
             {
                 DbType = DbType.String,
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private bool PrepareStochasticSoilProfilesDataReader()
         {
-            var stochasticSoilModelSegmentsQuery = DSoilQueryBuilder.GetAllStochasticSoilProfileQuery();
+            var stochasticSoilModelSegmentsQuery = DSoilDatabaseQueryBuilder.GetAllStochasticSoilProfileQuery();
             stochasticSoilProfilesDataReader = CreateDataReader(stochasticSoilModelSegmentsQuery);
 
             if (!stochasticSoilProfilesDataReader.HasRows)
@@ -200,7 +200,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private void VerifyVersion()
         {
-            var checkVersionQuery = DSoilQueryBuilder.GetCheckVersionQuery();
+            var checkVersionQuery = DSoilDatabaseQueryBuilder.GetCheckVersionQuery();
             var sqliteParameter = new SQLiteParameter
             {
                 DbType = DbType.String,

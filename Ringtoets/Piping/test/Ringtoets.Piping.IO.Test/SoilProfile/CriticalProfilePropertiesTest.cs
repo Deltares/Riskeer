@@ -27,9 +27,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
             string profileName = "profile";
             var layerCount = 1;
+            long soilProfileId = 1234;
 
             reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).IgnoreArguments().Return(profileName);
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).IgnoreArguments().Return(layerCount);
+            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.SoilProfileId)).IgnoreArguments().Return(soilProfileId);
 
             mocks.ReplayAll();
 
@@ -39,6 +41,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Assert
             Assert.AreEqual(profileName, properties.ProfileName);
             Assert.AreEqual(layerCount, properties.LayerCount);
+            Assert.AreEqual(soilProfileId, properties.ProfileId);
 
             mocks.VerifyAll();
         }

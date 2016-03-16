@@ -21,10 +21,13 @@
 
 namespace Ringtoets.Piping.IO.SoilProfile
 {
+    /// <summary>
+    /// This class contains the names of the table and columns of the table 
+    /// 'SegmentPoints' of the DSoil-Model database.
+    /// </summary>
     internal static class SegmentPointsDatabaseColumns
     {
         internal const string TableName = "SegmentPoints";
-        internal const string SegmentPointsId = "SEGP_ID";
         internal const string SegmentId = "SE_ID";
         internal const string CoordinateX = "XWorld";
         internal const string CoordinateY = "YWorld";

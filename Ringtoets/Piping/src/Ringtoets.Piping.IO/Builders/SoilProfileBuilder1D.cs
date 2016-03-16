@@ -33,11 +33,13 @@ namespace Ringtoets.Piping.IO.Builders
         private readonly Collection<PipingSoilLayer> layers;
         private readonly string name;
         private readonly double bottom;
+        private readonly long soilProfileId;
 
-        internal SoilProfileBuilder1D(string name, double bottom)
+        internal SoilProfileBuilder1D(string name, double bottom, long soilProfileId)
         {
             this.name = name;
             this.bottom = bottom;
+            this.soilProfileId = soilProfileId;
             layers = new Collection<PipingSoilLayer>();
         }
 
@@ -50,7 +52,7 @@ namespace Ringtoets.Piping.IO.Builders
         {
             try
             {
-                return new PipingSoilProfile(name, bottom, layers);
+                return new PipingSoilProfile(name, bottom, layers, soilProfileId);
             }
             catch (ArgumentException e)
             {

@@ -1,14 +1,13 @@
 using System;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Calculation.TestUtil
 {
     public class TestPipingInput
     {
+        private readonly Random random = new Random(22);
         public double WaterVolumetricWeight;
         public double SaturatedVolumicWeightOfCoverageLayer;
         public double UpliftModelFactor;
@@ -33,8 +32,6 @@ namespace Ringtoets.Piping.Calculation.TestUtil
         public double ThicknessAquiferLayer;
         public RingtoetsPipingSurfaceLine SurfaceLine;
         public PipingSoilProfile SoilProfile;
-
-        private readonly Random random = new Random(22);
         private double last;
 
         public TestPipingInput()
@@ -42,8 +39,8 @@ namespace Ringtoets.Piping.Calculation.TestUtil
             WaterVolumetricWeight = NextIncrementalDouble();
             SaturatedVolumicWeightOfCoverageLayer = NextIncrementalDouble();
             UpliftModelFactor = NextIncrementalDouble();
-            AssessmentLevel = (RoundedDouble)NextIncrementalDouble();
-            PiezometricHeadExit = (RoundedDouble)NextIncrementalDouble();
+            AssessmentLevel = (RoundedDouble) NextIncrementalDouble();
+            PiezometricHeadExit = (RoundedDouble) NextIncrementalDouble();
             PhreaticLevelExit = NextIncrementalDouble();
             DampingFactorExit = NextIncrementalDouble();
             CriticalHeaveGradient = NextIncrementalDouble();
@@ -63,40 +60,6 @@ namespace Ringtoets.Piping.Calculation.TestUtil
             ThicknessAquiferLayer = NextIncrementalDouble();
             SurfaceLine = CreateValidSurfaceLine();
             SoilProfile = CreateValidSoilProfile();
-        }
-
-        private PipingSoilProfile CreateValidSoilProfile()
-        {
-            return new PipingSoilProfile(String.Empty, -2, new []
-            {
-                new PipingSoilLayer(9),
-                new PipingSoilLayer(4)
-                {
-                    IsAquifer = true
-                },
-                new PipingSoilLayer(2), 
-                new PipingSoilLayer(-1), 
-            });
-        }
-
-        private RingtoetsPipingSurfaceLine CreateValidSurfaceLine()
-        {
-            var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
-            ringtoetsPipingSurfaceLine.SetGeometry(new[]
-            {
-                new Point3D (0, 0, 2),
-                new Point3D (1, 0, 8),
-                new Point3D (2, 0, -1)
-            });
-            return ringtoetsPipingSurfaceLine;
-        }
-
-        /// <summary>
-        /// The returned double is sure to be different from the last time it was called.
-        /// </summary>
-        private double NextIncrementalDouble()
-        {
-            return last += random.NextDouble() + 1e-6;
         }
 
         /// <summary>
@@ -127,8 +90,42 @@ namespace Ringtoets.Piping.Calculation.TestUtil
                 MeanDiameter70,
                 BeddingAngle,
                 ExitPointXCoordinate,
-                SurfaceLine, 
+                SurfaceLine,
                 SoilProfile);
+        }
+
+        private PipingSoilProfile CreateValidSoilProfile()
+        {
+            return new PipingSoilProfile(String.Empty, -2, new[]
+            {
+                new PipingSoilLayer(9),
+                new PipingSoilLayer(4)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(2),
+                new PipingSoilLayer(-1),
+            }, 1234L);
+        }
+
+        private RingtoetsPipingSurfaceLine CreateValidSurfaceLine()
+        {
+            var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
+            ringtoetsPipingSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 2),
+                new Point3D(1, 0, 8),
+                new Point3D(2, 0, -1)
+            });
+            return ringtoetsPipingSurfaceLine;
+        }
+
+        /// <summary>
+        /// The returned double is sure to be different from the last time it was called.
+        /// </summary>
+        private double NextIncrementalDouble()
+        {
+            return last += random.NextDouble() + 1e-6;
         }
     }
 }

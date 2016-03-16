@@ -2,11 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
 using Deltares.WTIPiping;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Calculation.Test
@@ -23,7 +20,8 @@ namespace Ringtoets.Piping.Calculation.Test
             var belowPhreaticLevel = random.NextDouble();
             var abovePhreaticLevel = random.NextDouble();
             var dryUnitWeight = random.NextDouble();
-            IEnumerable<PipingSoilLayer> layers = new []
+            const long pipingSoilProfileId = 1234L;
+            IEnumerable<PipingSoilLayer> layers = new[]
             {
                 new PipingSoilLayer(expectedTop)
                 {
@@ -31,9 +29,9 @@ namespace Ringtoets.Piping.Calculation.Test
                     BelowPhreaticLevel = belowPhreaticLevel,
                     AbovePhreaticLevel = abovePhreaticLevel,
                     DryUnitWeight = dryUnitWeight
-                }, 
+                },
             };
-            var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers);
+            var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers, pipingSoilProfileId);
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);
@@ -52,6 +50,7 @@ namespace Ringtoets.Piping.Calculation.Test
             Assert.AreEqual(belowPhreaticLevel, pipingLayer.BelowPhreaticLevel);
             Assert.AreEqual(abovePhreaticLevel, pipingLayer.AbovePhreaticLevel);
             Assert.AreEqual(dryUnitWeight, pipingLayer.DryUnitWeight);
+            Assert.AreEqual(pipingSoilProfileId, soilProfile.PipingSoilProfileId);
         }
 
         [Test]
@@ -63,6 +62,7 @@ namespace Ringtoets.Piping.Calculation.Test
             var expectedTopB = expectedTopA - random.NextDouble();
             var expectedTopC = expectedTopB - random.NextDouble();
             var expectedBottom = expectedTopC - random.NextDouble();
+            const long pipingSoilProfileId = 1234L;
             IEnumerable<PipingSoilLayer> layers = new[]
             {
                 new PipingSoilLayer(expectedTopA)
@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 new PipingSoilLayer(expectedTopC)
             };
 
-            var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers);
+            var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers, pipingSoilProfileId);
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);
@@ -87,8 +87,14 @@ namespace Ringtoets.Piping.Calculation.Test
                 false,
             };
             CollectionAssert.AreEqual(expectedAquifers, actual.Layers.Select(l => l.IsAquifer));
-            CollectionAssert.AreEqual(new[] { expectedTopA, expectedTopB, expectedTopC }, actual.Layers.Select(l => l.TopLevel));
+            CollectionAssert.AreEqual(new[]
+            {
+                expectedTopA,
+                expectedTopB,
+                expectedTopC
+            }, actual.Layers.Select(l => l.TopLevel));
             Assert.AreEqual(expectedBottom, actual.BottomLevel);
+            Assert.AreEqual(pipingSoilProfileId, soilProfile.PipingSoilProfileId);
         }
 
         [Test]
@@ -100,16 +106,17 @@ namespace Ringtoets.Piping.Calculation.Test
             var expectedTopB = random.NextDouble() + expectedTopA;
             var expectedTopC = random.NextDouble() + expectedTopB;
             var expectedBottom = expectedTopA - random.NextDouble();
+            const long pipingSoilProfileId = 1234L;
             IEnumerable<PipingSoilLayer> layers = new[]
             {
                 new PipingSoilLayer(expectedTopA)
                 {
                     IsAquifer = true
-                }, 
-                new PipingSoilLayer(expectedTopB), 
-                new PipingSoilLayer(expectedTopC) 
+                },
+                new PipingSoilLayer(expectedTopB),
+                new PipingSoilLayer(expectedTopC)
             };
-            var soilProfile = new PipingSoilProfile(string.Empty, expectedBottom, layers);
+            var soilProfile = new PipingSoilProfile(string.Empty, expectedBottom, layers, pipingSoilProfileId);
 
             // Precondition
             CollectionAssert.AreNotEqual(layers, layers.OrderByDescending(l => l.Top), "Layer collection should not be in descending order by the Top property.");
@@ -127,11 +134,16 @@ namespace Ringtoets.Piping.Calculation.Test
                 false,
                 false,
                 true,
-                
             };
             CollectionAssert.AreEqual(expectedAquifers, actual.Layers.Select(l => l.IsAquifer));
-            CollectionAssert.AreEqual(new []{ expectedTopC, expectedTopB, expectedTopA }, actual.Layers.Select(l => l.TopLevel));
+            CollectionAssert.AreEqual(new[]
+            {
+                expectedTopC,
+                expectedTopB,
+                expectedTopA
+            }, actual.Layers.Select(l => l.TopLevel));
             Assert.AreEqual(expectedBottom, actual.BottomLevel);
+            Assert.AreEqual(pipingSoilProfileId, soilProfile.PipingSoilProfileId);
         }
 
         [Test]
@@ -148,17 +160,17 @@ namespace Ringtoets.Piping.Calculation.Test
                 new PipingSoilLayer(1)
                 {
                     BelowPhreaticLevel = levelA
-                }, 
+                },
                 new PipingSoilLayer(0)
                 {
                     BelowPhreaticLevel = levelB
-                }, 
-                new PipingSoilLayer(-1) 
+                },
+                new PipingSoilLayer(-1)
                 {
                     BelowPhreaticLevel = levelC
                 }
             };
-            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers);
+            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers, 0);
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);
@@ -185,17 +197,17 @@ namespace Ringtoets.Piping.Calculation.Test
                 new PipingSoilLayer(1)
                 {
                     AbovePhreaticLevel = levelA
-                }, 
+                },
                 new PipingSoilLayer(0)
                 {
                     AbovePhreaticLevel = levelB
-                }, 
-                new PipingSoilLayer(-1) 
+                },
+                new PipingSoilLayer(-1)
                 {
                     AbovePhreaticLevel = levelC
                 }
             };
-            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers);
+            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers, 0);
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);
@@ -226,13 +238,13 @@ namespace Ringtoets.Piping.Calculation.Test
                 new PipingSoilLayer(0)
                 {
                     DryUnitWeight = weightB
-                }, 
+                },
                 new PipingSoilLayer(-1)
                 {
                     DryUnitWeight = weightC
-                } 
+                }
             };
-            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers);
+            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers, 0);
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);

@@ -7,6 +7,7 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Calculation.TestUtil.SubCalculator;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Service.Properties;
 using Ringtoets.Piping.Service.TestUtil;
 
 namespace Ringtoets.Piping.Service.Test
@@ -100,7 +101,7 @@ namespace Ringtoets.Piping.Service.Test
                 Assert.AreEqual(2, result.NumberOfDecimalPlaces);
                 Assert.IsFalse(double.IsNaN(result));
 
-                var factory = (TestPipingSubCalculatorFactory)PipingCalculationService.SubCalculatorFactory;
+                var factory = (TestPipingSubCalculatorFactory) PipingCalculationService.SubCalculatorFactory;
                 var piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
 
                 Assert.AreEqual(input.AssessmentLevel.Value, piezometricHeadAtExitCalculator.HRiver);
@@ -208,8 +209,8 @@ namespace Ringtoets.Piping.Service.Test
             // Assert
             var messages = new[]
             {
-                Properties.Resources.PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer,
-                Properties.Resources.PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer
+                Resources.PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer,
+                Resources.PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer
             };
             TestHelper.AssertLogMessagesAreGenerated(call, messages, 2);
             Assert.IsNaN(input.ThicknessCoverageLayer.Mean);
@@ -236,7 +237,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble)double.NaN;
+            input.ExitPointL = (RoundedDouble) double.NaN;
             PipingInputSynchronizer.Synchronize(input);
 
             // Call
@@ -252,7 +253,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble)3.0;
+            input.ExitPointL = (RoundedDouble) 3.0;
             PipingInputSynchronizer.Synchronize(input);
 
             // Call
@@ -261,8 +262,8 @@ namespace Ringtoets.Piping.Service.Test
             // Assert
             var messages = new[]
             {
-                Properties.Resources.PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer,
-                Properties.Resources.PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer
+                Resources.PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer,
+                Resources.PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer
             };
             TestHelper.AssertLogMessagesAreGenerated(call, messages, 2);
             Assert.IsNaN(input.ThicknessCoverageLayer.Mean);
@@ -299,7 +300,7 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     IsAquifer = false
                 }
-            });
+            }, 0);
 
             // Call
             Action call = () => input.NotifyObservers();
@@ -307,8 +308,8 @@ namespace Ringtoets.Piping.Service.Test
             // Assert
             var messages = new[]
             {
-                Properties.Resources.PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer,
-                Properties.Resources.PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer
+                Resources.PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer,
+                Resources.PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer
             };
             TestHelper.AssertLogMessagesAreGenerated(call, messages, 2);
             Assert.IsNaN(input.ThicknessCoverageLayer.Mean);
@@ -376,13 +377,13 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     IsAquifer = true
                 }
-            });
+            }, 0);
 
             // Call
             Action call = () => input.NotifyObservers();
 
             // Assert
-            var message = Properties.Resources.PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer;
+            var message = Resources.PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer;
             TestHelper.AssertLogMessageIsGenerated(call, message, 1);
             Assert.IsNaN(input.ThicknessAquiferLayer.Mean);
         }
@@ -403,13 +404,13 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     IsAquifer = true
                 }
-            });
+            }, 0);
 
             // Call
             Action call = () => input.NotifyObservers();
 
             // Assert
-            var message = Properties.Resources.PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer;            
+            var message = Resources.PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer;
             TestHelper.AssertLogMessageIsGenerated(call, message, 1);
             Assert.IsNaN(input.ThicknessCoverageLayer.Mean);
         }
@@ -430,7 +431,7 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     IsAquifer = true
                 }
-            });
+            }, 0);
 
             // Call
             input.NotifyObservers();
@@ -457,7 +458,7 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     IsAquifer = true
                 }
-            });
+            }, 0);
 
             return new PipingInput(new GeneralPipingInput())
             {
@@ -490,12 +491,12 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     IsAquifer = false
                 }
-            });
+            }, 0);
             var input = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile,
-                ExitPointL = (RoundedDouble)0.5
+                ExitPointL = (RoundedDouble) 0.5
             };
             return input;
         }
@@ -522,12 +523,12 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     IsAquifer = true
                 }
-            });
+            }, 0);
             var input = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile,
-                ExitPointL = (RoundedDouble)0.5
+                ExitPointL = (RoundedDouble) 0.5
             };
             expectedThickness = 2.2;
             return input;

@@ -23,9 +23,19 @@ using System;
 
 namespace Ringtoets.Piping.IO.SoilProfile
 {
-    public static class DSoilQueryBuilder
+    /// <summary>
+    /// Defines queries to execute on the DSoil-Model database.
+    /// </summary>
+    public static class DSoilDatabaseQueryBuilder
     {
-        public static string GetStochasticSoilModelOfPipingMechanismQuery()
+        /// <summary>
+        /// Returns the SQL query to execute to fetch Stochastic Soil Models 
+        /// of the Piping Mechanism from the DSoil-Model database.
+        /// </summary>
+        /// <returns>The SQL query to execute.</returns>
+        /// <remarks><see cref="System.Data.SQLite.SQLiteParameter"/> @ME_Name needs to be 
+        /// defined as <see cref="MechanismDatabaseColumns.MechanismName"/>.</remarks>
+        public static string GetStochasticSoilModelOfMechanismQuery()
         {
             return String.Format(@"SELECT SP.{8}, SP.{9}, S.{10}, SSM.{11}, SSM.{12} " +
                                  "FROM {0} M " +
@@ -37,7 +47,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                                  SegmentDatabaseColumns.TableName,
                                  StochasticSoilModelDatabaseColumns.TableName,
                                  SegmentPointsDatabaseColumns.TableName,
-                                 SegmentDatabaseColumns.MechanismId,
+                                 MechanismDatabaseColumns.MechanismId,
                                  StochasticSoilModelDatabaseColumns.StochasticSoilModelId,
                                  SegmentPointsDatabaseColumns.SegmentId,
                                  MechanismDatabaseColumns.MechanismName,
@@ -49,6 +59,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 );
         }
 
+        /// <summary>
+        /// Returns the SQL query to execute to fetch all Stochastic Soil Profiles 
+        /// from the DSoil-Model database.
+        /// </summary>
+        /// <returns>The SQL query to execute.</returns>
         public static string GetAllStochasticSoilProfileQuery()
         {
             return String.Format("SELECT {1}, {2}, {3}, {4} FROM {0} ORDER BY {1};",
@@ -60,6 +75,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 );
         }
 
+        /// <summary>
+        /// Returns the SQL query to execute to check if version of the DSoil-Model database is as expected.
+        /// </summary>
+        /// <returns>The SQL query to execute.</returns>
+        /// <remarks><see cref="System.Data.SQLite.SQLiteParameter"/> @Value needs to be 
+        /// defined as the required database version.</remarks>
         public static string GetCheckVersionQuery()
         {
             return String.Format(

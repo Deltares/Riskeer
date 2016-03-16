@@ -47,6 +47,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             {
                 ProfileName = reader.Read<string>(SoilProfileDatabaseColumns.ProfileName);
                 LayerCount = reader.Read<long>(SoilProfileDatabaseColumns.LayerCount);
+                ProfileId = reader.Read<long>(SoilProfileDatabaseColumns.SoilProfileId);
             }
             catch (InvalidCastException e)
             {
@@ -69,5 +70,10 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// The number of layers that the profile to read has
         /// </summary>
         internal long LayerCount { get; private set; }
+
+        /// <summary>
+        /// Gets the database identifier of the profile.
+        /// </summary>
+        internal long ProfileId { get; private set; }
     }
 }

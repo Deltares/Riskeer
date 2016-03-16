@@ -40,14 +40,21 @@ namespace Ringtoets.Piping.Data
         /// <param name="name">The name of the profile.</param>
         /// <param name="bottom">The bottom level of the profile.</param>
         /// <param name="layers">The collection of layers that should be part of the profile.</param>
+        /// <param name="pipingSoilProfileId">Identifier of the profile.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
-        public PipingSoilProfile(string name, double bottom, IEnumerable<PipingSoilLayer> layers)
+        public PipingSoilProfile(string name, double bottom, IEnumerable<PipingSoilLayer> layers, long pipingSoilProfileId)
         {
             Name = name;
             Bottom = bottom;
             Layers = layers;
+            PipingSoilProfileId = pipingSoilProfileId;
         }
+
+        /// <summary>
+        /// Gets the database identifier of the <see cref="PipingSoilProfile"/>.
+        /// </summary>
+        public long PipingSoilProfileId { get; private set; }
 
         /// <summary>
         /// Gets the bottom level of the <see cref="PipingSoilProfile"/>.
@@ -79,34 +86,6 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Validates the given <paramref name="collection"/>. A valid <paramref name="collection"/> has layers which 
-        /// all have values for <see cref="PipingSoilLayer.Top"/> which are greater than or equal to <see cref="Bottom"/>.
-        /// </summary>
-        /// <param name="collection">The collection of <see cref="PipingSoilLayer"/> to validate.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when
-        /// <list type="bullet">
-        /// <item><paramref name="collection"/> contains no layers</item>
-        /// <item><paramref name="collection"/> contains a layer with the <see cref="PipingSoilLayer.Top"/> less than
-        /// <see cref="Bottom"/></item>
-        /// </list></exception>
-        private void ValidateLayersCollection(IEnumerable<PipingSoilLayer> collection)
-        {
-            if (collection == null)
-            {
-                throw new ArgumentNullException(@"collection", string.Format(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers));
-            }
-            if (!collection.Any())
-            {
-                throw new ArgumentException(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers);
-            }
-            if (collection.Any(l => l.Top < Bottom))
-            {
-                throw new ArgumentException(Resources.PipingSoilProfile_Layers_Layer_top_below_profile_bottom);
-            }
-        }
-
-        /// <summary>
         /// Gets the thickness of the given layer in the <see cref="PipingSoilProfile"/>.
         /// Thickness of a layer is determined by its top and the top of the layer below it.
         /// </summary>
@@ -126,11 +105,6 @@ namespace Ringtoets.Piping.Data
                 previousLevel = oLayer.Top;
             }
             throw new ArgumentException("Layer not found in profile.");
-        }
-
-        public override string ToString()
-        {
-            return Name;
         }
 
         /// <summary>
@@ -162,6 +136,39 @@ namespace Ringtoets.Piping.Data
                 }
             }
             return GetLayerThicknessBelowLevel(currentTopAquiferLayer, level);
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        /// <summary>
+        /// Validates the given <paramref name="collection"/>. A valid <paramref name="collection"/> has layers which 
+        /// all have values for <see cref="PipingSoilLayer.Top"/> which are greater than or equal to <see cref="Bottom"/>.
+        /// </summary>
+        /// <param name="collection">The collection of <see cref="PipingSoilLayer"/> to validate.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when
+        /// <list type="bullet">
+        /// <item><paramref name="collection"/> contains no layers</item>
+        /// <item><paramref name="collection"/> contains a layer with the <see cref="PipingSoilLayer.Top"/> less than
+        /// <see cref="Bottom"/></item>
+        /// </list></exception>
+        private void ValidateLayersCollection(IEnumerable<PipingSoilLayer> collection)
+        {
+            if (collection == null)
+            {
+                throw new ArgumentNullException(@"collection", string.Format(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers));
+            }
+            if (!collection.Any())
+            {
+                throw new ArgumentException(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers);
+            }
+            if (collection.Any(l => l.Top < Bottom))
+            {
+                throw new ArgumentException(Resources.PipingSoilProfile_Layers_Layer_top_below_profile_bottom);
+            }
         }
 
         private void ValidateLevelToBottom(double level)

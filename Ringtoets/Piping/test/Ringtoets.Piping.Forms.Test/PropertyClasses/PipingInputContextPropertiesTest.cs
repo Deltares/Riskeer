@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -50,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 {
                     IsAquifer = true
                 }
-            });
+            }, 0);
             var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(0.0);
 
             var inputParameters = new PipingInput(new GeneralPipingInput())
@@ -114,7 +113,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             const double entryPointL = 0.12;
 
             // Call
-            properties.EntryPointL = (RoundedDouble)entryPointL;
+            properties.EntryPointL = (RoundedDouble) entryPointL;
 
             // Assert
             Assert.AreEqual(entryPointL, inputParameters.EntryPointL.Value);
@@ -138,7 +137,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Random random = new Random(22);
 
             double assessmentLevel = random.NextDouble();
-            
+
             var dampingFactorExit = new LognormalDistribution(3);
             var phreaticLevelExit = new NormalDistribution(2);
             var thicknessCoverageLayer = new LognormalDistribution(2);
@@ -213,10 +212,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<PipingSoilProfile>(),
                                               assessmentSectionMock),
-                ExitPointL = (RoundedDouble)exitPoint,
-                EntryPointL = (RoundedDouble)entryPoint
+                ExitPointL = (RoundedDouble) exitPoint,
+                EntryPointL = (RoundedDouble) entryPoint
             };
-
 
             // Call & Assert
             Assert.AreEqual(seepageLength, properties.SeepageLength.Distribution.Mean, 1e-6);
@@ -248,10 +246,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<PipingSoilProfile>(),
                                               assessmentSectionMock),
-                EntryPointL = (RoundedDouble)0.5,
-                ExitPointL = (RoundedDouble)2
+                EntryPointL = (RoundedDouble) 0.5,
+                ExitPointL = (RoundedDouble) 2
             };
-
 
             // Call & Assert
             Assert.AreEqual(1.5, properties.SeepageLength.Distribution.Mean.Value);
@@ -286,12 +283,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             const double l = 2.0;
-            properties.ExitPointL = (RoundedDouble)l;
+            properties.ExitPointL = (RoundedDouble) l;
 
             inputParameters.Attach(inputObserver);
 
             // Call
-            properties.EntryPointL = (RoundedDouble)l;
+            properties.EntryPointL = (RoundedDouble) l;
 
             // Assert
             Assert.IsNaN(properties.SeepageLength.GetDesignValue());
@@ -322,12 +319,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             const double l = 2.0;
-            properties.EntryPointL = (RoundedDouble)l;
+            properties.EntryPointL = (RoundedDouble) l;
 
             inputParameters.Attach(inputObserver);
 
             // Call
-            properties.ExitPointL = (RoundedDouble)l;
+            properties.ExitPointL = (RoundedDouble) l;
 
             // Assert
             Assert.IsNaN(properties.SeepageLength.GetDesignValue());
@@ -348,7 +345,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             double assessmentLevel = new Random(21).NextDouble();
             var inputParameters = new PipingInput(new GeneralPipingInput())
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, String.Empty, 0.0,0.0)
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, String.Empty, 0.0, 0.0)
                 {
                     DesignWaterLevel = assessmentLevel
                 }
@@ -432,7 +429,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<PipingSoilProfile>(),
                                               assessmentSectionMock)
             };
-            inputParameters.PiezometricHeadExit = (RoundedDouble)double.NaN;
+            inputParameters.PiezometricHeadExit = (RoundedDouble) double.NaN;
             inputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
             {
                 DesignWaterLevel = 1.0
@@ -447,7 +444,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.NotNull(properties);
 
             // When
-            properties[propertyIndexToChange].SetValue(phreaticLevelExitProperty, (RoundedDouble)2.3);
+            properties[propertyIndexToChange].SetValue(phreaticLevelExitProperty, (RoundedDouble) 2.3);
 
             // Then
             Assert.IsFalse(double.IsNaN(inputParameters.PiezometricHeadExit));

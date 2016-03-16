@@ -48,7 +48,7 @@
     <Compile Include="Builders\SoilLayer2DConversionException.cs" />
     <Compile Include="Builders\SoilProfileBuilder1D.cs" />
     <Compile Include="Builders\SoilProfileBuilder2D.cs" />
-    <Compile Include="SoilProfile\DSoilQueryBuilder.cs" />
+    <Compile Include="SoilProfile\DSoilDatabaseQueryBuilder.cs" />
     <Compile Include="SoilProfile\MechanismDatabaseColumns.cs" />
     <Compile Include="SoilProfile\MetaDataDatabaseColumns.cs" />
     <Compile Include="SoilProfile\SegmentDatabaseColumns.cs" />

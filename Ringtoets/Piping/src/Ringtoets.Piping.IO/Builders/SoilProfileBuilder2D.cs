@@ -35,6 +35,7 @@ namespace Ringtoets.Piping.IO.Builders
         private readonly ICollection<PipingSoilLayer> layers = new Collection<PipingSoilLayer>();
         private readonly double atX;
         private readonly string profileName;
+        private readonly long soilProfileId;
 
         private double bottom;
 
@@ -44,18 +45,20 @@ namespace Ringtoets.Piping.IO.Builders
         /// </summary>
         /// <param name="profileName">The name for the <see cref="PipingSoilProfile"/> constructed by the <see cref="SoilProfileBuilder2D"/>.</param>
         /// <param name="atX">The x position from which to obtain a 1D profile.</param>
+        /// <param name="soilProfileId">The indentifier of the profile in the database.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="atX"/> can not be used to determine intersections with
         /// (is <see cref="double.NaN"/>).</exception>
-        internal SoilProfileBuilder2D(string profileName, double atX)
+        internal SoilProfileBuilder2D(string profileName, double atX, long soilProfileId)
         {
             if (double.IsNaN(atX))
             {
-                var message = string.Format(Resources.Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN , profileName);
+                var message = string.Format(Resources.Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN, profileName);
                 throw new ArgumentException(message);
             }
             this.profileName = profileName;
             this.atX = atX;
             bottom = double.MaxValue;
+            this.soilProfileId = soilProfileId;
         }
 
         /// <summary>
@@ -69,7 +72,7 @@ namespace Ringtoets.Piping.IO.Builders
         {
             try
             {
-                return new PipingSoilProfile(profileName, bottom, layers);
+                return new PipingSoilProfile(profileName, bottom, layers, soilProfileId);
             }
             catch (ArgumentException e)
             {

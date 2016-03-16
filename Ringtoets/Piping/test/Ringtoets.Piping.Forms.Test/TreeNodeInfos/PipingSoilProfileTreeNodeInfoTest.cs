@@ -53,7 +53,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var testName = "ttt";
             var pipingSoilLayer = mocks.StrictMock<PipingSoilLayer>(10);
-            var pipingSoilProfile = mocks.StrictMock<PipingSoilProfile>(testName, 0, new[] { pipingSoilLayer });
+            var pipingSoilProfile = mocks.StrictMock<PipingSoilProfile>(testName, 0, new[]
+            {
+                pipingSoilLayer
+            }, 0);
 
             mocks.ReplayAll();
 
@@ -71,7 +74,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var pipingSoilLayer = mocks.StrictMock<PipingSoilLayer>(10);
-            var pipingSoilProfile = mocks.StrictMock<PipingSoilProfile>("", 0, new[] { pipingSoilLayer });
+            var pipingSoilProfile = mocks.StrictMock<PipingSoilProfile>("", 0, new[]
+            {
+                pipingSoilLayer
+            }, 0);
 
             mocks.ReplayAll();
 

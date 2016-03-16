@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Gui;
 using Core.Common.Gui.PropertyBag;
-
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -28,22 +26,24 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             const string expectedName = "<some name>";
-            IEnumerable<PipingSoilLayer> layers = new []
+            IEnumerable<PipingSoilLayer> layers = new[]
             {
-                new PipingSoilLayer(-2), 
+                new PipingSoilLayer(-2),
                 new PipingSoilLayer(-4)
                 {
                     IsAquifer = true
-                } 
+                }
             };
-            var soilProfile = new PipingSoilProfile(expectedName, -5.0, layers);
 
+            var soilProfile = new PipingSoilProfile(expectedName, -5.0, layers, 0);
+
+            // Call
             var properties = new PipingSoilProfileProperties
             {
                 Data = soilProfile
             };
 
-            // Call & Assert
+            // Assert
             Assert.AreEqual(expectedName, properties.Name);
             CollectionAssert.AreEqual(soilProfile.Layers.Select(l => l.Top), properties.TopLevels);
             Assert.AreEqual(soilProfile.Bottom, properties.Bottom);

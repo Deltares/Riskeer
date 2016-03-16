@@ -13,7 +13,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var profileName = "SomeProfile";
-            var builder = new SoilProfileBuilder1D(profileName, 0.0);
+            var builder = new SoilProfileBuilder1D(profileName, 0.0, 0);
 
             // Call
             TestDelegate test = () => builder.Build();
@@ -30,7 +30,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var random = new Random(22);
             var bottom = random.NextDouble();
             var top = random.NextDouble();
-            var builder = new SoilProfileBuilder1D(profileName, bottom);
+            const long pipingSoilProfileId = 1234L;
+            var builder = new SoilProfileBuilder1D(profileName, bottom, pipingSoilProfileId);
             builder.Add(new PipingSoilLayer(top)
             {
                 IsAquifer = true
@@ -42,6 +43,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Assert
             Assert.AreEqual(profileName, soilProfile.Name);
             Assert.AreEqual(1, soilProfile.Layers.Count());
+            Assert.AreEqual(pipingSoilProfileId, soilProfile.PipingSoilProfileId);
             Assert.AreEqual(top, soilProfile.Layers.ToArray()[0].Top);
             Assert.AreEqual(bottom, soilProfile.Bottom);
         }
@@ -55,8 +57,9 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var bottom = random.NextDouble();
             var top = bottom + random.NextDouble();
             var top2 = bottom + random.NextDouble();
+            const long pipingSoilProfileId = 1234L;
 
-            var builder = new SoilProfileBuilder1D(profileName, bottom);
+            var builder = new SoilProfileBuilder1D(profileName, bottom, pipingSoilProfileId);
             builder.Add(new PipingSoilLayer(top)
             {
                 IsAquifer = true
@@ -69,8 +72,13 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Assert
             Assert.AreEqual(profileName, soilProfile.Name);
             Assert.AreEqual(2, soilProfile.Layers.Count());
-            CollectionAssert.AreEquivalent(new [] {top,top2}, soilProfile.Layers.Select(l => l.Top));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                top,
+                top2
+            }, soilProfile.Layers.Select(l => l.Top));
             Assert.AreEqual(bottom, soilProfile.Bottom);
+            Assert.AreEqual(pipingSoilProfileId, soilProfile.PipingSoilProfileId);
         }
     }
 }

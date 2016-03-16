@@ -25,10 +25,10 @@ using Ringtoets.Piping.IO.SoilProfile;
 namespace Ringtoets.Piping.IO.Test.SoilProfile
 {
     [TestFixture]
-    public class DSoilQueryBuilderTest
+    public class DSoilDatabaseQueryBuilderTest
     {
         [Test]
-        public void GetStochasticSoilModelOfPipingMechanismQuery_Always_ReturnsExpectedValues()
+        public void GetStochasticSoilModelOfMechanismQuery_Always_ReturnsExpectedValues()
         {
             // Setup
             const string expectedQuery = "SELECT SP.XWorld, SP.YWorld, S.SE_Name, SSM.SSM_Name, SSM.SSM_ID " +
@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                                          "WHERE M.ME_Name = @ME_Name ORDER BY SSM.SSM_ID;";
 
             // Call
-            string query = DSoilQueryBuilder.GetStochasticSoilModelOfPipingMechanismQuery();
+            string query = DSoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
 
             // Assert
             Assert.AreEqual(expectedQuery, query);
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                                          "ORDER BY SSM_ID;";
 
             // Call
-            string query = DSoilQueryBuilder.GetAllStochasticSoilProfileQuery();
+            string query = DSoilDatabaseQueryBuilder.GetAllStochasticSoilProfileQuery();
 
             // Assert
             Assert.AreEqual(expectedQuery, query);
@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                                          "WHERE Key = 'VERSION' AND Value = @Value;";
 
             // Call
-            string query = DSoilQueryBuilder.GetCheckVersionQuery();
+            string query = DSoilDatabaseQueryBuilder.GetCheckVersionQuery();
 
             // Assert
             Assert.AreEqual(expectedQuery, query);

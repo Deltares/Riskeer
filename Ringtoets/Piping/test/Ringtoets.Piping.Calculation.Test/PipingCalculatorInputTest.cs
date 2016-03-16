@@ -1,7 +1,5 @@
 ﻿using System;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Calculation.Test
@@ -36,13 +34,13 @@ namespace Ringtoets.Piping.Calculation.Test
             double beddingAngleValue = random.NextDouble();
             double exitPointXCoordinate = random.NextDouble();
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var soilProfile = new PipingSoilProfile(string.Empty, random.NextDouble(), new []
+            var soilProfile = new PipingSoilProfile(string.Empty, random.NextDouble(), new[]
             {
                 new PipingSoilLayer(random.NextDouble())
                 {
                     IsAquifer = true
-                } 
-            });
+                }
+            }, 0);
 
             var input = new PipingCalculatorInput(
                 volumetricWeightOfWaterValue,
@@ -67,7 +65,7 @@ namespace Ringtoets.Piping.Calculation.Test
                 meanDiameter70Value,
                 beddingAngleValue,
                 exitPointXCoordinate,
-                surfaceLine, 
+                surfaceLine,
                 soilProfile);
 
             Assert.AreEqual(volumetricWeightOfWaterValue, input.WaterVolumetricWeight);

@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
             try
             {
-                var soilProfileBuilder = new SoilProfileBuilder2D(criticalProperties.ProfileName, requiredProperties.IntersectionX);
+                var soilProfileBuilder = new SoilProfileBuilder2D(criticalProperties.ProfileName, requiredProperties.IntersectionX, criticalProperties.ProfileId);
 
                 for (int i = 1; i <= criticalProperties.LayerCount; i++)
                 {

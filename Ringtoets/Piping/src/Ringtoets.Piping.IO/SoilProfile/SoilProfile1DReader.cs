@@ -47,10 +47,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
         {
             var criticalProperties = new CriticalProfileProperties(reader);
 
+            var profileId = criticalProperties.ProfileId;
             var profileName = criticalProperties.ProfileName;
             var requiredProperties = new RequiredProfileProperties(reader, profileName);
 
-            var soilProfileBuilder = new SoilProfileBuilder1D(profileName, requiredProperties.Bottom);
+            var soilProfileBuilder = new SoilProfileBuilder1D(profileName, requiredProperties.Bottom, profileId);
 
             for (var i = 1; i <= criticalProperties.LayerCount; i++)
             {

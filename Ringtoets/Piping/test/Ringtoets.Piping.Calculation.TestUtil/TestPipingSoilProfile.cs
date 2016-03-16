@@ -21,6 +21,6 @@ namespace Ringtoets.Piping.Calculation.TestUtil
             {
                 IsAquifer = true
             }
-        }) {}
+        }, 0) {}
     }
 }

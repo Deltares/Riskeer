@@ -106,8 +106,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             IEnumerable<PipingSoilProfile> pipingSoilProfiles = new[]
             {
-                new PipingSoilProfile("", 0, new List<PipingSoilLayer> { new PipingSoilLayer(10) }),
-                new PipingSoilProfile("", 0, new List<PipingSoilLayer> { new PipingSoilLayer(10) })
+                new PipingSoilProfile("", 0, new List<PipingSoilLayer> { new PipingSoilLayer(10) }, 0),
+                new PipingSoilProfile("", 0, new List<PipingSoilLayer> { new PipingSoilLayer(10) }, 0)
             };
 
             // Call
@@ -123,8 +123,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsChildsOnData()
         {
             // Setup
-            var pipingSoilProfile1 = new PipingSoilProfile("", 0, new List<PipingSoilLayer> { new PipingSoilLayer(10) });
-            var pipingSoilProfile2 = new PipingSoilProfile("", 0, new List<PipingSoilLayer> { new PipingSoilLayer(10) });
+            var pipingSoilProfile1 = new PipingSoilProfile("", 0, new List<PipingSoilLayer> { new PipingSoilLayer(10) }, 0);
+            var pipingSoilProfile2 = new PipingSoilProfile("", 0, new List<PipingSoilLayer> { new PipingSoilLayer(10) }, 0);
             IEnumerable<PipingSoilProfile> pipingSoilProfiles = new[]
             {
                 pipingSoilProfile1,

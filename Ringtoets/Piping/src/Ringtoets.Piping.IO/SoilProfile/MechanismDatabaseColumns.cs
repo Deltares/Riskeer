@@ -21,6 +21,10 @@
 
 namespace Ringtoets.Piping.IO.SoilProfile
 {
+    /// <summary>
+    /// This class contains the names of the table and columns of the table 
+    /// 'Mechanism' of the DSoil-Model database.
+    /// </summary>
     internal static class MechanismDatabaseColumns
     {
         internal const string TableName = "Mechanism";
