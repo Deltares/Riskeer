@@ -19,8 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -29,14 +33,165 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public partial class PipingCalculationsView : UserControl, IView
     {
+        private PipingCalculationGroup pipingCalculationGroup;
+
         /// <summary>
         /// Creates a new instance of the <see cref="PipingCalculationsView"/> class.
         /// </summary>
         public PipingCalculationsView()
         {
             InitializeComponent();
+            InitializeDataGridView();
         }
 
-        public object Data { get; set; }
+        public object Data
+        {
+            get
+            {
+                return pipingCalculationGroup;
+            }
+            set
+            {
+                pipingCalculationGroup = value as PipingCalculationGroup;
+
+                dataGridView.DataSource = pipingCalculationGroup != null
+                                              ? pipingCalculationGroup.GetPipingCalculations()
+                                                                      .Select(pc => new PipingCalculationRow(pc))
+                                                                      .ToList()
+                                              : null;
+            }
+        }
+
+        private void InitializeDataGridView()
+        {
+            var nameColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Name",
+                HeaderText = Resources.PipingCalculation_Name_DisplayName,
+                Name = "column_Name",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+
+            var soilProfileColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "SoilProfile",
+                HeaderText = Resources.PipingInput_SoilProfile_DisplayName,
+                Name = "column_SoilProfile",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+
+            var hydraulicBoundaryLocationColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "HydraulicBoundaryLocation",
+                HeaderText = Resources.PipingInput_HydraulicBoundaryLocation_DisplayName,
+                Name = "column_HydraulicBoundaryLocation",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+
+            var dampingFactorExitMeanColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DampingFactorExitMean",
+                HeaderText = Resources.PipingInput_DampingFactorExit_DisplayName,
+                Name = "column_DampingFactorExitMean",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+
+            var phreaticLevelExitMeanColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "PhreaticLevelExitMean",
+                HeaderText = Resources.PipingInput_PhreaticLevelExit_DisplayName,
+                Name = "column_PhreaticLevelExitMean",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+
+            var entryPointLColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "EntryPointL",
+                HeaderText = Resources.PipingInput_EntryPointL_DisplayName,
+                Name = "column_EntryPointL",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+
+            var exitPointLColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "ExitPointL",
+                HeaderText = Resources.PipingInput_ExitPointL_DisplayName,
+                Name = "column_ExitPointL",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+
+            dataGridView.AutoGenerateColumns = false;
+            dataGridView.Columns.AddRange(nameColumn, soilProfileColumn, hydraulicBoundaryLocationColumn, dampingFactorExitMeanColumn, phreaticLevelExitMeanColumn, entryPointLColumn, exitPointLColumn);
+        }
+
+        private class PipingCalculationRow
+        {
+            private readonly PipingCalculation pipingCalculation;
+
+            public PipingCalculationRow(PipingCalculation pipingCalculation)
+            {
+                this.pipingCalculation = pipingCalculation;
+            }
+
+            public string Name
+            {
+                get
+                {
+                    return pipingCalculation.Name;
+                }
+            }
+
+            public string SoilProfile
+            {
+                get
+                {
+                    var soilProfile = pipingCalculation.InputParameters.SoilProfile;
+
+                    return soilProfile != null ? soilProfile.Name : string.Empty;
+                }
+            }
+
+            public string HydraulicBoundaryLocation
+            {
+                get
+                {
+                    var hydraulicBoundaryLocation = pipingCalculation.InputParameters.HydraulicBoundaryLocation;
+
+                    return hydraulicBoundaryLocation != null ? hydraulicBoundaryLocation.Name : string.Empty;
+                }
+            }
+
+            public RoundedDouble DampingFactorExitMean
+            {
+                get
+                {
+                    return pipingCalculation.InputParameters.DampingFactorExit.Mean;
+                }
+            }
+
+            public RoundedDouble PhreaticLevelExitMean
+            {
+                get
+                {
+                    return pipingCalculation.InputParameters.PhreaticLevelExit.Mean;
+                }
+            }
+
+            public RoundedDouble EntryPointL
+            {
+                get
+                {
+                    return pipingCalculation.InputParameters.EntryPointL;
+                }
+            }
+
+            public RoundedDouble ExitPointL
+            {
+                get
+                {
+                    return pipingCalculation.InputParameters.ExitPointL;
+                }
+            }
+        }
     }
 }
