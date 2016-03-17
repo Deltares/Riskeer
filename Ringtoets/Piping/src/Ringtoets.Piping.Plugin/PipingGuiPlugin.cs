@@ -73,6 +73,13 @@ namespace Ringtoets.Piping.Plugin
                 GetViewName = (view, mechanism) => PipingDataResources.PipingFailureMechanism_DisplayName,
                 Image = PipingFormsResources.PipingIcon
             };
+            yield return new ViewInfo<PipingCalculationGroupContext, PipingCalculationGroup, PipingCalculationsView>
+            {
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, calculationGroup) => calculationGroup.Name,
+                Image = PipingFormsResources.FolderIcon,
+                AdditionalDataCheck = context => context.WrappedData == context.PipingFailureMechanism.CalculationsGroup
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()

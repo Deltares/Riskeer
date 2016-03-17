@@ -1,0 +1,95 @@
+﻿using System.Linq;
+using Core.Common.Gui.Plugin;
+using Core.Common.TestUtil;
+using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Forms.Views;
+using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+
+namespace Ringtoets.Piping.Plugin.Test.ViewInfos
+{
+    [TestFixture]
+    public class PipingCalculationsViewInfoTest
+    {
+        private MockRepository mocks;
+        private PipingGuiPlugin plugin;
+        private ViewInfo info;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mocks = new MockRepository();
+            plugin = new PipingGuiPlugin();
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(PipingCalculationsView));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+        }
+
+        [Test]
+        public void Initialized_Always_ExpectedPropertiesSet()
+        {
+            // Assert
+            Assert.AreEqual(typeof(PipingCalculationGroupContext), info.DataType);
+            Assert.AreEqual(typeof(PipingCalculationGroup), info.ViewDataType);
+            TestHelper.AssertImagesAreEqual(PipingFormsResources.FolderIcon, info.Image);
+        }
+
+        [Test]
+        public void GetViewData_Always_ReturnsWrappedCalculationGroup()
+        {
+            // Setup
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingCalculationsGroupMock = mocks.StrictMock<PipingCalculationGroup>();
+            var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingCalculationsGroupMock, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>(), pipingFailureMechanismMock, assessmentSectionMock);
+
+            // Call & Assert
+            Assert.AreEqual(pipingCalculationsGroupMock, info.GetViewData(pipingCalculationGroupContext));
+        }
+
+        [Test]
+        public void GetViewName_Always_ReturnsCalculationGroupName()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<PipingCalculationsView>();
+            var pipingCalculationsGroupMock = mocks.StrictMock<PipingCalculationGroup>();
+
+            pipingCalculationsGroupMock.Name = "Test";
+
+            // Call & Assert
+            Assert.AreEqual("Test", info.GetViewName(viewMock, pipingCalculationsGroupMock));
+        }
+
+        [Test]
+        public void AdditionalDataCheck_PipingCalculationGroupContextWithPipingFailureMechanimsParent_ReturnsTrue()
+        {
+            // Setup
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingFailureMechanismMock.CalculationsGroup, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>(), pipingFailureMechanismMock, assessmentSectionMock);
+
+            // Call & Assert
+            Assert.IsTrue(info.AdditionalDataCheck(pipingCalculationGroupContext));
+        }
+
+        [Test]
+        public void AdditionalDataCheck_PipingCalculationGroupContextWithoutPipingFailureMechanimsParent_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingCalculationsGroupMock = mocks.StrictMock<PipingCalculationGroup>();
+            var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingCalculationsGroupMock, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>(), pipingFailureMechanismMock, assessmentSectionMock);
+
+            // Call & Assert
+            Assert.IsFalse(info.AdditionalDataCheck(pipingCalculationGroupContext));
+        }
+    }
+}

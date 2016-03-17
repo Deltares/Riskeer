@@ -37,24 +37,6 @@ namespace Ringtoets.Piping.Plugin.Test
         }
 
         [Test]
-        public void GetViewInfos_ReturnsSupportedViews()
-        {
-            // Setup
-            using (var guiPlugin = new PipingGuiPlugin())
-            {
-                // Call
-                ViewInfo[] viewInfos = guiPlugin.GetViewInfos().ToArray();
-
-                // Assert
-                Assert.AreEqual(1, viewInfos.Length);
-
-                var contributionViewInfo = viewInfos.Single(vi => vi.DataType == typeof(PipingFailureMechanismContext));
-                Assert.AreEqual(typeof(PipingFailureMechanismView), contributionViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingIcon, contributionViewInfo.Image);
-            }
-        }
-
-        [Test]
         public void GetPropertyInfos_ReturnsSupportedPropertyClasses()
         {
             // setup
