@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DikeAssessmentSectionEntity">
           <Key>
             <PropertyRef Name="DikeAssessmentSectionEntityId" />
           </Key>
           <Property Name="DikeAssessmentSectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProjectEntityId" Type="integer" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="Norm" Type="int" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="nvarchar" MaxLength="2147483647" />
@@ -31,7 +31,7 @@
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="integer" Nullable="false" />
           <Property Name="DikeAssessmentSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="LocationX" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="LocationY" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="DesignWaterLevel" Type="real" />
@@ -41,8 +41,8 @@
             <PropertyRef Name="ProjectEntityId" />
           </Key>
           <Property Name="ProjectEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="LastUpdated" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="Description" Type="varchar" MaxLength="260" />
+          <Property Name="LastUpdated" Type="integer" />
         </EntityType>
         <EntityType Name="ReferenceLinePointEntity">
           <Key>
@@ -52,7 +52,7 @@
           <Property Name="DikeAssessmentSectionEntityId" Type="integer" />
           <Property Name="X" Type="decimal" Precision="53" Scale="0" />
           <Property Name="Y" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="Order" Type="integer" />
+          <Property Name="Order" Type="int" />
         </EntityType>
         <EntityType Name="Version">
           <Key>
@@ -169,7 +169,7 @@
           </Key>
           <Property Name="DikeAssessmentSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProjectEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Norm" Type="Int32" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
@@ -194,7 +194,7 @@
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" />
           <Property Name="DikeAssessmentSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="LocationX" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="LocationY" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="DesignWaterLevel" Type="Double" />
@@ -205,8 +205,8 @@
             <PropertyRef Name="ProjectEntityId" />
           </Key>
           <Property Name="ProjectEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="LastUpdated" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="Description" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="LastUpdated" Type="Int64" />
           <NavigationProperty Name="DikeAssessmentSectionEntities" Relationship="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0" FromRole="ProjectEntity" ToRole="DikeAssessmentSectionEntity" />
         </EntityType>
         <EntityType Name="ReferenceLinePointEntity">
@@ -217,7 +217,7 @@
           <Property Name="DikeAssessmentSectionEntityId" Type="Int64" />
           <Property Name="X" Type="Decimal" Precision="53" Scale="0" />
           <Property Name="Y" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="Order" Type="Int64" />
+          <Property Name="Order" Type="Int32" />
           <NavigationProperty Name="DikeAssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0" FromRole="ReferenceLinePointEntity" ToRole="DikeAssessmentSectionEntity" />
         </EntityType>
         <EntityType Name="Version">

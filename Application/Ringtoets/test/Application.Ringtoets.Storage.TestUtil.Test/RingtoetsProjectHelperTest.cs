@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(expectedDescription, project.Description);
 
             DikeAssessmentSection dikeAssessmentSection = project.Items.OfType<DikeAssessmentSection>().FirstOrDefault();
-            Assert.IsInstanceOf<DikeAssessmentSection>(dikeAssessmentSection);
+            Assert.NotNull(dikeAssessmentSection);
             Assert.AreEqual(expectedDikeAssessmentSectionName, dikeAssessmentSection.Name);
         }
     }

@@ -114,8 +114,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var expectedProjectDescritpion = fullProject.Description;
 
             // Precondition
-            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, fullProject);
-            Assert.DoesNotThrow(precondition, "Precondition failed: creating database file failed");
+            SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, fullProject);
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
             {

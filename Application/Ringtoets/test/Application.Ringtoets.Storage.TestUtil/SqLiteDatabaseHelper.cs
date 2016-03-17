@@ -21,9 +21,8 @@
 
 using System;
 using System.Data.SQLite;
-using System.IO;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
+using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.TestUtil
 {
@@ -43,10 +42,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             if (databaseSchemaQuery == null)
             {
                 throw new ArgumentNullException("databaseSchemaQuery");
-            }
-            if (File.Exists(databaseFilePath))
-            {
-                TearDownTempFile(databaseFilePath);
             }
 
             SQLiteConnection.CreateFile(databaseFilePath);
@@ -68,20 +63,17 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <param name="project"><see cref="Project"/> to save.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
-        /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="StorageException">Thrown when:
-        /// <list type="bullet">
-        /// <item>The database does not contain the table <c>version</c></item>
-        /// <item>THe file <paramref name="databaseFilePath"/> was not created.</item>
-        /// <item>Saving the <paramref name="project"/> to the database failed.</item>
-        /// <item>The connection to the database file failed.</item>
-        /// </list>
-        /// </exception>
         public static void CreateValidRingtoetsDatabase(string databaseFilePath, Project project)
         {
-            var storageSqLite = new StorageSqLite();
-            storageSqLite.SaveProjectAs(databaseFilePath, project);
+            try
+            {
+                var storageSqLite = new StorageSqLite();
+                storageSqLite.SaveProjectAs(databaseFilePath, project);
+            }
+            catch (Exception exception)
+            {
+                Assert.Fail("Precondition failed: creating database file failed due to {0}", exception);
+            }
         }
 
         /// <summary>
@@ -93,20 +85,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             return "DROP TABLE IF EXISTS 'Version'; " +
                    "CREATE TABLE Version (VersionId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                    " FromVersion VARCHAR (16), ToVersion VARCHAR (16),Timestamp NUMERIC); ";
-        }
-
-        /// <summary>
-        /// Removes the <paramref name="filePath"/>.
-        /// </summary>
-        /// <param name="filePath">The file to delete.</param>
-        public static void TearDownTempFile(string filePath)
-        {
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            if (!string.IsNullOrWhiteSpace(filePath) && File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
         }
     }
 }

@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DoubleWithToleranceComparer.cs" />
+    <Compile Include="FileDisposeHelper.cs" />
     <Compile Include="GuiTestHelper.cs" />
     <Compile Include="LogHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

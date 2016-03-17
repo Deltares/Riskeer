@@ -29,7 +29,7 @@ namespace Application.Ringtoets.Storage.Test
 {
     [TestFixture]
     [Explicit]
-    public class RingtoetsDatabaseCreator
+    public class RingtoetsDatabaseCreatorTest
     {
         private static readonly string pathToStorageProject = Path.Combine(TestHelper.TestDataDirectory, "Application", "Ringtoets", "src", "Application.Ringtoets.Storage");
 

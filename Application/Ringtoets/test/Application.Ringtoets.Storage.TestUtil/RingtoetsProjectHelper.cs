@@ -25,7 +25,7 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.TestUtil
 {
     /// <summary>
-    /// This class consists of <see cref="Project"/> instances that are used in tests.
+    /// This class can be used to create <see cref="Project"/> instances which have their properties set and can be used in tests.
     /// </summary>
     public static class RingtoetsProjectHelper
     {

@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<long> DikeAssessmentSectionEntityId { get; set; }
         public Nullable<decimal> X { get; set; }
         public Nullable<decimal> Y { get; set; }
-        public Nullable<long> Order { get; set; }
+        public Nullable<int> Order { get; set; }
     
         public virtual DikeAssessmentSectionEntity DikeAssessmentSectionEntity { get; set; }
     }

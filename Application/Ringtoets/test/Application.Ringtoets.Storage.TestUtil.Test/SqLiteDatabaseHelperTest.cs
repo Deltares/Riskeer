@@ -67,18 +67,13 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             string validPath = Path.Combine(testDataPath, "tempFile.rtd");
             const string invalidScript = "SELECT '' FROM *;";
 
-            // Call
-            try
+            using (new FileDisposeHelper(validPath))
             {
-                SqLiteDatabaseHelper.CreateDatabaseFile(validPath, invalidScript);
+                // Call
+                TestDelegate test = () => SqLiteDatabaseHelper.CreateDatabaseFile(validPath, invalidScript);
 
                 // Assert
-                Assert.Fail("Should have thrown 'SQLiteException'");
-            }
-            catch (SQLiteException) {}
-            finally
-            {
-                SqLiteDatabaseHelper.TearDownTempFile(validPath);
+                Assert.Throws<SQLiteException>(test);
             }
         }
 
@@ -89,22 +84,14 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             string validPath = Path.Combine(testDataPath, "tempFile.rtd");
             const string validScript = "select * from sqlite_master;";
 
-            // Call
-            try
+            using (new FileDisposeHelper(validPath))
             {
-                SqLiteDatabaseHelper.CreateDatabaseFile(validPath, validScript);
+                // Call
+                TestDelegate test = () => SqLiteDatabaseHelper.CreateDatabaseFile(validPath, validScript);
 
                 // Assert
-                File.Exists(validPath);
-            }
-            catch (SQLiteException)
-            {
-                // Assert
-                Assert.Fail("Should not throw 'SQLiteException'");
-            }
-            finally
-            {
-                SqLiteDatabaseHelper.TearDownTempFile(validPath);
+                Assert.DoesNotThrow(test);
+                Assert.IsTrue(File.Exists(validPath));
             }
         }
 
@@ -115,25 +102,19 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             string validPath = Path.Combine(testDataPath, "tempFile.rtd");
             const string validScript = "select * from sqlite_master;";
 
-            // Precondition
-            SQLiteConnection.CreateFile(validPath);
-
-            // Call
-            try
+            using (var fileDisposeHelper = new FileDisposeHelper(validPath))
             {
-                SqLiteDatabaseHelper.CreateDatabaseFile(validPath, validScript);
+                fileDisposeHelper.CreateFile();
+
+                // Call
+                TestDelegate test = () => SqLiteDatabaseHelper.CreateDatabaseFile(validPath, validScript);
+
+                // Assert
+                Assert.DoesNotThrow(test);
+                Assert.IsTrue(File.Exists(validPath));
 
                 // Assert
                 File.Exists(validPath);
-            }
-            catch (SQLiteException)
-            {
-                // Assert
-                Assert.Fail("Should not throw 'SQLiteException'");
-            }
-            finally
-            {
-                SqLiteDatabaseHelper.TearDownTempFile(validPath);
             }
         }
 
@@ -144,8 +125,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             string validPath = Path.Combine(testDataPath, "tempFile.rtd");
             const string validScript = ";";
 
-            // Precondition
-            try
+            using (new FileDisposeHelper(validPath))
             {
                 using (File.Create(validPath))
                 {
@@ -156,40 +136,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
                     Assert.Throws<IOException>(test);
                 }
             }
-            finally
-            {
-                SqLiteDatabaseHelper.TearDownTempFile(validPath);
-            }
-        }
-
-        [Test]
-        public void CreateValidRingtoetsDatabase_NullPath_ThrowsArgumentException()
-        {
-            // Setup
-            MockRepository mockRepository = new MockRepository();
-            var projectMock = mockRepository.StrictMock<Project>();
-
-            // Call
-            TestDelegate test = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(null, projectMock);
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
-        }
-
-        [Test]
-        public void CreateValidRingtoetsDatabase_NullProject_ThrowsArgumentNullException()
-        {
-            // Setup
-            string validPath = Path.Combine(testDataPath, "tempFile.rtd");
-
-            // Call
-            TestDelegate test = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(validPath, null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-
-            // TearDown
-            SqLiteDatabaseHelper.TearDownTempFile(validPath);
         }
 
         [Test]
@@ -200,15 +146,15 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             MockRepository mockRepository = new MockRepository();
             var projectMock = mockRepository.StrictMock<Project>();
 
-            // Call
-            TestDelegate test = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(validPath, projectMock);
+            using (new FileDisposeHelper(validPath))
+            {
+                // Call
+                TestDelegate test = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(validPath, projectMock);
 
-            // Assert
-            Assert.DoesNotThrow(test);
-            Assert.IsTrue(File.Exists(validPath));
-
-            // TearDown
-            SqLiteDatabaseHelper.TearDownTempFile(validPath);
+                // Assert
+                Assert.DoesNotThrow(test);
+                Assert.IsTrue(File.Exists(validPath));
+            }
         }
 
         [Test]
