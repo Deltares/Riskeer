@@ -36,37 +36,30 @@ namespace Application.Ringtoets.Storage.Persistors
 
         public void RemoveUnModifiedEntries(ICollection<HydraulicLocationEntity> parentNavigationProperty)
         {
-            throw new System.NotImplementedException();
         }
 
         public void PerformPostSaveActions()
         {
-            throw new System.NotImplementedException();
         }
 
         public void LoadModel(HydraulicLocationEntity entity, ICollection<HydraulicBoundaryLocation> model)
         {
-            throw new System.NotImplementedException();
         }
 
         public void InsertModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, ICollection<HydraulicBoundaryLocation> model)
         {
-            throw new System.NotImplementedException();
         }
 
         public void UpdateModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, ICollection<HydraulicBoundaryLocation> model)
         {
-            throw new System.NotImplementedException();
         }
 
         public void ConvertEntityToModel(HydraulicLocationEntity entity, ICollection<HydraulicBoundaryLocation> model)
         {
-            throw new System.NotImplementedException();
         }
 
         public void ConvertModelToEntity(ICollection<HydraulicBoundaryLocation> model, HydraulicLocationEntity entity)
         {
-            throw new System.NotImplementedException();
         }
     }
 }
