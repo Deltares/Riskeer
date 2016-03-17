@@ -43,6 +43,7 @@ namespace Application.Ringtoets.Storage.Persistors
         private readonly ICollection<DikeAssessmentSectionEntity> modifiedList = new List<DikeAssessmentSectionEntity>();
 
         private readonly DikesPipingFailureMechanismEntityPersistor dikePipingFailureMechanismEntityPersistor;
+        private readonly HydraulicLocationEntityPersistor hydraulicLocationEntityPersistor;
 
         /// <summary>
         /// New instance of <see cref="DikeAssessmentSectionEntityPersistor"/>.
@@ -60,6 +61,7 @@ namespace Application.Ringtoets.Storage.Persistors
             converter = new DikeAssessmentSectionEntityConverter();
 
             dikePipingFailureMechanismEntityPersistor = new DikesPipingFailureMechanismEntityPersistor(dbContext);
+            hydraulicLocationEntityPersistor = new HydraulicLocationEntityPersistor(dbContext);
         }
 
         /// <summary>
@@ -70,6 +72,11 @@ namespace Application.Ringtoets.Storage.Persistors
         public DikeAssessmentSection LoadModel(DikeAssessmentSectionEntity entity)
         {
             var dikeAssessmentSection = converter.ConvertEntityToModel(entity);
+
+            foreach (var hydraulicLocationEntity in entity.HydraulicLocationEntities)
+            {
+                hydraulicLocationEntityPersistor.LoadModel(hydraulicLocationEntity, dikeAssessmentSection.HydraulicBoundaryDatabase.Locations);   
+            }
 
             foreach (var failureMechanismEntity in entity.FailureMechanismEntities)
             {

@@ -22,13 +22,14 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Storage;
 
 namespace Ringtoets.HydraRing.Data
 {
     /// <summary>
     /// Location of an hydraulic boundary.
     /// </summary>
-    public class HydraulicBoundaryLocation : Observable
+    public class HydraulicBoundaryLocation : Observable, IStorable
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocation"/>.
@@ -74,5 +75,10 @@ namespace Ringtoets.HydraRing.Data
         {
             return Name;
         }
+
+        /// <summary>
+        /// Gets or sets the unique identifier for the storage of the class.
+        /// </summary>
+        public long StorageId { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// <summary>
     /// Persistor for classes derived from <see cref="BaseFailureMechanism"/>.
     /// </summary>
-    public abstract class FailureMechanismEntityPersistorBase
+    public abstract class FailureMechanismEntityPersistorBase : ICollectionPersistor<FailureMechanismEntity, IFailureMechanism>
     {
         private readonly IRingtoetsEntities dbContext;
         private readonly Dictionary<FailureMechanismEntity, IFailureMechanism> insertedList = new Dictionary<FailureMechanismEntity, IFailureMechanism>();
@@ -90,6 +90,8 @@ namespace Application.Ringtoets.Storage.Persistors
             }
             insertedList.Clear();
         }
+
+        public abstract void LoadModel(FailureMechanismEntity entity, IFailureMechanism model);
 
         /// <summary>
         /// Ensures that the model is added as <see cref="FailureMechanismEntity"/> in the <paramref name="parentNavigationProperty"/>.
@@ -178,7 +180,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <item><paramref name="entity"/> is <c>null</c>.</item>
         /// <item><paramref name="model"/> is <c>null</c>.</item>
         /// </list></exception>
-        protected static void ConvertEntityToModel(FailureMechanismEntity entity, IFailureMechanism model)
+        public void ConvertEntityToModel(FailureMechanismEntity entity, IFailureMechanism model)
         {
             if (entity == null)
             {
@@ -199,7 +201,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
         /// <item><paramref name="model"/> is <c>null</c>.</item>
         /// </list></exception>
-        private static void ConvertModelToEntity(IFailureMechanism model, FailureMechanismEntity entity)
+        public void ConvertModelToEntity(IFailureMechanism model, FailureMechanismEntity entity)
         {
             if (model == null)
             {

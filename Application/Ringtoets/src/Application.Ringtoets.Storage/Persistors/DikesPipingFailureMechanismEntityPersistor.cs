@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
@@ -47,7 +48,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <item><paramref name="model"/> is <c>null</c>.</item>
         /// </list></exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="entity"/> is not of type <see cref="FailureMechanismType.DikesPipingFailureMechanism"/>.</exception>
-        public void LoadModel(FailureMechanismEntity entity, PipingFailureMechanism model)
+        public override void LoadModel(FailureMechanismEntity entity, IFailureMechanism model)
         {
             ConvertEntityToModel(entity, model);
             if (entity.FailureMechanismType != (int) FailureMechanismType.DikesPipingFailureMechanism)

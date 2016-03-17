@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Converters
@@ -53,6 +54,15 @@ namespace Application.Ringtoets.Storage.Converters
                 }
             };
 
+            if (entity.HydraulicDatabaseLocation != null && entity.HydraulicDatabaseVersion != null)
+            {
+                dikeAssessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    FilePath = entity.HydraulicDatabaseLocation,
+                    Version = entity.HydraulicDatabaseVersion
+                };
+            }
+
             return dikeAssessmentSection;
         }
 
@@ -78,6 +88,12 @@ namespace Application.Ringtoets.Storage.Converters
             entity.DikeAssessmentSectionEntityId = modelObject.StorageId;
             entity.Name = modelObject.Name;
             entity.Norm = modelObject.FailureMechanismContribution.Norm;
+
+            if (modelObject.HydraulicBoundaryDatabase != null)
+            {
+                entity.HydraulicDatabaseLocation = modelObject.HydraulicBoundaryDatabase.FilePath;
+                entity.HydraulicDatabaseVersion = modelObject.HydraulicBoundaryDatabase.Version;
+            }
         }
     }
 }
