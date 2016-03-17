@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
@@ -27,10 +28,10 @@ namespace Ringtoets.Piping.Service.Test
             PipingSemiProbabilisticCalculationService.Calculate(calculation);
 
             // Call
-            double result = calculation.SemiProbabilisticOutput.UpliftProbability;
+            RoundedDouble result = calculation.SemiProbabilisticOutput.UpliftProbability;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, 1e-8);
+            Assert.AreEqual(expectedResult, result, GetAccuracy(result));
         }
 
         [Test]
@@ -52,10 +53,10 @@ namespace Ringtoets.Piping.Service.Test
             PipingSemiProbabilisticCalculationService.Calculate(calculation);
 
             // Call
-            double result = calculation.SemiProbabilisticOutput.HeaveProbability;
+            RoundedDouble result = calculation.SemiProbabilisticOutput.HeaveProbability;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, 1e-8);
+            Assert.AreEqual(expectedResult, result, GetAccuracy(result));
         }
 
         [Test]
@@ -77,10 +78,10 @@ namespace Ringtoets.Piping.Service.Test
             PipingSemiProbabilisticCalculationService.Calculate(calculation);
 
             // Call
-            double result = calculation.SemiProbabilisticOutput.SellmeijerProbability;
+            RoundedDouble result = calculation.SemiProbabilisticOutput.SellmeijerProbability;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, 1e-8);
+            Assert.AreEqual(expectedResult, result, GetAccuracy(result));
         }
 
         [Test]
@@ -104,10 +105,10 @@ namespace Ringtoets.Piping.Service.Test
             PipingSemiProbabilisticCalculationService.Calculate(calculation);
 
             // Call
-            double result = calculation.SemiProbabilisticOutput.PipingReliability;
+            RoundedDouble result = calculation.SemiProbabilisticOutput.PipingReliability;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, 1e-8);
+            Assert.AreEqual(expectedResult, result, GetAccuracy(result));
         }
 
         [Test]
@@ -130,10 +131,10 @@ namespace Ringtoets.Piping.Service.Test
             PipingSemiProbabilisticCalculationService.Calculate(calculation);
 
             // Call
-            double result = calculation.SemiProbabilisticOutput.RequiredReliability;
+            RoundedDouble result = calculation.SemiProbabilisticOutput.RequiredReliability;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, 1e-8);
+            Assert.AreEqual(expectedResult, result, GetAccuracy(result));
         }
 
         [Test]
@@ -161,10 +162,10 @@ namespace Ringtoets.Piping.Service.Test
             PipingSemiProbabilisticCalculationService.Calculate(calculation); 
 
             // Call
-            double result = calculation.SemiProbabilisticOutput.PipingFactorOfSafety;
+            RoundedDouble result = calculation.SemiProbabilisticOutput.PipingFactorOfSafety;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, 1e-8);
+            Assert.AreEqual(expectedResult, result, GetAccuracy(result));
         }
 
         [Test]
@@ -191,10 +192,10 @@ namespace Ringtoets.Piping.Service.Test
             PipingSemiProbabilisticCalculationService.Calculate(calculation); 
 
             // Call
-            double result = calculation.SemiProbabilisticOutput.PipingFactorOfSafety;
+            RoundedDouble result = calculation.SemiProbabilisticOutput.PipingFactorOfSafety;
 
             // Assert
-            Assert.AreEqual(calculation.SemiProbabilisticOutput.RequiredReliability / calculation.SemiProbabilisticOutput.PipingReliability, result, 1e-8);
+            Assert.AreEqual(calculation.SemiProbabilisticOutput.RequiredReliability / calculation.SemiProbabilisticOutput.PipingReliability, result, GetAccuracy(result));
         }
 
         [Test]
@@ -218,11 +219,12 @@ namespace Ringtoets.Piping.Service.Test
             PipingSemiProbabilisticCalculationService.Calculate(pipingCalculation);
 
             // Assert
-            Assert.AreEqual(1.134713444, pipingCalculation.SemiProbabilisticOutput.PipingFactorOfSafety, 1e-8);
+            RoundedDouble result = pipingCalculation.SemiProbabilisticOutput.PipingFactorOfSafety;
+            Assert.AreEqual(1.134713444, result, GetAccuracy(result));
         }
 
         [Test]
-        public void Calculate_MissingOutput_ThrowsArgumentNullException()
+        public void Calculate_MissingOutput_ThrowsArgumentException()
         {
             // Setup
             var generalInput = new GeneralPipingInput();
@@ -232,7 +234,7 @@ namespace Ringtoets.Piping.Service.Test
             TestDelegate test = () => PipingSemiProbabilisticCalculationService.Calculate(pipingCalculation);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot perform a semi-probabilistic calculation without output form the piping kernel.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Cannot perform a semi-probabilistic calculation without output form the piping kernel.");
         }
 
         private PipingCalculation AsPipingCalculation(PipingOutput pipingOutput, SemiProbabilisticPipingInput semiProbabilisticPipingInput)
@@ -241,6 +243,11 @@ namespace Ringtoets.Piping.Service.Test
             {
                 Output = pipingOutput
             };
+        }
+
+        private static double GetAccuracy(RoundedDouble d)
+        {
+            return Math.Pow(10.0, -d.NumberOfDecimalPlaces);
         }
     }
 }

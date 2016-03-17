@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
@@ -63,20 +64,26 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Call & Assert
-            Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety);
-            Assert.AreEqual(upliftReliability, properties.UpliftReliability);
-            Assert.AreEqual(upliftProbability, properties.UpliftProbability);
-            Assert.AreEqual(heaveFactorOfSafety, properties.HeaveFactorOfSafety);
-            Assert.AreEqual(heaveReliability, properties.HeaveReliability);
-            Assert.AreEqual(heaveProbability, properties.HeaveProbability);
-            Assert.AreEqual(sellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety);
-            Assert.AreEqual(sellmeijerReliability, properties.SellmeijerReliability);
-            Assert.AreEqual(sellmeijerProbability, properties.SellmeijerProbability);
-            Assert.AreEqual(requiredProbability, properties.RequiredProbability);
-            Assert.AreEqual(requiredReliability, properties.RequiredReliability);
-            Assert.AreEqual(pipingProbability, properties.PipingProbability);
-            Assert.AreEqual(pipingReliability, properties.PipingReliability);
-            Assert.AreEqual(pipingFactorOfSafety, properties.PipingFactorOfSafety);
+            Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, GetAccuracy(properties.UpliftFactorOfSafety));
+            Assert.AreEqual(upliftReliability, properties.UpliftReliability, GetAccuracy(properties.UpliftReliability));
+            Assert.AreEqual(upliftProbability, properties.UpliftProbability, GetAccuracy(properties.UpliftProbability));
+            Assert.AreEqual(heaveFactorOfSafety, properties.HeaveFactorOfSafety, GetAccuracy(properties.HeaveFactorOfSafety));
+            Assert.AreEqual(heaveReliability, properties.HeaveReliability, GetAccuracy(properties.HeaveReliability));
+            Assert.AreEqual(heaveProbability, properties.HeaveProbability, GetAccuracy(properties.HeaveProbability));
+            Assert.AreEqual(sellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety, GetAccuracy(properties.SellmeijerFactorOfSafety));
+            Assert.AreEqual(sellmeijerReliability, properties.SellmeijerReliability, GetAccuracy(properties.SellmeijerReliability));
+            Assert.AreEqual(sellmeijerProbability, properties.SellmeijerProbability, GetAccuracy(properties.SellmeijerProbability));
+            Assert.AreEqual(requiredProbability, properties.RequiredProbability, GetAccuracy(properties.RequiredProbability));
+            Assert.AreEqual(requiredReliability, properties.RequiredReliability, GetAccuracy(properties.RequiredReliability));
+            Assert.AreEqual(pipingProbability, properties.PipingProbability, GetAccuracy(properties.PipingProbability));
+            Assert.AreEqual(pipingReliability, properties.PipingReliability, GetAccuracy(properties.PipingReliability));
+            Assert.AreEqual(pipingFactorOfSafety, properties.PipingFactorOfSafety, GetAccuracy(properties.PipingFactorOfSafety));
+        }
+
+
+        private static double GetAccuracy(RoundedDouble d)
+        {
+            return Math.Pow(10.0, -d.NumberOfDecimalPlaces);
         }
     }
 }
