@@ -3,6 +3,8 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
@@ -50,6 +52,41 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             // Call & Assert
             Assert.AreEqual(PipingDataResources.PipingFailureMechanism_DisplayName, info.GetViewName(viewMock, null));
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<PipingFailureMechanismView>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var otherAssessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismContextMock = mocks.StrictMock<PipingFailureMechanismContext>(pipingFailureMechanismMock, assessmentSectionMock);
+
+            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanismContextMock);
+
+            mocks.ReplayAll();
+
+            // Call & Assert
+            Assert.IsFalse(info.CloseForData(viewMock, otherAssessmentSectionMock));
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<PipingFailureMechanismView>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismContextMock = mocks.StrictMock<PipingFailureMechanismContext>(pipingFailureMechanismMock, assessmentSectionMock);
+
+            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanismContextMock);
+
+            mocks.ReplayAll();
+
+            // Call & Assert
+            Assert.IsTrue(info.CloseForData(viewMock, assessmentSectionMock));
         }
     }
 }

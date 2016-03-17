@@ -71,7 +71,8 @@ namespace Ringtoets.Piping.Plugin
             yield return new ViewInfo<PipingFailureMechanismContext, PipingFailureMechanismView>
             {
                 GetViewName = (view, mechanism) => PipingDataResources.PipingFailureMechanism_DisplayName,
-                Image = PipingFormsResources.PipingIcon
+                Image = PipingFormsResources.PipingIcon,
+                CloseForData = ClosePipingFailureMechanismViewForData
             };
             yield return new ViewInfo<PipingCalculationGroupContext, PipingCalculationGroup, PipingCalculationsView>
             {
@@ -221,6 +222,21 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .Build()
             };
         }
+
+        # region PipingCalculationsView ViewInfo
+
+        private bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)
+        {
+            var assessmentSectionBase = o as AssessmentSectionBase;
+            if (assessmentSectionBase != null)
+            {
+                return ((PipingFailureMechanismContext) view.Data).Parent == assessmentSectionBase;
+            }
+
+            return false;
+        }
+
+        # endregion
 
         # region PipingCalculationsView ViewInfo
 
