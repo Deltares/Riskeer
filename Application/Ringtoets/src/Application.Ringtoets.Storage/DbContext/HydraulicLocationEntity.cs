@@ -33,27 +33,15 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class DikeAssessmentSectionEntity
+    public partial class HydraulicLocationEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DikeAssessmentSectionEntity()
-        {
-            this.FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
-            this.HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
-        }
-    
+        public long HydraulicLocationEntityId { get; set; }
         public long DikeAssessmentSectionEntityId { get; set; }
-        public long ProjectEntityId { get; set; }
         public string Name { get; set; }
-        public int Norm { get; set; }
-        public int Order { get; set; }
-        public string HydraulicDatabaseVersion { get; set; }
-        public string HydraulicDatabaseLocation { get; set; }
+        public decimal LocationX { get; set; }
+        public decimal LocationY { get; set; }
+        public Nullable<double> DesignWaterLevel { get; set; }
     
-        public virtual ProjectEntity ProjectEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
+        public virtual DikeAssessmentSectionEntity DikeAssessmentSectionEntity { get; set; }
     }
 }

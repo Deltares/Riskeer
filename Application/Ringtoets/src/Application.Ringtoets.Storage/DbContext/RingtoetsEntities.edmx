@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Repos\Ringtoets\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DikeAssessmentSectionEntity">
           <Key>
             <PropertyRef Name="DikeAssessmentSectionEntityId" />
@@ -14,6 +14,8 @@
           <Property Name="Name" Type="varchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Norm" Type="int" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="HydraulicDatabaseVersion" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="HydraulicDatabaseLocation" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="FailureMechanismEntity">
           <Key>
@@ -22,6 +24,17 @@
           <Property Name="FailureMechanismEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DikeAssessmentSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="FailureMechanismType" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HydraulicLocationEntity">
+          <Key>
+            <PropertyRef Name="HydraulicLocationEntityId" />
+          </Key>
+          <Property Name="HydraulicLocationEntityId" Type="integer" Nullable="false" />
+          <Property Name="DikeAssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="LocationX" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="LocationY" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="DesignWaterLevel" Type="real" />
         </EntityType>
         <EntityType Name="ProjectEntity">
           <Key>
@@ -64,9 +77,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HydraulicLocationEntity_0_0">
+          <End Role="DikeAssessmentSectionEntity" Type="Self.DikeAssessmentSectionEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DikeAssessmentSectionEntity">
+              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="RingtoetsEntitiesModelStoreContainer">
           <EntitySet Name="DikeAssessmentSectionEntity" EntityType="Self.DikeAssessmentSectionEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismEntity" EntityType="Self.FailureMechanismEntity" store:Type="Tables" />
+          <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="Version" EntityType="Self.Version" store:Type="Tables" />
           <AssociationSet Name="FK_DikeAssessmentSectionEntity_0_0" Association="Self.FK_DikeAssessmentSectionEntity_0_0">
@@ -77,6 +103,10 @@
             <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntity" />
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="Self.FK_HydraulicLocationEntity_0_0">
+            <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntity" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -85,6 +115,7 @@
         <EntityContainer Name="RingtoetsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DikeAssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" />
           <EntitySet Name="FailureMechanismEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" />
+          <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="Versions" EntityType="RingtoetsEntitiesModel.Version" />
           <AssociationSet Name="FK_DikeAssessmentSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0">
@@ -94,6 +125,10 @@
           <AssociationSet Name="FK_FailureMechanismEntity_0_0" Association="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0">
             <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntities" />
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0">
+            <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntities" />
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="DikeAssessmentSectionEntity">
@@ -105,8 +140,11 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="false" />
           <Property Name="Norm" Type="Int32" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="HydraulicDatabaseVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="HydraulicDatabaseLocation" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0" FromRole="DikeAssessmentSectionEntity" ToRole="ProjectEntity" />
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="DikeAssessmentSectionEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="DikeAssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
         </EntityType>
         <EntityType Name="FailureMechanismEntity">
           <Key>
@@ -116,6 +154,18 @@
           <Property Name="DikeAssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="FailureMechanismType" Type="Int16" Nullable="false" />
           <NavigationProperty Name="DikeAssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DikeAssessmentSectionEntity" />
+        </EntityType>
+        <EntityType Name="HydraulicLocationEntity">
+          <Key>
+            <PropertyRef Name="HydraulicLocationEntityId" />
+          </Key>
+          <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="DikeAssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="LocationX" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="LocationY" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="DesignWaterLevel" Type="Double" />
+          <NavigationProperty Name="DikeAssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="DikeAssessmentSectionEntity" />
         </EntityType>
         <EntityType Name="ProjectEntity">
           <Key>
@@ -159,6 +209,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HydraulicLocationEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" Role="DikeAssessmentSectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DikeAssessmentSectionEntity">
+              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationEntity">
+              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -168,6 +230,8 @@
           <EntitySetMapping Name="DikeAssessmentSectionEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.DikeAssessmentSectionEntity">
               <MappingFragment StoreEntitySet="DikeAssessmentSectionEntity">
+                <ScalarProperty Name="HydraulicDatabaseLocation" ColumnName="HydraulicDatabaseLocation" />
+                <ScalarProperty Name="HydraulicDatabaseVersion" ColumnName="HydraulicDatabaseVersion" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Norm" ColumnName="Norm" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -182,6 +246,18 @@
                 <ScalarProperty Name="FailureMechanismType" ColumnName="FailureMechanismType" />
                 <ScalarProperty Name="DikeAssessmentSectionEntityId" ColumnName="DikeAssessmentSectionEntityId" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HydraulicLocationEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationEntity">
+              <MappingFragment StoreEntitySet="HydraulicLocationEntity">
+                <ScalarProperty Name="DesignWaterLevel" ColumnName="DesignWaterLevel" />
+                <ScalarProperty Name="LocationY" ColumnName="LocationY" />
+                <ScalarProperty Name="LocationX" ColumnName="LocationX" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DikeAssessmentSectionEntityId" ColumnName="DikeAssessmentSectionEntityId" />
+                <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
