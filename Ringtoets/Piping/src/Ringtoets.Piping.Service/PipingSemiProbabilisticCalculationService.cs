@@ -88,16 +88,16 @@ namespace Ringtoets.Piping.Service
             calculation.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(
                 calculator.upliftFactorOfSafety,
                 calculator.upliftReliability,
-                calculator.upliftProbability,
+                1.0 / calculator.upliftProbability,
                 calculator.heaveFactorOfSafety,
                 calculator.heaveReliability,
-                calculator.heaveProbability,
+                1.0 / calculator.heaveProbability,
                 calculator.sellmeijerFactorOfSafety,
                 calculator.sellmeijerReliability,
-                calculator.sellmeijerProbability,
-                calculator.requiredProbability,
+                1.0 / calculator.sellmeijerProbability,
+                1.0 / calculator.requiredProbability,
                 calculator.requiredReliability,
-                calculator.pipingProbability,
+                1.0 / calculator.pipingProbability,
                 calculator.pipingReliability,
                 calculator.pipingFactorOfSafety
                 );

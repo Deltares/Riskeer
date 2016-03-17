@@ -1284,7 +1284,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De maximaal toegestane betrouwbaarheidsindex voor het faalmechanisme piping..
+        ///   Looks up a localized string similar to De maximaal toegestane kans dat het faalmechanisme piping optreedt..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_RequiredProbability_Description {
             get {
@@ -1293,7 +1293,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Betrouwbaarheidsindex faalkanseis [-].
+        ///   Looks up a localized string similar to Faalkanseis [1/jaar].
         /// </summary>
         public static string PipingSemiProbabilisticOutput_RequiredProbability_DisplayName {
             get {
@@ -1302,7 +1302,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De maximaal toegestane kans dat het faalmechanisme piping optreedt..
+        ///   Looks up a localized string similar to De maximaal toegestane betrouwbaarheidsindex voor het faalmechanisme piping..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_RequiredReliability_Description {
             get {
@@ -1311,7 +1311,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkanseis [1/jaar].
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex faalkanseis [-].
         /// </summary>
         public static string PipingSemiProbabilisticOutput_RequiredReliability_DisplayName {
             get {
