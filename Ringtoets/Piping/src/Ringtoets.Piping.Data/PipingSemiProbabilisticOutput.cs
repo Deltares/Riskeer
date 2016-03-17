@@ -1,4 +1,6 @@
-﻿namespace Ringtoets.Piping.Data
+﻿using Core.Common.Base.Data;
+
+namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// This class contains the results of a semi-probabilistic assessment of the piping
@@ -25,91 +27,91 @@
         /// <param name="pipingFactorOfSafety">The factor of safety for the piping failure mechanims.</param>
         public PipingSemiProbabilisticOutput(double upliftFactorOfSafety, double upliftReliability, double upliftProbability, double heaveFactorOfSafety, double heaveReliability, double heaveProbability, double sellmeijerFactorOfSafety, double sellmeijerReliability, double sellmeijerProbability, double requiredProbability, double requiredReliability, double pipingProbability, double pipingReliability, double pipingFactorOfSafety)
         {
-            UpliftFactorOfSafety = upliftFactorOfSafety;
-            UpliftReliability = upliftReliability;
-            UpliftProbability = upliftProbability;
-            HeaveFactorOfSafety = heaveFactorOfSafety;
-            HeaveReliability = heaveReliability;
-            HeaveProbability = heaveProbability;
-            SellmeijerFactorOfSafety = sellmeijerFactorOfSafety;
-            SellmeijerReliability = sellmeijerReliability;
-            SellmeijerProbability = sellmeijerProbability;
+            UpliftFactorOfSafety = new RoundedDouble(3, upliftFactorOfSafety);
+            UpliftReliability = new RoundedDouble(3, upliftReliability);
+            UpliftProbability = new RoundedDouble(3, upliftProbability);
+            HeaveFactorOfSafety = new RoundedDouble(3, heaveFactorOfSafety);
+            HeaveReliability = new RoundedDouble(3, heaveReliability);
+            HeaveProbability = new RoundedDouble(3, heaveProbability);
+            SellmeijerFactorOfSafety = new RoundedDouble(3, sellmeijerFactorOfSafety);
+            SellmeijerReliability = new RoundedDouble(3, sellmeijerReliability);
+            SellmeijerProbability = new RoundedDouble(3, sellmeijerProbability);
 
-            RequiredProbability = requiredProbability;
-            RequiredReliability = requiredReliability;
-            PipingProbability = pipingProbability;
-            PipingReliability = pipingReliability;
-            PipingFactorOfSafety = pipingFactorOfSafety;
+            RequiredProbability = new RoundedDouble(3, requiredProbability);
+            RequiredReliability = new RoundedDouble(3, requiredReliability);
+            PipingProbability = new RoundedDouble(3, pipingProbability);
+            PipingReliability = new RoundedDouble(3, pipingReliability);
+            PipingFactorOfSafety = new RoundedDouble(3, pipingFactorOfSafety);
         }
 
         /// <summary>
         /// Gets the required probability of the piping failure mechanism.
         /// </summary>
-        public double RequiredProbability { get; private set; }
+        public RoundedDouble RequiredProbability { get; private set; }
 
         /// <summary>
         /// Get the required reliability of the piping failure mechanism.
         /// </summary>
-        public double RequiredReliability { get; private set; }
+        public RoundedDouble RequiredReliability { get; private set; }
 
         /// <summary>
         /// Gets the factor of safety of the piping failure mechanism.
         /// </summary>
-        public double PipingFactorOfSafety { get; private set; }
+        public RoundedDouble PipingFactorOfSafety { get; private set; }
 
         /// <summary>
         /// Gets the reliability of the piping failure mechanism.
         /// </summary>
-        public double PipingReliability { get; private set; }
+        public RoundedDouble PipingReliability { get; private set; }
 
         /// <summary>
         /// Gets the probability of failing due to the piping failure mechanism.
         /// </summary>
-        public double PipingProbability { get; private set; }
+        public RoundedDouble PipingProbability { get; private set; }
 
         /// <summary>
         /// Gets the factor of safety for the uplift sub-mechanism.
         /// </summary>
-        public double UpliftFactorOfSafety { get; private set; }
+        public RoundedDouble UpliftFactorOfSafety { get; private set; }
 
         /// <summary>
         /// Gets the reliability for the uplift sub-mechanism.
         /// </summary>
-        public double UpliftReliability{ get; private set; }
+        public RoundedDouble UpliftReliability { get; private set; }
 
         /// <summary>
         /// Gets the probability of failing due to the uplift failure sub-mechanism.
         /// </summary>
-        public double UpliftProbability{ get; private set; }
+        public RoundedDouble UpliftProbability { get; private set; }
 
         /// <summary>
         /// Gets the factor of safety for the heave sub-mechanism.
         /// </summary>
-        public double HeaveFactorOfSafety { get; private set; }
+        public RoundedDouble HeaveFactorOfSafety { get; private set; }
 
         /// <summary>
         /// Gets the reliability for the heave sub-mechanism.
         /// </summary>
-        public double HeaveReliability { get; private set; }
+        public RoundedDouble HeaveReliability { get; private set; }
 
         /// <summary>
         /// Gets the probability of failing due to the heave failure sub-mechanism.
         /// </summary>
-        public double HeaveProbability { get; private set; }
+        public RoundedDouble HeaveProbability { get; private set; }
 
         /// <summary>
         /// Gets the factor of safety for the Sellmeijer sub-mechanism.
         /// </summary>
-        public double SellmeijerFactorOfSafety { get; private set; }
+        public RoundedDouble SellmeijerFactorOfSafety { get; private set; }
 
         /// <summary>
         /// Gets the reliability for the Sellmeijer sub-mechanism.
         /// </summary>
-        public double SellmeijerReliability { get; private set; }
+        public RoundedDouble SellmeijerReliability { get; private set; }
 
         /// <summary>
         /// Gets the probability of failing due to the Sellmeijer failure sub-mechanism.
         /// </summary>
-        public double SellmeijerProbability { get; private set; }
+        public RoundedDouble SellmeijerProbability { get; private set; }
     }
 }
