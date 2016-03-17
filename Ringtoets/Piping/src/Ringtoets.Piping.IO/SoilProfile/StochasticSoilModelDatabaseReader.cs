@@ -205,7 +205,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 var soilProfileId = Convert.ToInt64(valueSoilProfile1DId);
                 return new StochasticSoilProfileProbability(probability, SoilProfileType.SoilProfile1D, soilProfileId);
             }
-            if (valueSoilProfile2DId.Equals(DBNull.Value))
+            if (!valueSoilProfile2DId.Equals(DBNull.Value))
             {
                 var soilProfileId = Convert.ToInt64(valueSoilProfile2DId);
                 return new StochasticSoilProfileProbability(probability, SoilProfileType.SoilProfile2D, soilProfileId);
