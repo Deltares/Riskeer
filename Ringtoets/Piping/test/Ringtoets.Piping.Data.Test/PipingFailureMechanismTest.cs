@@ -35,7 +35,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual("Berekeningen", piping.CalculationsGroup.Name);
             Assert.AreEqual(1, piping.CalculationsGroup.Children.Count);
             Assert.IsInstanceOf<PipingCalculation>(piping.CalculationsGroup.Children.First());
-            Assert.AreEqual("Randvoorwaarden", piping.BoundaryConditions.Name);
 
             Assert.AreEqual("Oordeel", piping.AssessmentResult.Name);
         }

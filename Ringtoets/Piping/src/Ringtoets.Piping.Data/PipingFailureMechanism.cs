@@ -46,7 +46,6 @@ namespace Ringtoets.Piping.Data
             GeneralInput = new GeneralPipingInput();
             SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
             SoilProfiles = new ObservableList<PipingSoilProfile>();
-            BoundaryConditions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_BoundaryConditions_DisplayName);
             var pipingCalculationGroup = new PipingCalculationGroup(PipingDataResources.PipingFailureMechanism_Calculations_DisplayName, false);
             pipingCalculationGroup.Children.Add(new PipingCalculation(GeneralInput, SemiProbabilisticInput));
             CalculationsGroup = pipingCalculationGroup;
@@ -82,11 +81,6 @@ namespace Ringtoets.Piping.Data
         /// Gets the available profiles within the scope of the piping failure mechanism.
         /// </summary>
         public ICollection<PipingSoilProfile> SoilProfiles { get; private set; }
-
-        /// <summary>
-        /// Gets the boundary conditions applying to the piping failure mechanism.
-        /// </summary>
-        public InputPlaceholder BoundaryConditions { get; private set; }
 
         /// <summary>
         /// Gets all available piping calculations.
