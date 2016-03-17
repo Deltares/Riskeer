@@ -50,6 +50,8 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var pipingCalculationsGroupMock = mocks.StrictMock<PipingCalculationGroup>();
             var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingCalculationsGroupMock, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>(), pipingFailureMechanismMock, assessmentSectionMock);
 
+            mocks.ReplayAll();
+
             // Call & Assert
             Assert.AreEqual(pipingCalculationsGroupMock, info.GetViewData(pipingCalculationGroupContext));
         }
@@ -60,6 +62,8 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Setup
             var viewMock = mocks.StrictMock<PipingCalculationsView>();
             var pipingCalculationsGroupMock = mocks.StrictMock<PipingCalculationGroup>();
+
+            mocks.ReplayAll();
 
             pipingCalculationsGroupMock.Name = "Test";
 
@@ -75,6 +79,8 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingFailureMechanismMock.CalculationsGroup, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>(), pipingFailureMechanismMock, assessmentSectionMock);
 
+            mocks.ReplayAll();
+
             // Call & Assert
             Assert.IsTrue(info.AdditionalDataCheck(pipingCalculationGroupContext));
         }
@@ -88,8 +94,68 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var pipingCalculationsGroupMock = mocks.StrictMock<PipingCalculationGroup>();
             var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingCalculationsGroupMock, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>(), pipingFailureMechanismMock, assessmentSectionMock);
 
+            mocks.ReplayAll();
+
             // Call & Assert
             Assert.IsFalse(info.AdditionalDataCheck(pipingCalculationGroupContext));
+        }
+
+        [Test]
+        public void CloseForData_AssessmentSectionRemovedWithoutPipingFailureMechanism_ReturnsFalse()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<PipingCalculationsView>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingCalculationsGroupMock = mocks.StrictMock<PipingCalculationGroup>();
+
+            viewMock.Expect(vm => vm.Data).Return(pipingCalculationsGroupMock);
+            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+
+            mocks.ReplayAll();
+
+            // Call & Assert
+            Assert.IsFalse(info.CloseForData(viewMock, assessmentSectionMock));
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<PipingCalculationsView>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingCalculationsGroupMock = mocks.StrictMock<PipingCalculationGroup>();
+
+            viewMock.Expect(vm => vm.Data).Return(pipingCalculationsGroupMock);
+            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            {
+                pipingFailureMechanismMock
+            });
+
+            mocks.ReplayAll();
+
+            // Call & Assert
+            Assert.IsFalse(info.CloseForData(viewMock, assessmentSectionMock));
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<PipingCalculationsView>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+
+            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanismMock.CalculationsGroup);
+            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            {
+                pipingFailureMechanismMock
+            });
+
+            mocks.ReplayAll();
+
+            // Call & Assert
+            Assert.IsTrue(info.CloseForData(viewMock, assessmentSectionMock));
         }
     }
 }

@@ -46,6 +46,8 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Setup
             var viewMock = mocks.StrictMock<PipingFailureMechanismView>();
 
+            mocks.ReplayAll();
+
             // Call & Assert
             Assert.AreEqual(PipingDataResources.PipingFailureMechanism_DisplayName, info.GetViewName(viewMock, null));
         }

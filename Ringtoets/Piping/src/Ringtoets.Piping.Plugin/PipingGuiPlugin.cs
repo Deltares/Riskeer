@@ -78,7 +78,8 @@ namespace Ringtoets.Piping.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, calculationGroup) => calculationGroup.Name,
                 Image = PipingFormsResources.FolderIcon,
-                AdditionalDataCheck = context => context.WrappedData == context.PipingFailureMechanism.CalculationsGroup
+                AdditionalDataCheck = context => context.WrappedData == context.PipingFailureMechanism.CalculationsGroup,
+                CloseForData = ClosePipingCalculationsViewForData
             };
         }
 
@@ -220,6 +221,28 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .Build()
             };
         }
+
+        # region PipingCalculationsView ViewInfo
+
+        private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object o)
+        {
+            var assessmentSectionBase = o as AssessmentSectionBase;
+            if (assessmentSectionBase != null)
+            {
+                var pipingFailureMechanism = assessmentSectionBase.GetFailureMechanisms()
+                                                                  .OfType<PipingFailureMechanism>()
+                                                                  .FirstOrDefault();
+
+                if (pipingFailureMechanism != null)
+                {
+                    return view.Data == pipingFailureMechanism.CalculationsGroup;
+                }
+            }
+
+            return false;
+        }
+
+        #endregion endregion
 
         # region PipingFailureMechanism TreeNodeInfo
 
