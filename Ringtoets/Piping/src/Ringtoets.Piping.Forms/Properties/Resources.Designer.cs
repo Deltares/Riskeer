@@ -1203,7 +1203,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans van voorkomen [1/jaar].
+        ///   Looks up a localized string similar to Kans van voorkomen [jaar].
         /// </summary>
         public static string PipingSemiProbabilisticOutput_HeaveProbability_DisplayName {
             get {
@@ -1257,7 +1257,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans [1/jaar].
+        ///   Looks up a localized string similar to Faalkans [jaar].
         /// </summary>
         public static string PipingSemiProbabilisticOutput_PipingProbability_DisplayName {
             get {
@@ -1293,7 +1293,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkanseis [1/jaar].
+        ///   Looks up a localized string similar to Faalkanseis [jaar].
         /// </summary>
         public static string PipingSemiProbabilisticOutput_RequiredProbability_DisplayName {
             get {
@@ -1347,7 +1347,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans van voorkomen [1/jaar].
+        ///   Looks up a localized string similar to Kans van voorkomen [jaar].
         /// </summary>
         public static string PipingSemiProbabilisticOutput_SellmeijerProbability_DisplayName {
             get {
@@ -1401,7 +1401,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans van voorkomen [1/jaar].
+        ///   Looks up a localized string similar to Kans van voorkomen [jaar].
         /// </summary>
         public static string PipingSemiProbabilisticOutput_UpliftProbability_DisplayName {
             get {

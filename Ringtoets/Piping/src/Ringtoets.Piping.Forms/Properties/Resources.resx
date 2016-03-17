@@ -593,7 +593,7 @@
     <value>De kans dat het faalmechanisme heave optreedt.</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_HeaveProbability_DisplayName" xml:space="preserve">
-    <value>Kans van voorkomen [1/jaar]</value>
+    <value>Kans van voorkomen [jaar]</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_HeaveReliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex van het heave faalmechanisme.</value>
@@ -605,7 +605,7 @@
     <value>De kans dat het faalmechanisme piping optreedt.</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_PipingProbability_DisplayName" xml:space="preserve">
-    <value>Faalkans [1/jaar]</value>
+    <value>Faalkans [jaar]</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_PipingReliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex van het piping faalmechanisme.</value>
@@ -617,7 +617,7 @@
     <value>De maximaal toegestane kans dat het faalmechanisme piping optreedt.</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_RequiredProbability_DisplayName" xml:space="preserve">
-    <value>Faalkanseis [1/jaar]</value>
+    <value>Faalkanseis [jaar]</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_RequiredReliability_Description" xml:space="preserve">
     <value>De maximaal toegestane betrouwbaarheidsindex voor het faalmechanisme piping.</value>
@@ -629,7 +629,7 @@
     <value>De kans dat het faalmechanisme Sellmeijer optreedt.</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_SellmeijerProbability_DisplayName" xml:space="preserve">
-    <value>Kans van voorkomen [1/jaar]</value>
+    <value>Kans van voorkomen [jaar]</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_SellmeijerReliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex van het Sellmeijer faalmechanisme.</value>
@@ -641,7 +641,7 @@
     <value>De kans dat het faalmechanisme opbarsten optreedt.</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_UpliftProbability_DisplayName" xml:space="preserve">
-    <value>Kans van voorkomen [1/jaar]</value>
+    <value>Kans van voorkomen [jaar]</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_UpliftReliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex van het opbarsten faalmechanisme.</value>
