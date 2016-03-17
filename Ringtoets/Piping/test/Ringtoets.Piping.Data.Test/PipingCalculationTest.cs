@@ -1,8 +1,10 @@
 ﻿using System;
 
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Calculation.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
@@ -189,6 +191,42 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call & Assert
             Assert.IsTrue(data.HasOutput);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocation_Always_SetHydraulicBoundaryLocationToNull()
+        {
+            // Setup
+            var data = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1.0, 2.0);
+            data.InputParameters.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+
+            // Precondition
+            Assert.AreSame(hydraulicBoundaryLocation, data.InputParameters.HydraulicBoundaryLocation);
+
+            // Call
+            data.ClearHydraulicBoundaryLocation();
+
+            // Assert
+            Assert.IsNull(data.InputParameters.HydraulicBoundaryLocation);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocation_Always_SetAssessmentLevelToNaN()
+        {
+            // Setup
+            var data = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var assessmentLevel = new RoundedDouble(2, 7.60);
+            data.InputParameters.AssessmentLevel = assessmentLevel;
+
+            // Precondition
+            Assert.AreEqual(assessmentLevel, data.InputParameters.AssessmentLevel);
+
+            // Call
+            data.ClearHydraulicBoundaryLocation();
+
+            // Assert
+            Assert.IsNaN(data.InputParameters.AssessmentLevel);
         }
     }
 }

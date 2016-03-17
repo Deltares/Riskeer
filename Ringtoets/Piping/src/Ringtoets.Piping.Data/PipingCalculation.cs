@@ -22,6 +22,7 @@
 using System;
 
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.Piping.Data.Properties;
@@ -103,6 +104,12 @@ namespace Ringtoets.Piping.Data
         public void ClearOutput()
         {
             Output = null;
+        }
+
+        public void ClearHydraulicBoundaryLocation()
+        {
+            InputParameters.HydraulicBoundaryLocation = null;
+            InputParameters.AssessmentLevel = (RoundedDouble)Double.NaN;
         }
     }
 }

@@ -587,6 +587,7 @@ namespace Ringtoets.Integration.Plugin
             foreach (ICalculationItem calc in failureMechanisms.SelectMany(fm => fm.CalculationItems))
             {
                 calc.ClearOutput();
+                calc.ClearHydraulicBoundaryLocation();
                 calc.NotifyObservers();
             }
 

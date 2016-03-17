@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Data
 {
@@ -32,5 +33,10 @@ namespace Ringtoets.Common.Data
         /// Clears the calculated output.
         /// </summary>
         void ClearOutput();
+
+        /// <summary>
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> assessment level.
+        /// </summary>
+        void ClearHydraulicBoundaryLocation();
     }
 }
