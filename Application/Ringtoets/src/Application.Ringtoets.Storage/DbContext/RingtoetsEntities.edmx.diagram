@@ -5,14 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="143406871b624a3080def7c3c31a548f" Name="Diagram1">
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" Width="1.5" PointX="3" PointY="2" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" Width="1.5" PointX="5.25" PointY="1.125" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" Width="1.5" PointX="5.25" PointY="3.625" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ProjectEntity" Width="1.5" PointX="0.75" PointY="2.625" />
-        <EntityTypeShape EntityType="RingtoetsEntitiesModel.Version" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" Width="1.5" PointX="5.25" PointY="1.25" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" Width="1.5" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ProjectEntity" Width="1.5" PointX="0.75" PointY="4.25" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.ReferenceLinePointEntity" Width="1.5" PointX="5.25" PointY="6.875" />
+        <EntityTypeShape EntityType="RingtoetsEntitiesModel.Version" Width="1.5" PointX="0.75" PointY="0.75" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" />
+        <AssociationConnector Association="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

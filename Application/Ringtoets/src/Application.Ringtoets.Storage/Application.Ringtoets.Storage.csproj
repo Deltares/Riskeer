@@ -68,6 +68,9 @@
     <Compile Include="DbContext\ProjectEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\ReferenceLinePointEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\Version.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>

@@ -40,6 +40,7 @@ namespace Application.Ringtoets.Storage.DbContext
         {
             this.FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
             this.HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
+            this.ReferenceLinePointEntities = new HashSet<ReferenceLinePointEntity>();
         }
     
         public long DikeAssessmentSectionEntityId { get; set; }
@@ -55,5 +56,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReferenceLinePointEntity> ReferenceLinePointEntities { get; set; }
     }
 }
