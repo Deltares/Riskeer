@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Piping.IO.SoilProfile;
+using Ringtoets.Piping.IO.Builders;
 
-namespace Ringtoets.Piping.IO.Test.SoilProfile
+namespace Ringtoets.Piping.IO.Test.Builders
 {
     [TestFixture]
-    public class DSoilDatabaseQueryBuilderTest
+    public class SoilDatabaseQueryBuilderTest
     {
         [Test]
         public void GetStochasticSoilModelOfMechanismQuery_Always_ReturnsExpectedValues()
@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                                          "WHERE M.ME_Name = @ME_Name ORDER BY SSM.SSM_ID;";
 
             // Call
-            string query = DSoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
+            string query = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
 
             // Assert
             Assert.AreEqual(expectedQuery, query);
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                                          "ORDER BY SSM_ID;";
 
             // Call
-            string query = DSoilDatabaseQueryBuilder.GetAllStochasticSoilProfileQuery();
+            string query = SoilDatabaseQueryBuilder.GetAllStochasticSoilProfileQuery();
 
             // Assert
             Assert.AreEqual(expectedQuery, query);
@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                                          "WHERE Key = 'VERSION' AND Value = @Value;";
 
             // Call
-            string query = DSoilDatabaseQueryBuilder.GetCheckVersionQuery();
+            string query = SoilDatabaseQueryBuilder.GetCheckVersionQuery();
 
             // Assert
             Assert.AreEqual(expectedQuery, query);

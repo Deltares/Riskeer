@@ -48,15 +48,13 @@
     <Compile Include="Builders\SoilLayer2DConversionException.cs" />
     <Compile Include="Builders\SoilProfileBuilder1D.cs" />
     <Compile Include="Builders\SoilProfileBuilder2D.cs" />
-    <Compile Include="SoilProfile\DSoilDatabaseQueryBuilder.cs" />
+    <Compile Include="Builders\SoilDatabaseQueryBuilder.cs" />
     <Compile Include="SoilProfile\MechanismDatabaseColumns.cs" />
     <Compile Include="SoilProfile\MetaDataDatabaseColumns.cs" />
     <Compile Include="SoilProfile\SegmentDatabaseColumns.cs" />
     <Compile Include="SoilProfile\SegmentPointsDatabaseColumns.cs" />
-    <Compile Include="SoilProfile\StochasticSoilModelSegment.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelDatabaseColumns.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelDatabaseReader.cs" />
-    <Compile Include="SoilProfile\StochasticSoilProfileProbability.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfileDatabaseColumns.cs" />
     <Compile Include="SurfaceLines\CharacteristicPoints.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsCsvReader.cs" />

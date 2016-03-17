@@ -22,9 +22,8 @@
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.IO.Test.SoilProfile
+namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
     public class StochasticSoilModelSegmentTest

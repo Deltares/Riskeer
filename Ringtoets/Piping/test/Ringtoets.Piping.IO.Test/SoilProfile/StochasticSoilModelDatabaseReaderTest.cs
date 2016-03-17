@@ -30,6 +30,7 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
 using UtilsResources = Core.Common.Utils.Properties.Resources;

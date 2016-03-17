@@ -28,10 +28,15 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using log4net;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.SoilProfile
 {
+    /// <summary>
+    /// This class reads a soil database file and reads <see cref="StochasticSoilModelSegment"/> from this database.
+    /// </summary>
     public class StochasticSoilModelDatabaseReader : SqLiteDatabaseReaderBase
     {
         private const string databaseRequiredVersion = "15.0.5.0";
@@ -41,6 +46,17 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private SQLiteDataReader stochasticSoilProfilesDataReader;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="StochasticSoilModelDatabaseReader"/>, 
+        /// which will use the <paramref name="databaseFilePath"/> as its source.
+        /// </summary>
+        /// <param name="databaseFilePath">The path of the database file to open.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when: <list type="bullet">
+        /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
+        /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
+        /// <item>The database version could not be read.</item>
+        /// <item>The database version is incorrect.</item>
+        /// </list></exception>
         public StochasticSoilModelDatabaseReader(string databaseFilePath) : base(databaseFilePath)
         {
             VerifyVersion();
@@ -53,7 +69,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <exception cref="CriticalFileReadException">Thrown when failed to read the database.</exception>
         public IEnumerable<StochasticSoilModelSegment> GetStochasticSoilModelSegmentOfPiping()
         {
-            var stochasticSoilModelSegmentsQuery = DSoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
+            var stochasticSoilModelSegmentsQuery = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
             var sqliteParameter = new SQLiteParameter
             {
                 DbType = DbType.String,
@@ -129,7 +145,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private bool PrepareStochasticSoilProfilesDataReader()
         {
-            var stochasticSoilModelSegmentsQuery = DSoilDatabaseQueryBuilder.GetAllStochasticSoilProfileQuery();
+            var stochasticSoilModelSegmentsQuery = SoilDatabaseQueryBuilder.GetAllStochasticSoilProfileQuery();
             stochasticSoilProfilesDataReader = CreateDataReader(stochasticSoilModelSegmentsQuery);
 
             if (!stochasticSoilProfilesDataReader.HasRows)
@@ -179,15 +195,22 @@ namespace Ringtoets.Piping.IO.SoilProfile
         private static StochasticSoilProfileProbability ReadStochasticSoilProfileProbability(SQLiteDataReader dataReader)
         {
             var valueSoilProfile1DId = dataReader[StochasticSoilProfileDatabaseColumns.SoilProfile1DId];
-            var soilProfile1DId = (valueSoilProfile1DId.Equals(DBNull.Value)) ? (long?) null : Convert.ToInt64(valueSoilProfile1DId);
-
             var valueSoilProfile2DId = dataReader[StochasticSoilProfileDatabaseColumns.SoilProfile2DId];
-            var soilProfile2DId = (valueSoilProfile2DId.Equals(DBNull.Value)) ? (long?) null : Convert.ToInt64(valueSoilProfile2DId);
-
             var valueProbability = dataReader[StochasticSoilProfileDatabaseColumns.Probability];
+
             var probability = (valueProbability.Equals(DBNull.Value)) ? 0 : Convert.ToDouble(valueProbability);
 
-            return new StochasticSoilProfileProbability(probability, soilProfile1DId, soilProfile2DId);
+            if (!valueSoilProfile1DId.Equals(DBNull.Value))
+            {
+                var soilProfileId = Convert.ToInt64(valueSoilProfile1DId);
+                return new StochasticSoilProfileProbability(probability, SoilProfileType.SoilProfile1D, soilProfileId);
+            }
+            if (valueSoilProfile2DId.Equals(DBNull.Value))
+            {
+                var soilProfileId = Convert.ToInt64(valueSoilProfile2DId);
+                return new StochasticSoilProfileProbability(probability, SoilProfileType.SoilProfile2D, soilProfileId);
+            }
+            return null;
         }
 
         private StochasticSoilModelSegment ReadSoilModels(SQLiteDataReader dataReader)
@@ -200,7 +223,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private void VerifyVersion()
         {
-            var checkVersionQuery = DSoilDatabaseQueryBuilder.GetCheckVersionQuery();
+            var checkVersionQuery = SoilDatabaseQueryBuilder.GetCheckVersionQuery();
             var sqliteParameter = new SQLiteParameter
             {
                 DbType = DbType.String,

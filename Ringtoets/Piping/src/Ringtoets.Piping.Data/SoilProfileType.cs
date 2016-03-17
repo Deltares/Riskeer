@@ -19,19 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.IO.SoilProfile
+namespace Ringtoets.Piping.Data
 {
-    public class StochasticSoilProfileProbability
+    /// <summary>
+    /// Defines the various types of soil profiles.
+    /// </summary>
+    public enum SoilProfileType
     {
-        public StochasticSoilProfileProbability(double probability, long? soilProfile1DId, long? soilProfile2DId)
-        {
-            Probability = probability;
-            SoilProfile1DId = soilProfile1DId;
-            SoilProfile2DId = soilProfile2DId;
-        }
+        /// <summary>
+        /// One dimensional soil profile.
+        /// </summary>
+        SoilProfile1D,
 
-        public long? SoilProfile1DId { get; private set; }
-        public long? SoilProfile2DId { get; private set; }
-        public double Probability { get; private set; }
+        /// <summary>
+        /// One dimensional soil profile.
+        /// </summary>
+        SoilProfile2D
     }
 }

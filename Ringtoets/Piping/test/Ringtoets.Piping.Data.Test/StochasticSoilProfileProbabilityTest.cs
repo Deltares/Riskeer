@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.SoilProfile;
 
-namespace Ringtoets.Piping.IO.Test.SoilProfile
+namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
     public class StochasticSoilProfileProbabilityTest
