@@ -84,11 +84,7 @@ namespace Core.Common.IO.Readers
         /// </summary>
         public virtual void Dispose()
         {
-            if (Connection != null)
-            {
-                Connection.Close();
-                Connection.Dispose();
-            }
+            CloseConnection();
         }
 
         /// <summary>
@@ -125,6 +121,16 @@ namespace Core.Common.IO.Readers
                     query.Parameters.AddRange(parameters);
                 }
                 return query.ExecuteReader();
+            }
+        }
+
+        protected void CloseConnection()
+        {
+            if (Connection != null)
+            {
+                Connection.Close();
+                Connection.Dispose();
+                Connection = null;
             }
         }
 

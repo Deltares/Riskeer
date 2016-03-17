@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
             // Call
-            TestDelegate test = () => new StochasticSoilModelDatabaseReader(dbFile).Dispose();
+            TestDelegate test = () => { using (var s = new StochasticSoilModelDatabaseReader(dbFile)) {} };
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -250,7 +250,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        public void GetStochasticSoilModelSegmentOfPiping_InvalidSegmentPoint_SkipsPoint()
+        public void GetStochasticSoilModelSegmentOfPiping_InvalidSegmentPoint_SkipsSegmentPoint()
         {
             // Setup
             var dbName = "invalidSegmentPoint.soil";

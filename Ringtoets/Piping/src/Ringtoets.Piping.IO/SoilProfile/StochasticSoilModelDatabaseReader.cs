@@ -39,7 +39,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
     /// </summary>
     public class StochasticSoilModelDatabaseReader : SqLiteDatabaseReaderBase
     {
-        private const string databaseRequiredVersion = "15.0.5.0";
         private const string pipingMechanismName = "Piping";
 
         private static readonly ILog log = LogManager.GetLogger(typeof(StochasticSoilModelDatabaseReader));
@@ -59,7 +58,18 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </list></exception>
         public StochasticSoilModelDatabaseReader(string databaseFilePath) : base(databaseFilePath)
         {
-            VerifyVersion();
+            using (var versionReader = new SoilDatabaseVersionReader(databaseFilePath))
+            {
+                try
+                {
+                    versionReader.VerifyVersion();
+                }
+                catch (CriticalFileReadException)
+                {
+                    CloseConnection();
+                    throw;
+                }
+            }
         }
 
         /// <summary>
@@ -118,13 +128,13 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 }
 
                 // Read SoilModels
-                var segmentSoilModel = ReadSoilModels(dataReader);
+                var segmentSoilModel = ReadStochasticSoilModelSegment(dataReader);
                 if (currentStochasticSoilModelSegment == null ||
                     segmentSoilModel.SegmentSoilModelId != currentStochasticSoilModelSegment.SegmentSoilModelId)
                 {
                     currentStochasticSoilModelSegment = segmentSoilModel;
 
-                    var probabilityList = ReadProbability(currentStochasticSoilModelSegment.SegmentSoilModelId);
+                    var probabilityList = ReadStochasticSoilProfileProbability(currentStochasticSoilModelSegment.SegmentSoilModelId);
                     if (probabilityList == null)
                     {
                         // Probability could not be read, ignore StochasticSoilModelSegment
@@ -156,7 +166,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             return true;
         }
 
-        private IEnumerable<StochasticSoilProfileProbability> ReadProbability(long stochasticSoilModelId)
+        private IEnumerable<StochasticSoilProfileProbability> ReadStochasticSoilProfileProbability(long stochasticSoilModelId)
         {
             var probabilityList = new List<StochasticSoilProfileProbability>();
             try
@@ -167,7 +177,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     currentStochasticSoilModelId = ReadStochasticSoilModelId(stochasticSoilProfilesDataReader);
                     if (currentStochasticSoilModelId == stochasticSoilModelId)
                     {
-                        probabilityList.Add(ReadStochasticSoilProfileProbability(stochasticSoilProfilesDataReader));
+                        var stochasticSoilProfileProbability = ReadStochasticSoilProfileProbability(stochasticSoilProfilesDataReader);
+                        if (stochasticSoilProfileProbability == null)
+                        {
+                            return null;
+                        }
+                        probabilityList.Add(stochasticSoilProfileProbability);
                     }
                     if (currentStochasticSoilModelId <= stochasticSoilModelId)
                     {
@@ -210,10 +225,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 var soilProfileId = Convert.ToInt64(valueSoilProfile2DId);
                 return new StochasticSoilProfileProbability(probability, SoilProfileType.SoilProfile2D, soilProfileId);
             }
+            log.Warn(Resources.StochasticSoilModelDatabaseReader_failed_to_read_soil_model);
             return null;
         }
 
-        private StochasticSoilModelSegment ReadSoilModels(SQLiteDataReader dataReader)
+        private static StochasticSoilModelSegment ReadStochasticSoilModelSegment(SQLiteDataReader dataReader)
         {
             var stochasticSoilModelId = Convert.ToInt64(dataReader[StochasticSoilModelDatabaseColumns.StochasticSoilModelId]);
             var stochasticSoilModelName = Convert.ToString(dataReader[StochasticSoilModelDatabaseColumns.StochasticSoilModelName]);
@@ -221,38 +237,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             return new StochasticSoilModelSegment(stochasticSoilModelId, stochasticSoilModelName, segmentName);
         }
 
-        private void VerifyVersion()
-        {
-            var checkVersionQuery = SoilDatabaseQueryBuilder.GetCheckVersionQuery();
-            var sqliteParameter = new SQLiteParameter
-            {
-                DbType = DbType.String,
-                ParameterName = String.Format("@{0}", MetaDataDatabaseColumns.Value),
-                Value = databaseRequiredVersion
-            };
-
-            try
-            {
-                using (SQLiteDataReader dataReader = CreateDataReader(checkVersionQuery, sqliteParameter))
-                {
-                    if (!dataReader.HasRows)
-                    {
-                        Dispose();
-                        throw new CriticalFileReadException(String.Format(
-                            Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_,
-                            databaseRequiredVersion));
-                    }
-                }
-            }
-            catch (SQLiteException exception)
-            {
-                Dispose();
-                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilModelDatabaseReader_failed_to_read_database);
-                throw new CriticalFileReadException(message, exception);
-            }
-        }
-
-        private Point2D ReadSegmentPoint(SQLiteDataReader dataReader)
+        private static Point2D ReadSegmentPoint(SQLiteDataReader dataReader)
         {
             try
             {

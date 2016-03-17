@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var testFile = Path.Combine(testDataPath, "none.soil");
 
             // Call
-            TestDelegate test = () => new PipingSoilProfileReader(testFile).Dispose();
+            TestDelegate test = () => { using (new PipingSoilProfileReader(testFile)) {} };
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
-            TestDelegate test = () => new PipingSoilProfileReader(fileName).Dispose();
+            TestDelegate test = () => { using (new PipingSoilProfileReader(fileName)) {} };
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
             // Call
-            TestDelegate test = () => new PipingSoilProfileReader(dbFile).Dispose();
+            TestDelegate test = () => { using (new PipingSoilProfileReader(dbFile)) {} };
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
@@ -136,7 +136,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
             // Call
-            TestDelegate test = () => new PipingSoilProfileReader(dbFile).Dispose();
+            TestDelegate test = () => { using (new PipingSoilProfileReader(dbFile)) {} };
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);

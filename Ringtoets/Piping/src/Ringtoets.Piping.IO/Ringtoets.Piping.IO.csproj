@@ -56,6 +56,7 @@
     <Compile Include="SoilProfile\StochasticSoilModelDatabaseColumns.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelDatabaseReader.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfileDatabaseColumns.cs" />
+    <Compile Include="SoilProfile\SoilDatabaseVersionReader.cs" />
     <Compile Include="SurfaceLines\CharacteristicPoints.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsCsvReader.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadException.cs" />

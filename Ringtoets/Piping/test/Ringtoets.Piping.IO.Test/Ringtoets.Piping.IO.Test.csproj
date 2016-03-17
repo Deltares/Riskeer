@@ -70,6 +70,7 @@
     <Compile Include="SoilProfile\StochasticSoilModelSegmentTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelDatabaseReaderTest.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfileProbabilityTest.cs" />
+    <Compile Include="SoilProfile\SoilDatabaseVersionReaderTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsCsvReaderTest.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsTest.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadExceptionTest.cs" />
