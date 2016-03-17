@@ -37,7 +37,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
     /// </summary>
     public class PipingSoilProfileReader : SqLiteDatabaseReaderBase, IRowBasedDatabaseReader
     {
-        private const string databaseRequiredVersion = "15.0.5.0";
         private const string pipingMechanismName = "Piping";
         private const string mechanismParameterName = "mechanism";
 
@@ -58,6 +57,18 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </exception>
         public PipingSoilProfileReader(string databaseFilePath) : base(databaseFilePath)
         {
+            using (var versionReader = new SoilDatabaseVersionReader(databaseFilePath))
+            {
+                try
+                {
+                    versionReader.VerifyVersion();
+                }
+                catch (CriticalFileReadException)
+                {
+                    CloseConnection();
+                    throw;
+                }
+            }
             InitializeReader();
         }
 
@@ -193,7 +204,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
             try
             {
                 PrepareReader();
-                CheckVersion();
                 GetCount();
             }
             catch (SQLiteException e)
@@ -213,11 +223,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <exception cref="SQLiteException">A query could not be executed on the database schema.</exception>
         private void PrepareReader()
         {
-            string versionQuery = string.Format(
-                "SELECT Value FROM _Metadata WHERE Key = 'VERSION' AND Value = '{0}';",
-                databaseRequiredVersion
-                );
-
             string countQuery = string.Format(string.Join(
                 " ",
                 "SELECT",
@@ -346,28 +351,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 layer2DPropertiesQuery,
                 mechanismParameterName);
 
-            dataReader = CreateDataReader(versionQuery + countQuery + query2D + query1D, new SQLiteParameter
+            dataReader = CreateDataReader(countQuery + query2D + query1D, new SQLiteParameter
             {
                 DbType = DbType.String,
                 Value = pipingMechanismName,
                 ParameterName = mechanismParameterName
             });
-        }
-
-        /// <summary>
-        /// Checks the version read from the metadata table against the <see cref="databaseRequiredVersion"/>.
-        /// </summary>
-        /// <exception cref="PipingSoilProfileReadException">Thrown when versions don't match.</exception>
-        private void CheckVersion()
-        {
-            if (!dataReader.HasRows)
-            {
-                Dispose();
-                throw new CriticalFileReadException(string.Format(
-                    Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_,
-                    databaseRequiredVersion));
-            }
-            dataReader.NextResult();
         }
 
         private void GetCount()

@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (SQLiteException exception)
             {
-                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilModelDatabaseReader_failed_to_read_database);
+                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
                 throw new CriticalFileReadException(message, exception);
             }
         }

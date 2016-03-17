@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             var dbFile = Path.Combine(testDataPath, dbName);
             var expectedMessage = new FileReaderErrorMessageBuilder(dbFile).
-                Build(String.Format(Resources.StochasticSoilModelDatabaseReader_failed_to_read_database, dbName));
+                Build(String.Format(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column, dbName));
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => new StochasticSoilModelDatabaseReader(dbFile).Dispose();
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
