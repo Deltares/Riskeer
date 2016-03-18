@@ -167,6 +167,10 @@ namespace Ringtoets.Piping.Forms.Views
                 {
                     return pipingCalculation.InputParameters.DampingFactorExit.Mean;
                 }
+                set
+                {
+                    pipingCalculation.InputParameters.DampingFactorExit.Mean = value;
+                }
             }
 
             public RoundedDouble PhreaticLevelExitMean
@@ -174,6 +178,10 @@ namespace Ringtoets.Piping.Forms.Views
                 get
                 {
                     return pipingCalculation.InputParameters.PhreaticLevelExit.Mean;
+                }
+                set
+                {
+                    pipingCalculation.InputParameters.PhreaticLevelExit.Mean = value;
                 }
             }
 
@@ -183,6 +191,10 @@ namespace Ringtoets.Piping.Forms.Views
                 {
                     return pipingCalculation.InputParameters.EntryPointL;
                 }
+                set
+                {
+                    pipingCalculation.InputParameters.EntryPointL = value;
+                }
             }
 
             public RoundedDouble ExitPointL
@@ -190,6 +202,10 @@ namespace Ringtoets.Piping.Forms.Views
                 get
                 {
                     return pipingCalculation.InputParameters.ExitPointL;
+                }
+                set
+                {
+                    pipingCalculation.InputParameters.ExitPointL = value;
                 }
             }
         }
