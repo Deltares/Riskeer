@@ -3,6 +3,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using log4net;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.InputParameterCalculation;
 using Resources = Ringtoets.Piping.Service.Properties.Resources;
 
 namespace Ringtoets.Piping.Service
@@ -121,7 +122,7 @@ namespace Ringtoets.Piping.Service
         {
             try
             {
-                input.ThicknessCoverageLayer.Mean = (RoundedDouble)PipingCalculationService.CalculateThicknessCoverageLayer(input);
+                input.ThicknessCoverageLayer.Mean = (RoundedDouble)InputParameterCalculationService.CalculateThicknessCoverageLayer(input.WaterVolumetricWeight, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), input.ExitPointL, input.SurfaceLine, input.SoilProfile);
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -133,7 +134,11 @@ namespace Ringtoets.Piping.Service
         {
             try
             {
-                input.PiezometricHeadExit = (RoundedDouble) PipingCalculationService.CalculatePiezometricHeadAtExit(input);
+                var assessmentLevel = input.AssessmentLevel;
+                var dampingFactorExit = PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue();
+                var phreaticLevelExit = PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue();
+
+                input.PiezometricHeadExit = (RoundedDouble)InputParameterCalculationService.CalculatePiezometricHeadAtExit(assessmentLevel, dampingFactorExit, phreaticLevelExit);
             }
             catch (ArgumentOutOfRangeException)
             {

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{D783543B-46A1-4848-A812-AF5A5259ED7E}</ProjectGuid>
+    <ProjectGuid>{81ADD2CC-0664-4827-9D91-9D7A5221364F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.Piping.Service.Test</RootNamespace>
-    <AssemblyName>Ringtoets.Piping.Service.Test</AssemblyName>
+    <RootNamespace>Ringtoets.Piping.InputParameterCalculation.TestUtil.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.InputParameterCalculation.TestUtil.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -42,46 +42,20 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Deltares.WTIPiping, Version=15.1.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.WTIPiping.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+    <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PipingCalculationActivityTest.cs" />
-    <Compile Include="PipingCalculationServiceTest.cs" />
-    <Compile Include="PipingInputSynchronizerTest.cs" />
-    <Compile Include="PipingSemiProbabilisticCalculationServiceTest.cs" />
+    <Compile Include="InputParameterCalculationServiceConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
-      <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
-      <Name>Ringtoets.Common.Data</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
-      <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
-      <Name>Ringtoets.HydraRing.Data</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.InputParameterCalculation\Ringtoets.Piping.InputParameterCalculation.csproj">
       <Project>{97F6406A-6338-4863-92A6-0D5C00A5F7C9}</Project>
       <Name>Ringtoets.Piping.InputParameterCalculation</Name>
@@ -89,14 +63,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
       <Name>Ringtoets.Piping.KernelWrapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
-      <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
-      <Name>Ringtoets.Piping.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
-      <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
-      <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.InputParameterCalculation.TestUtil\Ringtoets.Piping.InputParameterCalculation.TestUtil.csproj">
       <Project>{DAE86782-E531-42C1-88B2-E0DFED7FCFC9}</Project>
@@ -106,17 +72,6 @@
       <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
       <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
-      <Project>{955e574d-67ce-4347-aa6b-7df8a04ed754}</Project>
-      <Name>Ringtoets.Piping.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Service.TestUtil\Ringtoets.Piping.Service.TestUtil.csproj">
-      <Project>{c05b4f73-480e-46a4-b037-40954f8276dc}</Project>
-      <Name>Ringtoets.Piping.Service.TestUtil</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

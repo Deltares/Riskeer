@@ -19,10 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 
-namespace Ringtoets.Piping.KernelWrapper
+namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// Factory for creating design variables based on probabilistic distributions.

@@ -7,7 +7,6 @@ using Deltares.WTIPiping;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Service.TestUtil;
@@ -51,84 +50,6 @@ namespace Ringtoets.Piping.Service.Test
             // Assert
             Assert.IsFalse(isValid);
             Assert.AreSame(output, invalidPipingCalculation.Output);
-        }
-
-        [Test]
-        public void CalculateThicknessCoverageLayer_InValidPipingCalculationWithOutput_ReturnsNaN()
-        {
-            // Setup
-            PipingCalculation invalidPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
-
-            // Make invalid by having surfaceline partially above soil profile:
-            double highestLevelSurfaceLine = invalidPipingCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
-            var soilProfileTop = highestLevelSurfaceLine - 0.5;
-            var soilProfileBottom = soilProfileTop - 0.5;
-            invalidPipingCalculation.InputParameters.SoilProfile = new PipingSoilProfile("A", soilProfileBottom, new[]
-            {
-                new PipingSoilLayer(soilProfileTop)
-                {
-                    IsAquifer = true
-                }
-            }, 0);
-
-            // Call
-            var result = PipingCalculationService.CalculateThicknessCoverageLayer(invalidPipingCalculation.InputParameters);
-
-            // Assert
-            Assert.IsNaN(result);
-        }
-
-        [Test]
-        public void CalculateThicknessCoverageLayer_ValidInput_ReturnsThickness()
-        {
-            // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0, 0, 10),
-                new Point3D(20, 0, 10)
-            });
-
-            var soilProfile = new PipingSoilProfile(string.Empty, 0, new[]
-            {
-                new PipingSoilLayer(5)
-                {
-                    IsAquifer = true
-                },
-                new PipingSoilLayer(20)
-                {
-                    IsAquifer = false
-                }
-            }, 0);
-
-            PipingInput input = new PipingInput(new GeneralPipingInput())
-            {
-                ExitPointL = (RoundedDouble) 10,
-                SurfaceLine = surfaceLine,
-                SoilProfile = soilProfile
-            };
-
-            // Call
-            var thickness = PipingCalculationService.CalculateThicknessCoverageLayer(input);
-
-            // Assert
-            Assert.AreEqual(5, thickness);
-        }
-
-        [Test]
-        public void CalculatePiezometricHeadAtExit_Always_ReturnsResult()
-        {
-            // Setup
-            PipingInput input = new PipingInput(new GeneralPipingInput())
-            {
-                AssessmentLevel = (RoundedDouble) 0.0
-            };
-
-            // Call
-            var result = PipingCalculationService.CalculatePiezometricHeadAtExit(input);
-
-            // Assert
-            Assert.IsFalse(double.IsNaN(result));
         }
 
         [Test]
@@ -227,55 +148,6 @@ namespace Ringtoets.Piping.Service.Test
             }
         }
 
-        [Test]
-        public void CalculateThicknessCoverageLayer_CompleteInput_InputSetOnSubCalculator()
-        {
-            // Setup
-            PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
-            PipingInput input = validPipingCalculation.InputParameters;
-
-            using (new PipingCalculationServiceConfig())
-            {
-                // Call
-                PipingCalculationService.CalculateThicknessCoverageLayer(validPipingCalculation.InputParameters);
-
-                // Assert
-                var testFactory = (TestPipingSubCalculatorFactory) PipingCalculationService.SubCalculatorFactory;
-                var effectiveThicknessCalculator = testFactory.LastCreatedEffectiveThicknessCalculator;
-
-                Assert.AreEqual(input.ExitPointL.Value, effectiveThicknessCalculator.ExitPointXCoordinate);
-                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), effectiveThicknessCalculator.PhreaticLevel,
-                                Math.Pow(10.0, -input.PhreaticLevelExit.Mean.NumberOfDecimalPlaces));
-                AssertEqualSoilProfiles(input.SoilProfile, effectiveThicknessCalculator.SoilProfile);
-                AssertEqualSurfaceLines(input.SurfaceLine, effectiveThicknessCalculator.SurfaceLine);
-                Assert.AreEqual(input.WaterVolumetricWeight, effectiveThicknessCalculator.VolumicWeightOfWater);
-            }
-        }
-
-        [Test]
-        public void CalculatePiezometricHeadAtExit_CompleteInput_InputSetOnSubCalculator()
-        {
-            // Setup
-            PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
-            PipingInput input = validPipingCalculation.InputParameters;
-
-            using (new PipingCalculationServiceConfig())
-            {
-                // Call
-                PipingCalculationService.CalculatePiezometricHeadAtExit(validPipingCalculation.InputParameters);
-
-                // Assert
-                var testFactory = (TestPipingSubCalculatorFactory) PipingCalculationService.SubCalculatorFactory;
-                var piezometricHeadAtExitCalculator = testFactory.LastCreatedPiezometricHeadAtExitCalculator;
-
-                Assert.AreEqual(input.AssessmentLevel.Value, piezometricHeadAtExitCalculator.HRiver);
-                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.PhiPolder,
-                                GetAccuracy(input.PhreaticLevelExit.Mean));
-                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.RExit,
-                                GetAccuracy(input.DampingFactorExit.Mean));
-            }
-        }
-
         private void AssertSubCalculatorInputs(PipingInput input)
         {
             var testFactory = (TestPipingSubCalculatorFactory) PipingCalculationService.SubCalculatorFactory;
@@ -336,51 +208,6 @@ namespace Ringtoets.Piping.Service.Test
         private static double GetAccuracy(RoundedDouble roundedDouble)
         {
             return Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
-        }
-
-        private void AssertEqualSurfaceLines(RingtoetsPipingSurfaceLine pipingSurfaceLine, PipingSurfaceLine otherSurfaceLine)
-        {
-            AssertPointsAreEqual(pipingSurfaceLine.DitchDikeSide, otherSurfaceLine.DitchDikeSide);
-            AssertPointsAreEqual(pipingSurfaceLine.BottomDitchDikeSide, otherSurfaceLine.BottomDitchDikeSide);
-            AssertPointsAreEqual(pipingSurfaceLine.BottomDitchPolderSide, otherSurfaceLine.BottomDitchPolderSide);
-            AssertPointsAreEqual(pipingSurfaceLine.DitchPolderSide, otherSurfaceLine.DitchPolderSide);
-            AssertPointsAreEqual(pipingSurfaceLine.DikeToeAtPolder, otherSurfaceLine.DikeToeAtPolder);
-
-            Assert.AreEqual(pipingSurfaceLine.Points.Length, otherSurfaceLine.Points.Count);
-            for (int i = 0; i < pipingSurfaceLine.Points.Length; i++)
-            {
-                AssertPointsAreEqual(pipingSurfaceLine.Points[i], otherSurfaceLine.Points[i]);
-            }
-        }
-
-        private void AssertPointsAreEqual(Point3D point, PipingPoint otherPoint)
-        {
-            if (point == null)
-            {
-                Assert.IsNull(otherPoint);
-                return;
-            }
-            if (otherPoint == null)
-            {
-                Assert.Fail("Expected value for otherPoint.");
-            }
-            Assert.AreEqual(point.X, otherPoint.X);
-            Assert.AreEqual(point.Y, otherPoint.Y);
-            Assert.AreEqual(point.Z, otherPoint.Z);
-        }
-
-        private void AssertEqualSoilProfiles(PipingSoilProfile pipingProfile, PipingProfile otherPipingProfile)
-        {
-            Assert.AreEqual(pipingProfile.Bottom, otherPipingProfile.BottomLevel);
-            Assert.AreEqual(pipingProfile.Layers.First().Top, otherPipingProfile.TopLevel);
-            Assert.AreEqual(pipingProfile.Layers.Last(l => l.IsAquifer).Top, otherPipingProfile.BottomAquiferLayer.TopLevel);
-            Assert.AreEqual(pipingProfile.Layers.First(l => l.IsAquifer).Top, otherPipingProfile.TopAquiferLayer.TopLevel);
-
-            Assert.AreEqual(pipingProfile.Layers.Count(), otherPipingProfile.Layers.Count);
-            for (int i = 0; i < pipingProfile.Layers.Count(); i++)
-            {
-                Assert.AreEqual(pipingProfile.Layers.ElementAt(i).Top, otherPipingProfile.Layers[i].TopLevel);
-            }
         }
     }
 }

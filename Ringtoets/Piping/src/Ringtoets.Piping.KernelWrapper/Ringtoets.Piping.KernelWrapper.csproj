@@ -55,7 +55,6 @@
     <Compile Include="PipingCalculatorResult.cs" />
     <Compile Include="PipingProfileCreator.cs" />
     <Compile Include="PipingProfileCreatorException.cs" />
-    <Compile Include="PipingSemiProbabilisticDesignValueFactory.cs" />
     <Compile Include="PipingSurfaceLineCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-
+using Core.Common.Base.Data;
 using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper;
@@ -105,22 +105,6 @@ namespace Ringtoets.Piping.Service
             }
         }
 
-        /// <summary>
-        /// Calculates the thickness of the coverage layer based on the values of the <see cref="PipingInput"/>.
-        /// </summary>
-        /// <returns>The thickness of the coverage layer, or <c>NaN</c> if the thickness could not be calculated.</returns>
-        public static double CalculateThicknessCoverageLayer(PipingInput input)
-        {
-            try
-            {
-                return new PipingCalculator(CreateInputFromData(input), SubCalculatorFactory).CalculateThicknessCoverageLayer();
-            }
-            catch (PipingCalculatorException)
-            {
-                return double.NaN;
-            }
-        }
-
         private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters)
         {
             return new PipingCalculatorInput(
@@ -149,15 +133,6 @@ namespace Ringtoets.Piping.Service
                 inputParameters.SurfaceLine,
                 inputParameters.SoilProfile
                 );
-        }
-
-        /// <summary>
-        /// Calculates the piezometric head at the exit point based on the values of the <see cref="PipingInput"/>.
-        /// </summary>
-        /// <returns>The piezometric head at the exit point.</returns>
-        public static double CalculatePiezometricHeadAtExit(PipingInput input)
-        {
-            return new PipingCalculator(CreateInputFromData(input), SubCalculatorFactory).CalculatePiezometricHeadAtExit();
         }
     }
 }

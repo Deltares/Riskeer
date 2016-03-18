@@ -62,6 +62,7 @@
     <Compile Include="PipingFailureMechanism.cs" />
     <Compile Include="PipingInput.cs" />
     <Compile Include="PipingOutput.cs" />
+    <Compile Include="PipingSemiProbabilisticDesignValueFactory.cs" />
     <Compile Include="PipingSemiProbabilisticOutput.cs" />
     <Compile Include="PipingSoilLayer.cs" />
     <Compile Include="PipingSoilProfile.cs" />
