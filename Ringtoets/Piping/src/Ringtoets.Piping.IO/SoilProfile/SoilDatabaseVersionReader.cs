@@ -69,20 +69,25 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
             try
             {
-                using (SQLiteDataReader dataReader = CreateDataReader(checkVersionQuery, sqliteParameter))
-                {
-                    if (!dataReader.HasRows)
-                    {
-                        throw new CriticalFileReadException(String.Format(
-                            Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_,
-                            databaseRequiredVersion));
-                    }
-                }
+                ReadVersion(checkVersionQuery, sqliteParameter);
             }
             catch (SQLiteException exception)
             {
                 var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
                 throw new CriticalFileReadException(message, exception);
+            }
+        }
+
+        private void ReadVersion(string checkVersionQuery, SQLiteParameter sqliteParameter)
+        {
+            using (SQLiteDataReader dataReader = CreateDataReader(checkVersionQuery, sqliteParameter))
+            {
+                if (!dataReader.HasRows)
+                {
+                    throw new CriticalFileReadException(String.Format(
+                        Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_,
+                        databaseRequiredVersion));
+                }
             }
         }
     }

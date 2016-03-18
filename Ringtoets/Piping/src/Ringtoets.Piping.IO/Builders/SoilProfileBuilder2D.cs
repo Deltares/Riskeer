@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// <returns>The <see cref="SoilProfileBuilder2D"/>.</returns>
         /// <exception cref="SoilProfileBuilderException">Thrown when the <paramref name="soilLayer"/>'s geometry
         /// contains vertical segments the X-coordinate given for the construction of the 
-        /// <see cref="SoilProfileBuilder2D(string,double)"/>.</exception>
+        /// <see cref="SoilProfileBuilder2D(string,double,long)"/>.</exception>
         internal SoilProfileBuilder2D Add(SoilLayer2D soilLayer)
         {
             double newBottom;

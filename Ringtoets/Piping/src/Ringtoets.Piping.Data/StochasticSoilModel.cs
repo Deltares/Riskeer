@@ -25,23 +25,24 @@ using Core.Common.Base.Geometry;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// This class represents the probability of stochastic soil profile.
+    /// This class represents a stochastic soil model which consists out of a collection of <see cref="StochasticSoilProfile"/>. 
+    /// A stochastic soil model contains a segment for which the model applies.
     /// </summary>
-    public class StochasticSoilModelSegment
+    public class StochasticSoilModel
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StochasticSoilModelSegment"/>.
+        /// Creates a new instance of <see cref="StochasticSoilModel"/>.
         /// </summary>
         /// <param name="segmentSoilModelId">Database identifier of the stochastic soil model.</param>
         /// <param name="segmentSoilModelName">Name of the segment soil model.</param>
         /// <param name="segmentName">Name of the segment soil model segment.</param>
-        public StochasticSoilModelSegment(long segmentSoilModelId, string segmentSoilModelName, string segmentName)
+        public StochasticSoilModel(long segmentSoilModelId, string segmentSoilModelName, string segmentName)
         {
             SegmentSoilModelId = segmentSoilModelId;
             SegmentSoilModelName = segmentSoilModelName;
             SegmentName = segmentName;
-            SegmentPoints = new List<Point2D>();
-            StochasticSoilProfileProbabilities = new List<StochasticSoilProfileProbability>();
+            Geometry = new List<Point2D>();
+            StochasticSoilProfileProbabilities = new List<StochasticSoilProfile>();
         }
 
         /// <summary>
@@ -60,13 +61,13 @@ namespace Ringtoets.Piping.Data
         public string SegmentName { get; private set; }
 
         /// <summary>
-        /// Gets or sets the list of segment points.
+        /// Gets or sets the list of geometry points.
         /// </summary>
-        public List<Point2D> SegmentPoints { get; private set; }
+        public List<Point2D> Geometry { get; private set; }
 
         /// <summary>
-        /// Gets or sets the list of <see cref="StochasticSoilProfileProbability"/>.
+        /// Gets or sets the list of <see cref="StochasticSoilProfile"/>.
         /// </summary>
-        public List<StochasticSoilProfileProbability> StochasticSoilProfileProbabilities { get; private set; }
+        public List<StochasticSoilProfile> StochasticSoilProfileProbabilities { get; private set; }
     }
 }

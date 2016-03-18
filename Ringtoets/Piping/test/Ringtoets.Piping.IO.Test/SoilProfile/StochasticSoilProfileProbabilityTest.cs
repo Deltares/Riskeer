@@ -34,10 +34,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_Always_ExpectedValues(double probability, SoilProfileType soilProfileType, long soilProfileId)
         {
             // Call
-            StochasticSoilProfileProbability stochasticSoilProfileProbability = new StochasticSoilProfileProbability(probability, soilProfileType, soilProfileId);
+            StochasticSoilProfile stochasticSoilProfileProbability = new StochasticSoilProfile(probability, soilProfileType, soilProfileId);
 
             // Assert
-            Assert.IsInstanceOf<StochasticSoilProfileProbability>(stochasticSoilProfileProbability);
+            Assert.IsInstanceOf<StochasticSoilProfile>(stochasticSoilProfileProbability);
             Assert.AreEqual(probability, stochasticSoilProfileProbability.Probability);
             Assert.AreEqual(soilProfileType, stochasticSoilProfileProbability.SoilProfileType);
             Assert.AreEqual(soilProfileId, stochasticSoilProfileProbability.SoilProfileId);

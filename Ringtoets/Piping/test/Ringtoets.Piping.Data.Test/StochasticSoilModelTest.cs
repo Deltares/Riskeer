@@ -26,7 +26,7 @@ using Rhino.Mocks;
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
-    public class StochasticSoilModelSegmentTest
+    public class StochasticSoilModelTest
     {
         [Test]
         [TestCase(1234L, "", "")]
@@ -34,14 +34,14 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_Always_ExpectedValues(long segmentSoilModelId, string segmentSoilModelName, string segmentName)
         {
             // Call
-            StochasticSoilModelSegment stochasticSoilModelSegment = new StochasticSoilModelSegment(segmentSoilModelId, segmentSoilModelName, segmentName);
+            StochasticSoilModel stochasticSoilModelSegment = new StochasticSoilModel(segmentSoilModelId, segmentSoilModelName, segmentName);
 
             // Assert
-            Assert.IsInstanceOf<StochasticSoilModelSegment>(stochasticSoilModelSegment);
+            Assert.IsInstanceOf<StochasticSoilModel>(stochasticSoilModelSegment);
             Assert.AreEqual(segmentSoilModelId, stochasticSoilModelSegment.SegmentSoilModelId);
             Assert.AreEqual(segmentSoilModelName, stochasticSoilModelSegment.SegmentSoilModelName);
             Assert.AreEqual(segmentName, stochasticSoilModelSegment.SegmentName);
-            CollectionAssert.IsEmpty(stochasticSoilModelSegment.SegmentPoints);
+            CollectionAssert.IsEmpty(stochasticSoilModelSegment.Geometry);
             CollectionAssert.IsEmpty(stochasticSoilModelSegment.StochasticSoilProfileProbabilities);
         }
 
@@ -52,18 +52,18 @@ namespace Ringtoets.Piping.Data.Test
             const long expectedSegmentSoilModelId = 1234L;
             const string expectedSegmentSoilModelName = "someSegmentSoilModelName";
             const string expectedSegmentName = "someSegmentName";
-            StochasticSoilModelSegment stochasticSoilModelSegment = new StochasticSoilModelSegment(expectedSegmentSoilModelId, expectedSegmentSoilModelName, expectedSegmentName);
+            StochasticSoilModel stochasticSoilModelSegment = new StochasticSoilModel(expectedSegmentSoilModelId, expectedSegmentSoilModelName, expectedSegmentName);
             var point2D = new Point2D(1.0, 2.0);
 
             // Call
-            stochasticSoilModelSegment.SegmentPoints.Add(point2D);
+            stochasticSoilModelSegment.Geometry.Add(point2D);
 
             // Assert
             Assert.AreEqual(expectedSegmentSoilModelId, stochasticSoilModelSegment.SegmentSoilModelId);
             Assert.AreEqual(expectedSegmentSoilModelName, stochasticSoilModelSegment.SegmentSoilModelName);
             Assert.AreEqual(expectedSegmentName, stochasticSoilModelSegment.SegmentName);
-            Assert.AreEqual(1, stochasticSoilModelSegment.SegmentPoints.Count);
-            Assert.AreEqual(point2D, stochasticSoilModelSegment.SegmentPoints[0]);
+            Assert.AreEqual(1, stochasticSoilModelSegment.Geometry.Count);
+            Assert.AreEqual(point2D, stochasticSoilModelSegment.Geometry[0]);
         }
 
         [Test]
@@ -73,10 +73,10 @@ namespace Ringtoets.Piping.Data.Test
             const long expectedSegmentSoilModelId = 1234L;
             const string expectedSegmentSoilModelName = "someSegmentSoilModelName";
             const string expectedSegmentName = "someSegmentName";
-            StochasticSoilModelSegment stochasticSoilModelSegment = new StochasticSoilModelSegment(expectedSegmentSoilModelId, expectedSegmentSoilModelName, expectedSegmentName);
+            StochasticSoilModel stochasticSoilModelSegment = new StochasticSoilModel(expectedSegmentSoilModelId, expectedSegmentSoilModelName, expectedSegmentName);
 
             MockRepository mockRepository = new MockRepository();
-            var stochasticSoilProfileProbabilityMock = mockRepository.StrictMock<StochasticSoilProfileProbability>(1.0, null, null);
+            var stochasticSoilProfileProbabilityMock = mockRepository.StrictMock<StochasticSoilProfile>(1.0, null, null);
             mockRepository.ReplayAll();
 
             // Call

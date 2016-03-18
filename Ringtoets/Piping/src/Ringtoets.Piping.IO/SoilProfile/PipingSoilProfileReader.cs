@@ -57,18 +57,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </exception>
         public PipingSoilProfileReader(string databaseFilePath) : base(databaseFilePath)
         {
-            using (var versionReader = new SoilDatabaseVersionReader(databaseFilePath))
-            {
-                try
-                {
-                    versionReader.VerifyVersion();
-                }
-                catch (CriticalFileReadException)
-                {
-                    CloseConnection();
-                    throw;
-                }
-            }
+            VerifyVersion(databaseFilePath);
             InitializeReader();
         }
 
@@ -153,6 +142,22 @@ namespace Ringtoets.Piping.IO.SoilProfile
         public T Read<T>(string columnName)
         {
             return (T) dataReader[columnName];
+        }
+
+        private void VerifyVersion(string databaseFilePath)
+        {
+            using (var versionReader = new SoilDatabaseVersionReader(databaseFilePath))
+            {
+                try
+                {
+                    versionReader.VerifyVersion();
+                }
+                catch (CriticalFileReadException)
+                {
+                    CloseConnection();
+                    throw;
+                }
+            }
         }
 
         /// <summary>

@@ -79,8 +79,8 @@
     <Compile Include="RingtoetsPipingSurfaceLineTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SemiProbabilisticPipingInputTest.cs" />
-    <Compile Include="StochasticSoilModelSegmentTest.cs" />
-    <Compile Include="StochasticSoilProfileProbabilityTest.cs" />
+    <Compile Include="StochasticSoilModelTest.cs" />
+    <Compile Include="StochasticSoilProfileTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

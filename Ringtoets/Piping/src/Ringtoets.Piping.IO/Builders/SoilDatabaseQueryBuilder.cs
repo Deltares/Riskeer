@@ -25,13 +25,13 @@ using Ringtoets.Piping.IO.SoilProfile;
 namespace Ringtoets.Piping.IO.Builders
 {
     /// <summary>
-    /// Defines queries to execute on the Soil-Model database.
+    /// Defines queries to execute on the DSoil-Model database.
     /// </summary>
     public static class SoilDatabaseQueryBuilder
     {
         /// <summary>
         /// Returns the SQL query to execute to fetch Stochastic Soil Models 
-        /// of the Piping Mechanism from the Soil-Model database.
+        /// of the Piping Mechanism from the DSoil-Model database.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
         /// <remarks><see cref="System.Data.SQLite.SQLiteParameter"/> @ME_Name needs to be 
@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.IO.Builders
 
         /// <summary>
         /// Returns the SQL query to execute to fetch all Stochastic Soil Profiles 
-        /// from the Soil-Model database.
+        /// from the DSoil-Model database.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
         public static string GetAllStochasticSoilProfileQuery()
@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.IO.Builders
         }
 
         /// <summary>
-        /// Returns the SQL query to execute to check if version of the Soil-Model database is as expected.
+        /// Returns the SQL query to execute to check if version of the DSoil-Model database is as expected.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
         /// <remarks><see cref="System.Data.SQLite.SQLiteParameter"/> @Value needs to be 

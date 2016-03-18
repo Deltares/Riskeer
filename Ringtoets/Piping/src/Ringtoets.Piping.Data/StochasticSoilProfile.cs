@@ -22,17 +22,17 @@
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// This class represents the probability of stochastic soil profile.
+    /// This class couples a SoilProfile to a probability of occurrence.
     /// </summary>
-    public class StochasticSoilProfileProbability
+    public class StochasticSoilProfile
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StochasticSoilProfileProbability"/>.
+        /// Creates a new instance of <see cref="StochasticSoilProfile"/>.
         /// </summary>
         /// <param name="probability">Probability of the stochastic soil profile.</param>
         /// <param name="soilProfileType">Type of the stochastic soil profile.</param>
         /// <param name="soilProfileId">Database identifier of the stochastic soil profile.</param>
-        public StochasticSoilProfileProbability(double probability, SoilProfileType soilProfileType, long soilProfileId)
+        public StochasticSoilProfile(double probability, SoilProfileType soilProfileType, long soilProfileId)
         {
             Probability = probability;
             SoilProfileType = soilProfileType;

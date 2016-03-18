@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             var dbName = "emptyschema.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
-            IEnumerable<StochasticSoilModelSegment> stochasticSoilModelSegment;
+            IEnumerable<StochasticSoilModel> stochasticSoilModelSegment;
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -159,7 +159,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void GetStochasticSoilModelSegmentOfPiping_CompleteScenario_ReturnsExpectedValues()
         {
             // Setup
-            List<StochasticSoilModelSegment> segmentSoilModels;
+            List<StochasticSoilModel> segmentSoilModels;
             const string dbName = "complete.soil";
             var dbFile = Path.Combine(testDataPath, dbName);
             const int expectedSegmentSoilModels = 3;
@@ -192,36 +192,36 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             }
 
             // Assert
-            Assert.IsInstanceOf<IEnumerable<StochasticSoilModelSegment>>(segmentSoilModels);
-            CollectionAssert.AllItemsAreInstancesOfType(segmentSoilModels, typeof(StochasticSoilModelSegment));
+            Assert.IsInstanceOf<IEnumerable<StochasticSoilModel>>(segmentSoilModels);
+            CollectionAssert.AllItemsAreInstancesOfType(segmentSoilModels, typeof(StochasticSoilModel));
             Assert.AreEqual(expectedSegmentSoilModels, segmentSoilModels.Count);
 
-            StochasticSoilModelSegment stochasticSoilModelSegmentSoilModel1 = segmentSoilModels[0];
+            StochasticSoilModel stochasticSoilModelSegmentSoilModel1 = segmentSoilModels[0];
             Assert.AreEqual(expectedSegmentName1, stochasticSoilModelSegmentSoilModel1.SegmentName);
             Assert.AreEqual(expectedSegmentSoilModelName1, stochasticSoilModelSegmentSoilModel1.SegmentSoilModelName);
             Assert.AreEqual(expectedSegmentSoilModelId1, stochasticSoilModelSegmentSoilModel1.SegmentSoilModelId);
-            Assert.AreEqual(expectedSegmentSoilModelPoints1, stochasticSoilModelSegmentSoilModel1.SegmentPoints.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModelSegmentSoilModel1.SegmentPoints, typeof(Point2D));
+            Assert.AreEqual(expectedSegmentSoilModelPoints1, stochasticSoilModelSegmentSoilModel1.Geometry.Count);
+            CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModelSegmentSoilModel1.Geometry, typeof(Point2D));
             Assert.AreEqual(expectedSegmentSoilModelProbabilities1, stochasticSoilModelSegmentSoilModel1.StochasticSoilProfileProbabilities.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModelSegmentSoilModel1.StochasticSoilProfileProbabilities, typeof(StochasticSoilProfileProbability));
+            CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModelSegmentSoilModel1.StochasticSoilProfileProbabilities, typeof(StochasticSoilProfile));
 
-            StochasticSoilModelSegment stochasticSoilModelSegmentSoilModel2 = segmentSoilModels[1];
+            StochasticSoilModel stochasticSoilModelSegmentSoilModel2 = segmentSoilModels[1];
             Assert.AreEqual(expectedSegmentName2, stochasticSoilModelSegmentSoilModel2.SegmentName);
             Assert.AreEqual(expectedSegmentSoilModelName2, stochasticSoilModelSegmentSoilModel2.SegmentSoilModelName);
             Assert.AreEqual(expectedSegmentSoilModelId2, stochasticSoilModelSegmentSoilModel2.SegmentSoilModelId);
-            Assert.AreEqual(expectedSegmentSoilModelPoints2, stochasticSoilModelSegmentSoilModel2.SegmentPoints.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModelSegmentSoilModel2.SegmentPoints, typeof(Point2D));
+            Assert.AreEqual(expectedSegmentSoilModelPoints2, stochasticSoilModelSegmentSoilModel2.Geometry.Count);
+            CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModelSegmentSoilModel2.Geometry, typeof(Point2D));
             Assert.AreEqual(expectedSegmentSoilModelProbabilities2, stochasticSoilModelSegmentSoilModel2.StochasticSoilProfileProbabilities.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModelSegmentSoilModel2.StochasticSoilProfileProbabilities, typeof(StochasticSoilProfileProbability));
+            CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModelSegmentSoilModel2.StochasticSoilProfileProbabilities, typeof(StochasticSoilProfile));
 
-            StochasticSoilModelSegment stochasticSoilModelSegmentSoilModel3 = segmentSoilModels[2];
+            StochasticSoilModel stochasticSoilModelSegmentSoilModel3 = segmentSoilModels[2];
             Assert.AreEqual(expectedSegmentName3, stochasticSoilModelSegmentSoilModel3.SegmentName);
             Assert.AreEqual(expectedSegmentSoilModelName3, stochasticSoilModelSegmentSoilModel3.SegmentSoilModelName);
             Assert.AreEqual(expectedSegmentSoilModelId3, stochasticSoilModelSegmentSoilModel3.SegmentSoilModelId);
-            Assert.AreEqual(expectedSegmentSoilModelPoints3, stochasticSoilModelSegmentSoilModel3.SegmentPoints.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModelSegmentSoilModel3.SegmentPoints, typeof(Point2D));
+            Assert.AreEqual(expectedSegmentSoilModelPoints3, stochasticSoilModelSegmentSoilModel3.Geometry.Count);
+            CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModelSegmentSoilModel3.Geometry, typeof(Point2D));
             Assert.AreEqual(expectedSegmentSoilModelProbabilities3, stochasticSoilModelSegmentSoilModel3.StochasticSoilProfileProbabilities.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModelSegmentSoilModel3.StochasticSoilProfileProbabilities, typeof(StochasticSoilProfileProbability));
+            CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModelSegmentSoilModel3.StochasticSoilProfileProbabilities, typeof(StochasticSoilProfile));
         }
 
         [Test]
@@ -230,7 +230,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             var dbName = "withoutSoilModelTables.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
-            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.StochasticSoilModelDatabaseReader_failed_to_read_database);
+            string expectedMessage = new FileReaderErrorMessageBuilder(dbFile).Build(Resources.StochasticSoilModelDatabaseReader_Failed_to_read_database);
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -255,7 +255,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             var dbName = "invalidSegmentPoint.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
-            List<StochasticSoilModelSegment> stochasticSoilModelSegmentList = null;
+            List<StochasticSoilModel> stochasticSoilModelSegmentList = null;
             const string expectedLogMessage = "De coördinaten van het stochastisch ondergrondsmodel bevatten geen geldige waarde.";
 
             // Precondition
@@ -270,13 +270,13 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             }
 
             // Assert
-            Assert.IsInstanceOf<IEnumerable<StochasticSoilModelSegment>>(stochasticSoilModelSegmentList);
+            Assert.IsInstanceOf<IEnumerable<StochasticSoilModel>>(stochasticSoilModelSegmentList);
             Assert.AreEqual(2, stochasticSoilModelSegmentList.Count);
 
-            StochasticSoilModelSegment stochasticSoilModelSegment1 = stochasticSoilModelSegmentList[0];
+            StochasticSoilModel stochasticSoilModelSegment1 = stochasticSoilModelSegmentList[0];
             Assert.AreEqual(1, stochasticSoilModelSegment1.StochasticSoilProfileProbabilities.Count);
 
-            StochasticSoilModelSegment stochasticSoilModelSegment2 = stochasticSoilModelSegmentList[1];
+            StochasticSoilModel stochasticSoilModelSegment2 = stochasticSoilModelSegmentList[1];
             Assert.AreEqual(1, stochasticSoilModelSegment2.StochasticSoilProfileProbabilities.Count);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
@@ -287,7 +287,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             var dbName = "invalidStochasticSoilProfile.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
-            List<StochasticSoilModelSegment> stochasticSoilModelSegmentList = null;
+            List<StochasticSoilModel> stochasticSoilModelSegmentList = null;
             const string expectedLogMessage = "Het uitlezen van een stochastisch ondergrondsmodel misgelukt, deze zal worden overgeslagen.";
 
             // Precondition
@@ -302,7 +302,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             }
 
             // Assert
-            Assert.IsInstanceOf<IEnumerable<StochasticSoilModelSegment>>(stochasticSoilModelSegmentList);
+            Assert.IsInstanceOf<IEnumerable<StochasticSoilModel>>(stochasticSoilModelSegmentList);
             Assert.AreEqual(0, stochasticSoilModelSegmentList.Count);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));

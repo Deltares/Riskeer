@@ -24,7 +24,7 @@ using NUnit.Framework;
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
-    public class StochasticSoilProfileProbabilityTest
+    public class StochasticSoilProfileTest
     {
         [Test]
         [TestCase(1.0, SoilProfileType.SoilProfile1D, 123L)]
@@ -32,10 +32,10 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_Always_ExpectedValues(double probability, SoilProfileType soilProfileType, long soilProfileId)
         {
             // Call
-            StochasticSoilProfileProbability stochasticSoilProfileProbability = new StochasticSoilProfileProbability(probability, soilProfileType, soilProfileId);
+            StochasticSoilProfile stochasticSoilProfileProbability = new StochasticSoilProfile(probability, soilProfileType, soilProfileId);
 
             // Assert
-            Assert.IsInstanceOf<StochasticSoilProfileProbability>(stochasticSoilProfileProbability);
+            Assert.IsInstanceOf<StochasticSoilProfile>(stochasticSoilProfileProbability);
             Assert.AreEqual(probability, stochasticSoilProfileProbability.Probability);
             Assert.AreEqual(soilProfileType, stochasticSoilProfileProbability.SoilProfileType);
             Assert.AreEqual(soilProfileId, stochasticSoilProfileProbability.SoilProfileId);
