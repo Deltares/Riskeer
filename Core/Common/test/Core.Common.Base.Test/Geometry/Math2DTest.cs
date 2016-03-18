@@ -414,39 +414,12 @@ namespace Core.Common.Base.Test.Geometry
             }, lineSplits[3], doubleToleranceComparer);
         }
 
-        private double[] GetLengthsBasedOnReletative(double[] relativeLengths, IEnumerable<Point2D> lineGeometryPoints)
-        {
-            var lineLength = Math2D.ConvertLinePointsToLineSegments(lineGeometryPoints).Sum(s => s.Length);
-            return relativeLengths.Select(l => lineLength*l).ToArray();
-        }
-
-        private class Point2DComparerWithTolerance : IComparer<Point2D>, IComparer
-        {
-            private readonly double tolerance;
-
-            public Point2DComparerWithTolerance(double tolerance)
-            {
-                this.tolerance = tolerance;
-            }
-
-            public int Compare(object x, object y)
-            {
-                return Compare(x as Point2D, y as Point2D);
-            }
-
-            public int Compare(Point2D p0, Point2D p1)
-            {
-                double diff = p0.GetEuclideanDistanceTo(p1);
-                return Math.Abs(diff) < tolerance ? 0 : 1;
-            }
-        }
-
         [Test]
         [TestCaseSource("IntersectingSegments")]
         public void SingleSegmentIntersectionWithSingleSegment_DifferentLineSegmentsWithIntersections_ReturnsPoint(Point2D[] points, string testname = "")
         {
             // Call
-            var result = Math2D.SingleSegmentIntersectionWithSingleSegment(new Segment2D(points[0], points[1]), new Segment2D(points[2], points[3]));
+            var result = Math2D.SegmentIntersectionWithSegment(new Segment2D(points[0], points[1]), new Segment2D(points[2], points[3]));
 
             // Assert
             Assert.AreEqual(points[4], result);
@@ -458,7 +431,7 @@ namespace Core.Common.Base.Test.Geometry
         public void SingleSegmentIntersectionWithSingleSegment_DifferentParallelLineSegments_ReturnsPointWhenConnectedOtherwiseNull(Point2D[] points, string testname = "")
         {
             // Call
-            var result = Math2D.SingleSegmentIntersectionWithSingleSegment(new Segment2D(points[0], points[1]), new Segment2D(points[2], points[3]));
+            var result = Math2D.SegmentIntersectionWithSegment(new Segment2D(points[0], points[1]), new Segment2D(points[2], points[3]));
 
             // Assert
             if (Math2D.AreEqualPoints(points[1], points[2]))
@@ -473,10 +446,10 @@ namespace Core.Common.Base.Test.Geometry
 
         [Test]
         [TestCaseSource("NonIntersectingSegments")]
-        public void SingleSegmentIntersectionWithSingleSegment_DifferentLineSegmentsWithNoIntersection_ReturnsNull(Point2D[] points)
+        public void SegmentIntersectionWithSegment_DifferentLineSegmentsWithNoIntersection_ReturnsNull(Point2D[] points)
         {
             // Call
-            var result = Math2D.SingleSegmentIntersectionWithSingleSegment(new Segment2D(points[0], points[1]), new Segment2D(points[2], points[3]));
+            var result = Math2D.SegmentIntersectionWithSegment(new Segment2D(points[0], points[1]), new Segment2D(points[2], points[3]));
 
             // Assert
             Assert.IsNull(result);
@@ -491,7 +464,7 @@ namespace Core.Common.Base.Test.Geometry
             var start = 133;
 
             // Call
-            var result = Math2D.SingleSegmentIntersectionWithSingleSegment(new Segment2D(new Point2D(start, y1), new Point2D(start + 1, y2)), new Segment2D(new Point2D(start + 0.5, 0), new Point2D(start + 0.5, 1)));
+            var result = Math2D.SegmentIntersectionWithSegment(new Segment2D(new Point2D(start, y1), new Point2D(start + 1, y2)), new Segment2D(new Point2D(start + 0.5, 0), new Point2D(start + 0.5, 1)));
 
             // Assert
             Assert.IsNull(result);
@@ -696,6 +669,33 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(expectedLength, length);
+        }
+
+        private double[] GetLengthsBasedOnReletative(double[] relativeLengths, IEnumerable<Point2D> lineGeometryPoints)
+        {
+            var lineLength = Math2D.ConvertLinePointsToLineSegments(lineGeometryPoints).Sum(s => s.Length);
+            return relativeLengths.Select(l => lineLength * l).ToArray();
+        }
+
+        private class Point2DComparerWithTolerance : IComparer<Point2D>, IComparer
+        {
+            private readonly double tolerance;
+
+            public Point2DComparerWithTolerance(double tolerance)
+            {
+                this.tolerance = tolerance;
+            }
+
+            public int Compare(object x, object y)
+            {
+                return Compare(x as Point2D, y as Point2D);
+            }
+
+            public int Compare(Point2D p0, Point2D p1)
+            {
+                double diff = p0.GetEuclideanDistanceTo(p1);
+                return Math.Abs(diff) < tolerance ? 0 : 1;
+            }
         }
     }
 }

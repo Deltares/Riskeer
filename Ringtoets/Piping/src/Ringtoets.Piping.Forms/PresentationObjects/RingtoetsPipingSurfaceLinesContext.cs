@@ -29,15 +29,15 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// <summary>
     /// The presentation object for <see cref="PipingFailureMechanism.SurfaceLines"/>.
     /// </summary>
-    public class RingtoetsPipingSurfaceLineContext : IObservable
+    public class RingtoetsPipingSurfaceLinesContext : IObservable
     {
         /// <summary>
-        /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLineContext"/>.
+        /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLinesContext"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to wrap.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public RingtoetsPipingSurfaceLineContext(PipingFailureMechanism failureMechanism, AssessmentSectionBase assessmentSection)
+        public RingtoetsPipingSurfaceLinesContext(PipingFailureMechanism failureMechanism, AssessmentSectionBase assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
 
         #region Equatible
 
-        private bool Equals(RingtoetsPipingSurfaceLineContext other)
+        private bool Equals(RingtoetsPipingSurfaceLinesContext other)
         {
             return Equals(FailureMechanism, other.FailureMechanism);
         }
@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
             {
                 return false;
             }
-            return Equals((RingtoetsPipingSurfaceLineContext)obj);
+            return Equals((RingtoetsPipingSurfaceLinesContext)obj);
         }
 
         public override int GetHashCode()

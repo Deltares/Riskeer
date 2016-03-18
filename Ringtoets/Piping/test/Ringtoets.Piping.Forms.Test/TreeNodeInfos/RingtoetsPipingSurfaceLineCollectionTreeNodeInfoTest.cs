@@ -27,14 +27,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLineContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLinesContext));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(RingtoetsPipingSurfaceLineContext), info.TagType);
+            Assert.AreEqual(typeof(RingtoetsPipingSurfaceLinesContext), info.TagType);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new PipingFailureMechanism();
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
-            var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLineContext>(failureMechanism, assessmentSection);
+            var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLinesContext>(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new PipingFailureMechanism();
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
-            var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLineContext>(failureMechanism, assessmentSection);
+            var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLinesContext>(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new PipingFailureMechanism();
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
-            var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLineContext>(failureMechanism, assessmentSection);
+            var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLinesContext>(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             failureMechanism.SurfaceLines.Add(ringtoetsPipingSurfaceLine1);
             failureMechanism.SurfaceLines.Add(ringtoetsPipingSurfaceLine2);
 
-            var ringtoetsPipingSurfaceLineContext = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var ringtoetsPipingSurfaceLineContext = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             failureMechanism.SurfaceLines.Add(ringtoetsPipingSurfaceLine1);
             failureMechanism.SurfaceLines.Add(ringtoetsPipingSurfaceLine2);
 
-            var ringtoetsPipingSurfaceLineContext = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var ringtoetsPipingSurfaceLineContext = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 

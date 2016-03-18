@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreSame(pipingFailureMechanism, failureMechanismSectionsContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-            var surfaceLinesContext = (RingtoetsPipingSurfaceLineContext) inputsFolder.Contents[1];
+            var surfaceLinesContext = (RingtoetsPipingSurfaceLinesContext) inputsFolder.Contents[1];
             Assert.AreSame(pipingFailureMechanism, surfaceLinesContext.FailureMechanism);
             Assert.AreSame(assessmentSection, surfaceLinesContext.AssessmentSection);
 

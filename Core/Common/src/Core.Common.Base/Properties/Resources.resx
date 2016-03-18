@@ -165,19 +165,4 @@
   <data name="RoundedDoubleConverter_ConvertFrom_String_too_small_or_too_big_to_represent_as_double" xml:space="preserve">
     <value>De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden.</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline__0__does_not_correspond_to_current_referenceline" xml:space="preserve">
-    <value>Profielmeting {0} komt niet overeen met de huidige referentielijn en kan niet worden geïmporteerd.</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline__0__does_not_correspond_to_current_referenceline__1__" xml:space="preserve">
-    <value>Profielmeting {0} komt niet overeen met de huidige referentielijn en kan niet worden geïmporteerd. {1}</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system" xml:space="preserve">
-    <value>Dit kan komen doordat de profielmeting een lokaal coordinaat systeem heeft.</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_No_sections_imported" xml:space="preserve">
-    <value>{0} Er zijn geen profielmetingen geïmporteerd.</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvImporter_Import_Required_referenceline_missing" xml:space="preserve">
-    <value>Er is geen referentielijn beschikbaar om profielmetingen voor te definiëren.</value>
-  </data>
 </root>

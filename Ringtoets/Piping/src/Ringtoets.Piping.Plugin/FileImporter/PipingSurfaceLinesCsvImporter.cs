@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <para><c>Id;X1;Y1;Z1;...(Xn;Yn;Zn)</c></para>
     /// <para>Where Xn;Yn;Zn form the n-th 3D point describing the geometry of the surface line.</para>
     /// </summary>
-    public class PipingSurfaceLinesCsvImporter : FileImporterBase<RingtoetsPipingSurfaceLineContext>
+    public class PipingSurfaceLinesCsvImporter : FileImporterBase<RingtoetsPipingSurfaceLinesContext>
     {
         private const string characteristicPointsFileSubExtension = ".krp";
         private const string csvFileExtension = ".csv";
@@ -97,13 +97,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public override bool Import(object targetItem, string filePath)
         {
-            var targetObject = (RingtoetsPipingSurfaceLineContext) targetItem;
-
             if (!IsReferenceLineAvailable(targetItem))
             {
-                LogCriticalFileReadError(Resources.PipingSurfaceLinesCsvImporter_Import_Required_referenceline_missing);
+                LogCriticalFileReadError(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_Required_referenceline_missing);
                 return false;
             }
+
+            var surfaceLinesContext = (RingtoetsPipingSurfaceLinesContext)targetItem;
 
             var importSurfaceLinesResult = ReadPipingSurfaceLines(filePath);
             if (importSurfaceLinesResult.CriticalErrorOccurred)
@@ -129,14 +129,14 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            AddImportedDataToModel(targetObject, importSurfaceLinesResult.ImportedItems, importCharacteristicPointsResult.ImportedItems);
+            AddImportedDataToModel(surfaceLinesContext, importSurfaceLinesResult.ImportedItems, importCharacteristicPointsResult.ImportedItems);
 
             return true;
         }
 
         private static bool IsReferenceLineAvailable(object targetItem)
         {
-            return ((RingtoetsPipingSurfaceLineContext)targetItem).AssessmentSection.ReferenceLine != null;
+            return ((RingtoetsPipingSurfaceLinesContext)targetItem).AssessmentSection.ReferenceLine != null;
         }
 
         private ReadResult<T> HandleCriticalReadError<T>(Exception e)
@@ -148,12 +148,12 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void LogCriticalFileReadError(string message)
         {
-            var errorMessage = String.Format(Resources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_No_sections_imported,
+            var errorMessage = String.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_No_sections_imported,
                                              message);
             log.Error(errorMessage);
         }
 
-        private void AddImportedDataToModel(RingtoetsPipingSurfaceLineContext target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines, ICollection<CharacteristicPoints> readCharacteristicPointsLocations)
+        private void AddImportedDataToModel(RingtoetsPipingSurfaceLinesContext target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines, ICollection<CharacteristicPoints> readCharacteristicPointsLocations)
         {
             NotifyProgress(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, readSurfaceLines.Count, readSurfaceLines.Count);
 
@@ -188,7 +188,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private bool CheckReferenceLineInterSections(RingtoetsPipingSurfaceLine readSurfaceLine, ReferenceLine referenceLine)
         {
-            var surfaceLineSegments = Math2D.Convert3DPointsToLineSegments(readSurfaceLine.Points);
+            var surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(readSurfaceLine.Points.Select(p => new Point2D(p.X, p.Y)));
             var referenceLineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points);
 
             var intersections = Math2D.SegmentsIntersectionsWithSegments(referenceLineSegments, surfaceLineSegments).ToList();
@@ -200,13 +200,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             
             if (intersections.Count == 0)
             {
-                log.ErrorFormat(Resources.PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline__0__does_not_correspond_to_current_referenceline__1__,
+                log.ErrorFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline_1_,
                                 readSurfaceLine.Name,
-                                Resources.PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system);
+                                RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system);
             }
             else if (intersections.Count > 1)
             {
-                log.ErrorFormat(Resources.PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline__0__does_not_correspond_to_current_referenceline, readSurfaceLine.Name);
+                log.ErrorFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline, readSurfaceLine.Name);
             }
 
             return false;

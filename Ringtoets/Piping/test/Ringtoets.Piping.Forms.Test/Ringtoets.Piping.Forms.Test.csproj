@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PresentationObjects\PipingFailureMechanismContextTest.cs" />
-    <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLineContextTest.cs" />
+    <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLinesContextTest.cs" />
     <Compile Include="PropertyClasses\PipingFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingSemiProbabilisticOutputPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingCalculationReportTreeNodeInfoTest.cs" />

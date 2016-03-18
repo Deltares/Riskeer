@@ -133,7 +133,7 @@
     <value>Het bestand heeft een of meerdere multi-polylijnen, welke niet ondersteund worden.</value>
   </data>
   <data name="ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed" xml:space="preserve">
-    <value>Als u de referentielijn vervangt zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd.
+    <value>Als u de referentielijn vervangt, zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>

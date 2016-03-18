@@ -176,7 +176,7 @@ namespace Ringtoets.Common.IO
 
         private static ReadResult<ReferenceLine> HandleCriticalFileReadError(Exception e)
         {
-            var errorMessage = String.Format((string) Resources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
+            var errorMessage = String.Format(Resources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
                                              e.Message);
             log.Error(errorMessage);
             return new ReadResult<ReferenceLine>(true);

@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<RingtoetsPipingSurfaceLineContext>
+            yield return new TreeNodeInfo<RingtoetsPipingSurfaceLinesContext>
             {
                 Text = ringtoetsPipingSurfaceLine => PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
                 Image = ringtoetsPipingSurfaceLine => PipingFormsResources.FolderIcon,
@@ -417,7 +417,7 @@ namespace Ringtoets.Piping.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection),
+                new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection),
                 failureMechanism.SoilProfiles
             };
         }

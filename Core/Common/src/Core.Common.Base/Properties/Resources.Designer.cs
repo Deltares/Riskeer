@@ -152,54 +152,6 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielmeting {0} komt niet overeen met de huidige referentielijn en kan niet worden geïmporteerd..
-        /// </summary>
-        public static string PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline__0__does_not_correspond_to_current_referenceline {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline__0__doe" +
-                        "s_not_correspond_to_current_referenceline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profielmeting {0} komt niet overeen met de huidige referentielijn en kan niet worden geïmporteerd. {1}.
-        /// </summary>
-        public static string PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline__0__does_not_correspond_to_current_referenceline__1__ {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline__0__doe" +
-                        "s_not_correspond_to_current_referenceline__1__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dit kan komen doordat de profielmeting een lokaal coordinaat systeem heeft..
-        /// </summary>
-        public static string PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_cause" +
-                        "d_coordinates_being_local_coordinate_system", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} Er zijn geen profielmetingen geïmporteerd..
-        /// </summary>
-        public static string PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_No_sections_imported {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_No_sections_imported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is geen referentielijn beschikbaar om profielmetingen voor te definiëren..
-        /// </summary>
-        public static string PipingSurfaceLinesCsvImporter_Import_Required_referenceline_missing {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_Import_Required_referenceline_missing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Project.
         /// </summary>
         public static string Project_Constructor_Default_name {

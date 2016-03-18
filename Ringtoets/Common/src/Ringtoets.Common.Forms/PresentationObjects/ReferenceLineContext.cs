@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// </summary>
         public AssessmentSectionBase Parent { get; private set; }
 
-        #region Implementation: IEquatable<ReferenceLineContext>
+        #region Equatable
 
         private bool Equals(ReferenceLineContext other)
         {

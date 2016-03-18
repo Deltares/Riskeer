@@ -9,7 +9,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class RingtoetsPipingSurfaceLineContextTest
+    public class RingtoetsPipingSurfaceLinesContextTest
     {
         [Test]
         public void ParameteredConstructor_DefaultValues()
@@ -21,7 +21,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(context);
@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new RingtoetsPipingSurfaceLineContext(null, assessmentSection);
+            TestDelegate test = () => new RingtoetsPipingSurfaceLinesContext(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate test = () => new RingtoetsPipingSurfaceLineContext(failureMechanism, null);
+            TestDelegate test = () => new RingtoetsPipingSurfaceLinesContext(failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
             context.Attach(observer);
 
@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var presentationObject = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var presentationObject = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
             // Call
             presentationObject.Detach(observer);
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
             // Call
             bool isEqual = context.Equals(context);
@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             // Call
             bool isEqual = context.Equals(null);
 
@@ -150,9 +150,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
-            var otherContext = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var otherContext = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
             // Call
             bool isEqual = context.Equals(otherContext);
@@ -174,9 +174,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var otherFailureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
-            var otherContext = new RingtoetsPipingSurfaceLineContext(otherFailureMechanism, assessmentSection);
+            var otherContext = new RingtoetsPipingSurfaceLinesContext(otherFailureMechanism, assessmentSection);
 
             // Call
             bool isEqual = context.Equals(otherContext);
@@ -197,9 +197,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
-            var otherContext = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var otherContext = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             // Precondition
             Assert.True(context.Equals(otherContext));
 

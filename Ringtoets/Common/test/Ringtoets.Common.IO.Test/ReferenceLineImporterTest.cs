@@ -52,7 +52,7 @@ namespace Ringtoets.Common.IO.Test
             Assert.IsTrue(importSuccesful);
             Assert.IsInstanceOf<ReferenceLine>(assessmentSection.ReferenceLine);
             Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
-            Point2D[] point2Ds = Enumerable.ToArray<Point2D>(assessmentSection.ReferenceLine.Points);
+            Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
             Assert.AreEqual(803, point2Ds.Length);
             Assert.AreEqual(193515.719, point2Ds[467].X, 1e-6);
             Assert.AreEqual(511444.750, point2Ds[467].Y, 1e-6);
@@ -208,7 +208,7 @@ namespace Ringtoets.Common.IO.Test
             Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
-            var expectedText = "Als u de referentielijn vervangt zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
+            var expectedText = "Als u de referentielijn vervangt, zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
                                Environment.NewLine + "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
 
@@ -279,13 +279,13 @@ namespace Ringtoets.Common.IO.Test
             // Assert
             Assert.IsTrue(importSuccesful);
             Assert.AreNotSame(originalReferenceLine, assessmentSection.ReferenceLine);
-            Point2D[] point2Ds = Enumerable.ToArray<Point2D>(assessmentSection.ReferenceLine.Points);
+            Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
             Assert.AreEqual(803, point2Ds.Length);
             Assert.AreEqual(198237.375, point2Ds[123].X, 1e-6);
             Assert.AreEqual(514879.781, point2Ds[123].Y, 1e-6);
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
-            var expectedText = "Als u de referentielijn vervangt zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
+            var expectedText = "Als u de referentielijn vervangt, zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd." + Environment.NewLine +
                                Environment.NewLine + "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedText, messageBoxText);
 
@@ -452,7 +452,7 @@ namespace Ringtoets.Common.IO.Test
             Assert.IsTrue(importSuccesful);
             Assert.IsInstanceOf<ReferenceLine>(assessmentSection.ReferenceLine);
             Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
-            Point2D[] point2Ds = Enumerable.ToArray<Point2D>(assessmentSection.ReferenceLine.Points);
+            Point2D[] point2Ds = assessmentSection.ReferenceLine.Points.ToArray();
             Assert.AreEqual(803, point2Ds.Length);
             Assert.AreEqual(195203.563, point2Ds[321].X, 1e-6);
             Assert.AreEqual(512826.406, point2Ds[321].Y, 1e-6);

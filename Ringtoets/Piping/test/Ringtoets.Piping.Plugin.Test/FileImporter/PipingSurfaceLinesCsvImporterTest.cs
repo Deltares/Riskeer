@@ -30,13 +30,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         private readonly string krpFormat = "{0}.krp.csv";
         private readonly string surfaceLineFormat = "{0}.csv";
 
-        private ReferenceLine GetReferenceLine()
-        {
-            var referenceLine = new ReferenceLine();
-
-            return referenceLine;
-        }
-
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -44,7 +37,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importer = new PipingSurfaceLinesCsvImporter();
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase<RingtoetsPipingSurfaceLineContext>>(importer);
+            Assert.IsInstanceOf<FileImporterBase<RingtoetsPipingSurfaceLinesContext>>(importer);
             Assert.AreEqual(PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, importer.Name);
             Assert.AreEqual(RingtoetsFormsResources.Ringtoets_Category, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
@@ -64,7 +57,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var targetContext = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var targetContext = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
             var importer = new PipingSurfaceLinesCsvImporter();
 
@@ -86,7 +79,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var targetContext = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var targetContext = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
             var importer = new PipingSurfaceLinesCsvImporter();
 
@@ -110,7 +103,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
             var importer = new PipingSurfaceLinesCsvImporter();
 
@@ -149,7 +142,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -224,7 +217,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -280,7 +273,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -326,7 +319,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -364,7 +357,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -399,7 +392,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -433,7 +426,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -469,7 +462,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -509,7 +502,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 var failureMechanism = new PipingFailureMechanism();
                 mocks.ReplayAll();
 
-                var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+                var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
                 context.Attach(observer);
 
                 var importer = new PipingSurfaceLinesCsvImporter();
@@ -566,7 +559,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -615,7 +608,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -666,7 +659,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -715,7 +708,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -763,7 +756,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -810,7 +803,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -848,7 +841,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -892,7 +885,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -945,7 +938,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 var failureMechanism = new PipingFailureMechanism();
                 mocks.ReplayAll();
 
-                var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+                var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
                 context.Attach(observer);
 
                 var importer = new PipingSurfaceLinesCsvImporter();
@@ -1017,7 +1010,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -1069,7 +1062,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -1131,7 +1124,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -1187,7 +1180,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -1251,7 +1244,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -1319,7 +1312,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -1412,9 +1405,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var mesagge = "Profielmeting ArtifcialLocal komt niet overeen met de huidige referentielijn en kan niet worden geïmporteerd. Dit kan komen doordat de profielmeting een lokaal coordinaat systeem heeft.";
+            var mesagge = "Profielmeting ArtifcialLocal doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielmeting een lokaal coordinaat systeem heeft.";
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();            
@@ -1469,9 +1462,9 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var mesagge = "Profielmeting Rotterdam1 komt niet overeen met de huidige referentielijn en kan niet worden geïmporteerd.";
+            var mesagge = "Profielmeting Rotterdam1 doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd.";
 
-            var context = new RingtoetsPipingSurfaceLineContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
