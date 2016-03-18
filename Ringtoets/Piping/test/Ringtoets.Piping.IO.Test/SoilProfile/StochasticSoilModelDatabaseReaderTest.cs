@@ -288,7 +288,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var dbName = "invalidStochasticSoilProfile.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
             List<StochasticSoilModel> stochasticSoilModelSegmentList = null;
-            const string expectedLogMessage = "Het uitlezen van een stochastisch ondergrondsmodel misgelukt, deze zal worden overgeslagen.";
+            const string expectedLogMessage = "Het uitlezen van een stochastisch ondergrondsmodel is mislukt, deze zal worden overgeslagen.";
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
