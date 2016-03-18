@@ -82,11 +82,11 @@
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.KernelWrapper.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
       <Name>Ringtoets.Piping.KernelWrapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Calculation.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
       <Project>{27e0a5c9-3abf-426a-a3da-7d0b83a218c8}</Project>
       <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
     </ProjectReference>

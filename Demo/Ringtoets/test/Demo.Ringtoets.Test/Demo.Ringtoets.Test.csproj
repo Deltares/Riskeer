@@ -97,7 +97,7 @@
       <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
       <Name>Ringtoets.Integration.Plugin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.KernelWrapper.csproj">
+    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
       <Name>Ringtoets.Piping.KernelWrapper</Name>
     </ProjectReference>

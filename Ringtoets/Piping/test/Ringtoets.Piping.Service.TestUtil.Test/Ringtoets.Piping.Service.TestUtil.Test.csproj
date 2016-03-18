@@ -52,7 +52,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.KernelWrapper.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
       <Name>Ringtoets.Piping.KernelWrapper</Name>
     </ProjectReference>
@@ -60,7 +60,7 @@
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
       <Name>Ringtoets.Piping.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Calculation.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
       <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
       <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
     </ProjectReference>

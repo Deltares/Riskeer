@@ -83,7 +83,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.CommonTools.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.ProjectExplorer.Test", "Core\Plugins\test\Core.Plugins.ProjectExplorer.Test\Core.Plugins.ProjectExplorer.Test.csproj", "{07206938-9671-4DC7-BDE4-35B0F6E20DBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper", "Ringtoets\Piping\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.KernelWrapper.csproj", "{D64E4F0E-E341-496F-82B2-941AD202B4E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper", "Ringtoets\Piping\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj", "{D64E4F0E-E341-496F-82B2-941AD202B4E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Data", "Ringtoets\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj", "{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}"
 EndProject
@@ -98,9 +98,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Service", 
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Calculation.Test\Ringtoets.Piping.KernelWrapper.Test.csproj", "{91389DA2-3FF4-4559-90B3-4061549789DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper.Test", "Ringtoets\Piping\test\Ringtoets.Piping.KernelWrapper.Test\Ringtoets.Piping.KernelWrapper.Test.csproj", "{91389DA2-3FF4-4559-90B3-4061549789DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper.TestUtil", "Ringtoets\Piping\test\Ringtoets.Piping.Calculation.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj", "{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper.TestUtil", "Ringtoets\Piping\test\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj", "{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Data.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Data.Test\Ringtoets.Piping.Data.Test.csproj", "{19EB1C52-D90B-40F2-A7AF-364CC5D89F68}"
 EndProject
@@ -265,7 +265,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.Forms",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Charting.Forms", "Core\Components\src\Core.Components.Charting.Forms\Core.Components.Charting.Forms.csproj", "{2465CCA1-C505-4827-9454-4FD5FD9194CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper.TestUtil.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Calculation.TestUtil.Test\Ringtoets.Piping.KernelWrapper.TestUtil.Test.csproj", "{529C4919-27DE-4DDA-ABD6-537F21B3F223}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper.TestUtil.Test", "Ringtoets\Piping\test\Ringtoets.Piping.KernelWrapper.TestUtil.Test\Ringtoets.Piping.KernelWrapper.TestUtil.Test.csproj", "{529C4919-27DE-4DDA-ABD6-537F21B3F223}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Service.TestUtil", "Ringtoets\Piping\test\Ringtoets.Piping.Service.TestUtil\Ringtoets.Piping.Service.TestUtil.csproj", "{C05B4F73-480E-46A4-B037-40954F8276DC}"
 EndProject

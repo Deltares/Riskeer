@@ -73,7 +73,7 @@
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
       <Name>Ringtoets.Common.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.KernelWrapper.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
       <Name>Ringtoets.Piping.KernelWrapper</Name>
     </ProjectReference>
