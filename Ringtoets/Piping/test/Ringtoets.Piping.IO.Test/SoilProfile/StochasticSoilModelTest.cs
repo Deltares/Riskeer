@@ -27,7 +27,7 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Piping.IO.Test.SoilProfile
 {
     [TestFixture]
-    public class StochasticSoilModelSegmentTest
+    public class StochasticSoilModelTest
     {
         [Test]
         [TestCase(1234L, "", "")]

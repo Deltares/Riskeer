@@ -61,9 +61,19 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </summary>
         public bool HasNext { get; private set; }
 
-
+        /// <summary>
+        /// Reads the information for the next stochastic soil profile from the database and creates a 
+        /// <see cref="StochasticSoilProfile"/> instance of the information.
+        /// </summary>
+        /// <param name="stochasticSoilModelId">Identifier of the next <see cref="StochasticSoilModel"/> to look for.</param>
+        /// <returns>The next <see cref="StochasticSoilProfile"/> from the database, or <c>null</c> if no more soil profiles can be read.</returns>
+        /// <exception cref="StochasticSoilProfileReadException">Thrown when the database returned incorrect values for required properties.</exception>
         public StochasticSoilProfile ReadStochasticSoilProfile(long stochasticSoilModelId)
         {
+            if (!HasNext)
+            {
+                return null;
+            }
             MoveToStochasticSoilModelId(stochasticSoilModelId);
 
             try

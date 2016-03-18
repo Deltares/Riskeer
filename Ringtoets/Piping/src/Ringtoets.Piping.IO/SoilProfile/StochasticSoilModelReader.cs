@@ -28,7 +28,6 @@ using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Builders;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.SoilProfile
@@ -65,6 +64,12 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </summary>
         public bool HasNext { get; private set; }
 
+        /// <summary>
+        /// Reads the information for the next stochastic soil model from the database and creates a 
+        /// <see cref="StochasticSoilModel"/> instance of the information.
+        /// </summary>
+        /// <returns>The next <see cref="StochasticSoilModel"/> from the database, or <c>null</c> if no more soil models can be read.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect values for required properties.</exception>
         public StochasticSoilModel ReadStochasticSoilModel()
         {
             try
@@ -76,7 +81,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 if (exception is FormatException || exception is OverflowException || exception is InvalidCastException)
                 {
                     var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
-                    throw new StochasticSoilProfileReadException(message, exception);
+                    throw new CriticalFileReadException(message, exception);
                 }
                 throw;
             }
@@ -93,6 +98,10 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private StochasticSoilModel ReadPipingStochasticSoilModel()
         {
+            if (!HasNext)
+            {
+                return null;
+            }
             var stochasticSoilModelSegment = ReadStochasticSoilModelSegment();
             var currentSegmentSoilModelId = stochasticSoilModelSegment.SegmentSoilModelId;
             do

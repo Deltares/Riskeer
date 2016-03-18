@@ -28,7 +28,6 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
@@ -205,7 +204,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 TestDelegate test = () => stochasticSoilModelDatabaseReader.ReadStochasticSoilModel();
 
                 // Assert
-                StochasticSoilProfileReadException exception = Assert.Throws<StochasticSoilProfileReadException>(test);
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
 
@@ -239,6 +238,25 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 Assert.IsTrue(stochasticSoilModelDatabaseReader.HasNext);
             }
 
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadStochasticSoilProfile_EmptyDatabase_ReturnsNull()
+        {
+            // Setup
+            var dbName = "emptyschema.soil";
+            string dbFile = Path.Combine(testDataPath, dbName);
+
+            using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
+            {
+                // Call
+                StochasticSoilModel stochasticSoilModel = stochasticSoilModelDatabaseReader.ReadStochasticSoilModel();
+
+                // Assert
+                Assert.IsNull(stochasticSoilModel);
+                Assert.IsFalse(stochasticSoilModelDatabaseReader.HasNext);
+            }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
     }
