@@ -196,13 +196,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// Prepares a new data reader with queries for obtaining the profiles and updates the reader
         /// so that it points to the first row of the result set.
         /// </summary>
-        /// <exception cref="PipingSoilProfileReadException">Thrown when
-        /// <list type="bullet">
-        ///     <item>Version of the database does not match the required version.</item>
-        ///     <item>Version of the database could not be read.</item>
-        ///     <item>Amount of profiles in database could not be read.</item>
-        /// </list>
-        /// </exception>
+        /// <exception cref="PipingSoilProfileReadException">Thrown when the amount of profiles in database could not be read.</exception>
         /// <exception cref="CriticalFileReadException">A query could not be executed on the database schema.</exception>
         private void InitializeReader()
         {

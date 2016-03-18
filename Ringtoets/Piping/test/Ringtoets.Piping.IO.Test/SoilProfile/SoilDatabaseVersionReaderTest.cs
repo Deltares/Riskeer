@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
     [TestFixture]
     public class SoilDatabaseVersionReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "StochasticSoilModelDatabaseReader");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "SoilDatabaseVersionReader");
 
         [Test]
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()

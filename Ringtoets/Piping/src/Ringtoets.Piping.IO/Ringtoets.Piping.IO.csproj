@@ -49,14 +49,16 @@
     <Compile Include="Builders\SoilProfileBuilder1D.cs" />
     <Compile Include="Builders\SoilProfileBuilder2D.cs" />
     <Compile Include="Builders\SoilDatabaseQueryBuilder.cs" />
+    <Compile Include="Exceptions\StochasticSoilProfileReadException.cs" />
     <Compile Include="SoilProfile\MechanismDatabaseColumns.cs" />
     <Compile Include="SoilProfile\MetaDataDatabaseColumns.cs" />
     <Compile Include="SoilProfile\SegmentDatabaseColumns.cs" />
     <Compile Include="SoilProfile\SegmentPointsDatabaseColumns.cs" />
     <Compile Include="SoilProfile\StochasticSoilModelDatabaseColumns.cs" />
-    <Compile Include="SoilProfile\StochasticSoilModelDatabaseReader.cs" />
+    <Compile Include="SoilProfile\StochasticSoilModelReader.cs" />
     <Compile Include="SoilProfile\StochasticSoilProfileDatabaseColumns.cs" />
     <Compile Include="SoilProfile\SoilDatabaseVersionReader.cs" />
+    <Compile Include="SoilProfile\StochasticSoilProfileReader.cs" />
     <Compile Include="SurfaceLines\CharacteristicPoints.cs" />
     <Compile Include="SurfaceLines\CharacteristicPointsCsvReader.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadException.cs" />
@@ -110,10 +112,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System">
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.dll</HintPath>
     </Reference>

@@ -344,6 +344,24 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het stochastisch ondergrondsprofiel bevat geen geldige waarde..
+        /// </summary>
+        public static string StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value {
+            get {
+                return ResourceManager.GetString("StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to op regel {0}.
         /// </summary>
         public static string TextFile_On_LineNumber_0_ {

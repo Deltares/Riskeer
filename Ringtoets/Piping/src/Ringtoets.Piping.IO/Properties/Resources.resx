@@ -213,4 +213,10 @@
   <data name="StochasticSoilModelDatabaseReader_SegmentPoint_has_invalid_value" xml:space="preserve">
     <value>De coördinaten van het stochastisch ondergrondsmodel bevatten geen geldige waarde.</value>
   </data>
+  <data name="StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value" xml:space="preserve">
+    <value>Het stochastisch ondergrondsprofiel bevat geen geldige waarde.</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
 </root>
