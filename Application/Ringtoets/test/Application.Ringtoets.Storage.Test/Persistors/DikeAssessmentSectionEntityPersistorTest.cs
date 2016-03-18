@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -580,7 +581,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 Name = "Entity to delete"
             };
 
-            IList<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>
+            ObservableCollection<DikeAssessmentSectionEntity> parentNavigationProperty = new ObservableCollection<DikeAssessmentSectionEntity>
             {
                 entityToDelete
             };
@@ -635,7 +636,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 Name = "First entity to delete"
             };
 
-            IList<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>
+            ObservableCollection<DikeAssessmentSectionEntity> parentNavigationProperty = new ObservableCollection<DikeAssessmentSectionEntity>
             {
                 entityToDelete,
                 entityToUpdate
@@ -688,7 +689,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 DikeAssessmentSectionEntityId = 4567L,
                 Name = "Second entity to delete"
             };
-            IList<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>
+            ObservableCollection<DikeAssessmentSectionEntity> parentNavigationProperty = new ObservableCollection<DikeAssessmentSectionEntity>
             {
                 firstEntityToDelete,
                 secondEntityToDelete

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -354,7 +355,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism
             };
 
-            IList<FailureMechanismEntity> parentNavigationProperty = new List<FailureMechanismEntity>
+            ObservableCollection<FailureMechanismEntity> parentNavigationProperty = new ObservableCollection<FailureMechanismEntity>
             {
                 entityToDelete
             };
@@ -397,7 +398,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism
             };
 
-            IList<FailureMechanismEntity> parentNavigationProperty = new List<FailureMechanismEntity>
+            ObservableCollection<FailureMechanismEntity> parentNavigationProperty = new ObservableCollection<FailureMechanismEntity>
             {
                 entityToDelete,
                 entityToUpdate
@@ -443,7 +444,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 FailureMechanismEntityId = 4567L,
                 FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism
             };
-            IList<FailureMechanismEntity> parentNavigationProperty = new List<FailureMechanismEntity>
+            ObservableCollection<FailureMechanismEntity> parentNavigationProperty = new ObservableCollection<FailureMechanismEntity>
             {
                 firstEntityToDelete,
                 secondEntityToDelete

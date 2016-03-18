@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// <summary>
     /// Persistor for <see cref="ProjectEntity"/>.
     /// </summary>
-    public class ProjectEntityPersistor
+    public class ProjectEntityPersistor : IPersistor<ProjectEntity, Project>
     {
         private readonly IRingtoetsEntities dbContext;
         private readonly IDbSet<ProjectEntity> dbSet;
@@ -73,27 +73,8 @@ namespace Application.Ringtoets.Storage.Persistors
         public Project GetEntityAsModel()
         {
             var entry = dbSet.SingleOrDefault();
-            if (entry == null)
-            {
-                return null;
-            }
-            var project = converter.ConvertEntityToModel(entry);
 
-            var nrOfItems = entry.DikeAssessmentSectionEntities.Count;
-            var assessmentSections = new object[nrOfItems];
-
-            foreach (var sectionEntity in entry.DikeAssessmentSectionEntities)
-            {
-                assessmentSections[sectionEntity.Order] = dikeAssessmentSectionEntityPersistor.LoadModel(sectionEntity);
-            }
-
-            // Add to items sorted 
-            foreach (var assessmentSection in assessmentSections)
-            {
-                project.Items.Add(assessmentSection);
-            }
-
-            return project;
+            return LoadModel(entry);
         }
 
         /// <summary>
@@ -106,23 +87,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <exception cref="NotSupportedException">The parentNavigationProperty is read-only.</exception>
         public void InsertModel(Project project)
         {
-            if (project == null)
-            {
-                throw new ArgumentNullException("project", "Cannot update databaseSet when no project is set.");
-            }
-
-            var entity = new ProjectEntity();
-            dbSet.Add(entity);
-            insertedList.Add(entity, project);
-
-            converter.ConvertModelToEntity(project, entity);
-
-            if (project.StorageId > 0)
-            {
-                modifiedList.Add(entity);
-            }
-
-            InsertChildren(project, entity);
+            InsertModel(dbSet.Local, project, 0);
         }
 
         /// <summary>
@@ -139,6 +104,11 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <exception cref="NotSupportedException">The parentNavigationProperty is read-only.</exception>
         public void UpdateModel(Project model)
         {
+            UpdateModel(dbSet.Local, model, 0);
+        }
+
+        public void UpdateModel(ICollection<ProjectEntity> parentNavigationProperty, Project model, int order)
+        {
             if (model == null)
             {
                 throw new ArgumentNullException("model", "Cannot update databaseSet when no project is set.");
@@ -146,7 +116,7 @@ namespace Application.Ringtoets.Storage.Persistors
             ProjectEntity entity;
             try
             {
-                entity = dbSet.SingleOrDefault(db => db.ProjectEntityId == model.StorageId);
+                entity = parentNavigationProperty.SingleOrDefault(db => db.ProjectEntityId == model.StorageId);
             }
             catch (InvalidOperationException exception)
             {
@@ -160,6 +130,27 @@ namespace Application.Ringtoets.Storage.Persistors
             converter.ConvertModelToEntity(model, entity);
 
             UpdateChildren(model, entity);
+        }
+
+        public void InsertModel(ICollection<ProjectEntity> parentNavigationProperty, Project project, int order)
+        {
+            if (project == null)
+            {
+                throw new ArgumentNullException("project", "Cannot update databaseSet when no project is set.");
+            }
+
+            var entity = new ProjectEntity();
+            parentNavigationProperty.Add(entity);
+            insertedList.Add(entity, project);
+
+            converter.ConvertModelToEntity(project, entity);
+
+            if (project.StorageId > 0)
+            {
+                modifiedList.Add(entity);
+            }
+
+            InsertChildren(project, entity);
         }
 
         /// <summary>
@@ -196,12 +187,37 @@ namespace Application.Ringtoets.Storage.Persistors
             dikeAssessmentSectionEntityPersistor.PerformPostSaveActions();
         }
 
+        public Project LoadModel(ProjectEntity entity)
+        {
+            if (entity == null)
+            {
+                return null;
+            }
+            var project = converter.ConvertEntityToModel(entity);
+
+            var nrOfItems = entity.DikeAssessmentSectionEntities.Count;
+            var assessmentSections = new object[nrOfItems];
+
+            foreach (var sectionEntity in entity.DikeAssessmentSectionEntities)
+            {
+                assessmentSections[sectionEntity.Order] = dikeAssessmentSectionEntityPersistor.LoadModel(sectionEntity);
+            }
+
+            // Add to items sorted 
+            foreach (var assessmentSection in assessmentSections)
+            {
+                project.Items.Add(assessmentSection);
+            }
+
+            return project;
+        }
+
         /// <summary>
         /// Updates the children of <paramref name="project"/>, in reference to <paramref name="entity"/>, in the storage.
         /// </summary>
         /// <param name="project">The <see cref="Project"/> of which children need to be updated.</param>
         /// <param name="entity">Referenced <see cref="ProjectEntity"/>.</param>
-        private void UpdateChildren(Project project, ProjectEntity entity)
+        public void UpdateChildren(Project project, ProjectEntity entity)
         {
             var order = 0;
             foreach (var item in project.Items)
@@ -220,7 +236,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// </summary>
         /// <param name="project">The <see cref="Project"/> of which children need to be inserted.</param>
         /// <param name="entity">Referenced <see cref="ProjectEntity"/>.</param>
-        private void InsertChildren(Project project, ProjectEntity entity)
+        public void InsertChildren(Project project, ProjectEntity entity)
         {
             var order = 0;
             foreach (var item in project.Items)

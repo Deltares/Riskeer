@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -35,7 +36,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void Constructor_EmptyDataset_NewInstance()
         {
             // Setup
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>());
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
             mockRepository.ReplayAll();
@@ -53,7 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             // Setup
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
 
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>());
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
             mockRepository.ReplayAll();
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
@@ -73,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             // Setup
             const long storageId = 1234L;
             const string description = "description";
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>
             {
                 new ProjectEntity
                 {
@@ -104,7 +105,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const long storageId = 1234L;
             const string description = "description";
             string defaultProjectName = new Project().Name;
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>
             {
                 new ProjectEntity
                 {
@@ -133,7 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void GetEntityAsModel_MultipleEntitiesInDataSet_ThrowsInvalidOperationException()
         {
             // Setup
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>
             {
                 new ProjectEntity
                 {
@@ -164,7 +165,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             // Setup
             const long storageId = 1234L;
             const string description = "description";
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>
             {
                 new ProjectEntity
                 {
@@ -203,7 +204,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var dbSetMethodAddWasHit = 0;
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>());
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
             dbset.Stub(m => m.Add(new ProjectEntity())).IgnoreArguments().Return(new ProjectEntity())
@@ -227,20 +228,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             // Setup
             const long storageId = 1234L;
             const string description = "description";
-            ProjectEntity projectEntity = new ProjectEntity();
             Project project = new Project
             {
                 StorageId = storageId,
                 Description = description
             };
 
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
-            dbset.Expect(m => m.Add(null)).IgnoreArguments().WhenCalled(x =>
-            {
-                var insertedProjectEntity = x.Arguments.GetValue(0);
-                Assert.IsInstanceOf<ProjectEntity>(insertedProjectEntity);
-                projectEntity = (ProjectEntity) insertedProjectEntity;
-            }).Return(projectEntity);
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>());
 
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
@@ -252,6 +246,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             persistor.InsertModel(project);
 
             // Assert
+            var projectEntity = dbset.Local.First();
             Assert.AreNotEqual(project, projectEntity);
             Assert.AreEqual(storageId, projectEntity.ProjectEntityId);
             Assert.AreEqual(description, projectEntity.Description);
@@ -265,7 +260,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             // Setup
             const long storageId = 1234L;
             const string description = "description";
-            ProjectEntity projectEntity = new ProjectEntity();
             Project project = new Project
             {
                 StorageId = storageId,
@@ -276,13 +270,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 }
             };
 
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
-            dbset.Expect(m => m.Add(null)).IgnoreArguments().WhenCalled(x =>
-            {
-                var insertedProjectEntity = x.Arguments.GetValue(0);
-                Assert.IsInstanceOf<ProjectEntity>(insertedProjectEntity);
-                projectEntity = (ProjectEntity) insertedProjectEntity;
-            }).Return(projectEntity);
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>());
 
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
@@ -294,6 +282,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             persistor.InsertModel(project);
 
             // Assert
+            var projectEntity = dbset.Local.First();
             Assert.AreNotEqual(project, projectEntity);
             Assert.AreEqual(storageId, projectEntity.ProjectEntityId);
             Assert.AreEqual(description, projectEntity.Description);
@@ -306,7 +295,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void UpdateModel_NullData_ThrowsArgumentNullException()
         {
             // Setup
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>());
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
             mockRepository.ReplayAll();
@@ -331,7 +320,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             {
                 StorageId = storageId
             };
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>
             {
                 new ProjectEntity
                 {
@@ -364,7 +353,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             {
                 StorageId = storageId
             };
-            var projectEntities = new List<ProjectEntity>
+            var projectEntities = new ObservableCollection<ProjectEntity>
             {
                 new ProjectEntity
                 {
@@ -412,7 +401,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 ProjectEntityId = storageId
             };
 
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>
             {
                 entity
             });
@@ -453,7 +442,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 }
             };
 
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>
             {
                 projectEntity
             });
@@ -480,7 +469,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>());
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
             mockRepository.ReplayAll();
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
@@ -499,20 +488,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             const long storageId = 1234L;
-            ProjectEntity insertedProjectEntity = new ProjectEntity();
 
             Project project = new Project
             {
                 StorageId = 0L
             };
 
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, new List<ProjectEntity>());
-            dbset.Expect(x => x.Add(null)).IgnoreArguments().Return(insertedProjectEntity).WhenCalled(x =>
-            {
-                var insertedEntity = x.Arguments.GetValue(0);
-                Assert.IsInstanceOf<ProjectEntity>(insertedEntity);
-                insertedProjectEntity = (ProjectEntity) insertedEntity;
-            });
+            var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>());
 
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
@@ -523,6 +505,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             TestDelegate insertTest = () => persistor.InsertModel(project);
             Assert.DoesNotThrow(insertTest, "Precondition failed: InsertModel failed");
 
+            var insertedProjectEntity = dbset.Local.First();
             insertedProjectEntity.ProjectEntityId = storageId;
             Assert.AreEqual(0L, project.StorageId, "Precondition failed: Id should not have been set already");
 
@@ -548,7 +531,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 Description = "Entity to delete"
             };
 
-            IList<ProjectEntity> parentNavigationProperty = new List<ProjectEntity>
+            ObservableCollection<ProjectEntity> parentNavigationProperty = new ObservableCollection<ProjectEntity>
             {
                 entityToDelete,
                 new ProjectEntity
@@ -603,7 +586,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 ProjectEntityId = 4567L,
                 Description = "Second entity to delete"
             };
-            IList<ProjectEntity> parentNavigationProperty = new List<ProjectEntity>
+            ObservableCollection<ProjectEntity> parentNavigationProperty = new ObservableCollection<ProjectEntity>
             {
                 firstEntityToDelete,
                 secondEntityToDelete,
