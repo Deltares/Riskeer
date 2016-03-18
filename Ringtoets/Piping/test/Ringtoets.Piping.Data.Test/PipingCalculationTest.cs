@@ -155,78 +155,78 @@ namespace Ringtoets.Piping.Data.Test
         public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
-            var data = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = new TestPipingOutput()
             };
 
             // Call
-            data.ClearOutput();
+            calculation.ClearOutput();
 
             // Assert
-            Assert.IsNull(data.Output);
+            Assert.IsNull(calculation.Output);
         }
 
         [Test]
         public void HasOutput_OutputNull_ReturnsFalse()
         {
             // Setup
-            var data = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = null
             };
 
             // Call & Assert
-            Assert.IsFalse(data.HasOutput);
+            Assert.IsFalse(calculation.HasOutput);
         }
 
         [Test]
         public void HasOutput_OutputSet_ReturnsTrue()
         {
             // Setup
-            var data = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = new TestPipingOutput()
             };
 
             // Call & Assert
-            Assert.IsTrue(data.HasOutput);
+            Assert.IsTrue(calculation.HasOutput);
         }
 
         [Test]
         public void ClearHydraulicBoundaryLocation_Always_SetHydraulicBoundaryLocationToNull()
         {
             // Setup
-            var data = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1.0, 2.0);
-            data.InputParameters.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            calculation.InputParameters.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Precondition
-            Assert.AreSame(hydraulicBoundaryLocation, data.InputParameters.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
 
             // Call
-            data.ClearHydraulicBoundaryLocation();
+            calculation.ClearHydraulicBoundaryLocation();
 
             // Assert
-            Assert.IsNull(data.InputParameters.HydraulicBoundaryLocation);
+            Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
         [Test]
         public void ClearHydraulicBoundaryLocation_Always_SetAssessmentLevelToNaN()
         {
             // Setup
-            var data = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var assessmentLevel = new RoundedDouble(2, 7.60);
-            data.InputParameters.AssessmentLevel = assessmentLevel;
+            calculation.InputParameters.AssessmentLevel = assessmentLevel;
 
             // Precondition
-            Assert.AreEqual(assessmentLevel, data.InputParameters.AssessmentLevel);
+            Assert.AreEqual(assessmentLevel, calculation.InputParameters.AssessmentLevel);
 
             // Call
-            data.ClearHydraulicBoundaryLocation();
+            calculation.ClearHydraulicBoundaryLocation();
 
             // Assert
-            Assert.IsNaN(data.InputParameters.AssessmentLevel);
+            Assert.IsNaN(calculation.InputParameters.AssessmentLevel);
         }
     }
 }

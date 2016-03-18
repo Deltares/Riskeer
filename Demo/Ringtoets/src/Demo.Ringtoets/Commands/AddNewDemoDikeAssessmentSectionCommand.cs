@@ -83,6 +83,8 @@ namespace Demo.Ringtoets.Commands
                     hydraulicBoundaryDatabaseImporter.Import(new HydraulicBoundaryDatabaseContext(demoAssessmentSection));
                 }
             }
+
+            SetHydraulicBoundaryLocationValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
         }
 
         private void InitializeDemoFailureMechanismSections(DikeAssessmentSection demoAssessmentSection)
@@ -120,7 +122,6 @@ namespace Demo.Ringtoets.Commands
             calculation.InputParameters.SoilProfile = pipingFailureMechanism.SoilProfiles.First(sp => sp.Name == "W1-6_0_1D1");
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
 
-            SetHydraulicBoundaryLocationValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
             calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble) 3;
             calculation.InputParameters.NotifyObservers();
         }
