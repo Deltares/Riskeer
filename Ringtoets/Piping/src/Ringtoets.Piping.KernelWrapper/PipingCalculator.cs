@@ -31,7 +31,7 @@ using HeaveCalculator = Ringtoets.Piping.KernelWrapper.SubCalculator.HeaveCalcul
 namespace Ringtoets.Piping.KernelWrapper
 {
     /// <summary>
-    /// This class represents a combination of piping sub-calculations, which together can be used
+    /// This class represents a combination of piping sub calculations, which together can be used
     /// to assess based on piping.
     /// </summary>
     public class PipingCalculator
@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// </summary>
         /// <param name="input">The <see cref="PipingCalculatorInput"/> containing all the values required
         /// for performing a piping calculation.</param>
-        /// <param name="factory"></param>
+        /// <param name="factory">The factory responsible for creating the sub calculators.</param>
         /// <exception cref="ArgumentNullException"><paramref name="input"/> or <paramref name="factory"/> is <c>null</c>.</exception>
         public PipingCalculator(PipingCalculatorInput input, IPipingSubCalculatorFactory factory)
         {
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// contains the results of all sub calculations.
         /// </summary>
         /// <returns>A <see cref="PipingCalculatorResult"/> containing the results of the sub calculations.</returns>
-        /// <exception cref="PipingCalculatorException">Thrown when any of the invocations of the sub-calculations from the kernel throws an Exception.</exception>
+        /// <exception cref="PipingCalculatorException">Thrown when any of the invocations of the sub calculations from the kernel throws an Exception.</exception>
         public PipingCalculatorResult Calculate()
         {
             var upliftResult = CalculateUplift();
@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <item>surface at exit point's x-coordinate is higher than the soil profile</item>
         /// <item>surface line is <c>null</c></item>
         /// <item>soil profile is <c>null</c></item>
-        /// <item>soil profile's aquifer layer</item>
+        /// <item>soil profile's aquifer layer is not set</item>
         /// </list></exception>
         public double CalculateThicknessCoverageLayer()
         {
@@ -323,10 +323,10 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <summary>
         /// Determines the effective stress for a one layer profile.
         /// </summary>
-        /// <param name="thicknessOfCoverageLayer">The thickness of aquitard layer.</param>
-        /// <param name="volumicWeightOfCoverageLayer">The saturated volumic weight of aquitard layer.</param>
-        /// <param name="waterVolumetricWeight"></param>
-        /// <returns></returns>
+        /// <param name="thicknessOfCoverageLayer">The thickness of the aquitard layer.</param>
+        /// <param name="volumicWeightOfCoverageLayer">The saturated volumic weight of the aquitard layer.</param>
+        /// <param name="waterVolumetricWeight">The volumetric weight of water.</param>
+        /// <returns>The effective stress.</returns>
         private static double DetermineEffectiveStressForOneLayerProfile(double thicknessOfCoverageLayer, double volumicWeightOfCoverageLayer, double waterVolumetricWeight)
         {
             return thicknessOfCoverageLayer * (volumicWeightOfCoverageLayer - waterVolumetricWeight);

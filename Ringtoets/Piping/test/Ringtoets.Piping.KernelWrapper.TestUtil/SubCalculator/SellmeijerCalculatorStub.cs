@@ -6,7 +6,8 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
     /// <summary>
     /// Stub for the real Sellmeijer sub calculator of piping.
     /// </summary>
-    public class SellmeijerCalculatorStub : ISellmeijerCalculator {
+    public class SellmeijerCalculatorStub : ISellmeijerCalculator
+    {
         public double BeddingAngle { get; set; }
         public double D70 { get; set; }
         public double D70Mean { get; set; }
@@ -25,9 +26,8 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         public double WhitesDragCoefficient { get; set; }
         public double Zp { get; private set; }
         public double FoSp { get; private set; }
-        public void Calculate()
-        {
-        }
+
+        public void Calculate() {}
 
         public List<string> Validate()
         {

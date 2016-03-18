@@ -6,7 +6,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
     [TestFixture]
     public class EffectiveThicknessCalculatorStubTest
     {
-
         [Test]
         public void DefaultConstructor_PropertiesSet()
         {
@@ -19,7 +18,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             Assert.IsNull(stub.SoilProfile);
             Assert.IsNull(stub.SurfaceLine);
             Assert.AreEqual(0, stub.VolumicWeightOfWater);
-            
+
             Assert.AreEqual(0, stub.EffectiveHeight);
             Assert.AreEqual(0, stub.EffectiveStress);
         }
@@ -35,6 +34,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
 
             // Assert
             Assert.DoesNotThrow(call);
-        }  
+        }
     }
 }

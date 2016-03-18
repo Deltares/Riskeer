@@ -48,6 +48,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
 
             // Assert
             Assert.DoesNotThrow(call);
-        }  
+        }
     }
 }

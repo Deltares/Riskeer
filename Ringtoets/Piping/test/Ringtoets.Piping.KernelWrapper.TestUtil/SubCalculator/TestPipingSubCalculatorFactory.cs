@@ -8,6 +8,12 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
     /// </summary>
     public class TestPipingSubCalculatorFactory : IPipingSubCalculatorFactory
     {
+        public EffectiveThicknessCalculatorStub LastCreatedEffectiveThicknessCalculator { get; private set; }
+        public UpliftCalculatorStub LastCreatedUpliftCalculator { get; private set; }
+        public SellmeijerCalculatorStub LastCreatedSellmeijerCalculator { get; private set; }
+        public HeaveCalculatorStub LastCreatedHeaveCalculator { get; private set; }
+        public PiezoHeadCalculatorStub LastCreatedPiezometricHeadAtExitCalculator { get; private set; }
+
         public IUpliftCalculator CreateUpliftCalculator()
         {
             LastCreatedUpliftCalculator = new UpliftCalculatorStub();
@@ -37,11 +43,5 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
             LastCreatedPiezometricHeadAtExitCalculator = new PiezoHeadCalculatorStub();
             return LastCreatedPiezometricHeadAtExitCalculator;
         }
-
-        public EffectiveThicknessCalculatorStub LastCreatedEffectiveThicknessCalculator { get; private set; }
-        public UpliftCalculatorStub LastCreatedUpliftCalculator { get; private set; }
-        public SellmeijerCalculatorStub LastCreatedSellmeijerCalculator { get; private set; }
-        public HeaveCalculatorStub LastCreatedHeaveCalculator { get; private set; }
-        public PiezoHeadCalculatorStub LastCreatedPiezometricHeadAtExitCalculator { get; private set; }
     }
 }

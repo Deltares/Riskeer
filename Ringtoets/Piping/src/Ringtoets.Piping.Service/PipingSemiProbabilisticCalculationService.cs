@@ -5,7 +5,7 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Piping.Service
 {
     /// <summary>
-    /// This class is responsible for calculating a factor of safety for piping based on the sub-calculations.
+    /// This class is responsible for calculating a factor of safety for piping based on the sub calculations.
     /// </summary>
     public class PipingSemiProbabilisticCalculationService
     {

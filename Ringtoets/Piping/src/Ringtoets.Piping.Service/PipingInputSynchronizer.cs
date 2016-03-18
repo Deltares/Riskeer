@@ -7,6 +7,9 @@ using Resources = Ringtoets.Piping.Service.Properties.Resources;
 
 namespace Ringtoets.Piping.Service
 {
+    /// <summary>
+    /// Class responsible for synchronizing piping input.
+    /// </summary>
     public class PipingInputSynchronizer : IObserver
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PipingInputSynchronizer));

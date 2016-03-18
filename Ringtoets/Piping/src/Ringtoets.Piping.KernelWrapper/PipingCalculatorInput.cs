@@ -58,18 +58,17 @@ namespace Ringtoets.Piping.KernelWrapper
         /// in the piping sub calculations.
         /// </summary>
         /// <param name="waterVolumetricWeight">The volumetric weight of water. [kN/m³]</param>
-        /// <param name="saturatedVolumicWeightOfCoverageLayer"></param>
+        /// <param name="saturatedVolumicWeightOfCoverageLayer">The volumic weight of the coverage layer when saturated.</param>
         /// <param name="upliftModelFactor">The calculation value used to account for uncertainty in the model for uplift.</param>
         /// <param name="assessmentLevel">The outside high water level. [m]</param>
         /// <param name="piezometricHeadExit">The piezometric head at the exit point. [m]</param>
         /// <param name="dampingFactorExit">The damping factor at the exit point. </param>
         /// <param name="phreaticLevelExit">The phreatic level at the exit point. [m]</param>
-        /// <param name="piezometricHeadPolder">The piezometric head in the hinterland. [m]</param>
         /// <param name="criticalHeaveGradient">The critical exit gradient for heave.</param>
         /// <param name="thicknessCoverageLayer">The total thickness of the coverage layer at the exit point. [m]</param>
         /// <param name="sellmeijerModelFactor">The calculation value used to account for uncertainty in the model for Sellmeijer.</param>
         /// <param name="sellmeijerReductionFactor">The reduction factor Sellmeijer.</param>
-        /// <param name="seepageLength">The horizontal distance between entree and exit point. [m]</param>
+        /// <param name="seepageLength">The horizontal distance between entry and exit point. [m]</param>
         /// <param name="sandParticlesVolumicWeight">The (lowerbound) volumic weight of sand grain material of a sand layer under water. [kN/m³]</param>
         /// <param name="whitesDragCoefficient">The White's drag coefficient.</param>
         /// <param name="diameter70">The sieve size through which 70% fraction of the grains of the top part of the aquifer passes. [m]</param>
@@ -228,7 +227,7 @@ namespace Ringtoets.Piping.KernelWrapper
         }
 
         /// <summary>
-        /// Gets the horizontal distance between entree and exit point.
+        /// Gets the horizontal distance between entry and exit point.
         /// [m]
         /// </summary>
         public double SeepageLength

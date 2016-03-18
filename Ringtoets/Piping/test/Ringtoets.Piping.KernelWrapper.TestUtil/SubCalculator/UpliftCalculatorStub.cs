@@ -6,7 +6,8 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
     /// <summary>
     /// Stub for the real uplift sub calculator of piping.
     /// </summary>
-    public class UpliftCalculatorStub : IUpliftCalculator {
+    public class UpliftCalculatorStub : IUpliftCalculator
+    {
         public double EffectiveStress { get; set; }
         public double HExit { get; set; }
         public double HRiver { get; set; }
@@ -17,9 +18,8 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         public double VolumetricWeightOfWater { get; set; }
         public double Zu { get; private set; }
         public double FoSu { get; private set; }
-        public void Calculate()
-        {
-        }
+
+        public void Calculate() {}
 
         public List<string> Validate()
         {

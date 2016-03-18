@@ -15,6 +15,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
             // Assert
             Assert.IsInstanceOf<IUpliftCalculator>(calculator);
             Assert.AreEqual(double.NaN, calculator.Zu);
-        }  
+            Assert.AreEqual(double.NaN, calculator.FoSu);
+        }
     }
 }

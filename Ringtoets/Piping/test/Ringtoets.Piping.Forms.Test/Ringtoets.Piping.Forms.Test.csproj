@@ -155,10 +155,6 @@
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
-      <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
-      <Name>Ringtoets.Piping.KernelWrapper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
@@ -171,10 +167,6 @@
       <Project>{1D3D58B6-EF7E-401E-92A0-104067D222EE}</Project>
       <Name>Ringtoets.Piping.Plugin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
-      <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
-      <Name>Ringtoets.Piping.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
       <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
       <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
@@ -182,10 +174,6 @@
     <ProjectReference Include="..\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
       <Project>{955e574d-67ce-4347-aa6b-7df8a04ed754}</Project>
       <Name>Ringtoets.Piping.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Service.TestUtil\Ringtoets.Piping.Service.TestUtil.csproj">
-      <Project>{C05B4F73-480E-46A4-B037-40954F8276DC}</Project>
-      <Name>Ringtoets.Piping.Service.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

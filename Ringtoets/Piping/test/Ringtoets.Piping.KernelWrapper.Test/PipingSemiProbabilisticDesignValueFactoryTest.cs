@@ -23,7 +23,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         }
 
         [Test]
-        public void GetSaturatedVolumicWeightOfCoverageLayer_ValidPipingCalculation_CreateDesignVariableForThicknessCoverageLayer()
+        public void GetSaturatedVolumicWeightOfCoverageLayer_ValidPipingCalculation_CreateDesignVariableForSaturatedVolumicWeightOfCoverageLayer()
         {
             // Setup
             var inputParameters = new PipingInput(new GeneralPipingInput());

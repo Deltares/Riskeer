@@ -98,7 +98,6 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the outside high water level.
         /// [m]
         /// </summary>
-        /// <exception cref="ArgumentException"><paramref name="value"/> is <see cref="double.NaN"/>.</exception>
         public RoundedDouble AssessmentLevel
         {
             get
@@ -152,7 +151,7 @@ namespace Ringtoets.Piping.Data
 
         /// <summary>
         /// Gets or sets the l-coordinate of the exit point, which, together with
-        /// the l-coordinate of the exit point, is used to determine the seepage 
+        /// the l-coordinate of the entry point, is used to determine the seepage 
         /// length of <see cref="PipingInput"/>.
         /// [m]
         /// </summary>
@@ -339,7 +338,7 @@ namespace Ringtoets.Piping.Data
         public NormalDistribution PhreaticLevelExit { get; set; }
 
         /// <summary>
-        /// Gets or sets the horizontal distance between entree and exit point.
+        /// Gets or sets the horizontal distance between entry and exit point.
         /// [m]
         /// </summary>
         public LognormalDistribution SeepageLength { get; set; }
@@ -377,7 +376,7 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the volumic weight of the saturated coverage layer.
         /// </summary>
         public ShiftedLognormalDistribution SaturatedVolumicWeightOfCoverageLayer { get; set; }
-        
+
         #endregion
 
         private void UpdateEntryAndExitPoint()

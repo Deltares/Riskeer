@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Call
             TestDelegate call = () => new PipingCalculator(new TestPipingInput().AsRealInput(), null);
-            
+
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "IPipingSubCalculatorFactory required for creating a PipingCalculator.");
         }

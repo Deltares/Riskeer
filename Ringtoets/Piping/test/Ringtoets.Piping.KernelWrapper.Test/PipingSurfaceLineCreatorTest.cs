@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.X).ToArray(), actual.Points.Select(p => p.X).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Y).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Count()), actual.Points.Select(p => p.Type));
+            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Length), actual.Points.Select(p => p.Type));
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Y).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Count()), actual.Points.Select(p => p.Type));
+            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Length), actual.Points.Select(p => p.Type));
         }
 
         [Test]
@@ -76,28 +76,28 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             };
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D (1.0, 1.0, 2.2), 
-                new Point3D (2.0, 3.0, 4.4), // Outlier from line specified by extrema
-                new Point3D (3.0, 4.0, 7.7),
+                new Point3D(1.0, 1.0, 2.2),
+                new Point3D(2.0, 3.0, 4.4), // Outlier from line specified by extrema
+                new Point3D(3.0, 4.0, 7.7)
             });
 
             // Call
             PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            var length = Math.Sqrt(2 * 2 + 3 * 3);
-            const double secondCoordinateFactor = (2.0 * 1.0 + 3.0 * 2.0) / (2.0 * 2.0 + 3.0 * 3.0);
+            var length = Math.Sqrt(2*2 + 3*3);
+            const double secondCoordinateFactor = (2.0*1.0 + 3.0*2.0)/(2.0*2.0 + 3.0*3.0);
             var expectedCoordinatesX = new[]
             {
                 0.0,
-                secondCoordinateFactor * length,
+                secondCoordinateFactor*length,
                 length
             };
             Assert.AreEqual(name, actual.Name);
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(0, surfaceLine.Points.Count()).ToArray(), actual.Points.Select(p => p.Y).ToArray());
+            CollectionAssert.AreEqual(Enumerable.Repeat(0, surfaceLine.Points.Length).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Count()), actual.Points.Select(p => p.Type));
+            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Length), actual.Points.Select(p => p.Type));
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             };
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D (1.0, 1.0, 2.2), 
+                new Point3D(1.0, 1.0, 2.2)
             });
 
             // Call
@@ -120,13 +120,13 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Assert
             var expectedCoordinatesX = new[]
             {
-                0.0,
+                0.0
             };
             Assert.AreEqual(name, actual.Name);
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(0, surfaceLine.Points.Count()).ToArray(), actual.Points.Select(p => p.Y).ToArray());
+            CollectionAssert.AreEqual(Enumerable.Repeat(0, surfaceLine.Points.Length).ToArray(), actual.Points.Select(p => p.Y).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Count()), actual.Points.Select(p => p.Type));
+            CollectionAssert.AreEqual(Enumerable.Repeat(PipingCharacteristicPointType.None, surfaceLine.Points.Length), actual.Points.Select(p => p.Type));
         }
 
         [Test]
@@ -156,10 +156,10 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             {
                 Name = name
             };
-            var point = new Point3D (1.0, 1.0, 2.2);
+            var point = new Point3D(1.0, 1.0, 2.2);
             surfaceLine.SetGeometry(new[]
             {
-                point, 
+                point
             });
             surfaceLine.SetDikeToeAtPolderAt(point);
 
@@ -184,7 +184,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var point = new Point3D(1.0, 1.0, 2.2);
             surfaceLine.SetGeometry(new[]
             {
-                point, 
+                point
             });
             surfaceLine.SetDitchDikeSideAt(point);
 
@@ -209,7 +209,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var point = new Point3D(1.0, 1.0, 2.2);
             surfaceLine.SetGeometry(new[]
             {
-                point, 
+                point
             });
             surfaceLine.SetBottomDitchDikeSideAt(point);
 
@@ -234,7 +234,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var point = new Point3D(1.0, 1.0, 2.2);
             surfaceLine.SetGeometry(new[]
             {
-                point, 
+                point
             });
             surfaceLine.SetBottomDitchPolderSideAt(point);
 
@@ -259,7 +259,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var point = new Point3D(1.0, 1.0, 2.2);
             surfaceLine.SetGeometry(new[]
             {
-                point, 
+                point
             });
             surfaceLine.SetDitchPolderSideAt(point);
 

@@ -37,6 +37,10 @@ namespace Ringtoets.Piping.Service
     public static class PipingCalculationService
     {
         private static readonly ILog pipingCalculationLogger = LogManager.GetLogger(typeof(PipingCalculation));
+
+        /// <summary>
+        /// The <see cref="IPipingSubCalculatorFactory"/> to use for creating piping sub calculators.
+        /// </summary>
         public static IPipingSubCalculatorFactory SubCalculatorFactory = new PipingSubCalculatorFactory();
 
         /// <summary>
@@ -44,7 +48,7 @@ namespace Ringtoets.Piping.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="PipingCalculation"/> for which to validate the values.</param>
-        /// <returns>False if <paramref name="calculation"/> contains validation errors; True otherwise.</returns>
+        /// <returns><c>False</c> if <paramref name="calculation"/> contains validation errors; <c>True</c> otherwise.</returns>
         public static bool Validate(PipingCalculation calculation)
         {
             pipingCalculationLogger.Info(String.Format(Resources.Validation_Subject_0_started_Time_1_,
@@ -104,7 +108,7 @@ namespace Ringtoets.Piping.Service
         /// <summary>
         /// Calculates the thickness of the coverage layer based on the values of the <see cref="PipingInput"/>.
         /// </summary>
-        /// <returns>The thickness of the coverage layer, or -1 if the thickness could not be calculated.</returns>
+        /// <returns>The thickness of the coverage layer, or <c>NaN</c> if the thickness could not be calculated.</returns>
         public static double CalculateThicknessCoverageLayer(PipingInput input)
         {
             try
@@ -147,6 +151,10 @@ namespace Ringtoets.Piping.Service
                 );
         }
 
+        /// <summary>
+        /// Calculates the piezometric head at the exit point based on the values of the <see cref="PipingInput"/>.
+        /// </summary>
+        /// <returns>The piezometric head at the exit point.</returns>
         public static double CalculatePiezometricHeadAtExit(PipingInput input)
         {
             return new PipingCalculator(CreateInputFromData(input), SubCalculatorFactory).CalculatePiezometricHeadAtExit();
