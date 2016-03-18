@@ -204,11 +204,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 return PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(data.WrappedData);
             }
-            set
-            {
-                data.WrappedData.SeepageLength = value.Distribution;
-                data.WrappedData.NotifyObservers();
-            }
         }
 
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
@@ -221,11 +216,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 return PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(data.WrappedData);
             }
-            set
-            {
-                data.WrappedData.ThicknessCoverageLayer = value.Distribution;
-                data.WrappedData.NotifyObservers();
-            }
         }
 
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
@@ -237,11 +227,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(data.WrappedData);
-            }
-            set
-            {
-                data.WrappedData.ThicknessAquiferLayer = value.Distribution;
-                data.WrappedData.NotifyObservers();
             }
         }
 

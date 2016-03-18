@@ -123,6 +123,63 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             Assert.AreEqual(designVariable.GetDesignValue(), designValuePropertyDescriptor.GetValue(new object()));
         }
 
+        [Test]
+        public void GetProperties_TypeConverterPropertyDecoratedWithReadOnlyAttribute_ReturnMeanAndStandardDeviationAsReadOnly()
+        {
+            // Setup
+            var distribution = new NormalDistribution(1);
+            var designVariable = new NormalDistributionDesignVariable(distribution);
+            var converter = new NormalDistributionDesignVariableTypeConverter();
+
+            var classWithDecoratedProperty = new ClassWithReadOnlyDesignVariable();
+            PropertyDescriptor propertyWithReadonlyAttributeDescriptor = TypeDescriptor.GetProperties(classWithDecoratedProperty)[0];
+
+            var mocks = new MockRepository();
+            var context = mocks.Stub<ITypeDescriptorContext>();
+            context.Stub(c => c.PropertyDescriptor).Return(propertyWithReadonlyAttributeDescriptor);
+            context.Stub(c => c.Instance).Return(designVariable);
+            mocks.ReplayAll();
+
+            // Call
+            var properties = converter.GetProperties(context, designVariable);
+
+            // Assert
+            Assert.IsNotNull(properties);
+            Assert.AreEqual(4, properties.Count);
+
+            var distributionTypePropertyDescriptor = properties[0];
+            Assert.AreEqual(typeof(string), distributionTypePropertyDescriptor.PropertyType);
+            Assert.IsTrue(distributionTypePropertyDescriptor.IsReadOnly);
+            Assert.AreEqual("Type verdeling", distributionTypePropertyDescriptor.DisplayName);
+            Assert.AreEqual("Het soort kansverdeling waarin deze parameter gedefinieerd wordt.", distributionTypePropertyDescriptor.Description);
+            Assert.AreEqual("DistributionType", distributionTypePropertyDescriptor.Name);
+            Assert.AreEqual("Normaal", distributionTypePropertyDescriptor.GetValue(new object()));
+
+            var meanPropertyDescriptor = properties[1];
+            Assert.AreEqual(distribution.GetType(), meanPropertyDescriptor.ComponentType);
+            Assert.AreEqual(typeof(RoundedDouble), meanPropertyDescriptor.PropertyType);
+            Assert.IsTrue(meanPropertyDescriptor.IsReadOnly);
+            Assert.AreEqual("Verwachtingswaarde", meanPropertyDescriptor.DisplayName);
+            Assert.AreEqual("De gemiddelde waarde van de normale verdeling.", meanPropertyDescriptor.Description);
+
+            var stdPropertyDescriptor = properties[2];
+            Assert.AreEqual(distribution.GetType(), stdPropertyDescriptor.ComponentType);
+            Assert.AreEqual(typeof(RoundedDouble), stdPropertyDescriptor.PropertyType);
+            Assert.IsTrue(stdPropertyDescriptor.IsReadOnly);
+            Assert.AreEqual("Standaardafwijking", stdPropertyDescriptor.DisplayName);
+            Assert.AreEqual("De standaardafwijking van de normale verdeling.", stdPropertyDescriptor.Description);
+
+            var designValuePropertyDescriptor = properties[3];
+            Assert.AreEqual(typeof(RoundedDouble), designValuePropertyDescriptor.PropertyType);
+            Assert.IsTrue(designValuePropertyDescriptor.IsReadOnly);
+            Assert.AreEqual("Rekenwaarde", designValuePropertyDescriptor.DisplayName);
+            Assert.AreEqual("De representatieve waarde die gebruikt wordt door de berekening.", designValuePropertyDescriptor.Description);
+            Assert.AreEqual("DesignValue", designValuePropertyDescriptor.Name);
+            Assert.AreEqual(designVariable.GetDesignValue(), designValuePropertyDescriptor.GetValue(new object()));
+
+            mocks.VerifyAll();
+        }
+
         #region Integration tests
 
         [Test]
@@ -131,8 +188,12 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GivenPipingInputParameterContextPropertiesInDynamicPropertyBag_WhenSettingNewValue_ThenPipingInputUpdatesObservers(int propertyIndexToChange)
         {
             // Scenario
+            var classWithProperty = new ClassWithDesignVariable();
+            PropertyDescriptor propertyDescriptor = TypeDescriptor.GetProperties(classWithProperty)[0];
+
             var mocks = new MockRepository();
             var typeDescriptorContextMock = mocks.StrictMock<ITypeDescriptorContext>();
+            typeDescriptorContextMock.Stub(tdc => tdc.PropertyDescriptor).Return(propertyDescriptor);
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
 
             var observer = mocks.StrictMock<IObserver>();
@@ -177,5 +238,26 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         }
 
         #endregion
+
+        private class ClassWithReadOnlyDesignVariable
+        {
+            public ClassWithReadOnlyDesignVariable()
+            {
+                Property = new NormalDistributionDesignVariable(new NormalDistribution(3));
+            }
+
+            [ReadOnly(true)]
+            public DesignVariable<NormalDistribution> Property { get; set; }
+        }
+
+        private class ClassWithDesignVariable
+        {
+            public ClassWithDesignVariable()
+            {
+                Property = new NormalDistributionDesignVariable(new NormalDistribution(3));
+            }
+
+            public DesignVariable<NormalDistribution> Property { get; set; }
+        }
     }
 }

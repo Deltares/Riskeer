@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
+
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
@@ -42,7 +43,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
     /// distributions to the property editor.
     /// </summary>
     /// <typeparam name="T">Type of distribution</typeparam>
-    public abstract class DesignVariableTypeConverter<T> : TypeConverter where T:IDistribution
+    public abstract class DesignVariableTypeConverter<T> : TypeConverter where T : IDistribution
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
@@ -63,17 +64,18 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             IObservable observableParent = GetObservableOwnerOfDistribution(context);
+            bool allParametersAreReadonly = PropertyIsReadOnly(context);
 
             var designVariable = (DesignVariable<T>)value;
-            PropertyDescriptorCollection propertyDescriptorCollection = TypeDescriptor.GetProperties(designVariable.Distribution);
-            var properties = new PropertyDescriptor[Parameters.Length+2];
+            PropertyDescriptorCollection propertyDescriptorCollection = TypeDescriptor.GetProperties(designVariable.Distribution, attributes);
+            var properties = new PropertyDescriptor[Parameters.Length + 2];
             properties[0] = new SimpleReadonlyPropertyDescriptorItem(PipingFormsResources.DesignVariableTypeConverter_DestributionType_DisplayName,
                                                                      PipingFormsResources.DesignVariableTypeConverter_DistributionType_Description,
                                                                      "DistributionType",
                                                                      DistributionShortName);
             for (int i = 0; i < Parameters.Length; i++)
             {
-                properties[i+1] = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i], observableParent);
+                properties[i + 1] = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i], observableParent, allParametersAreReadonly);
             }
             properties[Parameters.Length + 1] = new SimpleReadonlyPropertyDescriptorItem(PipingFormsResources.DesignVariableTypeConverter_DesignValue_DisplayName,
                                                                                          PipingFormsResources.DesignVariableTypeConverter_DesignValue_Description,
@@ -81,6 +83,13 @@ namespace Ringtoets.Piping.Forms.TypeConverters
                                                                                          designVariable.GetDesignValue());
 
             return new PropertyDescriptorCollection(properties);
+        }
+
+        private static bool PropertyIsReadOnly(ITypeDescriptorContext context)
+        {
+            return context != null &&
+                   context.PropertyDescriptor != null &&
+                   context.PropertyDescriptor.Attributes.Matches(ReadOnlyAttribute.Yes);
         }
 
         /// <summary>
@@ -98,16 +107,23 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         /// </summary>
         protected abstract ParameterDefinition<T>[] Parameters { get; }
 
-        private static PropertyDescriptor CreatePropertyDescriptor(PropertyDescriptorCollection originalProperties, ParameterDefinition<T> parameter, IObservable observableParent)
+        private static PropertyDescriptor CreatePropertyDescriptor(PropertyDescriptorCollection originalProperties, ParameterDefinition<T> parameter, IObservable observableParent, bool isReadOnly)
         {
             PropertyDescriptor originalPropertyDescriptor = originalProperties.Find(parameter.PropertyName, false);
             var reroutedPropertyDescriptor = new RoutedPropertyDescriptor(originalPropertyDescriptor, o => ((DesignVariable<T>)o).Distribution);
-            return new TextPropertyDescriptorDecorator(reroutedPropertyDescriptor,
-                                                       parameter.Symbol,
-                                                       parameter.Description)
+            var propertyDescriptor = new TextPropertyDescriptorDecorator(reroutedPropertyDescriptor,
+                                                                         parameter.Symbol,
+                                                                         parameter.Description)
             {
                 ObservableParent = observableParent
             };
+            if (isReadOnly)
+            {
+                return new ReadOnlyPropertyDescriptorDecorator(propertyDescriptor);
+            }
+
+            propertyDescriptor.ObservableParent = observableParent;
+            return propertyDescriptor;
         }
 
         private static IObservable GetObservableOwnerOfDistribution(ITypeDescriptorContext context)
@@ -127,7 +143,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             //       might want to reconsider how we want to propagate IObservable updates!
             var inputParameterContextProperties = dynamicPropertyBag.WrappedObject as PipingInputContextProperties;
             return inputParameterContextProperties != null ?
-                       ((PipingInputContext)inputParameterContextProperties.Data).WrappedData:
+                       ((PipingInputContext)inputParameterContextProperties.Data).WrappedData :
                        null;
         }
 
@@ -173,11 +189,6 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             public string PropertyName { get; private set; }
 
             /// <summary>
-            /// Method to retrieve the value of the parameter from a distribution.
-            /// </summary>
-            public Func<DistributionType, double> GetValue { get; private set; }
-
-            /// <summary>
             /// Description text of the parameter.
             /// </summary>
             public string Description { get; set; }
@@ -193,9 +204,14 @@ namespace Ringtoets.Piping.Forms.TypeConverters
                 return String.Format("{0} = {1}",
                                      Symbol,
                                      getRoundedDouble != null ?
-                                     getRoundedDouble(distribution).ToString() :
-                                     GetValue(distribution).ToString(culture));
+                                         getRoundedDouble(distribution).ToString() :
+                                         GetValue(distribution).ToString(culture));
             }
+
+            /// <summary>
+            /// Method to retrieve the value of the parameter from a distribution.
+            /// </summary>
+            private Func<DistributionType, double> GetValue { get; set; }
         }
     }
 }

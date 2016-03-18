@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schematization.
+        ///   Looks up a localized string similar to Schematisatie.
         /// </summary>
         public static string Categories_Schematization {
             get {

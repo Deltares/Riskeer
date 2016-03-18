@@ -76,6 +76,7 @@
     <Compile Include="PropertyClasses\RingtoetsPipingSurfaceLineProperties.cs" />
     <Compile Include="TypeConverters\LognormalDistributionDesignVariableTypeConverter.cs" />
     <Compile Include="TypeConverters\DesignVariableTypeConverter.cs" />
+    <Compile Include="TypeConverters\PropertyDescriptors\ReadOnlyPropertyDescriptorDecorator.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\RoutedPropertyDescriptor.cs" />
     <Compile Include="TypeConverters\ShiftedLognormalDistributionDesignVariableTypeConverter.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\SimpleReadonlyPropertyDescriptor.cs" />

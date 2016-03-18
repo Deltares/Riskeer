@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var projectObserver = mocks.StrictMock<IObserver>();
-            int numberProperties = 10;
+            int numberProperties = 7;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
@@ -140,11 +140,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var dampingFactorExit = new LognormalDistribution(3);
             var phreaticLevelExit = new NormalDistribution(2);
-            var thicknessCoverageLayer = new LognormalDistribution(2);
-            var seepageLength = new LognormalDistribution(2);
             var diameter70 = new LognormalDistribution(2);
             var darcyPermeability = new LognormalDistribution(3);
-            var thicknessAquiferLayer = new LognormalDistribution(2);
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             PipingSoilProfile soilProfile = new TestPipingSoilProfile();
@@ -158,11 +155,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               assessmentSectionMock),
                 DampingFactorExit = new LognormalDistributionDesignVariable(dampingFactorExit),
                 PhreaticLevelExit = new NormalDistributionDesignVariable(phreaticLevelExit),
-                ThicknessCoverageLayer = new LognormalDistributionDesignVariable(thicknessCoverageLayer),
-                SeepageLength = new LognormalDistributionDesignVariable(seepageLength),
                 Diameter70 = new LognormalDistributionDesignVariable(diameter70),
                 DarcyPermeability = new LognormalDistributionDesignVariable(darcyPermeability),
-                ThicknessAquiferLayer = new LognormalDistributionDesignVariable(thicknessAquiferLayer),
                 SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile,
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(assessmentLevel)
@@ -172,11 +166,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel, 1e-2);
             Assert.AreEqual(dampingFactorExit, inputParameters.DampingFactorExit);
             Assert.AreEqual(phreaticLevelExit, inputParameters.PhreaticLevelExit);
-            Assert.AreEqual(thicknessCoverageLayer, inputParameters.ThicknessCoverageLayer);
-            Assert.AreEqual(seepageLength, inputParameters.SeepageLength);
             Assert.AreEqual(diameter70, inputParameters.Diameter70);
             Assert.AreEqual(darcyPermeability, inputParameters.DarcyPermeability);
-            Assert.AreEqual(thicknessAquiferLayer, inputParameters.ThicknessAquiferLayer);
             Assert.AreEqual(surfaceLine, inputParameters.SurfaceLine);
             Assert.AreEqual(soilProfile, inputParameters.SoilProfile);
 
@@ -435,11 +426,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 DesignWaterLevel = 1.0
             };
 
+            DesignVariable<NormalDistribution> phreaticLevelExitProperty = contextProperties.PhreaticLevelExit;
             var dynamicPropertyBag = new DynamicPropertyBag(contextProperties);
             typeDescriptorContextMock.Expect(tdc => tdc.Instance).Return(dynamicPropertyBag);
+            typeDescriptorContextMock.Stub(tdc => tdc.PropertyDescriptor).Return(dynamicPropertyBag.GetProperties()["PhreaticLevelExit"]);
             mocks.ReplayAll();
 
-            DesignVariable<NormalDistribution> phreaticLevelExitProperty = contextProperties.PhreaticLevelExit;
             PropertyDescriptorCollection properties = new NormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, phreaticLevelExitProperty);
             Assert.NotNull(properties);
 

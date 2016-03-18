@@ -103,11 +103,43 @@ namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors
             return wrappedDescriptor.ShouldSerializeValue(component);
         }
 
+        public override AttributeCollection Attributes
+        {
+            get
+            {
+                return wrappedDescriptor.Attributes;
+            }
+        }
+
+        public override string Category
+        {
+            get
+            {
+                return wrappedDescriptor.Category;
+            }
+        }
+
         public override Type ComponentType
         {
             get
             {
                 return wrappedDescriptor.ComponentType;
+            }
+        }
+
+        public override TypeConverter Converter
+        {
+            get
+            {
+                return wrappedDescriptor.Converter;
+            }
+        }
+
+        public override bool DesignTimeOnly
+        {
+            get
+            {
+                return wrappedDescriptor.DesignTimeOnly;
             }
         }
 
@@ -119,11 +151,43 @@ namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors
             }
         }
 
+        public override bool IsBrowsable
+        {
+            get
+            {
+                return wrappedDescriptor.IsBrowsable;
+            }
+        }
+
+        public override bool IsLocalizable
+        {
+            get
+            {
+                return wrappedDescriptor.IsLocalizable;
+            }
+        }
+
+        public override string Name
+        {
+            get
+            {
+                return wrappedDescriptor.Name;
+            }
+        }
+
         public override Type PropertyType
         {
             get
             {
                 return wrappedDescriptor.PropertyType;
+            }
+        }
+
+        public override bool SupportsChangeEvents
+        {
+            get
+            {
+                return wrappedDescriptor.SupportsChangeEvents;
             }
         }
 
