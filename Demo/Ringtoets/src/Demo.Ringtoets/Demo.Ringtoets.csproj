@@ -155,6 +155,7 @@
     <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
       <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
       <Name>Ringtoets.Piping.Primitives</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

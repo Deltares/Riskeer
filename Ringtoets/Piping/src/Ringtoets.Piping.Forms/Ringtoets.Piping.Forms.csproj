@@ -129,6 +129,7 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
       <Project>{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}</Project>
       <Name>Core.Components.DotSpatial.Forms</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
       <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
@@ -163,6 +164,7 @@
     <ProjectReference Include="..\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
       <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
       <Name>Ringtoets.Piping.Primitives</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>

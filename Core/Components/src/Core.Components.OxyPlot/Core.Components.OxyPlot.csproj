@@ -68,6 +68,7 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Version\Core.Common.Version.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
@@ -77,6 +78,7 @@
     <ProjectReference Include="..\Core.Components.Charting\Core.Components.Charting.csproj">
       <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
       <Name>Core.Components.Charting</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

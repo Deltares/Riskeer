@@ -80,10 +80,12 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
@@ -93,6 +95,7 @@
     <ProjectReference Include="..\Ringtoets.Piping.InputParameterCalculation\Ringtoets.Piping.InputParameterCalculation.csproj">
       <Project>{97F6406A-6338-4863-92A6-0D5C00A5F7C9}</Project>
       <Name>Ringtoets.Piping.InputParameterCalculation</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
@@ -102,6 +105,7 @@
     <ProjectReference Include="..\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
       <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
       <Name>Ringtoets.Piping.Primitives</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

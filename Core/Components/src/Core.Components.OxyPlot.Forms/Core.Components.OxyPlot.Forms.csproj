@@ -76,6 +76,7 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
       <Name>Core.Common.Base</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Version\Core.Common.Version.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
@@ -85,10 +86,12 @@
     <ProjectReference Include="..\Core.Components.Charting.Forms\Core.Components.Charting.Forms.csproj">
       <Project>{2465cca1-c505-4827-9454-4fd5fd9194cd}</Project>
       <Name>Core.Components.Charting.Forms</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.Components.Charting\Core.Components.Charting.csproj">
       <Project>{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}</Project>
       <Name>Core.Components.Charting</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj">
       <Project>{2344a7bd-7e25-4a1a-982e-6c674af5167a}</Project>
