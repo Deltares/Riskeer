@@ -41,10 +41,8 @@ namespace Application.Ringtoets.Storage.Persistors
         /// Loads the <see cref="FailureMechanismEntity"/> as <see cref="PipingFailureMechanism"/>.
         /// </summary>
         /// <param name="entity"><see cref="FailureMechanismEntity"/> to load from.</param>
-        /// <param name="model"><see cref="PipingFailureMechanism"/> to save to.</param>
         /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c>.</item>
-        /// <item><paramref name="model"/> is <c>null</c>.</item>
         /// </list></exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="entity"/> is not of type <see cref="FailureMechanismType.DikesPipingFailureMechanism"/>.</exception>
         public override PipingFailureMechanism LoadModel(FailureMechanismEntity entity)

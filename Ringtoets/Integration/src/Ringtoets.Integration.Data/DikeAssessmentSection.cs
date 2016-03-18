@@ -111,7 +111,7 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets the "Piping" failure mechanism.
         /// </summary>
-        public PipingFailureMechanism PipingFailureMechanism { get; set; }
+        public PipingFailureMechanism PipingFailureMechanism { get; private set; }
 
         /// <summary>
         /// Gets the "Graserosie kruin en binnentalud" failure mechanism.
