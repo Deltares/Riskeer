@@ -19,47 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
 {
-    public class HydraulicLocationEntityPersistor : ICollectionPersistor<HydraulicLocationEntity, ICollection<HydraulicBoundaryLocation>>
+    public class HydraulicLocationEntityPersistor
     {
         private readonly IRingtoetsEntities ringtoetsContext;
 
         public HydraulicLocationEntityPersistor(IRingtoetsEntities ringtoetsContext)
         {
             this.ringtoetsContext = ringtoetsContext;
-        }
-
-        public void RemoveUnModifiedEntries(ICollection<HydraulicLocationEntity> parentNavigationProperty)
-        {
-        }
-
-        public void PerformPostSaveActions()
-        {
-        }
-
-        public void LoadModel(HydraulicLocationEntity entity, ICollection<HydraulicBoundaryLocation> model)
-        {
-        }
-
-        public void InsertModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, ICollection<HydraulicBoundaryLocation> model)
-        {
-        }
-
-        public void UpdateModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, ICollection<HydraulicBoundaryLocation> model)
-        {
-        }
-
-        public void ConvertEntityToModel(HydraulicLocationEntity entity, ICollection<HydraulicBoundaryLocation> model)
-        {
-        }
-
-        public void ConvertModelToEntity(ICollection<HydraulicBoundaryLocation> model, HydraulicLocationEntity entity)
-        {
         }
     }
 }

@@ -53,6 +53,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Converters\DikeAssessmentSectionEntityConverter.cs" />
+    <Compile Include="Converters\FailureMechanismEntityConverter.cs" />
     <Compile Include="Converters\ProjectEntityConverter.cs" />
     <Compile Include="Converters\IEntityConverter.cs" />
     <Compile Include="DbContext\DikeAssessmentSectionEntity.cs">
@@ -77,7 +78,6 @@
     <Compile Include="Persistors\DikeAssessmentSectionEntityPersistor.cs" />
     <Compile Include="Persistors\FailureMechanismEntityPersistorBase.cs" />
     <Compile Include="Persistors\HydraulicLocationEntityPersistor.cs" />
-    <Compile Include="Persistors\ICollectionPersistor.cs" />
     <Compile Include="Persistors\IPersistor.cs" />
     <Compile Include="Persistors\DikesPipingFailureMechanismEntityPersistor.cs" />
     <Compile Include="Persistors\ProjectEntityPersistor.cs" />

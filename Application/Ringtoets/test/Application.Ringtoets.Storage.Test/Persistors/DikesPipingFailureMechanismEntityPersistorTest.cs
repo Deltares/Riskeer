@@ -48,41 +48,25 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void LoadModel_NullEntityValidModel_ThrowsArgumentNullException()
+        public void LoadModel_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
-            PipingFailureMechanism model = new PipingFailureMechanism();
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             DikesPipingFailureMechanismEntityPersistor persistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsEntities);
 
             // Call
-            TestDelegate test = () => persistor.LoadModel(null, model);
+            TestDelegate test = () => persistor.LoadModel(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("entity", exception.ParamName);
         }
 
         [Test]
-        public void LoadModel_ValidEntityNullModel_ThrowsArgumentNullException()
-        {
-            // Setup
-            FailureMechanismEntity entity = new FailureMechanismEntity();
-            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
-            DikesPipingFailureMechanismEntityPersistor persistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsEntities);
-
-            // Call
-            TestDelegate test = () => persistor.LoadModel(entity, null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
-        public void LoadModel_EntityWithIncorrectTypeValidModel_ThrowsArgumentException()
+        public void LoadModel_EntityWithIncorrectType_ThrowsArgumentException()
         {
             // Setup
             const long storageId = 1234L;
-            PipingFailureMechanism model = new PipingFailureMechanism();
             FailureMechanismEntity entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = storageId,
@@ -92,18 +76,21 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             DikesPipingFailureMechanismEntityPersistor persistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsEntities);
 
             // Call
-            TestDelegate test = () => persistor.LoadModel(entity, model);
+            TestDelegate test = () => persistor.LoadModel(entity);
 
             // Assert
             Assert.Throws<ArgumentException>(test);
         }
 
         [Test]
-        public void LoadModel_ValidEntityValidModel_UpdatedModel()
+        public void LoadModel_ValidEntity_UpdatedModel()
         {
             // Setup
             const long storageId = 1234L;
-            PipingFailureMechanism model = new PipingFailureMechanism();
+            PipingFailureMechanism model = new PipingFailureMechanism()
+            {
+                StorageId = storageId
+            };
             FailureMechanismEntity entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = storageId,
@@ -113,15 +100,16 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             DikesPipingFailureMechanismEntityPersistor persistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsEntities);
 
             // Call
-            persistor.LoadModel(entity, model);
+            PipingFailureMechanism loadedModel = persistor.LoadModel(entity);
 
             // Assert
-            Assert.IsInstanceOf<PipingFailureMechanism>(model);
-            Assert.AreEqual(model.StorageId, entity.FailureMechanismEntityId);
+            Assert.IsInstanceOf<PipingFailureMechanism>(loadedModel);
+            Assert.AreEqual(loadedModel.StorageId, entity.FailureMechanismEntityId);
+            Assert.AreEqual(model.StorageId, loadedModel.StorageId);
         }
 
         [Test]
-        public void InsertModel_NullDatasetValidModel_ThrowsArgumentNullException()
+        public void InsertModel_NullDataset_ThrowsArgumentNullException()
         {
             // Setup
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
@@ -130,7 +118,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => persistor.InsertModel(null, model);
+            TestDelegate test = () => persistor.InsertModel(null, model, 0);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -148,7 +136,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => persistor.InsertModel(parentNavigationProperty, null);
+            TestDelegate test = () => persistor.InsertModel(parentNavigationProperty, null, 0);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -168,7 +156,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            persistor.InsertModel(parentNavigationProperty, model);
+            persistor.InsertModel(parentNavigationProperty, model, 0);
 
             // Assert
             Assert.AreEqual(1, parentNavigationProperty.Count);
@@ -202,7 +190,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            persistor.InsertModel(parentNavigationProperty, pipingFailureMechanism);
+            persistor.InsertModel(parentNavigationProperty, pipingFailureMechanism, 0);
 
             // Assert
             Assert.AreEqual(2, parentNavigationProperty.Count);
@@ -227,7 +215,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => persistor.UpdateModel(null, model);
+            TestDelegate test = () => persistor.UpdateModel(null, model, 0);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -245,7 +233,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, null);
+            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, null, 0);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -268,7 +256,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, model);
+            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, model, 0);
 
             // Assert
             Assert.Throws<EntityNotFoundException>(test);
@@ -303,7 +291,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, model);
+            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, model, 0);
 
             // Assert
             Assert.Throws<EntityNotFoundException>(test);
@@ -333,7 +321,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            persistor.UpdateModel(parentNavigationProperty, model);
+            persistor.UpdateModel(parentNavigationProperty, model, 0);
 
             // Assert
             Assert.AreEqual(1, parentNavigationProperty.Count);
@@ -370,7 +358,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            persistor.UpdateModel(parentNavigationProperty, pipingFailureMechanism);
+            persistor.UpdateModel(parentNavigationProperty, pipingFailureMechanism, 0);
             persistor.RemoveUnModifiedEntries(parentNavigationProperty);
 
             // Assert
@@ -416,7 +404,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             };
             mockRepository.ReplayAll();
 
-            TestDelegate updateTest = () => persistor.UpdateModel(parentNavigationProperty, pipingFailureMechanism);
+            TestDelegate updateTest = () => persistor.UpdateModel(parentNavigationProperty, pipingFailureMechanism, 0);
             Assert.DoesNotThrow(updateTest, "Precondition failed: Update should not throw exception.");
 
             // Call
@@ -461,7 +449,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             PipingFailureMechanism pipingFailureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
-            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, pipingFailureMechanism);
+            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, pipingFailureMechanism, 0);
             Assert.DoesNotThrow(test, "Precondition failed: UpdateModel");
 
             // Call
@@ -521,7 +509,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             {
                 try
                 {
-                    persistor.UpdateModel(parentNavigationPropertyMock, pipingFailureMechanism);
+                    persistor.UpdateModel(parentNavigationPropertyMock, pipingFailureMechanism, 0);
                 }
                 catch (Exception)
                 {

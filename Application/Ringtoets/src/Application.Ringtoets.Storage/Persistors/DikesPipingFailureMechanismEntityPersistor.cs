@@ -21,7 +21,6 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
@@ -29,7 +28,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// <summary>
     /// Persistor for <see cref="DikesPipingFailureMechanismEntityPersistor"/>.
     /// </summary>
-    public class DikesPipingFailureMechanismEntityPersistor : FailureMechanismEntityPersistorBase
+    public class DikesPipingFailureMechanismEntityPersistor : FailureMechanismEntityPersistorBase<PipingFailureMechanism>
     {
         /// <summary>
         /// New instance of <see cref="DikesPipingFailureMechanismEntityPersistor"/>.
@@ -48,13 +47,18 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <item><paramref name="model"/> is <c>null</c>.</item>
         /// </list></exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="entity"/> is not of type <see cref="FailureMechanismType.DikesPipingFailureMechanism"/>.</exception>
-        public override void LoadModel(FailureMechanismEntity entity, IFailureMechanism model)
+        public override PipingFailureMechanism LoadModel(FailureMechanismEntity entity)
         {
-            ConvertEntityToModel(entity, model);
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+
             if (entity.FailureMechanismType != (int) FailureMechanismType.DikesPipingFailureMechanism)
             {
                 throw new ArgumentException("Incorrect modelType", "entity");
             }
+            return base.LoadModel(entity);
         }
     }
 }

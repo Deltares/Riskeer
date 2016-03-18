@@ -73,16 +73,11 @@ namespace Application.Ringtoets.Storage.Persistors
         {
             var dikeAssessmentSection = converter.ConvertEntityToModel(entity);
 
-            foreach (var hydraulicLocationEntity in entity.HydraulicLocationEntities)
-            {
-                hydraulicLocationEntityPersistor.LoadModel(hydraulicLocationEntity, dikeAssessmentSection.HydraulicBoundaryDatabase.Locations);   
-            }
-
             foreach (var failureMechanismEntity in entity.FailureMechanismEntities)
             {
                 if (failureMechanismEntity.FailureMechanismType == (int) FailureMechanismType.DikesPipingFailureMechanism)
                 {
-                    dikePipingFailureMechanismEntityPersistor.LoadModel(failureMechanismEntity, dikeAssessmentSection.PipingFailureMechanism);
+                    dikeAssessmentSection.PipingFailureMechanism = dikePipingFailureMechanismEntityPersistor.LoadModel(failureMechanismEntity);
                 }
             }
 
@@ -186,7 +181,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="entity">Referenced <see cref="DikeAssessmentSectionEntity"/>.</param>
         public void UpdateChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity)
         {
-            dikePipingFailureMechanismEntityPersistor.UpdateModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
+            dikePipingFailureMechanismEntityPersistor.UpdateModel(entity.FailureMechanismEntities, model.PipingFailureMechanism, 0);
             dikePipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
         }
 
@@ -197,7 +192,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="entity">Referenced <see cref="DikeAssessmentSectionEntity"/>.</param>
         public void InsertChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity)
         {
-            dikePipingFailureMechanismEntityPersistor.InsertModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
+            dikePipingFailureMechanismEntityPersistor.InsertModel(entity.FailureMechanismEntities, model.PipingFailureMechanism, 0);
             dikePipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
         }
 
