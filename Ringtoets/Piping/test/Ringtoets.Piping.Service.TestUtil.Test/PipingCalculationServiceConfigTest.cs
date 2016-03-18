@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Ringtoets.Piping.Calculation.TestUtil.SubCalculator;
+using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 
 namespace Ringtoets.Piping.Service.TestUtil.Test
 {

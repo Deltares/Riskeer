@@ -1,6 +1,6 @@
 ﻿using System;
-using Ringtoets.Piping.Calculation.SubCalculator;
-using Ringtoets.Piping.Calculation.TestUtil.SubCalculator;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
+using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 
 namespace Ringtoets.Piping.Service.TestUtil
 {

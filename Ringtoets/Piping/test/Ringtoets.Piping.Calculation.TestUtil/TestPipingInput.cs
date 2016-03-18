@@ -3,7 +3,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Calculation.TestUtil
+namespace Ringtoets.Piping.KernelWrapper.TestUtil
 {
     public class TestPipingInput
     {

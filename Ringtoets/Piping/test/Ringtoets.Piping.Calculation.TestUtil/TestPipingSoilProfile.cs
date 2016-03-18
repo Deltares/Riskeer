@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Calculation.TestUtil
+namespace Ringtoets.Piping.KernelWrapper.TestUtil
 {
     public class TestPipingSoilProfile : PipingSoilProfile
     {

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.Calculation
+namespace Ringtoets.Piping.KernelWrapper
 {
     /// <summary>
     /// This class contains all the results of a complete piping calculation.

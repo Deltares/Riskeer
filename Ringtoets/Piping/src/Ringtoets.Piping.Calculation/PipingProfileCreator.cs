@@ -20,10 +20,9 @@
 // All rights reserved.
 
 using Deltares.WTIPiping;
-
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Calculation
+namespace Ringtoets.Piping.KernelWrapper
 {
     /// <summary>
     /// Creates <see cref="PipingProfile"/> instances which are required by the <see cref="PipingCalculator"/>.

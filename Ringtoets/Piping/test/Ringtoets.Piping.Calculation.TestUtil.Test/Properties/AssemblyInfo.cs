@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Ringtoets.Piping.Calculation.TestUtil.Test")]
+[assembly: AssemblyTitle("Ringtoets.Piping.KernelWrapper.TestUtil.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Deltares")]
-[assembly: AssemblyProduct("Ringtoets.Piping.Calculation.TestUtil.Test")]
+[assembly: AssemblyProduct("Ringtoets.Piping.KernelWrapper.TestUtil.Test")]
 [assembly: AssemblyCopyright("Copyright © Deltares 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

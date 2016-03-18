@@ -11,9 +11,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
-using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
+using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.Service;
 
 namespace Demo.Ringtoets.Test.Commands

@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
-
 using Deltares.WTIPiping;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Calculation.Test
+namespace Ringtoets.Piping.KernelWrapper.Test
 {
     public class PipingSurfaceLineCreatorTest
     {

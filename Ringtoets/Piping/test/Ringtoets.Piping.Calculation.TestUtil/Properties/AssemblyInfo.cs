@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Ringtoets.Piping.Calculation.TestUtil")]
-[assembly: AssemblyProduct("Ringtoets.Piping.Calculation.TestUtil")]
+[assembly: AssemblyTitle("Ringtoets.Piping.KernelWrapper.TestUtil")]
+[assembly: AssemblyProduct("Ringtoets.Piping.KernelWrapper.TestUtil")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

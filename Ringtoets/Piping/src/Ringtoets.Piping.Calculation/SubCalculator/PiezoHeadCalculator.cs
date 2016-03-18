@@ -1,4 +1,4 @@
-namespace Ringtoets.Piping.Calculation.SubCalculator
+namespace Ringtoets.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
     /// Class which wraps the <see cref="Deltares.WTIPiping.PiezoHeadCalculator"/>.

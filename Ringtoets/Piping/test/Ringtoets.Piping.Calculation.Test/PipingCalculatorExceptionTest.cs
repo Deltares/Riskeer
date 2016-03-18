@@ -1,8 +1,7 @@
 ﻿using System;
-
 using NUnit.Framework;
 
-namespace Ringtoets.Piping.Calculation.Test
+namespace Ringtoets.Piping.KernelWrapper.Test
 {
     public class PipingCalculatorExceptionTest
     {

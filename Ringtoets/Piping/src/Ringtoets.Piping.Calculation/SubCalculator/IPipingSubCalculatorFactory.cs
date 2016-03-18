@@ -1,4 +1,4 @@
-﻿namespace Ringtoets.Piping.Calculation.SubCalculator
+﻿namespace Ringtoets.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
     /// Factory responsible for creating the sub calculators required for a piping calculation.

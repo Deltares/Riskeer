@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Ringtoets.Piping.Calculation
+namespace Ringtoets.Piping.KernelWrapper
 {
     /// <summary>
     /// Exception thrown when something went wrong in the <see cref="PipingCalculator"/>

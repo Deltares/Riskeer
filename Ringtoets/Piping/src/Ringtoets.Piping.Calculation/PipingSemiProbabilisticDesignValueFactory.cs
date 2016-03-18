@@ -22,7 +22,7 @@
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 
-namespace Ringtoets.Piping.Calculation
+namespace Ringtoets.Piping.KernelWrapper
 {
     /// <summary>
     /// Factory for creating design variables based on probabilistic distributions.

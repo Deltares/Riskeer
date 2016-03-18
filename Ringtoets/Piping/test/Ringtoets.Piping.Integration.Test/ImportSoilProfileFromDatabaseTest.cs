@@ -3,9 +3,8 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
-
-using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.Plugin.FileImporter;
 
 namespace Ringtoets.Piping.Integration.Test

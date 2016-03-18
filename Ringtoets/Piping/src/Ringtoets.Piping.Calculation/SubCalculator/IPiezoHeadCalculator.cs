@@ -1,4 +1,4 @@
-﻿namespace Ringtoets.Piping.Calculation.SubCalculator
+﻿namespace Ringtoets.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
     /// Interface with operations for performing an piezometric head at exit sub calculation.

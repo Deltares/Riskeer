@@ -83,7 +83,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.CommonTools.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.ProjectExplorer.Test", "Core\Plugins\test\Core.Plugins.ProjectExplorer.Test\Core.Plugins.ProjectExplorer.Test.csproj", "{07206938-9671-4DC7-BDE4-35B0F6E20DBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Calculation", "Ringtoets\Piping\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj", "{D64E4F0E-E341-496F-82B2-941AD202B4E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper", "Ringtoets\Piping\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.KernelWrapper.csproj", "{D64E4F0E-E341-496F-82B2-941AD202B4E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Data", "Ringtoets\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj", "{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}"
 EndProject
@@ -98,9 +98,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Service", 
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Calculation.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Calculation.Test\Ringtoets.Piping.Calculation.Test.csproj", "{91389DA2-3FF4-4559-90B3-4061549789DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Calculation.Test\Ringtoets.Piping.KernelWrapper.Test.csproj", "{91389DA2-3FF4-4559-90B3-4061549789DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Calculation.TestUtil", "Ringtoets\Piping\test\Ringtoets.Piping.Calculation.TestUtil\Ringtoets.Piping.Calculation.TestUtil.csproj", "{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper.TestUtil", "Ringtoets\Piping\test\Ringtoets.Piping.Calculation.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj", "{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Data.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Data.Test\Ringtoets.Piping.Data.Test.csproj", "{19EB1C52-D90B-40F2-A7AF-364CC5D89F68}"
 EndProject
@@ -265,7 +265,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.Forms",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Charting.Forms", "Core\Components\src\Core.Components.Charting.Forms\Core.Components.Charting.Forms.csproj", "{2465CCA1-C505-4827-9454-4FD5FD9194CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Calculation.TestUtil.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Calculation.TestUtil.Test\Ringtoets.Piping.Calculation.TestUtil.Test.csproj", "{529C4919-27DE-4DDA-ABD6-537F21B3F223}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper.TestUtil.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Calculation.TestUtil.Test\Ringtoets.Piping.KernelWrapper.TestUtil.Test.csproj", "{529C4919-27DE-4DDA-ABD6-537F21B3F223}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Service.TestUtil", "Ringtoets\Piping\test\Ringtoets.Piping.Service.TestUtil\Ringtoets.Piping.Service.TestUtil.csproj", "{C05B4F73-480E-46A4-B037-40954F8276DC}"
 EndProject
@@ -274,6 +274,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Storage.TestUtil", "Application\Ringtoets\test\Application.Ringtoets.Storage.TestUtil\Application.Ringtoets.Storage.TestUtil.csproj", "{03DBE353-99F7-47D6-B826-60D694FFB9AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Storage.TestUtil.Test", "Application\Ringtoets\test\Application.Ringtoets.Storage.TestUtil.Test\Application.Ringtoets.Storage.TestUtil.Test.csproj", "{3EDE00E5-C462-43EF-B8BC-E65D14D7FCF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Primitives", "Ringtoets\Piping\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj", "{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Primitives.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Primitives.Test\Ringtoets.Piping.Primitives.Test.csproj", "{9FA83BA2-249B-4A66-A501-1C3DA07F8F86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.InputParameterCalculation", "Ringtoets\Piping\src\Ringtoets.Piping.InputParameterCalculation\Ringtoets.Piping.InputParameterCalculation.csproj", "{97F6406A-6338-4863-92A6-0D5C00A5F7C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.InputParameterCalculation.Test", "Ringtoets\Piping\test\Ringtoets.Piping.InputParameterCalculation.Test\Ringtoets.Piping.InputParameterCalculation.Test.csproj", "{74E55618-31E4-429A-81FB-30C16C4891ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1072,6 +1080,42 @@ Global
 		{3EDE00E5-C462-43EF-B8BC-E65D14D7FCF2}.Release|x86.Build.0 = Release|x86
 		{3EDE00E5-C462-43EF-B8BC-E65D14D7FCF2}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{3EDE00E5-C462-43EF-B8BC-E65D14D7FCF2}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}.CreateInstaller|x86.Build.0 = Release|x86
+		{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}.CreateInstallerWithDemoProject|x86.Build.0 = Release|x86
+		{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}.Debug|x86.ActiveCfg = Debug|x86
+		{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}.Debug|x86.Build.0 = Debug|x86
+		{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}.Release|x86.ActiveCfg = Release|x86
+		{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}.Release|x86.Build.0 = Release|x86
+		{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{9FA83BA2-249B-4A66-A501-1C3DA07F8F86}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{9FA83BA2-249B-4A66-A501-1C3DA07F8F86}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{9FA83BA2-249B-4A66-A501-1C3DA07F8F86}.Debug|x86.ActiveCfg = Debug|x86
+		{9FA83BA2-249B-4A66-A501-1C3DA07F8F86}.Debug|x86.Build.0 = Debug|x86
+		{9FA83BA2-249B-4A66-A501-1C3DA07F8F86}.Release|x86.ActiveCfg = Release|x86
+		{9FA83BA2-249B-4A66-A501-1C3DA07F8F86}.Release|x86.Build.0 = Release|x86
+		{9FA83BA2-249B-4A66-A501-1C3DA07F8F86}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{9FA83BA2-249B-4A66-A501-1C3DA07F8F86}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{97F6406A-6338-4863-92A6-0D5C00A5F7C9}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{97F6406A-6338-4863-92A6-0D5C00A5F7C9}.CreateInstaller|x86.Build.0 = Release|x86
+		{97F6406A-6338-4863-92A6-0D5C00A5F7C9}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{97F6406A-6338-4863-92A6-0D5C00A5F7C9}.CreateInstallerWithDemoProject|x86.Build.0 = Release|x86
+		{97F6406A-6338-4863-92A6-0D5C00A5F7C9}.Debug|x86.ActiveCfg = Debug|x86
+		{97F6406A-6338-4863-92A6-0D5C00A5F7C9}.Debug|x86.Build.0 = Debug|x86
+		{97F6406A-6338-4863-92A6-0D5C00A5F7C9}.Release|x86.ActiveCfg = Release|x86
+		{97F6406A-6338-4863-92A6-0D5C00A5F7C9}.Release|x86.Build.0 = Release|x86
+		{97F6406A-6338-4863-92A6-0D5C00A5F7C9}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{97F6406A-6338-4863-92A6-0D5C00A5F7C9}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{74E55618-31E4-429A-81FB-30C16C4891ED}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{74E55618-31E4-429A-81FB-30C16C4891ED}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{74E55618-31E4-429A-81FB-30C16C4891ED}.Debug|x86.ActiveCfg = Debug|x86
+		{74E55618-31E4-429A-81FB-30C16C4891ED}.Debug|x86.Build.0 = Debug|x86
+		{74E55618-31E4-429A-81FB-30C16C4891ED}.Release|x86.ActiveCfg = Release|x86
+		{74E55618-31E4-429A-81FB-30C16C4891ED}.Release|x86.Build.0 = Release|x86
+		{74E55618-31E4-429A-81FB-30C16C4891ED}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{74E55618-31E4-429A-81FB-30C16C4891ED}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1133,6 +1177,8 @@ Global
 		{35B87B7A-7F50-4139-B563-589EE522B1ED} = {3ED34ACD-41C9-4251-81EC-7493E0BFF57D}
 		{1D3D58B6-EF7E-401E-92A0-104067D222EE} = {3ED34ACD-41C9-4251-81EC-7493E0BFF57D}
 		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5} = {3ED34ACD-41C9-4251-81EC-7493E0BFF57D}
+		{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C} = {3ED34ACD-41C9-4251-81EC-7493E0BFF57D}
+		{97F6406A-6338-4863-92A6-0D5C00A5F7C9} = {3ED34ACD-41C9-4251-81EC-7493E0BFF57D}
 		{91389DA2-3FF4-4559-90B3-4061549789DD} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{19EB1C52-D90B-40F2-A7AF-364CC5D89F68} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
@@ -1146,6 +1192,8 @@ Global
 		{529C4919-27DE-4DDA-ABD6-537F21B3F223} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{C05B4F73-480E-46A4-B037-40954F8276DC} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{63EAAA8C-51FE-48E1-81A5-753FB4A47898} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
+		{9FA83BA2-249B-4A66-A501-1C3DA07F8F86} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
+		{74E55618-31E4-429A-81FB-30C16C4891ED} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7} = {39EB5D07-C076-484C-9621-B34C4E5BF64C}
 		{3CCB05DB-C7B3-4EF7-B41D-22B6D2A3774E} = {39EB5D07-C076-484C-9621-B34C4E5BF64C}
 		{50963F12-448C-41BA-A62C-CDB0AB8D21E0} = {39EB5D07-C076-484C-9621-B34C4E5BF64C}

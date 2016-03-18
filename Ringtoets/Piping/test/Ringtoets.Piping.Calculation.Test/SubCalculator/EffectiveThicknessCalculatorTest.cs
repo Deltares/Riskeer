@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
-using Ringtoets.Piping.Calculation.SubCalculator;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
-namespace Ringtoets.Piping.Calculation.Test.SubCalculator
+namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
 {
     [TestFixture]
     public class EffectiveThicknessCalculatorTest

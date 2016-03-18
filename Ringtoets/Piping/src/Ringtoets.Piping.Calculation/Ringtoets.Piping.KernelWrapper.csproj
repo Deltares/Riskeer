@@ -6,8 +6,8 @@
     <ProjectGuid>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.Piping.Calculation</RootNamespace>
-    <AssemblyName>Ringtoets.Piping.Calculation</AssemblyName>
+    <RootNamespace>Ringtoets.Piping.KernelWrapper</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.KernelWrapper</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

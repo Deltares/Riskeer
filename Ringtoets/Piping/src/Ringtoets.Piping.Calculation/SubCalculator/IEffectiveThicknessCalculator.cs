@@ -1,6 +1,6 @@
 ﻿using Deltares.WTIPiping;
 
-namespace Ringtoets.Piping.Calculation.SubCalculator
+namespace Ringtoets.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
     /// Interface with operations for performing an effective thickness sub calculation.

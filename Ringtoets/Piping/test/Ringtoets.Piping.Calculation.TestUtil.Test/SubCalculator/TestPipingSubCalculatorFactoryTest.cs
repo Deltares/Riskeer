@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
-using Ringtoets.Piping.Calculation.SubCalculator;
-using Ringtoets.Piping.Calculation.TestUtil.SubCalculator;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
+using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 
-namespace Ringtoets.Piping.Calculation.TestUtil.Test.SubCalculator
+namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
 {
     [TestFixture]
     public class TestPipingSubCalculatorFactoryTest

@@ -6,10 +6,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 
 using Rhino.Mocks;
-
-using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Piping.Service.Test
 {

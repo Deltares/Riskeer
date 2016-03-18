@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.Calculation.SubCalculator;
-using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 
-namespace Ringtoets.Piping.Calculation.Test
+namespace Ringtoets.Piping.KernelWrapper.Test
 {
     [TestFixture]
     public class PipingCalculatorTest

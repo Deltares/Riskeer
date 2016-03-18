@@ -7,8 +7,8 @@
     <ProjectGuid>{91389DA2-3FF4-4559-90B3-4061549789DD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.Piping.Calculation.Test</RootNamespace>
-    <AssemblyName>Ringtoets.Piping.Calculation.Test</AssemblyName>
+    <RootNamespace>Ringtoets.Piping.KernelWrapper.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.KernelWrapper.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -82,13 +82,13 @@
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
-      <Name>Ringtoets.Piping.Calculation</Name>
+      <Name>Ringtoets.Piping.KernelWrapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Calculation.TestUtil\Ringtoets.Piping.Calculation.TestUtil.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.Calculation.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
       <Project>{27e0a5c9-3abf-426a-a3da-7d0b83a218c8}</Project>
-      <Name>Ringtoets.Piping.Calculation.TestUtil</Name>
+      <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

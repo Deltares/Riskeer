@@ -4,9 +4,9 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Piping.Calculation;
-using Ringtoets.Piping.Calculation.TestUtil.SubCalculator;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.KernelWrapper;
+using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Service.Properties;
 using Ringtoets.Piping.Service.TestUtil;
 

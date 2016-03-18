@@ -1,7 +1,7 @@
 ﻿using Deltares.WTIPiping;
-using Ringtoets.Piping.Calculation.SubCalculator;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
-namespace Ringtoets.Piping.Calculation.TestUtil.SubCalculator
+namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
 {
     public class EffectiveThicknessCalculatorStub : IEffectiveThicknessCalculator {
         public double ExitPointXCoordinate { get; set; }

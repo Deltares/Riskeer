@@ -21,7 +21,7 @@
 
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Piping.Calculation
+namespace Ringtoets.Piping.KernelWrapper
 {
     /// <summary>
     /// This class contains all the parameters that are required to perform a piping assessment.

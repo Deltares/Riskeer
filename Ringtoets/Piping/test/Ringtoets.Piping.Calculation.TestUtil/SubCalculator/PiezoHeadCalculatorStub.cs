@@ -1,6 +1,6 @@
-﻿using Ringtoets.Piping.Calculation.SubCalculator;
+﻿using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
-namespace Ringtoets.Piping.Calculation.TestUtil.SubCalculator
+namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
 {
     /// <summary>
     /// Stub for the real piezometric head at exit sub calculator of piping.

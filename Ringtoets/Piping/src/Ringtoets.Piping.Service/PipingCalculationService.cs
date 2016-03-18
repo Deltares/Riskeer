@@ -22,10 +22,9 @@
 using System;
 
 using log4net;
-
-using Ringtoets.Piping.Calculation;
-using Ringtoets.Piping.Calculation.SubCalculator;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.KernelWrapper;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.Service.Properties;
 
 namespace Ringtoets.Piping.Service

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Ringtoets.Piping.Calculation.SubCalculator;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
-namespace Ringtoets.Piping.Calculation.TestUtil.SubCalculator
+namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
 {
     /// <summary>
     /// Stub for the real heave sub calculator of piping.

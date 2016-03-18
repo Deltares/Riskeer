@@ -1,6 +1,6 @@
-﻿using Ringtoets.Piping.Calculation.SubCalculator;
+﻿using Ringtoets.Piping.KernelWrapper.SubCalculator;
 
-namespace Ringtoets.Piping.Calculation.TestUtil.SubCalculator
+namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
 {
     /// <summary>
     /// This class allows for retrieving the created sub calculators, so that

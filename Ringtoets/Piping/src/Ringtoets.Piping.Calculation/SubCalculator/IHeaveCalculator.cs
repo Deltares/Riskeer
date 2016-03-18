@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Ringtoets.Piping.Calculation.SubCalculator
+namespace Ringtoets.Piping.KernelWrapper.SubCalculator
 {
     /// <summary>
     /// Interface with operations for performing a heave sub calculation.

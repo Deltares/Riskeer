@@ -23,12 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Deltares.WTIPiping;
-using Ringtoets.Piping.Calculation.Properties;
-using Ringtoets.Piping.Calculation.SubCalculator;
-using EffectiveThicknessCalculator = Ringtoets.Piping.Calculation.SubCalculator.EffectiveThicknessCalculator;
-using HeaveCalculator = Ringtoets.Piping.Calculation.SubCalculator.HeaveCalculator;
+using Ringtoets.Piping.KernelWrapper.Properties;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
+using EffectiveThicknessCalculator = Ringtoets.Piping.KernelWrapper.SubCalculator.EffectiveThicknessCalculator;
+using HeaveCalculator = Ringtoets.Piping.KernelWrapper.SubCalculator.HeaveCalculator;
 
-namespace Ringtoets.Piping.Calculation
+namespace Ringtoets.Piping.KernelWrapper
 {
     /// <summary>
     /// This class represents a combination of piping sub-calculations, which together can be used

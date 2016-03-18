@@ -27,13 +27,13 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Piping.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.TypeConverters;
 using Ringtoets.Piping.Forms.UITypeEditors;
+using Ringtoets.Piping.KernelWrapper;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {

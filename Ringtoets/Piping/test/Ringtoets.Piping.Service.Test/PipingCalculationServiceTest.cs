@@ -5,11 +5,11 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
-using Ringtoets.Piping.Calculation;
-using Ringtoets.Piping.Calculation.TestUtil;
-using Ringtoets.Piping.Calculation.TestUtil.SubCalculator;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Piping.KernelWrapper;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Service.TestUtil;
 
 namespace Ringtoets.Piping.Service.Test
