@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.Data
         {
             UpliftModelFactor = 1.0;
             SellmeijerModelFactor = 1.0;
-            WaterVolumetricWeight = 10.0;
+            WaterVolumetricWeight = 9.81;
             CriticalHeaveGradient = 0.3;
             SandParticlesVolumicWeight = 16.5;
             WhitesDragCoefficient = 0.25;

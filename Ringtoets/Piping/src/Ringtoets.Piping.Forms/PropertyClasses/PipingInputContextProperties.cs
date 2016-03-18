@@ -330,7 +330,22 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        // TODO: Verzadigd gewicht deklaag
+        [TypeConverter(typeof(ShiftedLognormalDistributionDesignVariableTypeConverter))]
+        [ResourcesCategory(typeof(Resources), "Categories_SoilProperties")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description")]
+        public DesignVariable<ShiftedLognormalDistribution> SaturatedVolumicWeightOfCoverageLayer 
+        {
+            get
+            {
+                return PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(data.WrappedData);
+            }
+            set
+            {
+                data.WrappedData.SaturatedVolumicWeightOfCoverageLayer = value.Distribution;
+                data.WrappedData.NotifyObservers();
+            }
+        }
 
         #endregion
     }

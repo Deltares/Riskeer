@@ -42,6 +42,14 @@ namespace Ringtoets.Piping.Data
         private RoundedDouble entryPointL;
         private RoundedDouble piezometricHeadExit;
         private RingtoetsPipingSurfaceLine surfaceLine;
+        private readonly NormalDistribution phreaticLevelExit;
+        private readonly LognormalDistribution dampingFactorExit;
+        private readonly LognormalDistribution thicknessCoverageLayer;
+        private readonly ShiftedLognormalDistribution saturatedVolumicWeightOfCoverageLayer;
+        private readonly LognormalDistribution thicknessAquiferLayer;
+        private readonly LognormalDistribution darcyPermeability;
+        private readonly LognormalDistribution diameter70;
+        private readonly LognormalDistribution seepageLength;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
@@ -64,30 +72,31 @@ namespace Ringtoets.Piping.Data
             assessmentLevel = new RoundedDouble(2, double.NaN);
             piezometricHeadExit = new RoundedDouble(2, double.NaN);
 
-            PhreaticLevelExit = new NormalDistribution(3);
-            DampingFactorExit = new LognormalDistribution(3)
+            phreaticLevelExit = new NormalDistribution(3);
+            dampingFactorExit = new LognormalDistribution(3)
             {
-                Mean = (RoundedDouble)1.0
+                Mean = (RoundedDouble)0.7,
+                StandardDeviation = (RoundedDouble)0.0
             };
-            ThicknessCoverageLayer = new LognormalDistribution(2)
+            thicknessCoverageLayer = new LognormalDistribution(2)
             {
                 Mean = (RoundedDouble)double.NaN,
                 StandardDeviation = (RoundedDouble)0.5
             };
-            SaturatedVolumicWeightOfCoverageLayer = new ShiftedLognormalDistribution(2)
+            saturatedVolumicWeightOfCoverageLayer = new ShiftedLognormalDistribution(2)
             {
                 Shift = (RoundedDouble) 10,
                 Mean = (RoundedDouble) 17.5,
                 StandardDeviation = (RoundedDouble)0
             };
-            SeepageLength = new LognormalDistribution(2)
+            seepageLength = new LognormalDistribution(2)
             {
                 Mean = (RoundedDouble)double.NaN,
                 StandardDeviation = (RoundedDouble)double.NaN
             };
-            Diameter70 = new LognormalDistribution(2);
-            DarcyPermeability = new LognormalDistribution(3);
-            ThicknessAquiferLayer = new LognormalDistribution(2)
+            diameter70 = new LognormalDistribution(2);
+            darcyPermeability = new LognormalDistribution(3);
+            thicknessAquiferLayer = new LognormalDistribution(2)
             {
                 Mean = (RoundedDouble)double.NaN,
                 StandardDeviation = (RoundedDouble)0.5
@@ -335,47 +344,136 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the phreatic level at the exit point.
         /// [m]
         /// </summary>
-        public NormalDistribution PhreaticLevelExit { get; set; }
+        public NormalDistribution PhreaticLevelExit
+        {
+            get
+            {
+                return phreaticLevelExit;
+            }
+            set
+            {
+                phreaticLevelExit.Mean = value.Mean;
+                phreaticLevelExit.StandardDeviation = value.StandardDeviation;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the horizontal distance between entry and exit point.
         /// [m]
         /// </summary>
-        public LognormalDistribution SeepageLength { get; set; }
+        public LognormalDistribution SeepageLength
+        {
+            get
+            {
+                return seepageLength;
+            }
+            set
+            {
+                seepageLength.Mean = value.Mean;
+                seepageLength.StandardDeviation = value.StandardDeviation;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the sieve size through which 70% fraction of the grains of the top part of the aquifer passes.
         /// [m]
         /// </summary>
-        public LognormalDistribution Diameter70 { get; set; }
+        public LognormalDistribution Diameter70
+        {
+            get
+            {
+                return diameter70;
+            }
+            set
+            {
+                diameter70.Mean = value.Mean;
+                diameter70.StandardDeviation = value.StandardDeviation;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        public LognormalDistribution DarcyPermeability { get; set; }
+        public LognormalDistribution DarcyPermeability
+        {
+            get
+            {
+                return darcyPermeability;
+            }
+            set
+            {
+                darcyPermeability.Mean = value.Mean;
+                darcyPermeability.StandardDeviation = value.StandardDeviation;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the thickness of the aquifer layer.
         /// [m]
         /// </summary>
-        public LognormalDistribution ThicknessAquiferLayer { get; set; }
+        public LognormalDistribution ThicknessAquiferLayer
+        {
+            get
+            {
+                return thicknessAquiferLayer;
+            }
+            set
+            {
+                thicknessAquiferLayer.Mean = value.Mean;
+                thicknessAquiferLayer.StandardDeviation = value.StandardDeviation;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the total thickness of the coverage layer at the exit point.
         /// [m]
         /// </summary>
-        public LognormalDistribution ThicknessCoverageLayer { get; set; }
+        public LognormalDistribution ThicknessCoverageLayer
+        {
+            get
+            {
+                return thicknessCoverageLayer;
+            }
+            set
+            {
+                thicknessCoverageLayer.Mean = value.Mean;
+                thicknessCoverageLayer.StandardDeviation = value.StandardDeviation;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the damping factor at the exit point.
         /// </summary>
-        public LognormalDistribution DampingFactorExit { get; set; }
+        public LognormalDistribution DampingFactorExit
+        {
+            get
+            {
+                return dampingFactorExit;
+            }
+            set
+            {
+                dampingFactorExit.Mean = value.Mean;
+                dampingFactorExit.StandardDeviation = value.StandardDeviation;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the volumic weight of the saturated coverage layer.
         /// </summary>
-        public ShiftedLognormalDistribution SaturatedVolumicWeightOfCoverageLayer { get; set; }
+        public ShiftedLognormalDistribution SaturatedVolumicWeightOfCoverageLayer
+        {
+            get
+            {
+                return saturatedVolumicWeightOfCoverageLayer;
+            }
+            set
+            {
+                saturatedVolumicWeightOfCoverageLayer.Mean = value.Mean;
+                saturatedVolumicWeightOfCoverageLayer.StandardDeviation = value.StandardDeviation;
+                saturatedVolumicWeightOfCoverageLayer.Shift = value.Shift;
+            }
+        }
 
         #endregion
 

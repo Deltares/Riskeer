@@ -166,12 +166,12 @@ namespace Demo.Ringtoets.Test.Commands
 
             PipingCalculationService.Calculate(calculation);
             Assert.IsTrue(calculation.HasOutput);
-            Assert.AreEqual(0.108, calculation.Output.HeaveFactorOfSafety, 1e-3);
-            Assert.AreEqual(-2.489, calculation.Output.HeaveZValue, 1e-3);
-            Assert.AreEqual(0.267, calculation.Output.UpliftFactorOfSafety, 1e-3);
-            Assert.AreEqual(-11.870, calculation.Output.UpliftZValue, 1e-3);
-            Assert.AreEqual(0.400, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
-            Assert.AreEqual(-1.609, calculation.Output.SellmeijerZValue, 1e-3);
+            Assert.AreEqual(0.563, calculation.Output.HeaveFactorOfSafety, 1e-3);
+            Assert.AreEqual(-0.233, calculation.Output.HeaveZValue, 1e-3);
+            Assert.AreEqual(3.377, calculation.Output.UpliftFactorOfSafety, 1e-3);
+            Assert.AreEqual(7.358, calculation.Output.UpliftZValue, 1e-3);
+            Assert.AreEqual(0.408, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
+            Assert.AreEqual(-1.588, calculation.Output.SellmeijerZValue, 1e-3);
         }
 
         private static void AssertExpectedPipingInput(PipingInput inputParameters)
@@ -179,7 +179,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(1.0, inputParameters.UpliftModelFactor, 1e-3);
             Assert.AreEqual(1.0, inputParameters.SellmeijerModelFactor, 1e-3);
 
-            Assert.AreEqual(10.0, inputParameters.WaterVolumetricWeight, 1e-3);
+            Assert.AreEqual(9.81, inputParameters.WaterVolumetricWeight, 1e-3);
             Assert.AreEqual(0.3, inputParameters.SellmeijerReductionFactor, 1e-3);
             Assert.AreEqual(16.5, inputParameters.SandParticlesVolumicWeight, 1e-3);
             Assert.AreEqual(0.25, inputParameters.WhitesDragCoefficient, 1e-3);
@@ -193,7 +193,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
             Assert.AreEqual(5.78, inputParameters.HydraulicBoundaryLocation.DesignWaterLevel, 1e-3);
 
-            Assert.AreEqual(3.661, PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
+            Assert.AreEqual(0.7, PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DampingFactorExit));
             Assert.AreEqual(1.355, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.PhreaticLevelExit));

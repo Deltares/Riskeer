@@ -5,7 +5,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Data.Properties;
 
@@ -32,14 +31,15 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(1, inputParameters.PhreaticLevelExit.StandardDeviation.Value);
             Assert.AreEqual(3, inputParameters.PhreaticLevelExit.StandardDeviation.NumberOfDecimalPlaces);
 
-            double defaultLogNormalMean = Math.Exp(-0.5);
-            double defaultLogNormalStandardDev = Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1));
             Assert.IsInstanceOf<LognormalDistribution>(inputParameters.DampingFactorExit);
-            Assert.AreEqual(1, inputParameters.DampingFactorExit.Mean.Value);
+            Assert.AreEqual(0.7, inputParameters.DampingFactorExit.Mean.Value);
             Assert.AreEqual(3, inputParameters.DampingFactorExit.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(defaultLogNormalStandardDev, inputParameters.DampingFactorExit.StandardDeviation,
+            Assert.AreEqual(0.0, inputParameters.DampingFactorExit.StandardDeviation,
                             GetErrorTolerance(inputParameters.DampingFactorExit.StandardDeviation));
             Assert.AreEqual(3, inputParameters.DampingFactorExit.StandardDeviation.NumberOfDecimalPlaces);
+
+            double defaultLogNormalMean = Math.Exp(-0.5);
+            double defaultLogNormalStandardDev = Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1));
 
             Assert.IsInstanceOf<LognormalDistribution>(inputParameters.Diameter70);
             Assert.AreEqual(defaultLogNormalMean, inputParameters.Diameter70.Mean,
@@ -211,6 +211,209 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(new RoundedDouble(2, 1), input.EntryPointL);
             Assert.AreEqual(new RoundedDouble(2, 2), input.ExitPointL);
+        }
+
+        [Test]
+        public void PhreaticLevelExit_SetNewValue_UpdateMeanAndStandardDeviation()
+        {
+            // Setup
+            var inputs = new PipingInput(new GeneralPipingInput());
+            NormalDistribution originalPhreaticLevelExit = inputs.PhreaticLevelExit;
+
+            var newValue = new NormalDistribution(5)
+            {
+                Mean = (RoundedDouble)1.23456,
+                StandardDeviation = (RoundedDouble)7.89123
+            };
+
+            // Call
+            inputs.PhreaticLevelExit = newValue;
+
+            // Assert
+            Assert.AreSame(originalPhreaticLevelExit, inputs.PhreaticLevelExit,
+                "Stochast instance hasn't changed to 'newValue'.");
+            Assert.AreEqual(3, originalPhreaticLevelExit.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.235, originalPhreaticLevelExit.Mean.Value);
+            Assert.AreEqual(3, originalPhreaticLevelExit.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(7.891, originalPhreaticLevelExit.StandardDeviation.Value);
+        }
+
+        [Test]
+        public void DampingFactorExit_SetNewValue_UpdateMeanAndStandardDeviation()
+        {
+            // Setup
+            var inputs = new PipingInput(new GeneralPipingInput());
+            LognormalDistribution originalDampingFactorExit = inputs.DampingFactorExit;
+
+            var newValue = new LognormalDistribution(5)
+            {
+                Mean = (RoundedDouble)4.56789,
+                StandardDeviation = (RoundedDouble)1.23456
+            };
+
+            // Call
+            inputs.DampingFactorExit = newValue;
+
+            // Assert
+            Assert.AreSame(originalDampingFactorExit, inputs.DampingFactorExit,
+                "Stochast instance hasn't changed to 'newValue'.");
+            Assert.AreEqual(3, originalDampingFactorExit.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(4.568, originalDampingFactorExit.Mean.Value);
+            Assert.AreEqual(3, originalDampingFactorExit.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.235, originalDampingFactorExit.StandardDeviation.Value);
+        }
+
+        [Test]
+        public void ThicknessCoverageLayer_SetNewValue_UpdateMeanAndStandardDeviation()
+        {
+            // Setup
+            var inputs = new PipingInput(new GeneralPipingInput());
+            LognormalDistribution originalThicknessCoverageLayer = inputs.ThicknessCoverageLayer;
+
+            var newValue = new LognormalDistribution(5)
+            {
+                Mean = (RoundedDouble)1.23456,
+                StandardDeviation = (RoundedDouble)7.89123
+            };
+
+            // Call
+            inputs.ThicknessCoverageLayer = newValue;
+
+            // Assert
+            Assert.AreSame(originalThicknessCoverageLayer, inputs.ThicknessCoverageLayer,
+                "Stochast instance hasn't changed to 'newValue'.");
+            Assert.AreEqual(2, originalThicknessCoverageLayer.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, originalThicknessCoverageLayer.Mean.Value);
+            Assert.AreEqual(2, originalThicknessCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(7.89, originalThicknessCoverageLayer.StandardDeviation.Value);
+        }
+
+        [Test]
+        public void SaturatedVolumicWeightOfCoverageLayer_SetNewValue_UpdateMeanAndStandardDeviation()
+        {
+            // Setup
+            var inputs = new PipingInput(new GeneralPipingInput());
+            ShiftedLognormalDistribution originalSaturatedVolumicWeightOfCoverageLayer = inputs.SaturatedVolumicWeightOfCoverageLayer;
+
+            var newValue = new ShiftedLognormalDistribution(5)
+            {
+                Mean = (RoundedDouble)1.11111,
+                StandardDeviation = (RoundedDouble)2.22222,
+                Shift = (RoundedDouble)(-3.33333)
+            };
+
+            // Call
+            inputs.SaturatedVolumicWeightOfCoverageLayer = newValue;
+
+            // Assert
+            Assert.AreSame(originalSaturatedVolumicWeightOfCoverageLayer, inputs.SaturatedVolumicWeightOfCoverageLayer,
+                "Stochast instance hasn't changed to 'newValue'.");
+            Assert.AreEqual(2, originalSaturatedVolumicWeightOfCoverageLayer.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.11, originalSaturatedVolumicWeightOfCoverageLayer.Mean.Value);
+            Assert.AreEqual(2, originalSaturatedVolumicWeightOfCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(2.22, originalSaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value);
+            Assert.AreEqual(2, originalSaturatedVolumicWeightOfCoverageLayer.Shift.NumberOfDecimalPlaces);
+            Assert.AreEqual(-3.33, originalSaturatedVolumicWeightOfCoverageLayer.Shift.Value);
+        }
+
+        [Test]
+        public void SeepageLength_SetNewValue_UpdateMeanAndStandardDeviation()
+        {
+            // Setup
+            var inputs = new PipingInput(new GeneralPipingInput());
+            LognormalDistribution originalSeepageLength = inputs.SeepageLength;
+
+            var newValue = new LognormalDistribution(5)
+            {
+                Mean = (RoundedDouble)5.55555,
+                StandardDeviation = (RoundedDouble)6.66666
+            };
+
+            // Call
+            inputs.SeepageLength = newValue;
+
+            // Assert
+            Assert.AreSame(originalSeepageLength, inputs.SeepageLength,
+                "Stochast instance hasn't changed to 'newValue'.");
+            Assert.AreEqual(2, originalSeepageLength.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(5.56, originalSeepageLength.Mean.Value);
+            Assert.AreEqual(2, originalSeepageLength.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(6.67, originalSeepageLength.StandardDeviation.Value);
+        }
+
+        [Test]
+        public void Diameter70_SetNewValue_UpdateMeanAndStandardDeviation()
+        {
+            // Setup
+            var inputs = new PipingInput(new GeneralPipingInput());
+            LognormalDistribution originalDiameter70 = inputs.Diameter70;
+
+            var newValue = new LognormalDistribution(5)
+            {
+                Mean = (RoundedDouble)8.8888,
+                StandardDeviation = (RoundedDouble)9.14363
+            };
+
+            // Call
+            inputs.Diameter70 = newValue;
+
+            // Assert
+            Assert.AreSame(originalDiameter70, inputs.Diameter70,
+                "Stochast instance hasn't changed to 'newValue'.");
+            Assert.AreEqual(2, originalDiameter70.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(8.89, originalDiameter70.Mean.Value);
+            Assert.AreEqual(2, originalDiameter70.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(9.14, originalDiameter70.StandardDeviation.Value);
+        }
+
+        [Test]
+        public void DarcyPermeability_SetNewValue_UpdateMeanAndStandardDeviation()
+        {
+            // Setup
+            var inputs = new PipingInput(new GeneralPipingInput());
+            LognormalDistribution originalDarcyPermeability = inputs.DarcyPermeability;
+
+            var newValue = new LognormalDistribution(5)
+            {
+                Mean = (RoundedDouble)1.93753,
+                StandardDeviation = (RoundedDouble)859.49028
+            };
+
+            // Call
+            inputs.DarcyPermeability = newValue;
+
+            // Assert
+            Assert.AreSame(originalDarcyPermeability, inputs.DarcyPermeability,
+                "Stochast instance hasn't changed to 'newValue'.");
+            Assert.AreEqual(3, originalDarcyPermeability.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.938, originalDarcyPermeability.Mean.Value);
+            Assert.AreEqual(3, originalDarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(859.490, originalDarcyPermeability.StandardDeviation.Value);
+        }
+
+        [Test]
+        public void ThicknessAquiferLayer_SetNewValue_UpdateMeanAndStandardDeviation()
+        {
+            // Setup
+            var inputs = new PipingInput(new GeneralPipingInput());
+            LognormalDistribution originalThicknessAquiferLayer = inputs.ThicknessAquiferLayer;
+
+            var newValue = new LognormalDistribution(5)
+            {
+                Mean = (RoundedDouble)12.34567,
+                StandardDeviation = (RoundedDouble)89.12345
+            };
+
+            // Call
+            inputs.ThicknessAquiferLayer = newValue;
+
+            // Assert
+            Assert.AreSame(originalThicknessAquiferLayer, inputs.ThicknessAquiferLayer,
+                "Stochast instance hasn't changed to 'newValue'.");
+            Assert.AreEqual(2, originalThicknessAquiferLayer.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(12.35, originalThicknessAquiferLayer.Mean.Value);
+            Assert.AreEqual(2, originalThicknessAquiferLayer.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(89.12, originalThicknessAquiferLayer.StandardDeviation.Value);
         }
     }
 }

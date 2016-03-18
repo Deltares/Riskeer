@@ -74,6 +74,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreSame(inputParameters.Diameter70, properties.Diameter70.Distribution);
             Assert.AreSame(inputParameters.DarcyPermeability, properties.DarcyPermeability.Distribution);
             Assert.AreSame(inputParameters.ThicknessAquiferLayer, properties.ThicknessAquiferLayer.Distribution);
+            Assert.AreSame(inputParameters.SaturatedVolumicWeightOfCoverageLayer, properties.SaturatedVolumicWeightOfCoverageLayer.Distribution);
 
             Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevel);
             Assert.AreEqual(inputParameters.PiezometricHeadExit, properties.PiezometricHeadExit);
@@ -127,7 +128,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var projectObserver = mocks.StrictMock<IObserver>();
-            int numberProperties = 7;
+            int numberProperties = 8;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
@@ -142,6 +143,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var phreaticLevelExit = new NormalDistribution(2);
             var diameter70 = new LognormalDistribution(2);
             var darcyPermeability = new LognormalDistribution(3);
+            var saturatedVolumicWeightOfCoverageLoayer = new ShiftedLognormalDistribution(2);
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
             PipingSoilProfile soilProfile = new TestPipingSoilProfile();
@@ -157,17 +159,42 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 PhreaticLevelExit = new NormalDistributionDesignVariable(phreaticLevelExit),
                 Diameter70 = new LognormalDistributionDesignVariable(diameter70),
                 DarcyPermeability = new LognormalDistributionDesignVariable(darcyPermeability),
+                SaturatedVolumicWeightOfCoverageLayer = new ShiftedLognormalDistributionDesignVariable(saturatedVolumicWeightOfCoverageLoayer),
                 SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile,
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(assessmentLevel)
             };
 
             // Assert
-            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel, 1e-2);
-            Assert.AreEqual(dampingFactorExit, inputParameters.DampingFactorExit);
-            Assert.AreEqual(phreaticLevelExit, inputParameters.PhreaticLevelExit);
-            Assert.AreEqual(diameter70, inputParameters.Diameter70);
-            Assert.AreEqual(darcyPermeability, inputParameters.DarcyPermeability);
+            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel, GetAccuracy(inputParameters.AssessmentLevel));
+
+            Assert.AreEqual(dampingFactorExit.Mean.Value, inputParameters.DampingFactorExit.Mean.Value,
+                            GetAccuracy(inputParameters.DampingFactorExit));
+            Assert.AreEqual(dampingFactorExit.StandardDeviation.Value, inputParameters.DampingFactorExit.StandardDeviation.Value,
+                            GetAccuracy(inputParameters.DampingFactorExit));
+
+            Assert.AreEqual(phreaticLevelExit.Mean, inputParameters.PhreaticLevelExit.Mean,
+                            GetAccuracy(inputParameters.PhreaticLevelExit));
+            Assert.AreEqual(phreaticLevelExit.StandardDeviation, inputParameters.PhreaticLevelExit.StandardDeviation,
+                            GetAccuracy(inputParameters.PhreaticLevelExit));
+
+            Assert.AreEqual(diameter70.Mean, inputParameters.Diameter70.Mean,
+                            GetAccuracy(inputParameters.Diameter70));
+            Assert.AreEqual(diameter70.StandardDeviation, inputParameters.Diameter70.StandardDeviation,
+                            GetAccuracy(inputParameters.Diameter70));
+
+            Assert.AreEqual(darcyPermeability.Mean, inputParameters.DarcyPermeability.Mean,
+                            GetAccuracy(inputParameters.DarcyPermeability));
+            Assert.AreEqual(darcyPermeability.StandardDeviation, inputParameters.DarcyPermeability.StandardDeviation,
+                            GetAccuracy(inputParameters.DarcyPermeability));
+
+            Assert.AreEqual(saturatedVolumicWeightOfCoverageLoayer.Mean, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean,
+                            GetAccuracy(inputParameters.SaturatedVolumicWeightOfCoverageLayer));
+            Assert.AreEqual(saturatedVolumicWeightOfCoverageLoayer.StandardDeviation, inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation,
+                            GetAccuracy(inputParameters.SaturatedVolumicWeightOfCoverageLayer));
+            Assert.AreEqual(saturatedVolumicWeightOfCoverageLoayer.Shift, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift,
+                            GetAccuracy(inputParameters.SaturatedVolumicWeightOfCoverageLayer));
+
             Assert.AreEqual(surfaceLine, inputParameters.SurfaceLine);
             Assert.AreEqual(soilProfile, inputParameters.SoilProfile);
 
@@ -441,6 +468,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Then
             Assert.IsFalse(double.IsNaN(inputParameters.PiezometricHeadExit));
             mocks.VerifyAll();
+        }
+
+        private double GetAccuracy(RoundedDouble roundedDouble)
+        {
+            return Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
+        }
+
+        private double GetAccuracy(IDistribution distribution)
+        {
+            return Math.Pow(10.0, -distribution.Mean.NumberOfDecimalPlaces);
         }
 
         private static RingtoetsPipingSurfaceLine ValidSurfaceLine(double xMin, double xMax)

@@ -661,4 +661,10 @@
   <data name="PipingSemiProbabilisticOutput_Categories_Uplift" xml:space="preserve">
     <value>Opbarsten</value>
   </data>
+  <data name="PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description" xml:space="preserve">
+    <value>Verzadigd gewicht deklaag.</value>
+  </data>
+  <data name="PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName" xml:space="preserve">
+    <value>Verzadigd gewicht deklaag [kN/m³]</value>
+  </data>
 </root>

@@ -15,7 +15,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(1.0, inputParameters.UpliftModelFactor);
             Assert.AreEqual(1.0, inputParameters.SellmeijerModelFactor);
 
-            Assert.AreEqual(10.0, inputParameters.WaterVolumetricWeight);
+            Assert.AreEqual(9.81, inputParameters.WaterVolumetricWeight);
 
             Assert.AreEqual(0.3, inputParameters.CriticalHeaveGradient);
 

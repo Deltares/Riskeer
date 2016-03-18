@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <summary>
         /// Creates the design variable for <see cref="PipingInput.SaturatedVolumicWeightOfCoverageLayer"/>.
         /// </summary>
-        public static DesignVariable<LognormalDistribution> GetSaturatedVolumicWeightOfCoverageLayer(PipingInput parameters)
+        public static DesignVariable<ShiftedLognormalDistribution> GetSaturatedVolumicWeightOfCoverageLayer(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.SaturatedVolumicWeightOfCoverageLayer, 0.05);
         }
@@ -112,6 +112,14 @@ namespace Ringtoets.Piping.KernelWrapper
         private static DesignVariable<LognormalDistribution> CreateDesignVariable(LognormalDistribution distribution, double percentile)
         {
             return new LognormalDistributionDesignVariable(distribution)
+            {
+                Percentile = percentile
+            };
+        }
+
+        private static DesignVariable<ShiftedLognormalDistribution> CreateDesignVariable(ShiftedLognormalDistribution distribution, double percentile)
+        {
+            return new ShiftedLognormalDistributionDesignVariable(distribution)
             {
                 Percentile = percentile
             };
