@@ -2,11 +2,11 @@ using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using log4net;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.InputParameterCalculation;
-using Resources = Ringtoets.Piping.Service.Properties.Resources;
+using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Service
+namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// Class responsible for synchronizing piping input.

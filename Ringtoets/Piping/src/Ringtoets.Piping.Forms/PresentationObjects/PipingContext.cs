@@ -27,6 +27,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {

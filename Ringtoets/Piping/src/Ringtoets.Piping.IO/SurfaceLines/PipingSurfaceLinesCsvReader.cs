@@ -25,13 +25,12 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.Primitives;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.SurfaceLines
@@ -83,7 +82,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Reads the file to determine the number of available <see cref="RingtoetsPipingSurfaceLine"/>
+        /// Reads the file to determine the number of available <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/>
         /// data rows.
         /// </summary>
         /// <returns>A value greater than or equal to 0.</returns>
@@ -109,7 +108,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
 
         /// <summary>
         /// Reads and consumes the next data row which contains a surface line, parsing the data to create an instance 
-        /// of <see cref="RingtoetsPipingSurfaceLine"/>.
+        /// of <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/>.
         /// </summary>
         /// <returns>Return the parsed surfaceline, or null when at the end of the file.</returns>
         /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:

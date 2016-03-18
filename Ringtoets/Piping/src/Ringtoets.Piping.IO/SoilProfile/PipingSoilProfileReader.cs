@@ -25,15 +25,15 @@ using System.Data.SQLite;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.Primitives;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.SoilProfile
 {
     /// <summary>
-    /// This class reads a SqLite database file and constructs <see cref="PipingSoilProfile"/> instances from this database.
+    /// This class reads a SqLite database file and constructs <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> instances from this database.
     /// </summary>
     public class PipingSoilProfileReader : SqLiteDatabaseReaderBase, IRowBasedDatabaseReader
     {
@@ -74,9 +74,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         /// <summary>
         /// Reads the information for the next profile from the database and creates a 
-        /// <see cref="PipingSoilProfile"/> instance of the information.
+        /// <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> instance of the information.
         /// </summary>
-        /// <returns>The next <see cref="PipingSoilProfile"/> from the database, or <c>null</c> if no more profiles can be read.</returns>
+        /// <returns>The next <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> from the database, or <c>null</c> if no more profiles can be read.</returns>
         /// <exception cref="PipingSoilProfileReadException">Thrown when reading the profile in the database contained a non-parsable geometry.</exception>
         /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">Thrown when the database returned incorrect values for required properties.</exception>
         public PipingSoilProfile ReadProfile()
@@ -161,9 +161,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
         }
 
         /// <summary>
-        /// Reads a <see cref="PipingSoilProfile"/> from the database.
+        /// Reads a <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> from the database.
         /// </summary>
-        /// <returns>A new <see cref="PipingSoilProfile"/>.</returns>
+        /// <returns>A new <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>.</returns>
         /// <exception cref="PipingSoilProfileReadException">Thrown when a recoverable error occurred while reading from the database.</exception>
         /// <exception cref="InvalidCastException">Thrown when recovering from the <see cref="PipingSoilProfileReadException"/> failed.</exception>
         private PipingSoilProfile ReadPipingSoilProfile()

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Piping.Data
+namespace Ringtoets.Piping.Primitives
 {
     /// <summary>
     /// This class represents profiles that were imported from D-Soil Model and will later on be used to create the

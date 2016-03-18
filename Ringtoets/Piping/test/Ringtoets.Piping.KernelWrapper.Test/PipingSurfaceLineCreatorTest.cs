@@ -3,7 +3,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.WTIPiping;
 using NUnit.Framework;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.KernelWrapper.Test
 {

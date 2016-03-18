@@ -25,11 +25,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using MathNet.Numerics.LinearAlgebra.Double;
+using Ringtoets.Piping.Primitives.Exceptions;
+using Ringtoets.Piping.Primitives.Properties;
 
-using Ringtoets.Piping.Data.Exceptions;
-using Ringtoets.Piping.Data.Properties;
-
-namespace Ringtoets.Piping.Data
+namespace Ringtoets.Piping.Primitives
 {
     /// <summary>
     /// Definition of a surfaceline for piping.
@@ -130,8 +129,8 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Sets the <see cref="DitchPolderSide"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchPolderSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <param name="point">The location as a <see cref="Core.Common.Base.Geometry.Point3D"/> which to set as the <see cref="DitchPolderSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Core.Common.Base.Geometry.Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetDitchPolderSideAt(Point3D point)
@@ -147,8 +146,8 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Sets the <see cref="BottomDitchPolderSide"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchPolderSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <param name="point">The location as a <see cref="Core.Common.Base.Geometry.Point3D"/> which to set as the <see cref="BottomDitchPolderSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Core.Common.Base.Geometry.Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetBottomDitchPolderSideAt(Point3D point)
@@ -164,8 +163,8 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Sets the <see cref="BottomDitchDikeSide"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="BottomDitchDikeSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <param name="point">The location as a <see cref="Core.Common.Base.Geometry.Point3D"/> which to set as the <see cref="BottomDitchDikeSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Core.Common.Base.Geometry.Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetBottomDitchDikeSideAt(Point3D point)
@@ -181,8 +180,8 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Sets the <see cref="DitchDikeSide"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DitchDikeSide"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <param name="point">The location as a <see cref="Core.Common.Base.Geometry.Point3D"/> which to set as the <see cref="DitchDikeSide"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Core.Common.Base.Geometry.Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetDitchDikeSideAt(Point3D point)
@@ -198,8 +197,8 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Sets the <see cref="DikeToeAtRiver"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeToeAtRiver"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <param name="point">The location as a <see cref="Core.Common.Base.Geometry.Point3D"/> which to set as the <see cref="DikeToeAtRiver"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Core.Common.Base.Geometry.Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetDikeToeAtRiverAt(Point3D point)
@@ -215,8 +214,8 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Sets the <see cref="DikeToeAtPolder"/> at the given point.
         /// </summary>
-        /// <param name="point">The location as a <see cref="Point3D"/> which to set as the <see cref="DikeToeAtPolder"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Point3D"/> at 
+        /// <param name="point">The location as a <see cref="Core.Common.Base.Geometry.Point3D"/> which to set as the <see cref="DikeToeAtPolder"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="Points"/> doesn't contain a <see cref="Core.Common.Base.Geometry.Point3D"/> at 
         /// <paramref name="point"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         public void SetDikeToeAtPolderAt(Point3D point)
@@ -255,7 +254,7 @@ namespace Ringtoets.Piping.Data
             IEnumerable<Point2D> intersectionPoints = Math2D.SegmentsIntersectionWithVerticalLine(segments, l).OrderBy(p => p.Y).ToArray();
 
             const double intersectionTolerance = 1e-8;
-            bool equalIntersections = Math.Abs(intersectionPoints.First().Y - intersectionPoints.Last().Y) < intersectionTolerance;
+            bool equalIntersections = Math.Abs((double) (intersectionPoints.First().Y - intersectionPoints.Last().Y)) < intersectionTolerance;
 
             if (equalIntersections)
             {
@@ -305,7 +304,7 @@ namespace Ringtoets.Piping.Data
         /// Finds a point from <see cref="Points"/> which is at the same position as <paramref name="point"/>.
         /// </summary>
         /// <param name="point">The location of a point from <see cref="Points"/>.</param>
-        /// <returns>The <see cref="Point3D"/> from <see cref="Points"/> at the same location as <paramref name="point"/>.</returns>
+        /// <returns>The <see cref="Core.Common.Base.Geometry.Point3D"/> from <see cref="Points"/> at the same location as <paramref name="point"/>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="point"/> is <c>null</c>.</exception>
         private Point3D GetPointFromGeometry(Point3D point)
         {
@@ -318,8 +317,8 @@ namespace Ringtoets.Piping.Data
 
         private static ArgumentException CreatePointNotInGeometryException(Point3D point, string characteristicPointDescription)
         {
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                        point,
+            var message = string.Format((string) Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                                        (object) point,
                                         characteristicPointDescription);
             return new ArgumentException(message);
         }
@@ -350,7 +349,7 @@ namespace Ringtoets.Piping.Data
             Point2D lastLocalPoint = geometryInLocalCoordinates.Last();
             if (firstLocalPoint.X > localCoordinateL || lastLocalPoint.X < localCoordinateL)
             {
-                var outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range,
+                var outOfRangeMessage = string.Format((string) Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range,
                                                       Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height,
                                                       firstLocalPoint.X,
                                                       lastLocalPoint.X);

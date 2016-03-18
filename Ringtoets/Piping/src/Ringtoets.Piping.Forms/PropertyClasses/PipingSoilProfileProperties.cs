@@ -20,19 +20,17 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Gui;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.Primitives;
 using TypeConverter = System.ComponentModel.TypeConverterAttribute;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="PipingSoilProfile"/> for properties panel.
+    /// ViewModel of <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> for properties panel.
     /// </summary>
     [ResourcesDisplayName(typeof(Resources), "PipingSoilProfileProperties_DisplayName")]
     public class PipingSoilProfileProperties : ObjectProperties<PipingSoilProfile>

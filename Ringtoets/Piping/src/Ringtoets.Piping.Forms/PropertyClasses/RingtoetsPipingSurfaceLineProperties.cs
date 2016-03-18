@@ -26,16 +26,15 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 
-using Ringtoets.Piping.Data;
-
 using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.Primitives;
 using TypeConverter = System.ComponentModel.TypeConverterAttribute;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="RingtoetsPipingSurfaceLine"/> for properties panel.
+    /// ViewModel of <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/> for properties panel.
     /// </summary>
     [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_DisplayName")]
     public class RingtoetsPipingSurfaceLineProperties : ObjectProperties<RingtoetsPipingSurfaceLine>

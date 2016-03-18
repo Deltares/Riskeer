@@ -5,6 +5,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.Properties;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test
 {

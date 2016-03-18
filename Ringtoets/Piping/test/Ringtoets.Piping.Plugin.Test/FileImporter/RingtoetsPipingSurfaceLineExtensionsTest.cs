@@ -2,8 +2,8 @@
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Plugin.Test.FileImporter
 {

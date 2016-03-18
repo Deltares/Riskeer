@@ -8,6 +8,7 @@ using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.KernelWrapper.Test
 {

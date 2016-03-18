@@ -2,6 +2,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.KernelWrapper.TestUtil
 {

@@ -60,13 +60,13 @@
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Core.Common.Version</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
-      <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
-      <Name>Ringtoets.Piping.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
       <Name>Ringtoets.Piping.KernelWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
+      <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
+      <Name>Ringtoets.Piping.Primitives</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

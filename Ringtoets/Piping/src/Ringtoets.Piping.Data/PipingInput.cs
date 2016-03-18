@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Data.Properties;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
 {

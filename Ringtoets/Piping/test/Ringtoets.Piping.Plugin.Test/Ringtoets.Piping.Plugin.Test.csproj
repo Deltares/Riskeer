@@ -127,6 +127,10 @@
       <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
       <Name>Ringtoets.Piping.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
+      <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
+      <Name>Ringtoets.Piping.Primitives</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

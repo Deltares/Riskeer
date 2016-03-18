@@ -97,26 +97,6 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer..
-        /// </summary>
-        internal static string PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer {
-            get {
-                return ResourceManager.GetString("PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aq" +
-                        "uifer_layer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan de dikte van de deklaag niet afleiden op basis van de invoer..
-        /// </summary>
-        internal static string PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer {
-            get {
-                return ResourceManager.GetString("PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_c" +
-                        "overage_layer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; beëindigd om: {1}.
         /// </summary>
         internal static string Validation_Subject_0_ended_Time_1_ {

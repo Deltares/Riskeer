@@ -8,6 +8,7 @@ using Rhino.Mocks;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Plugin;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {

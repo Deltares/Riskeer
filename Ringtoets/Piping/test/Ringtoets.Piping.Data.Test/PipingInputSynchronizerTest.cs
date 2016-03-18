@@ -4,15 +4,13 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.InputParameterCalculation;
 using Ringtoets.Piping.InputParameterCalculation.TestUtil;
-using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
-using Ringtoets.Piping.Service.Properties;
-using Ringtoets.Piping.Service.TestUtil;
+using Ringtoets.Piping.Primitives;
 
-namespace Ringtoets.Piping.Service.Test
+namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
     public class PipingInputSynchronizerTest

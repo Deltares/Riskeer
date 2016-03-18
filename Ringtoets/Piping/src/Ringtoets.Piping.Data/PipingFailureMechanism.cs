@@ -22,10 +22,9 @@
 using System.Collections.Generic;
 
 using Core.Common.Base;
-
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
-
+using Ringtoets.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
@@ -73,7 +72,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.
+        /// Gets the available <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.
         /// </summary>
         public ICollection<RingtoetsPipingSurfaceLine> SurfaceLines { get; private set; }
 

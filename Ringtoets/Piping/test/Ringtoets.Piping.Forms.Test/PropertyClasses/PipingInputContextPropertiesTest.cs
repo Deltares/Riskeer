@@ -15,6 +15,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.TypeConverters;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {

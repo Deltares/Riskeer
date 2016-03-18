@@ -14,6 +14,7 @@ using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.TypeConverters;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Test.TypeConverters
 {

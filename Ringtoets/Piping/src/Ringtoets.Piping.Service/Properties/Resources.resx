@@ -135,10 +135,4 @@
   <data name="Validation_Subject_0_started_Time_1_" xml:space="preserve">
     <value>Validatie van '{0}' gestart om: {1}</value>
   </data>
-  <data name="PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer" xml:space="preserve">
-    <value>Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.</value>
-  </data>
-  <data name="PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer" xml:space="preserve">
-    <value>Kan de dikte van de deklaag niet afleiden op basis van de invoer.</value>
-  </data>
 </root>

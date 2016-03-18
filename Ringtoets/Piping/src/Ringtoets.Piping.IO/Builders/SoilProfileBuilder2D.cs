@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Builders
 {
@@ -40,10 +40,10 @@ namespace Ringtoets.Piping.IO.Builders
         private double bottom;
 
         /// <summary>
-        /// Creates a new instance of <see cref="SoilProfileBuilder2D"/> with the supposed name for the new <see cref="PipingSoilProfile"/>
+        /// Creates a new instance of <see cref="SoilProfileBuilder2D"/> with the supposed name for the new <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>
         /// and the point at which a 1D profile should be obtained from the 2D profile.
         /// </summary>
-        /// <param name="profileName">The name for the <see cref="PipingSoilProfile"/> constructed by the <see cref="SoilProfileBuilder2D"/>.</param>
+        /// <param name="profileName">The name for the <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> constructed by the <see cref="SoilProfileBuilder2D"/>.</param>
         /// <param name="atX">The x position from which to obtain a 1D profile.</param>
         /// <param name="soilProfileId">The indentifier of the profile in the database.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="atX"/> can not be used to determine intersections with
@@ -62,11 +62,11 @@ namespace Ringtoets.Piping.IO.Builders
         }
 
         /// <summary>
-        /// Creates a new instances of the <see cref="PipingSoilProfile"/> based on the layer definitions.
+        /// Creates a new instances of the <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> based on the layer definitions.
         /// </summary>
-        /// <returns>A new <see cref="PipingSoilProfile"/>.</returns>
+        /// <returns>A new <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>.</returns>
         /// <exception cref="SoilProfileBuilderException">Thrown when trying to build a 
-        /// <see cref="PipingSoilProfile"/> and not having added any layers using <see cref="Add"/>.
+        /// <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> and not having added any layers using <see cref="Add"/>.
         /// </exception>
         internal PipingSoilProfile Build()
         {

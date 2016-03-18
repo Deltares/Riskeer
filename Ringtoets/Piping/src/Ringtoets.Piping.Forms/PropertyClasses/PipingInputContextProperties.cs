@@ -32,7 +32,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.TypeConverters;
 using Ringtoets.Piping.Forms.UITypeEditors;
-using Ringtoets.Piping.KernelWrapper;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Schematization
 
         /// <summary>
-        /// Gets or sets the <see cref="RingtoetsPipingSurfaceLine"/>.
+        /// Gets or sets the <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/>.
         /// </summary>
         [Editor(typeof(PipingInputContextSurfaceLineSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
@@ -184,7 +184,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="PipingSoilProfile"/>.
+        /// Gets or sets the <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>.
         /// </summary>
         [Editor(typeof(PipingInputContextSoilProfileSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]

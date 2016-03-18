@@ -22,13 +22,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Utils.Reflection;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="PipingSoilProfile"/> from a collection.
+    /// <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> from a collection.
     /// </summary>
     public class PipingInputContextSoilProfileSelectionEditor : PipingInputContextSelectionEditor<PipingSoilProfile>
     {

@@ -20,13 +20,12 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.SoilProfile;
 
 namespace Ringtoets.Piping.IO.Exceptions
 {
     /// <summary>
-    /// Exception thrown when something went wrong while reading <see cref="PipingSoilProfile"/> in <see cref="PipingSoilProfileReader"/>.
+    /// Exception thrown when something went wrong while reading <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> in <see cref="PipingSoilProfileReader"/>.
     /// </summary>
     public class PipingSoilProfileReadException : Exception
     {

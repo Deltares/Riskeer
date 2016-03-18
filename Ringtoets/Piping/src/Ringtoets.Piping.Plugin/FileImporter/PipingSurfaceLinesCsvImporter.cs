@@ -27,16 +27,14 @@ using System.Linq;
 
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
-using Core.Common.Base.Properties;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 
 using log4net;
 using Ringtoets.Common.Data;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.IO.SurfaceLines;
-
+using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -278,12 +276,12 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         }
 
         /// <summary>
-        /// Adds a valid <see cref="RingtoetsPipingSurfaceLine"/> read from <paramref name="reader"/> to the <paramref name="list"/>.
+        /// Adds a valid <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/> read from <paramref name="reader"/> to the <paramref name="list"/>.
         /// </summary>
-        /// <param name="list">The list to add the valid <see cref="RingtoetsPipingSurfaceLine"/> to.</param>
-        /// <param name="reader">The reader to read the <see cref="RingtoetsPipingSurfaceLine"/> from.</param>
-        /// <exception cref="CriticalFileReadException"><paramref name="list"/> already contains a <see cref="RingtoetsPipingSurfaceLine"/>
-        /// with the same name as the new <see cref="RingtoetsPipingSurfaceLine"/>.</exception>
+        /// <param name="list">The list to add the valid <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/> to.</param>
+        /// <param name="reader">The reader to read the <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/> from.</param>
+        /// <exception cref="CriticalFileReadException"><paramref name="list"/> already contains a <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/>
+        /// with the same name as the new <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/>.</exception>
         private void AddValidSurfaceLineToCollection(List<RingtoetsPipingSurfaceLine> list, PipingSurfaceLinesCsvReader reader)
         {
             try

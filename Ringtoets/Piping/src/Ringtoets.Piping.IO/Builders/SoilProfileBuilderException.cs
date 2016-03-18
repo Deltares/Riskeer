@@ -21,12 +21,10 @@
 
 using System;
 
-using Ringtoets.Piping.Data;
-
 namespace Ringtoets.Piping.IO.Builders
 {
     /// <summary>
-    /// Exception thrown when something went wrong while building a <see cref="PipingSoilProfile"/>.
+    /// Exception thrown when something went wrong while building a <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>.
     /// </summary>
     public class SoilProfileBuilderException : Exception
     {

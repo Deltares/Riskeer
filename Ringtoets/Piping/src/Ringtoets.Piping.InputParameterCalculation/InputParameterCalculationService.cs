@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.Data;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.InputParameterCalculation
 {

@@ -10,6 +10,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
+using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;

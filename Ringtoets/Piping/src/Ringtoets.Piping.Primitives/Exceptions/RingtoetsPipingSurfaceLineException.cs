@@ -21,10 +21,10 @@
 
 using System;
 
-namespace Ringtoets.Piping.Data.Exceptions
+namespace Ringtoets.Piping.Primitives.Exceptions
 {
     /// <summary>
-    /// The exception that is thrown when operations on <see cref="RingtoetsPipingSurfaceLine"/> encounter 
+    /// The exception that is thrown when operations on <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/> encounter 
     /// an error.
     /// </summary>
     public class RingtoetsPipingSurfaceLineException : Exception

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.KernelWrapper
 {

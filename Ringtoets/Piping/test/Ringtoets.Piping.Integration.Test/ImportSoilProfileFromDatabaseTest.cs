@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.Plugin.FileImporter;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Integration.Test
 {

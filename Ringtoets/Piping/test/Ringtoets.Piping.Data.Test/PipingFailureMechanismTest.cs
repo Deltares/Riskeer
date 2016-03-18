@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Common.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test
 {

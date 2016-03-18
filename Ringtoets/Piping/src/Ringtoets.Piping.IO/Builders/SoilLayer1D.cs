@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Builders
 {
@@ -65,9 +65,9 @@ namespace Ringtoets.Piping.IO.Builders
         public double? DryUnitWeight { get; set; }
 
         /// <summary>
-        /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the properties set for the <see cref="SoilLayer1D"/>.
+        /// Constructs a (1D) <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/> based on the properties set for the <see cref="SoilLayer1D"/>.
         /// </summary>
-        /// <returns>The <see cref="PipingSoilLayer"/> with properties corresponding to those set on the <see cref="SoilLayer1D"/>.</returns>
+        /// <returns>The <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/> with properties corresponding to those set on the <see cref="SoilLayer1D"/>.</returns>
         internal PipingSoilLayer AsPipingSoilLayer()
         {
             return new PipingSoilLayer(Top)

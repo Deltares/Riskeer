@@ -23,16 +23,16 @@ using System;
 using System.Data.SQLite;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.SoilProfile
 {
     /// <summary>
     /// This class is responsible for reading 1d profile definitions from the Soil database using a constructed reader
-    /// and transform the definitions to a <see cref="PipingSoilProfile"/>.
+    /// and transform the definitions to a <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>.
     /// </summary>
     internal static class SoilProfile1DReader
     {
@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// Reads a 1D profile from the given <paramref name="reader"/>.
         /// </summary>
         /// <param name="reader">A <see cref="IRowBasedDatabaseReader"/> which is used to read row values from.</param>
-        /// <returns>A new <see cref="PipingSoilProfile"/>, which is based on the information from the database.</returns>
+        /// <returns>A new <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>, which is based on the information from the database.</returns>
         /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">Thrown when reading the profile encountered an unrecoverable error.</exception>
         /// <exception cref="PipingSoilProfileReadException">Thrown when reading the profile encountered a recoverable error.</exception>
         internal static PipingSoilProfile ReadFrom(IRowBasedDatabaseReader reader)
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <summary>
         /// Builds a <see cref="SoilLayer1D"/> from the given <paramref name="soilProfileBuilder"/>.
         /// </summary>
-        /// <exception cref="PipingSoilProfileReadException">Thrown when building the <see cref="PipingSoilProfile"/> failed.</exception>
+        /// <exception cref="PipingSoilProfileReadException">Thrown when building the <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> failed.</exception>
         private static PipingSoilProfile Build(SoilProfileBuilder1D soilProfileBuilder, string path, string profileName)
         {
             try
@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
             /// <summary>
             /// Creates a new instance of <see cref="RequiredProfileProperties"/>, which contains properties
-            /// that are required to create a complete <see cref="PipingSoilProfile"/>. If these properties
+            /// that are required to create a complete <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>. If these properties
             /// cannot be read, then the reader can proceed to the next profile.
             /// </summary>
             /// <param name="reader">The <see cref="SQLiteDataReader"/> to read the required profile property values from.</param>

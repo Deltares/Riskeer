@@ -5,6 +5,7 @@ using System.Linq;
 using Deltares.WTIPiping;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.KernelWrapper.Test
 {

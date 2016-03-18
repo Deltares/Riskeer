@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Ringtoets.Piping.Data.Exceptions;
+using Ringtoets.Piping.Primitives.Exceptions;
 
 namespace Ringtoets.Piping.Data.Test.Exceptions
 {

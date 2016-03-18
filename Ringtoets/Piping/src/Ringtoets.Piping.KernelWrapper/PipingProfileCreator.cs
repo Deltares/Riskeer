@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Deltares.WTIPiping;
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.KernelWrapper
 {
@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// Creates a <see cref="PipingProfile"/> based on information contained in the provided <paramref name="soilProfile"/>,
         /// which can then be used in the <see cref="PipingCalculator"/>.
         /// </summary>
-        /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> from which to take the information.</param>
+        /// <param name="soilProfile">The <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> from which to take the information.</param>
         /// <returns>A new <see cref="PipingProfile"/> with information taken from the <paramref name="soilProfile"/>.</returns>
         public static PipingProfile Create(PipingSoilProfile soilProfile)
         {

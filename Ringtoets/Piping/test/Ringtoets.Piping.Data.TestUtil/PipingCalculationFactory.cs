@@ -2,6 +2,7 @@
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.TestUtil
 {

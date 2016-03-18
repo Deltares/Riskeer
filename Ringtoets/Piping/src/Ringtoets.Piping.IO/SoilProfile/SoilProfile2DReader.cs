@@ -23,24 +23,24 @@ using System;
 using System.Data.SQLite;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.SoilProfile
 {
     /// <summary>
     /// This class is responsible for reading 2d profile definitions from the Soil database using a constructed reader
-    /// and transform the definitions to a <see cref="PipingSoilProfile"/>.
+    /// and transform the definitions to a <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>.
     /// </summary>
     internal static class SoilProfile2DReader
     {
         /// <summary>
-        /// Reads information for a profile from the database and creates a <see cref="PipingSoilProfile"/> based on the information.
+        /// Reads information for a profile from the database and creates a <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> based on the information.
         /// </summary>
         /// <param name="reader">A <see cref="IRowBasedDatabaseReader"/> which is used to read row values from.</param>
-        /// <returns>A new <see cref="PipingSoilProfile"/>, which is based on the information from the database.</returns>
+        /// <returns>A new <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>, which is based on the information from the database.</returns>
         /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">Thrown when reading the profile encountered an unrecoverable error.</exception>
         /// <exception cref="PipingSoilProfileReadException">Thrown when
         /// <list type="bullet">
@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
             /// <summary>
             /// Creates a new instance of <see cref="RequiredProfileProperties"/>, which contains properties
-            /// that are required to create a complete <see cref="PipingSoilProfile"/>. If these properties
+            /// that are required to create a complete <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>. If these properties
             /// cannot be read, then the reader can proceed to the next profile.
             /// </summary>
             /// <param name="reader">The <see cref="SQLiteDataReader"/> to read the required profile property values from.</param>

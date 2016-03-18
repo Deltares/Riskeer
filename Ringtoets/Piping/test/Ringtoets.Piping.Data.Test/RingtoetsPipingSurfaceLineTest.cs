@@ -25,8 +25,9 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.Data.Exceptions;
 using Ringtoets.Piping.Data.Properties;
+using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Primitives.Exceptions;
 
 namespace Ringtoets.Piping.Data.Test
 {
