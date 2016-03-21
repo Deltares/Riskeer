@@ -48,7 +48,7 @@ namespace Core.Common.Controls.DataGrid
         {
             get
             {
-                return wrappedObject.ToString();
+                return wrappedObject == null ? string.Empty : wrappedObject.ToString();
             }
         }
 
@@ -89,7 +89,7 @@ namespace Core.Common.Controls.DataGrid
             {
                 return true;
             }
-            if (obj.GetType() != this.GetType())
+            if (obj.GetType() != GetType())
             {
                 return false;
             }

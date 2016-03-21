@@ -7,7 +7,7 @@ namespace Core.Common.Controls.Test.DataGrid
     public class DataGridViewComboBoxItemWrapperTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithWrappedObject_ExpectedValues()
         {
             // Setup
             var testClass = new TestClass();
@@ -18,6 +18,21 @@ namespace Core.Common.Controls.Test.DataGrid
             // Assert
             Assert.AreEqual("Test class", dataGridViewComboBoxItemWrapper.DisplayName);
             Assert.AreEqual(testClass, dataGridViewComboBoxItemWrapper.WrappedObject);
+            Assert.AreEqual(dataGridViewComboBoxItemWrapper, dataGridViewComboBoxItemWrapper.This);
+        }
+
+        [Test]
+        public void Constructor_WithWrappedObjectNull_ExpectedValues()
+        {
+            // Setup
+            var testClass = new TestClass();
+
+            // Call
+            var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(null);
+
+            // Assert
+            Assert.AreEqual("", dataGridViewComboBoxItemWrapper.DisplayName);
+            Assert.IsNull(dataGridViewComboBoxItemWrapper.WrappedObject);
             Assert.AreEqual(dataGridViewComboBoxItemWrapper, dataGridViewComboBoxItemWrapper.This);
         }
 

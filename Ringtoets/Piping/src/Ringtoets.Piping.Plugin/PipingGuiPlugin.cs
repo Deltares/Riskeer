@@ -81,7 +81,8 @@ namespace Ringtoets.Piping.Plugin
                 GetViewName = (view, calculationGroup) => calculationGroup.Name,
                 Image = PipingFormsResources.FolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.PipingFailureMechanism.CalculationsGroup,
-                CloseForData = ClosePipingCalculationsViewForData
+                CloseForData = ClosePipingCalculationsViewForData,
+                AfterCreate = (view, context) => view.AssessmentSection = context.AssessmentSection
             };
         }
 

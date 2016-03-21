@@ -19,10 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using Ringtoets.Common.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 
@@ -33,7 +37,9 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public partial class PipingCalculationsView : UserControl, IView
     {
+        private AssessmentSectionBase assessmentSection;
         private PipingCalculationGroup pipingCalculationGroup;
+        private DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn;
 
         /// <summary>
         /// Creates a new instance of the <see cref="PipingCalculationsView"/> class.
@@ -62,6 +68,27 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the assessment section.
+        /// </summary>
+        public AssessmentSectionBase AssessmentSection
+        {
+            get
+            {
+                return assessmentSection;
+            }
+            set
+            {
+                assessmentSection = value;
+
+                hydraulicBoundaryLocationColumn.DataSource = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
+                                                                 ? assessmentSection.HydraulicBoundaryDatabase.Locations
+                                                                                    .Select(hbl => new DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>(hbl))
+                                                                                    .ToList()
+                                                                 : GetDefaultHydraulicBoundaryLocationsDataSource();
+            }
+        }
+
         private void InitializeDataGridView()
         {
             var nameColumn = new DataGridViewTextBoxColumn
@@ -80,12 +107,15 @@ namespace Ringtoets.Piping.Forms.Views
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             };
 
-            var hydraulicBoundaryLocationColumn = new DataGridViewTextBoxColumn
+            hydraulicBoundaryLocationColumn = new DataGridViewComboBoxColumn
             {
                 DataPropertyName = "HydraulicBoundaryLocation",
                 HeaderText = Resources.PipingInput_HydraulicBoundaryLocation_DisplayName,
                 Name = "column_HydraulicBoundaryLocation",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                ValueMember = "This",
+                DisplayMember = "DisplayName",
+                DataSource = GetDefaultHydraulicBoundaryLocationsDataSource()
             };
 
             var dampingFactorExitMeanColumn = new DataGridViewTextBoxColumn
@@ -124,6 +154,14 @@ namespace Ringtoets.Piping.Forms.Views
             dataGridView.Columns.AddRange(nameColumn, soilProfileColumn, hydraulicBoundaryLocationColumn, dampingFactorExitMeanColumn, phreaticLevelExitMeanColumn, entryPointLColumn, exitPointLColumn);
         }
 
+        private static List<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>> GetDefaultHydraulicBoundaryLocationsDataSource()
+        {
+            return new List<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>>
+            {
+                new DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>(null)
+            };
+        }
+
         private class PipingCalculationRow
         {
             private readonly PipingCalculation pipingCalculation;
@@ -151,13 +189,15 @@ namespace Ringtoets.Piping.Forms.Views
                 }
             }
 
-            public string HydraulicBoundaryLocation
+            public DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation> HydraulicBoundaryLocation
             {
                 get
                 {
-                    var hydraulicBoundaryLocation = pipingCalculation.InputParameters.HydraulicBoundaryLocation;
-
-                    return hydraulicBoundaryLocation != null ? hydraulicBoundaryLocation.Name : string.Empty;
+                    return new DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>(pipingCalculation.InputParameters.HydraulicBoundaryLocation);
+                }
+                set
+                {
+                    pipingCalculation.InputParameters.HydraulicBoundaryLocation = value.WrappedObject;
                 }
             }
 
