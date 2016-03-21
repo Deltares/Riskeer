@@ -53,6 +53,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataGrid\DataGridViewComboBoxItemWrapperTest.cs" />
     <Compile Include="Dialogs\DialogBaseTest.cs" />
     <Compile Include="Dialogs\ExceptionDialogTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
