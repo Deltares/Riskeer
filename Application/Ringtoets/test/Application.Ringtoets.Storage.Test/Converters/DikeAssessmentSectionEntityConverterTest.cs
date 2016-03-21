@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
@@ -10,6 +11,15 @@ namespace Application.Ringtoets.Storage.Test.Converters
     [TestFixture]
     public class DikeAssessmentSectionEntityConverterTest
     {
+        private static IEnumerable<Func<DikeAssessmentSection>> TestCases
+        {
+            get
+            {
+                yield return () => null;
+                yield return null;
+            }
+        }
+
         [Test]
         public void DefaultConstructor_Always_NewDikeAssessmentSectionEntityConverter()
         {
@@ -34,7 +44,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        public void ConvertEntityToModel_ValidDikeAssessmentSectionEntityNullModel_ThrowsArgumentNullException()
+        [TestCaseSource("TestCases")]
+        public void ConvertEntityToModel_ValidDikeAssessmentSectionEntityNullModel_ThrowsArgumentNullException(Func<DikeAssessmentSection> func)
         {
             // Setup
             const long storageId = 1234L;
@@ -52,7 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
 
             // Call
-            TestDelegate test = () => converter.ConvertEntityToModel(dikeAssessmentSectionEntity, () => null);
+            TestDelegate test = () => converter.ConvertEntityToModel(dikeAssessmentSectionEntity, func);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);

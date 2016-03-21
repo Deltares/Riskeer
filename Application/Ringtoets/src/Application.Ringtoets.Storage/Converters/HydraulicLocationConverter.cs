@@ -21,18 +21,18 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data;
-using Ringtoets.Piping.Data;
+using Core.Common.Base.Geometry;
+using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Converters
 {
     /// <summary>
-    /// Converter for <see cref="FailureMechanismEntity"/> to <see cref="IFailureMechanism"/> 
-    /// and <see cref="IFailureMechanism"/> to <see cref="FailureMechanismEntity"/>.
+    ///  Converter for <see cref="HydraulicLocationEntity"/> to <see cref="HydraulicBoundaryLocation"/>
+    /// and <see cref="HydraulicBoundaryLocation"/> to <see cref="HydraulicLocationEntity"/>.
     /// </summary>
-    public class FailureMechanismEntityConverter<T> : IEntityConverter<T, FailureMechanismEntity> where T : IFailureMechanism
+    public class HydraulicLocationConverter : IEntityConverter<HydraulicBoundaryLocation, HydraulicLocationEntity>
     {
-        public T ConvertEntityToModel(FailureMechanismEntity entity, Func<T> model)
+        public HydraulicBoundaryLocation ConvertEntityToModel(HydraulicLocationEntity entity, Func<HydraulicBoundaryLocation> model)
         {
             if (entity == null)
             {
@@ -51,33 +51,21 @@ namespace Application.Ringtoets.Storage.Converters
                 throw new ArgumentNullException("model");
             }
 
-            T failureMechanism = model();
-            failureMechanism.StorageId = entity.FailureMechanismEntityId;
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = model();
+            hydraulicBoundaryLocation.StorageId = entity.HydraulicLocationEntityId;
+            hydraulicBoundaryLocation.Name = entity.Name;
+            hydraulicBoundaryLocation.Location = new Point2D(Convert.ToDouble(entity.LocationX), Convert.ToDouble(entity.LocationY));
 
-            return failureMechanism;
+            if (entity.DesignWaterLevel.HasValue)
+            {
+                hydraulicBoundaryLocation.DesignWaterLevel = (double)entity.DesignWaterLevel;
+            }
+
+            return hydraulicBoundaryLocation;
         }
 
-        public void ConvertModelToEntity(T modelObject, FailureMechanismEntity entity)
+        public void ConvertModelToEntity(HydraulicBoundaryLocation modelObject, HydraulicLocationEntity entity)
         {
-            if (modelObject == null)
-            {
-                throw new ArgumentNullException("modelObject");
-            }
-
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-
-            entity.FailureMechanismEntityId = modelObject.StorageId;
-            if (modelObject is PipingFailureMechanism)
-            {
-                entity.FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism;
-            }
-            else
-            {
-                throw new ArgumentException("Incorrect modelType", "entity");
-            }
         }
     }
 }

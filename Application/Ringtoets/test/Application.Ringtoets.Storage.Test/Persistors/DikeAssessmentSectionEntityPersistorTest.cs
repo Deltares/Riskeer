@@ -17,6 +17,15 @@ namespace Application.Ringtoets.Storage.Test.Persistors
     {
         private MockRepository mockRepository;
 
+        private static IEnumerable<Func<DikeAssessmentSection>> TestCases
+        {
+            get
+            {
+                yield return () => null;
+                yield return null;
+            }
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -43,6 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Assert
             Assert.IsInstanceOf<DikeAssessmentSectionEntityPersistor>(persistor);
+            Assert.IsInstanceOf<IPersistor<DikeAssessmentSectionEntity, DikeAssessmentSection>>(persistor);
 
             mockRepository.VerifyAll();
         }
@@ -65,7 +75,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void LoadModel_ValidEntityNullModel_ThrowsArgumentNullException()
+        [TestCaseSource("TestCases")]
+        public void LoadModel_ValidEntityNullModel_ThrowsArgumentNullException(Func<DikeAssessmentSection> func)
         {
             // Setup
             const long storageId = 1234L;
@@ -90,7 +101,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => persistor.LoadModel(entity, () => null);
+            TestDelegate test = () => persistor.LoadModel(entity, func);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);

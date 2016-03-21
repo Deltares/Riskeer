@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
@@ -33,6 +34,15 @@ namespace Application.Ringtoets.Storage.Test.Converters
     [TestFixture]
     public class FailureMechanismEntityConverterTest
     {
+        private static IEnumerable<Func<IFailureMechanism>> TestCases
+        {
+            get
+            {
+                yield return () => null;
+                yield return null;
+            }
+        }
+
         [Test]
         public void DefaultConstructor_Always_NewFailureMechanismEntityConverter()
         {
@@ -62,14 +72,15 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        public void ConvertEntityToModel_ValidEntityNullModel_ThrowsArgumentNullException()
+        [TestCaseSource("TestCases")]
+        public void ConvertEntityToModel_ValidEntityNullModel_ThrowsArgumentNullException(Func<IFailureMechanism> func)
         {
             // Setup
             var entity = new FailureMechanismEntity();
             FailureMechanismEntityConverter<IFailureMechanism> converter = new FailureMechanismEntityConverter<IFailureMechanism>();
 
             // Call
-            TestDelegate test = () => converter.ConvertEntityToModel(entity, () => null);
+            TestDelegate test = () => converter.ConvertEntityToModel(entity, func);
             
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

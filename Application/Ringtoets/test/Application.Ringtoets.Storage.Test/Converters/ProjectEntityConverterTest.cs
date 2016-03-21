@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
@@ -9,6 +10,15 @@ namespace Application.Ringtoets.Storage.Test.Converters
     [TestFixture]
     public class ProjectEntityConverterTest
     {
+        private static IEnumerable<Func<Project>> TestCases
+        {
+            get
+            {
+                yield return () => null;
+                yield return null;
+            }
+        }
+
         [Test]
         public void DefaultConstructor_Always_NewProjectEntityConverter()
         {
@@ -33,7 +43,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        public void ConvertEntityToModel_ValidProjectEntityNullModel_ThrowsArgumentNullException()
+        [TestCaseSource("TestCases")]
+        public void ConvertEntityToModel_ValidProjectEntityNullModel_ThrowsArgumentNullException(Func<Project> func)
         {
             // SetUp
             const long storageId = 1234L;
@@ -47,7 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             ProjectEntityConverter converter = new ProjectEntityConverter();
 
             // Call
-            TestDelegate test = () => converter.ConvertEntityToModel(projectEntity, () => null);
+            TestDelegate test = () => converter.ConvertEntityToModel(projectEntity, func);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);

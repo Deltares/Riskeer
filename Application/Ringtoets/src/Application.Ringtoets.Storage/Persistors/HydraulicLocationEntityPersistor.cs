@@ -19,17 +19,80 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
 {
-    public class HydraulicLocationEntityPersistor
+    public class HydraulicLocationEntityPersistor : IPersistor<HydraulicLocationEntity, HydraulicBoundaryLocation>
     {
         private readonly IRingtoetsEntities ringtoetsContext;
+        private readonly HydraulicLocationConverter converter;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicLocationEntityPersistor"/>.
+        /// </summary>
+        /// <param name="ringtoetsContext">The storage context.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
         public HydraulicLocationEntityPersistor(IRingtoetsEntities ringtoetsContext)
         {
+            if (ringtoetsContext == null)
+            {
+                throw new ArgumentNullException("ringtoetsContext");
+            }
+
             this.ringtoetsContext = ringtoetsContext;
+
+            converter = new HydraulicLocationConverter();
+        }
+
+        public void UpdateModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryLocation model, int order)
+        {            
+        }
+
+        public void InsertModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryLocation model, int order)
+        {
+        }
+
+        public void RemoveUnModifiedEntries(ICollection<HydraulicLocationEntity> parentNavigationProperty)
+        {
+        }
+
+        public void PerformPostSaveActions()
+        {
+        }
+
+        public HydraulicBoundaryLocation LoadModel(HydraulicLocationEntity entity, Func<HydraulicBoundaryLocation> model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+
+            try
+            {
+                if (model() == null)
+                {
+                    throw new ArgumentNullException("model");
+                }
+            }
+            catch (NullReferenceException)
+            {
+                throw new ArgumentNullException("model");
+            }
+
+            return converter.ConvertEntityToModel(entity, model);
+        }
+
+        public void UpdateChildren(HydraulicBoundaryLocation model, HydraulicLocationEntity entity)
+        {
+        }
+
+        public void InsertChildren(HydraulicBoundaryLocation model, HydraulicLocationEntity entity)
+        {            
         }
     }
 }

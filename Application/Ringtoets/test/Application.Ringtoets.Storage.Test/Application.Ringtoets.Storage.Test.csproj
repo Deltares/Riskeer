@@ -82,12 +82,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\FailureMechanismEntityConverterTest.cs" />
+    <Compile Include="Converters\HydraulicLocationConverterTest.cs" />
     <Compile Include="Converters\ProjectEntityConverterTest.cs" />
     <Compile Include="DbContext\FailureMechanismEntityTest.cs" />
     <Compile Include="DbContext\DbTestSet.cs" />
     <Compile Include="Converters\DikeAssessmentSectionEntityConverterTest.cs" />
     <Compile Include="DbContext\DikeAssessmentSectionEntityTest.cs" />
     <Compile Include="DbContext\ProjectEntityTest.cs" />
+    <Compile Include="Persistors\HydraulicLocationEntityPersistorTest.cs" />
     <Compile Include="RingtoetsDatabaseCreatorTest.cs" />
     <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
     <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />

@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
@@ -68,10 +69,16 @@ namespace Application.Ringtoets.Storage.Persistors
         /// Loads the <see cref="DikeAssessmentSectionEntity"/> as <see cref="DikeAssessmentSection"/>.
         /// </summary>
         /// <param name="entity">The <see cref="DikeAssessmentSectionEntity"/> to load.</param>
+        /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
         /// <returns>A new instance of <see cref="DikeAssessmentSection"/>, based on the properties of <paramref name="entity"/>.</returns>
         public DikeAssessmentSection LoadModel(DikeAssessmentSectionEntity entity, Func<DikeAssessmentSection> model)
         {
             var dikeAssessmentSection = converter.ConvertEntityToModel(entity, model);
+
+            foreach (var hydraulicLocationEntity in entity.HydraulicLocationEntities)
+            {
+                dikeAssessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicLocationEntityPersistor.LoadModel(hydraulicLocationEntity, () => new HydraulicBoundaryLocation()));
+            }
 
             foreach (var failureMechanismEntity in entity.FailureMechanismEntities)
             {

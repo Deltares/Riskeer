@@ -46,7 +46,14 @@ namespace Application.Ringtoets.Storage.Converters
                 throw new ArgumentNullException("entity");
             }
 
-            if (model() == null)
+            try
+            {
+                if (model() == null)
+                {
+                    throw new ArgumentNullException("model");
+                }
+            }
+            catch (NullReferenceException)
             {
                 throw new ArgumentNullException("model");
             }
