@@ -85,11 +85,13 @@ namespace Application.Ringtoets.Storage.Test.Converters
             // Setup
             const string name = "test";
             const double designWaterLevel = 15.6;
+            const long locationId = 1300001;
             const long storageId = 1234L;
             const decimal locationX = 253;
             const decimal locationY = 123;
             var entity = new HydraulicLocationEntity()
             {
+                LocationId = locationId,
                 Name = name,
                 DesignWaterLevel = designWaterLevel,
                 HydraulicLocationEntityId = storageId,
@@ -103,6 +105,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
 
             // Assert
             Assert.AreNotEqual(entity, location);
+            Assert.AreEqual(locationId, location.Id);
             Assert.AreEqual(storageId, location.StorageId);
             Assert.AreEqual(name, location.Name);
             Assert.AreEqual(designWaterLevel, location.DesignWaterLevel);

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Repos\Ringtoets\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DikeAssessmentSectionEntity">
           <Key>
             <PropertyRef Name="DikeAssessmentSectionEntityId" />
@@ -31,6 +31,7 @@
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="integer" Nullable="false" />
           <Property Name="DikeAssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="LocationId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="LocationX" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="LocationY" Type="decimal" Precision="53" Scale="0" Nullable="false" />
@@ -194,6 +195,7 @@
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" />
           <Property Name="DikeAssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="LocationId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="LocationX" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="LocationY" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
@@ -312,6 +314,7 @@
                 <ScalarProperty Name="LocationY" ColumnName="LocationY" />
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
                 <ScalarProperty Name="DikeAssessmentSectionEntityId" ColumnName="DikeAssessmentSectionEntityId" />
                 <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
               </MappingFragment>

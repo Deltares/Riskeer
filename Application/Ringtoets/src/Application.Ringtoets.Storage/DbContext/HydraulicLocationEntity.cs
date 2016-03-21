@@ -37,6 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long HydraulicLocationEntityId { get; set; }
         public long DikeAssessmentSectionEntityId { get; set; }
+        public long LocationId { get; set; }
         public string Name { get; set; }
         public decimal LocationX { get; set; }
         public decimal LocationY { get; set; }

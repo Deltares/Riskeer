@@ -52,6 +52,7 @@ namespace Application.Ringtoets.Storage.Converters
             }
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = model();
+            hydraulicBoundaryLocation.Id = entity.LocationId;
             hydraulicBoundaryLocation.StorageId = entity.HydraulicLocationEntityId;
             hydraulicBoundaryLocation.Name = entity.Name;
             hydraulicBoundaryLocation.Location = new Point2D(Convert.ToDouble(entity.LocationX), Convert.ToDouble(entity.LocationY));

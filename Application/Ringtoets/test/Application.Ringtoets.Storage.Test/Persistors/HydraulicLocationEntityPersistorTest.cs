@@ -116,11 +116,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             const string name = "test";
             const double designWaterLevel = 15.6;
+            const long locationId = 1300001;
             const long storageId = 1234L;
             const decimal locationX = 253;
             const decimal locationY = 123;
             var entity = new HydraulicLocationEntity()
             {
+                LocationId = locationId,
                 Name = name,
                 DesignWaterLevel = designWaterLevel,
                 HydraulicLocationEntityId = storageId,
@@ -132,6 +134,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             HydraulicBoundaryLocation location = persistor.LoadModel(entity, () => new HydraulicBoundaryLocation());
 
             // Assert
+            Assert.AreEqual(locationId, location.Id);
             Assert.AreEqual(name, location.Name);
             Assert.AreEqual(designWaterLevel, location.DesignWaterLevel);
             Assert.AreEqual(locationX, location.Location.X);
