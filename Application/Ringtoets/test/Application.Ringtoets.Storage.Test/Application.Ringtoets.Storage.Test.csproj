@@ -81,6 +81,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\FailureMechanismEntityConverterTest.cs" />
     <Compile Include="Converters\ProjectEntityConverterTest.cs" />
     <Compile Include="DbContext\FailureMechanismEntityTest.cs" />
     <Compile Include="DbContext\DbTestSet.cs" />

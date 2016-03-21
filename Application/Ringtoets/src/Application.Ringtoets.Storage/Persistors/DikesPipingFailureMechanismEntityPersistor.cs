@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
@@ -41,22 +42,28 @@ namespace Application.Ringtoets.Storage.Persistors
         /// Loads the <see cref="FailureMechanismEntity"/> as <see cref="PipingFailureMechanism"/>.
         /// </summary>
         /// <param name="entity"><see cref="FailureMechanismEntity"/> to load from.</param>
+        /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
         /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c>.</item>
         /// </list></exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="entity"/> is not of type <see cref="FailureMechanismType.DikesPipingFailureMechanism"/>.</exception>
-        public override PipingFailureMechanism LoadModel(FailureMechanismEntity entity)
+        public override PipingFailureMechanism LoadModel(FailureMechanismEntity entity, Func<PipingFailureMechanism> model)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
 
+            if (model() == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
             if (entity.FailureMechanismType != (int) FailureMechanismType.DikesPipingFailureMechanism)
             {
                 throw new ArgumentException("Incorrect modelType", "entity");
             }
-            return base.LoadModel(entity);
+            return base.LoadModel(entity, model);
         }
     }
 }

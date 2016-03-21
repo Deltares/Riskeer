@@ -69,16 +69,15 @@ namespace Application.Ringtoets.Storage.Persistors
         /// </summary>
         /// <param name="entity">The <see cref="DikeAssessmentSectionEntity"/> to load.</param>
         /// <returns>A new instance of <see cref="DikeAssessmentSection"/>, based on the properties of <paramref name="entity"/>.</returns>
-        public DikeAssessmentSection LoadModel(DikeAssessmentSectionEntity entity)
+        public DikeAssessmentSection LoadModel(DikeAssessmentSectionEntity entity, Func<DikeAssessmentSection> model)
         {
-            var dikeAssessmentSection = converter.ConvertEntityToModel(entity);
+            var dikeAssessmentSection = converter.ConvertEntityToModel(entity, model);
 
             foreach (var failureMechanismEntity in entity.FailureMechanismEntities)
             {
                 if (failureMechanismEntity.FailureMechanismType == (int) FailureMechanismType.DikesPipingFailureMechanism)
                 {
-                    var failureMechanismModel = dikePipingFailureMechanismEntityPersistor.LoadModel(failureMechanismEntity);
-                    dikeAssessmentSection.PipingFailureMechanism.StorageId = failureMechanismModel.StorageId;
+                    dikePipingFailureMechanismEntityPersistor.LoadModel(failureMechanismEntity, () => dikeAssessmentSection.PipingFailureMechanism);
                 }
             }
 

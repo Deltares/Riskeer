@@ -26,16 +26,25 @@ using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Converters
 {
+    /// <summary>
+    /// Converter for <see cref="FailureMechanismEntity"/> to <see cref="IFailureMechanism"/> 
+    /// and <see cref="IFailureMechanism"/> to <see cref="FailureMechanismEntity"/>.
+    /// </summary>
     public class FailureMechanismEntityConverter<T> : IEntityConverter<T, FailureMechanismEntity> where T : IFailureMechanism
     {
-        public T ConvertEntityToModel(FailureMechanismEntity entity)
+        public T ConvertEntityToModel(FailureMechanismEntity entity, Func<T> model)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
 
-            T failureMechanism = Activator.CreateInstance<T>();
+            if (model() == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
+            T failureMechanism = model();
             failureMechanism.StorageId = entity.FailureMechanismEntityId;
 
             return failureMechanism;
@@ -47,10 +56,20 @@ namespace Application.Ringtoets.Storage.Converters
             {
                 throw new ArgumentNullException("modelObject");
             }
+
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+
             entity.FailureMechanismEntityId = modelObject.StorageId;
             if (modelObject is PipingFailureMechanism)
             {
-                entity.FailureMechanismType = (int)FailureMechanismType.DikesPipingFailureMechanism;
+                entity.FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism;
+            }
+            else
+            {
+                throw new ArgumentException("Incorrect modelType", "entity");
             }
         }
     }

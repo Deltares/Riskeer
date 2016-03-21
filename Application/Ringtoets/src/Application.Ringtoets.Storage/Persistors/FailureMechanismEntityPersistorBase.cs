@@ -136,9 +136,9 @@ namespace Application.Ringtoets.Storage.Persistors
             }
         }
 
-        public virtual T LoadModel(FailureMechanismEntity entity)
+        public virtual T LoadModel(FailureMechanismEntity entity, Func<T> model)
         {
-            return converter.ConvertEntityToModel(entity);
+            return converter.ConvertEntityToModel(entity, model);
         }
 
         public virtual void UpdateChildren(T model, FailureMechanismEntity entity) { }

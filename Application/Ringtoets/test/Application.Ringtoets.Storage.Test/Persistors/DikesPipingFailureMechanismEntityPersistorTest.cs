@@ -55,11 +55,32 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             DikesPipingFailureMechanismEntityPersistor persistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsEntities);
 
             // Call
-            TestDelegate test = () => persistor.LoadModel(null);
+            TestDelegate test = () => persistor.LoadModel(null, () => new PipingFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void LoadModel_ValidEntityNullModel_ThrowsArgumentNullException()
+        {
+            // Setup
+            const long storageId = 1234L;
+            FailureMechanismEntity entity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = storageId,
+                FailureMechanismType = (int)FailureMechanismType.DikesPipingFailureMechanism,
+            };
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DikesPipingFailureMechanismEntityPersistor persistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsEntities);
+
+            // Call
+            TestDelegate test = () => persistor.LoadModel(entity, () => null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("model", exception.ParamName);
         }
 
         [Test]
@@ -76,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             DikesPipingFailureMechanismEntityPersistor persistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsEntities);
 
             // Call
-            TestDelegate test = () => persistor.LoadModel(entity);
+            TestDelegate test = () => persistor.LoadModel(entity, () => new PipingFailureMechanism());
 
             // Assert
             Assert.Throws<ArgumentException>(test);
@@ -100,7 +121,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             DikesPipingFailureMechanismEntityPersistor persistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsEntities);
 
             // Call
-            PipingFailureMechanism loadedModel = persistor.LoadModel(entity);
+            PipingFailureMechanism loadedModel = persistor.LoadModel(entity, () => new PipingFailureMechanism());
 
             // Assert
             Assert.IsInstanceOf<PipingFailureMechanism>(loadedModel);

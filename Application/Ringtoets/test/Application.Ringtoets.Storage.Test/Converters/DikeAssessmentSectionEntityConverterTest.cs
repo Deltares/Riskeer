@@ -22,11 +22,36 @@ namespace Application.Ringtoets.Storage.Test.Converters
         [Test]
         public void ConvertEntityToModel_NullEntity_ThrowsArgumentNullException()
         {
-            // SetUp
+            // Setup
             DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
 
             // Call
-            TestDelegate test = () => converter.ConvertEntityToModel(null);
+            TestDelegate test = () => converter.ConvertEntityToModel(null, () => new DikeAssessmentSection());
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void ConvertEntityToModel_ValidDikeAssessmentSectionEntityNullModel_ThrowsArgumentNullException()
+        {
+            // Setup
+            const long storageId = 1234L;
+            const long projectId = 1L;
+            const int norm = 30000;
+            const string name = "test";
+            DikeAssessmentSectionEntity dikeAssessmentSectionEntity = new DikeAssessmentSectionEntity()
+            {
+                DikeAssessmentSectionEntityId = storageId,
+                Name = name,
+                ProjectEntityId = projectId,
+                Norm = norm
+            };
+
+            DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
+
+            // Call
+            TestDelegate test = () => converter.ConvertEntityToModel(dikeAssessmentSectionEntity, () => null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -35,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         [Test]
         public void ConvertEntityToModel_ValidDikeAssessmentSectionEntity_ReturnsTheDikeAssessmentSectionEntityAsDikeAssessmentSection()
         {
-            // SetUp
+            // Setup
             const long storageId = 1234L;
             const long projectId = 1L;
             const int norm = 30000;
@@ -50,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
 
             // Call
-            DikeAssessmentSection assessmentSection = converter.ConvertEntityToModel(dikeAssessmentSectionEntity);
+            DikeAssessmentSection assessmentSection = converter.ConvertEntityToModel(dikeAssessmentSectionEntity, () => new DikeAssessmentSection());
 
             // Assert
             Assert.AreNotEqual(dikeAssessmentSectionEntity, assessmentSection);
@@ -62,7 +87,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         [Test]
         public void ConvertModelToEntity_NullEntity_ThrowsArgumentNullException()
         {
-            // SetUp
+            // Setup
             DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
             DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection();
 
@@ -76,7 +101,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         [Test]
         public void ConvertModelToEntity_NullModel_ThrowsArgumentNullException()
         {
-            // SetUp
+            // Setup
             DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
             DikeAssessmentSectionEntity dikeAssessmentSectionEntity = new DikeAssessmentSectionEntity();
 
@@ -90,7 +115,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         [Test]
         public void ConvertModelToEntity_ValidDikeAssessmentSection_UpdatesTheDikeAssessmentSectionAsDikeAssessmentSectionEntity()
         {
-            // SetUp
+            // Setup
             const long storageId = 1234L;
             const long projectId = 1L;
             const int norm = 30000;

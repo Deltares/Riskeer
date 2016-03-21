@@ -26,7 +26,28 @@ namespace Application.Ringtoets.Storage.Test.Converters
             ProjectEntityConverter converter = new ProjectEntityConverter();
 
             // Call
-            TestDelegate test = () => converter.ConvertEntityToModel(null);
+            TestDelegate test = () => converter.ConvertEntityToModel(null, () => new Project());
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void ConvertEntityToModel_ValidProjectEntityNullModel_ThrowsArgumentNullException()
+        {
+            // SetUp
+            const long storageId = 1234L;
+            const string description = "Description";
+            ProjectEntity projectEntity = new ProjectEntity()
+            {
+                ProjectEntityId = storageId,
+                Description = description
+            };
+
+            ProjectEntityConverter converter = new ProjectEntityConverter();
+
+            // Call
+            TestDelegate test = () => converter.ConvertEntityToModel(projectEntity, () => null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -46,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             ProjectEntityConverter converter = new ProjectEntityConverter();
 
             // Call
-            Project project = converter.ConvertEntityToModel(projectEntity);
+            Project project = converter.ConvertEntityToModel(projectEntity, () => new Project());
 
             // Assert
             Assert.AreNotEqual(projectEntity, project);

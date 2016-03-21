@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using Application.Ringtoets.Storage.DbContext;
@@ -64,8 +65,9 @@ namespace Application.Ringtoets.Storage.Persistors
         /// Loads the <see cref="TEntity"/> as <see cref="TModel"/>.
         /// </summary>
         /// <param name="entity">The <see cref="TEntity"/> to load.</param>
+        /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
         /// <returns>A new instance of <see cref="TModel"/>, based on the properties of <paramref name="entity"/>.</returns>
-        TModel LoadModel(TEntity entity);
+        TModel LoadModel(TEntity entity, Func<TModel> model);
 
         /// <summary>
         /// Updates the children of <paramref name="model"/>, in reference to <paramref name="entity"/>, in the storage.

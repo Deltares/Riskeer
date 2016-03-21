@@ -56,7 +56,41 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => persistor.LoadModel(null);
+            TestDelegate test = () => persistor.LoadModel(null, () => new DikeAssessmentSection());
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void LoadModel_ValidEntityNullModel_ThrowsArgumentNullException()
+        {
+            // Setup
+            const long storageId = 1234L;
+            const string name = "test";
+            const int norm = 30000;
+            const long pipingFailureMechanismStorageId = 1L;
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            var entity = new DikeAssessmentSectionEntity
+            {
+                DikeAssessmentSectionEntityId = storageId,
+                Name = name,
+                Norm = norm,
+                FailureMechanismEntities = new List<FailureMechanismEntity>
+                {
+                    new FailureMechanismEntity
+                    {
+                        FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism, FailureMechanismEntityId = pipingFailureMechanismStorageId
+                    }
+                }
+            };
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => persistor.LoadModel(entity, () => null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -87,7 +121,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            DikeAssessmentSection section = persistor.LoadModel(entity);
+            DikeAssessmentSection section = persistor.LoadModel(entity, () => new DikeAssessmentSection());
 
             // Assert
             Assert.AreEqual(storageId, section.StorageId);
@@ -118,7 +152,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            var loadedModels = parentNavigationProperty.Select(entity => persistor.LoadModel(entity));
+            var loadedModels = parentNavigationProperty.Select(entity => persistor.LoadModel(entity, () => new DikeAssessmentSection()));
 
             // Assert
             var parentNavigationPropertyList = parentNavigationProperty.ToList();

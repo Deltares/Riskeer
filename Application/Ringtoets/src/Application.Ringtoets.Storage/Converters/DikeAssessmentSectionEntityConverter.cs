@@ -36,23 +36,25 @@ namespace Application.Ringtoets.Storage.Converters
         /// Converts <paramref name="entity"/> to <see cref="DikeAssessmentSection"/>.
         /// </summary>
         /// <param name="entity">The <see cref="DikeAssessmentSectionEntity"/> to convert.</param>
+        /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
         /// <returns>A new instance of <see cref="DikeAssessmentSection"/>, based on the properties of <paramref name="entity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        public DikeAssessmentSection ConvertEntityToModel(DikeAssessmentSectionEntity entity)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> or <paramref name="model"/> is <c>null</c>.</exception>
+        public DikeAssessmentSection ConvertEntityToModel(DikeAssessmentSectionEntity entity, Func<DikeAssessmentSection> model)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
-            var dikeAssessmentSection = new DikeAssessmentSection
+
+            if (model() == null)
             {
-                StorageId = entity.DikeAssessmentSectionEntityId,
-                Name = entity.Name ?? string.Empty,
-                FailureMechanismContribution =
-                {
-                    Norm = entity.Norm
-                }
-            };
+                throw new ArgumentNullException("model");
+            }
+
+            var dikeAssessmentSection = model();
+            dikeAssessmentSection.StorageId = entity.DikeAssessmentSectionEntityId;
+            dikeAssessmentSection.Name = entity.Name ?? string.Empty;
+            dikeAssessmentSection.FailureMechanismContribution.Norm = entity.Norm;
 
             if (entity.HydraulicDatabaseLocation != null && entity.HydraulicDatabaseVersion != null)
             {

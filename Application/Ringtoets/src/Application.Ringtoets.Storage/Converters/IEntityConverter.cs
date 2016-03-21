@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Storage;
 
 namespace Application.Ringtoets.Storage.Converters
@@ -32,8 +33,9 @@ namespace Application.Ringtoets.Storage.Converters
         /// Converts <paramref name="entity"/> to <see cref="TModel"/>.
         /// </summary>
         /// <param name="entity">The <see cref="TEntity"/> to convert.</param>
+        /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
         /// <returns>A new instance of <see cref="TModel"/>, based on the properties of <paramref name="entity"/>.</returns>
-        TModel ConvertEntityToModel(TEntity entity);
+        TModel ConvertEntityToModel(TEntity entity, Func<TModel> model);
 
         /// <summary>
         /// Converts <paramref name="modelObject"/> to <paramref name="entity"/>.
