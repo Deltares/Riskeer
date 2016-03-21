@@ -26,6 +26,17 @@ namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors
             originalPropertyDescriptor = propertyDescription;
         }
 
+        public override void SetValue(object component, object value)
+        {
+            originalPropertyDescriptor.SetValue(component, value);
+            if (source != null && sourceContainingProperty != null)
+            {
+                sourceContainingProperty.SetValue(source, component);
+            }
+        }
+
+        #region Members delegated to wrapped descriptor
+
         public override bool CanResetValue(object component)
         {
             return originalPropertyDescriptor.CanResetValue(component);
@@ -39,15 +50,6 @@ namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors
         public override void ResetValue(object component)
         {
             originalPropertyDescriptor.ResetValue(component);
-        }
-
-        public override void SetValue(object component, object value)
-        {
-            originalPropertyDescriptor.SetValue(component, value);
-            if (source != null && sourceContainingProperty != null)
-            {
-                sourceContainingProperty.SetValue(source, component);
-            }
         }
 
         public override bool ShouldSerializeValue(object component)
@@ -94,5 +96,71 @@ namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors
                 return originalPropertyDescriptor.DisplayName;
             }
         }
+        
+        public override AttributeCollection Attributes
+        {
+            get
+            {
+                return originalPropertyDescriptor.Attributes;
+            }
+        }
+
+        public override string Category
+        {
+            get
+            {
+                return originalPropertyDescriptor.Category;
+            }
+        }
+
+        public override TypeConverter Converter
+        {
+            get
+            {
+                return originalPropertyDescriptor.Converter;
+            }
+        }
+
+        public override bool DesignTimeOnly
+        {
+            get
+            {
+                return originalPropertyDescriptor.DesignTimeOnly;
+            }
+        }
+
+        public override bool IsBrowsable
+        {
+            get
+            {
+                return originalPropertyDescriptor.IsBrowsable;
+            }
+        }
+
+        public override bool IsLocalizable
+        {
+            get
+            {
+                return originalPropertyDescriptor.IsLocalizable;
+            }
+        }
+
+        public override string Name
+        {
+            get
+            {
+                return originalPropertyDescriptor.Name;
+            }
+        }
+
+        public override bool SupportsChangeEvents
+        {
+            get
+            {
+                return originalPropertyDescriptor.SupportsChangeEvents;
+            }
+        }
+
+        #endregion
     }
 }

@@ -24,14 +24,10 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
-
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 
 using Ringtoets.Piping.Data.Probabilistics;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors;
 
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
@@ -63,7 +59,6 @@ namespace Ringtoets.Piping.Forms.TypeConverters
 
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
-//            IObservable observableParent = GetObservableOwnerOfDistribution(context);
             bool allParametersAreReadonly = PropertyIsReadOnly(context);
 
             var designVariable = (DesignVariable<T>)value;
@@ -131,30 +126,8 @@ namespace Ringtoets.Piping.Forms.TypeConverters
                 return new ReadOnlyPropertyDescriptorDecorator(textPropertyDescriptor);
             }
 
-//            textPropertyDescriptor.ObservableParent = observableParent;
             var propertyDescriptor = new ContainingPropertyUpdateDescriptorDecorator(textPropertyDescriptor, parentObject, parentDescriptor);
             return propertyDescriptor;
-        }
-
-        private static IObservable GetObservableOwnerOfDistribution(ITypeDescriptorContext context)
-        {
-            if (context == null)
-            {
-                return null;
-            }
-            // Sadly, we need this hack in order to update the correct class
-            var dynamicPropertyBag = context.Instance as DynamicPropertyBag;
-            if (dynamicPropertyBag == null)
-            {
-                return null;
-            }
-
-            // Note: If this type converter is going to be reused for other classes, we 
-            //       might want to reconsider how we want to propagate IObservable updates!
-            var inputParameterContextProperties = dynamicPropertyBag.WrappedObject as PipingInputContextProperties;
-            return inputParameterContextProperties != null ?
-                       ((PipingInputContext)inputParameterContextProperties.Data).WrappedData :
-                       null;
         }
 
         /// <summary>
