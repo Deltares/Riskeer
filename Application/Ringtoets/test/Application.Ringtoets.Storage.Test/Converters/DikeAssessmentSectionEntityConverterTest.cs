@@ -2,6 +2,7 @@
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Test.Converters
@@ -65,12 +66,16 @@ namespace Application.Ringtoets.Storage.Test.Converters
             const long projectId = 1L;
             const int norm = 30000;
             const string name = "test";
+            const string hydraulicDatabaseVersion = "1.0";
+            const string hydraulicDatabasePath = "testPath";
             DikeAssessmentSectionEntity dikeAssessmentSectionEntity = new DikeAssessmentSectionEntity()
             {
                 DikeAssessmentSectionEntityId = storageId,
                 Name = name,
                 ProjectEntityId = projectId,
-                Norm = norm
+                Norm = norm,
+                HydraulicDatabaseVersion = hydraulicDatabaseVersion,
+                HydraulicDatabaseLocation = hydraulicDatabasePath
             };
             DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
 
@@ -82,6 +87,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
             Assert.AreEqual(storageId, assessmentSection.StorageId);
             Assert.AreEqual(name, assessmentSection.Name);
             Assert.AreEqual(norm, assessmentSection.FailureMechanismContribution.Norm);
+            Assert.AreEqual(hydraulicDatabaseVersion, assessmentSection.HydraulicBoundaryDatabase.Version);
+            Assert.AreEqual(hydraulicDatabasePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
         }
 
         [Test]
@@ -120,6 +127,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
             const long projectId = 1L;
             const int norm = 30000;
             const string name = "test";
+            const string hydraulicDatabaseVersion = "1.0";
+            const string hydraulicDatabasePath = "testPath";
             DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection
             {
                 StorageId = storageId,
@@ -127,6 +136,11 @@ namespace Application.Ringtoets.Storage.Test.Converters
                 FailureMechanismContribution =
                 {
                     Norm = norm
+                },
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Version = hydraulicDatabaseVersion,
+                    FilePath = hydraulicDatabasePath
                 }
             };
             DikeAssessmentSectionEntity dikeAssessmentSectionEntity = new DikeAssessmentSectionEntity
@@ -144,6 +158,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
             Assert.AreEqual(projectId, dikeAssessmentSectionEntity.ProjectEntityId);
             Assert.AreEqual(name, dikeAssessmentSectionEntity.Name);
             Assert.AreEqual(norm, dikeAssessmentSectionEntity.Norm);
+            Assert.AreEqual(hydraulicDatabaseVersion, dikeAssessmentSectionEntity.HydraulicDatabaseVersion);
+            Assert.AreEqual(hydraulicDatabasePath, dikeAssessmentSectionEntity.HydraulicDatabaseLocation);
         }
     }
 }
