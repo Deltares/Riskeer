@@ -27,6 +27,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
     /// </summary>
     internal static class StochasticSoilModelDatabaseColumns
     {
+        internal const string Count = "nrOfRows";
         internal const string TableName = "StochasticSoilModel";
         internal const string StochasticSoilModelId = "SSM_ID";
         internal const string StochasticSoilModelName = "SSM_Name";

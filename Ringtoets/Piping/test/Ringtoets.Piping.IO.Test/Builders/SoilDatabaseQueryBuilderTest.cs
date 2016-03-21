@@ -61,6 +61,23 @@ namespace Ringtoets.Piping.IO.Test.Builders
         }
 
         [Test]
+        public void GetStochasticSoilModelOfMechanismCountQuery_Always_ReturnsExpectedValues()
+        {
+            // Setup
+            const string expectedQuery = "SELECT COUNT('1') AS nrOfRows " +
+                                         "FROM Mechanism M " +
+                                         "INNER JOIN Segment S USING(ME_ID) " +
+                                         "INNER JOIN StochasticSoilModel SSM USING(SSM_ID) " +
+                                         "WHERE M.ME_Name = @ME_Name;";
+
+            // Call
+            string query = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismCountQuery();
+
+            // Assert
+            Assert.AreEqual(expectedQuery, query);
+        }
+
+        [Test]
         public void GetCheckVersionQuery_Always_ReturnsExpectedValues()
         {
             // Setup

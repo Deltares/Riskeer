@@ -61,6 +61,29 @@ namespace Ringtoets.Piping.IO.Builders
         }
 
         /// <summary>
+        /// Returns the query to get the amount of <see cref="Ringtoets.Piping.Data.StochasticSoilModel"/> 
+        /// that can be read from the database.
+        /// </summary>
+        /// <returns>The query to get the amount of <see cref="Ringtoets.Piping.Data.StochasticSoilModel"/> 
+        /// from the database.</returns>
+        public static string GetStochasticSoilModelOfMechanismCountQuery()
+        {
+            return String.Format(@"SELECT COUNT('1') AS {6} " +
+                                 "FROM {0} M " +
+                                 "INNER JOIN {1} S USING({3}) " +
+                                 "INNER JOIN {2} SSM USING({4}) " +
+                                 "WHERE M.{5} = @{5};",
+                                 MechanismDatabaseColumns.TableName,
+                                 SegmentDatabaseColumns.TableName,
+                                 StochasticSoilModelDatabaseColumns.TableName,
+                                 MechanismDatabaseColumns.MechanismId,
+                                 StochasticSoilModelDatabaseColumns.StochasticSoilModelId,
+                                 MechanismDatabaseColumns.MechanismName,
+                                 StochasticSoilModelDatabaseColumns.Count
+                );
+        }
+
+        /// <summary>
         /// Returns the SQL query to execute to fetch all Stochastic Soil Profiles 
         /// from the DSoil-Model database.
         /// </summary>

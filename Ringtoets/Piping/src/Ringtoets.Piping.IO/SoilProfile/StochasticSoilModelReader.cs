@@ -38,7 +38,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
     public class StochasticSoilModelReader : SqLiteDatabaseReaderBase
     {
         private const string pipingMechanismName = "Piping";
-
         private SQLiteDataReader dataReader;
 
         /// <summary>
@@ -63,6 +62,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// the <see cref="StochasticSoilModelReader"/>.
         /// </summary>
         public bool HasNext { get; private set; }
+
+        /// <summary>
+        /// Gets the amount of <see cref="StochasticSoilModel"/> that can be read from the database.
+        /// </summary>
+        public int PipingStochasticSoilModelCount { get; private set; }
 
         /// <summary>
         /// Reads the information for the next stochastic soil model from the database and creates a 
@@ -96,6 +100,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
             base.Dispose();
         }
 
+        private int ReadStochasticSoilModelCount()
+        {
+            return !dataReader.Read() ? 0 : Convert.ToInt32(dataReader[StochasticSoilModelDatabaseColumns.Count]);
+        }
+
         private StochasticSoilModel ReadPipingStochasticSoilModel()
         {
             if (!HasNext)
@@ -107,7 +116,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             do
             {
                 // Read Points
-                var point2D = ReadSegmentPoint(dataReader);
+                var point2D = ReadSegmentPoint();
                 if (point2D != null)
                 {
                     stochasticSoilModelSegment.Geometry.Add(point2D);
@@ -139,6 +148,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private void CreateDataReader()
         {
+            string locationCountQuery = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismCountQuery();
             var stochasticSoilModelSegmentsQuery = SoilDatabaseQueryBuilder.GetStochasticSoilModelOfMechanismQuery();
             var sqliteParameter = new SQLiteParameter
             {
@@ -148,7 +158,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             };
             try
             {
-                dataReader = CreateDataReader(stochasticSoilModelSegmentsQuery, sqliteParameter);
+                dataReader = CreateDataReader(locationCountQuery + stochasticSoilModelSegmentsQuery, sqliteParameter);
             }
             catch (SQLiteException exception)
             {
@@ -156,6 +166,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilModelDatabaseReader_Failed_to_read_database);
                 throw new CriticalFileReadException(message, exception);
             }
+            PipingStochasticSoilModelCount = ReadStochasticSoilModelCount();
+            dataReader.NextResult();
         }
 
         private void VerifyVersion(string databaseFilePath)
@@ -182,7 +194,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             return new StochasticSoilModel(stochasticSoilModelId, stochasticSoilModelName, segmentName);
         }
 
-        private static Point2D ReadSegmentPoint(SQLiteDataReader dataReader)
+        private Point2D ReadSegmentPoint()
         {
             double coordinateX = Convert.ToDouble(dataReader[SegmentPointsDatabaseColumns.CoordinateX]);
             double coordinateY = Convert.ToDouble(dataReader[SegmentPointsDatabaseColumns.CoordinateY]);
