@@ -78,6 +78,7 @@
     <Compile Include="TypeConverters\DesignVariableTypeConverter.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\ReadOnlyPropertyDescriptorDecorator.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\RoutedPropertyDescriptor.cs" />
+    <Compile Include="TypeConverters\PropertyDescriptors\ContainingPropertyUpdateDescriptorDecorator.cs" />
     <Compile Include="TypeConverters\ShiftedLognormalDistributionDesignVariableTypeConverter.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\SimpleReadonlyPropertyDescriptor.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\TextPropertyDescriptorDecorator.cs" />

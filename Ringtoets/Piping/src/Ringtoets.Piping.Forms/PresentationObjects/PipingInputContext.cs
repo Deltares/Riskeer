@@ -36,7 +36,6 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         public PipingInputContext(PipingInput pipingInput, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<PipingSoilProfile> soilProfiles, AssessmentSectionBase assessmentSection)
             : base(pipingInput, surfaceLines, soilProfiles, assessmentSection)
         {
-            PipingInputSynchronizer.Synchronize(pipingInput);
         }
     }
 }

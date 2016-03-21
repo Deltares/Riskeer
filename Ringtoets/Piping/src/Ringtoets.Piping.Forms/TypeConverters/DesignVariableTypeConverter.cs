@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
 
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
-            IObservable observableParent = GetObservableOwnerOfDistribution(context);
+//            IObservable observableParent = GetObservableOwnerOfDistribution(context);
             bool allParametersAreReadonly = PropertyIsReadOnly(context);
 
             var designVariable = (DesignVariable<T>)value;
@@ -73,15 +73,27 @@ namespace Ringtoets.Piping.Forms.TypeConverters
                                                                      PipingFormsResources.DesignVariableTypeConverter_DistributionType_Description,
                                                                      "DistributionType",
                                                                      DistributionShortName);
+            object containingObject = null;
+            PropertyDescriptor containingPropertyDescriptor = null;
+            if (context != null)
+            {
+                var bag = context.Instance as DynamicPropertyBag;
+                if (bag != null)
+                {
+                    containingObject = bag.WrappedObject;
+                    containingPropertyDescriptor = context.PropertyDescriptor;
+                }
+            }
             for (int i = 0; i < Parameters.Length; i++)
             {
-                properties[i + 1] = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i], observableParent, allParametersAreReadonly);
+                var propertyDescriptor = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i], containingObject, containingPropertyDescriptor, allParametersAreReadonly);
+                properties[i + 1] = propertyDescriptor;
             }
             properties[Parameters.Length + 1] = new SimpleReadonlyPropertyDescriptorItem(PipingFormsResources.DesignVariableTypeConverter_DesignValue_DisplayName,
                                                                                          PipingFormsResources.DesignVariableTypeConverter_DesignValue_Description,
                                                                                          "DesignValue",
                                                                                          designVariable.GetDesignValue());
-
+            
             return new PropertyDescriptorCollection(properties);
         }
 
@@ -107,22 +119,20 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         /// </summary>
         protected abstract ParameterDefinition<T>[] Parameters { get; }
 
-        private static PropertyDescriptor CreatePropertyDescriptor(PropertyDescriptorCollection originalProperties, ParameterDefinition<T> parameter, IObservable observableParent, bool isReadOnly)
+        private static PropertyDescriptor CreatePropertyDescriptor(PropertyDescriptorCollection originalProperties, ParameterDefinition<T> parameter, object parentObject, PropertyDescriptor parentDescriptor, bool isReadOnly)
         {
             PropertyDescriptor originalPropertyDescriptor = originalProperties.Find(parameter.PropertyName, false);
             var reroutedPropertyDescriptor = new RoutedPropertyDescriptor(originalPropertyDescriptor, o => ((DesignVariable<T>)o).Distribution);
-            var propertyDescriptor = new TextPropertyDescriptorDecorator(reroutedPropertyDescriptor,
+            var textPropertyDescriptor = new TextPropertyDescriptorDecorator(reroutedPropertyDescriptor,
                                                                          parameter.Symbol,
-                                                                         parameter.Description)
-            {
-                ObservableParent = observableParent
-            };
+                                                                         parameter.Description);
             if (isReadOnly)
             {
-                return new ReadOnlyPropertyDescriptorDecorator(propertyDescriptor);
+                return new ReadOnlyPropertyDescriptorDecorator(textPropertyDescriptor);
             }
 
-            propertyDescriptor.ObservableParent = observableParent;
+//            textPropertyDescriptor.ObservableParent = observableParent;
+            var propertyDescriptor = new ContainingPropertyUpdateDescriptorDecorator(textPropertyDescriptor, parentObject, parentDescriptor);
             return propertyDescriptor;
         }
 

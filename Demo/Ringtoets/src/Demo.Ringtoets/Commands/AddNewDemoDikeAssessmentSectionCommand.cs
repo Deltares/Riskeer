@@ -118,11 +118,12 @@ namespace Demo.Ringtoets.Commands
             }
 
             var calculation = pipingFailureMechanism.CalculationsGroup.GetPipingCalculations().First();
+            calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble) 3;
+            calculation.InputParameters.PhreaticLevelExit = calculation.InputParameters.PhreaticLevelExit;
             calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
             calculation.InputParameters.SoilProfile = pipingFailureMechanism.SoilProfiles.First(sp => sp.Name == "W1-6_0_1D1");
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
 
-            calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble) 3;
             calculation.InputParameters.NotifyObservers();
         }
 

@@ -1,5 +1,4 @@
 using System;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using log4net;
 using Ringtoets.Piping.Data.Properties;
@@ -11,7 +10,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Class responsible for synchronizing piping input.
     /// </summary>
-    public class PipingInputSynchronizer : IObserver
+    public class PipingInputSynchronizer
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PipingInputSynchronizer));
 
@@ -19,33 +18,20 @@ namespace Ringtoets.Piping.Data
 
         private readonly PipingInput input;
 
-        private PipingInputSynchronizer(PipingInput input)
+        /// <summary>
+        /// Creates a new instance of <see cref=""/>.
+        /// </summary>
+        /// <param name="input">The input to synchronize the values for.</param>
+        internal PipingInputSynchronizer(PipingInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException("input", "Cannot create PipingInputSynchronizer without PipingInput.");
             }
-            input.Attach(this);
             this.input = input;
-
-            SynchronizeDerivedProperties();
         }
 
-        /// <summary>
-        /// Starts the synchronization of the given <see cref="PipingInput"/>.
-        /// </summary>
-        /// <param name="input">The input to synchronize the values for.</param>
-        public static void Synchronize(PipingInput input)
-        {
-            new PipingInputSynchronizer(input);
-        }
-
-        public void UpdateObserver()
-        {
-            SynchronizeDerivedProperties();
-        }
-
-        private void SynchronizeDerivedProperties()
+        internal void Synchronize()
         {
             UpdateAssessmentLevel();
             UpdateSeepageLength();
@@ -96,6 +82,10 @@ namespace Ringtoets.Piping.Data
                 return soilProfile.GetTopAquiferLayerThicknessBelowLevel(zAtL);
             }
             catch (ArgumentOutOfRangeException)
+            {
+                return double.NaN;
+            }
+            catch (ArgumentException)
             {
                 return double.NaN;
             }

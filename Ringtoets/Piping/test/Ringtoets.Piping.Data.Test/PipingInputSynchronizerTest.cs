@@ -16,43 +16,34 @@ namespace Ringtoets.Piping.Data.Test
     public class PipingInputSynchronizerTest
     {
         [Test]
-        public void Create_WithoutPipingInput_ArgumentNullException()
+        public void Constructor_WithoutPipingInput_ArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingInputSynchronizer.Synchronize(null);
+            TestDelegate call = () => new PipingInputSynchronizer(null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Cannot create PipingInputSynchronizer without PipingInput.");
         }
 
         [Test]
-        public void Create_WithPipingInput_InputDataSynchronized()
+        public void Constructor_WithPipingInput_InputDataSynchronized()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer(1.0, 1.1);
-            double randomLevel = new Random(22).NextDouble();
-            input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
-            {
-                DesignWaterLevel = randomLevel
-            };
 
             // Call
-            PipingInputSynchronizer.Synchronize(input);
+            TestDelegate call = () => new PipingInputSynchronizer(input);
 
             // Assert
-            Assert.AreEqual(1.0, input.ThicknessAquiferLayer.Mean.Value);
-            Assert.AreEqual(1.1, input.ThicknessCoverageLayer.Mean.Value);
-            Assert.AreEqual(0.5, input.SeepageLength.Mean.Value);
-            Assert.AreEqual(new RoundedDouble(2, randomLevel), input.AssessmentLevel);
-            Assert.IsFalse(double.IsNaN(input.PiezometricHeadExit));
+            Assert.DoesNotThrow(call);
         }
 
         [Test]
-        public void NotifyObservers_InputHasNewHydraulicBoundaryLocationSet_AssessmentLevelUpdated()
+        public void Synchronize_InputHasNewHydraulicBoundaryLocationSet_AssessmentLevelUpdated()
         {
             // Setup
             var input = new PipingInput(new GeneralPipingInput());
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             double testLevel = new Random(21).NextDouble();
 
@@ -62,39 +53,39 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            input.NotifyObservers();
+            synchronizer.Synchronize();
 
             // Assert
             Assert.AreEqual(new RoundedDouble(2, testLevel), input.AssessmentLevel);
         }
 
         [Test]
-        public void NotifyObservers_InputWithoutHydraulicBoundaryLocationSet_AssessmentLevelSetToNaN()
+        public void Synchronize_InputWithoutHydraulicBoundaryLocationSet_AssessmentLevelSetToNaN()
         {
             // Setup
             var input = new PipingInput(new GeneralPipingInput());
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             input.HydraulicBoundaryLocation = null;
 
             // Call
-            input.NotifyObservers();
+            synchronizer.Synchronize();
 
             // Assert
             Assert.IsNaN(input.AssessmentLevel);
         }
 
         [Test]
-        public void NotifyObservers_ValidInput_SetsParametersForCalculatorAndSetPiezometricHead()
+        public void Synchronize_ValidInput_SetsParametersForCalculatorAndSetPiezometricHead()
         {
             // Setup
             var input = new PipingInput(new GeneralPipingInput());
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             using (new InputParameterCalculationServiceConfig())
             {
                 // Call
-                input.NotifyObservers();
+                synchronizer.Synchronize();
 
                 // Assert
                 var result = input.PiezometricHeadExit;
@@ -113,48 +104,29 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void NotifyObservers_InputWithAssessmentLevelMissing_PiezometricHeadSetToNaN()
+        public void Synchronize_InputWithAssessmentLevelMissing_PiezometricHeadSetToNaN()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer(1.0, 1.0);
             input.AssessmentLevel = (RoundedDouble) double.NaN;
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             // Call
-            input.NotifyObservers();
+            synchronizer.Synchronize();
 
             // Assert
             Assert.IsNaN(input.PiezometricHeadExit);
         }
 
         [Test]
-        public void GivenSynchronizerBoundToInputOutOfScope_WhenGarbageCollected_InputNotAlive()
-        {
-            // Given
-            WeakReference input;
-
-            {
-                input = new WeakReference(new PipingInput(new GeneralPipingInput()));
-                PipingInputSynchronizer.Synchronize(input.Target as PipingInput);
-            }
-
-            // When
-            GC.Collect();
-            GC.WaitForFullGCComplete();
-
-            // Then
-            Assert.IsFalse(input.IsAlive);
-        }
-
-        [Test]
-        public void NotifyObservers_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_MeansSet()
+        public void Synchronize_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_MeansSet()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             // Call
-            input.NotifyObservers();
+            synchronizer.Synchronize();
 
             // Assert
             Assert.AreEqual(1.0, input.ThicknessAquiferLayer.Mean.Value);
@@ -162,15 +134,15 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void NotifyObservers_InputWithoutSoilProfile_MeansSetToNaN()
+        public void Synchronize_InputWithoutSoilProfile_MeansSetToNaN()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
             input.SoilProfile = null;
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             // Call
-            input.NotifyObservers();
+            synchronizer.Synchronize();
 
             // Assert
             Assert.IsNaN(input.ThicknessAquiferLayer.Mean);
@@ -178,15 +150,15 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void NotifyObservers_InputWithoutSurfaceLine_MeansSetToNaN()
+        public void Synchronize_InputWithoutSurfaceLine_MeansSetToNaN()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
             input.SurfaceLine = null;
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             // Call
-            Action call = () => input.NotifyObservers();
+            Action call = () => synchronizer.Synchronize();
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
@@ -197,14 +169,14 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         [TestCase(1e-6)]
         [TestCase(1)]
-        public void NotifyObservers_SoilProfileSingleAquiferAboveSurfaceLine_ThicknessCoverageLayerNaNAndLog(double deltaAboveSurfaceLine)
+        public void Synchronize_SoilProfileSingleAquiferAboveSurfaceLine_ThicknessCoverageLayerNaNAndLog(double deltaAboveSurfaceLine)
         {
             // Setup
             var input = CreateInputWithSingleAquiferLayerAboveSurfaceLine(deltaAboveSurfaceLine);
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             // Call
-            Action call = () => input.NotifyObservers();
+            Action call = () => synchronizer.Synchronize();
 
             // Assert
             var messages = new[]
@@ -218,30 +190,30 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void NotifyObservers_SoilProfileMultipleAquiferUnderSurfaceLine_AquiferMeanSetToTopAquiferThickness()
+        public void Synchronize_SoilProfileMultipleAquiferUnderSurfaceLine_AquiferMeanSetToTopAquiferThickness()
         {
             // Setup
             double expectedThickness;
             var input = CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out expectedThickness);
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             // Call
-            input.NotifyObservers();
+            synchronizer.Synchronize();
 
             // Assert
             Assert.AreEqual(expectedThickness, input.ThicknessAquiferLayer.Mean, 1e-8);
         }
 
         [Test]
-        public void NotifyObservers_MeanSetExitPointSetToNaN_ThicknessAquiferLayerNaN()
+        public void Synchronize_MeanSetExitPointSetToNaN_ThicknessAquiferLayerNaN()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
             input.ExitPointL = (RoundedDouble) double.NaN;
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             // Call
-            Action call = () => input.NotifyObservers();
+            Action call = () => synchronizer.Synchronize();
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
@@ -249,15 +221,15 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void NotifyObservers_MeanSetExitPointSetBeyondSurfaceLine_ThicknessAquiferLayerNaNAndLog()
+        public void Synchronize_MeanSetExitPointSetBeyondSurfaceLine_ThicknessAquiferLayerNaNAndLog()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
             input.ExitPointL = (RoundedDouble) 3.0;
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             // Call
-            Action call = () => input.NotifyObservers();
+            Action call = () => synchronizer.Synchronize();
 
             // Assert
             var messages = new[]
@@ -271,17 +243,17 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void NotifyObservers_MeanSetSoilProfileSetToNull_ThicknessCoverageLayerNaN()
+        public void Synchronize_MeanSetSoilProfileSetToNull_ThicknessCoverageLayerNaN()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
             input.ThicknessCoverageLayer.Mean = new RoundedDouble(2, new Random(21).NextDouble() + 1);
 
             input.SoilProfile = null;
 
             // Call
-            Action call = () => input.NotifyObservers();
+            Action call = () => synchronizer.Synchronize();
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
@@ -289,11 +261,11 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void NotifyObservers_ProfileWithoutAquiferLayer_ThicknessCoverageLayerNaNAndLog()
+        public void Synchronize_ProfileWithoutAquiferLayer_ThicknessCoverageLayerNaNAndLog()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
             input.SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
             {
                 new PipingSoilLayer(2.0)
@@ -303,7 +275,7 @@ namespace Ringtoets.Piping.Data.Test
             }, 0);
 
             // Call
-            Action call = () => input.NotifyObservers();
+            Action call = () => synchronizer.Synchronize();
 
             // Assert
             var messages = new[]
@@ -317,56 +289,56 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void NotifyObservers_SoilProfileSingleAquiferUnderSurfaceLine_ThicknessAquiferLayerMeanSet()
+        public void Synchronize_SoilProfileSingleAquiferUnderSurfaceLine_ThicknessAquiferLayerMeanSet()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             // Call
-            input.NotifyObservers();
+            synchronizer.Synchronize();
 
             // Assert
             Assert.AreEqual(1.0, input.ThicknessAquiferLayer.Mean.Value);
         }
 
         [Test]
-        public void NotifyObservers_SoilProfileMultipleAquiferUnderSurfaceLine_MeanSetToTopAquiferThickness()
+        public void Synchronize_SoilProfileMultipleAquiferUnderSurfaceLine_MeanSetToTopAquiferThickness()
         {
             // Setup
             double expectedThickness;
             var input = CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out expectedThickness);
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             // Call
-            input.NotifyObservers();
+            synchronizer.Synchronize();
 
             // Assert
             Assert.AreEqual(expectedThickness, input.ThicknessAquiferLayer.Mean, 1e-8);
         }
 
         [Test]
-        public void NotifyObservers_MeanSetSoilProfileSetToNull_ThicknessAquiferLayerNaN()
+        public void Synchronize_MeanSetSoilProfileSetToNull_ThicknessAquiferLayerNaN()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
 
             input.SoilProfile = null;
 
             // Call
-            input.NotifyObservers();
+            synchronizer.Synchronize();
 
             // Assert
             Assert.IsNaN(input.ThicknessAquiferLayer.Mean);
         }
 
         [Test]
-        public void NotifyObservers_InputResultsInZeroAquiferThickness_ThicknessAquiferLayerNaNAndLog()
+        public void Synchronize_InputResultsInZeroAquiferThickness_ThicknessAquiferLayerNaNAndLog()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
             input.SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
             {
                 new PipingSoilLayer(2.0)
@@ -380,7 +352,7 @@ namespace Ringtoets.Piping.Data.Test
             }, 0);
 
             // Call
-            Action call = () => input.NotifyObservers();
+            Action call = () => synchronizer.Synchronize();
 
             // Assert
             var message = Resources.PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer;
@@ -389,11 +361,11 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void NotifyObservers_InputResultsInZeroCoverageThickness_ThicknessCoverageLayerNaNAndLog()
+        public void Synchronize_InputResultsInZeroCoverageThickness_ThicknessCoverageLayerNaNAndLog()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
             input.SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
             {
                 new PipingSoilLayer(2.0)
@@ -407,7 +379,7 @@ namespace Ringtoets.Piping.Data.Test
             }, 0);
 
             // Call
-            Action call = () => input.NotifyObservers();
+            Action call = () => synchronizer.Synchronize();
 
             // Assert
             var message = Resources.PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer;
@@ -416,11 +388,11 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void NotifyObservers_SurfaceLineHalfWayProfileLayer_ThicknessSetToLayerHeightUnderSurfaceLine()
+        public void Synchronize_SurfaceLineHalfWayProfileLayer_ThicknessSetToLayerHeightUnderSurfaceLine()
         {
             // Setup
             var input = CreateInputWithAquiferAndCoverageLayer();
-            PipingInputSynchronizer.Synchronize(input);
+            var synchronizer = new PipingInputSynchronizer(input);
             input.SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
             {
                 new PipingSoilLayer(2.5)
@@ -434,7 +406,7 @@ namespace Ringtoets.Piping.Data.Test
             }, 0);
 
             // Call
-            input.NotifyObservers();
+            synchronizer.Synchronize();
 
             // Assert
             Assert.AreEqual(0.5, input.ThicknessAquiferLayer.Mean.Value);

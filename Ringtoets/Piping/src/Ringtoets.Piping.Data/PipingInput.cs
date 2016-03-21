@@ -38,11 +38,6 @@ namespace Ringtoets.Piping.Data
     public class PipingInput : Observable
     {
         private readonly GeneralPipingInput generalInputParameters;
-        private RoundedDouble assessmentLevel;
-        private RoundedDouble exitPointL;
-        private RoundedDouble entryPointL;
-        private RoundedDouble piezometricHeadExit;
-        private RingtoetsPipingSurfaceLine surfaceLine;
         private readonly NormalDistribution phreaticLevelExit;
         private readonly LognormalDistribution dampingFactorExit;
         private readonly LognormalDistribution thicknessCoverageLayer;
@@ -51,6 +46,15 @@ namespace Ringtoets.Piping.Data
         private readonly LognormalDistribution darcyPermeability;
         private readonly LognormalDistribution diameter70;
         private readonly LognormalDistribution seepageLength;
+        private RoundedDouble assessmentLevel;
+        private RoundedDouble exitPointL;
+        private RoundedDouble entryPointL;
+        private RoundedDouble piezometricHeadExit;
+        private RingtoetsPipingSurfaceLine surfaceLine;
+
+        private readonly PipingInputSynchronizer synchronizer;
+        private PipingSoilProfile soilProfile;
+        private HydraulicBoundaryLocation hydraulicBoundaryLocation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
@@ -76,33 +80,134 @@ namespace Ringtoets.Piping.Data
             phreaticLevelExit = new NormalDistribution(3);
             dampingFactorExit = new LognormalDistribution(3)
             {
-                Mean = (RoundedDouble)0.7,
-                StandardDeviation = (RoundedDouble)0.0
+                Mean = (RoundedDouble) 0.7,
+                StandardDeviation = (RoundedDouble) 0.0
             };
             thicknessCoverageLayer = new LognormalDistribution(2)
             {
-                Mean = (RoundedDouble)double.NaN,
-                StandardDeviation = (RoundedDouble)0.5
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.5
             };
             saturatedVolumicWeightOfCoverageLayer = new ShiftedLognormalDistribution(2)
             {
                 Shift = (RoundedDouble) 10,
                 Mean = (RoundedDouble) 17.5,
-                StandardDeviation = (RoundedDouble)0
+                StandardDeviation = (RoundedDouble) 0
             };
             seepageLength = new LognormalDistribution(2)
             {
-                Mean = (RoundedDouble)double.NaN,
-                StandardDeviation = (RoundedDouble)double.NaN
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) double.NaN
             };
             diameter70 = new LognormalDistribution(2);
             darcyPermeability = new LognormalDistribution(3);
             thicknessAquiferLayer = new LognormalDistribution(2)
             {
-                Mean = (RoundedDouble)double.NaN,
-                StandardDeviation = (RoundedDouble)0.5
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.5
             };
+
+            synchronizer = new PipingInputSynchronizer(this);
         }
+
+        /// <summary>
+        /// Gets or sets the l-coordinate of the entry point, which, together with
+        /// the l-coordinate of the exit point, is used to determine the seepage 
+        /// length of <see cref="PipingInput"/>.
+        /// [m]
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than 0.</exception>
+        public RoundedDouble EntryPointL
+        {
+            get
+            {
+                return entryPointL;
+            }
+            set
+            {
+                if (value < 0.0)
+                {
+                    throw new ArgumentOutOfRangeException("value", Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
+                }
+                entryPointL = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
+                synchronizer.Synchronize();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the l-coordinate of the exit point, which, together with
+        /// the l-coordinate of the entry point, is used to determine the seepage 
+        /// length of <see cref="PipingInput"/>.
+        /// [m]
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than or equal to 0.</exception>
+        public RoundedDouble ExitPointL
+        {
+            get
+            {
+                return exitPointL;
+            }
+            set
+            {
+                if (value <= 0.0)
+                {
+                    throw new ArgumentOutOfRangeException("value", Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
+                }
+                exitPointL = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
+                synchronizer.Synchronize();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the surface line.
+        /// </summary>
+        public RingtoetsPipingSurfaceLine SurfaceLine
+        {
+            get
+            {
+                return surfaceLine;
+            }
+            set
+            {
+                surfaceLine = value;
+                UpdateEntryAndExitPoint();
+                synchronizer.Synchronize();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the profile which contains a 1 dimensional definition of soil layers with properties.
+        /// </summary>
+        public PipingSoilProfile SoilProfile
+        {
+            get
+            {
+                return soilProfile;
+            }
+            set
+            {
+                soilProfile = value;
+                synchronizer.Synchronize();
+            }
+        }
+
+        /// <summary>
+        /// Gets or set the hydraulic boundary location from which to use the assessment level.
+        /// </summary>
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation
+        {
+            get
+            {
+                return hydraulicBoundaryLocation;
+            }
+            set
+            {
+                hydraulicBoundaryLocation = value;
+                synchronizer.Synchronize();
+            }
+        }
+
+        #region Derived input
 
         /// <summary>
         /// Gets or sets the outside high water level.
@@ -136,77 +241,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets the l-coordinate of the entry point, which, together with
-        /// the l-coordinate of the exit point, is used to determine the seepage 
-        /// length of <see cref="PipingInput"/>.
-        /// [m]
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than 0.</exception>
-        public RoundedDouble EntryPointL
-        {
-            get
-            {
-                return entryPointL;
-            }
-            set
-            {
-                if (value < 0.0)
-                {
-                    throw new ArgumentOutOfRangeException("value", Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
-                }
-                entryPointL = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the l-coordinate of the exit point, which, together with
-        /// the l-coordinate of the entry point, is used to determine the seepage 
-        /// length of <see cref="PipingInput"/>.
-        /// [m]
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than or equal to 0.</exception>
-        public RoundedDouble ExitPointL
-        {
-            get
-            {
-                return exitPointL;
-            }
-            set
-            {
-                if (value <= 0.0)
-                {
-                    throw new ArgumentOutOfRangeException("value", Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
-                }
-                exitPointL = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the surface line.
-        /// </summary>
-        public RingtoetsPipingSurfaceLine SurfaceLine
-        {
-            get
-            {
-                return surfaceLine;
-            }
-            set
-            {
-                surfaceLine = value;
-                UpdateEntryAndExitPoint();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the profile which contains a 1 dimensional definition of soil layers with properties.
-        /// </summary>
-        public PipingSoilProfile SoilProfile { get; set; }
-
-        /// <summary>
-        /// Gets or set the hydraulic boundary location from which to use the assessment level.
-        /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+        #endregion
 
         #region General input parameters
 
@@ -355,6 +390,7 @@ namespace Ringtoets.Piping.Data
             {
                 phreaticLevelExit.Mean = value.Mean;
                 phreaticLevelExit.StandardDeviation = value.StandardDeviation;
+                synchronizer.Synchronize();
             }
         }
 

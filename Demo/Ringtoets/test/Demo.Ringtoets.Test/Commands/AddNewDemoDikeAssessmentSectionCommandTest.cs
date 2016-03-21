@@ -13,7 +13,6 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
-using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 
@@ -163,8 +162,6 @@ namespace Demo.Ringtoets.Test.Commands
 
             Assert.IsTrue(PipingCalculationService.Validate(calculation));
 
-            PipingInputSynchronizer.Synchronize(inputParameters);
-
             PipingCalculationService.Calculate(calculation);
             Assert.IsTrue(calculation.HasOutput);
             Assert.AreEqual(0.563, calculation.Output.HeaveFactorOfSafety, 1e-3);
@@ -202,6 +199,15 @@ namespace Demo.Ringtoets.Test.Commands
                             GetAccuracy(inputParameters.Diameter70));
             Assert.AreEqual(2.347, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DarcyPermeability));
+
+            Assert.AreEqual(4.45, inputParameters.PiezometricHeadExit, 1e-2);
+            Assert.AreEqual(106.13, inputParameters.ExitPointL, 1e-2);
+            Assert.AreEqual(81.45, PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters).GetDesignValue(),
+                            GetAccuracy(inputParameters.DampingFactorExit));
+            Assert.AreEqual(5.81, PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(),
+                            GetAccuracy(inputParameters.DampingFactorExit));
+            Assert.AreEqual(20.29, PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters).GetDesignValue(),
+                            GetAccuracy(inputParameters.DampingFactorExit));
         }
 
         private static double GetAccuracy(IDistribution distribution)

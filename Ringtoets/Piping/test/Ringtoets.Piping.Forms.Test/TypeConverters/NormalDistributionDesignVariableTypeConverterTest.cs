@@ -189,12 +189,8 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GivenPipingInputParameterContextPropertiesInDynamicPropertyBag_WhenSettingNewValue_ThenPipingInputUpdatesObservers(int propertyIndexToChange)
         {
             // Scenario
-            var classWithProperty = new ClassWithDesignVariable();
-            PropertyDescriptor propertyDescriptor = TypeDescriptor.GetProperties(classWithProperty)[0];
-
             var mocks = new MockRepository();
             var typeDescriptorContextMock = mocks.StrictMock<ITypeDescriptorContext>();
-            typeDescriptorContextMock.Stub(tdc => tdc.PropertyDescriptor).Return(propertyDescriptor);
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
 
             var observer = mocks.StrictMock<IObserver>();
@@ -209,8 +205,12 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             {
                 Data = inputParametersContext
             };
+
+            PropertyDescriptor propertyDescriptor = TypeDescriptor.GetProperties(inputParameterContextProperties).Find("PhreaticLevelExit", false);
             var dynamicPropertyBag = new DynamicPropertyBag(inputParameterContextProperties);
+
             typeDescriptorContextMock.Expect(tdc => tdc.Instance).Return(dynamicPropertyBag);
+            typeDescriptorContextMock.Stub(tdc => tdc.PropertyDescriptor).Return(propertyDescriptor);
             mocks.ReplayAll();
 
             inputParameters.Attach(observer);
