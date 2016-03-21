@@ -29,6 +29,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -38,7 +39,9 @@ namespace Ringtoets.Piping.Forms.Views
     public partial class PipingCalculationsView : UserControl, IView
     {
         private AssessmentSectionBase assessmentSection;
+        private PipingFailureMechanism pipingFailureMechanism;
         private PipingCalculationGroup pipingCalculationGroup;
+        private DataGridViewComboBoxColumn soilProfileColumn;
         private DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn;
 
         /// <summary>
@@ -65,6 +68,27 @@ namespace Ringtoets.Piping.Forms.Views
                                                                       .Select(pc => new PipingCalculationRow(pc))
                                                                       .ToList()
                                               : null;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the piping failure mechanism.
+        /// </summary>
+        public PipingFailureMechanism PipingFailureMechanism
+        {
+            get
+            {
+                return pipingFailureMechanism;
+            }
+            set
+            {
+                pipingFailureMechanism = value;
+
+                soilProfileColumn.DataSource = pipingFailureMechanism != null
+                                                   ? pipingFailureMechanism.SoilProfiles
+                                                                           .Select(psp => new DataGridViewComboBoxItemWrapper<PipingSoilProfile>(psp))
+                                                                           .ToList()
+                                                   : GetDefaultSoilProfilesDataSource();
             }
         }
 
@@ -99,12 +123,15 @@ namespace Ringtoets.Piping.Forms.Views
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             };
 
-            var soilProfileColumn = new DataGridViewTextBoxColumn
+            soilProfileColumn = new DataGridViewComboBoxColumn
             {
                 DataPropertyName = "SoilProfile",
                 HeaderText = Resources.PipingInput_SoilProfile_DisplayName,
                 Name = "column_SoilProfile",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                ValueMember = "This",
+                DisplayMember = "DisplayName",
+                DataSource = GetDefaultSoilProfilesDataSource()
             };
 
             hydraulicBoundaryLocationColumn = new DataGridViewComboBoxColumn
@@ -154,6 +181,14 @@ namespace Ringtoets.Piping.Forms.Views
             dataGridView.Columns.AddRange(nameColumn, soilProfileColumn, hydraulicBoundaryLocationColumn, dampingFactorExitMeanColumn, phreaticLevelExitMeanColumn, entryPointLColumn, exitPointLColumn);
         }
 
+        private static List<DataGridViewComboBoxItemWrapper<PipingSoilProfile>> GetDefaultSoilProfilesDataSource()
+        {
+            return new List<DataGridViewComboBoxItemWrapper<PipingSoilProfile>>
+            {
+                new DataGridViewComboBoxItemWrapper<PipingSoilProfile>(null)
+            };
+        }
+
         private static List<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>> GetDefaultHydraulicBoundaryLocationsDataSource()
         {
             return new List<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>>
@@ -179,13 +214,17 @@ namespace Ringtoets.Piping.Forms.Views
                 }
             }
 
-            public string SoilProfile
+            public DataGridViewComboBoxItemWrapper<PipingSoilProfile> SoilProfile
             {
                 get
                 {
-                    var soilProfile = pipingCalculation.InputParameters.SoilProfile;
-
-                    return soilProfile != null ? soilProfile.Name : string.Empty;
+                    return new DataGridViewComboBoxItemWrapper<PipingSoilProfile>(pipingCalculation.InputParameters.SoilProfile);
+                }
+                set
+                {
+                    pipingCalculation.InputParameters.SoilProfile = value != null
+                                                                        ? value.WrappedObject
+                                                                        : null;
                 }
             }
 
@@ -197,7 +236,9 @@ namespace Ringtoets.Piping.Forms.Views
                 }
                 set
                 {
-                    pipingCalculation.InputParameters.HydraulicBoundaryLocation = value.WrappedObject;
+                    pipingCalculation.InputParameters.HydraulicBoundaryLocation = value != null
+                                                                                      ? value.WrappedObject
+                                                                                      : null;
                 }
             }
 

@@ -82,7 +82,11 @@ namespace Ringtoets.Piping.Plugin
                 Image = PipingFormsResources.FolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.PipingFailureMechanism.CalculationsGroup,
                 CloseForData = ClosePipingCalculationsViewForData,
-                AfterCreate = (view, context) => view.AssessmentSection = context.AssessmentSection
+                AfterCreate = (view, context) =>
+                {
+                    view.AssessmentSection = context.AssessmentSection;
+                    view.PipingFailureMechanism = context.PipingFailureMechanism;
+                }
             };
         }
 

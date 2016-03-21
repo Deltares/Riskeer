@@ -160,16 +160,17 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AfterCreate_Always_SetsAssessmentSectionToView()
+        public void AfterCreate_Always_SetsAssessmentSectionAndPipingFailureMechanismToView()
         {
+            // Setup
             var viewMock = mocks.StrictMock<PipingCalculationsView>();
-
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var pipingCalculationsGroupMock = mocks.StrictMock<PipingCalculationGroup>();
             var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingCalculationsGroupMock, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<PipingSoilProfile>(), pipingFailureMechanismMock, assessmentSectionMock);
 
             viewMock.Expect(v => v.AssessmentSection = assessmentSectionMock);
+            viewMock.Expect(v => v.PipingFailureMechanism = pipingFailureMechanismMock);
 
             mocks.ReplayAll();
 
