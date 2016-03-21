@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters.PropertyDescriptors
             PropertyDescriptor getSetProperty = properties[0];
 
             getSetProperty.SetValue(component, newValue);
-            var expectedPropertyValueAfterReset = component.SomeEditableProperty;
+            var expectedPropertyValueAfterSet = component.SomeEditableProperty;
 
             var wrappedProperty = new ReadOnlyPropertyDescriptorDecorator(getSetProperty);
             component.SomeEditableProperty = originalPropertyValue;
@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters.PropertyDescriptors
             wrappedProperty.SetValue(component, newValue);
 
             // Assert
-            Assert.AreEqual(expectedPropertyValueAfterReset, component.SomeEditableProperty);
+            Assert.AreEqual(expectedPropertyValueAfterSet, component.SomeEditableProperty);
         }
 
         [Test]

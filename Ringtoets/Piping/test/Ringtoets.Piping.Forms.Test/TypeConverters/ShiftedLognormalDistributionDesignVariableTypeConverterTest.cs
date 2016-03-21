@@ -193,11 +193,11 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         {
             public ClassWithReadOnlyDesignVariable()
             {
-                Property = new NormalDistributionDesignVariable(new NormalDistribution(3));
+                Property = new ShiftedLognormalDistributionDesignVariable(new ShiftedLognormalDistribution(3));
             }
 
             [ReadOnly(true)]
-            public DesignVariable<NormalDistribution> Property { get; set; }
+            public DesignVariable<ShiftedLognormalDistribution> Property { get; set; }
         }
     }
 }

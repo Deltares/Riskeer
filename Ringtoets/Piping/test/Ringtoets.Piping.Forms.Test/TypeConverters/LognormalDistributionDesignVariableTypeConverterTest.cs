@@ -251,15 +251,5 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             [ReadOnly(true)]
             public DesignVariable<LognormalDistribution> Property { get; set; }
         }
-
-        private class ClassWithDesignVariable
-        {
-            public ClassWithDesignVariable()
-            {
-                Property = new LognormalDistributionDesignVariable(new LognormalDistribution(3));
-            }
-
-            public DesignVariable<LognormalDistribution> Property { get; set; }
-        }
     }
 }
