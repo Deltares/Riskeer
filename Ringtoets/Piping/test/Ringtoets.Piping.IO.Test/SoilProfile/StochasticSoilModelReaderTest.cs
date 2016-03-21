@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
-using Core.Common.Base.Geometry;
+using System.Linq;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
@@ -190,7 +191,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadStochasticSoilProfile_InvalidSegmentPoint_ThrowsStochasticSoilModelReadException()
+        public void ReadStochasticSoilModel_InvalidSegmentPoint_ThrowsStochasticSoilModelReadException()
         {
             // Setup
             string dbName = "invalidSegmentPoint.soil";
@@ -212,41 +213,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadStochasticSoilProfile_CompleteDatabase_ReturnsExpectedValues()
-        {
-            // Setup
-            string dbName = "complete.soil";
-            string dbFile = Path.Combine(testDataPath, dbName);
-            const string expectedSegmentName = "36005_Piping";
-            const string expectedSegmentSoilModelName = "36005_Piping";
-            const long expectedSegmentSoilModelId = 2;
-            const long expectedSegmentSoilModelPoints = 1797;
-            const int expectedNrOfModels = 3;
-
-            using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
-            {
-                int nrOfModels = stochasticSoilModelDatabaseReader.PipingStochasticSoilModelCount;
-
-                // Call
-                StochasticSoilModel stochasticSoilModel = stochasticSoilModelDatabaseReader.ReadStochasticSoilModel();
-
-                // Assert
-                Assert.IsNotNull(stochasticSoilModel);
-                Assert.AreEqual(expectedNrOfModels, nrOfModels);
-                Assert.AreEqual(expectedSegmentName, stochasticSoilModel.SegmentName);
-                Assert.AreEqual(expectedSegmentSoilModelName, stochasticSoilModel.Name);
-                Assert.AreEqual(expectedSegmentSoilModelId, stochasticSoilModel.Id);
-                Assert.AreEqual(expectedSegmentSoilModelPoints, stochasticSoilModel.Geometry.Count);
-                CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModel.Geometry, typeof(Point2D));
-                CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModel.StochasticSoilProfiles, typeof(StochasticSoilProfile));
-                Assert.IsTrue(stochasticSoilModelDatabaseReader.HasNext);
-            }
-
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
-        }
-
-        [Test]
-        public void ReadStochasticSoilProfile_EmptyDatabase_ReturnsNull()
+        public void ReadStochasticSoilModel_EmptyDatabase_ReturnsNull()
         {
             // Setup
             var dbName = "emptyschema.soil";
@@ -266,6 +233,216 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 Assert.IsFalse(stochasticSoilModelDatabaseReader.HasNext);
             }
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadStochasticSoilModel_ModelWithoutProfile_ThreeModelsWithSecondWithoutProfiles()
+        {
+            // Setup
+            var dbName = "modelWithoutProfile.soil";
+            string dbFile = Path.Combine(testDataPath, dbName);
+            const int expectedNrOfModels = 3;
+
+            using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
+            {
+                int nrOfModels = stochasticSoilModelDatabaseReader.PipingStochasticSoilModelCount;
+                var readModels = new List<StochasticSoilModel>();
+                while (stochasticSoilModelDatabaseReader.HasNext)
+                {
+                    // Call
+                    readModels.Add(stochasticSoilModelDatabaseReader.ReadStochasticSoilModel());
+                }
+
+                // Assert
+                var expectedSegmentAndModelNames = new[]
+                {
+                    "36005_Piping",
+                    "36006_Piping",
+                    "36007_Piping"
+                };
+                var expectedModelIds = new[]
+                {
+                    2,
+                    4,
+                    6
+                };
+                var expectedSegmentPointCount = new[]
+                {
+                    1797,
+                    144,
+                    606
+                };
+                var expectedProfileCount = new[]
+                {
+                    10,
+                    0,
+                    8
+                };
+                Assert.AreEqual(expectedNrOfModels, nrOfModels);
+
+                CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.SegmentName));
+                CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));
+                CollectionAssert.AreEqual(expectedModelIds, readModels.Select(m => m.Id));
+                CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
+                CollectionAssert.AreEqual(expectedProfileCount, readModels.Select(m => m.StochasticSoilProfiles.Count));
+
+                Assert.IsFalse(stochasticSoilModelDatabaseReader.HasNext);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadStochasticSoilModel_CompleteDatabase_ThreeModelsWithProfiles()
+        {
+            // Setup
+            string dbName = "complete.soil";
+            string dbFile = Path.Combine(testDataPath, dbName);
+            const int expectedNrOfModels = 3;
+
+            using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
+            {
+                int nrOfModels = stochasticSoilModelDatabaseReader.PipingStochasticSoilModelCount;
+                var readModels = new List<StochasticSoilModel>();
+                while (stochasticSoilModelDatabaseReader.HasNext)
+                {
+                    // Call
+                    readModels.Add(stochasticSoilModelDatabaseReader.ReadStochasticSoilModel());
+                }
+
+                // Assert
+                var expectedSegmentAndModelNames = new[]
+                {
+                    "36005_Piping",
+                    "36006_Piping",
+                    "36007_Piping"
+                };
+                var expectedModelIds = new[]
+                {
+                    2,
+                    4,
+                    6
+                };
+                var expectedSegmentPointCount = new[]
+                {
+                    1797,
+                    144,
+                    606
+                };
+                var expectedProfileCount = new[]
+                {
+                    10,
+                    6,
+                    8
+                };
+                Assert.AreEqual(expectedNrOfModels, nrOfModels);
+
+                CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.SegmentName));
+                CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));
+                CollectionAssert.AreEqual(expectedModelIds, readModels.Select(m => m.Id));
+                CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
+                CollectionAssert.AreEqual(expectedProfileCount, readModels.Select(m => m.StochasticSoilProfiles.Count));
+
+                Assert.IsFalse(stochasticSoilModelDatabaseReader.HasNext);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void Count_ThreeModelsOneModelWithoutSegmentPoints_ReturnsTwo()
+        {
+            // Setup
+            string dbName = "modelWithoutSegmentPoints.soil";
+            string dbFile = Path.Combine(testDataPath, dbName);
+
+            using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
+            {
+                int nrOfModels = stochasticSoilModelDatabaseReader.PipingStochasticSoilModelCount;
+
+                Assert.AreEqual(2, nrOfModels);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadStochasticSoilModel_ThreeModelsOneModelWithoutSegmentPointsUsingCount_ReturnsTwoModels()
+        {
+            // Setup
+            string dbName = "modelWithoutSegmentPoints.soil";
+            string dbFile = Path.Combine(testDataPath, dbName);
+
+            using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
+            {
+                var readModels = new List<StochasticSoilModel>();
+                for (int i = 0; i < stochasticSoilModelDatabaseReader.PipingStochasticSoilModelCount; i++)
+                {
+                    // Call
+                    readModels.Add(stochasticSoilModelDatabaseReader.ReadStochasticSoilModel());
+                }
+
+                // Assert
+                CheckModelWithoutSegmentPoints(readModels);
+                Assert.IsFalse(stochasticSoilModelDatabaseReader.HasNext);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void ReadStochasticSoilModel_ThreeModelsOneModelWithoutSegmentPointsUsingHasNext_ReturnsTwoModels()
+        {
+            // Setup
+            string dbName = "modelWithoutSegmentPoints.soil";
+            string dbFile = Path.Combine(testDataPath, dbName);
+
+            using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
+            {
+                var readModels = new List<StochasticSoilModel>();
+                while (stochasticSoilModelDatabaseReader.HasNext)
+                {
+                    // Call
+                    readModels.Add(stochasticSoilModelDatabaseReader.ReadStochasticSoilModel());
+                }
+
+                // Assert
+                CheckModelWithoutSegmentPoints(readModels);
+                Assert.IsFalse(stochasticSoilModelDatabaseReader.HasNext);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        private static void CheckModelWithoutSegmentPoints(List<StochasticSoilModel> readModels)
+        {
+            var expectedSegmentAndModelNames = new[]
+            {
+                "36005_Piping",
+                "36007_Piping"
+            };
+            var expectedModelIds = new[]
+            {
+                2,
+                6
+            };
+            var expectedSegmentPointCount = new[]
+            {
+                1797,
+                606
+            };
+            var expectedProfileCount = new[]
+            {
+                10,
+                8
+            };
+
+            Assert.AreEqual(2, readModels.Count);
+            CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.SegmentName));
+            CollectionAssert.AreEqual(expectedSegmentAndModelNames, readModels.Select(m => m.Name));
+            CollectionAssert.AreEqual(expectedModelIds, readModels.Select(m => m.Id));
+            CollectionAssert.AreEqual(expectedSegmentPointCount, readModels.Select(m => m.Geometry.Count));
+            CollectionAssert.AreEqual(expectedProfileCount, readModels.Select(m => m.StochasticSoilProfiles.Count));
         }
     }
 }

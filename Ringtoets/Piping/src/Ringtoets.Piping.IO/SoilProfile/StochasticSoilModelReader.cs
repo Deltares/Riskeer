@@ -38,6 +38,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
     public class StochasticSoilModelReader : SqLiteDatabaseReaderBase
     {
         private const string pipingMechanismName = "Piping";
+        private readonly string filePath;
         private SQLiteDataReader dataReader;
 
         /// <summary>
@@ -53,6 +54,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </list></exception>
         public StochasticSoilModelReader(string databaseFilePath) : base(databaseFilePath)
         {
+            filePath = databaseFilePath;
             VerifyVersion(databaseFilePath);
             InitializeReader();
         }
@@ -124,7 +126,29 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 MoveNext();
             } while (HasNext && ReadStochasticSoilModelSegment().Id == currentSegmentSoilModelId);
 
+            AddStochasticSoilProfiles(stochasticSoilModelSegment);
+
             return stochasticSoilModelSegment;
+        }
+
+        private void AddStochasticSoilProfiles(StochasticSoilModel stochasticSoilModelSegment)
+        {
+            using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(filePath))
+            {
+                while (stochasticSoilProfileReader.HasNext)
+                {
+                    AddStochasticSoilProfile(stochasticSoilModelSegment, stochasticSoilProfileReader);
+                }
+            }
+        }
+
+        private static void AddStochasticSoilProfile(StochasticSoilModel stochasticSoilModelSegment, StochasticSoilProfileReader stochasticSoilProfileReader)
+        {
+            var stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(stochasticSoilModelSegment.Id);
+            if (stochasticSoilProfile != null)
+            {
+                stochasticSoilModelSegment.StochasticSoilProfiles.Add(stochasticSoilProfile);
+            }
         }
 
         /// <summary>

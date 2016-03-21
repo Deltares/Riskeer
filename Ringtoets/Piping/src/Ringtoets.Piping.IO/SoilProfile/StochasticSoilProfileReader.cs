@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <see cref="StochasticSoilProfile"/> instance of the information.
         /// </summary>
         /// <param name="stochasticSoilModelId">Identifier of the next <see cref="StochasticSoilModel"/> to look for.</param>
-        /// <returns>The next <see cref="StochasticSoilProfile"/> from the database, or <c>null</c> if no more soil profiles can be read.</returns>
+        /// <returns>The next <see cref="StochasticSoilProfile"/> from the database, or <c>null</c> if no more stochastic soil profiles can be read.</returns>
         /// <exception cref="StochasticSoilProfileReadException">Thrown when the database returned incorrect values for required properties.</exception>
         public StochasticSoilProfile ReadStochasticSoilProfile(long stochasticSoilModelId)
         {
@@ -74,8 +74,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
             {
                 return null;
             }
-            MoveToStochasticSoilModelId(stochasticSoilModelId);
 
+            if (!MoveToStochasticSoilModelId(stochasticSoilModelId))
+            {
+                return null;
+            }
             try
             {
                 StochasticSoilProfile stochasticSoilProfile = ReadStochasticSoilProfileProbability();
@@ -136,19 +139,26 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
         }
 
-        private void MoveToStochasticSoilModelId(long stochasticSoilModelId)
+        private bool MoveToStochasticSoilModelId(long stochasticSoilModelId)
         {
             while (HasNext && ReadStochasticSoilModelId() < stochasticSoilModelId)
             {
                 MoveNext();
             }
+            if (ReadStochasticSoilModelId() == stochasticSoilModelId)
+            {
+                return true;
+            }
+            MoveToNextStochasticSoilModelId(stochasticSoilModelId);
+            return false;
         }
 
         private void MoveToNextStochasticSoilModelId(long stochasticSoilModelId)
         {
-            while (HasNext && ReadStochasticSoilModelId() == stochasticSoilModelId)
+            MoveNext();
+            if (HasNext)
             {
-                MoveNext();
+                HasNext = ReadStochasticSoilModelId() == stochasticSoilModelId;
             }
         }
 

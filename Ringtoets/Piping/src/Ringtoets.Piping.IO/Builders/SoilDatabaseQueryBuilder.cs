@@ -68,16 +68,21 @@ namespace Ringtoets.Piping.IO.Builders
         /// from the database.</returns>
         public static string GetStochasticSoilModelOfMechanismCountQuery()
         {
-            return String.Format(@"SELECT COUNT('1') AS {6} " +
-                                 "FROM {0} M " +
-                                 "INNER JOIN {1} S USING({3}) " +
-                                 "INNER JOIN {2} SSM USING({4}) " +
-                                 "WHERE M.{5} = @{5};",
+            return String.Format(@"SELECT COUNT('1') AS {8} " +
+                                 "FROM (" +
+                                 "SELECT '1' FROM {0} M " +
+                                 "INNER JOIN {1} S USING({4}) " +
+                                 "INNER JOIN {2} SSM USING({5}) " +
+                                 "INNER JOIN {3} SP USING({6}) " +
+                                 "WHERE M.{7} = @{7} GROUP BY {5}" +
+                                 ");",
                                  MechanismDatabaseColumns.TableName,
                                  SegmentDatabaseColumns.TableName,
                                  StochasticSoilModelDatabaseColumns.TableName,
+                                 SegmentPointsDatabaseColumns.TableName,
                                  MechanismDatabaseColumns.MechanismId,
                                  StochasticSoilModelDatabaseColumns.StochasticSoilModelId,
+                                 SegmentPointsDatabaseColumns.SegmentId,
                                  MechanismDatabaseColumns.MechanismName,
                                  StochasticSoilModelDatabaseColumns.Count
                 );
