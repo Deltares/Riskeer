@@ -115,11 +115,11 @@ namespace Ringtoets.Piping.IO.Builders
         }
 
         /// <summary>
-        /// Constructs a (1D) <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/> based on the <see cref="InnerLoops"/> and <see cref="OuterLoop"/> set for the <see cref="SoilLayer2D"/>.
+        /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the <see cref="InnerLoops"/> and <see cref="OuterLoop"/> set for the <see cref="SoilLayer2D"/>.
         /// </summary>
         /// <param name="atX">The point from which to take a 1D profile.</param>
-        /// <param name="bottom">The bottom level of the <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/>.</param>
-        /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/>.</returns>
+        /// <param name="bottom">The bottom level of the <see cref="PipingSoilLayer"/>.</param>
+        /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="PipingSoilLayer"/>.</returns>
         /// <exception cref="SoilLayer2DConversionException">Thrown when any of the <see cref="InnerLoops"/> or
         /// <see cref="OuterLoop"/> contain a vertical line at <paramref name="atX"/>.</exception>
         internal IEnumerable<PipingSoilLayer> AsPipingSoilLayers(double atX, out double bottom)

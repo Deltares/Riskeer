@@ -30,7 +30,7 @@ using TypeConverter = System.ComponentModel.TypeConverterAttribute;
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> for properties panel.
+    /// ViewModel of <see cref="PipingSoilProfile"/> for properties panel.
     /// </summary>
     [ResourcesDisplayName(typeof(Resources), "PipingSoilProfileProperties_DisplayName")]
     public class PipingSoilProfileProperties : ObjectProperties<PipingSoilProfile>

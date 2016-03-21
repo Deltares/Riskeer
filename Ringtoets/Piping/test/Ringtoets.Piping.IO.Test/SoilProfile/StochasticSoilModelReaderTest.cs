@@ -234,11 +234,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 Assert.IsNotNull(stochasticSoilModel);
                 Assert.AreEqual(expectedNrOfModels, nrOfModels);
                 Assert.AreEqual(expectedSegmentName, stochasticSoilModel.SegmentName);
-                Assert.AreEqual(expectedSegmentSoilModelName, stochasticSoilModel.SegmentSoilModelName);
-                Assert.AreEqual(expectedSegmentSoilModelId, stochasticSoilModel.SegmentSoilModelId);
+                Assert.AreEqual(expectedSegmentSoilModelName, stochasticSoilModel.Name);
+                Assert.AreEqual(expectedSegmentSoilModelId, stochasticSoilModel.Id);
                 Assert.AreEqual(expectedSegmentSoilModelPoints, stochasticSoilModel.Geometry.Count);
                 CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModel.Geometry, typeof(Point2D));
-                CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModel.StochasticSoilProfileProbabilities, typeof(StochasticSoilProfile));
+                CollectionAssert.AllItemsAreInstancesOfType(stochasticSoilModel.StochasticSoilProfiles, typeof(StochasticSoilProfile));
                 Assert.IsTrue(stochasticSoilModelDatabaseReader.HasNext);
             }
 

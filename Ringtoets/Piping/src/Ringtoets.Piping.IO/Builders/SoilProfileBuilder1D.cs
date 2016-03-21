@@ -26,7 +26,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.IO.Builders
 {
     /// <summary>
-    /// Helps in the creation of a <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>.
+    /// Helps in the creation of a <see cref="PipingSoilProfile"/>.
     /// </summary>
     internal class SoilProfileBuilder1D
     {
@@ -44,9 +44,9 @@ namespace Ringtoets.Piping.IO.Builders
         }
 
         /// <summary>
-        /// Creates a new instances of the <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> based on the layer definitions.
+        /// Creates a new instances of the <see cref="PipingSoilProfile"/> based on the layer definitions.
         /// </summary>
-        /// <returns>A new <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>.</returns>
+        /// <returns>A new <see cref="PipingSoilProfile"/>.</returns>
         /// <exception cref="SoilProfileBuilderException">Thrown when no layers have been added through <see cref="Add"/>.</exception>
         internal PipingSoilProfile Build()
         {
@@ -61,9 +61,9 @@ namespace Ringtoets.Piping.IO.Builders
         }
 
         /// <summary>
-        /// Adds a new <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/>, which will be added to the <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>.
+        /// Adds a new <see cref="PipingSoilLayer"/>, which will be added to the <see cref="PipingSoilProfile"/>.
         /// </summary>
-        /// <param name="soilLayer">The <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/> to add.</param>
+        /// <param name="soilLayer">The <see cref="PipingSoilLayer"/> to add.</param>
         internal void Add(PipingSoilLayer soilLayer)
         {
             layers.Add(soilLayer);

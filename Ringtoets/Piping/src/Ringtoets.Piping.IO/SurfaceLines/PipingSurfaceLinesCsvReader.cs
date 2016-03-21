@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Reads the file to determine the number of available <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/>
+        /// Reads the file to determine the number of available <see cref="RingtoetsPipingSurfaceLine"/>
         /// data rows.
         /// </summary>
         /// <returns>A value greater than or equal to 0.</returns>
@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
 
         /// <summary>
         /// Reads and consumes the next data row which contains a surface line, parsing the data to create an instance 
-        /// of <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/>.
+        /// of <see cref="RingtoetsPipingSurfaceLine"/>.
         /// </summary>
         /// <returns>Return the parsed surfaceline, or null when at the end of the file.</returns>
         /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:

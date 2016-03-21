@@ -34,7 +34,7 @@ using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/> for properties panel.
+    /// ViewModel of <see cref="RingtoetsPipingSurfaceLine"/> for properties panel.
     /// </summary>
     [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_DisplayName")]
     public class RingtoetsPipingSurfaceLineProperties : ObjectProperties<RingtoetsPipingSurfaceLine>

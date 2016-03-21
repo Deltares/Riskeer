@@ -67,8 +67,8 @@ namespace Ringtoets.Piping.Primitives
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets an ordered (by <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer.Top"/>, descending) <see cref="IEnumerable{T}"/> of 
-        /// <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/> for the <see cref="PipingSoilProfile"/>.
+        /// Gets an ordered (by <see cref="PipingSoilLayer.Top"/>, descending) <see cref="IEnumerable{T}"/> of 
+        /// <see cref="PipingSoilLayer"/> for the <see cref="PipingSoilProfile"/>.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when the value is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the value contains no layers.</exception>
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Primitives
         /// Gets the thickness of the given layer in the <see cref="PipingSoilProfile"/>.
         /// Thickness of a layer is determined by its top and the top of the layer below it.
         /// </summary>
-        /// <param name="layer">The <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/> to determine the thickness of.</param>
+        /// <param name="layer">The <see cref="PipingSoilLayer"/> to determine the thickness of.</param>
         /// <returns>The thickness of the <paramref name="layer"/>.</returns>
         /// <exception cref="ArgumentException"><see cref="Layers"/> does not contain <paramref name="layer"/>.</exception>
         public double GetLayerThickness(PipingSoilLayer layer)
@@ -145,14 +145,14 @@ namespace Ringtoets.Piping.Primitives
 
         /// <summary>
         /// Validates the given <paramref name="collection"/>. A valid <paramref name="collection"/> has layers which 
-        /// all have values for <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer.Top"/> which are greater than or equal to <see cref="Bottom"/>.
+        /// all have values for <see cref="PipingSoilLayer.Top"/> which are greater than or equal to <see cref="Bottom"/>.
         /// </summary>
-        /// <param name="collection">The collection of <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/> to validate.</param>
+        /// <param name="collection">The collection of <see cref="PipingSoilLayer"/> to validate.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when
         /// <list type="bullet">
         /// <item><paramref name="collection"/> contains no layers</item>
-        /// <item><paramref name="collection"/> contains a layer with the <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer.Top"/> less than
+        /// <item><paramref name="collection"/> contains a layer with the <see cref="PipingSoilLayer.Top"/> less than
         /// <see cref="Bottom"/></item>
         /// </list></exception>
         private void ValidateLayersCollection(IEnumerable<PipingSoilLayer> collection)

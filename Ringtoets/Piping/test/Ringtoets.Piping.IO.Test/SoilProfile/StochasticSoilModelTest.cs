@@ -39,11 +39,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             Assert.IsInstanceOf<StochasticSoilModel>(stochasticSoilModelSegment);
-            Assert.AreEqual(segmentSoilModelId, stochasticSoilModelSegment.SegmentSoilModelId);
-            Assert.AreEqual(segmentSoilModelName, stochasticSoilModelSegment.SegmentSoilModelName);
+            Assert.AreEqual(segmentSoilModelId, stochasticSoilModelSegment.Id);
+            Assert.AreEqual(segmentSoilModelName, stochasticSoilModelSegment.Name);
             Assert.AreEqual(segmentName, stochasticSoilModelSegment.SegmentName);
             CollectionAssert.IsEmpty(stochasticSoilModelSegment.Geometry);
-            CollectionAssert.IsEmpty(stochasticSoilModelSegment.StochasticSoilProfileProbabilities);
+            CollectionAssert.IsEmpty(stochasticSoilModelSegment.StochasticSoilProfiles);
         }
 
         [Test]
@@ -60,8 +60,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             stochasticSoilModelSegment.Geometry.Add(point2D);
 
             // Assert
-            Assert.AreEqual(expectedSegmentSoilModelId, stochasticSoilModelSegment.SegmentSoilModelId);
-            Assert.AreEqual(expectedSegmentSoilModelName, stochasticSoilModelSegment.SegmentSoilModelName);
+            Assert.AreEqual(expectedSegmentSoilModelId, stochasticSoilModelSegment.Id);
+            Assert.AreEqual(expectedSegmentSoilModelName, stochasticSoilModelSegment.Name);
             Assert.AreEqual(expectedSegmentName, stochasticSoilModelSegment.SegmentName);
             Assert.AreEqual(1, stochasticSoilModelSegment.Geometry.Count);
             Assert.AreEqual(point2D, stochasticSoilModelSegment.Geometry[0]);
@@ -81,14 +81,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             mockRepository.ReplayAll();
 
             // Call
-            stochasticSoilModelSegment.StochasticSoilProfileProbabilities.Add(stochasticSoilProfileProbabilityMock);
+            stochasticSoilModelSegment.StochasticSoilProfiles.Add(stochasticSoilProfileProbabilityMock);
 
             // Assert
-            Assert.AreEqual(expectedSegmentSoilModelId, stochasticSoilModelSegment.SegmentSoilModelId);
-            Assert.AreEqual(expectedSegmentSoilModelName, stochasticSoilModelSegment.SegmentSoilModelName);
+            Assert.AreEqual(expectedSegmentSoilModelId, stochasticSoilModelSegment.Id);
+            Assert.AreEqual(expectedSegmentSoilModelName, stochasticSoilModelSegment.Name);
             Assert.AreEqual(expectedSegmentName, stochasticSoilModelSegment.SegmentName);
-            Assert.AreEqual(1, stochasticSoilModelSegment.StochasticSoilProfileProbabilities.Count);
-            Assert.AreEqual(stochasticSoilProfileProbabilityMock, stochasticSoilModelSegment.StochasticSoilProfileProbabilities[0]);
+            Assert.AreEqual(1, stochasticSoilModelSegment.StochasticSoilProfiles.Count);
+            Assert.AreEqual(stochasticSoilProfileProbabilityMock, stochasticSoilModelSegment.StochasticSoilProfiles[0]);
             mockRepository.VerifyAll();
         }
     }

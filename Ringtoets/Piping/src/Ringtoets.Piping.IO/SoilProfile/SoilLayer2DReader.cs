@@ -32,12 +32,13 @@ using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.SoilProfile
 {
     /// <summary>
     /// This class is responsible for reading an array of bytes and interpret this as a XML document, which contains information about
-    /// the geometry of a <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/>.
+    /// the geometry of a <see cref="PipingSoilLayer"/>.
     /// </summary>
     internal class SoilLayer2DReader
     {
@@ -63,10 +64,10 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         /// <summary>
         /// Reads a new <see cref="SoilLayer2D"/> using the <paramref name="geometry"/> as the source of the 
-        /// geometry for a <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/>.
+        /// geometry for a <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="geometry">An <see cref="Array"/> of <see cref="byte"/> which contains the information
-        /// of a <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/> in an XML document.</param>
+        /// of a <see cref="PipingSoilLayer"/> in an XML document.</param>
         /// <returns>A new <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is null.</exception>
         /// <exception cref="SoilLayer2DConversionException">Thrown when:
@@ -94,9 +95,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         /// <summary>
         /// Reads a new <see cref="SoilLayer2D"/> using the <paramref name="geometry"/> as the source of the 
-        /// geometry for a <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/>.
+        /// geometry for a <see cref="PipingSoilLayer"/>.
         /// </summary>
-        /// <param name="geometry">An <see cref="XmlDocument"/> which contains the information of a <see cref="Ringtoets.Piping.Primitives.PipingSoilLayer"/>
+        /// <param name="geometry">An <see cref="XmlDocument"/> which contains the information of a <see cref="PipingSoilLayer"/>
         /// in an XML document.</param>
         /// <returns>A new <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is null.</exception>

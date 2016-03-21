@@ -40,10 +40,10 @@ namespace Ringtoets.Piping.IO.Builders
         private double bottom;
 
         /// <summary>
-        /// Creates a new instance of <see cref="SoilProfileBuilder2D"/> with the supposed name for the new <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>
+        /// Creates a new instance of <see cref="SoilProfileBuilder2D"/> with the supposed name for the new <see cref="PipingSoilProfile"/>
         /// and the point at which a 1D profile should be obtained from the 2D profile.
         /// </summary>
-        /// <param name="profileName">The name for the <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> constructed by the <see cref="SoilProfileBuilder2D"/>.</param>
+        /// <param name="profileName">The name for the <see cref="PipingSoilProfile"/> constructed by the <see cref="SoilProfileBuilder2D"/>.</param>
         /// <param name="atX">The x position from which to obtain a 1D profile.</param>
         /// <param name="soilProfileId">The indentifier of the profile in the database.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="atX"/> can not be used to determine intersections with
@@ -62,11 +62,11 @@ namespace Ringtoets.Piping.IO.Builders
         }
 
         /// <summary>
-        /// Creates a new instances of the <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> based on the layer definitions.
+        /// Creates a new instances of the <see cref="PipingSoilProfile"/> based on the layer definitions.
         /// </summary>
-        /// <returns>A new <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>.</returns>
+        /// <returns>A new <see cref="PipingSoilProfile"/>.</returns>
         /// <exception cref="SoilProfileBuilderException">Thrown when trying to build a 
-        /// <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> and not having added any layers using <see cref="Add"/>.
+        /// <see cref="PipingSoilProfile"/> and not having added any layers using <see cref="Add"/>.
         /// </exception>
         internal PipingSoilProfile Build()
         {
@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// <param name="soilLayer">The <see cref="SoilLayer2D"/> to add to the profile.</param>
         /// <returns>The <see cref="SoilProfileBuilder2D"/>.</returns>
         /// <exception cref="SoilProfileBuilderException">Thrown when the <paramref name="soilLayer"/>'s geometry
-        /// contains vertical segments the X-coordinate given for the construction of the 
+        /// contains vertical segments at the X-coordinate given for the construction of the 
         /// <see cref="SoilProfileBuilder2D(string,double,long)"/>.</exception>
         internal SoilProfileBuilder2D Add(SoilLayer2D soilLayer)
         {

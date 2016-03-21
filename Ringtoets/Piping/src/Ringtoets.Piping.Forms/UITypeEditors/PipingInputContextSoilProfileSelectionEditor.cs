@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> from a collection.
+    /// <see cref="PipingSoilProfile"/> from a collection.
     /// </summary>
     public class PipingInputContextSoilProfileSelectionEditor : PipingInputContextSelectionEditor<PipingSoilProfile>
     {

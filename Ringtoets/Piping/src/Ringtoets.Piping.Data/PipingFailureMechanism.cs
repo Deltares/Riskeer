@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the available <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.
+        /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.
         /// </summary>
         public ICollection<RingtoetsPipingSurfaceLine> SurfaceLines { get; private set; }
 

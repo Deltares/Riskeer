@@ -112,7 +112,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 return null;
             }
             var stochasticSoilModelSegment = ReadStochasticSoilModelSegment();
-            var currentSegmentSoilModelId = stochasticSoilModelSegment.SegmentSoilModelId;
+            var currentSegmentSoilModelId = stochasticSoilModelSegment.Id;
             do
             {
                 // Read Points
@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     stochasticSoilModelSegment.Geometry.Add(point2D);
                 }
                 MoveNext();
-            } while (HasNext && ReadStochasticSoilModelSegment().SegmentSoilModelId == currentSegmentSoilModelId);
+            } while (HasNext && ReadStochasticSoilModelSegment().Id == currentSegmentSoilModelId);
 
             return stochasticSoilModelSegment;
         }

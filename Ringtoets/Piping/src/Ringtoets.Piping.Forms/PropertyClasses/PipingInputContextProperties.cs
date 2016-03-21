@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Schematization
 
         /// <summary>
-        /// Gets or sets the <see cref="Ringtoets.Piping.Primitives.RingtoetsPipingSurfaceLine"/>.
+        /// Gets or sets the <see cref="RingtoetsPipingSurfaceLine"/>.
         /// </summary>
         [Editor(typeof(PipingInputContextSurfaceLineSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
@@ -184,7 +184,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>.
+        /// Gets or sets the <see cref="PipingSoilProfile"/>.
         /// </summary>
         [Editor(typeof(PipingInputContextSoilProfileSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]

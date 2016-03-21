@@ -20,11 +20,12 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Builders
 {
     /// <summary>
-    /// Exception thrown when something went wrong while converting <see cref="SoilLayer2D"/> to <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/>.
+    /// Exception thrown when something went wrong while converting <see cref="SoilLayer2D"/> to <see cref="PipingSoilProfile"/>.
     /// </summary>
     public class SoilLayer2DConversionException : Exception
     {
