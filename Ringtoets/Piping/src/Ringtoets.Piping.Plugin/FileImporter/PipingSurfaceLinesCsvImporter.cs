@@ -24,12 +24,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-
 using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -101,7 +99,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            var surfaceLinesContext = (RingtoetsPipingSurfaceLinesContext)targetItem;
+            var surfaceLinesContext = (RingtoetsPipingSurfaceLinesContext) targetItem;
 
             var importSurfaceLinesResult = ReadPipingSurfaceLines(filePath);
             if (importSurfaceLinesResult.CriticalErrorOccurred)
@@ -134,7 +132,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private static bool IsReferenceLineAvailable(object targetItem)
         {
-            return ((RingtoetsPipingSurfaceLinesContext)targetItem).AssessmentSection.ReferenceLine != null;
+            return ((RingtoetsPipingSurfaceLinesContext) targetItem).AssessmentSection.ReferenceLine != null;
         }
 
         private ReadResult<T> HandleCriticalReadError<T>(Exception e)
@@ -195,7 +193,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 return true;
             }
-            
+
             if (intersections.Count == 0)
             {
                 log.ErrorFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline_1_,
@@ -231,6 +229,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private ReadResult<RingtoetsPipingSurfaceLine> ReadPipingSurfaceLines(string path)
         {
+            NotifyProgress(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Reading_surface_line_file, 1, 1);
             using (PipingSurfaceLinesCsvReader reader = CreateSurfaceLineReader(path))
             {
                 if (reader == null)
@@ -373,6 +372,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private ReadResult<CharacteristicPoints> ReadCharacteristicPoints(string surfaceLineFilePath)
         {
+            NotifyProgress(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Reading_characteristic_points_file, 1, 1);
             string path = GetCharacteristicPointsFilePath(surfaceLineFilePath);
             if (path == null)
             {
