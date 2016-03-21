@@ -44,6 +44,21 @@ namespace Ringtoets.HydraRing.Data.Test
         }
 
         [Test]
+        public void Constructor_WithoutParameters_PropertiesAsExpected()
+        {
+            // Call
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation();
+
+            // Assert
+            Assert.IsInstanceOf<Observable>(hydraulicBoundaryLocation);
+            Assert.IsInstanceOf<HydraulicBoundaryLocation>(hydraulicBoundaryLocation);
+            Assert.AreEqual(0, hydraulicBoundaryLocation.Id);
+            Assert.IsNull(hydraulicBoundaryLocation.Name);
+            Assert.IsNull(hydraulicBoundaryLocation.Location);
+            Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
+        }
+
+        [Test]
         public void Constructor_ValidParameters_PropertiesAsExpected()
         {
             // Setup

@@ -117,6 +117,23 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const string name = "test";
             const int norm = 30000;
             const long pipingFailureMechanismStorageId = 1L;
+
+            const string hydraulicDatabaseVersion = "1.0";
+            const string hydraulicDatabasePath = "/temp/test";
+            const string hydraulicDatabaseLocationName = "test";
+            const double hydraulicDatabaseLocationDesignWaterLevel = 15.6;
+            const long hydraulicDatabaseLocationLocationId = 1300001;
+            const long hydraulicDatabaseLocationStorageId = 1234L;
+            const decimal hydraulicDatabaseLocationX = 253;
+            const decimal hydraulicDatabaseLocationY = 123;
+
+            const string otherHydraulicDatabaseLocationName = "test2";
+            const double otherHydraulicDatabaseLocationDesignWaterLevel = 18.6;
+            const long otherHydraulicDatabaseLocationLocationId = 1300005;
+            const long otherHydraulicDatabaseLocationStorageId = 4321L;
+            const decimal otherHydraulicDatabaseLocationX = 3927;
+            const decimal otherHydraulicDatabaseLocationY = 372;
+
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
             var entity = new DikeAssessmentSectionEntity
@@ -126,6 +143,20 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     new FailureMechanismEntity
                     {
                         FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism, FailureMechanismEntityId = pipingFailureMechanismStorageId
+                    }
+                },
+                HydraulicDatabaseVersion = hydraulicDatabaseVersion, HydraulicDatabaseLocation = hydraulicDatabasePath,
+                HydraulicLocationEntities = new List<HydraulicLocationEntity>
+                {
+                    new HydraulicLocationEntity
+                    {
+                        Name = hydraulicDatabaseLocationName, DesignWaterLevel = hydraulicDatabaseLocationDesignWaterLevel, HydraulicLocationEntityId = hydraulicDatabaseLocationStorageId, 
+                        LocationId = hydraulicDatabaseLocationLocationId, LocationX = hydraulicDatabaseLocationX, LocationY = hydraulicDatabaseLocationY,
+                    },
+                    new HydraulicLocationEntity
+                    {
+                        Name = otherHydraulicDatabaseLocationName, DesignWaterLevel = otherHydraulicDatabaseLocationDesignWaterLevel, HydraulicLocationEntityId = otherHydraulicDatabaseLocationStorageId,
+                        LocationId = otherHydraulicDatabaseLocationLocationId, LocationX = otherHydraulicDatabaseLocationX, LocationY = otherHydraulicDatabaseLocationY,
                     }
                 }
             };
@@ -139,6 +170,25 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(name, section.Name);
             Assert.AreEqual(norm, section.FailureMechanismContribution.Norm);
             Assert.AreEqual(pipingFailureMechanismStorageId, section.PipingFailureMechanism.StorageId);
+            Assert.AreEqual(hydraulicDatabaseVersion, section.HydraulicBoundaryDatabase.Version);
+            Assert.AreEqual(hydraulicDatabasePath, section.HydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(2, section.HydraulicBoundaryDatabase.Locations.Count);
+
+            var firstLocation = section.HydraulicBoundaryDatabase.Locations.First();
+            Assert.AreEqual(hydraulicDatabaseLocationName, firstLocation.Name);
+            Assert.AreEqual(hydraulicDatabaseLocationDesignWaterLevel, firstLocation.DesignWaterLevel);
+            Assert.AreEqual(hydraulicDatabaseLocationStorageId, firstLocation.StorageId);
+            Assert.AreEqual(hydraulicDatabaseLocationLocationId, firstLocation.Id);
+            Assert.AreEqual(hydraulicDatabaseLocationX, firstLocation.Location.X);
+            Assert.AreEqual(hydraulicDatabaseLocationY, firstLocation.Location.Y);
+
+            var secondLocation = section.HydraulicBoundaryDatabase.Locations.ElementAt(1);
+            Assert.AreEqual(otherHydraulicDatabaseLocationName, secondLocation.Name);
+            Assert.AreEqual(otherHydraulicDatabaseLocationDesignWaterLevel, secondLocation.DesignWaterLevel);
+            Assert.AreEqual(otherHydraulicDatabaseLocationStorageId, secondLocation.StorageId);
+            Assert.AreEqual(otherHydraulicDatabaseLocationLocationId, secondLocation.Id);
+            Assert.AreEqual(otherHydraulicDatabaseLocationX, secondLocation.Location.X);
+            Assert.AreEqual(otherHydraulicDatabaseLocationY, secondLocation.Location.Y);
 
             mockRepository.VerifyAll();
         }
