@@ -38,26 +38,14 @@ namespace Application.Ringtoets.Storage.Converters
         /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
         /// <returns>A new instance of <see cref="Project"/>, based on the properties of <paramref name="entity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> or <paramref name="model"/> is <c>null</c>.</exception>
-        public Project ConvertEntityToModel(ProjectEntity entity, Func<Project> model)
+        public Project ConvertEntityToModel(ProjectEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
 
-            try
-            {
-                if (model() == null)
-                {
-                    throw new ArgumentNullException("model");
-                }
-            }
-            catch (NullReferenceException)
-            {
-                throw new ArgumentNullException("model");
-            }
-
-            var project = model();
+            var project = new Project();
             project.StorageId = entity.ProjectEntityId;
             project.Description = entity.Description;
 

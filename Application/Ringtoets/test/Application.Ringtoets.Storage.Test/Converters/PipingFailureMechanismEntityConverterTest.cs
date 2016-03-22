@@ -20,37 +20,26 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Converters
 {
     [TestFixture]
-    public class FailureMechanismEntityConverterTest
+    public class PipingFailureMechanismEntityConverterTest
     {
-        private static IEnumerable<Func<IFailureMechanism>> TestCases
-        {
-            get
-            {
-                yield return () => null;
-                yield return null;
-            }
-        }
-
         [Test]
         public void DefaultConstructor_Always_NewFailureMechanismEntityConverter()
         {
             // Call
-            FailureMechanismEntityConverter<IFailureMechanism> converter = new FailureMechanismEntityConverter<IFailureMechanism>();
+            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
 
             // Assert
-            Assert.IsInstanceOf<IEntityConverter<IFailureMechanism, FailureMechanismEntity>>(converter);
+            Assert.IsInstanceOf<IEntityConverter<PipingFailureMechanism, FailureMechanismEntity>>(converter);
         }
 
         [Test]
@@ -59,11 +48,11 @@ namespace Application.Ringtoets.Storage.Test.Converters
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            FailureMechanismEntityConverter<IFailureMechanism> converter = new FailureMechanismEntityConverter<IFailureMechanism>();
+            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => converter.ConvertEntityToModel(null, () => failureMechanism);
+            TestDelegate test = () => converter.ConvertEntityToModel(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -72,26 +61,10 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        [TestCaseSource("TestCases")]
-        public void ConvertEntityToModel_ValidEntityNullModel_ThrowsArgumentNullException(Func<IFailureMechanism> func)
-        {
-            // Setup
-            var entity = new FailureMechanismEntity();
-            FailureMechanismEntityConverter<IFailureMechanism> converter = new FailureMechanismEntityConverter<IFailureMechanism>();
-
-            // Call
-            TestDelegate test = () => converter.ConvertEntityToModel(entity, func);
-            
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("model", exception.ParamName);
-        }
-
-        [Test]
         public void ConvertEntityToModel_ValidEntityValidModel_ReturnsEntityAsModel()
         {
             // Setup
-            FailureMechanismEntityConverter<IFailureMechanism> converter = new FailureMechanismEntityConverter<IFailureMechanism>();
+            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
 
             const long storageId = 1234L;
             FailureMechanismEntity entity = new FailureMechanismEntity
@@ -100,10 +73,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
                 FailureMechanismType = (int)FailureMechanismType.DikesPipingFailureMechanism,
             };
 
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
-
             // Call
-            converter.ConvertEntityToModel(entity, () => failureMechanism);
+            PipingFailureMechanism failureMechanism = converter.ConvertEntityToModel(entity);
 
             // Assert
             Assert.AreEqual(entity.FailureMechanismEntityId, failureMechanism.StorageId);
@@ -113,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertModelToEntity_NullModel_ThrowsArgumentNullException()
         {
             // Setup
-            FailureMechanismEntityConverter<IFailureMechanism> converter = new FailureMechanismEntityConverter<IFailureMechanism>();
+            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
 
             // Call
             TestDelegate test = () => converter.ConvertModelToEntity(null, new FailureMechanismEntity());
@@ -127,7 +98,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertModelToEntity_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
-            FailureMechanismEntityConverter<IFailureMechanism> converter = new FailureMechanismEntityConverter<IFailureMechanism>();
+            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
 
             // Call
             TestDelegate test = () => converter.ConvertModelToEntity(new PipingFailureMechanism(), null);
@@ -138,28 +109,10 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        public void ConvertModelToEntity_NotDikesPipingFailureMechanismType_ThrowsArgumentException()
-        {
-            // Setup
-            FailureMechanismEntityConverter<IFailureMechanism> converter = new FailureMechanismEntityConverter<IFailureMechanism>();
-
-            var entity = new FailureMechanismEntity()
-            {
-                FailureMechanismType = (int) FailureMechanismType.DikesAsphaltRevetmentFailureMechanism
-            };
-
-            // Call
-            TestDelegate test = () => converter.ConvertModelToEntity(new OtherFailureMechanism(), entity);
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
-        }
-
-        [Test]
         public void ConvertModelToEntity_ValidModelValidEntity_ReturnsModelAsEntity()
         {
             // Setup
-            FailureMechanismEntityConverter<IFailureMechanism> converter = new FailureMechanismEntityConverter<IFailureMechanism>();
+            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
 
             const long storageId = 1234L;
             var entity = new FailureMechanismEntity();

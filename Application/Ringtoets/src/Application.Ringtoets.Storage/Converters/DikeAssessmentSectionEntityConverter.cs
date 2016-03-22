@@ -39,26 +39,14 @@ namespace Application.Ringtoets.Storage.Converters
         /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
         /// <returns>A new instance of <see cref="DikeAssessmentSection"/>, based on the properties of <paramref name="entity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> or <paramref name="model"/> is <c>null</c>.</exception>
-        public DikeAssessmentSection ConvertEntityToModel(DikeAssessmentSectionEntity entity, Func<DikeAssessmentSection> model)
+        public DikeAssessmentSection ConvertEntityToModel(DikeAssessmentSectionEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
 
-            try
-            {
-                if (model() == null)
-                {
-                    throw new ArgumentNullException("model");
-                }
-            }
-            catch (NullReferenceException)
-            {
-                throw new ArgumentNullException("model");
-            }
-
-            var dikeAssessmentSection = model();
+            var dikeAssessmentSection = new DikeAssessmentSection();
             dikeAssessmentSection.StorageId = entity.DikeAssessmentSectionEntityId;
             dikeAssessmentSection.Name = entity.Name ?? string.Empty;
             dikeAssessmentSection.FailureMechanismContribution.Norm = entity.Norm;

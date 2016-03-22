@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base.Storage;
-
 namespace Application.Ringtoets.Storage.Converters
 {
     /// <summary>
@@ -30,12 +27,11 @@ namespace Application.Ringtoets.Storage.Converters
     public interface IEntityConverter<TModel, TEntity> where TEntity : class
     {
         /// <summary>
-        /// Converts <paramref name="entity"/> to <see cref="TModel"/>.
+        /// Creates a new instance of <typeparamref name="TModel"/> based on information on <paramref name="entity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="TEntity"/> to convert.</param>
-        /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
-        /// <returns>A new instance of <see cref="TModel"/>, based on the properties of <paramref name="entity"/>.</returns>
-        TModel ConvertEntityToModel(TEntity entity, Func<TModel> model);
+        /// <returns>A new instance of type <typeparamref name="TModel"/>.</returns>
+        TModel ConvertEntityToModel(TEntity entity);
 
         /// <summary>
         /// Converts <paramref name="modelObject"/> to <paramref name="entity"/>.

@@ -53,7 +53,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Converters\DikeAssessmentSectionEntityConverter.cs" />
-    <Compile Include="Converters\FailureMechanismEntityConverter.cs" />
+    <Compile Include="Converters\PipingFailureMechanismEntityConverter.cs" />
     <Compile Include="Converters\HydraulicLocationConverter.cs" />
     <Compile Include="Converters\ProjectEntityConverter.cs" />
     <Compile Include="Converters\IEntityConverter.cs" />

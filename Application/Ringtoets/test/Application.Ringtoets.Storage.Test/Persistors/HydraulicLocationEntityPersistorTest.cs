@@ -83,30 +83,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => persistor.LoadModel(null, () => new HydraulicBoundaryLocation());
+            TestDelegate test = () => persistor.LoadModel(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("entity", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCaseSource("TestCases")]
-        public void LoadModel_ValidEntityNullModel_ThrowsArgumentNullException(Func<HydraulicBoundaryLocation> modelFunc)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var ringtoetsEntities = mocks.StrictMock<IRingtoetsEntities>();
-            var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntities);
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => persistor.LoadModel(new HydraulicLocationEntity(), modelFunc);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("model", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -136,7 +117,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             };
 
             // Call
-            HydraulicBoundaryLocation location = persistor.LoadModel(entity, () => new HydraulicBoundaryLocation());
+            HydraulicBoundaryLocation location = persistor.LoadModel(entity);
 
             // Assert
             Assert.AreEqual(locationId, location.Id);

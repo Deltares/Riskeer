@@ -1,5 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
@@ -10,15 +30,6 @@ namespace Application.Ringtoets.Storage.Test.Converters
     [TestFixture]
     public class ProjectEntityConverterTest
     {
-        private static IEnumerable<Func<Project>> TestCases
-        {
-            get
-            {
-                yield return () => null;
-                yield return null;
-            }
-        }
-
         [Test]
         public void DefaultConstructor_Always_NewProjectEntityConverter()
         {
@@ -36,29 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             ProjectEntityConverter converter = new ProjectEntityConverter();
 
             // Call
-            TestDelegate test = () => converter.ConvertEntityToModel(null, () => new Project());
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
-        [TestCaseSource("TestCases")]
-        public void ConvertEntityToModel_ValidProjectEntityNullModel_ThrowsArgumentNullException(Func<Project> func)
-        {
-            // SetUp
-            const long storageId = 1234L;
-            const string description = "Description";
-            ProjectEntity projectEntity = new ProjectEntity()
-            {
-                ProjectEntityId = storageId,
-                Description = description
-            };
-
-            ProjectEntityConverter converter = new ProjectEntityConverter();
-
-            // Call
-            TestDelegate test = () => converter.ConvertEntityToModel(projectEntity, func);
+            TestDelegate test = () => converter.ConvertEntityToModel(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -78,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             ProjectEntityConverter converter = new ProjectEntityConverter();
 
             // Call
-            Project project = converter.ConvertEntityToModel(projectEntity, () => new Project());
+            Project project = converter.ConvertEntityToModel(projectEntity);
 
             // Assert
             Assert.AreNotEqual(projectEntity, project);

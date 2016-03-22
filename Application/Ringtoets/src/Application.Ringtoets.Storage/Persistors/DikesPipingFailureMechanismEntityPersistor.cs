@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data;
+using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
@@ -31,39 +33,54 @@ namespace Application.Ringtoets.Storage.Persistors
     /// </summary>
     public class DikesPipingFailureMechanismEntityPersistor : FailureMechanismEntityPersistorBase<PipingFailureMechanism>
     {
+        private PipingFailureMechanismEntityConverter converter;
+
         /// <summary>
         /// New instance of <see cref="DikesPipingFailureMechanismEntityPersistor"/>.
         /// </summary>
         /// <param name="ringtoetsContext">The storage context.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
-        public DikesPipingFailureMechanismEntityPersistor(IRingtoetsEntities ringtoetsContext) : base(ringtoetsContext) {}
+        public DikesPipingFailureMechanismEntityPersistor(IRingtoetsEntities ringtoetsContext) : base(ringtoetsContext) {
+            converter = new PipingFailureMechanismEntityConverter();
+        }
 
         /// <summary>
         /// Loads the <see cref="FailureMechanismEntity"/> as <see cref="PipingFailureMechanism"/>.
         /// </summary>
         /// <param name="entity"><see cref="FailureMechanismEntity"/> to load from.</param>
-        /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
+        /// <param name="pipingFailureMechanism">The piping failure mechanism to load data in.</param>
         /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c>.</item>
+        /// <item><paramref name="pipingFailureMechanism"/> is <c>null</c>.</item>
         /// </list></exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="entity"/> is not of type <see cref="FailureMechanismType.DikesPipingFailureMechanism"/>.</exception>
-        public override PipingFailureMechanism LoadModel(FailureMechanismEntity entity, Func<PipingFailureMechanism> model)
+        public override void LoadModel(FailureMechanismEntity entity, PipingFailureMechanism pipingFailureMechanism)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
-
-            if (model() == null)
+            if (pipingFailureMechanism == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException("pipingFailureMechanism");
             }
 
             if (entity.FailureMechanismType != (int) FailureMechanismType.DikesPipingFailureMechanism)
             {
-                throw new ArgumentException("Incorrect modelType", "entity");
+                throw new ArgumentException(@"Incorrect modelType", "entity");
             }
-            return base.LoadModel(entity, model);
+
+            var model = ConvertEntityToModel(entity);
+            pipingFailureMechanism.StorageId = model.StorageId;
+        }
+
+        protected override void ConvertModelToEntity(PipingFailureMechanism model, FailureMechanismEntity entity)
+        {
+            converter.ConvertModelToEntity(model, entity);
+        }
+
+        protected override PipingFailureMechanism ConvertEntityToModel(FailureMechanismEntity entity)
+        {
+            return converter.ConvertEntityToModel(entity);
         }
     }
 }

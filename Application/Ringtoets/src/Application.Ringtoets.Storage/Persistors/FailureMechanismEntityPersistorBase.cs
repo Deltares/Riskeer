@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Ringtoets.Common.Data;
+using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
@@ -40,10 +41,9 @@ namespace Application.Ringtoets.Storage.Persistors
         private readonly IRingtoetsEntities dbContext;
         private readonly Dictionary<FailureMechanismEntity, T> insertedList = new Dictionary<FailureMechanismEntity, T>();
         private readonly ICollection<FailureMechanismEntity> modifiedList = new List<FailureMechanismEntity>();
-        private readonly FailureMechanismEntityConverter<T> converter;
 
         /// <summary>
-        /// New instance of <see cref="FailureMechanismEntityPersistorBase"/>.
+        /// New instance of <see cref="FailureMechanismEntityPersistorBase{T}"/>.
         /// </summary>
         /// <param name="ringtoetsContext">The storage context.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
@@ -54,8 +54,6 @@ namespace Application.Ringtoets.Storage.Persistors
                 throw new ArgumentNullException("ringtoetsContext");
             }
             dbContext = ringtoetsContext;
-
-            converter = new FailureMechanismEntityConverter<T>();
         }
 
         /// <summary>
@@ -72,7 +70,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <item>More than one element found in <paramref name="parentNavigationProperty"/> that should have been unique.</item>
         /// <item>No such element exists in <paramref name="parentNavigationProperty"/>.</item>
         /// </list></exception>
-        public void UpdateModel(ICollection<FailureMechanismEntity> parentNavigationProperty, T model, int order)
+        public void UpdateModel(ICollection<FailureMechanismEntity> parentNavigationProperty, T model)
         {
             if (model == null)
             {
@@ -80,7 +78,7 @@ namespace Application.Ringtoets.Storage.Persistors
             }
             if (model.StorageId < 1)
             {
-                InsertModel(parentNavigationProperty, model, 0);
+                InsertModel(parentNavigationProperty, model);
                 return;
             }
 
@@ -105,7 +103,7 @@ namespace Application.Ringtoets.Storage.Persistors
 
             modifiedList.Add(entity);
 
-            converter.ConvertModelToEntity(model, entity);
+            ConvertModelToEntity(model, entity);
         }
 
         /// <summary>
@@ -117,7 +115,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <item><paramref name="parentNavigationProperty"/> is <c>null</c>.</item>
         /// <item><paramref name="model"/> is <c>null</c>.</item>
         /// </list></exception>
-        public void InsertModel(ICollection<FailureMechanismEntity> parentNavigationProperty, T model, int order)
+        public void InsertModel(ICollection<FailureMechanismEntity> parentNavigationProperty, T model)
         {
             if (parentNavigationProperty == null)
             {
@@ -128,7 +126,7 @@ namespace Application.Ringtoets.Storage.Persistors
             parentNavigationProperty.Add(entity);
             insertedList.Add(entity, model);
 
-            converter.ConvertModelToEntity(model, entity);
+            ConvertModelToEntity(model, entity);
 
             if (model.StorageId > 0)
             {
@@ -140,11 +138,8 @@ namespace Application.Ringtoets.Storage.Persistors
         /// Loads a new model of type <typeparamref name="T"/> based on the <paramref name="entity"/>.
         /// </summary>
         /// <param name="entity">Database entity containing information for the new model.</param>
-        /// <returns>A new instance of type <typeparamref name="T"/>.</returns>
-        public virtual T LoadModel(FailureMechanismEntity entity, Func<T> model)
-        {
-            return converter.ConvertEntityToModel(entity, model);
-        }
+        /// <param name="dikeAssessmentSection">The assessment section to add the failure mechanism to.</param>
+        public abstract void LoadModel(FailureMechanismEntity entity, T dikeAssessmentSection);
 
         /// <summary>
         /// All unmodified <see cref="FailureMechanismEntity"/> in <paramref name="parentNavigationProperty"/> will be removed.
@@ -182,5 +177,8 @@ namespace Application.Ringtoets.Storage.Persistors
             }
             insertedList.Clear();
         }
+
+        protected abstract void ConvertModelToEntity(T model, FailureMechanismEntity entity);
+        protected abstract T ConvertEntityToModel(FailureMechanismEntity entity);
     }
 }

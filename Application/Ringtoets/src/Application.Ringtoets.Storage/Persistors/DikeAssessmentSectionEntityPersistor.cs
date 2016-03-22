@@ -28,7 +28,6 @@ using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
@@ -71,20 +70,20 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="entity">The <see cref="DikeAssessmentSectionEntity"/> to load.</param>
         /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
         /// <returns>A new instance of <see cref="DikeAssessmentSection"/>, based on the properties of <paramref name="entity"/>.</returns>
-        public DikeAssessmentSection LoadModel(DikeAssessmentSectionEntity entity, Func<DikeAssessmentSection> model)
+        public DikeAssessmentSection LoadModel(DikeAssessmentSectionEntity entity)
         {
-            var dikeAssessmentSection = converter.ConvertEntityToModel(entity, model);
+            var dikeAssessmentSection = converter.ConvertEntityToModel(entity);
 
             foreach (var hydraulicLocationEntity in entity.HydraulicLocationEntities)
             {
-                dikeAssessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicLocationEntityPersistor.LoadModel(hydraulicLocationEntity, () => new HydraulicBoundaryLocation()));
+                dikeAssessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicLocationEntityPersistor.LoadModel(hydraulicLocationEntity));
             }
 
             foreach (var failureMechanismEntity in entity.FailureMechanismEntities)
             {
                 if (failureMechanismEntity.FailureMechanismType == (int) FailureMechanismType.DikesPipingFailureMechanism)
                 {
-                    dikePipingFailureMechanismEntityPersistor.LoadModel(failureMechanismEntity, () => dikeAssessmentSection.PipingFailureMechanism);
+                    dikePipingFailureMechanismEntityPersistor.LoadModel(failureMechanismEntity, dikeAssessmentSection.PipingFailureMechanism);
                 }
             }
 
@@ -191,7 +190,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="entity">Referenced <see cref="DikeAssessmentSectionEntity"/>.</param>
         private void UpdateChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity)
         {
-            dikePipingFailureMechanismEntityPersistor.UpdateModel(entity.FailureMechanismEntities, model.PipingFailureMechanism, 0);
+            dikePipingFailureMechanismEntityPersistor.UpdateModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
             dikePipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
         }
 
@@ -202,7 +201,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="entity">Referenced <see cref="DikeAssessmentSectionEntity"/>.</param>
         private void InsertChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity)
         {
-            dikePipingFailureMechanismEntityPersistor.InsertModel(entity.FailureMechanismEntities, model.PipingFailureMechanism, 0);
+            dikePipingFailureMechanismEntityPersistor.InsertModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
             dikePipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
 
             if (model.HydraulicBoundaryDatabase != null)

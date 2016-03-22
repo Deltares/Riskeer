@@ -1,5 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
@@ -11,15 +31,6 @@ namespace Application.Ringtoets.Storage.Test.Converters
     [TestFixture]
     public class DikeAssessmentSectionEntityConverterTest
     {
-        private static IEnumerable<Func<DikeAssessmentSection>> TestCases
-        {
-            get
-            {
-                yield return () => null;
-                yield return null;
-            }
-        }
-
         [Test]
         public void DefaultConstructor_Always_NewDikeAssessmentSectionEntityConverter()
         {
@@ -37,33 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
 
             // Call
-            TestDelegate test = () => converter.ConvertEntityToModel(null, () => new DikeAssessmentSection());
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
-        [Test]
-        [TestCaseSource("TestCases")]
-        public void ConvertEntityToModel_ValidDikeAssessmentSectionEntityNullModel_ThrowsArgumentNullException(Func<DikeAssessmentSection> func)
-        {
-            // Setup
-            const long storageId = 1234L;
-            const long projectId = 1L;
-            const int norm = 30000;
-            const string name = "test";
-            DikeAssessmentSectionEntity dikeAssessmentSectionEntity = new DikeAssessmentSectionEntity()
-            {
-                DikeAssessmentSectionEntityId = storageId,
-                Name = name,
-                ProjectEntityId = projectId,
-                Norm = norm
-            };
-
-            DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
-
-            // Call
-            TestDelegate test = () => converter.ConvertEntityToModel(dikeAssessmentSectionEntity, func);
+            TestDelegate test = () => converter.ConvertEntityToModel(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -91,7 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
 
             // Call
-            DikeAssessmentSection assessmentSection = converter.ConvertEntityToModel(dikeAssessmentSectionEntity, () => new DikeAssessmentSection());
+            DikeAssessmentSection assessmentSection = converter.ConvertEntityToModel(dikeAssessmentSectionEntity);
 
             // Assert
             Assert.AreNotEqual(dikeAssessmentSectionEntity, assessmentSection);

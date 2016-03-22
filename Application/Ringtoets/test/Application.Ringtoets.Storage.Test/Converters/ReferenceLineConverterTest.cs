@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
@@ -28,7 +29,7 @@ using Ringtoets.HydraRing.Data;
 namespace Application.Ringtoets.Storage.Test.Converters
 {
     [TestFixture]
-    public class HydraulicLocationConverterTest
+    public class ReferenceLineConverterTest
     {
         [Test]
         public void Constructor_Always_NewInstance()

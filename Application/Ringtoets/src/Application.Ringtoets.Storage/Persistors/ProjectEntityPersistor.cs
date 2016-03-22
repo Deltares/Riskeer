@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Persistors
         {
             var entry = dbSet.SingleOrDefault();
 
-            return LoadModel(entry, () => new Project());
+            return LoadModel(entry);
         }
 
         /// <summary>
@@ -187,20 +187,20 @@ namespace Application.Ringtoets.Storage.Persistors
             InsertChildren(project, entity);
         }
 
-        private Project LoadModel(ProjectEntity entity, Func<Project> model)
+        private Project LoadModel(ProjectEntity entity)
         {
             if (entity == null)
             {
                 return null;
             }
-            var project = converter.ConvertEntityToModel(entity, model);
+            var project = converter.ConvertEntityToModel(entity);
 
             var nrOfItems = entity.DikeAssessmentSectionEntities.Count;
             var assessmentSections = new object[nrOfItems];
 
             foreach (var sectionEntity in entity.DikeAssessmentSectionEntities)
             {
-                assessmentSections[sectionEntity.Order] = dikeAssessmentSectionEntityPersistor.LoadModel(sectionEntity, () => new DikeAssessmentSection());
+                assessmentSections[sectionEntity.Order] = dikeAssessmentSectionEntityPersistor.LoadModel(sectionEntity);
             }
 
             // Add to items sorted 

@@ -149,26 +149,14 @@ namespace Application.Ringtoets.Storage.Persistors
             insertedList.Clear();
         }
 
-        public HydraulicBoundaryLocation LoadModel(HydraulicLocationEntity entity, Func<HydraulicBoundaryLocation> model)
+        public HydraulicBoundaryLocation LoadModel(HydraulicLocationEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
 
-            try
-            {
-                if (model() == null)
-                {
-                    throw new ArgumentNullException("model");
-                }
-            }
-            catch (NullReferenceException)
-            {
-                throw new ArgumentNullException("model");
-            }
-
-            return converter.ConvertEntityToModel(entity, model);
+            return converter.ConvertEntityToModel(entity);
         }
     }
 }

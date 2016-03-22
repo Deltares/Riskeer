@@ -30,34 +30,22 @@ namespace Application.Ringtoets.Storage.Converters
     /// Converter for <see cref="FailureMechanismEntity"/> to <see cref="IFailureMechanism"/> 
     /// and <see cref="IFailureMechanism"/> to <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    public class FailureMechanismEntityConverter<T> : IEntityConverter<T, FailureMechanismEntity> where T : IFailureMechanism
+    public class PipingFailureMechanismEntityConverter : IEntityConverter<PipingFailureMechanism, FailureMechanismEntity> 
     {
-        public T ConvertEntityToModel(FailureMechanismEntity entity, Func<T> model)
+        public PipingFailureMechanism ConvertEntityToModel(FailureMechanismEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
 
-            try
-            {
-                if (model() == null)
-                {
-                    throw new ArgumentNullException("model");
-                }
-            }
-            catch (NullReferenceException)
-            {
-                throw new ArgumentNullException("model");
-            }
-
-            T failureMechanism = model();
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.StorageId = entity.FailureMechanismEntityId;
 
             return failureMechanism;
         }
 
-        public void ConvertModelToEntity(T modelObject, FailureMechanismEntity entity)
+        public void ConvertModelToEntity(PipingFailureMechanism modelObject, FailureMechanismEntity entity)
         {
             if (modelObject == null)
             {
@@ -70,14 +58,7 @@ namespace Application.Ringtoets.Storage.Converters
             }
 
             entity.FailureMechanismEntityId = modelObject.StorageId;
-            if (modelObject is PipingFailureMechanism)
-            {
-                entity.FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism;
-            }
-            else
-            {
-                throw new ArgumentException("Incorrect modelType", "entity");
-            }
+            entity.FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism;
         }
     }
 }

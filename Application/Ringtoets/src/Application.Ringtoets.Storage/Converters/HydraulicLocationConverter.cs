@@ -32,26 +32,14 @@ namespace Application.Ringtoets.Storage.Converters
     /// </summary>
     public class HydraulicLocationConverter : IEntityConverter<HydraulicBoundaryLocation, HydraulicLocationEntity>
     {
-        public HydraulicBoundaryLocation ConvertEntityToModel(HydraulicLocationEntity entity, Func<HydraulicBoundaryLocation> model)
+        public HydraulicBoundaryLocation ConvertEntityToModel(HydraulicLocationEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
-
-            try
-            {
-                if (model() == null)
-                {
-                    throw new ArgumentNullException("model");
-                }
-            }
-            catch (NullReferenceException)
-            {
-                throw new ArgumentNullException("model");
-            }
-
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = model();
+            
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation();
             hydraulicBoundaryLocation.Id = entity.LocationId;
             hydraulicBoundaryLocation.StorageId = entity.HydraulicLocationEntityId;
             hydraulicBoundaryLocation.Name = entity.Name;
