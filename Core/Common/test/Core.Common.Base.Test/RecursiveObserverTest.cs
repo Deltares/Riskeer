@@ -148,6 +148,44 @@ namespace Core.Common.Base.Test
             Assert.AreEqual(0, counter);
         }
 
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(100)]
+        public void RecursiveObserver_WithObservableHierarchySetAndThenObservedItemRemoved_NotifyObserversForRemovedItemNoLongerResultsInPerformingUpdateObserversAction(int nestingLevel)
+        {
+            // Setup
+            var counter = 0;
+            var rootObservable = new TestObservable();
+
+            var previousNestedObservable = new TestObservable();
+            var currentNestedObservable = rootObservable;
+
+            for (var i = 0; i < nestingLevel; i++)
+            {
+                var newObservable = new TestObservable();
+
+                currentNestedObservable.ChildTestObservables.Add(newObservable);
+
+                previousNestedObservable = currentNestedObservable;
+                currentNestedObservable = newObservable;
+            }
+
+            var recursiveObserver = new RecursiveObserver<TestObservable>(() => counter++, GetChildObservables)
+            {
+                Observable = rootObservable
+            };
+
+            previousNestedObservable.ChildTestObservables.Clear();
+            previousNestedObservable.NotifyObservers();
+            counter = 0;
+
+            // Call
+            currentNestedObservable.NotifyObservers();
+
+            // Assert
+            Assert.AreEqual(0, counter);
+        }
+
         private class TestObservable : Observable
         {
             private readonly IList<TestObservable> childTestObservables = new List<TestObservable>();
