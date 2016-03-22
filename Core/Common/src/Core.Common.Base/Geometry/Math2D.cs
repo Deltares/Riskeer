@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.Properties;
+
+using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 
 namespace Core.Common.Base.Geometry
@@ -225,6 +227,178 @@ namespace Core.Common.Base.Geometry
             return length;
         }
 
+        /// <summary>
+        /// Calculates the intersection between two 2D segments.
+        /// </summary>
+        /// <param name="segment1">The first 2D segment.</param>
+        /// <param name="segment2">The second 2D segment.</param>
+        /// <returns>The intersection calculation result.</returns>
+        /// <remarks>Implementation from http://geomalgorithms.com/a05-_intersect-1.html
+        /// based on method <c>intersect2D_2Segments</c>.</remarks>
+        public static Segment2DIntersectSegment2DResult GetIntersectionBetweenSegments(Segment2D segment1, Segment2D segment2)
+        {
+            Vector<double> u = segment1.SecondPoint - segment1.FirstPoint;
+            Vector<double> v = segment2.SecondPoint - segment2.FirstPoint;
+            Vector<double> w = segment1.FirstPoint - segment2.FirstPoint;
+            double d = PerpDotProduct(u, v);
+
+            if (Math.Abs(d) < epsilonForComparisons)
+            {
+                // Segments can be considered parallel...
+                if (AreCollinear(u, v, w))
+                {
+                    // ... and collinear ...
+                    if (IsSegmentAsPointIntersectionDegenerateScenario(segment1, segment2))
+                    {
+                        // ... but either or both segments are point degenerates:
+                        return HandleSegmentAsPointIntersectionDegenerates(segment1, segment2);
+                    }
+
+                    // ... so there is a possibility of overlapping or connected lines:
+                    return HandleCollinearSegmentIntersection(segment1, segment2, v, w);
+                }
+
+                // ... but not collinear, so no intersection possible:
+                return Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
+            }
+            else
+            {
+                // Segments are at an angle and may intersect:
+                double sI = PerpDotProduct(v, w) / d;
+                if (sI < 0.0 || sI > 1.0)
+                {
+                    return Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
+                }
+
+                double tI = PerpDotProduct(u, w) / d;
+                if (tI < 0.0 || tI > 1.0)
+                {
+                    return Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
+                }
+
+                Point2D intersectionPoint = segment1.FirstPoint + u.Multiply(sI);
+                return Segment2DIntersectSegment2DResult.CreateIntersectionResult(intersectionPoint);
+            }
+        }
+
+        /// <summary>
+        /// Determines if two vectors are collinear.
+        /// </summary>
+        /// <param name="vector1">The first 2D vector.</param>
+        /// <param name="vector2">The second 2D vector.</param>
+        /// <param name="tailsVector">The vector from the tail of <paramref name="vector2"/>
+        /// to the tail of <paramref name="vector1"/>.</param>
+        /// <returns><c>True</c> if the vectors are collinear, <c>false</c> otherwise.</returns>
+        private static bool AreCollinear(Vector<double> vector1, Vector<double> vector2, Vector<double> tailsVector)
+        {
+            return Math.Abs(PerpDotProduct(vector1, tailsVector)) < epsilonForComparisons &&
+                   Math.Abs(PerpDotProduct(vector2, tailsVector)) < epsilonForComparisons;
+        }
+
+        private static Segment2DIntersectSegment2DResult HandleCollinearSegmentIntersection(Segment2D segment1, Segment2D segment2, Vector<double> v, Vector<double> w)
+        {
+            double t0, t1;
+            Vector<double> w2 = segment1.SecondPoint - segment2.FirstPoint;
+            if (v[0] != 0.0)
+            {
+                t0 = w[0] / v[0];
+                t1 = w2[0] / v[0];
+            }
+            else
+            {
+                t0 = w[1] / v[1];
+                t1 = w2[1] / v[1];
+            }
+            // Require t0 to be smaller than t1, swapping if needed:
+            if (t0 > t1)
+            {
+                double tempSwapVariable = t0;
+                t0 = t1;
+                t1 = tempSwapVariable;
+            }
+            if (t0 > 1.0 || t1 < 0.0)
+            {
+                // There is no overlap:
+                return Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
+            }
+
+            t0 = t0 < 0.0 ? 0.0 : t0; // Clip to minimum 0
+            t1 = t1 > 1.0 ? 1.0 : t1; // Clip to maximum 1
+            Point2D intersectionPoint1 = segment2.FirstPoint + v.Multiply(t0);
+            if (Math.Abs(t0 - t1) < epsilonForComparisons)
+            {
+                // Segments intersect at a point:
+                return Segment2DIntersectSegment2DResult.CreateIntersectionResult(intersectionPoint1);
+            }
+            else
+            {
+                // Segments overlap:
+                Point2D intersectionPoint2 = segment2.FirstPoint + v.Multiply(t1);
+                return Segment2DIntersectSegment2DResult.CreateOverlapResult(intersectionPoint1, intersectionPoint2);
+            }
+        }
+
+        private static bool IsSegmentAsPointIntersectionDegenerateScenario(Segment2D segment1, Segment2D segment2)
+        {
+            return IsSegmentActuallyPointDegenerate(segment1) || IsSegmentActuallyPointDegenerate(segment2);
+        }
+
+        private static bool IsSegmentActuallyPointDegenerate(Segment2D segment)
+        {
+            return segment.Length < epsilonForComparisons;
+        }
+
+        private static Segment2DIntersectSegment2DResult HandleSegmentAsPointIntersectionDegenerates(Segment2D segment1, Segment2D segment2)
+        {
+            bool segment1IsPointDegenerate = IsSegmentActuallyPointDegenerate(segment1);
+            bool segment2IsPointDegenerate = IsSegmentActuallyPointDegenerate(segment2);
+
+            if (segment1IsPointDegenerate)
+            {
+                if (segment2IsPointDegenerate)
+                {
+                    // Both segments can be considered Point2D
+                    return segment1.FirstPoint.Equals(segment2.FirstPoint) ?
+                               Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment1.FirstPoint) :
+                               Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
+                }
+                {
+                    return IsPointInCollinearSegment(segment1.FirstPoint, segment2) ?
+                               Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment1.FirstPoint) :
+                               Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
+                }
+                
+            }
+
+            return IsPointInCollinearSegment(segment2.FirstPoint, segment1) ?
+                       Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment2.FirstPoint) :
+                       Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
+        }
+
+        private static bool IsPointInCollinearSegment(Point2D point, Segment2D colinearSegment)
+        {
+            if (colinearSegment.IsVertical())
+            {
+                double minY = Math.Min(colinearSegment.FirstPoint.Y, colinearSegment.SecondPoint.Y);
+                double maxY = Math.Max(colinearSegment.FirstPoint.Y, colinearSegment.SecondPoint.Y);
+                return minY <= point.Y && point.Y <= maxY;
+            }
+            else
+            {
+                double minX = Math.Min(colinearSegment.FirstPoint.X, colinearSegment.SecondPoint.X);
+                double maxX = Math.Max(colinearSegment.FirstPoint.X, colinearSegment.SecondPoint.X);
+                return minX <= point.X && point.X <= maxX;
+            }
+        }
+
+        /// <summary>
+        /// Gets the intersection point.
+        /// </summary>
+        /// <param name="segment1">The segment1.</param>
+        /// <param name="segment2">The segment2.</param>
+        /// <returns></returns>
+        /// <remarks>Implementation from http://geomalgorithms.com/a05-_intersect-1.html
+        /// based on method <c>intersect2D_2Segments</c>.</remarks>
         private static Point2D GetIntersectionPoint(Segment2D segment1, Segment2D segment2)
         {
             var aLine = (segment1.FirstPoint.Y - segment2.FirstPoint.Y)*(segment2.SecondPoint.X - segment2.FirstPoint.X) - (segment1.FirstPoint.X - segment2.FirstPoint.X)*(segment2.SecondPoint.Y - segment2.FirstPoint.Y);
@@ -249,6 +423,33 @@ namespace Core.Common.Base.Geometry
                     );
             }
             return null;
+        }
+
+        /// <summary>
+        /// Performs the dot product between a vector and a perpendicularized vector.
+        /// </summary>
+        /// <param name="vector1">The vector.</param>
+        /// <param name="vector2">The vector that will be made perpendicular before doing
+        /// the dot product operation.</param>
+        /// <returns>The dot product between a vector and a perpendicularized vector.</returns>
+        private static double PerpDotProduct(Vector<double> vector1, Vector<double> vector2)
+        {
+            Vector perpendicularVectorForVector2 = ToPerpendicular(vector2);
+            return vector1.DotProduct(perpendicularVectorForVector2);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Vector"/> based on a vector that is perpendicular.
+        /// </summary>
+        /// <param name="vector">The vector.</param>
+        /// <returns>A vector of the same length as <paramref name="vector"/>.</returns>
+        private static Vector ToPerpendicular(Vector<double> vector)
+        {
+            return new DenseVector(new[]
+            {
+                -vector[1],
+                vector[0]
+            });
         }
 
         private static Point2D[][] SplitLineSegmentsAtLengths(Segment2D[] lineSegments, double[] lengths)
@@ -310,11 +511,8 @@ namespace Core.Common.Base.Geometry
         private static Point2D GetInterpolatedPoint(Segment2D lineSegment, double splitDistance)
         {
             var interpolationFactor = splitDistance/lineSegment.Length;
-            Vector segmentVector = lineSegment.SecondPoint - lineSegment.FirstPoint;
-            double interpolatedX = lineSegment.FirstPoint.X + interpolationFactor*segmentVector[0];
-            double interpolatedY = lineSegment.FirstPoint.Y + interpolationFactor*segmentVector[1];
-
-            return new Point2D(interpolatedX, interpolatedY);
+            Vector<double> segmentVector = lineSegment.SecondPoint - lineSegment.FirstPoint;
+            return lineSegment.FirstPoint + segmentVector.Multiply(interpolationFactor);
         }
 
         /// <summary>

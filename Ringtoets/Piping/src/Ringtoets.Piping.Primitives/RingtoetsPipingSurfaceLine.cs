@@ -24,7 +24,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using MathNet.Numerics.LinearAlgebra.Double;
+
+using MathNet.Numerics.LinearAlgebra;
 using Ringtoets.Piping.Primitives.Exceptions;
 using Ringtoets.Piping.Primitives.Properties;
 
@@ -371,14 +372,14 @@ namespace Ringtoets.Piping.Primitives
             // Determine the vectors from the first coordinate to each other coordinate point 
             // in the XY world coordinate plane:
             Point2D[] worldCoordinates = Points.Select(p => new Point2D(p.X, p.Y)).ToArray();
-            var worldCoordinateVectors = new Vector[worldCoordinates.Length - 1];
+            var worldCoordinateVectors = new Vector<double>[worldCoordinates.Length - 1];
             for (int i = 1; i < worldCoordinates.Length; i++)
             {
                 worldCoordinateVectors[i - 1] = worldCoordinates[i] - worldCoordinates[0];
             }
 
             // Determine the 'spanning line' vector:
-            Vector spanningVector = worldCoordinateVectors[worldCoordinateVectors.Length - 1];
+            Vector<double> spanningVector = worldCoordinateVectors[worldCoordinateVectors.Length - 1];
             double spanningVectorDotProduct = spanningVector.DotProduct(spanningVector);
             double length = Math.Sqrt(spanningVectorDotProduct);
 

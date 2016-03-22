@@ -570,6 +570,273 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
+        [TestCase(1234.56789)]
+        [TestCase(1e-6)]
+        [TestCase(-1e-6)]
+        [TestCase(-98765.4321)]
+        public void GetIntersectionBetweenSegments_TwoHorizontalParallelSegments_ReturnNoIntersection(
+            double dy)
+        {
+            // Setup
+            const double y1 = 2.2;
+            double y2 = y1+dy;
+
+            const double x1 = 1.1;
+            const double x2 = 3.3;
+            var horizontalSegment1 = new Segment2D(new Point2D(x1, y1), new Point2D(x2, y1));
+            var horizontalSegment2 = new Segment2D(new Point2D(x1, y2), new Point2D(x2, y2));
+
+            // Call
+            Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(horizontalSegment1, horizontalSegment2);
+
+            // Assert
+            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            CollectionAssert.IsEmpty(result.IntersectionPoints);
+        }
+
+        [Test]
+        [TestCase(1234.56789)]
+        [TestCase(1e-6)]
+        [TestCase(-1e-6)]
+        [TestCase(-98765.4321)]
+        public void GetIntersectionBetweenSegments_TwoVerticalParallelSegments_ReturnNoIntersection(
+            double dx)
+        {
+            // Setup
+            const double x1 = 1.1;
+            double x2 = x1 + dx;
+
+            const double y1 = 2.2;
+            const double y2 = 3.3;
+            var horizontalSegment1 = new Segment2D(new Point2D(x1, y1), new Point2D(x1, y2));
+            var horizontalSegment2 = new Segment2D(new Point2D(x2, y1), new Point2D(x2, y2));
+
+            // Call
+            Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(horizontalSegment1, horizontalSegment2);
+
+            // Assert
+            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            CollectionAssert.IsEmpty(result.IntersectionPoints);
+        }
+
+        [Test]
+        public void GetIntersectionBetweenSegments_TwoParallelSegments_ReturnNoIntersection()
+        {
+            // Setup
+            var segment1 = new Segment2D(new Point2D(1.1, 3.3), new Point2D(2.2, 4.4));
+            var segment2 = new Segment2D(new Point2D(1.1, 5.5), new Point2D(2.2, 6.6));
+
+            // Call
+            Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(segment1, segment2);
+
+            // Assert
+            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            CollectionAssert.IsEmpty(result.IntersectionPoints);
+        }
+
+        [Test]
+        [TestCase(12.34)]
+        [TestCase(1.1 + 1e-6)]
+        [TestCase(-1.1 - 1e-6)]
+        [TestCase(-56.78)]
+        public void GetIntersectionBetweenSegments_TwoCollinearHorizontalLinesWithoutOverlap_ReturnNoIntersection(double dy)
+        {
+            // Setup
+            const double x1 = 1.1;
+            const double x2 = 2.2;
+            const double y = 3.3;
+
+            double x3 = x1 + dy;
+            double x4 = x2 + dy;
+            var horizontalSegment1 = new Segment2D(new Point2D(x1, y), new Point2D(x2, y));
+            var horizontalSegment2 = new Segment2D(new Point2D(x3, y), new Point2D(x4, y));
+
+            // Call
+            Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(horizontalSegment1, horizontalSegment2);
+
+            // Assert
+            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            CollectionAssert.IsEmpty(result.IntersectionPoints);
+        }
+
+        [Test]
+        [TestCase(12.34)]
+        [TestCase(3.3 + 1e-6)]
+        [TestCase(-3.3 - 1e-6)]
+        [TestCase(-56.78)]
+        public void GetIntersectionBetweenSegments_TwoCollinearVerticalLinesWithoutOverlap_ReturnNoIntersection(double dy)
+        {
+            // Setup
+            const double y1 = 1.1;
+            const double y2 = 4.4;
+            const double x = 3.3;
+
+            double y3 = y2 + dy;
+            double y4 = y1 + dy;
+            var horizontalSegment1 = new Segment2D(new Point2D(x, y1), new Point2D(x, y2));
+            var horizontalSegment2 = new Segment2D(new Point2D(x, y3), new Point2D(x, y4));
+
+            // Call
+            Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(horizontalSegment1, horizontalSegment2);
+
+            // Assert
+            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            CollectionAssert.IsEmpty(result.IntersectionPoints);
+        }
+
+        [Test]
+        [TestCase(-3.3)]
+        [TestCase(7.7)]
+        public void GetIntersectionBetweenSegments_TwoCollinearSegmentsWithoutOverlap_ReturnNoIntersection(
+            double dx)
+        {
+            // Setup
+            Func<double, double> getY = x => 1.1 * x + 2.2;
+            const double x1 = 1.1;
+            const double x2 = 3.3;
+            var segment1 = new Segment2D(new Point2D(x1, getY(x1)), new Point2D(x2, getY(x2)));
+
+            double x3 = x1 + dx;
+            double x4 = x2 + dx;
+            var segment2 = new Segment2D(new Point2D(x3, getY(x3)), new Point2D(x4, getY(x4)));
+
+            // Call
+            Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(segment1, segment2);
+
+            // Assert
+            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            CollectionAssert.IsEmpty(result.IntersectionPoints);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public void GetIntersectionBetweenSegments_TwoCollinearHorizontalSegmentsConnectedAtSegmentEnds_ReturnIntersectionPoint(
+            int configurationNumber)
+        {
+            // Setup
+            const double y = -6.7;
+            var segment1UniquePoint = new Point2D(-12.34, y);
+            var segmentCommonPoint = new Point2D(56.78, y);
+            var segment2UniquePoint = new Point2D(91.23, y);
+
+            Segment2D horizontalSegment1, horizontalSegment2;
+            if (configurationNumber == 0 || configurationNumber == 3)
+            {
+                horizontalSegment1 = new Segment2D(segment1UniquePoint, segmentCommonPoint);
+            }
+            else
+            {
+                horizontalSegment1 = new Segment2D(segmentCommonPoint, segment1UniquePoint);
+            }
+
+            if (configurationNumber == 0 || configurationNumber == 1)
+            {
+                horizontalSegment2 = new Segment2D(segment2UniquePoint, segmentCommonPoint);
+            }
+            else
+            {
+                horizontalSegment2 = new Segment2D(segmentCommonPoint, segment2UniquePoint);
+            }
+
+            // Call
+            Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(horizontalSegment1, horizontalSegment2);
+
+            // Assert
+            Assert.AreEqual(Intersection2DType.Intersects, result.IntersectionType);
+            CollectionAssert.AreEqual(new[] { segmentCommonPoint }, result.IntersectionPoints);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public void GetIntersectionBetweenSegments_TwoCollinearVerticalSegmentsConnectedAtSegmentEnds_ReturnIntersectionPoint(
+            int configurationNumber)
+        {
+            // Setup
+            const double x = 5.5;
+            var segment1UniquePoint = new Point2D(x, -23.45);
+            var segmentCommonPoint = new Point2D(x, -12.34);
+            var segment2UniquePoint = new Point2D(x, 90.76);
+
+            Segment2D verticalSegment1, verticalSegment2;
+            if (configurationNumber == 0 || configurationNumber == 3)
+            {
+                verticalSegment1 = new Segment2D(segment1UniquePoint, segmentCommonPoint);
+            }
+            else
+            {
+                verticalSegment1 = new Segment2D(segmentCommonPoint, segment1UniquePoint);
+            }
+
+            if (configurationNumber == 0 || configurationNumber == 1)
+            {
+                verticalSegment2 = new Segment2D(segment2UniquePoint, segmentCommonPoint);
+            }
+            else
+            {
+                verticalSegment2 = new Segment2D(segmentCommonPoint, segment2UniquePoint);
+            }
+
+            // Call
+            Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(verticalSegment1, verticalSegment2);
+
+            // Assert
+            Assert.AreEqual(Intersection2DType.Intersects, result.IntersectionType);
+            CollectionAssert.AreEqual(new[] { segmentCommonPoint }, result.IntersectionPoints,
+                new Point2DComparerWithTolerance(1e-6));
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public void GetIntersectionBetweenSegments_TwoCollinearSegmentsConnectedAtSegmentEnds_ReturnIntersectionPoint(
+            int configurationNumber)
+        {
+            // Setup
+            Func<double, double> getY = x => 3.3 * x + 4.4;
+
+            const double x1 = 5.5;
+            const double x2 = 6.6;
+            const double x3 = 8.8;
+            var segment1UniquePoint = new Point2D(x1, getY(x1));
+            var segmentCommonPoint = new Point2D(x2, getY(x2));
+            var segment2UniquePoint = new Point2D(x3, getY(x3));
+
+            Segment2D segment1, segment2;
+            if (configurationNumber == 0 || configurationNumber == 3)
+            {
+                segment1 = new Segment2D(segment1UniquePoint, segmentCommonPoint);
+            }
+            else
+            {
+                segment1 = new Segment2D(segmentCommonPoint, segment1UniquePoint);
+            }
+
+            if (configurationNumber == 0 || configurationNumber == 1)
+            {
+                segment2 = new Segment2D(segment2UniquePoint, segmentCommonPoint);
+            }
+            else
+            {
+                segment2 = new Segment2D(segmentCommonPoint, segment2UniquePoint);
+            }
+            
+            // Call
+            Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(segment1, segment2);
+
+            // Assert
+            Assert.AreEqual(Intersection2DType.Intersects, result.IntersectionType);
+            CollectionAssert.AreEqual(new[]{segmentCommonPoint}, result.IntersectionPoints);
+        }
+
+        [Test]
         public void AreEqualPoints_PointsEqual_ReturnsTrue()
         {
             // Call

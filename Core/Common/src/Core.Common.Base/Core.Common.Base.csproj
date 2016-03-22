@@ -88,11 +88,13 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Data\RoundedDouble.cs" />
+    <Compile Include="Geometry\Intersection2DType.cs" />
     <Compile Include="Geometry\Math2D.cs" />
     <Compile Include="Data\ProjectComparer.cs" />
     <Compile Include="Geometry\Point2D.cs" />
     <Compile Include="Geometry\Point3D.cs" />
     <Compile Include="Geometry\Segment2D.cs" />
+    <Compile Include="Geometry\Segment2DIntersectSegment2DResult.cs" />
     <Compile Include="IO\FileImporterBase.cs" />
     <Compile Include="IO\ProgressChangedDelegate.cs" />
     <Compile Include="Storage\StorageException.cs" />

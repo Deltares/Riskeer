@@ -86,6 +86,7 @@
     <Compile Include="Geometry\Math2DTest.cs" />
     <Compile Include="Geometry\Point2DTest.cs" />
     <Compile Include="Geometry\Point3DTest.cs" />
+    <Compile Include="Geometry\Segment2DIntersectSegment2DResultTest.cs" />
     <Compile Include="Geometry\Segment2DTest.cs" />
     <Compile Include="Data\ProjectComparerTest.cs" />
     <Compile Include="IO\FileImporterBaseTest.cs" />

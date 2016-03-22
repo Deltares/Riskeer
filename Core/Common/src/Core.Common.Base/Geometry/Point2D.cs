@@ -21,6 +21,9 @@
 
 using System;
 
+using Core.Common.Base.Properties;
+
+using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 
 namespace Core.Common.Base.Geometry
@@ -58,12 +61,35 @@ namespace Core.Common.Base.Geometry
         /// <param name="p1">Head of the vector.</param>
         /// <param name="p2">Tail of the vector.</param>
         /// <returns>A 2D vector.</returns>
-        public static Vector operator -(Point2D p1, Point2D p2)
+        public static Vector<double> operator -(Point2D p1, Point2D p2)
         {
             var result = new DenseVector(2);
             result[0] = p1.X - p2.X;
             result[1] = p1.Y - p2.Y;
             return result;
+        }
+
+        /// <summary>
+        /// Determines the new 2D point given a point and a 2D vector.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="vector">The 2D vector.</param>
+        /// <returns>
+        /// A 2D point.
+        /// </returns>
+        /// <exception cref="System.ArgumentException">When <paramref name="vector"/> is 
+        /// not a 2D vector.</exception>
+        public static Point2D operator +(Point2D point, Vector<double> vector)
+        {
+            if (vector.Count != 2)
+            {
+                string message = string.Format(Resources.Point2D_AddVector_Vector_must_be_2D_but_has_Dimensionality_0_,
+                                               vector.Count);
+                throw new ArgumentException(message, "vector");
+            }
+            double x = point.X + vector[0];
+            double y = point.Y + vector[1];
+            return new Point2D(x, y);
         }
 
         /// <summary>
@@ -79,7 +105,7 @@ namespace Core.Common.Base.Geometry
                 throw new ArgumentNullException("secondPoint");
             }
 
-            Vector vector = this - secondPoint;
+            Vector<double> vector = this - secondPoint;
             return Math.Sqrt(vector.DotProduct(vector));
         }
 

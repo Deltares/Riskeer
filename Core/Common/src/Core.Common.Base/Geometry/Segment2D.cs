@@ -23,7 +23,7 @@ using System;
 
 using Core.Common.Base.Properties;
 
-using MathNet.Numerics.LinearAlgebra.Double;
+using MathNet.Numerics.LinearAlgebra;
 
 namespace Core.Common.Base.Geometry
 {
@@ -108,8 +108,8 @@ namespace Core.Common.Base.Geometry
                 throw new ArgumentNullException("point");
             }
 
-            Vector segmentVector = SecondPoint - FirstPoint; // Vector from FirstPoint to SecondPoint
-            Vector orientationVector = point - FirstPoint; // Vector from FirstPoint to 'point'
+            Vector<double> segmentVector = SecondPoint - FirstPoint; // Vector from FirstPoint to SecondPoint
+            Vector<double> orientationVector = point - FirstPoint; // Vector from FirstPoint to 'point'
 
             // Situation sketch, normalized along the segment:
             //   A  :   B  :  C
