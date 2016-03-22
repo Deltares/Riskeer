@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the available profiles within the scope of the piping failure mechanism.
         /// </summary>
-        public ICollection<PipingSoilProfile> SoilProfiles { get; private set; }
+        public ObservableList<PipingSoilProfile> SoilProfiles { get; private set; }
 
         /// <summary>
         /// Gets all available piping calculations.

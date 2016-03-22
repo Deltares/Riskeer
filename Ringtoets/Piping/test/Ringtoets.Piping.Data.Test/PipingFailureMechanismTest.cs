@@ -33,6 +33,7 @@ namespace Ringtoets.Piping.Data.Test
             CollectionAssert.IsEmpty(piping.SurfaceLines);
             Assert.IsInstanceOf<ObservableList<RingtoetsPipingSurfaceLine>>(piping.SurfaceLines);
             CollectionAssert.IsEmpty(piping.SoilProfiles);
+            Assert.IsInstanceOf<ObservableList<PipingSoilProfile>>(piping.SoilProfiles);
             Assert.AreEqual("Berekeningen", piping.CalculationsGroup.Name);
             Assert.AreEqual(1, piping.CalculationsGroup.Children.Count);
             Assert.IsInstanceOf<PipingCalculation>(piping.CalculationsGroup.Children.First());

@@ -45,6 +45,7 @@ namespace Ringtoets.Piping.Forms.Views
         private DataGridViewComboBoxColumn soilProfileColumn;
         private DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn;
         private readonly RecursiveObserver<PipingCalculationGroup> pipingCalculationGroupObserver;
+        private readonly Observer pipingSoilProfilesObserver;
 
         /// <summary>
         /// Creates a new instance of the <see cref="PipingCalculationsView"/> class.
@@ -55,6 +56,7 @@ namespace Ringtoets.Piping.Forms.Views
             InitializeDataGridView();
 
             pipingCalculationGroupObserver = new RecursiveObserver<PipingCalculationGroup>(UpdateDataGridViewDataSource, pg => pg.Children.OfType<PipingCalculationGroup>());
+            pipingSoilProfilesObserver = new Observer(UpdateSoilProfileColumn);
         }
 
         /// <summary>
@@ -70,9 +72,9 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 pipingFailureMechanism = value;
 
-                var pipingSoilProfiles = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
+                pipingSoilProfilesObserver.Observable = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
 
-                soilProfileColumn.DataSource = GetSoilProfilesDataSource(pipingSoilProfiles);
+                UpdateSoilProfileColumn();
             }
         }
 
@@ -118,6 +120,19 @@ namespace Ringtoets.Piping.Forms.Views
                     pipingCalculationGroupObserver.Observable = null;
                 }
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            AssessmentSection = null;
+            PipingFailureMechanism = null;
+
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
 
         private void InitializeDataGridView()
@@ -193,6 +208,13 @@ namespace Ringtoets.Piping.Forms.Views
             dataGridView.DataSource = pipingCalculationGroup.GetPipingCalculations()
                                                             .Select(pc => new PipingCalculationRow(pc))
                                                             .ToList();
+        }
+
+        private void UpdateSoilProfileColumn()
+        {
+            var pipingSoilProfiles = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
+
+            soilProfileColumn.DataSource = GetSoilProfilesDataSource(pipingSoilProfiles);
         }
 
         private static List<DataGridViewComboBoxItemWrapper<PipingSoilProfile>> GetSoilProfilesDataSource(IEnumerable<PipingSoilProfile> soilProfiles = null)
