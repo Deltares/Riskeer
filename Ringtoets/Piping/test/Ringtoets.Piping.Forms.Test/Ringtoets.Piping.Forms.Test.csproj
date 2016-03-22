@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="PresentationObjects\PipingFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLinesContextTest.cs" />
+    <Compile Include="PresentationObjects\StochasticSoilModelContextTest.cs" />
     <Compile Include="PropertyClasses\PipingFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingSemiProbabilisticOutputPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingCalculationReportTreeNodeInfoTest.cs" />
@@ -182,6 +183,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>

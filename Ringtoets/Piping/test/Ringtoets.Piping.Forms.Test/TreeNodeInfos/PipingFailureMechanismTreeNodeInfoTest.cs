@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-            var failureMechanismSectionsContext = (FailureMechanismSectionsContext)inputsFolder.Contents[0];
+            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
             CollectionAssert.AreEqual(pipingFailureMechanism.Sections, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(pipingFailureMechanism, failureMechanismSectionsContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
@@ -136,7 +136,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
             CollectionAssert.AreEqual(pipingFailureMechanism.CalculationsGroup.Children, calculationsFolder.WrappedData.Children);
             Assert.AreSame(pipingFailureMechanism.SurfaceLines, calculationsFolder.AvailablePipingSurfaceLines);
-            Assert.AreSame(pipingFailureMechanism.SoilProfiles, calculationsFolder.AvailablePipingSoilProfiles);
+            Assert.AreEqual(pipingFailureMechanism.SoilProfiles, calculationsFolder.AvailablePipingSoilProfiles);
             Assert.AreSame(pipingFailureMechanism, calculationsFolder.PipingFailureMechanism);
 
             var outputsFolder = (CategoryTreeFolder) children[2];
@@ -328,14 +328,17 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             };
 
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
-            dataMock.Stub(dm => dm.CalculationItems).Return(new ICalculationItem[] { pipingCalculation });
+            dataMock.Stub(dm => dm.CalculationItems).Return(new ICalculationItem[]
+            {
+                pipingCalculation
+            });
 
             var assessmentSection = mocks.Stub<AssessmentSectionBase>();
             var failureMechanismContext = new PipingFailureMechanismContext(dataMock, assessmentSection);
 
             var gui = mocks.StrictMock<IGui>();
             gui.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-            
+
             mocks.ReplayAll();
 
             plugin.Gui = gui;
@@ -469,7 +472,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
             IPipingCalculationItem addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
             Assert.AreEqual("Nieuwe berekening (1)", addedItem.Name,
-                "Because there is already an item with the same default name, '(1)' should be appended.");
+                            "Because there is already an item with the same default name, '(1)' should be appended.");
             Assert.IsInstanceOf<PipingCalculation>(addedItem);
 
             mocks.VerifyAll();
@@ -514,7 +517,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
             IPipingCalculationItem addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
             Assert.AreEqual("Nieuwe map (1)", addedItem.Name,
-                "Because there is already an item with the same default name, '(1)' should be appended.");
+                            "Because there is already an item with the same default name, '(1)' should be appended.");
             Assert.IsInstanceOf<PipingCalculationGroup>(addedItem);
 
             mocks.VerifyAll();

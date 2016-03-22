@@ -23,11 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
@@ -40,7 +42,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Imports .soil files (SqlLite database files) created with the DSoilModel application.
     /// </summary>
-    public class PipingSoilProfilesImporter : FileImporterBase<ICollection<PipingSoilProfile>>
+    public class PipingSoilProfilesImporter : FileImporterBase<StochasticSoilModelContext>
     {
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSoilProfilesImporter));
 
@@ -81,11 +83,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public override bool Import(object targetItem, string filePath)
         {
-            if (!IsReferenceLineAvailable(targetItem))
+            var surfaceLinesContext = (StochasticSoilModelContext) targetItem;
+            if (!IsReferenceLineAvailable(surfaceLinesContext))
             {
-                var message = String.Format(RingtoetsPluginResources.PipingSoilProfilesImporter_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipped,
-                                            RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_Required_referenceline_missing);
-                log.Error(message);
+                log.Error(RingtoetsPluginResources.PipingSoilProfilesImporter_Import_Required_referenceline_missing);
                 return false;
             }
 
@@ -101,14 +102,97 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            AddImportedDataToModel(targetItem, importSoilProfileResult);
+            var importStochasticSoilModelResult = ReadStochasticSoilModels(filePath);
+            if (importStochasticSoilModelResult.CriticalErrorOccurred)
+            {
+                return false;
+            }
+
+            if (ImportIsCancelled)
+            {
+                HandleUserCancellingImport();
+                return false;
+            }
+
+            AddSoilProfilesToStochasticSoilModels(importSoilProfileResult.ImportedItems, importStochasticSoilModelResult.ImportedItems);
+
+            CheckIfAllProfilesAreUsed(importSoilProfileResult.ImportedItems, importStochasticSoilModelResult.ImportedItems);
+
+            AddImportedDataToModel(surfaceLinesContext, importStochasticSoilModelResult.ImportedItems);
             return true;
         }
 
-        private static bool IsReferenceLineAvailable(object targetItem)
+        private void AddSoilProfilesToStochasticSoilModels(ICollection<PipingSoilProfile> soilProfiles, ICollection<StochasticSoilModel> stochasticSoilModels)
         {
-            //return ((RingtoetsPipingSurfaceLinesContext) targetItem).AssessmentSection.ReferenceLine != null;
+            foreach (var stochasticSoilModel in stochasticSoilModels)
+            {
+                foreach (var stochasticSoilProfile in stochasticSoilModel.StochasticSoilProfiles)
+                {
+                    var soilProfile = soilProfiles.FirstOrDefault(s => s.PipingSoilProfileId == stochasticSoilProfile.SoilProfileId);
+                    if (soilProfile != null)
+                    {
+                        stochasticSoilProfile.SoilProfile = soilProfile;
+                    }
+                }
+            }
+        }
+
+        private void CheckIfAllProfilesAreUsed(ICollection<PipingSoilProfile> soilProfiles, ICollection<StochasticSoilModel> stochasticSoilModels)
+        {
+            foreach (var soilProfile in soilProfiles.Where(soilProfile => !PipingSoilProfileIsUsed(soilProfile, stochasticSoilModels)))
+            {
+                log.WarnFormat(RingtoetsPluginResources.PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in_any_stochastic_soil_model, soilProfile.Name);
+            }
+        }
+
+        private static bool PipingSoilProfileIsUsed(PipingSoilProfile soilProfile, ICollection<StochasticSoilModel> stochasticSoilModels)
+        {
+            return stochasticSoilModels.Any(stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Any(stochasticSoilProfile => stochasticSoilProfile.SoilProfile == soilProfile));
+        }
+
+        private void AddImportedDataToModel(StochasticSoilModelContext target, ICollection<StochasticSoilModel> readStochasticSoilModels)
+        {
+            var targetCollection = target.FailureMechanism.StochasticSoilModels;
+            var stochasticSoilModelCount = readStochasticSoilModels.Count;
+            var currentIndex = 1;
+            foreach (var readStochasticSoilModel in readStochasticSoilModels)
+            {
+                NotifyProgress(RingtoetsPluginResources.PipingSoilProfilesImporter_Adding_imported_data_to_model, currentIndex++, stochasticSoilModelCount);
+                if (!ValidateStochasticSoilModel(readStochasticSoilModel))
+                {
+                    continue;
+                }
+                var stochasticSoilModel = targetCollection.FirstOrDefault(ssm => ssm.Id == readStochasticSoilModel.Id);
+                if (stochasticSoilModel != null)
+                {
+                    log.WarnFormat(RingtoetsPluginResources.PipingSoilProfilesImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists, stochasticSoilModel.Name);
+                }
+                targetCollection.Add(readStochasticSoilModel);
+            }
+        }
+
+        private bool ValidateStochasticSoilModel(StochasticSoilModel stochasticSoilModel)
+        {
+            if (stochasticSoilModel.StochasticSoilProfiles.Count(s => s.SoilProfile == null) > 0)
+            {
+                log.WarnFormat(RingtoetsPluginResources.PipingSoilProfilesImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0, stochasticSoilModel.Name);
+                return false;
+            }
+            if (stochasticSoilModel.Geometry.Count == 0)
+            {
+                log.WarnFormat("Er zijn geen coordinaten gevonden in het stochastich ondersgrondmodel '{0}', deze wordt overgeslagen.", stochasticSoilModel.Name);
+                return false;
+            }
+            if (!stochasticSoilModel.StochasticSoilProfiles.Where(s => s.SoilProfile != null).Sum(s => s.Probability).Equals(1.0))
+            {
+                log.WarnFormat("De som van de kans van voorkomen in stochastich ondersgrondmodel '{0}' is niet gelijk aan 1.", stochasticSoilModel.Name);
+            }
             return true;
+        }
+
+        private static bool IsReferenceLineAvailable(StochasticSoilModelContext targetItem)
+        {
+            return targetItem.AssessmentSection.ReferenceLine != null;
         }
 
         private void HandleException(string path, Exception e)
@@ -201,18 +285,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 HandleException(path, e);
             }
             return new ReadResult<PipingSoilProfile>(true);
-        }
-
-        private void AddImportedDataToModel(object target, ReadResult<PipingSoilProfile> imported)
-        {
-            var targetCollection = (ICollection<PipingSoilProfile>) target;
-
-            int totalProfileCount = imported.ImportedItems.Count;
-            NotifyProgress(RingtoetsPluginResources.PipingSoilProfilesImporter_Adding_imported_data_to_model, totalProfileCount, totalProfileCount);
-            foreach (var item in imported.ImportedItems)
-            {
-                targetCollection.Add(item);
-            }
         }
 
         private ReadResult<PipingSoilProfile> GetProfileReadResult(string path, PipingSoilProfileReader soilProfileReader)

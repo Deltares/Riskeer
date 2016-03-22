@@ -114,7 +114,8 @@ namespace Demo.Ringtoets.Commands
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "DR6.soil"))
             {
                 var surfaceLinesImporter = new PipingSoilProfilesImporter();
-                surfaceLinesImporter.Import(pipingFailureMechanism.SoilProfiles, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
+                var context = new StochasticSoilModelContext(pipingFailureMechanism, demoAssessmentSection);
+                surfaceLinesImporter.Import(context, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
             }
 
             var calculation = pipingFailureMechanism.CalculationsGroup.GetPipingCalculations().First();

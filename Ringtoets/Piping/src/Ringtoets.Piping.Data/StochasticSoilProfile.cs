@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.Piping.Primitives;
+
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
@@ -53,5 +55,10 @@ namespace Ringtoets.Piping.Data
         /// Gets the probability of the stochastic soil profile.
         /// </summary>
         public double Probability { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="PipingSoilProfile"/>.
+        /// </summary>
+        public PipingSoilProfile SoilProfile { get; set; }
     }
 }

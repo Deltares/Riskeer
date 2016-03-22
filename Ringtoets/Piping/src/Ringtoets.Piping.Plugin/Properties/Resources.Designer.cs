@@ -70,11 +70,31 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het stochastisch ondergrondmodel &apos;{0}&apos; bestaat al in het faalmechanisme..
+        /// </summary>
+        public static string PipingSoilProfilesImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists {
+            get {
+                return ResourceManager.GetString("PipingSoilProfilesImporter_AddImportedDataToModel_Stochastisch_soil_model_0_alrea" +
+                        "dy_exists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan faalmechanisme.
         /// </summary>
         public static string PipingSoilProfilesImporter_Adding_imported_data_to_model {
             get {
                 return ResourceManager.GetString("PipingSoilProfilesImporter_Adding_imported_data_to_model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het uitgelezen profiel &apos;{0}&apos; niet wordt niet gebruikt in een van de stochastische ondergrondmodellen..
+        /// </summary>
+        public static string PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in_any_stochastic_soil_model {
+            get {
+                return ResourceManager.GetString("PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in" +
+                        "_any_stochastic_soil_model", resourceCulture);
             }
         }
         
@@ -94,6 +114,15 @@ namespace Ringtoets.Piping.Plugin.Properties {
         public static string PipingSoilProfilesImporter_Import_Import_cancelled {
             get {
                 return ResourceManager.GetString("PipingSoilProfilesImporter_Import_Import_cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen referentielijn beschikbaar. Geen data ingelezen..
+        /// </summary>
+        public static string PipingSoilProfilesImporter_Import_Required_referenceline_missing {
+            get {
+                return ResourceManager.GetString("PipingSoilProfilesImporter_Import_Required_referenceline_missing", resourceCulture);
             }
         }
         
@@ -123,6 +152,16 @@ namespace Ringtoets.Piping.Plugin.Properties {
             get {
                 return ResourceManager.GetString("PipingSoilProfilesImporter_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipp" +
                         "ed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen profielen gevonden in het stochastich ondersgrondmodel &apos;{0}&apos;, deze wordt overgeslagen..
+        /// </summary>
+        public static string PipingSoilProfilesImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0 {
+            get {
+                return ResourceManager.GetString("PipingSoilProfilesImporter_ValidateStochasticSoilModel_No_profiles_found_in_stoch" +
+                        "astic_soil_model_0", resourceCulture);
             }
         }
         

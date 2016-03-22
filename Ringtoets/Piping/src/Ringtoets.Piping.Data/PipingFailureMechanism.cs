@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-
+using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Placeholder;
@@ -44,13 +44,13 @@ namespace Ringtoets.Piping.Data
             SemiProbabilisticInput = new SemiProbabilisticPipingInput();
             GeneralInput = new GeneralPipingInput();
             SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
-            SoilProfiles = new ObservableList<PipingSoilProfile>();
+            StochasticSoilModels = new ObservableList<StochasticSoilModel>();
             var pipingCalculationGroup = new PipingCalculationGroup(PipingDataResources.PipingFailureMechanism_Calculations_DisplayName, false);
             pipingCalculationGroup.Children.Add(new PipingCalculation(GeneralInput, SemiProbabilisticInput));
             CalculationsGroup = pipingCalculationGroup;
             AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
         }
-        
+
         public override IEnumerable<ICalculationItem> CalculationItems
         {
             get
@@ -79,7 +79,18 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the available profiles within the scope of the piping failure mechanism.
         /// </summary>
-        public ObservableList<PipingSoilProfile> SoilProfiles { get; private set; }
+        public ICollection<PipingSoilProfile> SoilProfiles
+        {
+            get
+            {
+                return StochasticSoilModels.SelectMany(ssm => ssm.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile)).ToList();
+            }
+        }
+
+        /// <summary>
+        /// Gets the available stochastic soil models within the scope of the piping failure mechanism.
+        /// </summary>
+        public ObservableList<StochasticSoilModel> StochasticSoilModels { get; private set; }
 
         /// <summary>
         /// Gets all available piping calculations.

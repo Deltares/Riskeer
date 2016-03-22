@@ -39,13 +39,13 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public partial class PipingCalculationsView : UserControl, IView
     {
+        private readonly RecursiveObserver<PipingCalculationGroup> pipingCalculationGroupObserver;
+        private readonly Observer pipingSoilProfilesObserver;
         private AssessmentSectionBase assessmentSection;
         private PipingFailureMechanism pipingFailureMechanism;
         private PipingCalculationGroup pipingCalculationGroup;
         private DataGridViewComboBoxColumn soilProfileColumn;
         private DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn;
-        private readonly RecursiveObserver<PipingCalculationGroup> pipingCalculationGroupObserver;
-        private readonly Observer pipingSoilProfilesObserver;
 
         /// <summary>
         /// Creates a new instance of the <see cref="PipingCalculationsView"/> class.
@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 pipingFailureMechanism = value;
 
-                pipingSoilProfilesObserver.Observable = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
+                pipingSoilProfilesObserver.Observable = pipingFailureMechanism != null ? pipingFailureMechanism.StochasticSoilModels : null;
 
                 UpdateSoilProfileColumn();
             }
