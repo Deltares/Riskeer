@@ -57,6 +57,7 @@
     <Compile Include="Converters\HydraulicLocationConverter.cs" />
     <Compile Include="Converters\ProjectEntityConverter.cs" />
     <Compile Include="Converters\IEntityConverter.cs" />
+    <Compile Include="Converters\ReferenceLineConverter.cs" />
     <Compile Include="DbContext\DikeAssessmentSectionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -79,9 +80,9 @@
     <Compile Include="Persistors\DikeAssessmentSectionEntityPersistor.cs" />
     <Compile Include="Persistors\FailureMechanismEntityPersistorBase.cs" />
     <Compile Include="Persistors\HydraulicLocationEntityPersistor.cs" />
-    <Compile Include="Persistors\IPersistor.cs" />
     <Compile Include="Persistors\DikesPipingFailureMechanismEntityPersistor.cs" />
     <Compile Include="Persistors\ProjectEntityPersistor.cs" />
+    <Compile Include="Persistors\ReferenceLinePersistor.cs" />
     <Compile Include="StorageSqliteCreator.cs" />
     <Compile Include="DbContext\PartialRingtoetsEntities.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />

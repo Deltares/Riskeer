@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// <summary>
     /// Persistor for <see cref="DikeAssessmentSectionEntity"/>.
     /// </summary>
-    public class DikeAssessmentSectionEntityPersistor : IPersistor<DikeAssessmentSectionEntity, DikeAssessmentSection>
+    public class DikeAssessmentSectionEntityPersistor
     {
         private readonly IRingtoetsEntities dbContext;
         private readonly DikeAssessmentSectionEntityConverter converter;
@@ -87,6 +87,9 @@ namespace Application.Ringtoets.Storage.Persistors
                     dikePipingFailureMechanismEntityPersistor.LoadModel(failureMechanismEntity, () => dikeAssessmentSection.PipingFailureMechanism);
                 }
             }
+
+            var referenceLinePointPersistor = new ReferenceLinePersistor();
+            dikeAssessmentSection.ReferenceLine = referenceLinePointPersistor.LoadModel(entity.ReferenceLinePointEntities);
 
             return dikeAssessmentSection;
         }

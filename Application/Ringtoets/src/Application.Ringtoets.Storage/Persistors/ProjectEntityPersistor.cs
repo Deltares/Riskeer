@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// <summary>
     /// Persistor for <see cref="ProjectEntity"/>.
     /// </summary>
-    public class ProjectEntityPersistor : IPersistor<ProjectEntity, Project>
+    public class ProjectEntityPersistor
     {
         private readonly IRingtoetsEntities dbContext;
         private readonly IDbSet<ProjectEntity> dbSet;
@@ -87,7 +87,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <exception cref="NotSupportedException">The parentNavigationProperty is read-only.</exception>
         public void InsertModel(Project project)
         {
-            InsertModel(dbSet.Local, project, 0);
+            InsertModel(dbSet.Local, project);
         }
 
         /// <summary>
@@ -104,53 +104,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <exception cref="NotSupportedException">The parentNavigationProperty is read-only.</exception>
         public void UpdateModel(Project model)
         {
-            UpdateModel(dbSet.Local, model, 0);
-        }
-
-        public void UpdateModel(ICollection<ProjectEntity> parentNavigationProperty, Project model, int order)
-        {
-            if (model == null)
-            {
-                throw new ArgumentNullException("model", "Cannot update databaseSet when no project is set.");
-            }
-            ProjectEntity entity;
-            try
-            {
-                entity = parentNavigationProperty.SingleOrDefault(db => db.ProjectEntityId == model.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "ProjectEntity", model.StorageId), exception);
-            }
-            if (entity == null)
-            {
-                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "ProjectEntity", model.StorageId));
-            }
-            modifiedList.Add(entity);
-            converter.ConvertModelToEntity(model, entity);
-
-            UpdateChildren(model, entity);
-        }
-
-        public void InsertModel(ICollection<ProjectEntity> parentNavigationProperty, Project project, int order)
-        {
-            if (project == null)
-            {
-                throw new ArgumentNullException("project", "Cannot update databaseSet when no project is set.");
-            }
-
-            var entity = new ProjectEntity();
-            parentNavigationProperty.Add(entity);
-            insertedList.Add(entity, project);
-
-            converter.ConvertModelToEntity(project, entity);
-
-            if (project.StorageId > 0)
-            {
-                modifiedList.Add(entity);
-            }
-
-            InsertChildren(project, entity);
+            UpdateModel(dbSet.Local, model);
         }
 
         /// <summary>
@@ -187,7 +141,53 @@ namespace Application.Ringtoets.Storage.Persistors
             dikeAssessmentSectionEntityPersistor.PerformPostSaveActions();
         }
 
-        public Project LoadModel(ProjectEntity entity, Func<Project> model)
+        private void UpdateModel(ICollection<ProjectEntity> parentNavigationProperty, Project model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException("model", "Cannot update databaseSet when no project is set.");
+            }
+            ProjectEntity entity;
+            try
+            {
+                entity = parentNavigationProperty.SingleOrDefault(db => db.ProjectEntityId == model.StorageId);
+            }
+            catch (InvalidOperationException exception)
+            {
+                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "ProjectEntity", model.StorageId), exception);
+            }
+            if (entity == null)
+            {
+                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "ProjectEntity", model.StorageId));
+            }
+            modifiedList.Add(entity);
+            converter.ConvertModelToEntity(model, entity);
+
+            UpdateChildren(model, entity);
+        }
+
+        private void InsertModel(ICollection<ProjectEntity> parentNavigationProperty, Project project)
+        {
+            if (project == null)
+            {
+                throw new ArgumentNullException("project", "Cannot update databaseSet when no project is set.");
+            }
+
+            var entity = new ProjectEntity();
+            parentNavigationProperty.Add(entity);
+            insertedList.Add(entity, project);
+
+            converter.ConvertModelToEntity(project, entity);
+
+            if (project.StorageId > 0)
+            {
+                modifiedList.Add(entity);
+            }
+
+            InsertChildren(project, entity);
+        }
+
+        private Project LoadModel(ProjectEntity entity, Func<Project> model)
         {
             if (entity == null)
             {

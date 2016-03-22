@@ -35,7 +35,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// <summary>
     /// Persistor for classes derived from <see cref="BaseFailureMechanism"/>.
     /// </summary>
-    public abstract class FailureMechanismEntityPersistorBase<T> : IPersistor<FailureMechanismEntity, T> where T : IFailureMechanism
+    public abstract class FailureMechanismEntityPersistorBase<T> where T : IFailureMechanism
     {
         private readonly IRingtoetsEntities dbContext;
         private readonly Dictionary<FailureMechanismEntity, T> insertedList = new Dictionary<FailureMechanismEntity, T>();
@@ -136,6 +136,11 @@ namespace Application.Ringtoets.Storage.Persistors
             }
         }
 
+        /// <summary>
+        /// Loads a new model of type <typeparamref name="T"/> based on the <paramref name="entity"/>.
+        /// </summary>
+        /// <param name="entity">Database entity containing information for the new model.</param>
+        /// <returns>A new instance of type <typeparamref name="T"/>.</returns>
         public virtual T LoadModel(FailureMechanismEntity entity, Func<T> model)
         {
             return converter.ConvertEntityToModel(entity, model);

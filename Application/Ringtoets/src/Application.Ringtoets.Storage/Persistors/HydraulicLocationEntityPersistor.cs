@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// <summary>
     /// The persistor for <see cref="HydraulicLocationEntity"/>.
     /// </summary>
-    public class HydraulicLocationEntityPersistor : IPersistor<HydraulicLocationEntity, HydraulicBoundaryLocation>
+    public class HydraulicLocationEntityPersistor
     {
         private readonly IRingtoetsEntities ringtoetsContext;
         private readonly HydraulicLocationConverter converter;

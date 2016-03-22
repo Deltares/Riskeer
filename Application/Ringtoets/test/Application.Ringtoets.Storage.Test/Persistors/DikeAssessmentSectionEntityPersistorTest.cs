@@ -53,7 +53,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Assert
             Assert.IsInstanceOf<DikeAssessmentSectionEntityPersistor>(persistor);
-            Assert.IsInstanceOf<IPersistor<DikeAssessmentSectionEntity, DikeAssessmentSection>>(persistor);
 
             mockRepository.VerifyAll();
         }

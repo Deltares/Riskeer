@@ -68,7 +68,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             HydraulicLocationEntityPersistor persistor = new HydraulicLocationEntityPersistor(ringtoetsEntities);
 
             // Assert
-            Assert.IsInstanceOf<IPersistor<HydraulicLocationEntity, HydraulicBoundaryLocation>>(persistor);
+            Assert.IsInstanceOf<HydraulicLocationEntityPersistor>(persistor);
+
             mocks.VerifyAll();
         }
 

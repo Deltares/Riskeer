@@ -27,7 +27,7 @@ namespace Application.Ringtoets.Storage.Converters
     /// <summary>
     /// Interface for entity converters.
     /// </summary>
-    public interface IEntityConverter<TModel, TEntity> where TEntity : class where TModel : IStorable
+    public interface IEntityConverter<TModel, TEntity> where TEntity : class
     {
         /// <summary>
         /// Converts <paramref name="entity"/> to <see cref="TModel"/>.
