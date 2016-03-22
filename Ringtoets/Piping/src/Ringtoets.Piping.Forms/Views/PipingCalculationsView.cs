@@ -300,44 +300,6 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        private class Observer : IObserver
-        {
-            private readonly Action updateObserverAction;
-            private IObservable observable;
-
-            public Observer(Action updateObserverAction)
-            {
-                this.updateObserverAction = updateObserverAction;
-            }
-
-            public IObservable Observable
-            {
-                get
-                {
-                    return observable;
-                }
-                set
-                {
-                    if (observable != null)
-                    {
-                        observable.Detach(this);
-                    }
-
-                    observable = value;
-
-                    if (observable != null)
-                    {
-                        observable.Attach(this);
-                    }
-                }
-            }
-
-            public void UpdateObserver()
-            {
-                updateObserverAction();
-            }
-        }
-
         private class PipingCalculationRow
         {
             private readonly PipingCalculation pipingCalculation;
