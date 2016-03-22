@@ -89,11 +89,6 @@ namespace Application.Ringtoets.Storage.Persistors
                 throw new ArgumentNullException("model");
             }
 
-            if (parentNavigationProperty == null)
-            {
-                throw new ArgumentNullException("parentNavigationProperty");
-            }
-
             foreach (var location in model.Locations)
             {
                 if (location == null)
@@ -105,6 +100,11 @@ namespace Application.Ringtoets.Storage.Persistors
                 {
                     InsertLocation(parentNavigationProperty, location);
                     continue;
+                }
+
+                if (parentNavigationProperty == null)
+                {
+                    throw new ArgumentNullException("parentNavigationProperty");
                 }
 
                 HydraulicLocationEntity entity;

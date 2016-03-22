@@ -181,6 +181,7 @@ namespace Application.Ringtoets.Storage.Persistors
             UpdateStorageIdsInModel();
 
             dikePipingFailureMechanismEntityPersistor.PerformPostSaveActions();
+            hydraulicLocationEntityPersistor.PerformPostSaveActions();
         }
 
         /// <summary>
@@ -192,6 +193,12 @@ namespace Application.Ringtoets.Storage.Persistors
         {
             dikePipingFailureMechanismEntityPersistor.UpdateModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
             dikePipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
+
+            if (model.HydraulicBoundaryDatabase != null)
+            {
+                hydraulicLocationEntityPersistor.UpdateModel(entity.HydraulicLocationEntities, model.HydraulicBoundaryDatabase);
+            }
+            hydraulicLocationEntityPersistor.RemoveUnModifiedEntries(entity.HydraulicLocationEntities);
         }
 
         /// <summary>
@@ -202,8 +209,12 @@ namespace Application.Ringtoets.Storage.Persistors
         private void InsertChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity)
         {
             dikePipingFailureMechanismEntityPersistor.InsertModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
-            hydraulicLocationEntityPersistor.InsertModel(entity.HydraulicLocationEntities, model.HydraulicBoundaryDatabase);
-            
+
+            if (model.HydraulicBoundaryDatabase != null)
+            {
+                hydraulicLocationEntityPersistor.InsertModel(entity.HydraulicLocationEntities, model.HydraulicBoundaryDatabase);
+            }
+
             dikePipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
             hydraulicLocationEntityPersistor.RemoveUnModifiedEntries(entity.HydraulicLocationEntities);
         }

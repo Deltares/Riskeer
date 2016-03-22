@@ -29,7 +29,7 @@
           <Key>
             <PropertyRef Name="HydraulicLocationEntityId" />
           </Key>
-          <Property Name="HydraulicLocationEntityId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DikeAssessmentSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LocationId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
@@ -204,7 +204,7 @@ FROM [ReferenceLinePointEntity] AS [ReferenceLinePointEntity]</DefiningQuery>
           <Key>
             <PropertyRef Name="HydraulicLocationEntityId" />
           </Key>
-          <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DikeAssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LocationId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />

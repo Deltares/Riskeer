@@ -168,11 +168,27 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             {
                 new DikeAssessmentSectionEntity
                 {
-                    DikeAssessmentSectionEntityId = 1, Name = "test1", Norm = 12
+                    DikeAssessmentSectionEntityId = 1, Name = "test1", Norm = 12,
+                    HydraulicDatabaseVersion = "1.0", HydraulicDatabaseLocation = "temp/test",
+                    HydraulicLocationEntities = new List<HydraulicLocationEntity>
+                    {
+                        new HydraulicLocationEntity
+                        {
+                            Name = "test", DesignWaterLevel = 15.6, HydraulicLocationEntityId = 1234L, LocationId = 1300001, LocationX = 253, LocationY = 123
+                        }
+                    }
                 },
                 new DikeAssessmentSectionEntity
                 {
-                    DikeAssessmentSectionEntityId = 2, Name = "test2", Norm = 22
+                    DikeAssessmentSectionEntityId = 2, Name = "test2", Norm = 22,
+                    HydraulicDatabaseVersion = "2.0", HydraulicDatabaseLocation = "test",
+                    HydraulicLocationEntities = new List<HydraulicLocationEntity>
+                    {
+                        new HydraulicLocationEntity
+                        {
+                            Name = "test2", DesignWaterLevel = 135.6, HydraulicLocationEntityId = 134L, LocationId = 1400001, LocationX = 23, LocationY = 23
+                        }
+                    }
                 }
             };
             mockRepository.ReplayAll();
@@ -189,6 +205,20 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 Assert.AreEqual(parentNavigationPropertyList[i].DikeAssessmentSectionEntityId, loadedModelsList[i].StorageId);
                 Assert.AreEqual(parentNavigationPropertyList[i].Name, loadedModelsList[i].Name);
                 Assert.AreEqual(parentNavigationPropertyList[i].Norm, loadedModelsList[i].FailureMechanismContribution.Norm);
+                Assert.AreEqual(parentNavigationPropertyList[i].HydraulicDatabaseVersion, loadedModelsList[i].HydraulicBoundaryDatabase.Version);
+                Assert.AreEqual(parentNavigationPropertyList[i].HydraulicDatabaseLocation, loadedModelsList[i].HydraulicBoundaryDatabase.FilePath);
+
+                var locations = parentNavigationPropertyList[i].HydraulicLocationEntities.ToList();
+
+                for (int j = 0; j < loadedModelsList[i].HydraulicBoundaryDatabase.Locations.Count; j++)
+                {
+                    Assert.AreEqual(locations[j].HydraulicLocationEntityId, loadedModelsList[i].HydraulicBoundaryDatabase.Locations[j].StorageId);
+                    Assert.AreEqual(locations[j].DesignWaterLevel, loadedModelsList[i].HydraulicBoundaryDatabase.Locations[j].DesignWaterLevel);
+                    Assert.AreEqual(locations[j].Name, loadedModelsList[i].HydraulicBoundaryDatabase.Locations[j].Name);
+                    Assert.AreEqual(locations[j].LocationId, loadedModelsList[i].HydraulicBoundaryDatabase.Locations[j].Id);
+                    Assert.AreEqual(locations[j].LocationX, loadedModelsList[i].HydraulicBoundaryDatabase.Locations[j].Location.X);
+                    Assert.AreEqual(locations[j].LocationY, loadedModelsList[i].HydraulicBoundaryDatabase.Locations[j].Location.Y);
+                }
             }
 
             mockRepository.VerifyAll();
@@ -315,8 +345,23 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             // Setup
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+
+            const string name = "test";
+            const double designWaterLevel = 15.6;
+            const long hydraulicLocationEntityId = 1234L;
+            const long locationId = 1300001;
+            const double locationX = 253;
+            const double locationY = 123;
+
             DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection();
+            dikeAssessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            dikeAssessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(locationId, name, locationX, locationY)
+            {
+                StorageId = hydraulicLocationEntityId, DesignWaterLevel = designWaterLevel
+            });
+
             IList<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>();
+
             mockRepository.ReplayAll();
 
             // Call
@@ -329,6 +374,14 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             Assert.AreEqual(1, entity.FailureMechanismEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismEntities.Count(db => db.FailureMechanismType.Equals((int) FailureMechanismType.DikesPipingFailureMechanism)));
+            Assert.AreEqual(1, entity.HydraulicLocationEntities.Count);
+            var locationEntity = entity.HydraulicLocationEntities.First();
+            Assert.AreEqual(name, locationEntity.Name);
+            Assert.AreEqual(designWaterLevel, locationEntity.DesignWaterLevel);
+            Assert.AreEqual(hydraulicLocationEntityId, locationEntity.HydraulicLocationEntityId);
+            Assert.AreEqual(locationId, locationEntity.LocationId);
+            Assert.AreEqual(locationX, locationEntity.LocationX);
+            Assert.AreEqual(locationY, locationEntity.LocationY);
 
             mockRepository.VerifyAll();
         }
@@ -383,7 +436,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     FailureMechanismContribution =
                     {
                         Norm = norm
-                    }
+                    },
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
                 }
                 ;
             mockRepository.ReplayAll();
@@ -525,7 +579,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     FailureMechanismContribution =
                     {
                         Norm = norm
-                    }
+                    },
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
                 };
             mockRepository.ReplayAll();
 
@@ -577,7 +632,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     FailureMechanismContribution =
                     {
                         Norm = norm
-                    }
+                    },
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
                 };
             mockRepository.ReplayAll();
 
@@ -600,17 +656,33 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             const long storageId = 1234L;
+
+            const long hydraulicLocationEntityId = 5678L;
+
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
             DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection
             {
-                StorageId = storageId
+                StorageId = storageId,
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
+            dikeAssessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1300001, "test", 253, 123)
+            {
+                StorageId = hydraulicLocationEntityId,
+            });
+
             IList<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>
             {
                 new DikeAssessmentSectionEntity
                 {
-                    DikeAssessmentSectionEntityId = storageId
+                    DikeAssessmentSectionEntityId = storageId,
+                    HydraulicLocationEntities = new List<HydraulicLocationEntity>
+                    {
+                        new HydraulicLocationEntity
+                        {
+                            HydraulicLocationEntityId = hydraulicLocationEntityId
+                        }
+                    }
                 }
             };
             mockRepository.ReplayAll();
@@ -625,6 +697,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             Assert.AreEqual(1, entity.FailureMechanismEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismEntities.Count(db => db.FailureMechanismType.Equals((int) FailureMechanismType.DikesPipingFailureMechanism)));
+            Assert.AreEqual(1, entity.HydraulicLocationEntities.Count);
+
+            var hydraulicLocationEntity = entity.HydraulicLocationEntities.First();
+            Assert.AreEqual(hydraulicLocationEntityId, hydraulicLocationEntity.HydraulicLocationEntityId);
 
             mockRepository.VerifyAll();
         }
@@ -660,7 +736,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     FailureMechanismContribution =
                     {
                         Norm = norm
-                    }
+                    },
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
                 };
             mockRepository.ReplayAll();
 
@@ -716,7 +793,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 {
                     Norm = norm
                 },
-                StorageId = storageId
+                StorageId = storageId,
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
             mockRepository.ReplayAll();
 
@@ -764,7 +842,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             ringtoetsEntities.Expect(x => x.DikeAssessmentSectionEntities).Return(dbset).Repeat.Twice();
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
 
-            DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection();
+            DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            };
             mockRepository.ReplayAll();
 
             TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, dikeAssessmentSection, 0);
@@ -815,7 +896,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             {
                 dikeAssessmentSections.Add(new DikeAssessmentSection
                 {
-                    StorageId = 0L
+                    StorageId = 0L,
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
                 });
             }
 

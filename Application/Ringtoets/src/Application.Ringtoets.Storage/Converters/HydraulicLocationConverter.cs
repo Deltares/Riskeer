@@ -81,8 +81,12 @@ namespace Application.Ringtoets.Storage.Converters
 
             entity.HydraulicLocationEntityId = modelObject.StorageId;
             entity.Name = modelObject.Name;
-            entity.DesignWaterLevel = modelObject.DesignWaterLevel;
             entity.LocationId = modelObject.Id;
+
+            if (!double.IsNaN(modelObject.DesignWaterLevel))
+            {
+                entity.DesignWaterLevel = modelObject.DesignWaterLevel;
+            }
 
             if (modelObject.Location != null)
             {

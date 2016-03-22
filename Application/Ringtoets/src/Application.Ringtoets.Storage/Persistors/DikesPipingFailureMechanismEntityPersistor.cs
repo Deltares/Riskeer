@@ -22,8 +22,6 @@
 using System;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data;
-using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
