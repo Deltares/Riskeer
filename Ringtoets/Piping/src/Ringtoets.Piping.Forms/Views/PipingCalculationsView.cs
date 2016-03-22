@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Forms.Views
         private PipingCalculationGroup pipingCalculationGroup;
         private DataGridViewComboBoxColumn soilProfileColumn;
         private DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn;
-        private readonly DynamicObserver pipingCalculationGroupObserver;
+        private readonly RecursiveObserver<PipingCalculationGroup> pipingCalculationGroupObserver;
 
         /// <summary>
         /// Creates a new instance of the <see cref="PipingCalculationsView"/> class.
@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Forms.Views
             InitializeComponent();
             InitializeDataGridView();
 
-            pipingCalculationGroupObserver = new DynamicObserver(UpdateDataGridViewDataSource);
+            pipingCalculationGroupObserver = new RecursiveObserver<PipingCalculationGroup>(UpdateDataGridViewDataSource, pg => pg.Children.OfType<PipingCalculationGroup>());
         }
 
         /// <summary>
@@ -228,12 +228,84 @@ namespace Ringtoets.Piping.Forms.Views
 
         #region Nested types
 
-        private class DynamicObserver : IObserver
+        private class RecursiveObserver<T> : IObserver where T : IObservable
+        {
+            private T observable;
+            private readonly Action updateObserverAction;
+            private readonly Func<T, IEnumerable<T>> getChildObservables;
+            private readonly IList<T> observedObjects = new List<T>();
+
+            public RecursiveObserver(Action updateObserverAction, Func<T, IEnumerable<T>> getChildObservables)
+            {
+                this.updateObserverAction = updateObserverAction;
+                this.getChildObservables = getChildObservables;
+            }
+
+            public T Observable
+            {
+                get
+                {
+                    return observable;
+                }
+                set
+                {
+                    observable = value;
+
+                    UpdateObservedObjects();
+                }
+            }
+
+            public void UpdateObserver()
+            {
+                updateObserverAction();
+
+                UpdateObservedObjects();
+            }
+
+            private void UpdateObservedObjects()
+            {
+                // Detach from the currently attached observable items
+                foreach (var observedObject in observedObjects)
+                {
+                    observedObject.Detach(this);
+                }
+
+                // Clear the list
+                observedObjects.Clear();
+
+                // If relevant, start observing objects again
+                if (observable != null)
+                {
+                    foreach (var objectToObserve in GetObservablesRecursive(observable))
+                    {
+                        objectToObserve.Attach(this);
+                        observedObjects.Add(objectToObserve);
+                    }
+                }
+            }
+
+            private IEnumerable<T> GetObservablesRecursive(T parentObservable)
+            {
+                var observables = new List<T>
+                {
+                    parentObservable
+                };
+
+                foreach (var childObservable in getChildObservables(parentObservable))
+                {
+                    observables.AddRange(GetObservablesRecursive(childObservable));
+                }
+
+                return observables;
+            }
+        }
+
+        private class Observer : IObserver
         {
             private readonly Action updateObserverAction;
             private IObservable observable;
 
-            public DynamicObserver(Action updateObserverAction)
+            public Observer(Action updateObserverAction)
             {
                 this.updateObserverAction = updateObserverAction;
             }
