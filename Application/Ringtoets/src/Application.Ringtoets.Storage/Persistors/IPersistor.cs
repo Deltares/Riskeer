@@ -68,19 +68,5 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
         /// <returns>A new instance of <see cref="TModel"/>, based on the properties of <paramref name="entity"/>.</returns>
         TModel LoadModel(TEntity entity, Func<TModel> model);
-
-        /// <summary>
-        /// Updates the children of <paramref name="model"/>, in reference to <paramref name="entity"/>, in the storage.
-        /// </summary>
-        /// <param name="model">The <see cref="TModel"/> of which children need to be updated.</param>
-        /// <param name="entity">Referenced <see cref="TEntity"/>.</param>
-        void UpdateChildren(TModel model, TEntity entity);
-
-        /// <summary>
-        /// Inserts the children of <paramref name="model"/>, in reference to <paramref name="entity"/>, in the storage.
-        /// </summary>
-        /// <param name="model">The <see cref="TModel"/> of which children need to be inserted.</param>
-        /// <param name="entity">Referenced <see cref="TEntity"/>.</param>
-        void InsertChildren(TModel model, TEntity entity);
     }
 }

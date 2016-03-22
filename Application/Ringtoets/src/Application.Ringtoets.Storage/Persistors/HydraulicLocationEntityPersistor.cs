@@ -30,6 +30,9 @@ using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
 {
+    /// <summary>
+    /// The persistor for <see cref="HydraulicLocationEntity"/>.
+    /// </summary>
     public class HydraulicLocationEntityPersistor : IPersistor<HydraulicLocationEntity, HydraulicBoundaryLocation>
     {
         private readonly IRingtoetsEntities ringtoetsContext;
@@ -167,9 +170,5 @@ namespace Application.Ringtoets.Storage.Persistors
 
             return converter.ConvertEntityToModel(entity, model);
         }
-
-        public void UpdateChildren(HydraulicBoundaryLocation model, HydraulicLocationEntity entity) {}
-
-        public void InsertChildren(HydraulicBoundaryLocation model, HydraulicLocationEntity entity) {}
     }
 }

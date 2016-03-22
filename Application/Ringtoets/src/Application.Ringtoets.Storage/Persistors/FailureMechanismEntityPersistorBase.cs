@@ -141,9 +141,6 @@ namespace Application.Ringtoets.Storage.Persistors
             return converter.ConvertEntityToModel(entity, model);
         }
 
-        public virtual void UpdateChildren(T model, FailureMechanismEntity entity) { }
-        public virtual void InsertChildren(T model, FailureMechanismEntity entity) { }
-
         /// <summary>
         /// All unmodified <see cref="FailureMechanismEntity"/> in <paramref name="parentNavigationProperty"/> will be removed.
         /// </summary>

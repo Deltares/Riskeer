@@ -186,7 +186,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// </summary>
         /// <param name="model">The <see cref="DikeAssessmentSection"/> of which children need to be updated.</param>
         /// <param name="entity">Referenced <see cref="DikeAssessmentSectionEntity"/>.</param>
-        public void UpdateChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity)
+        private void UpdateChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity)
         {
             dikePipingFailureMechanismEntityPersistor.UpdateModel(entity.FailureMechanismEntities, model.PipingFailureMechanism, 0);
             dikePipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
@@ -197,7 +197,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// </summary>
         /// <param name="model">The <see cref="DikeAssessmentSection"/> of which children need to be inserted.</param>
         /// <param name="entity">Referenced <see cref="DikeAssessmentSectionEntity"/>.</param>
-        public void InsertChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity)
+        private void InsertChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity)
         {
             dikePipingFailureMechanismEntityPersistor.InsertModel(entity.FailureMechanismEntities, model.PipingFailureMechanism, 0);
             dikePipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);

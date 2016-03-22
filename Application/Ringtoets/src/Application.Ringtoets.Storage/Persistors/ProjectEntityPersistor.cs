@@ -217,7 +217,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// </summary>
         /// <param name="project">The <see cref="Project"/> of which children need to be updated.</param>
         /// <param name="entity">Referenced <see cref="ProjectEntity"/>.</param>
-        public void UpdateChildren(Project project, ProjectEntity entity)
+        private void UpdateChildren(Project project, ProjectEntity entity)
         {
             var order = 0;
             foreach (var item in project.Items)
@@ -236,7 +236,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// </summary>
         /// <param name="project">The <see cref="Project"/> of which children need to be inserted.</param>
         /// <param name="entity">Referenced <see cref="ProjectEntity"/>.</param>
-        public void InsertChildren(Project project, ProjectEntity entity)
+        private void InsertChildren(Project project, ProjectEntity entity)
         {
             var order = 0;
             foreach (var item in project.Items)
