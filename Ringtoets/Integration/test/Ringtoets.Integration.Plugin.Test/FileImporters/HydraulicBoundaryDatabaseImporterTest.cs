@@ -144,7 +144,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
+
+            assessmentSection.Attach(observer);
 
             var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
@@ -160,12 +163,18 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void Import_ImportingToValidTargetWithValidFile_ImportHydraulicBoundaryLocationsToCollection()
+        public void Import_ImportingToValidTargetWithValidFile_ImportHydraulicBoundaryLocationsToCollectionAndAssessmentSectionNotified()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var observer = mocks.StrictMock<IObserver>();
+
+            observer.Expect(o => o.UpdateObserver());
+
             mocks.ReplayAll();
+
+            assessmentSection.Attach(observer);
 
             var importTarget = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
@@ -199,16 +208,16 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
+
+            assessmentSection.Attach(observer);
 
             var importTarget = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
             string corruptPath = Path.Combine(testDataPath, "corruptschema.sqlite");
             var expectedLogMessage = string.Format("Fout bij het lezen van bestand '{0}': Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.", corruptPath);
-
-            importTarget.Attach(observer);
 
             var importResult = true;
 
@@ -222,7 +231,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.IsFalse(importResult);
             Assert.IsNull(importTarget.Parent.HydraulicBoundaryDatabase, "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
 
-            mocks.VerifyAll(); // Expect no calls on 'observer'
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -230,9 +239,12 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
-            var importTarget = mocks.StrictMock<HydraulicBoundaryDatabaseContext>(assessmentSectionMock);
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var observer = mocks.StrictMock<IObserver>();
+            var importTarget = mocks.StrictMock<HydraulicBoundaryDatabaseContext>(assessmentSection);
             mocks.ReplayAll();
+
+            assessmentSection.Attach(observer);
 
             string validFilePath = Path.Combine(testDataPath, "corruptschema.sqlite");
             string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath)

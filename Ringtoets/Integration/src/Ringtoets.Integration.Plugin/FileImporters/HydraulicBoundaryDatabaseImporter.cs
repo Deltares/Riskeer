@@ -194,6 +194,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         private static void AddImportedDataToModel(AssessmentSectionBase assessmentSection, HydraulicBoundaryDatabase importedData)
         {
             assessmentSection.HydraulicBoundaryDatabase = importedData;
+            assessmentSection.NotifyObservers();
         }
     }
 }

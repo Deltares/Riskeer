@@ -39,8 +39,9 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public partial class PipingCalculationsView : UserControl, IView
     {
-        private readonly RecursiveObserver<PipingCalculationGroup> pipingCalculationGroupObserver;
         private readonly Observer pipingSoilProfilesObserver;
+        private readonly Observer assessmentSectionObserver;
+        private readonly RecursiveObserver<PipingCalculationGroup> pipingCalculationGroupObserver;
         private AssessmentSectionBase assessmentSection;
         private PipingFailureMechanism pipingFailureMechanism;
         private PipingCalculationGroup pipingCalculationGroup;
@@ -55,8 +56,9 @@ namespace Ringtoets.Piping.Forms.Views
             InitializeComponent();
             InitializeDataGridView();
 
-            pipingCalculationGroupObserver = new RecursiveObserver<PipingCalculationGroup>(UpdateDataGridViewDataSource, pg => pg.Children.OfType<PipingCalculationGroup>());
             pipingSoilProfilesObserver = new Observer(UpdateSoilProfileColumn);
+            assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryLocationsColumn);
+            pipingCalculationGroupObserver = new RecursiveObserver<PipingCalculationGroup>(UpdateDataGridViewDataSource, pg => pg.Children.OfType<PipingCalculationGroup>());
         }
 
         /// <summary>
@@ -91,11 +93,9 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 assessmentSection = value;
 
-                var hydraulicBoundaryLocations = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
-                                                     ? assessmentSection.HydraulicBoundaryDatabase.Locations
-                                                     : null;
+                assessmentSectionObserver.Observable = assessmentSection;
 
-                hydraulicBoundaryLocationColumn.DataSource = GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations);
+                UpdateHydraulicBoundaryLocationsColumn();
             }
         }
 
@@ -203,11 +203,13 @@ namespace Ringtoets.Piping.Forms.Views
             dataGridView.Columns.AddRange(nameColumn, soilProfileColumn, hydraulicBoundaryLocationColumn, dampingFactorExitMeanColumn, phreaticLevelExitMeanColumn, entryPointLColumn, exitPointLColumn);
         }
 
-        private void UpdateDataGridViewDataSource()
+        private void UpdateHydraulicBoundaryLocationsColumn()
         {
-            dataGridView.DataSource = pipingCalculationGroup.GetPipingCalculations()
-                                                            .Select(pc => new PipingCalculationRow(pc))
-                                                            .ToList();
+            var hydraulicBoundaryLocations = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
+                                                 ? assessmentSection.HydraulicBoundaryDatabase.Locations
+                                                 : null;
+
+            hydraulicBoundaryLocationColumn.DataSource = GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations);
         }
 
         private void UpdateSoilProfileColumn()
@@ -215,6 +217,13 @@ namespace Ringtoets.Piping.Forms.Views
             var pipingSoilProfiles = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
 
             soilProfileColumn.DataSource = GetSoilProfilesDataSource(pipingSoilProfiles);
+        }
+
+        private void UpdateDataGridViewDataSource()
+        {
+            dataGridView.DataSource = pipingCalculationGroup.GetPipingCalculations()
+                                                            .Select(pc => new PipingCalculationRow(pc))
+                                                            .ToList();
         }
 
         private static List<DataGridViewComboBoxItemWrapper<PipingSoilProfile>> GetSoilProfilesDataSource(IEnumerable<PipingSoilProfile> soilProfiles = null)

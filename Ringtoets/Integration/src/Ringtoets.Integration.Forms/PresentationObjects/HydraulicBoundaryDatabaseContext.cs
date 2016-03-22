@@ -25,7 +25,6 @@ using Core.Common.Base;
 
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
