@@ -24,8 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data;
 
 namespace Application.Ringtoets.Storage.Test.Converters
 {
@@ -33,63 +34,64 @@ namespace Application.Ringtoets.Storage.Test.Converters
     public class ReferenceLineConverterTest
     {
         [Test]
+        public void Constructor_Always_NewInstance()
+        {
+            // Call
+            var converter = new ReferenceLineConverter();
+
+            // Assert
+            Assert.IsInstanceOf<IEntityConverter<ReferenceLine, ICollection<ReferenceLinePointEntity>>>(converter);
+        }
+
+        [Test]
         public void ConvertEntityToModel_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
-            HydraulicLocationConverter converter = new HydraulicLocationConverter();
+            var converter = new ReferenceLineConverter();
 
             // Call
-            TestDelegate test = () => converter.ConvertEntityToModel(null).ToList();
+            TestDelegate test = () => converter.ConvertEntityToModel(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("entities", exception.ParamName);
+            Assert.AreEqual("entityCollection", exception.ParamName);
         }
 
         [Test]
         public void ConvertEntityToModel_ValidEntityValidModel_ReturnsTheEntityAsModel()
         {
             // Setup
-            const string name = "test";
-            const double designWaterLevel = 15.6;
-            const long locationId = 1300001;
-            const long storageId = 1234L;
-            const decimal locationX = 253;
-            const decimal locationY = 123;
-            var entity = new HydraulicLocationEntity()
+            var random = new Random(21);
+
+            IList<Point2D> points = new []
             {
-                LocationId = locationId,
-                Name = name,
-                DesignWaterLevel = designWaterLevel,
-                HydraulicLocationEntityId = storageId,
-                LocationX = locationX,
-                LocationY = locationY
+                new Point2D(random.NextDouble(), random.NextDouble()), 
+                new Point2D(random.NextDouble(), random.NextDouble()), 
+                new Point2D(random.NextDouble(), random.NextDouble()) 
             };
-            HydraulicLocationConverter converter = new HydraulicLocationConverter();
+            var entityCollection = points.Select(p => new ReferenceLinePointEntity { X = Convert.ToDecimal(p.X), Y = Convert.ToDecimal(p.Y) }).ToList();
+            var converter = new ReferenceLineConverter();
 
             // Call
-            List<HydraulicBoundaryLocation> locations = converter.ConvertEntityToModel(new List<HydraulicLocationEntity> { entity }).ToList();
+            ReferenceLine location = converter.ConvertEntityToModel(entityCollection);
 
             // Assert
-            Assert.AreEqual(1, locations.Count);
-            var location = locations[0];
-            Assert.AreNotEqual(entity, location);
-            Assert.AreEqual(locationId, location.Id);
-            Assert.AreEqual(storageId, location.StorageId);
-            Assert.AreEqual(name, location.Name);
-            Assert.AreEqual(designWaterLevel, location.DesignWaterLevel);
-            Assert.AreEqual(locationX, location.Location.X);
-            Assert.AreEqual(locationY, location.Location.Y);
+            Assert.AreNotEqual(points, location.Points);
+            for (var i = 0; i < entityCollection.Count; i++)
+            {
+                Assert.AreEqual(Decimal.ToDouble(entityCollection[i].X), points[i].X, 1e-8);
+                Assert.AreEqual(Decimal.ToDouble(entityCollection[i].Y), points[i].Y, 1e-8);
+            }
         }
 
         [Test]
         public void ConvertModelToEntity_NullModel_ThrowsArgumentNullException()
         {
             // Setup
-            HydraulicLocationConverter converter = new HydraulicLocationConverter();
+            var converter = new ReferenceLineConverter();
 
             // Call
-            TestDelegate test = () => converter.ConvertModelToEntity(null, new HydraulicLocationEntity());
+            TestDelegate test = () => converter.ConvertModelToEntity(null,new List<ReferenceLinePointEntity>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -100,46 +102,44 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertModelToEntity_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
-            HydraulicLocationConverter converter = new HydraulicLocationConverter();
+            var converter = new ReferenceLineConverter();
 
             // Call
-            TestDelegate test = () => converter.ConvertModelToEntity(new HydraulicBoundaryLocation(1, "test", 1, 1), null);
+            TestDelegate test = () => converter.ConvertModelToEntity(new ReferenceLine(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("entity", exception.ParamName);
+            Assert.AreEqual("entityCollection", exception.ParamName);
         }
 
         [Test]
         public void ConvertModelToEntity_ValidModelValidEntity_ReturnsModelAsEntity()
         {
             // Setup
-            HydraulicLocationConverter converter = new HydraulicLocationConverter();
-            
-            var entity = new HydraulicLocationEntity();
-            const long storageId = 1234L;
-            const long locationId = 130002;
-            const string name = "test";
-            const double locationX = 39.3;
-            const double locationY = 583.2;
-            const double designWaterLever = 14.7;
+            var converter = new ReferenceLineConverter();
+            var random = new Random(21);
+            var entity = new List<ReferenceLinePointEntity>();
 
-            var model = new HydraulicBoundaryLocation(locationId, name, locationX, locationY)
+            IList<Point2D> points = new []
             {
-                StorageId = storageId,
-                DesignWaterLevel = designWaterLever
+                new Point2D(random.NextDouble(), random.NextDouble()), 
+                new Point2D(random.NextDouble(), random.NextDouble()), 
+                new Point2D(random.NextDouble(), random.NextDouble()) 
             };
+            var model = new ReferenceLine();
+            model.SetGeometry(points);
 
             // Call
             converter.ConvertModelToEntity(model, entity);
 
             // Assert
-            Assert.AreEqual(model.StorageId, entity.HydraulicLocationEntityId);
-            Assert.AreEqual(model.Id, entity.LocationId);
-            Assert.AreEqual(model.Name, entity.Name);
-            Assert.AreEqual(model.Location.X, entity.LocationX);
-            Assert.AreEqual(model.Location.Y, entity.LocationY);
-            Assert.AreEqual(model.DesignWaterLevel, entity.DesignWaterLevel);
+            Assert.AreEqual(3, entity.Count);
+
+            for (var i = 0; i < entity.Count; i++)
+            {
+                Assert.AreEqual(points[i].X, Decimal.ToDouble(entity[i].X), 1e-8);
+                Assert.AreEqual(points[i].Y, Decimal.ToDouble(entity[i].Y), 1e-8);
+            }
         }
     }
 }
