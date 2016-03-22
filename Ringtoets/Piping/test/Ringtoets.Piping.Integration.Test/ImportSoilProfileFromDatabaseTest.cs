@@ -1,9 +1,13 @@
 ﻿using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
@@ -21,9 +25,18 @@ namespace Ringtoets.Piping.Integration.Test
             var databasePath = Path.Combine(testDataPath, "1dprofile.soil");
             var pipingFailureMechanism = new PipingFailureMechanism();
 
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            mocks.ReplayAll();
+
+            var context = new StochasticSoilModelContext(pipingFailureMechanism, assessmentSection);
+            context.Attach(observer);
+
             // When
             var importer = new PipingSoilProfilesImporter();
-            importer.Import(pipingFailureMechanism.SoilProfiles, databasePath);
+            importer.Import(context, databasePath);
 
             // Then
             Assert.AreEqual(1, pipingFailureMechanism.SoilProfiles.Count());
@@ -35,11 +48,33 @@ namespace Ringtoets.Piping.Integration.Test
 
             Assert.AreEqual(-2.1, pipingProfile.BottomLevel);
             Assert.AreEqual(3, pipingProfile.Layers.Count);
-            CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, pipingProfile.Layers.Select(l => l.AbovePhreaticLevel));
-            CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, pipingProfile.Layers.Select(l => l.BelowPhreaticLevel));
+            CollectionAssert.AreEqual(new[]
+            {
+                0.001,
+                0.001,
+                0.001
+            }, pipingProfile.Layers.Select(l => l.AbovePhreaticLevel));
+            CollectionAssert.AreEqual(new[]
+            {
+                0.001,
+                0.001,
+                0.001
+            }, pipingProfile.Layers.Select(l => l.BelowPhreaticLevel));
             CollectionAssert.AreEqual(Enumerable.Repeat(defaultPipingLayer.DryUnitWeight, 3), pipingProfile.Layers.Select(l => l.DryUnitWeight));
-            CollectionAssert.AreEqual(new[] { false, false, true }, pipingProfile.Layers.Select(l => l.IsAquifer));
-            CollectionAssert.AreEqual(new[] { 3.3, 2.2, 1.1 }, pipingProfile.Layers.Select(l => l.TopLevel));
+            CollectionAssert.AreEqual(new[]
+            {
+                false,
+                false,
+                true
+            }, pipingProfile.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEqual(new[]
+            {
+                3.3,
+                2.2,
+                1.1
+            }, pipingProfile.Layers.Select(l => l.TopLevel));
+
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
         /// <summary>
@@ -53,9 +88,18 @@ namespace Ringtoets.Piping.Integration.Test
             var databasePath = Path.Combine(testDataPath, "invalid2dGeometry.soil");
             var pipingFailureMechanism = new PipingFailureMechanism();
 
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            mocks.ReplayAll();
+
+            var context = new StochasticSoilModelContext(pipingFailureMechanism, assessmentSection);
+            context.Attach(observer);
+
             // When
             var importer = new PipingSoilProfilesImporter();
-            importer.Import(pipingFailureMechanism.SoilProfiles, databasePath);
+            importer.Import(context, databasePath);
 
             // Then
             Assert.AreEqual(1, pipingFailureMechanism.SoilProfiles.Count());
@@ -65,11 +109,38 @@ namespace Ringtoets.Piping.Integration.Test
 
             Assert.AreEqual(1.25, pipingProfile.BottomLevel);
             Assert.AreEqual(3, pipingProfile.Layers.Count);
-            CollectionAssert.AreEqual(new[] { 0.02, 0.002, 0.3 }, pipingProfile.Layers.Select(l => l.AbovePhreaticLevel));
-            CollectionAssert.AreEqual(new[] { 0.0, 0.001, 0.009 }, pipingProfile.Layers.Select(l => l.BelowPhreaticLevel));
-            CollectionAssert.AreEqual(new[] { 0.15, 0.25, 0.35}, pipingProfile.Layers.Select(l => l.DryUnitWeight));
-            CollectionAssert.AreEqual(new[] { false, false, false }, pipingProfile.Layers.Select(l => l.IsAquifer));
-            CollectionAssert.AreEqual(new[] { 4,3.75,2.75 }, pipingProfile.Layers.Select(l => l.TopLevel));
+            CollectionAssert.AreEqual(new[]
+            {
+                0.02,
+                0.002,
+                0.3
+            }, pipingProfile.Layers.Select(l => l.AbovePhreaticLevel));
+            CollectionAssert.AreEqual(new[]
+            {
+                0.0,
+                0.001,
+                0.009
+            }, pipingProfile.Layers.Select(l => l.BelowPhreaticLevel));
+            CollectionAssert.AreEqual(new[]
+            {
+                0.15,
+                0.25,
+                0.35
+            }, pipingProfile.Layers.Select(l => l.DryUnitWeight));
+            CollectionAssert.AreEqual(new[]
+            {
+                false,
+                false,
+                false
+            }, pipingProfile.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEqual(new[]
+            {
+                4,
+                3.75,
+                2.75
+            }, pipingProfile.Layers.Select(l => l.TopLevel));
+
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
         [Test]
@@ -79,9 +150,18 @@ namespace Ringtoets.Piping.Integration.Test
             var databasePath = Path.Combine(testDataPath, "1dprofileNoValues.soil");
             var pipingFailureMechanism = new PipingFailureMechanism();
 
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            mocks.ReplayAll();
+
+            var context = new StochasticSoilModelContext(pipingFailureMechanism, assessmentSection);
+            context.Attach(observer);
+
             // When
             var importer = new PipingSoilProfilesImporter();
-            importer.Import(pipingFailureMechanism.SoilProfiles, databasePath);
+            importer.Import(context, databasePath);
 
             // Then
             Assert.AreEqual(1, pipingFailureMechanism.SoilProfiles.Count());
@@ -96,7 +176,13 @@ namespace Ringtoets.Piping.Integration.Test
             CollectionAssert.AreEqual(Enumerable.Repeat(defaultPipingLayer.BelowPhreaticLevel, 3), pipingProfile.Layers.Select(l => l.BelowPhreaticLevel));
             CollectionAssert.AreEqual(Enumerable.Repeat(defaultPipingLayer.DryUnitWeight, 3), pipingProfile.Layers.Select(l => l.DryUnitWeight));
             CollectionAssert.AreEqual(Enumerable.Repeat(defaultPipingLayer.IsAquifer, 3), pipingProfile.Layers.Select(l => l.IsAquifer));
-            CollectionAssert.AreEqual(new[] { 3.3, 2.2, 1.1 }, pipingProfile.Layers.Select(l => l.TopLevel));
-        } 
+            CollectionAssert.AreEqual(new[]
+            {
+                3.3,
+                2.2,
+                1.1
+            }, pipingProfile.Layers.Select(l => l.TopLevel));
+            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
+        }
     }
 }

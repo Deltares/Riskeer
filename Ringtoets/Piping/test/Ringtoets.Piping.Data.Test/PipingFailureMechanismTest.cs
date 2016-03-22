@@ -1,9 +1,7 @@
 ﻿using System.Linq;
-
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -33,7 +31,7 @@ namespace Ringtoets.Piping.Data.Test
             CollectionAssert.IsEmpty(piping.SurfaceLines);
             Assert.IsInstanceOf<ObservableList<RingtoetsPipingSurfaceLine>>(piping.SurfaceLines);
             CollectionAssert.IsEmpty(piping.SoilProfiles);
-            Assert.IsInstanceOf<ObservableList<PipingSoilProfile>>(piping.SoilProfiles);
+            Assert.IsInstanceOf<ObservableList<StochasticSoilModel>>(piping.StochasticSoilModels);
             Assert.AreEqual("Berekeningen", piping.CalculationsGroup.Name);
             Assert.AreEqual(1, piping.CalculationsGroup.Children.Count);
             Assert.IsInstanceOf<PipingCalculation>(piping.CalculationsGroup.Children.First());
