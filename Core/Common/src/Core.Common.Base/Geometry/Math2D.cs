@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+
 using Core.Common.Base.Properties;
 
 using MathNet.Numerics.LinearAlgebra;
@@ -119,52 +120,21 @@ namespace Core.Common.Base.Geometry
 
             var aLine = line1Point2.Y - line1Point1.Y;
             var bLine = line1Point1.X - line1Point2.X;
-            var cLine = aLine*line1Point1.X + bLine*line1Point1.Y;
+            var cLine = aLine * line1Point1.X + bLine * line1Point1.Y;
 
             var aOtherLine = line2Point2.Y - line2Point1.Y;
             var bOtherLine = line2Point1.X - line2Point2.X;
-            var cOtherLine = aOtherLine*line2Point1.X + bOtherLine*line2Point1.Y;
+            var cOtherLine = aOtherLine * line2Point1.X + bOtherLine * line2Point1.Y;
 
-            var determinant = aLine*bOtherLine - aOtherLine*bLine;
+            var determinant = aLine * bOtherLine - aOtherLine * bLine;
             if (Math.Abs(determinant) < epsilonForComparisons)
             {
                 return null;
             }
 
-            var x = (bOtherLine*cLine - bLine*cOtherLine)/determinant;
-            var y = (aLine*cOtherLine - aOtherLine*cLine)/determinant;
+            var x = (bOtherLine * cLine - bLine * cOtherLine) / determinant;
+            var y = (aLine * cOtherLine - aOtherLine * cLine) / determinant;
             return new Point2D(x, y);
-        }
-
-        /// <summary>
-        /// Determines the intersection points between multiple segments.
-        /// </summary>
-        /// <param name="segments">A <see cref="IEnumerable{T}"/> of <see cref="Segment2D"/>.</param>
-        /// <param name="segmentsToCompare">Another <see cref="IEnumerable{T}"/> of <see cref="Segment2D"/> which may or may not intersect with the <see cref="Segment2D"/> from <paramref name="segments"/>.</param>
-        /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> intersection points.</returns>
-        public static IEnumerable<Point2D> SegmentsIntersectionsWithSegments(IEnumerable<Segment2D> segments, IEnumerable<Segment2D> segmentsToCompare)
-        {
-            return segments.SelectMany(segment => segmentsToCompare, SegmentIntersectionWithSegment).Where(intersection => intersection != null).Distinct().ToList();
-        }
-
-        /// <summary>
-        /// Determines the intersection points between two <see cref="Segment2D"/> segments.
-        /// </summary>
-        /// <param name="segment1">A <see cref="Segment2D"/> segment.</param>
-        /// <param name="segment2">Another <see cref="Segment2D"/> segment which may or may not intersect with the <see cref="Segment2D"/> from <paramref name="segment1"/>.</param>
-        /// <returns>A <see cref="Point2D"/> intersection point, or <c>null</c> when there is no intersection.</returns>
-        public static Point2D SegmentIntersectionWithSegment(Segment2D segment1, Segment2D segment2)
-        {
-            if (AreEqualPoints(segment1.FirstPoint, segment1.SecondPoint))
-            {
-                return segment1.FirstPoint;
-            }
-            if (AreEqualPoints(segment1.SecondPoint, segment2.FirstPoint))
-            {
-                return segment1.SecondPoint;
-            }
-
-            return GetIntersectionPoint(segment1, segment2);
         }
 
         /// <summary>
@@ -367,7 +337,6 @@ namespace Core.Common.Base.Geometry
                                Segment2DIntersectSegment2DResult.CreateIntersectionResult(segment1.FirstPoint) :
                                Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
                 }
-                
             }
 
             return IsPointInCollinearSegment(segment2.FirstPoint, segment1) ?
@@ -401,25 +370,25 @@ namespace Core.Common.Base.Geometry
         /// based on method <c>intersect2D_2Segments</c>.</remarks>
         private static Point2D GetIntersectionPoint(Segment2D segment1, Segment2D segment2)
         {
-            var aLine = (segment1.FirstPoint.Y - segment2.FirstPoint.Y)*(segment2.SecondPoint.X - segment2.FirstPoint.X) - (segment1.FirstPoint.X - segment2.FirstPoint.X)*(segment2.SecondPoint.Y - segment2.FirstPoint.Y);
-            var bLine = (segment1.SecondPoint.X - segment1.FirstPoint.X)*(segment2.SecondPoint.Y - segment2.FirstPoint.Y) - (segment1.SecondPoint.Y - segment1.FirstPoint.Y)*(segment2.SecondPoint.X - segment2.FirstPoint.X);
+            var aLine = (segment1.FirstPoint.Y - segment2.FirstPoint.Y) * (segment2.SecondPoint.X - segment2.FirstPoint.X) - (segment1.FirstPoint.X - segment2.FirstPoint.X) * (segment2.SecondPoint.Y - segment2.FirstPoint.Y);
+            var bLine = (segment1.SecondPoint.X - segment1.FirstPoint.X) * (segment2.SecondPoint.Y - segment2.FirstPoint.Y) - (segment1.SecondPoint.Y - segment1.FirstPoint.Y) * (segment2.SecondPoint.X - segment2.FirstPoint.X);
 
             if (Math.Abs(bLine) < epsilonForComparisons)
             {
                 return null;
             }
 
-            var intersectionPoint = aLine/bLine;
+            var intersectionPoint = aLine / bLine;
 
-            var cLine = (segment1.FirstPoint.Y - segment2.FirstPoint.Y)*(segment1.SecondPoint.X - segment1.FirstPoint.X) - (segment1.FirstPoint.X - segment2.FirstPoint.X)*(segment1.SecondPoint.Y - segment1.FirstPoint.Y);
-            var dLine = cLine/bLine;
+            var cLine = (segment1.FirstPoint.Y - segment2.FirstPoint.Y) * (segment1.SecondPoint.X - segment1.FirstPoint.X) - (segment1.FirstPoint.X - segment2.FirstPoint.X) * (segment1.SecondPoint.Y - segment1.FirstPoint.Y);
+            var dLine = cLine / bLine;
 
             if (intersectionPoint >= 0 && intersectionPoint <= 1 && dLine >= 0 && dLine <= 1)
             {
                 return new Point2D
                     (
-                    segment1.FirstPoint.X + intersectionPoint*(segment1.SecondPoint.X - segment1.FirstPoint.X),
-                    segment1.FirstPoint.Y + intersectionPoint*(segment1.SecondPoint.Y - segment1.FirstPoint.Y)
+                    segment1.FirstPoint.X + intersectionPoint * (segment1.SecondPoint.X - segment1.FirstPoint.X),
+                    segment1.FirstPoint.Y + intersectionPoint * (segment1.SecondPoint.Y - segment1.FirstPoint.Y)
                     );
             }
             return null;
@@ -510,7 +479,7 @@ namespace Core.Common.Base.Geometry
 
         private static Point2D GetInterpolatedPoint(Segment2D lineSegment, double splitDistance)
         {
-            var interpolationFactor = splitDistance/lineSegment.Length;
+            var interpolationFactor = splitDistance / lineSegment.Length;
             Vector<double> segmentVector = lineSegment.SecondPoint - lineSegment.FirstPoint;
             return lineSegment.FirstPoint + segmentVector.Multiply(interpolationFactor);
         }

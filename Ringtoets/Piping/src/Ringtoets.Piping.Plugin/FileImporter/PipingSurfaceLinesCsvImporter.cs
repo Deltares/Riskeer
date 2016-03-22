@@ -24,15 +24,19 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
+
 using log4net;
+
 using Ringtoets.Common.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;
+
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -47,6 +51,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// </summary>
     public class PipingSurfaceLinesCsvImporter : FileImporterBase<RingtoetsPipingSurfaceLinesContext>
     {
+        private enum ReferenceLineIntersectionsResult
+        {
+            NoIntersections,
+            OneIntersection,
+            MultipleIntersectionsOrOverlap
+        }
+
         private const string characteristicPointsFileSubExtension = ".krp";
         private const string csvFileExtension = ".csv";
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSurfaceLinesCsvImporter));
@@ -99,7 +110,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            var surfaceLinesContext = (RingtoetsPipingSurfaceLinesContext) targetItem;
+            var surfaceLinesContext = (RingtoetsPipingSurfaceLinesContext)targetItem;
 
             var importSurfaceLinesResult = ReadPipingSurfaceLines(filePath);
             if (importSurfaceLinesResult.CriticalErrorOccurred)
@@ -132,7 +143,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private static bool IsReferenceLineAvailable(object targetItem)
         {
-            return ((RingtoetsPipingSurfaceLinesContext) targetItem).AssessmentSection.ReferenceLine != null;
+            return ((RingtoetsPipingSurfaceLinesContext)targetItem).AssessmentSection.ReferenceLine != null;
         }
 
         private ReadResult<T> HandleCriticalReadError<T>(Exception e)
@@ -184,28 +195,55 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private bool CheckReferenceLineInterSections(RingtoetsPipingSurfaceLine readSurfaceLine, ReferenceLine referenceLine)
         {
-            var surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(readSurfaceLine.Points.Select(p => new Point2D(p.X, p.Y)));
-            var referenceLineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points);
+            ReferenceLineIntersectionsResult result = GetReferenceLineIntersections(referenceLine, readSurfaceLine);
 
-            var intersections = Math2D.SegmentsIntersectionsWithSegments(referenceLineSegments, surfaceLineSegments).ToList();
-
-            if (intersections.Count == 1)
-            {
-                return true;
-            }
-
-            if (intersections.Count == 0)
+            if (result == ReferenceLineIntersectionsResult.NoIntersections)
             {
                 log.ErrorFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline_1_,
                                 readSurfaceLine.Name,
                                 RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system);
             }
-            else if (intersections.Count > 1)
+            else if (result == ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap)
             {
                 log.ErrorFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline, readSurfaceLine.Name);
             }
 
-            return false;
+            return result == ReferenceLineIntersectionsResult.OneIntersection;
+        }
+
+        private static ReferenceLineIntersectionsResult GetReferenceLineIntersections(ReferenceLine referenceLine, RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            var surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)));
+            Segment2D[] referenceLineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points).ToArray();
+
+            return GetReferenceLineIntersectionsResult(surfaceLineSegments, referenceLineSegments);
+        }
+
+        private static ReferenceLineIntersectionsResult GetReferenceLineIntersectionsResult(IEnumerable<Segment2D> surfaceLineSegments, Segment2D[] referenceLineSegments)
+        {
+            ReferenceLineIntersectionsResult intersectionResult = ReferenceLineIntersectionsResult.NoIntersections;
+            foreach (Segment2D surfaceLineSegment in surfaceLineSegments)
+            {
+                foreach (Segment2D referenceLineSegment in referenceLineSegments)
+                {
+                    Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(surfaceLineSegment, referenceLineSegment);
+                    if (result.IntersectionType == Intersection2DType.Intersects)
+                    {
+                        if (intersectionResult == ReferenceLineIntersectionsResult.OneIntersection)
+                        {
+                            // Early exit as multiple intersections is a return result:
+                            return ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap;
+                        }
+                        intersectionResult = ReferenceLineIntersectionsResult.OneIntersection;
+                    }
+                    if (result.IntersectionType == Intersection2DType.Overlapping)
+                    {
+                        // Early exit as overlap is a return result:
+                        return ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap;
+                    }
+                }
+            }
+            return intersectionResult;
         }
 
         private static void SetCharacteristicPointsOnSurfaceLine(RingtoetsPipingSurfaceLine readSurfaceLine, CharacteristicPoints characteristicPointsLocation)
