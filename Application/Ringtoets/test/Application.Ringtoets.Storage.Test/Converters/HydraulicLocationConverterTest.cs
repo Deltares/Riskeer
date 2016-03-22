@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
@@ -31,27 +34,17 @@ namespace Application.Ringtoets.Storage.Test.Converters
     public class HydraulicLocationConverterTest
     {
         [Test]
-        public void Constructor_Always_NewInstance()
-        {
-            // Call
-            HydraulicLocationConverter converter = new HydraulicLocationConverter();
-
-            // Assert
-            Assert.IsInstanceOf<IEntityConverter<HydraulicBoundaryLocation, HydraulicLocationEntity>>(converter);
-        }
-
-        [Test]
         public void ConvertEntityToModel_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
             HydraulicLocationConverter converter = new HydraulicLocationConverter();
 
             // Call
-            TestDelegate test = () => converter.ConvertEntityToModel(null);
+            TestDelegate test = () => converter.ConvertEntityToModel(null).ToList();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("entity", exception.ParamName);
+            Assert.AreEqual("entities", exception.ParamName);
         }
 
         [Test]
@@ -76,9 +69,11 @@ namespace Application.Ringtoets.Storage.Test.Converters
             HydraulicLocationConverter converter = new HydraulicLocationConverter();
 
             // Call
-            HydraulicBoundaryLocation location = converter.ConvertEntityToModel(entity);
+            List<HydraulicBoundaryLocation> locations = converter.ConvertEntityToModel(new List<HydraulicLocationEntity> {entity}).ToList();
 
             // Assert
+            Assert.AreEqual(1, locations.Count);
+            var location = locations[0];
             Assert.AreNotEqual(entity, location);
             Assert.AreEqual(locationId, location.Id);
             Assert.AreEqual(storageId, location.StorageId);
@@ -109,7 +104,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             HydraulicLocationConverter converter = new HydraulicLocationConverter();
 
             // Call
-            TestDelegate test = () => converter.ConvertModelToEntity(new HydraulicBoundaryLocation(), null);
+            TestDelegate test = () => converter.ConvertModelToEntity(new HydraulicBoundaryLocation(1, "test", 1, 1), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

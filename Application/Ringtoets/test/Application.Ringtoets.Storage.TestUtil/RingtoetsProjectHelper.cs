@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Base.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.TestUtil
@@ -43,10 +45,23 @@ namespace Application.Ringtoets.Storage.TestUtil
                 {
                     new DikeAssessmentSection
                     {
-                        Name = "dikeAssessmentSection"
+                        Name = "dikeAssessmentSection",
+                        HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase()
                     }
                 }
             };
+        }
+
+        private static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase()
+        {
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = "/temp/test",
+                Version = "1.0"
+            };
+            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5));
+
+            return hydraulicBoundaryDatabase;
         }
     }
 }

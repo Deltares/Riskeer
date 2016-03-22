@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Geometry;
 using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Converters
@@ -30,29 +30,43 @@ namespace Application.Ringtoets.Storage.Converters
     ///  Converter for <see cref="HydraulicLocationEntity"/> to <see cref="HydraulicBoundaryLocation"/>
     /// and <see cref="HydraulicBoundaryLocation"/> to <see cref="HydraulicLocationEntity"/>.
     /// </summary>
-    public class HydraulicLocationConverter : IEntityConverter<HydraulicBoundaryLocation, HydraulicLocationEntity>
+    public class HydraulicLocationConverter // : IEntityConverter<HydraulicBoundaryLocation, HydraulicLocationEntity>
     {
-        public HydraulicBoundaryLocation ConvertEntityToModel(HydraulicLocationEntity entity)
+        /// <summary>
+        /// Converts <paramref name="entities"/> to an <see cref="ICollection{T}"/> of <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
+        /// <param name="entities">The <see cref="ICollection{T}"/> of <see cref="HydraulicLocationEntity"/> to convert.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="HydraulicBoundaryLocation"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entities"/> is <c>null</c>.</exception>
+        public IEnumerable<HydraulicBoundaryLocation> ConvertEntityToModel(ICollection<HydraulicLocationEntity> entities)
         {
-            if (entity == null)
+            if (entities == null)
             {
-                throw new ArgumentNullException("entity");
-            }
-            
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation();
-            hydraulicBoundaryLocation.Id = entity.LocationId;
-            hydraulicBoundaryLocation.StorageId = entity.HydraulicLocationEntityId;
-            hydraulicBoundaryLocation.Name = entity.Name;
-            hydraulicBoundaryLocation.Location = new Point2D(Convert.ToDouble(entity.LocationX), Convert.ToDouble(entity.LocationY));
-
-            if (entity.DesignWaterLevel.HasValue)
-            {
-                hydraulicBoundaryLocation.DesignWaterLevel = (double)entity.DesignWaterLevel;
+                throw new ArgumentNullException("entities");
             }
 
-            return hydraulicBoundaryLocation;
+            foreach (var entity in entities)
+            {
+                HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(entity.LocationId, entity.Name, Convert.ToDouble(entity.LocationX), Convert.ToDouble(entity.LocationY))
+                {
+                    StorageId = entity.HydraulicLocationEntityId,
+                };
+
+                if (entity.DesignWaterLevel.HasValue)
+                {
+                    hydraulicBoundaryLocation.DesignWaterLevel = (double)entity.DesignWaterLevel;
+                }
+
+                yield return hydraulicBoundaryLocation;
+            }
         }
 
+        /// <summary>
+        /// Converts <paramref name="modelObject"/> to <paramref name="entity"/>.
+        /// </summary>
+        /// <param name="modelObject">The <see cref="HydraulicBoundaryLocation"/> to convert.</param>
+        /// <param name="entity">A reference to the <see cref="HydraulicLocationEntity"/> to be saved.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="modelObject"/> or <paramref name="entity"/> is <c>null</c>.</exception>
         public void ConvertModelToEntity(HydraulicBoundaryLocation modelObject, HydraulicLocationEntity entity)
         {
             if (modelObject == null)

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
@@ -58,68 +59,124 @@ namespace Application.Ringtoets.Storage.Persistors
             converter = new HydraulicLocationConverter();
         }
 
-        public void UpdateModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryLocation model, int order)
+        /// <summary>
+        /// Loads the <see cref="HydraulicLocationEntity"/> as <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
+        /// <param name="entities">The <see cref="HydraulicLocationEntity"/> to load.</param>
+        /// <returns>A new instance of <see cref="HydraulicBoundaryLocation"/>, based on the properties of <paramref name="entities"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entities"/> is <c>null</c>.</exception>
+        public IEnumerable<HydraulicBoundaryLocation> LoadModel(ICollection<HydraulicLocationEntity> entities)
         {
-            if (model == null)
+            if (entities == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException("entities");
             }
 
-            if (model.StorageId < 1)
-            {
-                InsertModel(parentNavigationProperty, model, 0);
-                return;
-            }
-
-            if (parentNavigationProperty == null)
-            {
-                throw new ArgumentNullException("parentNavigationProperty");
-            }
-
-            HydraulicLocationEntity entity;
-            try
-            {
-                entity = parentNavigationProperty.SingleOrDefault(db => db.HydraulicLocationEntityId == model.StorageId);
-            }
-            catch (InvalidOperationException exception)
-            {
-                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "HydraulicLocationEntity", model.StorageId), exception);
-            }
-
-            if (entity == null)
-            {
-                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "HydraulicLocationEntity", model.StorageId));
-            }
-
-            modifiedList.Add(entity);
-
-            converter.ConvertModelToEntity(model, entity);
+            return converter.ConvertEntityToModel(entities);
         }
 
-        public void InsertModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryLocation model, int order)
+        /// <summary>
+        /// Ensures that the <paramref name="model"/> is set as <see cref="HydraulicLocationEntity"/> in the <paramref name="parentNavigationProperty"/>.
+        /// All other <see cref="HydraulicLocationEntity"/> in <paramref name="parentNavigationProperty"/> will be removed.
+        /// </summary>
+        /// <param name="parentNavigationProperty">Collection where <see cref="HydraulicBoundaryLocation"/> objects can be searched and added. 
+        /// Usually, this collection is a navigation property of a <see cref="IDbSet{HydraulicLocationEntity}"/>.</param>
+        /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> to be saved in the storage.</param>
+        public void UpdateModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryDatabase model)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
             if (parentNavigationProperty == null)
             {
                 throw new ArgumentNullException("parentNavigationProperty");
             }
 
-            if (model == null)
+            foreach (var location in model.Locations)
             {
-                throw new ArgumentNullException("model");
+                if (location == null)
+                {
+                    throw new ArgumentException("Null location cannot be added");
+                }
+
+                if (location.StorageId < 1)
+                {
+                    InsertLocation(parentNavigationProperty, location);
+                    continue;
+                }
+
+                HydraulicLocationEntity entity;
+                try
+                {
+                    entity = parentNavigationProperty.SingleOrDefault(db => db.HydraulicLocationEntityId == location.StorageId);
+                }
+                catch (InvalidOperationException exception)
+                {
+                    throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "HydraulicLocationEntity", location.StorageId), exception);
+                }
+
+                if (entity == null)
+                {
+                    throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "HydraulicLocationEntity", location.StorageId));
+                }
+
+                modifiedList.Add(entity);
+
+                converter.ConvertModelToEntity(location, entity);
+            }
+        }
+
+        private void InsertLocation(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryLocation location)
+        {
+            if (location == null)
+            {
+                throw new ArgumentNullException("location");
             }
 
             var entity = new HydraulicLocationEntity();
             parentNavigationProperty.Add(entity);
-            insertedList.Add(entity, model);
+            insertedList.Add(entity, location);
 
-            converter.ConvertModelToEntity(model, entity);
+            converter.ConvertModelToEntity(location, entity);
 
-            if (model.StorageId > 0)
+            if (location.StorageId > 0)
             {
                 modifiedList.Add(entity);
             }
         }
 
+        /// <summary>
+        /// Ensures that the <paramref name="hydraulicBoundaryDatabase"/> is added as <see cref="HydraulicLocationEntity"/> in the <paramref name="parentNavigationProperty"/>.
+        /// All other <see cref="HydraulicLocationEntity"/> in <paramref name="parentNavigationProperty"/> will be removed.
+        /// </summary>
+        /// <param name="parentNavigationProperty">Collection where <see cref="HydraulicLocationEntity"/> objects can be added.
+        ///  Usually, this collection is a navigation property of a <see cref="IDbSet{HydraulicLocationEntity}"/>.</param>
+        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryLocation"/> to be saved in the storage.</param>
+        public void InsertModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            if (parentNavigationProperty == null)
+            {
+                throw new ArgumentNullException("parentNavigationProperty");
+            }
+
+            if (hydraulicBoundaryDatabase == null)
+            {
+                return;
+            }
+
+            foreach (var location in hydraulicBoundaryDatabase.Locations)
+            {
+                InsertLocation(parentNavigationProperty, location);
+            }
+        }
+
+        /// <summary>
+        /// Removes all entities from <see cref="IRingtoetsEntities.ProjectEntities"/> that are not marked as 'updated'.
+        /// </summary>
+        /// <param name="parentNavigationProperty">List where <see cref="HydraulicLocationEntity"/> objects can be searched. 
+        /// Usually, this collection is a navigation property of a <see cref="IDbSet{HydraulicLocationEntity}"/>.</param>
         public void RemoveUnModifiedEntries(ICollection<HydraulicLocationEntity> parentNavigationProperty)
         {
             var originalList = parentNavigationProperty.ToList();
@@ -140,6 +197,9 @@ namespace Application.Ringtoets.Storage.Persistors
             modifiedList.Clear();
         }
 
+        /// <summary>
+        /// Perform actions that can only be executed after <see cref="IRingtoetsEntities.SaveChanges"/> has been called.
+        /// </summary>
         public void PerformPostSaveActions()
         {
             foreach (var entry in insertedList)
@@ -147,16 +207,6 @@ namespace Application.Ringtoets.Storage.Persistors
                 entry.Value.StorageId = entry.Key.HydraulicLocationEntityId;
             }
             insertedList.Clear();
-        }
-
-        public HydraulicBoundaryLocation LoadModel(HydraulicLocationEntity entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-
-            return converter.ConvertEntityToModel(entity);
         }
     }
 }

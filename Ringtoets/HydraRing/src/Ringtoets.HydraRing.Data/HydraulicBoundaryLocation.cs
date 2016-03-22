@@ -34,14 +34,6 @@ namespace Ringtoets.HydraRing.Data
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        public HydraulicBoundaryLocation()
-        {
-            DesignWaterLevel = Double.NaN;
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
         /// <param name="id">Id of the <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="name">Name of the <see cref="HydraulicBoundaryLocation"/>.</param>
         /// <param name="coordinateX">X coordinate of the <see cref="HydraulicBoundaryLocation"/>.</param>
@@ -62,17 +54,17 @@ namespace Ringtoets.HydraRing.Data
         /// <summary>
         /// Gets the database id of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        public long Id { get; set; }
+        public long Id { get; private set; }
 
         /// <summary>
         /// Gets the name of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         /// <summary>
         /// Gets the coordinates of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        public Point2D Location { get; set; }
+        public Point2D Location { get; private set; }
 
         /// <summary>
         /// Gets the design water level of <see cref="HydraulicBoundaryLocation"/>.
