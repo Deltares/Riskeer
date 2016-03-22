@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
@@ -43,6 +45,7 @@ namespace Ringtoets.Piping.Forms.Views
         private PipingCalculationGroup pipingCalculationGroup;
         private DataGridViewComboBoxColumn soilProfileColumn;
         private DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn;
+        private readonly DynamicObserver pipingCalculationGroupObserver;
 
         /// <summary>
         /// Creates a new instance of the <see cref="PipingCalculationsView"/> class.
@@ -51,24 +54,8 @@ namespace Ringtoets.Piping.Forms.Views
         {
             InitializeComponent();
             InitializeDataGridView();
-        }
 
-        public object Data
-        {
-            get
-            {
-                return pipingCalculationGroup;
-            }
-            set
-            {
-                pipingCalculationGroup = value as PipingCalculationGroup;
-
-                dataGridView.DataSource = pipingCalculationGroup != null
-                                              ? pipingCalculationGroup.GetPipingCalculations()
-                                                                      .Select(pc => new PipingCalculationRow(pc))
-                                                                      .ToList()
-                                              : null;
-            }
+            pipingCalculationGroupObserver = new DynamicObserver(UpdateDataGridViewDataSource);
         }
 
         /// <summary>
@@ -108,6 +95,29 @@ namespace Ringtoets.Piping.Forms.Views
                                                      : null;
 
                 hydraulicBoundaryLocationColumn.DataSource = GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations);
+            }
+        }
+
+        public object Data
+        {
+            get
+            {
+                return pipingCalculationGroup;
+            }
+            set
+            {
+                pipingCalculationGroup = value as PipingCalculationGroup;
+
+                if (pipingCalculationGroup != null)
+                {
+                    UpdateDataGridViewDataSource();
+                    pipingCalculationGroupObserver.Observable = pipingCalculationGroup;
+                }
+                else
+                {
+                    dataGridView.DataSource = null;
+                    pipingCalculationGroupObserver.Observable = null;
+                }
             }
         }
 
@@ -179,6 +189,13 @@ namespace Ringtoets.Piping.Forms.Views
             dataGridView.Columns.AddRange(nameColumn, soilProfileColumn, hydraulicBoundaryLocationColumn, dampingFactorExitMeanColumn, phreaticLevelExitMeanColumn, entryPointLColumn, exitPointLColumn);
         }
 
+        private void UpdateDataGridViewDataSource()
+        {
+            dataGridView.DataSource = pipingCalculationGroup.GetPipingCalculations()
+                                                            .Select(pc => new PipingCalculationRow(pc))
+                                                            .ToList();
+        }
+
         private static List<DataGridViewComboBoxItemWrapper<PipingSoilProfile>> GetSoilProfilesDataSource(IEnumerable<PipingSoilProfile> soilProfiles = null)
         {
             var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<PipingSoilProfile>>
@@ -207,6 +224,46 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             return dataGridViewComboBoxItemWrappers;
+        }
+
+        #region Nested types
+
+        private class DynamicObserver : IObserver
+        {
+            private readonly Action updateObserverAction;
+            private IObservable observable;
+
+            public DynamicObserver(Action updateObserverAction)
+            {
+                this.updateObserverAction = updateObserverAction;
+            }
+
+            public IObservable Observable
+            {
+                get
+                {
+                    return observable;
+                }
+                set
+                {
+                    if (observable != null)
+                    {
+                        observable.Detach(this);
+                    }
+
+                    observable = value;
+
+                    if (observable != null)
+                    {
+                        observable.Attach(this);
+                    }
+                }
+            }
+
+            public void UpdateObserver()
+            {
+                updateObserverAction();
+            }
         }
 
         private class PipingCalculationRow
@@ -302,5 +359,7 @@ namespace Ringtoets.Piping.Forms.Views
                 }
             }
         }
+
+        #endregion
     }
 }
