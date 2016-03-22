@@ -168,9 +168,14 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             List<string> readCharacteristicPointsLocationNames = readCharacteristicPointsLocations.Select(cpl => cpl.Name).ToList();
             foreach (var readSurfaceLine in readSurfaceLines)
             {
-                if (!CheckReferenceLineInterSections(readSurfaceLine, target.AssessmentSection.ReferenceLine))
+                ReferenceLineIntersectionResult result = CheckReferenceLineInterSections(readSurfaceLine, target.AssessmentSection.ReferenceLine);
+                if (result.TypeOfIntersection != ReferenceLineIntersectionsResult.OneIntersection)
                 {
                     continue;
+                }
+                else
+                {
+                    readSurfaceLine.ReferenceLineIntersectionWorldPoint = result.IntersectionPoint;
                 }
 
                 CharacteristicPoints characteristicPoints = readCharacteristicPointsLocations.FirstOrDefault(cpl => cpl.Name == readSurfaceLine.Name);
@@ -193,25 +198,52 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        private bool CheckReferenceLineInterSections(RingtoetsPipingSurfaceLine readSurfaceLine, ReferenceLine referenceLine)
+        private ReferenceLineIntersectionResult CheckReferenceLineInterSections(RingtoetsPipingSurfaceLine readSurfaceLine, ReferenceLine referenceLine)
         {
-            ReferenceLineIntersectionsResult result = GetReferenceLineIntersections(referenceLine, readSurfaceLine);
+            ReferenceLineIntersectionResult result = GetReferenceLineIntersections(referenceLine, readSurfaceLine);
 
-            if (result == ReferenceLineIntersectionsResult.NoIntersections)
+            if (result.TypeOfIntersection == ReferenceLineIntersectionsResult.NoIntersections)
             {
                 log.ErrorFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline_1_,
                                 readSurfaceLine.Name,
                                 RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system);
             }
-            else if (result == ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap)
+            else if (result.TypeOfIntersection == ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap)
             {
                 log.ErrorFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline, readSurfaceLine.Name);
             }
 
-            return result == ReferenceLineIntersectionsResult.OneIntersection;
+            return result;
         }
 
-        private static ReferenceLineIntersectionsResult GetReferenceLineIntersections(ReferenceLine referenceLine, RingtoetsPipingSurfaceLine surfaceLine)
+        private class ReferenceLineIntersectionResult
+        {
+            private ReferenceLineIntersectionResult(ReferenceLineIntersectionsResult typeOfIntersection, Point2D intersectionPoint)
+            {
+                TypeOfIntersection = typeOfIntersection;
+                IntersectionPoint = intersectionPoint;
+            }
+
+            public static ReferenceLineIntersectionResult CreateNoSingleIntersectionResult()
+            {
+                return new ReferenceLineIntersectionResult(ReferenceLineIntersectionsResult.NoIntersections, null);
+            }
+
+            public static ReferenceLineIntersectionResult CreateIntersectionResult(Point2D point)
+            {
+                return new ReferenceLineIntersectionResult(ReferenceLineIntersectionsResult.OneIntersection, point);
+            }
+
+            public static ReferenceLineIntersectionResult CreateMultipleIntersectionsOrOverlapResult()
+            {
+                return new ReferenceLineIntersectionResult(ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap, null);
+            }
+
+            public ReferenceLineIntersectionsResult TypeOfIntersection { get; private set; }
+            public Point2D IntersectionPoint { get; private set; }
+        }
+
+        private static ReferenceLineIntersectionResult GetReferenceLineIntersections(ReferenceLine referenceLine, RingtoetsPipingSurfaceLine surfaceLine)
         {
             var surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)));
             Segment2D[] referenceLineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points).ToArray();
@@ -219,31 +251,35 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return GetReferenceLineIntersectionsResult(surfaceLineSegments, referenceLineSegments);
         }
 
-        private static ReferenceLineIntersectionsResult GetReferenceLineIntersectionsResult(IEnumerable<Segment2D> surfaceLineSegments, Segment2D[] referenceLineSegments)
+        private static ReferenceLineIntersectionResult GetReferenceLineIntersectionsResult(IEnumerable<Segment2D> surfaceLineSegments, Segment2D[] referenceLineSegments)
         {
-            ReferenceLineIntersectionsResult intersectionResult = ReferenceLineIntersectionsResult.NoIntersections;
+            Point2D intersectionPoint = null;
             foreach (Segment2D surfaceLineSegment in surfaceLineSegments)
             {
                 foreach (Segment2D referenceLineSegment in referenceLineSegments)
                 {
                     Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(surfaceLineSegment, referenceLineSegment);
+
                     if (result.IntersectionType == Intersection2DType.Intersects)
                     {
-                        if (intersectionResult == ReferenceLineIntersectionsResult.OneIntersection)
+                        if (intersectionPoint != null)
                         {
                             // Early exit as multiple intersections is a return result:
-                            return ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap;
+                            return ReferenceLineIntersectionResult.CreateMultipleIntersectionsOrOverlapResult();
                         }
-                        intersectionResult = ReferenceLineIntersectionsResult.OneIntersection;
+                        intersectionPoint = result.IntersectionPoints[0];
                     }
+
                     if (result.IntersectionType == Intersection2DType.Overlapping)
                     {
                         // Early exit as overlap is a return result:
-                        return ReferenceLineIntersectionsResult.MultipleIntersectionsOrOverlap;
+                        return ReferenceLineIntersectionResult.CreateMultipleIntersectionsOrOverlapResult();
                     }
                 }
             }
-            return intersectionResult;
+            return intersectionPoint != null ?
+                       ReferenceLineIntersectionResult.CreateIntersectionResult(intersectionPoint) :
+                       ReferenceLineIntersectionResult.CreateNoSingleIntersectionResult();
         }
 
         private static void SetCharacteristicPointsOnSurfaceLine(RingtoetsPipingSurfaceLine readSurfaceLine, CharacteristicPoints characteristicPointsLocation)

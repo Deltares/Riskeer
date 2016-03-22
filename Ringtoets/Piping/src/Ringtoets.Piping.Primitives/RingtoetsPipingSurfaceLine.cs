@@ -103,6 +103,8 @@ namespace Ringtoets.Piping.Primitives
         /// </summary>
         public Point3D DikeToeAtPolder { get; private set; }
 
+        public Point2D ReferenceLineIntersectionWorldPoint { get; set; }
+
         /// <summary>
         /// Sets the geometry of the surfaceline.
         /// </summary>

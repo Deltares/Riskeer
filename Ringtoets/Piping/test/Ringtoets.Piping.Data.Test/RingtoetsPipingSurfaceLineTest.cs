@@ -45,6 +45,22 @@ namespace Ringtoets.Piping.Data.Test
             CollectionAssert.IsEmpty(surfaceLine.Points);
             Assert.IsNull(surfaceLine.StartingWorldPoint);
             Assert.IsNull(surfaceLine.EndingWorldPoint);
+            Assert.IsNull(surfaceLine.ReferenceLineIntersectionWorldPoint);
+        }
+
+        [Test]
+        public void ReferenceLineIntersectionWorldPoint_SetNewValue_GetNewlySetValue()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            var point = new Point2D(1.2, 3.4);
+
+            // Call
+            surfaceLine.ReferenceLineIntersectionWorldPoint = point;
+
+            // Assert
+            Assert.AreEqual(point, surfaceLine.ReferenceLineIntersectionWorldPoint);
         }
 
         [Test]

@@ -12,6 +12,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin.FileImporter;
+
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using PipingIOResources = Ringtoets.Piping.IO.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
@@ -198,11 +199,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual("Rotterdam1", firstSurfaceLine.Name);
             Assert.AreEqual(8, firstSurfaceLine.Points.Length);
             Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
+            AssertAreEqualPoint2D(new Point2D(94270.0, 427795.313769642), firstSurfaceLine.ReferenceLineIntersectionWorldPoint);
 
             var secondSurfaceLine = importTargetArray[1];
             Assert.AreEqual("ArtifcialLocal", secondSurfaceLine.Name);
             Assert.AreEqual(3, secondSurfaceLine.Points.Length);
             Assert.AreEqual(5.7, secondSurfaceLine.EndingWorldPoint.X);
+            AssertAreEqualPoint2D(new Point2D(3.3, 0), secondSurfaceLine.ReferenceLineIntersectionWorldPoint);
 
             Assert.AreEqual(4, callCount);
 
@@ -269,6 +272,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                "Originally duplicate points at the start have been removed.");
             Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
             CollectionAssert.AllItemsAreUnique(geometryPoints);
+            AssertAreEqualPoint2D(new Point2D(94270.0, 427795.313769642), firstSurfaceLine.ReferenceLineIntersectionWorldPoint);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(validFilePath));
 
@@ -1534,6 +1538,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(validFilePath));
 
             mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
+        }
+
+        private static void AssertAreEqualPoint2D(Point2D expectedPoint, Point2D actualPoint)
+        {
+            Assert.IsTrue(Math2D.AreEqualPoints(expectedPoint, actualPoint),
+                          String.Format("Expected point: {0}" + Environment.NewLine + "Actual point: {1}",
+                                        expectedPoint, actualPoint));
         }
     }
 }
