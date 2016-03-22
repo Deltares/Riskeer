@@ -8,6 +8,7 @@ using Application.Ringtoets.Storage.Persistors;
 using Application.Ringtoets.Storage.Test.DbContext;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Test.Persistors
@@ -279,7 +280,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     FailureMechanismContribution =
                     {
                         Norm = norm
-                    }
+                    },
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
                 };
             mockRepository.ReplayAll();
 

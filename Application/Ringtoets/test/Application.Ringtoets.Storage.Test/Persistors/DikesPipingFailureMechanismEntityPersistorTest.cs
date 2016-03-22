@@ -354,6 +354,30 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
+        public void UpdateModel_NoStorageIdSet_InsertNewEntity()
+        {
+            var mocks = new MockRepository();
+            var ringtoetsEntities = mocks.StrictMock<IRingtoetsEntities>();
+            var persistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsEntities);
+            IList<FailureMechanismEntity> parentNavigationProperty = new List<FailureMechanismEntity>();
+
+            PipingFailureMechanism model = new PipingFailureMechanism
+            {
+                StorageId = 0
+            };
+
+            mocks.ReplayAll();
+
+            // Call
+            persistor.UpdateModel(parentNavigationProperty, model, 0);
+
+            // Assert
+            Assert.AreEqual(1, parentNavigationProperty.Count);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void RemoveUnModifiedEntries_SingleEntityInParentNavigationPropertySinglePipingFailureMechanismWithoutStorageId_UpdatedPipingFailureMechanismAsEntityInParentNavigationPropertyAndOthersDeletedInDbSet()
         {
             // Setup

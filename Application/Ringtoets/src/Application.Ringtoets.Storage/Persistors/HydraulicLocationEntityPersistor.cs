@@ -21,8 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Properties;
 using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
@@ -31,6 +34,9 @@ namespace Application.Ringtoets.Storage.Persistors
     {
         private readonly IRingtoetsEntities ringtoetsContext;
         private readonly HydraulicLocationConverter converter;
+
+        private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> insertedList = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
+        private readonly ICollection<HydraulicLocationEntity> modifiedList = new List<HydraulicLocationEntity>();
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationEntityPersistor"/>.
@@ -50,19 +56,94 @@ namespace Application.Ringtoets.Storage.Persistors
         }
 
         public void UpdateModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryLocation model, int order)
-        {            
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
+            if (model.StorageId < 1)
+            {
+                InsertModel(parentNavigationProperty, model, 0);
+                return;
+            }
+
+            if (parentNavigationProperty == null)
+            {
+                throw new ArgumentNullException("parentNavigationProperty");
+            }
+
+            HydraulicLocationEntity entity;
+            try
+            {
+                entity = parentNavigationProperty.SingleOrDefault(db => db.HydraulicLocationEntityId == model.StorageId);
+            }
+            catch (InvalidOperationException exception)
+            {
+                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "HydraulicLocationEntity", model.StorageId), exception);
+            }
+
+            if (entity == null)
+            {
+                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "HydraulicLocationEntity", model.StorageId));
+            }
+
+            modifiedList.Add(entity);
+
+            converter.ConvertModelToEntity(model, entity);
         }
 
         public void InsertModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryLocation model, int order)
         {
+            if (parentNavigationProperty == null)
+            {
+                throw new ArgumentNullException("parentNavigationProperty");
+            }
+
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
+            var entity = new HydraulicLocationEntity();
+            parentNavigationProperty.Add(entity);
+            insertedList.Add(entity, model);
+
+            converter.ConvertModelToEntity(model, entity);
+
+            if (model.StorageId > 0)
+            {
+                modifiedList.Add(entity);
+            }
         }
 
         public void RemoveUnModifiedEntries(ICollection<HydraulicLocationEntity> parentNavigationProperty)
         {
+            var originalList = parentNavigationProperty.ToList();
+
+            foreach (var hydraulicLocationEntity in modifiedList)
+            {
+                originalList.Remove(hydraulicLocationEntity);
+            }
+
+            foreach (var toDelete in originalList)
+            {
+                if (toDelete.HydraulicLocationEntityId > 0)
+                {
+                    ringtoetsContext.HydraulicLocationEntities.Remove(toDelete);
+                }
+            }
+
+            modifiedList.Clear();
         }
 
         public void PerformPostSaveActions()
         {
+            foreach (var entry in insertedList)
+            {
+                entry.Value.StorageId = entry.Key.HydraulicLocationEntityId;
+            }
+            insertedList.Clear();
         }
 
         public HydraulicBoundaryLocation LoadModel(HydraulicLocationEntity entity, Func<HydraulicBoundaryLocation> model)
@@ -87,12 +168,8 @@ namespace Application.Ringtoets.Storage.Persistors
             return converter.ConvertEntityToModel(entity, model);
         }
 
-        public void UpdateChildren(HydraulicBoundaryLocation model, HydraulicLocationEntity entity)
-        {
-        }
+        public void UpdateChildren(HydraulicBoundaryLocation model, HydraulicLocationEntity entity) {}
 
-        public void InsertChildren(HydraulicBoundaryLocation model, HydraulicLocationEntity entity)
-        {            
-        }
+        public void InsertChildren(HydraulicBoundaryLocation model, HydraulicLocationEntity entity) {}
     }
 }

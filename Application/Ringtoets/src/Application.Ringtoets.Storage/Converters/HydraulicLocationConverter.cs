@@ -67,6 +67,26 @@ namespace Application.Ringtoets.Storage.Converters
 
         public void ConvertModelToEntity(HydraulicBoundaryLocation modelObject, HydraulicLocationEntity entity)
         {
+            if (modelObject == null)
+            {
+                throw new ArgumentNullException("modelObject");
+            }
+
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+
+            entity.HydraulicLocationEntityId = modelObject.StorageId;
+            entity.Name = modelObject.Name;
+            entity.DesignWaterLevel = modelObject.DesignWaterLevel;
+            entity.LocationId = modelObject.Id;
+
+            if (modelObject.Location != null)
+            {
+                entity.LocationX = Convert.ToDecimal(modelObject.Location.X);
+                entity.LocationY = Convert.ToDecimal(modelObject.Location.Y);
+            }
         }
     }
 }

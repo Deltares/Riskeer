@@ -201,6 +201,15 @@ namespace Application.Ringtoets.Storage.Persistors
         {
             dikePipingFailureMechanismEntityPersistor.InsertModel(entity.FailureMechanismEntities, model.PipingFailureMechanism, 0);
             dikePipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
+
+            if (model.HydraulicBoundaryDatabase != null)
+            {
+                foreach (var hydraulicBoundaryLocation in model.HydraulicBoundaryDatabase.Locations)
+                {
+                    hydraulicLocationEntityPersistor.InsertModel(entity.HydraulicLocationEntities, hydraulicBoundaryLocation, 0);
+                }
+            }
+            hydraulicLocationEntityPersistor.RemoveUnModifiedEntries(entity.HydraulicLocationEntities);
         }
 
         /// <summary>

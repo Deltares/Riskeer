@@ -112,5 +112,65 @@ namespace Application.Ringtoets.Storage.Test.Converters
             Assert.AreEqual(locationX, location.Location.X);
             Assert.AreEqual(locationY, location.Location.Y);
         }
+
+        [Test]
+        public void ConvertModelToEntity_NullModel_ThrowsArgumentNullException()
+        {
+            // Setup
+            HydraulicLocationConverter converter = new HydraulicLocationConverter();
+
+            // Call
+            TestDelegate test = () => converter.ConvertModelToEntity(null, new HydraulicLocationEntity());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("modelObject", exception.ParamName);
+        }
+
+        [Test]
+        public void ConvertModelToEntity_NullEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            HydraulicLocationConverter converter = new HydraulicLocationConverter();
+
+            // Call
+            TestDelegate test = () => converter.ConvertModelToEntity(new HydraulicBoundaryLocation(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ConvertModelToEntity_ValidModelValidEntity_ReturnsModelAsEntity()
+        {
+            // Setup
+            HydraulicLocationConverter converter = new HydraulicLocationConverter();
+            
+            var entity = new HydraulicLocationEntity();
+            const long storageId = 1234L;
+            const long locationId = 130002;
+            const string name = "test";
+            const double locationX = 39.3;
+            const double locationY = 583.2;
+            const double designWaterLever = 14.7;
+
+            var model = new HydraulicBoundaryLocation(locationId, name, locationX, locationY)
+            {
+                StorageId = storageId,
+                DesignWaterLevel = designWaterLever
+            };
+
+            // Call
+            converter.ConvertModelToEntity(model, entity);
+
+            // Assert
+            Assert.AreEqual(model.StorageId, entity.HydraulicLocationEntityId);
+            Assert.AreEqual(model.Id, entity.LocationId);
+            Assert.AreEqual(model.Name, entity.Name);
+            Assert.AreEqual(model.Location.X, entity.LocationX);
+            Assert.AreEqual(model.Location.Y, entity.LocationY);
+            Assert.AreEqual(model.DesignWaterLevel, entity.DesignWaterLevel);
+        }
     }
 }
