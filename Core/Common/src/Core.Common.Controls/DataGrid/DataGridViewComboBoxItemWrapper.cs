@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Core.Common.Controls.Properties;
 
 namespace Core.Common.Controls.DataGrid
 {
@@ -48,7 +49,7 @@ namespace Core.Common.Controls.DataGrid
         {
             get
             {
-                return wrappedObject == null ? string.Empty : wrappedObject.ToString();
+                return wrappedObject == null ? Resources.DataGridViewComboBoxItemWrapper_DisplayName_None : wrappedObject.ToString();
             }
         }
 

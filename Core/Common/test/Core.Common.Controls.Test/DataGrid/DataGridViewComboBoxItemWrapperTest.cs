@@ -31,7 +31,7 @@ namespace Core.Common.Controls.Test.DataGrid
             var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(null);
 
             // Assert
-            Assert.AreEqual("", dataGridViewComboBoxItemWrapper.DisplayName);
+            Assert.AreEqual(Properties.Resources.DataGridViewComboBoxItemWrapper_DisplayName_None, dataGridViewComboBoxItemWrapper.DisplayName);
             Assert.IsNull(dataGridViewComboBoxItemWrapper.WrappedObject);
             Assert.AreEqual(dataGridViewComboBoxItemWrapper, dataGridViewComboBoxItemWrapper.This);
         }

@@ -84,11 +84,9 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 pipingFailureMechanism = value;
 
-                soilProfileColumn.DataSource = pipingFailureMechanism != null
-                                                   ? pipingFailureMechanism.SoilProfiles
-                                                                           .Select(psp => new DataGridViewComboBoxItemWrapper<PipingSoilProfile>(psp))
-                                                                           .ToList()
-                                                   : GetDefaultSoilProfilesDataSource();
+                var pipingSoilProfiles = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
+
+                soilProfileColumn.DataSource = GetSoilProfilesDataSource(pipingSoilProfiles);
             }
         }
 
@@ -105,11 +103,11 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 assessmentSection = value;
 
-                hydraulicBoundaryLocationColumn.DataSource = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
-                                                                 ? assessmentSection.HydraulicBoundaryDatabase.Locations
-                                                                                    .Select(hbl => new DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>(hbl))
-                                                                                    .ToList()
-                                                                 : GetDefaultHydraulicBoundaryLocationsDataSource();
+                var hydraulicBoundaryLocations = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
+                                                     ? assessmentSection.HydraulicBoundaryDatabase.Locations
+                                                     : null;
+
+                hydraulicBoundaryLocationColumn.DataSource = GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations);
             }
         }
 
@@ -131,7 +129,7 @@ namespace Ringtoets.Piping.Forms.Views
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 ValueMember = "This",
                 DisplayMember = "DisplayName",
-                DataSource = GetDefaultSoilProfilesDataSource()
+                DataSource = GetSoilProfilesDataSource()
             };
 
             hydraulicBoundaryLocationColumn = new DataGridViewComboBoxColumn
@@ -142,7 +140,7 @@ namespace Ringtoets.Piping.Forms.Views
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 ValueMember = "This",
                 DisplayMember = "DisplayName",
-                DataSource = GetDefaultHydraulicBoundaryLocationsDataSource()
+                DataSource = GetHydraulicBoundaryLocationsDataSource()
             };
 
             var dampingFactorExitMeanColumn = new DataGridViewTextBoxColumn
@@ -181,20 +179,34 @@ namespace Ringtoets.Piping.Forms.Views
             dataGridView.Columns.AddRange(nameColumn, soilProfileColumn, hydraulicBoundaryLocationColumn, dampingFactorExitMeanColumn, phreaticLevelExitMeanColumn, entryPointLColumn, exitPointLColumn);
         }
 
-        private static List<DataGridViewComboBoxItemWrapper<PipingSoilProfile>> GetDefaultSoilProfilesDataSource()
+        private static List<DataGridViewComboBoxItemWrapper<PipingSoilProfile>> GetSoilProfilesDataSource(IEnumerable<PipingSoilProfile> soilProfiles = null)
         {
-            return new List<DataGridViewComboBoxItemWrapper<PipingSoilProfile>>
+            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<PipingSoilProfile>>
             {
                 new DataGridViewComboBoxItemWrapper<PipingSoilProfile>(null)
             };
+
+            if (soilProfiles != null)
+            {
+                dataGridViewComboBoxItemWrappers.AddRange(soilProfiles.Select(sp => new DataGridViewComboBoxItemWrapper<PipingSoilProfile>(sp)));
+            }
+
+            return dataGridViewComboBoxItemWrappers;
         }
 
-        private static List<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>> GetDefaultHydraulicBoundaryLocationsDataSource()
+        private static List<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>> GetHydraulicBoundaryLocationsDataSource(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = null)
         {
-            return new List<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>>
+            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>>
             {
                 new DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>(null)
             };
+
+            if (hydraulicBoundaryLocations != null)
+            {
+                dataGridViewComboBoxItemWrappers.AddRange(hydraulicBoundaryLocations.Select(hbl => new DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>(hbl)));
+            }
+
+            return dataGridViewComboBoxItemWrappers;
         }
 
         private class PipingCalculationRow
