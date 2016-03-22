@@ -813,7 +813,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Peil dat gebruikt moet worden in de toetsing..
+        ///   Looks up a localized string similar to Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm..
         /// </summary>
         public static string PipingInput_AssessmentLevel_Description {
             get {
@@ -885,7 +885,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het L-coördinaat van het intredepunt..
+        ///   Looks up a localized string similar to De positie in het dwarsprofiel van het intredepunt..
         /// </summary>
         public static string PipingInput_EntryPointL_Description {
             get {
@@ -903,7 +903,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het L-coördinaat van het uittredepunt..
+        ///   Looks up a localized string similar to De positie in het dwarsprofiel van het uittredepunt..
         /// </summary>
         public static string PipingInput_ExitPointL_Description {
             get {
@@ -939,7 +939,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Freatische waterstand bij uittredepunt..
+        ///   Looks up a localized string similar to Polderpeil..
         /// </summary>
         public static string PipingInput_PhreaticLevelExit_Description {
             get {
@@ -948,7 +948,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Freatische waterstand bij uittredepunt [m+NAP].
+        ///   Looks up a localized string similar to Polderpeil [m+NAP].
         /// </summary>
         public static string PipingInput_PhreaticLevelExit_DisplayName {
             get {
@@ -1047,7 +1047,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De dikte van de eerste of bovenste voor doorlatendheid te onderscheiden zandlaag van mogelijk meerdere zandlagen vanaf de cohesieve grondlaag..
+        ///   Looks up a localized string similar to De dikte van de bovenste voor doorlatendheid te onderscheiden zandlaag of combinatie van zandlagen..
         /// </summary>
         public static string PipingInput_ThicknessAquiferLayer_Description {
             get {

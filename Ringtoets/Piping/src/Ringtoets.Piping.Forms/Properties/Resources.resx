@@ -125,7 +125,7 @@
     <value>..\Resources\folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PipingInput_AssessmentLevel_Description" xml:space="preserve">
-    <value>Peil dat gebruikt moet worden in de toetsing.</value>
+    <value>Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.</value>
   </data>
   <data name="PipingInput_AssessmentLevel_DisplayName" xml:space="preserve">
     <value>Toetspeil [m+NAP]</value>
@@ -173,10 +173,10 @@
     <value>Referentiewaarde voor 70%-fraktiel in Sellmeijer regel [m]</value>
   </data>
   <data name="PipingInput_PhreaticLevelExit_Description" xml:space="preserve">
-    <value>Freatische waterstand bij uittredepunt.</value>
+    <value>Polderpeil.</value>
   </data>
   <data name="PipingInput_PhreaticLevelExit_DisplayName" xml:space="preserve">
-    <value>Freatische waterstand bij uittredepunt [m+NAP]</value>
+    <value>Polderpeil [m+NAP]</value>
   </data>
   <data name="PipingInput_PiezometricHeadExit_Description" xml:space="preserve">
     <value>Stijghoogte bij uittredepunt.</value>
@@ -212,7 +212,7 @@
     <value>Reductiefactor Sellmeijer [-]</value>
   </data>
   <data name="PipingInput_ThicknessAquiferLayer_Description" xml:space="preserve">
-    <value>De dikte van de eerste of bovenste voor doorlatendheid te onderscheiden zandlaag van mogelijk meerdere zandlagen vanaf de cohesieve grondlaag.</value>
+    <value>De dikte van de bovenste voor doorlatendheid te onderscheiden zandlaag of combinatie van zandlagen.</value>
   </data>
   <data name="PipingInput_ThicknessAquiferLayer_DisplayName" xml:space="preserve">
     <value>Dikte watervoerend pakket [m]</value>
@@ -524,13 +524,13 @@
     <value>Karakteristieke punten</value>
   </data>
   <data name="PipingInput_EntryPointL_Description" xml:space="preserve">
-    <value>Het L-coördinaat van het intredepunt.</value>
+    <value>De positie in het dwarsprofiel van het intredepunt.</value>
   </data>
   <data name="PipingInput_EntryPointL_DisplayName" xml:space="preserve">
     <value>Intredepunt</value>
   </data>
   <data name="PipingInput_ExitPointL_Description" xml:space="preserve">
-    <value>Het L-coördinaat van het uittredepunt.</value>
+    <value>De positie in het dwarsprofiel van het uittredepunt.</value>
   </data>
   <data name="PipingInput_ExitPointL_DisplayName" xml:space="preserve">
     <value>Uittredepunt</value>
