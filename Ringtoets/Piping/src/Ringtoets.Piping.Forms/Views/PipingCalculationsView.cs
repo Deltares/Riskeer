@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -227,78 +226,6 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         #region Nested types
-
-        private class RecursiveObserver<T> : IObserver where T : IObservable
-        {
-            private T observable;
-            private readonly Action updateObserverAction;
-            private readonly Func<T, IEnumerable<T>> getChildObservables;
-            private readonly IList<T> observedObjects = new List<T>();
-
-            public RecursiveObserver(Action updateObserverAction, Func<T, IEnumerable<T>> getChildObservables)
-            {
-                this.updateObserverAction = updateObserverAction;
-                this.getChildObservables = getChildObservables;
-            }
-
-            public T Observable
-            {
-                get
-                {
-                    return observable;
-                }
-                set
-                {
-                    observable = value;
-
-                    UpdateObservedObjects();
-                }
-            }
-
-            public void UpdateObserver()
-            {
-                updateObserverAction();
-
-                UpdateObservedObjects();
-            }
-
-            private void UpdateObservedObjects()
-            {
-                // Detach from the currently attached observable items
-                foreach (var observedObject in observedObjects)
-                {
-                    observedObject.Detach(this);
-                }
-
-                // Clear the list
-                observedObjects.Clear();
-
-                // If relevant, start observing objects again
-                if (observable != null)
-                {
-                    foreach (var objectToObserve in GetObservablesRecursive(observable))
-                    {
-                        objectToObserve.Attach(this);
-                        observedObjects.Add(objectToObserve);
-                    }
-                }
-            }
-
-            private IEnumerable<T> GetObservablesRecursive(T parentObservable)
-            {
-                var observables = new List<T>
-                {
-                    parentObservable
-                };
-
-                foreach (var childObservable in getChildObservables(parentObservable))
-                {
-                    observables.AddRange(GetObservablesRecursive(childObservable));
-                }
-
-                return observables;
-            }
-        }
 
         private class PipingCalculationRow
         {

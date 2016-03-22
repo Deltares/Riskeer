@@ -24,7 +24,7 @@ using System;
 namespace Core.Common.Base
 {
     /// <summary>
-    /// Class that implements the <see cref="IObserver"/> pattern.
+    /// Class that implements <see cref="IObserver"/> in a way that a single <see cref="IObservable"/> can be observed.
     /// </summary>
     /// <remarks>
     /// The <see cref="Observable"/> being observed by instances of this class can be dynamically changed.
@@ -75,10 +75,7 @@ namespace Core.Common.Base
 
         public void Dispose()
         {
-            if (observable != null)
-            {
-                observable.Detach(this);
-            }
+            Observable = null;
         }
     }
 }

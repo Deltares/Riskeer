@@ -98,6 +98,7 @@
     <Compile Include="IO\FileImporterBase.cs" />
     <Compile Include="IO\ProgressChangedDelegate.cs" />
     <Compile Include="Observer.cs" />
+    <Compile Include="RecursiveObserver.cs" />
     <Compile Include="Storage\StorageException.cs" />
     <Compile Include="Storage\StorageValidationException.cs" />
     <Compile Include="Storage\CouldNotConnectException.cs" />

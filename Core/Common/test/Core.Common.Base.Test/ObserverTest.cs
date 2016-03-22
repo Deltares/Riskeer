@@ -29,12 +29,19 @@ namespace Core.Common.Base.Test
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
+            // Setup
+            var counter = 0;
+
             // Call
-            var observer = new Observer(() => { });
+            var observer = new Observer(() => { counter++; });
 
             // Assert
             Assert.IsInstanceOf<IObserver>(observer);
             Assert.IsNull(observer.Observable);
+            Assert.AreEqual(0, counter);
+
+            observer.UpdateObserver();
+            Assert.AreEqual(1, counter);
         }
 
         [Test]
