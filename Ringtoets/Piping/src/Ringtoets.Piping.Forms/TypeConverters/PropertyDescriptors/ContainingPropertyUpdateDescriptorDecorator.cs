@@ -4,9 +4,11 @@ using System.ComponentModel;
 namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors
 {
     /// <summary>
-    /// Decorates a <see cref="PropertyDescriptor"/> to also set the property of the containing
-    /// object with the updated component.
+    /// Decorates a PropertyDescriptor with an override for SetValue to have the property exposing the 
+    /// owner of the property, captured by the PropertyDescriptor, set to that owner's instance as well. 
     /// </summary>
+    /// <remarks>Use this class for PropertyDescriptors that allows for changes to properties of a 
+    /// considered composed part to also set a new value for the composite owner of that part.</remarks>
     public class ContainingPropertyUpdateDescriptorDecorator : PropertyDescriptor
     {
         private readonly object source;
@@ -18,8 +20,9 @@ namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors
         /// </summary>
         /// <param name="propertyDescription">The original property description.</param>
         /// <param name="source">The source object, which contains the property described by <paramref name="propertyDescription"/>.</param>
-        /// <param name="containingProperty">The property which contains the </param>
-        public ContainingPropertyUpdateDescriptorDecorator(PropertyDescriptor propertyDescription, object source, PropertyDescriptor containingProperty) : base(propertyDescription)
+        /// <param name="containingProperty">The property which contains the source of the <paramref name="propertyDescription"/>.</param>
+        public ContainingPropertyUpdateDescriptorDecorator(PropertyDescriptor propertyDescription, object source, PropertyDescriptor containingProperty) 
+            : base(propertyDescription)
         {
             this.source = source;
             sourceContainingProperty = containingProperty;

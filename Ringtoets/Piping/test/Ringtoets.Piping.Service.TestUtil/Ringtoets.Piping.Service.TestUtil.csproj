@@ -46,7 +46,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PipingCalculationServiceConfig.cs" />
+    <Compile Include="PipingSubCalculatorFactoryConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

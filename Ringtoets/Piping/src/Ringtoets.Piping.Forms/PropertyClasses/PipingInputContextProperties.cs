@@ -43,9 +43,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     {
         #region Model Settings
 
-        /// <summary>
-        /// Gets or sets the design variable for <see cref="PipingInput.DampingFactorExit"/>.
-        /// </summary>
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_DampingFactorExit_DisplayName")]
@@ -91,9 +88,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #region Hydraulic data
 
-        /// <summary>
-        /// Gets or sets the <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
         [Editor(typeof(PipingInputContextHydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_HydraulicBoundaryLocation_DisplayName")]
@@ -111,9 +105,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the assessment level.
-        /// </summary>
         [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_AssessmentLevel_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_AssessmentLevel_Description")]
@@ -125,9 +116,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the piezometric head at the exit point.
-        /// </summary>
         [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_PiezometricHeadExit_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_PiezometricHeadExit_Description")]
@@ -139,9 +127,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets or sets the design variable for <see cref="PipingInput.PhreaticLevelExit"/>.
-        /// </summary>
         [TypeConverter(typeof(NormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_PhreaticLevelExit_DisplayName")]
@@ -163,9 +148,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #region Schematization
 
-        /// <summary>
-        /// Gets or sets the <see cref="RingtoetsPipingSurfaceLine"/>.
-        /// </summary>
         [Editor(typeof(PipingInputContextSurfaceLineSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_SurfaceLine_DisplayName")]
@@ -183,9 +165,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets or sets the <see cref="PipingSoilProfile"/>.
-        /// </summary>
         [Editor(typeof(PipingInputContextSoilProfileSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_SoilProfile_DisplayName")]
@@ -203,9 +182,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets or sets the l-coordinate of the entry point.
-        /// </summary>
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_EntryPointL_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_EntryPointL_Description")]
@@ -222,9 +198,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets or sets the l-coordinate of the exit point.
-        /// </summary>
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_ExitPointL_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_ExitPointL_Description")]
@@ -241,9 +214,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets or sets the design variable for <see cref="PipingInput.SeepageLength"/>.
-        /// </summary>
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_SeepageLength_DisplayName")]
@@ -256,9 +226,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets or sets the design variable for <see cref="PipingInput.ThicknessCoverageLayer"/>.
-        /// </summary>
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_ThicknessCoverageLayer_DisplayName")]
@@ -271,9 +238,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets or sets the design variable for <see cref="PipingInput.ThicknessAquiferLayer"/>.
-        /// </summary>
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_ThicknessAquiferLayer_DisplayName")]
@@ -290,9 +254,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #region Soil Properties
 
-        /// <summary>
-        /// Gets or sets the design variable for <see cref="PipingInput.DarcyPermeability"/>.
-        /// </summary>
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_SoilProperties")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_DarcyPermeability_DisplayName")]
@@ -310,9 +271,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets or sets the design variable for <see cref="PipingInput.Diameter70"/>.
-        /// </summary>
         [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_SoilProperties")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_Diameter70_DisplayName")]

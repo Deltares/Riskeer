@@ -4,11 +4,13 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Deltares.WTIPiping;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
-using Ringtoets.Piping.InputParameterCalculation.TestUtil;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Service.TestUtil;
 
 namespace Ringtoets.Piping.InputParameterCalculation.Test
 {
@@ -72,7 +74,12 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             };
 
             // Call
-            var thickness = InputParameterCalculationService.CalculateThicknessCoverageLayer(input.WaterVolumetricWeight, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), input.ExitPointL, input.SurfaceLine, input.SoilProfile);
+            var thickness = InputParameterCalculationService.CalculateThicknessCoverageLayer(
+                input.WaterVolumetricWeight, 
+                PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), 
+                input.ExitPointL, 
+                input.SurfaceLine, 
+                input.SoilProfile);
 
             // Assert
             Assert.AreEqual(5, thickness);
@@ -84,11 +91,17 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             // Setup
             PipingInput input = new PipingInput(new GeneralPipingInput())
             {
-                AssessmentLevel = (RoundedDouble) 0.0
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, String.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble)0.0
+                }
             };
 
             // Call
-            var result = InputParameterCalculationService.CalculatePiezometricHeadAtExit(input.AssessmentLevel, PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue());
+            var result = InputParameterCalculationService.CalculatePiezometricHeadAtExit(
+                input.AssessmentLevel, 
+                PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), 
+                PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue());
 
             // Assert
             Assert.IsFalse(Double.IsNaN(result));
@@ -101,19 +114,26 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             PipingInput input = validPipingCalculation.InputParameters;
 
-            using (new InputParameterCalculationServiceConfig())
+            using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
-                PipingInput input1 = validPipingCalculation.InputParameters;
-                InputParameterCalculationService.CalculateThicknessCoverageLayer(input1.WaterVolumetricWeight, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input1).GetDesignValue(), input1.ExitPointL, input1.SurfaceLine, input1.SoilProfile);
+                PipingInput inputParameters = validPipingCalculation.InputParameters;
+                InputParameterCalculationService.CalculateThicknessCoverageLayer(
+                    inputParameters.WaterVolumetricWeight, 
+                    PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(), 
+                    inputParameters.ExitPointL, 
+                    inputParameters.SurfaceLine, 
+                    inputParameters.SoilProfile);
 
                 // Assert
-                var testFactory = (TestPipingSubCalculatorFactory)InputParameterCalculationService.SubCalculatorFactory;
+                var testFactory = (TestPipingSubCalculatorFactory)PipingSubCalculatorFactory.Instance;
                 var effectiveThicknessCalculator = testFactory.LastCreatedEffectiveThicknessCalculator;
 
                 Assert.AreEqual(input.ExitPointL.Value, effectiveThicknessCalculator.ExitPointXCoordinate);
-                Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), effectiveThicknessCalculator.PhreaticLevel,
-                                Math.Pow(10.0, -input.PhreaticLevelExit.Mean.NumberOfDecimalPlaces));
+                Assert.AreEqual(
+                    PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), 
+                    effectiveThicknessCalculator.PhreaticLevel,
+                    GetAccuracy(input.PhreaticLevelExit.Mean));
                 AssertEqualSoilProfiles(input.SoilProfile, effectiveThicknessCalculator.SoilProfile);
                 AssertEqualSurfaceLines(input.SurfaceLine, effectiveThicknessCalculator.SurfaceLine);
                 Assert.AreEqual(input.WaterVolumetricWeight, effectiveThicknessCalculator.VolumicWeightOfWater);
@@ -127,14 +147,17 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             PipingInput input = validPipingCalculation.InputParameters;
 
-            using (new InputParameterCalculationServiceConfig())
+            using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
                 PipingInput input1 = validPipingCalculation.InputParameters;
-                InputParameterCalculationService.CalculatePiezometricHeadAtExit(input1.AssessmentLevel, PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input1).GetDesignValue(), PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input1).GetDesignValue());
+                InputParameterCalculationService.CalculatePiezometricHeadAtExit(
+                    input1.AssessmentLevel, 
+                    PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input1).GetDesignValue(), 
+                    PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input1).GetDesignValue());
 
                 // Assert
-                var testFactory = (TestPipingSubCalculatorFactory)InputParameterCalculationService.SubCalculatorFactory;
+                var testFactory = (TestPipingSubCalculatorFactory)PipingSubCalculatorFactory.Instance;
                 var piezometricHeadAtExitCalculator = testFactory.LastCreatedPiezometricHeadAtExitCalculator;
 
                 Assert.AreEqual(input.AssessmentLevel.Value, piezometricHeadAtExitCalculator.HRiver);

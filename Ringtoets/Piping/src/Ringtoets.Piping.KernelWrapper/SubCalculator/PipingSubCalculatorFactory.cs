@@ -26,6 +26,29 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
     /// </summary>
     public class PipingSubCalculatorFactory : IPipingSubCalculatorFactory
     {
+        private static IPipingSubCalculatorFactory instance;
+
+        internal PipingSubCalculatorFactory() {}
+
+        /// <summary>
+        /// Gets or sets an instance of <see cref="IPipingSubCalculatorFactory"/>.
+        /// </summary>
+        public static IPipingSubCalculatorFactory Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new PipingSubCalculatorFactory();
+                }
+                return instance;
+            }
+            set
+            {
+                instance = value;
+            }
+        }
+
         public IUpliftCalculator CreateUpliftCalculator()
         {
             return new UpliftCalculator();

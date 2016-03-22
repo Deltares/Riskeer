@@ -39,11 +39,6 @@ namespace Ringtoets.Piping.Service
         private static readonly ILog pipingCalculationLogger = LogManager.GetLogger(typeof(PipingCalculation));
 
         /// <summary>
-        /// The <see cref="IPipingSubCalculatorFactory"/> to use for creating piping sub calculators.
-        /// </summary>
-        public static IPipingSubCalculatorFactory SubCalculatorFactory = new PipingSubCalculatorFactory();
-
-        /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
         /// the execution of the operation.
         /// </summary>
@@ -54,7 +49,7 @@ namespace Ringtoets.Piping.Service
             pipingCalculationLogger.Info(String.Format(Resources.Validation_Subject_0_started_Time_1_,
                                                        calculation.Name, DateTimeService.CurrentTimeAsString));
 
-            var validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters), SubCalculatorFactory).Validate();
+            var validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Validate();
             LogMessagesAsError(Resources.Error_in_piping_validation_0, validationResults.ToArray());
 
             pipingCalculationLogger.Info(String.Format(Resources.Validation_Subject_0_ended_Time_1_,
@@ -77,7 +72,7 @@ namespace Ringtoets.Piping.Service
 
             try
             {
-                var pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters), SubCalculatorFactory).Calculate();
+                var pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Calculate();
 
                 calculation.Output = new PipingOutput(pipingResult.UpliftZValue,
                                                      pipingResult.UpliftFactorOfSafety,

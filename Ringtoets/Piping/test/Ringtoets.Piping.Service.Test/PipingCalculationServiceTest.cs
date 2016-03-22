@@ -7,6 +7,7 @@ using Deltares.WTIPiping;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Service.TestUtil;
@@ -121,7 +122,7 @@ namespace Ringtoets.Piping.Service.Test
             PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             PipingInput input = validPipingCalculation.InputParameters;
 
-            using (new PipingCalculationServiceConfig())
+            using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
                 PipingCalculationService.Validate(validPipingCalculation);
@@ -138,7 +139,7 @@ namespace Ringtoets.Piping.Service.Test
             PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             PipingInput input = validPipingCalculation.InputParameters;
 
-            using (new PipingCalculationServiceConfig())
+            using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
                 PipingCalculationService.Calculate(validPipingCalculation);
@@ -150,7 +151,7 @@ namespace Ringtoets.Piping.Service.Test
 
         private void AssertSubCalculatorInputs(PipingInput input)
         {
-            var testFactory = (TestPipingSubCalculatorFactory) PipingCalculationService.SubCalculatorFactory;
+            var testFactory = (TestPipingSubCalculatorFactory)PipingSubCalculatorFactory.Instance;
             var heaveCalculator = testFactory.LastCreatedHeaveCalculator;
             var upliftCalculator = testFactory.LastCreatedUpliftCalculator;
             var sellmeijerCalculator = testFactory.LastCreatedSellmeijerCalculator;

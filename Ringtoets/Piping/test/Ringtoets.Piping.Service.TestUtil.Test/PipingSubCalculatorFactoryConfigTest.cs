@@ -1,17 +1,18 @@
 ﻿using System;
 using NUnit.Framework;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 
-namespace Ringtoets.Piping.InputParameterCalculation.TestUtil.Test
+namespace Ringtoets.Piping.Service.TestUtil.Test
 {
     [TestFixture]
-    public class InputParameterCalculationServiceConfigTest
+    public class PipingSubCalculatorFactoryConfigTest
     {
         [Test]
         public void Constructor_NewInstanceCanBeDisposed()
         {
             // Call
-            var factory = new InputParameterCalculationServiceConfig();
+            var factory = new PipingSubCalculatorFactoryConfig();
 
             // Assert
             Assert.IsInstanceOf<IDisposable>(factory);
@@ -22,10 +23,10 @@ namespace Ringtoets.Piping.InputParameterCalculation.TestUtil.Test
         public void Constructor_SetsTestFactoryForPipingCalculatorService()
         {
             // Call
-            using (new InputParameterCalculationServiceConfig())
+            using (new PipingSubCalculatorFactoryConfig())
             {
                 // Assert
-                Assert.IsInstanceOf<TestPipingSubCalculatorFactory>(InputParameterCalculationService.SubCalculatorFactory);
+                Assert.IsInstanceOf<TestPipingSubCalculatorFactory>(PipingSubCalculatorFactory.Instance);
             }
         }
 
@@ -33,13 +34,13 @@ namespace Ringtoets.Piping.InputParameterCalculation.TestUtil.Test
         public void Dispose_Always_ResetsFactoryToPreviousValue()
         {
             // Setup
-            var expectedFactory = InputParameterCalculationService.SubCalculatorFactory;
+            var expectedFactory = PipingSubCalculatorFactory.Instance;
 
             // Call
-            using (new InputParameterCalculationServiceConfig()) { }
+            using (new PipingSubCalculatorFactoryConfig()) { }
 
             // Assert
-            Assert.AreSame(expectedFactory, InputParameterCalculationService.SubCalculatorFactory);
+            Assert.AreSame(expectedFactory, PipingSubCalculatorFactory.Instance);
         }
     }
 }

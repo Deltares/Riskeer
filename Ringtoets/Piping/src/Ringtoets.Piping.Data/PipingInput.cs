@@ -219,7 +219,7 @@ namespace Ringtoets.Piping.Data
             {
                 return assessmentLevel;
             }
-            set
+            internal set
             {
                 assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
@@ -235,7 +235,7 @@ namespace Ringtoets.Piping.Data
             {
                 return piezometricHeadExit;
             }
-            set
+            internal set
             {
                 piezometricHeadExit = value.ToPrecision(piezometricHeadExit.NumberOfDecimalPlaces);
             }

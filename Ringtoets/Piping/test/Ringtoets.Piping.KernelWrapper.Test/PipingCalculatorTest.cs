@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingCalculatorInput input = new TestPipingInput().AsRealInput();
 
             // Call
-            PipingCalculatorResult actual = new PipingCalculator(input, new PipingSubCalculatorFactory()).Calculate();
+            PipingCalculatorResult actual = new PipingCalculator(input, PipingSubCalculatorFactory.Instance).Calculate();
 
             // Assert
             Assert.IsNotNull(actual);
@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             PipingCalculatorInput input = new TestPipingInput().AsRealInput();
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 SeepageLength = seepageLength
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 ThicknessAquiferLayer = aquiferThickness
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 BeddingAngle = beddingAngle
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 PiezometricHeadExit = (RoundedDouble)level
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -166,7 +166,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 DampingFactorExit = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -185,7 +185,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 ThicknessCoverageLayer = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -204,7 +204,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 ThicknessAquiferLayer = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -223,7 +223,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 WaterVolumetricWeight = 0
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -249,7 +249,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 ThicknessCoverageLayer = thicknessCoverageLayer
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 SurfaceLine = null,
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -287,7 +287,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 SoilProfile = null,
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -312,7 +312,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 }, 0)
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             List<string> validationMessages = calculation.Validate();
@@ -335,7 +335,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 }, 0)
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             TestDelegate call = () => calculation.CalculateThicknessCoverageLayer();
@@ -351,7 +351,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             PipingCalculatorInput input = new TestPipingInput().AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             var result = calculation.CalculateThicknessCoverageLayer();
@@ -372,7 +372,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 new Point3D(2, 0, -1) 
             });
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             var result = calculation.CalculateThicknessCoverageLayer();
@@ -390,7 +390,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 ExitPointXCoordinate = (RoundedDouble)2.1
             }.AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             var result = calculation.CalculateThicknessCoverageLayer();
@@ -405,7 +405,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             PipingCalculatorInput input = new TestPipingInput().AsRealInput();
 
-            var calculation = new PipingCalculator(input, new PipingSubCalculatorFactory());
+            var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
             var result = calculation.CalculatePiezometricHeadAtExit();

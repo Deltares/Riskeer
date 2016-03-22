@@ -448,7 +448,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<PipingSoilProfile>(),
                                               assessmentSectionMock)
             };
-            inputParameters.PiezometricHeadExit = (RoundedDouble) double.NaN;
             inputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
             {
                 DesignWaterLevel = 1.0

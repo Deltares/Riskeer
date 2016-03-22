@@ -27,15 +27,13 @@ using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.InputParameterCalculation
 {
+    /// <summary>
+    /// This class can be used to calculate input parameters for a piping calculation based on other input parameters.
+    /// </summary>
     public static class InputParameterCalculationService
     {
         /// <summary>
-        /// The <see cref="IPipingSubCalculatorFactory"/> to use for creating piping sub calculators.
-        /// </summary>
-        public static IPipingSubCalculatorFactory SubCalculatorFactory = new PipingSubCalculatorFactory();
-
-        /// <summary>
-        /// Calculates the thickness of the coverage layer based on the values of the <see cref="Ringtoets.Piping.Data.PipingInput"/>.
+        /// Calculates the thickness of the coverage layer based on the values of partial piping input.
         /// </summary>
         /// <param name="waterVolumetricWeight">The volumetric weight of water.</param>
         /// <param name="phreaticLevelExit">The design value of the phreatic level at the exit point.</param>
@@ -73,7 +71,7 @@ namespace Ringtoets.Piping.InputParameterCalculation
                     surfaceLine,
                     soilProfile
                     );
-                return new PipingCalculator(calculatorInput, SubCalculatorFactory).CalculateThicknessCoverageLayer();
+                return new PipingCalculator(calculatorInput, PipingSubCalculatorFactory.Instance).CalculateThicknessCoverageLayer();
             }
             catch (PipingCalculatorException)
             {
@@ -82,7 +80,7 @@ namespace Ringtoets.Piping.InputParameterCalculation
         }
 
         /// <summary>
-        /// Calculates the piezometric head at the exit point based on the values of the <see cref="Ringtoets.Piping.Data.PipingInput"/>.
+        /// Calculates the piezometric head at the exit point based on the values of partial piping input.
         /// </summary>
         /// <param name="assessmentLevel">The assessment level.</param>
         /// <param name="dampingFactorExit">The design value of the damping factor at exit point.</param>
@@ -116,7 +114,7 @@ namespace Ringtoets.Piping.InputParameterCalculation
                 null,
                 null
                 );
-            return new PipingCalculator(calculatorInput, SubCalculatorFactory).CalculatePiezometricHeadAtExit();
+            return new PipingCalculator(calculatorInput, PipingSubCalculatorFactory.Instance).CalculatePiezometricHeadAtExit();
         }
     }
 }

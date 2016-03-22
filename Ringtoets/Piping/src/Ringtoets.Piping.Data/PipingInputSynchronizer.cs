@@ -19,7 +19,7 @@ namespace Ringtoets.Piping.Data
         private readonly PipingInput input;
 
         /// <summary>
-        /// Creates a new instance of <see cref=""/>.
+        /// Creates a new instance of <see cref="PipingInputSynchronizer"/>.
         /// </summary>
         /// <param name="input">The input to synchronize the values for.</param>
         internal PipingInputSynchronizer(PipingInput input)

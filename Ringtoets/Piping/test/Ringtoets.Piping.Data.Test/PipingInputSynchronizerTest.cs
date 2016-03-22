@@ -6,9 +6,10 @@ using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.InputParameterCalculation;
-using Ringtoets.Piping.InputParameterCalculation.TestUtil;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Service.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -82,7 +83,7 @@ namespace Ringtoets.Piping.Data.Test
             var input = new PipingInput(new GeneralPipingInput());
             var synchronizer = new PipingInputSynchronizer(input);
 
-            using (new InputParameterCalculationServiceConfig())
+            using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
                 synchronizer.Synchronize();
@@ -92,7 +93,7 @@ namespace Ringtoets.Piping.Data.Test
                 Assert.AreEqual(2, result.NumberOfDecimalPlaces);
                 Assert.IsFalse(double.IsNaN(result));
 
-                var factory = (TestPipingSubCalculatorFactory)InputParameterCalculationService.SubCalculatorFactory;
+                var factory = (TestPipingSubCalculatorFactory)PipingSubCalculatorFactory.Instance;
                 var piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
 
                 Assert.AreEqual(input.AssessmentLevel.Value, piezometricHeadAtExitCalculator.HRiver);

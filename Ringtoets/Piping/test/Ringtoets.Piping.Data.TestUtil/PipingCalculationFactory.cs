@@ -84,7 +84,6 @@ namespace Ringtoets.Piping.Data.TestUtil
                     {
                         Mean = (RoundedDouble) 1.0
                     },
-                    PiezometricHeadExit = (RoundedDouble) 2.1,
                     SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile,
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation

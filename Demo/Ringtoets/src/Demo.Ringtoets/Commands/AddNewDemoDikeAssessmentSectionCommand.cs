@@ -11,6 +11,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin.FileImporter;
 
@@ -119,8 +120,12 @@ namespace Demo.Ringtoets.Commands
             }
 
             var calculation = pipingFailureMechanism.CalculationsGroup.GetPipingCalculations().First();
-            calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble) 3;
-            calculation.InputParameters.PhreaticLevelExit = calculation.InputParameters.PhreaticLevelExit;
+            var originalPhreaticLevelExit = calculation.InputParameters.PhreaticLevelExit;
+            calculation.InputParameters.PhreaticLevelExit = new NormalDistribution(originalPhreaticLevelExit.Mean.NumberOfDecimalPlaces)
+            {
+                Mean = (RoundedDouble) 3.0,
+                StandardDeviation = originalPhreaticLevelExit.StandardDeviation
+            };
             calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
             calculation.InputParameters.SoilProfile = pipingFailureMechanism.SoilProfiles.First(sp => sp.Name == "W1-6_0_1D1");
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);

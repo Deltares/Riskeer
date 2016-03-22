@@ -6,9 +6,9 @@ namespace Ringtoets.Piping.Service.TestUtil
 {
     /// <summary>
     /// This class can be used to set a temporary <see cref="TestPipingSubCalculatorFactory"/> 
-    /// for <see cref="PipingCalculationService.SubCalculatorFactory"/> while testing. 
+    /// for <see cref="PipingSubCalculatorFactory.Instance"/> while testing. 
     /// Disposing an instance of this class will revert the 
-    /// <see cref="PipingCalculationService.SubCalculatorFactory"/>.
+    /// <see cref="PipingSubCalculatorFactory.Instance"/>.
     /// </summary>
     /// <example>
     /// The following is an example for how to use this class:
@@ -20,28 +20,28 @@ namespace Ringtoets.Piping.Service.TestUtil
     /// }
     /// </code>
     /// </example>
-    public class PipingCalculationServiceConfig : IDisposable
+    public class PipingSubCalculatorFactoryConfig : IDisposable
     {
         private readonly IPipingSubCalculatorFactory previousFactory;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculationServiceConfig"/>.
+        /// Creates a new instance of <see cref="PipingSubCalculatorFactoryConfig"/>.
         /// Sets a <see cref="TestPipingSubCalculatorFactory"/> to 
-        /// <see cref="PipingCalculationService.SubCalculatorFactory"/>
+        /// <see cref="PipingSubCalculatorFactory.Instance"/>
         /// </summary>
-        public PipingCalculationServiceConfig()
+        public PipingSubCalculatorFactoryConfig()
         {
-            previousFactory = PipingCalculationService.SubCalculatorFactory;
-            PipingCalculationService.SubCalculatorFactory = new TestPipingSubCalculatorFactory();
+            previousFactory = PipingSubCalculatorFactory.Instance;
+            PipingSubCalculatorFactory.Instance = new TestPipingSubCalculatorFactory();
         }
 
         /// <summary>
-        /// Reverts the <see cref="PipingCalculationService.SubCalculatorFactory"/> to the value
-        /// it had at time of construction of the <see cref="PipingCalculationServiceConfig"/>.
+        /// Reverts the <see cref="PipingSubCalculatorFactory.Instance"/> to the value
+        /// it had at time of construction of the <see cref="PipingSubCalculatorFactoryConfig"/>.
         /// </summary>
         public void Dispose()
         {
-            PipingCalculationService.SubCalculatorFactory = previousFactory;
+            PipingSubCalculatorFactory.Instance = previousFactory;
         }
     }
 }
