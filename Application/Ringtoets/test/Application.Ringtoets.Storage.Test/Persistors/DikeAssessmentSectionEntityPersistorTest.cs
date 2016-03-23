@@ -18,15 +18,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
     {
         private MockRepository mockRepository;
 
-        private static IEnumerable<Func<DikeAssessmentSection>> TestCases
-        {
-            get
-            {
-                yield return () => null;
-                yield return null;
-            }
-        }
-
         [SetUp]
         public void SetUp()
         {

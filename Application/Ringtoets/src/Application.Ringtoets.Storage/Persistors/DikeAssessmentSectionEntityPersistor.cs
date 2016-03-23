@@ -68,7 +68,6 @@ namespace Application.Ringtoets.Storage.Persistors
         /// Loads the <see cref="DikeAssessmentSectionEntity"/> as <see cref="DikeAssessmentSection"/>.
         /// </summary>
         /// <param name="entity">The <see cref="DikeAssessmentSectionEntity"/> to load.</param>
-        /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
         /// <returns>A new instance of <see cref="DikeAssessmentSection"/>, based on the properties of <paramref name="entity"/>.</returns>
         public DikeAssessmentSection LoadModel(DikeAssessmentSectionEntity entity)
         {

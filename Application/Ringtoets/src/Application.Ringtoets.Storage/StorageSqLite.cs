@@ -189,7 +189,7 @@ namespace Application.Ringtoets.Storage
             {
                 throw CreateStorageReaderException(string.Empty, exception);
             }
-            catch (InvalidOperationException exception)
+            catch (SystemException exception)
             {
                 throw CreateStorageReaderException(string.Empty, exception);
             }
