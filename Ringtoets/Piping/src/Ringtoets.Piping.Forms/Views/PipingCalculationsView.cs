@@ -30,7 +30,6 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
