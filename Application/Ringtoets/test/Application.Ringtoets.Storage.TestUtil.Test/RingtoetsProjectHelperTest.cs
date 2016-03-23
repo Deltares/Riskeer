@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.TestUtil.Test
@@ -37,6 +38,14 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             string expectedDescription = "description";
             string expectedDikeAssessmentSectionName = "dikeAssessmentSection";
 
+            string hydraulicDatabaseFilePath = "/temp/test";
+            string hydraulicDatabaseVersion = "1.0";
+
+            long locationId = 13001;
+            string locationName = "test";
+            double locationX = 152.3;
+            double locationY = 2938.5;
+            double designWaterLevel = 12.4;
             // Call
             Project project = RingtoetsProjectHelper.GetFullTestProject();
 
@@ -47,6 +56,18 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             DikeAssessmentSection dikeAssessmentSection = project.Items.OfType<DikeAssessmentSection>().FirstOrDefault();
             Assert.NotNull(dikeAssessmentSection);
             Assert.AreEqual(expectedDikeAssessmentSectionName, dikeAssessmentSection.Name);
+            
+            Assert.NotNull(dikeAssessmentSection.HydraulicBoundaryDatabase);
+            Assert.AreEqual(hydraulicDatabaseVersion, dikeAssessmentSection.HydraulicBoundaryDatabase.Version);
+            Assert.AreEqual(hydraulicDatabaseFilePath, dikeAssessmentSection.HydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(1, dikeAssessmentSection.HydraulicBoundaryDatabase.Locations.Count);
+            
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = dikeAssessmentSection.HydraulicBoundaryDatabase.Locations.First();
+            Assert.AreEqual(locationId, hydraulicBoundaryLocation.Id);
+            Assert.AreEqual(locationName, hydraulicBoundaryLocation.Name);
+            Assert.AreEqual(locationX, hydraulicBoundaryLocation.Location.X);
+            Assert.AreEqual(locationY, hydraulicBoundaryLocation.Location.Y);
+            Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel);
         }
     }
 }

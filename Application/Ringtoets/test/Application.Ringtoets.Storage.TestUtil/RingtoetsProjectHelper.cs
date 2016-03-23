@@ -59,7 +59,10 @@ namespace Application.Ringtoets.Storage.TestUtil
                 FilePath = "/temp/test",
                 Version = "1.0"
             };
-            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5));
+            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5)
+            {
+                DesignWaterLevel = 12.4
+            });
 
             return hydraulicBoundaryDatabase;
         }
