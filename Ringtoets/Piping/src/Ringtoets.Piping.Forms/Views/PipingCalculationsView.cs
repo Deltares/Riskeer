@@ -25,10 +25,12 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
@@ -247,9 +249,21 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void UpdateDataGridViewDataSource()
         {
-            dataGridView.DataSource = pipingCalculationGroup.GetPipingCalculations()
-                                                            .Select(pc => new PipingCalculationRow(pc))
-                                                            .ToList();
+            var failureMechanismSection = listBox.SelectedItem as FailureMechanismSection;
+            if (failureMechanismSection == null)
+            {
+                dataGridView.DataSource = null;
+                return;
+            }
+
+            var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSection.Points);
+            var pipingCalculations = pipingCalculationGroup.GetPipingCalculations()
+                                                           .Where(pc => pc.InputParameters.SurfaceLine != null
+                                                                        && lineSegments.Min(segment => segment.GetEuclideanDistanceToPoint(pc.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint)) < 1.0e-6);
+
+            dataGridView.DataSource = pipingCalculations
+                .Select(pc => new PipingCalculationRow(pc))
+                .ToList();
         }
 
         private void UpdateDikeSectionsListBox()
