@@ -58,6 +58,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             InitializeComponent();
             InitializeDataGridView();
+            InitializeListBox();
 
             pipingSoilProfilesObserver = new Observer(UpdateSoilProfileColumn);
             assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryLocationsColumn);
@@ -82,6 +83,7 @@ namespace Ringtoets.Piping.Forms.Views
                 pipingSoilProfilesObserver.Observable = pipingFailureMechanism != null ? pipingFailureMechanism.StochasticSoilModels : null;
 
                 UpdateSoilProfileColumn();
+                UpdateDikeSectionsListBox();
             }
         }
 
@@ -146,6 +148,8 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void InitializeDataGridView()
         {
+            dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
+
             var nameColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Name",
@@ -212,6 +216,13 @@ namespace Ringtoets.Piping.Forms.Views
             dataGridView.Columns.AddRange(nameColumn, soilProfileColumn, hydraulicBoundaryLocationColumn, dampingFactorExitMeanColumn, phreaticLevelExitMeanColumn, entryPointLColumn, exitPointLColumn);
         }
 
+        private void InitializeListBox()
+        {
+            listBox.DisplayMember = "Name";
+
+            listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
+        }
+
         private void UpdateHydraulicBoundaryLocationsColumn()
         {
             var hydraulicBoundaryLocations = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
@@ -239,6 +250,17 @@ namespace Ringtoets.Piping.Forms.Views
             dataGridView.DataSource = pipingCalculationGroup.GetPipingCalculations()
                                                             .Select(pc => new PipingCalculationRow(pc))
                                                             .ToList();
+        }
+
+        private void UpdateDikeSectionsListBox()
+        {
+            listBox.Items.Clear();
+
+            if (pipingFailureMechanism != null && pipingFailureMechanism.Sections.Any())
+            {
+                listBox.Items.AddRange(pipingFailureMechanism.Sections.Cast<object>().ToArray());
+                listBox.SelectedItem = pipingFailureMechanism.Sections.First();
+            }
         }
 
         private static List<DataGridViewComboBoxItemWrapper<PipingSoilProfile>> GetSoilProfilesDataSource(IEnumerable<PipingSoilProfile> soilProfiles = null)
@@ -381,6 +403,8 @@ namespace Ringtoets.Piping.Forms.Views
 
         #endregion
 
+        # region Event handling
+
         private void DataGridViewCurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
             // Ensure combobox values are directly committed
@@ -391,5 +415,12 @@ namespace Ringtoets.Piping.Forms.Views
                 dataGridView.EndEdit();
             }
         }
+
+        private void ListBoxOnSelectedValueChanged(object sender, EventArgs eventArgs)
+        {
+            UpdateDataGridViewDataSource();
+        }
+
+        # endregion
     }
 }

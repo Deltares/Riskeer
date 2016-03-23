@@ -148,7 +148,6 @@
             this.dataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView.Size = new System.Drawing.Size(537, 502);
             this.dataGridView.TabIndex = 1;
-            this.dataGridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.DataGridViewCurrentCellDirtyStateChanged);
             // 
             // tableLayoutPanel1
             // 
