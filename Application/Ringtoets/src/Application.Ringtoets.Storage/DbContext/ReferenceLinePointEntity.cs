@@ -35,6 +35,7 @@ namespace Application.Ringtoets.Storage.DbContext
     
     public partial class ReferenceLinePointEntity
     {
+        public long ReferenceLinePointEntityId { get; set; }
         public long DikeAssessmentSectionEntityId { get; set; }
         public decimal X { get; set; }
         public decimal Y { get; set; }

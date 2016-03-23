@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data;
@@ -7,34 +10,56 @@ namespace Application.Ringtoets.Storage.Persistors
 {
     public class ReferenceLinePersistor
     {
-        private readonly ReferenceLineConverter converter = new ReferenceLineConverter();
+        private readonly ReferenceLineConverter converter;
+        private IRingtoetsEntities context;
 
         /// <summary>
-        /// Updates a (new) entity based on the values of <paramref name="model"/>.
+        /// Creates a new instance of <see cref="HydraulicLocationEntityPersistor"/>.
         /// </summary>
-        /// <param name="parentNavigationProperty">The entity to update.</param>
-        /// <param name="model">The model to use to update the entity.</param>
-        public void UpdateModel(ICollection<ReferenceLinePointEntity> parentNavigationProperty, ReferenceLine model)
+        /// <param name="ringtoetsContext">The storage context.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
+        public ReferenceLinePersistor(IRingtoetsEntities ringtoetsContext)
         {
+            if (ringtoetsContext == null)
+            {
+                throw new ArgumentNullException("ringtoetsContext");
+            }
+
+            context = ringtoetsContext;
+            converter = new ReferenceLineConverter();
         }
 
         /// <summary>
-        /// Inserts a new entity based on the values of <paramref name="model"/>.
+        /// Inserts the <paramref name="referenceLine"/> as points into the <paramref name="entityCollection"/>.
         /// </summary>
-        /// <param name="parentNavigationProperty">The collection where the new entity is added.</param>
-        /// <param name="model">The model to use to update the entity.</param>
-        public void InsertModel(ICollection<ReferenceLinePointEntity> parentNavigationProperty, ReferenceLine model)
+        /// <param name="entityCollection">The collection where the entities are added.</param>
+        /// <param name="referenceLine">The reference line which will be added tot the <paramref name="entityCollection"/>
+        ///  as entities.</param>
+        public void InsertModel(ICollection<ReferenceLinePointEntity> entityCollection, ReferenceLine referenceLine)
         {
+            if (referenceLine != null)
+            {
+                if (entityCollection == null)
+                {
+                    throw new ArgumentNullException("entityCollection");
+                }
+                context.Set<ReferenceLinePointEntity>().RemoveRange(entityCollection);
+                converter.ConvertModelToEntity(referenceLine, entityCollection);
+            }
         }
 
         /// <summary>
-        /// Creates a new <see cref="ReferenceLine"/> based on the information in <paramref name="entity"/>.
+        /// Creates a new <see cref="ReferenceLine"/> based on the information in <paramref name="entityCollection"/>.
         /// </summary>
-        /// <param name="entity">The database entity containing the information to set on the new model.</param>
+        /// <param name="entityCollection">The database entity containing the information to set on the new model.</param>
         /// <returns>A new <see cref="ReferenceLine"/> with properties set from the database.</returns>
-        public ReferenceLine LoadModel(ICollection<ReferenceLinePointEntity> entity)
+        public ReferenceLine LoadModel(ICollection<ReferenceLinePointEntity> entityCollection)
         {
-            return converter.ConvertEntityToModel(entity);
+            if (entityCollection == null)
+            {
+                throw new ArgumentNullException("entityCollection");
+            }
+            return converter.ConvertEntityToModel(entityCollection);
         }
     }
 }

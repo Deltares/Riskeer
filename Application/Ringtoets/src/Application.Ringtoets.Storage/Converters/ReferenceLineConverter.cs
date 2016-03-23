@@ -26,6 +26,10 @@ namespace Application.Ringtoets.Storage.Converters
             {
                 throw new ArgumentNullException("entityCollection");
             }
+            if (!entityCollection.Any())
+            {
+                return null;
+            }
             var line = new ReferenceLine();
 
             var geometry = entityCollection.Select(entity => new Point2D(decimal.ToDouble(entity.X), decimal.ToDouble(entity.Y)));
@@ -50,7 +54,6 @@ namespace Application.Ringtoets.Storage.Converters
                 throw new ArgumentNullException("entityCollection");
             }
 
-            entityCollection.Clear();
             foreach (Point2D point in modelObject.Points)
             {
                 entityCollection.Add(new ReferenceLinePointEntity

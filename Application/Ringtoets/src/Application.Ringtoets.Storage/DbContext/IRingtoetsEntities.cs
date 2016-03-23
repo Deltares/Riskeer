@@ -48,7 +48,9 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <summary>
         /// <see cref="IDbSet{TEntity}"/> of <see cref="HydraulicLocationEntity"/>
         /// </summary>
-        IDbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; } 
+        IDbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; }
+
+        DbSet<TEntity> Set<TEntity>() where TEntity : class;
 
         /// <summary> 
         /// Persists all updates to the database and resets change tracking in the object context, see <see cref="ObjectContext.SaveChanges()"/>.

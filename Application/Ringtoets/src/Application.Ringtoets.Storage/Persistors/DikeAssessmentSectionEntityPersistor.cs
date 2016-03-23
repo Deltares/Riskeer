@@ -44,6 +44,7 @@ namespace Application.Ringtoets.Storage.Persistors
 
         private readonly DikesPipingFailureMechanismEntityPersistor dikePipingFailureMechanismEntityPersistor;
         private readonly HydraulicLocationEntityPersistor hydraulicLocationEntityPersistor;
+        private readonly ReferenceLinePersistor referenceLinePersistor;
 
         /// <summary>
         /// New instance of <see cref="DikeAssessmentSectionEntityPersistor"/>.
@@ -62,6 +63,7 @@ namespace Application.Ringtoets.Storage.Persistors
 
             dikePipingFailureMechanismEntityPersistor = new DikesPipingFailureMechanismEntityPersistor(dbContext);
             hydraulicLocationEntityPersistor = new HydraulicLocationEntityPersistor(dbContext);
+            referenceLinePersistor = new ReferenceLinePersistor(dbContext);
         }
 
         /// <summary>
@@ -86,8 +88,7 @@ namespace Application.Ringtoets.Storage.Persistors
                 }
             }
 
-            var referenceLinePointPersistor = new ReferenceLinePersistor();
-            dikeAssessmentSection.ReferenceLine = referenceLinePointPersistor.LoadModel(entity.ReferenceLinePointEntities);
+            dikeAssessmentSection.ReferenceLine = referenceLinePersistor.LoadModel(entity.ReferenceLinePointEntities);
 
             return dikeAssessmentSection;
         }
@@ -198,6 +199,8 @@ namespace Application.Ringtoets.Storage.Persistors
                 hydraulicLocationEntityPersistor.UpdateModel(entity.HydraulicLocationEntities, model.HydraulicBoundaryDatabase);
             }
             hydraulicLocationEntityPersistor.RemoveUnModifiedEntries(entity.HydraulicLocationEntities);
+            
+            referenceLinePersistor.InsertModel(entity.ReferenceLinePointEntities, model.ReferenceLine);
         }
 
         /// <summary>
@@ -216,6 +219,8 @@ namespace Application.Ringtoets.Storage.Persistors
 
             dikePipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
             hydraulicLocationEntityPersistor.RemoveUnModifiedEntries(entity.HydraulicLocationEntities);
+
+            referenceLinePersistor.InsertModel(entity.ReferenceLinePointEntities, model.ReferenceLine);
         }
 
         /// <summary>
