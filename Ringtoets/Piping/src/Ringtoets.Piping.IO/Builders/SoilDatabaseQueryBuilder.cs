@@ -112,16 +112,19 @@ namespace Ringtoets.Piping.IO.Builders
         /// that can be read from the database.</returns>
         public static string GetPipingSoilProfileCountQuery()
         {
-            return String.Format(
-                "SELECT " +
-                "(SELECT COUNT('1') " +
-                "FROM Mechanism AS m " +
-                "JOIN MechanismPointLocation AS mpl USING(ME_ID) " +
-                "JOIN SoilProfile2D AS p2 USING(SP2D_ID) " +
-                "WHERE m.{0} = @{0}) " +
-                " + " +
-                "(SELECT COUNT('1') " +
-                "FROM SoilProfile1D) AS {1};", MechanismDatabaseColumns.MechanismName, SoilProfileDatabaseColumns.ProfileCount);
+            return String.Format("SELECT (" +
+                                 "SELECT COUNT(DISTINCT s2.SP2D_ID) " +
+                                 "FROM Mechanism AS m " +
+                                 "JOIN MechanismPointLocation AS mpl USING(ME_ID) " +
+                                 "JOIN SoilProfile2D AS p2 USING(SP2D_ID) " +
+                                 "JOIN SoilLayer2D AS s2 USING(SP2D_ID) " +
+                                 "WHERE m.{0} = @{0} " +
+                                 ") + ( " +
+                                 "SELECT COUNT(DISTINCT p1.SP1D_ID) " +
+                                 "FROM SoilProfile1D AS p1 " +
+                                 "JOIN SoilLayer1D AS s1 " +
+                                 "USING(SP1D_ID)" +
+                                 ") AS {1};", MechanismDatabaseColumns.MechanismName, SoilProfileDatabaseColumns.ProfileCount);
         }
 
         /// <summary>

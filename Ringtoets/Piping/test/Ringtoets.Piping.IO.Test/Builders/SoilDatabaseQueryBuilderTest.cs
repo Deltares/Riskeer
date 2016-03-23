@@ -64,15 +64,19 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void GetPipingSoilProfileCountQuery_Always_ReturnsExpectedValues()
         {
             // Setup
-            const string expectedQuery = "SELECT " +
-                                         "(SELECT COUNT('1') " +
+            const string expectedQuery = "SELECT (" +
+                                         "SELECT COUNT(DISTINCT s2.SP2D_ID) " +
                                          "FROM Mechanism AS m " +
                                          "JOIN MechanismPointLocation AS mpl USING(ME_ID) " +
                                          "JOIN SoilProfile2D AS p2 USING(SP2D_ID) " +
-                                         "WHERE m.ME_Name = @ME_Name) " +
-                                         " + " +
-                                         "(SELECT COUNT('1') " +
-                                         "FROM SoilProfile1D) AS nrOfRows;";
+                                         "JOIN SoilLayer2D AS s2 USING(SP2D_ID) " +
+                                         "WHERE m.ME_Name = @ME_Name " +
+                                         ") + ( " +
+                                         "SELECT COUNT(DISTINCT p1.SP1D_ID) " +
+                                         "FROM SoilProfile1D AS p1 " +
+                                         "JOIN SoilLayer1D AS s1 " +
+                                         "USING(SP1D_ID)" +
+                                         ") AS nrOfRows;";
 
             // Call
             string query = SoilDatabaseQueryBuilder.GetPipingSoilProfileCountQuery();

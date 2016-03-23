@@ -121,6 +121,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             {
                 // Assert
                 Assert.IsFalse(pipingSoilProfileReader.HasNext);
+                Assert.AreEqual(0, pipingSoilProfileReader.Count);
             }
         }
 
@@ -181,8 +182,34 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 }
 
                 // Assert
+                Assert.AreEqual(2, pipingSoilProfilesReader.Count);
                 Assert.AreEqual(2, result.Count);
                 Assert.AreEqual(result[0].Name, result[1].Name);
+            }
+        }
+
+        [Test]
+        public void ReadProfile_DatabaseWith1DAndOrphan1D_ReturnOneProfile()
+        {
+            // Setup
+            var testFile = "1dprofileWithEmpty1d.soil";
+            var dbFile = Path.Combine(testDataPath, testFile);
+            var expextedProfileName = "Profile";
+
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(dbFile))
+            {
+                var result = new Collection<PipingSoilProfile>();
+
+                // Call
+                while (pipingSoilProfilesReader.HasNext)
+                {
+                    result.Add(pipingSoilProfilesReader.ReadProfile());
+                }
+
+                // Assert
+                Assert.AreEqual(1, pipingSoilProfilesReader.Count);
+                Assert.AreEqual(1, result.Count);
+                Assert.AreEqual(expextedProfileName, result[0].Name);
             }
         }
 
@@ -463,6 +490,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
                 // Assert
                 Assert.AreEqual(0, skipped);
+                Assert.AreEqual(1, pipingSoilProfilesReader.Count);
                 Assert.AreEqual(1, result.Count);
                 Assert.AreEqual(-2.1, result[0].Bottom);
                 CollectionAssert.AreEqual(new[]
@@ -498,6 +526,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
                 // Assert
                 Assert.AreEqual(0, skipped);
+                Assert.AreEqual(26, pipingSoilProfilesReader.Count);
                 Assert.AreEqual(26, result.Count);
                 CollectionAssert.AreEqual(new[]
                 {
