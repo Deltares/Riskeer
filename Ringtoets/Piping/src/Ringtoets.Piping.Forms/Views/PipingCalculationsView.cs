@@ -41,6 +41,8 @@ namespace Ringtoets.Piping.Forms.Views
     {
         private readonly Observer pipingSoilProfilesObserver;
         private readonly Observer assessmentSectionObserver;
+        private readonly RecursiveObserver<PipingCalculationGroup, PipingInput> pipingInputObserver;
+        private readonly RecursiveObserver<PipingCalculationGroup, PipingCalculation> pipingCalculationObserver;
         private readonly RecursiveObserver<PipingCalculationGroup, PipingCalculationGroup> pipingCalculationGroupObserver;
         private AssessmentSectionBase assessmentSection;
         private PipingFailureMechanism pipingFailureMechanism;
@@ -58,7 +60,9 @@ namespace Ringtoets.Piping.Forms.Views
 
             pipingSoilProfilesObserver = new Observer(UpdateSoilProfileColumn);
             assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryLocationsColumn);
-            pipingCalculationGroupObserver = new RecursiveObserver<PipingCalculationGroup, PipingCalculationGroup>(UpdateDataGridViewDataSource, pg => pg.Children);
+            pipingInputObserver = new RecursiveObserver<PipingCalculationGroup, PipingInput>(RefreshDataGridView, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculation>().Select(pc => pc.InputParameters)));
+            pipingCalculationObserver = new RecursiveObserver<PipingCalculationGroup, PipingCalculation>(RefreshDataGridView, pcg => pcg.Children);
+            pipingCalculationGroupObserver = new RecursiveObserver<PipingCalculationGroup, PipingCalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
         }
 
         /// <summary>
@@ -112,11 +116,15 @@ namespace Ringtoets.Piping.Forms.Views
                 if (pipingCalculationGroup != null)
                 {
                     UpdateDataGridViewDataSource();
+                    pipingInputObserver.Observable = pipingCalculationGroup;
+                    pipingCalculationObserver.Observable = pipingCalculationGroup;
                     pipingCalculationGroupObserver.Observable = pipingCalculationGroup;
                 }
                 else
                 {
                     dataGridView.DataSource = null;
+                    pipingInputObserver.Observable = null;
+                    pipingCalculationObserver.Observable = null;
                     pipingCalculationGroupObserver.Observable = null;
                 }
             }
@@ -217,6 +225,12 @@ namespace Ringtoets.Piping.Forms.Views
             var pipingSoilProfiles = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
 
             soilProfileColumn.DataSource = GetSoilProfilesDataSource(pipingSoilProfiles);
+        }
+
+        private void RefreshDataGridView()
+        {
+            dataGridView.Refresh();
+            dataGridView.AutoResizeColumns();
         }
 
         private void UpdateDataGridViewDataSource()
