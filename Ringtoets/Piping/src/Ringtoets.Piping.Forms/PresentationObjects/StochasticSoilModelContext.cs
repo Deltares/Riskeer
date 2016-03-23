@@ -60,17 +60,17 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
 
         public void Attach(IObserver observer)
         {
-            FailureMechanism.Attach(observer);
+            FailureMechanism.StochasticSoilModels.Attach(observer);
         }
 
         public void Detach(IObserver observer)
         {
-            FailureMechanism.Detach(observer);
+            FailureMechanism.StochasticSoilModels.Detach(observer);
         }
 
         public void NotifyObservers()
         {
-            FailureMechanism.NotifyObservers();
+            FailureMechanism.StochasticSoilModels.NotifyObservers();
         }
 
         #endregion

@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
 
-            context.Attach(observer);
+            failureMechanism.StochasticSoilModels.Attach(observer);
 
             // Call
             context.NotifyObservers();
