@@ -5,11 +5,10 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Properties;
-using Ringtoets.Piping.InputParameterCalculation;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Primitives;
-using Ringtoets.Piping.Service.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {

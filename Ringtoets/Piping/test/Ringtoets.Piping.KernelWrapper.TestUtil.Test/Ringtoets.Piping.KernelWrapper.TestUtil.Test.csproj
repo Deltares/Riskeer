@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SubCalculator\PipingSubCalculatorFactoryConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubCalculator\EffectiveThicknessCalculatorStubTest.cs" />
     <Compile Include="SubCalculator\HeaveCalculatorStubTest.cs" />

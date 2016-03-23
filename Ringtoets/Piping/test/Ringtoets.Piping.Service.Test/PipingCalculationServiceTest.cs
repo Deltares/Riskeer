@@ -10,7 +10,6 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
-using Ringtoets.Piping.Service.TestUtil;
 
 namespace Ringtoets.Piping.Service.Test
 {

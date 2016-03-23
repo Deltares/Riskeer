@@ -267,10 +267,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Charting.Fo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper.TestUtil.Test", "Ringtoets\Piping\test\Ringtoets.Piping.KernelWrapper.TestUtil.Test\Ringtoets.Piping.KernelWrapper.TestUtil.Test.csproj", "{529C4919-27DE-4DDA-ABD6-537F21B3F223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Service.TestUtil", "Ringtoets\Piping\test\Ringtoets.Piping.Service.TestUtil\Ringtoets.Piping.Service.TestUtil.csproj", "{C05B4F73-480E-46A4-B037-40954F8276DC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Service.TestUtil.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Service.TestUtil.Test\Ringtoets.Piping.Service.TestUtil.Test.csproj", "{63EAAA8C-51FE-48E1-81A5-753FB4A47898}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Storage.TestUtil", "Application\Ringtoets\test\Application.Ringtoets.Storage.TestUtil\Application.Ringtoets.Storage.TestUtil.csproj", "{03DBE353-99F7-47D6-B826-60D694FFB9AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Storage.TestUtil.Test", "Application\Ringtoets\test\Application.Ringtoets.Storage.TestUtil.Test\Application.Ringtoets.Storage.TestUtil.Test.csproj", "{3EDE00E5-C462-43EF-B8BC-E65D14D7FCF2}"
@@ -1048,22 +1044,6 @@ Global
 		{529C4919-27DE-4DDA-ABD6-537F21B3F223}.Release|x86.Build.0 = Release|x86
 		{529C4919-27DE-4DDA-ABD6-537F21B3F223}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{529C4919-27DE-4DDA-ABD6-537F21B3F223}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{C05B4F73-480E-46A4-B037-40954F8276DC}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{C05B4F73-480E-46A4-B037-40954F8276DC}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
-		{C05B4F73-480E-46A4-B037-40954F8276DC}.Debug|x86.ActiveCfg = Debug|x86
-		{C05B4F73-480E-46A4-B037-40954F8276DC}.Debug|x86.Build.0 = Debug|x86
-		{C05B4F73-480E-46A4-B037-40954F8276DC}.Release|x86.ActiveCfg = Release|x86
-		{C05B4F73-480E-46A4-B037-40954F8276DC}.Release|x86.Build.0 = Release|x86
-		{C05B4F73-480E-46A4-B037-40954F8276DC}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{C05B4F73-480E-46A4-B037-40954F8276DC}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{63EAAA8C-51FE-48E1-81A5-753FB4A47898}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{63EAAA8C-51FE-48E1-81A5-753FB4A47898}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
-		{63EAAA8C-51FE-48E1-81A5-753FB4A47898}.Debug|x86.ActiveCfg = Debug|x86
-		{63EAAA8C-51FE-48E1-81A5-753FB4A47898}.Debug|x86.Build.0 = Debug|x86
-		{63EAAA8C-51FE-48E1-81A5-753FB4A47898}.Release|x86.ActiveCfg = Release|x86
-		{63EAAA8C-51FE-48E1-81A5-753FB4A47898}.Release|x86.Build.0 = Release|x86
-		{63EAAA8C-51FE-48E1-81A5-753FB4A47898}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{63EAAA8C-51FE-48E1-81A5-753FB4A47898}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{03DBE353-99F7-47D6-B826-60D694FFB9AC}.CreateInstaller|x86.ActiveCfg = Release|x86
 		{03DBE353-99F7-47D6-B826-60D694FFB9AC}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
 		{03DBE353-99F7-47D6-B826-60D694FFB9AC}.Debug|x86.ActiveCfg = Debug|x86
@@ -1190,8 +1170,6 @@ Global
 		{813FFA92-1F3F-462B-B596-5919334007A9} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{35B78215-420B-4D7D-9959-9E9010601200} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{529C4919-27DE-4DDA-ABD6-537F21B3F223} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
-		{C05B4F73-480E-46A4-B037-40954F8276DC} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
-		{63EAAA8C-51FE-48E1-81A5-753FB4A47898} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{9FA83BA2-249B-4A66-A501-1C3DA07F8F86} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{74E55618-31E4-429A-81FB-30C16C4891ED} = {1F0D20C2-7F04-431D-AF22-95A31FD53733}
 		{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7} = {39EB5D07-C076-484C-9621-B34C4E5BF64C}

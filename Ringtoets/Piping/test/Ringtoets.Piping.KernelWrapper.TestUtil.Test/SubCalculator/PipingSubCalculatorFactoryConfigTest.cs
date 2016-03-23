@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 
-namespace Ringtoets.Piping.Service.TestUtil.Test
+namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test
 {
     [TestFixture]
     public class PipingSubCalculatorFactoryConfigTest

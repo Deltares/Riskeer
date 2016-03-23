@@ -96,10 +96,6 @@
       <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
       <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Service.TestUtil\Ringtoets.Piping.Service.TestUtil.csproj">
-      <Project>{C05B4F73-480E-46A4-B037-40954F8276DC}</Project>
-      <Name>Ringtoets.Piping.Service.TestUtil</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

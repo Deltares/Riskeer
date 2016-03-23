@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
     {
         private static IPipingSubCalculatorFactory instance;
 
-        internal PipingSubCalculatorFactory() {}
+        private PipingSubCalculatorFactory() {}
 
         /// <summary>
         /// Gets or sets an instance of <see cref="IPipingSubCalculatorFactory"/>.
