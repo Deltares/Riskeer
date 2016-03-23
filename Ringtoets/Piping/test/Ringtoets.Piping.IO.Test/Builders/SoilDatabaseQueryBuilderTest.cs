@@ -61,6 +61,27 @@ namespace Ringtoets.Piping.IO.Test.Builders
         }
 
         [Test]
+        public void GetPipingSoilProfileCountQuery_Always_ReturnsExpectedValues()
+        {
+            // Setup
+            const string expectedQuery = "SELECT " +
+                                         "(SELECT COUNT('1') " +
+                                         "FROM Mechanism AS m " +
+                                         "JOIN MechanismPointLocation AS mpl USING(ME_ID) " +
+                                         "JOIN SoilProfile2D AS p2 USING(SP2D_ID) " +
+                                         "WHERE m.ME_Name = @ME_Name) " +
+                                         " + " +
+                                         "(SELECT COUNT('1') " +
+                                         "FROM SoilProfile1D) AS nrOfRows;";
+
+            // Call
+            string query = SoilDatabaseQueryBuilder.GetPipingSoilProfileCountQuery();
+
+            // Assert
+            Assert.AreEqual(expectedQuery, query);
+        }
+
+        [Test]
         public void GetStochasticSoilModelOfMechanismCountQuery_Always_ReturnsExpectedValues()
         {
             // Setup

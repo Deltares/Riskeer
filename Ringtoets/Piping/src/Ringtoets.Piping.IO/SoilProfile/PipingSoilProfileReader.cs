@@ -25,6 +25,7 @@ using System.Data.SQLite;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
+using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
@@ -222,17 +223,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <exception cref="SQLiteException">A query could not be executed on the database schema.</exception>
         private void PrepareReader()
         {
-            string countQuery = string.Format(string.Join(
-                " ",
-                "SELECT",
-                "(SELECT COUNT(*)",
-                "FROM Mechanism as m",
-                "JOIN MechanismPointLocation as mpl ON mpl.ME_ID = m.ME_ID",
-                "JOIN SoilProfile2D as p2 ON p2.SP2D_ID = mpl.SP2D_ID",
-                "WHERE m.ME_Name = @{0})",
-                " + ",
-                "(SELECT COUNT(*)",
-                "FROM SoilProfile1D) as {1};"), mechanismParameterName, SoilProfileDatabaseColumns.ProfileCount);
+            string countQuery = SoilDatabaseQueryBuilder.GetPipingSoilProfileCountQuery();
 
             string materialPropertiesQuery = string.Format(
                 string.Join(" ",
@@ -355,7 +346,13 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 DbType = DbType.String,
                 Value = pipingMechanismName,
                 ParameterName = mechanismParameterName
-            });
+            }, new SQLiteParameter
+            {
+                DbType = DbType.String,
+                ParameterName = String.Format("@{0}", MechanismDatabaseColumns.MechanismName),
+                Value = pipingMechanismName
+            }
+                );
         }
 
         private void GetCount()

@@ -178,14 +178,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 log.WarnFormat(RingtoetsPluginResources.PipingSoilProfilesImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0, stochasticSoilModel.Name);
                 return false;
             }
-            if (stochasticSoilModel.Geometry.Count == 0)
-            {
-                log.WarnFormat("Er zijn geen coordinaten gevonden in het stochastich ondersgrondmodel '{0}', deze wordt overgeslagen.", stochasticSoilModel.Name);
-                return false;
-            }
             if (!stochasticSoilModel.StochasticSoilProfiles.Where(s => s.SoilProfile != null).Sum(s => s.Probability).Equals(1.0))
             {
-                log.WarnFormat("De som van de kans van voorkomen in het stochastich ondersgrondmodel '{0}' is niet gelijk aan 1.", stochasticSoilModel.Name);
+                log.WarnFormat(RingtoetsPluginResources.PipingSoilProfilesImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct, stochasticSoilModel.Name);
             }
             return true;
         }
@@ -242,22 +237,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 }
                 try
                 {
-                    NotifyProgress("Inlezen van de ondergrondsmodellen uit de D-Soil Model database.", currentStep++, totalNumberOfSteps);
+                    NotifyProgress(RingtoetsPluginResources.PipingSoilProfilesImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database, currentStep++, totalNumberOfSteps);
                     soilModels.Add(stochasticSoilModelReader.ReadStochasticSoilModel());
                 }
-                catch (PipingSoilProfileReadException e)
+                catch (StochasticSoilProfileReadException e)
                 {
-                    var message = string.Format("{0} " +
-                                                "Dit ondergrondsmodel wordt overgeslagen.",
-                                                e.Message);
+                    var message = string.Format(RingtoetsPluginResources.PipingSoilProfilesImporter_GetStochasticSoilModelReadResult_Error_0_stochastic_soil_model_skipped, e.Message);
                     log.Error(message);
-                }
-                catch (CriticalFileReadException e)
-                {
-                    var message = string.Format(RingtoetsPluginResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped,
-                                                path, e.Message);
-                    log.Error(message);
-                    return new ReadResult<StochasticSoilModel>(true);
                 }
             }
             return new ReadResult<StochasticSoilModel>(false)

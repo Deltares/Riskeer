@@ -109,6 +109,26 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Dit stochastisch ondergrondmodel wordt overgeslagen..
+        /// </summary>
+        public static string PipingSoilProfilesImporter_GetStochasticSoilModelReadResult_Error_0_stochastic_soil_model_skipped {
+            get {
+                return ResourceManager.GetString("PipingSoilProfilesImporter_GetStochasticSoilModelReadResult_Error_0_stochastic_so" +
+                        "il_model_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van de stochastische ondergrondmodellen..
+        /// </summary>
+        public static string PipingSoilProfilesImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database {
+            get {
+                return ResourceManager.GetString("PipingSoilProfilesImporter_GetStochasticSoilModelReadResult_Reading_stochastic_so" +
+                        "il_models_from_database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ondergrondschematiseringen importeren afgebroken. Geen data ingelezen..
         /// </summary>
         public static string PipingSoilProfilesImporter_Import_Import_cancelled {
@@ -162,6 +182,16 @@ namespace Ringtoets.Piping.Plugin.Properties {
             get {
                 return ResourceManager.GetString("PipingSoilProfilesImporter_ValidateStochasticSoilModel_No_profiles_found_in_stoch" +
                         "astic_soil_model_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De som van de kans van voorkomen in het stochastich ondergrondmodel &apos;{0}&apos; is niet gelijk aan 100%..
+        /// </summary>
+        public static string PipingSoilProfilesImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct {
+            get {
+                return ResourceManager.GetString("PipingSoilProfilesImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_st" +
+                        "ochastic_soil_model_0_is_not_correct", resourceCulture);
             }
         }
         

@@ -38,7 +38,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingSoilProfileCollectionTreeNodeInfoTest
+    public class StochasticSoilModelContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingGuiPlugin plugin;

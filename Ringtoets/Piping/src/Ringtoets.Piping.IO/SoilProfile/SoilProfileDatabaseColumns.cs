@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
     internal static class SoilProfileDatabaseColumns
     {
         internal const string SoilProfileId = "SoilProfileId";
-        internal const string ProfileCount = "ProfileCount";
+        internal const string ProfileCount = "nrOfRows";
         internal const string Dimension = "Dimension";
         internal const string IsAquifer = "IsAquifer";
         internal const string ProfileName = "ProfileName";

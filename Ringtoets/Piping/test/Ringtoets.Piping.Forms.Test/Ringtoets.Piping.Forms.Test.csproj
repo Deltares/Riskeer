@@ -72,7 +72,7 @@
     <Compile Include="PresentationObjects\PipingContextTest.cs" />
     <Compile Include="PropertyClasses\PipingCalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingInputContextPropertiesTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingSoilProfileCollectionTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\StochasticSoilModelContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="Helper\PipingOutputCreator.cs" />
     <Compile Include="TreeNodeInfos\PipingFailureMechanismTreeNodeInfoTest.cs" />

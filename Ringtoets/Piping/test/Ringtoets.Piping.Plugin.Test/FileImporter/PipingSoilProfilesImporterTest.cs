@@ -22,11 +22,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
     public class PipingSoilProfilesImporterTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingSoilProfilesReader");
+        private MockRepository mockRepository;
         private int progress;
 
         [SetUp]
         public void SetUp()
         {
+            mockRepository = new MockRepository();
             progress = 0;
         }
 
@@ -56,12 +58,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var file = "nonexisting.soil";
             string validFilePath = Path.Combine(testDataPath, file);
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var observer = mockRepository.StrictMock<IObserver>();
+            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
             context.Attach(observer);
@@ -90,7 +91,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             CollectionAssert.IsEmpty(context.FailureMechanism.StochasticSoilModels);
             Assert.AreEqual(1, progress);
 
-            mocks.VerifyAll(); // 'observer' should not be notified
+            mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
         [Test]
@@ -100,12 +101,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var file = "/";
             string invalidFilePath = Path.Combine(testDataPath, file);
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var observer = mockRepository.StrictMock<IObserver>();
+            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
             context.Attach(observer);
@@ -134,7 +134,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             CollectionAssert.IsEmpty(context.FailureMechanism.StochasticSoilModels);
             Assert.AreEqual(1, progress);
 
-            mocks.VerifyAll(); // 'observer' should not be notified
+            mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
         [Test]
@@ -144,11 +144,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var file = "file";
             string invalidFilePath = Path.Combine(testDataPath, file);
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var observer = mockRepository.StrictMock<IObserver>();
+            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
             var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             var expectedMessage = "Er is geen referentielijn beschikbaar. Geen data ingelezen.";
             var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
@@ -172,20 +171,20 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             CollectionAssert.IsEmpty(context.FailureMechanism.StochasticSoilModels);
             Assert.AreEqual(0, progress);
 
-            mocks.VerifyAll(); // 'observer' should not be notified
+            mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
         [Test]
-        public void Import_ImportingToValidTargetWithValidFile_ImportSoilProfilesToCollection()
+        public void Import_ImportingToValidTargetWithValidFile_ImportSoilModelToCollection()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
+
+            var observer = mockRepository.StrictMock<IObserver>();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             var importer = new PipingSoilProfilesImporter
             {
@@ -202,20 +201,20 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsTrue(importResult);
             Assert.AreEqual(34, progress);
 
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Import_ImportingToValidTargetWithValidFileTwice_AddsSoilProfilesToCollectionLogWarning()
+        public void Import_ImportingToValidTargetWithValidFileTwice_AddsSoilModelToCollectionLogWarning()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
+
+            var observer = mockRepository.StrictMock<IObserver>();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             var importer = new PipingSoilProfilesImporter
             {
@@ -241,7 +240,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsTrue(importResult);
             Assert.AreEqual(34*2, progress);
 
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -250,12 +249,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var observer = mockRepository.StrictMock<IObserver>();
+            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
             context.Attach(observer);
@@ -282,23 +280,22 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             CollectionAssert.IsEmpty(context.FailureMechanism.StochasticSoilModels);
             Assert.AreEqual(1, progress);
 
-            mocks.VerifyAll(); // 'observer' should not be notified
+            mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
         [Test]
-        public void Import_ReuseOfCancelledImportToValidTargetWithValidFile_ImportSurfaceLinesToCollection()
+        public void Import_ReuseOfCancelledImportToValidTargetWithValidFile_ImportSoilModelToCollection()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
+            var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
             context.Attach(observer);
@@ -331,12 +328,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             string corruptPath = Path.Combine(testDataPath, "empty.soil");
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var observer = mockRepository.StrictMock<IObserver>();
+            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
             context.Attach(observer);
@@ -361,7 +357,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                      "No items should be added to collection when import is aborted.");
             Assert.AreEqual(1, progress);
 
-            mocks.VerifyAll(); // Expect no calls on 'observer'
+            mockRepository.VerifyAll(); // Expect no calls on 'observer'
         }
 
         [Test]
@@ -370,12 +366,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             string corruptPath = Path.Combine(testDataPath, "invalidAtX2dProperty.soil");
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var observer = mockRepository.StrictMock<IObserver>();
+            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
             context.Attach(observer);
@@ -408,7 +403,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(0, context.FailureMechanism.StochasticSoilModels.Count);
             Assert.AreEqual(6, progress);
 
-            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
+            mockRepository.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
         [Test]
@@ -417,12 +412,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             string corruptPath = Path.Combine(testDataPath, "incorrectValue2dProperty.soil");
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var observer = mockRepository.StrictMock<IObserver>();
+            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
             context.Attach(observer);
@@ -438,7 +432,81 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.IsTrue(importResult);
             Assert.AreEqual(0, context.FailureMechanism.StochasticSoilModels.Count);
 
-            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
+            mockRepository.VerifyAll(); // Ensure there are no calls to UpdateObserver
+        }
+
+        [Test]
+        public void Import_IncorrectProfiles_SkipModelAndLog()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "invalidStochasticSoilProfiles.soil");
+
+            var observer = mockRepository.StrictMock<IObserver>();
+            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            var failureMechanism = new PipingFailureMechanism();
+            mockRepository.ReplayAll();
+
+            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            context.Attach(observer);
+
+            var importer = new PipingSoilProfilesImporter
+            {
+                ProgressChanged = IncrementProgress
+            };
+
+            var expectedLogMessage = String.Format("Fout bij het lezen van bestand '{0}': Het stochastisch ondergrondprofiel bevat geen geldige waarde." +
+                                                   " Dit stochastisch ondergrondmodel wordt overgeslagen.", validFilePath);
+            var importResult = false;
+
+            // Call
+            Action call = () => importResult = importer.Import(context, validFilePath);
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            Assert.AreEqual(0, failureMechanism.StochasticSoilModels.Count);
+            Assert.IsTrue(importResult);
+
+            mockRepository.VerifyAll(); // Ensure there are no calls to UpdateObserver
+        }
+
+        [Test]
+        public void Import_IncorrectProbability_LogAndImportSoilModelToCollection()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "incorrectProbability.soil");
+
+            var observer = mockRepository.StrictMock<IObserver>();
+            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            var failureMechanism = new PipingFailureMechanism();
+            mockRepository.ReplayAll();
+
+            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            context.Attach(observer);
+
+            var importer = new PipingSoilProfilesImporter
+            {
+                ProgressChanged = IncrementProgress
+            };
+
+            var expectedLogMessages = new[]
+            {
+                "Het uitgelezen profiel 'Profile' niet wordt niet gebruikt in een van de stochastische ondergrondmodellen.",
+                "De som van de kans van voorkomen in het stochastich ondergrondmodel 'Name' is niet gelijk aan 100%."
+            };
+
+            var importResult = false;
+
+            // Call
+            Action call = () => importResult = importer.Import(context, validFilePath);
+
+            // Assert
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
+            Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
+            Assert.IsTrue(importResult);
+
+            mockRepository.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
         private void IncrementProgress(string a, int b, int c)

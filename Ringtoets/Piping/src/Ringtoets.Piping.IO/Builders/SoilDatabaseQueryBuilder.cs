@@ -105,6 +105,26 @@ namespace Ringtoets.Piping.IO.Builders
         }
 
         /// <summary>
+        /// Returns the query to get the amount of SoilProfile1D and SoilProfile2D
+        /// that can be read from the database.
+        /// </summary>
+        /// <returns>The query to get the amount of SoilProfile1D and SoilProfile2D
+        /// that can be read from the database.</returns>
+        public static string GetPipingSoilProfileCountQuery()
+        {
+            return String.Format(
+                "SELECT " +
+                "(SELECT COUNT('1') " +
+                "FROM Mechanism AS m " +
+                "JOIN MechanismPointLocation AS mpl USING(ME_ID) " +
+                "JOIN SoilProfile2D AS p2 USING(SP2D_ID) " +
+                "WHERE m.{0} = @{0}) " +
+                " + " +
+                "(SELECT COUNT('1') " +
+                "FROM SoilProfile1D) AS {1};", MechanismDatabaseColumns.MechanismName, SoilProfileDatabaseColumns.ProfileCount);
+        }
+
+        /// <summary>
         /// Returns the SQL query to execute to check if version of the DSoil-Model database is as expected.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
