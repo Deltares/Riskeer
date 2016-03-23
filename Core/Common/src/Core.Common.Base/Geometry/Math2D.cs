@@ -252,7 +252,7 @@ namespace Core.Common.Base.Geometry
         }
 
         /// <summary>
-        /// Determines if two vectors are collinear.
+        /// Determines if two parallel vectors are collinear.
         /// </summary>
         /// <param name="vector1">The first 2D vector.</param>
         /// <param name="vector2">The second 2D vector.</param>
@@ -292,8 +292,8 @@ namespace Core.Common.Base.Geometry
                 return Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
             }
 
-            t0 = t0 < 0.0 ? 0.0 : t0; // Clip to minimum 0
-            t1 = t1 > 1.0 ? 1.0 : t1; // Clip to maximum 1
+            t0 = Math.Max(0.0, t0);
+            t1 = Math.Min(1.0, t1);
             Point2D intersectionPoint1 = segment2.FirstPoint + v.Multiply(t0);
             if (Math.Abs(t0 - t1) < epsilonForComparisons)
             {
@@ -358,40 +358,6 @@ namespace Core.Common.Base.Geometry
                 double maxX = Math.Max(colinearSegment.FirstPoint.X, colinearSegment.SecondPoint.X);
                 return minX <= point.X && point.X <= maxX;
             }
-        }
-
-        /// <summary>
-        /// Gets the intersection point.
-        /// </summary>
-        /// <param name="segment1">The segment1.</param>
-        /// <param name="segment2">The segment2.</param>
-        /// <returns></returns>
-        /// <remarks>Implementation from http://geomalgorithms.com/a05-_intersect-1.html
-        /// based on method <c>intersect2D_2Segments</c>.</remarks>
-        private static Point2D GetIntersectionPoint(Segment2D segment1, Segment2D segment2)
-        {
-            var aLine = (segment1.FirstPoint.Y - segment2.FirstPoint.Y) * (segment2.SecondPoint.X - segment2.FirstPoint.X) - (segment1.FirstPoint.X - segment2.FirstPoint.X) * (segment2.SecondPoint.Y - segment2.FirstPoint.Y);
-            var bLine = (segment1.SecondPoint.X - segment1.FirstPoint.X) * (segment2.SecondPoint.Y - segment2.FirstPoint.Y) - (segment1.SecondPoint.Y - segment1.FirstPoint.Y) * (segment2.SecondPoint.X - segment2.FirstPoint.X);
-
-            if (Math.Abs(bLine) < epsilonForComparisons)
-            {
-                return null;
-            }
-
-            var intersectionPoint = aLine / bLine;
-
-            var cLine = (segment1.FirstPoint.Y - segment2.FirstPoint.Y) * (segment1.SecondPoint.X - segment1.FirstPoint.X) - (segment1.FirstPoint.X - segment2.FirstPoint.X) * (segment1.SecondPoint.Y - segment1.FirstPoint.Y);
-            var dLine = cLine / bLine;
-
-            if (intersectionPoint >= 0 && intersectionPoint <= 1 && dLine >= 0 && dLine <= 1)
-            {
-                return new Point2D
-                    (
-                    segment1.FirstPoint.X + intersectionPoint * (segment1.SecondPoint.X - segment1.FirstPoint.X),
-                    segment1.FirstPoint.Y + intersectionPoint * (segment1.SecondPoint.Y - segment1.FirstPoint.Y)
-                    );
-            }
-            return null;
         }
 
         /// <summary>

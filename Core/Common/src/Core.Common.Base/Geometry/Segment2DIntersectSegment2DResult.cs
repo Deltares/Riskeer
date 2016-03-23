@@ -44,7 +44,7 @@ namespace Core.Common.Base.Geometry
         /// <remarks>
         /// <para>If <see cref="IntersectionType"/> has a value of <see cref="Intersection2DType.Intersects"/>,
         /// the array holds the single intersection points found.</para>
-        /// <para>If <see cref="IntersectionType"/> has a value of <see cref="Intersection2DType.Overlapping"/>,
+        /// <para>If <see cref="IntersectionType"/> has a value of <see cref="Intersection2DType.Overlaps"/>,
         /// the array holds the two points defining the overlapping area for both segments.</para>
         /// </remarks>
         public Point2D[] IntersectionPoints { get; private set; }
@@ -54,7 +54,7 @@ namespace Core.Common.Base.Geometry
         /// </summary>
         public static Segment2DIntersectSegment2DResult CreateNoIntersectResult()
         {
-            return new Segment2DIntersectSegment2DResult(Intersection2DType.NoIntersections, new Point2D[0]);
+            return new Segment2DIntersectSegment2DResult(Intersection2DType.DoesNotIntersect, new Point2D[0]);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Core.Common.Base.Geometry
         /// <param name="end">The end of the overlapping segment.</param>
         public static Segment2DIntersectSegment2DResult CreateOverlapResult(Point2D start, Point2D end)
         {
-            return new Segment2DIntersectSegment2DResult(Intersection2DType.Overlapping, new[]
+            return new Segment2DIntersectSegment2DResult(Intersection2DType.Overlaps, new[]
             {
                 start,
                 end

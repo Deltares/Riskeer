@@ -29,7 +29,7 @@ namespace Core.Common.Base.Geometry
         /// <summary>
         /// No intersections have been found.
         /// </summary>
-        NoIntersections,
+        DoesNotIntersect,
         /// <summary>
         /// Intersections have been found.
         /// </summary>
@@ -37,6 +37,6 @@ namespace Core.Common.Base.Geometry
         /// <summary>
         /// There is some overlap between two elements.
         /// </summary>
-        Overlapping
+        Overlaps
     }
 }

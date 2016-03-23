@@ -270,7 +270,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                         intersectionPoint = result.IntersectionPoints[0];
                     }
 
-                    if (result.IntersectionType == Intersection2DType.Overlapping)
+                    if (result.IntersectionType == Intersection2DType.Overlaps)
                     {
                         // Early exit as overlap is a return result:
                         return ReferenceLineIntersectionResult.CreateMultipleIntersectionsOrOverlapResult();

@@ -407,7 +407,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(horizontalSegment1, horizontalSegment2);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.DoesNotIntersect, result.IntersectionType);
             CollectionAssert.IsEmpty(result.IntersectionPoints);
         }
 
@@ -432,7 +432,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(horizontalSegment1, horizontalSegment2);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.DoesNotIntersect, result.IntersectionType);
             CollectionAssert.IsEmpty(result.IntersectionPoints);
         }
 
@@ -447,7 +447,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(segment1, segment2);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.DoesNotIntersect, result.IntersectionType);
             CollectionAssert.IsEmpty(result.IntersectionPoints);
         }
 
@@ -456,15 +456,15 @@ namespace Core.Common.Base.Test.Geometry
         [TestCase(1.1 + 1e-6)]
         [TestCase(-1.1 - 1e-6)]
         [TestCase(-56.78)]
-        public void GetIntersectionBetweenSegments_TwoCollinearHorizontalLinesWithoutOverlap_ReturnNoIntersection(double dy)
+        public void GetIntersectionBetweenSegments_TwoCollinearHorizontalLinesWithoutOverlap_ReturnNoIntersection(double dx)
         {
             // Setup
             const double x1 = 1.1;
             const double x2 = 2.2;
             const double y = 3.3;
 
-            double x3 = x1 + dy;
-            double x4 = x2 + dy;
+            double x3 = x1 + dx;
+            double x4 = x2 + dx;
             var horizontalSegment1 = new Segment2D(new Point2D(x1, y), new Point2D(x2, y));
             var horizontalSegment2 = new Segment2D(new Point2D(x3, y), new Point2D(x4, y));
 
@@ -472,7 +472,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(horizontalSegment1, horizontalSegment2);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.DoesNotIntersect, result.IntersectionType);
             CollectionAssert.IsEmpty(result.IntersectionPoints);
         }
 
@@ -497,7 +497,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(horizontalSegment1, horizontalSegment2);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.DoesNotIntersect, result.IntersectionType);
             CollectionAssert.IsEmpty(result.IntersectionPoints);
         }
 
@@ -521,7 +521,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(segment1, segment2);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.DoesNotIntersect, result.IntersectionType);
             CollectionAssert.IsEmpty(result.IntersectionPoints);
         }
 
@@ -720,7 +720,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(verticalSegment1, verticalSegment2);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.Overlapping, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
             var expectedOverlappingPoints = dy >= 0 ? 
                 new[] { verticalSegment1.FirstPoint, verticalSegment2.SecondPoint }:
                 new[] { verticalSegment1.SecondPoint, verticalSegment2.FirstPoint };
@@ -750,7 +750,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(horizontalSegment1, horizontalSegment2);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.Overlapping, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
             var expectedOverlappingPoints = dx >= 0 ?
                 new[] { horizontalSegment1.FirstPoint, horizontalSegment2.SecondPoint } :
                 new[] { horizontalSegment1.SecondPoint, horizontalSegment2.FirstPoint };
@@ -769,7 +769,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(segment, segment);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.Overlapping, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
             var expectedOverlappingPoints = new[] { firstPoint, secondPoint };
             CollectionAssertAreEquivalent(expectedOverlappingPoints, result.IntersectionPoints);
         }
@@ -790,7 +790,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(segment1, segment2);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.Overlapping, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
             var expectedOverlappingPoints = new[] { segment1.FirstPoint, segment1.SecondPoint };
             CollectionAssertAreEquivalent(expectedOverlappingPoints, result.IntersectionPoints);
         }
@@ -815,7 +815,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(segment1, segment2);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.DoesNotIntersect, result.IntersectionType);
             CollectionAssert.IsEmpty(result.IntersectionPoints);
         }
 
@@ -851,7 +851,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(segment1, segment2);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.DoesNotIntersect, result.IntersectionType);
             CollectionAssert.IsEmpty(result.IntersectionPoints);
         }
 
@@ -954,7 +954,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(segment1, segment2);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.DoesNotIntersect, result.IntersectionType);
             CollectionAssert.IsEmpty(result.IntersectionPoints);
         }
 

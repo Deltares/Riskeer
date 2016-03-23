@@ -14,7 +14,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
 
             // Assert
-            Assert.AreEqual(Intersection2DType.NoIntersections, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.DoesNotIntersect, result.IntersectionType);
             CollectionAssert.IsEmpty(result.IntersectionPoints);
         }
 
@@ -43,7 +43,7 @@ namespace Core.Common.Base.Test.Geometry
             Segment2DIntersectSegment2DResult result = Segment2DIntersectSegment2DResult.CreateOverlapResult(point1, point2);
 
             // Assert
-            Assert.AreEqual(Intersection2DType.Overlapping, result.IntersectionType);
+            Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
             CollectionAssert.AreEqual(new[] { point1, point2 }, result.IntersectionPoints);
         }
     }
