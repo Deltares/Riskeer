@@ -42,6 +42,7 @@ namespace Ringtoets.Piping.Forms.Views
     public partial class PipingCalculationsView : UserControl, IView
     {
         private readonly Observer pipingSoilProfilesObserver;
+        private readonly Observer pipingFailureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
         private readonly RecursiveObserver<PipingCalculationGroup, PipingInput> pipingInputObserver;
         private readonly RecursiveObserver<PipingCalculationGroup, PipingCalculation> pipingCalculationObserver;
@@ -62,6 +63,7 @@ namespace Ringtoets.Piping.Forms.Views
             InitializeListBox();
 
             pipingSoilProfilesObserver = new Observer(UpdateSoilProfileColumn);
+            pipingFailureMechanismObserver = new Observer(UpdateDikeSectionsListBox);
             assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryLocationsColumn);
             pipingInputObserver = new RecursiveObserver<PipingCalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculation>().Select(pc => pc.InputParameters)));
             pipingCalculationObserver = new RecursiveObserver<PipingCalculationGroup, PipingCalculation>(RefreshDataGridView, pcg => pcg.Children);
@@ -82,6 +84,7 @@ namespace Ringtoets.Piping.Forms.Views
                 pipingFailureMechanism = value;
 
                 pipingSoilProfilesObserver.Observable = pipingFailureMechanism != null ? pipingFailureMechanism.StochasticSoilModels : null;
+                pipingFailureMechanismObserver.Observable = pipingFailureMechanism;
 
                 UpdateSoilProfileColumn();
                 UpdateDikeSectionsListBox();
