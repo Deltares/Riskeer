@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -300,6 +301,8 @@ namespace Ringtoets.Piping.Forms.Views
                     pipingCalculation.InputParameters.SoilProfile = value != null
                                                                         ? value.WrappedObject
                                                                         : null;
+
+                    pipingCalculation.InputParameters.NotifyObservers();
                 }
             }
 
@@ -314,6 +317,8 @@ namespace Ringtoets.Piping.Forms.Views
                     pipingCalculation.InputParameters.HydraulicBoundaryLocation = value != null
                                                                                       ? value.WrappedObject
                                                                                       : null;
+
+                    pipingCalculation.InputParameters.NotifyObservers();
                 }
             }
 
@@ -326,6 +331,8 @@ namespace Ringtoets.Piping.Forms.Views
                 set
                 {
                     pipingCalculation.InputParameters.DampingFactorExit.Mean = value;
+
+                    pipingCalculation.InputParameters.NotifyObservers();
                 }
             }
 
@@ -338,6 +345,8 @@ namespace Ringtoets.Piping.Forms.Views
                 set
                 {
                     pipingCalculation.InputParameters.PhreaticLevelExit.Mean = value;
+
+                    pipingCalculation.InputParameters.NotifyObservers();
                 }
             }
 
@@ -350,6 +359,8 @@ namespace Ringtoets.Piping.Forms.Views
                 set
                 {
                     pipingCalculation.InputParameters.EntryPointL = value;
+
+                    pipingCalculation.InputParameters.NotifyObservers();
                 }
             }
 
@@ -362,10 +373,23 @@ namespace Ringtoets.Piping.Forms.Views
                 set
                 {
                     pipingCalculation.InputParameters.ExitPointL = value;
+
+                    pipingCalculation.InputParameters.NotifyObservers();
                 }
             }
         }
 
         #endregion
+
+        private void DataGridViewCurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            // Ensure combobox values are directly committed
+            DataGridViewColumn currentColumn = dataGridView.Columns[dataGridView.CurrentCell.ColumnIndex];
+            if (currentColumn is DataGridViewComboBoxColumn)
+            {
+                dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                dataGridView.EndEdit();
+            }
+        }
     }
 }
