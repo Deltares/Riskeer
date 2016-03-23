@@ -217,7 +217,10 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var assessmentLevel = new RoundedDouble(2, 7.60);
-            calculation.InputParameters.AssessmentLevel = assessmentLevel;
+            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
+            {
+                DesignWaterLevel = assessmentLevel
+            };
 
             // Precondition
             Assert.AreEqual(assessmentLevel, calculation.InputParameters.AssessmentLevel);

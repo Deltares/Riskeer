@@ -265,31 +265,6 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessCoverageLayer_SetNewValue_UpdateMeanAndStandardDeviation()
-        {
-            // Setup
-            var inputs = new PipingInput(new GeneralPipingInput());
-            LognormalDistribution originalThicknessCoverageLayer = inputs.ThicknessCoverageLayer;
-
-            var newValue = new LognormalDistribution(5)
-            {
-                Mean = (RoundedDouble)1.23456,
-                StandardDeviation = (RoundedDouble)7.89123
-            };
-
-            // Call
-            inputs.ThicknessCoverageLayer = newValue;
-
-            // Assert
-            Assert.AreSame(originalThicknessCoverageLayer, inputs.ThicknessCoverageLayer,
-                "Stochast instance hasn't changed to 'newValue'.");
-            Assert.AreEqual(2, originalThicknessCoverageLayer.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.23, originalThicknessCoverageLayer.Mean.Value);
-            Assert.AreEqual(2, originalThicknessCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(7.89, originalThicknessCoverageLayer.StandardDeviation.Value);
-        }
-
-        [Test]
         public void SaturatedVolumicWeightOfCoverageLayer_SetNewValue_UpdateMeanAndStandardDeviation()
         {
             // Setup
@@ -315,31 +290,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(2.22, originalSaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value);
             Assert.AreEqual(2, originalSaturatedVolumicWeightOfCoverageLayer.Shift.NumberOfDecimalPlaces);
             Assert.AreEqual(-3.33, originalSaturatedVolumicWeightOfCoverageLayer.Shift.Value);
-        }
-
-        [Test]
-        public void SeepageLength_SetNewValue_UpdateMeanAndStandardDeviation()
-        {
-            // Setup
-            var inputs = new PipingInput(new GeneralPipingInput());
-            LognormalDistribution originalSeepageLength = inputs.SeepageLength;
-
-            var newValue = new LognormalDistribution(5)
-            {
-                Mean = (RoundedDouble)5.55555,
-                StandardDeviation = (RoundedDouble)6.66666
-            };
-
-            // Call
-            inputs.SeepageLength = newValue;
-
-            // Assert
-            Assert.AreSame(originalSeepageLength, inputs.SeepageLength,
-                "Stochast instance hasn't changed to 'newValue'.");
-            Assert.AreEqual(2, originalSeepageLength.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(5.56, originalSeepageLength.Mean.Value);
-            Assert.AreEqual(2, originalSeepageLength.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(6.67, originalSeepageLength.StandardDeviation.Value);
         }
 
         [Test]
@@ -390,31 +340,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(1.938, originalDarcyPermeability.Mean.Value);
             Assert.AreEqual(3, originalDarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(859.490, originalDarcyPermeability.StandardDeviation.Value);
-        }
-
-        [Test]
-        public void ThicknessAquiferLayer_SetNewValue_UpdateMeanAndStandardDeviation()
-        {
-            // Setup
-            var inputs = new PipingInput(new GeneralPipingInput());
-            LognormalDistribution originalThicknessAquiferLayer = inputs.ThicknessAquiferLayer;
-
-            var newValue = new LognormalDistribution(5)
-            {
-                Mean = (RoundedDouble)12.34567,
-                StandardDeviation = (RoundedDouble)89.12345
-            };
-
-            // Call
-            inputs.ThicknessAquiferLayer = newValue;
-
-            // Assert
-            Assert.AreSame(originalThicknessAquiferLayer, inputs.ThicknessAquiferLayer,
-                "Stochast instance hasn't changed to 'newValue'.");
-            Assert.AreEqual(2, originalThicknessAquiferLayer.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(12.35, originalThicknessAquiferLayer.Mean.Value);
-            Assert.AreEqual(2, originalThicknessAquiferLayer.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(89.12, originalThicknessAquiferLayer.StandardDeviation.Value);
         }
     }
 }

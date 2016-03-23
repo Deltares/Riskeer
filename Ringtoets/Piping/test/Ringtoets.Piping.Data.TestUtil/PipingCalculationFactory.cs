@@ -16,21 +16,25 @@ namespace Ringtoets.Piping.Data.TestUtil
         public static PipingCalculation CreateCalculationWithValidInput()
         {
             var random = new Random(22);
-            var bottom = random.NextDouble();
-            var top = bottom + random.NextDouble();
-            var soilProfile = new PipingSoilProfile(String.Empty, bottom, new[]
+            var bottom = 1.12;
+            var top = 10.56;
+            var soilProfile = new PipingSoilProfile(String.Empty, 0.0, new[]
             {
                 new PipingSoilLayer(top)
+                {
+                    IsAquifer = false
+                },
+                new PipingSoilLayer(top / 2)
                 {
                     IsAquifer = true
                 }
             }, 0);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, top/6);
-            var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, 2*top/6);
-            var thirdCharacteristicPointLocation = new Point3D(0.4, 0.0, 3*top/6);
-            var fourthCharacteristicPointLocation = new Point3D(0.5, 0.0, 4*top/6);
-            var fifthCharacteristicPointLocation = new Point3D(0.6, 0.0, 5*top/6);
+            var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3 * top/ 4);
+            var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, bottom + 2 * top / 4);
+            var thirdCharacteristicPointLocation = new Point3D(0.4, 0.0, bottom + top / 4);
+            var fourthCharacteristicPointLocation = new Point3D(0.5, 0.0, bottom + 2 * top / 4);
+            var fifthCharacteristicPointLocation = new Point3D(0.6, 0.0, bottom + 3 * top / 4);
             surfaceLine.SetGeometry(new[]
             {
                 new Point3D(0.0, 0.0, 0.0),
@@ -67,7 +71,6 @@ namespace Ringtoets.Piping.Data.TestUtil
                     {
                         Mean = (RoundedDouble) 1.0
                     },
-                    ExitPointL = (RoundedDouble) 1.0,
                     PhreaticLevelExit =
                     {
                         Mean = (RoundedDouble) 2.0

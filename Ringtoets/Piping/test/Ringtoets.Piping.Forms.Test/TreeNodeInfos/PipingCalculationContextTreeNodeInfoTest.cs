@@ -14,6 +14,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin;
@@ -607,8 +608,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var calculateContextMenuItemIndex = 1;
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
-            var validPipingInput = new TestPipingInput();
+            var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var pipingCalculationContext = new PipingCalculationContext(calculation,
@@ -625,20 +625,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             plugin.Gui = gui;
-
-            calculation.InputParameters.DampingFactorExit.Mean = (RoundedDouble)validPipingInput.DampingFactorExit;
-            calculation.InputParameters.DarcyPermeability.Mean = (RoundedDouble)validPipingInput.DarcyPermeability;
-            calculation.InputParameters.Diameter70.Mean = (RoundedDouble)validPipingInput.Diameter70;
-            calculation.InputParameters.ExitPointL = validPipingInput.ExitPointXCoordinate;
-            calculation.InputParameters.PhreaticLevelExit.Mean = (RoundedDouble)validPipingInput.PhreaticLevelExit;
-            calculation.InputParameters.SeepageLength.Mean = (RoundedDouble)validPipingInput.SeepageLength;
-            calculation.InputParameters.ThicknessAquiferLayer.Mean = (RoundedDouble)validPipingInput.ThicknessAquiferLayer;
-            calculation.InputParameters.ThicknessCoverageLayer.Mean = (RoundedDouble)validPipingInput.ThicknessCoverageLayer;
-            calculation.InputParameters.SurfaceLine = validPipingInput.SurfaceLine;
-            calculation.InputParameters.SoilProfile = validPipingInput.SoilProfile;
-            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty,0.0,0.0) {
-                DesignWaterLevel = validPipingInput.AssessmentLevel
-            };
 
             calculation.Attach(observer);
 

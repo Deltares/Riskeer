@@ -18,7 +18,8 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var thicknessCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters);
 
             // Assert
-            Assert.AreSame(inputParameters.ThicknessCoverageLayer, thicknessCoverageLayer.Distribution);
+            Assert.AreEqual(inputParameters.ThicknessCoverageLayer.Mean, thicknessCoverageLayer.Distribution.Mean);
+            Assert.AreEqual(inputParameters.ThicknessCoverageLayer.StandardDeviation, thicknessCoverageLayer.Distribution.StandardDeviation);
             Assert.AreEqual(0.05, thicknessCoverageLayer.Percentile);
         }
 
@@ -78,7 +79,8 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var seepageLength = PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters);
 
             // Assert
-            Assert.AreSame(inputParameters.SeepageLength, seepageLength.Distribution);
+            Assert.AreEqual(inputParameters.SeepageLength.Mean, seepageLength.Distribution.Mean);
+            Assert.AreEqual(inputParameters.SeepageLength.StandardDeviation, seepageLength.Distribution.StandardDeviation);
             Assert.AreEqual(0.05, seepageLength.Percentile);
         }
 
@@ -120,7 +122,8 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var thicknessAquiferLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters);
 
             // Assert
-            Assert.AreSame(inputParameters.ThicknessAquiferLayer, thicknessAquiferLayer.Distribution);
+            Assert.AreEqual(inputParameters.ThicknessAquiferLayer.Mean, thicknessAquiferLayer.Distribution.Mean);
+            Assert.AreEqual(inputParameters.ThicknessAquiferLayer.StandardDeviation, thicknessAquiferLayer.Distribution.StandardDeviation);
             Assert.AreEqual(0.95, thicknessAquiferLayer.Percentile);
         }
 

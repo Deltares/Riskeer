@@ -109,7 +109,6 @@ namespace Ringtoets.Piping.Data
         public void ClearHydraulicBoundaryLocation()
         {
             InputParameters.HydraulicBoundaryLocation = null;
-            InputParameters.AssessmentLevel = (RoundedDouble)Double.NaN;
         }
     }
 }

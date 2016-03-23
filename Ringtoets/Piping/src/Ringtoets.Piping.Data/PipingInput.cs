@@ -52,7 +52,6 @@ namespace Ringtoets.Piping.Data
         private RoundedDouble piezometricHeadExit;
         private RingtoetsPipingSurfaceLine surfaceLine;
 
-        private readonly PipingInputSynchronizer synchronizer;
         private PipingSoilProfile soilProfile;
         private HydraulicBoundaryLocation hydraulicBoundaryLocation;
 
@@ -106,8 +105,6 @@ namespace Ringtoets.Piping.Data
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) 0.5
             };
-
-            synchronizer = new PipingInputSynchronizer(this);
         }
 
         /// <summary>
@@ -130,7 +127,6 @@ namespace Ringtoets.Piping.Data
                     throw new ArgumentOutOfRangeException("value", Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
                 }
                 entryPointL = value.ToPrecision(entryPointL.NumberOfDecimalPlaces);
-                synchronizer.Synchronize();
             }
         }
 
@@ -154,7 +150,6 @@ namespace Ringtoets.Piping.Data
                     throw new ArgumentOutOfRangeException("value", Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
                 }
                 exitPointL = value.ToPrecision(exitPointL.NumberOfDecimalPlaces);
-                synchronizer.Synchronize();
             }
         }
 
@@ -171,7 +166,6 @@ namespace Ringtoets.Piping.Data
             {
                 surfaceLine = value;
                 UpdateEntryAndExitPoint();
-                synchronizer.Synchronize();
             }
         }
 
@@ -187,7 +181,6 @@ namespace Ringtoets.Piping.Data
             set
             {
                 soilProfile = value;
-                synchronizer.Synchronize();
             }
         }
 
@@ -203,7 +196,6 @@ namespace Ringtoets.Piping.Data
             set
             {
                 hydraulicBoundaryLocation = value;
-                synchronizer.Synchronize();
             }
         }
 
@@ -217,11 +209,8 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return assessmentLevel;
-            }
-            internal set
-            {
-                assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
+                var derivedPipingInput = new DerivedPipingInput(this);
+                return derivedPipingInput.AssessmentLevel;
             }
         }
 
@@ -233,11 +222,8 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return piezometricHeadExit;
-            }
-            internal set
-            {
-                piezometricHeadExit = value.ToPrecision(piezometricHeadExit.NumberOfDecimalPlaces);
+                var derivedPipingInput = new DerivedPipingInput(this);
+                return derivedPipingInput.PiezometricHeadExit;
             }
         }
 
@@ -390,7 +376,6 @@ namespace Ringtoets.Piping.Data
             {
                 phreaticLevelExit.Mean = value.Mean;
                 phreaticLevelExit.StandardDeviation = value.StandardDeviation;
-                synchronizer.Synchronize();
             }
         }
 
@@ -402,12 +387,8 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return seepageLength;
-            }
-            set
-            {
-                seepageLength.Mean = value.Mean;
-                seepageLength.StandardDeviation = value.StandardDeviation;
+                var derivedPipingInput = new DerivedPipingInput(this);
+                return derivedPipingInput.SeepageLength;
             }
         }
 
@@ -453,12 +434,8 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return thicknessAquiferLayer;
-            }
-            set
-            {
-                thicknessAquiferLayer.Mean = value.Mean;
-                thicknessAquiferLayer.StandardDeviation = value.StandardDeviation;
+                var derivedPipingInput = new DerivedPipingInput(this);
+                return derivedPipingInput.ThicknessAquiferLayer;
             }
         }
 
@@ -470,12 +447,8 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return thicknessCoverageLayer;
-            }
-            set
-            {
-                thicknessCoverageLayer.Mean = value.Mean;
-                thicknessCoverageLayer.StandardDeviation = value.StandardDeviation;
+                var derivedPipingInput = new DerivedPipingInput(this);
+                return derivedPipingInput.ThicknessCoverageLayer;
             }
         }
 
@@ -492,7 +465,6 @@ namespace Ringtoets.Piping.Data
             {
                 dampingFactorExit.Mean = value.Mean;
                 dampingFactorExit.StandardDeviation = value.StandardDeviation;
-                synchronizer.Synchronize();
             }
         }
 

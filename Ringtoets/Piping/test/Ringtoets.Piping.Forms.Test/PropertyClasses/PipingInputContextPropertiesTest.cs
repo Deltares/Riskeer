@@ -71,16 +71,19 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Call & Assert
             Assert.AreSame(inputParameters.PhreaticLevelExit, properties.PhreaticLevelExit.Distribution);
             Assert.AreSame(inputParameters.DampingFactorExit, properties.DampingFactorExit.Distribution);
-            Assert.AreSame(inputParameters.ThicknessCoverageLayer, properties.ThicknessCoverageLayer.Distribution);
+            Assert.AreEqual(inputParameters.ThicknessCoverageLayer.Mean, properties.ThicknessCoverageLayer.Distribution.Mean);
+            Assert.AreEqual(inputParameters.ThicknessCoverageLayer.StandardDeviation, properties.ThicknessCoverageLayer.Distribution.StandardDeviation);
             Assert.AreSame(inputParameters.Diameter70, properties.Diameter70.Distribution);
             Assert.AreSame(inputParameters.DarcyPermeability, properties.DarcyPermeability.Distribution);
-            Assert.AreSame(inputParameters.ThicknessAquiferLayer, properties.ThicknessAquiferLayer.Distribution);
+            Assert.AreEqual(inputParameters.ThicknessAquiferLayer.Mean, properties.ThicknessAquiferLayer.Distribution.Mean);
+            Assert.AreEqual(inputParameters.ThicknessAquiferLayer.StandardDeviation, properties.ThicknessAquiferLayer.Distribution.StandardDeviation);
             Assert.AreSame(inputParameters.SaturatedVolumicWeightOfCoverageLayer, properties.SaturatedVolumicWeightOfCoverageLayer.Distribution);
 
             Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevel);
             Assert.AreEqual(inputParameters.PiezometricHeadExit, properties.PiezometricHeadExit);
 
-            Assert.AreSame(inputParameters.SeepageLength, properties.SeepageLength.Distribution);
+            Assert.AreEqual(inputParameters.SeepageLength.Mean, properties.SeepageLength.Distribution.Mean);
+            Assert.AreEqual(inputParameters.SeepageLength.StandardDeviation, properties.SeepageLength.Distribution.StandardDeviation);
             Assert.AreEqual(inputParameters.SeepageLength.Mean, properties.ExitPointL - properties.EntryPointL);
             Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
 

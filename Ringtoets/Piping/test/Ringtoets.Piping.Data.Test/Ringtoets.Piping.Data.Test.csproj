@@ -54,13 +54,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DerivedPipingInputTest.cs" />
     <Compile Include="Exceptions\RingtoetsPipingSurfaceLineExceptionTest.cs" />
     <Compile Include="GeneralPipingInputTest.cs" />
     <Compile Include="IPipingCalculationItemExtensionsTest.cs" />
     <Compile Include="PipingCalculationGroupTest.cs" />
     <Compile Include="PipingCalculationTest.cs" />
     <Compile Include="PipingFailureMechanismTest.cs" />
-    <Compile Include="PipingInputSynchronizerTest.cs" />
     <Compile Include="PipingInputTest.cs" />
     <Compile Include="PipingOutputTest.cs" />
     <Compile Include="PipingSemiProbabilisticOutputTest.cs" />

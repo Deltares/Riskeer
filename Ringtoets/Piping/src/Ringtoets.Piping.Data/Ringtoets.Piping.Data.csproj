@@ -53,6 +53,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="DerivedPipingInput.cs" />
     <Compile Include="GeneralPipingInput.cs" />
     <Compile Include="IPipingCalculationItem.cs" />
     <Compile Include="IPipingCalculationItemExtensions.cs" />
@@ -60,7 +61,6 @@
     <Compile Include="PipingCalculationGroup.cs" />
     <Compile Include="PipingFailureMechanism.cs" />
     <Compile Include="PipingInput.cs" />
-    <Compile Include="PipingInputSynchronizer.cs" />
     <Compile Include="PipingOutput.cs" />
     <Compile Include="PipingSemiProbabilisticDesignValueFactory.cs" />
     <Compile Include="PipingSemiProbabilisticOutput.cs" />
