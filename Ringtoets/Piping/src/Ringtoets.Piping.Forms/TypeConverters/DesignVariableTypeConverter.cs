@@ -141,10 +141,13 @@ namespace Ringtoets.Piping.Forms.TypeConverters
 
         private static object ContainingObjectFromContext(ITypeDescriptorContext context)
         {
-            if (context != null && context.Instance is DynamicPropertyBag)
+            if (context != null)
             {
-                var bag = (DynamicPropertyBag)context.Instance;
-                return bag.WrappedObject;
+                var bag = context.Instance as DynamicPropertyBag;
+                if (bag != null)
+                {
+                    return bag.WrappedObject;
+                }
             }
             return null;
         }
