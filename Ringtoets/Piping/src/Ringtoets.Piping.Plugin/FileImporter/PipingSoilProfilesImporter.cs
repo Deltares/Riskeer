@@ -185,7 +185,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
             if (!stochasticSoilModel.StochasticSoilProfiles.Where(s => s.SoilProfile != null).Sum(s => s.Probability).Equals(1.0))
             {
-                log.WarnFormat("De som van de kans van voorkomen in stochastich ondersgrondmodel '{0}' is niet gelijk aan 1.", stochasticSoilModel.Name);
+                log.WarnFormat("De som van de kans van voorkomen in het stochastich ondersgrondmodel '{0}' is niet gelijk aan 1.", stochasticSoilModel.Name);
             }
             return true;
         }

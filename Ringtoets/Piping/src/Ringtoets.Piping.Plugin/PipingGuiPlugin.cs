@@ -167,12 +167,13 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<IEnumerable<PipingSoilProfile>>
+            yield return new TreeNodeInfo<StochasticSoilModelContext>
             {
-                Text = pipingSoilProfiles => PipingFormsResources.PipingSoilProfilesCollection_DisplayName,
-                Image = pipingSoilProfiles => PipingFormsResources.FolderIcon,
-                ForeColor = pipingSoilProfiles => pipingSoilProfiles.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
-                ChildNodeObjects = pipingSoilProfiles => pipingSoilProfiles.Cast<object>().ToArray(),
+                Text = stochasticSoilModelContext => PipingFormsResources.PipingSoilProfilesCollection_DisplayName,
+                Image = stochasticSoilModelContext => PipingFormsResources.FolderIcon,
+                ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.FailureMechanism.StochasticSoilModels.Any() ?
+                                                              Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = stochasticSoilModelContext => stochasticSoilModelContext.FailureMechanism.SoilProfiles.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddImportItem()
                                                                                  .AddExportItem()
@@ -424,7 +425,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection),
-                failureMechanism.SoilProfiles
+                new StochasticSoilModelContext(failureMechanism, assessmentSection)
             };
         }
 
