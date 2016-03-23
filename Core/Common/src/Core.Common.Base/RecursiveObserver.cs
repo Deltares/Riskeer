@@ -25,95 +25,115 @@ using System.Collections.Generic;
 namespace Core.Common.Base
 {
     /// <summary>
-    /// Class that implements <see cref="IObserver"/> in a way that a hierarchy of <see cref="IObservable"/> objects can be observed recursively.
+    /// Class that implements <see cref="IObserver"/> in a way that a hierarchy of <typeparamref name="TObservable"/> objects can be observed.
     /// </summary>
     /// <remarks>
-    /// The root <see cref="Observable"/> being observed by instances of this class can be dynamically changed.
+    /// The root container (<see cref="Observable"/>) being observed by instances of this class can be dynamically changed.
     /// </remarks>
-    /// <typeparam name="T">The type of objects to observe recursively.</typeparam>
-    public class RecursiveObserver<T> : IObserver, IDisposable where T : class, IObservable
+    /// <typeparam name="TContainer">The type of the item containers that specify the object hierarchy.</typeparam>
+    /// <typeparam name="TObservable">The type of items (in the containers) that should be observed.</typeparam>
+    public class RecursiveObserver<TContainer, TObservable> : IObserver, IDisposable
+        where TContainer : class, IObservable
+        where TObservable : class, IObservable
     {
-        private T rootObservable;
+        private TContainer rootContainer;
         private readonly Action updateObserverAction;
-        private readonly Func<T, IEnumerable<T>> getChildObservables;
-        private readonly IList<T> observedObjects = new List<T>();
+        private readonly Func<TContainer, IEnumerable<object>> getChildren;
+        private readonly IList<TContainer> observedContainers = new List<TContainer>();
+        private readonly IList<TObservable> observedChildren = new List<TObservable>();
+        private readonly Observer containerObserver;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="RecursiveObserver{T}"/> class.
+        /// Creates a new instance of the <see cref="RecursiveObserver{TContainer,TObservable}"/> class.
         /// </summary>
-        /// <param name="updateObserverAction">The <see cref="UpdateObserver"/> action to perform on notifications coming from one of the items of the hierarchy of observed objects.</param>
-        /// <param name="getChildObservables">The method used for recursively obtaining the objects to observe.</param>
-        public RecursiveObserver(Action updateObserverAction, Func<T, IEnumerable<T>> getChildObservables)
+        /// <param name="updateObserverAction">The <see cref="UpdateObserver"/> action to perform on notifications coming from one of the <typeparamref name="TObservable"/> items of the hierarchy.</param>
+        /// <param name="getChildren">The method used for recursively obtaining the children of <typeparamref name="TContainer"/> objects in the hierarchy.</param>
+        public RecursiveObserver(Action updateObserverAction, Func<TContainer, IEnumerable<object>> getChildren)
         {
             this.updateObserverAction = updateObserverAction;
-            this.getChildObservables = getChildObservables;
+            this.getChildren = getChildren;
+
+            // Ensure subscriptions are updated (detach/attach) on changes in the hierarchy
+            containerObserver = new Observer(UpdateObservedObjects);
         }
 
         /// <summary>
-        /// Gets or sets the root object to observe.
+        /// Gets or sets the root container.
         /// </summary>
-        public T Observable
+        public TContainer Observable
         {
             get
             {
-                return rootObservable;
+                return rootContainer;
             }
             set
             {
-                rootObservable = value;
+                rootContainer = value;
 
                 UpdateObservedObjects();
             }
         }
 
+        public void Dispose()
+        {
+            Observable = null;
+        }
+
         public void UpdateObserver()
         {
             updateObserverAction();
-
-            // Update the list of observed objects as observables might have been added/removed
-            UpdateObservedObjects();
         }
 
         private void UpdateObservedObjects()
         {
-            // Detach from the currently observed objects
-            foreach (var observedObject in observedObjects)
+            // Detach from the currently observed containers
+            foreach (var observedObject in observedContainers)
+            {
+                observedObject.Detach(containerObserver);
+            }
+
+            // Detach from the currently observed children
+            foreach (var observedObject in observedChildren)
             {
                 observedObject.Detach(this);
             }
 
-            // Clear the list of observed objects
-            observedObjects.Clear();
+            // Clear the lists of observed objects
+            observedContainers.Clear();
+            observedChildren.Clear();
 
             // If relevant, start observing objects again
-            if (rootObservable != null)
+            if (rootContainer != null)
             {
-                foreach (var objectToObserve in GetObservablesRecursive(rootObservable))
+                ObserveObjectsRecursively(rootContainer);
+            }
+        }
+
+        private void ObserveObjectsRecursively(TContainer container)
+        {
+            container.Attach(containerObserver);
+            observedContainers.Add(container);
+
+            var observable = container as TObservable;
+            if (observable != null)
+            {
+                observable.Attach(this);
+                observedChildren.Add(observable);
+            }
+
+            foreach (var child in getChildren(container))
+            {
+                if (child is TContainer)
                 {
-                    objectToObserve.Attach(this);
-                    observedObjects.Add(objectToObserve);
+                    ObserveObjectsRecursively((TContainer) child);
+                }
+                else if (child is TObservable)
+                {
+                    observable = (TObservable) child;
+                    observable.Attach(this);
+                    observedChildren.Add(observable);
                 }
             }
-        }
-
-        private IEnumerable<T> GetObservablesRecursive(T observable)
-        {
-            var observables = new List<T>
-            {
-                observable
-            };
-
-            foreach (var childObservable in getChildObservables(observable))
-            {
-                observables.AddRange(GetObservablesRecursive(childObservable));
-            }
-
-            return observables;
-        }
-
-        public void Dispose()
-        {
-            Observable = null;
         }
     }
 }

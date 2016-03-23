@@ -34,7 +34,7 @@ namespace Core.Common.Base.Test
             var counter = 0;
 
             // Call
-            var recursiveObserver = new RecursiveObserver<TestObservable>(() => { counter++; }, GetChildObservables);
+            var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() => { counter++; }, GetChildren);
 
             // Assert
             Assert.IsInstanceOf<IObserver>(recursiveObserver);
@@ -49,159 +49,260 @@ namespace Core.Common.Base.Test
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(100)]
-        public void RecursiveObserver_WithObservableHierarchy_NotifyObserversAtSpecifiedLevelResultsInPerformingUpdateObserversAction(int nestingLevel)
+        public void RecursiveObserverObservingContainers_NotifyObserversAtSpecifiedLevel_UpdateObserversActionShouldBePerformed(int nestingLevel)
         {
-            // Setup
+            // Given
             var counter = 0;
-            var rootObservable = new TestObservable();
+            var rootContainer = new TestContainer();
+            var currentNestedContainer = rootContainer;
+            var currentTestObservable = new TestObservable();
 
-            var currentNestedObservable = rootObservable;
+            InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
 
-            for (var i = 0; i < nestingLevel; i++)
+            var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() => counter++, GetChildren)
             {
-                var newObservable = new TestObservable();
-
-                currentNestedObservable.ChildTestObservables.Add(newObservable);
-
-                currentNestedObservable = newObservable;
-            }
-
-            var recursiveObserver = new RecursiveObserver<TestObservable>(() => counter++, GetChildObservables)
-            {
-                Observable = rootObservable
+                Observable = rootContainer
             };
 
-            // Call
-            currentNestedObservable.NotifyObservers();
+            // When
+            currentNestedContainer.NotifyObservers();
 
-            // Assert
+            // Then
+            Assert.AreEqual(1, counter);
+
+            currentTestObservable.NotifyObservers();
+            Assert.AreEqual(1, counter); // Nothing should have happened
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(100)]
+        public void RecursiveObserverObservingItemsInContainers_NotifyObserversAtSpecifiedLevel_UpdateObserversActionShouldBePerformed(int nestingLevel)
+        {
+            // Given
+            var counter = 0;
+            var rootContainer = new TestContainer();
+            var currentNestedContainer = rootContainer;
+            var currentTestObservable = new TestObservable();
+
+            InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
+
+            var recursiveObserver = new RecursiveObserver<TestContainer, TestObservable>(() => counter++, GetChildren)
+            {
+                Observable = rootContainer
+            };
+
+            // When
+            currentTestObservable.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(1, counter);
+
+            currentNestedContainer.NotifyObservers();
+            Assert.AreEqual(1, counter); // Nothing should have happened
+        }
+
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(100)]
+        public void RecursiveObserverObservingContainers_RootContainerSetAndThenUnset_UpdateObserversActionShouldNoLongerBePerformed(int nestingLevel)
+        {
+            // Given
+            var counter = 0;
+            var rootContainer = new TestContainer();
+            var currentNestedContainer = rootContainer;
+            var currentTestObservable = new TestObservable();
+
+            InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
+
+            var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() => counter++, GetChildren)
+            {
+                Observable = rootContainer
+            };
+
+            // When
+            recursiveObserver.Observable = null;
+            currentNestedContainer.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(0, counter);
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(100)]
+        public void RecursiveObserverObservingItemsInContainers_RootContainerSetAndThenUnset_UpdateObserversActionShouldNoLongerBePerformed(int nestingLevel)
+        {
+            // Given
+            var counter = 0;
+            var rootContainer = new TestContainer();
+            var currentNestedContainer = rootContainer;
+            var currentTestObservable = new TestObservable();
+
+            InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
+
+            var recursiveObserver = new RecursiveObserver<TestContainer, TestObservable>(() => counter++, GetChildren)
+            {
+                Observable = rootContainer
+            };
+
+            // When
+            recursiveObserver.Observable = null;
+            currentTestObservable.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(0, counter);
+        }
+
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(100)]
+        public void RecursiveObserverObservingContainers_RecursiveObserverDispose_UpdateObserversActionShouldNoLongerBePerformed(int nestingLevel)
+        {
+            // Given
+            var counter = 0;
+            var rootContainer = new TestContainer();
+            var currentNestedContainer = rootContainer;
+            var currentTestObservable = new TestObservable();
+
+            InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
+
+            var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() => counter++, GetChildren)
+            {
+                Observable = rootContainer
+            };
+
+            // When
+            recursiveObserver.Dispose();
+            currentNestedContainer.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(0, counter);
+            Assert.IsNull(recursiveObserver.Observable);
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(100)]
+        public void RecursiveObserverObservingItemsInContainers_RecursiveObserverDispose_UpdateObserversActionShouldNoLongerBePerformed(int nestingLevel)
+        {
+            // Given
+            var counter = 0;
+            var rootContainer = new TestContainer();
+            var currentNestedContainer = rootContainer;
+            var currentTestObservable = new TestObservable();
+
+            InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
+
+            var recursiveObserver = new RecursiveObserver<TestContainer, TestObservable>(() => counter++, GetChildren)
+            {
+                Observable = rootContainer
+            };
+
+            // When
+            recursiveObserver.Dispose();
+            currentTestObservable.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(0, counter);
+            Assert.IsNull(recursiveObserver.Observable);
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(100)]
+        public void RecursiveObserverObservingContainers_ContainerItemsRemoved_UpdateObserversActionShouldNoLongerBePerformed(int nestingLevel)
+        {
+            // Given
+            var counter = 0;
+            var rootContainer = new TestContainer();
+            var currentNestedContainer = rootContainer;
+            var currentTestObservable = new TestObservable();
+
+            InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
+
+            var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() => counter++, GetChildren)
+            {
+                Observable = rootContainer
+            };
+
+            // When
+            rootContainer.Children.Clear();
+            rootContainer.NotifyObservers(); // Collection changes should always be notified
+
+            // Precondition (counter equals 1 due to previous notification)
+            Assert.AreEqual(1, counter);
+
+            currentNestedContainer.NotifyObservers();
+
+            // Then
             Assert.AreEqual(1, counter);
         }
 
-        [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(100)]
-        public void RecursiveObserver_WithObservableHierarchySetAndThenUnset_NotifyObserversNoLongerResultsInPerformingUpdateObserversAction(int nestingLevel)
+        public void RecursiveObserverObservingItemsInContainers_ContainerItemsRemoved_UpdateObserversActionShouldNoLongerBePerformed(int nestingLevel)
         {
-            // Setup
+            // Given
             var counter = 0;
-            var rootObservable = new TestObservable();
+            var rootContainer = new TestContainer();
+            var currentNestedContainer = rootContainer;
+            var currentTestObservable = new TestObservable();
 
-            var currentNestedObservable = rootObservable;
+            InitializeHierarchy(nestingLevel, ref currentNestedContainer, ref currentTestObservable);
 
-            for (var i = 0; i < nestingLevel; i++)
+            var recursiveObserver = new RecursiveObserver<TestContainer, TestObservable>(() => counter++, GetChildren)
             {
-                var newObservable = new TestObservable();
-
-                currentNestedObservable.ChildTestObservables.Add(newObservable);
-
-                currentNestedObservable = newObservable;
-            }
-
-            var recursiveObserver = new RecursiveObserver<TestObservable>(() => counter++, GetChildObservables)
-            {
-                Observable = rootObservable
+                Observable = rootContainer
             };
 
-            recursiveObserver.Observable = null;
+            // When
+            rootContainer.Children.Clear();
+            rootContainer.NotifyObservers(); // Collection changes should always be notified
 
-            // Call
-            currentNestedObservable.NotifyObservers();
+            currentTestObservable.NotifyObservers();
 
-            // Assert
+            // Then
             Assert.AreEqual(0, counter);
         }
 
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(100)]
-        public void RecursiveObserver_WithObservableHierarchySetAndThenDisposed_NotifyObserversNoLongerResultsInPerformingUpdateObserversAction(int nestingLevel)
+        private static void InitializeHierarchy(int nestingLevel, ref TestContainer currentNestedContainer, ref TestObservable currentTestObservable)
         {
-            // Setup
-            var counter = 0;
-            var rootObservable = new TestObservable();
-
-            var currentNestedObservable = rootObservable;
-
             for (var i = 0; i < nestingLevel; i++)
             {
-                var newObservable = new TestObservable();
+                var newNestedContainer = new TestContainer();
+                var newTestObservable = new TestObservable();
 
-                currentNestedObservable.ChildTestObservables.Add(newObservable);
+                currentNestedContainer.Children.Add(new object());
+                currentNestedContainer.Children.Add(newTestObservable);
+                currentNestedContainer.Children.Add(newNestedContainer);
 
-                currentNestedObservable = newObservable;
+                currentTestObservable = newTestObservable;
+                currentNestedContainer = newNestedContainer;
             }
-
-            var recursiveObserver = new RecursiveObserver<TestObservable>(() => counter++, GetChildObservables)
-            {
-                Observable = rootObservable
-            };
-
-            recursiveObserver.Dispose();
-
-            // Call
-            currentNestedObservable.NotifyObservers();
-
-            // Assert
-            Assert.AreEqual(0, counter);
         }
 
-        [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(100)]
-        public void RecursiveObserver_WithObservableHierarchySetAndThenObservedItemRemoved_NotifyObserversForRemovedItemNoLongerResultsInPerformingUpdateObserversAction(int nestingLevel)
+        private class TestContainer : Observable
         {
-            // Setup
-            var counter = 0;
-            var rootObservable = new TestObservable();
+            private readonly IList<object> children = new List<object>();
 
-            var previousNestedObservable = new TestObservable();
-            var currentNestedObservable = rootObservable;
-
-            for (var i = 0; i < nestingLevel; i++)
-            {
-                var newObservable = new TestObservable();
-
-                currentNestedObservable.ChildTestObservables.Add(newObservable);
-
-                previousNestedObservable = currentNestedObservable;
-                currentNestedObservable = newObservable;
-            }
-
-            var recursiveObserver = new RecursiveObserver<TestObservable>(() => counter++, GetChildObservables)
-            {
-                Observable = rootObservable
-            };
-
-            previousNestedObservable.ChildTestObservables.Clear();
-            previousNestedObservable.NotifyObservers();
-            counter = 0;
-
-            // Call
-            currentNestedObservable.NotifyObservers();
-
-            // Assert
-            Assert.AreEqual(0, counter);
-        }
-
-        private class TestObservable : Observable
-        {
-            private readonly IList<TestObservable> childTestObservables = new List<TestObservable>();
-
-            public IList<TestObservable> ChildTestObservables
+            public IList<object> Children
             {
                 get
                 {
-                    return childTestObservables;
+                    return children;
                 }
             }
         }
 
-        private IEnumerable<TestObservable> GetChildObservables(TestObservable testObservable)
+        private class TestObservable : Observable { }
+
+        private IEnumerable<object> GetChildren(TestContainer container)
         {
-            return testObservable.ChildTestObservables;
+            return container.Children;
         }
     }
 }

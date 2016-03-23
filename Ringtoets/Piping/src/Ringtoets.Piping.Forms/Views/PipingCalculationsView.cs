@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Forms.Views
     {
         private readonly Observer pipingSoilProfilesObserver;
         private readonly Observer assessmentSectionObserver;
-        private readonly RecursiveObserver<PipingCalculationGroup> pipingCalculationGroupObserver;
+        private readonly RecursiveObserver<PipingCalculationGroup, PipingCalculationGroup> pipingCalculationGroupObserver;
         private AssessmentSectionBase assessmentSection;
         private PipingFailureMechanism pipingFailureMechanism;
         private PipingCalculationGroup pipingCalculationGroup;
@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             pipingSoilProfilesObserver = new Observer(UpdateSoilProfileColumn);
             assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryLocationsColumn);
-            pipingCalculationGroupObserver = new RecursiveObserver<PipingCalculationGroup>(UpdateDataGridViewDataSource, pg => pg.Children.OfType<PipingCalculationGroup>());
+            pipingCalculationGroupObserver = new RecursiveObserver<PipingCalculationGroup, PipingCalculationGroup>(UpdateDataGridViewDataSource, pg => pg.Children);
         }
 
         /// <summary>
