@@ -26,10 +26,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
-
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors;
-
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.TypeConverters
@@ -45,7 +43,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         {
             if (destinationType == typeof(string))
             {
-                var designVariable = (DesignVariable<T>)value;
+                var designVariable = (DesignVariable<T>) value;
                 var variablesText = string.Join(", ", Parameters.Select(p => p.GetSummary(designVariable.Distribution, culture)));
                 return String.Format("{0} ({1})", designVariable.GetDesignValue(), variablesText);
             }
@@ -61,42 +59,26 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         {
             bool allParametersAreReadonly = PropertyIsReadOnly(context);
 
-            var designVariable = (DesignVariable<T>)value;
+            var designVariable = (DesignVariable<T>) value;
             PropertyDescriptorCollection propertyDescriptorCollection = TypeDescriptor.GetProperties(designVariable.Distribution, attributes);
             var properties = new PropertyDescriptor[Parameters.Length + 2];
             properties[0] = new SimpleReadonlyPropertyDescriptorItem(PipingFormsResources.DesignVariableTypeConverter_DestributionType_DisplayName,
                                                                      PipingFormsResources.DesignVariableTypeConverter_DistributionType_Description,
                                                                      "DistributionType",
                                                                      DistributionShortName);
-            object containingObject = null;
-            PropertyDescriptor containingPropertyDescriptor = null;
-            if (context != null)
-            {
-                var bag = context.Instance as DynamicPropertyBag;
-                if (bag != null)
-                {
-                    containingObject = bag.WrappedObject;
-                    containingPropertyDescriptor = context.PropertyDescriptor;
-                }
-            }
             for (int i = 0; i < Parameters.Length; i++)
             {
-                var propertyDescriptor = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i], containingObject, containingPropertyDescriptor, allParametersAreReadonly);
+                var propertyDescriptor = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i], allParametersAreReadonly);
+                propertyDescriptor = CreateContainingPropertyUpdateDescriptor(propertyDescriptor, context);
+
                 properties[i + 1] = propertyDescriptor;
             }
             properties[Parameters.Length + 1] = new SimpleReadonlyPropertyDescriptorItem(PipingFormsResources.DesignVariableTypeConverter_DesignValue_DisplayName,
                                                                                          PipingFormsResources.DesignVariableTypeConverter_DesignValue_Description,
                                                                                          "DesignValue",
                                                                                          designVariable.GetDesignValue());
-            
-            return new PropertyDescriptorCollection(properties);
-        }
 
-        private static bool PropertyIsReadOnly(ITypeDescriptorContext context)
-        {
-            return context != null &&
-                   context.PropertyDescriptor != null &&
-                   context.PropertyDescriptor.Attributes.Matches(ReadOnlyAttribute.Yes);
+            return new PropertyDescriptorCollection(properties);
         }
 
         /// <summary>
@@ -114,20 +96,57 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         /// </summary>
         protected abstract ParameterDefinition<T>[] Parameters { get; }
 
-        private static PropertyDescriptor CreatePropertyDescriptor(PropertyDescriptorCollection originalProperties, ParameterDefinition<T> parameter, object parentObject, PropertyDescriptor parentDescriptor, bool isReadOnly)
+        private static bool PropertyIsReadOnly(ITypeDescriptorContext context)
+        {
+            return context != null &&
+                   context.PropertyDescriptor != null &&
+                   context.PropertyDescriptor.Attributes.Matches(ReadOnlyAttribute.Yes);
+        }
+
+        private static PropertyDescriptor CreatePropertyDescriptor(PropertyDescriptorCollection originalProperties, ParameterDefinition<T> parameter, bool isReadOnly)
         {
             PropertyDescriptor originalPropertyDescriptor = originalProperties.Find(parameter.PropertyName, false);
-            var reroutedPropertyDescriptor = new RoutedPropertyDescriptor(originalPropertyDescriptor, o => ((DesignVariable<T>)o).Distribution);
+            var reroutedPropertyDescriptor = new RoutedPropertyDescriptor(originalPropertyDescriptor, o => ((DesignVariable<T>) o).Distribution);
             var textPropertyDescriptor = new TextPropertyDescriptorDecorator(reroutedPropertyDescriptor,
-                                                                         parameter.Symbol,
-                                                                         parameter.Description);
+                                                                             parameter.Symbol,
+                                                                             parameter.Description);
             if (isReadOnly)
             {
                 return new ReadOnlyPropertyDescriptorDecorator(textPropertyDescriptor);
             }
 
-            var propertyDescriptor = new ContainingPropertyUpdateDescriptorDecorator(textPropertyDescriptor, parentObject, parentDescriptor);
+            return textPropertyDescriptor;
+        }
+
+        private static PropertyDescriptor CreateContainingPropertyUpdateDescriptor(PropertyDescriptor propertyDescriptor, ITypeDescriptorContext context)
+        {
+            object containingObject = ContainingObjectFromContext(context);
+            PropertyDescriptor containingPropertyDescriptor = ContainingPropertyFromContext(context);
+
+            if (containingObject != null && containingPropertyDescriptor != null)
+            {
+                return new ContainingPropertyUpdateDescriptorDecorator(propertyDescriptor, containingObject, containingPropertyDescriptor);
+            }
             return propertyDescriptor;
+        }
+
+        private static PropertyDescriptor ContainingPropertyFromContext(ITypeDescriptorContext context)
+        {
+            if (context != null)
+            {
+                return context.PropertyDescriptor;
+            }
+            return null;
+        }
+
+        private static object ContainingObjectFromContext(ITypeDescriptorContext context)
+        {
+            if (context != null && context.Instance is DynamicPropertyBag)
+            {
+                var bag = (DynamicPropertyBag)context.Instance;
+                return bag.WrappedObject;
+            }
+            return null;
         }
 
         /// <summary>
@@ -136,7 +155,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         /// <typeparam name="DistributionType">Type of object which as the parameter.</typeparam>
         protected class ParameterDefinition<DistributionType>
         {
-            readonly Func<DistributionType, RoundedDouble> getRoundedDouble;
+            private readonly Func<DistributionType, RoundedDouble> getRoundedDouble;
 
             /// <summary>
             /// Instantiates a new instance of <see cref="ParameterDefinition{T}"/> for a
@@ -145,7 +164,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             /// <param name="expression">The parameter expression.</param>
             public ParameterDefinition(Expression<Func<DistributionType, RoundedDouble>> expression)
             {
-                PropertyName = ((MemberExpression)expression.Body).Member.Name;
+                PropertyName = ((MemberExpression) expression.Body).Member.Name;
                 getRoundedDouble = expression.Compile();
                 GetValue = type => getRoundedDouble(type).Value;
             }
@@ -157,7 +176,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             /// <param name="expression">The parameter expression.</param>
             public ParameterDefinition(Expression<Func<DistributionType, double>> expression)
             {
-                PropertyName = ((MemberExpression)expression.Body).Member.Name;
+                PropertyName = ((MemberExpression) expression.Body).Member.Name;
                 GetValue = expression.Compile();
             }
 

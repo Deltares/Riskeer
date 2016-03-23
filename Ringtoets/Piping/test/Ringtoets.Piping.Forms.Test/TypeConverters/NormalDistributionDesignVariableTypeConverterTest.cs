@@ -209,7 +209,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             PropertyDescriptor propertyDescriptor = TypeDescriptor.GetProperties(inputParameterContextProperties).Find("PhreaticLevelExit", false);
             var dynamicPropertyBag = new DynamicPropertyBag(inputParameterContextProperties);
 
-            typeDescriptorContextMock.Expect(tdc => tdc.Instance).Return(dynamicPropertyBag);
+            typeDescriptorContextMock.Expect(tdc => tdc.Instance).Return(dynamicPropertyBag).Repeat.Twice(); ;
             typeDescriptorContextMock.Stub(tdc => tdc.PropertyDescriptor).Return(propertyDescriptor);
             mocks.ReplayAll();
 

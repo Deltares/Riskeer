@@ -492,6 +492,7 @@ namespace Ringtoets.Piping.Data
             {
                 dampingFactorExit.Mean = value.Mean;
                 dampingFactorExit.StandardDeviation = value.StandardDeviation;
+                synchronizer.Synchronize();
             }
         }
 

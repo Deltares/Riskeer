@@ -455,7 +455,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             DesignVariable<NormalDistribution> phreaticLevelExitProperty = contextProperties.PhreaticLevelExit;
             var dynamicPropertyBag = new DynamicPropertyBag(contextProperties);
-            typeDescriptorContextMock.Expect(tdc => tdc.Instance).Return(dynamicPropertyBag);
+            typeDescriptorContextMock.Expect(tdc => tdc.Instance).Return(dynamicPropertyBag).Repeat.Twice();
             typeDescriptorContextMock.Stub(tdc => tdc.PropertyDescriptor).Return(dynamicPropertyBag.GetProperties()["PhreaticLevelExit"]);
             mocks.ReplayAll();
 
