@@ -77,10 +77,9 @@ namespace Application.Ringtoets.Storage.Persistors
 
         /// <summary>
         /// Ensures that the <paramref name="model"/> is set as <see cref="HydraulicLocationEntity"/> in the <paramref name="parentNavigationProperty"/>.
-        /// All other <see cref="HydraulicLocationEntity"/> in <paramref name="parentNavigationProperty"/> will be removed.
         /// </summary>
         /// <param name="parentNavigationProperty">Collection where <see cref="HydraulicBoundaryLocation"/> objects can be searched and added. 
-        /// Usually, this collection is a navigation property of a <see cref="IDbSet{HydraulicLocationEntity}"/>.</param>
+        /// Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
         /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> to be saved in the storage.</param>
         public void UpdateModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryDatabase model)
         {
@@ -128,28 +127,8 @@ namespace Application.Ringtoets.Storage.Persistors
             }
         }
 
-        private void InsertLocation(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryLocation location)
-        {
-            if (location == null)
-            {
-                throw new ArgumentNullException("location");
-            }
-
-            var entity = new HydraulicLocationEntity();
-            parentNavigationProperty.Add(entity);
-            insertedList.Add(entity, location);
-
-            converter.ConvertModelToEntity(location, entity);
-
-            if (location.StorageId > 0)
-            {
-                modifiedList.Add(entity);
-            }
-        }
-
         /// <summary>
         /// Ensures that the <paramref name="hydraulicBoundaryDatabase"/> is added as <see cref="HydraulicLocationEntity"/> in the <paramref name="parentNavigationProperty"/>.
-        /// All other <see cref="HydraulicLocationEntity"/> in <paramref name="parentNavigationProperty"/> will be removed.
         /// </summary>
         /// <param name="parentNavigationProperty">Collection where <see cref="HydraulicLocationEntity"/> objects can be added.
         ///  Usually, this collection is a navigation property of a <see cref="IDbSet{HydraulicLocationEntity}"/>.</param>
@@ -207,6 +186,25 @@ namespace Application.Ringtoets.Storage.Persistors
                 entry.Value.StorageId = entry.Key.HydraulicLocationEntityId;
             }
             insertedList.Clear();
+        }
+
+        private void InsertLocation(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryLocation location)
+        {
+            if (location == null)
+            {
+                throw new ArgumentNullException("location");
+            }
+
+            var entity = new HydraulicLocationEntity();
+            parentNavigationProperty.Add(entity);
+            insertedList.Add(entity, location);
+
+            converter.ConvertModelToEntity(location, entity);
+
+            if (location.StorageId > 0)
+            {
+                modifiedList.Add(entity);
+            }
         }
     }
 }

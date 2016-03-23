@@ -145,7 +145,7 @@ namespace Application.Ringtoets.Storage.Persistors
         {
             if (model == null)
             {
-                throw new ArgumentNullException("model", "Cannot update databaseSet when no project is set.");
+                throw new ArgumentNullException("model", @"Cannot update databaseSet when no project is set.");
             }
             ProjectEntity entity;
             try
@@ -170,7 +170,7 @@ namespace Application.Ringtoets.Storage.Persistors
         {
             if (project == null)
             {
-                throw new ArgumentNullException("project", "Cannot update databaseSet when no project is set.");
+                throw new ArgumentNullException("project", @"Cannot update databaseSet when no project is set.");
             }
 
             var entity = new ProjectEntity();

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;

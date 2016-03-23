@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
@@ -162,7 +161,7 @@ namespace Ringtoets.Integration.Data
             yield return ClosingFailureMechanism;
             yield return FailingOfConstructionFailureMechanism;
             yield return StoneRevetmentFailureMechanism;
-            yield return AsphaltRevetmentFailureMechanism; 
+            yield return AsphaltRevetmentFailureMechanism;
             yield return GrassRevetmentFailureMechanism;
         }
     }

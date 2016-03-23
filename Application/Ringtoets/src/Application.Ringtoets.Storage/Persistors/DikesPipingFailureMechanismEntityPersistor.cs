@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// </summary>
     public class DikesPipingFailureMechanismEntityPersistor : FailureMechanismEntityPersistorBase<PipingFailureMechanism>
     {
-        private PipingFailureMechanismEntityConverter converter;
+        private readonly PipingFailureMechanismEntityConverter converter;
 
         /// <summary>
         /// New instance of <see cref="DikesPipingFailureMechanismEntityPersistor"/>.
@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// Loads the <see cref="FailureMechanismEntity"/> as <see cref="PipingFailureMechanism"/>.
         /// </summary>
         /// <param name="entity"><see cref="FailureMechanismEntity"/> to load from.</param>
-        /// <param name="pipingFailureMechanism">The piping failure mechanism to load data in.</param>
+        /// <param name="pipingFailureMechanism">The <see cref="PipingFailureMechanism"/>to load data in.</param>
         /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c>.</item>
         /// <item><paramref name="pipingFailureMechanism"/> is <c>null</c>.</item>

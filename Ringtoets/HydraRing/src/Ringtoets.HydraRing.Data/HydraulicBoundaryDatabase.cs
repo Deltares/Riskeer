@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Core.Common.Base;
 
 namespace Ringtoets.HydraRing.Data
@@ -51,7 +50,7 @@ namespace Ringtoets.HydraRing.Data
         /// <summary>
         /// Gets the hydraulic boundary locations.
         /// </summary>
-        public List<HydraulicBoundaryLocation> Locations { get; private set; }
+        public ObservableList<HydraulicBoundaryLocation> Locations { get; private set; }
 
         /// <summary>
         /// Clears all the locations from the <see cref="HydraulicBoundaryDatabase"/>.
