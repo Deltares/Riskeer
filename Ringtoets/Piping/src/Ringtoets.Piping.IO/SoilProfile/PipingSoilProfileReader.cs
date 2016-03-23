@@ -324,7 +324,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                             "JOIN SoilLayer2D as l USING(SP2D_ID)",
                             "LEFT JOIN {11}",
                             "LEFT JOIN {12}",
-                            "WHERE m.ME_Name = @ME_Name",
+                            "WHERE m.{13} = @{13}",
                             "ORDER BY ProfileName;"),
                 SoilProfileDatabaseColumns.Dimension,
                 SoilProfileDatabaseColumns.ProfileName,
@@ -338,7 +338,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 SoilProfileDatabaseColumns.SoilProfileId,
                 layer2DCountQuery,
                 materialPropertiesQuery,
-                layer2DPropertiesQuery);
+                layer2DPropertiesQuery,
+                MechanismDatabaseColumns.MechanismName);
 
             dataReader = CreateDataReader(countQuery + query2D + query1D, new SQLiteParameter
             {

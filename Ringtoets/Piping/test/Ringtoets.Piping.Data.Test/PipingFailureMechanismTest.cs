@@ -3,6 +3,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test
@@ -192,6 +193,42 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, folder);
+        }
+
+        [Test]
+        public void SoilProfiles_StochasticSoilModelsWithDuplicateProfiles_ReturnsDistinctProfiles()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            PipingSoilProfile profile = new TestPipingSoilProfile();
+            StochasticSoilProfile stochasticProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = profile
+            };
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                new StochasticSoilModel(0, string.Empty, string.Empty)
+                {
+                    StochasticSoilProfiles =
+                    {
+                        stochasticProfile
+                    }
+                }, 
+                new StochasticSoilModel(0, string.Empty, string.Empty)
+                {
+                    StochasticSoilProfiles =
+                    {
+                        stochasticProfile
+                    }
+                }
+            });
+
+            // Call
+            var profiles = failureMechanism.SoilProfiles;
+
+            // Assert
+            Assert.AreEqual(1, profiles.Count);
+            Assert.AreSame(profile, profiles.First());
         }
     }
 }

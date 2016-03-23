@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return StochasticSoilModels.SelectMany(ssm => ssm.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile)).ToList();
+                return StochasticSoilModels.SelectMany(ssm => ssm.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile)).Distinct().ToList();
             }
         }
 

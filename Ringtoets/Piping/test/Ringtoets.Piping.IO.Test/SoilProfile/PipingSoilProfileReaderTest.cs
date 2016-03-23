@@ -189,7 +189,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        public void ReadProfile_DatabaseWith1DAndOrphan1D_ReturnOneProfile()
+        public void ReadProfile_DatabaseWith1DAnd1DSoilProfileWithoutSoilLayers_ReturnOneProfile()
         {
             // Setup
             var testFile = "1dprofileWithEmpty1d.soil";

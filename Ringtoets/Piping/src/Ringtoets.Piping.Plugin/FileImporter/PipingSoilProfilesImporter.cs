@@ -118,6 +118,12 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             CheckIfAllProfilesAreUsed(importSoilProfileResult.ImportedItems, importStochasticSoilModelResult.ImportedItems);
 
+            if (ImportIsCancelled)
+            {
+                HandleUserCancellingImport();
+                return false;
+            }
+
             AddImportedDataToModel(surfaceLinesContext, importStochasticSoilModelResult.ImportedItems);
             return true;
         }
@@ -139,6 +145,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void CheckIfAllProfilesAreUsed(ICollection<PipingSoilProfile> soilProfiles, ICollection<StochasticSoilModel> stochasticSoilModels)
         {
+            NotifyProgress(RingtoetsPluginResources.PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_Start_checking_soil_profiles, 1, 1);
             foreach (var soilProfile in soilProfiles.Where(soilProfile => !PipingSoilProfileIsUsed(soilProfile, stochasticSoilModels)))
             {
                 log.WarnFormat(RingtoetsPluginResources.PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in_any_stochastic_soil_model, soilProfile.Name);

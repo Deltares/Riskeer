@@ -141,13 +141,13 @@ Het bestand wordt overgeslagen.</value>
 Deze profielmeting wordt overgeslagen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_Adding_imported_data_to_model" xml:space="preserve">
-    <value>Geïmporteerde data toevoegen aan faalmechanisme</value>
+    <value>Geïmporteerde data toevoegen aan faalmechanisme.</value>
   </data>
   <data name="PipingSoilProfilesImporter_Import_Import_cancelled" xml:space="preserve">
     <value>Ondergrondschematiseringen importeren afgebroken. Geen data ingelezen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_Reading_database" xml:space="preserve">
-    <value>Inlezen van de D-Soil Model database</value>
+    <value>Inlezen van de D-Soil Model database.</value>
   </data>
   <data name="PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped" xml:space="preserve">
     <value>{0} 
@@ -158,7 +158,7 @@ Het bestand wordt overgeslagen.</value>
 Deze ondergrondschematisering wordt overgeslagen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_ReadingSoilProfiles" xml:space="preserve">
-    <value>Inlezen van de ondergrondschematisering uit de D-Soil Model database</value>
+    <value>Inlezen van de ondergrondschematisering uit de D-Soil Model database.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored" xml:space="preserve">
     <value>Profielmeting {0} bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.</value>
@@ -216,7 +216,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>Het stochastisch ondergrondmodel '{0}' bestaat al in het faalmechanisme.</value>
   </data>
   <data name="PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in_any_stochastic_soil_model" xml:space="preserve">
-    <value>Het uitgelezen profiel '{0}' niet wordt niet gebruikt in een van de stochastische ondergrondmodellen.</value>
+    <value>Het uitgelezen profiel '{0}' wordt niet gebruikt in een van de stochastische ondergrondmodellen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_Import_Required_referenceline_missing" xml:space="preserve">
     <value>Er is geen referentielijn beschikbaar. Geen data ingelezen.</value>
@@ -232,5 +232,8 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_GetStochasticSoilModelReadResult_Error_0_stochastic_soil_model_skipped" xml:space="preserve">
     <value>{0} Dit stochastisch ondergrondmodel wordt overgeslagen.</value>
+  </data>
+  <data name="PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_Start_checking_soil_profiles" xml:space="preserve">
+    <value>Controleren van ondergrondprofielen.</value>
   </data>
 </root>

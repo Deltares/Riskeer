@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan faalmechanisme.
+        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan faalmechanisme..
         /// </summary>
         public static string PipingSoilProfilesImporter_Adding_imported_data_to_model {
             get {
@@ -89,12 +89,22 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het uitgelezen profiel &apos;{0}&apos; niet wordt niet gebruikt in een van de stochastische ondergrondmodellen..
+        ///   Looks up a localized string similar to Het uitgelezen profiel &apos;{0}&apos; wordt niet gebruikt in een van de stochastische ondergrondmodellen..
         /// </summary>
         public static string PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in_any_stochastic_soil_model {
             get {
                 return ResourceManager.GetString("PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in" +
                         "_any_stochastic_soil_model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controleren van ondergrondprofielen..
+        /// </summary>
+        public static string PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_Start_checking_soil_profiles {
+            get {
+                return ResourceManager.GetString("PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_Start_checking_soil_profiles" +
+                        "", resourceCulture);
             }
         }
         
@@ -147,7 +157,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen van de D-Soil Model database.
+        ///   Looks up a localized string similar to Inlezen van de D-Soil Model database..
         /// </summary>
         public static string PipingSoilProfilesImporter_Reading_database {
             get {
@@ -156,7 +166,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen van de ondergrondschematisering uit de D-Soil Model database.
+        ///   Looks up a localized string similar to Inlezen van de ondergrondschematisering uit de D-Soil Model database..
         /// </summary>
         public static string PipingSoilProfilesImporter_ReadingSoilProfiles {
             get {
