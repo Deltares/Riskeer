@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             pipingSoilProfilesObserver = new Observer(UpdateSoilProfileColumn);
             assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryLocationsColumn);
-            pipingInputObserver = new RecursiveObserver<PipingCalculationGroup, PipingInput>(RefreshDataGridView, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculation>().Select(pc => pc.InputParameters)));
+            pipingInputObserver = new RecursiveObserver<PipingCalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculation>().Select(pc => pc.InputParameters)));
             pipingCalculationObserver = new RecursiveObserver<PipingCalculationGroup, PipingCalculation>(RefreshDataGridView, pcg => pcg.Children);
             pipingCalculationGroupObserver = new RecursiveObserver<PipingCalculationGroup, PipingCalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
         }
