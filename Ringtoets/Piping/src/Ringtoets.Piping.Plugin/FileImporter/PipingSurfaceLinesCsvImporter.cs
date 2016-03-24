@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private static bool IsReferenceLineAvailable(object targetItem)
         {
-            return ((RingtoetsPipingSurfaceLinesContext)targetItem).AssessmentSection.ReferenceLine != null;
+            return ((RingtoetsPipingSurfaceLinesContext) targetItem).AssessmentSection.ReferenceLine != null;
         }
 
         private ReadResult<T> HandleCriticalReadError<T>(Exception e)

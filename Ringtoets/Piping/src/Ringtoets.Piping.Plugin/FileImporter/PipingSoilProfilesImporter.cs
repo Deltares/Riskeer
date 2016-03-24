@@ -81,10 +81,15 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
+        public override bool CanImportOn(object targetItem)
+        {
+            return base.CanImportOn(targetItem) && IsReferenceLineAvailable(targetItem);
+        }
+
         public override bool Import(object targetItem, string filePath)
         {
-            var surfaceLinesContext = (StochasticSoilModelContext) targetItem;
-            if (!IsReferenceLineAvailable(surfaceLinesContext))
+            var stochasticSoilModelContext = (StochasticSoilModelContext) targetItem;
+            if (!IsReferenceLineAvailable(stochasticSoilModelContext))
             {
                 log.Error(RingtoetsPluginResources.PipingSoilProfilesImporter_Import_Required_referenceline_missing);
                 return false;
@@ -124,7 +129,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            AddImportedDataToModel(surfaceLinesContext, importStochasticSoilModelResult.ImportedItems);
+            AddImportedDataToModel(stochasticSoilModelContext, importStochasticSoilModelResult.ImportedItems);
             return true;
         }
 
@@ -192,9 +197,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return true;
         }
 
-        private static bool IsReferenceLineAvailable(StochasticSoilModelContext targetItem)
+        private static bool IsReferenceLineAvailable(object targetItem)
         {
-            return targetItem.AssessmentSection.ReferenceLine != null;
+            return ((StochasticSoilModelContext) targetItem).AssessmentSection.ReferenceLine != null;
         }
 
         private void HandleException(string path, Exception e)

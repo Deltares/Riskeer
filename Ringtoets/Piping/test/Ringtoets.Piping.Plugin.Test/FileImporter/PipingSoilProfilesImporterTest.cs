@@ -53,6 +53,50 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
+        public void CanImportOn_ValidContextWithReferenceLine_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            var failureMechanism = new PipingFailureMechanism();
+            mocks.ReplayAll();
+
+            var targetContext = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+
+            var importer = new PipingSoilProfilesImporter();
+
+            // Call
+            var canImport = importer.CanImportOn(targetContext);
+
+            // Assert
+            Assert.IsTrue(canImport);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanImportOn_ValidContextWithoutReferenceLine_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            assessmentSection.ReferenceLine = null;
+            var failureMechanism = new PipingFailureMechanism();
+            mocks.ReplayAll();
+
+            var targetContext = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+
+            var importer = new PipingSoilProfilesImporter();
+
+            // Call
+            var canImport = importer.CanImportOn(targetContext);
+
+            // Assert
+            Assert.IsFalse(canImport);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_FromNonExistingFile_LogError()
         {
             // Setup
