@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         /// <summary>
         /// Gets the available soil profiles on <see cref="PipingCalculationContext"/>.
         /// </summary>
-        public IEnumerable<PipingSoilProfile> GetAvailableSoilProfiles()
+        public IEnumerable<PipingSoilProfile> GetAvailableSoilProfilesForCalculation()
         {
             return data.AvailablePipingSoilProfiles;
         }

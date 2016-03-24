@@ -59,6 +59,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PipingCalculationHelperTest.cs" />
     <Compile Include="PresentationObjects\PipingFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLinesContextTest.cs" />
     <Compile Include="PresentationObjects\StochasticSoilModelContextTest.cs" />

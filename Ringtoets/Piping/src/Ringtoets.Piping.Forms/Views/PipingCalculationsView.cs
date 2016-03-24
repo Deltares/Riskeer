@@ -335,32 +335,13 @@ namespace Ringtoets.Piping.Forms.Views
 
         private IEnumerable<PipingSoilProfile> GetSoilProfilesForCalculation(PipingCalculation pipingCalculation)
         {
-            RingtoetsPipingSurfaceLine calculationSurfaceLine = pipingCalculation.InputParameters.SurfaceLine;
-            Segment2D[] surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(calculationSurfaceLine.Points.Select(p => new Point2D(p.X, p.Y))).ToArray();
-
-            var soilProfileObjectsForCalculation = new List<PipingSoilProfile>();
-            foreach (StochasticSoilModel stochasticSoilModel in pipingFailureMechanism.StochasticSoilModels)
+            if (pipingFailureMechanism == null)
             {
-                if (DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(stochasticSoilModel, surfaceLineSegments))
-                {
-                    soilProfileObjectsForCalculation.AddRange(stochasticSoilModel.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile));
-                }
+                return Enumerable.Empty<PipingSoilProfile>();
             }
-            return soilProfileObjectsForCalculation;
+            return PipingCalculationHelper.GetPipingSoilProfilesForCalculation(pipingCalculation, pipingFailureMechanism.StochasticSoilModels);
         }
-
-        private static bool DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(StochasticSoilModel stochasticSoilModel, Segment2D[] surfaceLineSegments)
-        {
-            IEnumerable<Segment2D> soilProfileGeometrySegments = Math2D.ConvertLinePointsToLineSegments(stochasticSoilModel.Geometry);
-            return soilProfileGeometrySegments.Any(s => DoesSegmentIntersectWithSegmentArray(s, surfaceLineSegments));
-        }
-
-        private static bool DoesSegmentIntersectWithSegmentArray(Segment2D segment, Segment2D[] segmentArray)
-        {
-            // Consider intersections and overlaps similarly
-            return segmentArray.Any(sls => Math2D.GetIntersectionBetweenSegments(segment, sls).IntersectionType != Intersection2DType.DoesNotIntersect);
-        }
-
+        
         private static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, object[] comboBoxItems)
         {
             objectCollection.Clear();
