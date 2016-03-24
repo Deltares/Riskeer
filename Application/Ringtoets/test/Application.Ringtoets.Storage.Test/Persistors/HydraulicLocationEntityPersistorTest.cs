@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -494,17 +495,18 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 entityToDelete
             };
 
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, parentNavigationProperty);
-            dbset.Expect(x => x.Remove(entityToDelete)).Return(entityToDelete);
-
             var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
-            ringtoetsEntitiesMock.Expect(x => x.HydraulicLocationEntities).Return(dbset);
+
+            var set = mockRepository.StrictMock<DbSet<HydraulicLocationEntity>>();
+            ringtoetsEntitiesMock.Expect(c => c.Set<HydraulicLocationEntity>()).Return(set);
+            set.Expect(s => s.RemoveRange(Arg<IEnumerable<HydraulicLocationEntity>>.List.Equal(new[] { entityToDelete })));
+
+            mockRepository.ReplayAll();
 
             HydraulicLocationEntityPersistor persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
             HydraulicBoundaryLocation location = new HydraulicBoundaryLocation(13001, "test", 13, 52);
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(location);
-            mockRepository.ReplayAll();
 
             // Call
             persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
@@ -538,11 +540,14 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 entityToDelete,
                 entityToUpdate
             };
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, parentNavigationProperty);
-            dbset.Expect(x => x.Remove(entityToDelete)).Return(entityToDelete);
 
             var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
-            ringtoetsEntitiesMock.Expect(x => x.HydraulicLocationEntities).Return(dbset);
+
+            var set = mockRepository.StrictMock<DbSet<HydraulicLocationEntity>>();
+            ringtoetsEntitiesMock.Expect(c => c.Set<HydraulicLocationEntity>()).Return(set);
+            set.Expect(s => s.RemoveRange(Arg<IEnumerable<HydraulicLocationEntity>>.List.Equal(new[] { entityToDelete })));
+
+            mockRepository.ReplayAll();
 
             HydraulicLocationEntityPersistor persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(13001, "test", 13, 52)
@@ -552,7 +557,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
-            mockRepository.ReplayAll();
 
             TestDelegate updateTest = () => persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
             Assert.DoesNotThrow(updateTest, "Precondition failed: Update should not throw exception.");
@@ -586,18 +590,17 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 secondEntityToDelete
             };
 
-            var dbset = DbTestSet.GetDbTestSet(mockRepository, parentNavigationProperty);
-            dbset.Expect(x => x.Remove(firstEntityToDelete)).Return(firstEntityToDelete);
-            dbset.Expect(x => x.Remove(secondEntityToDelete)).Return(secondEntityToDelete);
-
             var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
-            ringtoetsEntitiesMock.Expect(x => x.HydraulicLocationEntities).Return(dbset).Repeat.Twice();
-            HydraulicLocationEntityPersistor persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
+            var set = mockRepository.StrictMock<DbSet<HydraulicLocationEntity>>();
+            ringtoetsEntitiesMock.Expect(c => c.Set<HydraulicLocationEntity>()).Return(set);
+            set.Expect(s => s.RemoveRange(Arg<IEnumerable<HydraulicLocationEntity>>.List.Equal(parentNavigationProperty.ToList())));
+            mockRepository.ReplayAll();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(13001, "test", 13, 52);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-            mockRepository.ReplayAll();
+
+            HydraulicLocationEntityPersistor persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
 
             TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
             Assert.DoesNotThrow(test, "Precondition failed: UpdateModel");

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Persistors;
 using Application.Ringtoets.Storage.Test.DbContext;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -274,6 +276,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
+            DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
 
             mockRepository.ReplayAll();
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
@@ -448,6 +451,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             });
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
+            DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
 
             mockRepository.ReplayAll();
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);

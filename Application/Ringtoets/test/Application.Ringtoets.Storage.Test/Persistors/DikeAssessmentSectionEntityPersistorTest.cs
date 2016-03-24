@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Persistors;
 using Application.Ringtoets.Storage.Test.DbContext;
+using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.HydraRing.Data;
@@ -289,6 +290,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     },
                     HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
                 };
+            DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
             mockRepository.ReplayAll();
 
             // Call
@@ -323,6 +325,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 entityToDelete
             };
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
 
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
 
@@ -356,6 +359,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
 
             const string name = "test";
@@ -439,6 +443,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const string name = "test";
             const int norm = 30000;
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
             ICollection<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>();
             DikeAssessmentSection dikeAssessmentSection =
@@ -573,6 +578,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const long storageId = 1234L;
             const int norm = 30000;
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
             ICollection<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>
             {
@@ -634,6 +640,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             };
 
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
 
             DikeAssessmentSection dikeAssessmentSection =
@@ -672,6 +679,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const long hydraulicLocationEntityId = 5678L;
 
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
             DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection
             {
@@ -738,6 +746,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             dbset.Expect(x => x.Remove(entityToDelete)).Return(entityToDelete);
 
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
+
             ringtoetsEntities.Expect(x => x.DikeAssessmentSectionEntities).Return(dbset);
 
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
@@ -796,6 +806,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             ringtoetsEntities.Expect(x => x.DikeAssessmentSectionEntities).Return(dbset);
+            DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
 
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
             DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection
@@ -851,6 +862,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             dbset.Expect(x => x.Remove(secondEntityToDelete)).Return(secondEntityToDelete);
 
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
             ringtoetsEntities.Expect(x => x.DikeAssessmentSectionEntities).Return(dbset).Repeat.Twice();
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
 
@@ -904,8 +916,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             }).Repeat.Times(numberOfInserts);
 
             IList<DikeAssessmentSection> dikeAssessmentSections = new List<DikeAssessmentSection>();
+
+            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+
             for (var i = 0; i < numberOfInserts; i++)
             {
+                DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
                 dikeAssessmentSections.Add(new DikeAssessmentSection
                 {
                     StorageId = 0L,
@@ -913,8 +930,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 });
             }
 
-            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+
             mockRepository.ReplayAll();
 
             foreach (var dikeAssessmentSection in dikeAssessmentSections)

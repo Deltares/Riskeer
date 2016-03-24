@@ -167,13 +167,8 @@ namespace Application.Ringtoets.Storage.Persistors
                 originalList.Remove(hydraulicLocationEntity);
             }
 
-            foreach (var toDelete in originalList)
-            {
-                if (toDelete.HydraulicLocationEntityId > 0)
-                {
-                    ringtoetsContext.HydraulicLocationEntities.Remove(toDelete);
-                }
-            }
+            var existingEntriesToDelete = originalList.Where(o => o.HydraulicLocationEntityId > 0);
+            ringtoetsContext.Set<HydraulicLocationEntity>().RemoveRange(existingEntriesToDelete);
 
             modifiedList.Clear();
         }
