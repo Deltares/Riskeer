@@ -91,6 +91,7 @@
     <Compile Include="DbContext\DikeAssessmentSectionEntityTest.cs" />
     <Compile Include="DbContext\ProjectEntityTest.cs" />
     <Compile Include="Persistors\HydraulicLocationEntityPersistorTest.cs" />
+    <Compile Include="Persistors\ReferenceLinePersistorTest.cs" />
     <Compile Include="RingtoetsDatabaseCreatorTest.cs" />
     <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
     <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />

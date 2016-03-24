@@ -10,7 +10,7 @@ namespace Application.Ringtoets.Storage.Test.DbContext
         public static IDbSet<T> GetDbTestSet<T>(MockRepository mockRepository, ObservableCollection<T> data) where T : class
         {
             var queryable = data.AsQueryable();
-            var dbSet = mockRepository.StrictMock<IDbSet<T>>();
+            var dbSet = mockRepository.Stub<IDbSet<T>>();
 
             dbSet.Stub(m => m.Provider).Return(queryable.Provider);
             dbSet.Stub(m => m.Expression).Return(queryable.Expression);

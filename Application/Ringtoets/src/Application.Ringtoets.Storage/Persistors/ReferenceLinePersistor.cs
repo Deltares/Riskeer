@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
@@ -11,7 +10,7 @@ namespace Application.Ringtoets.Storage.Persistors
     public class ReferenceLinePersistor
     {
         private readonly ReferenceLineConverter converter;
-        private IRingtoetsEntities context;
+        private readonly IRingtoetsEntities context;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationEntityPersistor"/>.
@@ -35,15 +34,21 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="entityCollection">The collection where the entities are added.</param>
         /// <param name="referenceLine">The reference line which will be added tot the <paramref name="entityCollection"/>
         ///  as entities.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="entityCollection"/> is <c>null</c>.</exception>
         public void InsertModel(ICollection<ReferenceLinePointEntity> entityCollection, ReferenceLine referenceLine)
         {
+            if (entityCollection == null)
+            {
+                throw new ArgumentNullException("entityCollection");
+            }
+
+            if (entityCollection.Any())
+            {
+                context.Set<ReferenceLinePointEntity>().RemoveRange(entityCollection);
+            }
+
             if (referenceLine != null)
             {
-                if (entityCollection == null)
-                {
-                    throw new ArgumentNullException("entityCollection");
-                }
-                context.Set<ReferenceLinePointEntity>().RemoveRange(entityCollection);
                 converter.ConvertModelToEntity(referenceLine, entityCollection);
             }
         }

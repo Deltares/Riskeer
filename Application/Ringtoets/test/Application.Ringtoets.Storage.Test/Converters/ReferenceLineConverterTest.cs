@@ -58,7 +58,39 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        public void ConvertEntityToModel_ValidEntityValidModel_ReturnsTheEntityAsModel()
+        public void ConvertEntityToModel_ValidOrderedEntityValidModel_ReturnsTheEntityAsModel()
+        {
+            // Setup
+            var random = new Random(21);
+
+            IList<Point2D> points = new []
+            {
+                new Point2D(random.NextDouble(), random.NextDouble()), 
+                new Point2D(random.NextDouble(), random.NextDouble()), 
+                new Point2D(random.NextDouble(), random.NextDouble()) 
+            };
+            var entityCollection = points.Select((point, i) => new ReferenceLinePointEntity
+            {
+                X = Convert.ToDecimal(point.X), 
+                Y = Convert.ToDecimal(point.Y), 
+                Order = i
+            }).ToList();
+            var converter = new ReferenceLineConverter();
+
+            // Call
+            ReferenceLine location = converter.ConvertEntityToModel(entityCollection);
+
+            // Assert
+            Assert.AreNotEqual(points, location.Points);
+            for (var i = 0; i < entityCollection.Count; i++)
+            {
+                Assert.AreEqual(Decimal.ToDouble(entityCollection[i].X), points[i].X, 1e-8);
+                Assert.AreEqual(Decimal.ToDouble(entityCollection[i].Y), points[i].Y, 1e-8);
+            }
+        }
+
+        [Test]
+        public void ConvertEntityToModel_ValidUnorderedEntityValidModel_ReturnsTheEntityAsModel()
         {
             // Setup
             var random = new Random(21);
@@ -70,6 +102,11 @@ namespace Application.Ringtoets.Storage.Test.Converters
                 new Point2D(random.NextDouble(), random.NextDouble()) 
             };
             var entityCollection = points.Select(p => new ReferenceLinePointEntity { X = Convert.ToDecimal(p.X), Y = Convert.ToDecimal(p.Y) }).ToList();
+
+            entityCollection[0].Order = 1;
+            entityCollection[1].Order = 2;
+            entityCollection[2].Order = 0;
+
             var converter = new ReferenceLineConverter();
 
             // Call
@@ -139,6 +176,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             {
                 Assert.AreEqual(points[i].X, Decimal.ToDouble(entity[i].X), 1e-8);
                 Assert.AreEqual(points[i].Y, Decimal.ToDouble(entity[i].Y), 1e-8);
+                Assert.AreEqual(i, entity[i].Order);
             }
         }
     }

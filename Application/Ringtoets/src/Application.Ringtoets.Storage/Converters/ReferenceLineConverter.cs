@@ -31,8 +31,12 @@ namespace Application.Ringtoets.Storage.Converters
                 return null;
             }
             var line = new ReferenceLine();
-
-            var geometry = entityCollection.Select(entity => new Point2D(decimal.ToDouble(entity.X), decimal.ToDouble(entity.Y)));
+            var geometry = new Point2D[entityCollection.Count];
+            foreach (var entity in entityCollection)
+            {
+                var point = new Point2D(decimal.ToDouble(entity.X), decimal.ToDouble(entity.Y));
+                geometry[entity.Order] = point;
+            }
             line.SetGeometry(geometry);
 
             return line;

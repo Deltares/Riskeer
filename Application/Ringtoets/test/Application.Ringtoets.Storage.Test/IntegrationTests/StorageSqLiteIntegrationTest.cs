@@ -70,6 +70,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(firstProjectDike[i].Name, secondProjectDike[i].Name);
 
                 AssertHydraulicBoundaryDatabase(firstProjectDike[i], secondProjectDike[i]);
+                AssertReferenceLine(firstProjectDike[i], secondProjectDike[i]);
             }
 
             var firstProjectDune = firstProject.Items.OfType<DuneAssessmentSection>().ToList();
@@ -110,6 +111,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var assessmentSection = loadedProject.Items.OfType<DikeAssessmentSection>().FirstOrDefault();
             Assert.IsNotNull(assessmentSection);
             AssertHydraulicBoundaryDatabase(fullProject.Items.OfType<DikeAssessmentSection>().FirstOrDefault(), assessmentSection);
+            AssertReferenceLine(fullProject.Items.OfType<DikeAssessmentSection>().FirstOrDefault(), assessmentSection);
         }
 
         [Test]
@@ -145,6 +147,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 var assessmentSection = gui.Project.Items.OfType<DikeAssessmentSection>().FirstOrDefault();
                 Assert.IsNotNull(assessmentSection);
                 AssertHydraulicBoundaryDatabase(fullProject.Items.OfType<DikeAssessmentSection>().FirstOrDefault(), assessmentSection);
+                AssertReferenceLine(fullProject.Items.OfType<DikeAssessmentSection>().FirstOrDefault(), assessmentSection);
             }
 
             // TearDown
@@ -224,6 +227,20 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedProject.HydraulicBoundaryDatabase.Locations[i].DesignWaterLevel, project.HydraulicBoundaryDatabase.Locations[i].DesignWaterLevel);
                 Assert.AreEqual(expectedProject.HydraulicBoundaryDatabase.Locations[i].StorageId, project.HydraulicBoundaryDatabase.Locations[i].StorageId);
                 Assert.AreEqual(expectedProject.HydraulicBoundaryDatabase.Locations[i].Location, project.HydraulicBoundaryDatabase.Locations[i].Location);
+            }
+        }
+
+
+        private static void AssertReferenceLine(AssessmentSectionBase expectedProject, AssessmentSectionBase project)
+        {
+            Assert.IsNotNull(expectedProject.ReferenceLine);
+
+            for (int i = 0; i < expectedProject.ReferenceLine.Points.Count(); i++)
+            {
+                var expectedPoint = expectedProject.ReferenceLine.Points.ElementAt(i);
+                var resultingPoint = project.ReferenceLine.Points.ElementAt(i);
+                Assert.AreEqual(expectedPoint.X, resultingPoint.X);
+                Assert.AreEqual(expectedPoint.Y, resultingPoint.Y);
             }
         }
 

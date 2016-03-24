@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
@@ -45,10 +48,26 @@ namespace Application.Ringtoets.Storage.TestUtil
                     new DikeAssessmentSection
                     {
                         Name = "dikeAssessmentSection",
-                        HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase()
+                        HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(),
+                        ReferenceLine = GetReferenceLine()
                     }
                 }
             };
+        }
+
+        private static ReferenceLine GetReferenceLine()
+        {
+            IEnumerable<Point2D> points = new[]
+            {
+                new Point2D(2, 3),
+                new Point2D(5, 4),
+                new Point2D(5, 8),
+                new Point2D(-3, 2)
+            };
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(points);
+            return referenceLine;
         }
 
         private static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase()
