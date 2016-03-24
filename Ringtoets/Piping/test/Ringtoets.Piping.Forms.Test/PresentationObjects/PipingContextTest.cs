@@ -7,7 +7,6 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
@@ -17,7 +16,6 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
     [TestFixture]
     public class PipingContextTest
     {
-
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
@@ -36,10 +34,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestPipingSoilProfile()
             };
 
-            var target = new ObserveableObject();
+            var target = new ObservableObject();
 
             // Call
-            var context = new SimplePipingContext<ObserveableObject>(target, surfaceLines, soilProfiles, assessmentSection);
+            var context = new SimplePipingContext<ObservableObject>(target, surfaceLines, soilProfiles, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(context);
@@ -61,7 +59,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimplePipingContext<ObserveableObject>(null,
+            TestDelegate call = () => new SimplePipingContext<ObservableObject>(null,
                                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                  Enumerable.Empty<PipingSoilProfile>(),
                                                                                  assessmentSection);
@@ -82,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimplePipingContext<ObserveableObject>(new ObserveableObject(), 
+            TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(), 
                                                                                  null,
                                                                                  Enumerable.Empty<PipingSoilProfile>(),
                                                                                  assessmentSection);
@@ -103,7 +101,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimplePipingContext<ObserveableObject>(new ObserveableObject(), 
+            TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(), 
                                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                                  null,
                                                                                  assessmentSection);
@@ -116,7 +114,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void NotifyObservers_HasPipingCalculationAndObserverAttached_NotifyObserver()
+        public void Attach_Observer_ObserverAttachedToWrappedObject()
         {
             // Setup
             var mocks = new MockRepository();
@@ -125,24 +123,23 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var target = new ObserveableObject();
+            var observableObject = new ObservableObject();
 
-            var presentationObject = new SimplePipingContext<ObserveableObject>(target,
-                                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                Enumerable.Empty<PipingSoilProfile>(),
-                                                                                assessmentSection);
-
-            presentationObject.Attach(observer);
+            var context = new SimplePipingContext<ObservableObject>(observableObject,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<PipingSoilProfile>(),
+                                                                    assessmentSection);
 
             // Call
-            presentationObject.NotifyObservers();
+            context.Attach(observer);
 
             // Assert
-            mocks.VerifyAll();
+            observableObject.NotifyObservers(); // Notification on wrapped object
+            mocks.VerifyAll(); // Expected UpdateObserver call
         }
 
         [Test]
-        public void NotifyObservers_HasPipingCalculationAndObserverDetached_NoCallsOnObserver()
+        public void Detach_Observer_ObserverDetachedFromWrappedObject()
         {
             // Setup
             var mocks = new MockRepository();
@@ -150,24 +147,25 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var target = new ObserveableObject();
+            var observableObject = new ObservableObject();
 
-            var presentationObject = new SimplePipingContext<ObserveableObject>(target,
-                                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                Enumerable.Empty<PipingSoilProfile>(),
-                                                                                assessmentSection);
-            presentationObject.Attach(observer);
-            presentationObject.Detach(observer);
+            var context = new SimplePipingContext<ObservableObject>(observableObject,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<PipingSoilProfile>(),
+                                                                    assessmentSection);
+
+            context.Attach(observer);
 
             // Call
-            presentationObject.NotifyObservers();
+            context.Detach(observer);
 
             // Assert
-            mocks.VerifyAll(); // Expect not calls on 'observer'
+            observableObject.NotifyObservers(); // Notification on wrapped object
+            mocks.VerifyAll(); // Expected no UpdateObserver call
         }
 
         [Test]
-        public void PipingCalculationNotifyObservers_AttachedOnPipingCalculationContext_ObserverNotified()
+        public void NotifyObservers_ObserverAttachedToWrappedObject_NotificationCorrectlyPropagated()
         {
             // Setup
             var mocks = new MockRepository();
@@ -176,16 +174,17 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var target = new ObserveableObject();
+            var observableObject = new ObservableObject();
 
-            var presentationObject = new SimplePipingContext<ObserveableObject>(target,
-                                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                Enumerable.Empty<PipingSoilProfile>(),
-                                                                                assessmentSection);
-            presentationObject.Attach(observer);
+            var context = new SimplePipingContext<ObservableObject>(observableObject,
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<PipingSoilProfile>(),
+                                                                    assessmentSection);
+
+            observableObject.Attach(observer); // Attach to wrapped object
 
             // Call
-            target.NotifyObservers();
+            context.NotifyObservers(); // Notification on context
 
             // Assert
             mocks.VerifyAll();
@@ -199,8 +198,8 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var observableObject = new ObserveableObject();
-            var context = new SimplePipingContext<ObserveableObject>(observableObject,
+            var observableObject = new ObservableObject();
+            var context = new SimplePipingContext<ObservableObject>(observableObject,
                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                      Enumerable.Empty<PipingSoilProfile>(),
                                                                      assessmentSection);
@@ -221,8 +220,8 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var observableObject = new ObserveableObject();
-            var context = new SimplePipingContext<ObserveableObject>(observableObject,
+            var observableObject = new ObservableObject();
+            var context = new SimplePipingContext<ObservableObject>(observableObject,
                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                      Enumerable.Empty<PipingSoilProfile>(),
                                                                      assessmentSection);
@@ -243,13 +242,13 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var observableObject = new ObserveableObject();
-            var context = new SimplePipingContext<ObserveableObject>(observableObject,
+            var observableObject = new ObservableObject();
+            var context = new SimplePipingContext<ObservableObject>(observableObject,
                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                      Enumerable.Empty<PipingSoilProfile>(),
                                                                      assessmentSection);
 
-            var otherContext = new SimplePipingContext<ObserveableObject>(observableObject,
+            var otherContext = new SimplePipingContext<ObservableObject>(observableObject,
                                                                           new[]
                                                                           {
                                                                               new RingtoetsPipingSurfaceLine()
@@ -278,14 +277,14 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var observableObject = new ObserveableObject();
-            var otherObservableObject = new ObserveableObject();
-            var context = new SimplePipingContext<ObserveableObject>(observableObject,
+            var observableObject = new ObservableObject();
+            var otherObservableObject = new ObservableObject();
+            var context = new SimplePipingContext<ObservableObject>(observableObject,
                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                      Enumerable.Empty<PipingSoilProfile>(),
                                                                      assessmentSection);
 
-            var otherContext = new SimplePipingContext<ObserveableObject>(otherObservableObject,
+            var otherContext = new SimplePipingContext<ObservableObject>(otherObservableObject,
                                                                           new[]
                                                                           {
                                                                               new RingtoetsPipingSurfaceLine()
@@ -315,8 +314,8 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var observableStub = mocks.Stub<IObservable>();
             mocks.ReplayAll();
 
-            var observableObject = new ObserveableObject();
-            var context = new SimplePipingContext<ObserveableObject>(observableObject,
+            var observableObject = new ObservableObject();
+            var context = new SimplePipingContext<ObservableObject>(observableObject,
                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                      Enumerable.Empty<PipingSoilProfile>(),
                                                                      assessmentSection);
@@ -350,13 +349,13 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            var observableObject = new ObserveableObject();
-            var context = new SimplePipingContext<ObserveableObject>(observableObject,
+            var observableObject = new ObservableObject();
+            var context = new SimplePipingContext<ObservableObject>(observableObject,
                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                      Enumerable.Empty<PipingSoilProfile>(),
                                                                      assessmentSection);
 
-            var otherContext = new SimplePipingContext<ObserveableObject>(observableObject,
+            var otherContext = new SimplePipingContext<ObservableObject>(observableObject,
                                                                           new[]
                                                                           {
                                                                               new RingtoetsPipingSurfaceLine()
@@ -387,7 +386,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             }
         }
 
-        private class ObserveableObject : Observable
+        private class ObservableObject : Observable
         {
             
         }

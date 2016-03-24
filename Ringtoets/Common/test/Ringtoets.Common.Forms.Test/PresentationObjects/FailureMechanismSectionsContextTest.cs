@@ -85,48 +85,68 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void NotifyObservers_HasPipingCalculationAndObserverAttached_NotifyObserver()
+        public void Attach_Observer_ObserverAttachedToFailureMechanism()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             var observer = mocks.StrictMock<IObserver>();
 
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Expect(fm => fm.Attach(observer));
-            failureMechanism.Expect(fm => fm.NotifyObservers());
+
             mocks.ReplayAll();
 
-            var presentationObject = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
-
-            presentationObject.Attach(observer);
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
-            presentationObject.NotifyObservers();
+            context.Attach(observer);
 
             // Assert
-            mocks.VerifyAll(); // Expect attach and notify observers on failure mechanism
+            mocks.VerifyAll(); // Expected Attach on wrapped object
         }
 
         [Test]
-        public void NotifyObservers_HasPipingCalculationAndObserverDetached_NoCallsOnObserver()
+        public void Detach_Observer_ObserverDetachedFromFailureMechanism()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             var observer = mocks.StrictMock<IObserver>();
 
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Expect(fm => fm.Detach(observer));
+
             mocks.ReplayAll();
 
-            var presentationObject = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
-            presentationObject.Detach(observer);
+            context.Detach(observer);
 
             // Assert
-            mocks.VerifyAll(); // Expect detach from failure mechanism
+            mocks.VerifyAll(); // Expected Detach on wrapped object
+        }
+
+        [Test]
+        public void NotifyObservers_ObserverAttachedToFailureMechanism_NotificationCorrectlyPropagated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+
+            failureMechanism.Expect(fm => fm.NotifyObservers());
+
+            mocks.ReplayAll();
+
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            // Call
+            context.NotifyObservers();
+
+            // Assert
+            mocks.VerifyAll(); // Expected NotifyObservers on wrapped object
         }
 
         [Test]

@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void NotifyObservers_ObserverAttached_NotifyObserver()
+        public void Attach_Observer_ObserverAttachedToStochasticSoilModels()
         {
             // Setup
             var mocks = new MockRepository();
@@ -96,17 +96,16 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
 
-            failureMechanism.StochasticSoilModels.Attach(observer);
-
             // Call
-            context.NotifyObservers();
+            context.Attach(observer);
 
             // Assert
-            mocks.VerifyAll(); // Expect attach and notify observers on failure mechanism
+            failureMechanism.StochasticSoilModels.NotifyObservers(); // Notification on wrapped object
+            mocks.VerifyAll(); // Expected UpdateObserver call
         }
 
         [Test]
-        public void NotifyObservers_ObserverDetached_NoCallsOnObserver()
+        public void Detach_Observer_ObserverDetachedFromStochasticSoilModels()
         {
             // Setup
             var mocks = new MockRepository();
@@ -116,13 +115,39 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var presentationObject = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+
+            context.Attach(observer);
 
             // Call
-            presentationObject.Detach(observer);
+            context.Detach(observer);
 
             // Assert
-            mocks.VerifyAll(); // Expect detach from failure mechanism
+            failureMechanism.StochasticSoilModels.NotifyObservers(); // Notification on wrapped object
+            mocks.VerifyAll(); // Expected no UpdateObserver call
+        }
+
+        [Test]
+        public void NotifyObservers_ObserverAttachedToStochasticSoilModels_NotificationCorrectlyPropagated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+
+            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+
+            failureMechanism.StochasticSoilModels.Attach(observer); // Attach to wrapped object
+
+            // Call
+            context.NotifyObservers(); // Notification on context
+
+            // Assert
+            mocks.VerifyAll();
         }
 
         [Test]

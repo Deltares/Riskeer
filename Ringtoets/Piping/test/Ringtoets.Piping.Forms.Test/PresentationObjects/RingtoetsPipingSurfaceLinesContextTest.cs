@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void NotifyObservers_ObserverAttached_NotifyObserver()
+        public void Attach_Observer_ObserverAttachedToPipingFailureMechanism()
         {
             // Setup
             var mocks = new MockRepository();
@@ -75,17 +75,16 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
+            // Call
             context.Attach(observer);
 
-            // Call
-            context.NotifyObservers();
-
             // Assert
-            mocks.VerifyAll(); // Expect attach and notify observers on failure mechanism
+            failureMechanism.NotifyObservers(); // Notification on wrapped object
+            mocks.VerifyAll(); // Expected UpdateObserver call
         }
 
         [Test]
-        public void NotifyObservers_ObserverDetached_NoCallsOnObserver()
+        public void Detach_Observer_ObserverDetachedFromPipingFailureMechanism()
         {
             // Setup
             var mocks = new MockRepository();
@@ -95,13 +94,39 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var presentationObject = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
+
+            context.Attach(observer);
 
             // Call
-            presentationObject.Detach(observer);
+            context.Detach(observer);
 
             // Assert
-            mocks.VerifyAll(); // Expect detach from failure mechanism
+            failureMechanism.NotifyObservers(); // Notification on wrapped object
+            mocks.VerifyAll(); // Expected no UpdateObserver call
+        }
+
+        [Test]
+        public void NotifyObservers_ObserverAttachedToPipingFailureMechanism_NotificationCorrectlyPropagated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+
+            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
+
+            failureMechanism.Attach(observer); // Attach to wrapped object
+
+            // Call
+            context.NotifyObservers(); // Notification on context
+
+            // Assert
+            mocks.VerifyAll();
         }
 
         [Test]

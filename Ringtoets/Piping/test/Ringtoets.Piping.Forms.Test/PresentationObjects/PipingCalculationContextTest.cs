@@ -97,12 +97,15 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void NotifyObservers_HasPipingCalculationAndObserverAttached_NotifyObserver()
+        public void Attach_Observer_ObserverAttachedToPipingCalculation()
         {
             // Setup
             var mocks = new MockRepository();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
 
             var surfacelines = new[]
             {
@@ -112,28 +115,27 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new TestPipingSoilProfile()
             };
+
             var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
-
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
-            mocks.ReplayAll();
-
-            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock, assessmentSectionBaseMock);
-            presentationObject.Attach(observer);
+            var context = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock, assessmentSectionBaseMock);
 
             // Call
-            presentationObject.NotifyObservers();
+            context.Attach(observer);
 
             // Assert
-            mocks.VerifyAll();
+            calculation.NotifyObservers(); // Notification on wrapped object
+            mocks.VerifyAll(); // Expected UpdateObserver call
         }
 
         [Test]
-        public void NotifyObservers_HasPipingCalculationAndObserverDetached_NoCallsOnObserver()
+        public void Detach_Observer_ObserverDetachedFromPipingCalculation()
         {
             // Setup
             var mocks = new MockRepository();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
 
             var surfacelines = new[]
             {
@@ -143,21 +145,50 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new TestPipingSoilProfile()
             };
+
             var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var context = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock, assessmentSectionBaseMock);
 
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
-            mocks.ReplayAll();
-
-            var presentationObject = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock, assessmentSectionBaseMock);
-            presentationObject.Attach(observer);
-            presentationObject.Detach(observer);
+            context.Attach(observer);
 
             // Call
-            presentationObject.NotifyObservers();
+            context.Detach(observer);
 
             // Assert
-            mocks.VerifyAll(); // Expect not calls on 'observer'
+            calculation.NotifyObservers(); // Notification on wrapped object
+            mocks.VerifyAll(); // Expected no UpdateObserver call
+        }
+
+        [Test]
+        public void NotifyObservers_ObserverAttachedToPipingCalculation_NotificationCorrectlyPropagated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var surfacelines = new[]
+            {
+                new RingtoetsPipingSurfaceLine()
+            };
+            var profiles = new[]
+            {
+                new TestPipingSoilProfile()
+            };
+
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var context = new PipingCalculationContext(calculation, surfacelines, profiles, pipingFailureMechanismMock, assessmentSectionBaseMock);
+
+            calculation.Attach(observer); // Attach to wrapped object
+
+            // Call
+            context.NotifyObservers(); // Notification on context
+
+            // Assert
+            mocks.VerifyAll();
         }
     }
 }

@@ -65,53 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void NotifyObservers_HasPipingInputAndObserverAttached_NotifyObserver()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var presentationObject = new PipingInputContext(new PipingInput(new GeneralPipingInput()),
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<PipingSoilProfile>(),
-                                                            assessmentSectionMock);
-            presentationObject.Attach(observer);
-
-            // Call
-            presentationObject.NotifyObservers();
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void NotifyObservers_HasPipingInputAndObserverDetached_NoCallsOnObserver()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var presentationObject = new PipingInputContext(new PipingInput(new GeneralPipingInput()),
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<PipingSoilProfile>(),
-                                                            assessmentSectionMock);
-            presentationObject.Attach(observer);
-            presentationObject.Detach(observer);
-
-            // Call
-            presentationObject.NotifyObservers();
-
-            // Assert
-            mocks.VerifyAll(); // Expect not calls on 'observer'
-        }
-
-        [Test]
-        public void PipingInputNotifyObservers_AttachedOnPipingCalculationContext_ObserverNotified()
+        public void Attach_Observer_ObserverAttachedToPipingInput()
         {
             // Setup
             var mocks = new MockRepository();
@@ -121,14 +75,64 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             var pipingInput = new PipingInput(new GeneralPipingInput());
-            var presentationObject = new PipingInputContext(pipingInput,
-                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<PipingSoilProfile>(),
-                                                            assessmentSectionMock);
-            presentationObject.Attach(observer);
+            var context = new PipingInputContext(pipingInput,
+                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                 Enumerable.Empty<PipingSoilProfile>(),
+                                                 assessmentSectionMock);
 
             // Call
-            pipingInput.NotifyObservers();
+            context.Attach(observer);
+
+            // Assert
+            pipingInput.NotifyObservers(); // Notification on wrapped object
+            mocks.VerifyAll(); // Expected UpdateObserver call
+        }
+
+        [Test]
+        public void Detach_Observer_ObserverDetachedFromPipingInput()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var pipingInput = new PipingInput(new GeneralPipingInput());
+            var context = new PipingInputContext(pipingInput,
+                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                 Enumerable.Empty<PipingSoilProfile>(),
+                                                 assessmentSectionMock);
+
+            context.Attach(observer);
+
+            // Call
+            context.Detach(observer);
+
+            // Assert
+            pipingInput.NotifyObservers(); // Notification on wrapped object
+            mocks.VerifyAll(); // Expected no UpdateObserver call
+        }
+
+        [Test]
+        public void NotifyObservers_ObserverAttachedToPipingInput_NotificationCorrectlyPropagated()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var pipingInput = new PipingInput(new GeneralPipingInput());
+            var context = new PipingInputContext(pipingInput,
+                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                 Enumerable.Empty<PipingSoilProfile>(),
+                                                 assessmentSectionMock);
+
+            pipingInput.Attach(observer); // Attach to wrapped object
+
+            // Call
+            context.NotifyObservers(); // Notification on context
 
             // Assert
             mocks.VerifyAll();
