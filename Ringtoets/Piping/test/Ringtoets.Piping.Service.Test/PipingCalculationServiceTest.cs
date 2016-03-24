@@ -5,7 +5,9 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -50,6 +52,32 @@ namespace Ringtoets.Piping.Service.Test
             // Assert
             Assert.IsFalse(isValid);
             Assert.AreSame(output, invalidPipingCalculation.Output);
+        }
+
+        [Test]
+        public void Validate_InValidCalculationInput_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            calculation.Name = name;
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Kan de dikte van de deklaag niet afleiden op basis van de invoer.", msgs[2]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
         }
 
         [Test]

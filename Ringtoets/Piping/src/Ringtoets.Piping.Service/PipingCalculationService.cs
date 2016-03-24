@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
+using System.Collections.Generic;
 using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper;
@@ -49,11 +49,19 @@ namespace Ringtoets.Piping.Service
             pipingCalculationLogger.Info(String.Format(Resources.Validation_Subject_0_started_Time_1_,
                                                        calculation.Name, DateTimeService.CurrentTimeAsString));
 
+            var inputValidationResults = ValidateInput(calculation.InputParameters);
+
+            if (inputValidationResults.Count > 0)
+            {
+                LogMessagesAsError(Resources.Error_in_piping_validation_0, inputValidationResults.ToArray());
+                LogValidationEndTime(calculation);
+                return false;
+            }
+
             var validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Validate();
             LogMessagesAsError(Resources.Error_in_piping_validation_0, validationResults.ToArray());
 
-            pipingCalculationLogger.Info(String.Format(Resources.Validation_Subject_0_ended_Time_1_,
-                                                calculation.Name, DateTimeService.CurrentTimeAsString));
+            LogValidationEndTime(calculation);
 
             return validationResults.Count == 0;
         }
@@ -75,11 +83,11 @@ namespace Ringtoets.Piping.Service
                 var pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Calculate();
 
                 calculation.Output = new PipingOutput(pipingResult.UpliftZValue,
-                                                     pipingResult.UpliftFactorOfSafety,
-                                                     pipingResult.HeaveZValue,
-                                                     pipingResult.HeaveFactorOfSafety,
-                                                     pipingResult.SellmeijerZValue,
-                                                     pipingResult.SellmeijerFactorOfSafety);
+                                                      pipingResult.UpliftFactorOfSafety,
+                                                      pipingResult.HeaveZValue,
+                                                      pipingResult.HeaveFactorOfSafety,
+                                                      pipingResult.SellmeijerZValue,
+                                                      pipingResult.SellmeijerFactorOfSafety);
             }
             catch (PipingCalculatorException e)
             {
@@ -88,8 +96,31 @@ namespace Ringtoets.Piping.Service
             finally
             {
                 pipingCalculationLogger.Info(String.Format(Resources.Calculation_Subject_0_ended_Time_1_,
-                                                    calculation.Name, DateTimeService.CurrentTimeAsString));
+                                                           calculation.Name, DateTimeService.CurrentTimeAsString));
             }
+        }
+
+        private static void LogValidationEndTime(PipingCalculation calculation)
+        {
+            pipingCalculationLogger.Info(String.Format(Resources.Validation_Subject_0_ended_Time_1_,
+                                                       calculation.Name, DateTimeService.CurrentTimeAsString));
+        }
+
+        private static List<string> ValidateInput(PipingInput inputParameters)
+        {
+            List<string> validationResult = new List<string>();
+
+            if (double.IsNaN(inputParameters.ThicknessAquiferLayer.Mean))
+            {
+                validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer);
+            }
+
+            if (double.IsNaN(inputParameters.ThicknessCoverageLayer.Mean))
+            {
+                validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer);
+            }
+
+            return validationResult;
         }
 
         private static void LogMessagesAsError(string format, params string[] errorMessages)

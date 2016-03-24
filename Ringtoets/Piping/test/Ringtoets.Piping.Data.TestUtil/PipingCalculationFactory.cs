@@ -15,7 +15,6 @@ namespace Ringtoets.Piping.Data.TestUtil
 
         public static PipingCalculation CreateCalculationWithValidInput()
         {
-            var random = new Random(22);
             var bottom = 1.12;
             var top = 10.56;
             var soilProfile = new PipingSoilProfile(String.Empty, 0.0, new[]
@@ -92,6 +91,105 @@ namespace Ringtoets.Piping.Data.TestUtil
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
+        }
+
+        public static PipingInput CreateInputWithAquiferAndCoverageLayer(double thicknessAquiferLayer = 1.0, double thicknessCoverageLayer = 2.0)
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, thicknessCoverageLayer),
+                new Point3D(1.0, 0, thicknessCoverageLayer)
+            });
+            var soilProfile = new PipingSoilProfile(String.Empty, -thicknessAquiferLayer, new[]
+            {
+                new PipingSoilLayer(thicknessCoverageLayer)
+                {
+                    IsAquifer = false
+                },
+                new PipingSoilLayer(0.0)
+                {
+                    IsAquifer = true
+                }
+            }, 0);
+
+            return new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = surfaceLine,
+                SoilProfile = soilProfile,
+                ExitPointL = (RoundedDouble)0.5
+            };
+        }
+
+        public static PipingInput CreateInputWithSingleAquiferLayerAboveSurfaceLine(double deltaAboveSurfaceLine)
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var surfaceLineTopLevel = 2.0;
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, surfaceLineTopLevel),
+                new Point3D(1.0, 0, surfaceLineTopLevel),
+            });
+            var soilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+            {
+                new PipingSoilLayer(surfaceLineTopLevel + deltaAboveSurfaceLine + 2)
+                {
+                    IsAquifer = false
+                },
+                new PipingSoilLayer(surfaceLineTopLevel + deltaAboveSurfaceLine + 1)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(surfaceLineTopLevel + deltaAboveSurfaceLine)
+                {
+                    IsAquifer = false
+                }
+            }, 0);
+            var input = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = surfaceLine,
+                SoilProfile = soilProfile,
+                ExitPointL = (RoundedDouble)0.5
+            };
+            return input;
+        }
+
+        public static PipingInput CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out double expectedThickness)
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0, 0, 3.3),
+                new Point3D(1.0, 0, 3.3),
+            });
+            var soilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+            {
+                new PipingSoilLayer(4.3)
+                {
+                    IsAquifer = false
+                },
+                new PipingSoilLayer(3.3)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(1.1)
+                {
+                    IsAquifer = true
+                }
+            }, 0);
+            var input = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = surfaceLine,
+                SoilProfile = soilProfile,
+                ExitPointL = (RoundedDouble)0.5
+            };
+            expectedThickness = 2.2;
+            return input;
+        }
+
+        public static double GetAccuracy(RoundedDouble roundedDouble)
+        {
+            return Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
         }
     }
 }

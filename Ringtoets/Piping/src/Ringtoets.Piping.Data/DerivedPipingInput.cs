@@ -74,21 +74,10 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                RoundedDouble piezometricHeadExit;
-                try
-                {
-                    var assessmentLevel = input.AssessmentLevel;
-                    var dampingFactorExit = PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue();
-                    var phreaticLevelExit = PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue();
+                var dampingFactorExit = PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue();
+                var phreaticLevelExit = PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue();
 
-                    piezometricHeadExit = (RoundedDouble) InputParameterCalculationService.CalculatePiezometricHeadAtExit(assessmentLevel, dampingFactorExit, phreaticLevelExit);
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    piezometricHeadExit = (RoundedDouble) double.NaN;
-                }
-
-                return new RoundedDouble(2, piezometricHeadExit);
+                return new RoundedDouble(2, InputParameterCalculationService.CalculatePiezometricHeadAtExit(AssessmentLevel, dampingFactorExit, phreaticLevelExit));
             }
         }
 
@@ -99,22 +88,20 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                LognormalDistribution seepageLenght = new LognormalDistribution(2)
+                LognormalDistribution seepageLength = new LognormalDistribution(2);
+                double seepageLengthMean = input.ExitPointL - input.EntryPointL;
+                if (seepageLengthMean > 0)
                 {
-                    Mean = (RoundedDouble) double.NaN,
-                    StandardDeviation = (RoundedDouble) double.NaN
-                };
-                try
-                {
-                    seepageLenght.Mean = input.ExitPointL - input.EntryPointL;
+                    seepageLength.Mean = (RoundedDouble)seepageLengthMean;
+                    seepageLength.StandardDeviation = (RoundedDouble)seepageLengthMean * seepageLengthStandardDeviationFraction;
                 }
-                catch (ArgumentOutOfRangeException)
+                else
                 {
-                    seepageLenght.Mean = (RoundedDouble) double.NaN;
+                    seepageLength.Mean = (RoundedDouble) double.NaN;
+                    seepageLength.StandardDeviation = (RoundedDouble) double.NaN;
                 }
-                seepageLenght.StandardDeviation = seepageLenght.Mean * seepageLengthStandardDeviationFraction;
 
-                return seepageLenght;
+                return seepageLength;
             }
         }
 
@@ -127,17 +114,11 @@ namespace Ringtoets.Piping.Data
             {
                 LognormalDistribution thicknessCoverageLayer = new LognormalDistribution(2)
                 {
-                    Mean = (RoundedDouble)double.NaN,
                     StandardDeviation = (RoundedDouble) 0.5
                 };
                 if (input.SurfaceLine != null && input.SoilProfile != null & !double.IsNaN(input.ExitPointL))
                 {
                     TrySetThicknessCoverageLayer(thicknessCoverageLayer);
-
-                    if (double.IsNaN(thicknessCoverageLayer.Mean))
-                    {
-                        log.Warn(Resources.PipingInputSynchronizer_UpdateThicknessCoverageLayer_Cannot_determine_thickness_coverage_layer);
-                    }
                 }
                 else
                 {
@@ -155,9 +136,8 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                LognormalDistribution thicknesAquiferLayer = new LognormalDistribution(2)
+                LognormalDistribution thicknessAquiferLayer = new LognormalDistribution(2)
                 {
-                    Mean = (RoundedDouble)double.NaN,
                     StandardDeviation = (RoundedDouble) 0.5
                 };
 
@@ -168,31 +148,26 @@ namespace Ringtoets.Piping.Data
                 if (soilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
                 {
                     double thicknessTopAquiferLayer = GetThicknessTopAquiferLayer(soilProfile, surfaceLine, exitPointL);
-                    TrySetThicknessAquiferLayerMean(thicknesAquiferLayer, thicknessTopAquiferLayer);
-
-                    if (double.IsNaN(thicknesAquiferLayer.Mean))
-                    {
-                        log.Warn(Resources.PipingInputSynchronizer_UpdateThicknessAquiferLayer_Cannot_determine_thickness_aquifer_layer);
-                    }
+                    TrySetThicknessAquiferLayerMean(thicknessAquiferLayer, thicknessTopAquiferLayer);
                 }
                 else
                 {
-                    thicknesAquiferLayer.Mean = (RoundedDouble)double.NaN;
+                    thicknessAquiferLayer.Mean = (RoundedDouble)double.NaN;
                 }
 
-                return thicknesAquiferLayer;
+                return thicknessAquiferLayer;
             }
         }
 
-        private static void TrySetThicknessAquiferLayerMean(LognormalDistribution thicknesAquiferLayer, double thicknessTopAquiferLayer)
+        private static void TrySetThicknessAquiferLayerMean(LognormalDistribution thicknessAquiferLayer, double thicknessTopAquiferLayer)
         {
-            try
+            if(thicknessTopAquiferLayer > 0)
             {
-                thicknesAquiferLayer.Mean = (RoundedDouble)thicknessTopAquiferLayer;
+                thicknessAquiferLayer.Mean = (RoundedDouble)thicknessTopAquiferLayer;
             }
-            catch (ArgumentOutOfRangeException)
+            else
             {
-                thicknesAquiferLayer.Mean = (RoundedDouble)double.NaN;
+                thicknessAquiferLayer.Mean = (RoundedDouble)double.NaN;
             }
         }
 
@@ -212,6 +187,7 @@ namespace Ringtoets.Piping.Data
                 return double.NaN;
             }
         }
+
 
         private void TrySetThicknessCoverageLayer(LognormalDistribution thicknessCoverageLayer)
         {

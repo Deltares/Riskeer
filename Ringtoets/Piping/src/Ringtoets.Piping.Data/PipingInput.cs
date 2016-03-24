@@ -209,8 +209,7 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                var derivedPipingInput = new DerivedPipingInput(this);
-                return derivedPipingInput.AssessmentLevel;
+                return new DerivedPipingInput(this).AssessmentLevel;
             }
         }
 
@@ -222,8 +221,7 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                var derivedPipingInput = new DerivedPipingInput(this);
-                return derivedPipingInput.PiezometricHeadExit;
+                return new DerivedPipingInput(this).PiezometricHeadExit;
             }
         }
 
@@ -387,8 +385,7 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                var derivedPipingInput = new DerivedPipingInput(this);
-                return derivedPipingInput.SeepageLength;
+                return new DerivedPipingInput(this).SeepageLength;
             }
         }
 
@@ -434,8 +431,7 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                var derivedPipingInput = new DerivedPipingInput(this);
-                return derivedPipingInput.ThicknessAquiferLayer;
+                return new DerivedPipingInput(this).ThicknessAquiferLayer;
             }
         }
 
@@ -447,8 +443,7 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                var derivedPipingInput = new DerivedPipingInput(this);
-                return derivedPipingInput.ThicknessCoverageLayer;
+                return new DerivedPipingInput(this).ThicknessCoverageLayer;
             }
         }
 
@@ -492,7 +487,6 @@ namespace Ringtoets.Piping.Data
             if (SurfaceLine == null)
             {
                 ExitPointL = (RoundedDouble)double.NaN;
-                SeepageLength.Mean = (RoundedDouble)double.NaN;
             }
             else
             {
