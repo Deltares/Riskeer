@@ -189,7 +189,6 @@ namespace Ringtoets.Piping.Forms.Views
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 ValueMember = "This",
                 DisplayMember = "DisplayName",
-                DataSource = GetHydraulicBoundaryLocationsDataSource()
             };
 
             var dampingFactorExitMeanColumn = new DataGridViewTextBoxColumn
@@ -237,11 +236,13 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void UpdateHydraulicBoundaryLocationsColumn()
         {
-            var hydraulicBoundaryLocations = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
-                                                 ? assessmentSection.HydraulicBoundaryDatabase.Locations
-                                                 : null;
-
-            hydraulicBoundaryLocationColumn.DataSource = GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations);
+            using (new SuspendDataGridViewColumnResizes(hydraulicBoundaryLocationColumn))
+            {
+                var hydraulicBoundaryLocations = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
+                                        ? assessmentSection.HydraulicBoundaryDatabase.Locations
+                                        : null;
+                SetItemsOnObjectCollection(hydraulicBoundaryLocationColumn.Items, GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations).ToArray());
+            }
         }
 
         private void UpdateSoilProfileColumn()
@@ -299,10 +300,17 @@ namespace Ringtoets.Piping.Forms.Views
             // Need to prefill for all possible data in order to guarantee 'combo box' columns
             // do not generate errors when their cell value is not present in the list of available
             // items.
-            var pipingSoilProfiles = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
             using (new SuspendDataGridViewColumnResizes(soilProfileColumn)) 
             {
-                SetItemsOnObjectCollection(soilProfileColumn.Items, pipingSoilProfiles);
+                var pipingSoilProfiles = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
+                SetItemsOnObjectCollection(soilProfileColumn.Items, GetSoilProfilesDataSource(pipingSoilProfiles).ToArray());
+            }
+            using (new SuspendDataGridViewColumnResizes(hydraulicBoundaryLocationColumn))
+            {
+                var hydraulicBoundaryLocations = assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
+                                        ? assessmentSection.HydraulicBoundaryDatabase.Locations
+                                        : null;
+                SetItemsOnObjectCollection(hydraulicBoundaryLocationColumn.Items, GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations).ToArray());
             }
         }
 
@@ -322,14 +330,13 @@ namespace Ringtoets.Piping.Forms.Views
         private void FillAvailableSoilProfilesList(DataGridViewRow dataGridViewRow, ICollection<PipingSoilProfile> pipingSoilProfiles)
         {
             var cell = (DataGridViewComboBoxCell)dataGridViewRow.Cells[soilProfileColumn.Index];
-            SetItemsOnObjectCollection(cell.Items, pipingSoilProfiles);
+            SetItemsOnObjectCollection(cell.Items, GetSoilProfilesDataSource(pipingSoilProfiles).ToArray());
         }
 
-        private static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, ICollection<PipingSoilProfile> pipingSoilProfiles)
+        private static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, object[] comboBoxItems)
         {
             objectCollection.Clear();
-            object[] items = GetSoilProfilesDataSource(pipingSoilProfiles).ToArray();
-            objectCollection.AddRange(items);
+            objectCollection.AddRange(comboBoxItems);
         }
 
         private void UpdateDikeSectionsListBox()
