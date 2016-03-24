@@ -66,48 +66,6 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void NotifyObservers_ObserverAttached_NotifyObserver()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
-            mocks.ReplayAll();
-
-            var presentationObject = new HydraulicBoundaryDatabaseContext(assessmentSectionBaseMock);
-            presentationObject.Attach(observer);
-
-            // Call
-            presentationObject.NotifyObservers();
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void NotifyObservers_ObserverDetached_NoCallOnObserver()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-
-            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
-            mocks.ReplayAll();
-
-            var presentationObject = new HydraulicBoundaryDatabaseContext(assessmentSectionBaseMock);
-            presentationObject.Attach(observer);
-            presentationObject.Detach(observer);
-
-            // Call
-            presentationObject.NotifyObservers();
-
-            // Assert
-            mocks.VerifyAll(); // Expect not calls on 'observer'
-        }
-
-        [Test]
         public void Equals_EqualsWithItself_ReturnTrue()
         {
             // Setup
@@ -200,7 +158,6 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             Assert.IsFalse(isEqual1);
             Assert.IsFalse(isEqual2);
         }
-
 
         [Test]
         public void GetHashCode_TwoEqualAssessmentSectionMapDataInstances_ReturnSameHash()
