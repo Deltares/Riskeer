@@ -67,6 +67,7 @@ namespace Application.Ringtoets.Storage.Converters
         /// <param name="modelObject">The <see cref="HydraulicBoundaryLocation"/> to convert.</param>
         /// <param name="entity">A reference to the <see cref="HydraulicLocationEntity"/> to be saved.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="modelObject"/> or <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="OverflowException">Thrown when <paramref name="modelObject.Location"/> cannot be converted.</exception>
         public void ConvertModelToEntity(HydraulicBoundaryLocation modelObject, HydraulicLocationEntity entity)
         {
             if (modelObject == null)

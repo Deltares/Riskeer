@@ -81,6 +81,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="parentNavigationProperty">Collection where <see cref="HydraulicBoundaryLocation"/> objects can be searched and added. 
         /// Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
         /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> to be saved in the storage.</param>
+        /// <exception cref="OverflowException">Thrown when <paramref name="model.Location"/> cannot be converted.</exception>
         public void UpdateModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryDatabase model)
         {
             if (model == null)
@@ -133,6 +134,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="parentNavigationProperty">Collection where <see cref="HydraulicLocationEntity"/> objects can be added.
         ///  Usually, this collection is a navigation property of a <see cref="IDbSet{HydraulicLocationEntity}"/>.</param>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryLocation"/> to be saved in the storage.</param>
+        /// <exception cref="OverflowException">Thrown when <paramref name="hydraulicBoundaryDatabase.Location"/> cannot be converted.</exception>
         public void InsertModel(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (parentNavigationProperty == null)

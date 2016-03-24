@@ -234,6 +234,28 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
+        public void InsertModel_LocationToBig_ThrowsOverflowException()
+        {
+            // Setup
+            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+            var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
+            IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>();
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", Double.PositiveInfinity, 1));
+
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => persistor.InsertModel(parentNavigationProperty, hydraulicBoundaryDatabase);
+
+            // Assert
+            Assert.Throws<OverflowException>(test);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void UpdateModel_NullDatasetValidModel_ThrowsArgumentNullException()
         {
             // Setup
@@ -430,6 +452,28 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Assert
             Assert.Throws<ArgumentException>(test);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateModel_LocationToBig_ThrowsOverflowException()
+        {
+            // Setup
+            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+            var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
+            IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>();
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", Double.PositiveInfinity, 1));
+
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
+
+            // Assert
+            Assert.Throws<OverflowException>(test);
 
             mockRepository.VerifyAll();
         }

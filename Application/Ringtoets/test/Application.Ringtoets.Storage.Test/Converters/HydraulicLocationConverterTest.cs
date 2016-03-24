@@ -142,5 +142,32 @@ namespace Application.Ringtoets.Storage.Test.Converters
             Assert.AreEqual(model.Location.Y, entity.LocationY);
             Assert.AreEqual(model.DesignWaterLevel, entity.DesignWaterLevel);
         }
+
+        [Test]
+        public void ConvertModelToEntity_LocationToBig_ThrowsOverflowException()
+        {
+            // Setup
+            HydraulicLocationConverter converter = new HydraulicLocationConverter();
+
+            var entity = new HydraulicLocationEntity();
+            const long storageId = 1234L;
+            const long locationId = 130002;
+            const string name = "test";
+            const double locationX = double.PositiveInfinity;
+            const double locationY = 583.2;
+            const double designWaterLever = 14.7;
+
+            var model = new HydraulicBoundaryLocation(locationId, name, locationX, locationY)
+            {
+                StorageId = storageId,
+                DesignWaterLevel = designWaterLever
+            };
+
+            // Call
+            TestDelegate call = () => converter.ConvertModelToEntity(model, entity);
+
+            // Assert
+            Assert.Throws<OverflowException>(call);
+        }
     }
 }
