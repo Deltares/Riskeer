@@ -114,20 +114,8 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <exception cref="NotSupportedException">Thrown when the <paramref name="parentNavigationProperty"/> is read-only.</exception>
         public void RemoveUnModifiedEntries(ICollection<ProjectEntity> parentNavigationProperty)
         {
-            var originalList = parentNavigationProperty.ToList();
-            foreach (var u in modifiedList)
-            {
-                originalList.Remove(u);
-            }
-
-            foreach (var toDelete in originalList)
-            {
-                // If id = 0, the entity is marked as inserted
-                if (toDelete.ProjectEntityId > 0)
-                {
-                    dbContext.ProjectEntities.Remove(toDelete);
-                }
-            }
+            var untouchedList = parentNavigationProperty.Where(e => !modifiedList.Contains(e));
+            dbContext.Set<ProjectEntity>().RemoveRange(untouchedList);
 
             modifiedList.Clear();
         }

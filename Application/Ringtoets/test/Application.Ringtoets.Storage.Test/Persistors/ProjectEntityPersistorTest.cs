@@ -239,6 +239,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>());
 
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DatabaseSetHelper.AddSetExpectancy<DikeAssessmentSectionEntity>(mockRepository, ringtoetsEntities);
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
 
             mockRepository.ReplayAll();
@@ -277,6 +278,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
             DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
+            DatabaseSetHelper.AddSetExpectancy<DikeAssessmentSectionEntity>(mockRepository, ringtoetsEntities);
 
             mockRepository.ReplayAll();
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
@@ -409,6 +411,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 entity
             });
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DatabaseSetHelper.AddSetExpectancy<DikeAssessmentSectionEntity>(mockRepository, ringtoetsEntities);
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
 
             mockRepository.ReplayAll();
@@ -452,6 +455,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
             DatabaseSetHelper.AddSetExpectancy<HydraulicLocationEntity>(mockRepository, ringtoetsEntities);
+            DatabaseSetHelper.AddSetExpectancy<DikeAssessmentSectionEntity>(mockRepository, ringtoetsEntities);
 
             mockRepository.ReplayAll();
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
@@ -501,6 +505,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var dbset = DbTestSet.GetDbTestSet(mockRepository, new ObservableCollection<ProjectEntity>());
 
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            DatabaseSetHelper.AddSetExpectancy<DikeAssessmentSectionEntity>(mockRepository, ringtoetsEntities);
             ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
 
             mockRepository.ReplayAll();
@@ -541,14 +546,20 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 new ProjectEntity
                 {
                     ProjectEntityId = storageId,
-                    Description = "Entity to delete"
+                    Description = "Entity to update"
                 }
             };
             var dbset = DbTestSet.GetDbTestSet(mockRepository, parentNavigationProperty);
-            dbset.Expect(x => x.Remove(entityToDelete)).Return(entityToDelete);
-
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
-            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset).Repeat.Twice();
+            DatabaseSetHelper.AddSetExpectancy<DikeAssessmentSectionEntity>(mockRepository, ringtoetsEntities);
+
+            var set = mockRepository.StrictMock<DbSet<ProjectEntity>>();
+            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
+            ringtoetsEntities.Expect(c => c.Set<ProjectEntity>()).Return(set);
+            set.Expect(s => s.RemoveRange(Arg<ICollection<ProjectEntity>>.List.Equal(new[]
+            {
+                entityToDelete
+            })));
 
             Project project = new Project
             {
@@ -567,8 +578,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             // Assert
             Assert.AreEqual(2, parentNavigationProperty.Count);
             var entity = parentNavigationProperty.SingleOrDefault(x => x.ProjectEntityId == storageId);
-            Assert.IsInstanceOf<ProjectEntity>(entity);
-            Assert.AreEqual(storageId, entity.ProjectEntityId);
+            Assert.NotNull(entity);
             Assert.AreEqual(storageId, entity.ProjectEntityId);
             Assert.AreEqual(description, entity.Description);
 
@@ -602,11 +612,18 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             };
 
             var dbset = DbTestSet.GetDbTestSet(mockRepository, parentNavigationProperty);
-            dbset.Expect(x => x.Remove(firstEntityToDelete)).Return(firstEntityToDelete);
-            dbset.Expect(x => x.Remove(secondEntityToDelete)).Return(secondEntityToDelete);
 
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
-            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset).Repeat.Times(3);
+            DatabaseSetHelper.AddSetExpectancy<DikeAssessmentSectionEntity>(mockRepository, ringtoetsEntities);
+
+            var set = mockRepository.StrictMock<DbSet<ProjectEntity>>();
+            ringtoetsEntities.Expect(x => x.ProjectEntities).Return(dbset);
+            ringtoetsEntities.Expect(c => c.Set<ProjectEntity>()).Return(set);
+            set.Expect(s => s.RemoveRange(Arg<ICollection<ProjectEntity>>.List.Equal(new []
+            {
+                firstEntityToDelete,
+                secondEntityToDelete
+            })));
 
             Project project = new Project
             {

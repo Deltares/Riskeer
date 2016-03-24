@@ -27,7 +27,6 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Persistors;
-using Application.Ringtoets.Storage.Test.DbContext;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.HydraRing.Data;

@@ -155,20 +155,8 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <exception cref="NotSupportedException">Thrown when the <paramref name="parentNavigationProperty"/> is read-only.</exception>
         public void RemoveUnModifiedEntries(ICollection<DikeAssessmentSectionEntity> parentNavigationProperty)
         {
-            var originalList = parentNavigationProperty.ToList();
-            foreach (var u in modifiedList)
-            {
-                originalList.Remove(u);
-            }
-
-            foreach (var toDelete in originalList)
-            {
-                // If id = 0, the entity is marked as inserted
-                if (toDelete.DikeAssessmentSectionEntityId > 0)
-                {
-                    dbContext.DikeAssessmentSectionEntities.Remove(toDelete);
-                }
-            }
+            var untouchedModifiedList = parentNavigationProperty.Where(e => e.DikeAssessmentSectionEntityId > 0 && !modifiedList.Contains(e));
+            dbContext.Set<DikeAssessmentSectionEntity>().RemoveRange(untouchedModifiedList);
 
             modifiedList.Clear();
         }

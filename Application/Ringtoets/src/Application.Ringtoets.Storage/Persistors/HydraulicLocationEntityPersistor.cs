@@ -160,15 +160,8 @@ namespace Application.Ringtoets.Storage.Persistors
         /// Usually, this collection is a navigation property of a <see cref="IDbSet{HydraulicLocationEntity}"/>.</param>
         public void RemoveUnModifiedEntries(ICollection<HydraulicLocationEntity> parentNavigationProperty)
         {
-            var originalList = parentNavigationProperty.ToList();
-
-            foreach (var hydraulicLocationEntity in modifiedList)
-            {
-                originalList.Remove(hydraulicLocationEntity);
-            }
-
-            var existingEntriesToDelete = originalList.Where(o => o.HydraulicLocationEntityId > 0);
-            ringtoetsContext.Set<HydraulicLocationEntity>().RemoveRange(existingEntriesToDelete);
+            var untouchedModifiedList = parentNavigationProperty.Where(e => e.HydraulicLocationEntityId > 0 && !modifiedList.Contains(e));
+            ringtoetsContext.Set<HydraulicLocationEntity>().RemoveRange(untouchedModifiedList);
 
             modifiedList.Clear();
         }
