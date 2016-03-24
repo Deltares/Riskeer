@@ -168,7 +168,6 @@ namespace Ringtoets.Piping.Forms.Views
                 DataPropertyName = "Name",
                 HeaderText = Resources.PipingCalculation_Name_DisplayName,
                 Name = "column_Name",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             };
 
             soilProfileColumn = new DataGridViewComboBoxColumn
@@ -176,7 +175,6 @@ namespace Ringtoets.Piping.Forms.Views
                 DataPropertyName = "SoilProfile",
                 HeaderText = Resources.PipingInput_SoilProfile_DisplayName,
                 Name = "column_SoilProfile",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 ValueMember = "This",
                 DisplayMember = "DisplayName"
             };
@@ -186,7 +184,6 @@ namespace Ringtoets.Piping.Forms.Views
                 DataPropertyName = "HydraulicBoundaryLocation",
                 HeaderText = Resources.PipingInput_HydraulicBoundaryLocation_DisplayName,
                 Name = "column_HydraulicBoundaryLocation",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 ValueMember = "This",
                 DisplayMember = "DisplayName",
             };
@@ -194,37 +191,39 @@ namespace Ringtoets.Piping.Forms.Views
             var dampingFactorExitMeanColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "DampingFactorExitMean",
-                HeaderText = Resources.PipingInput_DampingFactorExit_DisplayName,
-                Name = "column_DampingFactorExitMean",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                HeaderText = string.Format("{0} {1}", Resources.Probabilistics_Mean_Symbol, char.ToLowerInvariant(Resources.PipingInput_DampingFactorExit_DisplayName[0]) + Resources.PipingInput_DampingFactorExit_DisplayName.Substring(1)),
+                Name = "column_DampingFactorExitMean"
             };
 
             var phreaticLevelExitMeanColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "PhreaticLevelExitMean",
-                HeaderText = Resources.PipingInput_PhreaticLevelExit_DisplayName,
-                Name = "column_PhreaticLevelExitMean",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                HeaderText = string.Format("{0} {1}", Resources.Probabilistics_Mean_Symbol, char.ToLowerInvariant(Resources.PipingInput_PhreaticLevelExit_DisplayName[0]) + Resources.PipingInput_PhreaticLevelExit_DisplayName.Substring(1)),
+                Name = "column_PhreaticLevelExitMean"
             };
 
             var entryPointLColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "EntryPointL",
                 HeaderText = Resources.PipingInput_EntryPointL_DisplayName,
-                Name = "column_EntryPointL",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                Name = "column_EntryPointL"
             };
 
             var exitPointLColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "ExitPointL",
                 HeaderText = Resources.PipingInput_ExitPointL_DisplayName,
-                Name = "column_ExitPointL",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                Name = "column_ExitPointL"
             };
 
             dataGridView.AutoGenerateColumns = false;
             dataGridView.Columns.AddRange(nameColumn, soilProfileColumn, hydraulicBoundaryLocationColumn, dampingFactorExitMeanColumn, phreaticLevelExitMeanColumn, entryPointLColumn, exitPointLColumn);
+
+            foreach (var column in dataGridView.Columns.OfType<DataGridViewColumn>())
+            {
+                column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
         }
 
         private void InitializeListBox()
