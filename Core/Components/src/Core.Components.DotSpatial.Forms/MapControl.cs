@@ -19,20 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Components.DotSpatial.Converter;
 using Core.Components.DotSpatial.MapFunctions;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
-
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Topology;
-
 using MapFunctionPan = Core.Components.DotSpatial.MapFunctions.MapFunctionPan;
 
 namespace Core.Components.DotSpatial.Forms
@@ -44,7 +42,6 @@ namespace Core.Components.DotSpatial.Forms
     {
         private readonly MapDataFactory mapDataFactory = new MapDataFactory();
 
-        private MapDataCollection data;
         private Map map;
         private IMapFunction mapFunctionSelectionZoom;
         private MouseCoordinatesMapExtension mouseCoordinatesMapExtension;
@@ -58,8 +55,8 @@ namespace Core.Components.DotSpatial.Forms
             InitializeMapView();
             TogglePanning();
 
-            data = new MapDataCollection(new List<MapData>(), "Root");
-            data.Attach(this);
+            Data = new MapDataCollection(new List<MapData>(), "Root");
+            Data.Attach(this);
 
             DrawFeatureSets();
         }
@@ -69,20 +66,16 @@ namespace Core.Components.DotSpatial.Forms
         public bool IsRectangleZoomingEnabled { get; private set; }
         public bool IsMouseCoordinatesVisible { get; private set; }
 
-        public MapDataCollection Data
-        {
-            get
-            {
-                return data;
-            }
-        }
+        public MapDataCollection Data { get; private set; }
 
         public void ZoomToAllVisibleLayers()
         {
             IEnvelope envelope = CreateEnvelopeForAllVisibleLayers();
             if (!envelope.IsNull)
             {
-                map.ViewExtents = envelope.ToExtent();
+                var extent = envelope.ToExtent();
+                AddPadding(extent);
+                map.ViewExtents = extent;
             }
         }
 
@@ -145,10 +138,15 @@ namespace Core.Components.DotSpatial.Forms
             base.Dispose(disposing);
         }
 
+        private static void AddPadding(Extent extent)
+        {
+            extent.ExpandBy(Math.Min(extent.Height, extent.Width)*0.05);
+        }
+
         private IEnvelope CreateEnvelopeForAllVisibleLayers()
         {
             IEnvelope envelope = new Envelope();
-            foreach (IMapLayer layer in map.Layers.Where(layer => layer.IsVisible))
+            foreach (IMapLayer layer in map.Layers.Where(layer => layer.IsVisible && !layer.Extent.IsEmpty()))
             {
                 envelope.ExpandToInclude(layer.Extent.ToEnvelope());
             }
@@ -164,9 +162,9 @@ namespace Core.Components.DotSpatial.Forms
         private void DrawFeatureSets()
         {
             map.ClearLayers();
-            if (data != null)
+            if (Data != null)
             {
-                foreach (IMapFeatureLayer mapLayer in mapDataFactory.Create(data))
+                foreach (IMapFeatureLayer mapLayer in mapDataFactory.Create(Data))
                 {
                     map.Layers.Add(mapLayer);
                 }
@@ -179,7 +177,8 @@ namespace Core.Components.DotSpatial.Forms
             {
                 ProjectionModeDefine = ActionMode.Never,
                 Dock = DockStyle.Fill,
-                FunctionMode = FunctionMode.Pan
+                FunctionMode = FunctionMode.Pan,
+                ZoomOutFartherThanMaxExtent = true
             };
 
             mouseCoordinatesMapExtension = new MouseCoordinatesMapExtension(map);

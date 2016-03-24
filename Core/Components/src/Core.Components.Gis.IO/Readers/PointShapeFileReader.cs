@@ -77,18 +77,6 @@ namespace Core.Components.Gis.IO.Readers
             return ConvertPointFeaturesToMapPointData(featureList, !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PointShapeFileReader_ReadLine_Points);
         }
 
-        private IFeature ReadFeatureLine()
-        {
-            try
-            {
-                return GetFeature(readIndex);
-            }
-            finally
-            {
-                readIndex++;
-            }
-        }
-
         public override FeatureBasedMapData ReadLine(string name = null)
         {
             if (readIndex == GetNumberOfLines())
@@ -111,6 +99,18 @@ namespace Core.Components.Gis.IO.Readers
         {
             IFeature pointFeature = ShapeFile.Features[index];
             return pointFeature;
+        }
+
+        private IFeature ReadFeatureLine()
+        {
+            try
+            {
+                return GetFeature(readIndex);
+            }
+            finally
+            {
+                readIndex++;
+            }
         }
 
         private FeatureBasedMapData ConvertPointFeatureToMapPointData(IFeature pointFeature, string name)

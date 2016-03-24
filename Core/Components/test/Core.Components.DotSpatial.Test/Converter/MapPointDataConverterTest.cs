@@ -81,8 +81,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                         new Point2D(random.NextDouble(), random.NextDouble())
                     })
                 }));
-            }            
-            
+            }
 
             var pointData = new MapPointData(features, "test data");
 
@@ -137,6 +136,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             var layer = layers.First();
             Assert.AreEqual(features.Count, layer.DataSet.Features.Count);
+            layer.DataSet.InitializeVertices();
             Assert.AreEqual(3, layer.DataSet.ShapeIndices.Count);
 
             foreach (var shapeIndex in layer.DataSet.ShapeIndices)

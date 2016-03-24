@@ -99,7 +99,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapLineDataConverter();
             var random = new Random(21);
-            var randomCount = random.Next(5, 10);           
+            var randomCount = random.Next(5, 10);
             var points = new Collection<Point2D>();
 
             for (int i = 0; i < randomCount; i++)
@@ -193,10 +193,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(1, mapLayers.Count);
             var layer = mapLayers[0];
             Assert.AreEqual(features.Count, layer.DataSet.Features.Count);
+            layer.DataSet.InitializeVertices();
             var layerGeometries = layer.DataSet.ShapeIndices.First().Parts;
             Assert.AreEqual(geometries.Length, layerGeometries.Count);
         }
-			
 
         [Test]
         [TestCase(true)]

@@ -102,7 +102,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         [Test]
         [RequiresSTA]
-        public void ZoomToAllVisibleLayers_MapInForm_ViewInvalidatedLayersSame()
+        public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataset_ViewInvalidatedLayersSame()
         {
             // Setup
             using (var form = new Form())
@@ -125,8 +125,54 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.ZoomToAllVisibleLayers();
 
                 // Assert
+                Assert.AreEqual(0, invalidated);
+                Extent expectedExtent = new Extent(0.0, 0.0, 0.0, 0.0);
+                Assert.AreEqual(expectedExtent, mapView.ViewExtents);
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void ZoomToAllVisibleLayers_MapInForm_ViewInvalidatedLayersSame()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var map = new MapControl();
+                var mapFeature = new Collection<MapFeature>
+                {
+                    new MapFeature(new Collection<MapGeometry>
+                    {
+                        new MapGeometry(new Collection<Point2D>
+                        {
+                            new Point2D(0.0, 0.0),
+                            new Point2D(1.0, 1.0)
+                        })
+                    })
+                };
+                var testData = new MapPointData(mapFeature, "test data");
+                var mapView = map.Controls.OfType<Map>().First();
+                var invalidated = 0;
+
+                map.Data.Add(testData);
+                map.Data.NotifyObservers();
+                form.Controls.Add(map);
+
+                mapView.Invalidated += (sender, args) => { invalidated++; };
+
+                form.Show();
+                Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");
+
+                // Call
+                map.ZoomToAllVisibleLayers();
+
+                // Assert
                 Assert.AreEqual(2, invalidated);
-                Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
+                Extent expectedExtent = mapView.GetMaxExtent();
+
+                var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
+                expectedExtent.ExpandBy(smallest*padding);
+                Assert.AreEqual(expectedExtent, mapView.ViewExtents);
             }
         }
 
@@ -141,6 +187,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             map.Data.NotifyObservers();
 
             var expectedExtent = new Extent(0.0, 0.5, 1.6, 2.1);
+            var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
+            expectedExtent.ExpandBy(smallest*padding);
 
             // Precondition
             Assert.AreEqual(3, mapView.Layers.Count, "Precondition failed: mapView.Layers != 3");
@@ -251,6 +299,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreNotSame(layers[0], view.Layers[0]);
             }
         }
+
+        private const double padding = 0.05;
 
         private static MapDataCollection GetTestData()
         {

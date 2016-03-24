@@ -96,17 +96,17 @@ namespace Core.Components.DotSpatial
             base.Deactivate();
         }
 
-        private void OnMouseMove(object sender, GeoMouseArgs e)
-        {
-            xLabel.Text = string.Format("X: {0:0.#####}", e.GeographicLocation.X);
-            yLabel.Text = string.Format("Y: {0:0.#####}", e.GeographicLocation.Y);
-        }
-
         public void Dispose()
         {
             xLabel.Dispose();
             yLabel.Dispose();
             panel.Dispose();
+        }
+
+        private void OnMouseMove(object sender, GeoMouseArgs e)
+        {
+            xLabel.Text = string.Format("X: {0:0.#####}", e.GeographicLocation.X);
+            yLabel.Text = string.Format("Y: {0:0.#####}", e.GeographicLocation.Y);
         }
     }
 }

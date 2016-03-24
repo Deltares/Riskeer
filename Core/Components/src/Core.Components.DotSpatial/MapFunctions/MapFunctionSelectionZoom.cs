@@ -23,12 +23,10 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
-
 using Point = System.Drawing.Point;
 
 namespace Core.Components.DotSpatial.MapFunctions

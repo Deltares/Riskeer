@@ -154,7 +154,6 @@ namespace Core.Components.DotSpatial.Test.Converter
                     })
                 })
             };
-
             var geometries = features.First().MapGeometries.ToArray();
 
             var polygonData = new MapPolygonData(features, "test");
@@ -166,10 +165,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(1, mapLayers.Count);
             var layer = mapLayers[0];
             Assert.AreEqual(features.Count, layer.DataSet.Features.Count);
+            layer.DataSet.InitializeVertices();
             var layerGeometries = layer.DataSet.ShapeIndices.First().Parts;
             Assert.AreEqual(geometries.Length, layerGeometries.Count);
         }
-				
+
         [Test]
         public void Convert_DataNull_ThrowsArgumentNullException()
         {

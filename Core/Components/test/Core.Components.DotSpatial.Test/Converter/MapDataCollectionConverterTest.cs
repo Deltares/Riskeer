@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Converter;
@@ -132,7 +131,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.IsInstanceOf<IList<IMapFeatureLayer>>(layers);
             Assert.AreEqual(2, layers.Count);
             Assert.IsInstanceOf<MapPointLayer>(layers[0]);
-            Assert.AreEqual(FeatureType.Point, layers[0].DataSet.FeatureType);            
+            Assert.AreEqual(FeatureType.Point, layers[0].DataSet.FeatureType);
             Assert.IsInstanceOf<MapLineLayer>(layers[1]);
             Assert.AreEqual(FeatureType.Line, layers[1].DataSet.FeatureType);
         }
