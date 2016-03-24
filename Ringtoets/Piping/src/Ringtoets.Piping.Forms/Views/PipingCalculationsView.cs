@@ -264,6 +264,8 @@ namespace Ringtoets.Piping.Forms.Views
             // Skip changes coming from the view itself
             if (dataGridView.IsCurrentCellInEditMode)
             {
+                dataGridView.AutoResizeColumns();
+
                 return;
             }
 
@@ -416,6 +418,12 @@ namespace Ringtoets.Piping.Forms.Views
                 get
                 {
                     return pipingCalculation.Name;
+                }
+                set
+                {
+                    pipingCalculation.Name = value;
+
+                    pipingCalculation.NotifyObservers();
                 }
             }
 
