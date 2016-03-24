@@ -28,9 +28,11 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using Core.Common.Gui.Selection;
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
@@ -52,6 +54,7 @@ namespace Ringtoets.Piping.Forms.Views
         private PipingCalculationGroup pipingCalculationGroup;
         private DataGridViewComboBoxColumn soilProfileColumn;
         private DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn;
+        private bool updatingDataSource;
 
         /// <summary>
         /// Creates a new instance of the <see cref="PipingCalculationsView"/> class.
@@ -110,6 +113,11 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the <seealso cref="IApplicationSelection"/>.
+        /// </summary>
+        public IApplicationSelection ApplicationSelection { get; set; }
+
         public object Data
         {
             get
@@ -153,6 +161,7 @@ namespace Ringtoets.Piping.Forms.Views
         private void InitializeDataGridView()
         {
             dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
+            dataGridView.RowEnter += DataGridViewRowEnter;
 
             var nameColumn = new DataGridViewTextBoxColumn
             {
@@ -251,6 +260,12 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void UpdateDataGridViewDataSource()
         {
+            // Skip changes coming from the view itself
+            if (dataGridView.IsCurrentCellInEditMode)
+            {
+                return;
+            }
+
             var failureMechanismSection = listBox.SelectedItem as FailureMechanismSection;
             if (failureMechanismSection == null)
             {
@@ -263,9 +278,13 @@ namespace Ringtoets.Piping.Forms.Views
                                                            .Where(pc => pc.InputParameters.SurfaceLine != null
                                                                         && lineSegments.Min(segment => segment.GetEuclideanDistanceToPoint(pc.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint)) < 1.0e-6);
 
+            updatingDataSource = true;
+
             dataGridView.DataSource = pipingCalculations
                 .Select(pc => new PipingCalculationRow(pc))
                 .ToList();
+
+            updatingDataSource = false;
         }
 
         private void UpdateDikeSectionsListBox()
@@ -318,6 +337,14 @@ namespace Ringtoets.Piping.Forms.Views
             public PipingCalculationRow(PipingCalculation pipingCalculation)
             {
                 this.pipingCalculation = pipingCalculation;
+            }
+
+            public PipingCalculation PipingCalculation
+            {
+                get
+                {
+                    return pipingCalculation;
+                }
             }
 
             public string Name
@@ -432,7 +459,19 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        private void ListBoxOnSelectedValueChanged(object sender, EventArgs eventArgs)
+        private void DataGridViewRowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (updatingDataSource)
+            {
+                return;
+            }
+
+            var pipingCalculationRow = (PipingCalculationRow) dataGridView.Rows[e.RowIndex].DataBoundItem;
+
+            ApplicationSelection.Selection = new PipingInputContext(pipingCalculationRow.PipingCalculation.InputParameters, pipingFailureMechanism.SurfaceLines, pipingFailureMechanism.SoilProfiles, assessmentSection);
+        }
+
+        private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
             UpdateDataGridViewDataSource();
         }

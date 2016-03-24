@@ -86,6 +86,7 @@ namespace Ringtoets.Piping.Plugin
                 {
                     view.AssessmentSection = context.AssessmentSection;
                     view.PipingFailureMechanism = context.PipingFailureMechanism;
+                    view.ApplicationSelection = Gui;
                 }
             };
         }

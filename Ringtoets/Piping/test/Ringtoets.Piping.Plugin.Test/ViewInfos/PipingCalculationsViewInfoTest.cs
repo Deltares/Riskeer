@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AfterCreate_Always_SetsAssessmentSectionAndPipingFailureMechanismToView()
+        public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
             var viewMock = mocks.StrictMock<PipingCalculationsView>();
@@ -171,6 +171,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             viewMock.Expect(v => v.AssessmentSection = assessmentSectionMock);
             viewMock.Expect(v => v.PipingFailureMechanism = pipingFailureMechanismMock);
+            viewMock.Expect(v => v.ApplicationSelection = plugin.Gui);
 
             mocks.ReplayAll();
 
