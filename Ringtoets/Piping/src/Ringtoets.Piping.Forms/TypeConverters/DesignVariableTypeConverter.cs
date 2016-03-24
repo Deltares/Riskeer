@@ -68,9 +68,11 @@ namespace Ringtoets.Piping.Forms.TypeConverters
                                                                      DistributionShortName);
             for (int i = 0; i < Parameters.Length; i++)
             {
-                var propertyDescriptor = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i], allParametersAreReadonly);
-                propertyDescriptor = CreateContainingPropertyUpdateDescriptor(propertyDescriptor, context);
-
+                var propertyDescriptor = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i]);
+                propertyDescriptor = allParametersAreReadonly ? 
+                    new ReadOnlyPropertyDescriptorDecorator(propertyDescriptor) : 
+                    CreateContainingPropertyUpdateDescriptor(propertyDescriptor, context);
+                
                 properties[i + 1] = propertyDescriptor;
             }
             properties[Parameters.Length + 1] = new SimpleReadonlyPropertyDescriptorItem(PipingFormsResources.DesignVariableTypeConverter_DesignValue_DisplayName,
@@ -103,18 +105,13 @@ namespace Ringtoets.Piping.Forms.TypeConverters
                    context.PropertyDescriptor.Attributes.Matches(ReadOnlyAttribute.Yes);
         }
 
-        private static PropertyDescriptor CreatePropertyDescriptor(PropertyDescriptorCollection originalProperties, ParameterDefinition<T> parameter, bool isReadOnly)
+        private static PropertyDescriptor CreatePropertyDescriptor(PropertyDescriptorCollection originalProperties, ParameterDefinition<T> parameter)
         {
             PropertyDescriptor originalPropertyDescriptor = originalProperties.Find(parameter.PropertyName, false);
             var reroutedPropertyDescriptor = new RoutedPropertyDescriptor(originalPropertyDescriptor, o => ((DesignVariable<T>) o).Distribution);
             var textPropertyDescriptor = new TextPropertyDescriptorDecorator(reroutedPropertyDescriptor,
                                                                              parameter.Symbol,
                                                                              parameter.Description);
-            if (isReadOnly)
-            {
-                return new ReadOnlyPropertyDescriptorDecorator(textPropertyDescriptor);
-            }
-
             return textPropertyDescriptor;
         }
 
