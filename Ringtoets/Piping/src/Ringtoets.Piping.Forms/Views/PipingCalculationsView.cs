@@ -178,8 +178,7 @@ namespace Ringtoets.Piping.Forms.Views
                 Name = "column_SoilProfile",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 ValueMember = "This",
-                DisplayMember = "DisplayName",
-                DataSource = GetSoilProfilesDataSource()
+                DisplayMember = "DisplayName"
             };
 
             hydraulicBoundaryLocationColumn = new DataGridViewComboBoxColumn
@@ -248,8 +247,10 @@ namespace Ringtoets.Piping.Forms.Views
         private void UpdateSoilProfileColumn()
         {
             var pipingSoilProfiles = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
-
-            soilProfileColumn.DataSource = GetSoilProfilesDataSource(pipingSoilProfiles);
+            foreach (DataGridViewRow dataGridViewRow in dataGridView.Rows)
+            {
+                FillAvailableSoilProfilesList(dataGridViewRow, pipingSoilProfiles);
+            }
         }
 
         private void RefreshDataGridView()
@@ -280,11 +281,53 @@ namespace Ringtoets.Piping.Forms.Views
 
             updatingDataSource = true;
 
+            PrefillComboBoxListItemsAtColumnLevel();
+
             dataGridView.DataSource = pipingCalculations
                 .Select(pc => new PipingCalculationRow(pc))
                 .ToList();
 
+            FillComboBoxListItems();
+
             updatingDataSource = false;
+        }
+
+        private void PrefillComboBoxListItemsAtColumnLevel()
+        {
+            // Need to prefill for all possible data in order to guarantee 'combo box' columns
+            // do not generate errors when their cell value is not present in the list of available
+            // items.
+            var pipingSoilProfiles = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
+            using (new SuspendDataGridViewColumnResizes(soilProfileColumn)) 
+            {
+                SetItemsOnObjectCollection(soilProfileColumn.Items, pipingSoilProfiles);
+            }
+        }
+
+        private void FillComboBoxListItems()
+        {
+            var pipingSoilProfiles = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
+
+            using (new SuspendDataGridViewColumnResizes(soilProfileColumn))
+            {
+                foreach (DataGridViewRow dataGridViewRow in dataGridView.Rows)
+                {
+                    FillAvailableSoilProfilesList(dataGridViewRow, pipingSoilProfiles);
+                }
+            }
+        }
+
+        private void FillAvailableSoilProfilesList(DataGridViewRow dataGridViewRow, ICollection<PipingSoilProfile> pipingSoilProfiles)
+        {
+            var cell = (DataGridViewComboBoxCell)dataGridViewRow.Cells[soilProfileColumn.Index];
+            SetItemsOnObjectCollection(cell.Items, pipingSoilProfiles);
+        }
+
+        private static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, ICollection<PipingSoilProfile> pipingSoilProfiles)
+        {
+            objectCollection.Clear();
+            object[] items = GetSoilProfilesDataSource(pipingSoilProfiles).ToArray();
+            objectCollection.AddRange(items);
         }
 
         private void UpdateDikeSectionsListBox()
@@ -298,19 +341,17 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        private static List<DataGridViewComboBoxItemWrapper<PipingSoilProfile>> GetSoilProfilesDataSource(IEnumerable<PipingSoilProfile> soilProfiles = null)
+        private static IEnumerable<DataGridViewComboBoxItemWrapper<PipingSoilProfile>> GetSoilProfilesDataSource(IEnumerable<PipingSoilProfile> soilProfiles = null)
         {
-            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<PipingSoilProfile>>
-            {
-                new DataGridViewComboBoxItemWrapper<PipingSoilProfile>(null)
-            };
+            yield return new DataGridViewComboBoxItemWrapper<PipingSoilProfile>(null);
 
             if (soilProfiles != null)
             {
-                dataGridViewComboBoxItemWrappers.AddRange(soilProfiles.Select(sp => new DataGridViewComboBoxItemWrapper<PipingSoilProfile>(sp)));
+                foreach (PipingSoilProfile profile in soilProfiles)
+                {
+                    yield return new DataGridViewComboBoxItemWrapper<PipingSoilProfile>(profile);
+                }
             }
-
-            return dataGridViewComboBoxItemWrappers;
         }
 
         private static List<DataGridViewComboBoxItemWrapper<HydraulicBoundaryLocation>> GetHydraulicBoundaryLocationsDataSource(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = null)
@@ -329,6 +370,29 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         #region Nested types
+
+        /// <summary>
+        /// This class makes it easier to temporarily disable automatic resizing of a column,
+        /// for example when it's data is being changed or you are replacing the list items
+        /// available in a combo-box for that column.
+        /// </summary>
+        private class SuspendDataGridViewColumnResizes : IDisposable
+        {
+            private readonly DataGridViewAutoSizeColumnMode originalValue;
+            private readonly DataGridViewColumn column;
+
+            public SuspendDataGridViewColumnResizes(DataGridViewColumn columnToSuspend)
+            {
+                column = columnToSuspend;
+                originalValue = columnToSuspend.AutoSizeMode;
+                columnToSuspend.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            }
+
+            public void Dispose()
+            {
+                column.AutoSizeMode = originalValue;
+            }
+        }
 
         private class PipingCalculationRow
         {
