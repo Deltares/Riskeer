@@ -247,10 +247,9 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void UpdateSoilProfileColumn()
         {
-            var pipingSoilProfiles = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
             foreach (DataGridViewRow dataGridViewRow in dataGridView.Rows)
             {
-                FillAvailableSoilProfilesList(dataGridViewRow, pipingSoilProfiles);
+                FillAvailableSoilProfilesList(dataGridViewRow);
             }
         }
 
@@ -316,21 +315,51 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void FillComboBoxListItems()
         {
-            var pipingSoilProfiles = pipingFailureMechanism != null ? pipingFailureMechanism.SoilProfiles : null;
-
             using (new SuspendDataGridViewColumnResizes(soilProfileColumn))
             {
                 foreach (DataGridViewRow dataGridViewRow in dataGridView.Rows)
                 {
-                    FillAvailableSoilProfilesList(dataGridViewRow, pipingSoilProfiles);
+                    FillAvailableSoilProfilesList(dataGridViewRow);
                 }
             }
         }
 
-        private void FillAvailableSoilProfilesList(DataGridViewRow dataGridViewRow, ICollection<PipingSoilProfile> pipingSoilProfiles)
+        private void FillAvailableSoilProfilesList(DataGridViewRow dataGridViewRow)
         {
+            var rowData = (PipingCalculationRow)dataGridViewRow.DataBoundItem;
+
+            IEnumerable<PipingSoilProfile> pipingSoilProfiles = GetSoilProfilesForCalculation(rowData.PipingCalculation);
+
             var cell = (DataGridViewComboBoxCell)dataGridViewRow.Cells[soilProfileColumn.Index];
             SetItemsOnObjectCollection(cell.Items, GetSoilProfilesDataSource(pipingSoilProfiles).ToArray());
+        }
+
+        private IEnumerable<PipingSoilProfile> GetSoilProfilesForCalculation(PipingCalculation pipingCalculation)
+        {
+            RingtoetsPipingSurfaceLine calculationSurfaceLine = pipingCalculation.InputParameters.SurfaceLine;
+            Segment2D[] surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(calculationSurfaceLine.Points.Select(p => new Point2D(p.X, p.Y))).ToArray();
+
+            var soilProfileObjectsForCalculation = new List<PipingSoilProfile>();
+            foreach (StochasticSoilModel stochasticSoilModel in pipingFailureMechanism.StochasticSoilModels)
+            {
+                if (DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(stochasticSoilModel, surfaceLineSegments))
+                {
+                    soilProfileObjectsForCalculation.AddRange(stochasticSoilModel.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile));
+                }
+            }
+            return soilProfileObjectsForCalculation;
+        }
+
+        private static bool DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(StochasticSoilModel stochasticSoilModel, Segment2D[] surfaceLineSegments)
+        {
+            IEnumerable<Segment2D> soilProfileGeometrySegments = Math2D.ConvertLinePointsToLineSegments(stochasticSoilModel.Geometry);
+            return soilProfileGeometrySegments.Any(s => DoesSegmentIntersectWithSegmentArray(s, surfaceLineSegments));
+        }
+
+        private static bool DoesSegmentIntersectWithSegmentArray(Segment2D segment, Segment2D[] segmentArray)
+        {
+            // Consider intersections and overlaps similarly
+            return segmentArray.Any(sls => Math2D.GetIntersectionBetweenSegments(segment, sls).IntersectionType != Intersection2DType.DoesNotIntersect);
         }
 
         private static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, object[] comboBoxItems)

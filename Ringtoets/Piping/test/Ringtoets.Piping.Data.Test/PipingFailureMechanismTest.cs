@@ -227,7 +227,7 @@ namespace Ringtoets.Piping.Data.Test
             var profiles = failureMechanism.SoilProfiles;
 
             // Assert
-            Assert.AreEqual(1, profiles.Count);
+            Assert.AreEqual(1, profiles.Length);
             Assert.AreSame(profile, profiles.First());
         }
     }
