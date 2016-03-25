@@ -162,12 +162,16 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void AddImportedDataToModel(RingtoetsPipingSurfaceLinesContext target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines, ICollection<CharacteristicPoints> readCharacteristicPointsLocations)
         {
-            NotifyProgress(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, readSurfaceLines.Count, readSurfaceLines.Count);
+            NotifyProgress(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, 0, readSurfaceLines.Count);
 
             var targetCollection = target.FailureMechanism.SurfaceLines;
             List<string> readCharacteristicPointsLocationNames = readCharacteristicPointsLocations.Select(cpl => cpl.Name).ToList();
+            int surfaceLineNumber = 1;
             foreach (var readSurfaceLine in readSurfaceLines)
             {
+                NotifyProgress(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model,
+                               surfaceLineNumber++, readSurfaceLines.Count);
+
                 ReferenceLineIntersectionResult result = CheckReferenceLineInterSections(readSurfaceLine, target.AssessmentSection.ReferenceLine);
                 if (result.TypeOfIntersection != ReferenceLineIntersectionsResult.OneIntersection)
                 {

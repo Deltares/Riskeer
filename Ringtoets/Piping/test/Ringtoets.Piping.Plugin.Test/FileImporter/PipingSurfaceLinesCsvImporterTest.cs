@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
+
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
@@ -169,7 +171,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 {
                     Assert.AreEqual(String.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_, twovalidsurfacelinesCsv), currentStepName);
                 }
-                else if (callCount == expectedNumberOfSurfaceLines + 1)
+                else if (callCount <= expectedNumberOfSurfaceLines + 1 + expectedNumberOfSurfaceLines)
                 {
                     Assert.AreEqual(ApplicationResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, currentStepName);
                 }
@@ -207,7 +209,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(5.7, secondSurfaceLine.EndingWorldPoint.X);
             AssertAreEqualPoint2D(new Point2D(3.3, 0), secondSurfaceLine.ReferenceLineIntersectionWorldPoint);
 
-            Assert.AreEqual(4, callCount);
+            Assert.AreEqual(6, callCount);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(validFilePath));
 
@@ -659,10 +661,17 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(1, context.FailureMechanism.SurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(1, context.FailureMechanism.SurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
-            Assert.AreEqual(7, progressCallCount,
-                            "Expect 1 call for start reading surface lines file" +
-                            ", 1 call for start reading characteristic points file" +
-                            ", 1 call for each surfaceline (3 in total) +1 for 0/N progress, and 1 for putting data in model.");
+            Assert.AreEqual(9, progressCallCount,
+                            new StringBuilder()
+                                .AppendLine("Expected number of calls:")
+                                .AppendLine("1  : Start reading surface lines file.")
+                                .AppendLine("4  : 1 call for each read surface line, +1 for index 0.")
+                                .AppendLine("1  : Start reading characteristic points file.")
+                                .AppendLine("1  : Start adding data to failure mechanism.")
+                                .AppendLine("2  : 1 call for each valid surfaceline checked against reference line.")
+                                .AppendLine("-- +")
+                                .AppendLine("9")
+                                .ToString());
             mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
@@ -1117,11 +1126,18 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(1, context.FailureMechanism.SurfaceLines.Count(sl => sl.Name == "Rotterdam1Invalid"));
             Assert.AreEqual(1, context.FailureMechanism.SurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
-            Assert.AreEqual(9, progressCallCount,
-                            "Expect 1 call for start reading surface lines file" +
-                            ", 1 call for start reading characteristic points file" +
-                            ", 1 call for each surfaceline (2 in total) +1 for 0/N progress and for each characteristic point location (2 in total) " +
-                            "+1 for 0/N progress, and 1 for putting data in model.");
+            Assert.AreEqual(11, progressCallCount,
+                            new StringBuilder()
+                                .AppendLine("Expected number of calls:")
+                                .AppendLine("1  : Start reading surface lines file.")
+                                .AppendLine("3  : 1 call for each read surface line, +1 for index 0.")
+                                .AppendLine("1  : Start reading characteristic points file.")
+                                .AppendLine("3  : 1 call for each set of characteristic points for a locations being read, +1 for index 0.")
+                                .AppendLine("1  : Start adding data to failure mechanism.")
+                                .AppendLine("2  : 1 call for each surfaceline checked against reference line.")
+                                .AppendLine("-- +")
+                                .AppendLine("11")
+                                .ToString());
             mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
@@ -1176,11 +1192,18 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(1, context.FailureMechanism.SurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(1, context.FailureMechanism.SurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
-            Assert.AreEqual(8, progressCallCount,
-                            "Expect 1 call for start reading surface lines file" +
-                            ", 1 call for start reading characteristic points file" +
-                            ", 1 call for each surfaceline (2 in total) +1 for 0/N progress and for each characteristic point location (1 in total) " +
-                            "+1 for 0/N progress, and 1 for putting data in model.");
+            Assert.AreEqual(10, progressCallCount,
+                            new StringBuilder()
+                                .AppendLine("Expected number of calls:")
+                                .AppendLine("1  : Start reading surface lines file.")
+                                .AppendLine("3  : 1 call for each read surface line, +1 for index 0.")
+                                .AppendLine("1  : Start reading characteristic points file.")
+                                .AppendLine("2  : 1 call for each set of characteristic points for a locations being read, +1 for index 0.")
+                                .AppendLine("1  : Start adding data to failure mechanism.")
+                                .AppendLine("2  : 1 call for each surfaceline checked against reference line.")
+                                .AppendLine("-- +")
+                                .AppendLine("10")
+                                .ToString());
             mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
@@ -1235,13 +1258,18 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(1, context.FailureMechanism.SurfaceLines.Count(sl => sl.Name == "Rotterdam1"));
             Assert.AreEqual(1, context.FailureMechanism.SurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
-            Assert.AreEqual(10, progressCallCount,
-                            "Expect 1 call for start reading surface lines file" +
-                            ", 1 call for start reading characteristic points file" +
-                            ", 1 call for each surfaceline (2 in total) +1 for 0/N progress and for " +
-                            "each characteristic point location (2 in total) +1 for 0/N progress, " +
-                            "one for the 'Extra' characteristic point definition " +
-                            "and 1 for putting data in model.");
+            Assert.AreEqual(12, progressCallCount,
+                            new StringBuilder()
+                                .AppendLine("Expected number of calls:")
+                                .AppendLine("1  : Start reading surface lines file.")
+                                .AppendLine("3  : 1 call for each read surface line, +1 for index 0.")
+                                .AppendLine("1  : Start reading characteristic points file.")
+                                .AppendLine("4  : 1 call for each set of characteristic points for a locations being read, +1 for index 0.")
+                                .AppendLine("1  : Start adding data to failure mechanism.")
+                                .AppendLine("2  : 1 call for each surfaceline checked against reference line.")
+                                .AppendLine("-- +")
+                                .AppendLine("12")
+                                .ToString());
             mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
@@ -1305,12 +1333,18 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(1, context.FailureMechanism.SurfaceLines.Count(sl => sl.Name == "Rotterdam1Invalid"));
             Assert.AreEqual(1, context.FailureMechanism.SurfaceLines.Count(sl => sl.Name == "ArtifcialLocal"));
 
-            Assert.AreEqual(9, progressCallCount,
-                            "Expect 1 call for start reading surface lines file" +
-                            ", 1 call for start reading characteristic points file" +
-                            ", 1 call for each surfaceline (2 in total) +1 for 0/N progress and for " +
-                            "each characteristic point location (2 in total) +1 for 0/N progress, " +
-                            ", 1 for putting data in model.");
+            Assert.AreEqual(11, progressCallCount,
+                            new StringBuilder()
+                                .AppendLine("Expected number of calls:")
+                                .AppendLine("1  : Start reading surface lines file.")
+                                .AppendLine("3  : 1 call for each read surface line, +1 for index 0.")
+                                .AppendLine("1  : Start reading characteristic points file.")
+                                .AppendLine("3  : 1 call for each set of characteristic points for a locations being read, +1 for index 0.")
+                                .AppendLine("1  : Start adding data to failure mechanism.")
+                                .AppendLine("2  : 1 call for each surfaceline checked against reference line.")
+                                .AppendLine("-- +")
+                                .AppendLine("11")
+                                .ToString());
             mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
@@ -1373,7 +1407,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 {
                     Assert.AreEqual(string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Read_PipingCharacteristicPoints_0_, twovalidsurfacelinesCharacteristicPointsCsv), currentStepName);
                 }
-                else if (callCount == expectedNumberOfSurfaceLines + expectedNumberOfCharacteristicPointsDefinitions + 2)
+                else if (callCount <= expectedNumberOfSurfaceLines + expectedNumberOfCharacteristicPointsDefinitions + 2 + expectedNumberOfSurfaceLines)
                 {
                     Assert.AreEqual(ApplicationResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, currentStepName);
                 }
@@ -1422,7 +1456,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(new Point3D(2.3, 0, 1.0), secondSurfaceLine.DikeToeAtRiver);
             Assert.AreEqual(new Point3D(5.7, 0, 1.1), secondSurfaceLine.DikeToeAtPolder);
 
-            Assert.AreEqual(7, callCount);
+            Assert.AreEqual(9, callCount);
 
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(validSurfaceLinesFilePath));
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(validCharacteristicPointsFilePath));
