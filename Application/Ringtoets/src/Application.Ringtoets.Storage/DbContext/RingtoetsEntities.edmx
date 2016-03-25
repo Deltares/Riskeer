@@ -43,7 +43,6 @@
           </Key>
           <Property Name="ProjectEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="260" />
-          <Property Name="LastUpdated" Type="integer" />
         </EntityType>
         <EntityType Name="ReferenceLinePointEntity">
           <Key>
@@ -208,7 +207,6 @@
           </Key>
           <Property Name="ProjectEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
-          <Property Name="LastUpdated" Type="Int64" />
           <NavigationProperty Name="DikeAssessmentSectionEntities" Relationship="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0" FromRole="ProjectEntity" ToRole="DikeAssessmentSectionEntity" />
         </EntityType>
         <EntityType Name="ReferenceLinePointEntity">
@@ -323,7 +321,6 @@
           <EntitySetMapping Name="ProjectEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.ProjectEntity">
               <MappingFragment StoreEntitySet="ProjectEntity">
-                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ProjectEntityId" ColumnName="ProjectEntityId" />
               </MappingFragment>

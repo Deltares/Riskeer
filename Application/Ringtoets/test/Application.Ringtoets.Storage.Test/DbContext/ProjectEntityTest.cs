@@ -14,7 +14,6 @@ namespace Application.Ringtoets.Storage.Test.DbContext
 
             // Assert
             Assert.AreEqual(0, projectEntity.ProjectEntityId);
-            Assert.IsNull(projectEntity.LastUpdated);
         }
 
         [Test]
@@ -29,29 +28,11 @@ namespace Application.Ringtoets.Storage.Test.DbContext
             {
                 ProjectEntityId = expectedId,
                 Description = someDescription,
-                LastUpdated = someTimestamp
             };
 
             // Call & Assert
             Assert.AreEqual(someDescription, projectEntity.Description);
             Assert.AreEqual(expectedId, projectEntity.ProjectEntityId);
-            Assert.AreEqual(someTimestamp, projectEntity.LastUpdated);
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase(0L)]
-        [TestCase(1234L)]
-        public void LastUpdated_DifferentValues_ReturnExpectedValues(long? someTimestamp)
-        {
-            // Setup
-            var projectEntity = new ProjectEntity
-            {
-                LastUpdated = someTimestamp
-            };
-
-            // Call & Assert
-            Assert.AreEqual(someTimestamp, projectEntity.LastUpdated);
         }
     }
 }

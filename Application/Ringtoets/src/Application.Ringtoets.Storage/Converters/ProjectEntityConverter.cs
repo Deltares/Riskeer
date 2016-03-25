@@ -74,7 +74,6 @@ namespace Application.Ringtoets.Storage.Converters
             }
             entity.ProjectEntityId = modelObject.StorageId;
             entity.Description = modelObject.Description;
-            entity.LastUpdated = (int)(DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1)).TotalSeconds;
         }
     }
 }
