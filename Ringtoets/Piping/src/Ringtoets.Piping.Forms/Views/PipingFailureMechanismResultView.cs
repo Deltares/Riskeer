@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.Piping.Data;
@@ -38,6 +39,54 @@ namespace Ringtoets.Piping.Forms.Views
         public PipingFailureMechanismResultView()
         {
             InitializeComponent();
+            InitializeDataGridView();
+        }
+
+        private void InitializeDataGridView()
+        {
+            var sectionName = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Name",
+                HeaderText = "Vak (naam)",
+                Name = "column_Name"
+            };
+
+            var assessmentLayerOne = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "AssessmentLayerOne",
+                HeaderText = "Toetslaag 1",
+                Name = "column_AssessmentLayerOne"
+            };
+
+            var assessmentLayerTwoA = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "AssessmentLayerTwoA",
+                HeaderText = "Toetslaag 2a",
+                Name = "column_AssessmentLayerTwoA"
+            };
+
+            var assessmentLayerTwoB = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "AssessmentLayerTwoB",
+                HeaderText = "Toetslaag 2b",
+                Name = "column_AssessmentLayerTwoB"
+            };
+
+            var assessmentLayerThree = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "AssessmentLayerThree",
+                HeaderText = "Toetslaag 3",
+                Name = "column_AssessmentLayerThree"
+            };
+
+            dataGridView.AutoGenerateColumns = false;
+            dataGridView.Columns.AddRange(sectionName, assessmentLayerOne, assessmentLayerTwoA, assessmentLayerTwoB, assessmentLayerThree);
+
+            foreach (var column in dataGridView.Columns.OfType<DataGridViewColumn>())
+            {
+                column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
         }
 
         public object Data 

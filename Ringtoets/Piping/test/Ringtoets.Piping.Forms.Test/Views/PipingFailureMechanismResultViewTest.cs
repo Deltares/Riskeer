@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Views;
@@ -30,6 +32,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
     [TestFixture]
     public class PipingFailureMechanismResultViewTest
     {
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
@@ -40,6 +56,33 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsInstanceOf<UserControl>(view);
             Assert.IsInstanceOf<IView>(view);
             Assert.IsNull(view.Data);
+        }
+
+        [Test]
+        public void Constructor_DataGridViewCorrectlyInitialized()
+        {
+            // Setup
+            var failureMechanismResultView = new PipingFailureMechanismResultView();
+
+            // Call
+            ShowPipingCalculationsView(failureMechanismResultView);
+
+            // Assert
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            Assert.AreEqual(5, dataGridView.ColumnCount);
+
+            foreach (var column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
+            {
+                Assert.AreEqual("This", column.ValueMember);
+                Assert.AreEqual("DisplayName", column.DisplayMember);
+            }
+
+            foreach (var column in dataGridView.Columns.OfType<DataGridViewColumn>())
+            {
+                Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, column.AutoSizeMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, column.HeaderCell.Style.Alignment);
+            }
         }
 
         [Test]
@@ -68,6 +111,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsNull(view.Data);
+        }
+
+        private void ShowPipingCalculationsView(PipingFailureMechanismResultView pipingCalculationsView)
+        {
+            testForm.Controls.Add(pipingCalculationsView);
+            testForm.Show();
         }
     }
 }

@@ -197,6 +197,9 @@
     <EmbeddedResource Include="Views\PipingCalculationsView.resx">
       <DependentUpon>PipingCalculationsView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\PipingFailureMechanismResultView.resx">
+      <DependentUpon>PipingFailureMechanismResultView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\PipingFailureMechanismView.resx">
       <DependentUpon>PipingFailureMechanismView.cs</DependentUpon>
     </EmbeddedResource>
