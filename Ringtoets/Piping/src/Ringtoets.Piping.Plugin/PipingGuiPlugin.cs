@@ -64,7 +64,8 @@ namespace Ringtoets.Piping.Plugin
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>();
             yield return new PropertyInfo<PipingSemiProbabilisticOutput, PipingSemiProbabilisticOutputProperties>();
             yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
-            yield return new PropertyInfo<PipingSoilProfile, PipingSoilProfileProperties>();
+            yield return new PropertyInfo<StochasticSoilModel, StochasticSoilModelProperties>();
+            yield return new PropertyInfo<StochasticSoilProfile, StochasticSoilProfileProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -170,11 +171,11 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new TreeNodeInfo<StochasticSoilModelContext>
             {
-                Text = stochasticSoilModelContext => PipingFormsResources.PipingSoilProfilesCollection_DisplayName,
+                Text = stochasticSoilModelContext => PipingFormsResources.StochasticSoilProfileCollection_DisplayName,
                 Image = stochasticSoilModelContext => PipingFormsResources.FolderIcon,
                 ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.FailureMechanism.StochasticSoilModels.Any() ?
                                                               Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
-                ChildNodeObjects = stochasticSoilModelContext => stochasticSoilModelContext.FailureMechanism.SoilProfiles.Cast<object>().ToArray(),
+                ChildNodeObjects = stochasticSoilModelContext => stochasticSoilModelContext.FailureMechanism.StochasticSoilModels.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddImportItem()
                                                                                  .AddExportItem()
@@ -184,9 +185,19 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<PipingSoilProfile>
+            yield return new TreeNodeInfo<StochasticSoilModel>
             {
-                Text = pipingSoilProfile => pipingSoilProfile.Name,
+                Text = stochasticSoilModel => stochasticSoilModel.Name,
+                Image = stochasticSoilModel => PipingFormsResources.StochasticSoilModelIcon,
+                ChildNodeObjects = stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Cast<object>().ToArray(),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                  .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<StochasticSoilProfile>
+            {
+                Text = pipingSoilProfile => (pipingSoilProfile.SoilProfile != null) ? pipingSoilProfile.SoilProfile.Name : "Profile",
                 Image = pipingSoilProfile => PipingFormsResources.PipingSoilProfileIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()

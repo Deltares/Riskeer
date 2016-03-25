@@ -74,8 +74,9 @@
     <Compile Include="PropertyClasses\PipingCalculationGroupContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingInputContextProperties.cs" />
     <Compile Include="PropertyClasses\PipingSemiProbabilisticOutputProperties.cs" />
-    <Compile Include="PropertyClasses\PipingSoilProfileProperties.cs" />
+    <Compile Include="PropertyClasses\StochasticSoilProfileProperties.cs" />
     <Compile Include="PropertyClasses\RingtoetsPipingSurfaceLineProperties.cs" />
+    <Compile Include="PropertyClasses\StochasticSoilModelProperties.cs" />
     <Compile Include="TypeConverters\LognormalDistributionDesignVariableTypeConverter.cs" />
     <Compile Include="TypeConverters\DesignVariableTypeConverter.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\ReadOnlyPropertyDescriptorDecorator.cs" />
@@ -221,7 +222,9 @@
     <None Include="Resources\folder_add.png" />
     <None Include="Resources\table.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\shovel.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

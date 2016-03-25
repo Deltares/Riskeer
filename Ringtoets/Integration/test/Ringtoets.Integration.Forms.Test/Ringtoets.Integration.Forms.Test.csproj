@@ -60,7 +60,7 @@
   <ItemGroup>
     <Compile Include="PresentationObjects\FailureMechanismPlaceholderContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
-    <Compile Include="PresentationObjects\HydraulicBoundaryLocationPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\AssessmentSectionBaseTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />

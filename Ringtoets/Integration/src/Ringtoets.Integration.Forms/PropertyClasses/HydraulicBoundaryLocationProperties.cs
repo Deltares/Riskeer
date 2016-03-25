@@ -22,16 +22,14 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.Properties;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects
+namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryLocation"/> for properties panel.

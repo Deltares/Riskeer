@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(7, propertyInfos.Length);
+                Assert.AreEqual(8, propertyInfos.Length);
 
                 var pipingFailureMechanismContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingFailureMechanismContext));
                 Assert.AreEqual(typeof(PipingFailureMechanismContextProperties), pipingFailureMechanismContextProperties.PropertyObjectType);
@@ -104,11 +104,17 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsNull(pipingSurfaceLineProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingSurfaceLineProperties.AfterCreate);
 
-                var pipingSoilProfileProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingSoilProfile));
-                Assert.AreEqual(typeof(PipingSoilProfileProperties), pipingSoilProfileProperties.PropertyObjectType);
-                Assert.IsNull(pipingSoilProfileProperties.AdditionalDataCheck);
-                Assert.IsNull(pipingSoilProfileProperties.GetObjectPropertiesData);
-                Assert.IsNull(pipingSoilProfileProperties.AfterCreate);
+                var stochasticSoilModelProperties = propertyInfos.Single(pi => pi.DataType == typeof(StochasticSoilModel));
+                Assert.AreEqual(typeof(StochasticSoilModelProperties), stochasticSoilModelProperties.PropertyObjectType);
+                Assert.IsNull(stochasticSoilModelProperties.AdditionalDataCheck);
+                Assert.IsNull(stochasticSoilModelProperties.GetObjectPropertiesData);
+                Assert.IsNull(stochasticSoilModelProperties.AfterCreate);
+
+                var stochasticSoilProfileProperties = propertyInfos.Single(pi => pi.DataType == typeof(StochasticSoilProfile));
+                Assert.AreEqual(typeof(StochasticSoilProfileProperties), stochasticSoilProfileProperties.PropertyObjectType);
+                Assert.IsNull(stochasticSoilProfileProperties.AdditionalDataCheck);
+                Assert.IsNull(stochasticSoilProfileProperties.GetObjectPropertiesData);
+                Assert.IsNull(stochasticSoilProfileProperties.AfterCreate);
 
                 mocks.VerifyAll();
             }
@@ -137,11 +143,12 @@ namespace Ringtoets.Piping.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(11, treeNodeInfos.Length);
+                Assert.AreEqual(12, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLinesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLine)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModelContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSoilProfile)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModel)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilProfile)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingInputContext)));

@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var text = info.Text(stochasticSoilModelContextMock);
 
             // Assert
-            Assert.AreEqual(Resources.PipingSoilProfilesCollection_DisplayName, text);
+            Assert.AreEqual(Resources.StochasticSoilProfileCollection_DisplayName, text);
 
             mocks.VerifyAll();
         }
@@ -148,11 +148,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsChildsOnData()
         {
             // Setup
-            var pipingSoilProfile1 = new PipingSoilProfile("", 0, new List<PipingSoilLayer>
+            var pipingSoilProfile1 = new PipingSoilProfile("pipingSoilProfile1", 0, new List<PipingSoilLayer>
             {
                 new PipingSoilLayer(10)
             }, 0);
-            var pipingSoilProfile2 = new PipingSoilProfile("", 0, new List<PipingSoilLayer>
+            var pipingSoilProfile2 = new PipingSoilProfile("pipingSoilProfile2", 0, new List<PipingSoilLayer>
             {
                 new PipingSoilLayer(10)
             }, 0);
@@ -182,8 +182,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             CollectionAssert.AreEqual(new[]
             {
-                pipingSoilProfile1,
-                pipingSoilProfile2
+                stochasticSoilModel
             }, objects);
 
             mocks.VerifyAll();

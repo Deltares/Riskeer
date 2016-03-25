@@ -65,6 +65,7 @@
     <Compile Include="PresentationObjects\StochasticSoilModelContextTest.cs" />
     <Compile Include="PropertyClasses\PipingFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingSemiProbabilisticOutputPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\StochasticSoilModelPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingCalculationReportTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingCalculationGroupContextTreeNodeInfoTest.cs" />
@@ -78,14 +79,14 @@
     <Compile Include="Helper\PipingOutputCreator.cs" />
     <Compile Include="TreeNodeInfos\PipingFailureMechanismTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingSemiProbabilisticOutputTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingSoilProfileTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\StochasticSoilProfileTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsPipingSurfaceLineCollectionTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsPipingSurfaceLineTreeNodeInfoTest.cs" />
     <Compile Include="PresentationObjects\PipingCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\PipingInputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\PipingCalculationContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\PipingSoilProfilePropertiesTest.cs" />
+    <Compile Include="PropertyClasses\StochasticSoilProfilePropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsPipingSurfaceLinePropertiesTest.cs" />
     <Compile Include="TypeConverters\LognormalDistributionDesignVariableTypeConverterTest.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\ContainingPropertyUpdateDescriptorDecoratorTest.cs" />

@@ -13,7 +13,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingSoilProfileTreeNodeInfoTest
+    public class StochasticSoilProfileTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingGuiPlugin plugin;
@@ -24,14 +24,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingSoilProfile));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StochasticSoilProfile));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingSoilProfile), info.TagType);
+            Assert.AreEqual(typeof(StochasticSoilProfile), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
@@ -58,11 +58,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             {
                 pipingSoilLayer
             }, 0);
-
+            var stochasticSoilProfile = mocks.StrictMock<StochasticSoilProfile>(10.0, SoilProfileType.SoilProfile1D, 1234L);
+            stochasticSoilProfile.SoilProfile = pipingSoilProfile;
             mocks.ReplayAll();
 
             // Call
-            var text = info.Text(pipingSoilProfile);
+            var text = info.Text(stochasticSoilProfile);
 
             // Assert
             Assert.AreEqual(testName, text);
@@ -79,11 +80,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             {
                 pipingSoilLayer
             }, 0);
-
+            var stochasticSoilProfile = mocks.StrictMock<StochasticSoilProfile>(10.0, SoilProfileType.SoilProfile1D, 1234L);
+            stochasticSoilProfile.SoilProfile = pipingSoilProfile;
             mocks.ReplayAll();
 
             // Call
-            var image = info.Image(pipingSoilProfile);
+            var image = info.Image(stochasticSoilProfile);
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.PipingSoilProfileIcon, image);
