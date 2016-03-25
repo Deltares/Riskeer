@@ -645,14 +645,23 @@ namespace Ringtoets.Piping.Plugin
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            var builder = Gui.Get(nodeData, treeViewControl)
-                             .AddCustomItem(addCalculationGroupItem)
-                             .AddCustomItem(addCalculationItem)
-                             .AddSeparator()
-                             .AddCustomItem(validateAllItem)
-                             .AddCustomItem(calculateAllItem)
-                             .AddCustomItem(clearAllItem)
-                             .AddSeparator();
+            var builder = Gui.Get(nodeData, treeViewControl);
+
+            if (parentData is PipingFailureMechanismContext)
+            {
+                builder
+                    .AddOpenItem()
+                    .AddSeparator();
+            }
+
+            builder
+                .AddCustomItem(addCalculationGroupItem)
+                .AddCustomItem(addCalculationItem)
+                .AddSeparator()
+                .AddCustomItem(validateAllItem)
+                .AddCustomItem(calculateAllItem)
+                .AddCustomItem(clearAllItem)
+                .AddSeparator();
 
             var isRenamable = PipingCalculationGroupContextCanRenameNode(nodeData, parentData);
             var isRemovable = PipingCalculationGroupContextCanRemove(nodeData, parentData);
