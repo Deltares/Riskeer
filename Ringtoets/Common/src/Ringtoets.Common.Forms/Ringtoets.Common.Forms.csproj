@@ -127,6 +127,7 @@
     <None Include="Resources\database.png" />
     <None Include="Resources\database--exclamation.png" />
     <None Include="Resources\chart_single_line.png" />
+    <None Include="Resources\blue-document-list.png" />
     <Content Include="Resources\PlayHS.png" />
     <None Include="Resources\Sections.png" />
     <Content Include="Resources\tickAll.png" />

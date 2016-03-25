@@ -10,6 +10,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Integration.Plugin;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsIntegrationDataResources = Ringtoets.Integration.Data.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
@@ -72,7 +73,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsIntegrationFormsResources.GenericInputOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
 
             mocks.VerifyAll();
         }

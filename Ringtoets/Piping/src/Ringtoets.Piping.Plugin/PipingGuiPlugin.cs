@@ -90,6 +90,13 @@ namespace Ringtoets.Piping.Plugin
                     view.ApplicationSelection = Gui;
                 }
             };
+
+            yield return new ViewInfo<PipingFailureMechanismResultContext, PipingFailureMechanismResult, PipingFailureMechanismResultView>
+            {
+                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewData = context => context.FailureMechanismResult,
+
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -240,6 +247,12 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<PipingFailureMechanismResultContext>
+            {
+                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon
+            };
         }
 
         # region PipingCalculationsView ViewInfo
@@ -247,12 +260,7 @@ namespace Ringtoets.Piping.Plugin
         private bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)
         {
             var assessmentSectionBase = o as AssessmentSectionBase;
-            if (assessmentSectionBase != null)
-            {
-                return ((PipingFailureMechanismContext) view.Data).Parent == assessmentSectionBase;
-            }
-
-            return false;
+            return assessmentSectionBase != null && ((PipingFailureMechanismContext) view.Data).Parent == assessmentSectionBase;
         }
 
         # endregion
@@ -445,7 +453,7 @@ namespace Ringtoets.Piping.Plugin
         {
             return new ArrayList
             {
-                failureMechanism.AssessmentResult
+                new PipingFailureMechanismResultContext(failureMechanism.AssessmentResult, failureMechanism)
             };
         }
 
@@ -528,12 +536,7 @@ namespace Ringtoets.Piping.Plugin
         private bool PipingCalculationContextCanRemove(PipingCalculationContext pipingCalculationContext, object parentNodeData)
         {
             var calculationGroupContext = parentNodeData as PipingCalculationGroupContext;
-            if (calculationGroupContext != null)
-            {
-                return calculationGroupContext.WrappedData.Children.Contains(pipingCalculationContext.WrappedData);
-            }
-
-            return false;
+            return calculationGroupContext != null && calculationGroupContext.WrappedData.Children.Contains(pipingCalculationContext.WrappedData);
         }
 
         private static void PipingCalculationContextOnNodeRemoved(PipingCalculationContext pipingCalculationContext, object parentNodeData)

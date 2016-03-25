@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="PipingCalculationHelperTest.cs" />
     <Compile Include="PresentationObjects\PipingFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\PipingFailureMechanismResultContextTest.cs" />
     <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLinesContextTest.cs" />
     <Compile Include="PresentationObjects\StochasticSoilModelContextTest.cs" />
     <Compile Include="PropertyClasses\PipingFailureMechanismContextPropertiesTest.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="TreeNodeInfos\EmptyPipingCalculationReportTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingCalculationGroupContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingFailureMechanismResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingInputContextTreeNodeInfoTest.cs" />
     <Compile Include="PresentationObjects\PipingCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\PipingContextTest.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="UITypeEditors\PipingInputContextSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSoilProfileSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditorTest.cs" />
+    <Compile Include="Views\PipingFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\PipingFailureMechanismViewTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new ViewInfo<FailureMechanismContribution, FailureMechanismContributionView>
             {
                 GetViewName = (v, o) => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
-                Image = RingtoetsFormsResources.GenericInputOutputIcon,
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = (v, o) =>
                 {
                     var assessmentSection = o as AssessmentSectionBase;
@@ -188,7 +188,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new TreeNodeInfo<FailureMechanismContribution>
             {
                 Text = failureMechanismContribution => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
-                Image = failureMechanismContribution => RingtoetsFormsResources.GenericInputOutputIcon,
+                Image = failureMechanismContribution => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (failureMechanismContribution, parentData, treeViewControl) => Gui.Get(failureMechanismContribution, treeViewControl)
                                                                                                      .AddOpenItem()
                                                                                                      .AddSeparator()
@@ -199,7 +199,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
             {
                 Text = hydraulicBoundaryDatabase => RingtoetsFormsResources.HydraulicBoundaryDatabase_DisplayName,
-                Image = hydraulicBoundaryDatabase => RingtoetsFormsResources.GenericInputOutputIcon,
+                Image = hydraulicBoundaryDatabase => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CanRename = (context, o) => false,
                 ForeColor = context => context.Parent.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
@@ -365,7 +365,7 @@ namespace Ringtoets.Integration.Plugin
         {
             if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
             {
-                return RingtoetsFormsResources.GenericInputOutputIcon;
+                return RingtoetsCommonFormsResources.GenericInputOutputIcon;
             }
             return RingtoetsFormsResources.PlaceholderIcon;
         }

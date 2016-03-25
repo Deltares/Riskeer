@@ -16,6 +16,7 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test
 {
@@ -75,7 +76,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 var contributionViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismContribution));
                 Assert.AreEqual(typeof(FailureMechanismContributionView), contributionViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.GenericInputOutputIcon, contributionViewInfo.Image);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, contributionViewInfo.Image);
 
                 var mapViewInfo = viewInfos.Single(vi => vi.DataType == typeof(AssessmentSectionBase));
                 Assert.AreEqual(typeof(AssessmentSectionView), mapViewInfo.ViewType);

@@ -9,6 +9,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.Integration.Plugin;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
@@ -74,7 +75,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var image = info.Image(new OutputPlaceholder(string.Empty));
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.GenericInputOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
         }
 
         [Test]
@@ -84,7 +85,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var image = info.Image(new InputPlaceholder(string.Empty));
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.GenericInputOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
         }
 
         [Test]

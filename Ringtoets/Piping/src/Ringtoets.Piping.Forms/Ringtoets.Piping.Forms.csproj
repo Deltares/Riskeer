@@ -61,6 +61,7 @@
     <Compile Include="PresentationObjects\PipingContext.cs" />
     <Compile Include="PresentationObjects\PipingFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\PipingInputContext.cs" />
+    <Compile Include="PresentationObjects\PipingFailureMechanismResultContext.cs" />
     <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLinesContext.cs" />
     <Compile Include="PresentationObjects\StochasticSoilModelContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,6 +102,12 @@
     </Compile>
     <Compile Include="Views\PipingFailureMechanismView.Designer.cs">
       <DependentUpon>PipingFailureMechanismView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PipingFailureMechanismResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PipingFailureMechanismResultView.Designer.cs">
+      <DependentUpon>PipingFailureMechanismResultView.cs</DependentUpon>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>

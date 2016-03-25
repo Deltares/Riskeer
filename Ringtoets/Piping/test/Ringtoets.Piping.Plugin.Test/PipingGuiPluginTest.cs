@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
+using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 using GuiPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
@@ -156,8 +157,40 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSemiProbabilisticOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyPipingOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyPipingCalculationReport)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailureMechanismResultContext)));
             }
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetViewInfo_ReturnsSupportedViewInfos()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationCore = new ApplicationCore();
+
+            var guiStub = mocks.Stub<IGui>();
+            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
+
+            Expect.Call(guiStub.ApplicationCore).Return(applicationCore).Repeat.Any();
+
+            mocks.ReplayAll();
+
+            using (var guiPlugin = new PipingGuiPlugin
+            {
+                Gui = guiStub
+            })
+            {
+                // Call
+                ViewInfo[] viewInfos = guiPlugin.GetViewInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(3, viewInfos.Length);
+
+                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingFailureMechanismView)));
+                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingCalculationsView)));
+                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingFailureMechanismResultView)));
+            }
         }
     }
 }

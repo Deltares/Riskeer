@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Data
             var pipingCalculationGroup = new PipingCalculationGroup(PipingDataResources.PipingFailureMechanism_Calculations_DisplayName, false);
             pipingCalculationGroup.Children.Add(new PipingCalculation(GeneralInput, SemiProbabilisticInput));
             CalculationsGroup = pipingCalculationGroup;
-            AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
+            AssessmentResult = new PipingFailureMechanismResult();
         }
 
         public override IEnumerable<ICalculationItem> CalculationItems
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the calculation results for this failure mechanism.
         /// </summary>
-        public OutputPlaceholder AssessmentResult { get; private set; }
+        public PipingFailureMechanismResult AssessmentResult { get; private set; }
 
         /// <summary>
         /// Gets the general piping calculation input parameters that apply to each piping calculation.
