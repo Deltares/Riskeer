@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
@@ -10,21 +11,21 @@ namespace Application.Ringtoets.Storage.Persistors
     public class ReferenceLinePersistor
     {
         private readonly ReferenceLineConverter converter;
-        private readonly IRingtoetsEntities context;
+        private readonly DbSet<ReferenceLinePointEntity> referenceLineEntities;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLocationEntityPersistor"/>.
         /// </summary>
-        /// <param name="ringtoetsContext">The storage context.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
-        public ReferenceLinePersistor(IRingtoetsEntities ringtoetsContext)
+        /// <param name="ringtoetsEntities">The storage context.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsEntities"/> is <c>null</c>.</exception>
+        public ReferenceLinePersistor(IRingtoetsEntities ringtoetsEntities)
         {
-            if (ringtoetsContext == null)
+            if (ringtoetsEntities == null)
             {
-                throw new ArgumentNullException("ringtoetsContext");
+                throw new ArgumentNullException("ringtoetsEntities");
             }
 
-            context = ringtoetsContext;
+            referenceLineEntities = ringtoetsEntities.ReferenceLinePointEntities;
             converter = new ReferenceLineConverter();
         }
 
@@ -44,7 +45,8 @@ namespace Application.Ringtoets.Storage.Persistors
 
             if (entityCollection.Any())
             {
-                context.Set<ReferenceLinePointEntity>().RemoveRange(entityCollection);
+                referenceLineEntities.RemoveRange(entityCollection);
+                entityCollection.Clear();
             }
 
             if (referenceLine != null)

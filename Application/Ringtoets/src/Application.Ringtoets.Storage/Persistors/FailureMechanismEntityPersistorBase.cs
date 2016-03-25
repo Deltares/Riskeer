@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
@@ -35,22 +36,52 @@ namespace Application.Ringtoets.Storage.Persistors
     /// </summary>
     public abstract class FailureMechanismEntityPersistorBase<T> where T : IFailureMechanism
     {
-        private readonly DbSet<FailureMechanismEntity> dbSet;
+        private readonly DbSet<FailureMechanismEntity> failureMechanismSet;
         private readonly Dictionary<FailureMechanismEntity, T> insertedList = new Dictionary<FailureMechanismEntity, T>();
         private readonly ICollection<FailureMechanismEntity> modifiedList = new List<FailureMechanismEntity>();
+
+        private readonly IEntityConverter<T, FailureMechanismEntity> converter;
 
         /// <summary>
         /// New instance of <see cref="FailureMechanismEntityPersistorBase{T}"/>.
         /// </summary>
         /// <param name="ringtoetsContext">The storage context.</param>
+        /// <param name="converter">An implementation of the <see cref="IEntityConverter{T,T}"/> to use in the persistor.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
-        protected FailureMechanismEntityPersistorBase(IRingtoetsEntities ringtoetsContext)
+        protected FailureMechanismEntityPersistorBase(IRingtoetsEntities ringtoetsContext, IEntityConverter<T, FailureMechanismEntity> converter)
         {
             if (ringtoetsContext == null)
             {
                 throw new ArgumentNullException("ringtoetsContext");
             }
-            dbSet = ringtoetsContext.FailureMechanismEntities;
+            failureMechanismSet = ringtoetsContext.FailureMechanismEntities;
+            this.converter = converter;
+        }
+
+
+        /// <summary>
+        /// Loads the <see cref="FailureMechanismEntity"/> as <see cref="IFailureMechanism"/>.
+        /// </summary>
+        /// <param name="entity"><see cref="FailureMechanismEntity"/> to load from.</param>
+        /// <param name="pipingFailureMechanism">The <see cref="IFailureMechanism"/>to load data in.</param>
+        /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c>.</item>
+        /// <item><paramref name="pipingFailureMechanism"/> is <c>null</c>.</item>
+        /// </list></exception>
+        public void LoadModel(FailureMechanismEntity entity, IFailureMechanism pipingFailureMechanism)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            if (pipingFailureMechanism == null)
+            {
+                throw new ArgumentNullException("pipingFailureMechanism");
+            }
+
+            var model = converter.ConvertEntityToModel(entity);
+
+            pipingFailureMechanism.StorageId = model.StorageId;
         }
 
         /// <summary>
@@ -73,17 +104,16 @@ namespace Application.Ringtoets.Storage.Persistors
             {
                 throw new ArgumentNullException("model");
             }
-            if (model.StorageId < 1)
-            {
-                InsertModel(parentNavigationProperty, model);
-                return;
-            }
-
             if (parentNavigationProperty == null)
             {
                 throw new ArgumentNullException("parentNavigationProperty");
             }
 
+            if (model.StorageId < 1)
+            {
+                InsertModel(parentNavigationProperty, model);
+                return;
+            }
             FailureMechanismEntity entity;
             try
             {
@@ -100,7 +130,7 @@ namespace Application.Ringtoets.Storage.Persistors
 
             modifiedList.Add(entity);
 
-            ConvertModelToEntity(model, entity);
+            converter.ConvertModelToEntity(model, entity);
         }
 
         /// <summary>
@@ -123,7 +153,7 @@ namespace Application.Ringtoets.Storage.Persistors
             parentNavigationProperty.Add(entity);
             insertedList.Add(entity, model);
 
-            ConvertModelToEntity(model, entity);
+            converter.ConvertModelToEntity(model, entity);
 
             if (model.StorageId > 0)
             {
@@ -132,33 +162,14 @@ namespace Application.Ringtoets.Storage.Persistors
         }
 
         /// <summary>
-        /// Loads a new model of type <typeparamref name="T"/> based on the <paramref name="entity"/>.
-        /// </summary>
-        /// <param name="entity">Database entity containing information for the new model.</param>
-        /// <param name="dikeAssessmentSection">The assessment section to add the failure mechanism to.</param>
-        public abstract void LoadModel(FailureMechanismEntity entity, T dikeAssessmentSection);
-
-        /// <summary>
         /// All unmodified <see cref="FailureMechanismEntity"/> in <paramref name="parentNavigationProperty"/> will be removed.
         /// </summary>
         /// <param name="parentNavigationProperty">List where <see cref="FailureMechanismEntity"/> objects can be searched. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
         /// <exception cref="NotSupportedException">Thrown when the <paramref name="parentNavigationProperty"/> is read-only.</exception>
         public void RemoveUnModifiedEntries(ICollection<FailureMechanismEntity> parentNavigationProperty)
         {
-            var originalList = parentNavigationProperty.ToList();
-            foreach (var u in modifiedList)
-            {
-                originalList.Remove(u);
-            }
-
-            foreach (var toDelete in originalList)
-            {
-                // If id = 0, the entity is marked as inserted
-                if (toDelete.FailureMechanismEntityId > 0)
-                {
-                    dbSet.Remove(toDelete);
-                }
-            }
+            var untouchedModifiedList = parentNavigationProperty.Where(e => e.DikeAssessmentSectionEntityId > 0 && !modifiedList.Contains(e));
+            failureMechanismSet.RemoveRange(untouchedModifiedList);
 
             modifiedList.Clear();
         }
@@ -174,8 +185,5 @@ namespace Application.Ringtoets.Storage.Persistors
             }
             insertedList.Clear();
         }
-
-        protected abstract void ConvertModelToEntity(T model, FailureMechanismEntity entity);
-        protected abstract T ConvertEntityToModel(FailureMechanismEntity entity);
     }
 }

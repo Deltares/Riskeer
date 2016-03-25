@@ -81,6 +81,26 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
+        public void ConvertEntityToModel_EntityWithIncorrectType_ReturnsEntityAsModel()
+        {
+            // Setup
+            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
+
+            const long storageId = 1234L;
+            FailureMechanismEntity entity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = storageId,
+                FailureMechanismType = (int)FailureMechanismType.DikesMacrostabilityInwardsFailureMechanism,
+            };
+
+            // Call
+            TestDelegate test = () => converter.ConvertEntityToModel(entity);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
         public void ConvertModelToEntity_NullModel_ThrowsArgumentNullException()
         {
             // Setup

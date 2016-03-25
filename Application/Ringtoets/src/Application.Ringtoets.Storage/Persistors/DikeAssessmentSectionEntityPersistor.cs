@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// </summary>
     public class DikeAssessmentSectionEntityPersistor
     {
-        private readonly IRingtoetsEntities dbContext;
+        private readonly DbSet<DikeAssessmentSectionEntity> dikeAssessmentSectionSet;
         private readonly DikeAssessmentSectionEntityConverter converter;
         private readonly Dictionary<DikeAssessmentSectionEntity, DikeAssessmentSection> insertedList = new Dictionary<DikeAssessmentSectionEntity, DikeAssessmentSection>();
         private readonly ICollection<DikeAssessmentSectionEntity> modifiedList = new List<DikeAssessmentSectionEntity>();
@@ -57,13 +57,13 @@ namespace Application.Ringtoets.Storage.Persistors
             {
                 throw new ArgumentNullException("ringtoetsContext");
             }
-            dbContext = ringtoetsContext;
+            dikeAssessmentSectionSet = ringtoetsContext.DikeAssessmentSectionEntities;
 
             converter = new DikeAssessmentSectionEntityConverter();
 
-            dikePipingFailureMechanismEntityPersistor = new DikesPipingFailureMechanismEntityPersistor(dbContext);
-            hydraulicLocationEntityPersistor = new HydraulicLocationEntityPersistor(dbContext);
-            referenceLinePersistor = new ReferenceLinePersistor(dbContext);
+            dikePipingFailureMechanismEntityPersistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsContext);
+            hydraulicLocationEntityPersistor = new HydraulicLocationEntityPersistor(ringtoetsContext);
+            referenceLinePersistor = new ReferenceLinePersistor(ringtoetsContext);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace Application.Ringtoets.Storage.Persistors
         public void RemoveUnModifiedEntries(ICollection<DikeAssessmentSectionEntity> parentNavigationProperty)
         {
             var untouchedModifiedList = parentNavigationProperty.Where(e => e.DikeAssessmentSectionEntityId > 0 && !modifiedList.Contains(e));
-            dbContext.Set<DikeAssessmentSectionEntity>().RemoveRange(untouchedModifiedList);
+            dikeAssessmentSectionSet.RemoveRange(untouchedModifiedList);
 
             modifiedList.Clear();
         }
@@ -182,12 +182,7 @@ namespace Application.Ringtoets.Storage.Persistors
             dikePipingFailureMechanismEntityPersistor.UpdateModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
             dikePipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
 
-            if (model.HydraulicBoundaryDatabase != null)
-            {
-                hydraulicLocationEntityPersistor.UpdateModel(entity.HydraulicLocationEntities, model.HydraulicBoundaryDatabase);
-            }
-            hydraulicLocationEntityPersistor.RemoveUnModifiedEntries(entity.HydraulicLocationEntities);
-            
+            hydraulicLocationEntityPersistor.UpdateModel(entity.HydraulicLocationEntities, model.HydraulicBoundaryDatabase);
             referenceLinePersistor.InsertModel(entity.ReferenceLinePointEntities, model.ReferenceLine);
         }
 
@@ -199,15 +194,9 @@ namespace Application.Ringtoets.Storage.Persistors
         private void InsertChildren(DikeAssessmentSection model, DikeAssessmentSectionEntity entity)
         {
             dikePipingFailureMechanismEntityPersistor.InsertModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
-
-            if (model.HydraulicBoundaryDatabase != null)
-            {
-                hydraulicLocationEntityPersistor.InsertModel(entity.HydraulicLocationEntities, model.HydraulicBoundaryDatabase);
-            }
-
             dikePipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
-            hydraulicLocationEntityPersistor.RemoveUnModifiedEntries(entity.HydraulicLocationEntities);
 
+            hydraulicLocationEntityPersistor.InsertModel(entity.HydraulicLocationEntities, model.HydraulicBoundaryDatabase);
             referenceLinePersistor.InsertModel(entity.ReferenceLinePointEntities, model.ReferenceLine);
         }
 

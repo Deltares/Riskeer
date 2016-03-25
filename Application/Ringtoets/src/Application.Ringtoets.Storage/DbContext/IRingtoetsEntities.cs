@@ -31,26 +31,34 @@ namespace Application.Ringtoets.Storage.DbContext
     public interface IRingtoetsEntities
     {
         /// <summary>
-        /// <see cref="IDbSet{TEntity}"/> of <see cref="ProjectEntity"/>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="ProjectEntity"/> containing
+        /// every entity found in the database.
         /// </summary>
         DbSet<ProjectEntity> ProjectEntities { get; }
 
         /// <summary>
-        /// <see cref="IDbSet{TEntity}"/> of <see cref="DikeAssessmentSectionEntity"/>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="DikeAssessmentSectionEntity"/> containing
+        /// every entity found in the database.
         /// </summary>
         DbSet<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; }
 
         /// <summary>
-        /// <see cref="IDbSet{TEntity}"/> of <see cref="FailureMechanismEntity"/>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="FailureMechanismEntity"/> containing
+        /// every entity found in the database.
         /// </summary>
         DbSet<FailureMechanismEntity> FailureMechanismEntities { get; }
 
         /// <summary>
-        /// <see cref="IDbSet{TEntity}"/> of <see cref="HydraulicLocationEntity"/>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="HydraulicLocationEntity"/> containing
+        /// every entity found in the database.
         /// </summary>
         DbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; }
 
-        DbSet<TEntity> Set<TEntity>() where TEntity : class;
+        /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="HydraulicLocationEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<ReferenceLinePointEntity> ReferenceLinePointEntities { get; }
 
         /// <summary> 
         /// Persists all updates to the database and resets change tracking in the object context, see <see cref="ObjectContext.SaveChanges()"/>.

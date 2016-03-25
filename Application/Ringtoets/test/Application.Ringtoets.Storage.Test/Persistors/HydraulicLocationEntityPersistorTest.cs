@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Persistors;
+using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.HydraRing.Data;
@@ -59,8 +59,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void Constructor_EmptyDataSet_NewInstance()
         {
             // Setup
-
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
 
             // Call
@@ -76,9 +75,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void LoadModel_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
-            var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
+
+            var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
 
             // Call
             TestDelegate test = () => persistor.LoadModel(null);
@@ -93,9 +93,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void LoadModel_ValidEntityValidModel_EntityAsModel()
         {
             // Setup
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
-            var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
+
+            var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
 
             const string name = "test";
             const double designWaterLevel = 15.6;
@@ -136,11 +137,12 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void InsertModel_NullParentNavigationProperty_ThrowsArgumentNullException()
         {
             // Setup
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 1, 1));
-            mockRepository.ReplayAll();
 
             // Call
             TestDelegate test = () => persistor.InsertModel(null, hydraulicBoundaryDatabase);
@@ -156,10 +158,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void InsertModel_NullModel_DoesNotAddEntityInParentNavigationProperty()
         {
             // Setup
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
             var parentNavigationProperty = new List<HydraulicLocationEntity>();
-            mockRepository.ReplayAll();
 
             // Call
             TestDelegate test = () => persistor.InsertModel(parentNavigationProperty, null);
@@ -175,7 +178,9 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void InsertModel_SingleEntityInParentNavigationPropertyHydraulicLocationWithSameStorageId_HydraulicLocationAsEntityInParentNavigationProperty()
         {
             // Setup
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
 
             const long storageId = 1234L;
@@ -197,8 +202,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(model);
 
-            mockRepository.ReplayAll();
-
             // Call
             persistor.InsertModel(parentNavigationProperty, hydraulicBoundaryDatabase);
 
@@ -215,14 +218,14 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void InsertModel_LocationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
             IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>();
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(null);
-
-            mockRepository.ReplayAll();
 
             // Call
             TestDelegate test = () => persistor.InsertModel(parentNavigationProperty, hydraulicBoundaryDatabase);
@@ -237,14 +240,15 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void InsertModel_LocationToBig_ThrowsOverflowException()
         {
             // Setup
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
             IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>();
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", Double.PositiveInfinity, 1));
 
-            mockRepository.ReplayAll();
 
             // Call
             TestDelegate test = () => persistor.InsertModel(parentNavigationProperty, hydraulicBoundaryDatabase);
@@ -260,9 +264,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             const long storageId = 1234L;
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
-            var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
+
+            var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
 
             HydraulicBoundaryLocation model = new HydraulicBoundaryLocation(13001, "test", 13, 52)
             {
@@ -283,21 +288,20 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void UpdateModel_EmptyDatasetNullModel_ThrowsArgumentNullException()
+        public void UpdateModel_EmptyDatasetNullModel_DoesNotThrow()
         {
             // Setup
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
             IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>();
-            mockRepository.ReplayAll();
 
             // Call
             TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("model", exception.ParamName);
-            mockRepository.VerifyAll();
+            Assert.DoesNotThrow(test);
         }
 
         [Test]
@@ -306,10 +310,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             // Setup
             const long storageId = 1234L;
 
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
             IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>();
-            var expectedMessage = String.Format("Het object 'HydraulicLocationEntity' met id '{0}' is niet gevonden.", storageId);
 
             HydraulicBoundaryLocation model = new HydraulicBoundaryLocation(13001, "test", 13, 52)
             {
@@ -319,12 +324,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(model);
 
-            mockRepository.ReplayAll();
-
             // Call
             TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
 
             // Assert
+            var expectedMessage = String.Format("Het object 'HydraulicLocationEntity' met id '{0}' is niet gevonden.", storageId);
             var exception = Assert.Throws<EntityNotFoundException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
             mockRepository.VerifyAll();
@@ -335,8 +339,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             const long storageId = 1234L;
-            var expectedMessage = String.Format("Het object 'HydraulicLocationEntity' met id '{0}' is niet gevonden.", storageId);
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
             IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>
             {
@@ -358,12 +364,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(model);
 
-            mockRepository.ReplayAll();
-
             // Call
             TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
 
             // Assert
+            var expectedMessage = String.Format("Het object 'HydraulicLocationEntity' met id '{0}' is niet gevonden.", storageId);
             var exception = Assert.Throws<EntityNotFoundException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
             mockRepository.VerifyAll();
@@ -375,7 +380,9 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             // Setup
             const long storageId = 1234L;
 
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
             IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>
             {
@@ -393,8 +400,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(model);
 
-            mockRepository.ReplayAll();
-
             // Call
             persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
 
@@ -410,9 +415,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void UpdateModel_NoStorageIdSet_InsertNewEntity()
         {
             // Setup
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
-            var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
+
+            var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
 
             IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>();
             HydraulicBoundaryLocation model = new HydraulicBoundaryLocation(13001, "test", 13, 52)
@@ -438,14 +444,14 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void UpdateModel_LocationNull_ThrowsArgumentException()
         {
             // Setup
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
             IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>();
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(null);
-
-            mockRepository.ReplayAll();
 
             // Call
             TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
@@ -460,14 +466,14 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void UpdateModel_LocationToBig_ThrowsOverflowException()
         {
             // Setup
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
             IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>();
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", Double.PositiveInfinity, 1));
-
-            mockRepository.ReplayAll();
 
             // Call
             TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
@@ -483,22 +489,22 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             const long storageId = 0L; // Newly inserted entities have Id = 0 untill they are saved
+
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             HydraulicLocationEntity entityToDelete = new HydraulicLocationEntity
             {
                 HydraulicLocationEntityId = 4567L,
                 Name = "Entity to delete"
             };
 
+            ringtoetsEntitiesMock.HydraulicLocationEntities.Add(entityToDelete);
+
             ObservableCollection<HydraulicLocationEntity> parentNavigationProperty = new ObservableCollection<HydraulicLocationEntity>
             {
                 entityToDelete
             };
-
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
-
-            var set = mockRepository.StrictMock<DbSet<HydraulicLocationEntity>>();
-            ringtoetsEntitiesMock.Expect(c => c.Set<HydraulicLocationEntity>()).Return(set);
-            set.Expect(s => s.RemoveRange(Arg<IEnumerable<HydraulicLocationEntity>>.List.Equal(new[] { entityToDelete })));
 
             mockRepository.ReplayAll();
 
@@ -509,7 +515,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Call
             persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
-            persistor.RemoveUnModifiedEntries(parentNavigationProperty);
 
             // Assert
             Assert.AreEqual(2, parentNavigationProperty.Count);
@@ -521,103 +526,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void RemoveUnModifiedEntries_MultipleEntitiesInParentNavigationPropertySingleModelStorageId_UpdatedHydraulicLocationmAsEntityAndOtherDeletedInDbSet()
-        {
-            // Setup
-            const long storageId = 1234L;
-            HydraulicLocationEntity entityToUpdate = new HydraulicLocationEntity
-            {
-                HydraulicLocationEntityId = storageId,
-            };
-            HydraulicLocationEntity entityToDelete = new HydraulicLocationEntity
-            {
-                HydraulicLocationEntityId = 4567L,
-            };
-
-            ObservableCollection<HydraulicLocationEntity> parentNavigationProperty = new ObservableCollection<HydraulicLocationEntity>
-            {
-                entityToDelete,
-                entityToUpdate
-            };
-
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
-
-            var set = mockRepository.StrictMock<DbSet<HydraulicLocationEntity>>();
-            ringtoetsEntitiesMock.Expect(c => c.Set<HydraulicLocationEntity>()).Return(set);
-            set.Expect(s => s.RemoveRange(Arg<IEnumerable<HydraulicLocationEntity>>.List.Equal(new[] { entityToDelete })));
-
-            mockRepository.ReplayAll();
-
-            HydraulicLocationEntityPersistor persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(13001, "test", 13, 52)
-            {
-                StorageId = storageId
-            };
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-
-
-            TestDelegate updateTest = () => persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
-            Assert.DoesNotThrow(updateTest, "Precondition failed: Update should not throw exception.");
-
-            // Call
-            persistor.RemoveUnModifiedEntries(parentNavigationProperty);
-
-            // Assert
-            Assert.AreEqual(2, parentNavigationProperty.Count);
-            Assert.IsInstanceOf<HydraulicLocationEntity>(entityToUpdate);
-            Assert.AreEqual(storageId, entityToUpdate.HydraulicLocationEntityId);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void RemoveUnModifiedEntries_MultipleEntitiesInParentNavigationPropertyEmptyHydraulicLocation_EmptyDatabaseSet()
-        {
-            // Setup
-            HydraulicLocationEntity firstEntityToDelete = new HydraulicLocationEntity
-            {
-                HydraulicLocationEntityId = 1234L
-            };
-            HydraulicLocationEntity secondEntityToDelete = new HydraulicLocationEntity
-            {
-                HydraulicLocationEntityId = 4567L
-            };
-            ObservableCollection<HydraulicLocationEntity> parentNavigationProperty = new ObservableCollection<HydraulicLocationEntity>
-            {
-                firstEntityToDelete,
-                secondEntityToDelete
-            };
-
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
-            var set = mockRepository.StrictMock<DbSet<HydraulicLocationEntity>>();
-            ringtoetsEntitiesMock.Expect(c => c.Set<HydraulicLocationEntity>()).Return(set);
-            set.Expect(s => s.RemoveRange(Arg<IEnumerable<HydraulicLocationEntity>>.List.Equal(parentNavigationProperty.ToList())));
-            mockRepository.ReplayAll();
-
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(13001, "test", 13, 52);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-
-            HydraulicLocationEntityPersistor persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
-
-            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
-            Assert.DoesNotThrow(test, "Precondition failed: UpdateModel");
-
-            // Call
-            persistor.RemoveUnModifiedEntries(parentNavigationProperty);
-
-            // Assert
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void PerformPostSaveActions_NoInserts_DoesNotThrowException()
         {
             // Setup
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
-            HydraulicLocationEntityPersistor persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
+
+            HydraulicLocationEntityPersistor persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
 
             // Call
             TestDelegate test = () => persistor.PerformPostSaveActions();
@@ -635,14 +550,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void PerformPostSaveActions_MultipleModelsInsertedWithoutStorageId_ModelsWithStorageId(int numberOfInserts)
         {
             // Setup
-            var insertedHydraulicLocationEntities = new List<HydraulicLocationEntity>();
-            var parentNavigationPropertyMock = mockRepository.StrictMock<ICollection<HydraulicLocationEntity>>();
-            parentNavigationPropertyMock.Expect(m => m.Add(null)).IgnoreArguments().WhenCalled(x =>
-            {
-                var insertedDikeAssessmentSectionEntity = x.Arguments.GetValue(0);
-                Assert.IsInstanceOf<HydraulicLocationEntity>(insertedDikeAssessmentSectionEntity);
-                insertedHydraulicLocationEntities.Add((HydraulicLocationEntity) insertedDikeAssessmentSectionEntity);
-            }).Repeat.Times(numberOfInserts);
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
+            var parentNavigationProperty = new List<HydraulicLocationEntity>();
 
             IList<HydraulicBoundaryLocation> hydraulicLocations = new List<HydraulicBoundaryLocation>();
             for (var i = 0; i < numberOfInserts; i++)
@@ -656,13 +567,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.AddRange(hydraulicLocations);
 
-            var ringtoetsEntitiesMock = mockRepository.StrictMock<IRingtoetsEntities>();
             HydraulicLocationEntityPersistor persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
-            mockRepository.ReplayAll();
 
             try
             {
-                persistor.UpdateModel(parentNavigationPropertyMock, hydraulicBoundaryDatabase);
+                persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
             }
             catch (Exception)
             {
@@ -670,15 +579,15 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             }
 
             // Call
-            for (var i = 0; i < insertedHydraulicLocationEntities.Count; i++)
+            for (var i = 0; i < parentNavigationProperty.Count; i++)
             {
-                insertedHydraulicLocationEntities[i].HydraulicLocationEntityId = 1L + i;
+                parentNavigationProperty[i].HydraulicLocationEntityId = 1L + i;
             }
             persistor.PerformPostSaveActions();
 
             // Assert
-            Assert.AreEqual(hydraulicLocations.Count, insertedHydraulicLocationEntities.Count);
-            foreach (var entity in insertedHydraulicLocationEntities)
+            Assert.AreEqual(hydraulicLocations.Count, parentNavigationProperty.Count);
+            foreach (var entity in parentNavigationProperty)
             {
                 HydraulicBoundaryLocation insertedModel = hydraulicLocations.SingleOrDefault(x => x.StorageId == entity.HydraulicLocationEntityId);
                 Assert.IsNotNull(insertedModel);

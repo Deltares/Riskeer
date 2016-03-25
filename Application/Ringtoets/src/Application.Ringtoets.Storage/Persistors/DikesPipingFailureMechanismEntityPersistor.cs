@@ -31,54 +31,13 @@ namespace Application.Ringtoets.Storage.Persistors
     /// </summary>
     public class DikesPipingFailureMechanismEntityPersistor : FailureMechanismEntityPersistorBase<PipingFailureMechanism>
     {
-        private readonly PipingFailureMechanismEntityConverter converter;
-
         /// <summary>
         /// New instance of <see cref="DikesPipingFailureMechanismEntityPersistor"/>.
         /// </summary>
         /// <param name="ringtoetsContext">The storage context.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
-        public DikesPipingFailureMechanismEntityPersistor(IRingtoetsEntities ringtoetsContext) : base(ringtoetsContext) {
-            converter = new PipingFailureMechanismEntityConverter();
-        }
-
-        /// <summary>
-        /// Loads the <see cref="FailureMechanismEntity"/> as <see cref="PipingFailureMechanism"/>.
-        /// </summary>
-        /// <param name="entity"><see cref="FailureMechanismEntity"/> to load from.</param>
-        /// <param name="pipingFailureMechanism">The <see cref="PipingFailureMechanism"/>to load data in.</param>
-        /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c>.</item>
-        /// <item><paramref name="pipingFailureMechanism"/> is <c>null</c>.</item>
-        /// </list></exception>
-        public override void LoadModel(FailureMechanismEntity entity, PipingFailureMechanism pipingFailureMechanism)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-            if (pipingFailureMechanism == null)
-            {
-                throw new ArgumentNullException("pipingFailureMechanism");
-            }
-
-            if (entity.FailureMechanismType != (int) FailureMechanismType.DikesPipingFailureMechanism)
-            {
-                throw new ArgumentException(@"Incorrect modelType", "entity");
-            }
-
-            var model = ConvertEntityToModel(entity);
-            pipingFailureMechanism.StorageId = model.StorageId;
-        }
-
-        protected override void ConvertModelToEntity(PipingFailureMechanism model, FailureMechanismEntity entity)
-        {
-            converter.ConvertModelToEntity(model, entity);
-        }
-
-        protected override PipingFailureMechanism ConvertEntityToModel(FailureMechanismEntity entity)
-        {
-            return converter.ConvertEntityToModel(entity);
+        public DikesPipingFailureMechanismEntityPersistor(IRingtoetsEntities ringtoetsContext) : 
+            base(ringtoetsContext, new PipingFailureMechanismEntityConverter()) {
         }
     }
 }

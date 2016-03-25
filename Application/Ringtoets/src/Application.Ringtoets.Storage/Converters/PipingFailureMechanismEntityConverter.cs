@@ -39,6 +39,11 @@ namespace Application.Ringtoets.Storage.Converters
                 throw new ArgumentNullException("entity");
             }
 
+            if (entity.FailureMechanismType != (int)FailureMechanismType.DikesPipingFailureMechanism)
+            {
+                throw new ArgumentException(@"Incorrect modelType", "entity");
+            }
+
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.StorageId = entity.FailureMechanismEntityId;
 

@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// </summary>
     public class HydraulicLocationEntityPersistor
     {
-        private readonly IRingtoetsEntities ringtoetsContext;
+        private readonly DbSet<HydraulicLocationEntity> hydraulicLocationSet;
         private readonly HydraulicLocationConverter converter;
 
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> insertedList = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Persistors
                 throw new ArgumentNullException("ringtoetsContext");
             }
 
-            this.ringtoetsContext = ringtoetsContext;
+            hydraulicLocationSet = ringtoetsContext.HydraulicLocationEntities;
 
             converter = new HydraulicLocationConverter();
         }
@@ -86,7 +86,12 @@ namespace Application.Ringtoets.Storage.Persistors
         {
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                return;
+            }
+
+            if (parentNavigationProperty == null)
+            {
+                throw new ArgumentNullException("parentNavigationProperty");
             }
 
             foreach (var location in model.Locations)
@@ -100,11 +105,6 @@ namespace Application.Ringtoets.Storage.Persistors
                 {
                     InsertLocation(parentNavigationProperty, location);
                     continue;
-                }
-
-                if (parentNavigationProperty == null)
-                {
-                    throw new ArgumentNullException("parentNavigationProperty");
                 }
 
                 HydraulicLocationEntity entity;
@@ -126,6 +126,8 @@ namespace Application.Ringtoets.Storage.Persistors
 
                 converter.ConvertModelToEntity(location, entity);
             }
+
+            RemoveUnModifiedEntries(parentNavigationProperty);
         }
 
         /// <summary>
@@ -151,6 +153,8 @@ namespace Application.Ringtoets.Storage.Persistors
             {
                 InsertLocation(parentNavigationProperty, location);
             }
+
+            RemoveUnModifiedEntries(parentNavigationProperty);
         }
 
         /// <summary>
@@ -158,10 +162,10 @@ namespace Application.Ringtoets.Storage.Persistors
         /// </summary>
         /// <param name="parentNavigationProperty">List where <see cref="HydraulicLocationEntity"/> objects can be searched. 
         /// Usually, this collection is a navigation property of a <see cref="IDbSet{HydraulicLocationEntity}"/>.</param>
-        public void RemoveUnModifiedEntries(ICollection<HydraulicLocationEntity> parentNavigationProperty)
+        private void RemoveUnModifiedEntries(ICollection<HydraulicLocationEntity> parentNavigationProperty)
         {
             var untouchedModifiedList = parentNavigationProperty.Where(e => e.HydraulicLocationEntityId > 0 && !modifiedList.Contains(e));
-            ringtoetsContext.Set<HydraulicLocationEntity>().RemoveRange(untouchedModifiedList);
+            hydraulicLocationSet.RemoveRange(untouchedModifiedList);
 
             modifiedList.Clear();
         }
@@ -187,13 +191,16 @@ namespace Application.Ringtoets.Storage.Persistors
 
             var entity = new HydraulicLocationEntity();
             parentNavigationProperty.Add(entity);
-            insertedList.Add(entity, location);
 
             converter.ConvertModelToEntity(location, entity);
 
             if (location.StorageId > 0)
             {
                 modifiedList.Add(entity);
+            }
+            else
+            {
+                insertedList.Add(entity, location);
             }
         }
     }

@@ -117,14 +117,31 @@ namespace Application.Ringtoets.Storage.Test.Converters
             ProjectEntity projectEntity = new ProjectEntity();
             ProjectEntityConverter converter = new ProjectEntityConverter();
 
+            var timeStart = DateTime.Now.ToUniversalTime();
+            timeStart = Round(timeStart, false);
+
             // Call
             converter.ConvertModelToEntity(project, projectEntity);
 
+            var timeEnd = DateTime.Now.ToUniversalTime();
+            timeStart = Round(timeStart, true);
+
             // Assert
+            Assert.IsTrue(projectEntity.LastUpdated.HasValue);
+            var lastUpdatedDateTime = new DateTime(1970, 1, 1).AddSeconds(projectEntity.LastUpdated.Value);
+
             Assert.AreNotEqual(projectEntity, project);
             Assert.AreEqual(storageId, projectEntity.ProjectEntityId);
             Assert.AreEqual(description, projectEntity.Description);
-            Assert.IsNotNull(projectEntity.LastUpdated);
+            Assert.GreaterOrEqual(timeEnd.Ticks, lastUpdatedDateTime.Ticks);
+            Assert.LessOrEqual(timeStart.Ticks, lastUpdatedDateTime.Ticks);
+        }
+
+        private static DateTime Round(DateTime timeStart, bool up)
+        {
+            var tickSecond = 10000000;
+            timeStart = new DateTime(((timeStart.Ticks + (up ? tickSecond : -tickSecond) / 2)/tickSecond)*tickSecond);
+            return timeStart;
         }
     }
 }

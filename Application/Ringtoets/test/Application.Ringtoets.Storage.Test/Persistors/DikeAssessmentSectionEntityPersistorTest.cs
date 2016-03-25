@@ -26,7 +26,6 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Persistors;
-using Application.Ringtoets.Storage.Test.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -241,10 +240,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void InsertModel_NullParentNavigationProperty_ThrowsArgumentNullException()
         {
             // Setup
-            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
             var dikeAssessmentSection = new DikeAssessmentSection();
-            mockRepository.ReplayAll();
 
             // Call
             TestDelegate test = () => persistor.InsertModel(null, dikeAssessmentSection, 0);
@@ -279,7 +279,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const int norm = 30000;
 
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
-
             mockRepository.ReplayAll();
 
             ICollection<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>();
@@ -410,10 +409,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void UpdateModel_NullParentNavigationProperty_ThrowsArgumentNullException()
         {
             // Setup
-            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
             var dikeAssessmentSection = new DikeAssessmentSection();
-            mockRepository.ReplayAll();
 
             // Call
             TestDelegate test = () => persistor.UpdateModel(null, dikeAssessmentSection, 0);

@@ -35,9 +35,8 @@ namespace Application.Ringtoets.Storage.Converters
         /// Converts <paramref name="entity"/> to <see cref="Project"/>.
         /// </summary>
         /// <param name="entity">The <see cref="ProjectEntity"/> to convert.</param>
-        /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
         /// <returns>A new instance of <see cref="Project"/>, based on the properties of <paramref name="entity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> or <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         public Project ConvertEntityToModel(ProjectEntity entity)
         {
             if (entity == null)
@@ -45,9 +44,11 @@ namespace Application.Ringtoets.Storage.Converters
                 throw new ArgumentNullException("entity");
             }
 
-            var project = new Project();
-            project.StorageId = entity.ProjectEntityId;
-            project.Description = entity.Description;
+            var project = new Project
+            {
+                StorageId = entity.ProjectEntityId,
+                Description = entity.Description
+            };
 
             return project;
         }
@@ -73,7 +74,7 @@ namespace Application.Ringtoets.Storage.Converters
             }
             entity.ProjectEntityId = modelObject.StorageId;
             entity.Description = modelObject.Description;
-            entity.LastUpdated = new DateTime().Ticks;
+            entity.LastUpdated = (int)(DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1)).TotalSeconds;
         }
     }
 }

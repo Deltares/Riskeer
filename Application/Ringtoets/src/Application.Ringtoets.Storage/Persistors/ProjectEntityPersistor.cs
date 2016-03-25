@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// </summary>
     public class ProjectEntityPersistor
     {
-        private readonly DbSet<ProjectEntity> dbSet;
+        private readonly DbSet<ProjectEntity> projectEntitySet;
         private readonly ProjectEntityConverter converter;
         private readonly Dictionary<ProjectEntity, Project> insertedList = new Dictionary<ProjectEntity, Project>();
         private readonly ICollection<ProjectEntity> modifiedList = new List<ProjectEntity>();
@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Persistors
             {
                 throw new ArgumentNullException("ringtoetsContext");
             }
-            dbSet = ringtoetsContext.ProjectEntities;
+            projectEntitySet = ringtoetsContext.ProjectEntities;
 
             converter = new ProjectEntityConverter();
 
@@ -70,9 +70,28 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <exception cref="InvalidOperationException">Thrown when there are more than one elements in the sequence.</exception>
         public Project GetEntityAsModel()
         {
-            var entry = dbSet.SingleOrDefault();
+            var entry = projectEntitySet.SingleOrDefault();
+            if (entry == null)
+            {
+                return null;
+            }
+            var project = converter.ConvertEntityToModel(entry);
 
-            return LoadModel(entry);
+            var nrOfItems = entry.DikeAssessmentSectionEntities.Count;
+            var assessmentSections = new object[nrOfItems];
+
+            foreach (var sectionEntity in entry.DikeAssessmentSectionEntities)
+            {
+                assessmentSections[sectionEntity.Order] = dikeAssessmentSectionEntityPersistor.LoadModel(sectionEntity);
+            }
+
+            // Add to items sorted 
+            foreach (var assessmentSection in assessmentSections)
+            {
+                project.Items.Add(assessmentSection);
+            }
+
+            return project;
         }
 
         /// <summary>
@@ -85,7 +104,23 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <exception cref="NotSupportedException">The parentNavigationProperty is read-only.</exception>
         public void InsertModel(Project project)
         {
-            InsertModel(dbSet, project);
+            if (project == null)
+            {
+                throw new ArgumentNullException("project", @"Cannot update databaseSet when no project is set.");
+            }
+
+            var entity = new ProjectEntity();
+            projectEntitySet.Add(entity);
+            insertedList.Add(entity, project);
+
+            converter.ConvertModelToEntity(project, entity);
+
+            if (project.StorageId > 0)
+            {
+                modifiedList.Add(entity);
+            }
+
+            InsertChildren(project, entity);
         }
 
         /// <summary>
@@ -109,7 +144,7 @@ namespace Application.Ringtoets.Storage.Persistors
             ProjectEntity entity;
             try
             {
-                entity = dbSet.SingleOrDefault(db => db.ProjectEntityId == model.StorageId);
+                entity = projectEntitySet.SingleOrDefault(db => db.ProjectEntityId == model.StorageId);
             }
             catch (InvalidOperationException exception)
             {
@@ -130,8 +165,8 @@ namespace Application.Ringtoets.Storage.Persistors
         /// </summary>
         public void RemoveUnModifiedEntries()
         {
-            var untouchedList = dbSet.ToList().Where(e => !modifiedList.Contains(e));
-            dbSet.RemoveRange(untouchedList);
+            var untouchedList = projectEntitySet.ToList().Where(e => !modifiedList.Contains(e));
+            projectEntitySet.RemoveRange(untouchedList);
 
             modifiedList.Clear();
         }
@@ -145,52 +180,6 @@ namespace Application.Ringtoets.Storage.Persistors
             dikeAssessmentSectionEntityPersistor.PerformPostSaveActions();
         }
 
-        private void InsertModel(DbSet<ProjectEntity> parentNavigationProperty, Project project)
-        {
-            if (project == null)
-            {
-                throw new ArgumentNullException("project", @"Cannot update databaseSet when no project is set.");
-            }
-
-            var entity = new ProjectEntity();
-            dbSet.Add(entity);
-            insertedList.Add(entity, project);
-
-            converter.ConvertModelToEntity(project, entity);
-
-            if (project.StorageId > 0)
-            {
-                modifiedList.Add(entity);
-            }
-
-            InsertChildren(project, entity);
-        }
-
-        private Project LoadModel(ProjectEntity entity)
-        {
-            if (entity == null)
-            {
-                return null;
-            }
-            var project = converter.ConvertEntityToModel(entity);
-
-            var nrOfItems = entity.DikeAssessmentSectionEntities.Count;
-            var assessmentSections = new object[nrOfItems];
-
-            foreach (var sectionEntity in entity.DikeAssessmentSectionEntities)
-            {
-                assessmentSections[sectionEntity.Order] = dikeAssessmentSectionEntityPersistor.LoadModel(sectionEntity);
-            }
-
-            // Add to items sorted 
-            foreach (var assessmentSection in assessmentSections)
-            {
-                project.Items.Add(assessmentSection);
-            }
-
-            return project;
-        }
-
         /// <summary>
         /// Updates the children of <paramref name="project"/>, in reference to <paramref name="entity"/>, in the storage.
         /// </summary>
@@ -199,13 +188,10 @@ namespace Application.Ringtoets.Storage.Persistors
         private void UpdateChildren(Project project, ProjectEntity entity)
         {
             var order = 0;
-            foreach (var item in project.Items)
+            foreach (var item in project.Items.Where(i => i is DikeAssessmentSection).Cast<DikeAssessmentSection>())
             {
-                if (item is DikeAssessmentSection)
-                {
-                    dikeAssessmentSectionEntityPersistor.UpdateModel(entity.DikeAssessmentSectionEntities, (DikeAssessmentSection) item, order);
-                    order++;
-                }
+                dikeAssessmentSectionEntityPersistor.UpdateModel(entity.DikeAssessmentSectionEntities, item, order);
+                order++;
             }
             dikeAssessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.DikeAssessmentSectionEntities);
         }
@@ -218,13 +204,10 @@ namespace Application.Ringtoets.Storage.Persistors
         private void InsertChildren(Project project, ProjectEntity entity)
         {
             var order = 0;
-            foreach (var item in project.Items)
+            foreach (var item in project.Items.Where(i => i is DikeAssessmentSection).Cast<DikeAssessmentSection>())
             {
-                if (item is DikeAssessmentSection)
-                {
-                    dikeAssessmentSectionEntityPersistor.InsertModel(entity.DikeAssessmentSectionEntities, (DikeAssessmentSection) item, order);
-                    order++;
-                }
+                dikeAssessmentSectionEntityPersistor.InsertModel(entity.DikeAssessmentSectionEntities, item, order);
+                order++;
             }
             dikeAssessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.DikeAssessmentSectionEntities);
         }

@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Persistors;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -23,7 +24,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Assert
             var parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("ringtoetsContext", parameter);
+            Assert.AreEqual("ringtoetsEntities", parameter);
         } 
 
         [Test]
@@ -31,7 +32,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var mocks = new MockRepository();
-            var context = mocks.StrictMock<IRingtoetsEntities>();
+            var context = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
             // Call
@@ -47,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var mocks = new MockRepository();
-            var context = mocks.StrictMock<IRingtoetsEntities>();
+            var context = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
             var persistor = new ReferenceLinePersistor(context);
@@ -66,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var mocks = new MockRepository();
-            var context = mocks.StrictMock<IRingtoetsEntities>();
+            var context = RingtoetsEntitiesHelper.Create(mocks);
             var entities = new List<ReferenceLinePointEntity>();
             mocks.ReplayAll();
 
@@ -84,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var mocks = new MockRepository();
-            var context = mocks.StrictMock<IRingtoetsEntities>();
+            var context = RingtoetsEntitiesHelper.Create(mocks);
             var entities = new List<ReferenceLinePointEntity>();
             mocks.ReplayAll();
 
@@ -109,6 +110,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void InsertModel_WithNonEmptyEntityCollectionWithReferenceLine_EntityCollectionClearedAddsNewEntitiesToContext()
         {
             // Setup
+            var mocks = new MockRepository();
+            var context = RingtoetsEntitiesHelper.Create(mocks);
+            mocks.ReplayAll();
+
             var entities = new List<ReferenceLinePointEntity>();
             for (int i = 0; i < 3; i++)
             {
@@ -118,13 +123,9 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 });
             }
 
-            var mocks = new MockRepository();
-            var context = mocks.StrictMock<IRingtoetsEntities>();
-            var set = mocks.StrictMock<DbSet<ReferenceLinePointEntity>>();
-            context.Expect(c => c.Set<ReferenceLinePointEntity>()).Return(set);
-            set.Expect(s => s.RemoveRange(entities)).WhenCalled(z => entities.Clear());
-
-            mocks.ReplayAll();
+            context.ReferenceLinePointEntities.Add(entities[0]);
+            context.ReferenceLinePointEntities.Add(entities[1]);
+            context.ReferenceLinePointEntities.Add(new ReferenceLinePointEntity());
 
             var persistor = new ReferenceLinePersistor(context);
             var referenceLine = new ReferenceLine();
@@ -140,6 +141,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Assert
             AssertCreatedEntities(entities, referenceLine);
+            Assert.AreEqual(1, context.ReferenceLinePointEntities.Count());
             mocks.VerifyAll();
         }
 
@@ -148,7 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var mocks = new MockRepository();
-            var context = mocks.StrictMock<IRingtoetsEntities>();
+            var context = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
             var persistor = new ReferenceLinePersistor(context);
@@ -167,7 +169,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var mocks = new MockRepository();
-            var context = mocks.StrictMock<IRingtoetsEntities>();
+            var context = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
             var entities = new List<ReferenceLinePointEntity>();
@@ -186,7 +188,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var mocks = new MockRepository();
-            var context = mocks.StrictMock<IRingtoetsEntities>();
+            var context = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
             var entities = new List<ReferenceLinePointEntity>
@@ -225,7 +227,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var mocks = new MockRepository();
-            var context = mocks.StrictMock<IRingtoetsEntities>();
+            var context = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
             var entities = new List<ReferenceLinePointEntity>
@@ -259,7 +261,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mocks.VerifyAll();
         }
 
-        private void AssertCreatedEntities(List<ReferenceLinePointEntity> entities, ReferenceLine referenceLine)
+        private void AssertCreatedEntities(IList<ReferenceLinePointEntity> entities, ReferenceLine referenceLine)
         {
             Assert.AreEqual(entities.Count, referenceLine.Points.Count());
             for (int i = 0; i < entities.Count; i++)
