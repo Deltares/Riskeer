@@ -140,7 +140,11 @@ namespace Core.Components.DotSpatial.Forms
 
         private static void AddPadding(Extent extent)
         {
-            extent.ExpandBy(Math.Min(extent.Height, extent.Width)*0.05);
+            var padding = Math.Min(extent.Height, extent.Width)*0.05;
+            if (Math.Max(extent.Height, extent.Width) + padding <= Double.MaxValue)
+            {
+                extent.ExpandBy(padding);
+            }
         }
 
         private IEnvelope CreateEnvelopeForAllVisibleLayers()

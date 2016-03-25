@@ -203,6 +203,54 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
+        [TestCase(5.0, 5.0)]
+        [TestCase(5.0, 1.0)]
+        [TestCase(1.0, 5.0)]
+        [TestCase(Double.MaxValue*0.96, Double.MaxValue*0.96)]
+        [TestCase(Double.MaxValue, Double.MaxValue)]
+        public void ZoomToAllVisibleLayers_LayersOfVariousDimensions_ZoomToVisibleLayersExtent(double xMax, double yMax)
+        {
+            // Setup
+            var map = new MapControl();
+            var mapView = map.Controls.OfType<Map>().First();
+            var testData = new MapDataCollection(new List<MapData>
+            {
+                new MapPointData(new Collection<MapFeature>
+                {
+                    new MapFeature(new List<MapGeometry>
+                    {
+                        new MapGeometry(new List<Point2D>
+                        {
+                            new Point2D(0.0, 0.0),
+                            new Point2D(xMax, yMax)
+                        })
+                    })
+                }, "test data")
+            }, "test data");
+            map.Data.Add(testData);
+            map.Data.NotifyObservers();
+
+            var expectedExtent = new Extent(0.0, 0.0, xMax, yMax);
+            var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
+            expectedExtent.ExpandBy(smallest*padding);
+
+            // Call
+            map.ZoomToAllVisibleLayers();
+
+            // Assert
+            if (Double.IsInfinity(expectedExtent.Height) || Double.IsInfinity(expectedExtent.Width))
+            {
+                Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
+                Assert.AreNotEqual(expectedExtent, mapView.ViewExtents);
+            }
+            else
+            {
+                Assert.AreNotEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
+                Assert.AreEqual(expectedExtent, mapView.ViewExtents);
+            }
+        }
+
+        [Test]
         public void ToggleRectangleZooming_PanningIsEnabled_RectangleZoomingIsEnabled()
         {
             // Setup
