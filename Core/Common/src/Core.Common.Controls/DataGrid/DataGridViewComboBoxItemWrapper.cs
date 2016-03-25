@@ -101,5 +101,10 @@ namespace Core.Common.Controls.DataGrid
         {
             return EqualityComparer<T>.Default.GetHashCode(wrappedObject);
         }
+
+        public override string ToString()
+        {
+            return DisplayName;
+        }
     }
 }
