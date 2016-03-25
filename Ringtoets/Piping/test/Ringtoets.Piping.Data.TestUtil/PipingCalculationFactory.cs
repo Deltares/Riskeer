@@ -186,10 +186,5 @@ namespace Ringtoets.Piping.Data.TestUtil
             expectedThickness = 2.2;
             return input;
         }
-
-        public static double GetAccuracy(RoundedDouble roundedDouble)
-        {
-            return Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
-        }
     }
 }

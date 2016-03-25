@@ -133,7 +133,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
                 Assert.AreEqual(
                     PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), 
                     effectiveThicknessCalculator.PhreaticLevel,
-                    GetAccuracy(input.PhreaticLevelExit.Mean));
+                    input.PhreaticLevelExit.GetAccuracy());
                 AssertEqualSoilProfiles(input.SoilProfile, effectiveThicknessCalculator.SoilProfile);
                 AssertEqualSurfaceLines(input.SurfaceLine, effectiveThicknessCalculator.SurfaceLine);
                 Assert.AreEqual(input.WaterVolumetricWeight, effectiveThicknessCalculator.VolumicWeightOfWater);
@@ -162,9 +162,9 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
 
                 Assert.AreEqual(input.AssessmentLevel.Value, piezometricHeadAtExitCalculator.HRiver);
                 Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.PhiPolder,
-                                GetAccuracy(input.PhreaticLevelExit.Mean));
+                                input.PhreaticLevelExit.GetAccuracy());
                 Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.RExit,
-                                GetAccuracy(input.DampingFactorExit.Mean));
+                                input.DampingFactorExit.GetAccuracy());
             }
         }
 
@@ -211,11 +211,6 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             {
                 Assert.AreEqual(pipingProfile.Layers.ElementAt(i).Top, otherPipingProfile.Layers[i].TopLevel);
             }
-        }
-
-        private static double GetAccuracy(RoundedDouble roundedDouble)
-        {
-            return Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
         }
     }
 }

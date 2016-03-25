@@ -25,7 +25,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Probabilistics;
-using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -132,11 +131,11 @@ namespace Ringtoets.Piping.Data.Test
                 var factory = (TestPipingSubCalculatorFactory)PipingSubCalculatorFactory.Instance;
                 var piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
 
-                Assert.AreEqual(piezometricHeadAtExitCalculator.HRiver, derivedInput.AssessmentLevel.Value, PipingCalculationFactory.GetAccuracy(derivedInput.AssessmentLevel));
+                Assert.AreEqual(piezometricHeadAtExitCalculator.HRiver, derivedInput.AssessmentLevel, derivedInput.AssessmentLevel.GetAccuracy());
                 Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.PhiPolder,
-                                PipingCalculationFactory.GetAccuracy(input.PhreaticLevelExit.Mean));
+                                input.PhreaticLevelExit.GetAccuracy());
                 Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.RExit,
-                                PipingCalculationFactory.GetAccuracy(input.DampingFactorExit.Mean));
+                                input.DampingFactorExit.GetAccuracy());
             }
         }
 

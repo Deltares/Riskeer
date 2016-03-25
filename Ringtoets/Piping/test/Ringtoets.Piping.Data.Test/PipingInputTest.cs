@@ -385,11 +385,11 @@ namespace Ringtoets.Piping.Data.Test
                 var factory = (TestPipingSubCalculatorFactory)PipingSubCalculatorFactory.Instance;
                 var piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
 
-                Assert.AreEqual(piezometricHeadAtExitCalculator.HRiver, input.AssessmentLevel.Value, PipingCalculationFactory.GetAccuracy(input.AssessmentLevel));
+                Assert.AreEqual(piezometricHeadAtExitCalculator.HRiver, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
                 Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.PhiPolder,
-                                PipingCalculationFactory.GetAccuracy(input.PhreaticLevelExit.Mean));
+                                input.PhreaticLevelExit.GetAccuracy());
                 Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.RExit,
-                                PipingCalculationFactory.GetAccuracy(input.DampingFactorExit.Mean));
+                                input.DampingFactorExit.GetAccuracy());
             }
         }
 

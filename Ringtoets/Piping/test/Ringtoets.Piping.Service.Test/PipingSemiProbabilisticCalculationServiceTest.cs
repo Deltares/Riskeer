@@ -3,6 +3,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 
 namespace Ringtoets.Piping.Service.Test
 {
@@ -31,7 +32,7 @@ namespace Ringtoets.Piping.Service.Test
             RoundedDouble result = calculation.SemiProbabilisticOutput.UpliftProbability;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, GetAccuracy(result));
+            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }
 
         [Test]
@@ -56,7 +57,7 @@ namespace Ringtoets.Piping.Service.Test
             RoundedDouble result = calculation.SemiProbabilisticOutput.HeaveProbability;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, GetAccuracy(result));
+            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }
 
         [Test]
@@ -81,7 +82,7 @@ namespace Ringtoets.Piping.Service.Test
             RoundedDouble result = calculation.SemiProbabilisticOutput.SellmeijerProbability;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, GetAccuracy(result));
+            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }
 
         [Test]
@@ -108,7 +109,7 @@ namespace Ringtoets.Piping.Service.Test
             RoundedDouble result = calculation.SemiProbabilisticOutput.PipingReliability;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, GetAccuracy(result));
+            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }
 
         [Test]
@@ -134,7 +135,7 @@ namespace Ringtoets.Piping.Service.Test
             RoundedDouble result = calculation.SemiProbabilisticOutput.RequiredReliability;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, GetAccuracy(result));
+            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }
 
         [Test]
@@ -165,7 +166,7 @@ namespace Ringtoets.Piping.Service.Test
             RoundedDouble result = calculation.SemiProbabilisticOutput.PipingFactorOfSafety;
 
             // Assert
-            Assert.AreEqual(expectedResult, result, GetAccuracy(result));
+            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }
 
         [Test]
@@ -195,7 +196,7 @@ namespace Ringtoets.Piping.Service.Test
             RoundedDouble result = calculation.SemiProbabilisticOutput.PipingFactorOfSafety;
 
             // Assert
-            Assert.AreEqual(calculation.SemiProbabilisticOutput.RequiredReliability / calculation.SemiProbabilisticOutput.PipingReliability, result, GetAccuracy(result));
+            Assert.AreEqual(calculation.SemiProbabilisticOutput.RequiredReliability / calculation.SemiProbabilisticOutput.PipingReliability, result, result.GetAccuracy());
         }
 
         [Test]
@@ -220,7 +221,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Assert
             RoundedDouble result = pipingCalculation.SemiProbabilisticOutput.PipingFactorOfSafety;
-            Assert.AreEqual(1.134713444, result, GetAccuracy(result));
+            Assert.AreEqual(1.134713444, result, result.GetAccuracy());
         }
 
         [Test]
@@ -243,11 +244,6 @@ namespace Ringtoets.Piping.Service.Test
             {
                 Output = pipingOutput
             };
-        }
-
-        private static double GetAccuracy(RoundedDouble d)
-        {
-            return Math.Pow(10.0, -d.NumberOfDecimalPlaces);
         }
     }
 }

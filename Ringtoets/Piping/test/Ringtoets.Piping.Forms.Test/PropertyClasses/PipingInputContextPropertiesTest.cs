@@ -11,6 +11,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.TypeConverters;
@@ -170,34 +171,34 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Assert
-            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel, GetAccuracy(inputParameters.AssessmentLevel));
+            Assert.AreEqual(assessmentLevel, inputParameters.AssessmentLevel, inputParameters.AssessmentLevel.GetAccuracy());
 
-            Assert.AreEqual(dampingFactorExit.Mean.Value, inputParameters.DampingFactorExit.Mean.Value,
-                            GetAccuracy(inputParameters.DampingFactorExit));
-            Assert.AreEqual(dampingFactorExit.StandardDeviation.Value, inputParameters.DampingFactorExit.StandardDeviation.Value,
-                            GetAccuracy(inputParameters.DampingFactorExit));
+            Assert.AreEqual(dampingFactorExit.Mean, inputParameters.DampingFactorExit.Mean,
+                            inputParameters.DampingFactorExit.GetAccuracy());
+            Assert.AreEqual(dampingFactorExit.StandardDeviation, inputParameters.DampingFactorExit.StandardDeviation,
+                            inputParameters.DampingFactorExit.GetAccuracy());
 
             Assert.AreEqual(phreaticLevelExit.Mean, inputParameters.PhreaticLevelExit.Mean,
-                            GetAccuracy(inputParameters.PhreaticLevelExit));
+                            inputParameters.PhreaticLevelExit.GetAccuracy());
             Assert.AreEqual(phreaticLevelExit.StandardDeviation, inputParameters.PhreaticLevelExit.StandardDeviation,
-                            GetAccuracy(inputParameters.PhreaticLevelExit));
+                            inputParameters.PhreaticLevelExit.GetAccuracy());
 
             Assert.AreEqual(diameter70.Mean, inputParameters.Diameter70.Mean,
-                            GetAccuracy(inputParameters.Diameter70));
+                            inputParameters.Diameter70.GetAccuracy());
             Assert.AreEqual(diameter70.StandardDeviation, inputParameters.Diameter70.StandardDeviation,
-                            GetAccuracy(inputParameters.Diameter70));
+                            inputParameters.Diameter70.GetAccuracy());
 
             Assert.AreEqual(darcyPermeability.Mean, inputParameters.DarcyPermeability.Mean,
-                            GetAccuracy(inputParameters.DarcyPermeability));
+                            inputParameters.DarcyPermeability.GetAccuracy());
             Assert.AreEqual(darcyPermeability.StandardDeviation, inputParameters.DarcyPermeability.StandardDeviation,
-                            GetAccuracy(inputParameters.DarcyPermeability));
+                            inputParameters.DarcyPermeability.GetAccuracy());
 
             Assert.AreEqual(saturatedVolumicWeightOfCoverageLoayer.Mean, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean,
-                            GetAccuracy(inputParameters.SaturatedVolumicWeightOfCoverageLayer));
+                            inputParameters.SaturatedVolumicWeightOfCoverageLayer.GetAccuracy());
             Assert.AreEqual(saturatedVolumicWeightOfCoverageLoayer.StandardDeviation, inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation,
-                            GetAccuracy(inputParameters.SaturatedVolumicWeightOfCoverageLayer));
+                            inputParameters.SaturatedVolumicWeightOfCoverageLayer.GetAccuracy());
             Assert.AreEqual(saturatedVolumicWeightOfCoverageLoayer.Shift, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift,
-                            GetAccuracy(inputParameters.SaturatedVolumicWeightOfCoverageLayer));
+                            inputParameters.SaturatedVolumicWeightOfCoverageLayer.GetAccuracy());
 
             Assert.AreEqual(surfaceLine, inputParameters.SurfaceLine);
             Assert.AreEqual(soilProfile, inputParameters.SoilProfile);
@@ -428,7 +429,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
-            Assert.AreEqual(testLevel, properties.AssessmentLevel.Value, 1e-2);
+            Assert.AreEqual(testLevel, properties.AssessmentLevel, 1e-2);
 
             mocks.VerifyAll();
         }
@@ -471,16 +472,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Then
             Assert.IsFalse(double.IsNaN(inputParameters.PiezometricHeadExit));
             mocks.VerifyAll();
-        }
-
-        private double GetAccuracy(RoundedDouble roundedDouble)
-        {
-            return Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
-        }
-
-        private double GetAccuracy(IDistribution distribution)
-        {
-            return Math.Pow(10.0, -distribution.Mean.NumberOfDecimalPlaces);
         }
 
         private static RingtoetsPipingSurfaceLine ValidSurfaceLine(double xMin, double xMax)

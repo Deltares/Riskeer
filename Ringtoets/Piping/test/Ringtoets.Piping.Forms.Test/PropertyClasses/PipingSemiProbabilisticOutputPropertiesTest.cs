@@ -1,8 +1,8 @@
 ﻿using System;
-using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
@@ -64,26 +64,20 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Call & Assert
-            Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, GetAccuracy(properties.UpliftFactorOfSafety));
-            Assert.AreEqual(upliftReliability, properties.UpliftReliability, GetAccuracy(properties.UpliftReliability));
-            Assert.AreEqual(upliftProbability, properties.UpliftProbability, GetAccuracy(properties.UpliftProbability));
-            Assert.AreEqual(heaveFactorOfSafety, properties.HeaveFactorOfSafety, GetAccuracy(properties.HeaveFactorOfSafety));
-            Assert.AreEqual(heaveReliability, properties.HeaveReliability, GetAccuracy(properties.HeaveReliability));
-            Assert.AreEqual(heaveProbability, properties.HeaveProbability, GetAccuracy(properties.HeaveProbability));
-            Assert.AreEqual(sellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety, GetAccuracy(properties.SellmeijerFactorOfSafety));
-            Assert.AreEqual(sellmeijerReliability, properties.SellmeijerReliability, GetAccuracy(properties.SellmeijerReliability));
-            Assert.AreEqual(sellmeijerProbability, properties.SellmeijerProbability, GetAccuracy(properties.SellmeijerProbability));
-            Assert.AreEqual(requiredProbability, properties.RequiredProbability, GetAccuracy(properties.RequiredProbability));
-            Assert.AreEqual(requiredReliability, properties.RequiredReliability, GetAccuracy(properties.RequiredReliability));
-            Assert.AreEqual(pipingProbability, properties.PipingProbability, GetAccuracy(properties.PipingProbability));
-            Assert.AreEqual(pipingReliability, properties.PipingReliability, GetAccuracy(properties.PipingReliability));
-            Assert.AreEqual(pipingFactorOfSafety, properties.PipingFactorOfSafety, GetAccuracy(properties.PipingFactorOfSafety));
-        }
-
-
-        private static double GetAccuracy(RoundedDouble d)
-        {
-            return Math.Pow(10.0, -d.NumberOfDecimalPlaces);
+            Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, properties.UpliftFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(upliftReliability, properties.UpliftReliability, properties.UpliftReliability.GetAccuracy());
+            Assert.AreEqual(upliftProbability, properties.UpliftProbability, properties.UpliftProbability.GetAccuracy());
+            Assert.AreEqual(heaveFactorOfSafety, properties.HeaveFactorOfSafety, properties.HeaveFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(heaveReliability, properties.HeaveReliability, properties.HeaveReliability.GetAccuracy());
+            Assert.AreEqual(heaveProbability, properties.HeaveProbability, properties.HeaveProbability.GetAccuracy());
+            Assert.AreEqual(sellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(sellmeijerReliability, properties.SellmeijerReliability, properties.SellmeijerReliability.GetAccuracy());
+            Assert.AreEqual(sellmeijerProbability, properties.SellmeijerProbability, properties.SellmeijerProbability.GetAccuracy());
+            Assert.AreEqual(requiredProbability, properties.RequiredProbability, properties.RequiredProbability.GetAccuracy());
+            Assert.AreEqual(requiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
+            Assert.AreEqual(pipingProbability, properties.PipingProbability, properties.PipingProbability.GetAccuracy());
+            Assert.AreEqual(pipingReliability, properties.PipingReliability, properties.PipingReliability.GetAccuracy());
+            Assert.AreEqual(pipingFactorOfSafety, properties.PipingFactorOfSafety, properties.PipingFactorOfSafety.GetAccuracy());
         }
     }
 }
