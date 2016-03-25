@@ -179,7 +179,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_" xml:space="preserve">
     <value>Er konden geen karakteristieke punten gevonden worden voor locatie '{0}'.</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_file_0_" xml:space="preserve">
+  <data name="PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_" xml:space="preserve">
     <value>Begonnen met het inlezen van karakteristieke punten uit bestand '{0}'.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_" xml:space="preserve">
@@ -235,5 +235,20 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_Start_checking_soil_profiles" xml:space="preserve">
     <value>Controleren van ondergrondprofielen.</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Finished_adding_surface_lines" xml:space="preserve">
+    <value>Klaar met plaatsen van profielschematisaties in het faalmechanisme.</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Start_adding_surface_lines" xml:space="preserve">
+    <value>Begonnen met plaatsen van profielschematiseringen in het faalmechanisme.</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_" xml:space="preserve">
+    <value>Begonnen met het inlezen van profielschematisaties uit bestand '{0}'.</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_" xml:space="preserve">
+    <value>Klaar met het inlezen van profielschematisaties uit bestand '{0}'.</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_" xml:space="preserve">
+    <value>Klaar met het inlezen van karakteristieke punten uit bestand '{0}'.</value>
   </data>
 </root>

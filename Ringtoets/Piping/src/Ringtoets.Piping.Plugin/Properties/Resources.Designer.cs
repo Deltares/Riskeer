@@ -236,12 +236,31 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Klaar met plaatsen van profielschematisaties in het faalmechanisme..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Finished_adding_surface_lines {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Finished_adding_surface_line" +
+                        "s", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er konden geen karakteristieke punten gevonden worden voor locatie &apos;{0}&apos;..
         /// </summary>
         public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_ {
             get {
                 return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for" +
                         "_SurfaceLine_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Begonnen met plaatsen van profielschematiseringen in het faalmechanisme..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Start_adding_surface_lines {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Start_adding_surface_lines", resourceCulture);
             }
         }
         
@@ -360,6 +379,16 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Klaar met het inlezen van karakteristieke punten uit bestand &apos;{0}&apos;..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_characteristic_points_from_File_0_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Finished_reading_character" +
+                        "istic_points_from_File_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} 
         ///Deze locatie met karakteristieke punten wordt overgeslagen..
         /// </summary>
@@ -373,10 +402,10 @@ namespace Ringtoets.Piping.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Begonnen met het inlezen van karakteristieke punten uit bestand &apos;{0}&apos;..
         /// </summary>
-        public static string PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_file_0_ {
+        public static string PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characteristic_points_from_File_0_ {
             get {
                 return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_Start_reading_characterist" +
-                        "ic_points_from_file_0_", resourceCulture);
+                        "ic_points_from_File_0_", resourceCulture);
             }
         }
         
@@ -406,6 +435,26 @@ namespace Ringtoets.Piping.Plugin.Properties {
             get {
                 return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceL" +
                         "ine_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klaar met het inlezen van profielschematisaties uit bestand &apos;{0}&apos;..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_fro" +
+                        "m_File_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Begonnen met het inlezen van profielschematisaties uit bestand &apos;{0}&apos;..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_F" +
+                        "ile_0_", resourceCulture);
             }
         }
         
