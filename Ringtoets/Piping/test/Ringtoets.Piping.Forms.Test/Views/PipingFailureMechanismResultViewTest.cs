@@ -22,6 +22,7 @@
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Views;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -42,7 +43,21 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetData_DataSet()
+        public void Data_SetPipingFailureMechanismResultData_DataSet()
+        {
+            // Setup
+            var testData = new PipingFailureMechanismResult();
+            var view = new PipingFailureMechanismResultView();
+
+            // Call
+            view.Data = testData;
+
+            // Assert
+            Assert.AreSame(testData, view.Data);
+        }
+
+        [Test]
+        public void Data_SetOtherThanPipingFailureMechanismResultData_DataNull()
         {
             // Setup
             var testData = new object();
@@ -52,7 +67,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             view.Data = testData;
 
             // Assert
-            Assert.AreSame(testData, view.Data);
+            Assert.IsNull(view.Data);
         }
     }
 }

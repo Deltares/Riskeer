@@ -30,6 +30,8 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public partial class PipingFailureMechanismResultView : UserControl, IView
     {
+        private PipingFailureMechanismResult pipingFailureMechanismResult;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
         /// </summary>
@@ -38,6 +40,16 @@ namespace Ringtoets.Piping.Forms.Views
             InitializeComponent();
         }
 
-        public object Data { get; set; }
+        public object Data 
+        {
+            get
+            {
+                return pipingFailureMechanismResult;
+            }
+            set
+            {
+                pipingFailureMechanismResult = value as PipingFailureMechanismResult;
+            }
+        }
     }
 }

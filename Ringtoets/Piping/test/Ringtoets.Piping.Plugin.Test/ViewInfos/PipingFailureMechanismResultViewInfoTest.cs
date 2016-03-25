@@ -21,11 +21,14 @@
 
 using System.Linq;
 using Core.Common.Gui.Plugin;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 {
@@ -87,6 +90,83 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             //
             Assert.AreEqual("Oordeel", viewName);
+        }
+
+        [Test]
+        public void Image_Always_ReturnsGenericInputOutputIcon()
+        {
+            // Call
+            var image = info.Image;
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+        }
+
+        [Test]
+        public void CloseForData_AssessmentSectionRemovedWithoutPipingFailureMechanism_ReturnsFalse()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingFailureMechanismResultMock = mocks.StrictMock<PipingFailureMechanismResult>();
+
+            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanismResultMock);
+            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+
+            mocks.ReplayAll();
+
+            // Call
+            var closeForData = info.CloseForData(viewMock, assessmentSectionMock);
+
+            // Assert
+            Assert.IsFalse(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismResultMock = mocks.StrictMock<PipingFailureMechanismResult>();
+
+            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanismResultMock);
+            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            {
+                pipingFailureMechanismMock
+            });
+
+            mocks.ReplayAll();
+
+            // Call
+            var closeForData = info.CloseForData(viewMock, assessmentSectionMock);
+
+            // Assert
+            Assert.IsFalse(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+
+            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanismMock.AssessmentResult);
+            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            {
+                pipingFailureMechanismMock
+            });
+            
+            mocks.ReplayAll();
+
+            // Call
+            var closeForData = info.CloseForData(viewMock, assessmentSectionMock);
+
+            // Assert
+            Assert.IsTrue(closeForData);
         }
     }
 }

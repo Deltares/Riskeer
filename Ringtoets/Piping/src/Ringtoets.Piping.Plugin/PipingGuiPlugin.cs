@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -95,7 +96,8 @@ namespace Ringtoets.Piping.Plugin
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 GetViewData = context => context.FailureMechanismResult,
-
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                CloseForData = ClosePipingFailureMechanismResultViewForData
             };
         }
 
@@ -286,6 +288,29 @@ namespace Ringtoets.Piping.Plugin
         }
 
         #endregion endregion
+
+
+        #region PipingFailureMechanismResult ViewInfo
+
+        private static bool ClosePipingFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object o)
+        {
+            var assessmentSectionBase = o as AssessmentSectionBase;
+            if (assessmentSectionBase != null)
+            {
+                var pipingFailureMechanism = assessmentSectionBase.GetFailureMechanisms()
+                                                                    .OfType<PipingFailureMechanism>()
+                                                                    .FirstOrDefault();
+
+                if (pipingFailureMechanism != null)
+                {
+                    return view.Data == pipingFailureMechanism.AssessmentResult;
+                }
+            }
+
+            return false;
+        }
+
+        #endregion
 
         # region PipingFailureMechanism TreeNodeInfo
 
