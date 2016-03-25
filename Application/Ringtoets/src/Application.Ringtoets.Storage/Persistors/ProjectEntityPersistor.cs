@@ -38,8 +38,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// </summary>
     public class ProjectEntityPersistor
     {
-        private readonly IRingtoetsEntities dbContext;
-        private readonly IDbSet<ProjectEntity> dbSet;
+        private readonly DbSet<ProjectEntity> dbSet;
         private readonly ProjectEntityConverter converter;
         private readonly Dictionary<ProjectEntity, Project> insertedList = new Dictionary<ProjectEntity, Project>();
         private readonly ICollection<ProjectEntity> modifiedList = new List<ProjectEntity>();
@@ -57,12 +56,11 @@ namespace Application.Ringtoets.Storage.Persistors
             {
                 throw new ArgumentNullException("ringtoetsContext");
             }
-            dbContext = ringtoetsContext;
-            dbSet = dbContext.ProjectEntities;
+            dbSet = ringtoetsContext.ProjectEntities;
 
             converter = new ProjectEntityConverter();
 
-            dikeAssessmentSectionEntityPersistor = new DikeAssessmentSectionEntityPersistor(dbContext);
+            dikeAssessmentSectionEntityPersistor = new DikeAssessmentSectionEntityPersistor(ringtoetsContext);
         }
 
         /// <summary>
@@ -87,7 +85,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <exception cref="NotSupportedException">The parentNavigationProperty is read-only.</exception>
         public void InsertModel(Project project)
         {
-            InsertModel(dbSet.Local, project);
+            InsertModel(dbSet, project);
         }
 
         /// <summary>
@@ -104,33 +102,6 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <exception cref="NotSupportedException">The parentNavigationProperty is read-only.</exception>
         public void UpdateModel(Project model)
         {
-            UpdateModel(dbSet.Local, model);
-        }
-
-        /// <summary>
-        /// Removes all entities from <see cref="IRingtoetsEntities.ProjectEntities"/> that are not marked as 'updated'.
-        /// </summary>
-        /// <param name="parentNavigationProperty">List where <see cref="ProjectEntity"/> objects can be searched. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
-        /// <exception cref="NotSupportedException">Thrown when the <paramref name="parentNavigationProperty"/> is read-only.</exception>
-        public void RemoveUnModifiedEntries(ICollection<ProjectEntity> parentNavigationProperty)
-        {
-            var untouchedList = parentNavigationProperty.Where(e => !modifiedList.Contains(e));
-            dbContext.Set<ProjectEntity>().RemoveRange(untouchedList);
-
-            modifiedList.Clear();
-        }
-
-        /// <summary>
-        /// Perform actions that can only be executed after <see cref="IRingtoetsEntities.SaveChanges"/> has been called.
-        /// </summary>
-        public void PerformPostSaveActions()
-        {
-            UpdateStorageIdsInModel();
-            dikeAssessmentSectionEntityPersistor.PerformPostSaveActions();
-        }
-
-        private void UpdateModel(ICollection<ProjectEntity> parentNavigationProperty, Project model)
-        {
             if (model == null)
             {
                 throw new ArgumentNullException("model", @"Cannot update databaseSet when no project is set.");
@@ -138,7 +109,7 @@ namespace Application.Ringtoets.Storage.Persistors
             ProjectEntity entity;
             try
             {
-                entity = parentNavigationProperty.SingleOrDefault(db => db.ProjectEntityId == model.StorageId);
+                entity = dbSet.SingleOrDefault(db => db.ProjectEntityId == model.StorageId);
             }
             catch (InvalidOperationException exception)
             {
@@ -154,7 +125,27 @@ namespace Application.Ringtoets.Storage.Persistors
             UpdateChildren(model, entity);
         }
 
-        private void InsertModel(ICollection<ProjectEntity> parentNavigationProperty, Project project)
+        /// <summary>
+        /// Removes all entities from <see cref="IRingtoetsEntities.ProjectEntities"/> that are not marked as 'updated'.
+        /// </summary>
+        public void RemoveUnModifiedEntries()
+        {
+            var untouchedList = dbSet.ToList().Where(e => !modifiedList.Contains(e));
+            dbSet.RemoveRange(untouchedList);
+
+            modifiedList.Clear();
+        }
+
+        /// <summary>
+        /// Perform actions that can only be executed after <see cref="IRingtoetsEntities.SaveChanges"/> has been called.
+        /// </summary>
+        public void PerformPostSaveActions()
+        {
+            UpdateStorageIdsInModel();
+            dikeAssessmentSectionEntityPersistor.PerformPostSaveActions();
+        }
+
+        private void InsertModel(DbSet<ProjectEntity> parentNavigationProperty, Project project)
         {
             if (project == null)
             {
@@ -162,7 +153,7 @@ namespace Application.Ringtoets.Storage.Persistors
             }
 
             var entity = new ProjectEntity();
-            parentNavigationProperty.Add(entity);
+            dbSet.Add(entity);
             insertedList.Add(entity, project);
 
             converter.ConvertModelToEntity(project, entity);

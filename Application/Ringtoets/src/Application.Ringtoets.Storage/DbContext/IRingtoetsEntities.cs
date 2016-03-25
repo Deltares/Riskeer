@@ -33,22 +33,22 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <summary>
         /// <see cref="IDbSet{TEntity}"/> of <see cref="ProjectEntity"/>
         /// </summary>
-        IDbSet<ProjectEntity> ProjectEntities { get; }
+        DbSet<ProjectEntity> ProjectEntities { get; }
 
         /// <summary>
         /// <see cref="IDbSet{TEntity}"/> of <see cref="DikeAssessmentSectionEntity"/>
         /// </summary>
-        IDbSet<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; }
+        DbSet<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; }
 
         /// <summary>
         /// <see cref="IDbSet{TEntity}"/> of <see cref="FailureMechanismEntity"/>
         /// </summary>
-        IDbSet<FailureMechanismEntity> FailureMechanismEntities { get; }
+        DbSet<FailureMechanismEntity> FailureMechanismEntities { get; }
 
         /// <summary>
         /// <see cref="IDbSet{TEntity}"/> of <see cref="HydraulicLocationEntity"/>
         /// </summary>
-        IDbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; }
+        DbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; }
 
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
 

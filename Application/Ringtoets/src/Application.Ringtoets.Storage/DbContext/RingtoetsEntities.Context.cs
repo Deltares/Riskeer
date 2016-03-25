@@ -52,11 +52,11 @@ namespace Application.Ringtoets.Storage.DbContext
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual IDbSet<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; set; }
-        public virtual IDbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
-        public virtual IDbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
-        public virtual IDbSet<ProjectEntity> ProjectEntities { get; set; }
-        public virtual IDbSet<ReferenceLinePointEntity> ReferenceLinePointEntities { get; set; }
-        public virtual IDbSet<Version> Versions { get; set; }
+        public virtual DbSet<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; set; }
+        public virtual DbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
+        public virtual DbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
+        public virtual DbSet<ProjectEntity> ProjectEntities { get; set; }
+        public virtual DbSet<ReferenceLinePointEntity> ReferenceLinePointEntities { get; set; }
+        public virtual DbSet<Version> Versions { get; set; }
     }
 }

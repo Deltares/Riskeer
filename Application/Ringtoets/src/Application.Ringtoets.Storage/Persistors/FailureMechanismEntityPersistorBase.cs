@@ -23,13 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Ringtoets.Common.Data;
-using Ringtoets.Integration.Data;
-using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
 {
@@ -38,7 +35,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// </summary>
     public abstract class FailureMechanismEntityPersistorBase<T> where T : IFailureMechanism
     {
-        private readonly IRingtoetsEntities dbContext;
+        private readonly DbSet<FailureMechanismEntity> dbSet;
         private readonly Dictionary<FailureMechanismEntity, T> insertedList = new Dictionary<FailureMechanismEntity, T>();
         private readonly ICollection<FailureMechanismEntity> modifiedList = new List<FailureMechanismEntity>();
 
@@ -53,7 +50,7 @@ namespace Application.Ringtoets.Storage.Persistors
             {
                 throw new ArgumentNullException("ringtoetsContext");
             }
-            dbContext = ringtoetsContext;
+            dbSet = ringtoetsContext.FailureMechanismEntities;
         }
 
         /// <summary>
@@ -159,7 +156,7 @@ namespace Application.Ringtoets.Storage.Persistors
                 // If id = 0, the entity is marked as inserted
                 if (toDelete.FailureMechanismEntityId > 0)
                 {
-                    dbContext.FailureMechanismEntities.Remove(toDelete);
+                    dbSet.Remove(toDelete);
                 }
             }
 

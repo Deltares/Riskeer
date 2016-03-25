@@ -130,10 +130,10 @@ namespace Application.Ringtoets.Storage
                 var projectEntityPersistor = new ProjectEntityPersistor(dbContext);
                 try
                 {
-                    ICollection<ProjectEntity> projectEntities = dbContext.ProjectEntities.ToList();
+                    var projectEntities = dbContext.ProjectEntities;
 
                     projectEntityPersistor.UpdateModel(project);
-                    projectEntityPersistor.RemoveUnModifiedEntries(projectEntities);
+                    projectEntityPersistor.RemoveUnModifiedEntries();
                     var changes = dbContext.SaveChanges();
                     projectEntityPersistor.PerformPostSaveActions();
                     return changes;
@@ -208,10 +208,10 @@ namespace Application.Ringtoets.Storage
 
                 try
                 {
-                    ICollection<ProjectEntity> projectEntities = dbContext.ProjectEntities.ToList();
+                    var projectEntities = dbContext.ProjectEntities;
 
                     projectEntityPersistor.UpdateModel(project);
-                    projectEntityPersistor.RemoveUnModifiedEntries(projectEntities);
+                    projectEntityPersistor.RemoveUnModifiedEntries();
                     return dbContext.ChangeTracker.HasChanges();
                 }
                 catch (EntityNotFoundException) {}

@@ -86,7 +86,6 @@
     <Compile Include="Converters\HydraulicLocationConverterTest.cs" />
     <Compile Include="Converters\ProjectEntityConverterTest.cs" />
     <Compile Include="DbContext\FailureMechanismEntityTest.cs" />
-    <Compile Include="DbContext\DbTestSet.cs" />
     <Compile Include="Converters\DikeAssessmentSectionEntityConverterTest.cs" />
     <Compile Include="DbContext\DikeAssessmentSectionEntityTest.cs" />
     <Compile Include="DbContext\ProjectEntityTest.cs" />

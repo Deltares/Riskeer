@@ -9,7 +9,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         public static void AddSetExpectancy<T>(MockRepository mocks, IRingtoetsEntities entities) where T : class
         {
             var set = mocks.Stub<DbSet<T>>();
-            entities.Expect(c => c.Set<T>()).Return(set);
+            entities.Stub(c => c.Set<T>()).Return(set);
         } 
     }
 }
