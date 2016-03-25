@@ -225,6 +225,9 @@ namespace Ringtoets.Piping.Forms.Views
                 column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
+
+            UpdateHydraulicBoundaryLocationsColumn();
+            UpdateSoilProfileColumn();
         }
 
         private void InitializeListBox()

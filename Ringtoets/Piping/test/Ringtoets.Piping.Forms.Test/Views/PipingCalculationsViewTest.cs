@@ -91,6 +91,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, column.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, column.HeaderCell.Style.Alignment);
             }
+
+            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[hydraulicBoundaryLocationColumnIndex];
+            var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+            Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
+            Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
         }
 
         [Test]
@@ -124,7 +129,30 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void AssessmentSection_PipingCalculationView_HydraulicBoundaryLocationsComboboxCorrectlyInitialized()
+        public void AssessmentSection_HydraulicBoundaryDatabaseNull_HydraulicBoundaryLocationsComboboxCorrectlyInitialized()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+
+            // Call
+            var pipingCalculationsView = new PipingCalculationsView
+            {
+                AssessmentSection = assessmentSection
+            };
+
+            ShowPipingCalculationsView(pipingCalculationsView);
+
+            // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[hydraulicBoundaryLocationColumnIndex];
+            var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+            Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
+            Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
+        }
+
+        [Test]
+        public void AssessmentSection_HydraulicBoundaryDatabaseWithLocations_HydraulicBoundaryLocationsComboboxCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
@@ -146,12 +174,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[hydraulicBoundaryLocationColumnIndex];
-
-            var comboBoxItems = hydraulicBoundaryLocationCombobox.Items;
-            Assert.AreEqual(3, comboBoxItems.Count);
-            Assert.AreEqual("<geen>", comboBoxItems[0].ToString());
-            Assert.AreEqual("Location 1", comboBoxItems[1].ToString());
-            Assert.AreEqual("Location 2", comboBoxItems[2].ToString());
+            var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+            Assert.AreEqual(3, hydraulicBoundaryLocationComboboxItems.Count);
+            Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
+            Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
+            Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
         }
 
         private void ShowPipingCalculationsView(PipingCalculationsView pipingCalculationsView)
