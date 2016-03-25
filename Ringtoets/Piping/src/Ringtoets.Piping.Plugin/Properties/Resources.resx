@@ -127,7 +127,7 @@
     <value>Geïmporteerde data toevoegen aan faalmechanisme</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Import_Import_cancelled" xml:space="preserve">
-    <value>Profielmetingen importeren afgebroken. Geen data ingelezen.</value>
+    <value>Profielschematisaties importeren afgebroken. Geen data ingelezen.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_" xml:space="preserve">
     <value>Inlezen '{0}'</value>
@@ -138,7 +138,7 @@ Het bestand wordt overgeslagen.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseErrorMessage_0_SurfaceLine_skipped" xml:space="preserve">
     <value>{0} 
-Deze profielmeting wordt overgeslagen.</value>
+Deze profielschematisatie wordt overgeslagen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_Adding_imported_data_to_model" xml:space="preserve">
     <value>Geïmporteerde data toevoegen aan faalmechanisme.</value>
@@ -161,10 +161,10 @@ Deze ondergrondschematisering wordt overgeslagen.</value>
     <value>Inlezen van de ondergrondschematisering uit de D-Soil Model database.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_SurfaceLine_0_has_multiple_duplicate_geometry_points_and_is_ignored" xml:space="preserve">
-    <value>Profielmeting {0} bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.</value>
+    <value>Profielschematisatie {0} bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_" xml:space="preserve">
-    <value>Geen karakteristieke punten-bestand gevonden naast het profielmetingenbestand. (Verwacht bestand: {0})</value>
+    <value>Geen karakteristieke punten-bestand gevonden naast het profielschematisatiesbestand. (Verwacht bestand: {0})</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_ReadCharacteristicPoints_ParseErrorMessage_0_CharacteristicPoints_skipped" xml:space="preserve">
     <value>{0} 
@@ -174,7 +174,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>Inlezen '{0}'</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_CharacteristicPoint_of_SurfaceLine_0_skipped_cause_1_" xml:space="preserve">
-    <value>Karakteristiek punt van profielmeting '{0}' is overgeslagen. {1}</value>
+    <value>Karakteristiek punt van profielschematisatie '{0}' is overgeslagen. {1}</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_" xml:space="preserve">
     <value>Er konden geen karakteristieke punten gevonden worden voor locatie '{0}'.</value>
@@ -183,34 +183,34 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>Begonnen met het inlezen van karakteristieke punten uit bestand '{0}'.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Characteristic_points_found_for_unknown_SurfaceLine_0_" xml:space="preserve">
-    <value>Karakteristieke punten gevonden zonder bijbehorende profielmeting voor locatie '{0}'.</value>
+    <value>Karakteristieke punten gevonden zonder bijbehorende profielschematisatie voor locatie '{0}'.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_characteristic_point_location_0_" xml:space="preserve">
     <value>Meerdere karakteristieke punten definities gevonden voor locatie '{0}'. Alleen de eerste definitie wordt geïmporteerd.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Duplicate_definitions_for_same_location_0_" xml:space="preserve">
-    <value>Meerdere definities gevonden voor profielmeting '{0}'. Alleen de eerste definitie wordt geïmporteerd.</value>
+    <value>Meerdere definities gevonden voor profielschematisatie '{0}'. Alleen de eerste definitie wordt geïmporteerd.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline" xml:space="preserve">
-    <value>Profielmeting {0} doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd.</value>
+    <value>Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline_1_" xml:space="preserve">
-    <value>Profielmeting {0} doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd. {1}</value>
+    <value>Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd. {1}</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system" xml:space="preserve">
-    <value>Dit kan komen doordat de profielmeting een lokaal coordinaat systeem heeft.</value>
+    <value>Dit kan komen doordat de profielschematisatie een lokaal coordinaat systeem heeft.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_No_sections_imported" xml:space="preserve">
-    <value>{0} Er zijn geen profielmetingen geïmporteerd.</value>
+    <value>{0} Er zijn geen profielschematisaties geïmporteerd.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Import_Required_referenceline_missing" xml:space="preserve">
-    <value>Er is geen referentielijn beschikbaar om profielmetingen voor te definiëren.</value>
+    <value>Er is geen referentielijn beschikbaar om profielschematisaties voor te definiëren.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Reading_characteristic_points_file" xml:space="preserve">
     <value>Inlezen van het karakteristieke punten-bestand.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Reading_surface_line_file" xml:space="preserve">
-    <value>Inlezen van het profielmetingenbestand.</value>
+    <value>Inlezen van het profielschematisatiesbestand.</value>
   </data>
   <data name="PipingSoilProfilesImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists" xml:space="preserve">
     <value>Het stochastisch ondergrondmodel '{0}' bestaat al in het faalmechanisme.</value>

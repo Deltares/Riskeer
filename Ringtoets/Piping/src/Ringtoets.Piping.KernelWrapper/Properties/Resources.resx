@@ -121,6 +121,6 @@
     <value>Een ondergrondschematisering moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.</value>
   </data>
   <data name="PipingCalculation_Validate_Lacks_surfaceline_uplift" xml:space="preserve">
-    <value>Een profielmeting moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.</value>
+    <value>Een profielschematisatie moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.</value>
   </data>
 </root>

@@ -136,13 +136,13 @@
     <value>Gemiddelde moet groter zijn dan 0.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l" xml:space="preserve">
-    <value>Kan geen hoogte bepalen op het punt L={0}, omdat de profielmeting verticaal loopt op dat punt.</value>
+    <value>Kan geen hoogte bepalen op het punt L={0}, omdat de profielschematisatie verticaal loopt op dat punt.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null" xml:space="preserve">
-    <value>Een punt in de geometrie voor de profielmeting heeft geen waarde.</value>
+    <value>Een punt in de geometrie voor de profielschematisatie heeft geen waarde.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null" xml:space="preserve">
-    <value>De geometrie die opgegeven werd voor de profielmeting heeft geen waarde.</value>
+    <value>De geometrie die opgegeven werd voor de profielschematisatie heeft geen waarde.</value>
   </data>
   <data name="PipingCalculation_DefaultName" xml:space="preserve">
     <value>Nieuwe berekening</value>
@@ -166,7 +166,7 @@
     <value>{0} L moet in het bereik van [{1}, {2}] liggen.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_SurfaceLine_has_no_Geometry" xml:space="preserve">
-    <value>De profielmeting heeft geen geometrie.</value>
+    <value>De profielschematisatie heeft geen geometrie.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height" xml:space="preserve">
     <value>Kan geen hoogte bepalen.</value>

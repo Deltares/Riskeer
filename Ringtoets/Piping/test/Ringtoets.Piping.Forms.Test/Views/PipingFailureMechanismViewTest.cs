@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             view.Data = pipingContext;
 
             // Assert
-            var mapData = (MapDataCollection)map.Data;
+            var mapData = map.Data;
 
             Assert.AreEqual(6, mapData.List.Count);
             AssertSurfacelinesMapData(pipingFailureMechanism.SurfaceLines, mapData.List[0]);
@@ -461,7 +461,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var surfaceLine = surfaceLinesArray[index];
                 CollectionAssert.AreEquivalent(geometries[index].Points, surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)));
             }
-            Assert.AreEqual("Profielmetingen", mapData.Name);
+            Assert.AreEqual("Profielschematisaties", mapData.Name);
         }
 
         private class TestAssessmentSectionBase : AssessmentSectionBase

@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             string customMessage = exception.Message.Split(new[] { Environment.NewLine }, StringSplitOptions.None)[0];
-            Assert.AreEqual("De verzameling van profielmetingen mag niet 'null' zijn.", customMessage);
+            Assert.AreEqual("De verzameling van profielschematisaties mag niet 'null' zijn.", customMessage);
             mocks.VerifyAll();
         }
 

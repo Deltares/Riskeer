@@ -37,6 +37,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
+using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -182,7 +183,7 @@ namespace Ringtoets.Piping.Forms.Views
                 new MapFeature(data.WrappedData.SurfaceLines.Select(surfaceLine => new MapGeometry(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)))))
             };
 
-            return new MapLineData(mapFeatures, RingtoetsCommonDataResources.SurfaceLine_DisplayName);
+            return new MapLineData(mapFeatures, PipingFormsResources.PipingSurfaceLinesCollection_DisplayName);
         }
 
         private MapData GetSectionsMapData()

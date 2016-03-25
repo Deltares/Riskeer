@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             // Assert
-            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
+            var message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
                 testPoint, Data.Properties.Resources.CharacteristicPoint_DitchPolderSide);
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
@@ -104,7 +104,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             // Assert
-            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
+            var message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
                 testPoint, Data.Properties.Resources.CharacteristicPoint_BottomDitchDikeSide);
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             // Assert
-            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
+            var message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
                 testPoint, Data.Properties.Resources.CharacteristicPoint_BottomDitchPolderSide);
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
@@ -226,7 +226,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             // Assert
-            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
+            var message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
                 testPoint, Data.Properties.Resources.CharacteristicPoint_DitchDikeSide);
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
@@ -287,7 +287,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             // Assert
-            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
+            var message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
                 testPoint, Data.Properties.Resources.CharacteristicPoint_DikeToeAtPolder);
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);
@@ -348,7 +348,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
 
             // Assert
-            var message = string.Format("Karakteristiek punt van profielmeting 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
+            var message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
                 testPoint, Data.Properties.Resources.CharacteristicPoint_DikeToeAtRiver);
             TestHelper.AssertLogMessageIsGenerated(test, message, 1);
             Assert.IsFalse(result);

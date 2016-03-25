@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importSuccessful = importer.Import(context, validFilePath);
 
             // Assert
-            var expectedMessage = "Er is geen referentielijn beschikbaar om profielmetingen voor te definiëren. Er zijn geen profielmetingen geïmporteerd.";
+            var expectedMessage = "Er is geen referentielijn beschikbaar om profielschematisaties voor te definiëren. Er zijn geen profielschematisaties geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
@@ -253,7 +253,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             var mesages = new[]
             {
-                "Profielmeting Rotterdam1 bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.",
+                "Profielschematisatie Rotterdam1 bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.",
                 string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
                               Path.Combine(ioTestDataPath, "ValidSurfaceLine_HasConsecutiveDuplicatePoints.krp.csv"))
             };
@@ -644,7 +644,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
                 .WithLocation("op regel 3")
-                .WithSubject("profielmeting 'InvalidRow'")
+                .WithSubject("profielschematisatie 'InvalidRow'")
                 .Build(PipingIOResources.Error_SurfaceLine_has_not_double);
             var expectedLogMessages = new[]
             {
@@ -705,7 +705,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(path)
                 .WithLocation("op regel 2")
-                .WithSubject("profielmeting 'Rotterdam1'")
+                .WithSubject("profielschematisatie 'Rotterdam1'")
                 .Build(PipingIOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry);
             var expectedLogMessages = new[]
             {
@@ -754,7 +754,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(path)
                 .WithLocation("op regel 2")
-                .WithSubject("profielmeting 'Rotterdam1'")
+                .WithSubject("profielschematisatie 'Rotterdam1'")
                 .Build(PipingIOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length);
             var expectedLogMessages = new[]
             {
@@ -1485,7 +1485,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var mesagge = "Profielmeting ArtifcialLocal doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielmeting een lokaal coordinaat systeem heeft.";
+            var mesagge = "Profielschematisatie ArtifcialLocal doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coordinaat systeem heeft.";
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);
@@ -1542,7 +1542,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var mesagge = "Profielmeting Rotterdam1 doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd.";
+            var mesagge = "Profielschematisatie Rotterdam1 doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd.";
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);

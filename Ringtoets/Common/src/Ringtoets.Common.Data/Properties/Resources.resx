@@ -159,7 +159,4 @@
   <data name="ReferenceLine_DisplayName" xml:space="preserve">
     <value>Referentielijn</value>
   </data>
-  <data name="SurfaceLine_DisplayName" xml:space="preserve">
-    <value>Profielmetingen</value>
-  </data>
 </root>
