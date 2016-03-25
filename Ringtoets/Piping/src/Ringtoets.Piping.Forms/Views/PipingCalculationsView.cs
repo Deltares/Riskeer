@@ -149,6 +149,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             AssessmentSection = null;
             PipingFailureMechanism = null;
+            ApplicationSelection = null;
 
             if (disposing && (components != null))
             {
@@ -167,7 +168,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 DataPropertyName = "Name",
                 HeaderText = Resources.PipingCalculation_Name_DisplayName,
-                Name = "column_Name",
+                Name = "column_Name"
             };
 
             soilProfileColumn = new DataGridViewComboBoxColumn
@@ -185,7 +186,7 @@ namespace Ringtoets.Piping.Forms.Views
                 HeaderText = Resources.PipingInput_HydraulicBoundaryLocation_DisplayName,
                 Name = "column_HydraulicBoundaryLocation",
                 ValueMember = "This",
-                DisplayMember = "DisplayName",
+                DisplayMember = "DisplayName"
             };
 
             var dampingFactorExitMeanColumn = new DataGridViewTextBoxColumn

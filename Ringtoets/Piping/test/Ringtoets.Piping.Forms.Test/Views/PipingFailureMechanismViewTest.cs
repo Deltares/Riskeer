@@ -121,7 +121,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreSame(pipingContext, view.Data);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
-            var mapData = map.Data as MapDataCollection;
+            var mapData = map.Data;
             Assert.IsNotNull(mapData);
 
             Assert.AreEqual(6, mapData.List.Count);
