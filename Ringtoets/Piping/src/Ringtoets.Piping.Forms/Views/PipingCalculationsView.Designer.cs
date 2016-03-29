@@ -167,6 +167,7 @@
             // buttonCreateCalculations
             // 
             this.buttonCreateCalculations.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonCreateCalculations.Enabled = false;
             this.buttonCreateCalculations.Location = new System.Drawing.Point(3, 3);
             this.buttonCreateCalculations.Name = "buttonCreateCalculations";
             this.buttonCreateCalculations.Size = new System.Drawing.Size(137, 20);
@@ -177,6 +178,7 @@
             // buttonNavigateToSelectedCalculation
             // 
             this.buttonNavigateToSelectedCalculation.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonNavigateToSelectedCalculation.Enabled = false;
             this.buttonNavigateToSelectedCalculation.Location = new System.Drawing.Point(572, 3);
             this.buttonNavigateToSelectedCalculation.Name = "buttonNavigateToSelectedCalculation";
             this.buttonNavigateToSelectedCalculation.Size = new System.Drawing.Size(181, 20);

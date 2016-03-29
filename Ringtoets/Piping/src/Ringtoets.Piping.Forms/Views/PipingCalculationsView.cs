@@ -556,7 +556,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void DataGridViewRowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (updatingDataSource)
+            if (updatingDataSource || ApplicationSelection == null)
             {
                 return;
             }
