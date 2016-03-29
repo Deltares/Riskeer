@@ -250,9 +250,12 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void UpdateSoilProfileColumn()
         {
-            foreach (DataGridViewRow dataGridViewRow in dataGridView.Rows)
+            using (new SuspendDataGridViewColumnResizes(soilProfileColumn))
             {
-                FillAvailableSoilProfilesList(dataGridViewRow);
+                foreach (DataGridViewRow dataGridViewRow in dataGridView.Rows)
+                {
+                    FillAvailableSoilProfilesList(dataGridViewRow);
+                }
             }
         }
 
