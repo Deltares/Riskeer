@@ -22,7 +22,6 @@
 using System;
 using System.Data;
 using System.Data.SQLite;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -222,8 +221,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
         private Point2D ReadSegmentPoint()
         {
-            double coordinateX = new RoundedDouble(3, Convert.ToDouble(dataReader[SegmentPointsDatabaseColumns.CoordinateX])).Value;
-            double coordinateY = new RoundedDouble(3, Convert.ToDouble(dataReader[SegmentPointsDatabaseColumns.CoordinateY])).Value;
+            double coordinateX = Convert.ToDouble(dataReader[SegmentPointsDatabaseColumns.CoordinateX]);
+            double coordinateY = Convert.ToDouble(dataReader[SegmentPointsDatabaseColumns.CoordinateY]);
             return new Point2D(coordinateX, coordinateY);
         }
     }
