@@ -105,6 +105,7 @@
     <Compile Include="Views\PipingFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\PipingCalculationsViewTest.cs" />
     <Compile Include="Views\PipingFailureMechanismViewTest.cs" />
+    <Compile Include="Views\PipingSurfaceLineSelectionViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
