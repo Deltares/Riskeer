@@ -22,7 +22,6 @@ namespace Application.Ringtoets.Storage.Test.DbContext
             // Setup
             const long expectedId = 1024L;
             const string someDescription = "<some description>";
-            const long someTimestamp = 123456789L;
 
             var projectEntity = new ProjectEntity
             {

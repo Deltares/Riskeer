@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
@@ -43,16 +44,50 @@ namespace Application.Ringtoets.Storage.Persistors
                 throw new ArgumentNullException("entityCollection");
             }
 
-            if (entityCollection.Any())
+            if (HasChanges(entityCollection, referenceLine))
             {
-                referenceLineEntities.RemoveRange(entityCollection);
-                entityCollection.Clear();
+                if (entityCollection.Any())
+                {
+                    referenceLineEntities.RemoveRange(entityCollection);
+                    entityCollection.Clear();
+                }
+
+                if (referenceLine != null)
+                {
+                    converter.ConvertModelToEntity(referenceLine, entityCollection);
+                }
+            }
+        }
+
+        private bool HasChanges(ICollection<ReferenceLinePointEntity> entityCollection, ReferenceLine otherLine)
+        {
+            var existingLine = converter.ConvertEntityToModel(entityCollection);
+
+            if (existingLine == null)
+            {
+                return otherLine != null;
+            }
+            if (otherLine == null)
+            {
+                return true;
             }
 
-            if (referenceLine != null)
+            var pointsArray = existingLine.Points.ToArray();
+            var otherPointsArray = otherLine.Points.ToArray();
+            if (pointsArray.Length != otherPointsArray.Length)
             {
-                converter.ConvertModelToEntity(referenceLine, entityCollection);
+                return true;
             }
+            for (int i = 0; i < pointsArray.Length; i++)
+            {
+                var isXAlmostEqual = Math.Abs(pointsArray[i].X - otherPointsArray[i].X) < 1e-8;
+                var isYAlmostEqual = Math.Abs(pointsArray[i].Y - otherPointsArray[i].Y) < 1e-8;
+                if (!isXAlmostEqual || !isYAlmostEqual)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>

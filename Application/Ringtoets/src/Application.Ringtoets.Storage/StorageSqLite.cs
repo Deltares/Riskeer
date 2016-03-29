@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
-using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Persistors;
@@ -130,8 +128,6 @@ namespace Application.Ringtoets.Storage
                 var projectEntityPersistor = new ProjectEntityPersistor(dbContext);
                 try
                 {
-                    var projectEntities = dbContext.ProjectEntities;
-
                     projectEntityPersistor.UpdateModel(project);
                     projectEntityPersistor.RemoveUnModifiedEntries();
                     var changes = dbContext.SaveChanges();
@@ -208,8 +204,6 @@ namespace Application.Ringtoets.Storage
 
                 try
                 {
-                    var projectEntities = dbContext.ProjectEntities;
-
                     projectEntityPersistor.UpdateModel(project);
                     projectEntityPersistor.RemoveUnModifiedEntries();
                     return dbContext.ChangeTracker.HasChanges();
