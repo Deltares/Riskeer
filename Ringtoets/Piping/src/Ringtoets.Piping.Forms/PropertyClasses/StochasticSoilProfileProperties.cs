@@ -38,9 +38,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class StochasticSoilProfileProperties : ObjectProperties<StochasticSoilProfile>
     {
-        /// <summary>
-        /// Gets the name from the <see cref="StochasticSoilProfile"/>.
-        /// </summary>
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilProfile_Name_DisplayName")]
@@ -49,13 +46,10 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return (data.SoilProfile != null) ? data.SoilProfile.Name : String.Empty;
+                return data.SoilProfile != null ? data.SoilProfile.Name : String.Empty;
             }
         }
 
-        /// <summary>
-        /// Gets the probability from the <see cref="StochasticSoilProfile"/>.
-        /// </summary>
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilProfile_Probability_DisplayName")]
@@ -68,10 +62,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the top levels from the <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> 
-        /// in the <see cref="StochasticSoilProfile"/>.
-        /// </summary>
         [PropertyOrder(3)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
@@ -81,14 +71,10 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return (data.SoilProfile != null) ? data.SoilProfile.Layers.Select(l => l.Top).ToArray() : new double[0];
+                return data.SoilProfile != null ? data.SoilProfile.Layers.Select(l => l.Top).ToArray() : new double[0];
             }
         }
 
-        /// <summary>
-        /// Gets the bottom from the <see cref="Ringtoets.Piping.Primitives.PipingSoilProfile"/> 
-        /// in the <see cref="StochasticSoilProfile"/>.
-        /// </summary>
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilProfile_Bottom_DisplayName")]
@@ -97,13 +83,10 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return (data.SoilProfile != null) ? data.SoilProfile.Bottom : double.NaN;
+                return data.SoilProfile != null ? data.SoilProfile.Bottom : double.NaN;
             }
         }
 
-        /// <summary>
-        /// Gets the type from the <see cref="StochasticSoilProfile"/>.
-        /// </summary>
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilProfile_Type_DisplayName")]
@@ -112,7 +95,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return (data.SoilProfileType == SoilProfileType.SoilProfile1D) ? "1D profiel" : "2D profiel";
+                return data.SoilProfileType == SoilProfileType.SoilProfile1D ? "1D profiel" : "2D profiel";
             }
         }
 

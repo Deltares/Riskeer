@@ -34,12 +34,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="StochasticSoilModel"/> for properties panel.
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class StochasticSoilModelProperties : ObjectProperties<StochasticSoilModel>
     {
-        /// <summary>
-        /// Gets the id from the <see cref="StochasticSoilModel"/>.
-        /// </summary>
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilModel_Id_DisplayName")]
@@ -52,9 +48,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the name from the <see cref="StochasticSoilModel"/>.
-        /// </summary>
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilModel_Name_DisplayName")]
@@ -67,9 +60,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the name of the segment from the <see cref="StochasticSoilModel"/>.
-        /// </summary>
         [PropertyOrder(3)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilModel_SegmentName_DisplayName")]
@@ -82,9 +72,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the geometry points from the <see cref="StochasticSoilModel"/>.
-        /// </summary>
         [PropertyOrder(4)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
@@ -98,9 +85,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the <see cref="StochasticSoilProfiles"/> from the <see cref="StochasticSoilModel"/>.
-        /// </summary>
         [PropertyOrder(5)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
