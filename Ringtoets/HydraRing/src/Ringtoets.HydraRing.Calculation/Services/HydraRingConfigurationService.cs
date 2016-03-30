@@ -143,7 +143,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             configurationDictionary["Fetches"] = new List<OrderedDictionary>();
             configurationDictionary["AreaPoints"] = new List<OrderedDictionary>();
             configurationDictionary["PresentationSections"] = new List<OrderedDictionary>();
-            configurationDictionary["Profiles"] = new List<OrderedDictionary>();
+            configurationDictionary["Profiles"] = GetCalculationProfilesConfiguration();
             configurationDictionary["ForelandModels"] = new List<OrderedDictionary>();
             configurationDictionary["Forelands"] = new List<OrderedDictionary>();
             configurationDictionary["ProbabilityAlternatives"] = new List<OrderedDictionary>();
