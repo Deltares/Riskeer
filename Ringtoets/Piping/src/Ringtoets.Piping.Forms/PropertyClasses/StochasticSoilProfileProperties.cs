@@ -21,7 +21,9 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -54,11 +56,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilProfile_Probability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StochasticSoilProfile_Probability_Description")]
-        public double Probability
+        public string Probability
         {
             get
             {
-                return data.Probability*100;
+                return new RoundedDouble(3, data.Probability*100).Value.ToString(CultureInfo.CurrentCulture);
             }
         }
 

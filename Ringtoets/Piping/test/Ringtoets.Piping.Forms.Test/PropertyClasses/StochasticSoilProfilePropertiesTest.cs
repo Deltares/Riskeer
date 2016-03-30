@@ -44,7 +44,26 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetProperties_WithData_ReturnExpectedValues()
+        [TestCase(0.14, "14")]
+        [TestCase(1.0051, "100,51")]
+        [TestCase(0.5 + 1e-6, "50")]
+        [SetCulture("nl-NL")]
+        public void GetProperties_WithDataAndDutchLocale_ReturnExpectedValues(double probability, string expectedProbability)
+        {
+            GetProperties_WithData_ReturnExpectedValues(probability, expectedProbability);
+        }
+
+        [Test]
+        [TestCase(0.14, "14")]
+        [TestCase(1.0051, "100.51")]
+        [TestCase(0.5 + 1e-6, "50")]
+        [SetCulture("en-US")]
+        public void GetProperties_WithDataAndEnglishLocale_ReturnExpectedValues(double probability, string expectedProbability)
+        {
+            GetProperties_WithData_ReturnExpectedValues(probability, expectedProbability);
+        }
+
+        private static void GetProperties_WithData_ReturnExpectedValues(double probability, string expectedProbability)
         {
             // Setup
             const string expectedName = "<some name>";
@@ -58,7 +77,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             var soilProfile = new PipingSoilProfile(expectedName, -5.0, layers, 0);
-            var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1234L)
+            var stochasticSoilProfile = new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, 1234L)
             {
                 SoilProfile = soilProfile
             };
@@ -74,7 +93,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedName, properties.ToString());
             CollectionAssert.AreEqual(soilProfile.Layers.Select(l => l.Top), properties.TopLevels);
             Assert.AreEqual(soilProfile.Bottom, properties.Bottom);
-            Assert.AreEqual(stochasticSoilProfile.Probability*100, properties.Probability);
+            Assert.AreEqual(expectedProbability, properties.Probability);
             Assert.AreEqual("1D profiel", properties.Type);
         }
     }
