@@ -40,16 +40,11 @@ namespace Ringtoets.Piping.Data
         private readonly GeneralPipingInput generalInputParameters;
         private readonly NormalDistribution phreaticLevelExit;
         private readonly LognormalDistribution dampingFactorExit;
-        private readonly LognormalDistribution thicknessCoverageLayer;
         private readonly ShiftedLognormalDistribution saturatedVolumicWeightOfCoverageLayer;
-        private readonly LognormalDistribution thicknessAquiferLayer;
         private readonly LognormalDistribution darcyPermeability;
         private readonly LognormalDistribution diameter70;
-        private readonly LognormalDistribution seepageLength;
-        private RoundedDouble assessmentLevel;
         private RoundedDouble exitPointL;
         private RoundedDouble entryPointL;
-        private RoundedDouble piezometricHeadExit;
         private RingtoetsPipingSurfaceLine surfaceLine;
 
         private PipingSoilProfile soilProfile;
@@ -73,8 +68,6 @@ namespace Ringtoets.Piping.Data
 
             exitPointL = new RoundedDouble(2, double.NaN);
             entryPointL = new RoundedDouble(2, double.NaN);
-            assessmentLevel = new RoundedDouble(2, double.NaN);
-            piezometricHeadExit = new RoundedDouble(2, double.NaN);
 
             phreaticLevelExit = new NormalDistribution(3);
             dampingFactorExit = new LognormalDistribution(3)
@@ -82,29 +75,14 @@ namespace Ringtoets.Piping.Data
                 Mean = (RoundedDouble) 0.7,
                 StandardDeviation = (RoundedDouble) 0.0
             };
-            thicknessCoverageLayer = new LognormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) 0.5
-            };
             saturatedVolumicWeightOfCoverageLayer = new ShiftedLognormalDistribution(2)
             {
                 Shift = (RoundedDouble) 10,
                 Mean = (RoundedDouble) 17.5,
                 StandardDeviation = (RoundedDouble) 0
             };
-            seepageLength = new LognormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) double.NaN
-            };
             diameter70 = new LognormalDistribution(2);
             darcyPermeability = new LognormalDistribution(3);
-            thicknessAquiferLayer = new LognormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) 0.5
-            };
         }
 
         /// <summary>

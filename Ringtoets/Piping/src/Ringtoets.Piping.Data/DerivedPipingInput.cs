@@ -21,10 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using log4net;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Probabilistics;
-using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.InputParameterCalculation;
 using Ringtoets.Piping.Primitives;
 
@@ -36,7 +34,6 @@ namespace Ringtoets.Piping.Data
     public class DerivedPipingInput
     {
         private const double seepageLengthStandardDeviationFraction = 0.1;
-        private static readonly ILog log = LogManager.GetLogger(typeof(DerivedPipingInput));
 
         private readonly PipingInput input;
 

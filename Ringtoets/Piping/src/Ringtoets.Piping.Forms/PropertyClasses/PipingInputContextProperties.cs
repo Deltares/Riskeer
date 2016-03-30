@@ -160,8 +160,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.SurfaceLine = value;
-                data.WrappedData.NotifyObservers();
+                if (!ReferenceEquals(value, data.WrappedData.SurfaceLine))
+                {
+                    data.WrappedData.SurfaceLine = value;
+                    data.WrappedData.SoilProfile = null;
+                    data.WrappedData.NotifyObservers();
+                }
             }
         }
 

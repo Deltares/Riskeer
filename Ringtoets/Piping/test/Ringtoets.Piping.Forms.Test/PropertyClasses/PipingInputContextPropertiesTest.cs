@@ -435,6 +435,92 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void SurfaceLine_NewSurfaceLine_SoilProfileSetToNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var inputParameters = new PipingInput(new GeneralPipingInput());
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
+                                              assessmentSectionMock)
+            };
+            inputParameters.SoilProfile = new TestPipingSoilProfile();
+
+            // Call
+            properties.SurfaceLine = ValidSurfaceLine(0, 2);
+
+            // Assert
+            Assert.IsNull(inputParameters.SoilProfile);
+        }
+
+        [Test]
+        public void SurfaceLine_SameSurfaceLine_SoilProfileUnchanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var testSurfaceLine = ValidSurfaceLine(0, 2);
+            var testPipingSoilProfile = new TestPipingSoilProfile();
+
+            var inputParameters = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = testSurfaceLine,
+                SoilProfile = testPipingSoilProfile
+            };
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
+                                              assessmentSectionMock)
+            };
+
+            // Call
+            properties.SurfaceLine = testSurfaceLine;
+
+            // Assert
+            Assert.AreSame(testPipingSoilProfile, inputParameters.SoilProfile);
+        }
+
+        [Test]
+        public void SurfaceLine_DifferentSurfaceLine_SoilProfileSetToNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            mocks.ReplayAll();
+
+            var testPipingSoilProfile = new TestPipingSoilProfile();
+
+            var inputParameters = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = ValidSurfaceLine(0, 2),
+                SoilProfile = testPipingSoilProfile
+            };
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
+                                              assessmentSectionMock)
+            };
+
+            // Call
+            properties.SurfaceLine = ValidSurfaceLine(0, 2);
+
+            // Assert
+            Assert.IsNull(inputParameters.SoilProfile);
+        }
+
+        [Test]
         [TestCase(1)]
         [TestCase(2)]
         public void GivenCompletePipingInputContextProperties_WhenPhreaticLevelExitPropertiesSetThroughProperties_ThenPiezometricHeadExitUpdated(int propertyIndexToChange)
