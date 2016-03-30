@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Selection;
 using NUnit.Extensions.Forms;
@@ -30,6 +32,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Views;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Test.Views
 {
@@ -37,7 +40,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
     public class PipingCalculationsViewTest
     {
         private Form testForm;
-        private const int hydraulicBoundaryLocationColumnIndex = 2;
 
         [SetUp]
         public void Setup()
@@ -69,15 +71,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
-            // Setup
-            var pipingCalculationsView = new PipingCalculationsView();
-
-            // Call
-            ShowPipingCalculationsView(pipingCalculationsView);
+            // Setup & Call
+            ShowPipingCalculationsView();
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
+            Assert.IsFalse(dataGridView.AutoGenerateColumns);
             Assert.AreEqual(7, dataGridView.ColumnCount);
 
             foreach (var column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
@@ -92,7 +92,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, column.HeaderCell.Style.Alignment);
             }
 
-            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[hydraulicBoundaryLocationColumnIndex];
+            var soilProfilesCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[soilProfilesColumnIndex];
+            var soilProfilesComboboxItems = soilProfilesCombobox.Items;
+            Assert.AreEqual(0, soilProfilesComboboxItems.Count); // Row dependend
+
+            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[hydraulicBoundaryLocationsColumnIndex];
             var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
             Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
             Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
@@ -106,6 +110,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingFailureMechanism = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             var applicationSelection = mocks.StrictMock<IApplicationSelection>();
+
+            mocks.ReplayAll();
 
             var pipingCalculationsView = new PipingCalculationsView
             {
@@ -134,18 +140,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var pipingCalculationsView = ShowPipingCalculationsView();
+
+            mocks.ReplayAll();
 
             // Call
-            var pipingCalculationsView = new PipingCalculationsView
-            {
-                AssessmentSection = assessmentSection
-            };
-
-            ShowPipingCalculationsView(pipingCalculationsView);
+            pipingCalculationsView.AssessmentSection = assessmentSection;
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[hydraulicBoundaryLocationColumnIndex];
+            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[hydraulicBoundaryLocationsColumnIndex];
             var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
             Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
             Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
@@ -159,21 +163,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
 
+            mocks.ReplayAll();
+
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2));
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4));
 
-            // Call
-            var pipingCalculationsView = new PipingCalculationsView
-            {
-                AssessmentSection = assessmentSection
-            };
+            var pipingCalculationsView = ShowPipingCalculationsView();
 
-            ShowPipingCalculationsView(pipingCalculationsView);
+            // Call
+            pipingCalculationsView.AssessmentSection = assessmentSection;
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[hydraulicBoundaryLocationColumnIndex];
+            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[hydraulicBoundaryLocationsColumnIndex];
             var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
             Assert.AreEqual(3, hydraulicBoundaryLocationComboboxItems.Count);
             Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
@@ -181,10 +184,180 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
         }
 
-        private void ShowPipingCalculationsView(PipingCalculationsView pipingCalculationsView)
+        [Test]
+        public void PipingCalculationsView_CalculationsWithCorrespondingSoilProfiles_SoilProfilesComboboxCorrectlyInitialized()
         {
+            // Setup & Call
+            ShowConfiguredPipingCalculationsView();
+
+            // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            var soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[soilProfilesColumnIndex]).Items;
+            Assert.AreEqual(3, soilProfilesComboboxItems.Count);
+            Assert.AreEqual("<geen>", soilProfilesComboboxItems[0].ToString());
+            Assert.AreEqual("Profile 1", soilProfilesComboboxItems[1].ToString());
+            Assert.AreEqual("Profile 2", soilProfilesComboboxItems[2].ToString());
+
+            soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[soilProfilesColumnIndex]).Items;
+            Assert.AreEqual(4, soilProfilesComboboxItems.Count);
+            Assert.AreEqual("<geen>", soilProfilesComboboxItems[0].ToString());
+            Assert.AreEqual("Profile 1", soilProfilesComboboxItems[1].ToString());
+            Assert.AreEqual("Profile 2", soilProfilesComboboxItems[2].ToString());
+            Assert.AreEqual("Profile 5", soilProfilesComboboxItems[3].ToString());
+        }
+
+        private const int soilProfilesColumnIndex = 1;
+        private const int hydraulicBoundaryLocationsColumnIndex = 2;
+
+        private PipingCalculationsView ShowConfiguredPipingCalculationsView()
+        {
+            var surfaceLine1 = new RingtoetsPipingSurfaceLine
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+
+            surfaceLine1.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+
+            var surfaceLine2 = new RingtoetsPipingSurfaceLine
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
+            };
+
+            surfaceLine2.SetGeometry(new[]
+            {
+                new Point3D(5.0, 5.0, 0.0),
+                new Point3D(5.0, 0.0, 1.0),
+                new Point3D(5.0, -5.0, 0.0)
+            });
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            }));
+
+            pipingFailureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(1, "A", "B")
+            {
+                Geometry =
+                {
+                    new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                },
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
+                    {
+                        SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+                        {
+                            new PipingSoilLayer(-5.0),
+                            new PipingSoilLayer(-2.0),
+                            new PipingSoilLayer(1.0)
+                        }, 1)
+                    },
+                    new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
+                    {
+                        SoilProfile = new PipingSoilProfile("Profile 2", -8.0, new[]
+                        {
+                            new PipingSoilLayer(-4.0),
+                            new PipingSoilLayer(0.0),
+                            new PipingSoilLayer(4.0)
+                        }, 2)
+                    }
+                }
+            });
+
+            pipingFailureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(1, "C", "D")
+            {
+                Geometry =
+                {
+                    new Point2D(1.0, 0.0), new Point2D(4.0, 0.0)
+                },
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
+                    {
+                        SoilProfile = new PipingSoilProfile("Profile 3", -10.0, new[]
+                        {
+                            new PipingSoilLayer(-5.0),
+                            new PipingSoilLayer(-2.0),
+                            new PipingSoilLayer(1.0)
+                        }, 1)
+                    },
+                    new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
+                    {
+                        SoilProfile = new PipingSoilProfile("Profile 4", -8.0, new[]
+                        {
+                            new PipingSoilLayer(-4.0),
+                            new PipingSoilLayer(0.0),
+                            new PipingSoilLayer(4.0)
+                        }, 2)
+                    }
+                }
+            });
+
+            pipingFailureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(1, "E", "F")
+            {
+                Geometry =
+                {
+                    new Point2D(1.0, 0.0), new Point2D(6.0, 0.0)
+                },
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
+                    {
+                        SoilProfile = new PipingSoilProfile("Profile 5", -10.0, new[]
+                        {
+                            new PipingSoilLayer(-5.0),
+                            new PipingSoilLayer(-2.0),
+                            new PipingSoilLayer(1.0)
+                        }, 1)
+                    }
+                }
+            });
+
+            var pipingCalculationsView = ShowPipingCalculationsView();
+
+            pipingCalculationsView.Data = new PipingCalculationGroup("Group", true)
+            {
+                Children =
+                {
+                    new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+                    {
+                        InputParameters =
+                        {
+                            SurfaceLine = surfaceLine1
+                        }
+                    },
+                    new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+                    {
+                        InputParameters =
+                        {
+                            SurfaceLine = surfaceLine2
+                        }
+                    }
+                }
+            };
+
+            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+
+            return pipingCalculationsView;
+        }
+
+        private PipingCalculationsView ShowPipingCalculationsView()
+        {
+            var pipingCalculationsView = new PipingCalculationsView();
+
             testForm.Controls.Add(pipingCalculationsView);
             testForm.Show();
+
+            return pipingCalculationsView;
         }
     }
 }

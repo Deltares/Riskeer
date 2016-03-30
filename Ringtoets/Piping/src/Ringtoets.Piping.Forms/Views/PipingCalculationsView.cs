@@ -295,7 +295,7 @@ namespace Ringtoets.Piping.Forms.Views
                 .Select(pc => new PipingCalculationRow(pc))
                 .ToList();
 
-            FillComboBoxListItems();
+            UpdateSoilProfileColumn();
 
             updatingDataSource = false;
         }
@@ -316,17 +316,6 @@ namespace Ringtoets.Piping.Forms.Views
                                         ? assessmentSection.HydraulicBoundaryDatabase.Locations
                                         : null;
                 SetItemsOnObjectCollection(hydraulicBoundaryLocationColumn.Items, GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations).ToArray());
-            }
-        }
-
-        private void FillComboBoxListItems()
-        {
-            using (new SuspendDataGridViewColumnResizes(soilProfileColumn))
-            {
-                foreach (DataGridViewRow dataGridViewRow in dataGridView.Rows)
-                {
-                    FillAvailableSoilProfilesList(dataGridViewRow);
-                }
             }
         }
 
