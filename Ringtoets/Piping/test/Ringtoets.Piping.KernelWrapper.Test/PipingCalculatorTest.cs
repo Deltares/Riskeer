@@ -297,7 +297,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         }
         
         [Test]
-        [TestCase(-1e-8)]
+        [TestCase(-1e-6)]
         [TestCase(0)]
         public void Validate_SoilProfileBottomAtTopLevel_ValidationMessageForHavingTooHighBottom(double bottom)
         {

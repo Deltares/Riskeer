@@ -249,7 +249,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", Double.PositiveInfinity, 1));
 
-
             // Call
             TestDelegate test = () => persistor.InsertModel(parentNavigationProperty, hydraulicBoundaryDatabase);
 
@@ -441,28 +440,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void UpdateModel_LocationNull_ThrowsArgumentException()
-        {
-            // Setup
-            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
-            mockRepository.ReplayAll();
-
-            var persistor = new HydraulicLocationEntityPersistor(ringtoetsEntitiesMock);
-            IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>();
-
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(null);
-
-            // Call
-            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void UpdateModel_LocationToBig_ThrowsOverflowException()
         {
             // Setup
@@ -485,7 +462,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void RemoveUnModifiedEntries_SingleEntityInParentNavigationPropertySingleHydraulicLocationWithoutStorageId_UpdatedHydraulicLocationAsEntityInParentNavigationPropertyAndOthersDeletedInDbSet()
+        public void UpdateModel_SingleEntityInParentNavigationPropertySingleHydraulicLocationWithoutStorageId_UpdatedHydraulicLocationAsEntityInParentNavigationPropertyAndOthersDeletedInDbSet()
         {
             // Setup
             const long storageId = 0L; // Newly inserted entities have Id = 0 untill they are saved
@@ -517,6 +494,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
 
             // Assert
+            CollectionAssert.IsEmpty(ringtoetsEntitiesMock.HydraulicLocationEntities);
             Assert.AreEqual(2, parentNavigationProperty.Count);
             HydraulicLocationEntity entity = parentNavigationProperty.SingleOrDefault(x => x.HydraulicLocationEntityId == storageId);
             Assert.IsNotNull(entity);

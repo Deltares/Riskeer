@@ -58,30 +58,29 @@ namespace Application.Ringtoets.Storage.Persistors
             this.converter = converter;
         }
 
-
         /// <summary>
         /// Loads the <see cref="FailureMechanismEntity"/> as <see cref="IFailureMechanism"/>.
         /// </summary>
         /// <param name="entity"><see cref="FailureMechanismEntity"/> to load from.</param>
-        /// <param name="pipingFailureMechanism">The <see cref="IFailureMechanism"/>to load data in.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to load data in.</param>
         /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c>.</item>
-        /// <item><paramref name="pipingFailureMechanism"/> is <c>null</c>.</item>
+        /// <item><paramref name="failureMechanism"/> is <c>null</c>.</item>
         /// </list></exception>
-        public void LoadModel(FailureMechanismEntity entity, IFailureMechanism pipingFailureMechanism)
+        public void LoadModel(FailureMechanismEntity entity, IFailureMechanism failureMechanism)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
-            if (pipingFailureMechanism == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException("pipingFailureMechanism");
+                throw new ArgumentNullException("failureMechanism");
             }
 
             var model = converter.ConvertEntityToModel(entity);
 
-            pipingFailureMechanism.StorageId = model.StorageId;
+            failureMechanism.StorageId = model.StorageId;
         }
 
         /// <summary>
@@ -168,7 +167,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <exception cref="NotSupportedException">Thrown when the <paramref name="parentNavigationProperty"/> is read-only.</exception>
         public void RemoveUnModifiedEntries(ICollection<FailureMechanismEntity> parentNavigationProperty)
         {
-            var untouchedModifiedList = parentNavigationProperty.Where(e => e.DikeAssessmentSectionEntityId > 0 && !modifiedList.Contains(e));
+            var untouchedModifiedList = parentNavigationProperty.Where(e => e.FailureMechanismEntityId > 0 && !modifiedList.Contains(e));
             failureMechanismSet.RemoveRange(untouchedModifiedList);
 
             modifiedList.Clear();

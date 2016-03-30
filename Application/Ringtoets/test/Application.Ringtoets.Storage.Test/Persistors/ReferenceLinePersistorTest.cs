@@ -1,7 +1,26 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Persistors;
@@ -25,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             // Assert
             var parameter = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("ringtoetsEntities", parameter);
-        } 
+        }
 
         [Test]
         public void Constructor_WithContext_DoesNotThrow()
@@ -78,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Assert
             mocks.VerifyAll();
-        } 
+        }
 
         [Test]
         public void InsertModel_WithEmptyEntityCollectionWithReferenceLine_AddsNewEntitiesToContext()
@@ -91,11 +110,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             var persistor = new ReferenceLinePersistor(context);
             var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new []
+            referenceLine.SetGeometry(new[]
             {
-                new Point2D(1,1),
-                new Point2D(3,2),
-                new Point2D(1,3)
+                new Point2D(1, 1),
+                new Point2D(3, 2),
+                new Point2D(1, 3)
             });
 
             // Call
@@ -131,9 +150,9 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
-                new Point2D(1,1),
-                new Point2D(3,2),
-                new Point2D(1,3)
+                new Point2D(1, 1),
+                new Point2D(3, 2),
+                new Point2D(1, 3)
             });
 
             // Call
@@ -173,8 +192,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var entities = new List<ReferenceLinePointEntity>();
 
             var referenceLine = new ReferenceLine();
-            Point2D point = new Point2D(1.2,3.5);
-            referenceLine.SetGeometry(new []
+            Point2D point = new Point2D(1.2, 3.5);
+            referenceLine.SetGeometry(new[]
             {
                 point
             });
@@ -204,13 +223,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             {
                 X = 0, Y = 0, Order = 0
             };
-            var entities = new List<ReferenceLinePointEntity>(new []
+            var entities = new List<ReferenceLinePointEntity>(new[]
             {
-                referenceLinePointEntity 
+                referenceLinePointEntity
             });
             var referenceLine = new ReferenceLine();
-            Point2D point = new Point2D(0,0);
-            referenceLine.SetGeometry(new []
+            Point2D point = new Point2D(0, 0);
+            referenceLine.SetGeometry(new[]
             {
                 point
             });
@@ -225,9 +244,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             persistor.InsertModel(entities, referenceLine);
 
             // Assert
-            Assert.AreEqual(new[] { referenceLinePointEntity }, entities);
+            Assert.AreEqual(new[]
+            {
+                referenceLinePointEntity
+            }, entities);
             mocks.VerifyAll();
         }
+
         [Test]
         public void InsertModel_CollectionWithPointReferenceLineNull_ClearsCollection()
         {
@@ -240,7 +263,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             };
             var entities = new List<ReferenceLinePointEntity>(new[]
             {
-                referenceLinePointEntity 
+                referenceLinePointEntity
             });
 
             var mocks = new MockRepository();
@@ -258,7 +281,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void LoadModel_WithoutEntityCollection_ThrowsArgumentException()
+        public void LoadModel_WithoutEntityCollection_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -381,10 +404,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 var entity = entities[i];
                 var point = referenceLine.Points.ElementAt(i);
 
-                Assert.AreEqual(point.X, entity.X); 
-                Assert.AreEqual(referenceLine.Points.ElementAt(i).Y, entity.Y); 
-                Assert.AreEqual(i, entity.Order); 
-                Assert.AreEqual(0, entity.ReferenceLinePointEntityId); 
+                Assert.AreEqual(point.X, entity.X);
+                Assert.AreEqual(referenceLine.Points.ElementAt(i).Y, entity.Y);
+                Assert.AreEqual(i, entity.Order);
+                Assert.AreEqual(0, entity.ReferenceLinePointEntityId);
             }
         }
 
@@ -397,7 +420,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 var entity = entities.First(e => e.Order == i);
 
                 Assert.AreEqual(entity.X, point.X);
-                Assert.AreEqual(entity.Y, point.Y); 
+                Assert.AreEqual(entity.Y, point.Y);
             }
         }
     }

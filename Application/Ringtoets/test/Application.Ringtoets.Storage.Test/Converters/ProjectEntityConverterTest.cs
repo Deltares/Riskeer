@@ -117,9 +117,6 @@ namespace Application.Ringtoets.Storage.Test.Converters
             ProjectEntity projectEntity = new ProjectEntity();
             ProjectEntityConverter converter = new ProjectEntityConverter();
 
-            var timeStart = DateTime.Now.ToUniversalTime();
-            timeStart = Round(timeStart, false);
-
             // Call
             converter.ConvertModelToEntity(project, projectEntity);
 
@@ -127,13 +124,6 @@ namespace Application.Ringtoets.Storage.Test.Converters
             Assert.AreNotEqual(projectEntity, project);
             Assert.AreEqual(storageId, projectEntity.ProjectEntityId);
             Assert.AreEqual(description, projectEntity.Description);
-        }
-
-        private static DateTime Round(DateTime timeStart, bool up)
-        {
-            var tickSecond = 10000000;
-            timeStart = new DateTime(((timeStart.Ticks + (up ? tickSecond : -tickSecond) / 2)/tickSecond)*tickSecond);
-            return timeStart;
         }
     }
 }

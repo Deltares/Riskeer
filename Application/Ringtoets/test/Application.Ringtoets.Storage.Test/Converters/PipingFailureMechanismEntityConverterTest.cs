@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             FailureMechanismEntity entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = storageId,
-                FailureMechanismType = (int)FailureMechanismType.DikesPipingFailureMechanism,
+                FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism,
             };
 
             // Call
@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        public void ConvertEntityToModel_EntityWithIncorrectType_ReturnsEntityAsModel()
+        public void ConvertEntityToModel_EntityWithIncorrectType_ThrowsArgumentException()
         {
             // Setup
             PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             FailureMechanismEntity entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = storageId,
-                FailureMechanismType = (int)FailureMechanismType.DikesMacrostabilityInwardsFailureMechanism,
+                FailureMechanismType = (int) FailureMechanismType.DikesMacrostabilityInwardsFailureMechanism,
             };
 
             // Call

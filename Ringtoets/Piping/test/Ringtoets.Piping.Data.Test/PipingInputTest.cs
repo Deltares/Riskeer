@@ -516,7 +516,7 @@ namespace Ringtoets.Piping.Data.Test
             LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(expectedThickness, thicknessAquiferLayer.Mean, 1e-8);
+            Assert.AreEqual(expectedThickness, thicknessAquiferLayer.Mean, 1e-6);
         }
 
         [Test]
@@ -641,7 +641,7 @@ namespace Ringtoets.Piping.Data.Test
             var thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(expectedThickness, thicknessAquiferLayer.Mean, 1e-8);
+            Assert.AreEqual(expectedThickness, thicknessAquiferLayer.Mean, 1e-6);
         }
 
         [Test]

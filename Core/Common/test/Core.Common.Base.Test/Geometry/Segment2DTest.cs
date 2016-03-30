@@ -81,10 +81,10 @@ namespace Core.Common.Base.Test.Geometry
         [Test]
         [TestCase(1, 1, true)]
         [TestCase(1, 2, false)]
-        [TestCase(1, 1 + 1e-6, false)]
-        [TestCase(1, 1 - 1e-6, false)]
-        [TestCase(1, 1 + 1e-9, true)]
-        [TestCase(1, 1 - 1e-9, true)]
+        [TestCase(1, 1 + 1e-5, false)]
+        [TestCase(1, 1 - 1e-5, false)]
+        [TestCase(1, 1 + 1e-7, true)]
+        [TestCase(1, 1 - 1e-7, true)]
         public void IsVertical_DifferentSetsOfX_ReturnsExpectedValue(double firstPointX, double secondPointX, bool isVertical)
         {
             // Setup
@@ -102,9 +102,9 @@ namespace Core.Common.Base.Test.Geometry
 
         [Test]
         [TestCase(1e-9, false)]
-        [TestCase(1e-8 + 1e-10, true)]
-        [TestCase(1e-8 - 1e-10, false)]
-        [TestCase(1e-7, true)]
+        [TestCase(1e-6 + 1e-10, true)]
+        [TestCase(1e-6 - 1e-10, false)]
+        [TestCase(1e-5, true)]
         [TestCase(1, true)]
         public void IsVertical_DifferencesInY_ReturnsExpectedValue(double difference, bool isVertical)
         {

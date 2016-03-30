@@ -1,3 +1,24 @@
+// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,9 +35,9 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             return new TestDbSet<T>(data);
         }
-
     }
-    public class TestDbSet<T> : DbSet<T>, IDbSet<T> where T: class
+
+    public class TestDbSet<T> : DbSet<T>, IDbSet<T> where T : class
     {
         private readonly IQueryable<T> queryable;
         private readonly ObservableCollection<T> collection;
@@ -59,6 +80,15 @@ namespace Application.Ringtoets.Storage.TestUtil
             }
         }
 
+        public override IEnumerable<T> RemoveRange(IEnumerable<T> entities)
+        {
+            foreach (var e in entities)
+            {
+                collection.Remove(e);
+            }
+            return entities;
+        }
+
         public override T Add(T entity)
         {
             collection.Add(entity);
@@ -69,15 +99,6 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             collection.Remove(entity);
             return entity;
-        }
-
-        public override IEnumerable<T> RemoveRange(IEnumerable<T> entities)
-        {
-            foreach(var e in entities)
-            {
-                collection.Remove(e);
-            }
-            return entities;
         }
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()

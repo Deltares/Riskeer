@@ -82,7 +82,7 @@ namespace Core.Common.Base.Geometry
             var distanceFirstPoint = FirstPoint.X - x;
             var distanceSecondPoint = SecondPoint.X - x;
 
-            var onPoint = Math.Abs(FirstPoint.X - x) < 1e-8 || Math.Abs(SecondPoint.X - x) < 1e-8;
+            var onPoint = Math.Abs(FirstPoint.X - x) < 1e-6 || Math.Abs(SecondPoint.X - x) < 1e-6;
 
             return onPoint || Math.Sign(distanceFirstPoint) != Math.Sign(distanceSecondPoint);
         }
@@ -93,7 +93,7 @@ namespace Core.Common.Base.Geometry
         /// <returns><c>true</c> if the <see cref="Segment2D"/> is vertical. <c>false</c> otherwise.</returns>
         public bool IsVertical()
         {
-            return Math.Abs(FirstPoint.X - SecondPoint.X) < 1e-8 && Math.Abs(FirstPoint.Y - SecondPoint.Y) >= 1e-8;
+            return Math.Abs(FirstPoint.X - SecondPoint.X) < 1e-6 && Math.Abs(FirstPoint.Y - SecondPoint.Y) >= 1e-6;
         }
 
         /// <summary>

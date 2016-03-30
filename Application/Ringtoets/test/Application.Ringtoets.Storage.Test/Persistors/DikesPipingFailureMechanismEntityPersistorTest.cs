@@ -97,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("pipingFailureMechanism", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -425,16 +425,24 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             };
 
             DikesPipingFailureMechanismEntityPersistor persistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsEntities);
-            PipingFailureMechanism pipingFailureMechanism = new PipingFailureMechanism();
+            PipingFailureMechanism pipingFailureMechanism = new PipingFailureMechanism
+            {
+                StorageId = storageId
+            };
+
+            ringtoetsEntities.FailureMechanismEntities.Add(entityToDelete);
+
+            // Precondition
+            persistor.InsertModel(parentNavigationProperty, pipingFailureMechanism);
 
             // Call
-            persistor.UpdateModel(parentNavigationProperty, pipingFailureMechanism);
             persistor.RemoveUnModifiedEntries(parentNavigationProperty);
 
             // Assert
+            CollectionAssert.IsEmpty(ringtoetsEntities.FailureMechanismEntities);
             Assert.AreEqual(2, parentNavigationProperty.Count);
             var entity = parentNavigationProperty.SingleOrDefault(x => x.FailureMechanismEntityId == storageId);
-            Assert.IsInstanceOf<FailureMechanismEntity>(entity);
+            Assert.IsNotNull(entity);
             Assert.AreEqual(storageId, entity.FailureMechanismEntityId);
 
             mockRepository.VerifyAll();
@@ -459,6 +467,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 FailureMechanismEntityId = 4567L,
                 FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism
             };
+            ringtoetsEntities.FailureMechanismEntities.Add(entityToUpdate);
+            ringtoetsEntities.FailureMechanismEntities.Add(entityToDelete);
 
             ObservableCollection<FailureMechanismEntity> parentNavigationProperty = new ObservableCollection<FailureMechanismEntity>
             {
@@ -479,10 +489,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             persistor.RemoveUnModifiedEntries(parentNavigationProperty);
 
             // Assert
+            Assert.AreEqual(1, ringtoetsEntities.FailureMechanismEntities.Count());
+            var entityUpdated = ringtoetsEntities.FailureMechanismEntities.FirstOrDefault();
+            Assert.AreEqual(entityToUpdate, entityUpdated);
             Assert.AreEqual(2, parentNavigationProperty.Count);
-            Assert.IsInstanceOf<FailureMechanismEntity>(entityToUpdate);
-            Assert.AreEqual(storageId, entityToUpdate.FailureMechanismEntityId);
-
             mockRepository.VerifyAll();
         }
 
@@ -506,14 +516,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 secondEntityToDelete
             };
 
-            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
-            var dbset = DbTestSet.GetDbTestSet(parentNavigationProperty);
-            ringtoetsEntities.Expect(d => d.FailureMechanismEntities).Return(dbset);
-
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
 
-            DikesPipingFailureMechanismEntityPersistor persistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsEntities);
+            ringtoetsEntities.FailureMechanismEntities.Add(firstEntityToDelete);
+            ringtoetsEntities.FailureMechanismEntities.Add(secondEntityToDelete);
 
+            DikesPipingFailureMechanismEntityPersistor persistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsEntities);
             PipingFailureMechanism pipingFailureMechanism = new PipingFailureMechanism();
 
             TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, pipingFailureMechanism);
@@ -523,6 +532,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             persistor.RemoveUnModifiedEntries(parentNavigationProperty);
 
             // Assert
+            CollectionAssert.IsEmpty(ringtoetsEntities.FailureMechanismEntities);
             mockRepository.VerifyAll();
         }
 

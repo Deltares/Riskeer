@@ -26,7 +26,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         }
 
         [Test]
-        [TestCase(1e-8)]
+        [TestCase(1e-6)]
         [TestCase(1)]
         public void OuterLoop_TwoDisconnectedSegment_ThrowsArgumentException(double diff)
         {
@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         }
 
         [Test]
-        [TestCase(1e-8)]
+        [TestCase(1e-6)]
         [TestCase(1)]
         public void OuterLoop_ThreeDisconnectedSegment_ThrowsArgumentException(double diff)
         {
@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         }
 
         [Test]
-        [TestCase(1e-8)]
+        [TestCase(1e-6)]
         [TestCase(1)]
         public void AddInnerLoop_TwoDisconnectedSegment_ThrowsArgumentException(double diff)
         {
@@ -142,7 +142,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         }
 
         [Test]
-        [TestCase(1e-8)]
+        [TestCase(1e-6)]
         [TestCase(1)]
         public void AddInnerLoop_ThreeDisconnectedSegment_ThrowsArgumentException(double diff)
         {

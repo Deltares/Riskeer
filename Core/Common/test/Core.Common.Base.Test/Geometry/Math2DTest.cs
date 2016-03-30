@@ -178,7 +178,7 @@ namespace Core.Common.Base.Test.Geometry
             var result = Math2D.LineIntersectionWithLine(new Point2D(start, y1), new Point2D(start + 1, y2), new Point2D(start + 0.5, 0), new Point2D(start + 0.5, 1));
 
             // Assert
-            Assert.AreEqual((y1 + y2)/2, result.Y, 1e-8);
+            Assert.AreEqual((y1 + y2)/2, result.Y, 1e-6);
         }
 
         [Test]

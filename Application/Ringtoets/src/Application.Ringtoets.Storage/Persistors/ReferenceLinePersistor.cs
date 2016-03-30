@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
@@ -59,6 +58,20 @@ namespace Application.Ringtoets.Storage.Persistors
             }
         }
 
+        /// <summary>
+        /// Creates a new <see cref="ReferenceLine"/> based on the information in <paramref name="entityCollection"/>.
+        /// </summary>
+        /// <param name="entityCollection">The database entity containing the information to set on the new model.</param>
+        /// <returns>A new <see cref="ReferenceLine"/> with properties set from the database.</returns>
+        public ReferenceLine LoadModel(ICollection<ReferenceLinePointEntity> entityCollection)
+        {
+            if (entityCollection == null)
+            {
+                throw new ArgumentNullException("entityCollection");
+            }
+            return converter.ConvertEntityToModel(entityCollection);
+        }
+
         private bool HasChanges(ICollection<ReferenceLinePointEntity> entityCollection, ReferenceLine otherLine)
         {
             var existingLine = converter.ConvertEntityToModel(entityCollection);
@@ -80,28 +93,14 @@ namespace Application.Ringtoets.Storage.Persistors
             }
             for (int i = 0; i < pointsArray.Length; i++)
             {
-                var isXAlmostEqual = Math.Abs(pointsArray[i].X - otherPointsArray[i].X) < 1e-8;
-                var isYAlmostEqual = Math.Abs(pointsArray[i].Y - otherPointsArray[i].Y) < 1e-8;
+                var isXAlmostEqual = Math.Abs(pointsArray[i].X - otherPointsArray[i].X) < 1e-6;
+                var isYAlmostEqual = Math.Abs(pointsArray[i].Y - otherPointsArray[i].Y) < 1e-6;
                 if (!isXAlmostEqual || !isYAlmostEqual)
                 {
                     return true;
                 }
             }
             return false;
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="ReferenceLine"/> based on the information in <paramref name="entityCollection"/>.
-        /// </summary>
-        /// <param name="entityCollection">The database entity containing the information to set on the new model.</param>
-        /// <returns>A new <see cref="ReferenceLine"/> with properties set from the database.</returns>
-        public ReferenceLine LoadModel(ICollection<ReferenceLinePointEntity> entityCollection)
-        {
-            if (entityCollection == null)
-            {
-                throw new ArgumentNullException("entityCollection");
-            }
-            return converter.ConvertEntityToModel(entityCollection);
         }
     }
 }

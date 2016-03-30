@@ -84,8 +84,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
             Assert.AreNotEqual(points, location.Points);
             for (var i = 0; i < entityCollection.Count; i++)
             {
-                Assert.AreEqual(Decimal.ToDouble(entityCollection[i].X), points[i].X, 1e-8);
-                Assert.AreEqual(Decimal.ToDouble(entityCollection[i].Y), points[i].Y, 1e-8);
+                Assert.AreEqual(Decimal.ToDouble(entityCollection[i].X), points[i].X, 1e-6);
+                Assert.AreEqual(Decimal.ToDouble(entityCollection[i].Y), points[i].Y, 1e-6);
             }
         }
 
@@ -116,8 +116,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
             Assert.AreNotEqual(points, location.Points);
             for (var i = 0; i < entityCollection.Count; i++)
             {
-                Assert.AreEqual(Decimal.ToDouble(entityCollection[i].X), points[i].X, 1e-8);
-                Assert.AreEqual(Decimal.ToDouble(entityCollection[i].Y), points[i].Y, 1e-8);
+                Assert.AreEqual(Decimal.ToDouble(entityCollection[i].X), points[i].X, 1e-6);
+                Assert.AreEqual(Decimal.ToDouble(entityCollection[i].Y), points[i].Y, 1e-6);
             }
         }
 
@@ -174,8 +174,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
 
             for (var i = 0; i < entity.Count; i++)
             {
-                Assert.AreEqual(points[i].X, Decimal.ToDouble(entity[i].X), 1e-8);
-                Assert.AreEqual(points[i].Y, Decimal.ToDouble(entity[i].Y), 1e-8);
+                Assert.AreEqual(points[i].X, Decimal.ToDouble(entity[i].X), 1e-6);
+                Assert.AreEqual(points[i].Y, Decimal.ToDouble(entity[i].Y), 1e-6);
                 Assert.AreEqual(i, entity[i].Order);
             }
         }

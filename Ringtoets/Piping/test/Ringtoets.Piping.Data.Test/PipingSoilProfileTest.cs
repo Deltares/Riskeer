@@ -336,7 +336,7 @@ namespace Ringtoets.Piping.Data.Test
             var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.5);
 
             // Assert
-            Assert.AreEqual(0.4, result, 1e-8);
+            Assert.AreEqual(0.4, result, 1e-6);
         }
 
         [Test]

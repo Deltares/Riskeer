@@ -85,10 +85,7 @@
     <Compile Include="Converters\PipingFailureMechanismEntityConverterTest.cs" />
     <Compile Include="Converters\HydraulicLocationConverterTest.cs" />
     <Compile Include="Converters\ProjectEntityConverterTest.cs" />
-    <Compile Include="DbContext\FailureMechanismEntityTest.cs" />
     <Compile Include="Converters\DikeAssessmentSectionEntityConverterTest.cs" />
-    <Compile Include="DbContext\DikeAssessmentSectionEntityTest.cs" />
-    <Compile Include="DbContext\ProjectEntityTest.cs" />
     <Compile Include="Persistors\HydraulicLocationEntityPersistorTest.cs" />
     <Compile Include="Persistors\ReferenceLinePersistorTest.cs" />
     <Compile Include="RingtoetsDatabaseCreatorTest.cs" />

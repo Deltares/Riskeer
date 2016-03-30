@@ -106,8 +106,8 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        [TestCase(1e-8, 0)]
-        [TestCase(0, 1e-8)]
+        [TestCase(1e-6, 0)]
+        [TestCase(0, 1e-6)]
         public void Equals_CloseToOtherPoint_ReturnsFalse(double deltaX, double deltaY)
         {
             // Setup

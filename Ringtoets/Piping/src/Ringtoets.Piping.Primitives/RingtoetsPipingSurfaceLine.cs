@@ -256,7 +256,7 @@ namespace Ringtoets.Piping.Primitives
 
             IEnumerable<Point2D> intersectionPoints = Math2D.SegmentsIntersectionWithVerticalLine(segments, l).OrderBy(p => p.Y).ToArray();
 
-            const double intersectionTolerance = 1e-8;
+            const double intersectionTolerance = 1e-6;
             bool equalIntersections = Math.Abs((double) (intersectionPoints.First().Y - intersectionPoints.Last().Y)) < intersectionTolerance;
 
             if (equalIntersections)

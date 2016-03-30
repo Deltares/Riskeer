@@ -1,7 +1,26 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -105,11 +124,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             ringtoetsEntities.ProjectEntities.Add(
-            new ProjectEntity
-            {
-                ProjectEntityId = storageId,
-                Description = description
-            });
+                new ProjectEntity
+                {
+                    ProjectEntityId = storageId,
+                    Description = description
+                });
 
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
 
@@ -377,7 +396,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
 
-
             Project project = new Project
             {
                 StorageId = storageId,
@@ -428,7 +446,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             };
 
             ringtoetsEntities.ProjectEntities.Add(projectEntity);
-            
+
             ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
 
             // Call
@@ -536,7 +554,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Assert
             Assert.AreEqual(1, ringtoetsEntities.ProjectEntities.Count());
-            CollectionAssert.AreEqual(new[] { entityToUpdate }, ringtoetsEntities.ProjectEntities);
+            Assert.AreEqual(entityToUpdate, ringtoetsEntities.ProjectEntities.FirstOrDefault());
 
             mockRepository.VerifyAll();
         }
@@ -584,7 +602,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             persistor.RemoveUnModifiedEntries();
 
             // Assert
-            CollectionAssert.AreEqual(new[] { entityToUpdate }, ringtoetsEntities.ProjectEntities);
+            Assert.AreEqual(1, ringtoetsEntities.ProjectEntities.Count());
+            Assert.AreEqual(entityToUpdate, ringtoetsEntities.ProjectEntities.FirstOrDefault());
             mockRepository.VerifyAll();
         }
     }

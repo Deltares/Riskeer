@@ -158,6 +158,18 @@ namespace Application.Ringtoets.Storage.Persistors
         }
 
         /// <summary>
+        /// Perform actions that can only be executed after <see cref="IRingtoetsEntities.SaveChanges"/> has been called.
+        /// </summary>
+        public void PerformPostSaveActions()
+        {
+            foreach (var entry in insertedList)
+            {
+                entry.Value.StorageId = entry.Key.HydraulicLocationEntityId;
+            }
+            insertedList.Clear();
+        }
+
+        /// <summary>
         /// Removes all entities from <see cref="IRingtoetsEntities.ProjectEntities"/> that are not marked as 'updated'.
         /// </summary>
         /// <param name="parentNavigationProperty">List where <see cref="HydraulicLocationEntity"/> objects can be searched. 
@@ -168,18 +180,6 @@ namespace Application.Ringtoets.Storage.Persistors
             hydraulicLocationSet.RemoveRange(untouchedModifiedList);
 
             modifiedList.Clear();
-        }
-
-        /// <summary>
-        /// Perform actions that can only be executed after <see cref="IRingtoetsEntities.SaveChanges"/> has been called.
-        /// </summary>
-        public void PerformPostSaveActions()
-        {
-            foreach (var entry in insertedList)
-            {
-                entry.Value.StorageId = entry.Key.HydraulicLocationEntityId;
-            }
-            insertedList.Clear();
         }
 
         private void InsertLocation(ICollection<HydraulicLocationEntity> parentNavigationProperty, HydraulicBoundaryLocation location)
