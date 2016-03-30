@@ -82,18 +82,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\ReferenceLineConverterTest.cs" />
-    <Compile Include="Converters\PipingFailureMechanismEntityConverterTest.cs" />
+    <Compile Include="Converters\PipingFailureMechanismConverterTest.cs" />
     <Compile Include="Converters\HydraulicLocationConverterTest.cs" />
-    <Compile Include="Converters\ProjectEntityConverterTest.cs" />
-    <Compile Include="Converters\DikeAssessmentSectionEntityConverterTest.cs" />
-    <Compile Include="Persistors\HydraulicLocationEntityPersistorTest.cs" />
+    <Compile Include="Converters\ProjectConverterTest.cs" />
+    <Compile Include="Converters\DikeAssessmentSectionConverterTest.cs" />
+    <Compile Include="Persistors\HydraulicBoundaryLocationPersistorTest.cs" />
     <Compile Include="Persistors\ReferenceLinePersistorTest.cs" />
     <Compile Include="RingtoetsDatabaseCreatorTest.cs" />
     <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
     <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />
-    <Compile Include="Persistors\DikeAssessmentSectionEntityPersistorTest.cs" />
-    <Compile Include="Persistors\DikesPipingFailureMechanismEntityPersistorTest.cs" />
-    <Compile Include="Persistors\ProjectEntityPersistorTest.cs">
+    <Compile Include="Persistors\DikeAssessmentSectionPersistorTest.cs" />
+    <Compile Include="Persistors\PipingFailureMechanismPersistorTest.cs" />
+    <Compile Include="Persistors\ProjectPersistorTest.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

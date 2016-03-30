@@ -52,10 +52,10 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Converters\DikeAssessmentSectionEntityConverter.cs" />
-    <Compile Include="Converters\PipingFailureMechanismEntityConverter.cs" />
+    <Compile Include="Converters\DikeAssessmentSectionConverter.cs" />
+    <Compile Include="Converters\PipingFailureMechanismConverter.cs" />
     <Compile Include="Converters\HydraulicLocationConverter.cs" />
-    <Compile Include="Converters\ProjectEntityConverter.cs" />
+    <Compile Include="Converters\ProjectConverter.cs" />
     <Compile Include="Converters\IEntityConverter.cs" />
     <Compile Include="Converters\ReferenceLineConverter.cs" />
     <Compile Include="DbContext\DikeAssessmentSectionEntity.cs">
@@ -77,11 +77,11 @@
     <Compile Include="DbContext\Version.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Persistors\DikeAssessmentSectionEntityPersistor.cs" />
-    <Compile Include="Persistors\FailureMechanismEntityPersistorBase.cs" />
-    <Compile Include="Persistors\HydraulicLocationEntityPersistor.cs" />
-    <Compile Include="Persistors\DikesPipingFailureMechanismEntityPersistor.cs" />
-    <Compile Include="Persistors\ProjectEntityPersistor.cs" />
+    <Compile Include="Persistors\DikeAssessmentSectionPersistor.cs" />
+    <Compile Include="Persistors\FailureMechanismPersistorBase.cs" />
+    <Compile Include="Persistors\HydraulicBoundaryLocationPersistor.cs" />
+    <Compile Include="Persistors\PipingFailureMechanismPersistor.cs" />
+    <Compile Include="Persistors\ProjectPersistor.cs" />
     <Compile Include="Persistors\ReferenceLinePersistor.cs" />
     <Compile Include="StorageSqliteCreator.cs" />
     <Compile Include="DbContext\PartialRingtoetsEntities.cs" />

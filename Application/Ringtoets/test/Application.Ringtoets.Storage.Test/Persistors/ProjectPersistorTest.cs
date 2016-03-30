@@ -34,7 +34,7 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Test.Persistors
 {
     [TestFixture]
-    public class ProjectEntityPersistorTest
+    public class ProjectPersistorTest
     {
         private MockRepository mockRepository;
 
@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void Constructor_NullDataSet_ThrowsArgumentNullException()
         {
             // Call
-            ProjectEntityPersistor p = new ProjectEntityPersistor(null);
+            ProjectPersistor p = new ProjectPersistor(null);
         }
 
         [Test]
@@ -60,10 +60,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Assert
-            Assert.IsInstanceOf<ProjectEntityPersistor>(persistor);
+            Assert.IsInstanceOf<ProjectPersistor>(persistor);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
 
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             TestDelegate test = () => persistor.GetEntityAsModel();
@@ -99,7 +99,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     ProjectEntityId = storageId,
                     Description = description
                 });
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             Project model = persistor.GetEntityAsModel();
@@ -130,7 +130,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     Description = description
                 });
 
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             Project model = persistor.GetEntityAsModel();
@@ -161,7 +161,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 {
                     ProjectEntityId = 2
                 });
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             TestDelegate test = () => persistor.GetEntityAsModel();
@@ -197,7 +197,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     }
                 });
 
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             Project model = persistor.GetEntityAsModel();
@@ -219,7 +219,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
 
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             TestDelegate test = () => persistor.InsertModel(null);
@@ -247,7 +247,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 Description = description
             };
 
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             persistor.InsertModel(project);
@@ -281,7 +281,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 }
             };
 
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             persistor.InsertModel(project);
@@ -303,7 +303,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
 
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             TestDelegate test = () => persistor.UpdateModel(null);
@@ -332,7 +332,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 {
                     ProjectEntityId = 2
                 });
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             TestDelegate test = () => persistor.UpdateModel(project);
@@ -369,7 +369,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     ProjectEntityId = storageId
                 });
 
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             TestDelegate test = () => persistor.UpdateModel(project);
@@ -408,7 +408,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             ringtoetsEntities.ProjectEntities.Add(entity);
 
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             persistor.UpdateModel(project);
@@ -447,7 +447,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             ringtoetsEntities.ProjectEntities.Add(projectEntity);
 
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             persistor.UpdateModel(project);
@@ -468,7 +468,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
 
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
             TestDelegate test = () => persistor.PerformPostSaveActions();
@@ -493,7 +493,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 StorageId = 0L
             };
 
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             TestDelegate insertTest = () => persistor.InsertModel(project);
             Assert.DoesNotThrow(insertTest, "Precondition failed: InsertModel failed");
@@ -544,7 +544,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             };
 
             mockRepository.ReplayAll();
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             TestDelegate test = () => persistor.UpdateModel(project);
             Assert.DoesNotThrow(test, "Precondition failed: UpdateModel");
@@ -593,7 +593,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 StorageId = storageId
             };
 
-            ProjectEntityPersistor persistor = new ProjectEntityPersistor(ringtoetsEntities);
+            ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             TestDelegate test = () => persistor.UpdateModel(project);
             Assert.DoesNotThrow(test, "Precondition failed: UpdateModel");

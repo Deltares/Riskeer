@@ -27,17 +27,16 @@ using Ringtoets.Piping.Data;
 namespace Application.Ringtoets.Storage.Persistors
 {
     /// <summary>
-    /// Persistor for <see cref="DikesPipingFailureMechanismEntityPersistor"/>.
+    /// Persistor for <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class DikesPipingFailureMechanismEntityPersistor : FailureMechanismEntityPersistorBase<PipingFailureMechanism>
+    public class PipingFailureMechanismPersistor : FailureMechanismPersistorBase<PipingFailureMechanism>
     {
         /// <summary>
-        /// New instance of <see cref="DikesPipingFailureMechanismEntityPersistor"/>.
+        /// New instance of <see cref="PipingFailureMechanismPersistor"/>.
         /// </summary>
         /// <param name="ringtoetsContext">The storage context.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
-        public DikesPipingFailureMechanismEntityPersistor(IRingtoetsEntities ringtoetsContext) : 
-            base(ringtoetsContext, new PipingFailureMechanismEntityConverter()) {
-        }
+        public PipingFailureMechanismPersistor(IRingtoetsEntities ringtoetsContext) :
+            base(ringtoetsContext, new PipingFailureMechanismConverter()) {}
     }
 }

@@ -28,13 +28,13 @@ using NUnit.Framework;
 namespace Application.Ringtoets.Storage.Test.Converters
 {
     [TestFixture]
-    public class ProjectEntityConverterTest
+    public class ProjectConverterTest
     {
         [Test]
-        public void DefaultConstructor_Always_NewProjectEntityConverter()
+        public void DefaultConstructor_Always_NewProjectConverter()
         {
             // Call
-            ProjectEntityConverter converter = new ProjectEntityConverter();
+            ProjectConverter converter = new ProjectConverter();
 
             // Assert
             Assert.IsInstanceOf<IEntityConverter<Project, ProjectEntity>>(converter);
@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertEntityToModel_NullEntity_ThrowsArgumentNullException()
         {
             // SetUp
-            ProjectEntityConverter converter = new ProjectEntityConverter();
+            ProjectConverter converter = new ProjectConverter();
 
             // Call
             TestDelegate test = () => converter.ConvertEntityToModel(null);
@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
                 ProjectEntityId = storageId,
                 Description = description
             };
-            ProjectEntityConverter converter = new ProjectEntityConverter();
+            ProjectConverter converter = new ProjectConverter();
 
             // Call
             Project project = converter.ConvertEntityToModel(projectEntity);
@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertModelToEntity_NullEntity_ThrowsArgumentNullException()
         {
             // SetUp
-            ProjectEntityConverter converter = new ProjectEntityConverter();
+            ProjectConverter converter = new ProjectConverter();
             Project project = new Project();
 
             // Call
@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertModelToEntity_NullModel_ThrowsArgumentNullException()
         {
             // SetUp
-            ProjectEntityConverter converter = new ProjectEntityConverter();
+            ProjectConverter converter = new ProjectConverter();
             ProjectEntity projectEntity = new ProjectEntity();
 
             // Call
@@ -115,7 +115,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
                 Description = description
             };
             ProjectEntity projectEntity = new ProjectEntity();
-            ProjectEntityConverter converter = new ProjectEntityConverter();
+            ProjectConverter converter = new ProjectConverter();
 
             // Call
             converter.ConvertModelToEntity(project, projectEntity);

@@ -33,25 +33,25 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Persistors
 {
     /// <summary>
-    /// Persistor for <see cref="DikeAssessmentSectionEntity"/>.
+    /// Persistor for <see cref="DikeAssessmentSection"/>.
     /// </summary>
-    public class DikeAssessmentSectionEntityPersistor
+    public class DikeAssessmentSectionPersistor
     {
         private readonly DbSet<DikeAssessmentSectionEntity> dikeAssessmentSectionSet;
-        private readonly DikeAssessmentSectionEntityConverter converter;
+        private readonly DikeAssessmentSectionConverter converter;
         private readonly Dictionary<DikeAssessmentSectionEntity, DikeAssessmentSection> insertedList = new Dictionary<DikeAssessmentSectionEntity, DikeAssessmentSection>();
         private readonly ICollection<DikeAssessmentSectionEntity> modifiedList = new List<DikeAssessmentSectionEntity>();
 
-        private readonly DikesPipingFailureMechanismEntityPersistor dikePipingFailureMechanismEntityPersistor;
-        private readonly HydraulicLocationEntityPersistor hydraulicLocationEntityPersistor;
+        private readonly PipingFailureMechanismPersistor dikePipingFailureMechanismEntityPersistor;
+        private readonly HydraulicBoundaryLocationPersistor hydraulicLocationEntityPersistor;
         private readonly ReferenceLinePersistor referenceLinePersistor;
 
         /// <summary>
-        /// New instance of <see cref="DikeAssessmentSectionEntityPersistor"/>.
+        /// New instance of <see cref="DikeAssessmentSectionPersistor"/>.
         /// </summary>
         /// <param name="ringtoetsContext">The storage context.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
-        public DikeAssessmentSectionEntityPersistor(IRingtoetsEntities ringtoetsContext)
+        public DikeAssessmentSectionPersistor(IRingtoetsEntities ringtoetsContext)
         {
             if (ringtoetsContext == null)
             {
@@ -59,10 +59,10 @@ namespace Application.Ringtoets.Storage.Persistors
             }
             dikeAssessmentSectionSet = ringtoetsContext.DikeAssessmentSectionEntities;
 
-            converter = new DikeAssessmentSectionEntityConverter();
+            converter = new DikeAssessmentSectionConverter();
 
-            dikePipingFailureMechanismEntityPersistor = new DikesPipingFailureMechanismEntityPersistor(ringtoetsContext);
-            hydraulicLocationEntityPersistor = new HydraulicLocationEntityPersistor(ringtoetsContext);
+            dikePipingFailureMechanismEntityPersistor = new PipingFailureMechanismPersistor(ringtoetsContext);
+            hydraulicLocationEntityPersistor = new HydraulicBoundaryLocationPersistor(ringtoetsContext);
             referenceLinePersistor = new ReferenceLinePersistor(ringtoetsContext);
         }
 

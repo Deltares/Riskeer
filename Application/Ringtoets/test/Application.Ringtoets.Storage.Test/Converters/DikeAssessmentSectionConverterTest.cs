@@ -29,13 +29,13 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Test.Converters
 {
     [TestFixture]
-    public class DikeAssessmentSectionEntityConverterTest
+    public class DikeAssessmentSectionConverterTest
     {
         [Test]
         public void DefaultConstructor_Always_NewDikeAssessmentSectionEntityConverter()
         {
             // Call
-            DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
+            DikeAssessmentSectionConverter converter = new DikeAssessmentSectionConverter();
 
             // Assert
             Assert.IsInstanceOf<IEntityConverter<DikeAssessmentSection, DikeAssessmentSectionEntity>>(converter);
@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertEntityToModel_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
-            DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
+            DikeAssessmentSectionConverter converter = new DikeAssessmentSectionConverter();
 
             // Call
             TestDelegate test = () => converter.ConvertEntityToModel(null);
@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
                 HydraulicDatabaseVersion = hydraulicDatabaseVersion,
                 HydraulicDatabaseLocation = hydraulicDatabasePath
             };
-            DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
+            DikeAssessmentSectionConverter converter = new DikeAssessmentSectionConverter();
 
             // Call
             DikeAssessmentSection assessmentSection = converter.ConvertEntityToModel(dikeAssessmentSectionEntity);
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertModelToEntity_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
-            DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
+            DikeAssessmentSectionConverter converter = new DikeAssessmentSectionConverter();
             DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection();
 
             // Call
@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertModelToEntity_NullModel_ThrowsArgumentNullException()
         {
             // Setup
-            DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
+            DikeAssessmentSectionConverter converter = new DikeAssessmentSectionConverter();
             DikeAssessmentSectionEntity dikeAssessmentSectionEntity = new DikeAssessmentSectionEntity();
 
             // Call
@@ -143,7 +143,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             {
                 ProjectEntityId = projectId
             };
-            DikeAssessmentSectionEntityConverter converter = new DikeAssessmentSectionEntityConverter();
+            DikeAssessmentSectionConverter converter = new DikeAssessmentSectionConverter();
 
             // Call
             converter.ConvertModelToEntity(dikeAssessmentSection, dikeAssessmentSectionEntity);

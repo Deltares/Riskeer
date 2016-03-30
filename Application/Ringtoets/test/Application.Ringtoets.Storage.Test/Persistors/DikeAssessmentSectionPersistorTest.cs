@@ -35,7 +35,7 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Test.Persistors
 {
     [TestFixture]
-    public class DikeAssessmentSectionEntityPersistorTest
+    public class DikeAssessmentSectionPersistorTest
     {
         private MockRepository mockRepository;
 
@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void Constructor_NullDataSet_ThrowsArgumentNullException()
         {
             // Call
-            DikeAssessmentSectionEntityPersistor p = new DikeAssessmentSectionEntityPersistor(null);
+            DikeAssessmentSectionPersistor p = new DikeAssessmentSectionPersistor(null);
         }
 
         [Test]
@@ -61,10 +61,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             // Call
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
 
             // Assert
-            Assert.IsInstanceOf<DikeAssessmentSectionEntityPersistor>(persistor);
+            Assert.IsInstanceOf<DikeAssessmentSectionPersistor>(persistor);
 
             mockRepository.VerifyAll();
         }
@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var ringtoetsEntities = mockRepository.Stub<IRingtoetsEntities>();
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             mockRepository.ReplayAll();
 
             // Call
@@ -112,7 +112,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const decimal otherHydraulicDatabaseLocationY = 372;
 
             var ringtoetsEntities = mockRepository.Stub<IRingtoetsEntities>();
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             var entity = new DikeAssessmentSectionEntity
             {
                 DikeAssessmentSectionEntityId = storageId, Name = name, Norm = norm, FailureMechanismEntities = new List<FailureMechanismEntity>
@@ -175,7 +175,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var ringtoetsEntities = mockRepository.Stub<IRingtoetsEntities>();
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             ICollection<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>
             {
                 new DikeAssessmentSectionEntity
@@ -243,7 +243,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
 
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             var dikeAssessmentSection = new DikeAssessmentSection();
 
             // Call
@@ -258,7 +258,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var ringtoetsEntities = mockRepository.Stub<IRingtoetsEntities>();
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             var parentNavigationProperty = mockRepository.StrictMock<ICollection<DikeAssessmentSectionEntity>>();
             mockRepository.ReplayAll();
 
@@ -293,7 +293,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
                 };
 
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
 
             // Call
             persistor.InsertModel(parentNavigationProperty, dikeAssessmentSection, 0);
@@ -330,7 +330,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 entityToDelete
             };
 
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
 
             DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection
             {
@@ -363,7 +363,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
 
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
 
             const string name = "test";
             const double designWaterLevel = 15.6;
@@ -410,7 +410,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
 
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             var dikeAssessmentSection = new DikeAssessmentSection();
 
             // Call
@@ -425,7 +425,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             var ringtoetsEntities = mockRepository.Stub<IRingtoetsEntities>();
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             var parentNavigationProperty = mockRepository.StrictMock<ICollection<DikeAssessmentSectionEntity>>();
             mockRepository.ReplayAll();
 
@@ -448,7 +448,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             mockRepository.ReplayAll();
 
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             ICollection<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>();
             DikeAssessmentSection dikeAssessmentSection =
                 new DikeAssessmentSection
@@ -485,7 +485,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const int norm = 30000;
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             ICollection<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>();
             DikeAssessmentSection dikeAssessmentSection =
                 new DikeAssessmentSection
@@ -514,7 +514,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const long storageId = 1234L;
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             ICollection<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>
             {
                 new DikeAssessmentSectionEntity
@@ -544,7 +544,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const long storageId = 1234L;
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             ICollection<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>
             {
                 new DikeAssessmentSectionEntity
@@ -582,7 +582,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const int norm = 30000;
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             ICollection<DikeAssessmentSectionEntity> parentNavigationProperty = new List<DikeAssessmentSectionEntity>
             {
                 new DikeAssessmentSectionEntity
@@ -645,7 +645,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 }
             };
 
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
 
             DikeAssessmentSection dikeAssessmentSection =
                 new DikeAssessmentSection
@@ -683,7 +683,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
 
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection
             {
                 StorageId = storageId,
@@ -750,7 +750,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             ringtoetsEntities.DikeAssessmentSectionEntities.Add(entityToDelete);
 
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             DikeAssessmentSection dikeAssessmentSection =
                 new DikeAssessmentSection
                 {
@@ -802,7 +802,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             ringtoetsEntities.DikeAssessmentSectionEntities.Add(entityToDelete);
             ringtoetsEntities.DikeAssessmentSectionEntities.Add(entityToUpdate);
 
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
             DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection
             {
                 Name = name,
@@ -853,7 +853,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             ringtoetsEntities.DikeAssessmentSectionEntities.Add(firstEntityToDelete);
             ringtoetsEntities.DikeAssessmentSectionEntities.Add(secondEntityToDelete);
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
 
             DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection
             {
@@ -878,7 +878,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
 
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
 
             // Call
             TestDelegate test = () => persistor.PerformPostSaveActions();
@@ -903,7 +903,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             IList<DikeAssessmentSection> dikeAssessmentSections = new List<DikeAssessmentSection>();
 
-            DikeAssessmentSectionEntityPersistor persistor = new DikeAssessmentSectionEntityPersistor(ringtoetsEntities);
+            DikeAssessmentSectionPersistor persistor = new DikeAssessmentSectionPersistor(ringtoetsEntities);
 
             for (var i = 0; i < numberOfInserts; i++)
             {

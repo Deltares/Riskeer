@@ -34,7 +34,7 @@ namespace Application.Ringtoets.Storage.Persistors
     /// <summary>
     /// Persistor for classes derived from <see cref="BaseFailureMechanism"/>.
     /// </summary>
-    public abstract class FailureMechanismEntityPersistorBase<T> where T : IFailureMechanism
+    public abstract class FailureMechanismPersistorBase<T> where T : IFailureMechanism
     {
         private readonly DbSet<FailureMechanismEntity> failureMechanismSet;
         private readonly Dictionary<FailureMechanismEntity, T> insertedList = new Dictionary<FailureMechanismEntity, T>();
@@ -43,12 +43,12 @@ namespace Application.Ringtoets.Storage.Persistors
         private readonly IEntityConverter<T, FailureMechanismEntity> converter;
 
         /// <summary>
-        /// New instance of <see cref="FailureMechanismEntityPersistorBase{T}"/>.
+        /// New instance of <see cref="FailureMechanismPersistorBase{T}"/>.
         /// </summary>
         /// <param name="ringtoetsContext">The storage context.</param>
         /// <param name="converter">An implementation of the <see cref="IEntityConverter{T,T}"/> to use in the persistor.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
-        protected FailureMechanismEntityPersistorBase(IRingtoetsEntities ringtoetsContext, IEntityConverter<T, FailureMechanismEntity> converter)
+        protected FailureMechanismPersistorBase(IRingtoetsEntities ringtoetsContext, IEntityConverter<T, FailureMechanismEntity> converter)
         {
             if (ringtoetsContext == null)
             {

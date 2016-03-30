@@ -30,13 +30,13 @@ using Ringtoets.Piping.Data;
 namespace Application.Ringtoets.Storage.Test.Converters
 {
     [TestFixture]
-    public class PipingFailureMechanismEntityConverterTest
+    public class PipingFailureMechanismConverterTest
     {
         [Test]
         public void DefaultConstructor_Always_NewFailureMechanismEntityConverter()
         {
             // Call
-            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
+            PipingFailureMechanismConverter converter = new PipingFailureMechanismConverter();
 
             // Assert
             Assert.IsInstanceOf<IEntityConverter<PipingFailureMechanism, FailureMechanismEntity>>(converter);
@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
+            PipingFailureMechanismConverter converter = new PipingFailureMechanismConverter();
             mocks.ReplayAll();
 
             // Call
@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertEntityToModel_ValidEntityValidModel_ReturnsEntityAsModel()
         {
             // Setup
-            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
+            PipingFailureMechanismConverter converter = new PipingFailureMechanismConverter();
 
             const long storageId = 1234L;
             FailureMechanismEntity entity = new FailureMechanismEntity
@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertEntityToModel_EntityWithIncorrectType_ThrowsArgumentException()
         {
             // Setup
-            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
+            PipingFailureMechanismConverter converter = new PipingFailureMechanismConverter();
 
             const long storageId = 1234L;
             FailureMechanismEntity entity = new FailureMechanismEntity
@@ -104,7 +104,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertModelToEntity_NullModel_ThrowsArgumentNullException()
         {
             // Setup
-            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
+            PipingFailureMechanismConverter converter = new PipingFailureMechanismConverter();
 
             // Call
             TestDelegate test = () => converter.ConvertModelToEntity(null, new FailureMechanismEntity());
@@ -118,7 +118,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertModelToEntity_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
-            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
+            PipingFailureMechanismConverter converter = new PipingFailureMechanismConverter();
 
             // Call
             TestDelegate test = () => converter.ConvertModelToEntity(new PipingFailureMechanism(), null);
@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertModelToEntity_ValidModelValidEntity_ReturnsModelAsEntity()
         {
             // Setup
-            PipingFailureMechanismEntityConverter converter = new PipingFailureMechanismEntityConverter();
+            PipingFailureMechanismConverter converter = new PipingFailureMechanismConverter();
 
             const long storageId = 1234L;
             var entity = new FailureMechanismEntity();

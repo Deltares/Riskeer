@@ -34,23 +34,23 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Persistors
 {
     /// <summary>
-    /// Persistor for <see cref="ProjectEntity"/>.
+    /// Persistor for <see cref="Project"/>.
     /// </summary>
-    public class ProjectEntityPersistor
+    public class ProjectPersistor
     {
         private readonly DbSet<ProjectEntity> projectEntitySet;
-        private readonly ProjectEntityConverter converter;
+        private readonly ProjectConverter converter;
         private readonly Dictionary<ProjectEntity, Project> insertedList = new Dictionary<ProjectEntity, Project>();
         private readonly ICollection<ProjectEntity> modifiedList = new List<ProjectEntity>();
 
-        private readonly DikeAssessmentSectionEntityPersistor dikeAssessmentSectionEntityPersistor;
+        private readonly DikeAssessmentSectionPersistor dikeAssessmentSectionEntityPersistor;
 
         /// <summary>
-        /// Instantiate a new ProjectEntityPersistor.
+        /// Instantiate a new <see cref="ProjectPersistor"/>.
         /// </summary>
         /// <param name="ringtoetsContext">The storage context.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
-        public ProjectEntityPersistor(IRingtoetsEntities ringtoetsContext)
+        public ProjectPersistor(IRingtoetsEntities ringtoetsContext)
         {
             if (ringtoetsContext == null)
             {
@@ -58,9 +58,9 @@ namespace Application.Ringtoets.Storage.Persistors
             }
             projectEntitySet = ringtoetsContext.ProjectEntities;
 
-            converter = new ProjectEntityConverter();
+            converter = new ProjectConverter();
 
-            dikeAssessmentSectionEntityPersistor = new DikeAssessmentSectionEntityPersistor(ringtoetsContext);
+            dikeAssessmentSectionEntityPersistor = new DikeAssessmentSectionPersistor(ringtoetsContext);
         }
 
         /// <summary>

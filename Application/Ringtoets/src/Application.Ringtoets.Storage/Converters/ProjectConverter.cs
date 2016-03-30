@@ -29,7 +29,7 @@ namespace Application.Ringtoets.Storage.Converters
     /// Converter for <see cref="ProjectEntity"/> to <see cref="Project"/> 
     /// and <see cref="Project"/> to <see cref="ProjectEntity"/>.
     /// </summary>
-    public class ProjectEntityConverter : IEntityConverter<Project, ProjectEntity>
+    public class ProjectConverter : IEntityConverter<Project, ProjectEntity>
     {
         /// <summary>
         /// Converts <paramref name="entity"/> to <see cref="Project"/>.

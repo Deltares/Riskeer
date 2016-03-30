@@ -30,7 +30,7 @@ namespace Application.Ringtoets.Storage.Converters
     /// Converter for <see cref="DikeAssessmentSectionEntity"/> to <see cref="DikeAssessmentSection"/> 
     /// and <see cref="DikeAssessmentSection"/> to <see cref="DikeAssessmentSectionEntity"/>.
     /// </summary>
-    public class DikeAssessmentSectionEntityConverter : IEntityConverter<DikeAssessmentSection, DikeAssessmentSectionEntity>
+    public class DikeAssessmentSectionConverter : IEntityConverter<DikeAssessmentSection, DikeAssessmentSectionEntity>
     {
         /// <summary>
         /// Converts <paramref name="entity"/> to <see cref="DikeAssessmentSection"/>.

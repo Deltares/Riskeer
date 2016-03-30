@@ -32,9 +32,9 @@ using Ringtoets.HydraRing.Data;
 namespace Application.Ringtoets.Storage.Persistors
 {
     /// <summary>
-    /// The persistor for <see cref="HydraulicLocationEntity"/>.
+    /// The persistor for <see cref="HydraulicBoundaryLocation"/>.
     /// </summary>
-    public class HydraulicLocationEntityPersistor
+    public class HydraulicBoundaryLocationPersistor
     {
         private readonly DbSet<HydraulicLocationEntity> hydraulicLocationSet;
         private readonly HydraulicLocationConverter converter;
@@ -43,11 +43,11 @@ namespace Application.Ringtoets.Storage.Persistors
         private readonly ICollection<HydraulicLocationEntity> modifiedList = new List<HydraulicLocationEntity>();
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicLocationEntityPersistor"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationPersistor"/>.
         /// </summary>
         /// <param name="ringtoetsContext">The storage context.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
-        public HydraulicLocationEntityPersistor(IRingtoetsEntities ringtoetsContext)
+        public HydraulicBoundaryLocationPersistor(IRingtoetsEntities ringtoetsContext)
         {
             if (ringtoetsContext == null)
             {

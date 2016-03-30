@@ -21,16 +21,15 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Converters
 {
     /// <summary>
-    /// Converter for <see cref="FailureMechanismEntity"/> to <see cref="IFailureMechanism"/> 
-    /// and <see cref="IFailureMechanism"/> to <see cref="FailureMechanismEntity"/>.
+    /// Converter for <see cref="FailureMechanismEntity"/> to <see cref="PipingFailureMechanism"/> 
+    /// and <see cref="PipingFailureMechanism"/> to <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    public class PipingFailureMechanismEntityConverter : IEntityConverter<PipingFailureMechanism, FailureMechanismEntity>
+    public class PipingFailureMechanismConverter : IEntityConverter<PipingFailureMechanism, FailureMechanismEntity>
     {
         public PipingFailureMechanism ConvertEntityToModel(FailureMechanismEntity entity)
         {

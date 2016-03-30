@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage
             SetConnectionToNewFile(databaseFilePath);
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
-                var projectEntityPersistor = new ProjectEntityPersistor(dbContext);
+                var projectEntityPersistor = new ProjectPersistor(dbContext);
                 try
                 {
                     projectEntityPersistor.InsertModel(project);
@@ -125,7 +125,7 @@ namespace Application.Ringtoets.Storage
             }
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
-                var projectEntityPersistor = new ProjectEntityPersistor(dbContext);
+                var projectEntityPersistor = new ProjectPersistor(dbContext);
                 try
                 {
                     projectEntityPersistor.UpdateModel(project);
@@ -174,7 +174,7 @@ namespace Application.Ringtoets.Storage
             {
                 using (var dbContext = new RingtoetsEntities(connectionString))
                 {
-                    var projectEntityPersistor = new ProjectEntityPersistor(dbContext);
+                    var projectEntityPersistor = new ProjectPersistor(dbContext);
                     var project = projectEntityPersistor.GetEntityAsModel();
 
                     project.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
@@ -200,7 +200,7 @@ namespace Application.Ringtoets.Storage
 
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
-                var projectEntityPersistor = new ProjectEntityPersistor(dbContext);
+                var projectEntityPersistor = new ProjectPersistor(dbContext);
 
                 try
                 {
