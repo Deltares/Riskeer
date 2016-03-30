@@ -92,7 +92,6 @@
     <Compile Include="PropertyClasses\RingtoetsPipingSurfaceLinePropertiesTest.cs" />
     <Compile Include="TypeConverters\LognormalDistributionDesignVariableTypeConverterTest.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\ContainingPropertyUpdateDescriptorDecoratorTest.cs" />
-    <Compile Include="TypeConverters\PropertyDescriptors\ReadOnlyPropertyDescriptorDecoratorTest.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\RoutedPropertyDescriptorTest.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\SimpleReadonlyPropertyDescriptorItemTest.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\TextPropertyDescriptorDecoratorTest.cs" />
