@@ -34,8 +34,8 @@
             this.SelectAllButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.SurfaceLineDataGrid = new System.Windows.Forms.DataGridView();
-            this.UseColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.SurfaceLineNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UseColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SurfaceLineDataGrid)).BeginInit();
@@ -70,6 +70,10 @@
             // 
             // SurfaceLineDataGrid
             // 
+            this.SurfaceLineDataGrid.AllowUserToAddRows = false;
+            this.SurfaceLineDataGrid.AllowUserToDeleteRows = false;
+            this.SurfaceLineDataGrid.AllowUserToResizeColumns = false;
+            this.SurfaceLineDataGrid.AllowUserToResizeRows = false;
             this.SurfaceLineDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SurfaceLineDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.UseColumn,
@@ -77,6 +81,14 @@
             resources.ApplyResources(this.SurfaceLineDataGrid, "SurfaceLineDataGrid");
             this.SurfaceLineDataGrid.Name = "SurfaceLineDataGrid";
             this.SurfaceLineDataGrid.RowHeadersVisible = false;
+            this.SurfaceLineDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            // 
+            // SurfaceLineNameColumn
+            // 
+            this.SurfaceLineNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.SurfaceLineNameColumn.DataPropertyName = "Name";
+            resources.ApplyResources(this.SurfaceLineNameColumn, "SurfaceLineNameColumn");
+            this.SurfaceLineNameColumn.Name = "SurfaceLineNameColumn";
             // 
             // UseColumn
             // 
@@ -85,14 +97,6 @@
             this.UseColumn.Name = "UseColumn";
             this.UseColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.UseColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // SurfaceLineNameColumn
-            // 
-            this.SurfaceLineNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.SurfaceLineNameColumn.DataPropertyName = "Name";
-            resources.ApplyResources(this.SurfaceLineNameColumn, "SurfaceLineNameColumn");
-            this.SurfaceLineNameColumn.Name = "SurfaceLineNameColumn";
-            this.SurfaceLineNameColumn.ReadOnly = true;
             // 
             // PipingSurfaceLineSelectionView
             // 

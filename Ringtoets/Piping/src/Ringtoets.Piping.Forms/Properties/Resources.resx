@@ -712,4 +712,13 @@
   <data name="StochasticSoilModel_StochasticSoilProfiles_DisplayName" xml:space="preserve">
     <value>Stochastisch ondergrondmodellen</value>
   </data>
+  <data name="GeneratePipingCalculationsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\wand-hat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PipingCalculationGroup_Generate_PipingCalculations" xml:space="preserve">
+    <value>Genereer scenario's</value>
+  </data>
+  <data name="PipingCalculationGroup_Generate_PipingCalculations_ToolTip" xml:space="preserve">
+    <value>Genereer scenario's op basis van geselecteerde profielschematisaties.</value>
+  </data>
 </root>

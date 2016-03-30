@@ -71,6 +71,23 @@ namespace Core.Common.Controls.Dialogs
         /// <param name="minHeight">The minimum height of the dialog.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> or <paramref name="icon"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="minWidth"/> or <paramref name="minHeight"/> is not greater than <c>0</c>.</exception>
+        protected DialogBase(IWin32Window dialogParent, Bitmap icon, int minWidth, int minHeight) :
+            this(dialogParent, BitmapToIcon(icon), minWidth, minHeight) { }
+
+        private static Icon BitmapToIcon(Bitmap icon)
+        {
+            return (icon == null) ? null : Icon.FromHandle(icon.GetHicon());
+        }
+
+        /// <summary>
+        /// Constructs a new <see cref="DialogBase"/>.
+        /// </summary>
+        /// <param name="dialogParent">The owner of the dialog.</param>
+        /// <param name="icon">The icon to show in the control box.</param>
+        /// <param name="minWidth">The minimum width of the dialog.</param>
+        /// <param name="minHeight">The minimum height of the dialog.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> or <paramref name="icon"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="minWidth"/> or <paramref name="minHeight"/> is not greater than <c>0</c>.</exception>
         protected DialogBase(IWin32Window dialogParent, Icon icon, int minWidth, int minHeight)
         {
             InitializeComponent();

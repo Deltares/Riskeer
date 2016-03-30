@@ -48,6 +48,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 item.Selected = true;
             }
+            SurfaceLineDataGrid.Invalidate();
         }
 
         private void OnSelectNoneClick(object sender, EventArgs e)
@@ -56,6 +57,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 item.Selected = false;
             }
+            SurfaceLineDataGrid.Invalidate();
         }
 
         private class SurfaceLineSelectionRow

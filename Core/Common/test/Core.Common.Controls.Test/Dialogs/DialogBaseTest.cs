@@ -35,7 +35,23 @@ namespace Core.Common.Controls.Test.Dialogs
             var mocks = new MockRepository();
             var window = mocks.Stub<IWin32Window>();
 
-            TestDelegate test = () => new TestDialog(window, null, 1, 2);
+            TestDelegate test = () => new TestDialog(window, (Icon) null, 1, 2);
+
+            // Call
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+
+            // Assert
+            StringAssert.EndsWith("icon", message);
+        }
+
+        [Test]
+        public void Constructor_BitmapEqualsNull_ArgumentNullExceptionIsThrown()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var window = mocks.Stub<IWin32Window>();
+
+            TestDelegate test = () => new TestDialog(window, (Bitmap) null, 1, 2);
 
             // Call
             var message = Assert.Throws<ArgumentNullException>(test).Message;
@@ -166,6 +182,9 @@ namespace Core.Common.Controls.Test.Dialogs
 
         private class TestDialog : DialogBase
         {
+            public TestDialog(IWin32Window dialogParent, Bitmap icon, int minWidth, int minHeight)
+                : base(dialogParent, icon, minWidth, minHeight) { }
+
             public TestDialog(IWin32Window dialogParent, Icon icon, int minWidth, int minHeight)
                 : base(dialogParent, icon, minWidth, minHeight) {}
 

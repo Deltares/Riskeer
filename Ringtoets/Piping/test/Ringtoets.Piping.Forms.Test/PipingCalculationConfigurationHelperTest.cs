@@ -11,10 +11,10 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Forms.Test
 {
     [TestFixture]
-    public class PipingCalculationHelperTest
+    public class PipingCalculationConfigurationHelperTest
     {
         [Test]
-        public void GetPipingSoilProfilesForCalculation_SurfaceLineIntersectingSoilModel_ReturnSoilProfilesOfSoilModel()
+        public void GetPipingSoilProfilesForSurfaceLine_SurfaceLineIntersectingSoilModel_ReturnSoilProfilesOfSoilModel()
         {
             // Setup
             var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new []
@@ -56,18 +56,8 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(3.0, -5.0, 0.0)
             });
 
-            var generalInputs = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
-            var calculation = new PipingCalculation(generalInputs, semiProbabilisticInputParameters)
-            {
-                InputParameters =
-                {
-                    SurfaceLine = surfaceLine
-                }
-            };
-
             // Call
-            IEnumerable<PipingSoilProfile> result = PipingCalculationHelper.GetPipingSoilProfilesForCalculation(calculation, availableSoilModels);
+            IEnumerable<PipingSoilProfile> result = PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
 
             // Assert
             PipingSoilProfile[] expected = { soilProfile1, soilProfile2 };
@@ -75,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GetPipingSoilProfilesForCalculation_NoSurfaceLine_ReturnEmpty()
+        public void GetPipingSoilProfilesForSurfaceLine_NoSurfaceLine_ReturnEmpty()
         {
             // Setup
             var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
@@ -109,19 +99,15 @@ namespace Ringtoets.Piping.Forms.Test
                 soilModel
             };
 
-            var generalInputs = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
-            var calculation = new PipingCalculation(generalInputs, semiProbabilisticInputParameters);
-
             // Call
-            IEnumerable<PipingSoilProfile> result = PipingCalculationHelper.GetPipingSoilProfilesForCalculation(calculation, availableSoilModels);
+            IEnumerable<PipingSoilProfile> result = PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(null, availableSoilModels);
 
             // Assert
             CollectionAssert.IsEmpty(result);
         }
 
         [Test]
-        public void GetPipingSoilProfilesForCalculation_NoSoilModels_ReturnEmpty()
+        public void GetPipingSoilProfilesForSurfaceLine_NoSoilModels_ReturnEmpty()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -132,25 +118,15 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(3.0, -5.0, 0.0)
             });
 
-            var generalInputs = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
-            var calculation = new PipingCalculation(generalInputs, semiProbabilisticInputParameters)
-            {
-                InputParameters =
-                {
-                    SurfaceLine = surfaceLine
-                }
-            };
-
             // Call
-            IEnumerable<PipingSoilProfile> result = PipingCalculationHelper.GetPipingSoilProfilesForCalculation(calculation, Enumerable.Empty<StochasticSoilModel>());
+            IEnumerable<PipingSoilProfile> result = PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(surfaceLine, Enumerable.Empty<StochasticSoilModel>());
 
             // Assert
             CollectionAssert.IsEmpty(result);
         }
 
         [Test]
-        public void GetPipingSoilProfilesForCalculation_NoSoilProfiles_ReturnEmpty()
+        public void GetPipingSoilProfilesForSurfaceLine_NoSoilProfiles_ReturnEmpty()
         {
             // Setup
             var soilModel = new StochasticSoilModel(1, "A", "B");
@@ -169,25 +145,15 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(3.0, -5.0, 0.0)
             });
 
-            var generalInputs = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
-            var calculation = new PipingCalculation(generalInputs, semiProbabilisticInputParameters)
-            {
-                InputParameters =
-                {
-                    SurfaceLine = surfaceLine
-                }
-            };
-
             // Call
-            IEnumerable<PipingSoilProfile> result = PipingCalculationHelper.GetPipingSoilProfilesForCalculation(calculation, availableSoilModels);
+            IEnumerable<PipingSoilProfile> result = PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
 
             // Assert
             CollectionAssert.IsEmpty(result);
         }
 
         [Test]
-        public void GetPipingSoilProfilesForCalculation_SoilModelGeometryNotIntersecting_ReturnEmpty()
+        public void GetPipingSoilProfilesForSurfaceLine_SoilModelGeometryNotIntersecting_ReturnEmpty()
         {
             // Setup
             var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
@@ -229,25 +195,15 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(5.0, 1.0, 0.0)
             });
 
-            var generalInputs = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
-            var calculation = new PipingCalculation(generalInputs, semiProbabilisticInputParameters)
-            {
-                InputParameters =
-                {
-                    SurfaceLine = surfaceLine
-                }
-            };
-
             // Call
-            IEnumerable<PipingSoilProfile> result = PipingCalculationHelper.GetPipingSoilProfilesForCalculation(calculation, availableSoilModels);
+            IEnumerable<PipingSoilProfile> result = PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
 
             // Assert
             CollectionAssert.IsEmpty(result);
         }
 
         [Test]
-        public void GetPipingSoilProfilesForCalculation_SurfaceLineOverlappingSoilModel_ReturnSoilProfilesOfSoilModel()
+        public void GetPipingSoilProfilesForSurfaceLine_SurfaceLineOverlappingSoilModel_ReturnSoilProfilesOfSoilModel()
         {
             // Setup
             var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
@@ -296,18 +252,8 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(0.0, y, 0.0)
             });
 
-            var generalInputs = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
-            var calculation = new PipingCalculation(generalInputs, semiProbabilisticInputParameters)
-            {
-                InputParameters =
-                {
-                    SurfaceLine = surfaceLine
-                }
-            };
-
             // Call
-            IEnumerable<PipingSoilProfile> result = PipingCalculationHelper.GetPipingSoilProfilesForCalculation(calculation, availableSoilModels);
+            IEnumerable<PipingSoilProfile> result = PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
 
             // Assert
             PipingSoilProfile[] expected = { soilProfile1, soilProfile2 };

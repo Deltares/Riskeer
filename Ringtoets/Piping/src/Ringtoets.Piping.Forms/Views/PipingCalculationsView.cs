@@ -346,7 +346,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 return Enumerable.Empty<PipingSoilProfile>();
             }
-            return PipingCalculationHelper.GetPipingSoilProfilesForCalculation(pipingCalculation, pipingFailureMechanism.StochasticSoilModels);
+            return PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(pipingCalculation.InputParameters.SurfaceLine, pipingFailureMechanism.StochasticSoilModels);
         }
         
         private static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, object[] comboBoxItems)

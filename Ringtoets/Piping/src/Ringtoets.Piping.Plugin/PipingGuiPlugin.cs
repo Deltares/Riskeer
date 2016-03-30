@@ -30,10 +30,12 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.Properties;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
@@ -657,6 +659,8 @@ namespace Ringtoets.Piping.Plugin
                     nodeData.NotifyObservers();
                 });
 
+            var generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
+
             var validateAllItem = CreateValidateAllItem(group);
 
             var calculateAllItem = CreateCalculateAllItem(group);
@@ -690,6 +694,8 @@ namespace Ringtoets.Piping.Plugin
             {
                 builder
                     .AddOpenItem()
+                    .AddSeparator()
+                    .AddCustomItem(generateCalculationsItem)
                     .AddSeparator();
             }
 
@@ -728,6 +734,36 @@ namespace Ringtoets.Piping.Plugin
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();
+        }
+
+        private StrictContextMenuItem CreateGeneratePipingCalculationsItem(PipingCalculationGroupContext nodeData)
+        {
+            var generateCalculationsItem = new StrictContextMenuItem(
+                PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations,
+                PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip,
+                PipingFormsResources.GeneratePipingCalculationsIcon, (o, args) =>
+                {
+                    ShowSurfaceLineSelectionDialog(nodeData);
+                });
+            return generateCalculationsItem;
+        }
+
+        private void ShowSurfaceLineSelectionDialog(PipingCalculationGroupContext nodeData)
+        {
+            var view = new PipingSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailablePipingSurfaceLines);
+            view.ShowDialog();
+
+            GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines);
+
+            nodeData.NotifyObservers();
+        }
+
+        private void GeneratePipingCalculations(PipingCalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines)
+        {
+            foreach (var group in PipingCalculationGenerator.Generate(surfaceLines, null))
+            {
+                target.Children.Add(group);
+            }
         }
 
         private StrictContextMenuItem CreateCalculateAllItem(PipingCalculationGroup group)
