@@ -110,6 +110,7 @@
     <Compile Include="ContextMenu\TreeViewContextMenuItemFactoryTest.cs" />
     <Compile Include="ContextMenu\GuiContextMenuItemFactoryTest.cs" />
     <Compile Include="Converters\ExpandableArrayConverterTest.cs" />
+    <Compile Include="Converters\ExpandableReadOnlyArrayConverterTest.cs" />
     <Compile Include="Converters\PngToIconConverterTest.cs" />
     <Compile Include="Forms\MainWindow\MainWindowTest.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindowLogAppenderTest.cs" />

@@ -132,6 +132,7 @@
     <Compile Include="Commands\ViewCommandHandler.cs" />
     <Compile Include="ContextMenu\IContextMenuBuilderProvider.cs" />
     <Compile Include="Converters\ExpandableArrayConverter.cs" />
+    <Compile Include="Converters\ExpandableReadOnlyArrayConverter.cs" />
     <Compile Include="Converters\PngToIconConverter.cs" />
     <Compile Include="Forms\ControlHelper.cs" />
     <Compile Include="Forms\MainWindow\MainWindowCommands.cs" />

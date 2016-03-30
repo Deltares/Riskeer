@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-
 using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Converters
@@ -57,10 +56,23 @@ namespace Core.Common.Gui.Converters
                 Type elementType = type.GetElementType();
                 for (int index = 0; index < length; ++index)
                 {
-                    properties[index] = new ArrayPropertyDescriptor(type, elementType, index);
+                    properties[index] = CreateElementPropertyDescriptor(type, elementType, index);
                 }
             }
             return new PropertyDescriptorCollection(properties);
+        }
+
+        /// <summary>
+        /// Creates a new instance of type <see cref="PropertyDescriptor"/>.
+        /// </summary>
+        /// <param name="type">Type of the array.</param>
+        /// <param name="elementType">Type of the elements in <paramref name="type"/>.</param>
+        /// <param name="index">Index of the element corresponding with this property descriptor.</param>
+        /// <returns>New instance of <see cref="PropertyDescriptor"/>.</returns>
+        /// <seealso cref="ArrayPropertyDescriptor"/>
+        protected virtual PropertyDescriptor CreateElementPropertyDescriptor(Type type, Type elementType, int index)
+        {
+            return new ArrayPropertyDescriptor(type, elementType, index);
         }
 
         #region Nested Type: ArrayPropertyDescriptor
@@ -69,7 +81,7 @@ namespace Core.Common.Gui.Converters
         /// Array element property descriptor used by <see cref="ExpandableArrayConverter"/>.
         /// Properties are named based on their index + 1.
         /// </summary>
-        private class ArrayPropertyDescriptor : SimplePropertyDescriptor
+        protected class ArrayPropertyDescriptor : SimplePropertyDescriptor
         {
             private readonly int index;
 
@@ -87,13 +99,13 @@ namespace Core.Common.Gui.Converters
 
             public override object GetValue(object instance)
             {
-                var array = (Array)instance;
+                var array = (Array) instance;
                 return array.GetValue(index);
             }
 
             public override void SetValue(object instance, object value)
             {
-                var array = (Array)instance;
+                var array = (Array) instance;
                 array.SetValue(value, index);
                 // This class is based on the System.ComponentModel.ArrayConverter.ArrayPropertyDescriptor,
                 // and there the SetValue also called OnValueChanged. Copying that behavior here as well.

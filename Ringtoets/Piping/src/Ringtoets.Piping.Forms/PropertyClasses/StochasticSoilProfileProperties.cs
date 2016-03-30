@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilProfile_Tops_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StochasticSoilProfile_Tops_Description")]
