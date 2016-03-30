@@ -80,7 +80,6 @@
     <Compile Include="PropertyClasses\StochasticSoilModelProperties.cs" />
     <Compile Include="TypeConverters\LognormalDistributionDesignVariableTypeConverter.cs" />
     <Compile Include="TypeConverters\DesignVariableTypeConverter.cs" />
-    <Compile Include="TypeConverters\PropertyDescriptors\ReadOnlyPropertyDescriptorDecorator.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\RoutedPropertyDescriptor.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\ContainingPropertyUpdateDescriptorDecorator.cs" />
     <Compile Include="TypeConverters\ShiftedLognormalDistributionDesignVariableTypeConverter.cs" />

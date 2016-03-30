@@ -165,6 +165,7 @@
     <Compile Include="PropertyBag\ObjectProperties.cs" />
     <Compile Include="PropertyBag\PropertySpec.cs" />
     <Compile Include="PropertyBag\PropertySpecDescriptor.cs" />
+    <Compile Include="PropertyBag\ReadOnlyPropertyDescriptorDecorator.cs" />
     <Compile Include="Selection\IApplicationSelection.cs" />
     <Compile Include="Selection\SelectedItemChangedEventArgs.cs" />
     <Compile Include="Settings\PortableSettingsProvider.cs" />
