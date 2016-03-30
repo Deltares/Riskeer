@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
 
         protected override IEnumerable<PipingSoilProfile> GetAvailableOptions(ITypeDescriptorContext context)
         {
-            return GetPropertiesObject(context).GetAvailableSoilProfilesForCalculation();
+            return GetPropertiesObject(context).GetAvailableSoilProfiles();
         }
 
         protected override PipingSoilProfile GetCurrentOption(ITypeDescriptorContext context)

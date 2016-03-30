@@ -156,7 +156,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
             CollectionAssert.AreEqual(pipingFailureMechanism.CalculationsGroup.Children, calculationsFolder.WrappedData.Children);
             Assert.AreSame(pipingFailureMechanism.SurfaceLines, calculationsFolder.AvailablePipingSurfaceLines);
-            Assert.AreEqual(pipingFailureMechanism.SoilProfiles, calculationsFolder.AvailablePipingSoilProfiles);
+            Assert.AreEqual(pipingFailureMechanism.StochasticSoilModels, calculationsFolder.AvailableStochasticSoilModels);
             Assert.AreSame(pipingFailureMechanism, calculationsFolder.PipingFailureMechanism);
 
             var outputsFolder = (CategoryTreeFolder) children[2];

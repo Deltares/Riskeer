@@ -461,7 +461,7 @@ namespace Ringtoets.Piping.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, pipingFailureMechanismContext.Parent), TreeFolderCategory.Input),
-                new PipingCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData.SurfaceLines, wrappedData.SoilProfiles, wrappedData, pipingFailureMechanismContext.Parent),
+                new PipingCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, pipingFailureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -536,7 +536,7 @@ namespace Ringtoets.Piping.Plugin
                 pipingCalculationContext.WrappedData.Comments,
                 new PipingInputContext(pipingCalculationContext.WrappedData.InputParameters,
                                        pipingCalculationContext.AvailablePipingSurfaceLines,
-                                       pipingCalculationContext.AvailablePipingSoilProfiles,
+                                       pipingCalculationContext.AvailableStochasticSoilModels,
                                        pipingCalculationContext.AssessmentSection)
             };
 
@@ -607,7 +607,7 @@ namespace Ringtoets.Piping.Plugin
                 {
                     childNodeObjects.Add(new PipingCalculationContext(calculation,
                                                                       nodeData.AvailablePipingSurfaceLines,
-                                                                      nodeData.AvailablePipingSoilProfiles,
+                                                                      nodeData.AvailableStochasticSoilModels,
                                                                       nodeData.PipingFailureMechanism,
                                                                       nodeData.AssessmentSection));
                 }
@@ -615,7 +615,7 @@ namespace Ringtoets.Piping.Plugin
                 {
                     childNodeObjects.Add(new PipingCalculationGroupContext(group,
                                                                            nodeData.AvailablePipingSurfaceLines,
-                                                                           nodeData.AvailablePipingSoilProfiles,
+                                                                           nodeData.AvailableStochasticSoilModels,
                                                                            nodeData.PipingFailureMechanism,
                                                                            nodeData.AssessmentSection));
                 }

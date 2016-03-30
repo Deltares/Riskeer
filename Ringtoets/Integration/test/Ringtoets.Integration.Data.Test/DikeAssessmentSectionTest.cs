@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.IsNull(section.ReferenceLine);
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
-            CollectionAssert.IsEmpty(section.PipingFailureMechanism.SoilProfiles);
+            CollectionAssert.IsEmpty(section.PipingFailureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(section.PipingFailureMechanism.SurfaceLines);
 
             Assert.IsInstanceOf<PipingFailureMechanism>(section.PipingFailureMechanism);

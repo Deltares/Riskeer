@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Data.Test
             CollectionAssert.IsEmpty(piping.Sections);
             CollectionAssert.IsEmpty(piping.SurfaceLines);
             Assert.IsInstanceOf<ObservableList<RingtoetsPipingSurfaceLine>>(piping.SurfaceLines);
-            CollectionAssert.IsEmpty(piping.SoilProfiles);
+            CollectionAssert.IsEmpty(piping.StochasticSoilModels);
             Assert.IsInstanceOf<ObservableList<StochasticSoilModel>>(piping.StochasticSoilModels);
             Assert.AreEqual("Berekeningen", piping.CalculationsGroup.Name);
             Assert.AreEqual(1, piping.CalculationsGroup.Children.Count);
@@ -192,42 +192,6 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, folder);
-        }
-
-        [Test]
-        public void SoilProfiles_StochasticSoilModelsWithDuplicateProfiles_ReturnsDistinctProfiles()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            PipingSoilProfile profile = new TestPipingSoilProfile();
-            StochasticSoilProfile stochasticProfile = new StochasticSoilProfile(0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = profile
-            };
-            failureMechanism.StochasticSoilModels.AddRange(new[]
-            {
-                new StochasticSoilModel(0, string.Empty, string.Empty)
-                {
-                    StochasticSoilProfiles =
-                    {
-                        stochasticProfile
-                    }
-                }, 
-                new StochasticSoilModel(0, string.Empty, string.Empty)
-                {
-                    StochasticSoilProfiles =
-                    {
-                        stochasticProfile
-                    }
-                }
-            });
-
-            // Call
-            var profiles = failureMechanism.SoilProfiles;
-
-            // Assert
-            Assert.AreEqual(1, profiles.Length);
-            Assert.AreSame(profile, profiles.First());
         }
     }
 }

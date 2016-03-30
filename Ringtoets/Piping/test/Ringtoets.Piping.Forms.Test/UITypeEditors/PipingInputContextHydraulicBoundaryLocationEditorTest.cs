@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             };
             var pipingInputContext = new PipingInputContext(pipingInput,
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<PipingSoilProfile>(),
+                                                            Enumerable.Empty<StochasticSoilModel>(),
                                                             assessmentSectionMock);
 
             var properties = new PipingInputContextProperties
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
             var inputParametersContext = new PipingInputContext(pipingInput,
                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                Enumerable.Empty<PipingSoilProfile>(),
+                                                                Enumerable.Empty<StochasticSoilModel>(),
                                                                 assessmentSectionMock);
 
             var properties = new PipingInputContextProperties

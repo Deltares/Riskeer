@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 {
                                                                     new RingtoetsPipingSurfaceLine()
                                                                 },
-                                                                Enumerable.Empty<PipingSoilProfile>(),
+                                                                Enumerable.Empty<StochasticSoilModel>(),
                                                                 assessmentSectionMock);
 
             var properties = new PipingInputContextProperties
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 {
                                                                     surfaceLine
                                                                 },
-                                                                Enumerable.Empty<PipingSoilProfile>(),
+                                                                Enumerable.Empty<StochasticSoilModel>(),
                                                                 assessmentSectionMock);
 
             var properties = new PipingInputContextProperties

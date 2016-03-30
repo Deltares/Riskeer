@@ -77,17 +77,6 @@ namespace Ringtoets.Piping.Data
         public ICollection<RingtoetsPipingSurfaceLine> SurfaceLines { get; private set; }
 
         /// <summary>
-        /// Gets the available profiles within the scope of the piping failure mechanism.
-        /// </summary>
-        public PipingSoilProfile[] SoilProfiles
-        {
-            get
-            {
-                return StochasticSoilModels.SelectMany(ssm => ssm.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile)).Distinct().ToArray();
-            }
-        }
-
-        /// <summary>
         /// Gets the available stochastic soil models within the scope of the piping failure mechanism.
         /// </summary>
         public ObservableList<StochasticSoilModel> StochasticSoilModels { get; private set; }

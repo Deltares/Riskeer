@@ -199,7 +199,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             var inputParameters = new PipingInput(new GeneralPipingInput());
             var inputParametersContext = new PipingInputContext(inputParameters,
                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                Enumerable.Empty<PipingSoilProfile>(),
+                                                                Enumerable.Empty<StochasticSoilModel>(),
                                                                 assessmentSectionMock);
             var inputParameterContextProperties = new PipingInputContextProperties
             {

@@ -39,15 +39,15 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// </summary>
         /// <param name="calculationGroup">The <see cref="PipingCalculationGroup"/> instance wrapped by this context object.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
-        /// <param name="soilProfiles">The soil profiles available within the piping context.</param>
+        /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
         /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
-        public PipingCalculationGroupContext(PipingCalculationGroup calculationGroup, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<PipingSoilProfile> soilProfiles, PipingFailureMechanism pipingFailureMechanism, AssessmentSectionBase assessmentSection)
-            : base(calculationGroup, surfaceLines, soilProfiles, assessmentSection)
+        public PipingCalculationGroupContext(PipingCalculationGroup calculationGroup, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, PipingFailureMechanism pipingFailureMechanism, AssessmentSectionBase assessmentSection)
+            : base(calculationGroup, surfaceLines, stochasticSoilModels, assessmentSection)
         {
             if (pipingFailureMechanism == null)
             {
-                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                var message = string.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.PipingContext_DataDescription_PipingFailureMechanism);
                 throw new ArgumentNullException("pipingFailureMechanism", message);
             }

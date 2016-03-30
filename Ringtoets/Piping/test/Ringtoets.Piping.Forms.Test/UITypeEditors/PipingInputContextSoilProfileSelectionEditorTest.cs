@@ -1,16 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms.Design;
-
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
+using Ringtoets.Piping.Forms.Test.PresentationObjects;
 using Ringtoets.Piping.Forms.UITypeEditors;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
@@ -38,7 +41,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                             new[]
                                                             {
-                                                                new TestPipingSoilProfile()
+                                                                new TestStochasticSoilModel()
                                                             },
                                                             assessmentSectionMock);
 
@@ -77,15 +80,38 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var assessmentSectionMock = mockRepository.StrictMock<AssessmentSectionBase>();
 
             var soilProfile = new TestPipingSoilProfile();
+            var stochasticSoilModel = new StochasticSoilModel(0, string.Empty, string.Empty)
+            {
+                Geometry = 
+                {
+                    new Point2D(0,2),
+                    new Point2D(4,2)
+                },
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 0)
+                    {
+                        SoilProfile = soilProfile
+                    }
+                }
+            };
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            surfaceLine.SetGeometry(new []
+            {
+                new Point3D(2, 1, 0), 
+                new Point3D(2, 3, 0)
+            });
+
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
+                SurfaceLine = surfaceLine,
                 SoilProfile = soilProfile
             };
             var inputParametersContext = new PipingInputContext(pipingInput,
                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                 new[]
                                                                 {
-                                                                    soilProfile
+                                                                    stochasticSoilModel
                                                                 },
                                                                 assessmentSectionMock);
 

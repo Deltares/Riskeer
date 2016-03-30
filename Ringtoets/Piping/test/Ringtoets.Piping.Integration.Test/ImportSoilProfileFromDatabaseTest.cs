@@ -39,8 +39,8 @@ namespace Ringtoets.Piping.Integration.Test
             importer.Import(context, databasePath);
 
             // Then
-            Assert.AreEqual(1, pipingFailureMechanism.SoilProfiles.Count());
-            PipingSoilProfile profile = pipingFailureMechanism.SoilProfiles.ElementAt(0);
+            Assert.AreEqual(1, pipingFailureMechanism.StochasticSoilModels.Count);
+            PipingSoilProfile profile = pipingFailureMechanism.StochasticSoilModels[0].StochasticSoilProfiles[0].SoilProfile;
 
             PipingProfile pipingProfile = PipingProfileCreator.Create(profile);
 
@@ -102,8 +102,8 @@ namespace Ringtoets.Piping.Integration.Test
             importer.Import(context, databasePath);
 
             // Then
-            Assert.AreEqual(1, pipingFailureMechanism.SoilProfiles.Count());
-            PipingSoilProfile profile = pipingFailureMechanism.SoilProfiles.ElementAt(0);
+            Assert.AreEqual(1, pipingFailureMechanism.StochasticSoilModels.Count);
+            PipingSoilProfile profile = pipingFailureMechanism.StochasticSoilModels[0].StochasticSoilProfiles[0].SoilProfile;
 
             PipingProfile pipingProfile = PipingProfileCreator.Create(profile);
 
@@ -164,8 +164,8 @@ namespace Ringtoets.Piping.Integration.Test
             importer.Import(context, databasePath);
 
             // Then
-            Assert.AreEqual(1, pipingFailureMechanism.SoilProfiles.Count());
-            PipingSoilProfile profile = pipingFailureMechanism.SoilProfiles.ElementAt(0);
+            Assert.AreEqual(1, pipingFailureMechanism.StochasticSoilModels.Count);
+            PipingSoilProfile profile = pipingFailureMechanism.StochasticSoilModels[0].StochasticSoilProfiles[0].SoilProfile;
 
             PipingProfile pipingProfile = PipingProfileCreator.Create(profile);
             var defaultPipingLayer = new PipingLayer();

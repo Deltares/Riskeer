@@ -42,20 +42,20 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
-        /// <param name="soilProfiles">The soil profiles available within the piping context.</param>
+        /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
         protected PipingContext(
             T wrappedData,
             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
-            IEnumerable<PipingSoilProfile> soilProfiles, 
+            IEnumerable<StochasticSoilModel> stochasticSoilModels, 
             AssessmentSectionBase assessmentSection)
         {
-            AssertInputsAreNotNull(wrappedData, surfaceLines, soilProfiles, assessmentSection);
+            AssertInputsAreNotNull(wrappedData, surfaceLines, stochasticSoilModels, assessmentSection);
 
             WrappedData = wrappedData;
             AvailablePipingSurfaceLines = surfaceLines;
-            AvailablePipingSoilProfiles = soilProfiles;
+            AvailableStochasticSoilModels = stochasticSoilModels;
             AssessmentSection = assessmentSection;
         }
 
@@ -81,10 +81,10 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         public IEnumerable<RingtoetsPipingSurfaceLine> AvailablePipingSurfaceLines { get; private set; }
 
         /// <summary>
-        /// Gets the available piping soil profiles in order for the user to select one to 
-        /// set <see cref="PipingInput.SoilProfile"/>.
+        /// Gets the available stochastic soil models in order for the user to select a <see cref="PipingSoilProfile"/>
+        /// to set <see cref="PipingInput.SoilProfile"/>.
         /// </summary>
-        public IEnumerable<PipingSoilProfile> AvailablePipingSoilProfiles { get; private set; }
+        public IEnumerable<StochasticSoilModel> AvailableStochasticSoilModels { get; private set; }
 
         /// <summary>
         /// Gets the available hydraulic boundary locations in order for the user to select one to 

@@ -16,6 +16,7 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Forms.Test.PresentationObjects;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin;
 using Ringtoets.Piping.Primitives;
@@ -74,7 +75,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                         },
                                                                         new[]
                                                                         {
-                                                                            new TestPipingSoilProfile()
+                                                                            new TestStochasticSoilModel(), 
                                                                         },
                                                                         pipingFailureMechanismMock,
                                                                         assessmentSectionBaseMock);
@@ -117,7 +118,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                         },
                                                                         new[]
                                                                         {
-                                                                            new TestPipingSoilProfile()
+                                                                            new TestStochasticSoilModel()
                                                                         },
                                                                         pipingFailureMechanismMock,
                                                                         assessmentSectionBaseMock);
@@ -153,7 +154,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                         },
                                                                         new[]
                                                                         {
-                                                                            new TestPipingSoilProfile()
+                                                                            new TestStochasticSoilModel()
                                                                         },
                                                                         pipingFailureMechanismMock,
                                                                         assessmentSectionBaseMock);
@@ -167,7 +168,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingInputContext = (PipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
-            CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSoilProfiles, pipingInputContext.AvailablePipingSoilProfiles);
+            CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
             Assert.AreSame(pipingCalculationContext.WrappedData.SemiProbabilisticOutput, children[2]);
             Assert.IsInstanceOf<EmptyPipingCalculationReport>(children[3]);
         }
@@ -182,7 +183,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var pipingCalculationContext = new PipingCalculationContext(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()),
                                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                        Enumerable.Empty<PipingSoilProfile>(),
+                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                         pipingFailureMechanismMock,
                                                                         assessmentSectionBaseMock);
 
@@ -198,7 +199,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingInputContext = (PipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
-            CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSoilProfiles, pipingInputContext.AvailablePipingSoilProfiles);
+            CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
 
             Assert.IsInstanceOf<EmptyPipingOutput>(children[2]);
             Assert.IsInstanceOf<EmptyPipingCalculationReport>(children[3]);
@@ -232,7 +233,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var pipingCalculationsInputs = new PipingCalculationContext(calculation,
                                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                        Enumerable.Empty<PipingSoilProfile>(),
+                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                         pipingFailureMechanismMock,
                                                                         assessmentSectionBaseMock);
             pipingCalculationsInputs.Attach(observerMock);
@@ -267,7 +268,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var nodeData = new PipingCalculationContext(calculation,
                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                        Enumerable.Empty<PipingSoilProfile>(),
+                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                         pipingFailureMechanismMock,
                                                         assessmentSectionBaseMock);
 
@@ -301,7 +302,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var nodeData = new PipingCalculationContext(calculation,
                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                        Enumerable.Empty<PipingSoilProfile>(),
+                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                         pipingFailureMechanismMock,
                                                         assessmentSectionBaseMock);
 
@@ -333,7 +334,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var nodeData = new PipingCalculationContext(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()),
                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                        Enumerable.Empty<PipingSoilProfile>(),
+                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                         pipingFailureMechanismMock,
                                                         assessmentSectionBaseMock);
 
@@ -382,12 +383,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var calculationContext = new PipingCalculationContext(calculationToBeRemoved,
                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                  Enumerable.Empty<PipingSoilProfile>(),
+                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                   pipingFailureMechanismMock,
                                                                   assessmentSectionMock);
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingSoilProfile>(),
+                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanismMock,
                                                                  assessmentSectionMock);
 
@@ -413,12 +414,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var calculationContext = new PipingCalculationContext(calculationToBeRemoved,
                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                  Enumerable.Empty<PipingSoilProfile>(),
+                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                   pipingFailureMechanismMock,
                                                                   assessmentSectionMock);
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingSoilProfile>(),
+                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanismMock,
                                                                  assessmentSectionMock);
 
@@ -440,7 +441,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var nodeMock = new PipingCalculationContext(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()),
                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                        Enumerable.Empty<PipingSoilProfile>(),
+                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                         pipingFailureMechanismMock,
                                                         assessmentSectionBaseMock);
 
@@ -474,12 +475,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var calculationContext = new PipingCalculationContext(elementToBeRemoved,
                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                  Enumerable.Empty<PipingSoilProfile>(),
+                                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                                   pipingFailureMechanismMock,
                                                                   assessmentSectionMock);
             var groupContext = new PipingCalculationGroupContext(group,
                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingSoilProfile>(),
+                                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                                  pipingFailureMechanismMock,
                                                                  assessmentSectionMock);
 
@@ -510,7 +511,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var pipingCalculationContext = new PipingCalculationContext(calculation,
                                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                        Enumerable.Empty<PipingSoilProfile>(),
+                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                         pipingFailureMechanismMock,
                                                                         assessmentSectionBaseMock);
 
@@ -569,7 +570,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var pipingCalculationContext = new PipingCalculationContext(calculation,
                                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                        Enumerable.Empty<PipingSoilProfile>(),
+                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                         pipingFailureMechanismMock,
                                                                         assessmentSectionBaseMock);
 
@@ -613,7 +614,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var pipingCalculationContext = new PipingCalculationContext(calculation,
                                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                        Enumerable.Empty<PipingSoilProfile>(),
+                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                         pipingFailureMechanismMock,
                                                                         assessmentSectionBaseMock);
 
@@ -671,7 +672,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
             var pipingCalculationContext = new PipingCalculationContext(calculation,
                                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                        Enumerable.Empty<PipingSoilProfile>(),
+                                                                        Enumerable.Empty<StochasticSoilModel>(),
                                                                         pipingFailureMechanismMock,
                                                                         assessmentSectionBaseMock);
 

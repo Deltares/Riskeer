@@ -75,8 +75,8 @@ namespace Demo.Ringtoets.Test.Commands
 
             Assert.AreEqual(2380, demoAssessmentSection.ReferenceLine.Points.Count());
 
-            var profiles = demoAssessmentSection.PipingFailureMechanism.SoilProfiles.ToArray();
-            Assert.AreEqual(4, profiles.Length);
+            var soilModels = demoAssessmentSection.PipingFailureMechanism.StochasticSoilModels.ToArray();
+            Assert.AreEqual(4, soilModels.Length);
             var surfaceLines = demoAssessmentSection.PipingFailureMechanism.SurfaceLines.ToArray();
             Assert.AreEqual(4, surfaceLines.Length);
             AssertCharacteristicPointsOnSurfaceLines(surfaceLines);

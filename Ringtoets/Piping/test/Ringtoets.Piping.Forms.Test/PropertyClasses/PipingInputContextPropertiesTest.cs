@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
                                               assessmentSectionMock)
             };
 
@@ -112,7 +112,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
                                               assessmentSectionMock)
             };
 
@@ -158,7 +158,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
                                               assessmentSectionMock),
                 DampingFactorExit = new LognormalDistributionDesignVariable(dampingFactorExit),
                 PhreaticLevelExit = new NormalDistributionDesignVariable(phreaticLevelExit),
@@ -233,7 +233,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
                                               assessmentSectionMock),
                 ExitPointL = (RoundedDouble) exitPoint,
                 EntryPointL = (RoundedDouble) entryPoint
@@ -267,7 +267,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
                                               assessmentSectionMock),
                 EntryPointL = (RoundedDouble) 0.5,
                 ExitPointL = (RoundedDouble) 2
@@ -301,7 +301,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
                                               assessmentSectionMock)
             };
 
@@ -337,7 +337,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
                                               assessmentSectionMock)
             };
 
@@ -379,7 +379,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
                                               assessmentSectionMock)
             };
 
@@ -415,7 +415,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
                                               assessmentSectionMock)
             };
 
@@ -449,7 +449,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<PipingSoilProfile>(),
+                                              Enumerable.Empty<StochasticSoilModel>(),
                                               assessmentSectionMock)
             };
             inputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base;
-
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Test.PresentationObjects
@@ -24,27 +23,28 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             mocks.ReplayAll();
 
-            RingtoetsPipingSurfaceLine[] surfaceLines = {
+            RingtoetsPipingSurfaceLine[] surfaceLines =
+            {
                 new RingtoetsPipingSurfaceLine(),
                 new RingtoetsPipingSurfaceLine(),
             };
 
-            PipingSoilProfile[] soilProfiles = {
-                new TestPipingSoilProfile(),
-                new TestPipingSoilProfile()
+            var soilModels = new[]
+            {
+                new TestStochasticSoilModel()
             };
 
             var target = new ObservableObject();
 
             // Call
-            var context = new SimplePipingContext<ObservableObject>(target, surfaceLines, soilProfiles, assessmentSection);
+            var context = new SimplePipingContext<ObservableObject>(target, surfaceLines, soilModels, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(context);
             Assert.AreSame(surfaceLines, context.AvailablePipingSurfaceLines,
-                "It is vital that the iterator should be identical to the collection, in order to stay in sync when items are added or removed.");
-            Assert.AreSame(soilProfiles, context.AvailablePipingSoilProfiles,
-                "It is vital that the iterator should be identical to the collection, in order to stay in sync when items are added or removed.");
+                           "It is vital that the iterator should be identical to the collection, in order to stay in sync when items are added or removed.");
+            Assert.AreSame(soilModels, context.AvailableStochasticSoilModels,
+                           "It is vital that the iterator should be identical to the collection, in order to stay in sync when items are added or removed.");
             Assert.AreSame(target, context.WrappedData);
 
             mocks.VerifyAll();
@@ -60,13 +60,16 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate call = () => new SimplePipingContext<ObservableObject>(null,
-                                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                 Enumerable.Empty<PipingSoilProfile>(),
-                                                                                 assessmentSection);
+                                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                Enumerable.Empty<StochasticSoilModel>(),
+                                                                                assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessage = exception.Message.Split(new [] { Environment.NewLine }, StringSplitOptions.None)[0];
+            string customMessage = exception.Message.Split(new[]
+            {
+                Environment.NewLine
+            }, StringSplitOptions.None)[0];
             Assert.AreEqual("Het piping data object mag niet 'null' zijn.", customMessage);
             mocks.VerifyAll();
         }
@@ -80,14 +83,17 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(), 
-                                                                                 null,
-                                                                                 Enumerable.Empty<PipingSoilProfile>(),
-                                                                                 assessmentSection);
+            TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
+                                                                                null,
+                                                                                Enumerable.Empty<StochasticSoilModel>(),
+                                                                                assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessage = exception.Message.Split(new[] { Environment.NewLine }, StringSplitOptions.None)[0];
+            string customMessage = exception.Message.Split(new[]
+            {
+                Environment.NewLine
+            }, StringSplitOptions.None)[0];
             Assert.AreEqual("De verzameling van profielschematisaties mag niet 'null' zijn.", customMessage);
             mocks.VerifyAll();
         }
@@ -101,14 +107,17 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(), 
-                                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                 null,
-                                                                                 assessmentSection);
+            TestDelegate call = () => new SimplePipingContext<ObservableObject>(new ObservableObject(),
+                                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                null,
+                                                                                assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessage = exception.Message.Split(new[] { Environment.NewLine }, StringSplitOptions.None)[0];
+            string customMessage = exception.Message.Split(new[]
+            {
+                Environment.NewLine
+            }, StringSplitOptions.None)[0];
             Assert.AreEqual("De verzameling van ondergrondschematiseringen mag niet 'null' zijn.", customMessage);
             mocks.VerifyAll();
         }
@@ -127,7 +136,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var context = new SimplePipingContext<ObservableObject>(observableObject,
                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                    Enumerable.Empty<PipingSoilProfile>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
                                                                     assessmentSection);
 
             // Call
@@ -151,7 +160,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var context = new SimplePipingContext<ObservableObject>(observableObject,
                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                    Enumerable.Empty<PipingSoilProfile>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
                                                                     assessmentSection);
 
             context.Attach(observer);
@@ -178,7 +187,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var context = new SimplePipingContext<ObservableObject>(observableObject,
                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                    Enumerable.Empty<PipingSoilProfile>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
                                                                     assessmentSection);
 
             observableObject.Attach(observer); // Attach to wrapped object
@@ -200,9 +209,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var observableObject = new ObservableObject();
             var context = new SimplePipingContext<ObservableObject>(observableObject,
-                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                     Enumerable.Empty<PipingSoilProfile>(),
-                                                                     assessmentSection);
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    assessmentSection);
 
             // Call
             bool isEqual = context.Equals(context);
@@ -222,9 +231,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var observableObject = new ObservableObject();
             var context = new SimplePipingContext<ObservableObject>(observableObject,
-                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                     Enumerable.Empty<PipingSoilProfile>(),
-                                                                     assessmentSection);
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    assessmentSection);
 
             // Call
             bool isEqual = context.Equals(null);
@@ -244,20 +253,20 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var observableObject = new ObservableObject();
             var context = new SimplePipingContext<ObservableObject>(observableObject,
-                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                     Enumerable.Empty<PipingSoilProfile>(),
-                                                                     assessmentSection);
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    assessmentSection);
 
             var otherContext = new SimplePipingContext<ObservableObject>(observableObject,
-                                                                          new[]
-                                                                          {
-                                                                              new RingtoetsPipingSurfaceLine()
-                                                                          },
-                                                                          new[]
-                                                                          {
-                                                                              new TestPipingSoilProfile()
-                                                                          },
-                                                                          assessmentSection);
+                                                                         new[]
+                                                                         {
+                                                                             new RingtoetsPipingSurfaceLine()
+                                                                         },
+                                                                         new[]
+                                                                         {
+                                                                             new StochasticSoilModel(0, string.Empty, string.Empty)
+                                                                         },
+                                                                         assessmentSection);
 
             // Call
             bool isEqual = context.Equals(otherContext);
@@ -280,20 +289,20 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var observableObject = new ObservableObject();
             var otherObservableObject = new ObservableObject();
             var context = new SimplePipingContext<ObservableObject>(observableObject,
-                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                     Enumerable.Empty<PipingSoilProfile>(),
-                                                                     assessmentSection);
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    assessmentSection);
 
             var otherContext = new SimplePipingContext<ObservableObject>(otherObservableObject,
-                                                                          new[]
-                                                                          {
-                                                                              new RingtoetsPipingSurfaceLine()
-                                                                          },
-                                                                          new[]
-                                                                          {
-                                                                              new TestPipingSoilProfile()
-                                                                          },
-                                                                          assessmentSection);
+                                                                         new[]
+                                                                         {
+                                                                             new RingtoetsPipingSurfaceLine()
+                                                                         },
+                                                                         new[]
+                                                                         {
+                                                                             new StochasticSoilModel(0, string.Empty, string.Empty)
+                                                                         },
+                                                                         assessmentSection);
 
             // Call
             bool isEqual = context.Equals(otherContext);
@@ -316,9 +325,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var observableObject = new ObservableObject();
             var context = new SimplePipingContext<ObservableObject>(observableObject,
-                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                     Enumerable.Empty<PipingSoilProfile>(),
-                                                                     assessmentSection);
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    assessmentSection);
 
             var otherContext = new SimplePipingContext<IObservable>(observableStub,
                                                                     new[]
@@ -327,7 +336,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                                                                     },
                                                                     new[]
                                                                     {
-                                                                        new TestPipingSoilProfile()
+                                                                        new StochasticSoilModel(0, string.Empty, string.Empty)
                                                                     },
                                                                     assessmentSection);
 
@@ -351,20 +360,20 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var observableObject = new ObservableObject();
             var context = new SimplePipingContext<ObservableObject>(observableObject,
-                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                     Enumerable.Empty<PipingSoilProfile>(),
-                                                                     assessmentSection);
+                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                    assessmentSection);
 
             var otherContext = new SimplePipingContext<ObservableObject>(observableObject,
-                                                                          new[]
-                                                                          {
-                                                                              new RingtoetsPipingSurfaceLine()
-                                                                          },
-                                                                          new[]
-                                                                          {
-                                                                              new TestPipingSoilProfile()
-                                                                          },
-                                                                          assessmentSection);
+                                                                         new[]
+                                                                         {
+                                                                             new RingtoetsPipingSurfaceLine()
+                                                                         },
+                                                                         new[]
+                                                                         {
+                                                                             new StochasticSoilModel(0, string.Empty, string.Empty)
+                                                                         },
+                                                                         assessmentSection);
             // Precondition
             Assert.True(context.Equals(otherContext));
 
@@ -379,16 +388,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
         private class SimplePipingContext<T> : PipingContext<T> where T : IObservable
         {
-            public SimplePipingContext(T target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<PipingSoilProfile> soilProfiles, AssessmentSectionBase assessmentSection)
-                : base(target, surfaceLines, soilProfiles, assessmentSection)
-            {
-                
-            }
+            public SimplePipingContext(T target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, AssessmentSectionBase assessmentSection)
+                : base(target, surfaceLines, stochasticSoilModels, assessmentSection) {}
         }
 
-        private class ObservableObject : Observable
-        {
-            
-        }
+        private class ObservableObject : Observable {}
     }
 }

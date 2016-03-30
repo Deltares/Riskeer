@@ -8,6 +8,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
@@ -23,7 +24,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Setup
             var pipingInput = new PipingInput(new GeneralPipingInput());
             var surfaceLines = new[] { new RingtoetsPipingSurfaceLine() };
-            var profiles = new[] { new TestPipingSoilProfile() };
+            var stochasticSoilModels = new[] { new TestStochasticSoilModel() };
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
@@ -31,14 +32,14 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
             
             // Call
-            var context = new PipingInputContext(pipingInput, surfaceLines, profiles, assessmentSection);
+            var context = new PipingInputContext(pipingInput, surfaceLines, stochasticSoilModels, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<PipingContext<PipingInput>>(context);
             Assert.AreSame(pipingInput, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             CollectionAssert.AreEqual(surfaceLines, context.AvailablePipingSurfaceLines);
-            CollectionAssert.AreEqual(profiles, context.AvailablePipingSoilProfiles);
+            CollectionAssert.AreEqual(stochasticSoilModels, context.AvailableStochasticSoilModels);
 
             mocks.VerifyAll();
         }
@@ -52,13 +53,13 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new RingtoetsPipingSurfaceLine()
             };
-            var soilProfiles = new[]
+            var stochasticSoilModels = new[]
             {
-                new TestPipingSoilProfile()
+                new TestStochasticSoilModel()
             };
 
             // Call
-            TestDelegate call = () => new PipingInputContext(input, surfaceLines, soilProfiles, null);
+            TestDelegate call = () => new PipingInputContext(input, surfaceLines, stochasticSoilModels, null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
@@ -77,7 +78,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var pipingInput = new PipingInput(new GeneralPipingInput());
             var context = new PipingInputContext(pipingInput,
                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingSoilProfile>(),
+                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                  assessmentSectionMock);
 
             // Call
@@ -100,7 +101,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var pipingInput = new PipingInput(new GeneralPipingInput());
             var context = new PipingInputContext(pipingInput,
                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingSoilProfile>(),
+                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                  assessmentSectionMock);
 
             context.Attach(observer);
@@ -126,7 +127,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var pipingInput = new PipingInput(new GeneralPipingInput());
             var context = new PipingInputContext(pipingInput,
                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingSoilProfile>(),
+                                                 Enumerable.Empty<StochasticSoilModel>(),
                                                  assessmentSectionMock);
 
             pipingInput.Attach(observer); // Attach to wrapped object

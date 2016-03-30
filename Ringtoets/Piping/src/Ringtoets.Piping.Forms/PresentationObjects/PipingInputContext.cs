@@ -33,8 +33,16 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// </summary>
     public class PipingInputContext : PipingContext<PipingInput>
     {
-        public PipingInputContext(PipingInput pipingInput, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<PipingSoilProfile> soilProfiles, AssessmentSectionBase assessmentSection)
-            : base(pipingInput, surfaceLines, soilProfiles, assessmentSection)
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingInputContext"/>
+        /// </summary>
+        /// <param name="pipingInput">The piping input instance wrapped by this context object.</param>
+        /// <param name="surfaceLines">The surface lines available within the piping context.</param>
+        /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
+        /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
+        /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
+        public PipingInputContext(PipingInput pipingInput, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, AssessmentSectionBase assessmentSection)
+            : base(pipingInput, surfaceLines, stochasticSoilModels, assessmentSection)
         {
         }
     }

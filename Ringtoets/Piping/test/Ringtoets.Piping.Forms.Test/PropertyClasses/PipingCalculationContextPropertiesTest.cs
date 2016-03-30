@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingCalculationContext(calculation,
                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                    Enumerable.Empty<PipingSoilProfile>(),
+                                                    Enumerable.Empty<StochasticSoilModel>(),
                                                     pipingFailureMechanismMock,
                                                     assessmentSectionBaseMock)
             };
@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingCalculationContext(calculation,
                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                    Enumerable.Empty<PipingSoilProfile>(),
+                                                    Enumerable.Empty<StochasticSoilModel>(),
                                                     pipingFailureMechanismMock,
                                                     assessmentSectionBaseMock)
             };
@@ -104,7 +104,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 Data = new PipingCalculationContext(calculation,
                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                    Enumerable.Empty<PipingSoilProfile>(),
+                                                    Enumerable.Empty<StochasticSoilModel>(),
                                                     pipingFailureMechanismMock,
                                                     assessmentSectionBaseMock)
             };

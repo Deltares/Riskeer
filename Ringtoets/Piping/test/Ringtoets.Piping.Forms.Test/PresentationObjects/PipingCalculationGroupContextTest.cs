@@ -8,6 +8,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
@@ -26,9 +27,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new RingtoetsPipingSurfaceLine()
             };
-            var soilProfiles = new[]
+            var soilModels = new StochasticSoilModel[]
             {
-                new TestPipingSoilProfile()
+                new TestStochasticSoilModel()
             };
 
             var mocks = new MockRepository();
@@ -37,14 +38,14 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            var groupContext = new PipingCalculationGroupContext(group, surfaceLines, soilProfiles, pipingFailureMechanismMock, assessmentSectionBase);
+            var groupContext = new PipingCalculationGroupContext(group, surfaceLines, soilModels, pipingFailureMechanismMock, assessmentSectionBase);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(groupContext);
             Assert.IsInstanceOf<PipingContext<PipingCalculationGroup>>(groupContext);
             Assert.AreSame(group, groupContext.WrappedData);
             Assert.AreSame(surfaceLines, groupContext.AvailablePipingSurfaceLines);
-            Assert.AreSame(soilProfiles, groupContext.AvailablePipingSoilProfiles);
+            Assert.AreSame(soilModels, groupContext.AvailableStochasticSoilModels);
             Assert.AreSame(pipingFailureMechanismMock, groupContext.PipingFailureMechanism);
             Assert.AreSame(assessmentSectionBase, groupContext.AssessmentSection);
         }
@@ -58,9 +59,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new RingtoetsPipingSurfaceLine()
             };
-            var soilProfiles = new[]
+            var soilModels = new[]
             {
-                new TestPipingSoilProfile()
+                new TestStochasticSoilModel()
             };
 
             var mocks = new MockRepository();
@@ -68,7 +69,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new PipingCalculationGroupContext(group, surfaceLines, soilProfiles, null, assessmentSectionBase);
+            TestDelegate call = () => new PipingCalculationGroupContext(group, surfaceLines, soilModels, null, assessmentSectionBase);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het piping faalmechanisme mag niet 'null' zijn.");
@@ -85,9 +86,9 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new RingtoetsPipingSurfaceLine()
             };
-            var soilProfiles = new[]
+            var soilModels = new[]
             {
-                new TestPipingSoilProfile()
+                new TestStochasticSoilModel()
             };
 
             var mocks = new MockRepository();
@@ -95,7 +96,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new PipingCalculationGroupContext(group, surfaceLines, soilProfiles, pipingFailureMechanismMock, null);
+            TestDelegate call = () => new PipingCalculationGroupContext(group, surfaceLines, soilModels, pipingFailureMechanismMock, null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
@@ -118,7 +119,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var context = new PipingCalculationGroupContext(pipingCalculationGroup,
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<PipingSoilProfile>(),
+                                                            Enumerable.Empty<StochasticSoilModel>(),
                                                             pipingFailureMechanismMock, assessmentSectionBase);
 
             // Call
@@ -143,7 +144,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var context = new PipingCalculationGroupContext(pipingCalculationGroup,
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<PipingSoilProfile>(),
+                                                            Enumerable.Empty<StochasticSoilModel>(),
                                                             pipingFailureMechanismMock, assessmentSectionBase);
 
             context.Attach(observer);
@@ -171,7 +172,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var context = new PipingCalculationGroupContext(pipingCalculationGroup,
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                            Enumerable.Empty<PipingSoilProfile>(),
+                                                            Enumerable.Empty<StochasticSoilModel>(),
                                                             pipingFailureMechanismMock, assessmentSectionBase);
 
             pipingCalculationGroup.Attach(observer); // Attach to wrapped object
