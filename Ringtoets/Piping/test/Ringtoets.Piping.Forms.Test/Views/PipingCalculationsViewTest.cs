@@ -330,6 +330,30 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Surface line 2", pipingInputContext.WrappedData.SurfaceLine.Name);
         }
 
+        [Test]
+        public void PipingCalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySynced()
+        {
+            // Setup
+            var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
+
+            pipingCalculationsView.ApplicationSelection = new ApplicationSelectionImplementation();
+
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Precondition
+            Assert.AreEqual(2, dataGridView.Rows.Count);
+            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
+
+            // Call
+            listBox.SelectedIndex = 1;
+
+            // Assert
+            Assert.AreEqual(1, dataGridView.Rows.Count);
+            Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+        }
+
         [TestCase(nameColumnIndex, "New name", 1, 0)]
         [TestCase(soilProfilesColumnIndex, null, 0, 1)]
         [TestCase(hydraulicBoundaryLocationsColumnIndex, null, 0, 1)]
@@ -339,7 +363,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [TestCase(exitPointLColumnIndex, 1.1, 0, 1)]
         public void PipingCalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue, int expectedPipingCalculationCounter, int expectedPipingCalculationInputCounter)
         {
-            // Setup & Call
+            // Setup
             var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
 
             var data = (PipingCalculationGroup) pipingCalculationView.Data;
@@ -354,8 +378,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-            // Assert
+            // Call
             dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double ? (RoundedDouble) (double) newValue : newValue;
+
+            // Assert
             Assert.AreEqual(expectedPipingCalculationCounter, pipingCalculationCounter);
             Assert.AreEqual(expectedPipingCalculationInputCounter, pipingCalculationInputCounter);
         }
@@ -410,10 +436,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var pipingFailureMechanism = new PipingFailureMechanism();
 
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
+            }));
+
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
             }));
 
             var pipingSoilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
@@ -565,9 +597,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private class ApplicationSelectionImplementation : IApplicationSelection
         {
-            public object Selection { get; set; }
-
             public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged;
+
+            public object Selection { get; set; }
         }
     }
 }
