@@ -588,7 +588,7 @@ namespace Ringtoets.Piping.Data.Test
                 {
                     IsAquifer = false
                 }
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             LognormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
@@ -608,7 +608,7 @@ namespace Ringtoets.Piping.Data.Test
                 {
                     IsAquifer = false
                 }
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -674,7 +674,7 @@ namespace Ringtoets.Piping.Data.Test
                 {
                     IsAquifer = true
                 }
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -698,7 +698,7 @@ namespace Ringtoets.Piping.Data.Test
                 {
                     IsAquifer = true
                 }
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             LognormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
@@ -722,7 +722,7 @@ namespace Ringtoets.Piping.Data.Test
                 {
                     IsAquifer = true
                 }
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             var thicknessAquiferLayer = input.ThicknessAquiferLayer;

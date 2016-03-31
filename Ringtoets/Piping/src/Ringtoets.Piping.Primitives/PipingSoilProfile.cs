@@ -40,14 +40,17 @@ namespace Ringtoets.Piping.Primitives
         /// <param name="name">The name of the profile.</param>
         /// <param name="bottom">The bottom level of the profile.</param>
         /// <param name="layers">The collection of layers that should be part of the profile.</param>
+        /// <param name="sourceProfileType">The type of soil profile used as data source
+        /// to build this instance.</param>
         /// <param name="pipingSoilProfileId">Identifier of the profile.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
-        public PipingSoilProfile(string name, double bottom, IEnumerable<PipingSoilLayer> layers, long pipingSoilProfileId)
+        public PipingSoilProfile(string name, double bottom, IEnumerable<PipingSoilLayer> layers, SoilProfileType sourceProfileType, long pipingSoilProfileId)
         {
             Name = name;
             Bottom = bottom;
             Layers = layers;
+            SoilProfileType = sourceProfileType;
             PipingSoilProfileId = pipingSoilProfileId;
         }
 
@@ -84,6 +87,11 @@ namespace Ringtoets.Piping.Primitives
                 layers = value.OrderByDescending(l => l.Top).ToArray();
             }
         }
+
+        /// <summary>
+        /// Gets the type of soil profile used as data source to build this instance.
+        /// </summary>
+        public SoilProfileType SoilProfileType { get; private set; }
 
         /// <summary>
         /// Gets the thickness of the given layer in the <see cref="PipingSoilProfile"/>.

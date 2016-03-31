@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.IO.Builders
         {
             try
             {
-                return new PipingSoilProfile(name, bottom, layers, soilProfileId);
+                return new PipingSoilProfile(name, bottom, layers, SoilProfileType.SoilProfile1D, soilProfileId);
             }
             catch (ArgumentException e)
             {

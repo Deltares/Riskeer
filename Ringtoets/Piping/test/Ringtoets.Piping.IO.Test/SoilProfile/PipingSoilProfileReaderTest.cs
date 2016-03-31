@@ -283,11 +283,13 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
                 // Assert
                 Assert.AreEqual("Profile", profile.Name);
-                Assert.AreEqual(3, profile.Layers.Count());
-                CollectionAssert.AreEqual(Enumerable.Repeat(false, 3), profile.Layers.Select(l => l.IsAquifer));
-                CollectionAssert.AreEqual(Enumerable.Repeat((double?) null, 3), profile.Layers.Select(l => l.AbovePhreaticLevel));
-                CollectionAssert.AreEqual(Enumerable.Repeat((double?) null, 3), profile.Layers.Select(l => l.BelowPhreaticLevel));
-                CollectionAssert.AreEqual(Enumerable.Repeat((double?) null, 3), profile.Layers.Select(l => l.DryUnitWeight));
+                const int expectedNumberOfLayers = 3;
+                Assert.AreEqual(expectedNumberOfLayers, profile.Layers.Count());
+                CollectionAssert.AreEqual(Enumerable.Repeat(false, expectedNumberOfLayers), profile.Layers.Select(l => l.IsAquifer));
+                IEnumerable<double?> nullValues = Enumerable.Repeat((double?) null, expectedNumberOfLayers).ToArray();
+                CollectionAssert.AreEqual(nullValues, profile.Layers.Select(l => l.AbovePhreaticLevel));
+                CollectionAssert.AreEqual(nullValues, profile.Layers.Select(l => l.BelowPhreaticLevel));
+                CollectionAssert.AreEqual(nullValues, profile.Layers.Select(l => l.DryUnitWeight));
             }
         }
 
@@ -526,14 +528,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
                 // Assert
                 Assert.AreEqual(0, skipped);
-                Assert.AreEqual(26, pipingSoilProfilesReader.Count);
-                Assert.AreEqual(26, result.Count);
+                Assert.AreEqual(24, pipingSoilProfilesReader.Count);
+                Assert.AreEqual(24, result.Count);
                 CollectionAssert.AreEqual(new[]
                 {
-                    "AD640M00_Segment_36005_1D1",
-                    "AD640M00_Segment_36005_1D2",
                     "Segment_36005_1D1",
-                    "Segment_36005_1D10",
                     "Segment_36005_1D2",
                     "Segment_36005_1D3",
                     "Segment_36005_1D4",
@@ -542,6 +541,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     "Segment_36005_1D7",
                     "Segment_36005_1D8",
                     "Segment_36005_1D9",
+                    "Segment_36005_1D10",
                     "Segment_36006_1D1",
                     "Segment_36006_1D2",
                     "Segment_36006_1D3",
@@ -556,12 +556,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     "Segment_36007_1D6",
                     "Segment_36007_1D7",
                     "Segment_36007_1D8"
-                }, result.Select(p => p.Name));
+                }, result.Select(p => p.Name).ToArray());
 
                 CollectionAssert.AreEqual(new[]
                 {
-                    -45,
-                    -45,
                     -45,
                     -45,
                     -45,
@@ -586,21 +584,19 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     -21.25,
                     -21,
                     -21
-                }, result.Select(p => p.Bottom));
+                }, result.Select(p => p.Bottom).ToArray());
 
                 CollectionAssert.AreEqual(new[]
                 {
-                    9,
-                    7,
                     8,
+                    6,
+                    6,
+                    5,
+                    5,
+                    6,
+                    4,
+                    4,
                     3,
-                    6,
-                    6,
-                    5,
-                    5,
-                    6,
-                    4,
-                    4,
                     3,
                     7,
                     7,
@@ -616,30 +612,29 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     4,
                     2,
                     3
-                }, result.Select(p => p.Layers.Count()));
+                }, result.Select(p => p.Layers.Count()).ToArray());
 
-                var firstProfile = result.FirstOrDefault(l => l.Name == "AD640M00_Segment_36005_1D1");
+                var firstProfile = result.FirstOrDefault(l => l.Name == "Segment_36005_1D1");
                 Assert.NotNull(firstProfile);
                 var expectedFirstProfileLayersTops = new[]
                 {
-                    5.9075,
-                    3.250,
-                    2.750,
-                    1.250,
+                    3.25,
+                    2.75,
+                    1.25,
                     1.0,
                     -2.5,
-                    -13,
-                    -17,
-                    -25,
+                    -13.0,
+                    -17.0,
+                    -25.0
                 };
-                CollectionAssert.AllItemsAreUnique(firstProfile.Layers.Select(l => l.Top));
-                CollectionAssert.AreEqual(expectedFirstProfileLayersTops, firstProfile.Layers.Select(l => l.Top), new DoubleWithToleranceComparer(1e-6));
+                var layerTops = firstProfile.Layers.Select(l => l.Top).ToArray();
+                CollectionAssert.AllItemsAreUnique(layerTops);
+                CollectionAssert.AreEqual(expectedFirstProfileLayersTops, layerTops, new DoubleWithToleranceComparer(1e-6));
 
-                var secondProfile = result.FirstOrDefault(l => l.Name == "AD640M00_Segment_36005_1D2");
+                var secondProfile = result.FirstOrDefault(l => l.Name == "Segment_36005_1D2");
                 Assert.NotNull(secondProfile);
                 var expectedSecondProfileLayersTops = new[]
                 {
-                    5.9075,
                     3.25,
                     -0.5,
                     -0.75,
@@ -647,8 +642,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                     -17,
                     -25,
                 };
-                CollectionAssert.AllItemsAreUnique(secondProfile.Layers.Select(l => l.Top));
-                CollectionAssert.AreEqual(expectedSecondProfileLayersTops, secondProfile.Layers.Select(l => l.Top), new DoubleWithToleranceComparer(1e-6));
+                var layer2Tops = secondProfile.Layers.Select(l => l.Top).ToArray();
+                CollectionAssert.AllItemsAreUnique(layer2Tops);
+                CollectionAssert.AreEqual(expectedSecondProfileLayersTops, layer2Tops, new DoubleWithToleranceComparer(1e-6));
             }
         }
     }

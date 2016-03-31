@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 }
             };
 
-            var soilProfile = new PipingSoilProfile(expectedName, -5.0, layers, 0);
+            var soilProfile = new PipingSoilProfile(expectedName, -5.0, layers, SoilProfileType.SoilProfile1D, 0);
             var stochasticSoilProfile = new StochasticSoilProfile(probability, SoilProfileType.SoilProfile1D, 1234L)
             {
                 SoilProfile = soilProfile

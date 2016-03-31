@@ -151,11 +151,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingSoilProfile1 = new PipingSoilProfile("pipingSoilProfile1", 0, new List<PipingSoilLayer>
             {
                 new PipingSoilLayer(10)
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
             var pipingSoilProfile2 = new PipingSoilProfile("pipingSoilProfile2", 0, new List<PipingSoilLayer>
             {
                 new PipingSoilLayer(10)
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
             var stochasticSoilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {
                 SoilProfile = pipingSoilProfile1

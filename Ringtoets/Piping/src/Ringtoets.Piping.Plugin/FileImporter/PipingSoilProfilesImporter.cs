@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 foreach (var stochasticSoilProfile in stochasticSoilModel.StochasticSoilProfiles)
                 {
-                    var soilProfile = soilProfiles.FirstOrDefault(s => s.PipingSoilProfileId == stochasticSoilProfile.SoilProfileId);
+                    var soilProfile = soilProfiles.FirstOrDefault(s => s.SoilProfileType == stochasticSoilProfile.SoilProfileType && s.PipingSoilProfileId == stochasticSoilProfile.SoilProfileId);
                     if (soilProfile != null)
                     {
                         stochasticSoilProfile.SoilProfile = soilProfile;
@@ -185,16 +185,26 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private bool ValidateStochasticSoilModel(StochasticSoilModel stochasticSoilModel)
         {
-            if (stochasticSoilModel.StochasticSoilProfiles.Count(s => s.SoilProfile == null) > 0)
+            if (stochasticSoilModel.StochasticSoilProfiles.Any(s => s.SoilProfile == null))
             {
-                log.WarnFormat(RingtoetsPluginResources.PipingSoilProfilesImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0, stochasticSoilModel.Name);
+                log.WarnFormat(RingtoetsPluginResources.PipingSoilProfilesImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0,
+                               stochasticSoilModel.Name);
                 return false;
             }
-            if (!stochasticSoilModel.StochasticSoilProfiles.Where(s => s.SoilProfile != null).Sum(s => s.Probability).Equals(1.0))
+            if (!IsSumOfAllProbabilitiesEqualToOne(stochasticSoilModel))
             {
-                log.WarnFormat(RingtoetsPluginResources.PipingSoilProfilesImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct, stochasticSoilModel.Name);
+                log.WarnFormat(RingtoetsPluginResources.PipingSoilProfilesImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct,
+                               stochasticSoilModel.Name);
             }
             return true;
+        }
+
+        private static bool IsSumOfAllProbabilitiesEqualToOne(StochasticSoilModel stochasticSoilModel)
+        {
+            double sumOfAllScenarioProbabilities = stochasticSoilModel.StochasticSoilProfiles
+                                                                      .Where(s => s.SoilProfile != null)
+                                                                      .Sum(s => s.Probability);
+            return Math.Abs(sumOfAllScenarioProbabilities - 1.0) < 1e-6;
         }
 
         private static bool IsReferenceLineAvailable(object targetItem)

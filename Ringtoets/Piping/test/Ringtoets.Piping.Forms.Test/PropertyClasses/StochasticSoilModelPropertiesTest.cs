@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var pipingSoilProfile = new PipingSoilProfile("PipingSoilProfile", 0, new List<PipingSoilLayer>
             {
                 new PipingSoilLayer(10)
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
             var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {
                 SoilProfile = pipingSoilProfile

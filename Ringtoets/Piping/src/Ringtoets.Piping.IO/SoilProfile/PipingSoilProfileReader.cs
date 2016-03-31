@@ -22,13 +22,16 @@
 using System;
 using System.Data;
 using System.Data.SQLite;
+
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
+
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
+
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.SoilProfile
@@ -130,7 +133,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             {
                 return null;
             }
-            return (T) valueObject;
+            return (T)valueObject;
         }
 
         /// <summary>
@@ -142,7 +145,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <exception cref="InvalidCastException">Thrown when the value in the column was not of type <typeparamref name="T"/>.</exception>
         public T Read<T>(string columnName)
         {
-            return (T) dataReader[columnName];
+            return (T)dataReader[columnName];
         }
 
         private void VerifyVersion(string databaseFilePath)
@@ -225,71 +228,76 @@ namespace Ringtoets.Piping.IO.SoilProfile
         {
             string countQuery = SoilDatabaseQueryBuilder.GetPipingSoilProfileCountQuery();
 
-            string materialPropertiesQuery = string.Format(
-                string.Join(" ",
-                            "(SELECT",
-                            "m.MA_ID,",
-                            "max(case when pn.PN_Name = 'AbovePhreaticLevel' then pv.PV_Value end) {0},",
-                            "max(case when pn.PN_Name = 'BelowPhreaticLevel' then pv.PV_Value end) {1},",
-                            "max(case when pn.PN_Name = 'DryUnitWeight' then pv.PV_Value end) {2}",
-                            "FROM ParameterNames as pn",
-                            "JOIN ParameterValues as pv USING(PN_ID)",
-                            "JOIN Materials as m USING(MA_ID)",
-                            "GROUP BY m.MA_ID) as mat USING(MA_ID)"),
-                SoilProfileDatabaseColumns.AbovePhreaticLevel,
-                SoilProfileDatabaseColumns.BelowPhreaticLevel,
-                SoilProfileDatabaseColumns.DryUnitWeight);
-
-            string layer1DCountQuery = string.Format(
-                string.Join(" ",
-                            "(SELECT SP1D_ID, COUNT(*) as {0}",
-                            "FROM SoilLayer1D",
-                            "GROUP BY SP1D_ID) lc USING(SP1D_ID)"), SoilProfileDatabaseColumns.LayerCount);
-
-            string layer2DCountQuery = string.Format(
-                string.Join(" ",
-                            "(SELECT SP2D_ID, COUNT(*) as {0}",
-                            "FROM SoilLayer2D",
-                            "GROUP BY SP2D_ID) lc USING(SP2D_ID)"), SoilProfileDatabaseColumns.LayerCount);
-
-            string layer1DPropertiesQuery = string.Format(
-                string.Join(" ",
-                            "(SELECT",
-                            "pv.SL1D_ID,",
-                            "max(case when pn.PN_Name = 'IsAquifer' then pv.PV_Value end) {0}",
-                            "FROM ParameterNames as pn",
-                            "JOIN LayerParameterValues as pv USING(PN_ID)",
-                            "GROUP BY pv.SL1D_ID) as lpv USING(SL1D_ID)"
-                    ), SoilProfileDatabaseColumns.IsAquifer);
-
-            string layer2DPropertiesQuery = string.Format(
-                string.Join(" ",
-                            "(SELECT",
-                            "pv.SL2D_ID,",
-                            "max(case when pn.PN_Name = 'IsAquifer' then pv.PV_Value end) {0}",
-                            "FROM ParameterNames as pn",
-                            "JOIN LayerParameterValues as pv USING(PN_ID)",
-                            "GROUP BY pv.SL2D_ID) as lpv USING(SL2D_ID)"
-                    ), SoilProfileDatabaseColumns.IsAquifer);
+            string subQueryGetNumberOfLayerProfile1D =
+                string.Format("SELECT SP1D_ID, COUNT(*) as {0} " +
+                              "FROM SoilLayer1D " +
+                              "GROUP BY SP1D_ID",
+                              SoilProfileDatabaseColumns.LayerCount);
+            string subQueryGetNumberOfLayerProfile2D =
+                string.Format("SELECT SP2D_ID, COUNT(*) as {0} " +
+                              "FROM SoilLayer2D " +
+                              "GROUP BY SP2D_ID",
+                              SoilProfileDatabaseColumns.LayerCount);
+            string subQueryGetMaterialPropertiesOfLayer =
+                String.Format(
+                    "SELECT " +
+                    "mat.MA_ID, " +
+                    "MAX(case when pn.PN_NAME = '{0}' then pv.PV_Value end) {0}, " +
+                    "MAX(case when pn.PN_NAME = '{1}' then pv.PV_Value end) {1}, " +
+                    "MAX(case when pn.PN_NAME = '{2}' then pv.PV_Value end) {2} " +
+                    "FROM ParameterNames as pn " +
+                    "JOIN ParameterValues as pv USING(PN_ID) " +
+                    "JOIN Materials as mat USING(MA_ID) " +
+                    "GROUP BY mat.MA_ID",
+                    SoilProfileDatabaseColumns.AbovePhreaticLevel,
+                    SoilProfileDatabaseColumns.BelowPhreaticLevel,
+                    SoilProfileDatabaseColumns.DryUnitWeight);
+            string subQueryGetLayerPropertiesOfLayer1D =
+                String.Format(
+                    "SELECT " +
+                    "SL1D_ID, " +
+                    "MAX(case when pn.PN_NAME = '{0}' then pv.PV_Value end) {0} " +
+                    "FROM ParameterNames as pn " +
+                    "JOIN LayerParameterValues as pv USING(PN_ID) " +
+                    "GROUP BY pv.SL1D_ID",
+                    SoilProfileDatabaseColumns.IsAquifer);
+            string subQueryGetLayerPropertiesOfLayer2D =
+                String.Format(
+                    "SELECT " +
+                    "SL2D_ID, " +
+                    "MAX(case when pn.PN_NAME = '{0}' then pv.PV_Value end) {0} " +
+                    "FROM ParameterNames as pn " +
+                    "JOIN LayerParameterValues as pv USING(PN_ID) " +
+                    "GROUP BY pv.SL2D_ID",
+                    SoilProfileDatabaseColumns.IsAquifer);
 
             var query1D = string.Format(
-                string.Join(" ", "SELECT",
-                            "1 as {0},",
-                            "p.SP1D_Name as {1},",
-                            "lc.{2},",
-                            "p.BottomLevel as {3},",
-                            "l.TopLevel as {4},",
-                            "{5},",
-                            "{6},",
-                            "{7},",
-                            "{8},",
-                            "p.SP1D_ID as {9}",
-                            "FROM SoilProfile1D as p",
-                            "JOIN {10}",
-                            "JOIN SoilLayer1D as l USING(SP1D_ID)",
-                            "LEFT JOIN {11}",
-                            "LEFT JOIN {12}",
-                            "ORDER BY ProfileName;"),
+                "SELECT " +
+                "1 AS {0}, " +
+                "sp1d.SP1D_Name AS {1}, " +
+                "layerCount.{2}, " +
+                "sp1d.BottomLevel AS {3}, " +
+                "sl1d.TopLevel AS {4}, " +
+                "{5}, " +
+                "{6}, " +
+                "{7}, " +
+                "{8}, " +
+                "sp1d.SP1D_ID AS {9} " +
+                "FROM Mechanism AS m " +
+                "JOIN Segment AS segment USING(ME_ID) " +
+                "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
+                "JOIN SoilProfile1D sp1d USING (SP1D_ID) " +
+                "JOIN (" +
+                subQueryGetNumberOfLayerProfile1D +
+                ") layerCount USING (SP1D_ID) " +
+                "JOIN SoilLayer1D sl1d USING (SP1D_ID) " +
+                "LEFT JOIN (" +
+                subQueryGetMaterialPropertiesOfLayer +
+                ") materialProperties USING(MA_ID) " +
+                "LEFT JOIN (" +
+                subQueryGetLayerPropertiesOfLayer1D +
+                ") layerProperties USING(SL1D_ID) " +
+                "WHERE m.{10} = @{10};",
                 SoilProfileDatabaseColumns.Dimension,
                 SoilProfileDatabaseColumns.ProfileName,
                 SoilProfileDatabaseColumns.LayerCount,
@@ -300,32 +308,36 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 SoilProfileDatabaseColumns.DryUnitWeight,
                 SoilProfileDatabaseColumns.IsAquifer,
                 SoilProfileDatabaseColumns.SoilProfileId,
-                layer1DCountQuery,
-                materialPropertiesQuery,
-                layer1DPropertiesQuery);
+                MechanismDatabaseColumns.MechanismName);
 
             var query2D = string.Format(
-                string.Join(" ",
-                            "SELECT",
-                            "2 as {0},",
-                            "p.SP2D_Name as {1},",
-                            "lc.{2},",
-                            "l.GeometrySurface as {3}, ",
-                            "mpl.X as {4},",
-                            "{5},",
-                            "{6},",
-                            "{7},",
-                            "{8},",
-                            "p.SP2D_ID as {9}",
-                            "FROM Mechanism as m",
-                            "JOIN MechanismPointLocation as mpl USING(ME_ID)",
-                            "JOIN SoilProfile2D as p USING(SP2D_ID)",
-                            "JOIN {10}",
-                            "JOIN SoilLayer2D as l USING(SP2D_ID)",
-                            "LEFT JOIN {11}",
-                            "LEFT JOIN {12}",
-                            "WHERE m.{13} = @{13}",
-                            "ORDER BY ProfileName;"),
+                "Select " +
+                "2 as {0}, " +
+                "sp2d.SP2D_Name as {1}, " +
+                "layerCount.{2}, " +
+                "sl2d.GeometrySurface as {3}, " +
+                "mpl.X as {4}, " +
+                "{5}, " +
+                "{6}, " +
+                "{7}, " +
+                "{8}, " +
+                "sp2d.SP2D_ID as {9} " +
+                "FROM Mechanism AS m " +
+                "JOIN Segment AS segment USING(ME_ID) " +
+                "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
+                "JOIN SoilProfile2D sp2d USING (SP2D_ID) " +
+                "JOIN (" +
+                subQueryGetNumberOfLayerProfile2D +
+                ") layerCount USING (SP2D_ID) " +
+                "JOIN SoilLayer2D sl2d USING (SP2D_ID) " +
+                "JOIN MechanismPointLocation mpl USING(ME_ID, SP2D_ID) " +
+                "LEFT JOIN (" +
+                subQueryGetMaterialPropertiesOfLayer +
+                ") materialProperties USING(MA_ID) " +
+                "LEFT JOIN (" +
+                subQueryGetLayerPropertiesOfLayer2D +
+                ") layerProperties USING(SL2D_ID) " +
+                "WHERE m.{10} = @{10};",
                 SoilProfileDatabaseColumns.Dimension,
                 SoilProfileDatabaseColumns.ProfileName,
                 SoilProfileDatabaseColumns.LayerCount,
@@ -336,9 +348,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 SoilProfileDatabaseColumns.DryUnitWeight,
                 SoilProfileDatabaseColumns.IsAquifer,
                 SoilProfileDatabaseColumns.SoilProfileId,
-                layer2DCountQuery,
-                materialPropertiesQuery,
-                layer2DPropertiesQuery,
                 MechanismDatabaseColumns.MechanismName);
 
             dataReader = CreateDataReader(countQuery + query2D + query1D, new SQLiteParameter
@@ -357,7 +366,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         private void GetCount()
         {
             dataReader.Read();
-            Count = (int) Read<long>(SoilProfileDatabaseColumns.ProfileCount);
+            Count = (int)Read<long>(SoilProfileDatabaseColumns.ProfileCount);
             dataReader.NextResult();
         }
     }

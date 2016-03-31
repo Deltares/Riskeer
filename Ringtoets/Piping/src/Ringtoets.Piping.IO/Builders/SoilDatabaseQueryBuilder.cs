@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+
 using Ringtoets.Piping.IO.SoilProfile;
 
 namespace Ringtoets.Piping.IO.Builders
@@ -112,19 +113,26 @@ namespace Ringtoets.Piping.IO.Builders
         /// that can be read from the database.</returns>
         public static string GetPipingSoilProfileCountQuery()
         {
-            return String.Format("SELECT (" +
-                                 "SELECT COUNT(DISTINCT s2.SP2D_ID) " +
-                                 "FROM Mechanism AS m " +
-                                 "JOIN MechanismPointLocation AS mpl USING(ME_ID) " +
-                                 "JOIN SoilProfile2D AS p2 USING(SP2D_ID) " +
-                                 "JOIN SoilLayer2D AS s2 USING(SP2D_ID) " +
-                                 "WHERE m.{0} = @{0} " +
-                                 ") + ( " +
-                                 "SELECT COUNT(DISTINCT p1.SP1D_ID) " +
-                                 "FROM SoilProfile1D AS p1 " +
-                                 "JOIN SoilLayer1D AS s1 " +
-                                 "USING(SP1D_ID)" +
-                                 ") AS {1};", MechanismDatabaseColumns.MechanismName, SoilProfileDatabaseColumns.ProfileCount);
+            return String.Format(
+                "SELECT (" +
+                "SELECT COUNT(DISTINCT sl1D.SP1D_ID) " +
+                "FROM Mechanism AS m " +
+                "JOIN Segment AS segment USING(ME_ID) " +
+                "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
+                "JOIN SoilLayer1D sl1D USING(SP1D_ID) " +
+                "WHERE m.ME_Name = @{0}" +
+                ") + (" +
+                "SELECT COUNT(DISTINCT sl2D.SP2D_ID) " +
+                "FROM Mechanism AS m " +
+                "JOIN Segment AS segment USING(ME_ID) " +
+                "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
+                "JOIN SoilLayer2D sl2D USING(SP2D_ID) " +
+                "JOIN MechanismPointLocation mpl USING(ME_ID) " +
+                "WHERE m.ME_Name = @{0}" +
+                ") " +
+                "AS {1};",
+                MechanismDatabaseColumns.MechanismName,
+                SoilProfileDatabaseColumns.ProfileCount);
         }
 
         /// <summary>

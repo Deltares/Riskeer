@@ -21,6 +21,8 @@
 
 using NUnit.Framework;
 
+using Ringtoets.Piping.Primitives;
+
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]

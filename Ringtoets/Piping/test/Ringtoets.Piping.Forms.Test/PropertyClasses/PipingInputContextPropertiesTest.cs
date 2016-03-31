@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 {
                     IsAquifer = true
                 }
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
             var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(0.0);
 
             var inputParameters = new PipingInput(new GeneralPipingInput())

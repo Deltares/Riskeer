@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                     DryUnitWeight = dryUnitWeight
                 },
             };
-            var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers, pipingSoilProfileId);
+            var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers, SoilProfileType.SoilProfile1D, pipingSoilProfileId);
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);
@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 new PipingSoilLayer(expectedTopC)
             };
 
-            var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers, pipingSoilProfileId);
+            var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers, SoilProfileType.SoilProfile1D, pipingSoilProfileId);
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);
@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 new PipingSoilLayer(expectedTopB),
                 new PipingSoilLayer(expectedTopC)
             };
-            var soilProfile = new PipingSoilProfile(string.Empty, expectedBottom, layers, pipingSoilProfileId);
+            var soilProfile = new PipingSoilProfile(string.Empty, expectedBottom, layers, SoilProfileType.SoilProfile1D, pipingSoilProfileId);
 
             // Precondition
             CollectionAssert.AreNotEqual(layers, layers.OrderByDescending(l => l.Top), "Layer collection should not be in descending order by the Top property.");
@@ -171,7 +171,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                     BelowPhreaticLevel = levelC
                 }
             };
-            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers, 0);
+            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);
@@ -208,7 +208,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                     AbovePhreaticLevel = levelC
                 }
             };
-            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers, 0);
+            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);
@@ -245,7 +245,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                     DryUnitWeight = weightC
                 }
             };
-            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers, 0);
+            var soilProfile = new PipingSoilProfile(string.Empty, -2, layers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);

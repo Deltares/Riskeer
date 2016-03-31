@@ -1,5 +1,6 @@
 using System;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.TestUtil
 {

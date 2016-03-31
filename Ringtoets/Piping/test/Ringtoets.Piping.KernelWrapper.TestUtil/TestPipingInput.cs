@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
                 },
                 new PipingSoilLayer(2),
                 new PipingSoilLayer(-1),
-            }, 1234L);
+            }, SoilProfileType.SoilProfile1D, 1234L);
         }
 
         private RingtoetsPipingSurfaceLine CreateValidSurfaceLine()

@@ -245,7 +245,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.IsTrue(importResult);
-            var expectedProfiles = 26;
+            var expectedProfiles = 24;
             var expectedModels = 3;
 
             var expectedProgressMessages = new List<ProgressNotification>
@@ -302,19 +302,17 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Precondition
             importer.Import(context, validFilePath);
-            var names = context.FailureMechanism.StochasticSoilModels.Select(ssm => ssm.Name);
+            var alreadyImportedSoilModelNames = context.FailureMechanism.StochasticSoilModels.Select(ssm => ssm.Name);
 
             // Call
             Action call = () => importResult = importer.Import(context, validFilePath);
 
             // Assert
-            var expectedLogMessages = names.Select(name => string.Format("Het stochastisch ondergrondmodel '{0}' bestaat al in het faalmechanisme.", name)).ToList();
-            expectedLogMessages.Add(String.Format("Het uitgelezen profiel '{0}' wordt niet gebruikt in een van de stochastische ondergrondmodellen.", "Segment_36005_1D2"));
-            expectedLogMessages.Add(String.Format("Het uitgelezen profiel '{0}' wordt niet gebruikt in een van de stochastische ondergrondmodellen.", "Segment_36005_1D3"));
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, expectedLogMessages.Count);
+            var expectedLogMessages = alreadyImportedSoilModelNames.Select(name => string.Format("Het stochastisch ondergrondmodel '{0}' bestaat al in het faalmechanisme.", name)).ToArray();
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, expectedLogMessages.Length);
 
             Assert.IsTrue(importResult);
-            Assert.AreEqual(35*2, progress);
+            Assert.AreEqual(33*2, progress);
 
             mockRepository.VerifyAll();
         }
@@ -395,7 +393,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(36, progress);
+            Assert.AreEqual(34, progress);
         }
 
         [Test]
@@ -571,12 +569,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(context, validFilePath);
 
             // Assert
-            var expectedLogMessages = new[]
-            {
-                "Het uitgelezen profiel 'Profile' wordt niet gebruikt in een van de stochastische ondergrondmodellen.",
-                "De som van de kans van voorkomen in het stochastich ondergrondmodel 'Name' is niet gelijk aan 100%."
-            };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
+            var expectedLogMessages = "De som van de kans van voorkomen in het stochastich ondergrondmodel 'Name' is niet gelijk aan 100%.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessages, 1);
             Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
             Assert.IsTrue(importResult);
 

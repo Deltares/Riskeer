@@ -122,6 +122,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.AreEqual(1, soilProfile.Layers.Count());
             Assert.AreEqual(1.0, soilProfile.Layers.ToArray()[0].Top);
             Assert.AreEqual(-1.0, soilProfile.Bottom);
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, soilProfile.SoilProfileType);
             Assert.AreEqual(pipingSoilProfileId, soilProfile.PipingSoilProfileId);
         }
 

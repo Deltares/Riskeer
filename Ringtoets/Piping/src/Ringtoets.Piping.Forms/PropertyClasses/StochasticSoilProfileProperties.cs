@@ -30,6 +30,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {

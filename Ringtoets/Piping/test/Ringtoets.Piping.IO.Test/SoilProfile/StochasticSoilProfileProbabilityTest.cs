@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.SoilProfile;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.SoilProfile
 {

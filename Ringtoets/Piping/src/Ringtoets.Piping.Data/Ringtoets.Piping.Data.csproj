@@ -80,7 +80,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SemiProbabilisticPipingInput.cs" />
-    <Compile Include="SoilProfileType.cs" />
     <Compile Include="StochasticSoilModel.cs" />
     <Compile Include="StochasticSoilProfile.cs" />
   </ItemGroup>

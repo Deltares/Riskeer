@@ -65,17 +65,20 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             const string expectedQuery = "SELECT (" +
-                                         "SELECT COUNT(DISTINCT s2.SP2D_ID) " +
+                                         "SELECT COUNT(DISTINCT sl1D.SP1D_ID) " +
                                          "FROM Mechanism AS m " +
-                                         "JOIN MechanismPointLocation AS mpl USING(ME_ID) " +
-                                         "JOIN SoilProfile2D AS p2 USING(SP2D_ID) " +
-                                         "JOIN SoilLayer2D AS s2 USING(SP2D_ID) " +
-                                         "WHERE m.ME_Name = @ME_Name " +
-                                         ") + ( " +
-                                         "SELECT COUNT(DISTINCT p1.SP1D_ID) " +
-                                         "FROM SoilProfile1D AS p1 " +
-                                         "JOIN SoilLayer1D AS s1 " +
-                                         "USING(SP1D_ID)" +
+                                         "JOIN Segment AS segment USING(ME_ID) "+
+                                         "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
+                                         "JOIN SoilLayer1D sl1D USING(SP1D_ID) " +
+                                         "WHERE m.ME_Name = @ME_Name" +
+                                         ") + (" +
+                                         "SELECT COUNT(DISTINCT sl2D.SP2D_ID) " +
+                                         "FROM Mechanism AS m " +
+                                         "JOIN Segment AS segment USING(ME_ID) " +
+                                         "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
+                                         "JOIN SoilLayer2D sl2D USING(SP2D_ID) " +
+                                         "JOIN MechanismPointLocation mpl USING(ME_ID) " +
+                                         "WHERE m.ME_Name = @ME_Name" +
                                          ") AS nrOfRows;";
 
             // Call

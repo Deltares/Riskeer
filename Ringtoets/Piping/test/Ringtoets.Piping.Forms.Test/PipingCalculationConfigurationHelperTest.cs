@@ -21,13 +21,13 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingSoilLayer(-5.0),
                 new PipingSoilLayer(-2.0),
                 new PipingSoilLayer(1.0)
-            }, 1);
+            }, SoilProfileType.SoilProfile1D, 1);
             var soilProfile2 = new PipingSoilProfile("Profile 2", -8.0, new[]
             {
                 new PipingSoilLayer(-4.0),
                 new PipingSoilLayer(0.0),
                 new PipingSoilLayer(4.0)
-            }, 2);
+            }, SoilProfileType.SoilProfile1D, 2);
 
             var soilModel = new StochasticSoilModel(1, "A", "B");
             soilModel.Geometry.AddRange(new[]
@@ -80,13 +80,13 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingSoilLayer(-5.0),
                 new PipingSoilLayer(-2.0),
                 new PipingSoilLayer(1.0)
-            }, 1);
+            }, SoilProfileType.SoilProfile1D, 1);
             var soilProfile2 = new PipingSoilProfile("Profile 2", -8.0, new[]
             {
                 new PipingSoilLayer(-4.0),
                 new PipingSoilLayer(0.0),
                 new PipingSoilLayer(4.0)
-            }, 2);
+            }, SoilProfileType.SoilProfile1D, 2);
 
             var soilModel = new StochasticSoilModel(1, "A", "B");
             soilModel.Geometry.AddRange(new[]
@@ -176,13 +176,13 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingSoilLayer(-5.0),
                 new PipingSoilLayer(-2.0),
                 new PipingSoilLayer(1.0)
-            }, 1);
+            }, SoilProfileType.SoilProfile1D, 1);
             var soilProfile2 = new PipingSoilProfile("Profile 2", -8.0, new[]
             {
                 new PipingSoilLayer(-4.0),
                 new PipingSoilLayer(0.0),
                 new PipingSoilLayer(4.0)
-            }, 2);
+            }, SoilProfileType.SoilProfile1D, 2);
 
             var soilModel = new StochasticSoilModel(1, "A", "B");
             soilModel.Geometry.AddRange(new[]
@@ -230,13 +230,13 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingSoilLayer(-5.0),
                 new PipingSoilLayer(-2.0),
                 new PipingSoilLayer(1.0)
-            }, 1);
+            }, SoilProfileType.SoilProfile1D,  1);
             var soilProfile2 = new PipingSoilProfile("Profile 2", -8.0, new[]
             {
                 new PipingSoilLayer(-4.0),
                 new PipingSoilLayer(0.0),
                 new PipingSoilLayer(4.0)
-            }, 2);
+            }, SoilProfileType.SoilProfile1D, 2);
 
             const double y = 1.1;
             var soilModel1 = new StochasticSoilModel(1, "A", "B");
@@ -427,13 +427,13 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingSoilLayer(-5.0),
                 new PipingSoilLayer(-2.0),
                 new PipingSoilLayer(1.0)
-            }, 1);
+            }, SoilProfileType.SoilProfile1D, 1);
             var soilProfile2 = new PipingSoilProfile("Profile 2", -8.0, new[]
             {
                 new PipingSoilLayer(-4.0),
                 new PipingSoilLayer(0.0),
                 new PipingSoilLayer(4.0)
-            }, 2);
+            }, SoilProfileType.SoilProfile1D, 2);
 
             var soilModel = new StochasticSoilModel(1, "A", "B");
             soilModel.Geometry.AddRange(new[]
@@ -539,13 +539,13 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingSoilLayer(-5.0),
                 new PipingSoilLayer(-2.0),
                 new PipingSoilLayer(1.0)
-            }, 1);
+            }, SoilProfileType.SoilProfile1D, 1);
             var soilProfile2 = new PipingSoilProfile("Profile 2", -8.0, new[]
             {
                 new PipingSoilLayer(-4.0),
                 new PipingSoilLayer(0.0),
                 new PipingSoilLayer(4.0)
-            }, 2);
+            }, SoilProfileType.SoilProfile1D, 2);
 
             var soilModel = new StochasticSoilModel(1, "A", "B");
             soilModel.Geometry.AddRange(new[]
@@ -602,13 +602,13 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingSoilLayer(-5.0),
                 new PipingSoilLayer(-2.0),
                 new PipingSoilLayer(1.0)
-            }, 1);
+            }, SoilProfileType.SoilProfile1D, 1);
             var soilProfile2 = new PipingSoilProfile("Profile 2", -8.0, new[]
             {
                 new PipingSoilLayer(-4.0),
                 new PipingSoilLayer(0.0),
                 new PipingSoilLayer(4.0)
-            }, 2);
+            }, SoilProfileType.SoilProfile1D, 2);
 
             const double y = 1.1;
             var soilModel1 = new StochasticSoilModel(1, "A", "B");
@@ -686,13 +686,13 @@ namespace Ringtoets.Piping.Forms.Test
                 new PipingSoilLayer(-5.0),
                 new PipingSoilLayer(-2.0),
                 new PipingSoilLayer(1.0)
-            }, 1);
+            }, SoilProfileType.SoilProfile1D, 1);
             var soilProfile2 = new PipingSoilProfile("Profile 2", -8.0, new[]
             {
                 new PipingSoilLayer(-4.0),
                 new PipingSoilLayer(0.0),
                 new PipingSoilLayer(4.0)
-            }, 2);
+            }, SoilProfileType.SoilProfile1D, 2);
 
             const double y = 1.1;
             var soilModel1 = new StochasticSoilModel(1, "A", "B");

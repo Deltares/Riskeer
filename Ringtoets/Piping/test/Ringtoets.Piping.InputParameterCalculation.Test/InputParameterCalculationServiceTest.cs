@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
                 {
                     IsAquifer = true
                 }
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             PipingInput input = invalidPipingCalculation.InputParameters;
@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
                 {
                     IsAquifer = false
                 }
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
 
             PipingInput input = new PipingInput(new GeneralPipingInput())
             {

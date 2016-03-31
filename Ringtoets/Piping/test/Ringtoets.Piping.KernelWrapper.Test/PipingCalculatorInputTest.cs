@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 {
                     IsAquifer = true
                 }
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
 
             var input = new PipingCalculatorInput(
                 volumetricWeightOfWaterValue,

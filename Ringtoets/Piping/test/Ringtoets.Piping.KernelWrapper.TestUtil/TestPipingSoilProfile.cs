@@ -21,6 +21,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
             {
                 IsAquifer = true
             }
-        }, 0) {}
+        }, SoilProfileType.SoilProfile1D, 0) {}
     }
 }

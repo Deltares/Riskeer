@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 {
                     IsAquifer = true
                 }
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3 * top/ 4);
             var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, bottom + 2 * top / 4);
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 {
                     IsAquifer = true
                 }
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
 
             return new PipingInput(new GeneralPipingInput())
             {
@@ -144,7 +144,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 {
                     IsAquifer = false
                 }
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
             var input = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine,
@@ -176,7 +176,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 {
                     IsAquifer = true
                 }
-            }, 0);
+            }, SoilProfileType.SoilProfile1D, 0);
             var input = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine,
