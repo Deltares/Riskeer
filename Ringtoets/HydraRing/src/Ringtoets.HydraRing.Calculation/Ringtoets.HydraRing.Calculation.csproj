@@ -49,6 +49,7 @@
     <Compile Include="Data\Input\Overtopping\HydraRingRoughnessProfilePoint.cs" />
     <Compile Include="Data\Input\ExceedanceProbabilityCalculationInput.cs" />
     <Compile Include="Data\Input\Overtopping\OvertoppingCalculationInput.cs" />
+    <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutput.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutput.cs" />
     <Compile Include="Activities\HydraRingActivityFactory.cs" />
     <Compile Include="Services\HydraRingCalculationService.cs" />
