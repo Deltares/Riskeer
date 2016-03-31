@@ -99,7 +99,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         [Test]
         public void GenerateDataBaseCreationScript_HydraRingConfigurationWithOvertoppingCalculation_ReturnsExpectedCreationScript()
         {
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.None);
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All);
             int hydraulicBoundaryLocationId = 700004;
 
             var hydraRingSection = new HydraRingSection(hydraulicBoundaryLocationId, "700004", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
@@ -115,7 +115,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             hydraRingConfigurationService.AddHydraRingCalculationInput(new OvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingSection, profilePoints, forelandPoints));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
-                                         "INSERT INTO [HydraulicModels] VALUES (1, 0, 'WTI 2017');" + Environment.NewLine +
+                                         "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
                                          "INSERT INTO [Sections] VALUES (700004, 1, 1, '700004', '700004', 2.2, 3.3, 5.5, 6.6, 700004, 700004, 100, 7.7, 4.4);" + Environment.NewLine +
