@@ -762,7 +762,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void GeneratePipingCalculations(PipingCalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels)
         {
-            foreach (var group in PipingCalculationConfigurationHelper.Generate(surfaceLines, soilModels))
+            foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, soilModels))
             {
                 target.Children.Add(group);
             }

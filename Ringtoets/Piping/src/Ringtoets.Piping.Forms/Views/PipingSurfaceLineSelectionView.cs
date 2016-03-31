@@ -6,6 +6,10 @@ using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Views
 {
+    /// <summary>
+    /// A <see cref="UserControl"/> which can be used to display a list of <see cref="RingtoetsPipingSurfaceLine"/>
+    /// from which a selection can be made.
+    /// </summary>
     public partial class PipingSurfaceLineSelectionView : UserControl
     {
         /// <summary>

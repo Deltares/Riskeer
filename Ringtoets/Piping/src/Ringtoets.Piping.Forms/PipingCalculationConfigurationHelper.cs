@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -19,7 +20,7 @@ namespace Ringtoets.Piping.Forms
         /// with.</param>
         /// <param name="soilModels">The soil models from which profiles are taken to configure <see cref="PipingCalculation"/> with.</param>
         /// <returns></returns>
-        public static IEnumerable<IPipingCalculationItem> Generate(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels)
+        public static IEnumerable<IPipingCalculationItem> GenerateCalculationsStructure(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels)
         {
             if (surfaceLines == null)
             {
@@ -64,17 +65,21 @@ namespace Ringtoets.Piping.Forms
             {
                 foreach (var profile in GetPipingSoilProfilesForSurfaceLine(surfaceLine, soilModels))
                 {
-                    pipingCalculationGroup.Children.Add(CreatePipingCalculation(surfaceLine, profile));
+                    pipingCalculationGroup.Children.Add(CreatePipingCalculation(surfaceLine, profile, pipingCalculationGroup.Children));
                 }
             }
 
             return pipingCalculationGroup;
         }
 
-        private static IPipingCalculationItem CreatePipingCalculation(RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile profile)
+        private static IPipingCalculationItem CreatePipingCalculation(RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile profile, IEnumerable<IPipingCalculationItem> calculations)
         {
+            var nameBase = string.Format("{0} {1}", surfaceLine.Name, profile.Name);
+            var name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
+
             return new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
+                Name = name,
                 InputParameters =
                 {
                     SurfaceLine = surfaceLine,

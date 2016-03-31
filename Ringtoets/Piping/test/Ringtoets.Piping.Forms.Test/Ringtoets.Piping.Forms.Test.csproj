@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PipingCalculationConfigurationHelperTest.cs" />
+    <Compile Include="PipingSurfaceLineSelectionDialogTest.cs" />
     <Compile Include="PresentationObjects\PipingFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLinesContextTest.cs" />
     <Compile Include="PresentationObjects\StochasticSoilModelContextTest.cs" />
