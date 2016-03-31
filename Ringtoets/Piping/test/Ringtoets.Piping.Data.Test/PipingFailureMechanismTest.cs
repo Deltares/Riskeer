@@ -6,7 +6,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test
@@ -257,6 +256,36 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het faalmechanisme.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void PipingFailureMechanismSectionResults_Always_ReturnsPipingFailureMechanismSectionResults()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            });
+
+            var section2 = new FailureMechanismSection("B", new[]
+            {
+                new Point2D(3, 4),
+                new Point2D(7, 8)
+            });
+
+            failureMechanism.AddSection(section);
+            failureMechanism.AddSection(section2);
+
+            // Call
+            var data = failureMechanism.PipingFailureMechanismSectionResults;
+
+            // Assert
+            Assert.AreEqual(2, data.Count);
+            Assert.AreEqual(section, data[0].Section);
+            Assert.AreEqual(section2, data[1].Section);
         }
     }
 }
