@@ -25,23 +25,23 @@ using Ringtoets.HydraRing.Calculation.Data;
 namespace Ringtoets.HydraRing.Calculation.Test.Data
 {
     [TestFixture]
-    public class HydraRingDikeSectionTest
+    public class HydraRingSectionTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraRingDikeSection = new HydraRingDikeSection(1, "Name", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
+            var hydraRingSection = new HydraRingSection(1, "Name", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
 
             // Assert
-            Assert.AreEqual(1, hydraRingDikeSection.SectionId);
-            Assert.AreEqual("Name", hydraRingDikeSection.SectionName);
-            Assert.AreEqual(2.2, hydraRingDikeSection.SectionBeginCoordinate);
-            Assert.AreEqual(3.3, hydraRingDikeSection.SectionEndCoordinate);
-            Assert.AreEqual(4.4, hydraRingDikeSection.SectionLength);
-            Assert.AreEqual(5.5, hydraRingDikeSection.CrossSectionXCoordinate);
-            Assert.AreEqual(6.6, hydraRingDikeSection.CrossSectionYCoordinate);
-            Assert.AreEqual(7.7, hydraRingDikeSection.CrossSectionNormal);
+            Assert.AreEqual(1, hydraRingSection.SectionId);
+            Assert.AreEqual("Name", hydraRingSection.SectionName);
+            Assert.AreEqual(2.2, hydraRingSection.SectionBeginCoordinate);
+            Assert.AreEqual(3.3, hydraRingSection.SectionEndCoordinate);
+            Assert.AreEqual(4.4, hydraRingSection.SectionLength);
+            Assert.AreEqual(5.5, hydraRingSection.CrossSectionXCoordinate);
+            Assert.AreEqual(6.6, hydraRingSection.CrossSectionYCoordinate);
+            Assert.AreEqual(7.7, hydraRingSection.CrossSectionNormal);
         }
     }
 }

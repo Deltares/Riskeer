@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Persistors
         private readonly Dictionary<ProjectEntity, Project> insertedList = new Dictionary<ProjectEntity, Project>();
         private readonly ICollection<ProjectEntity> modifiedList = new List<ProjectEntity>();
 
-        private readonly DikeAssessmentSectionPersistor dikeAssessmentSectionEntityPersistor;
+        private readonly AssessmentSectionPersistor assessmentSectionEntityPersistor;
 
         /// <summary>
         /// Instantiate a new <see cref="ProjectPersistor"/>.
@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Persistors
 
             converter = new ProjectConverter();
 
-            dikeAssessmentSectionEntityPersistor = new DikeAssessmentSectionPersistor(ringtoetsContext);
+            assessmentSectionEntityPersistor = new AssessmentSectionPersistor(ringtoetsContext);
         }
 
         /// <summary>
@@ -77,12 +77,12 @@ namespace Application.Ringtoets.Storage.Persistors
             }
             var project = converter.ConvertEntityToModel(entry);
 
-            var nrOfItems = entry.DikeAssessmentSectionEntities.Count;
+            var nrOfItems = entry.AssessmentSectionEntities.Count;
             var assessmentSections = new object[nrOfItems];
 
-            foreach (var sectionEntity in entry.DikeAssessmentSectionEntities)
+            foreach (var sectionEntity in entry.AssessmentSectionEntities)
             {
-                assessmentSections[sectionEntity.Order] = dikeAssessmentSectionEntityPersistor.LoadModel(sectionEntity);
+                assessmentSections[sectionEntity.Order] = assessmentSectionEntityPersistor.LoadModel(sectionEntity);
             }
 
             // Add to items sorted 
@@ -177,7 +177,7 @@ namespace Application.Ringtoets.Storage.Persistors
         public void PerformPostSaveActions()
         {
             UpdateStorageIdsInModel();
-            dikeAssessmentSectionEntityPersistor.PerformPostSaveActions();
+            assessmentSectionEntityPersistor.PerformPostSaveActions();
         }
 
         /// <summary>
@@ -188,12 +188,12 @@ namespace Application.Ringtoets.Storage.Persistors
         private void UpdateChildren(Project project, ProjectEntity entity)
         {
             var order = 0;
-            foreach (var item in project.Items.Where(i => i is DikeAssessmentSection).Cast<DikeAssessmentSection>())
+            foreach (var item in project.Items.Where(i => i is AssessmentSection).Cast<AssessmentSection>())
             {
-                dikeAssessmentSectionEntityPersistor.UpdateModel(entity.DikeAssessmentSectionEntities, item, order);
+                assessmentSectionEntityPersistor.UpdateModel(entity.AssessmentSectionEntities, item, order);
                 order++;
             }
-            dikeAssessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.DikeAssessmentSectionEntities);
+            assessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.AssessmentSectionEntities);
         }
 
         /// <summary>
@@ -204,23 +204,25 @@ namespace Application.Ringtoets.Storage.Persistors
         private void InsertChildren(Project project, ProjectEntity entity)
         {
             var order = 0;
-            foreach (var item in project.Items.Where(i => i is DikeAssessmentSection).Cast<DikeAssessmentSection>())
+            foreach (var item in project.Items.Where(i => i is AssessmentSection).Cast<AssessmentSection>())
             {
-                dikeAssessmentSectionEntityPersistor.InsertModel(entity.DikeAssessmentSectionEntities, item, order);
+                assessmentSectionEntityPersistor.InsertModel(entity.AssessmentSectionEntities, item, order);
                 order++;
             }
-            dikeAssessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.DikeAssessmentSectionEntities);
+            assessmentSectionEntityPersistor.RemoveUnModifiedEntries(entity.AssessmentSectionEntities);
         }
 
         /// <summary>
-        /// Updates the StorageId of each inserted <see cref="Project"/> to the DikeAssessmentSectionEntityId of the corresponding <see cref="ProjectEntity"/>.
+        /// Updates the StorageId of each inserted <see cref="Project"/> to the 
+        /// <see cref="ProjectEntity.ProjectEntityId"/> of the corresponding <see cref="ProjectEntity"/>.
         /// </summary>
         /// <remarks><see cref="IRingtoetsEntities.SaveChanges"/> must have been called to update the ids.</remarks>
         private void UpdateStorageIdsInModel()
         {
             foreach (var entry in insertedList)
             {
-                Debug.Assert(entry.Key.ProjectEntityId > 0, "ProjectEntityId is not set. Have you called IRingtoetsEntities.SaveChanges?");
+                Debug.Assert(entry.Key.ProjectEntityId > 0, 
+                    "ProjectEntityId is not set. Have you called IRingtoetsEntities.SaveChanges?");
                 entry.Value.StorageId = entry.Key.ProjectEntityId;
             }
             insertedList.Clear();

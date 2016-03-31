@@ -70,20 +70,20 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Traject.
+        /// </summary>
+        public static string AssessmentSection_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kunstwerken - Niet sluiten.
         /// </summary>
         public static string ClosingFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("ClosingFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijktraject.
-        /// </summary>
-        public static string DikeAssessmentSection_DisplayName {
-            get {
-                return ResourceManager.GetString("DikeAssessmentSection_DisplayName", resourceCulture);
             }
         }
         

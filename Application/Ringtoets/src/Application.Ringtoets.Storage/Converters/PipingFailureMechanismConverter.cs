@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Converters
                 throw new ArgumentNullException("entity");
             }
 
-            if (entity.FailureMechanismType != (int) FailureMechanismType.DikesPipingFailureMechanism)
+            if (entity.FailureMechanismType != (int) FailureMechanismType.PipingFailureMechanism)
             {
                 throw new ArgumentException(@"Incorrect modelType", "entity");
             }
@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Converters
             }
 
             entity.FailureMechanismEntityId = modelObject.StorageId;
-            entity.FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism;
+            entity.FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism;
         }
     }
 }

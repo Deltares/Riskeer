@@ -43,22 +43,22 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(2, assessmentLevelCalculationInput.CalculationTypeId);
             Assert.AreEqual(26, assessmentLevelCalculationInput.VariableId);
             Assert.AreEqual(1, assessmentLevelCalculationInput.HydraulicBoundaryLocationId);
-            Assert.IsNotNull(assessmentLevelCalculationInput.DikeSection);
+            Assert.IsNotNull(assessmentLevelCalculationInput.Section);
             Assert.AreEqual(1, assessmentLevelCalculationInput.Variables.Count());
             CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ProfilePoints);
             CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ForelandsPoints);
             CollectionAssert.IsEmpty(assessmentLevelCalculationInput.BreakWaters);
             Assert.AreEqual(expectedBeta, assessmentLevelCalculationInput.Beta);
 
-            var dikeSection = assessmentLevelCalculationInput.DikeSection;
-            Assert.AreEqual(1, dikeSection.SectionId);
-            Assert.AreEqual("1", dikeSection.SectionName);
-            Assert.IsNaN(dikeSection.SectionBeginCoordinate);
-            Assert.IsNaN(dikeSection.SectionEndCoordinate);
-            Assert.IsNaN(dikeSection.SectionLength);
-            Assert.IsNaN(dikeSection.CrossSectionXCoordinate);
-            Assert.IsNaN(dikeSection.CrossSectionYCoordinate);
-            Assert.IsNaN(dikeSection.CrossSectionNormal);
+            var hydraRingSection = assessmentLevelCalculationInput.Section;
+            Assert.AreEqual(1, hydraRingSection.SectionId);
+            Assert.AreEqual("1", hydraRingSection.SectionName);
+            Assert.IsNaN(hydraRingSection.SectionBeginCoordinate);
+            Assert.IsNaN(hydraRingSection.SectionEndCoordinate);
+            Assert.IsNaN(hydraRingSection.SectionLength);
+            Assert.IsNaN(hydraRingSection.CrossSectionXCoordinate);
+            Assert.IsNaN(hydraRingSection.CrossSectionYCoordinate);
+            Assert.IsNaN(hydraRingSection.CrossSectionNormal);
 
             var assessmentLevelVariable = assessmentLevelCalculationInput.Variables.First();
             Assert.AreEqual(26, assessmentLevelVariable.VariableId);

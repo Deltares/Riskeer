@@ -22,9 +22,9 @@
 namespace Ringtoets.HydraRing.Calculation.Data
 {
     /// <summary>
-    /// Container for Hydra-Ring dike (cross) section data.
+    /// Container for Hydra-Ring (cross) section data.
     /// </summary>
-    public class HydraRingDikeSection
+    public class HydraRingSection
     {
         private readonly int sectionId;
         private readonly string sectionName;
@@ -36,17 +36,17 @@ namespace Ringtoets.HydraRing.Calculation.Data
         private readonly double crossSectionNormal;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="HydraRingDikeSection"/> class.
+        /// Creates a new instance of the <see cref="HydraRingSection"/> class.
         /// </summary>
-        /// <param name="sectionId">The id of the dike section.</param>
-        /// <param name="sectionName">The name of the dike section.</param>
-        /// <param name="sectionBeginCoordinate">The begin coordinate of the dike section.</param>
-        /// <param name="sectionEndCoordinate">The end coordinate of the dike section.</param>
-        /// <param name="sectionLength">The length of the dike section.</param>
-        /// <param name="crossSectionXCoordinate">The x coordinate of the dike cross section.</param>
-        /// <param name="crossSectionYCoordinate">the y coordinate of the dike cross section.</param>
-        /// <param name="crossSectionNormal">The normal of the dike cross section.</param>
-        public HydraRingDikeSection(int sectionId, string sectionName, double sectionBeginCoordinate, double sectionEndCoordinate, double sectionLength, double crossSectionXCoordinate, double crossSectionYCoordinate, double crossSectionNormal)
+        /// <param name="sectionId">The id of the section.</param>
+        /// <param name="sectionName">The name of the section.</param>
+        /// <param name="sectionBeginCoordinate">The begin coordinate of the section.</param>
+        /// <param name="sectionEndCoordinate">The end coordinate of the section.</param>
+        /// <param name="sectionLength">The length of the section.</param>
+        /// <param name="crossSectionXCoordinate">The x coordinate of the cross section.</param>
+        /// <param name="crossSectionYCoordinate">the y coordinate of the cross section.</param>
+        /// <param name="crossSectionNormal">The normal of the cross section.</param>
+        public HydraRingSection(int sectionId, string sectionName, double sectionBeginCoordinate, double sectionEndCoordinate, double sectionLength, double crossSectionXCoordinate, double crossSectionYCoordinate, double crossSectionNormal)
         {
             this.sectionId = sectionId;
             this.sectionName = sectionName;
@@ -59,7 +59,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         }
 
         /// <summary>
-        /// Gets the id of the dike section.
+        /// Gets the id of the section.
         /// </summary>
         public int SectionId
         {
@@ -70,7 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         }
 
         /// <summary>
-        /// Gets the name of the dike section.
+        /// Gets the name of the section.
         /// </summary>
         /// <remarks>
         /// This name is used in the input file and the output file of Hydra-Ring calculations.
@@ -84,10 +84,10 @@ namespace Ringtoets.HydraRing.Calculation.Data
         }
 
         /// <summary>
-        /// Gets the begin coordinate of the dike section.
+        /// Gets the begin coordinate of the section.
         /// </summary>
         /// <remarks>
-        /// If only a dike cross section is considered, this property should be set equal to <see cref="CrossSectionXCoordinate"/>.
+        /// If only a cross section is considered, this property should be set equal to <see cref="CrossSectionXCoordinate"/>.
         /// </remarks>
         public double SectionBeginCoordinate
         {
@@ -98,10 +98,10 @@ namespace Ringtoets.HydraRing.Calculation.Data
         }
 
         /// <summary>
-        /// Gets the end coordinate of the dike section.
+        /// Gets the end coordinate of the section.
         /// </summary>
         /// <remarks>
-        /// If only a dike cross section is considered, this property should be set equal to <see cref="CrossSectionYCoordinate"/>.
+        /// If only a cross section is considered, this property should be set equal to <see cref="CrossSectionYCoordinate"/>.
         /// </remarks>
         public double SectionEndCoordinate
         {
@@ -112,7 +112,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         }
 
         /// <summary>
-        /// Gets the length of the dike section.
+        /// Gets the length of the section.
         /// </summary>
         public double SectionLength
         {
@@ -123,7 +123,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         }
 
         /// <summary>
-        /// Gets the x coordinate of the dike cross section.
+        /// Gets the x coordinate of the cross section.
         /// </summary>
         public double CrossSectionXCoordinate
         {
@@ -134,7 +134,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         }
 
         /// <summary>
-        /// Gets the y coordinate of the dike cross section.
+        /// Gets the y coordinate of the cross section.
         /// </summary>
         public double CrossSectionYCoordinate
         {
@@ -145,10 +145,10 @@ namespace Ringtoets.HydraRing.Calculation.Data
         }
 
         /// <summary>
-        /// Gets the normal of the dike cross section.
+        /// Gets the normal of the cross section.
         /// </summary>
         /// <remarks>
-        /// The normal corresponds to the angle of the straight line perpendicular to the dike stretch at the location of the dike cross section (with respect to the north).
+        /// The normal corresponds to the angle of the straight line perpendicular to the stretch at the location of the dike cross section (with respect to the north).
         /// </remarks>
         public double CrossSectionNormal
         {

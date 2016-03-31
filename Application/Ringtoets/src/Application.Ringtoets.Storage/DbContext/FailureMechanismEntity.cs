@@ -36,9 +36,9 @@ namespace Application.Ringtoets.Storage.DbContext
     public partial class FailureMechanismEntity
     {
         public long FailureMechanismEntityId { get; set; }
-        public long DikeAssessmentSectionEntityId { get; set; }
+        public long AssessmentSectionEntityId { get; set; }
         public short FailureMechanismType { get; set; }
     
-        public virtual DikeAssessmentSectionEntity DikeAssessmentSectionEntity { get; set; }
+        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
     }
 }

@@ -33,17 +33,17 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class DikeAssessmentSectionEntity
+    public partial class AssessmentSectionEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DikeAssessmentSectionEntity()
+        public AssessmentSectionEntity()
         {
             this.FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
             this.HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
             this.ReferenceLinePointEntities = new HashSet<ReferenceLinePointEntity>();
         }
     
-        public long DikeAssessmentSectionEntityId { get; set; }
+        public long AssessmentSectionEntityId { get; set; }
         public long ProjectEntityId { get; set; }
         public string Name { get; set; }
         public int Norm { get; set; }

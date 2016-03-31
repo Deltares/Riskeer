@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             Assert.AreEqual(4, hydraRingCalculationInput.CalculationTypeId);
             Assert.AreEqual(5, hydraRingCalculationInput.VariableId);
             Assert.AreEqual(1, hydraRingCalculationInput.HydraulicBoundaryLocationId);
-            Assert.AreEqual(1, hydraRingCalculationInput.DikeSection.SectionId);
+            Assert.AreEqual(1, hydraRingCalculationInput.Section.SectionId);
             CollectionAssert.IsEmpty(hydraRingCalculationInput.Variables);
             CollectionAssert.IsEmpty(hydraRingCalculationInput.ProfilePoints);
             CollectionAssert.IsEmpty(hydraRingCalculationInput.ForelandsPoints);
@@ -87,11 +87,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
                 }
             }
 
-            public override HydraRingDikeSection DikeSection
+            public override HydraRingSection Section
             {
                 get
                 {
-                    return new HydraRingDikeSection(1, "Name", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
+                    return new HydraRingSection(1, "Name", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
                 }
             }
 

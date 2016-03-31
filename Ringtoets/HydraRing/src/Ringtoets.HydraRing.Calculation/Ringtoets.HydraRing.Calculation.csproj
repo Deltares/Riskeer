@@ -43,7 +43,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Data\HydraRingBreakwater.cs" />
-    <Compile Include="Data\HydraRingDikeSection.cs" />
+    <Compile Include="Data\HydraRingSection.cs" />
     <Compile Include="Data\HydraRingForelandPoint.cs" />
     <Compile Include="Data\HydraRingProfilePoint.cs" />
     <Compile Include="Data\Input\Overtopping\HydraRingRoughnessProfilePoint.cs" />

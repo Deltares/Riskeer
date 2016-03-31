@@ -30,7 +30,7 @@ using Ringtoets.Integration.Forms.Properties;
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="DikeAssessmentSection"/> for properties panel.
+    /// ViewModel of <see cref="AssessmentSection"/> for properties panel.
     /// </summary>
     public class AssessmentSectionBaseProperties : ObjectProperties<AssessmentSectionBase>
     {

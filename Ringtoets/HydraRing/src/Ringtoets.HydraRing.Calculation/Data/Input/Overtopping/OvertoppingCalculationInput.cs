@@ -28,7 +28,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
     /// </summary>
     public class OvertoppingCalculationInput : ExceedanceProbabilityCalculationInput
     {
-        private readonly HydraRingDikeSection dikeSection;
+        private readonly HydraRingSection dikeSection;
         private readonly IEnumerable<HydraRingProfilePoint> profilePoints;
         private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
 
@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         /// <param name="hydraRingDikeSection">The dike sections to use during the calculation.</param>
         /// <param name="hydraRingProfilePoints">The profile points to use during the calculation.</param>
         /// <param name="hydraRingForelandPoints">The foreland points to use during the calculation.</param>
-        public OvertoppingCalculationInput(int hydraulicBoundaryLocationId, HydraRingDikeSection hydraRingDikeSection,
+        public OvertoppingCalculationInput(int hydraulicBoundaryLocationId, HydraRingSection hydraRingDikeSection,
                                            IEnumerable<HydraRingProfilePoint> hydraRingProfilePoints,
                                            IEnumerable<HydraRingForelandPoint> hydraRingForelandPoints)
             : base(hydraulicBoundaryLocationId)
@@ -65,7 +65,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
             }
         }
 
-        public override HydraRingDikeSection DikeSection
+        public override HydraRingSection Section
         {
             get
             {

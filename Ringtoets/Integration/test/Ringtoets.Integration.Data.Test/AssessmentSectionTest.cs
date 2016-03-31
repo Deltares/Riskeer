@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -14,13 +13,13 @@ using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Reso
 namespace Ringtoets.Integration.Data.Test
 {
     [TestFixture]
-    public class DikeAssessmentSectionTest
+    public class AssessmentSectionTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var section = new DikeAssessmentSection();
+            var section = new AssessmentSection();
 
             var pipingName = "Dijken - Piping";
             var grassErosionName = "Dijken - Graserosie kruin en binnentalud";
@@ -51,7 +50,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.IsInstanceOf<Observable>(section);
             Assert.IsInstanceOf<AssessmentSectionBase>(section);
 
-            Assert.AreEqual("Dijktraject", section.Name);
+            Assert.AreEqual("Traject", section.Name);
             Assert.IsNull(section.ReferenceLine);
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
@@ -93,7 +92,7 @@ namespace Ringtoets.Integration.Data.Test
         public void Name_SetingNewValue_GetNewValue()
         {
             // Setup
-            var section = new DikeAssessmentSection();
+            var section = new AssessmentSection();
 
             const string newValue = "new value";
 
@@ -108,7 +107,7 @@ namespace Ringtoets.Integration.Data.Test
         public void GetFailureMechanisms_Always_ReturnAllFailureMechanisms()
         {
             // Setup
-            var assessmentSection = new DikeAssessmentSection();
+            var assessmentSection = new AssessmentSection();
 
             // Call
             var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
@@ -130,7 +129,7 @@ namespace Ringtoets.Integration.Data.Test
         public void FailureMechanismContribution_DefaultConstructed_FailureMechanismContributionWithItemsForFailureMechanismsAndOther()
         {
             // Setup
-            var assessmentSection = new DikeAssessmentSection();
+            var assessmentSection = new AssessmentSection();
             var norm = 30000;
 
             // Call
@@ -159,7 +158,7 @@ namespace Ringtoets.Integration.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var assessmentSection = new DikeAssessmentSection();
+            var assessmentSection = new AssessmentSection();
             ReferenceLine referenceLine = new ReferenceLine();
 
             Point2D[] somePointsCollection =
@@ -182,7 +181,7 @@ namespace Ringtoets.Integration.Data.Test
         public void ReferenceLine_Null_GeneralPipingInputSectionLengthNaN()
         {
             // Setup
-            var assessmentSection = new DikeAssessmentSection();
+            var assessmentSection = new AssessmentSection();
 
             // Call
             assessmentSection.ReferenceLine = null;

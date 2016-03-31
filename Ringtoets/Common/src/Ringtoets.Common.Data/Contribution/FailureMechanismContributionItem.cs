@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.Contribution
 {
     /// <summary>
     /// This class represents an amount for which a failure mechanism will contribute to the 
-    /// overall verdict of a dike section.
+    /// overall verdict of an assessment section.
     /// </summary>
     public class FailureMechanismContributionItem
     {
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Data.Contribution
         public double Contribution { get; private set; }
 
         /// <summary>
-        /// Gets or sets the norm of the complete dike section.
+        /// Gets or sets the norm of the complete assessment section.
         /// </summary>
         public int Norm { get; internal set; }
 

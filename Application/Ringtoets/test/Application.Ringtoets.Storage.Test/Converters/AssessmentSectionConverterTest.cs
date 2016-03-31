@@ -29,23 +29,23 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Test.Converters
 {
     [TestFixture]
-    public class DikeAssessmentSectionConverterTest
+    public class AssessmentSectionConverterTest
     {
         [Test]
-        public void DefaultConstructor_Always_NewDikeAssessmentSectionEntityConverter()
+        public void DefaultConstructor_Always_NewAssessmentSectionEntityConverter()
         {
             // Call
-            DikeAssessmentSectionConverter converter = new DikeAssessmentSectionConverter();
+            AssessmentSectionConverter converter = new AssessmentSectionConverter();
 
             // Assert
-            Assert.IsInstanceOf<IEntityConverter<DikeAssessmentSection, DikeAssessmentSectionEntity>>(converter);
+            Assert.IsInstanceOf<IEntityConverter<AssessmentSection, AssessmentSectionEntity>>(converter);
         }
 
         [Test]
         public void ConvertEntityToModel_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
-            DikeAssessmentSectionConverter converter = new DikeAssessmentSectionConverter();
+            AssessmentSectionConverter converter = new AssessmentSectionConverter();
 
             // Call
             TestDelegate test = () => converter.ConvertEntityToModel(null);
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        public void ConvertEntityToModel_ValidDikeAssessmentSectionEntity_ReturnsTheDikeAssessmentSectionEntityAsDikeAssessmentSection()
+        public void ConvertEntityToModel_ValidAssessmentSectionEntity_ReturnsTheDikeAssessmentSectionEntityAsDikeAssessmentSection()
         {
             // Setup
             const long storageId = 1234L;
@@ -64,22 +64,22 @@ namespace Application.Ringtoets.Storage.Test.Converters
             const string name = "test";
             const string hydraulicDatabaseVersion = "1.0";
             const string hydraulicDatabasePath = "testPath";
-            DikeAssessmentSectionEntity dikeAssessmentSectionEntity = new DikeAssessmentSectionEntity()
+            AssessmentSectionEntity assessmentSectionEntity = new AssessmentSectionEntity
             {
-                DikeAssessmentSectionEntityId = storageId,
+                AssessmentSectionEntityId = storageId,
                 Name = name,
                 ProjectEntityId = projectId,
                 Norm = norm,
                 HydraulicDatabaseVersion = hydraulicDatabaseVersion,
                 HydraulicDatabaseLocation = hydraulicDatabasePath
             };
-            DikeAssessmentSectionConverter converter = new DikeAssessmentSectionConverter();
+            AssessmentSectionConverter converter = new AssessmentSectionConverter();
 
             // Call
-            DikeAssessmentSection assessmentSection = converter.ConvertEntityToModel(dikeAssessmentSectionEntity);
+            AssessmentSection assessmentSection = converter.ConvertEntityToModel(assessmentSectionEntity);
 
             // Assert
-            Assert.AreNotEqual(dikeAssessmentSectionEntity, assessmentSection);
+            Assert.AreNotEqual(assessmentSectionEntity, assessmentSection);
             Assert.AreEqual(storageId, assessmentSection.StorageId);
             Assert.AreEqual(name, assessmentSection.Name);
             Assert.AreEqual(norm, assessmentSection.FailureMechanismContribution.Norm);
@@ -91,11 +91,11 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertModelToEntity_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
-            DikeAssessmentSectionConverter converter = new DikeAssessmentSectionConverter();
-            DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection();
+            AssessmentSectionConverter converter = new AssessmentSectionConverter();
+            AssessmentSection assessmentSection = new AssessmentSection();
 
             // Call
-            TestDelegate test = () => converter.ConvertModelToEntity(dikeAssessmentSection, null);
+            TestDelegate test = () => converter.ConvertModelToEntity(assessmentSection, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
@@ -105,18 +105,18 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertModelToEntity_NullModel_ThrowsArgumentNullException()
         {
             // Setup
-            DikeAssessmentSectionConverter converter = new DikeAssessmentSectionConverter();
-            DikeAssessmentSectionEntity dikeAssessmentSectionEntity = new DikeAssessmentSectionEntity();
+            AssessmentSectionConverter converter = new AssessmentSectionConverter();
+            AssessmentSectionEntity assessmentSectionEntity = new AssessmentSectionEntity();
 
             // Call
-            TestDelegate test = () => converter.ConvertModelToEntity(null, dikeAssessmentSectionEntity);
+            TestDelegate test = () => converter.ConvertModelToEntity(null, assessmentSectionEntity);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
         }
 
         [Test]
-        public void ConvertModelToEntity_ValidDikeAssessmentSection_UpdatesTheDikeAssessmentSectionAsDikeAssessmentSectionEntity()
+        public void ConvertModelToEntity_ValidAssessmentSection_UpdatesTheDikeAssessmentSectionAsDikeAssessmentSectionEntity()
         {
             // Setup
             const long storageId = 1234L;
@@ -125,7 +125,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             const string name = "test";
             const string hydraulicDatabaseVersion = "1.0";
             const string hydraulicDatabasePath = "testPath";
-            DikeAssessmentSection dikeAssessmentSection = new DikeAssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection
             {
                 StorageId = storageId,
                 Name = name,
@@ -139,23 +139,23 @@ namespace Application.Ringtoets.Storage.Test.Converters
                     FilePath = hydraulicDatabasePath
                 }
             };
-            DikeAssessmentSectionEntity dikeAssessmentSectionEntity = new DikeAssessmentSectionEntity
+            AssessmentSectionEntity assessmentSectionEntity = new AssessmentSectionEntity
             {
                 ProjectEntityId = projectId
             };
-            DikeAssessmentSectionConverter converter = new DikeAssessmentSectionConverter();
+            AssessmentSectionConverter converter = new AssessmentSectionConverter();
 
             // Call
-            converter.ConvertModelToEntity(dikeAssessmentSection, dikeAssessmentSectionEntity);
+            converter.ConvertModelToEntity(assessmentSection, assessmentSectionEntity);
 
             // Assert
-            Assert.AreNotEqual(dikeAssessmentSectionEntity, dikeAssessmentSection);
-            Assert.AreEqual(storageId, dikeAssessmentSectionEntity.DikeAssessmentSectionEntityId);
-            Assert.AreEqual(projectId, dikeAssessmentSectionEntity.ProjectEntityId);
-            Assert.AreEqual(name, dikeAssessmentSectionEntity.Name);
-            Assert.AreEqual(norm, dikeAssessmentSectionEntity.Norm);
-            Assert.AreEqual(hydraulicDatabaseVersion, dikeAssessmentSectionEntity.HydraulicDatabaseVersion);
-            Assert.AreEqual(hydraulicDatabasePath, dikeAssessmentSectionEntity.HydraulicDatabaseLocation);
+            Assert.AreNotEqual(assessmentSectionEntity, assessmentSection);
+            Assert.AreEqual(storageId, assessmentSectionEntity.AssessmentSectionEntityId);
+            Assert.AreEqual(projectId, assessmentSectionEntity.ProjectEntityId);
+            Assert.AreEqual(name, assessmentSectionEntity.Name);
+            Assert.AreEqual(norm, assessmentSectionEntity.Norm);
+            Assert.AreEqual(hydraulicDatabaseVersion, assessmentSectionEntity.HydraulicDatabaseVersion);
+            Assert.AreEqual(hydraulicDatabasePath, assessmentSectionEntity.HydraulicDatabaseLocation);
         }
     }
 }

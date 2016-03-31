@@ -28,7 +28,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
     /// </summary>
     public class AssessmentLevelCalculationInput : TargetProbabilityCalculationInput
     {
-        private readonly HydraRingDikeSection dikeSection;
+        private readonly HydraRingSection section;
 
         /// <summary>
         /// Creates a new instance of the <see cref="AssessmentLevelCalculationInput"/> class.
@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// <param name="norm">The norm to use during the calculation.</param>
         public AssessmentLevelCalculationInput(int hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId, norm)
         {
-            dikeSection = new HydraRingDikeSection(HydraulicBoundaryLocationId, HydraulicBoundaryLocationId.ToString(), double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            section = new HydraRingSection(HydraulicBoundaryLocationId, HydraulicBoundaryLocationId.ToString(), double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType
@@ -56,11 +56,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             }
         }
 
-        public override HydraRingDikeSection DikeSection
+        public override HydraRingSection Section
         {
             get
             {
-                return dikeSection;
+                return section;
             }
         }
 

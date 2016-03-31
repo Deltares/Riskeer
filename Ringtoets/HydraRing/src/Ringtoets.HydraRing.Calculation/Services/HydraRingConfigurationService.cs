@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
     /// The following Hydra-Ring features are not exposed (yet):
     /// <list type="bullet">
     /// <item>
-    /// Combination of multiple dike sections
+    /// Combination of multiple sections
     /// </item>
     /// <item>
     /// Coupling two hydraulic boundary stations
@@ -183,36 +183,36 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
             foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
-                var hydraRingDikeSection = hydraRingCalculationInput.DikeSection;
+                var hydraRingSection = hydraRingCalculationInput.Section;
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
                     {
-                        "SectionId", hydraRingDikeSection.SectionId
+                        "SectionId", hydraRingSection.SectionId
                     },
                     {
-                        "PresentationId", 1 // Fixed: no support for combination of multiple dike sections
+                        "PresentationId", 1 // Fixed: no support for combination of multiple sections
                     },
                     {
-                        "MainMechanismId", 1 // Fixed: no support for combination of multiple dike sections
+                        "MainMechanismId", 1 // Fixed: no support for combination of multiple sections
                     },
                     {
-                        "Name", hydraRingDikeSection.SectionName
+                        "Name", hydraRingSection.SectionName
                     },
                     {
-                        "Description", hydraRingDikeSection.SectionName // Just use the section name
+                        "Description", hydraRingSection.SectionName // Just use the section name
                     },
                     {
-                        "RingCoordinateBegin", GetHydraRingValue(hydraRingDikeSection.SectionBeginCoordinate)
+                        "RingCoordinateBegin", GetHydraRingValue(hydraRingSection.SectionBeginCoordinate)
                     },
                     {
-                        "RingCoordinateEnd", GetHydraRingValue(hydraRingDikeSection.SectionEndCoordinate)
+                        "RingCoordinateEnd", GetHydraRingValue(hydraRingSection.SectionEndCoordinate)
                     },
                     {
-                        "XCoordinate", GetHydraRingValue(hydraRingDikeSection.CrossSectionXCoordinate)
+                        "XCoordinate", GetHydraRingValue(hydraRingSection.CrossSectionXCoordinate)
                     },
                     {
-                        "YCoordinate", GetHydraRingValue(hydraRingDikeSection.CrossSectionYCoordinate)
+                        "YCoordinate", GetHydraRingValue(hydraRingSection.CrossSectionYCoordinate)
                     },
                     {
                         "StationId1", hydraRingCalculationInput.HydraulicBoundaryLocationId
@@ -224,10 +224,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "Relative", 100.0 // Fixed: no support for coupling two stations
                     },
                     {
-                        "Normal", GetHydraRingValue(hydraRingDikeSection.CrossSectionNormal)
+                        "Normal", GetHydraRingValue(hydraRingSection.CrossSectionNormal)
                     },
                     {
-                        "Length", GetHydraRingValue(hydraRingDikeSection.SectionLength)
+                        "Length", GetHydraRingValue(hydraRingSection.SectionLength)
                     }
                 });
             }
@@ -247,7 +247,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                 orderedDictionaries.Add(new OrderedDictionary
                 {
                     {
-                        "SectionId", hydraRingCalculationInput.DikeSection.SectionId
+                        "SectionId", hydraRingCalculationInput.Section.SectionId
                     },
                     {
                         "MechanismId", failureMechanismDefaults.MechanismId
@@ -306,7 +306,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                     orderDictionaries.Add(new OrderedDictionary
                     {
                         {
-                            "SectionId", hydraRingCalculationInput.DikeSection.SectionId
+                            "SectionId", hydraRingCalculationInput.Section.SectionId
                         },
                         {
                             "MechanismId", failureMechanismDefaults.MechanismId
@@ -387,7 +387,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                     orderDictionaries.Add(new OrderedDictionary
                     {
                         {
-                            "SectionId", hydraRingCalculationInput.DikeSection.SectionId
+                            "SectionId", hydraRingCalculationInput.Section.SectionId
                         },
                         {
                             "MechanismId", failureMechanismDefaults.MechanismId
@@ -460,7 +460,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                     orderDictionaries.Add(new OrderedDictionary
                     {
                         {
-                            "SectionId", hydraRingCalculationInput.DikeSection.SectionId
+                            "SectionId", hydraRingCalculationInput.Section.SectionId
                         },
                         {
                             "SequenceNumber", i + 1
@@ -493,7 +493,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                     orderDictionaries.Add(new OrderedDictionary
                     {
                         {
-                            "SectionId", hydraRingCalculationInput.DikeSection.SectionId
+                            "SectionId", hydraRingCalculationInput.Section.SectionId
                         },
                         {
                             "SequenceNumber", i + 1
@@ -520,7 +520,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                     orderedDictionaries.Add(new OrderedDictionary
                     {
                         {
-                            "SectionId", hydraRingCalculationInput.DikeSection.SectionId
+                            "SectionId", hydraRingCalculationInput.Section.SectionId
                         },
                         {
                             "Type", GetHydraRingValue(breakwater.Type)
@@ -546,7 +546,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                 orderedDictionaries.Add(new OrderedDictionary
                 {
                     {
-                        "SectionId", hydraRingCalculationInput.DikeSection.SectionId
+                        "SectionId", hydraRingCalculationInput.Section.SectionId
                     },
                     {
                         "MechanismId", failureMechanismDefaults.MechanismId
@@ -583,7 +583,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         orderedDictionaries.Add(new OrderedDictionary
                         {
                             {
-                                "SectionId", hydraRingCalculationInput.DikeSection.SectionId
+                                "SectionId", hydraRingCalculationInput.Section.SectionId
                             },
                             {
                                 "MechanismId", failureMechanismDefaults.MechanismId

@@ -43,17 +43,17 @@ namespace Ringtoets.Integration.Plugin
     {
         public override IEnumerable<DataItemInfo> GetDataItemInfos()
         {
-            yield return new DataItemInfo<DikeAssessmentSection>
+            yield return new DataItemInfo<AssessmentSection>
             {
-                Name = RingtoetsFormsResources.DikeAssessmentSection_DisplayName,
+                Name = RingtoetsFormsResources.AssessmentSection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
                 CreateData = owner =>
                 {
                     var project = (Project) owner;
-                    var dikeAssessmentSection = new DikeAssessmentSection();
-                    dikeAssessmentSection.Name = GetUniqueForAssessmentSectionName(project, dikeAssessmentSection.Name);
-                    return dikeAssessmentSection;
+                    var assessmentSection = new AssessmentSection();
+                    assessmentSection.Name = GetUniqueForAssessmentSectionName(project, assessmentSection.Name);
+                    return assessmentSection;
                 }
             };
         }

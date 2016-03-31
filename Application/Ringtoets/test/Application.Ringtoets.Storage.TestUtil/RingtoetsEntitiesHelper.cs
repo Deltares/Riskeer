@@ -33,12 +33,12 @@ namespace Application.Ringtoets.Storage.TestUtil
             var pSet = DbTestSet.GetDbTestSet(new ObservableCollection<ProjectEntity>());
             var hlSet = DbTestSet.GetDbTestSet(new ObservableCollection<HydraulicLocationEntity>());
             var fmSet = DbTestSet.GetDbTestSet(new ObservableCollection<FailureMechanismEntity>());
-            var dasSet = DbTestSet.GetDbTestSet(new ObservableCollection<DikeAssessmentSectionEntity>());
+            var dasSet = DbTestSet.GetDbTestSet(new ObservableCollection<AssessmentSectionEntity>());
             var rlpSet = DbTestSet.GetDbTestSet(new ObservableCollection<ReferenceLinePointEntity>());
             ringtoetsEntities.Stub(r => r.ProjectEntities).Return(pSet);
             ringtoetsEntities.Stub(r => r.HydraulicLocationEntities).Return(hlSet);
             ringtoetsEntities.Stub(r => r.FailureMechanismEntities).Return(fmSet);
-            ringtoetsEntities.Stub(r => r.DikeAssessmentSectionEntities).Return(dasSet);
+            ringtoetsEntities.Stub(r => r.AssessmentSectionEntities).Return(dasSet);
             ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(rlpSet);
             return ringtoetsEntities;
         }

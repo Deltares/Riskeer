@@ -82,16 +82,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.IsInstanceOf<Project>(firstProject);
             Assert.IsInstanceOf<Project>(secondProject);
 
-            var firstProjectDike = firstProject.Items.OfType<DikeAssessmentSection>().ToList();
-            var secondProjectDike = secondProject.Items.OfType<DikeAssessmentSection>().ToList();
-            Assert.AreEqual(firstProjectDike.Count, secondProjectDike.Count);
-            for (var i = 0; i < firstProjectDike.Count; i++)
+            var firstProjectAssessmentSection = firstProject.Items.OfType<AssessmentSection>().ToList();
+            var secondProjectAssessmentSection = secondProject.Items.OfType<AssessmentSection>().ToList();
+            Assert.AreEqual(firstProjectAssessmentSection.Count, secondProjectAssessmentSection.Count);
+            for (var i = 0; i < firstProjectAssessmentSection.Count; i++)
             {
-                Assert.AreEqual(firstProjectDike[i].StorageId, secondProjectDike[i].StorageId);
-                Assert.AreEqual(firstProjectDike[i].Name, secondProjectDike[i].Name);
+                Assert.AreEqual(firstProjectAssessmentSection[i].StorageId, secondProjectAssessmentSection[i].StorageId);
+                Assert.AreEqual(firstProjectAssessmentSection[i].Name, secondProjectAssessmentSection[i].Name);
 
-                AssertHydraulicBoundaryDatabase(firstProjectDike[i], secondProjectDike[i]);
-                AssertReferenceLine(firstProjectDike[i], secondProjectDike[i]);
+                AssertHydraulicBoundaryDatabase(firstProjectAssessmentSection[i], secondProjectAssessmentSection[i]);
+                AssertReferenceLine(firstProjectAssessmentSection[i], secondProjectAssessmentSection[i]);
             }
         }
 
@@ -118,10 +118,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreNotSame(fullProject, loadedProject);
             Assert.AreEqual(fullProject.Items.Count, loadedProject.Items.Count);
 
-            var assessmentSection = loadedProject.Items.OfType<DikeAssessmentSection>().FirstOrDefault();
+            var assessmentSection = loadedProject.Items.OfType<AssessmentSection>().FirstOrDefault();
             Assert.IsNotNull(assessmentSection);
-            AssertHydraulicBoundaryDatabase(fullProject.Items.OfType<DikeAssessmentSection>().FirstOrDefault(), assessmentSection);
-            AssertReferenceLine(fullProject.Items.OfType<DikeAssessmentSection>().FirstOrDefault(), assessmentSection);
+            AssertHydraulicBoundaryDatabase(fullProject.Items.OfType<AssessmentSection>().FirstOrDefault(), assessmentSection);
+            AssertReferenceLine(fullProject.Items.OfType<AssessmentSection>().FirstOrDefault(), assessmentSection);
         }
 
         [Test]
@@ -154,10 +154,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.AreEqual(expectedProjectName, gui.Project.Name);
                 Assert.AreEqual(expectedProjectDescritpion, gui.Project.Description);
 
-                var assessmentSection = gui.Project.Items.OfType<DikeAssessmentSection>().FirstOrDefault();
+                var assessmentSection = gui.Project.Items.OfType<AssessmentSection>().FirstOrDefault();
                 Assert.IsNotNull(assessmentSection);
-                AssertHydraulicBoundaryDatabase(fullProject.Items.OfType<DikeAssessmentSection>().FirstOrDefault(), assessmentSection);
-                AssertReferenceLine(fullProject.Items.OfType<DikeAssessmentSection>().FirstOrDefault(), assessmentSection);
+                AssertHydraulicBoundaryDatabase(fullProject.Items.OfType<AssessmentSection>().FirstOrDefault(), assessmentSection);
+                AssertReferenceLine(fullProject.Items.OfType<AssessmentSection>().FirstOrDefault(), assessmentSection);
             }
 
             // TearDown

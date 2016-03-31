@@ -19,7 +19,7 @@ using Ringtoets.Piping.Service;
 namespace Demo.Ringtoets.Test.Commands
 {
     [TestFixture]
-    public class AddNewDemoDikeAssessmentSectionCommandTest
+    public class AddNewDemoAssessmentSectionCommandTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -30,7 +30,7 @@ namespace Demo.Ringtoets.Test.Commands
             mocks.ReplayAll();
 
             // Call
-            var command = new AddNewDemoDikeAssessmentSectionCommand(projectOwner);
+            var command = new AddNewDemoAssessmentSectionCommand(projectOwner);
 
             // Assert
             Assert.IsInstanceOf<ICommand>(command);
@@ -40,7 +40,7 @@ namespace Demo.Ringtoets.Test.Commands
         }
 
         [Test]
-        public void Execute_GuiIsProperlyInitialized_AddNewDikeAssessmentSectionWithDemoDataToRootProject()
+        public void Execute_GuiIsProperlyInitialized_AddNewAssessmentSectionWithDemoDataToRootProject()
         {
             // Setup
             var project = new Project();
@@ -54,7 +54,7 @@ namespace Demo.Ringtoets.Test.Commands
 
             mocks.ReplayAll();
 
-            var command = new AddNewDemoDikeAssessmentSectionCommand(projectOwnerStub);
+            var command = new AddNewDemoAssessmentSectionCommand(projectOwnerStub);
 
             project.Attach(observerMock);
 
@@ -63,8 +63,8 @@ namespace Demo.Ringtoets.Test.Commands
 
             // Assert
             Assert.AreEqual(1, project.Items.Count);
-            var demoAssessmentSection = (DikeAssessmentSection) project.Items[0];
-            Assert.AreEqual("Demo dijktraject", demoAssessmentSection.Name);
+            var demoAssessmentSection = (AssessmentSection) project.Items[0];
+            Assert.AreEqual("Demo traject", demoAssessmentSection.Name);
 
             Assert.IsNotEmpty(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath);
             Assert.IsTrue(File.Exists(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath));

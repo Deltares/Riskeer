@@ -37,10 +37,10 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<ProjectEntity> ProjectEntities { get; }
 
         /// <summary>
-        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="DikeAssessmentSectionEntity"/> containing
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="AssessmentSectionEntity"/> containing
         /// every entity found in the database.
         /// </summary>
-        DbSet<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; }
+        DbSet<AssessmentSectionEntity> AssessmentSectionEntities { get; }
 
         /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="FailureMechanismEntity"/> containing

@@ -39,15 +39,15 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// <returns>A new complete instance of <see cref="Project"/>.</returns>
         public static Project GetFullTestProject()
         {
-            return new Project()
+            return new Project
             {
                 Name = "tempProjectFile",
                 Description = "description",
                 Items =
                 {
-                    new DikeAssessmentSection
+                    new AssessmentSection
                     {
-                        Name = "dikeAssessmentSection",
+                        Name = "assessmentSection",
                         HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(),
                         ReferenceLine = GetReferenceLine()
                     }

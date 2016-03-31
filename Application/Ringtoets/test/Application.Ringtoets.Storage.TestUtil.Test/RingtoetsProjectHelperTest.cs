@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             // Setup
             string expectedProjectName = "tempProjectFile";
             string expectedDescription = "description";
-            string expectedDikeAssessmentSectionName = "dikeAssessmentSection";
+            string expectedDikeAssessmentSectionName = "assessmentSection";
 
             string hydraulicDatabaseFilePath = "/temp/test";
             string hydraulicDatabaseVersion = "1.0";
@@ -53,16 +53,16 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(expectedProjectName, project.Name);
             Assert.AreEqual(expectedDescription, project.Description);
 
-            DikeAssessmentSection dikeAssessmentSection = project.Items.OfType<DikeAssessmentSection>().FirstOrDefault();
-            Assert.NotNull(dikeAssessmentSection);
-            Assert.AreEqual(expectedDikeAssessmentSectionName, dikeAssessmentSection.Name);
+            AssessmentSection assessmentSection = project.Items.OfType<AssessmentSection>().FirstOrDefault();
+            Assert.NotNull(assessmentSection);
+            Assert.AreEqual(expectedDikeAssessmentSectionName, assessmentSection.Name);
             
-            Assert.NotNull(dikeAssessmentSection.HydraulicBoundaryDatabase);
-            Assert.AreEqual(hydraulicDatabaseVersion, dikeAssessmentSection.HydraulicBoundaryDatabase.Version);
-            Assert.AreEqual(hydraulicDatabaseFilePath, dikeAssessmentSection.HydraulicBoundaryDatabase.FilePath);
-            Assert.AreEqual(1, dikeAssessmentSection.HydraulicBoundaryDatabase.Locations.Count);
+            Assert.NotNull(assessmentSection.HydraulicBoundaryDatabase);
+            Assert.AreEqual(hydraulicDatabaseVersion, assessmentSection.HydraulicBoundaryDatabase.Version);
+            Assert.AreEqual(hydraulicDatabaseFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(1, assessmentSection.HydraulicBoundaryDatabase.Locations.Count);
             
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = dikeAssessmentSection.HydraulicBoundaryDatabase.Locations.First();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(locationId, hydraulicBoundaryLocation.Id);
             Assert.AreEqual(locationName, hydraulicBoundaryLocation.Name);
             Assert.AreEqual(locationX, hydraulicBoundaryLocation.Location.X);

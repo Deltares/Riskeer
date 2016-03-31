@@ -61,6 +61,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Traject.
+        /// </summary>
+        public static string AssessmentSection_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Naam van het toetstraject..
         /// </summary>
         public static string AssessmentSectionBase_Name_Description {
@@ -150,15 +159,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string DesignWaterLevel_No_HRD_To_Calculate {
             get {
                 return ResourceManager.GetString("DesignWaterLevel_No_HRD_To_Calculate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijktraject.
-        /// </summary>
-        public static string DikeAssessmentSection_DisplayName {
-            get {
-                return ResourceManager.GetString("DikeAssessmentSection_DisplayName", resourceCulture);
             }
         }
         

@@ -80,11 +80,11 @@ namespace Demo.Ringtoets.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Demo dijktraject.
+        ///   Looks up a localized string similar to Demo traject.
         /// </summary>
-        public static string DemoDikeAssessmentSection {
+        public static string DemoAssessmentSection {
             get {
-                return ResourceManager.GetString("DemoDikeAssessmentSection", resourceCulture);
+                return ResourceManager.GetString("DemoAssessmentSection", resourceCulture);
             }
         }
         

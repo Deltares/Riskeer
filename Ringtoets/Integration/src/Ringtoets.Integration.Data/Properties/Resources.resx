@@ -126,8 +126,8 @@
   <data name="DuneErosionFailureMechanism_DisplayName" xml:space="preserve">
     <value>Duinen - Erosie</value>
   </data>
-  <data name="DikeAssessmentSection_DisplayName" xml:space="preserve">
-    <value>Dijktraject</value>
+  <data name="AssessmentSection_DisplayName" xml:space="preserve">
+    <value>Traject</value>
   </data>
   <data name="GrassErosionFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken - Graserosie kruin en binnentalud</value>

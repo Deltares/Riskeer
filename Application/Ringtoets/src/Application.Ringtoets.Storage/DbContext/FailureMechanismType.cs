@@ -23,14 +23,14 @@ namespace Application.Ringtoets.Storage.DbContext
 {
     public enum FailureMechanismType
     {
-        DikesPipingFailureMechanism = 0,
-        DikesOvertoppingFailureMechanism = 1,
-        DikesMacrostabilityInwardsFailureMechanism = 2,
+        PipingFailureMechanism = 0,
+        OvertoppingFailureMechanism = 1,
+        MacrostabilityInwardsFailureMechanism = 2,
         StructuresOvertoppingFailureMechanism = 3,
         StructuresClosureFailureMechanism = 4,
         StructuresStructuralFailureFailureMechanism = 5,
-        DikesStoneRevetmentFailureMechanism = 6,
-        DikesAsphaltRevetmentFailureMechanism = 7,
-        DikesRoughnessRevetmentFailureMechanism = 8
+        StoneRevetmentFailureMechanism = 6,
+        AsphaltRevetmentFailureMechanism = 7,
+        RoughnessRevetmentFailureMechanism = 8
     }
 }

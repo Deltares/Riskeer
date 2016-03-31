@@ -50,7 +50,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Commands\AddNewDemoDikeAssessmentSectionCommand.cs" />
+    <Compile Include="Commands\AddNewDemoAssessmentSectionCommand.cs" />
     <Compile Include="Commands\OpenChartViewCommand.cs" />
     <Compile Include="Commands\OpenMapViewCommand.cs" />
     <Compile Include="GUIs\DemoProjectGuiPlugin.cs" />

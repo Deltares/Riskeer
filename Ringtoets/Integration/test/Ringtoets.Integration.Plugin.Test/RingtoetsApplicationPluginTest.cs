@@ -39,12 +39,12 @@ namespace Ringtoets.Integration.Plugin.Test
             // assert
             Assert.AreEqual(1, dataItemDefinitions.Length);
 
-            DataItemInfo dikeAssessmentSectionDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(DikeAssessmentSection));
-            Assert.AreEqual("Dijktraject", dikeAssessmentSectionDataItemDefinition.Name);
-            Assert.AreEqual("Algemeen", dikeAssessmentSectionDataItemDefinition.Category);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, dikeAssessmentSectionDataItemDefinition.Image);
-            Assert.IsNull(dikeAssessmentSectionDataItemDefinition.AdditionalOwnerCheck);
-            Assert.IsInstanceOf<DikeAssessmentSection>(dikeAssessmentSectionDataItemDefinition.CreateData(new Project()));
+            DataItemInfo assessmentSectionDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(AssessmentSection));
+            Assert.AreEqual("Traject", assessmentSectionDataItemDefinition.Name);
+            Assert.AreEqual("Algemeen", assessmentSectionDataItemDefinition.Category);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, assessmentSectionDataItemDefinition.Image);
+            Assert.IsNull(assessmentSectionDataItemDefinition.AdditionalOwnerCheck);
+            Assert.IsInstanceOf<AssessmentSection>(assessmentSectionDataItemDefinition.CreateData(new Project()));
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Plugin.Test
         private void AddAssessmentSectionToProject(Project project, RingtoetsApplicationPlugin plugin)
         {
             var itemToAdd = plugin.GetDataItemInfos()
-                                  .First(di => di.ValueType == typeof(DikeAssessmentSection))
+                                  .First(di => di.ValueType == typeof(AssessmentSection))
                                   .CreateData(project);
 
             project.Items.Add(itemToAdd);

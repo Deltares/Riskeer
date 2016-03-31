@@ -187,9 +187,9 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 {
                     ProjectEntityId = storageId,
                     Description = description,
-                    DikeAssessmentSectionEntities = new List<DikeAssessmentSectionEntity>
+                    AssessmentSectionEntities = new List<AssessmentSectionEntity>
                     {
-                        new DikeAssessmentSectionEntity
+                        new AssessmentSectionEntity
                         {
                             Norm = 1,
                             Order = 0
@@ -207,7 +207,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(storageId, model.StorageId);
             Assert.AreEqual(description, model.Description);
             Assert.AreEqual(1, model.Items.Count);
-            Assert.AreEqual(1, model.Items.Count(i => i is DikeAssessmentSection));
+            Assert.AreEqual(1, model.Items.Count(i => i is AssessmentSection));
 
             mockRepository.VerifyAll();
         }
@@ -277,7 +277,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 Description = description,
                 Items =
                 {
-                    new DikeAssessmentSection()
+                    new AssessmentSection()
                 }
             };
 
@@ -291,7 +291,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreNotEqual(project, projectEntity);
             Assert.AreEqual(storageId, projectEntity.ProjectEntityId);
             Assert.AreEqual(description, projectEntity.Description);
-            Assert.AreEqual(1, projectEntity.DikeAssessmentSectionEntities.Count);
+            Assert.AreEqual(1, projectEntity.AssessmentSectionEntities.Count);
 
             mockRepository.VerifyAll();
         }
@@ -441,7 +441,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 Description = description,
                 Items =
                 {
-                    new DikeAssessmentSection()
+                    new AssessmentSection()
                 }
             };
 
@@ -456,7 +456,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreNotEqual(project, projectEntity);
             Assert.AreEqual(storageId, projectEntity.ProjectEntityId);
             Assert.AreEqual(description, projectEntity.Description);
-            Assert.AreEqual(1, projectEntity.DikeAssessmentSectionEntities.Count);
+            Assert.AreEqual(1, projectEntity.AssessmentSectionEntities.Count);
 
             mockRepository.VerifyAll();
         }

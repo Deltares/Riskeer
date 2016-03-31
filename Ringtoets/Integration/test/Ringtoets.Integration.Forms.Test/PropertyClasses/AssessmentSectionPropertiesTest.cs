@@ -10,7 +10,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DikeAssessmentSectionPropertiesTest
+    public class AssessmentSectionPropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -27,7 +27,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var assessmentSection = new DikeAssessmentSection
+            var assessmentSection = new AssessmentSection
             {
                 Name = "Test"
             };
@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var assessmentSection = new DikeAssessmentSection();
+            var assessmentSection = new AssessmentSection();
             assessmentSection.Attach(projectObserver);
 
             var properties = new AssessmentSectionBaseProperties

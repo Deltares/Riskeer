@@ -30,16 +30,16 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Integration.Data
 {
     /// <summary>
-    /// The dike-based section to be assessed by the user for safety in regards of various failure mechanisms.
+    /// The section to be assessed by the user for safety in regards of various failure mechanisms.
     /// </summary>
-    public sealed class DikeAssessmentSection : AssessmentSectionBase
+    public sealed class AssessmentSection : AssessmentSectionBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DikeAssessmentSection"/> class.
+        /// Initializes a new instance of the <see cref="AssessmentSection"/> class.
         /// </summary>
-        public DikeAssessmentSection()
+        public AssessmentSection()
         {
-            Name = Resources.DikeAssessmentSection_DisplayName;
+            Name = Resources.AssessmentSection_DisplayName;
 
             PipingFailureMechanism = new PipingFailureMechanism
             {

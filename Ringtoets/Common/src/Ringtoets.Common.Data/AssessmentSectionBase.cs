@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Data
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the reference line defining the geometry of the dike assessment section.
+        /// Gets or sets the reference line defining the geometry of the assessment section.
         /// </summary>
         public virtual ReferenceLine ReferenceLine { get; set; }
 

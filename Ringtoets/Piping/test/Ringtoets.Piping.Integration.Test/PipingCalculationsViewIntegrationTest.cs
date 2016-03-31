@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Integration.Test
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Set all necessary data to the view
-                var assessmentSection = new DikeAssessmentSection();
+                var assessmentSection = new AssessmentSection();
                 pipingCalculationsView.Data = assessmentSection.PipingFailureMechanism.CalculationsGroup;
                 pipingCalculationsView.AssessmentSection = assessmentSection;
                 pipingCalculationsView.PipingFailureMechanism = assessmentSection.PipingFailureMechanism;
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Integration.Test
             }
         }
 
-        private void ImportReferenceLine(DikeAssessmentSection assessmentSection)
+        private void ImportReferenceLine(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "traject_6-3.shp", "traject_6-3.dbf", "traject_6-3.prj", "traject_6-3.shx"))
             {
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Integration.Test
             }
         }
 
-        private void ImportFailureMechanismSections(DikeAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
+        private void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "traject_6-3_vakken.shp", "traject_6-3_vakken.dbf", "traject_6-3_vakken.prj", "traject_6-3_vakken.shx"))
             {
@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.Integration.Test
             }
         }
 
-        private void ImportHydraulicBoundaryDatabase(DikeAssessmentSection assessmentSection)
+        private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, false, "HRD dutch coast south.sqlite", "HLCD.sqlite"))
             {
@@ -134,7 +134,7 @@ namespace Ringtoets.Piping.Integration.Test
             }
         }
 
-        private void ImportSurfaceLines(DikeAssessmentSection assessmentSection)
+        private void ImportSurfaceLines(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
             {
@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.Integration.Test
             }
         }
 
-        private void ImportSoilProfiles(DikeAssessmentSection assessmentSection)
+        private void ImportSoilProfiles(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6.soil"))
             {

@@ -36,13 +36,13 @@ namespace Application.Ringtoets.Storage.DbContext
     public partial class HydraulicLocationEntity
     {
         public long HydraulicLocationEntityId { get; set; }
-        public long DikeAssessmentSectionEntityId { get; set; }
+        public long AssessmentSectionEntityId { get; set; }
         public long LocationId { get; set; }
         public string Name { get; set; }
         public decimal LocationX { get; set; }
         public decimal LocationY { get; set; }
         public Nullable<double> DesignWaterLevel { get; set; }
     
-        public virtual DikeAssessmentSectionEntity DikeAssessmentSectionEntity { get; set; }
+        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
     }
 }

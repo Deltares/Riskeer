@@ -66,9 +66,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         }
 
         /// <summary>
-        /// Gets the dike section to perform the calculation for.
+        /// Gets the section to perform the calculation for.
         /// </summary>
-        public abstract HydraRingDikeSection DikeSection { get; }
+        public abstract HydraRingSection Section { get; }
 
         /// <summary>
         /// Gets the variables to use during the calculation.

@@ -278,11 +278,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                 }
             }
 
-            public override HydraRingDikeSection DikeSection
+            public override HydraRingSection Section
             {
                 get
                 {
-                    return new HydraRingDikeSection(sectionId, "LocationName", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
+                    return new HydraRingSection(sectionId, "LocationName", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
                 }
             }
 

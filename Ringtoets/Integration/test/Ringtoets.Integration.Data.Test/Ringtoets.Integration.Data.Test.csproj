@@ -52,7 +52,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DikeAssessmentSectionTest.cs" />
+    <Compile Include="AssessmentSectionTest.cs" />
     <Compile Include="Placeholders\FailureMechanismPlaceholderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

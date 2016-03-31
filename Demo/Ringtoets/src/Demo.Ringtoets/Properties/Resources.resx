@@ -120,8 +120,8 @@
   <data name="Demo" xml:space="preserve">
     <value>Demo</value>
   </data>
-  <data name="DemoDikeAssessmentSection" xml:space="preserve">
-    <value>Demo dijktraject</value>
+  <data name="DemoAssessmentSection" xml:space="preserve">
+    <value>Demo traject</value>
   </data>
   <data name="ExampleData" xml:space="preserve">
     <value>Voorbeeld data</value>

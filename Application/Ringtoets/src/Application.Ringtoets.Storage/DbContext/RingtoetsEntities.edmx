@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="DikeAssessmentSectionEntity">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AssessmentSectionEntity">
           <Key>
-            <PropertyRef Name="DikeAssessmentSectionEntityId" />
+            <PropertyRef Name="AssessmentSectionEntityId" />
           </Key>
-          <Property Name="DikeAssessmentSectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssessmentSectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProjectEntityId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="Norm" Type="int" Nullable="false" />
@@ -22,7 +22,7 @@
             <PropertyRef Name="FailureMechanismEntityId" />
           </Key>
           <Property Name="FailureMechanismEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DikeAssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="FailureMechanismType" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="HydraulicLocationEntity">
@@ -30,7 +30,7 @@
             <PropertyRef Name="HydraulicLocationEntityId" />
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DikeAssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LocationId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="LocationX" Type="decimal" Precision="53" Scale="0" Nullable="false" />
@@ -49,7 +49,7 @@
             <PropertyRef Name="ReferenceLinePointEntityId" />
           </Key>
           <Property Name="ReferenceLinePointEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DikeAssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="X" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="Y" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
@@ -63,75 +63,75 @@
           <Property Name="ToVersion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Timestamp" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
-        <Association Name="FK_DikeAssessmentSectionEntity_0_0">
+        <Association Name="FK_AssessmentSectionEntity_0_0">
           <End Role="ProjectEntity" Type="Self.ProjectEntity" Multiplicity="1" />
-          <End Role="DikeAssessmentSectionEntity" Type="Self.DikeAssessmentSectionEntity" Multiplicity="*" />
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProjectEntity">
               <PropertyRef Name="ProjectEntityId" />
             </Principal>
-            <Dependent Role="DikeAssessmentSectionEntity">
+            <Dependent Role="AssessmentSectionEntity">
               <PropertyRef Name="ProjectEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FailureMechanismEntity_0_0">
-          <End Role="DikeAssessmentSectionEntity" Type="Self.DikeAssessmentSectionEntity" Multiplicity="1" />
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
           <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DikeAssessmentSectionEntity">
-              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+            <Principal Role="AssessmentSectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
             </Principal>
             <Dependent Role="FailureMechanismEntity">
-              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+              <PropertyRef Name="AssessmentSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HydraulicLocationEntity_0_0">
-          <End Role="DikeAssessmentSectionEntity" Type="Self.DikeAssessmentSectionEntity" Multiplicity="1" />
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
           <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DikeAssessmentSectionEntity">
-              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+            <Principal Role="AssessmentSectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+              <PropertyRef Name="AssessmentSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReferenceLinePointEntity_0_0">
-          <End Role="DikeAssessmentSectionEntity" Type="Self.DikeAssessmentSectionEntity" Multiplicity="1" />
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
           <End Role="ReferenceLinePointEntity" Type="Self.ReferenceLinePointEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DikeAssessmentSectionEntity">
-              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+            <Principal Role="AssessmentSectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
             </Principal>
             <Dependent Role="ReferenceLinePointEntity">
-              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+              <PropertyRef Name="AssessmentSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="RingtoetsEntitiesModelStoreContainer">
-          <EntitySet Name="DikeAssessmentSectionEntity" EntityType="Self.DikeAssessmentSectionEntity" store:Type="Tables" />
+          <EntitySet Name="AssessmentSectionEntity" EntityType="Self.AssessmentSectionEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismEntity" EntityType="Self.FailureMechanismEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="ReferenceLinePointEntity" EntityType="Self.ReferenceLinePointEntity" store:Type="Tables" />
           <EntitySet Name="Version" EntityType="Self.Version" store:Type="Tables" />
-          <AssociationSet Name="FK_DikeAssessmentSectionEntity_0_0" Association="Self.FK_DikeAssessmentSectionEntity_0_0">
+          <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="Self.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntity" />
-            <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntity" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_FailureMechanismEntity_0_0" Association="Self.FK_FailureMechanismEntity_0_0">
-            <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntity" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="Self.FK_HydraulicLocationEntity_0_0">
-            <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntity" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_ReferenceLinePointEntity_0_0" Association="Self.FK_ReferenceLinePointEntity_0_0">
-            <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntity" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
             <End Role="ReferenceLinePointEntity" EntitySet="ReferenceLinePointEntity" />
           </AssociationSet>
         </EntityContainer>
@@ -140,66 +140,66 @@
     <edmx:ConceptualModels>
       <Schema Namespace="RingtoetsEntitiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RingtoetsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="DikeAssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" />
+          <EntitySet Name="AssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" />
           <EntitySet Name="FailureMechanismEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" />
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="ReferenceLinePointEntities" EntityType="RingtoetsEntitiesModel.ReferenceLinePointEntity" />
           <EntitySet Name="Versions" EntityType="RingtoetsEntitiesModel.Version" />
-          <AssociationSet Name="FK_DikeAssessmentSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0">
+          <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntities" />
-            <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntities" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_FailureMechanismEntity_0_0" Association="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0">
-            <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntities" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0">
-            <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntities" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_ReferenceLinePointEntity_0_0" Association="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0">
-            <End Role="DikeAssessmentSectionEntity" EntitySet="DikeAssessmentSectionEntities" />
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="ReferenceLinePointEntity" EntitySet="ReferenceLinePointEntities" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="DikeAssessmentSectionEntity">
+        <EntityType Name="AssessmentSectionEntity">
           <Key>
-            <PropertyRef Name="DikeAssessmentSectionEntityId" />
+            <PropertyRef Name="AssessmentSectionEntityId" />
           </Key>
-          <Property Name="DikeAssessmentSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProjectEntityId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Norm" Type="Int32" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="HydraulicDatabaseLocation" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0" FromRole="DikeAssessmentSectionEntity" ToRole="ProjectEntity" />
-          <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="DikeAssessmentSectionEntity" ToRole="FailureMechanismEntity" />
-          <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="DikeAssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
-          <NavigationProperty Name="ReferenceLinePointEntities" Relationship="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0" FromRole="DikeAssessmentSectionEntity" ToRole="ReferenceLinePointEntity" />
+          <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ProjectEntity" />
+          <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="ReferenceLinePointEntities" Relationship="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ReferenceLinePointEntity" />
         </EntityType>
         <EntityType Name="FailureMechanismEntity">
           <Key>
             <PropertyRef Name="FailureMechanismEntityId" />
           </Key>
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DikeAssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="FailureMechanismType" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="DikeAssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DikeAssessmentSectionEntity" />
+          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="AssessmentSectionEntity" />
         </EntityType>
         <EntityType Name="HydraulicLocationEntity">
           <Key>
             <PropertyRef Name="HydraulicLocationEntityId" />
           </Key>
           <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DikeAssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LocationId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="LocationX" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="LocationY" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="DesignWaterLevel" Type="Double" />
-          <NavigationProperty Name="DikeAssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="DikeAssessmentSectionEntity" />
+          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="AssessmentSectionEntity" />
         </EntityType>
         <EntityType Name="ProjectEntity">
           <Key>
@@ -207,18 +207,18 @@
           </Key>
           <Property Name="ProjectEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DikeAssessmentSectionEntities" Relationship="RingtoetsEntitiesModel.FK_DikeAssessmentSectionEntity_0_0" FromRole="ProjectEntity" ToRole="DikeAssessmentSectionEntity" />
+          <NavigationProperty Name="AssessmentSectionEntities" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0" FromRole="ProjectEntity" ToRole="AssessmentSectionEntity" />
         </EntityType>
         <EntityType Name="ReferenceLinePointEntity">
           <Key>
             <PropertyRef Name="ReferenceLinePointEntityId" />
           </Key>
           <Property Name="ReferenceLinePointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DikeAssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="X" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="Y" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="Order" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="DikeAssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0" FromRole="ReferenceLinePointEntity" ToRole="DikeAssessmentSectionEntity" />
+          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0" FromRole="ReferenceLinePointEntity" ToRole="AssessmentSectionEntity" />
         </EntityType>
         <EntityType Name="Version">
           <Key>
@@ -229,51 +229,51 @@
           <Property Name="ToVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Timestamp" Type="Decimal" Precision="53" Scale="0" />
         </EntityType>
-        <Association Name="FK_DikeAssessmentSectionEntity_0_0">
+        <Association Name="FK_AssessmentSectionEntity_0_0">
           <End Type="RingtoetsEntitiesModel.ProjectEntity" Role="ProjectEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" Role="DikeAssessmentSectionEntity" Multiplicity="*" />
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProjectEntity">
               <PropertyRef Name="ProjectEntityId" />
             </Principal>
-            <Dependent Role="DikeAssessmentSectionEntity">
+            <Dependent Role="AssessmentSectionEntity">
               <PropertyRef Name="ProjectEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FailureMechanismEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" Role="DikeAssessmentSectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DikeAssessmentSectionEntity">
-              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+            <Principal Role="AssessmentSectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
             </Principal>
             <Dependent Role="FailureMechanismEntity">
-              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+              <PropertyRef Name="AssessmentSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HydraulicLocationEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" Role="DikeAssessmentSectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DikeAssessmentSectionEntity">
-              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+            <Principal Role="AssessmentSectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
-              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+              <PropertyRef Name="AssessmentSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReferenceLinePointEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.DikeAssessmentSectionEntity" Role="DikeAssessmentSectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.ReferenceLinePointEntity" Role="ReferenceLinePointEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DikeAssessmentSectionEntity">
-              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+            <Principal Role="AssessmentSectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
             </Principal>
             <Dependent Role="ReferenceLinePointEntity">
-              <PropertyRef Name="DikeAssessmentSectionEntityId" />
+              <PropertyRef Name="AssessmentSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -283,16 +283,16 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RingtoetsEntitiesModelStoreContainer" CdmEntityContainer="RingtoetsEntities">
-          <EntitySetMapping Name="DikeAssessmentSectionEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.DikeAssessmentSectionEntity">
-              <MappingFragment StoreEntitySet="DikeAssessmentSectionEntity">
+          <EntitySetMapping Name="AssessmentSectionEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.AssessmentSectionEntity">
+              <MappingFragment StoreEntitySet="AssessmentSectionEntity">
                 <ScalarProperty Name="HydraulicDatabaseLocation" ColumnName="HydraulicDatabaseLocation" />
                 <ScalarProperty Name="HydraulicDatabaseVersion" ColumnName="HydraulicDatabaseVersion" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Norm" ColumnName="Norm" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ProjectEntityId" ColumnName="ProjectEntityId" />
-                <ScalarProperty Name="DikeAssessmentSectionEntityId" ColumnName="DikeAssessmentSectionEntityId" />
+                <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -300,7 +300,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.FailureMechanismEntity">
               <MappingFragment StoreEntitySet="FailureMechanismEntity">
                 <ScalarProperty Name="FailureMechanismType" ColumnName="FailureMechanismType" />
-                <ScalarProperty Name="DikeAssessmentSectionEntityId" ColumnName="DikeAssessmentSectionEntityId" />
+                <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -313,7 +313,7 @@
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-                <ScalarProperty Name="DikeAssessmentSectionEntityId" ColumnName="DikeAssessmentSectionEntityId" />
+                <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
                 <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -332,7 +332,7 @@
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Y" ColumnName="Y" />
                 <ScalarProperty Name="X" ColumnName="X" />
-                <ScalarProperty Name="DikeAssessmentSectionEntityId" ColumnName="DikeAssessmentSectionEntityId" />
+                <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
                 <ScalarProperty Name="ReferenceLinePointEntityId" ColumnName="ReferenceLinePointEntityId" />
               </MappingFragment>
             </EntityTypeMapping>

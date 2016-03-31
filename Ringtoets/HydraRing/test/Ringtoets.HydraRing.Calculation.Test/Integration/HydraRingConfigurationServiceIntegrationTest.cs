@@ -102,7 +102,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.None);
             int hydraulicBoundaryLocationId = 700004;
 
-            var hydraRingDikeSection = new HydraRingDikeSection(hydraulicBoundaryLocationId, "700004", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
+            var hydraRingSection = new HydraRingSection(hydraulicBoundaryLocationId, "700004", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
             var profilePoints = new List<HydraRingProfilePoint>
             {
                 new HydraRingProfilePoint(1.1, 2.2)
@@ -112,7 +112,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 new HydraRingForelandPoint(1.1, 2.2)
             };
 
-            hydraRingConfigurationService.AddHydraRingCalculationInput(new OvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingDikeSection, profilePoints, forelandPoints));
+            hydraRingConfigurationService.AddHydraRingCalculationInput(new OvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingSection, profilePoints, forelandPoints));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (1, 0, 'WTI 2017');" + Environment.NewLine +

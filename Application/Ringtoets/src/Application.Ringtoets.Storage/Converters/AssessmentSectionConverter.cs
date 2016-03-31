@@ -27,52 +27,51 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Converters
 {
     /// <summary>
-    /// Converter for <see cref="DikeAssessmentSectionEntity"/> to <see cref="DikeAssessmentSection"/> 
-    /// and <see cref="DikeAssessmentSection"/> to <see cref="DikeAssessmentSectionEntity"/>.
+    /// Converter for <see cref="AssessmentSectionEntity"/> to <see cref="AssessmentSection"/> 
+    /// and <see cref="AssessmentSection"/> to <see cref="AssessmentSectionEntity"/>.
     /// </summary>
-    public class DikeAssessmentSectionConverter : IEntityConverter<DikeAssessmentSection, DikeAssessmentSectionEntity>
+    public class AssessmentSectionConverter : IEntityConverter<AssessmentSection, AssessmentSectionEntity>
     {
         /// <summary>
-        /// Converts <paramref name="entity"/> to <see cref="DikeAssessmentSection"/>.
+        /// Converts <paramref name="entity"/> to <see cref="AssessmentSection"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="DikeAssessmentSectionEntity"/> to convert.</param>
-        /// <param name="model">The <see cref="Func{TResult}"/> to obtain the model.</param>
-        /// <returns>A new instance of <see cref="DikeAssessmentSection"/>, based on the properties of <paramref name="entity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> or <paramref name="model"/> is <c>null</c>.</exception>
-        public DikeAssessmentSection ConvertEntityToModel(DikeAssessmentSectionEntity entity)
+        /// <param name="entity">The <see cref="AssessmentSectionEntity"/> to convert.</param>
+        /// <returns>A new instance of <see cref="AssessmentSection"/>, based on the properties of <paramref name="entity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        public AssessmentSection ConvertEntityToModel(AssessmentSectionEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
 
-            var dikeAssessmentSection = new DikeAssessmentSection();
-            dikeAssessmentSection.StorageId = entity.DikeAssessmentSectionEntityId;
-            dikeAssessmentSection.Name = entity.Name ?? string.Empty;
-            dikeAssessmentSection.FailureMechanismContribution.Norm = entity.Norm;
+            var assessmentSection = new AssessmentSection();
+            assessmentSection.StorageId = entity.AssessmentSectionEntityId;
+            assessmentSection.Name = entity.Name ?? string.Empty;
+            assessmentSection.FailureMechanismContribution.Norm = entity.Norm;
 
             if (entity.HydraulicDatabaseLocation != null && entity.HydraulicDatabaseVersion != null)
             {
-                dikeAssessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     FilePath = entity.HydraulicDatabaseLocation,
                     Version = entity.HydraulicDatabaseVersion
                 };
             }
 
-            return dikeAssessmentSection;
+            return assessmentSection;
         }
 
         /// <summary>
         /// Converts <paramref name="modelObject"/> to <paramref name="entity"/>.
         /// </summary>
-        /// <param name="modelObject">The <see cref="DikeAssessmentSection"/> to convert.</param>
-        /// <param name="entity">A reference to the <see cref="DikeAssessmentSectionEntity"/> to be saved.</param>
+        /// <param name="modelObject">The <see cref="AssessmentSection"/> to convert.</param>
+        /// <param name="entity">A reference to the <see cref="AssessmentSectionEntity"/> to be saved.</param>
         /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
         /// <item><paramref name="modelObject"/> is <c>null</c></item>
         /// <item><paramref name="entity"/> is <c>null</c>.</item>
         /// </list></exception>
-        public void ConvertModelToEntity(DikeAssessmentSection modelObject, DikeAssessmentSectionEntity entity)
+        public void ConvertModelToEntity(AssessmentSection modelObject, AssessmentSectionEntity entity)
         {
             if (modelObject == null)
             {
@@ -82,7 +81,7 @@ namespace Application.Ringtoets.Storage.Converters
             {
                 throw new ArgumentNullException("entity");
             }
-            entity.DikeAssessmentSectionEntityId = modelObject.StorageId;
+            entity.AssessmentSectionEntityId = modelObject.StorageId;
             entity.Name = modelObject.Name;
             entity.Norm = modelObject.FailureMechanismContribution.Norm;
 

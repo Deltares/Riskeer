@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void LoadModel_NullDikeAssessmentSection_ThrowsArgumentNullException()
+        public void LoadModel_NullAssessmentSection_ThrowsArgumentNullException()
         {
             // Setup
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
@@ -108,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             FailureMechanismEntity entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = storageId,
-                FailureMechanismType = (int) FailureMechanismType.DikesStoneRevetmentFailureMechanism,
+                FailureMechanismType = (int) FailureMechanismType.StoneRevetmentFailureMechanism,
             };
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
@@ -132,18 +132,18 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             FailureMechanismEntity entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = storageId,
-                FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism,
+                FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism,
             };
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
 
-            var dikeAssessmentSection = new DikeAssessmentSection();
+            var assessmentSection = new AssessmentSection();
 
             // Call
-            persistor.LoadModel(entity, dikeAssessmentSection.PipingFailureMechanism);
+            persistor.LoadModel(entity, assessmentSection.PipingFailureMechanism);
 
             // Assert
-            PipingFailureMechanism loadedModel = dikeAssessmentSection.PipingFailureMechanism;
+            PipingFailureMechanism loadedModel = assessmentSection.PipingFailureMechanism;
             Assert.IsInstanceOf<PipingFailureMechanism>(loadedModel);
             Assert.AreEqual(loadedModel.StorageId, entity.FailureMechanismEntityId);
             Assert.AreEqual(model.StorageId, loadedModel.StorageId);
@@ -205,7 +205,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(1, parentNavigationProperty.Count);
             var entity = parentNavigationProperty[0];
             Assert.AreNotEqual(model, entity);
-            Assert.AreEqual((int) FailureMechanismType.DikesPipingFailureMechanism, entity.FailureMechanismType);
+            Assert.AreEqual((int) FailureMechanismType.PipingFailureMechanism, entity.FailureMechanismType);
 
             mockRepository.VerifyAll();
         }
@@ -221,7 +221,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             FailureMechanismEntity entityToDelete = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = storageId,
-                FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism
+                FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism
             };
             IList<FailureMechanismEntity> parentNavigationProperty = new List<FailureMechanismEntity>
             {
@@ -325,12 +325,12 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 new FailureMechanismEntity
                 {
                     FailureMechanismEntityId = storageId,
-                    FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism
+                    FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism
                 },
                 new FailureMechanismEntity
                 {
                     FailureMechanismEntityId = storageId,
-                    FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism
+                    FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism
                 }
             };
             PipingFailureMechanism model = new PipingFailureMechanism
@@ -361,7 +361,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 new FailureMechanismEntity
                 {
                     FailureMechanismEntityId = storageId,
-                    FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism
+                    FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism
                 }
             };
             PipingFailureMechanism model = new PipingFailureMechanism
@@ -416,7 +416,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             FailureMechanismEntity entityToDelete = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 4567L,
-                FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism
+                FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism
             };
 
             ObservableCollection<FailureMechanismEntity> parentNavigationProperty = new ObservableCollection<FailureMechanismEntity>
@@ -460,12 +460,12 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             FailureMechanismEntity entityToUpdate = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = storageId,
-                FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism
+                FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism
             };
             FailureMechanismEntity entityToDelete = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 4567L,
-                FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism
+                FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism
             };
             ringtoetsEntities.FailureMechanismEntities.Add(entityToUpdate);
             ringtoetsEntities.FailureMechanismEntities.Add(entityToDelete);
@@ -503,12 +503,12 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             FailureMechanismEntity firstEntityToDelete = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 1234L,
-                FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism
+                FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism
             };
             FailureMechanismEntity secondEntityToDelete = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 4567L,
-                FailureMechanismType = (int) FailureMechanismType.DikesPipingFailureMechanism
+                FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism
             };
             ObservableCollection<FailureMechanismEntity> parentNavigationProperty = new ObservableCollection<FailureMechanismEntity>
             {

@@ -38,13 +38,13 @@ namespace Application.Ringtoets.Storage.DbContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProjectEntity()
         {
-            this.DikeAssessmentSectionEntities = new HashSet<DikeAssessmentSectionEntity>();
+            this.AssessmentSectionEntities = new HashSet<AssessmentSectionEntity>();
         }
     
         public long ProjectEntityId { get; set; }
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DikeAssessmentSectionEntity> DikeAssessmentSectionEntities { get; set; }
+        public virtual ICollection<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
     }
 }

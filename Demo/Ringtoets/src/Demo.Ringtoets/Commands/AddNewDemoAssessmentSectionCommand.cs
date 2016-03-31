@@ -19,13 +19,13 @@ using Ringtoets.Piping.Plugin.FileImporter;
 namespace Demo.Ringtoets.Commands
 {
     /// <summary>
-    /// Command that adds a new <see cref="DikeAssessmentSection"/> with demo data to the project tree.
+    /// Command that adds a new <see cref="AssessmentSection"/> with demo data to the project tree.
     /// </summary>
-    public class AddNewDemoDikeAssessmentSectionCommand : ICommand
+    public class AddNewDemoAssessmentSectionCommand : ICommand
     {
         private readonly IProjectOwner projectOwner;
 
-        public AddNewDemoDikeAssessmentSectionCommand(IProjectOwner projectOwner)
+        public AddNewDemoAssessmentSectionCommand(IProjectOwner projectOwner)
         {
             this.projectOwner = projectOwner;
         }
@@ -53,11 +53,11 @@ namespace Demo.Ringtoets.Commands
             project.NotifyObservers();
         }
 
-        private DikeAssessmentSection CreateNewDemoAssessmentSection()
+        private AssessmentSection CreateNewDemoAssessmentSection()
         {
-            var demoAssessmentSection = new DikeAssessmentSection
+            var demoAssessmentSection = new AssessmentSection
             {
-                Name = "Demo dijktraject"
+                Name = "Demo traject"
             };
             InitializeDemoReferenceLine(demoAssessmentSection);
             InitializeDemoHydraulicBoundaryDatabase(demoAssessmentSection);
@@ -66,7 +66,7 @@ namespace Demo.Ringtoets.Commands
             return demoAssessmentSection;
         }
 
-        private void InitializeDemoReferenceLine(DikeAssessmentSection demoAssessmentSection)
+        private void InitializeDemoReferenceLine(AssessmentSection demoAssessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "traject_6-3.shp", "traject_6-3.dbf", "traject_6-3.prj", "traject_6-3.shx"))
             {
@@ -75,7 +75,7 @@ namespace Demo.Ringtoets.Commands
             }
         }
 
-        private void InitializeDemoHydraulicBoundaryDatabase(DikeAssessmentSection demoAssessmentSection)
+        private void InitializeDemoHydraulicBoundaryDatabase(AssessmentSection demoAssessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, false, "HRD dutch coast south.sqlite", "HLCD.sqlite"))
             {
@@ -89,7 +89,7 @@ namespace Demo.Ringtoets.Commands
             SetHydraulicBoundaryLocationValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
         }
 
-        private void InitializeDemoFailureMechanismSections(DikeAssessmentSection demoAssessmentSection)
+        private void InitializeDemoFailureMechanismSections(AssessmentSection demoAssessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "traject_6-3_vakken.shp", "traject_6-3_vakken.dbf", "traject_6-3_vakken.prj", "traject_6-3_vakken.shx"))
             {
@@ -102,7 +102,7 @@ namespace Demo.Ringtoets.Commands
             }
         }
 
-        private void InitializeDemoPipingData(DikeAssessmentSection demoAssessmentSection)
+        private void InitializeDemoPipingData(AssessmentSection demoAssessmentSection)
         {
             var pipingFailureMechanism = demoAssessmentSection.PipingFailureMechanism;
 
