@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
+using Core.Common.Utils.IO;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.HydraRing.Data;
@@ -67,7 +68,7 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeDemoReferenceLine(DikeAssessmentSection demoAssessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "traject_6-3.shp", "traject_6-3.dbf", "traject_6-3.prj", "traject_6-3.shx"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "traject_6-3.shp", "traject_6-3.dbf", "traject_6-3.prj", "traject_6-3.shx"))
             {
                 var importer = new ReferenceLineImporter();
                 importer.Import(new ReferenceLineContext(demoAssessmentSection), Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp"));
@@ -76,7 +77,7 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeDemoHydraulicBoundaryDatabase(DikeAssessmentSection demoAssessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(false, "HRD dutch coast south.sqlite", "HLCD.sqlite"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, false, "HRD dutch coast south.sqlite", "HLCD.sqlite"))
             {
                 using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
                 {
@@ -90,7 +91,7 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeDemoFailureMechanismSections(DikeAssessmentSection demoAssessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "traject_6-3_vakken.shp", "traject_6-3_vakken.dbf", "traject_6-3_vakken.prj", "traject_6-3_vakken.shx"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "traject_6-3_vakken.shp", "traject_6-3_vakken.dbf", "traject_6-3_vakken.prj", "traject_6-3_vakken.shx"))
             {
                 var importer = new FailureMechanismSectionsImporter();
                 foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
@@ -105,14 +106,14 @@ namespace Demo.Ringtoets.Commands
         {
             var pipingFailureMechanism = demoAssessmentSection.PipingFailureMechanism;
 
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
             {
                 var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter();
                 var context = new RingtoetsPipingSurfaceLinesContext(pipingFailureMechanism, demoAssessmentSection);
                 surfaceLinesImporter.Import(context, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
             }
 
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(true, "DR6.soil"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6.soil"))
             {
                 var surfaceLinesImporter = new PipingSoilProfilesImporter();
                 var context = new StochasticSoilModelContext(pipingFailureMechanism, demoAssessmentSection);

@@ -100,6 +100,7 @@
     <Compile Include="Extensions\ComparableExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="FileUtils.cs" />
+    <Compile Include="IO\EmbeddedResourceFileWriter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
