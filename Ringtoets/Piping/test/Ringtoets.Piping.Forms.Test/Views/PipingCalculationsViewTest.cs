@@ -22,6 +22,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Selection;
@@ -74,9 +76,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup & Call
             ShowPipingCalculationsView();
 
-            // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
+            // Assert
             Assert.IsFalse(dataGridView.AutoGenerateColumns);
             Assert.AreEqual(7, dataGridView.ColumnCount);
 
@@ -108,9 +110,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup & Call
             ShowPipingCalculationsView();
 
-            // Assert
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
+            // Assert
             Assert.AreEqual(0, listBox.Items.Count);
         }
 
@@ -238,11 +240,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void PipingCalculationsView_CalculationsWithCorrespondingSoilProfiles_SoilProfilesComboboxCorrectlyInitialized()
         {
             // Setup & Call
-            ShowConfiguredPipingCalculationsView();
+            ShowFullyConfiguredPipingCalculationsView();
 
-            // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
+            // Assert
             var soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[soilProfilesColumnIndex]).Items;
             Assert.AreEqual(3, soilProfilesComboboxItems.Count);
             Assert.AreEqual("<geen>", soilProfilesComboboxItems[0].ToString());
@@ -257,11 +259,91 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Profile 5", soilProfilesComboboxItems[3].ToString());
         }
 
+        [Test]
+        public void PipingCalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
+        {
+            // Setup & Call
+            ShowFullyConfiguredPipingCalculationsView();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Assert
+            var rows = dataGridView.Rows;
+            Assert.AreEqual(2, rows.Count);
+
+            var cells = rows[0].Cells;
+            Assert.AreEqual(7, cells.Count);
+            Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Profile 1", cells[soilProfilesColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 1", cells[hydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("1.111", cells[dampingFactorExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual("2.222", cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual("3.33", cells[entryPointLColumnIndex].FormattedValue);
+            Assert.AreEqual("4.44", cells[exitPointLColumnIndex].FormattedValue);
+
+            cells = rows[1].Cells;
+            Assert.AreEqual(7, cells.Count);
+            Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Profile 5", cells[soilProfilesColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 2", cells[hydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("5.556", cells[dampingFactorExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual("6.667", cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual("7.78", cells[entryPointLColumnIndex].FormattedValue);
+            Assert.AreEqual("8.89", cells[exitPointLColumnIndex].FormattedValue);
+        }
+
+        [TestCase(nameColumnIndex, "New name", 1, 0)]
+        [TestCase(soilProfilesColumnIndex, null, 0, 1)]
+        [TestCase(hydraulicBoundaryLocationsColumnIndex, null, 0, 1)]
+        [TestCase(dampingFactorExitMeanColumnIndex, 1.1, 0, 1)]
+        [TestCase(phreaticLevelExitMeanColumnIndex, 1.1, 0, 1)]
+        [TestCase(entryPointLColumnIndex, 1.1, 0, 1)]
+        [TestCase(exitPointLColumnIndex, 1.1, 0, 1)]
+        public void PipingCalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue, int expectedPipingCalculationCounter, int expectedPipingCalculationInputCounter)
+        {
+            // Setup & Call
+            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
+
+            var data = (PipingCalculationGroup) pipingCalculationView.Data;
+            var pipingCalculation = (PipingCalculation) data.Children.First();
+            var pipingCalculationCounter = 0;
+            var pipingCalculationInputCounter = 0;
+            var pipingCalculationObserver = new Observer(() => pipingCalculationCounter++);
+            var pipingCalculationInputObserver = new Observer(() => pipingCalculationInputCounter++);
+
+            pipingCalculation.Attach(pipingCalculationObserver);
+            pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Assert
+            dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double ? (RoundedDouble) (double) newValue : newValue;
+            Assert.AreEqual(expectedPipingCalculationCounter, pipingCalculationCounter);
+            Assert.AreEqual(expectedPipingCalculationInputCounter, pipingCalculationInputCounter);
+        }
+
+        private const int nameColumnIndex = 0;
         private const int soilProfilesColumnIndex = 1;
         private const int hydraulicBoundaryLocationsColumnIndex = 2;
+        private const int dampingFactorExitMeanColumnIndex = 3;
+        private const int phreaticLevelExitMeanColumnIndex = 4;
+        private const int entryPointLColumnIndex = 5;
+        private const int exitPointLColumnIndex = 6;
 
-        private PipingCalculationsView ShowConfiguredPipingCalculationsView()
+        private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView()
         {
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2);
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4);
+
+            mocks.ReplayAll();
+
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation1);
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation2);
+
             var surfaceLine1 = new RingtoetsPipingSurfaceLine
             {
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
@@ -294,6 +376,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(5.0, 0.0)
             }));
 
+            var pipingSoilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
+            {
+                new PipingSoilLayer(-5.0),
+                new PipingSoilLayer(-2.0),
+                new PipingSoilLayer(1.0)
+            }, 1);
+
+            var pipingSoilProfile5 = new PipingSoilProfile("Profile 5", -10.0, new[]
+            {
+                new PipingSoilLayer(-5.0),
+                new PipingSoilLayer(-2.0),
+                new PipingSoilLayer(1.0)
+            }, 1);
+
             pipingFailureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(1, "A", "B")
             {
                 Geometry =
@@ -304,12 +400,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 {
                     new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
                     {
-                        SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
-                        {
-                            new PipingSoilLayer(-5.0),
-                            new PipingSoilLayer(-2.0),
-                            new PipingSoilLayer(1.0)
-                        }, 1)
+                        SoilProfile = pipingSoilProfile1
                     },
                     new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
                     {
@@ -362,12 +453,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 {
                     new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
                     {
-                        SoilProfile = new PipingSoilProfile("Profile 5", -10.0, new[]
-                        {
-                            new PipingSoilLayer(-5.0),
-                            new PipingSoilLayer(-2.0),
-                            new PipingSoilLayer(1.0)
-                        }, 1)
+                        SoilProfile = pipingSoilProfile5
                     }
                 }
             });
@@ -380,21 +466,48 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 {
                     new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
                     {
+                        Name = "Calculation 1",
                         InputParameters =
                         {
-                            SurfaceLine = surfaceLine1
+                            SurfaceLine = surfaceLine1,
+                            SoilProfile = pipingSoilProfile1,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation1,
+                            DampingFactorExit =
+                            {
+                                Mean = (RoundedDouble) 1.1111
+                            },
+                            PhreaticLevelExit =
+                            {
+                                Mean = (RoundedDouble) 2.2222
+                            },
+                            EntryPointL = (RoundedDouble) 3.3333,
+                            ExitPointL = (RoundedDouble) 4.4444
                         }
                     },
                     new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
                     {
+                        Name = "Calculation 2",
                         InputParameters =
                         {
-                            SurfaceLine = surfaceLine2
+                            SurfaceLine = surfaceLine2,
+                            SoilProfile = pipingSoilProfile5,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation2,
+                            DampingFactorExit =
+                            {
+                                Mean = (RoundedDouble) 5.5555
+                            },
+                            PhreaticLevelExit =
+                            {
+                                Mean = (RoundedDouble) 6.6666
+                            },
+                            EntryPointL = (RoundedDouble) 7.7777,
+                            ExitPointL = (RoundedDouble) 8.8888
                         }
                     }
                 }
             };
 
+            pipingCalculationsView.AssessmentSection = assessmentSection;
             pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
 
             return pipingCalculationsView;
