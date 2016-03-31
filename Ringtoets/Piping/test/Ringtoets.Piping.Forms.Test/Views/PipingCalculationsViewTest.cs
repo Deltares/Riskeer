@@ -276,20 +276,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Profile 1", cells[soilProfilesColumnIndex].FormattedValue);
             Assert.AreEqual("Location 1", cells[hydraulicBoundaryLocationsColumnIndex].FormattedValue);
-            Assert.AreEqual("1.111", cells[dampingFactorExitMeanColumnIndex].FormattedValue);
-            Assert.AreEqual("2.222", cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
-            Assert.AreEqual("3.33", cells[entryPointLColumnIndex].FormattedValue);
-            Assert.AreEqual("4.44", cells[exitPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 1.111), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 2.222), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 3.33), cells[entryPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 4.44), cells[exitPointLColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(7, cells.Count);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Profile 5", cells[soilProfilesColumnIndex].FormattedValue);
             Assert.AreEqual("Location 2", cells[hydraulicBoundaryLocationsColumnIndex].FormattedValue);
-            Assert.AreEqual("5.556", cells[dampingFactorExitMeanColumnIndex].FormattedValue);
-            Assert.AreEqual("6.667", cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
-            Assert.AreEqual("7.78", cells[entryPointLColumnIndex].FormattedValue);
-            Assert.AreEqual("8.89", cells[exitPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 5.556), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 6.667), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 7.78), cells[entryPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 8.89), cells[exitPointLColumnIndex].FormattedValue);
         }
 
         [TestCase(nameColumnIndex, "New name", 1, 0)]
