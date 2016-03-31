@@ -22,18 +22,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingFailureMechanismResultContextTreeNodeInfoTest
+    public class PipingFailureMechanismSectionResultTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingGuiPlugin plugin;
@@ -91,6 +92,30 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_CallsBuilder()
+        {
+            // Setup
+            var gui = mocks.StrictMultiMock<IGui>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+
+            gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+
+            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            // Call
+            info.ContextMenuStrip(null, null, treeViewControl);
+
+            // Assert
+            mocks.VerifyAll();
         }
     }
 }

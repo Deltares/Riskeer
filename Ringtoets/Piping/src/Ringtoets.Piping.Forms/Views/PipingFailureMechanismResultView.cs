@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
@@ -28,11 +29,11 @@ using Ringtoets.Piping.Forms.Properties;
 namespace Ringtoets.Piping.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="PipingFailureMechanismResult"/>.
+    /// The view for the <see cref="PipingFailureMechanismSectionResult"/>.
     /// </summary>
     public partial class PipingFailureMechanismResultView : UserControl, IView
     {
-        private PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult;
+        private List<PipingFailureMechanismSectionResult> pipingFailureMechanismSectionResult;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
@@ -98,7 +99,7 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
-                pipingFailureMechanismSectionResult = value as PipingFailureMechanismSectionResult;
+                pipingFailureMechanismSectionResult = value as List<PipingFailureMechanismSectionResult>;
             }
         }
     }

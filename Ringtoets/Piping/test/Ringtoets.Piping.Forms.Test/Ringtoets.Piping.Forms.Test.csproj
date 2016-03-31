@@ -69,7 +69,7 @@
     <Compile Include="TreeNodeInfos\EmptyPipingCalculationReportTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingCalculationGroupContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingFailureMechanismResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingFailureMechanismSectionResultTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingInputContextTreeNodeInfoTest.cs" />
     <Compile Include="PresentationObjects\PipingCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\PipingContextTest.cs" />
