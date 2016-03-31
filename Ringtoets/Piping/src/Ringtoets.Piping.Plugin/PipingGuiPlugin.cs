@@ -753,14 +753,14 @@ namespace Ringtoets.Piping.Plugin
             var view = new PipingSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailablePipingSurfaceLines);
             view.ShowDialog();
 
-            GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines);
+            GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines, nodeData.AvailableStochasticSoilModels);
 
             nodeData.NotifyObservers();
         }
 
-        private void GeneratePipingCalculations(PipingCalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines)
+        private void GeneratePipingCalculations(PipingCalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels)
         {
-            foreach (var group in PipingCalculationGenerator.Generate(surfaceLines, null))
+            foreach (var group in PipingCalculationConfigurationHelper.Generate(surfaceLines, soilModels))
             {
                 target.Children.Add(group);
             }

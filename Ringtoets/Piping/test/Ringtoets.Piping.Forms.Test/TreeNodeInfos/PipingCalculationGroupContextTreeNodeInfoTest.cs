@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -32,7 +33,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         private PipingGuiPlugin plugin;
         private TreeNodeInfo info;
 
-        private const int contextMenuAddGenerateCalculationsIndex = 2;
+        private const int contextMenuAddGenerateCalculationsIndex = 1;
 
         private const int contextMenuAddCalculationGroupIndex = 0;
         private const int contextMenuAddCalculationIndex = 1;
@@ -857,6 +858,122 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
             Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnGenerateCalculationsItemWithoutSurfaceLines_ShowEmptySurfaceLineSelectionView()
+        {
+            // Setup
+            var gui = mocks.StrictMock<IGui>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var group = new PipingCalculationGroup();
+
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+
+            var mainWindow = mocks.Stub<IMainWindow>();
+
+            var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                             Enumerable.Empty<StochasticSoilModel>(),
+                                                             pipingFailureMechanismMock,
+                                                             assessmentSectionMock);
+
+            gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+            gui.Expect(g => g.MainWindow).Return(mainWindow);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            PipingSurfaceLineSelectionDialog selectionDialog = null;
+            DataGridView grid = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
+                grid = new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject as DataGridView;
+
+                new ButtonTester("CancelButton", selectionDialog).Click();
+            };
+
+            var contextMenu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+
+            // Call
+            contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
+
+            // Assert
+            Assert.NotNull(selectionDialog);
+            Assert.NotNull(grid);
+            Assert.AreEqual(0, grid.RowCount);
+
+            mocks.VerifyAll();
+        }
+
+
+        [Test]
+        public void ContextMenuStrip_ClickOnGenerateCalculationsItemWithSurfaceLines_ShowSurfaceLineSelectionView()
+        {
+            // Setup
+            var gui = mocks.StrictMock<IGui>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var group = new PipingCalculationGroup();
+
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+
+            var mainWindow = mocks.Stub<IMainWindow>();
+
+            var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
+            var surfaceLines = new[]
+            {
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name= "surfaceLine1"
+                },
+                new RingtoetsPipingSurfaceLine
+                {
+                    Name= "surfaceLine2"
+                }
+            };
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             surfaceLines,
+                                                             Enumerable.Empty<StochasticSoilModel>(),
+                                                             pipingFailureMechanismMock,
+                                                             assessmentSectionMock);
+
+            gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+            gui.Expect(g => g.MainWindow).Return(mainWindow);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            PipingSurfaceLineSelectionDialog selectionDialog = null;
+            DataGridView grid = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
+                grid = new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject as DataGridView;
+
+                new ButtonTester("CancelButton", selectionDialog).Click();
+            };
+
+            var contextMenu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+
+            // Call
+            contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
+
+            // Assert
+            Assert.NotNull(selectionDialog);
+            Assert.NotNull(grid);
+            Assert.AreEqual(2, grid.RowCount);
+
             mocks.VerifyAll();
         }
 
