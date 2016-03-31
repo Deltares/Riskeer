@@ -740,13 +740,23 @@ namespace Ringtoets.Piping.Plugin
 
         private StrictContextMenuItem CreateGeneratePipingCalculationsItem(PipingCalculationGroupContext nodeData)
         {
+            var surfaceLineAvailable = nodeData.AvailablePipingSurfaceLines.Any();
+
+            var pipingCalculationGroupGeneratePipingCalculationsToolTip = 
+                surfaceLineAvailable ?
+                PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip :
+                PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLines_ToolTip;
+
             var generateCalculationsItem = new StrictContextMenuItem(
                 PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations,
-                PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip,
+                pipingCalculationGroupGeneratePipingCalculationsToolTip,
                 PipingFormsResources.GeneratePipingCalculationsIcon, (o, args) =>
                 {
                     ShowSurfaceLineSelectionDialog(nodeData);
-                });
+                })
+            {
+                Enabled = surfaceLineAvailable
+            };
             return generateCalculationsItem;
         }
 

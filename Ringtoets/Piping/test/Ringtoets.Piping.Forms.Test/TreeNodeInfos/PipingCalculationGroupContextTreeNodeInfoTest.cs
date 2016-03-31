@@ -454,10 +454,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             var mainCalculationGroupContextMenuItemOffset = 4;
             Assert.AreEqual(18, menu.Items.Count);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 2,
-                                                          PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations,
-                                                          PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip,
-                                                          PipingFormsResources.GeneratePipingCalculationsIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex + mainCalculationGroupContextMenuItemOffset,
                                                           PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
                                                           "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
@@ -518,6 +514,82 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             }, typeof(ToolStripSeparator));
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismAsParentWithoutAvailableSurfaceLines_GenerateCalculationsDisabled()
+        {
+            // Setup
+            var gui = mocks.StrictMock<IGui>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var group = new PipingCalculationGroup();
+            
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+
+            var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                             Enumerable.Empty<StochasticSoilModel>(),
+                                                             pipingFailureMechanismMock,
+                                                             assessmentSectionMock);
+
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            // Call
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(menu, 1,
+                                                          PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations,
+                                                          PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLines_ToolTip,
+                                                          PipingFormsResources.GeneratePipingCalculationsIcon,
+                                                          false);
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismAsParentWithAvailableSurfaceLines_GenerateCalculationsDisabled()
+        {
+            // Setup
+            var gui = mocks.StrictMock<IGui>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var group = new PipingCalculationGroup();
+            
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+
+            var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             new []
+                                                             {
+                                                                 new RingtoetsPipingSurfaceLine()
+                                                             },
+                                                             Enumerable.Empty<StochasticSoilModel>(),
+                                                             pipingFailureMechanismMock,
+                                                             assessmentSectionMock);
+
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            // Call
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(menu, 1,
+                                                          PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations,
+                                                          PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip,
+                                                          PipingFormsResources.GeneratePipingCalculationsIcon);
         }
 
         [Test]
@@ -860,59 +932,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
             mocks.VerifyAll();
         }
-
-        [Test]
-        public void ContextMenuStrip_ClickOnGenerateCalculationsItemWithoutSurfaceLines_ShowEmptySurfaceLineSelectionView()
-        {
-            // Setup
-            var gui = mocks.StrictMock<IGui>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            var group = new PipingCalculationGroup();
-
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
-
-            var mainWindow = mocks.Stub<IMainWindow>();
-
-            var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
-            var nodeData = new PipingCalculationGroupContext(group,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<StochasticSoilModel>(),
-                                                             pipingFailureMechanismMock,
-                                                             assessmentSectionMock);
-
-            gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-            gui.Expect(g => g.MainWindow).Return(mainWindow);
-
-            mocks.ReplayAll();
-
-            plugin.Gui = gui;
-
-            PipingSurfaceLineSelectionDialog selectionDialog = null;
-            DataGridView grid = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
-                grid = new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject as DataGridView;
-
-                new ButtonTester("CancelButton", selectionDialog).Click();
-            };
-
-            var contextMenu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
-
-            // Call
-            contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
-
-            // Assert
-            Assert.NotNull(selectionDialog);
-            Assert.NotNull(grid);
-            Assert.AreEqual(0, grid.RowCount);
-
-            mocks.VerifyAll();
-        }
-
 
         [Test]
         public void ContextMenuStrip_ClickOnGenerateCalculationsItemWithSurfaceLines_ShowSurfaceLineSelectionView()

@@ -668,11 +668,20 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Genereer scenario&apos;s.
+        ///   Looks up a localized string similar to Genereer scenario&apos;s....
         /// </summary>
         public static string PipingCalculationGroup_Generate_PipingCalculations {
             get {
                 return ResourceManager.GetString("PipingCalculationGroup_Generate_PipingCalculations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen profielschematisaties beschikbaar om berekeningen voor te genereren..
+        /// </summary>
+        public static string PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLines_ToolTip {
+            get {
+                return ResourceManager.GetString("PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLines_ToolTip", resourceCulture);
             }
         }
         
