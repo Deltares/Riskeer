@@ -49,9 +49,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
-            applicationSelection.Expect(a => a.SelectionChanged += null).IgnoreArguments();
-            applicationSelection.Expect(a => a.SelectionChanged -= null).IgnoreArguments();
-
             mocks.ReplayAll();
 
             // Call
@@ -80,9 +77,6 @@ namespace Core.Plugins.ProjectExplorer.Test
                     TagType = typeof(Project)
                 }
             };
-
-            applicationSelection.Expect(a => a.SelectionChanged += null).IgnoreArguments();
-            applicationSelection.Expect(a => a.SelectionChanged -= null).IgnoreArguments();
 
             mocks.ReplayAll();
 
@@ -113,9 +107,6 @@ namespace Core.Plugins.ProjectExplorer.Test
                     TagType = typeof(Project)
                 }
             };
-
-            applicationSelection.Expect(a => a.SelectionChanged += null).IgnoreArguments();
-            applicationSelection.Expect(a => a.SelectionChanged -= null).IgnoreArguments();
 
             mocks.ReplayAll();
 
@@ -153,8 +144,6 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             var project = new Project();
 
-            applicationSelection.Expect(a => a.SelectionChanged += null).IgnoreArguments();
-            applicationSelection.Expect(a => a.SelectionChanged -= null).IgnoreArguments();
             viewCommands.Expect(vc => vc.RemoveAllViewsForItem(project));
 
             mocks.ReplayAll();
@@ -209,10 +198,8 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             using (mocks.Ordered())
             {
-                applicationSelection.Expect(a => a.SelectionChanged += null).IgnoreArguments();
                 applicationSelection.Expect(a => a.Selection = project);
                 applicationSelection.Expect(a => a.Selection = stringA);
-                applicationSelection.Expect(a => a.SelectionChanged -= null).IgnoreArguments();
             }
 
             mocks.ReplayAll();
@@ -260,10 +247,8 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             using (mocks.Ordered())
             {
-                applicationSelection.Expect(a => a.SelectionChanged += null).IgnoreArguments();
                 applicationSelection.Expect(a => a.Selection = project);
                 viewCommands.Expect(a => a.OpenViewForSelection());
-                applicationSelection.Expect(a => a.SelectionChanged -= null).IgnoreArguments();
             }
 
             mocks.ReplayAll();
@@ -291,128 +276,6 @@ namespace Core.Plugins.ProjectExplorer.Test
                 tester.DoubleClick();
             }
             // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [RequiresSTA]
-        public void GuiSelectionChanged_NewSelectionIsNull_NoSelectionUpdateInTree()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
-            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
-
-            var project = new Project();
-            var stringA = "testA";
-            var stringB = "testB";
-
-            IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
-            {
-                new TreeNodeInfo
-                {
-                    TagType = typeof(Project),
-                    ChildNodeObjects = o => new[]
-                    {
-                        stringA,
-                        stringB
-                    }
-                },
-                new TreeNodeInfo
-                {
-                    TagType = typeof(String)
-                }
-            };
-
-            using (mocks.Ordered())
-            {
-                applicationSelection.Expect(a => a.SelectionChanged += null).IgnoreArguments();
-                applicationSelection.Expect(a => a.Selection = project);
-                applicationSelection.Expect(a => a.Selection).Return(null);
-                applicationSelection.Expect(a => a.SelectionChanged -= null).IgnoreArguments();
-            }
-
-            mocks.ReplayAll();
-
-            using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
-            {
-                Data = project
-            })
-            {
-                WindowsFormsTestHelper.Show(explorer.TreeViewControl);
-
-                // Precondition
-                Assert.AreSame(explorer.TreeViewControl.SelectedData, project);
-
-                // Call
-                applicationSelection.Raise(s => s.SelectionChanged += null, null, new SelectedItemChangedEventArgs(null));
-
-                // Assert
-                Assert.AreSame(explorer.TreeViewControl.SelectedData, project);
-            }
-            WindowsFormsTestHelper.CloseAll();
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [RequiresSTA]
-        public void GuiSelectionChanged_NewSelectionNotNull_SelectionUpdateInTree()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
-            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
-
-            var project = new Project();
-            var stringA = "testA";
-            var stringB = "testB";
-
-            IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
-            {
-                new TreeNodeInfo
-                {
-                    TagType = typeof(Project),
-                    ChildNodeObjects = o => new[]
-                    {
-                        stringA,
-                        stringB
-                    }
-                },
-                new TreeNodeInfo
-                {
-                    TagType = typeof(String)
-                }
-            };
-
-            using (mocks.Ordered())
-            {
-                applicationSelection.Expect(a => a.SelectionChanged += null).IgnoreArguments();
-                applicationSelection.Expect(a => a.Selection = project);
-                applicationSelection.Expect(a => a.Selection).Return(stringA);
-                applicationSelection.Expect(a => a.Selection).Return(stringA);
-                applicationSelection.Expect(a => a.Selection = stringA);
-                applicationSelection.Expect(a => a.SelectionChanged -= null).IgnoreArguments();
-            }
-
-            mocks.ReplayAll();
-
-            using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
-            {
-                Data = project
-            })
-            {
-                WindowsFormsTestHelper.Show(explorer.TreeViewControl);
-
-                // Precondition
-                Assert.AreNotSame(explorer.TreeViewControl.SelectedData, stringA);
-
-                // Call
-                applicationSelection.Raise(s => s.SelectionChanged += null, null, new SelectedItemChangedEventArgs(stringA));
-
-                // Assert
-                Assert.AreSame(explorer.TreeViewControl.SelectedData, stringA);
-            }
-            WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
         }
     }

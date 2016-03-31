@@ -77,7 +77,6 @@ namespace Core.Plugins.ProjectExplorer
 
             RegisterTreeNodeInfos(treeNodeInfos);
             BindTreeInteractionEvents();
-            BindApplicationSelectionEvents();
         }
 
         public object Data
@@ -115,17 +114,8 @@ namespace Core.Plugins.ProjectExplorer
                 Data = null;
                 treeViewControl.Dispose();
             }
-            if (applicationSelection != null)
-            {
-                applicationSelection.SelectionChanged -= GuiSelectionChanged;
-            }
 
             base.Dispose(disposing);
-        }
-
-        private void BindApplicationSelectionEvents()
-        {
-            applicationSelection.SelectionChanged += GuiSelectionChanged;
         }
 
         private void BindTreeInteractionEvents()
@@ -156,16 +146,6 @@ namespace Core.Plugins.ProjectExplorer
         private void TreeViewControlDataDeleted(object sender, EventArgs<object> e)
         {
             viewCommands.RemoveAllViewsForItem(e.Value);
-        }
-
-        private void GuiSelectionChanged(object sender, EventArgs e)
-        {
-            if (applicationSelection.Selection == null)
-            {
-                return;
-            }
-
-            treeViewControl.TrySelectNodeForData(applicationSelection.Selection);
         }
     }
 }

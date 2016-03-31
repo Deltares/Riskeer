@@ -91,7 +91,6 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
             var documentViewController = mocks.StrictMock<IDocumentViewController>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var applicationSelection = mocks.StrictMock<IApplicationSelection>();
-            applicationSelection.Expect(a => a.SelectionChanged += null).IgnoreArguments();
 
             var toolViewController = mocks.StrictMock<IToolViewController>();
             bool explorerViewActuallyOpened = false;
@@ -102,7 +101,6 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
                     .WhenCalled(invocation => invocation.ReturnValue = explorerViewActuallyOpened);
                 toolViewController.Stub(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Is.TypeOf));
                 toolViewController.Expect(tvc => tvc.CloseToolView(Arg<ProjectExplorer>.Is.TypeOf));
-                applicationSelection.Expect(a => a.SelectionChanged -= null).IgnoreArguments();
             }
             else
             {

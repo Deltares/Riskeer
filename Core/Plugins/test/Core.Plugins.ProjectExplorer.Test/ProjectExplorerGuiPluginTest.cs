@@ -302,7 +302,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             {
                 // Activate
                 guiStub.Expect(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(false);
-                guiStub.Expect(a => a.SelectionChanged += null).IgnoreArguments();
                 guiStub.Expect(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Matches(v => true))).WhenCalled(invocation => {
                     view = invocation.Arguments[0] as ProjectExplorer;
                 });
@@ -318,7 +317,6 @@ namespace Core.Plugins.ProjectExplorer.Test
                 guiStub.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
                 guiStub.Expect(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(true);
                 guiStub.Expect(tvc => tvc.CloseToolView(Arg<ProjectExplorer>.Matches(v => true)));
-                guiStub.Expect(a => a.SelectionChanged -= null).IgnoreArguments();
             }
 
             mocks.ReplayAll();

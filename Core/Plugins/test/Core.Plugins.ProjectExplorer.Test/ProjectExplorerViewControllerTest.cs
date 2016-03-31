@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -97,7 +95,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             IToolViewController toolViewController = mocks.StrictMock<IToolViewController>();
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
-            applicationSelection.Expect(a => a.SelectionChanged += null).IgnoreArguments();
             toolViewController.Expect(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(false).Repeat.Twice();
             toolViewController.Expect(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Matches(v => true)));
 
@@ -123,7 +120,6 @@ namespace Core.Plugins.ProjectExplorer.Test
             IToolViewController toolViewController = mocks.StrictMock<IToolViewController>();
             IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
 
-            applicationSelection.Expect(a => a.SelectionChanged += null).IgnoreArguments();
             toolViewController.Expect(tvc => tvc.IsToolWindowOpen<ProjectExplorer>()).Return(false).Repeat.Twice();
             toolViewController.Expect(tvc => tvc.OpenToolView(Arg<ProjectExplorer>.Matches(v => true)));
 
