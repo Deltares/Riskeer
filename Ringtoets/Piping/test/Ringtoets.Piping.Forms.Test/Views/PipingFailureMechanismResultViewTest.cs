@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
@@ -98,7 +99,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             };
 
             var section = new FailureMechanismSection("test", points);
-            var testData = new PipingFailureMechanismSectionResult(section);
+            var testData = new List<PipingFailureMechanismSectionResult> { new PipingFailureMechanismSectionResult(section) };
 
             var view = new PipingFailureMechanismResultView();
 
@@ -110,7 +111,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetOtherThanPipingFailureMechanismResultData_DataNull()
+        public void Data_SetOtherThanPipingFailureMechanismSectionResultListData_DataNull()
         {
             // Setup
             var testData = new object();
