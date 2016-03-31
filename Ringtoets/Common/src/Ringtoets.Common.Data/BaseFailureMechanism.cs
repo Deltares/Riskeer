@@ -48,10 +48,7 @@ namespace Ringtoets.Common.Data
             sectionResults = new List<FailureMechanismSectionResult>();
         }
 
-        /// <summary>
-        /// Gets the failure mechanism section results.
-        /// </summary>
-        public List<FailureMechanismSectionResult> SectionResults
+        public IEnumerable<FailureMechanismSectionResult> SectionResults
         {
             get
             {
@@ -119,6 +116,7 @@ namespace Ringtoets.Common.Data
         public void ClearAllSections()
         {
             sections.Clear();
+            sectionResults.Clear();
         }
 
         /// <summary>

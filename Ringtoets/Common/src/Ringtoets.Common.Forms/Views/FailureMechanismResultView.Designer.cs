@@ -1,6 +1,6 @@
-﻿namespace Ringtoets.Piping.Forms.Views
+﻿namespace Ringtoets.Common.Forms.Views
 {
-    partial class PipingFailureMechanismResultView
+    partial class FailureMechanismResultView
     {
         /// <summary> 
         /// Required designer variable.
@@ -41,12 +41,12 @@
             this.dataGridView.Size = new System.Drawing.Size(150, 150);
             this.dataGridView.TabIndex = 0;
             // 
-            // PipingFailureMechanismResultView
+            // FailureMechanismResultView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dataGridView);
-            this.Name = "PipingFailureMechanismResultView";
+            this.Name = "FailureMechanismResultView";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 

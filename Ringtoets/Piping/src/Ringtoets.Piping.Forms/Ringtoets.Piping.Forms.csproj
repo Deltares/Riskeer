@@ -107,12 +107,6 @@
     <Compile Include="Views\PipingFailureMechanismView.Designer.cs">
       <DependentUpon>PipingFailureMechanismView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PipingFailureMechanismResultView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\PipingFailureMechanismResultView.Designer.cs">
-      <DependentUpon>PipingFailureMechanismResultView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\PipingSurfaceLineSelectionView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -209,9 +203,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PipingCalculationsView.resx">
       <DependentUpon>PipingCalculationsView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\PipingFailureMechanismResultView.resx">
-      <DependentUpon>PipingFailureMechanismResultView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PipingFailureMechanismView.resx">
       <DependentUpon>PipingFailureMechanismView.cs</DependentUpon>

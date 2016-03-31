@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-
 using Core.Common.Base;
 using Core.Common.Base.Storage;
 
@@ -54,6 +53,11 @@ namespace Ringtoets.Common.Data
         /// a representative result. Cannot return null.
         /// </summary>
         IEnumerable<FailureMechanismSection> Sections { get; }
+
+        /// <summary>
+        /// Gets the failure mechanism section results.
+        /// </summary>
+        IEnumerable<FailureMechanismSectionResult> SectionResults { get; }
 
         /// <summary>
         /// Adds a <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.

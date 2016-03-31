@@ -28,32 +28,32 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
+namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingFailureMechanismSectionResultTreeNodeInfoTest
+    public class FailureMechanismSectionResultTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private PipingGuiPlugin plugin;
+        private RingtoetsGuiPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new PipingGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(List<FailureMechanismSectionResult>));
+            plugin = new RingtoetsGuiPlugin();
+            info = Enumerable.First<TreeNodeInfo>(plugin.GetTreeNodeInfos(), tni => tni.TagType == typeof(IEnumerable<FailureMechanismSectionResult>));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(List<FailureMechanismSectionResult>), info.TagType);
+            Assert.AreEqual(typeof(IEnumerable<FailureMechanismSectionResult>), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);

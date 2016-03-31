@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -194,13 +194,13 @@ namespace Ringtoets.Common.Data.Test
             });
 
             // Precondition
-            Assert.AreEqual(0, failureMechanism.SectionResults.Count);
+            Assert.AreEqual(0, failureMechanism.SectionResults.Count());
 
             // Call
             failureMechanism.AddSection(section);
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count);
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
         }
 
         [Test]
@@ -225,7 +225,7 @@ namespace Ringtoets.Common.Data.Test
             failureMechanism.AddSection(section2);
 
             // Call
-            var data = failureMechanism.SectionResults;
+            var data = failureMechanism.SectionResults.ToList();
 
             // Assert
             Assert.AreEqual(2, data.Count);

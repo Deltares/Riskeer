@@ -68,6 +68,7 @@
     <Compile Include="RingtoetsApplicationPluginTest.cs" />
     <Compile Include="RingtoetsGuiPluginTest.cs" />
     <Compile Include="RingtoetsRibbonTest.cs" />
+    <Compile Include="ViewInfos\FailureMechanismResultViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
@@ -121,6 +122,10 @@
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+      <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
+      <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>

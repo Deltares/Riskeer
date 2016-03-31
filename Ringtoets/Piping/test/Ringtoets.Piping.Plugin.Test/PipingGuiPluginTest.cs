@@ -30,6 +30,7 @@ using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -146,7 +147,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(13, treeNodeInfos.Length);
+                Assert.AreEqual(12, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLinesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsPipingSurfaceLine)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModelContext)));
@@ -159,7 +160,6 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSemiProbabilisticOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyPipingOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyPipingCalculationReport)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(List<FailureMechanismSectionResult>)));
             }
             mocks.VerifyAll();
         }
@@ -187,11 +187,10 @@ namespace Ringtoets.Piping.Plugin.Test
                 ViewInfo[] viewInfos = guiPlugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, viewInfos.Length);
+                Assert.AreEqual(2, viewInfos.Length);
 
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingFailureMechanismView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingCalculationsView)));
-                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingFailureMechanismResultView)));
             }
         }
     }

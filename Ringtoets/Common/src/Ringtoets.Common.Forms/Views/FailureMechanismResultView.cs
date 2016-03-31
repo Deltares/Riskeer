@@ -25,21 +25,21 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data;
-using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Piping.Forms.Views
+namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
     /// The view for the <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
-    public partial class PipingFailureMechanismResultView : UserControl, IView
+    public partial class FailureMechanismResultView : UserControl, IView
     {
-        private List<FailureMechanismSectionResult> pipingFailureMechanismSectionResult;
+        private IEnumerable<FailureMechanismSectionResult> pipingFailureMechanismSectionResult;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
+        /// Creates a new instance of <see cref="FailureMechanismResultView"/>.
         /// </summary>
-        public PipingFailureMechanismResultView()
+        public FailureMechanismResultView()
         {
             InitializeComponent();
             InitializeDataGridView();
@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
-                pipingFailureMechanismSectionResult = value as List<FailureMechanismSectionResult>;
+                pipingFailureMechanismSectionResult = value as IEnumerable<FailureMechanismSectionResult>;
 
                 if (pipingFailureMechanismSectionResult != null)
                 {
@@ -67,35 +67,35 @@ namespace Ringtoets.Piping.Forms.Views
             var sectionName = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Name",
-                HeaderText = Resources.PipingFailureMechanismResultView_InitializeDataGridView_Section_name,
+                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 Name = "column_Name"
             };
 
             var assessmentLayerOne = new DataGridViewCheckBoxColumn
             {
                 DataPropertyName = "AssessmentLayerOne",
-                HeaderText = Resources.PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
                 Name = "column_AssessmentLayerOne"
             };
 
             var assessmentLayerTwoA = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "AssessmentLayerTwoA",
-                HeaderText = Resources.PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
+                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 Name = "column_AssessmentLayerTwoA"
             };
 
             var assessmentLayerTwoB = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "AssessmentLayerTwoB",
-                HeaderText = Resources.PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b,
+                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b,
                 Name = "column_AssessmentLayerTwoB"
             };
 
             var assessmentLayerThree = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "AssessmentLayerThree",
-                HeaderText = Resources.PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_three,
+                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three,
                 Name = "column_AssessmentLayerThree"
             };
 

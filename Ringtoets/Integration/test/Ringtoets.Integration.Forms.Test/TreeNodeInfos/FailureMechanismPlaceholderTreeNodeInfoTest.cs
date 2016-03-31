@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var outputFolder = (CategoryTreeFolder)children[1];
             Assert.AreEqual("Uitvoer", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
-            Assert.AreEqual(new[]{failureMechanism.AssessmentResult}, outputFolder.Contents);
+            Assert.AreEqual(new[]{failureMechanism.SectionResults}, outputFolder.Contents);
             mocks.VerifyAll();
         }
 

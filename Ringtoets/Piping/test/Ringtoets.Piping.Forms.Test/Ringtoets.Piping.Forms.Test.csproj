@@ -70,7 +70,6 @@
     <Compile Include="TreeNodeInfos\EmptyPipingCalculationReportTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyPipingOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingCalculationGroupContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\PipingFailureMechanismSectionResultTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingInputContextTreeNodeInfoTest.cs" />
     <Compile Include="PresentationObjects\PipingCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\PipingContextTest.cs" />
@@ -101,7 +100,6 @@
     <Compile Include="UITypeEditors\PipingInputContextSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSoilProfileSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditorTest.cs" />
-    <Compile Include="Views\PipingFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\PipingCalculationsViewTest.cs" />
     <Compile Include="Views\PipingFailureMechanismViewTest.cs" />
     <Compile Include="Views\PipingSurfaceLineSelectionViewTest.cs" />

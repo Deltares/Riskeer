@@ -37,6 +37,7 @@ using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -51,6 +52,7 @@ using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Forms.Views;
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -104,6 +106,13 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetViewName = (v, o) => RingtoetsFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RingtoetsFormsResources.Map
+            };
+
+            yield return new ViewInfo<IEnumerable<FailureMechanismSectionResult>, FailureMechanismResultView>
+            {
+                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                CloseForData = CloseFailureMechanismResultViewForData
             };
         }
 
@@ -206,7 +215,31 @@ namespace Ringtoets.Integration.Plugin
                                            Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
+
+            yield return new TreeNodeInfo<IEnumerable<FailureMechanismSectionResult>>
+            {
+                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
         }
+
+        #region FailureMechanismResults ViewInfo
+
+        private static bool CloseFailureMechanismResultViewForData(FailureMechanismResultView view, object o)
+        {
+            var assessmentSectionBase = o as AssessmentSectionBase;
+            if (assessmentSectionBase != null)
+            {
+                return assessmentSectionBase.GetFailureMechanisms().Any(failureMechanism => view.Data == failureMechanism.SectionResults);
+            }
+
+            return false;
+        }
+
+        #endregion
 
         #region FailureMechanismSectionsContext
 
@@ -320,7 +353,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new ArrayList
             {
-                nodeData.AssessmentResult
+                nodeData.SectionResults
             };
         }
 

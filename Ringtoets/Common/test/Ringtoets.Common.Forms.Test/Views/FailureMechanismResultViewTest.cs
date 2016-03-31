@@ -22,19 +22,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Views;
+using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.Piping.Forms.Test.Views
+namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class PipingFailureMechanismResultViewTest
+    public class FailureMechanismResultViewTest
     {
         private Form testForm;
 
@@ -54,7 +52,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            var view = new PipingFailureMechanismResultView();
+            var view = new FailureMechanismResultView();
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
@@ -99,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var section = new FailureMechanismSection("test", points);
             var testData = new List<FailureMechanismSectionResult> { new FailureMechanismSectionResult(section) };
 
-            var view = new PipingFailureMechanismResultView();
+            var view = new FailureMechanismResultView();
 
             // Call
             view.Data = testData;
@@ -113,7 +111,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var testData = new object();
-            var view = new PipingFailureMechanismResultView();
+            var view = new FailureMechanismResultView();
 
             // Call
             view.Data = testData;
@@ -157,35 +155,48 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private const int assessmentLayerTwoBIndex = 3;
         private const int assessmentLayerThreeIndex = 4;
 
-        private PipingFailureMechanismResultView ShowFullyConfiguredPipingFailureMechanismResultsView()
+        private FailureMechanismResultView ShowFullyConfiguredPipingFailureMechanismResultsView()
         {
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new SimpleFailureMechanism();
 
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
             }));
 
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            failureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
             {
                 new Point2D(5.0, 0.0),
                 new Point2D(10.0, 0.0)
             }));
 
             var pipingFailureMechanismResultView = ShowFailureMechanismResultsView();
-            pipingFailureMechanismResultView.Data = pipingFailureMechanism.SectionResults;
+            pipingFailureMechanismResultView.Data = failureMechanism.SectionResults;
 
             return pipingFailureMechanismResultView;
         }
 
-        private PipingFailureMechanismResultView ShowFailureMechanismResultsView()
+        private class SimpleFailureMechanism : BaseFailureMechanism
         {
-            PipingFailureMechanismResultView pipingFailureMechanismResultView = new PipingFailureMechanismResultView();
-            testForm.Controls.Add(pipingFailureMechanismResultView);
+            public SimpleFailureMechanism() : base("Stubbed name") { }
+
+            public override IEnumerable<ICalculationItem> CalculationItems
+            {
+                get
+                {
+                    throw new System.NotImplementedException();
+                }
+            }
+        }
+
+        private FailureMechanismResultView ShowFailureMechanismResultsView()
+        {
+            FailureMechanismResultView failureMechanismResultView = new FailureMechanismResultView();
+            testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
-            return pipingFailureMechanismResultView;
+            return failureMechanismResultView;
         }
     }
 }

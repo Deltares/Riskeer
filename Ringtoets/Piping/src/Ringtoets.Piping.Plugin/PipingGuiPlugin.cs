@@ -32,6 +32,7 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -91,13 +92,6 @@ namespace Ringtoets.Piping.Plugin
                     view.PipingFailureMechanism = context.PipingFailureMechanism;
                     view.ApplicationSelection = Gui;
                 }
-            };
-
-            yield return new ViewInfo<List<FailureMechanismSectionResult>, PipingFailureMechanismResultView>
-            {
-                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = ClosePipingFailureMechanismResultViewForData
             };
         }
 
@@ -249,15 +243,6 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
-
-            yield return new TreeNodeInfo<List<FailureMechanismSectionResult>>
-            {
-                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
         }
 
         # region PipingCalculationsView ViewInfo
@@ -291,29 +276,6 @@ namespace Ringtoets.Piping.Plugin
         }
 
         #endregion endregion
-
-
-        #region PipingFailureMechanismResult ViewInfo
-
-        private static bool ClosePipingFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object o)
-        {
-            var assessmentSectionBase = o as AssessmentSectionBase;
-            if (assessmentSectionBase != null)
-            {
-                var pipingFailureMechanism = assessmentSectionBase.GetFailureMechanisms()
-                                                                    .OfType<PipingFailureMechanism>()
-                                                                    .FirstOrDefault();
-
-                if (pipingFailureMechanism != null)
-                {
-                    return view.Data == pipingFailureMechanism.SectionResults;
-                }
-            }
-
-            return false;
-        }
-
-        #endregion
 
         # region PipingFailureMechanism TreeNodeInfo
 
