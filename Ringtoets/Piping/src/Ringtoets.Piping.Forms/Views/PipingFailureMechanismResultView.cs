@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
@@ -44,6 +45,23 @@ namespace Ringtoets.Piping.Forms.Views
             InitializeDataGridView();
         }
 
+        public object Data
+        {
+            get
+            {
+                return pipingFailureMechanismSectionResult;
+            }
+            set
+            {
+                pipingFailureMechanismSectionResult = value as List<PipingFailureMechanismSectionResult>;
+
+                if (pipingFailureMechanismSectionResult != null)
+                {
+                    UpdataDataGridViewDataSource();
+                }
+            }
+        }
+
         private void InitializeDataGridView()
         {
             var sectionName = new DataGridViewTextBoxColumn
@@ -53,7 +71,7 @@ namespace Ringtoets.Piping.Forms.Views
                 Name = "column_Name"
             };
 
-            var assessmentLayerOne = new DataGridViewTextBoxColumn
+            var assessmentLayerOne = new DataGridViewCheckBoxColumn
             {
                 DataPropertyName = "AssessmentLayerOne",
                 HeaderText = Resources.PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
@@ -91,16 +109,69 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        public object Data 
+        private void UpdataDataGridViewDataSource()
         {
-            get
+            if (dataGridView.IsCurrentCellInEditMode)
             {
-                return pipingFailureMechanismSectionResult;
+                dataGridView.AutoResizeColumns();
+                return;
             }
-            set
+
+            dataGridView.DataSource = pipingFailureMechanismSectionResult.Select(sr => new PipingFailureMechanismSectionResultRow(sr)).ToList();
+        }
+
+        #region Nested types
+
+        private class PipingFailureMechanismSectionResultRow
+        {
+            private readonly PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult;
+
+            public PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult)
             {
-                pipingFailureMechanismSectionResult = value as List<PipingFailureMechanismSectionResult>;
+                this.pipingFailureMechanismSectionResult = pipingFailureMechanismSectionResult;
+            }
+
+            public string Name
+            {
+                get
+                {
+                    return pipingFailureMechanismSectionResult.Section.Name;
+                }
+            }
+
+            public bool AssessmentLayerOne
+            {
+                get
+                {
+                    return pipingFailureMechanismSectionResult.AssessmentLayerOne;
+                }
+            }
+
+            public RoundedDouble AssessmentLayerTwoA
+            {
+                get
+                {
+                    return (RoundedDouble) double.NaN;
+                }
+            }
+
+            public RoundedDouble AssessmentLayerTwoB
+            {
+                get
+                {
+                    return (RoundedDouble) double.NaN;
+                }
+            }
+
+            public RoundedDouble AssessmentLayerThree
+            {
+                get
+                {
+                    return (RoundedDouble) double.NaN;
+                }
             }
         }
+
+        #endregion
     }
 }

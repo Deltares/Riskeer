@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public class PipingFailureMechanismSectionResult 
+    public class PipingFailureMechanismSectionResult
     {
         private readonly FailureMechanismSection section;
 
@@ -44,6 +44,11 @@ namespace Ringtoets.Piping.Data
             }
             this.section = section;
         }
+
+        /// <summary>
+        /// Gets and sets the state of the assessment layer one.
+        /// </summary>
+        public bool AssessmentLayerOne { get; set; }
 
         /// <summary>
         /// Gets the encapsulated <see cref="FailureMechanismSection"/>.

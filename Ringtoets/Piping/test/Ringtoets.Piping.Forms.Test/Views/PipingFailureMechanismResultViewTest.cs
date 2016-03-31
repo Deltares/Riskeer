@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
@@ -64,11 +65,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
-            // Setup
-            var failureMechanismResultView = new PipingFailureMechanismResultView();
-
             // Call
-            ShowPipingCalculationsView(failureMechanismResultView);
+            var failureMechanismResultView = ShowFailureMechanismResultsView();
 
             // Assert
             var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
@@ -89,7 +87,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetPipingFailureMechanismResultData_DataSet()
+        public void Data_SetPipingFailureMechanismSectionResultListData_DataSet()
         {
             // Setup
             var points = new[]
@@ -124,10 +122,70 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsNull(view.Data);
         }
 
-        private void ShowPipingCalculationsView(PipingFailureMechanismResultView pipingCalculationsView)
+        [Test]
+        public void PipingFailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
-            testForm.Controls.Add(pipingCalculationsView);
+            // Setup & Call
+            ShowFullyConfiguredPipingFailureMechanismResultsView();
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            // Assert
+            var rows = dataGridView.Rows;
+            Assert.AreEqual(2, rows.Count);
+
+            var cells = rows[0].Cells;
+            Assert.AreEqual(5, cells.Count);
+            Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+            Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerTwoAIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerTwoBIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerThreeIndex].FormattedValue);
+
+            cells = rows[1].Cells;
+            Assert.AreEqual(5, cells.Count);
+            Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
+            Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerTwoAIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerTwoBIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerThreeIndex].FormattedValue);
+        }
+
+        private const int nameColumnIndex = 0;
+        private const int assessmentLayerOneIndex = 1;
+        private const int assessmentLayerTwoAIndex = 2;
+        private const int assessmentLayerTwoBIndex = 3;
+        private const int assessmentLayerThreeIndex = 4;
+
+        private PipingFailureMechanismResultView ShowFullyConfiguredPipingFailureMechanismResultsView()
+        {
+            var pipingFailureMechanism = new PipingFailureMechanism();
+
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            }));
+
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            }));
+
+            var pipingFailureMechanismResultView = ShowFailureMechanismResultsView();
+            pipingFailureMechanismResultView.Data = pipingFailureMechanism.PipingFailureMechanismSectionResults;
+
+            return pipingFailureMechanismResultView;
+        }
+
+        private PipingFailureMechanismResultView ShowFailureMechanismResultsView()
+        {
+            PipingFailureMechanismResultView pipingFailureMechanismResultView = new PipingFailureMechanismResultView();
+            testForm.Controls.Add(pipingFailureMechanismResultView);
             testForm.Show();
+
+            return pipingFailureMechanismResultView;
         }
     }
 }
