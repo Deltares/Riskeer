@@ -22,9 +22,9 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
-using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
+using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
 {
     [TestFixture]
     public class OvertoppingCalculationInputTest

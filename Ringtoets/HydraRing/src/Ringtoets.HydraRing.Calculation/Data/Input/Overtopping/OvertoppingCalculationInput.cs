@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
+namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
 {
     /// <summary>
     /// Container of all data necessary for performing an overtopping calculation via Hydra-Ring.

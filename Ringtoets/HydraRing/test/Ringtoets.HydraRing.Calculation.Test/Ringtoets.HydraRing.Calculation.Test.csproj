@@ -58,9 +58,10 @@
     <Compile Include="Activities\HydraRingActivityFactoryTest.cs" />
     <Compile Include="Data\HydraRingBreakwaterTest.cs" />
     <Compile Include="Data\HydraRingForelandPointTest.cs" />
+    <Compile Include="Data\Input\Overtopping\HydraRingRoughnessProfilePointTest.cs" />
     <Compile Include="Data\Input\ExceedanceProbabilityCalculationInputTest.cs" />
     <Compile Include="Data\Input\HydraRingCalculationInputTest.cs" />
-    <Compile Include="Data\Input\Hydraulics\OvertoppingCalculationInputTest.cs" />
+    <Compile Include="Data\Input\Overtopping\OvertoppingCalculationInputTest.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutputTest.cs" />
     <Compile Include="Parsers\TargetProbabilityCalculationParserTest.cs" />
     <Compile Include="Services\HydraRingCalculationServiceTest.cs" />

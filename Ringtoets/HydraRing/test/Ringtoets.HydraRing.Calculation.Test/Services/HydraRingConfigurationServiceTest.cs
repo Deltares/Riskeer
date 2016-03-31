@@ -350,7 +350,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         {
             private readonly double roughness;
 
-            public HydraRingProfilePointDerivative(double x, double z, double roughness) : base(x, z)
+            public HydraRingProfilePointDerivative(double x, double z, double roughness)
+                : base(x, z)
             {
                 this.roughness = roughness;
             }
