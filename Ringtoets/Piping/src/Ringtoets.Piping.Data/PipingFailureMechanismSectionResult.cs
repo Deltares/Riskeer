@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public  class PipingFailureMechanismSectionResult 
+    public class PipingFailureMechanismSectionResult 
     {
         private readonly FailureMechanismSection section;
 

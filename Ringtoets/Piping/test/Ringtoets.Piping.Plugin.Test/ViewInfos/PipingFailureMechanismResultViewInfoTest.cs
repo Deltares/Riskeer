@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -57,8 +58,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingFailureMechanismResultContext), info.DataType);
-            Assert.AreEqual(typeof(PipingFailureMechanismResult), info.ViewDataType);
+            Assert.AreEqual(typeof(List<PipingFailureMechanismSectionResult>), info.DataType);
         }
 
         [Test]
@@ -66,13 +66,12 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismResultContext = new PipingFailureMechanismResultContext(pipingFailureMechanism.AssessmentResult, pipingFailureMechanism);
 
             // Call
-            var viewData = info.GetViewData(pipingFailureMechanismResultContext);
+            var viewData = info.GetViewData(pipingFailureMechanism.PipingFailureMechanismSectionResults);
 
             // Assert
-            Assert.AreEqual(pipingFailureMechanism.AssessmentResult, viewData);
+            Assert.AreSame(pipingFailureMechanism.PipingFailureMechanismSectionResults, viewData);
         }
 
         [Test]
@@ -80,13 +79,12 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismResultContext = new PipingFailureMechanismResultContext(pipingFailureMechanism.AssessmentResult, pipingFailureMechanism);
             var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
 
             mocks.ReplayAll();
 
             // Call
-            var viewName = info.GetViewName(viewMock, pipingFailureMechanismResultContext.FailureMechanismResult);
+            var viewName = info.GetViewName(viewMock, pipingFailureMechanism.PipingFailureMechanismSectionResults);
 
             //
             Assert.AreEqual("Oordeel", viewName);
@@ -108,9 +106,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Setup
             var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
-            var pipingFailureMechanismResultMock = mocks.StrictMock<PipingFailureMechanismResult>();
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
-            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanismResultMock);
+            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanism.PipingFailureMechanismSectionResults);
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
 
             mocks.ReplayAll();
@@ -129,9 +127,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var pipingFailureMechanismResultMock = mocks.StrictMock<PipingFailureMechanismResult>();
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
-            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanismResultMock);
+            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanism.PipingFailureMechanismSectionResults);
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 pipingFailureMechanismMock
@@ -154,7 +152,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
 
-            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanismMock.AssessmentResult);
+            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanismMock.PipingFailureMechanismSectionResults);
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 pipingFailureMechanismMock

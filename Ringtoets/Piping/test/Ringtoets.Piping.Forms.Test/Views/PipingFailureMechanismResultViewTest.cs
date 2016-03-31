@@ -21,9 +21,11 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Views;
 
@@ -89,7 +91,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_SetPipingFailureMechanismResultData_DataSet()
         {
             // Setup
-            var testData = new PipingFailureMechanismResult();
+            var points = new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            };
+
+            var section = new FailureMechanismSection("test", points);
+            var testData = new PipingFailureMechanismSectionResult(section);
+
             var view = new PipingFailureMechanismResultView();
 
             // Call

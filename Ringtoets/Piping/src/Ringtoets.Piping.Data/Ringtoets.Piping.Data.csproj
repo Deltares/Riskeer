@@ -60,7 +60,6 @@
     <Compile Include="PipingCalculation.cs" />
     <Compile Include="PipingCalculationGroup.cs" />
     <Compile Include="PipingFailureMechanism.cs" />
-    <Compile Include="PipingFailureMechanismResult.cs" />
     <Compile Include="PipingFailureMechanismSectionResult.cs" />
     <Compile Include="PipingInput.cs" />
     <Compile Include="PipingOutput.cs" />

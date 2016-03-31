@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingFailureMechanism : BaseFailureMechanism
     {
-        private List<PipingFailureMechanismSectionResult> pipingFailureMechanismSectionResults;
+        private readonly List<PipingFailureMechanismSectionResult> pipingFailureMechanismSectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
@@ -48,7 +48,6 @@ namespace Ringtoets.Piping.Data
             var pipingCalculationGroup = new PipingCalculationGroup(PipingDataResources.PipingFailureMechanism_Calculations_DisplayName, false);
             pipingCalculationGroup.Children.Add(new PipingCalculation(GeneralInput, SemiProbabilisticInput));
             CalculationsGroup = pipingCalculationGroup;
-            AssessmentResult = new PipingFailureMechanismResult();
             pipingFailureMechanismSectionResults = new List<PipingFailureMechanismSectionResult>();
         }
 
@@ -72,13 +71,6 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        public override void AddSection(FailureMechanismSection section)
-        {
-            base.AddSection(section);
-
-            pipingFailureMechanismSectionResults.Add(new PipingFailureMechanismSectionResult(section));
-        }
-
         /// <summary>
         /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.
         /// </summary>
@@ -95,11 +87,6 @@ namespace Ringtoets.Piping.Data
         public PipingCalculationGroup CalculationsGroup { get; private set; }
 
         /// <summary>
-        /// Gets the calculation results for this failure mechanism.
-        /// </summary>
-        public PipingFailureMechanismResult AssessmentResult { get; private set; }
-
-        /// <summary>
         /// Gets the general piping calculation input parameters that apply to each piping calculation.
         /// </summary>
         public GeneralPipingInput GeneralInput { get; private set; }
@@ -109,5 +96,23 @@ namespace Ringtoets.Piping.Data
         /// in a semi-probabilistic assessment.
         /// </summary>
         public SemiProbabilisticPipingInput SemiProbabilisticInput { get; set; }
+
+        /// <summary>
+        /// Gets the piping failure mechanism section results.        
+        /// </summary>
+        public List<PipingFailureMechanismSectionResult> PipingFailureMechanismSectionResults
+        {
+            get
+            {
+                return pipingFailureMechanismSectionResults;
+            }
+        }
+
+        public override void AddSection(FailureMechanismSection section)
+        {
+            base.AddSection(section);
+
+            pipingFailureMechanismSectionResults.Add(new PipingFailureMechanismSectionResult(section));
+        }
     }
 }

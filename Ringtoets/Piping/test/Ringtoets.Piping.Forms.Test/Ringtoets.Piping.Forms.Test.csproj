@@ -61,7 +61,6 @@
   <ItemGroup>
     <Compile Include="PipingCalculationConfigurationHelperTest.cs" />
     <Compile Include="PresentationObjects\PipingFailureMechanismContextTest.cs" />
-    <Compile Include="PresentationObjects\PipingFailureMechanismResultContextTest.cs" />
     <Compile Include="PresentationObjects\RingtoetsPipingSurfaceLinesContextTest.cs" />
     <Compile Include="PresentationObjects\StochasticSoilModelContextTest.cs" />
     <Compile Include="PropertyClasses\PipingFailureMechanismContextPropertiesTest.cs" />

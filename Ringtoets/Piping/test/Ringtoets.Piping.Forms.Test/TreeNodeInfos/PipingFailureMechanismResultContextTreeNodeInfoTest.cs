@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
@@ -43,14 +44,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingFailureMechanismResultContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(List<PipingFailureMechanismSectionResult>));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingFailureMechanismResultContext), info.TagType);
+            Assert.AreEqual(typeof(List<PipingFailureMechanismSectionResult>), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
@@ -73,10 +74,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new PipingFailureMechanism();
-            var mechanismContext = new PipingFailureMechanismResultContext(mechanism.AssessmentResult, mechanism);
 
             // Call
-            var text = info.Text(mechanismContext);
+            var text = info.Text(mechanism.PipingFailureMechanismSectionResults);
 
             // Assert
             Assert.AreEqual("Oordeel", text);

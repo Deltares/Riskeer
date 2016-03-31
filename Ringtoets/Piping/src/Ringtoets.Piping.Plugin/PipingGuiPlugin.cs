@@ -94,10 +94,9 @@ namespace Ringtoets.Piping.Plugin
                 }
             };
 
-            yield return new ViewInfo<PipingFailureMechanismResultContext, PipingFailureMechanismResult, PipingFailureMechanismResultView>
+            yield return new ViewInfo<List<PipingFailureMechanismSectionResult>, PipingFailureMechanismResultView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
-                GetViewData = context => context.FailureMechanismResult,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = ClosePipingFailureMechanismResultViewForData
             };
@@ -252,7 +251,7 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<PipingFailureMechanismResultContext>
+            yield return new TreeNodeInfo<List<PipingFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon
@@ -305,7 +304,7 @@ namespace Ringtoets.Piping.Plugin
 
                 if (pipingFailureMechanism != null)
                 {
-                    return view.Data == pipingFailureMechanism.AssessmentResult;
+                    return view.Data == pipingFailureMechanism.PipingFailureMechanismSectionResults;
                 }
             }
 
@@ -480,7 +479,7 @@ namespace Ringtoets.Piping.Plugin
         {
             return new ArrayList
             {
-                new PipingFailureMechanismResultContext(failureMechanism.AssessmentResult, failureMechanism)
+                failureMechanism.PipingFailureMechanismSectionResults
             };
         }
 

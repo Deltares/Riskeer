@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
@@ -36,7 +39,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual("Berekeningen", piping.CalculationsGroup.Name);
             Assert.AreEqual(1, piping.CalculationsGroup.Children.Count);
             Assert.IsInstanceOf<PipingCalculation>(piping.CalculationsGroup.Children.First());
-            Assert.IsInstanceOf<PipingFailureMechanismResult>(piping.AssessmentResult);
         }
 
         [Test]
@@ -192,6 +194,69 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, folder);
+        }
+
+        [Test]
+        public void AddSection_SectionIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            // Call
+            TestDelegate call = () => failureMechanism.AddSection(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void AddSection_SectionValid_SectionAddedSectionResults()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            });
+
+            // Precondition
+            Assert.AreEqual(0, failureMechanism.PipingFailureMechanismSectionResults.Count);
+
+            // Call
+            failureMechanism.AddSection(section);
+
+            // Assert
+            Assert.AreEqual(1, failureMechanism.PipingFailureMechanismSectionResults.Count);
+        }
+
+        [Test]
+        public void AddSection_SecondSectionDoesNotConnectToFirst_ThrowArgumentException()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var section1 = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+                
+            });
+            var section2 = new FailureMechanismSection("B", new[]
+            {
+                new Point2D(5, 6),
+                new Point2D(7, 8)
+            });
+
+            failureMechanism.AddSection(section1);
+
+            // Call
+            TestDelegate call = () => failureMechanism.AddSection(section2);
+
+            // Assert
+            string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het faalmechanisme.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
     }
 }
