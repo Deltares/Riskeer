@@ -17,16 +17,18 @@ namespace Ringtoets.Piping.Forms
         /// <paramref name="surfaceLines"/> and the <paramref name="soilModels"/>.
         /// </summary>
         /// <param name="surfaceLines">Surface lines to generate the structure for and to use to configure <see cref="PipingCalculation"/>
-        /// with.</param>
+        ///     with.</param>
         /// <param name="soilModels">The soil models from which profiles are taken to configure <see cref="PipingCalculation"/> with.</param>
+        /// <param name="generalInput"></param>
+        /// <param name="semiProbabilisticInput"></param>
         /// <returns></returns>
-        public static IEnumerable<IPipingCalculationItem> GenerateCalculationsStructure(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels)
+        public static IEnumerable<IPipingCalculationItem> GenerateCalculationsStructure(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
         {
             if (surfaceLines == null)
             {
                 return Enumerable.Empty<IPipingCalculationItem>();
             }
-            var pipingCalculationGroups = surfaceLines.Select(sl => CreateCalculationGroup(sl, soilModels));
+            var pipingCalculationGroups = surfaceLines.Select(sl => CreateCalculationGroup(sl, soilModels, generalInput, semiProbabilisticInput));
             return pipingCalculationGroups;
         }
 
@@ -58,26 +60,26 @@ namespace Ringtoets.Piping.Forms
             return soilProfileObjectsForCalculation;
         }
 
-        private static IPipingCalculationItem CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels)
+        private static IPipingCalculationItem CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
         {
             var pipingCalculationGroup = new PipingCalculationGroup(surfaceLine.Name, true);
             if (soilModels != null)
             {
                 foreach (var profile in GetPipingSoilProfilesForSurfaceLine(surfaceLine, soilModels))
                 {
-                    pipingCalculationGroup.Children.Add(CreatePipingCalculation(surfaceLine, profile, pipingCalculationGroup.Children));
+                    pipingCalculationGroup.Children.Add(CreatePipingCalculation(surfaceLine, profile, pipingCalculationGroup.Children, generalInput, semiProbabilisticInput));
                 }
             }
 
             return pipingCalculationGroup;
         }
 
-        private static IPipingCalculationItem CreatePipingCalculation(RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile profile, IEnumerable<IPipingCalculationItem> calculations)
+        private static IPipingCalculationItem CreatePipingCalculation(RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile profile, IEnumerable<IPipingCalculationItem> calculations, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
         {
             var nameBase = string.Format("{0} {1}", surfaceLine.Name, profile.Name);
             var name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
 
-            return new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            return new PipingCalculation(generalInput, semiProbabilisticInput)
             {
                 Name = name,
                 InputParameters =
