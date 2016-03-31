@@ -40,6 +40,7 @@ namespace Core.Common.Utils.IO
         /// <param name="assembly">The assembly that embeds the resources to write.</param>
         /// <param name="removeFilesOnDispose">Whether or not the files should be removed after disposing the created <see cref="EmbeddedResourceFileWriter"/> instance.</param>
         /// <param name="embeddedResourceFileNames">The names of the Embedded Resource files to (temporary) write to the Windows Temp directory.</param>
+        /// <exception cref="ArgumentException">An embedded resource file in <paramref name="embeddedResourceFileNames"/> cannot be found in <paramref name="assembly"/>.</exception>
         public EmbeddedResourceFileWriter(Assembly assembly, bool removeFilesOnDispose, params string[] embeddedResourceFileNames)
         {
             this.removeFilesOnDispose = removeFilesOnDispose;
@@ -55,7 +56,7 @@ namespace Core.Common.Utils.IO
         }
 
         /// <summary>
-        /// Gets the target folder path.
+        /// Gets the (automatically generated) target folder path.
         /// </summary>
         public string TargetFolderPath
         {
