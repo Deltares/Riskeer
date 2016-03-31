@@ -46,6 +46,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsNotNull(assessmentLevelCalculationInput.DikeSection);
             Assert.AreEqual(1, assessmentLevelCalculationInput.Variables.Count());
             CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ProfilePoints);
+            CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ForelandsPoints);
+            CollectionAssert.IsEmpty(assessmentLevelCalculationInput.BreakWaters);
             Assert.AreEqual(expectedBeta, assessmentLevelCalculationInput.Beta);
 
             var dikeSection = assessmentLevelCalculationInput.DikeSection;

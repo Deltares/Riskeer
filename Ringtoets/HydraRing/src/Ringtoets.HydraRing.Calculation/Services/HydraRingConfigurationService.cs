@@ -145,7 +145,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             configurationDictionary["PresentationSections"] = new List<OrderedDictionary>();
             configurationDictionary["Profiles"] = GetCalculationProfilesConfiguration();
             configurationDictionary["ForelandModels"] = new List<OrderedDictionary>();
-            configurationDictionary["Forelands"] = new List<OrderedDictionary>();
+            configurationDictionary["Forelands"] = GetForelandsConfiguration();
             configurationDictionary["ProbabilityAlternatives"] = new List<OrderedDictionary>();
             configurationDictionary["SetUpHeights"] = new List<OrderedDictionary>();
             configurationDictionary["CalcWindDirections"] = new List<OrderedDictionary>();
@@ -153,6 +153,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             configurationDictionary["WaveReductions"] = new List<OrderedDictionary>();
             configurationDictionary["Areas"] = GetAreasConfiguration();
             configurationDictionary["Projects"] = GetProjectsConfiguration();
+            configurationDictionary["Breakwaters"] = GetSectionBreakWatersConfiguration();
 
             return GenerateDataBaseCreationScript(configurationDictionary);
         }
@@ -478,6 +479,59 @@ namespace Ringtoets.HydraRing.Calculation.Services
             }
 
             return orderDictionaries;
+        }
+
+        private IList<OrderedDictionary> GetForelandsConfiguration()
+        {
+            var orderDictionaries = new List<OrderedDictionary>();
+            foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
+            {
+                for (var i = 0; i < hydraRingCalculationInput.ForelandsPoints.Count(); i++)
+                {
+                    var forelandPoint = hydraRingCalculationInput.ForelandsPoints.ElementAt(i);
+
+                    orderDictionaries.Add(new OrderedDictionary
+                    {
+                        {
+                            "SectionId", hydraRingCalculationInput.DikeSection.SectionId
+                        },
+                        {
+                            "SequenceNumber", i + 1
+                        },
+                        {
+                            "XCoordinate", GetHydraRingValue(forelandPoint.X)
+                        },
+                        {
+                            "ZCoordinate", GetHydraRingValue(forelandPoint.Z)
+                        }
+                    });
+                }
+            }
+            return orderDictionaries;
+        }
+
+        private IList<OrderedDictionary> GetSectionBreakWatersConfiguration()
+        {
+            var orderedDictionaries = new List<OrderedDictionary>();
+            foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
+            {
+                foreach (var breakwater in hydraRingCalculationInput.BreakWaters)
+                {
+                    orderedDictionaries.Add(new OrderedDictionary
+                    {
+                        {
+                            "SectionId", hydraRingCalculationInput.DikeSection.SectionId
+                        },
+                        {
+                            "Type", GetHydraRingValue(breakwater.Type)
+                        },
+                        {
+                            "Height", GetHydraRingValue(breakwater.Height)
+                        }
+                    });
+                }
+            }
+            return orderedDictionaries;
         }
 
         private IList<OrderedDictionary> GetSectionFaultTreeModelsConfiguration()

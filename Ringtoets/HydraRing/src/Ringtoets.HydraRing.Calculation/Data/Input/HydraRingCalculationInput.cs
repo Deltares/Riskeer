@@ -93,6 +93,28 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         }
 
         /// <summary>
+        /// Gets the foreland points to use during the calculation.
+        /// </summary>
+        public virtual IEnumerable<HydraRingForelandPoint> ForelandsPoints
+        {
+            get
+            {
+                yield break;
+            }
+        }
+
+        /// <summary>
+        /// Gets the break waters to use during the calculation.
+        /// </summary>
+        public virtual IEnumerable<HydraRingBreakwater> BreakWaters
+        {
+            get
+            {
+                yield break;
+            }
+        }
+
+        /// <summary>
         /// Gets the reliability index to use during the calculation.
         /// </summary>
         /// <remarks>Only relevant for type 2 computations.</remarks>

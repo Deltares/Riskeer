@@ -45,6 +45,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             Assert.AreEqual(1, targetProbabilityCalculationInputImplementation.DikeSection.SectionId);
             CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.Variables);
             CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.ProfilePoints);
+            CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.ForelandsPoints);
+            CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.BreakWaters);
             Assert.AreEqual(expectedBeta, targetProbabilityCalculationInputImplementation.Beta);
         }
 

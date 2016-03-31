@@ -42,6 +42,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             Assert.AreEqual(1, hydraRingCalculationInput.DikeSection.SectionId);
             CollectionAssert.IsEmpty(hydraRingCalculationInput.Variables);
             CollectionAssert.IsEmpty(hydraRingCalculationInput.ProfilePoints);
+            CollectionAssert.IsEmpty(hydraRingCalculationInput.ForelandsPoints);
+            CollectionAssert.IsEmpty(hydraRingCalculationInput.BreakWaters);
             Assert.IsNaN(hydraRingCalculationInput.Beta);
         }
 

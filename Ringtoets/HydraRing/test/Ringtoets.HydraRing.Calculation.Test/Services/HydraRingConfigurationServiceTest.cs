@@ -94,6 +94,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "DELETE FROM [ForelandModels];" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Forelands];" + Environment.NewLine +
+                                         "INSERT INTO [Forelands] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Forelands] VALUES (1, 2, 2.2, 3.3);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [ProbabilityAlternatives];" + Environment.NewLine +
                                          Environment.NewLine +
@@ -109,7 +111,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Projects];" + Environment.NewLine +
-                                         "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine;
+                                         "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Breakwaters];" + Environment.NewLine +
+                                         "INSERT INTO [Breakwaters] VALUES (1, 1, 99.9);" + Environment.NewLine +
+                                         "INSERT INTO [Breakwaters] VALUES (1, 3, 20.2);" + Environment.NewLine;
 
             // Call
             var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
@@ -201,6 +207,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "DELETE FROM [ForelandModels];" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Forelands];" + Environment.NewLine +
+                                         "INSERT INTO [Forelands] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Forelands] VALUES (1, 2, 2.2, 3.3);" + Environment.NewLine +
+                                         "INSERT INTO [Forelands] VALUES (2, 1, 1.1, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Forelands] VALUES (2, 2, 2.2, 3.3);" + Environment.NewLine +
+                                         "INSERT INTO [Forelands] VALUES (3, 1, 1.1, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Forelands] VALUES (3, 2, 2.2, 3.3);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [ProbabilityAlternatives];" + Environment.NewLine +
                                          Environment.NewLine +
@@ -216,7 +228,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [Areas] VALUES (1, '1', 'Nederland');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Projects];" + Environment.NewLine +
-                                         "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine;
+                                         "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine +
+                                         Environment.NewLine +
+                                         "DELETE FROM [Breakwaters];" + Environment.NewLine +
+                                         "INSERT INTO [Breakwaters] VALUES (1, 1, 99.9);" + Environment.NewLine +
+                                         "INSERT INTO [Breakwaters] VALUES (1, 3, 20.2);" + Environment.NewLine +
+                                         "INSERT INTO [Breakwaters] VALUES (2, 1, 99.9);" + Environment.NewLine +
+                                         "INSERT INTO [Breakwaters] VALUES (2, 3, 20.2);" + Environment.NewLine +
+                                         "INSERT INTO [Breakwaters] VALUES (3, 1, 99.9);" + Environment.NewLine +
+                                         "INSERT INTO [Breakwaters] VALUES (3, 3, 20.2);" + Environment.NewLine;
 
             // Call
             var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
@@ -285,6 +305,24 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                 {
                     yield return new HydraRingProfilePointDerivative(1.1, 2.2, 3.3);
                     yield return new HydraRingProfilePointDerivative(11.1, 22.2, 33.3);
+                }
+            }
+
+            public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
+            {
+                get
+                {
+                    yield return new HydraRingForelandPoint(1.1, 2.2);
+                    yield return new HydraRingForelandPoint(2.2, 3.3);
+                }
+            }
+
+            public override IEnumerable<HydraRingBreakwater> BreakWaters
+            {
+                get
+                {
+                    yield return new HydraRingBreakwater(1, 99.9);
+                    yield return new HydraRingBreakwater(3, 20.2);
                 }
             }
 
