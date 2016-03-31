@@ -677,11 +677,12 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen profielschematisaties beschikbaar om berekeningen voor te genereren..
+        ///   Looks up a localized string similar to Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren..
         /// </summary>
-        public static string PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLines_ToolTip {
+        public static string PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip {
             get {
-                return ResourceManager.GetString("PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLines_ToolTip", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_Too" +
+                        "lTip", resourceCulture);
             }
         }
         

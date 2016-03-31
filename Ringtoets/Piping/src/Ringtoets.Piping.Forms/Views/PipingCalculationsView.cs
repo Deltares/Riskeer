@@ -65,8 +65,8 @@ namespace Ringtoets.Piping.Forms.Views
             InitializeDataGridView();
             InitializeListBox();
 
-            pipingSoilProfilesObserver = new Observer(UpdateSoilProfileColumn);
-            pipingFailureMechanismObserver = new Observer(UpdateDikeSectionsListBox);
+            pipingSoilProfilesObserver = new Observer(OnSoilProfilesUpdate);
+            pipingFailureMechanismObserver = new Observer(OnPipingFailureMechanismUpdate);
             assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryLocationsColumn);
             pipingInputObserver = new RecursiveObserver<PipingCalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculation>().Select(pc => pc.InputParameters)));
             pipingCalculationObserver = new RecursiveObserver<PipingCalculationGroup, PipingCalculation>(RefreshDataGridView, pcg => pcg.Children);
@@ -91,6 +91,7 @@ namespace Ringtoets.Piping.Forms.Views
 
                 UpdateSoilProfileColumn();
                 UpdateDikeSectionsListBox();
+                UpdateGenerateScenariosButtonState();
             }
         }
 
@@ -248,6 +249,12 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
+        private void OnSoilProfilesUpdate()
+        {
+            UpdateGenerateScenariosButtonState();
+            UpdateSoilProfileColumn();
+        }
+
         private void UpdateSoilProfileColumn()
         {
             using (new SuspendDataGridViewColumnResizes(soilProfileColumn))
@@ -257,6 +264,11 @@ namespace Ringtoets.Piping.Forms.Views
                     FillAvailableSoilProfilesList(dataGridViewRow);
                 }
             }
+        }
+
+        private void UpdateGenerateScenariosButtonState()
+        {
+            buttonGenerateScenarios.Enabled = pipingFailureMechanism != null && pipingFailureMechanism.SurfaceLines.Any() && pipingFailureMechanism.StochasticSoilModels.Any();
         }
 
         private void RefreshDataGridView()
@@ -347,6 +359,12 @@ namespace Ringtoets.Piping.Forms.Views
         {
             objectCollection.Clear();
             objectCollection.AddRange(comboBoxItems);
+        }
+
+        private void OnPipingFailureMechanismUpdate()
+        {
+            UpdateGenerateScenariosButtonState();
+            UpdateDikeSectionsListBox();
         }
 
         private void UpdateDikeSectionsListBox()
@@ -565,6 +583,18 @@ namespace Ringtoets.Piping.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
+        private void OnGenerateScenariosButtonClick(object sender, EventArgs e)
+        {
+            var dialog = new PipingSurfaceLineSelectionDialog(Parent, pipingFailureMechanism.SurfaceLines);
+            dialog.ShowDialog();
+            foreach(var item in PipingCalculationConfigurationHelper.GenerateCalculationsStructure(dialog.SelectedSurfaceLines, pipingFailureMechanism.StochasticSoilModels))
+            {
+                pipingCalculationGroup.Children.Add(item);
+            }
+            pipingCalculationGroup.NotifyObservers();
+        }
+
         # endregion
+
     }
 }

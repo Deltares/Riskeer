@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -530,6 +529,49 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                             new []
+                                                             {
+                                                                 new TestStochasticSoilModel()
+                                                             },
+                                                             pipingFailureMechanismMock,
+                                                             assessmentSectionMock);
+
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            // Call
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(menu, 1,
+                                                          PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations,
+                                                          PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip,
+                                                          PipingFormsResources.GeneratePipingCalculationsIcon,
+                                                          false);
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismAsParentWithoutAvailableSoilModels_GenerateCalculationsDisabled()
+        {
+            // Setup
+            var gui = mocks.StrictMock<IGui>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var group = new PipingCalculationGroup();
+
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+
+            var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             new[]
+                                                             {
+                                                                 new RingtoetsPipingSurfaceLine()
+                                                             },
                                                              Enumerable.Empty<StochasticSoilModel>(),
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
@@ -548,13 +590,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menu, 1,
                                                           PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations,
-                                                          PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLines_ToolTip,
+                                                          PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip,
                                                           PipingFormsResources.GeneratePipingCalculationsIcon,
                                                           false);
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismAsParentWithAvailableSurfaceLines_GenerateCalculationsDisabled()
+        public void ContextMenuStrip_FailureMechanismAsParentWithAvailableSurfaceLinesAndSoilModels_GenerateCalculationsDisabled()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
@@ -570,7 +612,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              {
                                                                  new RingtoetsPipingSurfaceLine()
                                                              },
-                                                             Enumerable.Empty<StochasticSoilModel>(),
+                                                             new[]
+                                                             {
+                                                                 new TestStochasticSoilModel()
+                                                             },
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
 
@@ -934,7 +979,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_ClickOnGenerateCalculationsItemWithSurfaceLines_ShowSurfaceLineSelectionView()
+        public void ContextMenuStrip_ClickOnGenerateCalculationsItemWithSurfaceLinesAndSoilModels_ShowSurfaceLineSelectionView()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
@@ -962,7 +1007,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             };
             var nodeData = new PipingCalculationGroupContext(group,
                                                              surfaceLines,
-                                                             Enumerable.Empty<StochasticSoilModel>(),
+                                                             new []
+                                                             {
+                                                                 new TestStochasticSoilModel()
+                                                             },
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
 
