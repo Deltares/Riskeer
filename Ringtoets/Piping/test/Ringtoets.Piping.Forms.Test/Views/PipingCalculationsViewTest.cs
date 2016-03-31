@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -33,6 +34,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 
@@ -114,6 +116,19 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(0, listBox.Items.Count);
+        }
+
+        [Test]
+        public void Data_SetToNull_DoesNotThrow()
+        {
+            // Setup
+            var pipingCalculationsView = ShowPipingCalculationsView();
+
+            // Call
+            var testDelegate = new TestDelegate(() => pipingCalculationsView.Data = null);
+
+            // Assert
+            Assert.DoesNotThrow(testDelegate);
         }
 
         [Test]
@@ -292,6 +307,29 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(string.Format("{0}", 8.89), cells[exitPointLColumnIndex].FormattedValue);
         }
 
+        [Test]
+        public void PipingCalculationsView_EnteringRow_ApplicationSelectionCorrectlySynced()
+        {
+            // Setup
+            var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
+
+            pipingCalculationsView.ApplicationSelection = new ApplicationSelectionImplementation();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Precondition
+            Assert.IsNull(pipingCalculationsView.ApplicationSelection.Selection);
+
+            // Call
+            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
+            dataGridView.BeginEdit(true);
+
+            // Assert
+            var pipingInputContext = pipingCalculationsView.ApplicationSelection.Selection as PipingInputContext;
+            Assert.IsNotNull(pipingInputContext);
+            Assert.AreEqual("Surface line 2", pipingInputContext.WrappedData.SurfaceLine.Name);
+        }
+
         [TestCase(nameColumnIndex, "New name", 1, 0)]
         [TestCase(soilProfilesColumnIndex, null, 0, 1)]
         [TestCase(hydraulicBoundaryLocationsColumnIndex, null, 0, 1)]
@@ -346,6 +384,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var surfaceLine1 = new RingtoetsPipingSurfaceLine
             {
+                Name = "Surface line 1",
                 ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
             };
 
@@ -358,6 +397,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var surfaceLine2 = new RingtoetsPipingSurfaceLine
             {
+                Name = "Surface line 2",
                 ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
             };
 
@@ -521,6 +561,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
             testForm.Show();
 
             return pipingCalculationsView;
+        }
+
+        private class ApplicationSelectionImplementation : IApplicationSelection
+        {
+            public object Selection { get; set; }
+
+            public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged;
         }
     }
 }
