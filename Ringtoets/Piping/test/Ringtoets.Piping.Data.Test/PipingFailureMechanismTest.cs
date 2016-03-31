@@ -36,8 +36,7 @@ namespace Ringtoets.Piping.Data.Test
             CollectionAssert.IsEmpty(piping.StochasticSoilModels);
             Assert.IsInstanceOf<ObservableList<StochasticSoilModel>>(piping.StochasticSoilModels);
             Assert.AreEqual("Berekeningen", piping.CalculationsGroup.Name);
-            Assert.AreEqual(1, piping.CalculationsGroup.Children.Count);
-            Assert.IsInstanceOf<PipingCalculation>(piping.CalculationsGroup.Children.First());
+            Assert.IsEmpty(piping.CalculationsGroup.Children);
         }
 
         [Test]
