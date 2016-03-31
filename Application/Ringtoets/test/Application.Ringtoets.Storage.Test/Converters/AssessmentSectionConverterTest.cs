@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        public void ConvertEntityToModel_ValidAssessmentSectionEntity_ReturnsTheDikeAssessmentSectionEntityAsDikeAssessmentSection()
+        public void ConvertEntityToModel_ValidAssessmentSectionEntity_ReturnsTheAssessmentSectionEntityAsAssessmentSection()
         {
             // Setup
             const long storageId = 1234L;
@@ -116,7 +116,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        public void ConvertModelToEntity_ValidAssessmentSection_UpdatesTheDikeAssessmentSectionAsDikeAssessmentSectionEntity()
+        public void ConvertModelToEntity_ValidAssessmentSection_UpdatesTheAssessmentSectionAsAssessmentSectionEntity()
         {
             // Setup
             const long storageId = 1234L;

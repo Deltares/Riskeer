@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             // Setup
             string expectedProjectName = "tempProjectFile";
             string expectedDescription = "description";
-            string expectedDikeAssessmentSectionName = "assessmentSection";
+            string expectedAssessmentSectionName = "assessmentSection";
 
             string hydraulicDatabaseFilePath = "/temp/test";
             string hydraulicDatabaseVersion = "1.0";
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             AssessmentSection assessmentSection = project.Items.OfType<AssessmentSection>().FirstOrDefault();
             Assert.NotNull(assessmentSection);
-            Assert.AreEqual(expectedDikeAssessmentSectionName, assessmentSection.Name);
+            Assert.AreEqual(expectedAssessmentSectionName, assessmentSection.Name);
             
             Assert.NotNull(assessmentSection.HydraulicBoundaryDatabase);
             Assert.AreEqual(hydraulicDatabaseVersion, assessmentSection.HydraulicBoundaryDatabase.Version);

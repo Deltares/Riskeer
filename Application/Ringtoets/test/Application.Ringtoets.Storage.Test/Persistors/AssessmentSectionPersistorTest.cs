@@ -910,11 +910,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 });
             }
 
-            foreach (var dikeAssessmentSection in assessmentSections)
+            foreach (var assessmentSection in assessmentSections)
             {
                 try
                 {
-                    persistor.UpdateModel(insertedAssessmentSectionEntities, dikeAssessmentSection, 0);
+                    persistor.UpdateModel(insertedAssessmentSectionEntities, assessmentSection, 0);
                 }
                 catch (Exception)
                 {
