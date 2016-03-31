@@ -721,4 +721,19 @@
   <data name="PipingCalculationGroup_Generate_PipingCalculations_ToolTip" xml:space="preserve">
     <value>Genereer scenario's op basis van geselecteerde profielschematisaties.</value>
   </data>
+  <data name="PipingFailureMechanismResultView_InitializeDataGridView_Section_name" xml:space="preserve">
+    <value>Vak (naam)</value>
+  </data>
+  <data name="PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_one" xml:space="preserve">
+    <value>Toetslaag 1</value>
+  </data>
+  <data name="PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b" xml:space="preserve">
+    <value>Toetslaag 2b</value>
+  </data>
+  <data name="PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a" xml:space="preserve">
+    <value>Toetslaag 2a</value>
+  </data>
+  <data name="PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_three" xml:space="preserve">
+    <value>Toetslaag 3</value>
+  </data>
 </root>

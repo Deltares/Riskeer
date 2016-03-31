@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Data
             }
         }
 
-        public void AddSection(FailureMechanismSection section)
+        public virtual void AddSection(FailureMechanismSection section)
         {
             if (section == null)
             {

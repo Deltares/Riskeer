@@ -831,6 +831,51 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toetslaag 1.
+        /// </summary>
+        public static string PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_one {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_one", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetslaag 3.
+        /// </summary>
+        public static string PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_three {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_three", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetslaag 2a.
+        /// </summary>
+        public static string PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetslaag 2b.
+        /// </summary>
+        public static string PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vak (naam).
+        /// </summary>
+        public static string PipingFailureMechanismResultView_InitializeDataGridView_Section_name {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismResultView_InitializeDataGridView_Section_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap PipingIcon {

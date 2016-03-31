@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
-using Ringtoets.Common.Placeholder;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
@@ -35,6 +33,8 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingFailureMechanism : BaseFailureMechanism
     {
+        private List<PipingFailureMechanismSectionResult> pipingFailureMechanismSectionResults;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
         /// </summary>
@@ -49,6 +49,7 @@ namespace Ringtoets.Piping.Data
             pipingCalculationGroup.Children.Add(new PipingCalculation(GeneralInput, SemiProbabilisticInput));
             CalculationsGroup = pipingCalculationGroup;
             AssessmentResult = new PipingFailureMechanismResult();
+            pipingFailureMechanismSectionResults = new List<PipingFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculationItem> CalculationItems
@@ -69,6 +70,13 @@ namespace Ringtoets.Piping.Data
             {
                 SemiProbabilisticInput.Contribution = value;
             }
+        }
+
+        public override void AddSection(FailureMechanismSection section)
+        {
+            base.AddSection(section);
+
+            pipingFailureMechanismSectionResults.Add(new PipingFailureMechanismSectionResult(section));
         }
 
         /// <summary>
