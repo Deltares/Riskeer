@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -30,7 +29,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
-using Core.Common.Gui.Properties;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -79,6 +77,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = PipingFormsResources.PipingIcon,
                 CloseForData = ClosePipingFailureMechanismViewForData
             };
+
             yield return new ViewInfo<PipingCalculationGroupContext, PipingCalculationGroup, PipingCalculationsView>
             {
                 GetViewData = context => context.WrappedData,
@@ -94,7 +93,7 @@ namespace Ringtoets.Piping.Plugin
                 }
             };
 
-            yield return new ViewInfo<List<PipingFailureMechanismSectionResult>, PipingFailureMechanismResultView>
+            yield return new ViewInfo<List<FailureMechanismSectionResult>, PipingFailureMechanismResultView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -251,7 +250,7 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<List<PipingFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<List<FailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -307,7 +306,7 @@ namespace Ringtoets.Piping.Plugin
 
                 if (pipingFailureMechanism != null)
                 {
-                    return view.Data == pipingFailureMechanism.PipingFailureMechanismSectionResults;
+                    return view.Data == pipingFailureMechanism.SectionResults;
                 }
             }
 
@@ -482,7 +481,7 @@ namespace Ringtoets.Piping.Plugin
         {
             return new ArrayList
             {
-                failureMechanism.PipingFailureMechanismSectionResults
+                failureMechanism.SectionResults
             };
         }
 

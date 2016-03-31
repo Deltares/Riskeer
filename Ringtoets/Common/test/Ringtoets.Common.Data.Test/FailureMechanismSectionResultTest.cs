@@ -22,12 +22,11 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Ringtoets.Common.Data.Test
 {
     [TestFixture]
-    public class PipingFailureMechanismSectionResultTest
+    public class FailureMechanismSectionResultTest
     {
         [Test]
         public void Constructor_DefaultValues()
@@ -43,7 +42,7 @@ namespace Ringtoets.Piping.Data.Test
 
 
             // Call
-            var sectionResult = new PipingFailureMechanismSectionResult(section);
+            var sectionResult = new FailureMechanismSectionResult(section);
 
             // Assert
             Assert.AreSame(section, sectionResult.Section);
@@ -53,7 +52,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PipingFailureMechanismSectionResult(null);
+            TestDelegate call = () => new FailureMechanismSectionResult(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

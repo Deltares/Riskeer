@@ -24,17 +24,17 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
-using Ringtoets.Piping.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="PipingFailureMechanismSectionResult"/>.
+    /// The view for the <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
     public partial class PipingFailureMechanismResultView : UserControl, IView
     {
-        private List<PipingFailureMechanismSectionResult> pipingFailureMechanismSectionResult;
+        private List<FailureMechanismSectionResult> pipingFailureMechanismSectionResult;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
-                pipingFailureMechanismSectionResult = value as List<PipingFailureMechanismSectionResult>;
+                pipingFailureMechanismSectionResult = value as List<FailureMechanismSectionResult>;
 
                 if (pipingFailureMechanismSectionResult != null)
                 {
@@ -124,18 +124,18 @@ namespace Ringtoets.Piping.Forms.Views
 
         private class PipingFailureMechanismSectionResultRow
         {
-            private readonly PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult;
+            private readonly FailureMechanismSectionResult failureMechanismSectionResult;
 
-            public PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult)
+            public PipingFailureMechanismSectionResultRow(FailureMechanismSectionResult failureMechanismSectionResult)
             {
-                this.pipingFailureMechanismSectionResult = pipingFailureMechanismSectionResult;
+                this.failureMechanismSectionResult = failureMechanismSectionResult;
             }
 
             public string Name
             {
                 get
                 {
-                    return pipingFailureMechanismSectionResult.Section.Name;
+                    return failureMechanismSectionResult.Section.Name;
                 }
             }
 
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 get
                 {
-                    return pipingFailureMechanismSectionResult.AssessmentLayerOne;
+                    return failureMechanismSectionResult.AssessmentLayerOne;
                 }
             }
 

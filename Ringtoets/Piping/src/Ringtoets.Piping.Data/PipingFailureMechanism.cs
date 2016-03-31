@@ -33,8 +33,6 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingFailureMechanism : BaseFailureMechanism
     {
-        private readonly List<PipingFailureMechanismSectionResult> pipingFailureMechanismSectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
         /// </summary>
@@ -48,7 +46,6 @@ namespace Ringtoets.Piping.Data
             var pipingCalculationGroup = new PipingCalculationGroup(PipingDataResources.PipingFailureMechanism_Calculations_DisplayName, false);
             pipingCalculationGroup.Children.Add(new PipingCalculation(GeneralInput, SemiProbabilisticInput));
             CalculationsGroup = pipingCalculationGroup;
-            pipingFailureMechanismSectionResults = new List<PipingFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculationItem> CalculationItems
@@ -96,23 +93,5 @@ namespace Ringtoets.Piping.Data
         /// in a semi-probabilistic assessment.
         /// </summary>
         public SemiProbabilisticPipingInput SemiProbabilisticInput { get; set; }
-
-        /// <summary>
-        /// Gets the piping failure mechanism section results.        
-        /// </summary>
-        public List<PipingFailureMechanismSectionResult> PipingFailureMechanismSectionResults
-        {
-            get
-            {
-                return pipingFailureMechanismSectionResults;
-            }
-        }
-
-        public override void AddSection(FailureMechanismSection section)
-        {
-            base.AddSection(section);
-
-            pipingFailureMechanismSectionResults.Add(new PipingFailureMechanismSectionResult(section));
-        }
     }
 }

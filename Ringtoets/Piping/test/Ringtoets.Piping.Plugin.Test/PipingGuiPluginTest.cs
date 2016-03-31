@@ -29,6 +29,7 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -158,7 +159,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSemiProbabilisticOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyPipingOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyPipingCalculationReport)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(List<PipingFailureMechanismSectionResult>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(List<FailureMechanismSectionResult>)));
             }
             mocks.VerifyAll();
         }

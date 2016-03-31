@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
             CollectionAssert.AreEqual(new object[]
             {
-                pipingFailureMechanism.PipingFailureMechanismSectionResults
+                pipingFailureMechanism.SectionResults
             }, outputsFolder.Contents);
             mocks.VerifyAll();
         }

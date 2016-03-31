@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             };
 
             var section = new FailureMechanismSection("test", points);
-            var testData = new List<PipingFailureMechanismSectionResult> { new PipingFailureMechanismSectionResult(section) };
+            var testData = new List<FailureMechanismSectionResult> { new FailureMechanismSectionResult(section) };
 
             var view = new PipingFailureMechanismResultView();
 
@@ -174,7 +174,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }));
 
             var pipingFailureMechanismResultView = ShowFailureMechanismResultsView();
-            pipingFailureMechanismResultView.Data = pipingFailureMechanism.PipingFailureMechanismSectionResults;
+            pipingFailureMechanismResultView.Data = pipingFailureMechanism.SectionResults;
 
             return pipingFailureMechanismResultView;
         }

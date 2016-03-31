@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base;
 using Ringtoets.Common.Data.Properties;
 
@@ -34,8 +33,9 @@ namespace Ringtoets.Common.Data
     /// </summary>
     public abstract class BaseFailureMechanism : Observable, IFailureMechanism
     {
-        private double contribution;
         private readonly List<FailureMechanismSection> sections;
+        private readonly List<FailureMechanismSectionResult> sectionResults;
+        private double contribution;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseFailureMechanism"/> class.
@@ -45,6 +45,18 @@ namespace Ringtoets.Common.Data
         {
             Name = failureMechanismName;
             sections = new List<FailureMechanismSection>();
+            sectionResults = new List<FailureMechanismSectionResult>();
+        }
+
+        /// <summary>
+        /// Gets the failure mechanism section results.
+        /// </summary>
+        public List<FailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
         }
 
         /// <summary>
@@ -80,7 +92,12 @@ namespace Ringtoets.Common.Data
             }
         }
 
-        public virtual void AddSection(FailureMechanismSection section)
+        /// <summary>
+        /// Gets or sets the unique identifier for the storage of the class.
+        /// </summary>
+        public long StorageId { get; set; }
+
+        public void AddSection(FailureMechanismSection section)
         {
             if (section == null)
             {
@@ -95,6 +112,13 @@ namespace Ringtoets.Common.Data
             {
                 InsertSectionWhileMaintainingConnectivityOrder(section);
             }
+
+            sectionResults.Add(new FailureMechanismSectionResult(section));
+        }
+
+        public void ClearAllSections()
+        {
+            sections.Clear();
         }
 
         /// <summary>
@@ -122,15 +146,5 @@ namespace Ringtoets.Common.Data
                 throw new ArgumentException(message, "sectionToInsert");
             }
         }
-
-        public void ClearAllSections()
-        {
-            sections.Clear();
-        }
-
-        /// <summary>
-        /// Gets or sets the unique identifier for the storage of the class.
-        /// </summary>
-        public long StorageId { get; set; }
     }
 }

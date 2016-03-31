@@ -20,23 +20,22 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data;
 
-namespace Ringtoets.Piping.Data
+namespace Ringtoets.Common.Data
 {
     /// <summary>
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public class PipingFailureMechanismSectionResult
+    public class FailureMechanismSectionResult
     {
         private readonly FailureMechanismSection section;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionResult(FailureMechanismSection section)
+        public FailureMechanismSectionResult(FailureMechanismSection section)
         {
             if (section == null)
             {

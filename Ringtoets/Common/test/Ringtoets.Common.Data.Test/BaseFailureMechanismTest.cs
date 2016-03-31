@@ -182,6 +182,58 @@ namespace Ringtoets.Common.Data.Test
         }
 
         [Test]
+        public void AddSection_SectionValid_SectionAddedSectionResults()
+        {
+            // Setup
+            var failureMechanism = new SimpleBaseFailureMechanism("");
+
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            });
+
+            // Precondition
+            Assert.AreEqual(0, failureMechanism.SectionResults.Count);
+
+            // Call
+            failureMechanism.AddSection(section);
+
+            // Assert
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count);
+        }
+
+        [Test]
+        public void PipingFailureMechanismSectionResults_Always_ReturnsPipingFailureMechanismSectionResults()
+        {
+            // Setup
+            var failureMechanism = new SimpleBaseFailureMechanism("");
+
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            });
+
+            var section2 = new FailureMechanismSection("B", new[]
+            {
+                new Point2D(3, 4),
+                new Point2D(7, 8)
+            });
+
+            failureMechanism.AddSection(section);
+            failureMechanism.AddSection(section2);
+
+            // Call
+            var data = failureMechanism.SectionResults;
+
+            // Assert
+            Assert.AreEqual(2, data.Count);
+            Assert.AreEqual(section, data[0].Section);
+            Assert.AreEqual(section2, data[1].Section);
+        }
+
+        [Test]
         public void ClearAllSections_HasSections_ClearSections()
         {
             // Setup
