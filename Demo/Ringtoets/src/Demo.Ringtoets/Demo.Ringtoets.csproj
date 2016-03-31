@@ -51,7 +51,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Commands\AddNewDemoDikeAssessmentSectionCommand.cs" />
-    <Compile Include="Commands\AddNewDemoDuneAssessmentSectionCommand.cs" />
     <Compile Include="Commands\OpenChartViewCommand.cs" />
     <Compile Include="Commands\OpenMapViewCommand.cs" />
     <Compile Include="GUIs\DemoProjectGuiPlugin.cs" />

@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Plugin.Test
             var dataItemDefinitions = plugin.GetDataItemInfos().ToArray();
 
             // assert
-            Assert.AreEqual(2, dataItemDefinitions.Length);
+            Assert.AreEqual(1, dataItemDefinitions.Length);
 
             DataItemInfo dikeAssessmentSectionDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(DikeAssessmentSection));
             Assert.AreEqual("Dijktraject", dikeAssessmentSectionDataItemDefinition.Name);
@@ -45,13 +45,6 @@ namespace Ringtoets.Integration.Plugin.Test
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, dikeAssessmentSectionDataItemDefinition.Image);
             Assert.IsNull(dikeAssessmentSectionDataItemDefinition.AdditionalOwnerCheck);
             Assert.IsInstanceOf<DikeAssessmentSection>(dikeAssessmentSectionDataItemDefinition.CreateData(new Project()));
-
-            DataItemInfo duneAssessmentDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(DuneAssessmentSection));
-            Assert.AreEqual("Duintraject", duneAssessmentDataItemDefinition.Name);
-            Assert.AreEqual("Algemeen", duneAssessmentDataItemDefinition.Category);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, duneAssessmentDataItemDefinition.Image);
-            Assert.IsNull(duneAssessmentDataItemDefinition.AdditionalOwnerCheck);
-            Assert.IsInstanceOf<DuneAssessmentSection>(duneAssessmentDataItemDefinition.CreateData(new Project()));
         }
 
         [Test]
@@ -70,50 +63,28 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        [TestCase(AssessmentSectionType.Dike)]
-        [TestCase(AssessmentSectionType.Dune)]
-        public void WhenAddingAssessmentSection_GivenProjectHasAssessmentSection_ThenAddedAssessmentSectionHasUniqueName(AssessmentSectionType type)
+        public void WhenAddingAssessmentSection_GivenProjectHasAssessmentSection_ThenAddedAssessmentSectionHasUniqueName()
         {
             // Setup
             var project = new Project();
 
             var plugin = new RingtoetsApplicationPlugin();
-            AddAssessmentSectionToProject(project, plugin, type);
+            AddAssessmentSectionToProject(project, plugin);
 
             // Call
-            AddAssessmentSectionToProject(project, plugin, type);
+            AddAssessmentSectionToProject(project, plugin);
 
             // Assert
             CollectionAssert.AllItemsAreUnique(project.Items.Cast<AssessmentSectionBase>().Select(section => section.Name));
         }
 
-        private void AddAssessmentSectionToProject(Project project, RingtoetsApplicationPlugin plugin, AssessmentSectionType type)
+        private void AddAssessmentSectionToProject(Project project, RingtoetsApplicationPlugin plugin)
         {
-            object itemToAdd = null;
-            switch (type)
-            {
-                case AssessmentSectionType.Dike:
-                    itemToAdd = plugin.GetDataItemInfos().First(di => di.ValueType == typeof(DikeAssessmentSection)).CreateData(project);
-                    break;
-                case AssessmentSectionType.Dune:
-                    itemToAdd = plugin.GetDataItemInfos().First(di => di.ValueType == typeof(DuneAssessmentSection)).CreateData(project);
-                    break;
-            }
+            var itemToAdd = plugin.GetDataItemInfos()
+                                  .First(di => di.ValueType == typeof(DikeAssessmentSection))
+                                  .CreateData(project);
 
             project.Items.Add(itemToAdd);
-        }
-
-        public enum AssessmentSectionType
-        {
-            /// <summary>
-            /// Type value representing <see cref="DikeAssessmentSection"/> instances.
-            /// </summary>
-            Dike,
-
-            /// <summary>
-            /// Type value representing <see cref="DuneAssessmentSection"/> instances.
-            /// </summary>
-            Dune
         }
     }
 }

@@ -93,17 +93,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertHydraulicBoundaryDatabase(firstProjectDike[i], secondProjectDike[i]);
                 AssertReferenceLine(firstProjectDike[i], secondProjectDike[i]);
             }
-
-            var firstProjectDune = firstProject.Items.OfType<DuneAssessmentSection>().ToList();
-            var secondProjectDune = secondProject.Items.OfType<DuneAssessmentSection>().ToList();
-            Assert.AreEqual(firstProjectDune.Count, secondProjectDune.Count);
-            for (var i = 0; i < firstProjectDune.Count; i++)
-            {
-                Assert.AreEqual(firstProjectDune[i].StorageId, secondProjectDune[i].StorageId);
-                Assert.AreEqual(firstProjectDune[i].Name, secondProjectDune[i].Name);
-
-                AssertHydraulicBoundaryDatabase(firstProjectDune[i], secondProjectDune[i]);
-            }
         }
 
         [Test]

@@ -22,11 +22,10 @@
         <fluent:RibbonTabItem Header="{x:Static resx:Resources.Demo}" fluent:KeyTip.Keys="D">
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.ExampleData}" fluent:KeyTip.Keys="E" Height="Auto">
                 <fluent:Button LargeIcon="pack://application:,,,/Demo.Ringtoets;component/Resources/folder-horizontal_large.png" Icon="pack://application:,,,/Demo.Ringtoets;component/Resources/folder-horizontal.png" Header="{x:Static resx:Resources.DemoDikeAssessmentSection}" SizeDefinition="Large,Medium,Small" KeyTip="P" Click="AddNewDemoDikeAssessmentSectionButton_Click"/>
-                <fluent:Button LargeIcon="pack://application:,,,/Demo.Ringtoets;component/Resources/folder-horizontal_large.png" Icon="pack://application:,,,/Demo.Ringtoets;component/Resources/folder-horizontal.png" Header="{x:Static resx:Resources.DemoDuneAssessmentSection}" SizeDefinition="Large,Medium,Small" KeyTip="P" Click="AddNewDemoDuneAssessmentSectionButton_Click"/>
-                <fluent:Button Name="OpenMapViewButton" Header="{x:Static resx:Resources.General_Map}" ToolTip="{x:Static resx:Resources.OpenMapView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.map}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenMapView_Click" fluent:KeyTip.Keys="K"/>
+                <fluent:Button x:Name="OpenMapViewButton" Header="{x:Static resx:Resources.General_Map}" ToolTip="{x:Static resx:Resources.OpenMapView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.map}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenMapView_Click" fluent:KeyTip.Keys="K"/>
             </fluent:RibbonGroupBox>
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.General_Chart}" fluent:KeyTip.Keys="C">
-                <fluent:Button Name="OpenChartViewButton"  Header="{x:Static resx:Resources.General_Chart}" ToolTip="{x:Static resx:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.ChartIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenChartView_Click" fluent:KeyTip.Keys="O"/>
+                <fluent:Button x:Name="OpenChartViewButton"  Header="{x:Static resx:Resources.General_Chart}" ToolTip="{x:Static resx:Resources.OpenChartView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.ChartIcon}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenChartView_Click" fluent:KeyTip.Keys="O"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>

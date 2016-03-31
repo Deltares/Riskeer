@@ -13,14 +13,13 @@ namespace Demo.Ringtoets.Ribbons
     /// </summary>
     public partial class RingtoetsDemoProjectRibbon : IRibbonCommandHandler
     {
-        private readonly ICommand addNewDikeAssessmentSection, addNewDuneAssessmentSection, openMapViewCommand, openChartViewCommand;
+        private readonly ICommand addNewDikeAssessmentSection, openMapViewCommand, openChartViewCommand;
 
         public RingtoetsDemoProjectRibbon(IProjectOwner projectOwner, IDocumentViewController documentViewController)
         {
             InitializeComponent();
 
             addNewDikeAssessmentSection = new AddNewDemoDikeAssessmentSectionCommand(projectOwner);
-            addNewDuneAssessmentSection = new AddNewDemoDuneAssessmentSectionCommand(projectOwner);
             openChartViewCommand = new OpenChartViewCommand(documentViewController);
             openMapViewCommand = new OpenMapViewCommand(documentViewController);
         }
@@ -30,7 +29,6 @@ namespace Demo.Ringtoets.Ribbons
             get
             {
                 yield return addNewDikeAssessmentSection;
-                yield return addNewDuneAssessmentSection;
                 yield return openChartViewCommand;
                 yield return openMapViewCommand;
             }
@@ -51,11 +49,6 @@ namespace Demo.Ringtoets.Ribbons
         private void AddNewDemoDikeAssessmentSectionButton_Click(object sender, RoutedEventArgs e)
         {
             addNewDikeAssessmentSection.Execute();
-        }
-
-        private void AddNewDemoDuneAssessmentSectionButton_Click(object sender, RoutedEventArgs e)
-        {
-            addNewDuneAssessmentSection.Execute();
         }
 
         private void ButtonOpenChartView_Click(object sender, RoutedEventArgs e)

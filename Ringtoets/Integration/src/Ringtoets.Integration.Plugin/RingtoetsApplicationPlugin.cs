@@ -56,19 +56,6 @@ namespace Ringtoets.Integration.Plugin
                     return dikeAssessmentSection;
                 }
             };
-            yield return new DataItemInfo<DuneAssessmentSection>
-            {
-                Name = RingtoetsFormsResources.DuneAssessmentSection_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
-                CreateData = owner =>
-                {
-                    var project = (Project) owner;
-                    var duneAssessmentSection = new DuneAssessmentSection();
-                    duneAssessmentSection.Name = GetUniqueForAssessmentSectionName(project, duneAssessmentSection.Name);
-                    return duneAssessmentSection;
-                }
-            };
         }
 
         public override IEnumerable<IFileImporter> GetFileImporters()
