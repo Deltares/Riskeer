@@ -88,15 +88,6 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Duintraject.
-        /// </summary>
-        public static string DuneAssessmentSection_DisplayName {
-            get {
-                return ResourceManager.GetString("DuneAssessmentSection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Duinen - Erosie.
         /// </summary>
         public static string DuneErosionFailureMechanism_DisplayName {

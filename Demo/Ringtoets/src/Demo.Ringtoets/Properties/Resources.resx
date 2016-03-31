@@ -123,9 +123,6 @@
   <data name="DemoDikeAssessmentSection" xml:space="preserve">
     <value>Demo dijktraject</value>
   </data>
-  <data name="DemoDuneAssessmentSection" xml:space="preserve">
-    <value>Demo duintraject</value>
-  </data>
   <data name="ExampleData" xml:space="preserve">
     <value>Voorbeeld data</value>
   </data>
