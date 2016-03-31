@@ -162,10 +162,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Uitvoer", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-            CollectionAssert.AreEqual(new object[]
-            {
-                pipingFailureMechanism.SectionResults
-            }, outputsFolder.Contents);
+
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext)outputsFolder.Contents[0];
+            Assert.AreSame(pipingFailureMechanism, failureMechanismResultsContext.FailureMechanism);
+            Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
             mocks.VerifyAll();
         }
 

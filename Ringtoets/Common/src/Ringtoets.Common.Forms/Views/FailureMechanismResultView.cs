@@ -62,6 +62,8 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
+        public IFailureMechanism FailureMechanism { get; set; }
+
         private void InitializeDataGridView()
         {
             var sectionName = new DataGridViewTextBoxColumn

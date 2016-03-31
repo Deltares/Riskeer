@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -46,14 +47,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = Enumerable.First<TreeNodeInfo>(plugin.GetTreeNodeInfos(), tni => tni.TagType == typeof(IEnumerable<FailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(IEnumerable<FailureMechanismSectionResult>), info.TagType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
@@ -76,9 +77,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new PipingFailureMechanism();
+            var context = new FailureMechanismSectionResultContext(mechanism.SectionResults, mechanism);
 
             // Call
-            var text = info.Text(mechanism.SectionResults);
+            var text = info.Text(context);
 
             // Assert
             Assert.AreEqual("Oordeel", text);

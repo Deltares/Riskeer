@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -56,7 +57,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(IEnumerable<FailureMechanismSectionResult>), info.DataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(IEnumerable<FailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
@@ -64,10 +66,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new SimpleFailureMechanism();
+            var context = new FailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism);
             mocks.ReplayAll();
 
             // Call
-            var viewData = info.GetViewData(failureMechanism.SectionResults);
+            var viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(failureMechanism.SectionResults, viewData);

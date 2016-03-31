@@ -47,6 +47,7 @@
     <Compile Include="PresentationObjects\FailureMechanismContext.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PresentationObjects\FailureMechanismSectionResultContext.cs" />
     <Compile Include="PresentationObjects\FailureMechanismSectionsContext.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContext.cs" />
     <Compile Include="PresentationObjects\TreeFolderCategory.cs" />

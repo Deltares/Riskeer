@@ -32,7 +32,6 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -443,7 +442,7 @@ namespace Ringtoets.Piping.Plugin
         {
             return new ArrayList
             {
-                failureMechanism.SectionResults
+                new FailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism)
             };
         }
 

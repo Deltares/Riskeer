@@ -108,11 +108,13 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsFormsResources.Map
             };
 
-            yield return new ViewInfo<IEnumerable<FailureMechanismSectionResult>, FailureMechanismResultView>
+            yield return new ViewInfo<FailureMechanismSectionResultContext, IEnumerable<FailureMechanismSectionResult>, FailureMechanismResultView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseFailureMechanismResultViewForData
+                CloseForData = CloseFailureMechanismResultViewForData,
+                GetViewData = context => context.SectionResults,
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
         }
 
@@ -216,7 +218,7 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<IEnumerable<FailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<FailureMechanismSectionResultContext>
             {
                 Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -353,7 +355,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new ArrayList
             {
-                nodeData.SectionResults
+                new FailureMechanismSectionResultContext(nodeData.SectionResults, nodeData)
             };
         }
 
