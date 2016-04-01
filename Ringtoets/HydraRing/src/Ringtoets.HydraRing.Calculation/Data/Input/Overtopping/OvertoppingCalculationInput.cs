@@ -28,7 +28,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
     /// </summary>
     public class OvertoppingCalculationInput : ExceedanceProbabilityCalculationInput
     {
-        private readonly HydraRingSection dikeSection;
+        private readonly HydraRingSection section;
         private readonly IEnumerable<HydraRingProfilePoint> profilePoints;
         private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
 
@@ -36,15 +36,15 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         /// Creates a new instance of the <see cref="OvertoppingCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
-        /// <param name="hydraRingDikeSection">The dike sections to use during the calculation.</param>
+        /// <param name="hydraRingSection">The section to use during the calculation.</param>
         /// <param name="hydraRingProfilePoints">The profile points to use during the calculation.</param>
         /// <param name="hydraRingForelandPoints">The foreland points to use during the calculation.</param>
-        public OvertoppingCalculationInput(int hydraulicBoundaryLocationId, HydraRingSection hydraRingDikeSection,
+        public OvertoppingCalculationInput(int hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
                                            IEnumerable<HydraRingProfilePoint> hydraRingProfilePoints,
                                            IEnumerable<HydraRingForelandPoint> hydraRingForelandPoints)
             : base(hydraulicBoundaryLocationId)
         {
-            dikeSection = hydraRingDikeSection;
+            section = hydraRingSection;
             profilePoints = hydraRingProfilePoints;
             forelandPoints = hydraRingForelandPoints;
         }
@@ -69,7 +69,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         {
             get
             {
-                return dikeSection;
+                return section;
             }
         }
 

@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             const int expectedCalculationTypeId = 1;
             const int expectedVariableId = 1;
             int hydraulicBoundaryLocationId = 1000;
-            HydraRingSection expectedDikeSection = new HydraRingSection(expectedVariableId, "1000", double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            HydraRingSection expectedHydraRingSection = new HydraRingSection(expectedVariableId, "1000", double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var expectedRingProfilePoints = new List<HydraRingProfilePoint>
             {
                 new HydraRingProfilePoint(1.1, 2.2)
@@ -47,7 +47,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             };
 
             // Call
-            OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(hydraulicBoundaryLocationId, expectedDikeSection, expectedRingProfilePoints, expectedRingForelandPoints);
+            OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(hydraulicBoundaryLocationId, expectedHydraRingSection, expectedRingProfilePoints, expectedRingForelandPoints);
 
             // Assert
             Assert.AreEqual(expectedCalculationTypeId, overtoppingCalculationInput.CalculationTypeId);
@@ -62,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             Assert.IsNaN(overtoppingCalculationInput.Beta);
 
             var hydraRingSection = overtoppingCalculationInput.Section;
-            Assert.AreEqual(expectedDikeSection, hydraRingSection);
+            Assert.AreEqual(expectedHydraRingSection, hydraRingSection);
         }
 
         [Test]

@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Forms.Views
                 pipingFailureMechanismObserver.Observable = pipingFailureMechanism;
 
                 UpdateSoilProfileColumn();
-                UpdateDikeSectionsListBox();
+                UpdateSectionsListBox();
                 UpdateGenerateScenariosButtonState();
             }
         }
@@ -364,10 +364,10 @@ namespace Ringtoets.Piping.Forms.Views
         private void OnPipingFailureMechanismUpdate()
         {
             UpdateGenerateScenariosButtonState();
-            UpdateDikeSectionsListBox();
+            UpdateSectionsListBox();
         }
 
-        private void UpdateDikeSectionsListBox()
+        private void UpdateSectionsListBox()
         {
             listBox.Items.Clear();
 

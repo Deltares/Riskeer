@@ -123,7 +123,7 @@
   <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
     <value>Hydraulische randvoorwaarden</value>
   </data>
-  <data name="DuneErosionFailureMechanism_DisplayName" xml:space="preserve">
+  <data name="ErosionFailureMechanism_DisplayName" xml:space="preserve">
     <value>Duinen - Erosie</value>
   </data>
   <data name="AssessmentSection_DisplayName" xml:space="preserve">
