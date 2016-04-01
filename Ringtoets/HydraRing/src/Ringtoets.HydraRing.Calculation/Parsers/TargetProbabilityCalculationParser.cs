@@ -33,7 +33,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     internal static class TargetProbabilityCalculationParser
     {
         /// <summary>
-        /// Tries to parse a <see cref="TargetProbabilityCalculationOutput"/> object from the provided output file path for the provided section id.
+        /// Tries to parse a <see cref="TargetProbabilityCalculationOutput"/> object from the provided <paramref name="outputFilePath"/> for the provided <paramref name="sectionId"/>.
         /// </summary>
         /// <param name="outputFilePath">The path to the file which contains the output of the Hydra-Ring type 2 calculation.</param>
         /// <param name="sectionId">The section id to get the <see cref="TargetProbabilityCalculationOutput"/> object for.</param>

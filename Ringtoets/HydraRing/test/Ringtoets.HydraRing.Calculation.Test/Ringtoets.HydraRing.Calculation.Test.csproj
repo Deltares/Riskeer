@@ -62,8 +62,10 @@
     <Compile Include="Data\Input\ExceedanceProbabilityCalculationInputTest.cs" />
     <Compile Include="Data\Input\HydraRingCalculationInputTest.cs" />
     <Compile Include="Data\Input\Overtopping\OvertoppingCalculationInputTest.cs" />
+    <Compile Include="Data\Output\ExceedanceProbabilityCalculationAlphaOutputTest.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputTest.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutputTest.cs" />
+    <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\TargetProbabilityCalculationParserTest.cs" />
     <Compile Include="Services\HydraRingCalculationServiceTest.cs" />
     <Compile Include="Services\HydraRingConfigurationServiceTest.cs" />

@@ -25,7 +25,7 @@ using Ringtoets.HydraRing.Calculation.Data.Output;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
 {
     [TestFixture]
-    public class ExceedanceProbabilityCalculationOutputTest
+    public class ExceedanceProbabilityCalculationAlphaOutputTest
     {
         [Test]
         public void Constructor_Always_ExpectedValues()
@@ -39,13 +39,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
             int sectionId = 6;
             int layerId = 7;
             int alternativeId = 8;
-            double beta = 9.9;
+            double alpha = 9.9;
 
             // Call
-            ExceedanceProbabilityCalculationOutput exceedanceProbabilityCalculationOutput =
-                new ExceedanceProbabilityCalculationOutput(ringCombinMethod, presentationSectionId,
-                                                           mainMechanismId, mainMechanismCombinMethod, mechanismId,
-                                                           sectionId, layerId, alternativeId, beta);
+            ExceedanceProbabilityCalculationAlphaOutput exceedanceProbabilityCalculationOutput =
+                new ExceedanceProbabilityCalculationAlphaOutput(ringCombinMethod, presentationSectionId,
+                                                                mainMechanismId, mainMechanismCombinMethod, mechanismId,
+                                                                sectionId, layerId, alternativeId, alpha);
 
             // Assert
             Assert.IsNotNull(exceedanceProbabilityCalculationOutput);
@@ -57,25 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
             Assert.AreEqual(sectionId, exceedanceProbabilityCalculationOutput.SectionId);
             Assert.AreEqual(layerId, exceedanceProbabilityCalculationOutput.LayerId);
             Assert.AreEqual(alternativeId, exceedanceProbabilityCalculationOutput.AlternativeId);
-            Assert.AreEqual(beta, exceedanceProbabilityCalculationOutput.Beta);
-            CollectionAssert.IsEmpty(exceedanceProbabilityCalculationOutput.Alphas);
-        }
-
-        [Test]
-        public void Alphas_VariousValues_ReturnsExpectedValues()
-        {
-            // Setup
-            var exceedanceProbabilityCalculationAlphaOutput = new ExceedanceProbabilityCalculationAlphaOutput(11, 22, 33, 44, 55, 66, 77, 88, 99.99);
-
-            ExceedanceProbabilityCalculationOutput exceedanceProbabilityCalculationOutput =
-                new ExceedanceProbabilityCalculationOutput(1, 2, 3, 4, 5, 6, 7, 8, 9.9);
-
-            // Call
-            exceedanceProbabilityCalculationOutput.Alphas.Add(exceedanceProbabilityCalculationAlphaOutput);
-
-            // Assert
-            CollectionAssert.IsNotEmpty(exceedanceProbabilityCalculationOutput.Alphas);
-            Assert.AreEqual(exceedanceProbabilityCalculationAlphaOutput, exceedanceProbabilityCalculationOutput.Alphas[0]);
+            Assert.AreEqual(alpha, exceedanceProbabilityCalculationOutput.Alpha);
         }
     }
 }
