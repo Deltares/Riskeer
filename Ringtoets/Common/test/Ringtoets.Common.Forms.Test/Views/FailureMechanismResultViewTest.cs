@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
@@ -64,7 +65,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            var failureMechanismResultView = ShowFailureMechanismResultsView();
+            ShowFailureMechanismResultsView();
 
             // Assert
             var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
@@ -85,7 +86,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetPipingFailureMechanismSectionResultListData_DataSet()
+        public void Data_SetFailureMechanismSectionResultListData_DataSet()
         {
             // Setup
             var points = new[]
@@ -107,7 +108,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetOtherThanPipingFailureMechanismSectionResultListData_DataNull()
+        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNull()
         {
             // Setup
             var testData = new object();
@@ -121,10 +122,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void PipingFailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
+        public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowFullyConfiguredPipingFailureMechanismResultsView();
+            ShowFullyConfiguredFailureMechanismResultsView();
 
             var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
@@ -149,13 +150,61 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerThreeIndex].FormattedValue);
         }
 
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void FailureMechanismResultsView_ChangCheckBox_DataGridViewCorrectlySyncedAndStylingSet(bool checkBoxSelected)
+        {
+            // Setup
+            ShowFullyConfiguredFailureMechanismResultsView();
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            dataGridView.Rows[0].Cells[1].Value = checkBoxSelected;
+
+            // Assert
+            var rows = dataGridView.Rows;
+            Assert.AreEqual(2, rows.Count);
+
+            var cells = rows[0].Cells;
+            Assert.AreEqual(5, cells.Count);
+            Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual(checkBoxSelected, (bool)cells[assessmentLayerOneIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerTwoAIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerTwoBIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerThreeIndex].FormattedValue);
+
+            if (checkBoxSelected)
+            {
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cells[assessmentLayerTwoAIndex].Style.BackColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cells[assessmentLayerTwoAIndex].Style.ForeColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cells[assessmentLayerTwoBIndex].Style.BackColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cells[assessmentLayerTwoBIndex].Style.ForeColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cells[assessmentLayerThreeIndex].Style.BackColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cells[assessmentLayerThreeIndex].Style.ForeColor);
+            }
+            else
+            {
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cells[assessmentLayerTwoAIndex].Style.BackColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cells[assessmentLayerTwoAIndex].Style.ForeColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cells[assessmentLayerTwoBIndex].Style.BackColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cells[assessmentLayerTwoBIndex].Style.ForeColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cells[assessmentLayerThreeIndex].Style.BackColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cells[assessmentLayerThreeIndex].Style.ForeColor);
+            }
+
+            Assert.AreEqual(checkBoxSelected, cells[assessmentLayerTwoAIndex].ReadOnly);
+            Assert.AreEqual(checkBoxSelected, cells[assessmentLayerTwoBIndex].ReadOnly);
+            Assert.AreEqual(checkBoxSelected, cells[assessmentLayerThreeIndex].ReadOnly);
+        }
+
         private const int nameColumnIndex = 0;
         private const int assessmentLayerOneIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
         private const int assessmentLayerTwoBIndex = 3;
         private const int assessmentLayerThreeIndex = 4;
 
-        private FailureMechanismResultView ShowFullyConfiguredPipingFailureMechanismResultsView()
+        private FailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
         {
             var failureMechanism = new SimpleFailureMechanism();
 
@@ -171,10 +220,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            var pipingFailureMechanismResultView = ShowFailureMechanismResultsView();
-            pipingFailureMechanismResultView.Data = failureMechanism.SectionResults;
+            var failureMechanismResultView = ShowFailureMechanismResultsView();
+            failureMechanismResultView.Data = failureMechanism.SectionResults;
+            failureMechanismResultView.FailureMechanism = failureMechanism;
 
-            return pipingFailureMechanismResultView;
+            return failureMechanismResultView;
         }
 
         private class SimpleFailureMechanism : BaseFailureMechanism

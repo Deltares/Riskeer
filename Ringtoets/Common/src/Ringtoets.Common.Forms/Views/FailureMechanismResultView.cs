@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data;
@@ -34,7 +37,11 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class FailureMechanismResultView : UserControl, IView
     {
+        private readonly Observer failureMechanismObserver;
+        private readonly RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult> failureMechanismSectionResultObserver;
+
         private IEnumerable<FailureMechanismSectionResult> pipingFailureMechanismSectionResult;
+        private IFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView"/>.
@@ -43,6 +50,27 @@ namespace Ringtoets.Common.Forms.Views
         {
             InitializeComponent();
             InitializeDataGridView();
+
+            failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
+            failureMechanismSectionResultObserver = new RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
+        }
+
+        /// <summary>
+        /// Gets or sets the failure mechanism.
+        /// </summary>
+        public IFailureMechanism FailureMechanism
+        {
+            get
+            {
+                return failureMechanism;
+            }
+            set
+            {
+                failureMechanism = value;
+
+                failureMechanismObserver.Observable = failureMechanism;
+                failureMechanismSectionResultObserver.Observable = failureMechanism;
+            }
         }
 
         public object Data
@@ -62,10 +90,21 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        public IFailureMechanism FailureMechanism { get; set; }
+        protected override void Dispose(bool disposing)
+        {
+            FailureMechanism = null;
+
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
         private void InitializeDataGridView()
         {
+            dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
+
             var sectionName = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Name",
@@ -113,22 +152,66 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdataDataGridViewDataSource()
         {
-            if (dataGridView.IsCurrentCellInEditMode)
-            {
-                dataGridView.AutoResizeColumns();
-                return;
-            }
+            dataGridView.DataSource = pipingFailureMechanismSectionResult.Select(sr => new FailureMechanismSectionResultRow(sr)).ToList();
+            SetRowStyling();
+        }
 
-            dataGridView.DataSource = pipingFailureMechanismSectionResult.Select(sr => new PipingFailureMechanismSectionResultRow(sr)).ToList();
+        private void RefreshDataGridView()
+        {
+            dataGridView.Refresh();
+            dataGridView.AutoResizeColumns();
+
+            SetRowStyling();
+        }
+
+        private void SetRowStyling()
+        {
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                var checkboxSelected = (bool) row.Cells[1].Value;
+
+                SetRowEditMode(row, checkboxSelected);
+
+                SetRowStyle(checkboxSelected, row);
+            }
+        }
+
+        private static void SetRowEditMode(DataGridViewRow row, bool checkboxSelected)
+        {
+            row.Cells[2].ReadOnly = checkboxSelected;
+            row.Cells[3].ReadOnly = checkboxSelected;
+            row.Cells[4].ReadOnly = checkboxSelected;
+        }
+
+        private void SetRowStyle(bool checkboxSelected, DataGridViewRow row)
+        {
+            if (checkboxSelected)
+            {
+                SetCellStyle(row.Cells[2], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
+                SetCellStyle(row.Cells[3], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
+                SetCellStyle(row.Cells[4], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
+            }
+            else
+            {
+                SetCellStyle(row.Cells[2], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
+                SetCellStyle(row.Cells[3], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
+                SetCellStyle(row.Cells[4], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
+            }
+        }
+
+        private void SetCellStyle(DataGridViewCell cell, Color backgroundColor, Color textColor)
+        {
+            cell.Style.BackColor = backgroundColor;
+            cell.Style.ForeColor = textColor;
         }
 
         #region Nested types
 
-        private class PipingFailureMechanismSectionResultRow
+        private class FailureMechanismSectionResultRow
         {
             private readonly FailureMechanismSectionResult failureMechanismSectionResult;
 
-            public PipingFailureMechanismSectionResultRow(FailureMechanismSectionResult failureMechanismSectionResult)
+            public FailureMechanismSectionResultRow(FailureMechanismSectionResult failureMechanismSectionResult)
             {
                 this.failureMechanismSectionResult = failureMechanismSectionResult;
             }
@@ -147,6 +230,11 @@ namespace Ringtoets.Common.Forms.Views
                 {
                     return failureMechanismSectionResult.AssessmentLayerOne;
                 }
+                set
+                {
+                    failureMechanismSectionResult.AssessmentLayerOne = value;
+                    failureMechanismSectionResult.NotifyObservers();
+                }
             }
 
             public RoundedDouble AssessmentLayerTwoA
@@ -154,6 +242,10 @@ namespace Ringtoets.Common.Forms.Views
                 get
                 {
                     return (RoundedDouble) double.NaN;
+                }
+                set
+                {
+                    failureMechanismSectionResult.AssessmentLayerTwoA = value;
                 }
             }
 
@@ -163,6 +255,10 @@ namespace Ringtoets.Common.Forms.Views
                 {
                     return (RoundedDouble) double.NaN;
                 }
+                set
+                {
+                    failureMechanismSectionResult.AssessmentLayerTwoB = value;
+                }
             }
 
             public RoundedDouble AssessmentLayerThree
@@ -171,6 +267,25 @@ namespace Ringtoets.Common.Forms.Views
                 {
                     return (RoundedDouble) double.NaN;
                 }
+                set
+                {
+                    failureMechanismSectionResult.AssessmentLayerThree = value;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Event handling
+
+        private void DataGridViewCurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            // Ensure combobox values are directly committed
+            DataGridViewColumn currentColumn = dataGridView.Columns[dataGridView.CurrentCell.ColumnIndex];
+            if (currentColumn is DataGridViewCheckBoxColumn)
+            {
+                dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                dataGridView.EndEdit();
             }
         }
 

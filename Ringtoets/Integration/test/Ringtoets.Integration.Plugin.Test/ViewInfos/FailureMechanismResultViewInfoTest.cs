@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = Enumerable.First<ViewInfo>(plugin.GetViewInfos(), tni => tni.ViewType == typeof(FailureMechanismResultView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismResultView));
         }
 
         [TearDown]
@@ -90,6 +90,36 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             //
             Assert.AreEqual("Oordeel", viewName);
+        }
+
+        [Test]
+        public void ViewType_Always_ReturnsViewType()
+        {
+            // Call
+            var viewType = info.ViewType;
+
+            // Assert
+            Assert.AreEqual(typeof(FailureMechanismResultView), viewType);
+        }
+
+        [Test]
+        public void DataType_Always_ReturnsDataType()
+        {
+            // Call
+            var dataType = info.DataType;
+
+            // Assert
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext), dataType);
+        }
+
+        [Test]
+        public void ViewDataType_Always_ReturnsViewDataType()
+        {
+            // Call
+            var viewDataType = info.ViewDataType;
+
+            // Assert
+            Assert.AreEqual(typeof(IEnumerable<FailureMechanismSectionResult>), viewDataType);
         }
 
         [Test]
@@ -167,6 +197,25 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsTrue(closeForData);
+        }
+
+        [Test]
+        public void AfterCreate_Always_SetsSpecificPropertiesToView()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<FailureMechanismResultView>();
+            var failureMechanism = new SimpleFailureMechanism();
+            var context = new FailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism);
+
+            viewMock.Expect(v => v.FailureMechanism = failureMechanism);
+
+            mocks.ReplayAll();
+
+            // Call
+            info.AfterCreate(viewMock, context);
+
+            // Assert
+            mocks.VerifyAll();
         }
 
         private class SimpleFailureMechanism : BaseFailureMechanism

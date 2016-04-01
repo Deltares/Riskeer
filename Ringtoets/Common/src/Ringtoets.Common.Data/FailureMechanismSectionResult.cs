@@ -20,13 +20,15 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data
 {
     /// <summary>
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public class FailureMechanismSectionResult
+    public class FailureMechanismSectionResult : Observable
     {
         private readonly FailureMechanismSection section;
 
@@ -45,11 +47,6 @@ namespace Ringtoets.Common.Data
         }
 
         /// <summary>
-        /// Gets and sets the state of the assessment layer one.
-        /// </summary>
-        public bool AssessmentLayerOne { get; set; }
-
-        /// <summary>
         /// Gets the encapsulated <see cref="FailureMechanismSection"/>.
         /// </summary>
         public FailureMechanismSection Section
@@ -59,5 +56,25 @@ namespace Ringtoets.Common.Data
                 return section;
             }
         }
+
+        /// <summary>
+        /// Gets and sets the state of the assessment layer one.
+        /// </summary>
+        public bool AssessmentLayerOne { get; set; }
+
+        /// <summary>
+        /// Gets and sets the value of assesment layer two a.
+        /// </summary>
+        public RoundedDouble AssessmentLayerTwoA { get; set; }
+
+        /// <summary>
+        /// Gets and sets the value of assesment layer two b.
+        /// </summary>
+        public RoundedDouble AssessmentLayerTwoB { get; set; }
+
+        /// <summary>
+        /// Gets and sets the value of assesment layer three.
+        /// </summary>
+        public RoundedDouble AssessmentLayerThree { get; set; }
     }
 }

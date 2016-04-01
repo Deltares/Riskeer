@@ -32,14 +32,7 @@ namespace Ringtoets.Common.Data.Test
         public void Constructor_DefaultValues()
         {
             // Setup
-            var points = new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            };
-
-            var section = new FailureMechanismSection("test", points);
-
+            var section = CreateSection();
 
             // Call
             var sectionResult = new FailureMechanismSectionResult(section);
@@ -57,6 +50,34 @@ namespace Ringtoets.Common.Data.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("section", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(false)]
+        [TestCase(true)]
+        public void AssessmentLayerOne_Always_ReturnsAssessmentLayerOne(bool assessmentLayerOneChecked)
+        {
+            // Setup
+            var section = CreateSection();
+            var sectionResult = new FailureMechanismSectionResult(section);
+
+            // Call
+            sectionResult.AssessmentLayerOne = assessmentLayerOneChecked;
+
+            // Assert
+            Assert.AreEqual(assessmentLayerOneChecked, sectionResult.AssessmentLayerOne);
+        }
+
+        private static FailureMechanismSection CreateSection()
+        {
+            var points = new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            };
+
+            var section = new FailureMechanismSection("test", points);
+            return section;
         }
     }
 }

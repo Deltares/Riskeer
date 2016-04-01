@@ -25,11 +25,20 @@ using Ringtoets.Common.Data;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
+    /// <summary>
+    /// This class is a presentation object for <see cref="FailureMechanismSectionResult"/>.
+    /// </summary>
     public class FailureMechanismSectionResultContext
     {
         private readonly IEnumerable<FailureMechanismSectionResult> sectionResults;
         private readonly IFailureMechanism failureMechanism;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismSectionResultContext"/>.
+        /// </summary>
+        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/> to wrap.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> <paramref name="sectionResults"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResults"/> or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public FailureMechanismSectionResultContext(IEnumerable<FailureMechanismSectionResult> sectionResults, IFailureMechanism failureMechanism)
         {
             if (sectionResults == null)
@@ -44,6 +53,9 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             this.failureMechanism = failureMechanism;
         }
 
+        /// <summary>
+        /// Gets the wrapped <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/>.
+        /// </summary>
         public IEnumerable<FailureMechanismSectionResult> SectionResults
         {
             get
@@ -52,6 +64,9 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="IFailureMechanism"/>.
+        /// </summary>
         public IFailureMechanism FailureMechanism
         {
             get
