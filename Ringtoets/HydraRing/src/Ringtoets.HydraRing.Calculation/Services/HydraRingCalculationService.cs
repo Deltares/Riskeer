@@ -47,7 +47,30 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> or <c>null</c> when something went wrong.</returns>
         public virtual TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, TargetProbabilityCalculationInput targetProbabilityCalculationInput)
         {
-            return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, (outputFilePath, outputDatabasePath) => TargetProbabilityCalculationParser.Parse(outputFilePath, targetProbabilityCalculationInput.Section.SectionId));
+            return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType,
+                                      targetProbabilityCalculationInput, (outputFilePath, outputDatabasePath) =>
+                                                                         TargetProbabilityCalculationParser.Parse(
+                                                                             outputFilePath, targetProbabilityCalculationInput.Section.SectionId));
+        }
+
+        /// <summary>
+        /// This method performs a type I calculation via Hydra-Ring:
+        /// Given a set of random variables, compute the probability of failure.
+        /// </summary>
+        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
+        /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
+        /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
+        /// <param name="exceedanceProbabilityCalculationInput">The input of the calculation to perform.</param>
+        /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> on a succesfull calculation, <c>null</c> otherwise.</returns>
+        public virtual ExceedanceProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
+                                                                                 HydraRingUncertaintiesType uncertaintiesType,
+                                                                                 ExceedanceProbabilityCalculationInput exceedanceProbabilityCalculationInput)
+        {
+            return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType,
+                                      exceedanceProbabilityCalculationInput, (outputFilePath, outputDatabasePath) =>
+                                                                             ExceedanceProbabilityCalculationParser.Parse(
+                                                                                 outputDatabasePath, exceedanceProbabilityCalculationInput.Section.SectionId));
         }
 
         /// <summary>

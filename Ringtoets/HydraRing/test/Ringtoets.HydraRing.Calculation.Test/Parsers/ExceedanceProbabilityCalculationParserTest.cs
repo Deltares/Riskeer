@@ -66,7 +66,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_ExampleCompleteOutputFile_ReturnsExpecteExceedanceProbabilityCalculationOutput()
+        public void Parse_ExampleCompleteOutputFile_ReturnsExpectedExceedanceProbabilityCalculationOutput()
         {
             // Setup
             var filePath = Path.Combine(testDataPath, "complete.sqlite");

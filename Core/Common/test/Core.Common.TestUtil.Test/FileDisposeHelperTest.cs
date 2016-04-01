@@ -53,6 +53,30 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
+        public void CreateFile_FileDoesNotExist_Createsfile()
+        {
+            // Setup
+            string filePath = "doesExist.tmp";
+
+            try
+            {
+                Assert.IsFalse(File.Exists(filePath));
+
+                using (var fileDisposeHelper = new FileDisposeHelper(filePath))
+                {
+                    // Call
+                    fileDisposeHelper.CreateFile();
+                    // Assert
+                Assert.IsTrue(File.Exists(filePath));
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
         public void Dispose_InvalidPath_DoesNotThrowException()
         {
             // Setup
@@ -85,6 +109,43 @@ namespace Core.Common.TestUtil.Test
             finally
             {
                 File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void Dispose_MultipleFiles_DeletesFiles()
+        {
+            // Setup
+            var filePaths = new[]
+            {
+                "doesExist.tmp",
+                "alsoDoesExist.tmp"
+            };
+
+            try
+            {
+                foreach (var filePath in filePaths)
+                {
+                    using (File.Create(filePath)) { }
+                    Assert.IsTrue(File.Exists(filePath));
+                }
+                
+                // Call
+                using (new FileDisposeHelper(filePaths)) { }
+
+                // Assert
+                foreach (var filePath in filePaths)
+                {
+                    Assert.IsFalse(File.Exists(filePath));
+                }
+            }
+            finally
+            {
+                foreach (var filePath in filePaths)
+                {
+                    File.Delete(filePath);
+                }
+                
             }
         }
     }
