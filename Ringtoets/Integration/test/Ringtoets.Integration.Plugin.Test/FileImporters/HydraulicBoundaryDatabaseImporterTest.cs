@@ -143,11 +143,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
-            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
             mocks.ReplayAll();
-
-            assessmentSection.Attach(observer);
 
             var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
@@ -167,14 +165,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
-            var observer = mocks.StrictMock<IObserver>();
-
-            observer.Expect(o => o.UpdateObserver());
-
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers());
             mocks.ReplayAll();
-
-            assessmentSection.Attach(observer);
 
             var importTarget = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
@@ -208,11 +201,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
-            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
             mocks.ReplayAll();
-
-            assessmentSection.Attach(observer);
 
             var importTarget = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
@@ -239,12 +230,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
-            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
             var importTarget = mocks.StrictMock<HydraulicBoundaryDatabaseContext>(assessmentSection);
             mocks.ReplayAll();
-
-            assessmentSection.Attach(observer);
 
             string validFilePath = Path.Combine(testDataPath, "corruptschema.sqlite");
             string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath)

@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var name = "Hydraulische randvoorwaarden";
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
             mocks.ReplayAll();
 
@@ -107,7 +107,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var guiMock = mocks.StrictMock<IGui>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
 
             var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
@@ -141,7 +141,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
 
             var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
@@ -168,7 +168,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
 
             var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
             nodeData.Parent.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -197,41 +197,45 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Given
             var gui = mocks.DynamicMock<IGui>();
 
-            var assessmentSectionBaseObserver = mocks.StrictMock<IObserver>();
             var hydraulicBoundaryDatabaseContextObserver = mocks.StrictMock<IObserver>();
 
             var mainWindow = mocks.DynamicMock<IMainWindow>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
             var contextMenuRunAssessmentLevelCalculationsIndex = 3;
+
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)
             {
                 DesignWaterLevel = 4.2
             };
-            var assessmentSectionBase = new AssessmentSectionBaseImplementation
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                Name = "Dummy",
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                Locations =
                 {
-                    Locations =
-                    {
-                        hydraulicBoundaryLocation1,
-                        hydraulicBoundaryLocation2
-                    },
-                    FilePath = "D:/nonExistingDirectory/nonExistingFile",
-                    Version = "random"
-                }
+                    hydraulicBoundaryLocation1,
+                    hydraulicBoundaryLocation2
+                },
+                FilePath = "D:/nonExistingDirectory/nonExistingFile",
+                Version = "random"
             };
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 10, 30000);
+
+            var assessmentSectionBase = mocks.Stub<IAssessmentSection>();
+            assessmentSectionBase.Name = "Dummy";
+            assessmentSectionBase.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSectionBase.Stub(section => section.FailureMechanismContribution).Return(failureMechanismContribution);
+            assessmentSectionBase.Expect(section => section.NotifyObservers());
+
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionBase);
 
-            assessmentSectionBaseObserver.Expect(o => o.UpdateObserver());
             hydraulicBoundaryDatabaseContextObserver.Expect(o => o.UpdateObserver());
             gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
             gui.Expect(g => g.MainWindow).Return(mainWindow);
 
             mocks.ReplayAll();
 
-            assessmentSectionBase.Attach(assessmentSectionBaseObserver);
             hydraulicBoundaryDatabaseContext.Attach(hydraulicBoundaryDatabaseContextObserver);
 
             plugin.Gui = gui;
@@ -270,7 +274,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ForeColor_ContextHasNoReferenceLine_ReturnDisabledColor()
         {
             // Setup
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -287,7 +291,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ForeColor_ContextHasReferenceLineData_ReturnControlText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             mocks.ReplayAll();
 
@@ -299,19 +303,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             mocks.VerifyAll();
-        }
-
-        private class AssessmentSectionBaseImplementation : AssessmentSectionBase
-        {
-            public AssessmentSectionBaseImplementation()
-            {
-                FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 10, 30000);
-            }
-
-            public override IEnumerable<IFailureMechanism> GetFailureMechanisms()
-            {
-                yield break;
-            }
         }
     }
 }

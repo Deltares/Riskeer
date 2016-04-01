@@ -29,6 +29,7 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.Views;
 
@@ -79,7 +80,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             view.Data = assessmentSectionBase;
 
             // Assert
-            var mapData = (MapDataCollection) map.Data;
+            MapDataCollection mapData = map.Data;
 
             Assert.AreEqual(2, mapData.List.Count);
 
@@ -123,7 +124,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             Assert.AreSame(assessmentSectionBase, view.Data);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
-            var mapData = map.Data as MapDataCollection;
+            MapDataCollection mapData = map.Data;
             Assert.IsNotNull(mapData);
 
             var hrLocationsMapData = (MapPointData)mapData.List[0];
@@ -307,12 +308,19 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(dataBeforeUpdate, map.Data);
         }
 
-        private class TestAssessmentSectionBase : AssessmentSectionBase
+        private class TestAssessmentSectionBase : Observable, IAssessmentSection
         {
-            public override IEnumerable<IFailureMechanism> GetFailureMechanisms()
+            public string Name { get; set; }
+            public ReferenceLine ReferenceLine { get; set; }
+            public FailureMechanismContribution FailureMechanismContribution { get; private set; }
+            public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
+
+            public IEnumerable<IFailureMechanism> GetFailureMechanisms()
             {
                 yield break;
             }
+
+            public long StorageId { get; set; }
         }
     }
 }

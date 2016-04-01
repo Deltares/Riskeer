@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Plugin
         /// </summary>
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<AssessmentSectionBase, AssessmentSectionBaseProperties>();
+            yield return new PropertyInfo<IAssessmentSection, AssessmentSectionBaseProperties>();
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
         }
 
@@ -96,12 +96,12 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = (v, o) =>
                 {
-                    var assessmentSection = o as AssessmentSectionBase;
+                    var assessmentSection = o as IAssessmentSection;
                     return assessmentSection != null && assessmentSection.FailureMechanismContribution == v.Data;
                 }
             };
 
-            yield return new ViewInfo<AssessmentSectionBase, AssessmentSectionView>
+            yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
             {
                 GetViewName = (v, o) => RingtoetsFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RingtoetsFormsResources.Map
@@ -124,7 +124,7 @@ namespace Ringtoets.Integration.Plugin
         /// <returns>Sequence of child data.</returns>
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object dataObject)
         {
-            var assessmentSection = dataObject as AssessmentSectionBase;
+            var assessmentSection = dataObject as IAssessmentSection;
             if (assessmentSection != null)
             {
                 yield return assessmentSection.FailureMechanismContribution;
@@ -136,7 +136,7 @@ namespace Ringtoets.Integration.Plugin
         /// </summary>
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return new TreeNodeInfo<AssessmentSectionBase>
+            yield return new TreeNodeInfo<IAssessmentSection>
             {
                 Text = assessmentSectionBase => assessmentSectionBase.Name,
                 Image = assessmentSectionBase => RingtoetsFormsResources.AssessmentSectionFolderIcon,
@@ -231,7 +231,7 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(FailureMechanismResultView view, object o)
         {
-            var assessmentSectionBase = o as AssessmentSectionBase;
+            var assessmentSectionBase = o as IAssessmentSection;
             if (assessmentSectionBase != null)
             {
                 return assessmentSectionBase.GetFailureMechanisms().Any(failureMechanism => view.Data == failureMechanism.SectionResults);
@@ -255,7 +255,7 @@ namespace Ringtoets.Integration.Plugin
 
         # region AssessmentSectionBase
 
-        private object[] AssessmentSectionBaseChildNodeObjects(AssessmentSectionBase nodeData)
+        private object[] AssessmentSectionBaseChildNodeObjects(IAssessmentSection nodeData)
         {
             var childNodes = new List<object>
             {
@@ -270,7 +270,7 @@ namespace Ringtoets.Integration.Plugin
             return childNodes.ToArray();
         }
 
-        private static IEnumerable<object> WrapFailureMechanismsInContexts(AssessmentSectionBase nodeData)
+        private static IEnumerable<object> WrapFailureMechanismsInContexts(IAssessmentSection nodeData)
         {
             foreach (IFailureMechanism failureMechanism in nodeData.GetFailureMechanisms())
             {
@@ -291,13 +291,13 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private void AssessmentSectionBaseOnNodeRenamed(AssessmentSectionBase nodeData, string newName)
+        private void AssessmentSectionBaseOnNodeRenamed(IAssessmentSection nodeData, string newName)
         {
             nodeData.Name = newName;
             nodeData.NotifyObservers();
         }
 
-        private void AssessmentSectionBaseOnNodeRemoved(AssessmentSectionBase nodeData, object parentNodeData)
+        private void AssessmentSectionBaseOnNodeRemoved(IAssessmentSection nodeData, object parentNodeData)
         {
             var parentProject = (Project) parentNodeData;
 
@@ -305,7 +305,7 @@ namespace Ringtoets.Integration.Plugin
             parentProject.NotifyObservers();
         }
 
-        private ContextMenuStrip AssessmentSectionBaseContextMenuStrip(AssessmentSectionBase nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip AssessmentSectionBaseContextMenuStrip(IAssessmentSection nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -340,7 +340,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private IList GetInputs(FailureMechanismPlaceholder nodeData, AssessmentSectionBase assessmentSection)
+        private IList GetInputs(FailureMechanismPlaceholder nodeData, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -571,7 +571,7 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private static TargetProbabilityCalculationActivity CreateHydraRingActivity(AssessmentSectionBase assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation, string hlcdDirectory)
+        private static TargetProbabilityCalculationActivity CreateHydraRingActivity(IAssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation, string hlcdDirectory)
         {
             return HydraRingActivityFactory.Create(
                 string.Format(Resources.RingtoetsGuiPlugin_Calculate_assessment_level_for_location_0_, hydraulicBoundaryLocation.Id),
@@ -614,7 +614,7 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private static void ClearCalculations(AssessmentSectionBase nodeData)
+        private static void ClearCalculations(IAssessmentSection nodeData)
         {
             var failureMechanisms = nodeData.GetFailureMechanisms();
 

@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism whose sections to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="failureMechanism"/>.</param>
         /// <exception cref="System.ArgumentNullException">When any input argument is null.</exception>
-        public FailureMechanismSectionsContext(IFailureMechanism failureMechanism, AssessmentSectionBase assessmentSection)
+        public FailureMechanismSectionsContext(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the assessment section that owns <see cref="ParentFailureMechanism"/>.
         /// </summary>
-        public AssessmentSectionBase ParentAssessmentSection { get; private set; }
+        public IAssessmentSection ParentAssessmentSection { get; private set; }
 
         #region IObservable
 

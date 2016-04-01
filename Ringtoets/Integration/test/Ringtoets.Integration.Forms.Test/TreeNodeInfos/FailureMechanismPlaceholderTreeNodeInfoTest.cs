@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var testName = "ttt";
@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnFoldersWithInputAndOutput()
         {
             // Setup
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new FailureMechanismPlaceholder("test");

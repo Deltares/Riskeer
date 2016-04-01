@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var random = new Random(22);
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var projectObserver = mocks.StrictMock<IObserver>();
             int numberProperties = 8;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
@@ -216,7 +216,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var inputObserver = mocks.StrictMock<IObserver>();
             int numberProperties = 2;
             inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
@@ -252,7 +252,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var inputObserver = mocks.StrictMock<IObserver>();
             int numberProperties = 2;
             inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
@@ -286,7 +286,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var inputObserver = mocks.StrictMock<IObserver>();
             inputObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -324,7 +324,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var inputObserver = mocks.StrictMock<IObserver>();
             inputObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -360,7 +360,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -403,7 +403,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(1);
             mocks.ReplayAll();
@@ -439,7 +439,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var inputParameters = new PipingInput(new GeneralPipingInput());
@@ -464,7 +464,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var testSurfaceLine = ValidSurfaceLine(0, 2);
@@ -495,7 +495,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var testPipingSoilProfile = new TestPipingSoilProfile();
@@ -528,7 +528,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Given
             var mocks = new MockRepository();
             var typeDescriptorContextMock = mocks.StrictMock<ITypeDescriptorContext>();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
             var inputParameters = new PipingInput(new GeneralPipingInput());
             var contextProperties = new PipingInputContextProperties

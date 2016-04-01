@@ -39,7 +39,7 @@ using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Common.IO
 {
     /// <summary>
-    /// Imports a <see cref="ReferenceLine"/> and stores in on a <see cref="AssessmentSectionBase"/>,
+    /// Imports a <see cref="ReferenceLine"/> and stores in on a <see cref="IAssessmentSection"/>,
     /// taking data from a shapefile containing a single polyline.
     /// </summary>
     public class ReferenceLineImporter : FileImporterBase<ReferenceLineContext>
@@ -125,7 +125,7 @@ namespace Ringtoets.Common.IO
             return changedObservables;
         }
 
-        private bool ConfirmImportOfReferenceLineToClearReferenceLineDependentData(AssessmentSectionBase assessmentSection)
+        private bool ConfirmImportOfReferenceLineToClearReferenceLineDependentData(IAssessmentSection assessmentSection)
         {
             var clearReferenceLineDependentData = false;
 
@@ -182,7 +182,7 @@ namespace Ringtoets.Common.IO
             return new ReadResult<ReferenceLine>(true);
         }
 
-        private void AddReferenceLineToDataModel(AssessmentSectionBase assessmentSection, ReferenceLine importedReferenceLine, bool clearReferenceLineDependentData)
+        private void AddReferenceLineToDataModel(IAssessmentSection assessmentSection, ReferenceLine importedReferenceLine, bool clearReferenceLineDependentData)
         {
             NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsection,
                            2, clearReferenceLineDependentData ? 4 : 2);
@@ -196,7 +196,7 @@ namespace Ringtoets.Common.IO
             }
         }
 
-        private void ClearReferenceLineDependentData(AssessmentSectionBase assessmentSection)
+        private void ClearReferenceLineDependentData(IAssessmentSection assessmentSection)
         {
             NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections,
                            3, 4);
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.IO
             }
         }
 
-        private void ClearHydraulicBoundaryOutput(AssessmentSectionBase assessmentSection)
+        private void ClearHydraulicBoundaryOutput(IAssessmentSection assessmentSection)
         {
             // TODO: WTI-360 - Clear all 'Toetspeil' calculation output
             //changedObservables.Add(clearedInstance);

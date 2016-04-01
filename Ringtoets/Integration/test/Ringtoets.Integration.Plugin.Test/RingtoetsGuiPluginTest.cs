@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 // assert
                 Assert.AreEqual(2, propertyInfos.Length);
 
-                var assessmentSectionProperties = propertyInfos.Single(pi => pi.DataType == typeof(AssessmentSectionBase));
+                var assessmentSectionProperties = propertyInfos.Single(pi => pi.DataType == typeof(IAssessmentSection));
                 Assert.AreEqual(typeof(AssessmentSectionBaseProperties), assessmentSectionProperties.PropertyObjectType);
                 Assert.IsNull(assessmentSectionProperties.AdditionalDataCheck);
                 Assert.IsNull(assessmentSectionProperties.GetObjectPropertiesData);
@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.AreEqual(typeof(FailureMechanismContributionView), contributionViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, contributionViewInfo.Image);
 
-                var mapViewInfo = viewInfos.Single(vi => vi.DataType == typeof(AssessmentSectionBase));
+                var mapViewInfo = viewInfos.Single(vi => vi.DataType == typeof(IAssessmentSection));
                 Assert.AreEqual(typeof(AssessmentSectionView), mapViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Map, mapViewInfo.Image);
 
@@ -114,7 +114,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 // assert
                 Assert.AreEqual(9, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSectionBase)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(IAssessmentSection)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PlaceholderWithReadonlyName)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismPlaceholderContext)));
@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.Plugin.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionBase = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSectionBase = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var guiPlugin = new RingtoetsGuiPlugin();

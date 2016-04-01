@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// </summary>
         /// <param name="parent">The parent owner of the data represented by the presentation object.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="parent"/> is <c>null</c>.</exception>
-        public ReferenceLineContext(AssessmentSectionBase parent)
+        public ReferenceLineContext(IAssessmentSection parent)
         {
             if (parent == null)
             {
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// The assessment section owning <see cref="WrappedData"/>.
         /// </summary>
-        public AssessmentSectionBase Parent { get; private set; }
+        public IAssessmentSection Parent { get; private set; }
 
         #region Equatable
 

@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
             T wrappedData,
             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
             IEnumerable<StochasticSoilModel> stochasticSoilModels, 
-            AssessmentSectionBase assessmentSection)
+            IAssessmentSection assessmentSection)
         {
             AssertInputsAreNotNull(wrappedData, surfaceLines, stochasticSoilModels, assessmentSection);
 
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <summary>
         /// Gets the assessment section which the piping context belongs to.
         /// </summary>
-        public AssessmentSectionBase AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; private set; }
 
         /// <summary>
         /// Asserts the inputs are not null.

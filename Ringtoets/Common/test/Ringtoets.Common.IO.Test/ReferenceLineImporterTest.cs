@@ -36,7 +36,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
@@ -101,7 +101,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
@@ -129,7 +129,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist");
@@ -174,7 +174,7 @@ namespace Ringtoets.Common.IO.Test
                 calculation3,
             });
 
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
@@ -247,7 +247,7 @@ namespace Ringtoets.Common.IO.Test
                 calculation4
             });
 
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
@@ -311,7 +311,7 @@ namespace Ringtoets.Common.IO.Test
                 calculation2
             });
 
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
@@ -361,7 +361,7 @@ namespace Ringtoets.Common.IO.Test
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
             mocks.ReplayAll();
 
@@ -397,7 +397,7 @@ namespace Ringtoets.Common.IO.Test
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
             mocks.ReplayAll();
 
@@ -435,7 +435,7 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
@@ -497,13 +497,14 @@ namespace Ringtoets.Common.IO.Test
                 calculation4
             });
 
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism1,
                 failureMechanism2
             });
+            assessmentSection.Expect(section => section.NotifyObservers());
 
             var contextObserver = mocks.Stub<IObserver>();
             contextObserver.Expect(o => o.UpdateObserver());
@@ -539,12 +540,13 @@ namespace Ringtoets.Common.IO.Test
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
-            assessmentSection.ReferenceLine = originalReferenceLine;
-
             var observer = mocks.Stub<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
+            assessmentSection.ReferenceLine = originalReferenceLine;
+            assessmentSection.Expect(section => section.Attach(observer));
+            assessmentSection.Expect(section => section.NotifyObservers());
             mocks.ReplayAll();
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
@@ -585,7 +587,7 @@ namespace Ringtoets.Common.IO.Test
                 calculation1
             });
 
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
@@ -658,13 +660,14 @@ namespace Ringtoets.Common.IO.Test
                 calculation4
             });
 
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = originalReferenceLine;
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism1,
                 failureMechanism2
             });
+            assessmentSection.Expect(section => section.NotifyObservers());
 
             var contextObserver = mocks.Stub<IObserver>();
             contextObserver.Expect(o => o.UpdateObserver());

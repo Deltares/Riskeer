@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = null;
             mocks.ReplayAll();
 
@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1_vakken.shp");
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -124,7 +124,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1_vakken.shp");
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -158,7 +158,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA_ValidVakken.shp");
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -191,7 +191,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA_ValidVakken.shp");
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -243,7 +243,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -278,7 +278,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist.shp");
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -312,7 +312,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1_vakken.shp");
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = null;
             mocks.ReplayAll();
 
@@ -343,7 +343,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA_EmptyVakken.shp");
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -380,7 +380,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, shapeFileName);
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -417,7 +417,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, shapeFileName);
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -452,7 +452,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA_InvalidVakken_NotCoveringWholeReferenceLine.shp");
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -487,7 +487,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA_InvalidVakken_PointsTooFarFromReferenceLine.shp");
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -522,7 +522,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1_vakken.shp");
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);

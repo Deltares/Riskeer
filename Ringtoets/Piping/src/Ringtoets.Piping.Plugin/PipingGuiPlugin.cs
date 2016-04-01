@@ -248,7 +248,7 @@ namespace Ringtoets.Piping.Plugin
 
         private bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)
         {
-            var assessmentSectionBase = o as AssessmentSectionBase;
+            var assessmentSectionBase = o as IAssessmentSection;
             return assessmentSectionBase != null && ((PipingFailureMechanismContext) view.Data).Parent == assessmentSectionBase;
         }
 
@@ -258,7 +258,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object o)
         {
-            var assessmentSectionBase = o as AssessmentSectionBase;
+            var assessmentSectionBase = o as IAssessmentSection;
             if (assessmentSectionBase != null)
             {
                 var pipingFailureMechanism = assessmentSectionBase.GetFailureMechanisms()
@@ -428,7 +428,7 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private static IList GetInputs(PipingFailureMechanism failureMechanism, AssessmentSectionBase assessmentSection)
+        private static IList GetInputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {

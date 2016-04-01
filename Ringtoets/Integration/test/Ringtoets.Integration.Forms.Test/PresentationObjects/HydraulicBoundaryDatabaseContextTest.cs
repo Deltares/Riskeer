@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionBaseMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var context  = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -123,7 +123,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             object context1 = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -143,8 +143,8 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection1 = mocks.Stub<AssessmentSectionBase>();
-            var assessmentSection2 = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection1 = mocks.Stub<IAssessmentSection>();
+            var assessmentSection2 = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             object context1 = new HydraulicBoundaryDatabaseContext(assessmentSection1);
@@ -164,7 +164,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             object context1 = new HydraulicBoundaryDatabaseContext(assessmentSection);

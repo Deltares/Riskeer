@@ -59,8 +59,8 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var viewMock = mocks.StrictMock<PipingFailureMechanismView>();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
-            var otherAssessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var otherAssessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var pipingFailureMechanismContextMock = mocks.StrictMock<PipingFailureMechanismContext>(pipingFailureMechanismMock, assessmentSectionMock);
 
@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var viewMock = mocks.StrictMock<PipingFailureMechanismView>();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var pipingFailureMechanismContextMock = mocks.StrictMock<PipingFailureMechanismContext>(pipingFailureMechanismMock, assessmentSectionMock);
 

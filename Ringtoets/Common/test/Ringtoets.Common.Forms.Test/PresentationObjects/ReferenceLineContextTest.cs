@@ -18,7 +18,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var referenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
             mocks.ReplayAll();
 
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var context1 = new ReferenceLineContext(assessmentSection);
@@ -69,8 +69,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection1 = mocks.Stub<AssessmentSectionBase>();
-            var assessmentSection2 = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection1 = mocks.Stub<IAssessmentSection>();
+            var assessmentSection2 = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var context1 = new ReferenceLineContext(assessmentSection1);
@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var context = new ReferenceLineContext(assessmentSection);
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var context = new ReferenceLineContext(assessmentSection);
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var context = new ReferenceLineContext(assessmentSection);

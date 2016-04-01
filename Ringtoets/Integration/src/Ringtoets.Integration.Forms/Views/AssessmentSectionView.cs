@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Views
     public partial class AssessmentSectionView : UserControl, IMapView, IObserver
     {
         private readonly MapControl mapControl;
-        private AssessmentSectionBase data;
+        private IAssessmentSection data;
 
         private MapData hydraulicBoundaryDatabaseLocations;
         private MapData referenceLineData;
@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
             set
             {
-                data = value as AssessmentSectionBase;
+                data = value as IAssessmentSection;
 
                 if (data != null)
                 {

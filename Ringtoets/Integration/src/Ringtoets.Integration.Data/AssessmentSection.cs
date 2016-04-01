@@ -20,9 +20,13 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
+
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Piping.Data;
@@ -32,8 +36,12 @@ namespace Ringtoets.Integration.Data
     /// <summary>
     /// The section to be assessed by the user for safety in regards of various failure mechanisms.
     /// </summary>
-    public sealed class AssessmentSection : AssessmentSectionBase
+    public sealed class AssessmentSection : Observable, IAssessmentSection
     {
+        private ReferenceLine referenceLine;
+
+        private FailureMechanismContribution contritbution;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AssessmentSection"/> class.
         /// </summary>
@@ -83,32 +91,6 @@ namespace Ringtoets.Integration.Data
             };
 
             FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
-        }
-
-        public override ReferenceLine ReferenceLine
-        {
-            get
-            {
-                return base.ReferenceLine;
-            }
-            set
-            {
-                base.ReferenceLine = value;
-                PipingFailureMechanism.SemiProbabilisticInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
-            }
-        }
-
-        public override FailureMechanismContribution FailureMechanismContribution
-        {
-            get
-            {
-                return base.FailureMechanismContribution;
-            }
-            protected set
-            {
-                base.FailureMechanismContribution = value;
-                PipingFailureMechanism.SemiProbabilisticInput.Norm = value.Norm;
-            }
         }
 
         /// <summary>
@@ -161,7 +143,39 @@ namespace Ringtoets.Integration.Data
         /// </summary>
         public FailureMechanismPlaceholder DuneErosionFailureMechanism { get; private set; }
 
-        public override IEnumerable<IFailureMechanism> GetFailureMechanisms()
+        public string Name { get; set; }
+
+        public ReferenceLine ReferenceLine
+        {
+            get
+            {
+                return referenceLine;
+            }
+            set
+            {
+                referenceLine = value;
+                PipingFailureMechanism.SemiProbabilisticInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
+            }
+        }
+
+        public FailureMechanismContribution FailureMechanismContribution
+        {
+            get
+            {
+                return contritbution;
+            }
+            private set
+            {
+                contritbution = value;
+                PipingFailureMechanism.SemiProbabilisticInput.Norm = value.Norm;
+            }
+        }
+
+        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
+
+        public long StorageId { get; set; }
+
+        public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
             yield return PipingFailureMechanism;
             yield return GrassErosionFailureMechanism;

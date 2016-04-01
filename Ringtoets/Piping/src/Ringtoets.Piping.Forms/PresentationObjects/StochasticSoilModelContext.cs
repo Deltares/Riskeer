@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism to wrap.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public StochasticSoilModelContext(PipingFailureMechanism failureMechanism, AssessmentSectionBase assessmentSection)
+        public StochasticSoilModelContext(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         }
 
         public PipingFailureMechanism FailureMechanism { get; private set; }
-        public AssessmentSectionBase AssessmentSection { get; private set; }
+        public IAssessmentSection AssessmentSection { get; private set; }
 
         #region IObservable
 

@@ -26,7 +26,6 @@ using Rhino.Mocks;
 
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
@@ -51,7 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionBaseMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 1.0, 2.0);

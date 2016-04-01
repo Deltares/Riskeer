@@ -191,7 +191,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             // Scenario
             var mocks = new MockRepository();
             var typeDescriptorContextMock = mocks.StrictMock<ITypeDescriptorContext>();
-            var assessmentSectionMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());

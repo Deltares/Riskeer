@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="AssessmentSection"/> for properties panel.
     /// </summary>
-    public class AssessmentSectionBaseProperties : ObjectProperties<AssessmentSectionBase>
+    public class AssessmentSectionBaseProperties : ObjectProperties<IAssessmentSection>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "AssessmentSectionBase_Name_DisplayName")]

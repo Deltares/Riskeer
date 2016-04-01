@@ -26,7 +26,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var assessmentSectionMock = mockRepository.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var assessmentSectionMock = mockRepository.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]

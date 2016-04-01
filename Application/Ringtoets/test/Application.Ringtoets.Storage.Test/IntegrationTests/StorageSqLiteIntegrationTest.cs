@@ -223,7 +223,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertHydraulicBoundaryDatabase(AssessmentSectionBase expectedProject, AssessmentSectionBase project)
+        private static void AssertHydraulicBoundaryDatabase(IAssessmentSection expectedProject, IAssessmentSection project)
         {
             Assert.IsNotNull(expectedProject.HydraulicBoundaryDatabase);
             Assert.AreEqual(expectedProject.HydraulicBoundaryDatabase.Version, project.HydraulicBoundaryDatabase.Version);
@@ -241,7 +241,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
 
-        private static void AssertReferenceLine(AssessmentSectionBase expectedProject, AssessmentSectionBase project)
+        private static void AssertReferenceLine(IAssessmentSection expectedProject, IAssessmentSection project)
         {
             Assert.IsNotNull(expectedProject.ReferenceLine);
 

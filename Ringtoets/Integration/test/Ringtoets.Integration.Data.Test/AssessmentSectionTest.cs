@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.IsInstanceOf<Observable>(section);
-            Assert.IsInstanceOf<AssessmentSectionBase>(section);
+            Assert.IsInstanceOf<IAssessmentSection>(section);
 
             Assert.AreEqual("Traject", section.Name);
             Assert.IsNull(section.ReferenceLine);
@@ -156,6 +156,21 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(30, contribution[10].Contribution);
             Assert.AreEqual(norm, contribution[10].Norm);
             Assert.AreEqual((norm / contribution[10].Contribution) * 100, 100000);
+        }
+
+        [Test]
+        public void ReferenceLine_SetNewValue_GetNewValue()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection();
+            
+            var referenceLine = new ReferenceLine();
+
+            // Call
+            assessmentSection.ReferenceLine = referenceLine;
+
+            // Assert
+            Assert.AreSame(referenceLine, assessmentSection.ReferenceLine);
         }
 
         [Test]

@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new PipingFailureMechanismContextProperties();
 
             // Call
-            properties.Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<AssessmentSectionBase>());
+            properties.Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
 
             // Assert
             Assert.AreEqual(failureMechanism.GeneralInput.UpliftModelFactor, properties.UpliftModelFactor);

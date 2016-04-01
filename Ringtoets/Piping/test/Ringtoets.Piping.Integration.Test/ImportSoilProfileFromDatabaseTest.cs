@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.Integration.Test
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Integration.Test
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.Integration.Test
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 

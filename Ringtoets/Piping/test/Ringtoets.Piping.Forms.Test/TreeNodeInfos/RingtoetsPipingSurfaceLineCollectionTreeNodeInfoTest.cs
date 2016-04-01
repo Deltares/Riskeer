@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLinesContext>(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLinesContext>(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLinesContext>(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ForeColor_CollectionWithSurfaceLines_ReturnsControlText()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var ringtoetsPipingSurfaceLine1 = new RingtoetsPipingSurfaceLine();
             var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine();
 
@@ -136,7 +136,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsChildsOnData()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var ringtoetsPipingSurfaceLine1 = new RingtoetsPipingSurfaceLine();
             var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine();
 

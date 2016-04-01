@@ -33,14 +33,14 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
     /// </summary>
     public class HydraulicBoundaryDatabaseContext : Observable
     {
-        private readonly AssessmentSectionBase parent;
+        private readonly IAssessmentSection parent;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseContext"/>.
         /// </summary>
-        /// <param name="parent">The <see cref="AssessmentSectionBase"/> which the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
+        /// <param name="parent">The <see cref="IAssessmentSection"/> which the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="parent"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseContext(AssessmentSectionBase parent)
+        public HydraulicBoundaryDatabaseContext(IAssessmentSection parent)
         {
             if (parent == null)
             {
@@ -51,9 +51,9 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the <see cref="AssessmentSectionBase"/> which this context object belongs to.
+        /// Gets the <see cref="IAssessmentSection"/> which this context object belongs to.
         /// </summary>
-        public AssessmentSectionBase Parent
+        public IAssessmentSection Parent
         {
             get
             {

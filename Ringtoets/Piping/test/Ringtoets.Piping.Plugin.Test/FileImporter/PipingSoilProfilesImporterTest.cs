@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = null;
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
@@ -104,7 +104,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, file);
 
             var observer = mockRepository.StrictMock<IObserver>();
-            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string invalidFilePath = Path.Combine(testDataPath, file);
 
             var observer = mockRepository.StrictMock<IObserver>();
-            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
@@ -190,7 +190,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string invalidFilePath = Path.Combine(testDataPath, file);
 
             var observer = mockRepository.StrictMock<IObserver>();
-            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
@@ -227,7 +227,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var observer = mockRepository.StrictMock<IObserver>();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             mockRepository.ReplayAll();
 
@@ -287,7 +287,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var observer = mockRepository.StrictMock<IObserver>();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             mockRepository.ReplayAll();
 
@@ -324,7 +324,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
 
             var observer = mockRepository.StrictMock<IObserver>();
-            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
@@ -366,7 +366,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
@@ -403,7 +403,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string corruptPath = Path.Combine(testDataPath, "empty.soil");
 
             var observer = mockRepository.StrictMock<IObserver>();
-            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
@@ -441,7 +441,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string corruptPath = Path.Combine(testDataPath, "invalidAtX2dProperty.soil");
 
             var observer = mockRepository.StrictMock<IObserver>();
-            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
@@ -486,7 +486,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string corruptPath = Path.Combine(testDataPath, "incorrectValue2dProperty.soil");
 
             var observer = mockRepository.StrictMock<IObserver>();
-            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
@@ -515,7 +515,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "invalidStochasticSoilProfiles.soil");
 
             var observer = mockRepository.StrictMock<IObserver>();
-            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
@@ -550,7 +550,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             string validFilePath = Path.Combine(testDataPath, "incorrectProbability.soil");
 
             var observer = mockRepository.StrictMock<IObserver>();
-            var assessmentSection = mockRepository.Stub<AssessmentSectionBase>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();

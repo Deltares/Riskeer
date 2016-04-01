@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             };
 
             var mocks = new MockRepository();
-            var assessmentSectionBase = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionBase = mocks.StrictMock<IAssessmentSection>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             };
 
             var mocks = new MockRepository();
-            var assessmentSectionBase = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionBase = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionBase = new MockRepository().StrictMock<AssessmentSectionBase>();
+            var assessmentSectionBase = new MockRepository().StrictMock<IAssessmentSection>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionBase = new MockRepository().StrictMock<AssessmentSectionBase>();
+            var assessmentSectionBase = new MockRepository().StrictMock<IAssessmentSection>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
@@ -162,7 +162,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionBase = new MockRepository().StrictMock<AssessmentSectionBase>();
+            var assessmentSectionBase = new MockRepository().StrictMock<IAssessmentSection>();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());

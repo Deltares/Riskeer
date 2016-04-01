@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Plugin
 
         private static string GetUniqueForAssessmentSectionName(Project project, string baseName)
         {
-            return NamingHelper.GetUniqueName(project.Items.OfType<AssessmentSectionBase>(), baseName, a => a.Name);
+            return NamingHelper.GetUniqueName(project.Items.OfType<IAssessmentSection>(), baseName, a => a.Name);
         }
     }
 }

@@ -11,6 +11,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
@@ -33,7 +34,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(AssessmentSectionBase));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(IAssessmentSection));
         }
 
         [TearDown]
@@ -46,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(AssessmentSectionBase), info.TagType);
+            Assert.AreEqual(typeof(IAssessmentSection), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.IsChecked);
@@ -61,8 +62,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
             var testName = "ttt";
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Name = testName;
 
             mocks.ReplayAll();
@@ -80,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             mocks.ReplayAll();
 
@@ -97,7 +99,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void EnsureVisibleOnCreate_Always_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             mocks.ReplayAll();
 
@@ -114,13 +116,18 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsChildsOnData()
         {
             // Setup
-            var failureMechanismList = new List<IFailureMechanism>
+            var failureMechanisms = new IFailureMechanism[]
             {
                 new PipingFailureMechanism(),
                 new FailureMechanismPlaceholder("A")
             };
-            var contribution = new FailureMechanismContribution(failureMechanismList, 10.0, 2);
-            var assessmentSection = new TestAssessmentSectionBase(contribution, failureMechanismList);
+            var contribution = new FailureMechanismContribution(failureMechanisms, 10.0, 2);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(contribution);
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(failureMechanisms);
+            mocks.ReplayAll();
+
 
             // Call
             var objects = info.ChildNodeObjects(assessmentSection).ToArray();
@@ -138,11 +145,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             Assert.AreSame(assessmentSection, context.Parent);
 
             var pipingFailureMechanismContext = (PipingFailureMechanismContext)objects[3];
-            Assert.AreSame(failureMechanismList[0], pipingFailureMechanismContext.WrappedData);
+            Assert.AreSame(failureMechanisms[0], pipingFailureMechanismContext.WrappedData);
             Assert.AreSame(assessmentSection, pipingFailureMechanismContext.Parent);
 
             var placeholderFailureMechanismContext = (FailureMechanismPlaceholderContext)objects[4];
-            Assert.AreSame(failureMechanismList[1], placeholderFailureMechanismContext.WrappedData);
+            Assert.AreSame(failureMechanisms[1], placeholderFailureMechanismContext.WrappedData);
             Assert.AreSame(assessmentSection, placeholderFailureMechanismContext.Parent);
 
             mocks.VerifyAll();
@@ -196,14 +203,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void OnNodeRenamed_WithData_SetProjectNameWithNotification()
         {
             // Setup
-            var assessmentSectionObserver = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
-        
-            assessmentSectionObserver.Expect(o => o.UpdateObserver());
-        
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers());
+
             mocks.ReplayAll();
-        
-            assessmentSection.Attach(assessmentSectionObserver);
         
             // Call
             const string newName = "New Name";
@@ -229,7 +232,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var observerMock = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
         
             observerMock.Expect(o => o.UpdateObserver());
         
@@ -246,22 +249,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert
             CollectionAssert.DoesNotContain(project.Items, assessmentSection);
             mocks.VerifyAll();
-        }
-    }
-
-    public class TestAssessmentSectionBase : AssessmentSectionBase
-    {
-        private readonly IEnumerable<IFailureMechanism> failureMechanisms;
-
-        public TestAssessmentSectionBase(FailureMechanismContribution contribution, IEnumerable<IFailureMechanism> failureMechanisms)
-        {
-            FailureMechanismContribution = contribution;
-            this.failureMechanisms = failureMechanisms;
-        }
-        
-        public override IEnumerable<IFailureMechanism> GetFailureMechanisms()
-        {
-            return failureMechanisms;
         }
     }
 }

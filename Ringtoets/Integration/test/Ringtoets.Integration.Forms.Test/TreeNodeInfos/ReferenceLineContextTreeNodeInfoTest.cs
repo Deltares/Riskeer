@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLine = new ReferenceLine();
@@ -84,7 +84,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLine = new ReferenceLine();
@@ -126,7 +126,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ForeColor_ContextHasNoReferenceLine_ReturnDisabledColor()
         {
             // Setup
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
@@ -143,7 +143,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ForeColor_ContextHasReferenceLineData_ReturnControlText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 

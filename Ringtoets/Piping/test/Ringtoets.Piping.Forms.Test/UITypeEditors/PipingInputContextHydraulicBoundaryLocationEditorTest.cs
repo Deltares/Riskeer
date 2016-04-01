@@ -26,9 +26,11 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var assessmentSectionMock = mockRepository.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
+                                 .Return(hydraulicBoundaryDatabase)
+                                 .Repeat.AtLeastOnce();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
@@ -74,10 +76,11 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var assessmentSectionMock = mockRepository.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
+                                 .Return(hydraulicBoundaryDatabase)
+                                 .Repeat.AtLeastOnce();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             var pipingInput = new PipingInput(new GeneralPipingInput())

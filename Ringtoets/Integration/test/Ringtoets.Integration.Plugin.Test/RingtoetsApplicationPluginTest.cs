@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Plugin.Test
             AddAssessmentSectionToProject(project, plugin);
 
             // Assert
-            CollectionAssert.AllItemsAreUnique(project.Items.Cast<AssessmentSectionBase>().Select(section => section.Name));
+            CollectionAssert.AllItemsAreUnique(project.Items.Cast<IAssessmentSection>().Select(section => section.Name));
         }
 
         private void AddAssessmentSectionToProject(Project project, RingtoetsApplicationPlugin plugin)

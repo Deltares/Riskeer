@@ -19,7 +19,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new AssessmentSectionBaseProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<AssessmentSectionBase>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<IAssessmentSection>>(properties);
             Assert.IsNull(properties.Data);
         }
 

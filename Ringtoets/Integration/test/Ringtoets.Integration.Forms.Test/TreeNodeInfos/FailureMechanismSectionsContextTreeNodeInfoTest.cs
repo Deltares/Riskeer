@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             var gui = mocks.StrictMock<IGui>();
@@ -114,7 +114,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ForeColor_NoSectionsOnFailureMechanism_ReturnGrayText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Sections).Return(Enumerable.Empty<FailureMechanismSection>());
             mocks.ReplayAll();
@@ -133,7 +133,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ForeColor_HasSectionsOnFailureMechanism_ReturnControlText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Sections).Return(new[]
             {

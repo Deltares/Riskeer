@@ -138,7 +138,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var pipingFailureMechanism = mocks.StrictMock<PipingFailureMechanism>();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var applicationSelection = mocks.StrictMock<IApplicationSelection>();
 
             mocks.ReplayAll();
@@ -169,7 +169,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var pipingCalculationsView = ShowPipingCalculationsView();
 
             mocks.ReplayAll();
@@ -190,7 +190,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
 
             mocks.ReplayAll();
@@ -550,7 +550,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView()
         {
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4);

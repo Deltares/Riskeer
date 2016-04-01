@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="parent"/> are <c>null</c>.</exception>
-        protected FailureMechanismContext(T wrappedFailureMechanism, AssessmentSectionBase parent)
+        protected FailureMechanismContext(T wrappedFailureMechanism, IAssessmentSection parent)
         {
             AssertInputsAreNotNull(wrappedFailureMechanism, parent);
 
@@ -46,14 +46,14 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the parent of <see cref="WrappedData"/>.
         /// </summary>
-        public AssessmentSectionBase Parent { get; private set; }
+        public IAssessmentSection Parent { get; private set; }
 
         /// <summary>
         /// Gets the wrapped failure mechanism.
         /// </summary>
         public T WrappedData { get; private set; }
 
-        private void AssertInputsAreNotNull(T wrappedFailureMechanism, AssessmentSectionBase parent)
+        private void AssertInputsAreNotNull(T wrappedFailureMechanism, IAssessmentSection parent)
         {
             if (wrappedFailureMechanism == null)
             {

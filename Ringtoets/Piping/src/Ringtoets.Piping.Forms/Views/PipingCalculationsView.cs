@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly RecursiveObserver<PipingCalculationGroup, PipingInput> pipingInputObserver;
         private readonly RecursiveObserver<PipingCalculationGroup, PipingCalculation> pipingCalculationObserver;
         private readonly RecursiveObserver<PipingCalculationGroup, PipingCalculationGroup> pipingCalculationGroupObserver;
-        private AssessmentSectionBase assessmentSection;
+        private IAssessmentSection assessmentSection;
         private PipingFailureMechanism pipingFailureMechanism;
         private PipingCalculationGroup pipingCalculationGroup;
         private DataGridViewComboBoxColumn soilProfileColumn;
@@ -98,7 +98,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Gets or sets the assessment section.
         /// </summary>
-        public AssessmentSectionBase AssessmentSection
+        public IAssessmentSection AssessmentSection
         {
             get
             {

@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionBaseMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var properties = new PipingCalculationContextProperties
@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionBaseMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             int numberProperties = 1;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var assessmentSectionBaseMock = mocks.StrictMock<AssessmentSectionBase>();
+            var assessmentSectionBaseMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());

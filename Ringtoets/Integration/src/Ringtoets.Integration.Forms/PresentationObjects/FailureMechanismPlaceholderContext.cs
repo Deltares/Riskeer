@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism" />.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="parent"/> are <c>null</c>.</exception>
-        public FailureMechanismPlaceholderContext(FailureMechanismPlaceholder wrappedFailureMechanism, AssessmentSectionBase parent) :
+        public FailureMechanismPlaceholderContext(FailureMechanismPlaceholder wrappedFailureMechanism, IAssessmentSection parent) :
             base(wrappedFailureMechanism, parent)
         {
             

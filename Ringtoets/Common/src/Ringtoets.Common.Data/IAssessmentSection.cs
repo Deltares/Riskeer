@@ -32,44 +32,31 @@ namespace Ringtoets.Common.Data
     /// <summary>
     /// Base implementation of assessment sections.
     /// </summary>
-    public abstract class AssessmentSectionBase : Observable, IStorable
+    public interface IAssessmentSection : IObservable, IStorable
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AssessmentSectionBase"/> class.
-        /// </summary>
-        protected AssessmentSectionBase()
-        {
-            Name = "";
-        }
-
         /// <summary>
         /// Gets or sets the name of the assessment section.
         /// </summary>
-        public string Name { get; set; }
+        string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the reference line defining the geometry of the assessment section.
         /// </summary>
-        public virtual ReferenceLine ReferenceLine { get; set; }
+        ReferenceLine ReferenceLine { get; set; }
 
         /// <summary>
         /// Gets or sets the contribution of each failure mechanism available in this assessment section.
         /// </summary>
-        public virtual FailureMechanismContribution FailureMechanismContribution { get; protected set; }
+        FailureMechanismContribution FailureMechanismContribution { get; }
 
         /// <summary>
         /// Gets or sets the hydraulic boundary database.
         /// </summary>
-        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
+        HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
 
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.
         /// </summary>
-        public abstract IEnumerable<IFailureMechanism> GetFailureMechanisms();
-
-        /// <summary>
-        /// Gets or sets the unique identifier for the storage of the class.
-        /// </summary>
-        public long StorageId { get; set; }
+        IEnumerable<IFailureMechanism> GetFailureMechanisms();
     }
 }
