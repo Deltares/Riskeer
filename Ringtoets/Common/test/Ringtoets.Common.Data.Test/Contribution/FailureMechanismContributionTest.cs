@@ -83,7 +83,6 @@ namespace Ringtoets.Common.Data.Test.Contribution
         }
 
         [Test]
-        [TestCase(0)]
         [TestCase(-10)]
         [TestCase(-1e-6)]
         [TestCase(100 + 1e-6)]
@@ -106,7 +105,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
         [Test]
         [TestCase(50)]
-        [TestCase(1e-6)]
+        [TestCase(0)]
         [TestCase(100)]
         public void Constructor_EmptyFailureMechanisms_OnlyOtherFailureMechanismAddedWithContributionSet(double contribution)
         {

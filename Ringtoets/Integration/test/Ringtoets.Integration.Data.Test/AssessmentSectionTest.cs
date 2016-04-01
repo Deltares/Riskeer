@@ -30,9 +30,10 @@ namespace Ringtoets.Integration.Data.Test
             var stoneRevetmentName = "Dijken - Steenbekledingen";
             var asphaltName = "Dijken - Asfaltbekledingen";
             var grassRevetmentName = "Dijken - Grasbekledingen";
+            var duneErosionName = "Duinen - Erosie";
 
             var pipingContribution = 24;
-            var contributions = new double[] { pipingContribution, 24, 4, 2, 4, 2, 4, 3, 3, 30 };
+            var contributions = new double[] { pipingContribution, 24, 4, 2, 4, 2, 4, 3, 3, 0, 30 };
             var names = new[] {
                 pipingName,
                 grassErosionName,
@@ -43,6 +44,7 @@ namespace Ringtoets.Integration.Data.Test
                 stoneRevetmentName,
                 asphaltName,
                 grassRevetmentName,
+                duneErosionName,
                 "Overig"
             };
 
@@ -66,6 +68,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(stoneRevetmentName, section.StoneRevetmentFailureMechanism.Name);
             Assert.AreEqual(asphaltName, section.AsphaltRevetmentFailureMechanism.Name);
             Assert.AreEqual(grassRevetmentName, section.GrassRevetmentFailureMechanism.Name);
+            Assert.AreEqual(duneErosionName, section.DuneErosionFailureMechanism.Name);
 
             Assert.AreEqual(24, section.PipingFailureMechanism.Contribution);
             Assert.AreEqual(24, section.GrassErosionFailureMechanism.Contribution);
@@ -76,10 +79,11 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(4, section.StoneRevetmentFailureMechanism.Contribution);
             Assert.AreEqual(3, section.AsphaltRevetmentFailureMechanism.Contribution);
             Assert.AreEqual(3, section.GrassRevetmentFailureMechanism.Contribution);
+            Assert.AreEqual(0, section.DuneErosionFailureMechanism.Contribution);
 
             Assert.AreEqual(contributions, section.FailureMechanismContribution.Distribution.Select(d => d.Contribution));
             Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
-            Assert.AreEqual(Enumerable.Repeat(30000.0, 10), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
+            Assert.AreEqual(Enumerable.Repeat(30000.0, 11), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
 
             Assert.AreEqual(pipingContribution, section.PipingFailureMechanism.SemiProbabilisticInput.Contribution);
             Assert.AreEqual(30000.0, section.PipingFailureMechanism.SemiProbabilisticInput.Norm);
@@ -113,7 +117,7 @@ namespace Ringtoets.Integration.Data.Test
             var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
 
             // Assert
-            Assert.AreEqual(9, failureMechanisms.Length);
+            Assert.AreEqual(10, failureMechanisms.Length);
             Assert.AreSame(assessmentSection.PipingFailureMechanism, failureMechanisms[0]);
             Assert.AreSame(assessmentSection.GrassErosionFailureMechanism, failureMechanisms[1]);
             Assert.AreSame(assessmentSection.MacrostabilityInwardFailureMechanism, failureMechanisms[2]);
@@ -123,6 +127,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreSame(assessmentSection.StoneRevetmentFailureMechanism, failureMechanisms[6]);
             Assert.AreSame(assessmentSection.AsphaltRevetmentFailureMechanism, failureMechanisms[7]);
             Assert.AreSame(assessmentSection.GrassRevetmentFailureMechanism, failureMechanisms[8]);
+            Assert.AreSame(assessmentSection.DuneErosionFailureMechanism, failureMechanisms[9]);
         }
 
         [Test]
@@ -138,19 +143,19 @@ namespace Ringtoets.Integration.Data.Test
             // Assert
             var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
 
-            Assert.AreEqual(10, contribution.Length);
+            Assert.AreEqual(11, contribution.Length);
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Assert.AreEqual(failureMechanisms[i].Name, contribution[i].Assessment);
                 Assert.AreEqual(failureMechanisms[i].Contribution, contribution[i].Contribution);
                 Assert.AreEqual(norm, contribution[i].Norm);
                 Assert.AreEqual((norm / contribution[i].Contribution) * 100, contribution[i].ProbabilitySpace);
             }
-            Assert.AreEqual("Overig", contribution[9].Assessment);
-            Assert.AreEqual(30, contribution[9].Contribution);
-            Assert.AreEqual(norm, contribution[9].Norm);
-            Assert.AreEqual((norm / contribution[9].Contribution) * 100, 100000);
+            Assert.AreEqual("Overig", contribution[10].Assessment);
+            Assert.AreEqual(30, contribution[10].Contribution);
+            Assert.AreEqual(norm, contribution[10].Norm);
+            Assert.AreEqual((norm / contribution[10].Contribution) * 100, 100000);
         }
 
         [Test]

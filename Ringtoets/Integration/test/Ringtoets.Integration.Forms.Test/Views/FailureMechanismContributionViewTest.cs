@@ -13,10 +13,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class FailureMechanismContributionViewTest
     {
+        private const string normInputTextBoxName = "normInput";
+        private const string dataGridViewControlName = "probabilityDistributionGrid";
+
         private MockRepository mockRepository;
         private FailureMechanismContribution distribution;
         private Form testForm;
-        private ControlTester normTester;
 
         [SetUp]
         public void Setup()
@@ -52,6 +54,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             })
             {
                 ShowFormWithView(distributionView);
+                var normTester = new ControlTester(normInputTextBoxName);
 
                 // Assert
                 Assert.AreEqual(distribution.Norm.ToString(), normTester.Text);
@@ -75,6 +78,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             })
             {
                 ShowFormWithView(distributionView);
+                var normTester = new ControlTester(normInputTextBoxName);
 
                 // Precondition
                 Assert.AreEqual(distribution.Norm.ToString(), normTester.Text);
@@ -115,6 +119,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             })
             {
                 ShowFormWithView(distributionView);
+                var normTester = new ControlTester(normInputTextBoxName);
 
                 // Precondition
                 Assert.AreEqual(aValue.ToString(), normTester.Properties.Text);
@@ -137,12 +142,76 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void GivenFailureMechanismContributionView_WhenSettingDataWithZeroContributionFailureMechanism_ProbabilitySpaceShowsAsNotApplicable()
+        {
+            // Given
+            using (var view = new FailureMechanismContributionView())
+            {
+                // When
+                var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+                failureMechanismStub.Stub(fm => fm.Name).Return("A");
+                failureMechanismStub.Contribution = 0;
+                mockRepository.ReplayAll();
+
+                var contributionData = new FailureMechanismContribution(new[]
+                {
+                    failureMechanismStub
+                }, 100, 500);
+
+                view.Data = contributionData;
+                ShowFormWithView(view);
+
+                // Then
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+
+                DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
+                DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[2];
+                Assert.AreEqual("n.v.t", probabilitySpaceCell.FormattedValue);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenFailureMechanismContributionView_WhenSettingDataWithNormalContributionFailureMechanism_ProbabilitySpaceShowsAsLocalisedText()
+        {
+            // Given
+            using (var view = new FailureMechanismContributionView())
+            {
+                // When
+                const double contribution = 25.0;
+                const int norm = 500;
+
+                var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+                failureMechanismStub.Stub(fm => fm.Name).Return("A");
+                failureMechanismStub.Contribution = contribution;
+                mockRepository.ReplayAll();
+
+                var contributionData = new FailureMechanismContribution(new[]
+                {
+                    failureMechanismStub
+                }, 100.0 - contribution, norm);
+
+                view.Data = contributionData;
+                ShowFormWithView(view);
+
+                // Then
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+
+                DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
+                DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[2];
+
+                string expectedTextValue = new FailureMechanismContributionItem(failureMechanismStub, norm)
+                    .ProbabilitySpace.ToString(probabilitySpaceCell.InheritedStyle.Format, probabilitySpaceCell.InheritedStyle.FormatProvider);
+                Assert.AreEqual(expectedTextValue, probabilitySpaceCell.FormattedValue);
+            }
+            mockRepository.VerifyAll();
+        }
+
         private void ShowFormWithView(FailureMechanismContributionView distributionView)
         {
             testForm.Controls.Add(distributionView);
             testForm.Show();
-
-            normTester = new ControlTester("normInput");
         }
     }
 }

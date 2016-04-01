@@ -77,6 +77,10 @@ namespace Ringtoets.Integration.Data
             {
                 Contribution = 3
             };
+            DuneErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.DuneErosionFailureMechanism_DisplayName)
+            {
+                Contribution = 0
+            };
 
             FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
         }
@@ -152,6 +156,11 @@ namespace Ringtoets.Integration.Data
         /// </summary>
         public FailureMechanismPlaceholder GrassRevetmentFailureMechanism { get; private set; }
 
+        /// <summary>
+        /// Gets the "Duinerosie" failure mechanism.
+        /// </summary>
+        public FailureMechanismPlaceholder DuneErosionFailureMechanism { get; private set; }
+
         public override IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
             yield return PipingFailureMechanism;
@@ -163,6 +172,7 @@ namespace Ringtoets.Integration.Data
             yield return StoneRevetmentFailureMechanism;
             yield return AsphaltRevetmentFailureMechanism;
             yield return GrassRevetmentFailureMechanism;
+            yield return DuneErosionFailureMechanism;
         }
     }
 }

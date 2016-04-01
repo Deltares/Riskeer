@@ -225,4 +225,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="SelectHydraulicBoundaryDatabaseFile_Title" xml:space="preserve">
     <value>Selecteer database</value>
   </data>
+  <data name="FailureMechanismContributionView_ProbabilityPerYear_Not_applicable" xml:space="preserve">
+    <value>n.v.t</value>
+  </data>
 </root>

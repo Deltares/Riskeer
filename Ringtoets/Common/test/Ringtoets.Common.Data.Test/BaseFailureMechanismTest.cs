@@ -32,7 +32,6 @@ namespace Ringtoets.Common.Data.Test
 
         [Test]
         [TestCase(101)]
-        [TestCase(0)]
         [TestCase(-1e-6)]
         [TestCase(-1)]
         [TestCase(100+1e-6)]
@@ -51,7 +50,7 @@ namespace Ringtoets.Common.Data.Test
         [Test]
         [TestCase(100)]
         [TestCase(50)]
-        [TestCase(1e-9)]
+        [TestCase(0)]
         public void Contribution_ValueIntsideValidRegion_DoesNotThrow(double value)
         {
             // Setup

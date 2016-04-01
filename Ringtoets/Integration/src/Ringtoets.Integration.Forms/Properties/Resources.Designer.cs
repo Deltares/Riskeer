@@ -163,6 +163,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to n.v.t.
+        /// </summary>
+        public static string FailureMechanismContributionView_ProbabilityPerYear_Not_applicable {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionView_ProbabilityPerYear_Not_applicable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap FailureMechanismIcon {

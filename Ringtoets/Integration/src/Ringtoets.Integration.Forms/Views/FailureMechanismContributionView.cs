@@ -20,13 +20,17 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Base;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
 
 using Ringtoets.Common.Data.Contribution;
+
+using CommonGuiResources = Core.Common.Gui.Properties.Resources;
+using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -37,6 +41,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class FailureMechanismContributionView : UserControl, IView, IObserver
     {
+        private DataGridViewColumn probabilityPerYearColumn;
         private FailureMechanismContribution data;
 
         /// <summary>
@@ -48,6 +53,7 @@ namespace Ringtoets.Integration.Forms.Views
             InitializeGridColumns();
             BindNormChange();
             BindNormInputLeave();
+            SubscribeEvents();
         }
 
         public object Data
@@ -66,6 +72,43 @@ namespace Ringtoets.Integration.Forms.Views
         {
             SetNormText();
             probabilityDistributionGrid.Invalidate();
+        }
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            UnsubscribeEvents();
+            base.Dispose(disposing);
+        }
+
+        private void SubscribeEvents()
+        {
+            probabilityDistributionGrid.CellFormatting += ProbabilityDistributionGridOnCellFormatting;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            probabilityDistributionGrid.CellFormatting -= ProbabilityDistributionGridOnCellFormatting;
+        }
+
+        private void ProbabilityDistributionGridOnCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == probabilityPerYearColumn.Index)
+            {
+                var contributionItem = data.Distribution.ElementAt(e.RowIndex);
+                if (contributionItem.Contribution == 0.0)
+                {
+                    e.Value = RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ProbabilityPerYear_Not_applicable;
+                    e.FormattingApplied = true;
+                }
+            }
         }
 
         private void SetNormValue(FailureMechanismContribution value)
@@ -155,7 +198,7 @@ namespace Ringtoets.Integration.Forms.Views
             var assessmentColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = assessmentName,
-                HeaderText = Resources.FailureMechanismContributionView_GridColumn_Assessment,
+                HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_Assessment,
                 Name = string.Format(columnNameFormat, assessmentName),
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
             };
@@ -164,16 +207,16 @@ namespace Ringtoets.Integration.Forms.Views
             var probabilityColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = contributionName,
-                HeaderText = Resources.FailureMechanismContributionView_GridColumn_Contribution,
+                HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_Contribution,
                 Name = string.Format(columnNameFormat, contributionName),
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
             };
 
             var probabilitySpaceName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(fmci => fmci.ProbabilitySpace);
-            var probabilityPerYearColumn = new DataGridViewTextBoxColumn
+            probabilityPerYearColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = probabilitySpaceName,
-                HeaderText = Resources.FailureMechanismContributionView_GridColumn_ProbabilitySpace,
+                HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_ProbabilitySpace,
                 Name = string.Format(columnNameFormat, probabilitySpaceName),
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                 MinimumWidth = 100
