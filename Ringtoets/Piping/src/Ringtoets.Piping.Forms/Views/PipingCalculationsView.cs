@@ -568,19 +568,18 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void DataGridViewRowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (updatingDataSource || ApplicationSelection == null)
+            if (updatingDataSource)
             {
                 return;
             }
 
-            var pipingCalculationRow = (PipingCalculationRow) dataGridView.Rows[e.RowIndex].DataBoundItem;
-
-            ApplicationSelection.Selection = new PipingInputContext(pipingCalculationRow.PipingCalculation.InputParameters, pipingFailureMechanism.SurfaceLines, pipingFailureMechanism.StochasticSoilModels, assessmentSection);
+            UpdateApplicationSelection((PipingCalculationRow) dataGridView.Rows[e.RowIndex].DataBoundItem);
         }
 
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
             UpdateDataGridViewDataSource();
+            UpdateApplicationSelection(dataGridView.CurrentRow != null ? (PipingCalculationRow) dataGridView.CurrentRow.DataBoundItem : null);
         }
 
         private void OnGenerateScenariosButtonClick(object sender, EventArgs e)
@@ -592,6 +591,18 @@ namespace Ringtoets.Piping.Forms.Views
                 pipingCalculationGroup.Children.Add(item);
             }
             pipingCalculationGroup.NotifyObservers();
+        }
+
+        private void UpdateApplicationSelection(PipingCalculationRow pipingCalculationRow)
+        {
+            if (ApplicationSelection == null)
+            {
+                return;
+            }
+
+            ApplicationSelection.Selection = pipingCalculationRow != null
+                                                 ? new PipingInputContext(pipingCalculationRow.PipingCalculation.InputParameters, pipingFailureMechanism.SurfaceLines, pipingFailureMechanism.StochasticSoilModels, assessmentSection)
+                                                 : null;
         }
 
         # endregion

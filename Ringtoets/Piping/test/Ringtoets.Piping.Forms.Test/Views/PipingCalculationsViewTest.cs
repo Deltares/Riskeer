@@ -332,7 +332,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void PipingCalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySynced()
+        public void PipingCalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndApplicationSelectionUpdated()
         {
             // Setup
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
@@ -346,6 +346,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(2, dataGridView.Rows.Count);
             Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
+            Assert.IsNull(pipingCalculationsView.ApplicationSelection.Selection);
 
             // Call
             listBox.SelectedIndex = 1;
@@ -353,6 +354,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreEqual(1, dataGridView.Rows.Count);
             Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+            var pipingInputContext = pipingCalculationsView.ApplicationSelection.Selection as PipingInputContext;
+            Assert.IsNotNull(pipingInputContext);
+            Assert.AreEqual("Surface line 2", pipingInputContext.WrappedData.SurfaceLine.Name);
         }
 
         [TestCase(nameColumnIndex, "New name", 1, 0)]

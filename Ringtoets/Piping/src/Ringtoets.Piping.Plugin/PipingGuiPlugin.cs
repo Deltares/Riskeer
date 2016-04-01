@@ -87,9 +87,9 @@ namespace Ringtoets.Piping.Plugin
                 CloseForData = ClosePipingCalculationsViewForData,
                 AfterCreate = (view, context) =>
                 {
+                    view.ApplicationSelection = Gui;
                     view.AssessmentSection = context.AssessmentSection;
                     view.PipingFailureMechanism = context.PipingFailureMechanism;
-                    view.ApplicationSelection = Gui;
                 }
             };
         }
