@@ -23,10 +23,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.Views;
 
@@ -59,6 +61,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.IsInstanceOf<UserControl>(view);
             Assert.IsInstanceOf<IView>(view);
             Assert.IsNull(view.Data);
+            Assert.IsNull(view.FailureMechanism);
         }
 
         [Test]
@@ -122,6 +125,29 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Dispose_FailureMechanismResultViewWithAdditionalPropertiesSet_AdditionalPropertiesSetToNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = new SimpleFailureMechanism();
+            mocks.ReplayAll();
+
+            var view = new FailureMechanismResultView
+            {
+                FailureMechanism = failureMechanism
+            };
+
+            // Precondition
+            Assert.IsNotNull(view.FailureMechanism);
+
+            // Call
+            view.Dispose();
+
+            // Assert
+            Assert.IsNull(view.FailureMechanism);
+        }
+
+        [Test]
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
@@ -137,17 +163,17 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(5, cells.Count);
             Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
             Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerTwoAIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerTwoBIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerThreeIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoAIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoBIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(5, cells.Count);
             Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
             Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerTwoAIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerTwoBIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerThreeIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoAIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoBIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
         }
 
         [Test]
@@ -160,19 +186,18 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
-            dataGridView.Rows[0].Cells[1].Value = checkBoxSelected;
+            dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = checkBoxSelected;
 
             // Assert
             var rows = dataGridView.Rows;
-            Assert.AreEqual(2, rows.Count);
-
+            
             var cells = rows[0].Cells;
             Assert.AreEqual(5, cells.Count);
             Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual(checkBoxSelected, (bool)cells[assessmentLayerOneIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerTwoAIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerTwoBIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", double.NaN), cells[assessmentLayerThreeIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoAIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoBIndex].FormattedValue);
+            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
 
             if (checkBoxSelected)
             {
@@ -196,6 +221,62 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(checkBoxSelected, cells[assessmentLayerTwoAIndex].ReadOnly);
             Assert.AreEqual(checkBoxSelected, cells[assessmentLayerTwoBIndex].ReadOnly);
             Assert.AreEqual(checkBoxSelected, cells[assessmentLayerThreeIndex].ReadOnly);
+        }
+
+        [Test]
+        [TestCase("test", assessmentLayerTwoAIndex)]
+        [TestCase("test", assessmentLayerTwoBIndex)]
+        [TestCase("test", assessmentLayerThreeIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", assessmentLayerTwoAIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", assessmentLayerTwoBIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", assessmentLayerThreeIndex)]
+        public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
+        {
+            // Setup
+            ShowFullyConfiguredFailureMechanismResultsView();
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+
+            // Assert
+            Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+        }
+
+        [Test]
+        [TestCase("1", assessmentLayerTwoAIndex, "AssessmentLayerTwoA")]
+        [TestCase("1e-6", assessmentLayerTwoAIndex, "AssessmentLayerTwoA")]
+        [TestCase("1e+6", assessmentLayerTwoAIndex, "AssessmentLayerTwoA")]
+        [TestCase("14.3", assessmentLayerTwoAIndex, "AssessmentLayerTwoA")]
+        [TestCase("1", assessmentLayerTwoBIndex, "AssessmentLayerTwoB")]
+        [TestCase("1e-6", assessmentLayerTwoBIndex, "AssessmentLayerTwoB")]
+        [TestCase("1e+6", assessmentLayerTwoBIndex, "AssessmentLayerTwoB")]
+        [TestCase("14.3", assessmentLayerTwoBIndex, "AssessmentLayerTwoB")]
+        [TestCase("1", assessmentLayerThreeIndex, "AssessmentLayerThree")]
+        [TestCase("1e-6", assessmentLayerThreeIndex, "AssessmentLayerThree")]
+        [TestCase("1e+6", assessmentLayerThreeIndex, "AssessmentLayerThree")]
+        [TestCase("14.3", assessmentLayerThreeIndex, "AssessmentLayerThree")]
+        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue, int cellIndex, string propertyName)
+        {
+            // Setup
+            var view = ShowFullyConfiguredFailureMechanismResultsView();
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+
+            // Assert
+            Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
+
+            var dataObject = view.Data as List<FailureMechanismSectionResult>;
+            Assert.IsNotNull(dataObject);
+            var row = dataObject.First();
+
+            var propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
+
+            Assert.AreEqual((RoundedDouble)double.Parse(newValue), propertyValue);
         }
 
         private const int nameColumnIndex = 0;

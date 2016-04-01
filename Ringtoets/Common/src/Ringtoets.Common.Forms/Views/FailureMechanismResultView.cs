@@ -42,6 +42,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private IEnumerable<FailureMechanismSectionResult> pipingFailureMechanismSectionResult;
         private IFailureMechanism failureMechanism;
+        private string cellEditValue;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView"/>.
@@ -104,6 +105,9 @@ namespace Ringtoets.Common.Forms.Views
         private void InitializeDataGridView()
         {
             dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
+            dataGridView.CellValidating += DataGridViewCellValidating;
+            dataGridView.DataError += DataGridViewDataError;
+            dataGridView.CellEndEdit += DataGridViewCellEndEdit;
 
             var sectionName = new DataGridViewTextBoxColumn
             {
@@ -241,7 +245,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 get
                 {
-                    return (RoundedDouble) double.NaN;
+                    return failureMechanismSectionResult.AssessmentLayerTwoA;
                 }
                 set
                 {
@@ -253,7 +257,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 get
                 {
-                    return (RoundedDouble) double.NaN;
+                    return failureMechanismSectionResult.AssessmentLayerTwoB;
                 }
                 set
                 {
@@ -265,7 +269,7 @@ namespace Ringtoets.Common.Forms.Views
             {
                 get
                 {
-                    return (RoundedDouble) double.NaN;
+                    return failureMechanismSectionResult.AssessmentLayerThree;
                 }
                 set
                 {
@@ -280,13 +284,41 @@ namespace Ringtoets.Common.Forms.Views
 
         private void DataGridViewCurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
-            // Ensure combobox values are directly committed
+            // Ensure checkbox values are directly committed
             DataGridViewColumn currentColumn = dataGridView.Columns[dataGridView.CurrentCell.ColumnIndex];
             if (currentColumn is DataGridViewCheckBoxColumn)
             {
                 dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
                 dataGridView.EndEdit();
             }
+        }
+
+        private void DataGridViewCellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            cellEditValue = e.FormattedValue.ToString();
+            if (string.IsNullOrWhiteSpace(cellEditValue))
+            {
+                dataGridView.Rows[e.RowIndex].ErrorText = "De tekst mag niet leeg zijn.";
+            }
+        }
+
+        private void DataGridViewDataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.ThrowException = false;
+            e.Cancel = true;
+
+            if (string.IsNullOrWhiteSpace(cellEditValue) || e.Exception == null)
+            {
+                return;
+            }
+
+            dataGridView.Rows[e.RowIndex].ErrorText = e.Exception.Message;
+        }
+
+        private void DataGridViewCellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            cellEditValue = string.Empty;
+            dataGridView.Rows[e.RowIndex].ErrorText = String.Empty;
         }
 
         #endregion
