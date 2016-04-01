@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.Data
             {
                 Contribution = 3
             };
-            DuneErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.DuneErosionFailureMechanism_DisplayName)
+            DuneErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.ErosionFailureMechanism_DisplayName)
             {
                 Contribution = 0
             };
