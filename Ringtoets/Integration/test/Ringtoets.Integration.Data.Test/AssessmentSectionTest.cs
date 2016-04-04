@@ -53,7 +53,8 @@ namespace Ringtoets.Integration.Data.Test
             Assert.IsInstanceOf<IAssessmentSection>(section);
 
             Assert.AreEqual("Traject", section.Name);
-            Assert.IsNull(section.ReferenceLine);
+            Assert.IsInstanceOf<AssessmentSectionComment>(section.Comments);
+            Assert.IsNull(section.ReferenceLine);            
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
             CollectionAssert.IsEmpty(section.PipingFailureMechanism.StochasticSoilModels);
@@ -105,6 +106,21 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.AreEqual(newValue, section.Name);
+        }
+
+        [Test]
+        public void Comments_SettingNewValue_GetNewValue()
+        {
+            // Setup
+            var section = new AssessmentSection();
+
+            const string newValue = "new comment value";
+
+            // Call
+            section.Comments.Text = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, section.Comments.Text);
         }
 
         [Test]

@@ -481,6 +481,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private class TestAssessmentSectionBase : Observable, IAssessmentSection
         {
             public string Name { get; set; }
+            public AssessmentSectionComment Comments { get; set; }
             public ReferenceLine ReferenceLine { get; set; }
             public FailureMechanismContribution FailureMechanismContribution { get; private set; }
             public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }

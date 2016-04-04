@@ -159,4 +159,7 @@
   <data name="ReferenceLine_DisplayName" xml:space="preserve">
     <value>Referentielijn</value>
   </data>
+  <data name="AssessmentSectionComment_DisplayName" xml:space="preserve">
+    <value>Opmerkingen</value>
+  </data>
 </root>

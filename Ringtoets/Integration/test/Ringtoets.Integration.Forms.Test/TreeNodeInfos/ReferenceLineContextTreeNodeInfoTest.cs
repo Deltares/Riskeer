@@ -67,8 +67,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLine = new ReferenceLine();
-
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
             // Call
@@ -86,8 +84,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
-
-            var referenceLine = new ReferenceLine();
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 

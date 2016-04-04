@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Data
             FailingOfConstructionFailureMechanism = new FailureMechanismPlaceholder(Resources.FailingOfConstructionFailureMechanism_DisplayName)
             {
                 Contribution = 2
-            };
+            }; 
             StoneRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.StoneRevetmentFailureMechanism_DisplayName)
             {
                 Contribution = 4
@@ -91,6 +91,7 @@ namespace Ringtoets.Integration.Data
             };
 
             FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
+            Comments = new AssessmentSectionComment();
         }
 
         /// <summary>
@@ -144,6 +145,8 @@ namespace Ringtoets.Integration.Data
         public FailureMechanismPlaceholder DuneErosionFailureMechanism { get; private set; }
 
         public string Name { get; set; }
+
+        public AssessmentSectionComment Comments { get; private set; }
 
         public ReferenceLine ReferenceLine
         {

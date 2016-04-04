@@ -40,6 +40,11 @@ namespace Ringtoets.Common.Data
         string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the comments of the assessment section.
+        /// </summary>
+        AssessmentSectionComment Comments { get; }
+
+        /// <summary>
         /// Gets or sets the reference line defining the geometry of the assessment section.
         /// </summary>
         ReferenceLine ReferenceLine { get; set; }

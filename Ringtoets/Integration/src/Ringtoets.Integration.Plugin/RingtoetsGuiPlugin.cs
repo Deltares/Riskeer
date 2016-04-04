@@ -225,6 +225,13 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<AssessmentSectionComment>
+            {
+                Text = comment => RingtoetsCommonDataResources.AssessmentSectionComment_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ForeColor = comment => Color.FromKnownColor(KnownColor.GrayText)
+            };
         }
 
         #region FailureMechanismResults ViewInfo
@@ -261,7 +268,8 @@ namespace Ringtoets.Integration.Plugin
             {
                 new ReferenceLineContext(nodeData),
                 nodeData.FailureMechanismContribution,
-                new HydraulicBoundaryDatabaseContext(nodeData)
+                new HydraulicBoundaryDatabaseContext(nodeData),
+                nodeData.Comments
             };
 
             var failureMechanismContexts = WrapFailureMechanismsInContexts(nodeData);

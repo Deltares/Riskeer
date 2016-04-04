@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
@@ -11,7 +10,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
@@ -122,10 +120,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 new FailureMechanismPlaceholder("A")
             };
             var contribution = new FailureMechanismContribution(failureMechanisms, 10.0, 2);
+            var comments = new AssessmentSectionComment
+            {
+                Text = "some comment"
+            };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.FailureMechanismContribution).Return(contribution);
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(failureMechanisms);
+            assessmentSection.Stub(section => section.Comments).Return(comments);
             mocks.ReplayAll();
 
 
@@ -133,7 +136,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var objects = info.ChildNodeObjects(assessmentSection).ToArray();
 
             // Assert
-            Assert.AreEqual(5, objects.Length);
+            Assert.AreEqual(6, objects.Length);
             var referenceLineContext = (ReferenceLineContext)objects[0];
             Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
             Assert.AreSame(assessmentSection, referenceLineContext.Parent);
@@ -144,11 +147,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.Parent.HydraulicBoundaryDatabase);
             Assert.AreSame(assessmentSection, context.Parent);
 
-            var pipingFailureMechanismContext = (PipingFailureMechanismContext)objects[3];
+            var pipingFailureMechanismContext = (PipingFailureMechanismContext)objects[4];
             Assert.AreSame(failureMechanisms[0], pipingFailureMechanismContext.WrappedData);
             Assert.AreSame(assessmentSection, pipingFailureMechanismContext.Parent);
 
-            var placeholderFailureMechanismContext = (FailureMechanismPlaceholderContext)objects[4];
+            var placeholderFailureMechanismContext = (FailureMechanismPlaceholderContext)objects[5];
             Assert.AreSame(failureMechanisms[1], placeholderFailureMechanismContext.WrappedData);
             Assert.AreSame(assessmentSection, placeholderFailureMechanismContext.Parent);
 
