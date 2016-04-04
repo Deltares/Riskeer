@@ -4,7 +4,6 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Test
@@ -296,175 +295,66 @@ namespace Ringtoets.Piping.Forms.Test
 
         #endregion
 
-        #region Generate
+        #region GenerateCalculationsStructure
 
         [Test]
-        public void GenerateCalculationsStructure_WithoutSurfaceLines_ReturnsEmptyCollection()
+        public void GenerateCalculationsStructure_WithoutSurfaceLines_ThrowsArgumentNullException()
         {
             // Call
-            var result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(null, null, null, null).ToList();
-
-            // Assert
-            Assert.AreEqual(0, result.Count);
-        }
-
-        [Test]
-        public void GenerateCalculationsStructure_WithEmptySurfaceLines_ReturnsEmptyCollection()
-        {
-            // Call
-            var result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(Enumerable.Empty<RingtoetsPipingSurfaceLine>(), null, null, null).ToList();
-
-            // Assert
-            Assert.AreEqual(0, result.Count);
-        }
-
-        [Test]
-        public void GenerateCalculationsStructure_WithSurfaceLineAndSoilModelWithoutGeneralInput_ThrowsArgumentNullException()
-        {
-            // Setup
-            var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
-            {
-                new PipingSoilLayer(-5.0),
-                new PipingSoilLayer(-2.0),
-                new PipingSoilLayer(1.0)
-            }, SoilProfileType.SoilProfile1D, 1);
-
-            var soilModel = new StochasticSoilModel(1, "A", "B");
-            soilModel.Geometry.AddRange(new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            soilModel.StochasticSoilProfiles.Add(
-                new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
-                {
-                    SoilProfile = soilProfile1
-                }
-            );
-            var availableSoilModels = new[]
-            {
-                soilModel
-            };
-
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(3.0, 5.0, 0.0),
-                new Point3D(3.0, 0.0, 1.0),
-                new Point3D(3.0, -5.0, 0.0)
-            });
-
-            var surfaceLines = new[]
-            {
-                surfaceLine
-            };
-
-            // Call
-            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, availableSoilModels, null, new SemiProbabilisticPipingInput()).ToList();
+            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+                null, 
+                Enumerable.Empty<StochasticSoilModel>(), 
+                new GeneralPipingInput(), 
+                new SemiProbabilisticPipingInput());
 
             // Assert
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("generalInputParameters", parameter);
+            Assert.AreEqual("surfaceLines", parameter);
         }
 
         [Test]
-        public void GenerateCalculationsStructure_WithSurfaceLineAndSoilModelWithoutSemiProbabilisticInput_ThrowsArgumentNullException()
+        public void GenerateCalculationsStructure_WithoutSoilModels_ThrowsArgumentNullException()
         {
-            // Setup
-            var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
-            {
-                new PipingSoilLayer(-5.0),
-                new PipingSoilLayer(-2.0),
-                new PipingSoilLayer(1.0)
-            }, SoilProfileType.SoilProfile1D, 1);
-
-            var soilModel = new StochasticSoilModel(1, "A", "B");
-            soilModel.Geometry.AddRange(new[]
-            {
-                new Point2D(1.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            soilModel.StochasticSoilProfiles.Add(
-                new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
-                {
-                    SoilProfile = soilProfile1
-                }
-            );
-            var availableSoilModels = new[]
-            {
-                soilModel
-            };
-
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(3.0, 5.0, 0.0),
-                new Point3D(3.0, 0.0, 1.0),
-                new Point3D(3.0, -5.0, 0.0)
-            });
-
-            var surfaceLines = new[]
-            {
-                surfaceLine
-            };
-
             // Call
-            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, availableSoilModels, new GeneralPipingInput(), null).ToList();
+            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+                Enumerable.Empty<RingtoetsPipingSurfaceLine>(), 
+                null, 
+                new GeneralPipingInput(), 
+                new SemiProbabilisticPipingInput());
 
             // Assert
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("semiProbabilisticInputParameters", parameter);
+            Assert.AreEqual("soilModels", parameter);
         }
 
         [Test]
-        public void GenerateCalculationsStructure_WithSurfaceLinesWithoutSoilModels_ReturnsFourEmptyGroups()
+        public void GenerateCalculationsStructure_WithoutGeneralInput_ThrowsArgumentNullException()
         {
-            // Setup
-            var testName1 = "group1";
-            var testName2 = "group2";
-            var testName3 = "group3";
-            var testName4 = "group4";
-
-            var ringtoetsPipingSurfaceLines = new List<RingtoetsPipingSurfaceLine>
-            {
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = testName1
-                },
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = testName2
-                },
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = testName3
-                },
-                new RingtoetsPipingSurfaceLine
-                {
-                    Name = testName4
-                }
-            };
-
             // Call
-            var result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(ringtoetsPipingSurfaceLines, null, null, null).ToList();
+            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+                Enumerable.Empty<RingtoetsPipingSurfaceLine>(), 
+                Enumerable.Empty<StochasticSoilModel>(), 
+                null, 
+                new SemiProbabilisticPipingInput());
 
             // Assert
-            Assert.AreEqual(4, result.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(result, typeof(PipingCalculationGroup));
-            Assert.AreEqual(new[]
-            {
-                testName1,
-                testName2,
-                testName3,
-                testName4
-            }, result.Select(g => g.Name));
-            Assert.AreEqual(new[]
-            {
-                0,
-                0,
-                0,
-                0
-            }, result.Select(g => ((PipingCalculationGroup) g).Children.Count));
+            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("generalInput", parameter);
+        }
+
+        [Test]
+        public void GenerateCalculationsStructure_WithoutSemiProbabilisticInput_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+                Enumerable.Empty<RingtoetsPipingSurfaceLine>(), 
+                Enumerable.Empty<StochasticSoilModel>(), 
+                new GeneralPipingInput(), 
+                null);
+
+            // Assert
+            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("semiProbabilisticInput", parameter);
         }
 
         [Test]
@@ -497,10 +387,14 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            var result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(ringtoetsPipingSurfaceLines, Enumerable.Empty<StochasticSoilModel>(), null, null).ToList();
+            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+                ringtoetsPipingSurfaceLines, 
+                Enumerable.Empty<StochasticSoilModel>(), 
+                new GeneralPipingInput(), 
+                new SemiProbabilisticPipingInput()).ToArray();
 
             // Assert
-            Assert.AreEqual(4, result.Count);
+            Assert.AreEqual(4, result.Count());
             CollectionAssert.AllItemsAreInstancesOfType(result, typeof(PipingCalculationGroup));
             Assert.AreEqual(new[]
             {
@@ -571,7 +465,11 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, availableSoilModels, new GeneralPipingInput(), new SemiProbabilisticPipingInput()).ToList();
+            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+                surfaceLines, 
+                availableSoilModels, 
+                new GeneralPipingInput(),
+                new SemiProbabilisticPipingInput()).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -620,7 +518,10 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, availableSoilModels, null, null).ToList();
+            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+                surfaceLines, availableSoilModels,
+                new GeneralPipingInput(), 
+                new SemiProbabilisticPipingInput()).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -683,7 +584,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, availableSoilModels, null, null).ToList();
+            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, availableSoilModels, new GeneralPipingInput(), new SemiProbabilisticPipingInput()).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -758,7 +659,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, availableSoilModels, new GeneralPipingInput(), new SemiProbabilisticPipingInput()).ToList();
+            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, availableSoilModels, new GeneralPipingInput(), new SemiProbabilisticPipingInput()).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -860,7 +761,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, availableSoilModels, new GeneralPipingInput(), new SemiProbabilisticPipingInput()).ToList();
+            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, availableSoilModels, new GeneralPipingInput(), new SemiProbabilisticPipingInput()).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Count());
@@ -948,7 +849,11 @@ namespace Ringtoets.Piping.Forms.Test
             SemiProbabilisticPipingInput semiProbabilisticInput = new SemiProbabilisticPipingInput();
 
             // Call
-            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, availableSoilModels, generalInput, semiProbabilisticInput).ToList();
+            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+                surfaceLines, 
+                availableSoilModels, 
+                generalInput, 
+                semiProbabilisticInput).ToArray();
 
             // Assert
             var group = result.First(sl => sl.Name == surfaceLine.Name) as PipingCalculationGroup;
@@ -1033,7 +938,11 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, availableSoilModels, new GeneralPipingInput(), new SemiProbabilisticPipingInput()).ToList();
+            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+                surfaceLines, 
+                availableSoilModels, 
+                new GeneralPipingInput(), 
+                new SemiProbabilisticPipingInput()).ToArray();
 
             // Assert
             var group = result.First(sl => sl.Name == surfaceLine.Name) as PipingCalculationGroup;

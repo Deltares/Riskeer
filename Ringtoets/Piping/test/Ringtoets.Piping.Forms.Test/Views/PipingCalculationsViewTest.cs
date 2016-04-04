@@ -392,7 +392,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void PipingFailureMechanism_WithoutSurfaceLines_GenerateScenariosButtonDisabled()
+        public void ButtonGenerateScenarios_WithoutSurfaceLines_ButtonDisabled()
         {
             // Setup
             var pipingCalculationsView = ShowPipingCalculationsView();
@@ -413,7 +413,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void PipingFailureMechanism_WithoutSoilModels_GenerateScenariosButtonDisabled()
+        public void ButtonGenerateScenarios_WithoutSoilModels_ButtonDisabled()
         {
             // Setup
             var pipingCalculationsView = ShowPipingCalculationsView();
@@ -434,7 +434,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void PipingFailureMechanism_WithSurfaceLinesAndSoilModels_GenerateScenariosButtonEnabled()
+        public void ButtonGenerateScenarios_WithSurfaceLinesAndSoilModels_ButtonEnabled()
         {
             // Setup
             var pipingCalculationsView = ShowPipingCalculationsView();
@@ -459,84 +459,100 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void PipingFailureMechanism_AddSoilModelAndNotify_GenerateScenariosButtonDisabled()
+        public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSoilModelAndNotify_ThenButtonDisabled()
         {
-            // Setup
+            // Given
             var pipingCalculationsView = ShowPipingCalculationsView();
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
 
+            // When
             pipingFailureMechanism.StochasticSoilModels.Add(new TestStochasticSoilModel());
             pipingFailureMechanism.NotifyObservers();
 
+            // Then
             var button = (Button)new ButtonTester("buttonGenerateScenarios", testForm).TheObject;
-
-            // Call
-            var state = button.Enabled;
-
-            // Assert
-            Assert.IsFalse(state);
+            Assert.IsFalse(button.Enabled);
         }
 
         [Test]
-        public void PipingFailureMechanism_AddSurfaceLineAndNotify_GenerateScenariosButtonDisabled()
+        public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSurfaceLineAndNotify_ThenButtonDisabled()
         {
-            // Setup
+            // Given
             var pipingCalculationsView = ShowPipingCalculationsView();
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
 
+            // When
             pipingFailureMechanism.SurfaceLines.Add(new RingtoetsPipingSurfaceLine());
             pipingFailureMechanism.NotifyObservers();
 
+            // Then
             var button = (Button)new ButtonTester("buttonGenerateScenarios", testForm).TheObject;
-
-            // Call
-            var state = button.Enabled;
-
-            // Assert
-            Assert.IsFalse(state);
+            Assert.IsFalse(button.Enabled);
         }
 
         [Test]
-        public void PipingFailureMechanism_AddSurfaceLineAndSoilModelAndDoNotNotifyObservers_GenerateScenariosButtonDisabled()
+        public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSurfaceLineAndSoilModelAndDoNotNotifyObservers_ThenButtonDisabled()
         {
-            // Setup
+            // Given
             var pipingCalculationsView = ShowPipingCalculationsView();
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
 
+            // When
             pipingFailureMechanism.SurfaceLines.Add(new RingtoetsPipingSurfaceLine());
             pipingFailureMechanism.StochasticSoilModels.Add(new TestStochasticSoilModel());
-
+            
+            // Then
             var button = (Button)new ButtonTester("buttonGenerateScenarios", testForm).TheObject;
-
-            // Call
-            var state = button.Enabled;
-
-            // Assert
-            Assert.IsFalse(state);
+            Assert.IsFalse(button.Enabled);
         }
 
         [Test]
-        public void PipingFailureMechanism_AddSurfaceLineAndSoilModelAndNotifyObservers_GenerateScenariosButtonEnabled()
+        public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSurfaceLineAndSoilModelAndNotifyObservers_ThenButtonEnabled()
         {
-            // Setup
+            // Given
             var pipingCalculationsView = ShowPipingCalculationsView();
             var pipingFailureMechanism = new PipingFailureMechanism();
             pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
 
+            // When
             pipingFailureMechanism.SurfaceLines.Add(new RingtoetsPipingSurfaceLine());
             pipingFailureMechanism.StochasticSoilModels.Add(new TestStochasticSoilModel());
             pipingCalculationsView.PipingFailureMechanism.NotifyObservers();
 
+            // Then
             var button = (Button)new ButtonTester("buttonGenerateScenarios", testForm).TheObject;
+            Assert.IsTrue(button.Enabled);
+        }
 
-            // Call
-            var state = button.Enabled;
+        [Test]
+        public void GivenFailureMechanismWithSurfaceLinesAndSoilModels_WhenSurfaceLinesAndSoilModelsClearedAndNotifyObservers_ThenButtonDisabled()
+        {
+            // Given
+            var pipingCalculationsView = ShowPipingCalculationsView();
+            var pipingFailureMechanism = new PipingFailureMechanism
+            {
+                SurfaceLines =
+                {
+                    new RingtoetsPipingSurfaceLine()
+                },
+                StochasticSoilModels =
+                {
+                    new TestStochasticSoilModel()
+                }
+            };
+            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
 
-            // Assert
-            Assert.IsTrue(state);
+            // When
+            pipingFailureMechanism.SurfaceLines.Clear();
+            pipingFailureMechanism.StochasticSoilModels.Clear();
+            pipingCalculationsView.PipingFailureMechanism.NotifyObservers();
+
+            // Then
+            var button = (Button)new ButtonTester("buttonGenerateScenarios", testForm).TheObject;
+            Assert.IsFalse(button.Enabled);
         }
 
         private const int nameColumnIndex = 0;

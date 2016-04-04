@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -12,6 +13,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
     public class PipingSurfaceLineSelectionViewTest
     {
         private Form testForm;
+        private const int surfaceLineNameColumnIndex = 1;
+        private const int selectedColumnIndex = 0;
 
         [SetUp]
         public void Setup()
@@ -87,8 +90,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var surfaceLineDataGrid = (DataGridView)new ControlTester("SurfaceLineDataGrid").TheObject;
 
             Assert.AreEqual(1, surfaceLineDataGrid.RowCount);
-            Assert.IsFalse((bool)surfaceLineDataGrid.Rows[0].Cells[0].Value);
-            Assert.AreEqual(testname, (string)surfaceLineDataGrid.Rows[0].Cells[1].Value);
+            Assert.IsFalse((bool)surfaceLineDataGrid.Rows[0].Cells[selectedColumnIndex].Value);
+            Assert.AreEqual(testname, (string)surfaceLineDataGrid.Rows[0].Cells[surfaceLineNameColumnIndex].Value);
         }
 
         [Test]
@@ -115,7 +118,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             for (int i = 0; i < surfaceLineDataGrid.RowCount; i++)
             {
                 var row = surfaceLineDataGrid.Rows[i];
-                Assert.IsTrue((bool) row.Cells[0].Value);
+                Assert.IsTrue((bool) row.Cells[selectedColumnIndex].Value);
             }
         }
 
@@ -133,28 +136,28 @@ namespace Ringtoets.Piping.Forms.Test.Views
             });
 
             ShowPipingCalculationsView(view);
-            var selectAllButtonTester = new ButtonTester("SelectNoneButton");
+            var selectNoneButtonTester = new ButtonTester("SelectNoneButton");
 
             var surfaceLineDataGrid = (DataGridView)new ControlTester("SurfaceLineDataGrid").TheObject;
             for (int i = 0; i < surfaceLineDataGrid.RowCount; i++)
             {
                 var row = surfaceLineDataGrid.Rows[i];
-                row.Cells[0].Value = true;
+                row.Cells[selectedColumnIndex].Value = true;
             }
 
             // Call
-            selectAllButtonTester.Click();
+            selectNoneButtonTester.Click();
 
             // Assert
             for (int i = 0; i < surfaceLineDataGrid.RowCount; i++)
             {
                 var row = surfaceLineDataGrid.Rows[i];
-                Assert.IsFalse((bool) row.Cells[0].Value);
+                Assert.IsFalse((bool) row.Cells[selectedColumnIndex].Value);
             }
         }
 
         [Test]
-        public void GetSelectedSurfaceLines_WithSurfaceLines_ReturnSelectedSurfaceLines()
+        public void GetSelectedSurfaceLines_WithSurfaceLinesMultipleSelected_ReturnSelectedSurfaceLines()
         {
             // Setup
             var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
@@ -173,14 +176,88 @@ namespace Ringtoets.Piping.Forms.Test.Views
             ShowPipingCalculationsView(view);
 
             var surfaceLineDataGrid = (DataGridView)new ControlTester("SurfaceLineDataGrid").TheObject;
-            surfaceLineDataGrid.Rows[1].Cells[0].Value = true;
-            surfaceLineDataGrid.Rows[3].Cells[0].Value = true;
+            surfaceLineDataGrid.Rows[1].Cells[selectedColumnIndex].Value = true;
+            surfaceLineDataGrid.Rows[3].Cells[selectedColumnIndex].Value = true;
 
             // Call
             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines = view.GetSelectedSurfaceLines();
 
             // Assert
             CollectionAssert.AreEqual(new[] { ringtoetsPipingSurfaceLine2, ringtoetsPipingSurfaceLine4 }, surfaceLines);
+        }
+
+        [Test]
+        public void GetSelectedSurfaceLines_WithSurfaceLinesNoneSelected_ReturnEmptySurfaceLinesCollection()
+        {
+            // Setup
+            var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
+            var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine();
+            var ringtoetsPipingSurfaceLine3 = new RingtoetsPipingSurfaceLine();
+            var ringtoetsPipingSurfaceLine4 = new RingtoetsPipingSurfaceLine();
+
+            var view = new PipingSurfaceLineSelectionView(new[]
+            {
+                ringtoetsPipingSurfaceLine,
+                ringtoetsPipingSurfaceLine2,
+                ringtoetsPipingSurfaceLine3,
+                ringtoetsPipingSurfaceLine4
+            });
+
+            ShowPipingCalculationsView(view);
+
+            // Call
+            IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines = view.GetSelectedSurfaceLines();
+
+            // Assert
+            Assert.IsEmpty(surfaceLines);
+        }
+
+        [Test]
+        public void GetSelectedSurfaceLines_WithSurfaceLinesAllSelected_ReturnAllSurfaceLines()
+        {
+            // Setup
+            var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
+            var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine();
+            var ringtoetsPipingSurfaceLine3 = new RingtoetsPipingSurfaceLine();
+            var ringtoetsPipingSurfaceLine4 = new RingtoetsPipingSurfaceLine();
+
+            var surfaceLineCollection = new[]
+            {
+                ringtoetsPipingSurfaceLine,
+                ringtoetsPipingSurfaceLine2,
+                ringtoetsPipingSurfaceLine3,
+                ringtoetsPipingSurfaceLine4
+            };
+            var view = new PipingSurfaceLineSelectionView(surfaceLineCollection);
+
+            ShowPipingCalculationsView(view);
+
+            var surfaceLineDataGrid = (DataGridView)new ControlTester("SurfaceLineDataGrid").TheObject;
+            surfaceLineDataGrid.Rows[0].Cells[selectedColumnIndex].Value = true;
+            surfaceLineDataGrid.Rows[1].Cells[selectedColumnIndex].Value = true;
+            surfaceLineDataGrid.Rows[2].Cells[selectedColumnIndex].Value = true;
+            surfaceLineDataGrid.Rows[3].Cells[selectedColumnIndex].Value = true;
+
+            // Call
+            IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines = view.GetSelectedSurfaceLines();
+
+            // Assert
+            CollectionAssert.AreEqual(surfaceLineCollection, surfaceLines);
+        }
+
+        [Test]
+        public void GetSelectedSurfaceLines_WithEmptySurfaceLines_ReturnEmptySurfaceLinesCollection()
+        {
+            // Setup
+            var view = new PipingSurfaceLineSelectionView(Enumerable.Empty<RingtoetsPipingSurfaceLine>());
+
+            ShowPipingCalculationsView(view);
+
+            // Call
+            IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines = view.GetSelectedSurfaceLines();
+
+            // Assert
+            Assert.IsEmpty(surfaceLines);
         }
 
         private void ShowPipingCalculationsView(PipingSurfaceLineSelectionView pipingCalculationsView)

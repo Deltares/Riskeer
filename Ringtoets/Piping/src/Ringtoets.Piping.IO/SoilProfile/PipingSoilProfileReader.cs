@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </summary>
         /// <returns>The next <see cref="PipingSoilProfile"/> from the database, or <c>null</c> if no more profiles can be read.</returns>
         /// <exception cref="PipingSoilProfileReadException">Thrown when reading the profile in the database contained a non-parsable geometry.</exception>
-        /// <exception cref="Core.Common.IO.Exceptions.CriticalFileReadException">Thrown when the database returned incorrect values for required properties.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect values for required properties.</exception>
         public PipingSoilProfile ReadProfile()
         {
             if (!HasNext)

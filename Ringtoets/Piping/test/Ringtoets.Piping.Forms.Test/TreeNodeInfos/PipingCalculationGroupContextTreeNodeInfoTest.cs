@@ -596,7 +596,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismAsParentWithAvailableSurfaceLinesAndSoilModels_GenerateCalculationsDisabled()
+        public void ContextMenuStrip_FailureMechanismAsParentWithAvailableSurfaceLinesAndSoilModels_GenerateCalculationsEnabled()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();

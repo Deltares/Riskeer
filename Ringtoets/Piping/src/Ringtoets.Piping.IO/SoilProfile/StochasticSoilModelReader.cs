@@ -28,6 +28,7 @@ using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Builders;
+using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.SoilProfile
@@ -75,7 +76,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <see cref="StochasticSoilModel"/> instance of the information.
         /// </summary>
         /// <returns>The next <see cref="StochasticSoilModel"/> from the database, or <c>null</c> if no more soil models can be read.</returns>
-        /// <exception cref="Ringtoets.Piping.IO.Exceptions.StochasticSoilProfileReadException">Thrown when the database returned incorrect values for required properties.</exception>
+        /// <exception cref="StochasticSoilProfileReadException">Thrown when the database returned incorrect values for required properties.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect values for required properties.</exception>
         public StochasticSoilModel ReadStochasticSoilModel()
         {

@@ -24,8 +24,8 @@ namespace Ringtoets.Piping.Forms.Views
                 throw new ArgumentNullException("surfaceLines");
             }
             InitializeComponent();
-
-            SurfaceLineDataGrid.DataSource = surfaceLines.Select(sl => new SurfaceLineSelectionRow(sl)).ToList();
+            SurfaceLineDataGrid.AutoGenerateColumns = false;
+            SurfaceLineDataGrid.DataSource = surfaceLines.Select(sl => new SurfaceLineSelectionRow(sl)).ToArray();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// which were selected in the view.</returns>
         public IEnumerable<RingtoetsPipingSurfaceLine> GetSelectedSurfaceLines()
         {
-            return SurfaceLines.Where(sl => sl.Selected).Select(sl => sl.SurfaceLine).ToList();
+            return SurfaceLines.Where(sl => sl.Selected).Select(sl => sl.SurfaceLine).ToArray();
         }
 
         private IEnumerable<SurfaceLineSelectionRow> SurfaceLines
@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             public bool Selected { get; set; }
             public string Name { get; private set; }
-            public readonly RingtoetsPipingSurfaceLine SurfaceLine;
+            public RingtoetsPipingSurfaceLine SurfaceLine { get; private set; }
         }
     }
 }

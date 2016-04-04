@@ -58,9 +58,9 @@ namespace Core.Common.Controls.Dialogs
     /// </remarks>
     public abstract partial class DialogBase : Form
     {
-        private readonly int minWidth;
-        private readonly int minHeight;
         private readonly IWin32Window dialogParent;
+        private readonly int minHeight;
+        private readonly int minWidth;
 
         /// <summary>
         /// Constructs a new <see cref="DialogBase"/>.
@@ -72,11 +72,8 @@ namespace Core.Common.Controls.Dialogs
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> or <paramref name="icon"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="minWidth"/> or <paramref name="minHeight"/> is not greater than <c>0</c>.</exception>
         protected DialogBase(IWin32Window dialogParent, Bitmap icon, int minWidth, int minHeight) :
-            this(dialogParent, BitmapToIcon(icon), minWidth, minHeight) { }
-
-        private static Icon BitmapToIcon(Bitmap icon)
+            this(dialogParent, BitmapToIcon(icon), minWidth, minHeight)
         {
-            return (icon == null) ? null : Icon.FromHandle(icon.GetHicon());
         }
 
         /// <summary>
@@ -117,6 +114,11 @@ namespace Core.Common.Controls.Dialogs
             this.minHeight = minHeight;
 
             Icon = icon;
+        }
+
+        private static Icon BitmapToIcon(Bitmap icon)
+        {
+            return (icon == null) ? null : Icon.FromHandle(icon.GetHicon());
         }
 
         /// <summary>
