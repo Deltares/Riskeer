@@ -35,8 +35,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -53,6 +55,12 @@
     </Compile>
     <Compile Include="PropertyClasses\AssessmentSectionBaseProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabaseProperties.cs" />
+    <Compile Include="Views\AssessmentSectionCommentView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssessmentSectionCommentView.Designer.cs">
+      <DependentUpon>AssessmentSectionCommentView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\AssessmentSectionView.cs">
       <SubType>UserControl</SubType>
     </Compile>

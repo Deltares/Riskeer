@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Call
             var viewName = info.GetViewName(viewMock, failureMechanism.SectionResults);
 
-            //
+            // Assert
             Assert.AreEqual("Oordeel", viewName);
         }
 

@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
@@ -94,11 +95,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetViewName = (v, o) => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = (v, o) =>
-                {
-                    var assessmentSection = o as IAssessmentSection;
-                    return assessmentSection != null && assessmentSection.FailureMechanismContribution == v.Data;
-                }
+                CloseForData = CloseFailureMechanismContributionViewForData
             };
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
@@ -114,6 +111,13 @@ namespace Ringtoets.Integration.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.SectionResults,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
+
+            yield return new ViewInfo<AssessmentSectionComment, AssessmentSectionCommentView>
+            {
+                GetViewName = (v, o) => RingtoetsCommonDataResources.AssessmentSectionComment_DisplayName,
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                CloseForData = CloseAssessmentSectionCommentViewForData
             };
         }
 
@@ -237,6 +241,16 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
+        #region FailureMechanismContribution ViewInfo
+
+        private static bool CloseFailureMechanismContributionViewForData(FailureMechanismContributionView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            return assessmentSection != null && assessmentSection.FailureMechanismContribution == view.Data;
+        }
+
+        #endregion
+
         #region FailureMechanismResults ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(FailureMechanismResultView view, object o)
@@ -248,6 +262,16 @@ namespace Ringtoets.Integration.Plugin
             }
 
             return false;
+        }
+
+        #endregion
+
+        #region AssessmentSectionComment ViewInfo
+
+        private static bool CloseAssessmentSectionCommentViewForData(AssessmentSectionCommentView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            return assessmentSection != null && assessmentSection.Comments == view.Data;
         }
 
         #endregion

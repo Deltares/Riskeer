@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 ViewInfo[] viewInfos = guiPlugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, viewInfos.Length);
+                Assert.AreEqual(4, viewInfos.Length);
 
                 var contributionViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismContribution));
                 Assert.AreEqual(typeof(FailureMechanismContributionView), contributionViewInfo.ViewType);
@@ -88,6 +88,10 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.AreEqual(typeof(IEnumerable<FailureMechanismSectionResult>), resultViewInfo.ViewDataType);
                 Assert.AreEqual(typeof(FailureMechanismResultView), resultViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, resultViewInfo.Image);
+
+                var commentView = viewInfos.Single(vi => vi.DataType == typeof(AssessmentSectionComment));
+                Assert.AreEqual(typeof(AssessmentSectionCommentView), commentView.ViewType);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, commentView.Image);
             }
         }
 
