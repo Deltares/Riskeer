@@ -309,7 +309,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void PipingCalculationsView_EnteringRow_ApplicationSelectionCorrectlySynced()
+        public void PipingCalculationsView_SelectingCell_ApplicationSelectionCorrectlySynced()
         {
             // Setup
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
@@ -323,7 +323,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Call
             dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
-            dataGridView.BeginEdit(true);
+            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
 
             // Assert
             var pipingInputContext = pipingCalculationsView.ApplicationSelection.Selection as PipingInputContext;

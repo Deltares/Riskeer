@@ -37,6 +37,12 @@ namespace Core.Common.Utils.Test.IO
             // Assert
             Assert.AreEqual(!removeFilesOnDispose, File.Exists(Path.Combine(targetFolderPath, "EmbeddedResource1.txt")));
             Assert.AreEqual(!removeFilesOnDispose, File.Exists(Path.Combine(targetFolderPath, "EmbeddedResource2.txt")));
+
+            // Cleanup
+            if (!removeFilesOnDispose)
+            {
+                Directory.Delete(targetFolderPath, true);
+            }
         }
 
         [TestCase(true)]

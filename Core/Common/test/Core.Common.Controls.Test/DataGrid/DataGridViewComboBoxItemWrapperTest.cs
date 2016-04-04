@@ -16,7 +16,6 @@ namespace Core.Common.Controls.Test.DataGrid
             var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(testClass);
 
             // Assert
-            Assert.AreEqual("Test class", dataGridViewComboBoxItemWrapper.ToString());
             Assert.AreEqual("Test class", dataGridViewComboBoxItemWrapper.DisplayName);
             Assert.AreEqual(testClass, dataGridViewComboBoxItemWrapper.WrappedObject);
             Assert.AreEqual(dataGridViewComboBoxItemWrapper, dataGridViewComboBoxItemWrapper.This);
@@ -25,17 +24,36 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void Constructor_WithWrappedObjectNull_ExpectedValues()
         {
-            // Setup
-            var testClass = new TestClass();
-
             // Call
             var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(null);
 
             // Assert
-            Assert.AreEqual(Properties.Resources.DataGridViewComboBoxItemWrapper_DisplayName_None, dataGridViewComboBoxItemWrapper.ToString());
             Assert.AreEqual(Properties.Resources.DataGridViewComboBoxItemWrapper_DisplayName_None, dataGridViewComboBoxItemWrapper.DisplayName);
             Assert.IsNull(dataGridViewComboBoxItemWrapper.WrappedObject);
             Assert.AreEqual(dataGridViewComboBoxItemWrapper, dataGridViewComboBoxItemWrapper.This);
+        }
+
+        [Test]
+        public void ToString_WithWrappedObject_ReturnsDisplayName()
+        {
+            // Setup
+            var testClass = new TestClass();
+
+            // Call
+            var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(testClass);
+
+            // Assert
+            Assert.AreEqual(dataGridViewComboBoxItemWrapper.DisplayName, dataGridViewComboBoxItemWrapper.ToString());
+        }
+
+        [Test]
+        public void ToString_WithWrappedObjectNull_ReturnsDisplayName()
+        {
+            // Call
+            var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(null);
+
+            // Assert
+            Assert.AreEqual(dataGridViewComboBoxItemWrapper.DisplayName, dataGridViewComboBoxItemWrapper.ToString());
         }
 
         [Test]

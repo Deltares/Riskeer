@@ -163,7 +163,7 @@ namespace Ringtoets.Piping.Forms.Views
         private void InitializeDataGridView()
         {
             dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
-            dataGridView.RowEnter += DataGridViewRowEnter;
+            dataGridView.CellClick += DataGridViewOnCellClick;
 
             var nameColumn = new DataGridViewTextBoxColumn
             {
@@ -598,20 +598,20 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        private void DataGridViewRowEnter(object sender, DataGridViewCellEventArgs e)
+        private void DataGridViewOnCellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (updatingDataSource)
             {
                 return;
             }
 
-            UpdateApplicationSelection((PipingCalculationRow) dataGridView.Rows[e.RowIndex].DataBoundItem);
+            UpdateApplicationSelection();
         }
 
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
             UpdateDataGridViewDataSource();
-            UpdateApplicationSelection(dataGridView.CurrentRow != null ? (PipingCalculationRow) dataGridView.CurrentRow.DataBoundItem : null);
+            UpdateApplicationSelection();
         }
 
         private void OnGenerateScenariosButtonClick(object sender, EventArgs e)
@@ -630,12 +630,16 @@ namespace Ringtoets.Piping.Forms.Views
             pipingCalculationGroup.NotifyObservers();
         }
 
-        private void UpdateApplicationSelection(PipingCalculationRow pipingCalculationRow)
+        private void UpdateApplicationSelection()
         {
             if (ApplicationSelection == null)
             {
                 return;
             }
+
+            var pipingCalculationRow = dataGridView.CurrentRow != null
+                                           ? (PipingCalculationRow) dataGridView.CurrentRow.DataBoundItem
+                                           : null;
 
             PipingInputContext selection = null;
             if (pipingCalculationRow != null)
@@ -646,7 +650,12 @@ namespace Ringtoets.Piping.Forms.Views
                     pipingFailureMechanism.StochasticSoilModels, 
                     assessmentSection);
             }
-            ApplicationSelection.Selection = selection;
+
+            if ((ApplicationSelection.Selection == null && selection != null)
+                || (ApplicationSelection.Selection != null && !ApplicationSelection.Selection.Equals(selection)))
+            {
+                ApplicationSelection.Selection = selection;
+            }
         }
 
         # endregion
