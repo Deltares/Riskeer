@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -309,35 +308,71 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void PipingCalculationsView_SelectingCell_ApplicationSelectionCorrectlySynced()
+        public void PipingCalculationsView_SelectingCellInRow_ApplicationSelectionCorrectlySynced()
         {
             // Setup
+            var mocks = new MockRepository();
+            var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
+            var secondPipingInputItem = ((PipingCalculation)((PipingCalculationGroup)pipingCalculationsView.Data).Children[1]).InputParameters;
 
-            pipingCalculationsView.ApplicationSelection = new ApplicationSelectionImplementation();
+            applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
+            applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem, pipingCalculationsView.PipingFailureMechanism.SurfaceLines, pipingCalculationsView.PipingFailureMechanism.StochasticSoilModels, pipingCalculationsView.AssessmentSection));
 
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            mocks.ReplayAll();
 
-            // Precondition
-            Assert.IsNull(pipingCalculationsView.ApplicationSelection.Selection);
+            pipingCalculationsView.ApplicationSelection = applicationSelectionMock;
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
             // Call
             dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
             EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
 
             // Assert
-            var pipingInputContext = pipingCalculationsView.ApplicationSelection.Selection as PipingInputContext;
-            Assert.IsNotNull(pipingInputContext);
-            Assert.AreEqual("Surface line 2", pipingInputContext.WrappedData.SurfaceLine.Name);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void PipingCalculationsView_SelectingCellInAlreadySelectedRow_ApplicationSelectionNotSyncedRedundantly()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
+            var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
+            var secondPipingInputItem = ((PipingCalculation)((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]).InputParameters;
+
+            applicationSelectionMock.Stub(asm => asm.Selection).Return(new PipingInputContext(secondPipingInputItem, pipingCalculationsView.PipingFailureMechanism.SurfaceLines, pipingCalculationsView.PipingFailureMechanism.StochasticSoilModels, pipingCalculationsView.AssessmentSection));
+
+            mocks.ReplayAll();
+
+            pipingCalculationsView.ApplicationSelection = applicationSelectionMock;
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
+            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
+
+            // Assert
+            mocks.VerifyAll();
         }
 
         [Test]
         public void PipingCalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndApplicationSelectionUpdated()
         {
             // Setup
+            var mocks = new MockRepository();
+            var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
+            var secondPipingInputItem = ((PipingCalculation)((PipingCalculationGroup)pipingCalculationsView.Data).Children[1]).InputParameters;
 
-            pipingCalculationsView.ApplicationSelection = new ApplicationSelectionImplementation();
+            applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
+            applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem, pipingCalculationsView.PipingFailureMechanism.SurfaceLines, pipingCalculationsView.PipingFailureMechanism.StochasticSoilModels, pipingCalculationsView.AssessmentSection));
+
+            mocks.ReplayAll();
+
+            pipingCalculationsView.ApplicationSelection = applicationSelectionMock;
 
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -354,9 +389,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.AreEqual(1, dataGridView.Rows.Count);
             Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-            var pipingInputContext = pipingCalculationsView.ApplicationSelection.Selection as PipingInputContext;
-            Assert.IsNotNull(pipingInputContext);
-            Assert.AreEqual("Surface line 2", pipingInputContext.WrappedData.SurfaceLine.Name);
+            mocks.VerifyAll();
         }
 
         [TestCase(nameColumnIndex, "New name", 1, 0)]
@@ -762,13 +795,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             testForm.Show();
 
             return pipingCalculationsView;
-        }
-
-        private class ApplicationSelectionImplementation : IApplicationSelection
-        {
-            public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged;
-
-            public object Selection { get; set; }
         }
     }
 }
