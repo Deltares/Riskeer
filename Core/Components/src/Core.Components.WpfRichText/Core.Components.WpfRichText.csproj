@@ -2,11 +2,11 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <PropertyGroup>
-    <ProjectGuid>{318BA582-88C9-4816-A54A-A7E431461DE3}</ProjectGuid>
+    <ProjectGuid>{93D1C768-62E9-4F35-B098-689077ADCFA8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Components.Gis</RootNamespace>
-    <AssemblyName>Core.Components.Gis</AssemblyName>
+    <RootNamespace>Core.Components.WpfRichText</RootNamespace>
+    <AssemblyName>Core.Components.WpfRichText</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,32 +39,19 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Data\MapData.cs" />
-    <Compile Include="Data\MapDataCollection.cs" />
-    <Compile Include="Data\MapLineData.cs" />
-    <Compile Include="Data\MapPointData.cs" />
-    <Compile Include="Data\MapPolygonData.cs" />
-    <Compile Include="Data\FeatureBasedMapData.cs" />
-    <Compile Include="Features\MapFeature.cs" />
-    <Compile Include="Geometries\MapGeometry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
-      <Link>Copying.Lesser.licenseheader</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
-      <Name>Core.Common.Base</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Version\Core.Common.Version.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
+      <Link>Copying.Lesser.licenseheader</Link>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
