@@ -22,8 +22,8 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Core.Components.OxyPlot.Test")]
-[assembly: AssemblyProduct("Core.Components.OxyPlot.Test")]
+[assembly: AssemblyTitle("Core.Components.WpfRichText.Test")]
+[assembly: AssemblyProduct("Core.Components.WpfRichText.Test")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
