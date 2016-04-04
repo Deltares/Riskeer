@@ -20,12 +20,15 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 
 using Core.Components.Gis.Data;
 using DotSpatial.Controls;
 using DotSpatial.Data;
+using DotSpatial.Symbology;
 using DotSpatial.Topology;
+using LineStyle = Core.Components.Gis.Style.LineStyle;
 
 namespace Core.Components.DotSpatial.Converter
 {
@@ -62,10 +65,20 @@ namespace Core.Components.DotSpatial.Converter
                 Name = data.Name
             };
 
+            CreateStyle(layer, data.Style);
+
             return new List<IMapFeatureLayer>
             {
                 layer
             };
+        }
+
+        private void CreateStyle(MapLineLayer layer, LineStyle style)
+        {
+            if (style != null)
+            {
+                layer.Symbolizer = new LineSymbolizer(style.Color, style.Color, style.Width, style.Style, LineCap.Round);
+            }
         }
     }
 }

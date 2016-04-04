@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Components.Gis.Style;
 
 namespace Core.Components.Gis.Data
 {

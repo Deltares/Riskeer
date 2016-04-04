@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -46,8 +47,12 @@
     <Compile Include="Data\MapPolygonData.cs" />
     <Compile Include="Data\FeatureBasedMapData.cs" />
     <Compile Include="Features\MapFeature.cs" />
+    <Compile Include="Style\LineStyle.cs" />
     <Compile Include="Geometries\MapGeometry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Style\PointStyle.cs" />
+    <Compile Include="Style\PointSymbol.cs" />
+    <Compile Include="Style\PolygonStyle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">

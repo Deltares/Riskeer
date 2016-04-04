@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -9,7 +10,9 @@ using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.Style;
 using DotSpatial.Controls;
+using DotSpatial.Symbology;
 using DotSpatial.Topology;
 using NUnit.Framework;
 
@@ -234,6 +237,90 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             var layer = layers.First() as MapPolygonLayer;
             Assert.AreEqual(name, layer.Name);
+        }
+
+        [Test]
+        [TestCase(KnownColor.AliceBlue)]
+        [TestCase(KnownColor.Azure)]
+        [TestCase(KnownColor.Beige)]
+        public void Convert_WithDifferentFillColors_AppliesStyleToLayer(KnownColor color)
+        {
+            // Setup
+            var converter = new MapPolygonDataConverter();
+            var expectedColor = Color.FromKnownColor(color);
+            var style = new PolygonStyle(expectedColor, Color.AliceBlue, 3);
+            var data = new MapPolygonData(Enumerable.Empty<MapFeature>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var layers = converter.Convert(data);
+
+            // Assert
+            var layer = (MapPolygonLayer)layers.First();
+            AssertAreEqual(new PolygonSymbolizer(expectedColor, Color.AliceBlue, 3), layer.Symbolizer);
+        }
+
+        [Test]
+        [TestCase(KnownColor.AliceBlue)]
+        [TestCase(KnownColor.Azure)]
+        [TestCase(KnownColor.Beige)]
+        public void Convert_WithDifferentStrokeColors_AppliesStyleToLayer(KnownColor color)
+        {
+            // Setup
+            var converter = new MapPolygonDataConverter();
+            var expectedColor = Color.FromKnownColor(color);
+            var style = new PolygonStyle(Color.AliceBlue, expectedColor, 3);
+            var data = new MapPolygonData(Enumerable.Empty<MapFeature>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var layers = converter.Convert(data);
+
+            // Assert
+            var layer = (MapPolygonLayer)layers.First();
+            AssertAreEqual(new PolygonSymbolizer(Color.AliceBlue, expectedColor, 3), layer.Symbolizer);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(5)]
+        [TestCase(7)]
+        public void Convert_WithDifferentWidths_AppliesStyleToLayer(int width)
+        {
+            // Setup
+            var converter = new MapPolygonDataConverter();
+            var style = new PolygonStyle(Color.AliceBlue, Color.AliceBlue, width);
+            var data = new MapPolygonData(Enumerable.Empty<MapFeature>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var layers = converter.Convert(data);
+
+            // Assert
+            var layer = (MapPolygonLayer)layers.First();
+            AssertAreEqual(new PolygonSymbolizer(Color.AliceBlue, Color.AliceBlue, width), layer.Symbolizer);
+        }
+
+        private void AssertAreEqual(IPolygonSymbolizer firstSymbolizer, IPolygonSymbolizer secondSymbolizer)
+        {
+            var firstSymbols = firstSymbolizer.Patterns;
+            var secondSymbols = secondSymbolizer.Patterns;
+            Assert.AreEqual(firstSymbols.Count, secondSymbols.Count, "Unequal amount of strokes defined.");
+            for (var i = 0; i < firstSymbols.Count; i++)
+            {
+                var firstStroke = (SimplePattern)firstSymbols[i];
+                var secondStroke = (SimplePattern)secondSymbols[i];
+
+                Assert.AreEqual(firstStroke.FillColor, secondStroke.FillColor);
+                Assert.AreEqual(firstStroke.Outline.GetFillColor(), secondStroke.Outline.GetFillColor());
+                Assert.AreEqual(firstStroke.Outline.GetWidth(), secondStroke.Outline.GetWidth());
+            }
         }
     }
 }

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.Style;
 
 namespace Core.Components.Gis.Data
 {
@@ -43,5 +44,10 @@ namespace Core.Components.Gis.Data
         /// </list>
         /// </exception>
         public MapLineData(IEnumerable<MapFeature> features, string name) : base(features, name) {}
+
+        /// <summary>
+        /// The style of the line.
+        /// </summary>
+        public LineStyle Style { get; set; }
     }
 }

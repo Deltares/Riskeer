@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -8,9 +10,12 @@ using Core.Components.DotSpatial.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.Style;
 using DotSpatial.Controls;
+using DotSpatial.Symbology;
 using DotSpatial.Topology;
 using NUnit.Framework;
+using LineStyle = Core.Components.Gis.Style.LineStyle;
 
 namespace Core.Components.DotSpatial.Test.Converter
 {
@@ -208,6 +213,90 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             var layer = layers.First() as MapPointLayer;
             Assert.AreEqual(name, layer.Name);
+        }
+
+        [Test]
+        [TestCase(KnownColor.AliceBlue)]
+        [TestCase(KnownColor.Azure)]
+        [TestCase(KnownColor.Beige)]
+        public void Convert_WithDifferentColors_AppliesStyleToLayer(KnownColor color)
+        {
+            // Setup
+            var converter = new MapPointDataConverter();
+            var expectedColor = Color.FromKnownColor(color);
+            var style = new PointStyle(expectedColor, 3, PointSymbol.Circle);
+            var data = new MapPointData(Enumerable.Empty<MapFeature>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var layers = converter.Convert(data);
+
+            // Assert
+            var layer = (MapPointLayer)layers.First();
+            AssertAreEqual(new PointSymbolizer(expectedColor, PointShape.Undefined, 3), layer.Symbolizer);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(5)]
+        [TestCase(7)]
+        public void Convert_WithDifferentWidths_AppliesStyleToLayer(int width)
+        {
+            // Setup
+            var converter = new MapPointDataConverter();
+            var style = new PointStyle(Color.AliceBlue, width, PointSymbol.Circle);
+            var data = new MapPointData(Enumerable.Empty<MapFeature>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var layers = converter.Convert(data);
+
+            // Assert
+            var layer = (MapPointLayer)layers.First();
+            AssertAreEqual(new PointSymbolizer(Color.AliceBlue, PointShape.Undefined, width), layer.Symbolizer);
+        }
+
+        [Test]
+        [TestCase(PointSymbol.Circle)]
+        [TestCase(PointSymbol.Square)]
+        [TestCase(PointSymbol.Triangle)]
+        public void Convert_WithDifferentPointStyles_AppliesStyleToLayer(PointSymbol pointStyle)
+        {
+            // Setup
+            var converter = new MapPointDataConverter();
+            var style = new PointStyle(Color.AliceBlue, 3, pointStyle);
+            var data = new MapPointData(Enumerable.Empty<MapFeature>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var layers = converter.Convert(data);
+
+            // Assert
+            var layer = (MapPointLayer)layers.First();
+            PointShape expectedPointShape = pointStyle == PointSymbol.Circle ? PointShape.Undefined : pointStyle == PointSymbol.Square ? PointShape.Rectangle : PointShape.Triangle;
+            AssertAreEqual(new PointSymbolizer(Color.AliceBlue, expectedPointShape, 3), layer.Symbolizer);
+        }
+
+        private void AssertAreEqual(IPointSymbolizer firstSymbolizer, IPointSymbolizer secondSymbolizer)
+        {
+            var firstSymbols = firstSymbolizer.Symbols;
+            var secondSymbols = secondSymbolizer.Symbols;
+            Assert.AreEqual(firstSymbols.Count, secondSymbols.Count, "Unequal amount of strokes defined.");
+            for (var i = 0; i < firstSymbols.Count; i++)
+            {
+                var firstStroke = (SimpleSymbol)firstSymbols[i];
+                var secondStroke = (SimpleSymbol)secondSymbols[i];
+
+                Assert.AreEqual(firstStroke.Color, secondStroke.Color);
+                Assert.AreEqual(firstStroke.PointShape, secondStroke.PointShape);
+                Assert.AreEqual(firstStroke.Size, secondStroke.Size);
+            }
         }
     }
 }

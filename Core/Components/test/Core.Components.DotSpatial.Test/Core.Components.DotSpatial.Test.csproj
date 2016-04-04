@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converter\MapDataCollectionConverterTest.cs" />
+    <Compile Include="Converter\MapDataHelperTest.cs" />
     <Compile Include="Converter\MapLineDataConverterTest.cs" />
     <Compile Include="Converter\MapPolygonDataConverterTest.cs" />
     <Compile Include="Converter\MapDataConverterTest.cs" />

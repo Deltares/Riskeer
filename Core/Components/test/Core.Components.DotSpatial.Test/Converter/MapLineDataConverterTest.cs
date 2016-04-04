@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -10,7 +12,9 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
+using DotSpatial.Symbology;
 using NUnit.Framework;
+using LineStyle = Core.Components.Gis.Style.LineStyle;
 
 namespace Core.Components.DotSpatial.Test.Converter
 {
@@ -231,6 +235,90 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             var layer = layers.First() as MapLineLayer;
             Assert.AreEqual(name, layer.Name);
+        }
+
+        [Test]
+        [TestCase(KnownColor.AliceBlue)]
+        [TestCase(KnownColor.Azure)]
+        [TestCase(KnownColor.Beige)]
+        public void Convert_WithDifferentColors_AppliesStyleToLayer(KnownColor color)
+        {
+            // Setup
+            var converter = new MapLineDataConverter();
+            var expectedColor = Color.FromKnownColor(color);
+            var style = new LineStyle(expectedColor, 3, DashStyle.Solid);
+            var data = new MapLineData(Enumerable.Empty<MapFeature>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var layers = converter.Convert(data);
+
+            // Assert
+            var layer = (MapLineLayer) layers.First();
+            AssertAreEqual(new LineSymbolizer(expectedColor, expectedColor, 3, DashStyle.Solid, LineCap.Round), layer.Symbolizer);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(5)]
+        [TestCase(7)]
+        public void Convert_WithDifferentWidths_AppliesStyleToLayer(int width)
+        {
+            // Setup
+            var converter = new MapLineDataConverter();
+            var style = new LineStyle(Color.AliceBlue, width, DashStyle.Solid);
+            var data = new MapLineData(Enumerable.Empty<MapFeature>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var layers = converter.Convert(data);
+
+            // Assert
+            var layer = (MapLineLayer) layers.First();
+            AssertAreEqual(new LineSymbolizer(Color.AliceBlue, Color.AliceBlue, width, DashStyle.Solid, LineCap.Round), layer.Symbolizer);
+        }
+
+        [Test]
+        [TestCase(DashStyle.Solid)]
+        [TestCase(DashStyle.Dash)]
+        [TestCase(DashStyle.Dot)]
+        public void Convert_WithDifferentLineStyles_AppliesStyleToLayer(DashStyle lineStyle)
+        {
+            // Setup
+            var converter = new MapLineDataConverter();
+            var style = new LineStyle(Color.AliceBlue, 3, lineStyle);
+            var data = new MapLineData(Enumerable.Empty<MapFeature>(), "test")
+            {
+                Style = style
+            };
+
+            // Call
+            var layers = converter.Convert(data);
+
+            // Assert
+            var layer = (MapLineLayer) layers.First();
+            AssertAreEqual(new LineSymbolizer(Color.AliceBlue, Color.AliceBlue, 3, lineStyle, LineCap.Round), layer.Symbolizer);
+        }
+
+        private void AssertAreEqual(ILineSymbolizer firstSymbolizer, ILineSymbolizer secondSymbolizer)
+        {
+            var firstStrokes = firstSymbolizer.Strokes;
+            var secondStrokes = secondSymbolizer.Strokes;
+            Assert.AreEqual(firstStrokes.Count, secondStrokes.Count, "Unequal amount of strokes defined.");
+            for (var i = 0; i < firstStrokes.Count; i++)
+            {
+                var firstStroke = (CartographicStroke) firstStrokes[i];
+                var secondStroke = (CartographicStroke) secondStrokes[i];
+
+                Assert.AreEqual(firstStroke.Color, secondStroke.Color);
+                Assert.AreEqual(firstStroke.EndCap, secondStroke.EndCap);
+                Assert.AreEqual(firstStroke.DashStyle, secondStroke.DashStyle);
+                Assert.AreEqual(firstStroke.Width, secondStroke.Width);
+            }
         }
     }
 }

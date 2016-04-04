@@ -20,11 +20,14 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Style;
 using DotSpatial.Controls;
 using DotSpatial.Data;
+using DotSpatial.Symbology;
 using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Converter
@@ -62,10 +65,20 @@ namespace Core.Components.DotSpatial.Converter
                 Name = data.Name
             };
 
+            CreateStyle(layer, data.Style);
+
             return new List<IMapFeatureLayer>
             {
                 layer
             };
+        }
+
+        private void CreateStyle(MapPolygonLayer layer, PolygonStyle style)
+        {
+            if (style != null)
+            {
+                layer.Symbolizer = new PolygonSymbolizer(style.FillColor, style.StrokeColor, style.Width);
+            }
         }
     }
 }

@@ -93,6 +93,7 @@
     <Compile Include="Converter\MapDataCollectionConverter.cs" />
     <Compile Include="Converter\MapDataConverter.cs" />
     <Compile Include="Converter\MapDataFactory.cs" />
+    <Compile Include="Converter\MapDataHelper.cs" />
     <Compile Include="Converter\MapLineDataConverter.cs" />
     <Compile Include="Converter\MapPointDataConverter.cs" />
     <Compile Include="Converter\MapPolygonDataConverter.cs" />

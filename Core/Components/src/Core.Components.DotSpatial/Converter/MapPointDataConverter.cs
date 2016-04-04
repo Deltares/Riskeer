@@ -22,8 +22,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Style;
 using DotSpatial.Controls;
 using DotSpatial.Data;
+using DotSpatial.Symbology;
 using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Converter
@@ -48,10 +50,20 @@ namespace Core.Components.DotSpatial.Converter
                 Name = data.Name
             };
 
+            CreateStyle(layer, data.Style);
+
             return new List<IMapFeatureLayer>
             {
                 layer
             };
+        }
+
+        private void CreateStyle(MapPointLayer layer, PointStyle style)
+        {
+            if (style != null)
+            {
+                layer.Symbolizer = new PointSymbolizer(style.Color, MapDataHelper.Convert(style.Symbol), style.Size);
+            }
         }
     }
 }
