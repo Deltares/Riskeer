@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Data
         /// Gets the amount of contribution as a percentage (0-100) for the <see cref="IFailureMechanism"/>
         /// as part of the overall verdict.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> is not in interval (0-100].</exception>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> is not in interval [0-100].</exception>
         public virtual double Contribution
         {
             get

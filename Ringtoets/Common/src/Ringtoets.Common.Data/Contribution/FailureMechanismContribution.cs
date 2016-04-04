@@ -55,13 +55,8 @@ namespace Ringtoets.Common.Data.Contribution
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
         public FailureMechanismContribution(IEnumerable<IFailureMechanism> failureMechanisms, double otherContribution, int norm)
         {
-            if (failureMechanisms == null)
-            {
-                throw new ArgumentNullException("failureMechanisms", Resources.FailureMechanismContribution_FailureMechanismContribution_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection);
-            }
             Norm = norm;
-            failureMechanisms.ForEachElementDo(AddContributionItem);
-            AddOtherContributionItem(otherContribution);
+            UpdateContributions(failureMechanisms, otherContribution);
         }
 
         /// <summary>
@@ -93,6 +88,34 @@ namespace Ringtoets.Common.Data.Contribution
             {
                 return distribution;
             }
+        }
+
+        /// <summary>
+        /// Fully updates the contents of <see cref="Distribution"/> for a new set of failure
+        /// mechanisms and the remainder contribution.
+        /// </summary>
+        /// <param name="newFailureMechanisms">The new failure mechanisms.</param>
+        /// <param name="otherContribution">The collective contribution for other failure mechanisms.</param>
+        /// <exception cref="System.ArgumentNullException">newFailureMechanisms</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item>any of the <paramref name="newFailureMechanisms"/> has a value for 
+        /// <see cref="IFailureMechanism.Contribution"/> not in interval [0,100].</item>
+        /// <item>the value of <paramref name="otherContribution"/> is not in interval [0,100]</item>
+        /// </list>
+        /// </exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="newFailureMechanisms"/> is <c>null</c>.</exception>
+        public void UpdateContributions(IEnumerable<IFailureMechanism> newFailureMechanisms, double otherContribution)
+        {
+            if (newFailureMechanisms == null)
+            {
+                throw new ArgumentNullException("newFailureMechanisms",
+                                                Resources.FailureMechanismContribution_UpdateContributions_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection);
+            }
+
+            distribution.Clear();
+            newFailureMechanisms.ForEachElementDo(AddContributionItem);
+            AddOtherContributionItem(otherContribution);
         }
 
         /// <summary>

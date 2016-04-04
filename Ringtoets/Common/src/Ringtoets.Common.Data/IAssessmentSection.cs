@@ -45,6 +45,12 @@ namespace Ringtoets.Common.Data
         AssessmentSectionComment Comments { get; }
 
         /// <summary>
+        /// Gets the composition of the assessment section, e.g. what type of elements can 
+        /// be found within the assessment section.
+        /// </summary>
+        AssessmentSectionComposition Composition { get; }
+
+        /// <summary>
         /// Gets or sets the reference line defining the geometry of the assessment section.
         /// </summary>
         ReferenceLine ReferenceLine { get; set; }
@@ -63,5 +69,12 @@ namespace Ringtoets.Common.Data
         /// Gets the failure mechanisms corresponding to the assessment section.
         /// </summary>
         IEnumerable<IFailureMechanism> GetFailureMechanisms();
+
+        /// <summary>
+        /// Changes <see cref="Composition"/> and reconfigures <see cref="FailureMechanismContribution"/>
+        /// and the failure mechanisms returned by <see cref="GetFailureMechanisms"/>.
+        /// </summary>
+        /// <param name="newComposition">The new composition description.</param>
+        void ChangeComposition(AssessmentSectionComposition newComposition);
     }
 }

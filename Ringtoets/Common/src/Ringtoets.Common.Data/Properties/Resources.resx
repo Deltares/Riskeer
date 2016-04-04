@@ -147,7 +147,7 @@
   <data name="FailureMechanismContributionItem_Norm_must_be_larger_than_zero" xml:space="preserve">
     <value>De faalkansbijdrage kan alleen bepaald worden als de norm van het traject groter is dan 0.</value>
   </data>
-  <data name="FailureMechanismContribution_FailureMechanismContribution_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection" xml:space="preserve">
+  <data name="FailureMechanismContribution_UpdateContributions_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection" xml:space="preserve">
     <value>Kan geen bijdrageoverzicht maken zonder faalmechanismen.</value>
   </data>
   <data name="OtherFailureMechanism_DisplayName" xml:space="preserve">

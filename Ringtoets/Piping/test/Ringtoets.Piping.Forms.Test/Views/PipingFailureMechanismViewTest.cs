@@ -482,6 +482,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             public string Name { get; set; }
             public AssessmentSectionComment Comments { get; set; }
+            public AssessmentSectionComposition Composition { get; private set; }
             public ReferenceLine ReferenceLine { get; set; }
             public FailureMechanismContribution FailureMechanismContribution { get; private set; }
             public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
@@ -489,6 +490,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             public IEnumerable<IFailureMechanism> GetFailureMechanisms()
             {
                 yield break;
+            }
+
+            public void ChangeComposition(AssessmentSectionComposition newComposition)
+            {
+                throw new System.NotImplementedException();
             }
 
             public long StorageId { get; set; }

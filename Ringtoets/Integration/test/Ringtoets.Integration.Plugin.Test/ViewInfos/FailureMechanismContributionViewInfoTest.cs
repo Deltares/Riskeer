@@ -133,10 +133,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             public string Name { get; set; }
             public AssessmentSectionComment Comments { get; private set; }
+            public AssessmentSectionComposition Composition { get; private set; }
             public ReferenceLine ReferenceLine { get; set; }
             public FailureMechanismContribution FailureMechanismContribution { get; private set; }
             public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
             public IEnumerable<IFailureMechanism> GetFailureMechanisms()
+            {
+                throw new System.NotImplementedException();
+            }
+
+            public void ChangeComposition(AssessmentSectionComposition newComposition)
             {
                 throw new System.NotImplementedException();
             }

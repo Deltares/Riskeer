@@ -117,10 +117,10 @@ namespace Ringtoets.Common.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kan geen bijdrageoverzicht maken zonder faalmechanismen..
         /// </summary>
-        public static string FailureMechanismContribution_FailureMechanismContribution_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection {
+        public static string FailureMechanismContribution_UpdateContributions_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection {
             get {
-                return ResourceManager.GetString("FailureMechanismContribution_FailureMechanismContribution_Can_not_create_FailureM" +
-                        "echanismContribution_without_FailureMechanism_collection", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismContribution_UpdateContributions_Can_not_create_FailureMechanismC" +
+                        "ontribution_without_FailureMechanism_collection", resourceCulture);
             }
         }
         

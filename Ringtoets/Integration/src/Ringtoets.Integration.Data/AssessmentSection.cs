@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 
 using Core.Common.Base;
@@ -148,6 +149,8 @@ namespace Ringtoets.Integration.Data
 
         public AssessmentSectionComment Comments { get; private set; }
 
+        public AssessmentSectionComposition Composition { get; private set; }
+
         public ReferenceLine ReferenceLine
         {
             get
@@ -190,6 +193,55 @@ namespace Ringtoets.Integration.Data
             yield return AsphaltRevetmentFailureMechanism;
             yield return GrassRevetmentFailureMechanism;
             yield return DuneErosionFailureMechanism;
+        }
+
+        public void ChangeComposition(AssessmentSectionComposition newComposition)
+        {
+            switch (newComposition)
+            {
+                case AssessmentSectionComposition.Dike:
+                    PipingFailureMechanism.Contribution = 24;
+                    GrassErosionFailureMechanism.Contribution = 24;
+                    MacrostabilityInwardFailureMechanism.Contribution = 4;
+                    OvertoppingFailureMechanism.Contribution = 2;
+                    ClosingFailureMechanism.Contribution = 4;
+                    FailingOfConstructionFailureMechanism.Contribution = 2;
+                    StoneRevetmentFailureMechanism.Contribution = 4;
+                    AsphaltRevetmentFailureMechanism.Contribution = 3;
+                    GrassRevetmentFailureMechanism.Contribution = 3;
+                    DuneErosionFailureMechanism.Contribution = 0;
+                    FailureMechanismContribution.UpdateContributions(GetFailureMechanisms(), 30);
+                    break;
+                case AssessmentSectionComposition.Dune:
+                    PipingFailureMechanism.Contribution = 0;
+                    GrassErosionFailureMechanism.Contribution = 0;
+                    MacrostabilityInwardFailureMechanism.Contribution = 0;
+                    OvertoppingFailureMechanism.Contribution = 0;
+                    ClosingFailureMechanism.Contribution = 0;
+                    FailingOfConstructionFailureMechanism.Contribution = 0;
+                    StoneRevetmentFailureMechanism.Contribution = 0;
+                    AsphaltRevetmentFailureMechanism.Contribution = 0;
+                    GrassRevetmentFailureMechanism.Contribution = 0;
+                    DuneErosionFailureMechanism.Contribution = 70;
+                    FailureMechanismContribution.UpdateContributions(GetFailureMechanisms(), 30);
+                    break;
+                case AssessmentSectionComposition.DikeAndDune:
+                    PipingFailureMechanism.Contribution = 24;
+                    GrassErosionFailureMechanism.Contribution = 24;
+                    MacrostabilityInwardFailureMechanism.Contribution = 4;
+                    OvertoppingFailureMechanism.Contribution = 2;
+                    ClosingFailureMechanism.Contribution = 4;
+                    FailingOfConstructionFailureMechanism.Contribution = 2;
+                    StoneRevetmentFailureMechanism.Contribution = 4;
+                    AsphaltRevetmentFailureMechanism.Contribution = 3;
+                    GrassRevetmentFailureMechanism.Contribution = 3;
+                    DuneErosionFailureMechanism.Contribution = 10;
+                    FailureMechanismContribution.UpdateContributions(GetFailureMechanisms(), 20);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+            Composition = newComposition;
         }
     }
 }

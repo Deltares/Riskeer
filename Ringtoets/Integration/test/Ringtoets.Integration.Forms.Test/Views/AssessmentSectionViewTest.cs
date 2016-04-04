@@ -311,6 +311,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private class TestAssessmentSection : Observable, IAssessmentSection
         {
             public string Name { get; set; }
+            public AssessmentSectionComposition Composition { get; private set; }
             public AssessmentSectionComment Comments { get; set; }
             public ReferenceLine ReferenceLine { get; set; }
             public FailureMechanismContribution FailureMechanismContribution { get; private set; }
@@ -321,6 +322,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             public IEnumerable<IFailureMechanism> GetFailureMechanisms()
             {
                 yield break;
+            }
+
+            public void ChangeComposition(AssessmentSectionComposition newComposition)
+            {
+                throw new System.NotImplementedException();
             }
         }
     }

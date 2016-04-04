@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
             set
             {
-                SetNormValue((FailureMechanismContribution) value);
+                HandleNewDataSet((FailureMechanismContribution) value);
             }
         }
 
@@ -108,7 +108,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        private void SetNormValue(FailureMechanismContribution value)
+        private void HandleNewDataSet(FailureMechanismContribution value)
         {
             UnbindNormChange();
             DetachFromData();

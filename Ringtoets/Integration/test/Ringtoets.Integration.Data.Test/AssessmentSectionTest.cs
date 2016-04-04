@@ -55,6 +55,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual("Traject", section.Name);
             Assert.IsInstanceOf<AssessmentSectionComment>(section.Comments);
             Assert.IsNull(section.ReferenceLine);            
+            Assert.AreEqual(AssessmentSectionComposition.Dike, section.Composition);
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
             CollectionAssert.IsEmpty(section.PipingFailureMechanism.StochasticSoilModels);
@@ -124,10 +125,14 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
-        public void GetFailureMechanisms_Always_ReturnAllFailureMechanisms()
+        [TestCase(AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.Dune)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune)]
+        public void GetFailureMechanisms_Always_ReturnAllFailureMechanisms(AssessmentSectionComposition composition)
         {
             // Setup
             var assessmentSection = new AssessmentSection();
+            assessmentSection.ChangeComposition(composition);
 
             // Call
             var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
@@ -147,11 +152,16 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
-        public void FailureMechanismContribution_DefaultConstructed_FailureMechanismContributionWithItemsForFailureMechanismsAndOther()
+        [TestCase(AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.Dune)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune)]
+        public void FailureMechanismContribution_DefaultConstructed_FailureMechanismContributionWithItemsForFailureMechanismsAndOther(AssessmentSectionComposition composition)
         {
             // Setup
             var assessmentSection = new AssessmentSection();
-            var norm = 30000;
+            assessmentSection.ChangeComposition(composition);
+
+            const int norm = 30000;
 
             // Call
             var contribution = assessmentSection.FailureMechanismContribution.Distribution.ToArray();
@@ -169,9 +179,106 @@ namespace Ringtoets.Integration.Data.Test
                 Assert.AreEqual((norm / contribution[i].Contribution) * 100, contribution[i].ProbabilitySpace);
             }
             Assert.AreEqual("Overig", contribution[10].Assessment);
-            Assert.AreEqual(30, contribution[10].Contribution);
+            double expectedOtherContribution = composition == AssessmentSectionComposition.DikeAndDune ? 20.0 : 30.0;
+            Assert.AreEqual(expectedOtherContribution, contribution[10].Contribution);
             Assert.AreEqual(norm, contribution[10].Norm);
-            Assert.AreEqual((norm / contribution[10].Contribution) * 100, 100000);
+            double expectedNorm = composition == AssessmentSectionComposition.DikeAndDune ? 150000 : 100000;
+            Assert.AreEqual(expectedNorm, contribution[10].ProbabilitySpace);
+        }
+
+        [Test]
+        [TestCase(AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.Dune)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune)]
+        public void ChangeComposition_ToTargetValue_UpdateContributions(AssessmentSectionComposition composition)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection();
+            
+            // Call
+            assessmentSection.ChangeComposition(composition);
+
+            // Assert
+            AssertExpectedContributions(composition, assessmentSection);
+        }
+
+        private void AssertExpectedContributions(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
+        {
+            double[] contributions = GetContributionsArray(composition);
+
+            Assert.AreEqual(contributions[0], assessmentSection.PipingFailureMechanism.Contribution);
+            Assert.AreEqual(contributions[1], assessmentSection.GrassErosionFailureMechanism.Contribution);
+            Assert.AreEqual(contributions[2], assessmentSection.MacrostabilityInwardFailureMechanism.Contribution);
+            Assert.AreEqual(contributions[3], assessmentSection.OvertoppingFailureMechanism.Contribution);
+            Assert.AreEqual(contributions[4], assessmentSection.ClosingFailureMechanism.Contribution);
+            Assert.AreEqual(contributions[5], assessmentSection.FailingOfConstructionFailureMechanism.Contribution);
+            Assert.AreEqual(contributions[6], assessmentSection.StoneRevetmentFailureMechanism.Contribution);
+            Assert.AreEqual(contributions[7], assessmentSection.AsphaltRevetmentFailureMechanism.Contribution);
+            Assert.AreEqual(contributions[8], assessmentSection.GrassRevetmentFailureMechanism.Contribution);
+            Assert.AreEqual(contributions[9], assessmentSection.DuneErosionFailureMechanism.Contribution);
+
+            CollectionAssert.AreEqual(contributions, assessmentSection.FailureMechanismContribution.Distribution.Select(d => d.Contribution));
+        }
+
+        private static double[] GetContributionsArray(AssessmentSectionComposition composition)
+        {
+            double[] contributions;
+            switch (composition)
+            {
+                case AssessmentSectionComposition.Dike:
+                    contributions = new double[]
+                    {
+                        24,
+                        24,
+                        4,
+                        2,
+                        4,
+                        2,
+                        4,
+                        3,
+                        3,
+                        0,
+                        30
+                    };
+                    break;
+                case AssessmentSectionComposition.Dune:
+                    contributions = new double[]
+                    {
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        70,
+                        30
+                    };
+                    break;
+                case AssessmentSectionComposition.DikeAndDune:
+                    contributions = new double[]
+                    {
+                        24,
+                        24,
+                        4,
+                        2,
+                        4,
+                        2,
+                        4,
+                        3,
+                        3,
+                        10,
+                        20
+                    };
+                    break;
+                default:
+                    Assert.Fail("{0} does not have expectancy implemented!", composition);
+                    contributions = null;
+                    break;
+            }
+            return contributions;
         }
 
         [Test]
