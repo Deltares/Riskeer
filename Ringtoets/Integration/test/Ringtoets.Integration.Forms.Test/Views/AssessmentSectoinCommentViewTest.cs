@@ -21,22 +21,38 @@
 
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using NUnit.Framework;
+using Ringtoets.Integration.Forms.Views;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Ringtoets.Integration.Forms.Test.Views
 {
-    /// <summary>
-    /// This class represents a simple view with a rich text editor, to which data can be added. 
-    /// </summary>
-    public partial class AssessmentSectionCommentView : UserControl, IView
+    [TestFixture]
+    public class AssessmentSectoinCommentViewTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionCommentView"/>.
-        /// </summary>
-        public AssessmentSectionCommentView()
+        [Test]
+        public void Constructor_DefaultValues()
         {
-            InitializeComponent();
+            // Call
+            var view = new AssessmentSectionCommentView();
+
+            // Assert
+            Assert.IsInstanceOf<IView>(view);
+            Assert.IsInstanceOf<UserControl>(view);
+            Assert.IsNull(view.Data);
         }
-        
-        public object Data { get; set; }
+
+        [Test]
+        public void Data_SetData_ReturnsData()
+        {
+            // Setup
+            var view = new AssessmentSectionCommentView();
+            var data = new object();
+
+            // Call
+            view.Data = data;
+
+            // Assert
+            Assert.AreSame(data, view.Data);
+        }
     }
 }
