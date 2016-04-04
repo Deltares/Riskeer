@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.AreEqual(typeof(FailureMechanismResultView), resultViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, resultViewInfo.Image);
 
-                var commentView = viewInfos.Single(vi => vi.DataType == typeof(AssessmentSectionComment));
+                var commentView = viewInfos.Single(vi => vi.DataType == typeof(AssessmentSectionCommentContext));
                 Assert.AreEqual(typeof(AssessmentSectionCommentView), commentView.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, commentView.Image);
             }
@@ -127,7 +127,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContribution)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSectionComment)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSectionCommentContext)));
             }
             mocks.VerifyAll();
         }

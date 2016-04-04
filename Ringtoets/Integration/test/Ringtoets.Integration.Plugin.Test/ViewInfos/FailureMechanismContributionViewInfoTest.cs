@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             }
 
             public string Name { get; set; }
-            public AssessmentSectionComment Comments { get; private set; }
+            public string Comments { get; set; }
             public AssessmentSectionComposition Composition { get; private set; }
             public ReferenceLine ReferenceLine { get; set; }
             public FailureMechanismContribution FailureMechanismContribution { get; private set; }

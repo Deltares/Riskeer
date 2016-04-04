@@ -19,37 +19,34 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Forms;
-using Core.Common.Controls.Views;
+using System;
 using Ringtoets.Common.Data;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class represents a simple view with a rich text editor, to which data can be added. 
+    /// This class is a presentation object for the comment of an <see cref="IAssessmentSection"/>.
     /// </summary>
-    public partial class AssessmentSectionCommentView : UserControl, IView
+    public class AssessmentSectionCommentContext
     {
-        private object data;
+        /// <summary>
+        /// Creates a new instance of <see cref="AssessmentSectionCommentContext"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to wrap.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public AssessmentSectionCommentContext(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException("assessmentSection");
+            }
+
+            AssessmentSection = assessmentSection;
+        }
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionCommentView"/>.
+        /// Gets the wrapped assessment section
         /// </summary>
-        public AssessmentSectionCommentView()
-        {
-            InitializeComponent();
-        }
-
-        public object Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = value as IAssessmentSection;
-            }
-        }
+        public IAssessmentSection AssessmentSection { get; private set; }
     }
 }

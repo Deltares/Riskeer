@@ -22,12 +22,14 @@
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class AssessmentSectoinCommentViewTest
+    public class AssessmentSectionCommentViewTest
     {
         [Test]
         public void Constructor_DefaultValues()
@@ -41,8 +43,26 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsNull(view.Data);
         }
 
+
         [Test]
-        public void Data_SetData_ReturnsData()
+        public void Data_AssessmentSection_DataSet()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var view = new AssessmentSectionCommentView();
+            var data = mocks.StrictMock<IAssessmentSection>();
+
+            mocks.ReplayAll();
+
+            // Call
+            view.Data = data;
+
+            // Assert
+            Assert.AreSame(data, view.Data);
+        }
+
+        [Test]
+        public void Data_NoAssessmentSection_DataNull()
         {
             // Setup
             var view = new AssessmentSectionCommentView();
@@ -52,7 +72,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             view.Data = data;
 
             // Assert
-            Assert.AreSame(data, view.Data);
+            Assert.IsNull(view.Data);
         }
     }
 }

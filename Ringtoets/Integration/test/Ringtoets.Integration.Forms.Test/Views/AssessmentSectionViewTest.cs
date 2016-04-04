@@ -312,7 +312,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             public string Name { get; set; }
             public AssessmentSectionComposition Composition { get; private set; }
-            public AssessmentSectionComment Comments { get; set; }
+            public string Comments { get; set; }
             public ReferenceLine ReferenceLine { get; set; }
             public FailureMechanismContribution FailureMechanismContribution { get; private set; }
             public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }

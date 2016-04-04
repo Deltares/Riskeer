@@ -92,7 +92,6 @@ namespace Ringtoets.Integration.Data
             };
 
             FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
-            Comments = new AssessmentSectionComment();
         }
 
         /// <summary>
@@ -147,7 +146,7 @@ namespace Ringtoets.Integration.Data
 
         public string Name { get; set; }
 
-        public AssessmentSectionComment Comments { get; private set; }
+        public string Comments { get; set; }
 
         public AssessmentSectionComposition Composition { get; private set; }
 

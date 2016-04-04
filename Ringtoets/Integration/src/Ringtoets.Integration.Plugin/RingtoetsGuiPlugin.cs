@@ -112,9 +112,10 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
 
-            yield return new ViewInfo<AssessmentSectionComment, AssessmentSectionCommentView>
+            yield return new ViewInfo<AssessmentSectionCommentContext, IAssessmentSection, AssessmentSectionCommentView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.AssessmentSectionComment_DisplayName,
+                GetViewData = context => context.AssessmentSection,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseAssessmentSectionCommentViewForData
             };
@@ -229,7 +230,7 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<AssessmentSectionComment>
+            yield return new TreeNodeInfo<AssessmentSectionCommentContext>
             {
                 Text = comment => RingtoetsCommonDataResources.AssessmentSectionComment_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -265,7 +266,7 @@ namespace Ringtoets.Integration.Plugin
         private static bool CloseAssessmentSectionCommentViewForData(AssessmentSectionCommentView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            return assessmentSection != null && assessmentSection.Comments == view.Data;
+            return assessmentSection != null && assessmentSection == view.Data;
         }
 
         #endregion
@@ -290,7 +291,7 @@ namespace Ringtoets.Integration.Plugin
                 new ReferenceLineContext(nodeData),
                 nodeData.FailureMechanismContribution,
                 new HydraulicBoundaryDatabaseContext(nodeData),
-                nodeData.Comments
+                new AssessmentSectionCommentContext(nodeData)
             };
 
             var failureMechanismContexts = WrapFailureMechanismsInContexts(nodeData);

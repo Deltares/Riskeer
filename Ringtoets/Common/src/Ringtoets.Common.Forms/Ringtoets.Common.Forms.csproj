@@ -43,6 +43,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Helpers\NamingHelper.cs" />
+    <Compile Include="PresentationObjects\AssessmentSectionCommentContext.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolder.cs" />
     <Compile Include="PresentationObjects\FailureMechanismContext.cs">
       <SubType>Code</SubType>

@@ -63,7 +63,7 @@
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\AssessmentSectionTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\AssessmentSectionCommentTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\AssessmentSectionCommentContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismContributionTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismPlaceholderTreeNodeInfoTest.cs" />
@@ -75,7 +75,7 @@
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\AssessmentSectionViewTest.cs" />
-    <Compile Include="Views\AssessmentSectoinCommentViewTest.cs" />
+    <Compile Include="Views\AssessmentSectionCommentViewTest.cs" />
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -126,10 +126,6 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Placeholder\Ringtoets.Common.Placeholder.csproj">
       <Project>{e38c11e0-4384-44dd-9f5b-ee73d79fd7f5}</Project>
       <Name>Ringtoets.Common.Placeholder</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
-      <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
-      <Name>Ringtoets.HydraRing.Calculation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>

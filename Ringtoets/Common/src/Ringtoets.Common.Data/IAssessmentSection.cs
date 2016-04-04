@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data
         /// <summary>
         /// Gets or sets the comments of the assessment section.
         /// </summary>
-        AssessmentSectionComment Comments { get; }
+        string Comments { get; set; }
 
         /// <summary>
         /// Gets the composition of the assessment section, e.g. what type of elements can 

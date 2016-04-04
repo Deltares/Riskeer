@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.IsInstanceOf<IAssessmentSection>(section);
 
             Assert.AreEqual("Traject", section.Name);
-            Assert.IsInstanceOf<AssessmentSectionComment>(section.Comments);
+            Assert.IsNull(section.Comments);
             Assert.IsNull(section.ReferenceLine);            
             Assert.AreEqual(AssessmentSectionComposition.Dike, section.Composition);
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
@@ -118,10 +118,10 @@ namespace Ringtoets.Integration.Data.Test
             const string newValue = "new comment value";
 
             // Call
-            section.Comments.Text = newValue;
+            section.Comments = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, section.Comments.Text);
+            Assert.AreEqual(newValue, section.Comments);
         }
 
         [Test]

@@ -140,15 +140,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 new FailureMechanismPlaceholder("A")
             };
             var contribution = new FailureMechanismContribution(failureMechanisms, 10.0, 2);
-            var comments = new AssessmentSectionComment
-            {
-                Text = "some comment"
-            };
+            var comments = "some comment";
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.FailureMechanismContribution).Return(contribution);
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(failureMechanisms);
-            assessmentSection.Stub(section => section.Comments).Return(comments);
             mocks.ReplayAll();
 
             // Call
@@ -165,6 +161,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var context = (HydraulicBoundaryDatabaseContext) objects[2];
             Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.Parent.HydraulicBoundaryDatabase);
             Assert.AreSame(assessmentSection, context.Parent);
+
+            var commentContext = (AssessmentSectionCommentContext)objects[3];
+            Assert.AreSame(assessmentSection, commentContext.AssessmentSection);
 
             var pipingFailureMechanismContext = (PipingFailureMechanismContext)objects[4];
             Assert.AreSame(failureMechanisms[0], pipingFailureMechanismContext.WrappedData);

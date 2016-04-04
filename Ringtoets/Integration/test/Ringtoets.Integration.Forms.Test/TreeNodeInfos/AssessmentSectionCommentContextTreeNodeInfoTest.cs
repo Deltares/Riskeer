@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using System.Runtime.Remoting;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -29,22 +28,25 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class AssessmentSectionCommentTreeNodeInfoTest
+    public class AssessmentSectionCommentContextTreeNodeInfoTest
     {
+        private MockRepository mocks;
         private RingtoetsGuiPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
+            mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(AssessmentSectionComment));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(AssessmentSectionCommentContext));
         }
 
         [TearDown]
@@ -57,7 +59,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(AssessmentSectionComment), info.TagType);
+            Assert.AreEqual(typeof(AssessmentSectionCommentContext), info.TagType);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
@@ -77,10 +79,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var comment = new AssessmentSectionComment();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var context = new AssessmentSectionCommentContext(assessmentSectionMock);
+
+            mocks.ReplayAll();
 
             // Call
-            var text = info.Text(comment);
+            var text = info.Text(context);
 
             // Assert
             Assert.AreEqual("Opmerkingen", text);
@@ -90,10 +95,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var comment = new AssessmentSectionComment();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var context = new AssessmentSectionCommentContext(assessmentSectionMock);
+
+            mocks.ReplayAll();
 
             // Call
-            var image = info.Image(comment);
+            var image = info.Image(context);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
@@ -103,10 +111,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ForeColor_Always_GrayText()
         {
             // Setup
-            var comment = new AssessmentSectionComment();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var context = new AssessmentSectionCommentContext(assessmentSectionMock);
+            
+            mocks.ReplayAll();
 
             // Call
-            var color = info.ForeColor(comment);
+            var color = info.ForeColor(context);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);

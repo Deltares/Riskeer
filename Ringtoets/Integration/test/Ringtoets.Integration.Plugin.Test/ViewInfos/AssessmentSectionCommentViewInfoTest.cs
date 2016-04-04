@@ -4,6 +4,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -34,20 +35,20 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(AssessmentSectionComment), info.DataType);
+            Assert.AreEqual(typeof(AssessmentSectionCommentContext), info.DataType);
         }
 
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var comment = new AssessmentSectionComment();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var viewMock = mocks.StrictMock<AssessmentSectionCommentView>();
 
             mocks.ReplayAll();
 
             // Call
-            var viewName = info.GetViewName(viewMock, comment);
+            var viewName = info.GetViewName(viewMock, assessmentSectionMock);
 
             // Assert
             Assert.AreEqual("Opmerkingen", viewName);
@@ -70,7 +71,17 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(AssessmentSectionComment), dataType);
+            Assert.AreEqual(typeof(AssessmentSectionCommentContext), dataType);
+        }
+
+        [Test]
+        public void ViewDataType_Always_ReturnViewDataType()
+        {
+            // Call
+            var viewDataType = info.ViewDataType;
+
+            // Assert
+            Assert.AreEqual(typeof(IAssessmentSection), viewDataType);
         }
 
         [Test]
@@ -90,7 +101,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewMock = mocks.StrictMock<AssessmentSectionCommentView>();
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
 
-            viewMock.Expect(vm => vm.Data).Return(assessmentSectionMock.Comments);
+            viewMock.Expect(vm => vm.Data).Return(assessmentSectionMock);
 
             mocks.ReplayAll();
 
@@ -106,10 +117,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewMock = mocks.StrictMock<AssessmentSectionCommentView>();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            var assessmentSectionMock2 = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock2 = mocks.StrictMock<IAssessmentSection>();
 
-            viewMock.Expect(vm => vm.Data).Return(assessmentSectionMock2.Comments);
+            viewMock.Expect(vm => vm.Data).Return(assessmentSectionMock2);
 
             mocks.ReplayAll();
 
