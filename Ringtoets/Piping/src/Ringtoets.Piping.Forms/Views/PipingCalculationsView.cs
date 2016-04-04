@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the <seealso cref="IApplicationSelection"/>.
+        /// Gets or sets the <see cref="IApplicationSelection"/>.
         /// </summary>
         public IApplicationSelection ApplicationSelection { get; set; }
 
@@ -150,7 +150,6 @@ namespace Ringtoets.Piping.Forms.Views
         {
             AssessmentSection = null;
             PipingFailureMechanism = null;
-            ApplicationSelection = null;
 
             if (disposing && (components != null))
             {

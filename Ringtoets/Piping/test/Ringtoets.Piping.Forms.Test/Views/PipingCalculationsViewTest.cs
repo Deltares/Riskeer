@@ -138,7 +138,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var pipingFailureMechanism = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var applicationSelection = mocks.StrictMock<IApplicationSelection>();
 
             mocks.ReplayAll();
 
@@ -146,13 +145,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 PipingFailureMechanism = pipingFailureMechanism,
                 AssessmentSection = assessmentSection,
-                ApplicationSelection = applicationSelection
             };
 
             // Precondition
             Assert.IsNotNull(pipingCalculationsView.PipingFailureMechanism);
             Assert.IsNotNull(pipingCalculationsView.AssessmentSection);
-            Assert.IsNotNull(pipingCalculationsView.ApplicationSelection);
 
             // Call
             pipingCalculationsView.Dispose();
@@ -160,7 +157,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.IsNull(pipingCalculationsView.PipingFailureMechanism);
             Assert.IsNull(pipingCalculationsView.AssessmentSection);
-            Assert.IsNull(pipingCalculationsView.ApplicationSelection);
         }
 
         [Test]
