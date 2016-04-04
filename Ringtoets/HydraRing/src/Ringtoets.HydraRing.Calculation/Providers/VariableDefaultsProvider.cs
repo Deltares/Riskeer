@@ -134,12 +134,6 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             17, new VariableDefaults(300)
                         },
                         {
-                            21, new VariableDefaults(300)
-                        },
-                        {
-                            22, new VariableDefaults(300)
-                        },
-                        {
                             120, new VariableDefaults(300)
                         },
                         {

@@ -52,7 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "INSERT INTO [Numerics] VALUES (700004, 1, 1, 1, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 20000, 100000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [VariableDatas];" + Environment.NewLine +
-                                         "INSERT INTO [VariableDatas] VALUES (700004, 1, 1, 1, 26, 0, 0, 0, 0, 0, 0, 0, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (700004, 1, 1, 1, 26, 0, 0, 0, NULL, NULL, NULL, 0, 0, 300);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                          Environment.NewLine +
@@ -103,6 +103,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             int hydraulicBoundaryLocationId = 700004;
 
             var hydraRingSection = new HydraRingSection(hydraulicBoundaryLocationId, "700004", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
+            double dikeHeight = 11.11;
+            double criticalOvertoppingMean = 22.22;
+            double criticalOvertoppingStandardDeviation = 33.33;
             var profilePoints = new List<HydraRingProfilePoint>
             {
                 new HydraRingProfilePoint(1.1, 2.2)
@@ -111,8 +114,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             {
                 new HydraRingForelandPoint(1.1, 2.2)
             };
+            var breakwater = new List<HydraRingBreakwater>
+            {
+                new HydraRingBreakwater(1, 2.2)
+            };
 
-            hydraRingConfigurationService.AddHydraRingCalculationInput(new OvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingSection, profilePoints, forelandPoints));
+            hydraRingConfigurationService.AddHydraRingCalculationInput(new OvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingSection,
+                                                                                                       dikeHeight, criticalOvertoppingMean, criticalOvertoppingStandardDeviation
+                                                                                                       , profilePoints, forelandPoints, breakwater));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -128,6 +137,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "INSERT INTO [Numerics] VALUES (700004, 101, 1, 1, 103, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 20000, 100000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [VariableDatas];" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (700004, 101, 1, 1, 1, 11.11, 0, 0, NULL, NULL, NULL, 0, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (700004, 101, 1, 1, 8, 1, 0, 0, NULL, NULL, NULL, 0, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (700004, 101, 1, 1, 10, 0, 2, 4.75, 0.5, NULL, NULL, 0, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (700004, 101, 1, 1, 11, 0, 2, 2.6, 0.35, NULL, NULL, 0, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (700004, 101, 1, 1, 12, 1, 0, 0, NULL, NULL, NULL, 0, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (700004, 101, 1, 1, 17, 0, 4, 22.22, 33.33, NULL, NULL, 0, 0, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (700004, 101, 1, 1, 120, 0, 2, 1, NULL, NULL, NULL, 1, 0.07, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (700004, 101, 1, 1, 123, 0, 2, 0.92, 0.24, NULL, NULL, 0, 0, 300);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                          "INSERT INTO [CalculationProfiles] VALUES (700004, 1, 1.1, 2.2, 1);" + Environment.NewLine +
@@ -169,7 +186,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "DELETE FROM [Projects];" + Environment.NewLine +
                                          "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine +
                                          Environment.NewLine +
-                                         "DELETE FROM [Breakwaters];" + Environment.NewLine;
+                                         "DELETE FROM [Breakwaters];" + Environment.NewLine +
+                                         "INSERT INTO [Breakwaters] VALUES (700004, 1, 2.2);" + Environment.NewLine;
 
             var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
 

@@ -57,6 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private const double defaultLayerId = 1;
         private const double defaultAlternativeId = 1;
         private const double defaultHydraRingValue = 0.0;
+        private readonly double? defaultHydraRingNullValue = null;
 
         private readonly string ringId;
         private readonly IList<HydraRingCalculationInput> hydraRingCalculationInputs;
@@ -417,16 +418,16 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         {
                             "Parameter2", hydraRingVariable.DistributionType != HydraRingDistributionType.Deterministic
                                           && hydraRingVariable.DeviationType == HydraRingDeviationType.Standard
-                                              ? GetHydraRingValue(hydraRingVariable.Variability)
-                                              : defaultHydraRingValue
+                                              ? GetHydraRingNullableValue(hydraRingVariable.Variability)
+                                              : defaultHydraRingNullValue
                         },
                         {
                             "Parameter3", hydraRingVariable.DistributionType == HydraRingDistributionType.LogNormal
-                                              ? GetHydraRingValue(hydraRingVariable.Shift)
-                                              : defaultHydraRingValue
+                                              ? GetHydraRingNullableValue(hydraRingVariable.Shift)
+                                              : defaultHydraRingNullValue
                         },
                         {
-                            "Parameter4", defaultHydraRingValue // Fixed: Not relevant
+                            "Parameter4", defaultHydraRingNullValue // Fixed: Not relevant
                         },
                         {
                             "DeviationType", (int?) hydraRingVariable.DeviationType
@@ -699,9 +700,14 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return string.Join(Environment.NewLine, lines);
         }
 
-        private static double? GetHydraRingValue(double value)
+        private static double GetHydraRingValue(double value)
         {
             return !double.IsNaN(value) ? value : defaultHydraRingValue;
+        }
+
+        private double? GetHydraRingNullableValue(double value)
+        {
+            return !double.IsNaN(value) ? value : defaultHydraRingNullValue;
         }
     }
 }

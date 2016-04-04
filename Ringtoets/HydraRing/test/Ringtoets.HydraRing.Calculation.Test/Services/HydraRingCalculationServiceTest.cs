@@ -77,8 +77,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             var incorrectStationId = 999;
             var hydraRingSection = new HydraRingSection(incorrectStationId, "999", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
             var targetProbabilityCalculationInput = new OvertoppingCalculationInput(incorrectStationId, hydraRingSection,
+                                                                                    1, 2, 3,
                                                                                     new List<HydraRingProfilePoint>(),
-                                                                                    new List<HydraRingForelandPoint>());
+                                                                                    new List<HydraRingForelandPoint>(),
+                                                                                    new List<HydraRingBreakwater>());
             var outputFolder = Path.Combine(Path.GetTempPath(), "" + incorrectStationId);
             var outputFiles = new[]
             {
