@@ -69,6 +69,8 @@
     <Compile Include="RingtoetsGuiPluginTest.cs" />
     <Compile Include="RingtoetsRibbonTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionCommentViewInfoTest.cs" />
+    <Compile Include="ViewInfos\AssessmentSectionViewInfoTest.cs" />
+    <Compile Include="ViewInfos\FailureMechanismContributionViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismResultViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>

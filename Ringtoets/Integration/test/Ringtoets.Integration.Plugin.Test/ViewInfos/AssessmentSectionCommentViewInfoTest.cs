@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Call
             var closeForData = info.CloseForData(viewMock, assessmentSectionMock);
-            
+
             // Assert
             Assert.IsTrue(closeForData);
         }

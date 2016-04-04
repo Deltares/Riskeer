@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
@@ -256,12 +255,7 @@ namespace Ringtoets.Integration.Plugin
         private static bool CloseFailureMechanismResultViewForData(FailureMechanismResultView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            if (assessmentSection != null)
-            {
-                return assessmentSection.GetFailureMechanisms().Any(failureMechanism => view.Data == failureMechanism.SectionResults);
-            }
-
-            return false;
+            return assessmentSection != null && assessmentSection.GetFailureMechanisms().Any(failureMechanism => view.Data == failureMechanism.SectionResults);
         }
 
         #endregion
