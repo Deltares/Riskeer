@@ -22,13 +22,10 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
-
 using Ringtoets.Common.Data.Contribution;
-
 using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
@@ -64,7 +61,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
             set
             {
-                SetNormValue((FailureMechanismContribution)value);
+                SetNormValue((FailureMechanismContribution) value);
             }
         }
 
