@@ -24,7 +24,8 @@ using MathNet.Numerics.Distributions;
 namespace Ringtoets.HydraRing.Calculation.Data.Input
 {
     /// <summary>
-    /// Container of all data necessary for performing a type 2 calculation via Hydra-Ring ("iterate towards a target probability, provided as reliability index").
+    /// Container of all data necessary for performing a type II calculation via Hydra-Ring:
+    /// Iterate towards a target probability, provided as reliability index.
     /// </summary>
     public abstract class TargetProbabilityCalculationInput : HydraRingCalculationInput
     {

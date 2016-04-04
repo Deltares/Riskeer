@@ -39,7 +39,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             HydraRingRoughnessProfilePoint hydraRingRoughnessProfilePoint = new HydraRingRoughnessProfilePoint(expectedX, expectedZ, expectedRoughness);
 
             // Assert
-            Assert.IsNotNull(hydraRingRoughnessProfilePoint);
             Assert.AreEqual(expectedX, hydraRingRoughnessProfilePoint.X);
             Assert.AreEqual(expectedZ, hydraRingRoughnessProfilePoint.Z);
             Assert.AreEqual(expectedRoughness, hydraRingRoughnessProfilePoint.Roughness);

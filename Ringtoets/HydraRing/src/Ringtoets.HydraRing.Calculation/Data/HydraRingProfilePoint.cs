@@ -63,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         }
 
         /// <summary>
-        /// Gets the roughness.
+        /// Gets the reduction factor.
         /// </summary>
         public virtual double Roughness
         {

@@ -317,12 +317,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                 }
             }
 
-            public override IEnumerable<HydraRingBreakwater> BreakWaters
+            public override IEnumerable<HydraRingBreakWater> BreakWaters
             {
                 get
                 {
-                    yield return new HydraRingBreakwater(1, 99.9);
-                    yield return new HydraRingBreakwater(3, 20.2);
+                    yield return new HydraRingBreakWater(1, 99.9);
+                    yield return new HydraRingBreakWater(3, 20.2);
                 }
             }
 

@@ -38,7 +38,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
             var hydraRingForelandPoint = new HydraRingForelandPoint(xCoordinate, zCoordinate);
 
             // Assert
-            Assert.IsNotNull(hydraRingForelandPoint);
             Assert.AreEqual(xCoordinate, hydraRingForelandPoint.X);
             Assert.AreEqual(zCoordinate, hydraRingForelandPoint.Z);
         }

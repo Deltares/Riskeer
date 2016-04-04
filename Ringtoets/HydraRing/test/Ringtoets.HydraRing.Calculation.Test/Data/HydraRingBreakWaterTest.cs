@@ -25,7 +25,7 @@ using Ringtoets.HydraRing.Calculation.Data;
 namespace Ringtoets.HydraRing.Calculation.Test.Data
 {
     [TestFixture]
-    public class HydraRingBreakwaterTest
+    public class HydraRingBreakWaterTest
     {
         [Test]
         public void Constructor_Always_ExpectedValues()
@@ -35,12 +35,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
             double height = 100.1;
 
             // Call
-            HydraRingBreakwater breakwater = new HydraRingBreakwater(type, height);
+            HydraRingBreakWater breakWater = new HydraRingBreakWater(type, height);
 
             // Assert
-            Assert.IsNotNull(breakwater);
-            Assert.AreEqual(type, breakwater.Type);
-            Assert.AreEqual(height, breakwater.Height);
+            Assert.AreEqual(type, breakWater.Type);
+            Assert.AreEqual(height, breakWater.Height);
         }
     }
 }

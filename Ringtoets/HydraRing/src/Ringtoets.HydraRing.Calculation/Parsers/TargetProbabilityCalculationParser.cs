@@ -28,14 +28,15 @@ using Ringtoets.HydraRing.Calculation.Data.Output;
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Parser for the output of a Hydra-Ring type 2 calculation ("iterate towards a target probability, provided as reliability index").
+    /// Parser for the output of a Hydra-Ring type II calculation:
+    /// Iterate towards a target probability, provided as reliability index.
     /// </summary>
     internal static class TargetProbabilityCalculationParser
     {
         /// <summary>
         /// Tries to parse a <see cref="TargetProbabilityCalculationOutput"/> object from the provided <paramref name="outputFilePath"/> for the provided <paramref name="sectionId"/>.
         /// </summary>
-        /// <param name="outputFilePath">The path to the file which contains the output of the Hydra-Ring type 2 calculation.</param>
+        /// <param name="outputFilePath">The path to the file which contains the output of the Hydra-Ring type II calculation.</param>
         /// <param name="sectionId">The section id to get the <see cref="TargetProbabilityCalculationOutput"/> object for.</param>
         /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> corresponding to the section id or <c>null</c> otherwise.</returns>
         public static TargetProbabilityCalculationOutput Parse(string outputFilePath, int sectionId)

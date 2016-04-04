@@ -154,7 +154,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             configurationDictionary["WaveReductions"] = new List<OrderedDictionary>();
             configurationDictionary["Areas"] = GetAreasConfiguration();
             configurationDictionary["Projects"] = GetProjectsConfiguration();
-            configurationDictionary["Breakwaters"] = GetSectionBreakWatersConfiguration();
+            configurationDictionary["Breakwaters"] = GetBreakWatersConfiguration();
 
             return GenerateDataBaseCreationScript(configurationDictionary);
         }
@@ -511,12 +511,12 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderDictionaries;
         }
 
-        private IList<OrderedDictionary> GetSectionBreakWatersConfiguration()
+        private IList<OrderedDictionary> GetBreakWatersConfiguration()
         {
             var orderedDictionaries = new List<OrderedDictionary>();
             foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
-                foreach (var breakwater in hydraRingCalculationInput.BreakWaters)
+                foreach (var breakWater in hydraRingCalculationInput.BreakWaters)
                 {
                     orderedDictionaries.Add(new OrderedDictionary
                     {
@@ -524,10 +524,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
                             "SectionId", hydraRingCalculationInput.Section.SectionId
                         },
                         {
-                            "Type", GetHydraRingValue(breakwater.Type)
+                            "Type", GetHydraRingValue(breakWater.Type)
                         },
                         {
-                            "Height", GetHydraRingValue(breakwater.Height)
+                            "Height", GetHydraRingValue(breakWater.Height)
                         }
                     });
                 }

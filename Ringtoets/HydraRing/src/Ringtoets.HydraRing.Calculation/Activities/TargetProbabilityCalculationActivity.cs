@@ -29,7 +29,8 @@ using Ringtoets.HydraRing.Calculation.Services;
 namespace Ringtoets.HydraRing.Calculation.Activities
 {
     /// <summary>
-    /// <see cref="Activity"/> for running a type 2 calculation via Hydra-Ring ("iterate towards a target probability, provided as reliability index").
+    /// <see cref="Activity"/> for running a type II calculation via Hydra-Ring:
+    /// Iterate towards a target probability, provided as reliability index.
     /// </summary>
     public class TargetProbabilityCalculationActivity : Activity
     {

@@ -24,14 +24,14 @@ namespace Ringtoets.HydraRing.Calculation.Data
     /// <summary>
     /// Container for Hydra-Ring break water related data.
     /// </summary>
-    public class HydraRingBreakwater
+    public class HydraRingBreakWater
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraRingBreakwater"/>.
+        /// Creates a new instance of <see cref="HydraRingBreakWater"/>.
         /// </summary>
         /// <param name="type">The break water type.</param>
         /// <param name="height">The break water height.</param>
-        public HydraRingBreakwater(int type, double height)
+        public HydraRingBreakWater(int type, double height)
         {
             Type = type;
             Height = height;
