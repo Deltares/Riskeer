@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
@@ -222,13 +221,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             };
             var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 10, 30000);
 
-            var assessmentSectionBase = mocks.Stub<IAssessmentSection>();
-            assessmentSectionBase.Name = "Dummy";
-            assessmentSectionBase.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            assessmentSectionBase.Stub(section => section.FailureMechanismContribution).Return(failureMechanismContribution);
-            assessmentSectionBase.Expect(section => section.NotifyObservers());
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            assessmentSectionMock.Name = "Dummy";
+            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSectionMock.Stub(section => section.FailureMechanismContribution).Return(failureMechanismContribution);
+            assessmentSectionMock.Expect(section => section.NotifyObservers());
 
-            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionBase);
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
             hydraulicBoundaryDatabaseContextObserver.Expect(o => o.UpdateObserver());
             gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());

@@ -1,4 +1,25 @@
-﻿using System.Linq;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
@@ -15,13 +36,12 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
-
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class AssessmentSectionBaseTreeNodeInfoTest
+    public class AssessmentSectionTreeNodeInfoTest
     {
         private MockRepository mocks;
         private RingtoetsGuiPlugin plugin;
@@ -72,7 +92,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(testName, text);
-            
+
             mocks.VerifyAll();
         }
 
@@ -131,19 +151,18 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             assessmentSection.Stub(section => section.Comments).Return(comments);
             mocks.ReplayAll();
 
-
             // Call
             var objects = info.ChildNodeObjects(assessmentSection).ToArray();
 
             // Assert
             Assert.AreEqual(6, objects.Length);
-            var referenceLineContext = (ReferenceLineContext)objects[0];
+            var referenceLineContext = (ReferenceLineContext) objects[0];
             Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
             Assert.AreSame(assessmentSection, referenceLineContext.Parent);
 
             Assert.AreSame(contribution, objects[1]);
 
-            var context = (HydraulicBoundaryDatabaseContext)objects[2];
+            var context = (HydraulicBoundaryDatabaseContext) objects[2];
             Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.Parent.HydraulicBoundaryDatabase);
             Assert.AreSame(assessmentSection, context.Parent);
 
@@ -201,7 +220,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert
             Assert.IsTrue(canRename);
         }
-        
+
         [Test]
         public void OnNodeRenamed_WithData_SetProjectNameWithNotification()
         {
@@ -210,11 +229,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             assessmentSection.Expect(section => section.NotifyObservers());
 
             mocks.ReplayAll();
-        
+
             // Call
             const string newName = "New Name";
             info.OnNodeRenamed(assessmentSection, newName);
-        
+
             // Assert
             Assert.AreEqual(newName, assessmentSection.Name);
             mocks.VerifyAll();
@@ -229,26 +248,25 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert
             Assert.IsTrue(canRemove);
         }
-        
+
         [Test]
         public void RemoveNodeData_ProjectWithAssessmentSection_ReturnTrueAndRemoveAssessmentSection()
         {
             // Setup
             var observerMock = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-        
+
             observerMock.Expect(o => o.UpdateObserver());
-        
+
             mocks.ReplayAll();
-        
+
             var project = new Project();
             project.Items.Add(assessmentSection);
             project.Attach(observerMock);
-        
-        
+
             // Call
             info.OnNodeRemoved(assessmentSection, project);
-        
+
             // Assert
             CollectionAssert.DoesNotContain(project.Items, assessmentSection);
             mocks.VerifyAll();

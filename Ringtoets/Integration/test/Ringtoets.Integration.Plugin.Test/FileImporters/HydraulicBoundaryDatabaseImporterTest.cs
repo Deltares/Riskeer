@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
@@ -149,13 +148,12 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            var expectedMessage = "Er is nog geen bestand geopend.";
-
             // Call
             TestDelegate call = () => importer.Import(context);
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(call);
+            var expectedMessage = "Er is nog geen bestand geopend.";
             Assert.AreEqual(expectedMessage, exception.Message);
             mocks.VerifyAll();
         }
@@ -236,8 +234,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, "corruptschema.sqlite");
-            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath)
-                .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.");
             var importResult = true;
 
             // Precondition
@@ -248,6 +244,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Action call = () => importResult = importer.Import(importTarget);
 
             // Assert
+            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath)
+                .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.");
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importResult);
             mocks.VerifyAll();

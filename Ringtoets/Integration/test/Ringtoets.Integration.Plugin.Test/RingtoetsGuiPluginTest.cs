@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.AreEqual(2, propertyInfos.Length);
 
                 var assessmentSectionProperties = propertyInfos.Single(pi => pi.DataType == typeof(IAssessmentSection));
-                Assert.AreEqual(typeof(AssessmentSectionBaseProperties), assessmentSectionProperties.PropertyObjectType);
+                Assert.AreEqual(typeof(AssessmentSectionProperties), assessmentSectionProperties.PropertyObjectType);
                 Assert.IsNull(assessmentSectionProperties.AdditionalDataCheck);
                 Assert.IsNull(assessmentSectionProperties.GetObjectPropertiesData);
                 Assert.IsNull(assessmentSectionProperties.AfterCreate);
@@ -133,22 +133,22 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        public void GetChildDataWithViewDefinitions_AssessmentSectionBase_ReturnFailureMechanismContribution()
+        public void GetChildDataWithViewDefinitions_AssessmentSection_ReturnFailureMechanismContribution()
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionBase = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var guiPlugin = new RingtoetsGuiPlugin();
 
             // Call
-            var childrenWithViewDefinitions = guiPlugin.GetChildDataWithViewDefinitions(assessmentSectionBase);
+            var childrenWithViewDefinitions = guiPlugin.GetChildDataWithViewDefinitions(assessmentSectionMock);
 
             // Assert
             CollectionAssert.AreEqual(new object[]
             {
-                assessmentSectionBase.FailureMechanismContribution
+                assessmentSectionMock.FailureMechanismContribution
             }, childrenWithViewDefinitions);
             mocks.VerifyAll();
         }

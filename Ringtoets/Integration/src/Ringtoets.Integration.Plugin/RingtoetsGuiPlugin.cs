@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Plugin
         /// </summary>
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<IAssessmentSection, AssessmentSectionBaseProperties>();
+            yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
         }
 
@@ -142,15 +142,15 @@ namespace Ringtoets.Integration.Plugin
         {
             yield return new TreeNodeInfo<IAssessmentSection>
             {
-                Text = assessmentSectionBase => assessmentSectionBase.Name,
-                Image = assessmentSectionBase => RingtoetsFormsResources.AssessmentSectionFolderIcon,
-                EnsureVisibleOnCreate = assessmentSectionBase => true,
-                ChildNodeObjects = AssessmentSectionBaseChildNodeObjects,
-                ContextMenuStrip = AssessmentSectionBaseContextMenuStrip,
-                CanRename = (assessmentSectionBase, parentData) => true,
-                OnNodeRenamed = AssessmentSectionBaseOnNodeRenamed,
-                CanRemove = (assessmentSectionBase, parentNodeData) => true,
-                OnNodeRemoved = AssessmentSectionBaseOnNodeRemoved
+                Text = assessmentSection => assessmentSection.Name,
+                Image = assessmentSection => RingtoetsFormsResources.AssessmentSectionFolderIcon,
+                EnsureVisibleOnCreate = assessmentSection => true,
+                ChildNodeObjects = assessmentSectionChildNodeObjects,
+                ContextMenuStrip = AssessmentSectionContextMenuStrip,
+                CanRename = (assessmentSection, parentData) => true,
+                OnNodeRenamed = AssessmentSectionOnNodeRenamed,
+                CanRemove = (assessmentSection, parentNodeData) => true,
+                OnNodeRemoved = AssessmentSectionOnNodeRemoved
             };
 
             yield return new TreeNodeInfo<ReferenceLineContext>
@@ -255,10 +255,10 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(FailureMechanismResultView view, object o)
         {
-            var assessmentSectionBase = o as IAssessmentSection;
-            if (assessmentSectionBase != null)
+            var assessmentSection = o as IAssessmentSection;
+            if (assessmentSection != null)
             {
-                return assessmentSectionBase.GetFailureMechanisms().Any(failureMechanism => view.Data == failureMechanism.SectionResults);
+                return assessmentSection.GetFailureMechanisms().Any(failureMechanism => view.Data == failureMechanism.SectionResults);
             }
 
             return false;
@@ -287,9 +287,9 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        # region AssessmentSectionBase
+        # region assessmentSection
 
-        private object[] AssessmentSectionBaseChildNodeObjects(IAssessmentSection nodeData)
+        private object[] assessmentSectionChildNodeObjects(IAssessmentSection nodeData)
         {
             var childNodes = new List<object>
             {
@@ -326,13 +326,13 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private void AssessmentSectionBaseOnNodeRenamed(IAssessmentSection nodeData, string newName)
+        private void AssessmentSectionOnNodeRenamed(IAssessmentSection nodeData, string newName)
         {
             nodeData.Name = newName;
             nodeData.NotifyObservers();
         }
 
-        private void AssessmentSectionBaseOnNodeRemoved(IAssessmentSection nodeData, object parentNodeData)
+        private void AssessmentSectionOnNodeRemoved(IAssessmentSection nodeData, object parentNodeData)
         {
             var parentProject = (Project) parentNodeData;
 
@@ -340,7 +340,7 @@ namespace Ringtoets.Integration.Plugin
             parentProject.NotifyObservers();
         }
 
-        private ContextMenuStrip AssessmentSectionBaseContextMenuStrip(IAssessmentSection nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip AssessmentSectionContextMenuStrip(IAssessmentSection nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -614,11 +614,8 @@ namespace Ringtoets.Integration.Plugin
                 assessmentSection.Name, // TODO: Provide name of reference line instead
                 HydraRingTimeIntegrationSchemeType.FBC,
                 HydraRingUncertaintiesType.All,
-                new AssessmentLevelCalculationInput((int)hydraulicBoundaryLocation.Id, assessmentSection.FailureMechanismContribution.Norm),
-                output =>
-                {
-                    ParseHydraRingOutput(hydraulicBoundaryLocation, output);
-                });
+                new AssessmentLevelCalculationInput((int) hydraulicBoundaryLocation.Id, assessmentSection.FailureMechanismContribution.Norm),
+                output => { ParseHydraRingOutput(hydraulicBoundaryLocation, output); });
         }
 
         private static void ParseHydraRingOutput(HydraulicBoundaryLocation hydraulicBoundaryLocation, TargetProbabilityCalculationOutput output)

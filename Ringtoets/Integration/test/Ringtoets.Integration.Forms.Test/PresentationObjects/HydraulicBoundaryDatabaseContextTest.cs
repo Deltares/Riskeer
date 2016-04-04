@@ -20,13 +20,9 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 
@@ -40,15 +36,15 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionBaseMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            var pressentationObject = new HydraulicBoundaryDatabaseContext(assessmentSectionBaseMock);
+            var pressentationObject = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(pressentationObject);
-            Assert.AreSame(assessmentSectionBaseMock, pressentationObject.Parent);
+            Assert.AreSame(assessmentSectionMock, pressentationObject.Parent);
         }
 
         [Test]
@@ -73,7 +69,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context  = new HydraulicBoundaryDatabaseContext(assessmentSection);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
             // Call
             var isEqual = context.Equals(context);

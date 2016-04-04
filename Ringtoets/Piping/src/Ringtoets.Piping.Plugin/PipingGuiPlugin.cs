@@ -193,7 +193,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = stochasticSoilModel => PipingFormsResources.StochasticSoilModelIcon,
                 ChildNodeObjects = stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                  .AddPropertiesItem()
+                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
 
@@ -248,8 +248,8 @@ namespace Ringtoets.Piping.Plugin
 
         private bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)
         {
-            var assessmentSectionBase = o as IAssessmentSection;
-            return assessmentSectionBase != null && ((PipingFailureMechanismContext) view.Data).Parent == assessmentSectionBase;
+            var assessmentSection = o as IAssessmentSection;
+            return assessmentSection != null && ((PipingFailureMechanismContext) view.Data).Parent == assessmentSection;
         }
 
         # endregion
@@ -258,12 +258,12 @@ namespace Ringtoets.Piping.Plugin
 
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object o)
         {
-            var assessmentSectionBase = o as IAssessmentSection;
-            if (assessmentSectionBase != null)
+            var assessmentSection = o as IAssessmentSection;
+            if (assessmentSection != null)
             {
-                var pipingFailureMechanism = assessmentSectionBase.GetFailureMechanisms()
-                                                                  .OfType<PipingFailureMechanism>()
-                                                                  .FirstOrDefault();
+                var pipingFailureMechanism = assessmentSection.GetFailureMechanisms()
+                                                              .OfType<PipingFailureMechanism>()
+                                                              .FirstOrDefault();
 
                 if (pipingFailureMechanism != null)
                 {
@@ -702,18 +702,15 @@ namespace Ringtoets.Piping.Plugin
         {
             var surfaceLineAvailable = nodeData.AvailablePipingSurfaceLines.Any() && nodeData.AvailableStochasticSoilModels.Any();
 
-            var pipingCalculationGroupGeneratePipingCalculationsToolTip = 
+            var pipingCalculationGroupGeneratePipingCalculationsToolTip =
                 surfaceLineAvailable ?
-                PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip :
-                PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip;
+                    PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip :
+                    PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip;
 
             var generateCalculationsItem = new StrictContextMenuItem(
                 PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations,
                 pipingCalculationGroupGeneratePipingCalculationsToolTip,
-                PipingFormsResources.GeneratePipingCalculationsIcon, (o, args) =>
-                {
-                    ShowSurfaceLineSelectionDialog(nodeData);
-                })
+                PipingFormsResources.GeneratePipingCalculationsIcon, (o, args) => { ShowSurfaceLineSelectionDialog(nodeData); })
             {
                 Enabled = surfaceLineAvailable
             };

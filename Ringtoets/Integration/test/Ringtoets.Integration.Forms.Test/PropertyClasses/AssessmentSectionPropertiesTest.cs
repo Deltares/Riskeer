@@ -16,7 +16,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new AssessmentSectionBaseProperties();
+            var properties = new AssessmentSectionProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IAssessmentSection>>(properties);
@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 Name = "Test"
             };
 
-            var properties = new AssessmentSectionBaseProperties
+            var properties = new AssessmentSectionProperties
             {
                 Data = assessmentSection
             };
@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSection = new AssessmentSection();
             assessmentSection.Attach(projectObserver);
 
-            var properties = new AssessmentSectionBaseProperties
+            var properties = new AssessmentSectionProperties
             {
                 Data = assessmentSection
             };

@@ -120,10 +120,10 @@
   <data name="AssessmentSection_DisplayName" xml:space="preserve">
     <value>Traject</value>
   </data>
-  <data name="AssessmentSectionBase_Name_Description" xml:space="preserve">
+  <data name="AssessmentSection_Name_Description" xml:space="preserve">
     <value>Naam van het toetstraject.</value>
   </data>
-  <data name="AssessmentSectionBase_Name_DisplayName" xml:space="preserve">
+  <data name="AssessmentSection_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
   <data name="Categories_General" xml:space="preserve">

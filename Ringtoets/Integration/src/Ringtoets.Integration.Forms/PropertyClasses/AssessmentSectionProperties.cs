@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Gui;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-
 using Ringtoets.Common.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Properties;
@@ -32,11 +30,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="AssessmentSection"/> for properties panel.
     /// </summary>
-    public class AssessmentSectionBaseProperties : ObjectProperties<IAssessmentSection>
+    public class AssessmentSectionProperties : ObjectProperties<IAssessmentSection>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "AssessmentSectionBase_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "AssessmentSectionBase_Name_Description")]
+        [ResourcesDisplayName(typeof(Resources), "AssessmentSection_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "AssessmentSection_Name_Description")]
         public string Name
         {
             get

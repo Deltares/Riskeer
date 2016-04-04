@@ -23,7 +23,6 @@ using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -50,13 +49,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionBaseMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 1.0, 2.0);
             HydraulicBoundaryLocationProperties expectedLocationProperties = new HydraulicBoundaryLocationProperties(hydraulicBoundaryLocation);
 
-            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionBaseMock);
+            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
             hydraulicBoundaryDatabaseContext.Parent.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabaseContext.Parent.HydraulicBoundaryDatabase.FilePath = "Test";
             hydraulicBoundaryDatabaseContext.Parent.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);

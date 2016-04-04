@@ -53,7 +53,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="PropertyClasses\AssessmentSectionBaseProperties.cs" />
+    <Compile Include="PropertyClasses\AssessmentSectionProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabaseProperties.cs" />
     <Compile Include="Views\AssessmentSectionCommentView.cs">
       <SubType>UserControl</SubType>
