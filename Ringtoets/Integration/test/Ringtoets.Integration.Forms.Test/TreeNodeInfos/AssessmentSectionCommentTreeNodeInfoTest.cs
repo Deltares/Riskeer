@@ -23,8 +23,11 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.Remoting;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -107,6 +110,31 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_CallsBuilder()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var gui = mocks.StrictMultiMock<IGui>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+
+            gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+
+            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            // Call
+            info.ContextMenuStrip(null, null, treeViewControl);
+
+            // Assert
+            mocks.VerifyAll();
         }
     }
 }
