@@ -50,48 +50,19 @@ namespace Ringtoets.Integration.Data
         {
             Name = Resources.AssessmentSection_DisplayName;
 
-            PipingFailureMechanism = new PipingFailureMechanism
-            {
-                Contribution = 24
-            };
-            GrassErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassErosionFailureMechanism_DisplayName)
-            {
-                Contribution = 24
-            };
-            MacrostabilityInwardFailureMechanism = new FailureMechanismPlaceholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName)
-            {
-                Contribution = 4
-            };
-            OvertoppingFailureMechanism = new FailureMechanismPlaceholder(Resources.OvertoppingFailureMechanism_DisplayName)
-            {
-                Contribution = 2
-            };
-            ClosingFailureMechanism = new FailureMechanismPlaceholder(Resources.ClosingFailureMechanism_DisplayName)
-            {
-                Contribution = 4
-            };
-            FailingOfConstructionFailureMechanism = new FailureMechanismPlaceholder(Resources.FailingOfConstructionFailureMechanism_DisplayName)
-            {
-                Contribution = 2
-            }; 
-            StoneRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.StoneRevetmentFailureMechanism_DisplayName)
-            {
-                Contribution = 4
-            };
-            AsphaltRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.AsphaltRevetmentFailureMechanism_DisplayName)
-            {
-                Contribution = 3
-            };
-            GrassRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassRevetmentFailureMechanism_DisplayName)
-            {
-                Contribution = 3
-            };
-            DuneErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.ErosionFailureMechanism_DisplayName)
-            {
-                Contribution = 0
-            };
+            PipingFailureMechanism = new PipingFailureMechanism();
+            GrassErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassErosionFailureMechanism_DisplayName);
+            MacrostabilityInwardFailureMechanism = new FailureMechanismPlaceholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName);
+            OvertoppingFailureMechanism = new FailureMechanismPlaceholder(Resources.OvertoppingFailureMechanism_DisplayName);
+            ClosingFailureMechanism = new FailureMechanismPlaceholder(Resources.ClosingFailureMechanism_DisplayName);
+            FailingOfConstructionFailureMechanism = new FailureMechanismPlaceholder(Resources.FailingOfConstructionFailureMechanism_DisplayName);
+            StoneRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.StoneRevetmentFailureMechanism_DisplayName);
+            AsphaltRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.AsphaltRevetmentFailureMechanism_DisplayName);
+            GrassRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassRevetmentFailureMechanism_DisplayName);
+            DuneErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.ErosionFailureMechanism_DisplayName);
 
             FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
+            ChangeComposition(AssessmentSectionComposition.Dike);
         }
 
         /// <summary>

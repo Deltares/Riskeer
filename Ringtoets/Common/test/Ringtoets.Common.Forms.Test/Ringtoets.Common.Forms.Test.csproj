@@ -61,6 +61,7 @@
     <Compile Include="PresentationObjects\AssessmentSectionCommentContextTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolderTest.cs" />
+    <Compile Include="PresentationObjects\FailureMechanismContributionContextTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismSectionResultContextTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismSectionsContextTest.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />

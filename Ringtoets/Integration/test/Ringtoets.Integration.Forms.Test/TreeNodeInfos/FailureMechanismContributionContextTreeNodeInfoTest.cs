@@ -6,7 +6,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsIntegrationDataResources = Ringtoets.Integration.Data.Properties.Resources;
@@ -15,7 +17,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class FailureMechanismContributionTreeNodeInfoTest
+    public class FailureMechanismContributionContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private RingtoetsGuiPlugin plugin;
@@ -26,7 +28,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismContribution));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismContributionContext));
         }
 
         [TearDown]
@@ -39,7 +41,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismContribution), info.TagType);
+            Assert.AreEqual(typeof(FailureMechanismContributionContext), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
@@ -82,23 +84,29 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 150000);
 
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            gui.Expect(cmp => cmp.Get(null, treeViewControlMock)).Return(menuBuilderMock);
+            var gui = mocks.StrictMock<IGui>();
+            gui.Expect(cmp => cmp.Get(contribution, treeViewControlMock)).Return(menuBuilderMock);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             mocks.ReplayAll();
-            
+
+            var context = new FailureMechanismContributionContext(contribution, assessmentSection);
+
             plugin.Gui = gui;
 
             // Call
-            info.ContextMenuStrip(null, null, treeViewControlMock);
+            info.ContextMenuStrip(context, null, treeViewControlMock);
 
             // Assert
             mocks.VerifyAll();

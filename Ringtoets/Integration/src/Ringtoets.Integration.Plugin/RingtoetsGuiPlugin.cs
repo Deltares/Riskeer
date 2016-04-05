@@ -90,7 +90,7 @@ namespace Ringtoets.Integration.Plugin
         /// </summary>
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<FailureMechanismContribution, FailureMechanismContributionView>
+            yield return new ViewInfo<FailureMechanismContributionContext, FailureMechanismContributionView>
             {
                 GetViewName = (v, o) => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -199,11 +199,11 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = CategoryTreeFolderContextMenu
             };
 
-            yield return new TreeNodeInfo<FailureMechanismContribution>
+            yield return new TreeNodeInfo<FailureMechanismContributionContext>
             {
                 Text = failureMechanismContribution => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
                 Image = failureMechanismContribution => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = (failureMechanismContribution, parentData, treeViewControl) => Gui.Get(failureMechanismContribution, treeViewControl)
+                ContextMenuStrip = (failureMechanismContribution, parentData, treeViewControl) => Gui.Get(failureMechanismContribution.WrappedData, treeViewControl)
                                                                                                      .AddOpenItem()
                                                                                                      .AddSeparator()
                                                                                                      .AddExportItem()
@@ -240,12 +240,13 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        #region FailureMechanismContribution ViewInfo
+        #region FailureMechanismContributionContext ViewInfo
 
         private static bool CloseFailureMechanismContributionViewForData(FailureMechanismContributionView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            return assessmentSection != null && assessmentSection.FailureMechanismContribution == view.Data;
+            var viewData = view.Data as FailureMechanismContributionContext;
+            return assessmentSection != null && viewData != null && assessmentSection.FailureMechanismContribution == viewData.WrappedData;
         }
 
         #endregion
@@ -288,7 +289,7 @@ namespace Ringtoets.Integration.Plugin
             var childNodes = new List<object>
             {
                 new ReferenceLineContext(nodeData),
-                nodeData.FailureMechanismContribution,
+                new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData),
                 new AssessmentSectionCommentContext(nodeData)
             };

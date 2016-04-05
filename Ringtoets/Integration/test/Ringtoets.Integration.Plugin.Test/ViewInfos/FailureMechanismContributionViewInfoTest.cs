@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Base;
+﻿using System.Linq;
+
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -35,23 +34,20 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void Initialized_Always_ExpectedPropertiesSet()
-        {
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismContribution), info.DataType);
-        }
-
-        [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 1000);
-            var viewMock = mocks.StrictMock<FailureMechanismContributionView>();
-
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var view = new FailureMechanismContributionView();
+
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 1000);
+
+            var context = new FailureMechanismContributionContext(failureMechanismContribution, assessmentSection);
+
             // Call
-            var viewName = info.GetViewName(viewMock, failureMechanismContribution);
+            var viewName = info.GetViewName(view, context);
 
             // Assert
             Assert.AreEqual("Faalkansverdeling", viewName);
@@ -74,7 +70,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismContribution), dataType);
+            Assert.AreEqual(typeof(FailureMechanismContributionContext), dataType);
         }
 
         [Test]
@@ -91,15 +87,22 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var viewMock = mocks.StrictMock<FailureMechanismContributionView>();
-            var assessmentSection = new TestAssessmentSectionBase();
+            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 123456);
 
-            viewMock.Expect(vm => vm.Data).Return(assessmentSection.FailureMechanismContribution);
-
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.FailureMechanismContribution)
+                             .Return(contribution);
             mocks.ReplayAll();
 
+            var context = new FailureMechanismContributionContext(contribution, assessmentSection);
+
+            var view = new FailureMechanismContributionView
+            {
+                Data = context
+            };
+
             // Call
-            var closeForData = info.CloseForData(viewMock, assessmentSection);
+            var closeForData = info.CloseForData(view, assessmentSection);
 
             // Assert
             Assert.IsTrue(closeForData);
@@ -109,45 +112,50 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var viewMock = mocks.StrictMock<FailureMechanismContributionView>();
-            var assessmentSection = new TestAssessmentSectionBase();
-            var assessmentSection2 = new TestAssessmentSectionBase();
+            var contribution1 = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 123456);
+            var contribution2 = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 789123);
 
-            viewMock.Expect(vm => vm.Data).Return(assessmentSection2.FailureMechanismContribution);
-
+            var assessmentSection1 = mocks.Stub<IAssessmentSection>();
+            assessmentSection1.Stub(section => section.FailureMechanismContribution)
+                              .Return(contribution1);
+            var assessmentSection2 = mocks.Stub<IAssessmentSection>();
+            assessmentSection2.Stub(section => section.FailureMechanismContribution)
+                              .Return(contribution2);
             mocks.ReplayAll();
 
+
+            var context = new FailureMechanismContributionContext(contribution1, assessmentSection1);
+
+            var view = new FailureMechanismContributionView
+            {
+                Data = context
+            };
+
             // Call
-            var closeForData = info.CloseForData(viewMock, assessmentSection);
+            var closeForData = info.CloseForData(view, assessmentSection2);
 
             // Assert
             Assert.IsFalse(closeForData);
         }
 
-        private class TestAssessmentSectionBase : Observable, IAssessmentSection
+        [Test]
+        public void CloseForData_ViewWithoutData_ReturnsFalse()
         {
-            public TestAssessmentSectionBase()
-            {
-                FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 1000);
-            }
+            // Setup
+            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 789123);
 
-            public string Name { get; set; }
-            public string Comments { get; set; }
-            public AssessmentSectionComposition Composition { get; private set; }
-            public ReferenceLine ReferenceLine { get; set; }
-            public FailureMechanismContribution FailureMechanismContribution { get; private set; }
-            public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
-            public IEnumerable<IFailureMechanism> GetFailureMechanisms()
-            {
-                throw new System.NotImplementedException();
-            }
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.FailureMechanismContribution)
+                              .Return(contribution);
+            mocks.ReplayAll();
 
-            public void ChangeComposition(AssessmentSectionComposition newComposition)
-            {
-                throw new System.NotImplementedException();
-            }
+            var view = new FailureMechanismContributionView();
 
-            public long StorageId { get; set; }
+            // Call
+            var closeForData = info.CloseForData(view, assessmentSection);
+
+            // Assert
+            Assert.IsFalse(closeForData);
         }
     }
 }

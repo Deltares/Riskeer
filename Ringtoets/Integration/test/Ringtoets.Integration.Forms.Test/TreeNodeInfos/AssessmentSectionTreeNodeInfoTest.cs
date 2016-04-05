@@ -156,7 +156,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
             Assert.AreSame(assessmentSection, referenceLineContext.Parent);
 
-            Assert.AreSame(contribution, objects[1]);
+            var contributionContext = (FailureMechanismContributionContext)objects[1];
+            Assert.AreSame(contribution, contributionContext.WrappedData);
+            Assert.AreSame(assessmentSection, contributionContext.Parent);
 
             var context = (HydraulicBoundaryDatabaseContext) objects[2];
             Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.Parent.HydraulicBoundaryDatabase);

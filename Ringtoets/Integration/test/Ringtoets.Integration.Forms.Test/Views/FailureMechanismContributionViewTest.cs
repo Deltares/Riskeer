@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -16,23 +17,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const string normInputTextBoxName = "normInput";
         private const string dataGridViewControlName = "probabilityDistributionGrid";
 
-        private MockRepository mockRepository;
-        private FailureMechanismContribution distribution;
         private Form testForm;
 
         [SetUp]
         public void Setup()
         {
-            mockRepository = new MockRepository();
-            var random = new Random(21);
-            var norm = random.Next(1, 200000);
-            var otherContribution = random.Next(1, 100);
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
-            distribution = new FailureMechanismContribution(new[]
-            {
-                failureMechanism
-            }, otherContribution, norm);
-
             testForm = new Form();
         }
 
@@ -46,18 +35,32 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void NormTextBox_Initialize_TextSetToData()
         {
             // Setup
+            var random = new Random(21);
+            var norm = random.Next(1, 200000);
+            var otherContribution = random.Next(1, 100);
+
+            var mockRepository = new MockRepository();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            using (var distributionView = new FailureMechanismContributionView
+            var contribution = new FailureMechanismContribution(new[]
             {
-                Data = distribution
+                failureMechanism
+            }, otherContribution, norm);
+
+            var context = new FailureMechanismContributionContext(contribution, assessmentSection);
+
+            using (var contributionView = new FailureMechanismContributionView
+            {
+                Data = context
             })
             {
-                ShowFormWithView(distributionView);
+                ShowFormWithView(contributionView);
                 var normTester = new ControlTester(normInputTextBoxName);
 
                 // Assert
-                Assert.AreEqual(distribution.Norm.ToString(), normTester.Text);
+                Assert.AreEqual(contribution.Norm.ToString(), normTester.Text);
             }
             mockRepository.VerifyAll();
         }
@@ -66,15 +69,30 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void NormTextBox_ValueChanged_UpdatesDataWithNewValue()
         {
             // Setup
+            var random = new Random(21);
+            var norm = random.Next(1, 200000);
+            var otherContribution = random.Next(1, 100);
+
+            var mockRepository = new MockRepository();
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+
             var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
 
             mockRepository.ReplayAll();
 
+            var distribution = new FailureMechanismContribution(new[]
+            {
+                failureMechanism
+            }, otherContribution, norm);
             distribution.Attach(observerMock);
+
+            var context = new FailureMechanismContributionContext(distribution, assessmentSection);
+
             using (var distributionView = new FailureMechanismContributionView
             {
-                Data = distribution
+                Data = context
             })
             {
                 ShowFormWithView(distributionView);
@@ -96,26 +114,33 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Data_SetNewData_DetachesFromOldData()
         {
             // Setup
-            object aValue = 100;
-            object expectedValue = 200;
+            var aValue = 100;
+            var expectedValue = 200;
             var random = new Random(21);
 
-            var someMechanism = mockRepository.Stub<IFailureMechanism>();
+            var mockRepository = new MockRepository();
 
-            var failureMechanism = mockRepository.StrictMock<FailureMechanismContribution>(new[]
+            var someMechanism = mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection1 = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection2 = mockRepository.Stub<IAssessmentSection>();
+
+            mockRepository.ReplayAll();
+
+            var initialContribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
             }, random.Next(0, 100), aValue);
-            var newFailureMechanism = mockRepository.StrictMock<FailureMechanismContribution>(new[]
+            var newContribution = new FailureMechanismContribution(new[]
             {
                 someMechanism
             }, random.Next(0, 100), expectedValue);
 
-            mockRepository.ReplayAll();
+            var initialContext = new FailureMechanismContributionContext(initialContribution, assessmentSection1);
+            var newContext = new FailureMechanismContributionContext(newContribution, assessmentSection2);
 
             using (var distributionView = new FailureMechanismContributionView
             {
-                Data = failureMechanism
+                Data = initialContext
             })
             {
                 ShowFormWithView(distributionView);
@@ -125,17 +150,53 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(aValue.ToString(), normTester.Properties.Text);
 
                 // Call
-                distributionView.Data = newFailureMechanism;
+                distributionView.Data = newContext;
 
                 // Assert
                 Assert.AreEqual(expectedValue.ToString(), normTester.Properties.Text);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateObserver_ChangeNormAndNotify_UpdateNormTextBox()
+        {
+            // Setup
+            const int initialValue = 100;
+            const int expectedValue = 200;
+            var random = new Random(21);
+
+            var mockRepository = new MockRepository();
+
+            var someMechanism = mockRepository.Stub<IFailureMechanism>();
+            var assessmentSection1 = mockRepository.Stub<IAssessmentSection>();
+
+            mockRepository.ReplayAll();
+
+            var contribution = new FailureMechanismContribution(new[]
+            {
+                someMechanism
+            }, random.Next(0, 100), initialValue);
+
+            var context = new FailureMechanismContributionContext(contribution, assessmentSection1);
+
+            using (var distributionView = new FailureMechanismContributionView
+            {
+                Data = context
+            })
+            {
+                ShowFormWithView(distributionView);
+                var normTester = new ControlTester(normInputTextBoxName);
+
+                // Precondition
+                Assert.AreEqual(initialValue.ToString(), normTester.Properties.Text);
 
                 // Call
-                failureMechanism.NotifyObservers();
+                contribution.Norm = expectedValue;
+                contribution.NotifyObservers();
 
                 // Assert
-                Assert.AreEqual(failureMechanism.Norm, aValue);
-                Assert.AreEqual(newFailureMechanism.Norm, expectedValue);
                 Assert.AreEqual(expectedValue.ToString(), normTester.Properties.Text);
             }
 
@@ -149,6 +210,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (var view = new FailureMechanismContributionView())
             {
                 // When
+                var mockRepository = new MockRepository();
+                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+
                 var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
                 failureMechanismStub.Stub(fm => fm.Name).Return("A");
                 failureMechanismStub.Contribution = 0;
@@ -158,8 +222,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 {
                     failureMechanismStub
                 }, 100, 500);
+                var context = new FailureMechanismContributionContext(contributionData, assessmentSection);
 
-                view.Data = contributionData;
+                view.Data = context;
                 ShowFormWithView(view);
 
                 // Then
@@ -168,8 +233,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
                 DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[2];
                 Assert.AreEqual("n.v.t", probabilitySpaceCell.FormattedValue);
+
+                mockRepository.VerifyAll();
             }
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -182,6 +248,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 const double contribution = 25.0;
                 const int norm = 500;
 
+                var mockRepository = new MockRepository();
+                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+
                 var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
                 failureMechanismStub.Stub(fm => fm.Name).Return("A");
                 failureMechanismStub.Contribution = contribution;
@@ -191,8 +260,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 {
                     failureMechanismStub
                 }, 100.0 - contribution, norm);
+                var context = new FailureMechanismContributionContext(contributionData, assessmentSection);
 
-                view.Data = contributionData;
+                view.Data = context;
                 ShowFormWithView(view);
 
                 // Then
@@ -204,8 +274,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 string expectedTextValue = new FailureMechanismContributionItem(failureMechanismStub, norm)
                     .ProbabilitySpace.ToString(probabilitySpaceCell.InheritedStyle.Format, probabilitySpaceCell.InheritedStyle.FormatProvider);
                 Assert.AreEqual(expectedTextValue, probabilitySpaceCell.FormattedValue);
+
+                mockRepository.VerifyAll();
             }
-            mockRepository.VerifyAll();
         }
 
         private void ShowFormWithView(FailureMechanismContributionView distributionView)

@@ -22,10 +22,14 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
+
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Forms.PresentationObjects;
+
 using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
@@ -39,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Views
     public partial class FailureMechanismContributionView : UserControl, IView, IObserver
     {
         private DataGridViewColumn probabilityPerYearColumn;
-        private FailureMechanismContribution data;
+        private FailureMechanismContributionContext data;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
@@ -61,7 +65,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
             set
             {
-                HandleNewDataSet((FailureMechanismContribution) value);
+                HandleNewDataSet((FailureMechanismContributionContext)value);
             }
         }
 
@@ -99,7 +103,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (e.ColumnIndex == probabilityPerYearColumn.Index)
             {
-                var contributionItem = data.Distribution.ElementAt(e.RowIndex);
+                var contributionItem = data.WrappedData.Distribution.ElementAt(e.RowIndex);
                 if (contributionItem.Contribution == 0.0)
                 {
                     e.Value = RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ProbabilityPerYear_Not_applicable;
@@ -108,7 +112,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        private void HandleNewDataSet(FailureMechanismContribution value)
+        private void HandleNewDataSet(FailureMechanismContributionContext value)
         {
             UnbindNormChange();
             DetachFromData();
@@ -126,7 +130,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (data != null)
             {
-                probabilityDistributionGrid.DataSource = data.Distribution;
+                probabilityDistributionGrid.DataSource = data.WrappedData.Distribution;
             }
         }
 
@@ -168,8 +172,10 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void NormValueChanged(object sender, EventArgs eventArgs)
         {
-            data.Norm = Convert.ToInt32(normInput.Value);
-            data.NotifyObservers();
+            FailureMechanismContribution contribution = data.WrappedData;
+
+            contribution.Norm = Convert.ToInt32(normInput.Value);
+            contribution.NotifyObservers();
         }
 
         private void ResetTextIfEmtpy()
@@ -184,7 +190,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (data != null)
             {
-                normInput.Value = data.Norm;
+                normInput.Value = data.WrappedData.Norm;
             }
         }
 
