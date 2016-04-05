@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Core.Common.Controls.TextEditor
@@ -42,19 +43,22 @@ namespace Core.Common.Controls.TextEditor
             InitializeComponent();
 
             richTextBox.TextChanged += OnTextChanged;
+            richTextBox.KeyDown += OnKeyDown;
         }
 
         public override string Text
         {
             get
             {
-                return richTextBox.Text;
+                return richTextBox.Rtf;
             }
             set
             {
-                richTextBox.Text = value;
+                richTextBox.Rtf = value;
             }
         }
+
+        #region Event handling
 
         private void OnTextChanged(object sender, EventArgs e)
         {
@@ -63,5 +67,74 @@ namespace Core.Common.Controls.TextEditor
                 TextBoxValueChanged(sender, e);
             }
         }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control)
+            {
+                Font existingFont = richTextBox.SelectionFont;
+
+                switch (e.KeyCode)
+                {
+                    case Keys.B:
+                        e.Handled = true;
+                        SetStyle(FontStyle.Bold, !existingFont.Bold);
+                        break;
+                    case Keys.I:
+                        e.SuppressKeyPress = true;
+                        e.Handled = true;
+                        SetStyle(FontStyle.Italic, !existingFont.Italic);
+                        break;
+                    case Keys.U:
+                        e.Handled = true;
+                        SetStyle(FontStyle.Underline, !existingFont.Underline);
+                        break;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Fontstyle
+
+        private void SetStyle(FontStyle fontStyle, bool setStyle = false)
+        {
+            int txtStartPosition = richTextBox.SelectionStart;
+            int selectionLength = richTextBox.SelectionLength;
+            if (selectionLength > 0)
+            {
+                using (RichTextBox txtTemp = new RichTextBox())
+                {
+                    txtTemp.Rtf = richTextBox.SelectedRtf;
+                    for (int i = 0; i < selectionLength; ++i)
+                    {
+                        txtTemp.Select(i, 1);
+                        txtTemp.SelectionFont = RenderFont(txtTemp.SelectionFont, fontStyle, setStyle);
+                    }
+
+                    txtTemp.Select(0, selectionLength);
+                    richTextBox.SelectedRtf = txtTemp.SelectedRtf;
+                    richTextBox.Select(txtStartPosition, selectionLength);
+                }
+            }
+        }
+
+        private Font RenderFont(Font originalFont, FontStyle fontStyle, bool setStyle)
+        {
+            FontStyle newStyle;
+
+            if (originalFont != null && setStyle)
+            {
+                newStyle = originalFont.Style | fontStyle;
+            }
+            else
+            {
+                newStyle = originalFont.Style & ~fontStyle;
+            }
+
+            return new Font(originalFont.FontFamily.Name, originalFont.Size, newStyle);
+        }
+
+        #endregion
     }
 }
