@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Forms.Views
 
                 if (data != null)
                 {
-                    richTextEditor.Text = data.Comments;
+                    richTextEditor.Rtf = data.Comments;
                 }
             }
         }
@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void RichTextEditorOnTextChanged(object sender, EventArgs eventArgs)
         {
-            data.Comments = richTextEditor.Text;
+            data.Comments = richTextEditor.Rtf;
         }
     }
 }

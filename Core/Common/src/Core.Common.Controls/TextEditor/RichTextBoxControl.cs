@@ -21,6 +21,8 @@
 
 using System;
 using System.Drawing;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Core.Common.Controls.TextEditor
@@ -46,7 +48,7 @@ namespace Core.Common.Controls.TextEditor
             richTextBox.KeyDown += OnKeyDown;
         }
 
-        public override string Text
+        public string Rtf
         {
             get
             {

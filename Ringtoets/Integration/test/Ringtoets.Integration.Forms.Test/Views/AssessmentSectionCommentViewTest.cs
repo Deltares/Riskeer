@@ -79,14 +79,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        [RequiresSTA]
         public void Data_AssessmentSectionContainsComment_CommentSetOnRichTextEditor()
         {
             // Setup
-            var expectedText = "<Some text>";
+            var expectedText = "<Some_text>";
             var mocks = new MockRepository();
             var view = new AssessmentSectionCommentView();
-            var data = mocks.StrictMock<IAssessmentSection>();
-            data.Expect(d => d.Comments).Return(expectedText);
+            var data = mocks.Stub<IAssessmentSection>();
+            data.Comments = GetValidRtfString(expectedText);
 
             mocks.ReplayAll();
 
@@ -94,7 +95,18 @@ namespace Ringtoets.Integration.Forms.Test.Views
             view.Data = data;
 
             // Assert
-            Assert.AreEqual(expectedText, view.Controls[0].Text);
+            var textBoxControl = view.Controls[0].Controls[0];
+            Assert.AreEqual(expectedText, textBoxControl.Text);
+        }
+
+        private static string GetValidRtfString(string value)
+        {
+            RichTextBox richTextBox = new RichTextBox
+            {
+                Text = value
+            };
+
+            return richTextBox.Rtf;
         }
     }
 }

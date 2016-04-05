@@ -21,17 +21,17 @@ namespace Core.Common.Controls.Test.TextEditor
         }
 
         [Test]
-        public void Text_ValueSet_ReturnsValue()
+        public void Data_ValueSet_TextAsExpected()
         {
             // Setup
-            var data = "<Some text>";
+            var data = "<Some data>";
             var control = new RichTextBoxControl();
 
             // Call
-            control.Text = data;
+            control.Rtf = GetValidRtfString(data);
 
             // Assert
-            Assert.AreEqual(data, control.Text);
+            Assert.AreEqual(data, control.Controls[0].Text);
         }
 
         [Test]
@@ -170,6 +170,16 @@ namespace Core.Common.Controls.Test.TextEditor
                 Assert.AreEqual(bold, richTextBox.SelectionFont.Bold);
                 Assert.AreEqual(italic, richTextBox.SelectionFont.Italic);
             }
+        }
+
+        private static string GetValidRtfString(string value)
+        {
+            RichTextBox richTextBox = new RichTextBox
+            {
+                Text = value
+            };
+
+            return richTextBox.Rtf;
         }
     }
 }
