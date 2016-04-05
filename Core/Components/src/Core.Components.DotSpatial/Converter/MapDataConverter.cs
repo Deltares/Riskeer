@@ -21,11 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Style;
 using DotSpatial.Controls;
-using DotSpatial.Symbology;
 
 namespace Core.Components.DotSpatial.Converter
 {

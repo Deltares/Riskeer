@@ -40,7 +40,7 @@ namespace Core.Components.DotSpatial.Forms
     /// </summary>
     public sealed class MapControl : Control, IMapControl, IObserver
     {
-        private readonly MapDataFactory mapDataFactory = new MapDataFactory();
+        private readonly MapFeatureLayerFactory mapFeatureLayerFactory = new MapFeatureLayerFactory();
 
         private Map map;
         private IMapFunction mapFunctionSelectionZoom;
@@ -168,7 +168,7 @@ namespace Core.Components.DotSpatial.Forms
             map.ClearLayers();
             if (Data != null)
             {
-                foreach (IMapFeatureLayer mapLayer in mapDataFactory.Create(Data))
+                foreach (IMapFeatureLayer mapLayer in mapFeatureLayerFactory.Create(Data))
                 {
                     map.Layers.Add(mapLayer);
                 }

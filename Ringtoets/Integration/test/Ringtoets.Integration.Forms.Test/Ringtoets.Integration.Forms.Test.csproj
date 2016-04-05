@@ -58,6 +58,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MapDataFactoryTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismPlaceholderContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />

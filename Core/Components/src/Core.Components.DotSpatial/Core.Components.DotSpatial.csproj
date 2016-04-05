@@ -92,7 +92,7 @@
     <Compile Include="Converter\IMapDataConverter.cs" />
     <Compile Include="Converter\MapDataCollectionConverter.cs" />
     <Compile Include="Converter\MapDataConverter.cs" />
-    <Compile Include="Converter\MapDataFactory.cs" />
+    <Compile Include="Converter\MapFeatureLayerFactory.cs" />
     <Compile Include="Converter\MapDataHelper.cs" />
     <Compile Include="Converter\MapLineDataConverter.cs" />
     <Compile Include="Converter\MapPointDataConverter.cs" />

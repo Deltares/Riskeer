@@ -31,10 +31,10 @@ namespace Core.Components.DotSpatial.Converter
     /// <summary>
     /// A factory to create <see cref="IMapFeatureLayer"/> data from <see cref="MapData"/> which can be used on the map.
     /// </summary>
-    public class MapDataFactory
+    public class MapFeatureLayerFactory
     {
         /// <summary>
-        /// Collection of converters that the <see cref="MapDataFactory"/> can use to transform <see cref="MapData"/>.
+        /// Collection of converters that the <see cref="MapFeatureLayerFactory"/> can use to transform <see cref="MapData"/>.
         /// </summary>
         private readonly IEnumerable<IMapDataConverter> converters = new Collection<IMapDataConverter>
         {

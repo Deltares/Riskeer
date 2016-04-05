@@ -107,6 +107,7 @@
     <Compile Include="Views\PipingFailureMechanismView.Designer.cs">
       <DependentUpon>PipingFailureMechanismView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\PipingMapDataFactory.cs" />
     <Compile Include="Views\PipingSurfaceLineSelectionView.cs">
       <SubType>UserControl</SubType>
     </Compile>

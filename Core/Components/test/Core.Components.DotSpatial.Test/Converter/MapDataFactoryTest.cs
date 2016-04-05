@@ -20,7 +20,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Create_MapPointData_ReturnMapPointLayer()
         {
             // Setup
-            var factory = new MapDataFactory();
+            var factory = new MapFeatureLayerFactory();
             var testData = CreateTestData();
 
             // Call
@@ -36,7 +36,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Create_MapLineData_ReturnMapLineLayer()
         {
             // Setup
-            var factory = new MapDataFactory();
+            var factory = new MapFeatureLayerFactory();
             var testData = CreateTestData();
 
             // Call
@@ -52,7 +52,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Create_MapPolygonData_ReturnMapPolygonLayer()
         {
             // Setup
-            var factory = new MapDataFactory();
+            var factory = new MapFeatureLayerFactory();
             var testData = CreateTestData();
 
             // Call
@@ -71,7 +71,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Create_MapDataCollection_ReturnMapLayersCorrespondingToListItems()
         {
             // Setup
-            var factory = new MapDataFactory();
+            var factory = new MapFeatureLayerFactory();
             var testData = CreateTestData();
             var mapDataCollection = new MapDataCollection(new List<MapData>
             {
@@ -112,7 +112,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void Create_OtherData_ThrownsNotSupportedException()
         {
             // Setup
-            var factory = new MapDataFactory();
+            var factory = new MapFeatureLayerFactory();
             var testData = new TestMapData("test data");
 
             // Call
