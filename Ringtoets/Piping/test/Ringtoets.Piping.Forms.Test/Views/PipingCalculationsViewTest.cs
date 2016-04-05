@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -61,15 +62,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Constructor_DefaultValues()
         {
             // Call
-            var pipingCalculationsView = new PipingCalculationsView();
-
-            // Assert
-            Assert.IsInstanceOf<UserControl>(pipingCalculationsView);
-            Assert.IsInstanceOf<IView>(pipingCalculationsView);
-            Assert.IsNull(pipingCalculationsView.Data);
-            Assert.IsNull(pipingCalculationsView.PipingFailureMechanism);
-            Assert.IsNull(pipingCalculationsView.AssessmentSection);
-            Assert.IsNull(pipingCalculationsView.ApplicationSelection);
+            using (var pipingCalculationsView = new PipingCalculationsView())
+            {
+                // Assert
+                Assert.IsInstanceOf<UserControl>(pipingCalculationsView);
+                Assert.IsInstanceOf<IView>(pipingCalculationsView);
+                Assert.IsNull(pipingCalculationsView.Data);
+                Assert.IsNull(pipingCalculationsView.PipingFailureMechanism);
+                Assert.IsNull(pipingCalculationsView.AssessmentSection);
+                Assert.IsNull(pipingCalculationsView.ApplicationSelection);
+            }
         }
 
         [Test]
@@ -141,22 +143,23 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            var pipingCalculationsView = new PipingCalculationsView
+            using (var pipingCalculationsView = new PipingCalculationsView
             {
                 PipingFailureMechanism = pipingFailureMechanism,
                 AssessmentSection = assessmentSection,
-            };
+            })
+            {
+                // Precondition
+                Assert.IsNotNull(pipingCalculationsView.PipingFailureMechanism);
+                Assert.IsNotNull(pipingCalculationsView.AssessmentSection);
 
-            // Precondition
-            Assert.IsNotNull(pipingCalculationsView.PipingFailureMechanism);
-            Assert.IsNotNull(pipingCalculationsView.AssessmentSection);
+                // Call
+                pipingCalculationsView.Dispose();
 
-            // Call
-            pipingCalculationsView.Dispose();
-
-            // Assert
-            Assert.IsNull(pipingCalculationsView.PipingFailureMechanism);
-            Assert.IsNull(pipingCalculationsView.AssessmentSection);
+                // Assert
+                Assert.IsNull(pipingCalculationsView.PipingFailureMechanism);
+                Assert.IsNull(pipingCalculationsView.AssessmentSection);
+            }
         }
 
         [Test]
@@ -287,20 +290,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Profile 1", cells[soilProfilesColumnIndex].FormattedValue);
             Assert.AreEqual("Location 1", cells[hydraulicBoundaryLocationsColumnIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 1.111), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 2.222), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 3.33), cells[entryPointLColumnIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 4.44), cells[exitPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(1.111.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual(2.222.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual(3.33.ToString(CultureInfo.CurrentCulture), cells[entryPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(4.44.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(7, cells.Count);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Profile 5", cells[soilProfilesColumnIndex].FormattedValue);
             Assert.AreEqual("Location 2", cells[hydraulicBoundaryLocationsColumnIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 5.556), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 6.667), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 7.78), cells[entryPointLColumnIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 8.89), cells[exitPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(5.556.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual(6.667.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual(7.78.ToString(CultureInfo.CurrentCulture), cells[entryPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(8.89.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
         }
 
         [Test]

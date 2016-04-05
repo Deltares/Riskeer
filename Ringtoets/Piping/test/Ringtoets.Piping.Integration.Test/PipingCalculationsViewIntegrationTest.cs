@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Integration.Test
 
                 // Import hydraulic boundary locations and ensure the corresponding combobox items are updated
                 ImportHydraulicBoundaryDatabase(assessmentSection);
-                Assert.AreEqual(19, ((DataGridViewComboBoxCell)dataGridView.Rows[0].Cells[2]).Items.Count);
+                Assert.AreEqual(19, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[2]).Items.Count);
 
                 // Add another, nested calculation and ensure the data grid view is updated
                 var nestedPipingCalculationGroup = new PipingCalculationGroup("New group", false);
@@ -102,9 +102,16 @@ namespace Ringtoets.Piping.Integration.Test
 
         private void ImportReferenceLine(AssessmentSection assessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "traject_6-3.shp", "traject_6-3.dbf", "traject_6-3.prj", "traject_6-3.shx"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
+                                                                                   true,
+                                                                                   "traject_6-3.shp",
+                                                                                   "traject_6-3.dbf",
+                                                                                   "traject_6-3.prj",
+                                                                                   "traject_6-3.shx"))
             {
-                var activity = new FileImportActivity(new ReferenceLineImporter(), new ReferenceLineContext(assessmentSection), Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp"));
+                var activity = new FileImportActivity(new ReferenceLineImporter(),
+                                                      new ReferenceLineContext(assessmentSection),
+                                                      Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp"));
 
                 activity.Run();
                 activity.Finish();
@@ -113,9 +120,16 @@ namespace Ringtoets.Piping.Integration.Test
 
         private void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "traject_6-3_vakken.shp", "traject_6-3_vakken.dbf", "traject_6-3_vakken.prj", "traject_6-3_vakken.shx"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
+                                                                                   true,
+                                                                                   "traject_6-3_vakken.shp",
+                                                                                   "traject_6-3_vakken.dbf",
+                                                                                   "traject_6-3_vakken.prj",
+                                                                                   "traject_6-3_vakken.shx"))
             {
-                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(), new FailureMechanismSectionsContext(failureMechanism, assessmentSection), Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp"));
+                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(),
+                                                      new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                                                      Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp"));
 
                 activity.Run();
                 activity.Finish();
@@ -124,7 +138,10 @@ namespace Ringtoets.Piping.Integration.Test
 
         private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, false, "HRD dutch coast south.sqlite", "HLCD.sqlite"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
+                                                                                   false,
+                                                                                   "HRD dutch coast south.sqlite",
+                                                                                   "HLCD.sqlite"))
             {
                 using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
                 {
@@ -136,9 +153,14 @@ namespace Ringtoets.Piping.Integration.Test
 
         private void ImportSurfaceLines(AssessmentSection assessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
+                                                                                   true,
+                                                                                   "DR6_surfacelines.csv",
+                                                                                   "DR6_surfacelines.krp.csv"))
             {
-                var activity = new FileImportActivity(new PipingSurfaceLinesCsvImporter(), new RingtoetsPipingSurfaceLinesContext(assessmentSection.PipingFailureMechanism, assessmentSection), Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
+                var activity = new FileImportActivity(new PipingSurfaceLinesCsvImporter(),
+                                                      new RingtoetsPipingSurfaceLinesContext(assessmentSection.PipingFailureMechanism, assessmentSection),
+                                                      Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
 
                 activity.Run();
                 activity.Finish();
@@ -147,9 +169,13 @@ namespace Ringtoets.Piping.Integration.Test
 
         private void ImportSoilProfiles(AssessmentSection assessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6.soil"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
+                                                                                   true,
+                                                                                   "DR6.soil"))
             {
-                var activity = new FileImportActivity(new PipingSoilProfilesImporter(), new StochasticSoilModelContext(assessmentSection.PipingFailureMechanism, assessmentSection), Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
+                var activity = new FileImportActivity(new PipingSoilProfilesImporter(),
+                                                      new StochasticSoilModelContext(assessmentSection.PipingFailureMechanism, assessmentSection),
+                                                      Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
 
                 activity.Run();
                 activity.Finish();
