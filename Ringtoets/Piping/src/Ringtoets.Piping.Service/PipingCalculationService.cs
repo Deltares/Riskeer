@@ -157,7 +157,7 @@ namespace Ringtoets.Piping.Service
                 inputParameters.BeddingAngle,
                 inputParameters.ExitPointL,
                 inputParameters.SurfaceLine,
-                inputParameters.SoilProfile
+                inputParameters.StochasticSoilProfile.SoilProfile
                 );
         }
     }

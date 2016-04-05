@@ -45,13 +45,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var random = new Random(22);
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
+            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                new PipingSoilLayer(random.NextDouble())
+                SoilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
                 {
-                    IsAquifer = true
-                }
-            }, SoilProfileType.SoilProfile1D, 0);
+                    new PipingSoilLayer(random.NextDouble())
+                    {
+                        IsAquifer = true
+                    }
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
             var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(0.0);
 
             var inputParameters = new PipingInput(new GeneralPipingInput())
@@ -59,7 +62,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 HydraulicBoundaryLocation = testHydraulicBoundaryLocation
             };
             inputParameters.SurfaceLine = surfaceLine;
-            inputParameters.SoilProfile = (soilProfile);
+            inputParameters.StochasticSoilProfile = (stochasticSoilProfile);
 
             var properties = new PipingInputContextProperties
             {
@@ -89,7 +92,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
 
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
-            Assert.AreSame(soilProfile, properties.SoilProfile);
+            Assert.AreSame(stochasticSoilProfile, properties.StochasticSoilProfile);
             Assert.AreSame(testHydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
 
             mocks.ReplayAll();
@@ -151,7 +154,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var saturatedVolumicWeightOfCoverageLoayer = new ShiftedLognormalDistribution(2);
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            PipingSoilProfile soilProfile = new TestPipingSoilProfile();
+            StochasticSoilProfile stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new TestPipingSoilProfile()
+            };
 
             // Call
             new PipingInputContextProperties
@@ -166,7 +172,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 DarcyPermeability = new LognormalDistributionDesignVariable(darcyPermeability),
                 SaturatedVolumicWeightOfCoverageLayer = new ShiftedLognormalDistributionDesignVariable(saturatedVolumicWeightOfCoverageLoayer),
                 SurfaceLine = surfaceLine,
-                SoilProfile = soilProfile,
+                StochasticSoilProfile = stochasticSoilProfile,
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(assessmentLevel)
             };
 
@@ -201,7 +207,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                             inputParameters.SaturatedVolumicWeightOfCoverageLayer.GetAccuracy());
 
             Assert.AreEqual(surfaceLine, inputParameters.SurfaceLine);
-            Assert.AreEqual(soilProfile, inputParameters.SoilProfile);
+            Assert.AreEqual(stochasticSoilProfile, inputParameters.StochasticSoilProfile);
 
             mocks.VerifyAll();
         }
@@ -450,13 +456,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               Enumerable.Empty<StochasticSoilModel>(),
                                               assessmentSectionMock)
             };
-            inputParameters.SoilProfile = new TestPipingSoilProfile();
+            inputParameters.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new TestPipingSoilProfile()
+            };
 
             // Call
             properties.SurfaceLine = ValidSurfaceLine(0, 2);
 
             // Assert
-            Assert.IsNull(inputParameters.SoilProfile);
+            Assert.IsNull(inputParameters.StochasticSoilProfile);
         }
 
         [Test]
@@ -468,12 +477,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var testSurfaceLine = ValidSurfaceLine(0, 2);
-            var testPipingSoilProfile = new TestPipingSoilProfile();
+            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new TestPipingSoilProfile()
+            };
 
             var inputParameters = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = testSurfaceLine,
-                SoilProfile = testPipingSoilProfile
+                StochasticSoilProfile = stochasticSoilProfile
             };
             var properties = new PipingInputContextProperties
             {
@@ -487,7 +499,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.SurfaceLine = testSurfaceLine;
 
             // Assert
-            Assert.AreSame(testPipingSoilProfile, inputParameters.SoilProfile);
+            Assert.AreSame(stochasticSoilProfile, inputParameters.StochasticSoilProfile);
         }
 
         [Test]
@@ -498,12 +510,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var testPipingSoilProfile = new TestPipingSoilProfile();
+            var testPipingSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new TestPipingSoilProfile()
+            };
 
             var inputParameters = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = ValidSurfaceLine(0, 2),
-                SoilProfile = testPipingSoilProfile
+                StochasticSoilProfile = testPipingSoilProfile
             };
             var properties = new PipingInputContextProperties
             {
@@ -517,7 +532,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.SurfaceLine = ValidSurfaceLine(0, 2);
 
             // Assert
-            Assert.IsNull(inputParameters.SoilProfile);
+            Assert.IsNull(inputParameters.StochasticSoilProfile);
         }
 
         [Test]

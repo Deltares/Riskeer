@@ -60,5 +60,10 @@ namespace Ringtoets.Piping.Data
         /// Gets the <see cref="PipingSoilProfile"/>.
         /// </summary>
         public PipingSoilProfile SoilProfile { get; set; }
+
+        public override string ToString()
+        {
+            return SoilProfile == null ? "" : SoilProfile.ToString();
+        }
     }
 }

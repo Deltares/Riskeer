@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using NUnit.Framework;
-
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test
@@ -41,6 +40,25 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(probability, stochasticSoilProfileProbability.Probability);
             Assert.AreEqual(soilProfileType, stochasticSoilProfileProbability.SoilProfileType);
             Assert.AreEqual(soilProfileId, stochasticSoilProfileProbability.SoilProfileId);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("some name")]
+        public void ToString_WithName_ReturnsName(string name)
+        {
+            // Setup
+            var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new PipingSoilProfile(name, 0.0, new[]
+                {
+                    new PipingSoilLayer(0.0)
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
+
+            // Call & Assert
+            Assert.AreEqual(name, stochasticSoilProfile.ToString());
         }
     }
 }

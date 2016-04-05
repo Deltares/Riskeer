@@ -47,9 +47,6 @@ namespace Ringtoets.Piping.Data
         private RoundedDouble entryPointL;
         private RingtoetsPipingSurfaceLine surfaceLine;
 
-        private PipingSoilProfile soilProfile;
-        private HydraulicBoundaryLocation hydraulicBoundaryLocation;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
         /// </summary>
@@ -150,30 +147,41 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or sets the profile which contains a 1 dimensional definition of soil layers with properties.
         /// </summary>
-        public PipingSoilProfile SoilProfile
-        {
-            get
-            {
-                return soilProfile;
-            }
-            set
-            {
-                soilProfile = value;
-            }
-        }
+        public StochasticSoilProfile StochasticSoilProfile { get; set; }
 
         /// <summary>
         /// Gets or set the hydraulic boundary location from which to use the assessment level.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+
+        private void UpdateEntryAndExitPoint()
         {
-            get
+            if (SurfaceLine == null)
             {
-                return hydraulicBoundaryLocation;
+                ExitPointL = (RoundedDouble) double.NaN;
             }
-            set
+            else
             {
-                hydraulicBoundaryLocation = value;
+                int entryPointIndex = Array.IndexOf(SurfaceLine.Points, SurfaceLine.DikeToeAtRiver);
+                int exitPointIndex = Array.IndexOf(SurfaceLine.Points, SurfaceLine.DikeToeAtPolder);
+
+                Point2D[] localGeometry = SurfaceLine.ProjectGeometryToLZ().ToArray();
+
+                double tempEntryPointL = localGeometry[0].X;
+                double tempExitPointL = localGeometry[localGeometry.Length - 1].X;
+
+                bool isDifferentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
+                if (isDifferentPoints && exitPointIndex > 0)
+                {
+                    tempExitPointL = localGeometry.ElementAt(exitPointIndex).X;
+                }
+                if (isDifferentPoints && entryPointIndex > -1)
+                {
+                    tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
+                }
+
+                ExitPointL = (RoundedDouble) tempExitPointL;
+                EntryPointL = (RoundedDouble) tempEntryPointL;
             }
         }
 
@@ -459,36 +467,5 @@ namespace Ringtoets.Piping.Data
         }
 
         #endregion
-
-        private void UpdateEntryAndExitPoint()
-        {
-            if (SurfaceLine == null)
-            {
-                ExitPointL = (RoundedDouble)double.NaN;
-            }
-            else
-            {
-                int entryPointIndex = Array.IndexOf(SurfaceLine.Points, SurfaceLine.DikeToeAtRiver);
-                int exitPointIndex = Array.IndexOf(SurfaceLine.Points, SurfaceLine.DikeToeAtPolder);
-
-                Point2D[] localGeometry = SurfaceLine.ProjectGeometryToLZ().ToArray();
-
-                double tempEntryPointL = localGeometry[0].X;
-                double tempExitPointL = localGeometry[localGeometry.Length - 1].X;
-
-                bool isDifferentPoints = entryPointIndex < 0 || exitPointIndex < 0 || entryPointIndex < exitPointIndex;
-                if (isDifferentPoints && exitPointIndex > 0)
-                {
-                    tempExitPointL = localGeometry.ElementAt(exitPointIndex).X;
-                }
-                if (isDifferentPoints && entryPointIndex > -1)
-                {
-                    tempEntryPointL = localGeometry.ElementAt(entryPointIndex).X;
-                }
-
-                ExitPointL = (RoundedDouble)tempExitPointL;
-                EntryPointL = (RoundedDouble)tempEntryPointL;
-            }
-        }
     }
 }

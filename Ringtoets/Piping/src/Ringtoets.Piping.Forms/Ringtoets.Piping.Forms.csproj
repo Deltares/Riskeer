@@ -93,7 +93,7 @@
     <Compile Include="TypeConverters\NormalDistributionDesignVariableTypeConverter.cs" />
     <Compile Include="UITypeEditors\PipingInputContextHydraulicBoundaryLocationEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSelectionEditor.cs" />
-    <Compile Include="UITypeEditors\PipingInputContextSoilProfileSelectionEditor.cs" />
+    <Compile Include="UITypeEditors\PipingInputContextStochasticSoilProfileSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditor.cs" />
     <Compile Include="Views\PipingCalculationsView.cs">
       <SubType>UserControl</SubType>

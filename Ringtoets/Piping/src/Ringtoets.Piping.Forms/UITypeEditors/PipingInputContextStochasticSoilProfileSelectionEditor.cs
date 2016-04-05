@@ -22,32 +22,32 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Utils.Reflection;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="PipingSoilProfile"/> from a collection.
+    /// <see cref="StochasticSoilProfile"/> from a collection.
     /// </summary>
-    public class PipingInputContextSoilProfileSelectionEditor : PipingInputContextSelectionEditor<PipingSoilProfile>
+    public class PipingInputContextStochasticSoilProfileSelectionEditor : PipingInputContextSelectionEditor<StochasticSoilProfile>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingInputContextSoilProfileSelectionEditor"/>.
+        /// Creates a new instance of <see cref="PipingInputContextStochasticSoilProfileSelectionEditor"/>.
         /// </summary>
-        public PipingInputContextSoilProfileSelectionEditor()
+        public PipingInputContextStochasticSoilProfileSelectionEditor()
         {
-            DisplayMember = TypeUtils.GetMemberName<PipingSoilProfile>(sp => sp.Name);
+            DisplayMember = TypeUtils.GetMemberName<StochasticSoilProfile>(ssp => ssp.SoilProfile.Name);
         }
 
-        protected override IEnumerable<PipingSoilProfile> GetAvailableOptions(ITypeDescriptorContext context)
+        protected override IEnumerable<StochasticSoilProfile> GetAvailableOptions(ITypeDescriptorContext context)
         {
-            return GetPropertiesObject(context).GetAvailableSoilProfiles();
+            return GetPropertiesObject(context).GetAvailableStochasticSoilProfiles();
         }
 
-        protected override PipingSoilProfile GetCurrentOption(ITypeDescriptorContext context)
+        protected override StochasticSoilProfile GetCurrentOption(ITypeDescriptorContext context)
         {
-            return GetPropertiesObject(context).SoilProfile;
+            return GetPropertiesObject(context).StochasticSoilProfile;
         }
     }
 }

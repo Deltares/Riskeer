@@ -346,10 +346,10 @@
   <data name="StochasticSoilProfile_Tops_DisplayName" xml:space="preserve">
     <value>Topniveaus</value>
   </data>
-  <data name="PipingInput_SoilProfile_Description" xml:space="preserve">
+  <data name="PipingInput_StochasticSoilProfile_Description" xml:space="preserve">
     <value>De ondergrondschematisering die voor de piping berekening gebruikt wordt.</value>
   </data>
-  <data name="PipingInput_SoilProfile_DisplayName" xml:space="preserve">
+  <data name="PipingInput_StochasticSoilProfile_DisplayName" xml:space="preserve">
     <value>Ondergrondschematisering</value>
   </data>
   <data name="PipingCalculationGroup_Add_PipingCalculation" xml:space="preserve">

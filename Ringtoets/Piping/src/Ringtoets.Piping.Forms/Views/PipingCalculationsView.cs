@@ -48,12 +48,12 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly RecursiveObserver<PipingCalculationGroup, PipingCalculation> pipingCalculationObserver;
         private readonly Observer pipingFailureMechanismObserver;
         private readonly RecursiveObserver<PipingCalculationGroup, PipingInput> pipingInputObserver;
-        private readonly Observer pipingSoilProfilesObserver;
+        private readonly Observer pipingStochasticSoilProfilesObserver;
         private IAssessmentSection assessmentSection;
         private DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn;
         private PipingCalculationGroup pipingCalculationGroup;
         private PipingFailureMechanism pipingFailureMechanism;
-        private DataGridViewComboBoxColumn soilProfileColumn;
+        private DataGridViewComboBoxColumn stochasticSoilProfileColumn;
         private bool updatingDataSource;
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Views
             InitializeDataGridView();
             InitializeListBox();
 
-            pipingSoilProfilesObserver = new Observer(OnSoilProfilesUpdate);
+            pipingStochasticSoilProfilesObserver = new Observer(OnStochasticSoilProfilesUpdate);
             pipingFailureMechanismObserver = new Observer(OnPipingFailureMechanismUpdate);
             assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryLocationsColumn);
             pipingInputObserver = new RecursiveObserver<PipingCalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculation>().Select(pc => pc.InputParameters)));
@@ -86,10 +86,10 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 pipingFailureMechanism = value;
 
-                pipingSoilProfilesObserver.Observable = pipingFailureMechanism != null ? pipingFailureMechanism.StochasticSoilModels : null;
+                pipingStochasticSoilProfilesObserver.Observable = pipingFailureMechanism != null ? pipingFailureMechanism.StochasticSoilModels : null;
                 pipingFailureMechanismObserver.Observable = pipingFailureMechanism;
 
-                UpdateSoilProfileColumn();
+                UpdateStochasticSoilProfileColumn();
                 UpdateSectionsListBox();
                 UpdateGenerateScenariosButtonState();
             }
@@ -171,10 +171,10 @@ namespace Ringtoets.Piping.Forms.Views
                 Name = "column_Name"
             };
 
-            soilProfileColumn = new DataGridViewComboBoxColumn
+            stochasticSoilProfileColumn = new DataGridViewComboBoxColumn
             {
-                DataPropertyName = "SoilProfile",
-                HeaderText = Resources.PipingInput_SoilProfile_DisplayName,
+                DataPropertyName = "StochasticSoilProfile",
+                HeaderText = Resources.PipingInput_StochasticSoilProfile_DisplayName,
                 Name = "column_SoilProfile",
                 ValueMember = "This",
                 DisplayMember = "DisplayName"
@@ -223,12 +223,12 @@ namespace Ringtoets.Piping.Forms.Views
 
             dataGridView.AutoGenerateColumns = false;
             dataGridView.Columns.AddRange(
-                nameColumn, 
-                soilProfileColumn, 
-                hydraulicBoundaryLocationColumn, 
-                dampingFactorExitMeanColumn, 
-                phreaticLevelExitMeanColumn, 
-                entryPointLColumn, 
+                nameColumn,
+                stochasticSoilProfileColumn,
+                hydraulicBoundaryLocationColumn,
+                dampingFactorExitMeanColumn,
+                phreaticLevelExitMeanColumn,
+                entryPointLColumn,
                 exitPointLColumn);
 
             foreach (var column in dataGridView.Columns.OfType<DataGridViewColumn>())
@@ -238,7 +238,7 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             UpdateHydraulicBoundaryLocationsColumn();
-            UpdateSoilProfileColumn();
+            UpdateStochasticSoilProfileColumn();
         }
 
         private void InitializeListBox()
@@ -259,25 +259,27 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        private void OnSoilProfilesUpdate()
+        private void OnStochasticSoilProfilesUpdate()
         {
             UpdateGenerateScenariosButtonState();
-            UpdateSoilProfileColumn();
+            UpdateStochasticSoilProfileColumn();
         }
 
-        private void UpdateSoilProfileColumn()
+        private void UpdateStochasticSoilProfileColumn()
         {
-            using (new SuspendDataGridViewColumnResizes(soilProfileColumn))
+            using (new SuspendDataGridViewColumnResizes(stochasticSoilProfileColumn))
+            {
                 foreach (DataGridViewRow dataGridViewRow in dataGridView.Rows)
                 {
                     FillAvailableSoilProfilesList(dataGridViewRow);
                 }
+            }
         }
 
         private void UpdateGenerateScenariosButtonState()
         {
-            buttonGenerateScenarios.Enabled = pipingFailureMechanism != null && 
-                                              pipingFailureMechanism.SurfaceLines.Any() && 
+            buttonGenerateScenarios.Enabled = pipingFailureMechanism != null &&
+                                              pipingFailureMechanism.SurfaceLines.Any() &&
                                               pipingFailureMechanism.StochasticSoilModels.Any();
         }
 
@@ -317,7 +319,7 @@ namespace Ringtoets.Piping.Forms.Views
                 .Select(pc => new PipingCalculationRow(pc))
                 .ToList();
 
-            UpdateSoilProfileColumn();
+            UpdateStochasticSoilProfileColumn();
 
             updatingDataSource = false;
         }
@@ -337,10 +339,10 @@ namespace Ringtoets.Piping.Forms.Views
             // Need to prefill for all possible data in order to guarantee 'combo box' columns
             // do not generate errors when their cell value is not present in the list of available
             // items.
-            using (new SuspendDataGridViewColumnResizes(soilProfileColumn))
+            using (new SuspendDataGridViewColumnResizes(stochasticSoilProfileColumn))
             {
-                var pipingSoilProfiles = GetPipingSoilProfilesFromStochasticSoilModels();
-                SetItemsOnObjectCollection(soilProfileColumn.Items, GetSoilProfilesDataSource(pipingSoilProfiles).ToArray());
+                var pipingSoilProfiles = GetPipingStochasticSoilProfilesFromStochasticSoilModels();
+                SetItemsOnObjectCollection(stochasticSoilProfileColumn.Items, GetSoilProfilesDataSource(pipingSoilProfiles).ToArray());
             }
             using (new SuspendDataGridViewColumnResizes(hydraulicBoundaryLocationColumn))
             {
@@ -348,19 +350,19 @@ namespace Ringtoets.Piping.Forms.Views
                                                      ? assessmentSection.HydraulicBoundaryDatabase.Locations
                                                      : null;
                 SetItemsOnObjectCollection(
-                    hydraulicBoundaryLocationColumn.Items, 
+                    hydraulicBoundaryLocationColumn.Items,
                     GetHydraulicBoundaryLocationsDataSource(hydraulicBoundaryLocations).ToArray());
             }
         }
 
-        private PipingSoilProfile[] GetPipingSoilProfilesFromStochasticSoilModels()
+        private StochasticSoilProfile[] GetPipingStochasticSoilProfilesFromStochasticSoilModels()
         {
             if (pipingFailureMechanism != null)
             {
                 return pipingFailureMechanism.StochasticSoilModels
-                    .SelectMany(ssm => ssm.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile))
-                    .Distinct()
-                    .ToArray();
+                                             .SelectMany(ssm => ssm.StochasticSoilProfiles)
+                                             .Distinct()
+                                             .ToArray();
             }
             return null;
         }
@@ -369,20 +371,20 @@ namespace Ringtoets.Piping.Forms.Views
         {
             var rowData = (PipingCalculationRow) dataGridViewRow.DataBoundItem;
 
-            IEnumerable<PipingSoilProfile> pipingSoilProfiles = GetSoilProfilesForCalculation(rowData.PipingCalculation);
+            IEnumerable<StochasticSoilProfile> stochasticSoilProfiles = GetSoilProfilesForCalculation(rowData.PipingCalculation);
 
-            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[soilProfileColumn.Index];
-            SetItemsOnObjectCollection(cell.Items, GetSoilProfilesDataSource(pipingSoilProfiles).ToArray());
+            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[stochasticSoilProfileColumn.Index];
+            SetItemsOnObjectCollection(cell.Items, GetSoilProfilesDataSource(stochasticSoilProfiles).ToArray());
         }
 
-        private IEnumerable<PipingSoilProfile> GetSoilProfilesForCalculation(PipingCalculation pipingCalculation)
+        private IEnumerable<StochasticSoilProfile> GetSoilProfilesForCalculation(PipingCalculation pipingCalculation)
         {
             if (pipingFailureMechanism == null)
             {
-                return Enumerable.Empty<PipingSoilProfile>();
+                return Enumerable.Empty<StochasticSoilProfile>();
             }
-            return PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(
-                pipingCalculation.InputParameters.SurfaceLine, 
+            return PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(
+                pipingCalculation.InputParameters.SurfaceLine,
                 pipingFailureMechanism.StochasticSoilModels);
         }
 
@@ -409,15 +411,15 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        private static IEnumerable<DataGridViewComboBoxItemWrapper<PipingSoilProfile>> GetSoilProfilesDataSource(IEnumerable<PipingSoilProfile> soilProfiles = null)
+        private static IEnumerable<DataGridViewComboBoxItemWrapper<StochasticSoilProfile>> GetSoilProfilesDataSource(IEnumerable<StochasticSoilProfile> stochasticSoilProfile = null)
         {
-            yield return new DataGridViewComboBoxItemWrapper<PipingSoilProfile>(null);
+            yield return new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(null);
 
-            if (soilProfiles != null)
+            if (stochasticSoilProfile != null)
             {
-                foreach (PipingSoilProfile profile in soilProfiles)
+                foreach (StochasticSoilProfile profile in stochasticSoilProfile)
                 {
-                    yield return new DataGridViewComboBoxItemWrapper<PipingSoilProfile>(profile);
+                    yield return new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(profile);
                 }
             }
         }
@@ -493,17 +495,17 @@ namespace Ringtoets.Piping.Forms.Views
                 }
             }
 
-            public DataGridViewComboBoxItemWrapper<PipingSoilProfile> SoilProfile
+            public DataGridViewComboBoxItemWrapper<StochasticSoilProfile> StochasticSoilProfile
             {
                 get
                 {
-                    return new DataGridViewComboBoxItemWrapper<PipingSoilProfile>(pipingCalculation.InputParameters.SoilProfile);
+                    return new DataGridViewComboBoxItemWrapper<StochasticSoilProfile>(pipingCalculation.InputParameters.StochasticSoilProfile);
                 }
                 set
                 {
-                    pipingCalculation.InputParameters.SoilProfile = value != null
-                                                                        ? value.WrappedObject
-                                                                        : null;
+                    pipingCalculation.InputParameters.StochasticSoilProfile = value != null
+                                                                                  ? value.WrappedObject
+                                                                                  : null;
 
                     pipingCalculation.InputParameters.NotifyObservers();
                 }
@@ -618,9 +620,9 @@ namespace Ringtoets.Piping.Forms.Views
             var dialog = new PipingSurfaceLineSelectionDialog(Parent, pipingFailureMechanism.SurfaceLines);
             dialog.ShowDialog();
             var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
-                dialog.SelectedSurfaceLines, 
-                pipingFailureMechanism.StochasticSoilModels, 
-                pipingFailureMechanism.GeneralInput, 
+                dialog.SelectedSurfaceLines,
+                pipingFailureMechanism.StochasticSoilModels,
+                pipingFailureMechanism.GeneralInput,
                 pipingFailureMechanism.SemiProbabilisticInput);
             foreach (var item in calculationsStructure)
             {
@@ -644,9 +646,9 @@ namespace Ringtoets.Piping.Forms.Views
             if (pipingCalculationRow != null)
             {
                 selection = new PipingInputContext(
-                    pipingCalculationRow.PipingCalculation.InputParameters, 
-                    pipingFailureMechanism.SurfaceLines, 
-                    pipingFailureMechanism.StochasticSoilModels, 
+                    pipingCalculationRow.PipingCalculation.InputParameters,
+                    pipingFailureMechanism.SurfaceLines,
+                    pipingFailureMechanism.StochasticSoilModels,
                     assessmentSection);
             }
 

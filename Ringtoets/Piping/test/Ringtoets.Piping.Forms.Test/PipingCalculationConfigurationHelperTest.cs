@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -11,24 +32,45 @@ namespace Ringtoets.Piping.Forms.Test
     [TestFixture]
     public class PipingCalculationConfigurationHelperTest
     {
+        private static void CompareGeneralInputToInput(GeneralPipingInput generalInput, PipingCalculation calculationInput)
+        {
+            Assert.AreEqual(generalInput.BeddingAngle, calculationInput.InputParameters.BeddingAngle);
+            Assert.AreEqual(generalInput.CriticalHeaveGradient, calculationInput.InputParameters.CriticalHeaveGradient);
+            Assert.AreEqual(generalInput.Gravity, calculationInput.InputParameters.Gravity);
+            Assert.AreEqual(generalInput.MeanDiameter70, calculationInput.InputParameters.MeanDiameter70);
+            Assert.AreEqual(generalInput.SandParticlesVolumicWeight, calculationInput.InputParameters.SandParticlesVolumicWeight);
+            Assert.AreEqual(generalInput.SellmeijerModelFactor, calculationInput.InputParameters.SellmeijerModelFactor);
+            Assert.AreEqual(generalInput.SellmeijerReductionFactor, calculationInput.InputParameters.SellmeijerReductionFactor);
+            Assert.AreEqual(generalInput.UpliftModelFactor, calculationInput.InputParameters.UpliftModelFactor);
+            Assert.AreEqual(generalInput.WaterKinematicViscosity, calculationInput.InputParameters.WaterKinematicViscosity);
+            Assert.AreEqual(generalInput.WaterVolumetricWeight, calculationInput.InputParameters.WaterVolumetricWeight);
+            Assert.AreEqual(generalInput.WhitesDragCoefficient, calculationInput.InputParameters.WhitesDragCoefficient);
+        }
+
         #region GetPipingSoilProfilesForSurfaceLine
 
         [Test]
         public void GetPipingSoilProfilesForSurfaceLine_SurfaceLineIntersectingSoilModel_ReturnSoilProfilesOfSoilModel()
         {
             // Setup
-            var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
+            var soilProfile1 = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
             {
-                new PipingSoilLayer(-5.0),
-                new PipingSoilLayer(-2.0),
-                new PipingSoilLayer(1.0)
-            }, SoilProfileType.SoilProfile1D, 1);
-            var soilProfile2 = new PipingSoilProfile("Profile 2", -8.0, new[]
+                SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+                {
+                    new PipingSoilLayer(-5.0),
+                    new PipingSoilLayer(-2.0),
+                    new PipingSoilLayer(1.0)
+                }, SoilProfileType.SoilProfile1D, 1)
+            };
+            var soilProfile2 = new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
             {
-                new PipingSoilLayer(-4.0),
-                new PipingSoilLayer(0.0),
-                new PipingSoilLayer(4.0)
-            }, SoilProfileType.SoilProfile1D, 2);
+                SoilProfile = new PipingSoilProfile("Profile 2", -8.0, new[]
+                {
+                    new PipingSoilLayer(-4.0),
+                    new PipingSoilLayer(0.0),
+                    new PipingSoilLayer(4.0)
+                }, SoilProfileType.SoilProfile1D, 2)
+            };
 
             var soilModel = new StochasticSoilModel(1, "A", "B");
             soilModel.Geometry.AddRange(new[]
@@ -38,14 +80,8 @@ namespace Ringtoets.Piping.Forms.Test
             });
             soilModel.StochasticSoilProfiles.AddRange(new[]
             {
-                new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
-                {
-                    SoilProfile = soilProfile1
-                },
-                new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
-                {
-                    SoilProfile = soilProfile2
-                }
+                soilProfile1,
+                soilProfile2
             });
             var availableSoilModels = new[]
             {
@@ -61,10 +97,10 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<PipingSoilProfile> result = PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
+            IEnumerable<StochasticSoilProfile> result = PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
 
             // Assert
-            PipingSoilProfile[] expected =
+            StochasticSoilProfile[] expected =
             {
                 soilProfile1,
                 soilProfile2
@@ -112,7 +148,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<PipingSoilProfile> result = PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(null, availableSoilModels);
+            IEnumerable<StochasticSoilProfile> result = PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(null, availableSoilModels);
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -131,7 +167,7 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<PipingSoilProfile> result = PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(surfaceLine, Enumerable.Empty<StochasticSoilModel>());
+            IEnumerable<StochasticSoilProfile> result = PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(surfaceLine, Enumerable.Empty<StochasticSoilModel>());
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -162,7 +198,7 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<PipingSoilProfile> result = PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
+            IEnumerable<StochasticSoilProfile> result = PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -216,7 +252,7 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<PipingSoilProfile> result = PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
+            IEnumerable<StochasticSoilProfile> result = PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -226,18 +262,24 @@ namespace Ringtoets.Piping.Forms.Test
         public void GetPipingSoilProfilesForSurfaceLine_SurfaceLineOverlappingSoilModel_ReturnSoilProfilesOfSoilModel()
         {
             // Setup
-            var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
+            var soilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {
-                new PipingSoilLayer(-5.0),
-                new PipingSoilLayer(-2.0),
-                new PipingSoilLayer(1.0)
-            }, SoilProfileType.SoilProfile1D, 1);
-            var soilProfile2 = new PipingSoilProfile("Profile 2", -8.0, new[]
+                SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+                {
+                    new PipingSoilLayer(-5.0),
+                    new PipingSoilLayer(-2.0),
+                    new PipingSoilLayer(1.0)
+                }, SoilProfileType.SoilProfile1D, 1)
+            };
+            var soilProfile2 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
             {
-                new PipingSoilLayer(-4.0),
-                new PipingSoilLayer(0.0),
-                new PipingSoilLayer(4.0)
-            }, SoilProfileType.SoilProfile1D, 2);
+                SoilProfile = new PipingSoilProfile("Profile 2", -8.0, new[]
+                {
+                    new PipingSoilLayer(-4.0),
+                    new PipingSoilLayer(0.0),
+                    new PipingSoilLayer(4.0)
+                }, SoilProfileType.SoilProfile1D, 2)
+            };
 
             const double y = 1.1;
             var soilModel1 = new StochasticSoilModel(1, "A", "B");
@@ -248,10 +290,7 @@ namespace Ringtoets.Piping.Forms.Test
             });
             soilModel1.StochasticSoilProfiles.AddRange(new[]
             {
-                new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
-                {
-                    SoilProfile = soilProfile1
-                }
+                soilProfile1
             });
 
             var soilModel2 = new StochasticSoilModel(1, "A", "B");
@@ -262,10 +301,7 @@ namespace Ringtoets.Piping.Forms.Test
             });
             soilModel2.StochasticSoilProfiles.AddRange(new[]
             {
-                new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
-                {
-                    SoilProfile = soilProfile2
-                }
+                soilProfile2
             });
             var availableSoilModels = new[]
             {
@@ -282,10 +318,10 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<PipingSoilProfile> result = PipingCalculationConfigurationHelper.GetPipingSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
+            IEnumerable<StochasticSoilProfile> result = PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
 
             // Assert
-            PipingSoilProfile[] expected =
+            StochasticSoilProfile[] expected =
             {
                 soilProfile1,
                 soilProfile2
@@ -302,9 +338,9 @@ namespace Ringtoets.Piping.Forms.Test
         {
             // Call
             TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
-                null, 
-                Enumerable.Empty<StochasticSoilModel>(), 
-                new GeneralPipingInput(), 
+                null,
+                Enumerable.Empty<StochasticSoilModel>(),
+                new GeneralPipingInput(),
                 new SemiProbabilisticPipingInput());
 
             // Assert
@@ -317,9 +353,9 @@ namespace Ringtoets.Piping.Forms.Test
         {
             // Call
             TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
-                Enumerable.Empty<RingtoetsPipingSurfaceLine>(), 
-                null, 
-                new GeneralPipingInput(), 
+                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                null,
+                new GeneralPipingInput(),
                 new SemiProbabilisticPipingInput());
 
             // Assert
@@ -332,9 +368,9 @@ namespace Ringtoets.Piping.Forms.Test
         {
             // Call
             TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
-                Enumerable.Empty<RingtoetsPipingSurfaceLine>(), 
-                Enumerable.Empty<StochasticSoilModel>(), 
-                null, 
+                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                Enumerable.Empty<StochasticSoilModel>(),
+                null,
                 new SemiProbabilisticPipingInput());
 
             // Assert
@@ -347,9 +383,9 @@ namespace Ringtoets.Piping.Forms.Test
         {
             // Call
             TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
-                Enumerable.Empty<RingtoetsPipingSurfaceLine>(), 
-                Enumerable.Empty<StochasticSoilModel>(), 
-                new GeneralPipingInput(), 
+                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                Enumerable.Empty<StochasticSoilModel>(),
+                new GeneralPipingInput(),
                 null);
 
             // Assert
@@ -388,9 +424,9 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Call
             IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
-                ringtoetsPipingSurfaceLines, 
-                Enumerable.Empty<StochasticSoilModel>(), 
-                new GeneralPipingInput(), 
+                ringtoetsPipingSurfaceLines,
+                Enumerable.Empty<StochasticSoilModel>(),
+                new GeneralPipingInput(),
                 new SemiProbabilisticPipingInput()).ToArray();
 
             // Assert
@@ -416,18 +452,24 @@ namespace Ringtoets.Piping.Forms.Test
         public void GenerateCalculationsStructure_SurfaceLineIntersectingSoilModel_ReturnOneGroupWithTwoCalculations()
         {
             // Setup
-            var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
+            var soilProfile1 = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
             {
-                new PipingSoilLayer(-5.0),
-                new PipingSoilLayer(-2.0),
-                new PipingSoilLayer(1.0)
-            }, SoilProfileType.SoilProfile1D, 1);
-            var soilProfile2 = new PipingSoilProfile("Profile 2", -8.0, new[]
+                SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+                {
+                    new PipingSoilLayer(-5.0),
+                    new PipingSoilLayer(-2.0),
+                    new PipingSoilLayer(1.0)
+                }, SoilProfileType.SoilProfile1D, 1)
+            };
+            var soilProfile2 = new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
             {
-                new PipingSoilLayer(-4.0),
-                new PipingSoilLayer(0.0),
-                new PipingSoilLayer(4.0)
-            }, SoilProfileType.SoilProfile1D, 2);
+                SoilProfile = new PipingSoilProfile("Profile 2", -8.0, new[]
+                {
+                    new PipingSoilLayer(-4.0),
+                    new PipingSoilLayer(0.0),
+                    new PipingSoilLayer(4.0)
+                }, SoilProfileType.SoilProfile1D, 2)
+            };
 
             var soilModel = new StochasticSoilModel(1, "A", "B");
             soilModel.Geometry.AddRange(new[]
@@ -437,14 +479,8 @@ namespace Ringtoets.Piping.Forms.Test
             });
             soilModel.StochasticSoilProfiles.AddRange(new[]
             {
-                new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
-                {
-                    SoilProfile = soilProfile1
-                },
-                new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 2)
-                {
-                    SoilProfile = soilProfile2
-                }
+                soilProfile1,
+                soilProfile2
             });
             var availableSoilModels = new[]
             {
@@ -466,8 +502,8 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Call
             IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
-                surfaceLines, 
-                availableSoilModels, 
+                surfaceLines,
+                availableSoilModels,
                 new GeneralPipingInput(),
                 new SemiProbabilisticPipingInput()).ToArray();
 
@@ -480,11 +516,11 @@ namespace Ringtoets.Piping.Forms.Test
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup.Children, typeof(PipingCalculation));
 
             var calculationInput1 = ((PipingCalculation) calculationGroup.Children[0]).InputParameters;
-            Assert.AreSame(soilProfile1, calculationInput1.SoilProfile);
+            Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput1.SurfaceLine);
 
             var calculationInput2 = ((PipingCalculation) calculationGroup.Children[1]).InputParameters;
-            Assert.AreSame(soilProfile2, calculationInput2.SoilProfile);
+            Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput2.SurfaceLine);
         }
 
@@ -520,7 +556,7 @@ namespace Ringtoets.Piping.Forms.Test
             // Call
             IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
                 surfaceLines, availableSoilModels,
-                new GeneralPipingInput(), 
+                new GeneralPipingInput(),
                 new SemiProbabilisticPipingInput()).ToArray();
 
             // Assert
@@ -598,18 +634,24 @@ namespace Ringtoets.Piping.Forms.Test
         public void GenerateCalculationsStructure_SurfaceLineOverlappingSoilModel_ReturnOneGroupWithProfilesFromBothSoilModels()
         {
             // Setup
-            var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
+            var soilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {
-                new PipingSoilLayer(-5.0),
-                new PipingSoilLayer(-2.0),
-                new PipingSoilLayer(1.0)
-            }, SoilProfileType.SoilProfile1D, 1);
-            var soilProfile2 = new PipingSoilProfile("Profile 2", -8.0, new[]
+                SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+                {
+                    new PipingSoilLayer(-5.0),
+                    new PipingSoilLayer(-2.0),
+                    new PipingSoilLayer(1.0)
+                }, SoilProfileType.SoilProfile1D, 1)
+            };
+            var soilProfile2 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
             {
-                new PipingSoilLayer(-4.0),
-                new PipingSoilLayer(0.0),
-                new PipingSoilLayer(4.0)
-            }, SoilProfileType.SoilProfile1D, 2);
+                SoilProfile = new PipingSoilProfile("Profile 2", -8.0, new[]
+                {
+                    new PipingSoilLayer(-4.0),
+                    new PipingSoilLayer(0.0),
+                    new PipingSoilLayer(4.0)
+                }, SoilProfileType.SoilProfile1D, 2)
+            };
 
             const double y = 1.1;
             var soilModel1 = new StochasticSoilModel(1, "A", "B");
@@ -620,10 +662,7 @@ namespace Ringtoets.Piping.Forms.Test
             });
             soilModel1.StochasticSoilProfiles.AddRange(new[]
             {
-                new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
-                {
-                    SoilProfile = soilProfile1
-                }
+                soilProfile1
             });
 
             var soilModel2 = new StochasticSoilModel(1, "A", "B");
@@ -634,10 +673,7 @@ namespace Ringtoets.Piping.Forms.Test
             });
             soilModel2.StochasticSoilProfiles.AddRange(new[]
             {
-                new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
-                {
-                    SoilProfile = soilProfile2
-                }
+                soilProfile2
             });
             var availableSoilModels = new[]
             {
@@ -670,11 +706,11 @@ namespace Ringtoets.Piping.Forms.Test
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup.Children, typeof(PipingCalculation));
 
             var calculationInput1 = ((PipingCalculation) calculationGroup.Children[0]).InputParameters;
-            Assert.AreSame(soilProfile1, calculationInput1.SoilProfile);
+            Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput1.SurfaceLine);
 
             var calculationInput2 = ((PipingCalculation) calculationGroup.Children[1]).InputParameters;
-            Assert.AreSame(soilProfile2, calculationInput2.SoilProfile);
+            Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput2.SurfaceLine);
         }
 
@@ -682,18 +718,24 @@ namespace Ringtoets.Piping.Forms.Test
         public void GenerateCalculationsStructure_SurfaceLinesEachIntersectingSoilModel_ReturnTwoGroupsWithProfilesFromIntersectingSoilModels()
         {
             // Setup
-            var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
+            var soilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
             {
-                new PipingSoilLayer(-5.0),
-                new PipingSoilLayer(-2.0),
-                new PipingSoilLayer(1.0)
-            }, SoilProfileType.SoilProfile1D, 1);
-            var soilProfile2 = new PipingSoilProfile("Profile 2", -8.0, new[]
+                SoilProfile = new PipingSoilProfile("Profile 1", -10.0, new[]
+                {
+                    new PipingSoilLayer(-5.0),
+                    new PipingSoilLayer(-2.0),
+                    new PipingSoilLayer(1.0)
+                }, SoilProfileType.SoilProfile1D, 1)
+            };
+            var soilProfile2 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
             {
-                new PipingSoilLayer(-4.0),
-                new PipingSoilLayer(0.0),
-                new PipingSoilLayer(4.0)
-            }, SoilProfileType.SoilProfile1D, 2);
+                SoilProfile = new PipingSoilProfile("Profile 2", -8.0, new[]
+                {
+                    new PipingSoilLayer(-4.0),
+                    new PipingSoilLayer(0.0),
+                    new PipingSoilLayer(4.0)
+                }, SoilProfileType.SoilProfile1D, 2)
+            };
 
             const double y = 1.1;
             var soilModel1 = new StochasticSoilModel(1, "A", "B");
@@ -704,14 +746,8 @@ namespace Ringtoets.Piping.Forms.Test
             });
             soilModel1.StochasticSoilProfiles.AddRange(new[]
             {
-                new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
-                {
-                    SoilProfile = soilProfile1
-                },
-                new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
-                {
-                    SoilProfile = soilProfile2
-                }
+                soilProfile1,
+                soilProfile2
             });
 
             var soilModel2 = new StochasticSoilModel(1, "A", "B");
@@ -722,10 +758,7 @@ namespace Ringtoets.Piping.Forms.Test
             });
             soilModel2.StochasticSoilProfiles.AddRange(new[]
             {
-                new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
-                {
-                    SoilProfile = soilProfile2
-                }
+                soilProfile2
             });
             var availableSoilModels = new[]
             {
@@ -772,11 +805,11 @@ namespace Ringtoets.Piping.Forms.Test
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup1.Children, typeof(PipingCalculation));
 
             var calculationInput1 = ((PipingCalculation) calculationGroup1.Children[0]).InputParameters;
-            Assert.AreSame(soilProfile1, calculationInput1.SoilProfile);
+            Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine1, calculationInput1.SurfaceLine);
 
             var calculationInput2 = ((PipingCalculation) calculationGroup1.Children[1]).InputParameters;
-            Assert.AreSame(soilProfile2, calculationInput2.SoilProfile);
+            Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine1, calculationInput2.SurfaceLine);
 
             var calculationGroup2 = result.First(g => g.Name == surfaceLineName2) as PipingCalculationGroup;
@@ -786,7 +819,7 @@ namespace Ringtoets.Piping.Forms.Test
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup2.Children, typeof(PipingCalculation));
 
             var calculationInput3 = ((PipingCalculation) calculationGroup2.Children[0]).InputParameters;
-            Assert.AreSame(soilProfile2, calculationInput3.SoilProfile);
+            Assert.AreSame(soilProfile2, calculationInput3.StochasticSoilProfile);
             Assert.AreSame(surfaceLine2, calculationInput3.SurfaceLine);
         }
 
@@ -850,9 +883,9 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Call
             IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
-                surfaceLines, 
-                availableSoilModels, 
-                generalInput, 
+                surfaceLines,
+                availableSoilModels,
+                generalInput,
                 semiProbabilisticInput).ToArray();
 
             // Assert
@@ -939,9 +972,9 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Call
             IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
-                surfaceLines, 
-                availableSoilModels, 
-                new GeneralPipingInput(), 
+                surfaceLines,
+                availableSoilModels,
+                new GeneralPipingInput(),
                 new SemiProbabilisticPipingInput()).ToArray();
 
             // Assert
@@ -957,20 +990,5 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         #endregion
-
-        private static void CompareGeneralInputToInput(GeneralPipingInput generalInput, PipingCalculation calculationInput)
-        {
-            Assert.AreEqual(generalInput.BeddingAngle, calculationInput.InputParameters.BeddingAngle);
-            Assert.AreEqual(generalInput.CriticalHeaveGradient, calculationInput.InputParameters.CriticalHeaveGradient);
-            Assert.AreEqual(generalInput.Gravity, calculationInput.InputParameters.Gravity);
-            Assert.AreEqual(generalInput.MeanDiameter70, calculationInput.InputParameters.MeanDiameter70);
-            Assert.AreEqual(generalInput.SandParticlesVolumicWeight, calculationInput.InputParameters.SandParticlesVolumicWeight);
-            Assert.AreEqual(generalInput.SellmeijerModelFactor, calculationInput.InputParameters.SellmeijerModelFactor);
-            Assert.AreEqual(generalInput.SellmeijerReductionFactor, calculationInput.InputParameters.SellmeijerReductionFactor);
-            Assert.AreEqual(generalInput.UpliftModelFactor, calculationInput.InputParameters.UpliftModelFactor);
-            Assert.AreEqual(generalInput.WaterKinematicViscosity, calculationInput.InputParameters.WaterKinematicViscosity);
-            Assert.AreEqual(generalInput.WaterVolumetricWeight, calculationInput.InputParameters.WaterVolumetricWeight);
-            Assert.AreEqual(generalInput.WhitesDragCoefficient, calculationInput.InputParameters.WhitesDragCoefficient);
-        }
     }
 }

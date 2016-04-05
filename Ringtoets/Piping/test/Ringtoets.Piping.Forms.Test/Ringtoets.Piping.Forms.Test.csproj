@@ -98,7 +98,7 @@
     <Compile Include="TypeConverters\ShiftedLognormalDistributionDesignVariableTypeConverterTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextHydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSelectionEditorTest.cs" />
-    <Compile Include="UITypeEditors\PipingInputContextSoilProfileSelectionEditorTest.cs" />
+    <Compile Include="UITypeEditors\PipingInputContextStochasticSoilProfileSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditorTest.cs" />
     <Compile Include="Views\PipingCalculationsViewTest.cs" />
     <Compile Include="Views\PipingFailureMechanismViewTest.cs" />

@@ -1,11 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms.Design;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
-
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
@@ -13,7 +32,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
-using Ringtoets.Piping.Forms.Test.PresentationObjects;
 using Ringtoets.Piping.Forms.UITypeEditors;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
@@ -21,7 +39,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Forms.Test.UITypeEditors
 {
     [TestFixture]
-    public class PipingInputContextSoilProfileSelectionEditorTest
+    public class PipingInputContextStochasticSoilProfileSelectionEditorTest
     {
         [Test]
         public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
@@ -35,7 +53,10 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
-                SoilProfile = new TestPipingSoilProfile()
+                StochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 2)
+                {
+                    SoilProfile = new TestPipingSoilProfile()
+                }
             };
             var pipingInputContext = new PipingInputContext(pipingInput,
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
@@ -50,7 +71,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                 Data = pipingInputContext
             };
 
-            var editor = new PipingInputContextSoilProfileSelectionEditor();
+            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor();
             var someValue = new object();
             var propertyBag = new DynamicPropertyBag(properties);
 
@@ -79,33 +100,33 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
 
-            var soilProfile = new TestPipingSoilProfile();
+            var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new TestPipingSoilProfile()
+            };
             var stochasticSoilModel = new StochasticSoilModel(0, string.Empty, string.Empty)
             {
-                Geometry = 
+                Geometry =
                 {
-                    new Point2D(0,2),
-                    new Point2D(4,2)
+                    new Point2D(0, 2),
+                    new Point2D(4, 2)
                 },
                 StochasticSoilProfiles =
                 {
-                    new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 0)
-                    {
-                        SoilProfile = soilProfile
-                    }
+                    stochasticSoilProfile
                 }
             };
             var surfaceLine = new RingtoetsPipingSurfaceLine();
-            surfaceLine.SetGeometry(new []
+            surfaceLine.SetGeometry(new[]
             {
-                new Point3D(2, 1, 0), 
+                new Point3D(2, 1, 0),
                 new Point3D(2, 3, 0)
             });
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine,
-                SoilProfile = soilProfile
+                StochasticSoilProfile = stochasticSoilProfile
             };
             var inputParametersContext = new PipingInputContext(pipingInput,
                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
@@ -120,7 +141,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                 Data = inputParametersContext
             };
 
-            var editor = new PipingInputContextSoilProfileSelectionEditor();
+            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor();
             var someValue = new object();
             var propertyBag = new DynamicPropertyBag(properties);
 
@@ -134,7 +155,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var result = editor.EditValue(context, provider, someValue);
 
             // Assert
-            Assert.AreSame(soilProfile, result);
+            Assert.AreSame(stochasticSoilProfile, result);
 
             mockRepository.VerifyAll();
         }

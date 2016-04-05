@@ -120,39 +120,39 @@ namespace Demo.Ringtoets.Test.Commands
             var surfaceLine2 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0002");
             var surfaceLine3 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0003");
             var surfaceLine4 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0004");
-            
+
             Assert.IsNotNull(surfaceLine1);
             Assert.IsNotNull(surfaceLine2);
             Assert.IsNotNull(surfaceLine3);
             Assert.IsNotNull(surfaceLine4);
 
-            Assert.AreEqual(new Point3D (155883.762, 569864.416, 0.53), surfaceLine1.DitchPolderSide);
-            Assert.AreEqual(new Point3D (155882.067, 569866.157, -1.9), surfaceLine1.BottomDitchPolderSide);
-            Assert.AreEqual(new Point3D (155874.184, 569874.252, -1.9), surfaceLine1.BottomDitchDikeSide);
-            Assert.AreEqual(new Point3D (155872.224, 569876.265, 0.91), surfaceLine1.DitchDikeSide);
-            Assert.AreEqual(new Point3D (155864.173, 569884.532, 0.95), surfaceLine1.DikeToeAtPolder);
-            Assert.AreEqual(new Point3D (155797.109, 569953.4, -4), surfaceLine1.DikeToeAtRiver);
-            
+            Assert.AreEqual(new Point3D(155883.762, 569864.416, 0.53), surfaceLine1.DitchPolderSide);
+            Assert.AreEqual(new Point3D(155882.067, 569866.157, -1.9), surfaceLine1.BottomDitchPolderSide);
+            Assert.AreEqual(new Point3D(155874.184, 569874.252, -1.9), surfaceLine1.BottomDitchDikeSide);
+            Assert.AreEqual(new Point3D(155872.224, 569876.265, 0.91), surfaceLine1.DitchDikeSide);
+            Assert.AreEqual(new Point3D(155864.173, 569884.532, 0.95), surfaceLine1.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(155797.109, 569953.4, -4), surfaceLine1.DikeToeAtRiver);
+
             Assert.IsNull(surfaceLine2.DitchPolderSide);
             Assert.IsNull(surfaceLine2.BottomDitchPolderSide);
             Assert.IsNull(surfaceLine2.BottomDitchDikeSide);
             Assert.IsNull(surfaceLine2.DitchDikeSide);
-            Assert.AreEqual(new Point3D (155558.754, 569618.729, 1.45), surfaceLine2.DikeToeAtPolder);
-            Assert.AreEqual(new Point3D (155505.259, 569701.229, -4), surfaceLine2.DikeToeAtRiver);
-            
-            Assert.AreEqual(new Point3D (155063.763, 569276.113, -0.5), surfaceLine3.DitchPolderSide);
-            Assert.AreEqual(new Point3D (155063.272, 569276.926, -1.45), surfaceLine3.BottomDitchPolderSide);
-            Assert.AreEqual(new Point3D (155056.855, 569287.56, -1.45), surfaceLine3.BottomDitchDikeSide);
-            Assert.AreEqual(new Point3D (155056.297, 569288.485, -0.37), surfaceLine3.DitchDikeSide);
-            Assert.AreEqual(new Point3D (155047.587, 569302.917, 1.42), surfaceLine3.DikeToeAtPolder);
-            Assert.AreEqual(new Point3D (154999.006, 569383.419, -4), surfaceLine3.DikeToeAtRiver);
+            Assert.AreEqual(new Point3D(155558.754, 569618.729, 1.45), surfaceLine2.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(155505.259, 569701.229, -4), surfaceLine2.DikeToeAtRiver);
+
+            Assert.AreEqual(new Point3D(155063.763, 569276.113, -0.5), surfaceLine3.DitchPolderSide);
+            Assert.AreEqual(new Point3D(155063.272, 569276.926, -1.45), surfaceLine3.BottomDitchPolderSide);
+            Assert.AreEqual(new Point3D(155056.855, 569287.56, -1.45), surfaceLine3.BottomDitchDikeSide);
+            Assert.AreEqual(new Point3D(155056.297, 569288.485, -0.37), surfaceLine3.DitchDikeSide);
+            Assert.AreEqual(new Point3D(155047.587, 569302.917, 1.42), surfaceLine3.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(154999.006, 569383.419, -4), surfaceLine3.DikeToeAtRiver);
 
             Assert.IsNull(surfaceLine4.DitchPolderSide);
             Assert.IsNull(surfaceLine4.BottomDitchPolderSide);
             Assert.IsNull(surfaceLine4.BottomDitchDikeSide);
             Assert.IsNull(surfaceLine4.DitchDikeSide);
-            Assert.AreEqual(new Point3D (154682.383, 568112.623, 1.55), surfaceLine4.DikeToeAtPolder);
-            Assert.AreEqual(new Point3D (154586.088, 568119.17, -4), surfaceLine4.DikeToeAtRiver);
+            Assert.AreEqual(new Point3D(154682.383, 568112.623, 1.55), surfaceLine4.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(154586.088, 568119.17, -4), surfaceLine4.DikeToeAtRiver);
         }
 
         private void AssertCalculationAbleToCalculate(PipingCalculation calculation)
@@ -187,7 +187,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(37, inputParameters.BeddingAngle, 1e-3);
 
             Assert.AreEqual("PK001_0001", inputParameters.SurfaceLine.Name);
-            Assert.AreEqual("W1-6_0_1D1", inputParameters.SoilProfile.Name);
+            Assert.AreEqual("W1-6_0_1D1", inputParameters.StochasticSoilProfile.SoilProfile.Name);
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
             Assert.AreEqual(5.78, inputParameters.HydraulicBoundaryLocation.DesignWaterLevel, 1e-3);
 

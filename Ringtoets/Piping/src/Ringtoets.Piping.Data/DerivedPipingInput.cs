@@ -89,8 +89,8 @@ namespace Ringtoets.Piping.Data
                 double seepageLengthMean = input.ExitPointL - input.EntryPointL;
                 if (seepageLengthMean > 0)
                 {
-                    seepageLength.Mean = (RoundedDouble)seepageLengthMean;
-                    seepageLength.StandardDeviation = (RoundedDouble)seepageLengthMean * seepageLengthStandardDeviationFraction;
+                    seepageLength.Mean = (RoundedDouble) seepageLengthMean;
+                    seepageLength.StandardDeviation = (RoundedDouble) seepageLengthMean*seepageLengthStandardDeviationFraction;
                 }
                 else
                 {
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Data
                 {
                     StandardDeviation = (RoundedDouble) 0.5
                 };
-                if (input.SurfaceLine != null && input.SoilProfile != null & !double.IsNaN(input.ExitPointL))
+                if (input.SurfaceLine != null && input.StochasticSoilProfile != null && input.StochasticSoilProfile.SoilProfile != null & !double.IsNaN(input.ExitPointL))
                 {
                     TrySetThicknessCoverageLayer(thicknessCoverageLayer);
                 }
@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Data
                 return thicknessCoverageLayer;
             }
         }
-        
+
         /// <summary>
         /// gets the thickness aquifer layer.
         /// </summary>
@@ -138,18 +138,19 @@ namespace Ringtoets.Piping.Data
                     StandardDeviation = (RoundedDouble) 0.5
                 };
 
-                PipingSoilProfile soilProfile = input.SoilProfile;
+                StochasticSoilProfile stochasticSoilProfile = input.StochasticSoilProfile;
+
                 RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
                 double exitPointL = input.ExitPointL;
 
-                if (soilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
+                if (stochasticSoilProfile != null && stochasticSoilProfile.SoilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
                 {
-                    double thicknessTopAquiferLayer = GetThicknessTopAquiferLayer(soilProfile, surfaceLine, exitPointL);
+                    double thicknessTopAquiferLayer = GetThicknessTopAquiferLayer(stochasticSoilProfile.SoilProfile, surfaceLine, exitPointL);
                     TrySetThicknessAquiferLayerMean(thicknessAquiferLayer, thicknessTopAquiferLayer);
                 }
                 else
                 {
-                    thicknessAquiferLayer.Mean = (RoundedDouble)double.NaN;
+                    thicknessAquiferLayer.Mean = (RoundedDouble) double.NaN;
                 }
 
                 return thicknessAquiferLayer;
@@ -158,13 +159,13 @@ namespace Ringtoets.Piping.Data
 
         private static void TrySetThicknessAquiferLayerMean(LognormalDistribution thicknessAquiferLayer, double thicknessTopAquiferLayer)
         {
-            if(thicknessTopAquiferLayer > 0)
+            if (thicknessTopAquiferLayer > 0)
             {
-                thicknessAquiferLayer.Mean = (RoundedDouble)thicknessTopAquiferLayer;
+                thicknessAquiferLayer.Mean = (RoundedDouble) thicknessTopAquiferLayer;
             }
             else
             {
-                thicknessAquiferLayer.Mean = (RoundedDouble)double.NaN;
+                thicknessAquiferLayer.Mean = (RoundedDouble) double.NaN;
             }
         }
 
@@ -185,16 +186,15 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-
         private void TrySetThicknessCoverageLayer(LognormalDistribution thicknessCoverageLayer)
         {
             try
             {
-                thicknessCoverageLayer.Mean = (RoundedDouble)InputParameterCalculationService.CalculateThicknessCoverageLayer(input.WaterVolumetricWeight, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), input.ExitPointL, input.SurfaceLine, input.SoilProfile);
+                thicknessCoverageLayer.Mean = (RoundedDouble) InputParameterCalculationService.CalculateThicknessCoverageLayer(input.WaterVolumetricWeight, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), input.ExitPointL, input.SurfaceLine, input.StochasticSoilProfile.SoilProfile);
             }
             catch (ArgumentOutOfRangeException)
             {
-                thicknessCoverageLayer.Mean = (RoundedDouble)double.NaN;
+                thicknessCoverageLayer.Mean = (RoundedDouble) double.NaN;
             }
         }
     }

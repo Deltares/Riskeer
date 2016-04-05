@@ -1,5 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -45,7 +65,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(3, inputParameters.DampingFactorExit.StandardDeviation.NumberOfDecimalPlaces);
 
             double defaultLogNormalMean = Math.Exp(-0.5);
-            double defaultLogNormalStandardDev = Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1));
+            double defaultLogNormalStandardDev = Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1));
 
             Assert.IsInstanceOf<LognormalDistribution>(inputParameters.Diameter70);
             Assert.AreEqual(defaultLogNormalMean, inputParameters.Diameter70.Mean,
@@ -64,7 +84,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(3, inputParameters.DarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.IsNull(inputParameters.SurfaceLine);
-            Assert.IsNull(inputParameters.SoilProfile);
+            Assert.IsNull(inputParameters.StochasticSoilProfile);
             Assert.IsNull(inputParameters.HydraulicBoundaryLocation);
 
             Assert.AreEqual(generalInputParameters.UpliftModelFactor, inputParameters.UpliftModelFactor);
@@ -115,11 +135,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsNaN(inputParameters.AssessmentLevel);
         }
 
-        private static double GetErrorTolerance(RoundedDouble roundedDouble)
-        {
-            return Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
-        }
-
         [Test]
         public void Constructor_GeneralPipingInputIsNull_ArgumentNullException()
         {
@@ -158,7 +173,7 @@ namespace Ringtoets.Piping.Data.Test
             var pipingInput = new PipingInput(new GeneralPipingInput());
 
             // Call
-            TestDelegate test = () => pipingInput.ExitPointL = (RoundedDouble)value;
+            TestDelegate test = () => pipingInput.ExitPointL = (RoundedDouble) value;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.PipingInput_ExitPointL_Value_must_be_greater_than_zero);
@@ -173,7 +188,7 @@ namespace Ringtoets.Piping.Data.Test
             var pipingInput = new PipingInput(new GeneralPipingInput());
 
             // Call
-            TestDelegate test = () => pipingInput.EntryPointL = (RoundedDouble)value;
+            TestDelegate test = () => pipingInput.EntryPointL = (RoundedDouble) value;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.PipingInput_EntryPointL_Value_must_be_greater_than_or_equal_to_zero);
@@ -204,8 +219,8 @@ namespace Ringtoets.Piping.Data.Test
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D(0, 0, 0), 
-                new Point3D(1, 0, 2), 
+                new Point3D(0, 0, 0),
+                new Point3D(1, 0, 2),
                 new Point3D(2, 0, 3)
             });
             surfaceLine.SetDikeToeAtRiverAt(new Point3D(1, 0, 2));
@@ -228,8 +243,8 @@ namespace Ringtoets.Piping.Data.Test
 
             var newValue = new NormalDistribution(5)
             {
-                Mean = (RoundedDouble)1.23456,
-                StandardDeviation = (RoundedDouble)7.89123
+                Mean = (RoundedDouble) 1.23456,
+                StandardDeviation = (RoundedDouble) 7.89123
             };
 
             // Call
@@ -237,7 +252,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreSame(originalPhreaticLevelExit, inputs.PhreaticLevelExit,
-                "Stochast instance hasn't changed to 'newValue'.");
+                           "Stochast instance hasn't changed to 'newValue'.");
             Assert.AreEqual(3, originalPhreaticLevelExit.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(1.235, originalPhreaticLevelExit.Mean.Value);
             Assert.AreEqual(3, originalPhreaticLevelExit.StandardDeviation.NumberOfDecimalPlaces);
@@ -253,8 +268,8 @@ namespace Ringtoets.Piping.Data.Test
 
             var newValue = new LognormalDistribution(5)
             {
-                Mean = (RoundedDouble)4.56789,
-                StandardDeviation = (RoundedDouble)1.23456
+                Mean = (RoundedDouble) 4.56789,
+                StandardDeviation = (RoundedDouble) 1.23456
             };
 
             // Call
@@ -262,7 +277,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreSame(originalDampingFactorExit, inputs.DampingFactorExit,
-                "Stochast instance hasn't changed to 'newValue'.");
+                           "Stochast instance hasn't changed to 'newValue'.");
             Assert.AreEqual(3, originalDampingFactorExit.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(4.568, originalDampingFactorExit.Mean.Value);
             Assert.AreEqual(3, originalDampingFactorExit.StandardDeviation.NumberOfDecimalPlaces);
@@ -278,9 +293,9 @@ namespace Ringtoets.Piping.Data.Test
 
             var newValue = new ShiftedLognormalDistribution(5)
             {
-                Mean = (RoundedDouble)1.11111,
-                StandardDeviation = (RoundedDouble)2.22222,
-                Shift = (RoundedDouble)(-3.33333)
+                Mean = (RoundedDouble) 1.11111,
+                StandardDeviation = (RoundedDouble) 2.22222,
+                Shift = (RoundedDouble) (-3.33333)
             };
 
             // Call
@@ -288,7 +303,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreSame(originalSaturatedVolumicWeightOfCoverageLayer, inputs.SaturatedVolumicWeightOfCoverageLayer,
-                "Stochast instance hasn't changed to 'newValue'.");
+                           "Stochast instance hasn't changed to 'newValue'.");
             Assert.AreEqual(2, originalSaturatedVolumicWeightOfCoverageLayer.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(1.11, originalSaturatedVolumicWeightOfCoverageLayer.Mean.Value);
             Assert.AreEqual(2, originalSaturatedVolumicWeightOfCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
@@ -306,8 +321,8 @@ namespace Ringtoets.Piping.Data.Test
 
             var newValue = new LognormalDistribution(5)
             {
-                Mean = (RoundedDouble)8.8888,
-                StandardDeviation = (RoundedDouble)9.14363
+                Mean = (RoundedDouble) 8.8888,
+                StandardDeviation = (RoundedDouble) 9.14363
             };
 
             // Call
@@ -315,7 +330,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreSame(originalDiameter70, inputs.Diameter70,
-                "Stochast instance hasn't changed to 'newValue'.");
+                           "Stochast instance hasn't changed to 'newValue'.");
             Assert.AreEqual(2, originalDiameter70.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(8.89, originalDiameter70.Mean.Value);
             Assert.AreEqual(2, originalDiameter70.StandardDeviation.NumberOfDecimalPlaces);
@@ -331,8 +346,8 @@ namespace Ringtoets.Piping.Data.Test
 
             var newValue = new LognormalDistribution(5)
             {
-                Mean = (RoundedDouble)1.93753,
-                StandardDeviation = (RoundedDouble)859.49028
+                Mean = (RoundedDouble) 1.93753,
+                StandardDeviation = (RoundedDouble) 859.49028
             };
 
             // Call
@@ -340,7 +355,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreSame(originalDarcyPermeability, inputs.DarcyPermeability,
-                "Stochast instance hasn't changed to 'newValue'.");
+                           "Stochast instance hasn't changed to 'newValue'.");
             Assert.AreEqual(3, originalDarcyPermeability.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(1.938, originalDarcyPermeability.Mean.Value);
             Assert.AreEqual(3, originalDarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
@@ -382,7 +397,7 @@ namespace Ringtoets.Piping.Data.Test
                 Assert.AreEqual(2, piezometricHead.NumberOfDecimalPlaces);
                 Assert.IsFalse(double.IsNaN(piezometricHead));
 
-                var factory = (TestPipingSubCalculatorFactory)PipingSubCalculatorFactory.Instance;
+                var factory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
                 var piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
 
                 Assert.AreEqual(piezometricHeadAtExitCalculator.HRiver, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
@@ -424,7 +439,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.SoilProfile = null;
+            input.StochasticSoilProfile = null;
 
             // Call
             var thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -438,7 +453,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.SoilProfile = null;
+            input.StochasticSoilProfile = null;
 
             // Call
             var thicknessCoverageLayer = input.ThicknessCoverageLayer;
@@ -524,7 +539,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble)double.NaN;
+            input.ExitPointL = (RoundedDouble) double.NaN;
 
             // Call
             LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -538,7 +553,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble)3.0;
+            input.ExitPointL = (RoundedDouble) 3.0;
 
             // Call
             LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -552,7 +567,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble)3.0;
+            input.ExitPointL = (RoundedDouble) 3.0;
 
             // Call
             LognormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
@@ -568,7 +583,7 @@ namespace Ringtoets.Piping.Data.Test
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             input.ThicknessCoverageLayer.Mean = new RoundedDouble(2, new Random(21).NextDouble() + 1);
 
-            input.SoilProfile = null;
+            input.StochasticSoilProfile = null;
 
             // Call
             LognormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
@@ -582,13 +597,16 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                new PipingSoilLayer(2.0)
+                SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
                 {
-                    IsAquifer = false
-                }
-            }, SoilProfileType.SoilProfile1D, 0);
+                    new PipingSoilLayer(2.0)
+                    {
+                        IsAquifer = false
+                    }
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
 
             // Call
             LognormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
@@ -602,13 +620,16 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                new PipingSoilLayer(2.0)
+                SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
                 {
-                    IsAquifer = false
-                }
-            }, SoilProfileType.SoilProfile1D, 0);
+                    new PipingSoilLayer(2.0)
+                    {
+                        IsAquifer = false
+                    }
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
 
             // Call
             LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -650,7 +671,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
 
-            input.SoilProfile = null;
+            input.StochasticSoilProfile = null;
 
             // Call
             var thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -664,17 +685,20 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                new PipingSoilLayer(2.0)
+                SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
                 {
-                    IsAquifer = false
-                },
-                new PipingSoilLayer(0.0)
-                {
-                    IsAquifer = true
-                }
-            }, SoilProfileType.SoilProfile1D, 0);
+                    new PipingSoilLayer(2.0)
+                    {
+                        IsAquifer = false
+                    },
+                    new PipingSoilLayer(0.0)
+                    {
+                        IsAquifer = true
+                    }
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
 
             // Call
             LognormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -688,17 +712,20 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                new PipingSoilLayer(2.0)
+                SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
                 {
-                    IsAquifer = false
-                },
-                new PipingSoilLayer(2.0)
-                {
-                    IsAquifer = true
-                }
-            }, SoilProfileType.SoilProfile1D, 0);
+                    new PipingSoilLayer(2.0)
+                    {
+                        IsAquifer = false
+                    },
+                    new PipingSoilLayer(2.0)
+                    {
+                        IsAquifer = true
+                    }
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
 
             // Call
             LognormalDistribution thicknessCoverageLayer = input.ThicknessCoverageLayer;
@@ -712,17 +739,20 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+            input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                new PipingSoilLayer(2.5)
+                SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
                 {
-                    IsAquifer = true
-                },
-                new PipingSoilLayer(1.5)
-                {
-                    IsAquifer = true
-                }
-            }, SoilProfileType.SoilProfile1D, 0);
+                    new PipingSoilLayer(2.5)
+                    {
+                        IsAquifer = true
+                    },
+                    new PipingSoilLayer(1.5)
+                    {
+                        IsAquifer = true
+                    }
+                }, SoilProfileType.SoilProfile1D, 0)
+            };
 
             // Call
             var thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -750,8 +780,8 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble)2;
-            input.EntryPointL = (RoundedDouble)3;
+            input.ExitPointL = (RoundedDouble) 2;
+            input.EntryPointL = (RoundedDouble) 3;
 
             // Call
             var seepageLength = input.SeepageLength;
@@ -766,7 +796,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.EntryPointL = (RoundedDouble)double.NaN;
+            input.EntryPointL = (RoundedDouble) double.NaN;
 
             // Call
             var seepageLength = input.SeepageLength;
@@ -781,7 +811,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble)double.NaN;
+            input.ExitPointL = (RoundedDouble) double.NaN;
 
             // Call
             var seepageLength = input.SeepageLength;
@@ -789,6 +819,11 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsNaN(seepageLength.Mean);
             Assert.IsNaN(seepageLength.StandardDeviation);
+        }
+
+        private static double GetErrorTolerance(RoundedDouble roundedDouble)
+        {
+            return Math.Pow(10.0, -roundedDouble.NumberOfDecimalPlaces);
         }
     }
 }
