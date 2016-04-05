@@ -29,6 +29,15 @@ namespace Core.Components.OxyPlot
     internal sealed class DynamicPlotController : ControllerBase, IPlotController
     {
         /// <summary>
+        /// Creates a new instance of the <see cref="DynamicPlotController"/>.
+        /// </summary>
+        public DynamicPlotController()
+        {
+            ResetDefaultInteraction();
+            TogglePanning();
+        }
+
+        /// <summary>
         /// Gets a value indicating whether or not panning is enabled for the <see cref="DynamicPlotController"/>.
         /// </summary>
         public bool IsPanningEnabled { get; private set; }
@@ -37,15 +46,6 @@ namespace Core.Components.OxyPlot
         /// Gets a value indicating whether or not zooming by rectangle is enabled for the <see cref="DynamicPlotController"/>.
         /// </summary>
         public bool IsRectangleZoomingEnabled { get; private set; }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="DynamicPlotController"/>.
-        /// </summary>
-        public DynamicPlotController()
-        {
-            EnableScrollWheelZooming();
-            TogglePanning();
-        }
 
         /// <summary>
         /// Toggles panning by click and holding the left mouse button while moving.
@@ -80,11 +80,20 @@ namespace Core.Components.OxyPlot
             IsPanningEnabled = false;
             IsRectangleZoomingEnabled = false;
 
+            EnableMiddleMouseButtonPanning();
             EnableScrollWheelZooming();
         }
 
         /// <summary>
-        /// Enables zooming in and out by using the scroll wheel of the <see cref="DynamicPlotController"/>.
+        /// Enables panning using the middle mouse button.
+        /// </summary>
+        private void EnableMiddleMouseButtonPanning()
+        {
+            this.BindMouseDown(OxyMouseButton.Middle, PlotCommands.PanAt);
+        }
+
+        /// <summary>
+        /// Enables zooming in and out by using the scroll wheel.
         /// </summary>
         private void EnableScrollWheelZooming()
         {
