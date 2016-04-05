@@ -57,6 +57,7 @@
     <Compile Include="Dialogs\DialogBaseTest.cs" />
     <Compile Include="Dialogs\ExceptionDialogTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextEditor\RichTextBoxControlTest.cs" />
     <Compile Include="Views\HtmlPageViewTest.cs" />
   </ItemGroup>
   <ItemGroup>

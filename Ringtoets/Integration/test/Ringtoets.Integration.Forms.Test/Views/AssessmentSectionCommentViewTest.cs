@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Controls.TextEditor;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -41,8 +42,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsInstanceOf<IView>(view);
             Assert.IsInstanceOf<UserControl>(view);
             Assert.IsNull(view.Data);
+            Assert.AreEqual(1, view.Controls.Count);
+            var control = view.Controls[0];
+            Assert.IsInstanceOf<RichTextBoxControl>(control);
         }
-
 
         [Test]
         public void Data_AssessmentSection_DataSet()
@@ -50,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var view = new AssessmentSectionCommentView();
-            var data = mocks.StrictMock<IAssessmentSection>();
+            var data = mocks.Stub<IAssessmentSection>();
 
             mocks.ReplayAll();
 
@@ -73,6 +76,25 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.IsNull(view.Data);
+        }
+
+        [Test]
+        public void Data_AssessmentSectionContainsComment_CommentSetOnRichTextEditor()
+        {
+            // Setup
+            var expectedText = "<Some text>";
+            var mocks = new MockRepository();
+            var view = new AssessmentSectionCommentView();
+            var data = mocks.StrictMock<IAssessmentSection>();
+            data.Expect(d => d.Comments).Return(expectedText);
+
+            mocks.ReplayAll();
+
+            // Call
+            view.Data = data;
+
+            // Assert
+            Assert.AreEqual(expectedText, view.Controls[0].Text);
         }
     }
 }

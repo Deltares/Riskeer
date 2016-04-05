@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
+using Core.Common.Controls.TextEditor;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data;
 
@@ -30,7 +32,8 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class AssessmentSectionCommentView : UserControl, IView
     {
-        private object data;
+        private IAssessmentSection data;
+        private RichTextBoxControl richTextEditor;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionCommentView"/>.
@@ -38,6 +41,8 @@ namespace Ringtoets.Integration.Forms.Views
         public AssessmentSectionCommentView()
         {
             InitializeComponent();
+
+            InitializeRichTextEditor();
         }
 
         public object Data
@@ -49,7 +54,28 @@ namespace Ringtoets.Integration.Forms.Views
             set
             {
                 data = value as IAssessmentSection;
+
+                if (data != null)
+                {
+                    richTextEditor.Text = data.Comments;
+                }
             }
+        }
+
+        private void InitializeRichTextEditor()
+        {
+            richTextEditor = new RichTextBoxControl
+            {
+                Dock = DockStyle.Fill
+            };
+            Controls.Add(richTextEditor);
+
+            richTextEditor.TextBoxValueChanged += RichTextEditorOnTextChanged;
+        }
+
+        private void RichTextEditorOnTextChanged(object sender, EventArgs eventArgs)
+        {
+            data.Comments = richTextEditor.Text;
         }
     }
 }
