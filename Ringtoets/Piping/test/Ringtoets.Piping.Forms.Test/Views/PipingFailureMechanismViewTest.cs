@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -22,6 +23,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
     [TestFixture]
     public class PipingFailureMechanismViewTest
     {
+
+        private const int referenceLineLayerIndex = 0;
+        private const int surfaceLinesLayerIndex = 1;
+        private const int sectionsLayerIndex = 2;
+        private const int sectionStartsLayerIndex = 3;
+        private const int sectionEndsLayerIndex = 4;
+        private const int hydraulicLocationsLayerIndex = 5;
+
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
@@ -73,12 +82,36 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mapData = map.Data;
 
             Assert.AreEqual(6, mapData.List.Count);
-            AssertSurfacelinesMapData(pipingFailureMechanism.SurfaceLines, mapData.List[0]);
-            AssertFailureMechanismSectionsMapData(pipingFailureMechanism.Sections, mapData.List[1]);
-            AssertFailureMechanismSectionsStartPointMapData(pipingFailureMechanism.Sections, mapData.List[2]);
-            AssertFailureMechanismSectionsEndPointMapData(pipingFailureMechanism.Sections, mapData.List[3]);
-            AssertHydraulicBoundaryLocationsMapData(assessmentSectionMock.HydraulicBoundaryDatabase, mapData.List[4]);
-            AssertReferenceMapData(assessmentSectionMock.ReferenceLine, mapData.List[5]);
+
+            var referenceLineData = mapData.List[referenceLineLayerIndex] as FeatureBasedMapData;
+            Assert.NotNull(referenceLineData);
+            Assert.IsEmpty(referenceLineData.Features);
+            Assert.AreEqual("Referentielijn", referenceLineData.Name);
+
+            var surfaceLineData = mapData.List[surfaceLinesLayerIndex] as FeatureBasedMapData;
+            Assert.NotNull(surfaceLineData);
+            Assert.IsEmpty(surfaceLineData.Features);
+            Assert.AreEqual("Profielschematisaties", surfaceLineData.Name);
+
+            var sectionsData = mapData.List[sectionsLayerIndex] as FeatureBasedMapData;
+            Assert.NotNull(sectionsData);
+            Assert.IsEmpty(sectionsData.Features);
+            Assert.AreEqual("Vakindeling", sectionsData.Name);
+
+            var sectionStartsData = mapData.List[sectionStartsLayerIndex] as FeatureBasedMapData;
+            Assert.NotNull(sectionStartsData);
+            Assert.IsEmpty(sectionStartsData.Features);
+            Assert.AreEqual("Vakindeling (startpunten)", sectionStartsData.Name);
+
+            var sectionEndsData = mapData.List[sectionEndsLayerIndex] as FeatureBasedMapData;
+            Assert.NotNull(sectionEndsData);
+            Assert.IsEmpty(sectionEndsData.Features);
+            Assert.AreEqual("Vakindeling (eindpunten)", sectionEndsData.Name);
+
+            var hydraulicLocationsData = mapData.List[hydraulicLocationsLayerIndex] as FeatureBasedMapData;
+            Assert.NotNull(hydraulicLocationsData);
+            Assert.IsEmpty(hydraulicLocationsData.Features);
+            Assert.AreEqual("Hydraulische randvoorwaarden", hydraulicLocationsData.Name);
 
             mocks.VerifyAll();
         }
@@ -132,18 +165,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsNotNull(mapData);
 
             Assert.AreEqual(6, mapData.List.Count);
-            AssertSurfacelinesMapData(pipingFailureMechanism.SurfaceLines, mapData.List[0]);
-            AssertFailureMechanismSectionsMapData(pipingFailureMechanism.Sections, mapData.List[1]);
-            AssertFailureMechanismSectionsStartPointMapData(pipingFailureMechanism.Sections, mapData.List[2]);
-            AssertFailureMechanismSectionsEndPointMapData(pipingFailureMechanism.Sections, mapData.List[3]);
-            AssertHydraulicBoundaryLocationsMapData(assessmentSectionMock.HydraulicBoundaryDatabase, mapData.List[4]);
-            AssertReferenceMapData(assessmentSectionMock.ReferenceLine, mapData.List[5]);
+            AssertReferenceMapData(assessmentSectionMock.ReferenceLine, mapData.List[referenceLineLayerIndex]);
+            AssertSurfacelinesMapData(pipingFailureMechanism.SurfaceLines, mapData.List[surfaceLinesLayerIndex]);
+            AssertFailureMechanismSectionsMapData(pipingFailureMechanism.Sections, mapData.List[sectionsLayerIndex]);
+            AssertFailureMechanismSectionsStartPointMapData(pipingFailureMechanism.Sections, mapData.List[sectionStartsLayerIndex]);
+            AssertFailureMechanismSectionsEndPointMapData(pipingFailureMechanism.Sections, mapData.List[sectionEndsLayerIndex]);
+            AssertHydraulicBoundaryLocationsMapData(assessmentSectionMock.HydraulicBoundaryDatabase, mapData.List[hydraulicLocationsLayerIndex]);
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_SetNewMapDataData()
+        public void UpdateObserver_HydraulicBoundaryDatabaseUpdated_SetNewMapData()
         {
             // Setup
             var view = new PipingFailureMechanismView();
@@ -163,7 +196,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             view.Data = pipingContext;
             var mapData = map.Data;
 
-            var mapDataElementBeforeUpdate = mapData.List.ElementAt(4) as MapPointData;
+            var mapDataElementBeforeUpdate = mapData.List.ElementAt(hydraulicLocationsLayerIndex) as MapPointData;
             var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().Points.First();
 
             // Precondition
@@ -182,14 +215,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(mapData, map.Data);
             CollectionAssert.AreEquivalent(mapData.List, map.Data.List);
 
-            var mapDataElementAfterUpdate = map.Data.List.ElementAt(4) as MapPointData;
+            var mapDataElementAfterUpdate = map.Data.List.ElementAt(hydraulicLocationsLayerIndex) as MapPointData;
             var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().Points.First();
 
             Assert.AreEqual(geometryAfterUpdate, new Point2D(2.0, 3.0));
         }
 
         [Test]
-        public void UpdateObserver_ReferenceLineUpdated_SetNewMapDataData()
+        public void UpdateObserver_ReferenceLineUpdated_SetNewMapData()
         {
             // Setup
             var view = new PipingFailureMechanismView();
@@ -219,7 +252,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             view.Data = pipingContext;
             var mapData = map.Data;
 
-            var mapDataElementBeforeUpdate = mapData.List.ElementAt(5) as MapLineData;
+            var mapDataElementBeforeUpdate = mapData.List.ElementAt(referenceLineLayerIndex) as MapLineData;
             var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().Points;
 
             // Precondition
@@ -235,14 +268,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(mapData, map.Data);
             CollectionAssert.AreEquivalent(mapData.List, map.Data.List);
 
-            var mapDataElementAfterUpdate = map.Data.List.ElementAt(5) as MapLineData;
+            var mapDataElementAfterUpdate = map.Data.List.ElementAt(referenceLineLayerIndex) as MapLineData;
             var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().Points;
 
             CollectionAssert.AreEquivalent(geometryAfterUpdate, pointsUpdate);
         }
 
         [Test]
-        public void UpdateObserver_SurfaceLinesUpdated_SetNewMapDataData()
+        public void UpdateObserver_SurfaceLinesUpdated_SetNewMapData()
         {
             // Setup
             var view = new PipingFailureMechanismView();
@@ -257,7 +290,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
 
             view.Data = pipingContext;
-            var mapData = map.Data;
+            var oldSurfaceLineData = (FeatureBasedMapData)map.Data.List.ElementAt(surfaceLinesLayerIndex);
 
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new Collection<Point3D>
@@ -268,10 +301,53 @@ namespace Ringtoets.Piping.Forms.Test.Views
             pipingFailureMechanism.SurfaceLines.Add(surfaceLine);
 
             // Call
-            ((IObservable)pipingFailureMechanism.SurfaceLines).NotifyObservers();
+            pipingFailureMechanism.NotifyObservers();
 
             // Assert
-            Assert.AreEqual(mapData, map.Data);
+            var surfaceLineData = (FeatureBasedMapData) map.Data.List.ElementAt(surfaceLinesLayerIndex);
+            Assert.AreNotEqual(oldSurfaceLineData, surfaceLineData);
+            Assert.IsInstanceOf<MapDataCollection>(map.Data);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateObserver_FailureMechanismSectionsUpdated_SetNewMapData()
+        {
+            // Setup
+            var view = new PipingFailureMechanismView();
+            var map = (MapControl)view.Controls[0];
+
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+
+            var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
+
+            view.Data = pipingContext;
+            var oldSectionsData = (FeatureBasedMapData)map.Data.List.ElementAt(sectionsLayerIndex);
+            var oldSectionStartsData = (FeatureBasedMapData)map.Data.List.ElementAt(sectionStartsLayerIndex);
+            var oldSectionEndsData = (FeatureBasedMapData)map.Data.List.ElementAt(sectionEndsLayerIndex);
+
+            var section = new FailureMechanismSection(string.Empty, new []
+            {
+                new Point2D(1,2),
+                new Point2D(1,2)
+            });
+            pipingFailureMechanism.AddSection(section);
+
+            // Call
+            pipingFailureMechanism.NotifyObservers();
+
+            // Assert
+            var sectionsData = (FeatureBasedMapData) map.Data.List.ElementAt(sectionsLayerIndex);
+            var sectionStartsData = (FeatureBasedMapData) map.Data.List.ElementAt(sectionStartsLayerIndex);
+            var sectionEndsData = (FeatureBasedMapData)map.Data.List.ElementAt(sectionEndsLayerIndex);
+            Assert.AreNotEqual(oldSectionsData, sectionsData);
+            Assert.AreNotEqual(oldSectionStartsData, sectionStartsData);
+            Assert.AreNotEqual(oldSectionEndsData, sectionEndsData);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
 
             mocks.VerifyAll();

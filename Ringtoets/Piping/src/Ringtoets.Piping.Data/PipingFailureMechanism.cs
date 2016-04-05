@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Data
         {
             SemiProbabilisticInput = new SemiProbabilisticPipingInput();
             GeneralInput = new GeneralPipingInput();
-            SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
+            SurfaceLines = new List<RingtoetsPipingSurfaceLine>();
             StochasticSoilModels = new ObservableList<StochasticSoilModel>();
             CalculationsGroup = new PipingCalculationGroup(PipingDataResources.PipingFailureMechanism_Calculations_DisplayName, false);
         }

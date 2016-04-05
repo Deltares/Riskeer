@@ -15,7 +15,6 @@ using DotSpatial.Controls;
 using DotSpatial.Symbology;
 using DotSpatial.Topology;
 using NUnit.Framework;
-using LineStyle = Core.Components.Gis.Style.LineStyle;
 
 namespace Core.Components.DotSpatial.Test.Converter
 {
@@ -235,7 +234,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             var layer = (MapPointLayer)layers.First();
-            AssertAreEqual(new PointSymbolizer(expectedColor, PointShape.Undefined, 3), layer.Symbolizer);
+            AssertAreEqual(new PointSymbolizer(expectedColor, PointShape.Ellipse, 3), layer.Symbolizer);
         }
 
         [Test]
@@ -257,7 +256,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             var layer = (MapPointLayer)layers.First();
-            AssertAreEqual(new PointSymbolizer(Color.AliceBlue, PointShape.Undefined, width), layer.Symbolizer);
+            AssertAreEqual(new PointSymbolizer(Color.AliceBlue, PointShape.Ellipse, width), layer.Symbolizer);
         }
 
         [Test]
@@ -279,7 +278,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             var layer = (MapPointLayer)layers.First();
-            PointShape expectedPointShape = pointStyle == PointSymbol.Circle ? PointShape.Undefined : pointStyle == PointSymbol.Square ? PointShape.Rectangle : PointShape.Triangle;
+            PointShape expectedPointShape = pointStyle == PointSymbol.Circle ? PointShape.Ellipse : pointStyle == PointSymbol.Square ? PointShape.Rectangle : PointShape.Triangle;
             AssertAreEqual(new PointSymbolizer(Color.AliceBlue, expectedPointShape, 3), layer.Symbolizer);
         }
 

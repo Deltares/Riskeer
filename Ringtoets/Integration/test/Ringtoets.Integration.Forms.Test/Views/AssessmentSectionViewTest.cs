@@ -85,12 +85,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(2, mapData.List.Count);
 
             var hrLocationsMapData = (MapPointData) mapData.List[0];
-            CollectionAssert.IsEmpty(hrLocationsMapData.Features.First().MapGeometries.First().Points);
+            CollectionAssert.IsEmpty(hrLocationsMapData.Features);
             Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
             Assert.IsTrue(hrLocationsMapData.IsVisible);
 
             var referenceLineMapData = (MapLineData) mapData.List[1];
-            CollectionAssert.IsEmpty(referenceLineMapData.Features.First().MapGeometries.First().Points);
+            CollectionAssert.IsEmpty(referenceLineMapData.Features);
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             Assert.IsTrue(referenceLineMapData.IsVisible);
         }

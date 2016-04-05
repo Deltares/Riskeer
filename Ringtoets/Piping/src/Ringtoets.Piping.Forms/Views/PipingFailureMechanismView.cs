@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -30,11 +32,12 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.Style;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
-
+using Ringtoets.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
@@ -101,11 +104,7 @@ namespace Ringtoets.Piping.Forms.Views
             if (data != null)
             {
                 data.Parent.Attach(this);
-                var surfaceLines = data.WrappedData.SurfaceLines as IObservable;
-                if (surfaceLines != null)
-                {
-                    surfaceLines.Attach(this);
-                }
+                data.WrappedData.Attach(this);
             }
         }
 
@@ -114,11 +113,7 @@ namespace Ringtoets.Piping.Forms.Views
             if (data != null)
             {
                 data.Parent.Detach(this);
-                var surfaceLines = data.WrappedData.SurfaceLines as IObservable;
-                if (surfaceLines != null)
-                {
-                    surfaceLines.Detach(this);
-                }
+                data.WrappedData.Detach(this);
             }
         }
 
@@ -129,29 +124,27 @@ namespace Ringtoets.Piping.Forms.Views
             if (data != null)
             {
                 // Bottom most layer
-                surfaceLinesMapData = AddOrUpdateMapData(surfaceLinesMapData, GetSurfaceLinesMapData);
-                sectionsMapData = AddOrUpdateMapData(sectionsMapData, GetSectionsMapData);
-                sectionsStartPointsMapData = AddOrUpdateMapData(sectionsStartPointsMapData, GetSectionsStartPointsMapData);
-                sectionsEndPointMapData = AddOrUpdateMapData(sectionsEndPointMapData, GetSectionsEndPointsMapData);
-                hydraulicBoundaryDatabaseLocations = AddOrUpdateMapData(hydraulicBoundaryDatabaseLocations, GetHydraulicBoundaryLocationsMapData);
-                referenceLineData = AddOrUpdateMapData(referenceLineData, GetReferenceLineMapData);
+                referenceLineData = AddOrUpdateMapData(referenceLineData, GetReferenceLineMapData());
+                surfaceLinesMapData = AddOrUpdateMapData(surfaceLinesMapData, GetSurfaceLinesMapData());
+                sectionsMapData = AddOrUpdateMapData(sectionsMapData, GetSectionsMapData());
+                sectionsStartPointsMapData = AddOrUpdateMapData(sectionsStartPointsMapData, GetSectionsStartPointsMapData());
+                sectionsEndPointMapData = AddOrUpdateMapData(sectionsEndPointMapData, GetSectionsEndPointsMapData());
+                hydraulicBoundaryDatabaseLocations = AddOrUpdateMapData(hydraulicBoundaryDatabaseLocations, GetHydraulicBoundaryLocationsMapData());
                 // Topmost layer
             }
 
             mapControl.Data.NotifyObservers();
         }
 
-        private MapData AddOrUpdateMapData(MapData oldMapData, Func<MapData> creationMethod)
+        private MapData AddOrUpdateMapData(MapData oldMapData, MapData newMapData)
         {
-            MapData newMapData = creationMethod();
-
-            if (oldMapData == null)
+            if (oldMapData != null)
+            {
+                mapControl.Data.Remove(oldMapData);
+            }
+            if (newMapData != null)
             {
                 mapControl.Data.Add(newMapData);
-            }
-            else
-            {
-                mapControl.Data.Replace(oldMapData, newMapData);
             }
 
             return newMapData;
@@ -159,62 +152,145 @@ namespace Ringtoets.Piping.Forms.Views
 
         private MapData GetReferenceLineMapData()
         {
-            ReferenceLine referenceLine = data.Parent.ReferenceLine;
-            IEnumerable<Point2D> referenceLinePoints = referenceLine == null ?
-                                                           Enumerable.Empty<Point2D>() :
-                                                           referenceLine.Points;
-            return new MapLineData(GetMapFeature(referenceLinePoints), RingtoetsCommonDataResources.ReferenceLine_DisplayName);
+            if (data == null || data.Parent == null || data.Parent.ReferenceLine == null)
+            {
+                return PipingMapDataFactory.CreateEmptyLineData(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
+            }
+            return PipingMapDataFactory.Create(data.Parent.ReferenceLine);
         }
 
         private MapData GetHydraulicBoundaryLocationsMapData()
         {
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.Parent.HydraulicBoundaryDatabase;
-
-            IEnumerable<Point2D> hrLocations = hydraulicBoundaryDatabase == null ?
-                                                   Enumerable.Empty<Point2D>() :
-                                                   hydraulicBoundaryDatabase.Locations.Select(h => h.Location);
-            return new MapPointData(GetMapFeature(hrLocations), RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
+            if (data == null || data.Parent == null || data.Parent.HydraulicBoundaryDatabase == null)
+            {
+                return PipingMapDataFactory.CreateEmptyPointData(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
+            }
+            return PipingMapDataFactory.Create(data.Parent.HydraulicBoundaryDatabase);
         }
 
         private MapData GetSurfaceLinesMapData()
         {
-            var mapFeatures = new List<MapFeature>
+            if (data == null || data.WrappedData == null || data.WrappedData.SurfaceLines == null || !data.WrappedData.SurfaceLines.Any())
             {
-                new MapFeature(data.WrappedData.SurfaceLines.Select(surfaceLine => new MapGeometry(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)))))
-            };
-
-            return new MapLineData(mapFeatures, PipingFormsResources.PipingSurfaceLinesCollection_DisplayName);
+                return PipingMapDataFactory.CreateEmptyLineData(PipingFormsResources.PipingSurfaceLinesCollection_DisplayName);
+            }
+            return PipingMapDataFactory.Create(data.WrappedData.SurfaceLines);
         }
 
         private MapData GetSectionsMapData()
         {
-            var mapFeatures = new List<MapFeature>
+            if (data == null || data.WrappedData == null || data.WrappedData.Sections == null || !data.WrappedData.Sections.Any())
             {
-                new MapFeature(data.WrappedData.Sections.Select(section => new MapGeometry(section.Points.Select(p => new Point2D(p.X, p.Y)))))
-            };
-
-            return new MapLineData(mapFeatures, Resources.FailureMechanism_Sections_DisplayName);
+                return PipingMapDataFactory.CreateEmptyLineData(Resources.FailureMechanism_Sections_DisplayName);
+            }
+            return PipingMapDataFactory.Create(data.WrappedData.Sections);
         }
 
         private MapData GetSectionsStartPointsMapData()
         {
-            IEnumerable<Point2D> startPoints = data.WrappedData.Sections.Select(sl => sl.GetStart());
-            string mapDataName = string.Format("{0} ({1})",
-                                               Resources.FailureMechanism_Sections_DisplayName,
-                                               Resources.FailureMechanismSections_StartPoints_DisplayName);
-            return new MapPointData(GetMapFeature(startPoints), mapDataName);
+            if (data == null || data.WrappedData == null || data.WrappedData.Sections == null || !data.WrappedData.Sections.Any())
+            {
+                string mapDataName = string.Format("{0} ({1})",
+                                                   Resources.FailureMechanism_Sections_DisplayName,
+                                                   Resources.FailureMechanismSections_StartPoints_DisplayName);
+                return PipingMapDataFactory.CreateEmptyPointData(mapDataName);
+            }
+            return PipingMapDataFactory.CreateStartPoints(data.WrappedData.Sections);
         }
 
         private MapData GetSectionsEndPointsMapData()
         {
-            IEnumerable<Point2D> startPoints = data.WrappedData.Sections.Select(sl => sl.GetLast());
+            if (data == null || data.WrappedData == null || data.WrappedData.Sections == null || !data.WrappedData.Sections.Any())
+            {
+                string mapDataName = string.Format("{0} ({1})",
+                                                   Resources.FailureMechanism_Sections_DisplayName,
+                                                   Resources.FailureMechanismSections_EndPoints_DisplayName);
+                return PipingMapDataFactory.CreateEmptyPointData(mapDataName);
+            }
+            return PipingMapDataFactory.CreateEndPoints(data.WrappedData.Sections);
+        }
+    }
+
+    public static class PipingMapDataFactory
+    {
+        public static MapData Create(ICollection<RingtoetsPipingSurfaceLine> surfaceLines)
+        {
+            var mapFeatures = new List<MapFeature>
+            {
+                new MapFeature(surfaceLines.Select(surfaceLine => new MapGeometry(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)))))
+            };
+
+            return new MapLineData(mapFeatures, PipingFormsResources.PipingSurfaceLinesCollection_DisplayName)
+            {
+                Style = new LineStyle(Color.DarkSeaGreen, 2, DashStyle.Solid)
+            };
+        }
+
+        public static MapData Create(IEnumerable<FailureMechanismSection> sections)
+        {
+            var mapFeatures = new List<MapFeature>
+            {
+                new MapFeature(sections.Select(section => new MapGeometry(section.Points.Select(p => new Point2D(p.X, p.Y)))))
+            };
+
+            return new MapLineData(mapFeatures, Resources.FailureMechanism_Sections_DisplayName)
+            {
+                Style = new LineStyle(Color.Khaki, 3, DashStyle.Dot)
+            };
+        }
+
+        public static MapData CreateStartPoints(IEnumerable<FailureMechanismSection> sections)
+        {
+
+            IEnumerable<Point2D> startPoints = sections.Select(sl => sl.GetStart());
+            string mapDataName = string.Format("{0} ({1})",
+                                               Resources.FailureMechanism_Sections_DisplayName,
+                                               Resources.FailureMechanismSections_StartPoints_DisplayName);
+            return new MapPointData(GetMapFeature(startPoints), mapDataName)
+            {
+                Style = new PointStyle(Color.DarkKhaki, 15, PointSymbol.Triangle)
+            };
+        }
+
+        public static MapData CreateEndPoints(IEnumerable<FailureMechanismSection> sections)
+        {
+            IEnumerable<Point2D> startPoints = sections.Select(sl => sl.GetLast());
             string mapDataName = string.Format("{0} ({1})",
                                                Resources.FailureMechanism_Sections_DisplayName,
                                                Resources.FailureMechanismSections_EndPoints_DisplayName);
-            return new MapPointData(GetMapFeature(startPoints), mapDataName);
+            return new MapPointData(GetMapFeature(startPoints), mapDataName)
+            {
+                Style = new PointStyle(Color.DarkKhaki, 15, PointSymbol.Triangle)
+            };
         }
 
-        private IEnumerable<MapFeature> GetMapFeature(IEnumerable<Point2D> points)
+        public static MapData Create(ReferenceLine referenceLine)
+        {
+            if (referenceLine == null)
+            {
+                throw new ArgumentNullException();
+            }
+            var features = GetMapFeature(referenceLine.Points);
+
+            return new MapLineData(features, RingtoetsCommonDataResources.ReferenceLine_DisplayName)
+            {
+                Style = new LineStyle(Color.Red, 3, DashStyle.Solid)
+            };
+        }
+
+        public static MapData Create(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            IEnumerable<Point2D> locations = hydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
+
+            var features = GetMapFeature(locations);
+
+            return new MapPointData(features, RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName)
+            {
+                Style = new PointStyle(Color.DarkBlue, 6, PointSymbol.Circle)
+            };
+        }
+
+        private static IEnumerable<MapFeature> GetMapFeature(IEnumerable<Point2D> points)
         {
             var features = new List<MapFeature>
             {
@@ -224,6 +300,16 @@ namespace Ringtoets.Piping.Forms.Views
                 })
             };
             return features;
+        }
+
+        public static MapData CreateEmptyLineData(string name)
+        {
+            return new MapLineData(Enumerable.Empty<MapFeature>(), name);
+        }
+
+        public static MapData CreateEmptyPointData(string name)
+        {
+            return new MapPointData(Enumerable.Empty<MapFeature>(), name);
         }
     }
 }

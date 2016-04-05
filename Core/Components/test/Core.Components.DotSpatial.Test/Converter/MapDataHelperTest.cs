@@ -15,7 +15,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var symbol = MapDataHelper.Convert(PointSymbol.Circle);
 
             // Assert
-            Assert.AreEqual(PointShape.Undefined, symbol);
+            Assert.AreEqual(PointShape.Ellipse, symbol);
         } 
 
         [Test]

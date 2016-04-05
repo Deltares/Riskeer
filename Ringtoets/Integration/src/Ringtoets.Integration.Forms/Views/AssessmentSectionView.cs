@@ -19,19 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
-using Core.Components.Gis.Geometries;
 using Ringtoets.Common.Data;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -45,7 +39,7 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly MapControl mapControl;
         private IAssessmentSection data;
 
-        private MapData hydraulicBoundaryDatabaseLocations;
+        private MapData hydraulicBoundaryDatabaseLocationsData;
         private MapData referenceLineData;
 
         /// <summary>
@@ -102,8 +96,8 @@ namespace Ringtoets.Integration.Forms.Views
             if (data != null)
             {
                 // Bottommost layer
-                hydraulicBoundaryDatabaseLocations = AddOrUpdateMapData(hydraulicBoundaryDatabaseLocations, GetHydraulicBoundaryLocations);
-                referenceLineData = AddOrUpdateMapData(referenceLineData, GetReferenceLineData);
+                hydraulicBoundaryDatabaseLocationsData = AddOrUpdateMapData(hydraulicBoundaryDatabaseLocationsData, GetHydraulicBoundaryLocations());
+                referenceLineData = AddOrUpdateMapData(referenceLineData, GetReferenceLineData());
                 // Topmost layer
             }
 
@@ -111,17 +105,15 @@ namespace Ringtoets.Integration.Forms.Views
 
         }
 
-        private MapData AddOrUpdateMapData(MapData oldMapData, Func<MapData> creationMethod)
+        private MapData AddOrUpdateMapData(MapData oldMapData, MapData newMapData)
         {
-            MapData newMapData = creationMethod();
-
-            if (oldMapData == null)
+            if (oldMapData != null)
+            {
+                mapControl.Data.Remove(oldMapData);
+            }
+            if (newMapData != null)
             {
                 mapControl.Data.Add(newMapData);
-            }
-            else
-            {
-                mapControl.Data.Replace(oldMapData, newMapData);
             }
 
             return newMapData;
@@ -129,32 +121,20 @@ namespace Ringtoets.Integration.Forms.Views
 
         private MapData GetReferenceLineData()
         {
-            ReferenceLine referenceLine = data.ReferenceLine;
-            IEnumerable<Point2D> referenceLinePoints = referenceLine == null ?
-                                                           Enumerable.Empty<Point2D>() :
-                                                           referenceLine.Points;
-            return new MapLineData(GetMapFeature(referenceLinePoints), RingtoetsCommonDataResources.ReferenceLine_DisplayName);
+            if (data == null || data.ReferenceLine == null)
+            {
+                return MapDataFactory.CreateEmptyLineData(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
+            }
+            return MapDataFactory.Create(data.ReferenceLine);
         }
 
         private MapData GetHydraulicBoundaryLocations()
         {
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = data.HydraulicBoundaryDatabase;
-            IEnumerable<Point2D> hrLocations = hydraulicBoundaryDatabase == null ?
-                                                   Enumerable.Empty<Point2D>() :
-                                                   hydraulicBoundaryDatabase.Locations.Select(h => h.Location).ToArray();
-            return new MapPointData(GetMapFeature(hrLocations), RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
-        }
-
-        private IEnumerable<MapFeature> GetMapFeature(IEnumerable<Point2D> points)
-        {
-            var features = new List<MapFeature>
+            if (data == null || data.HydraulicBoundaryDatabase == null)
             {
-                new MapFeature(new List<MapGeometry>
-                {
-                    new MapGeometry(points)
-                })
-            };
-            return features;
+                return MapDataFactory.CreateEmptyPointData(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName);
+            }
+            return MapDataFactory.Create(data.HydraulicBoundaryDatabase);
         }
     }
 }

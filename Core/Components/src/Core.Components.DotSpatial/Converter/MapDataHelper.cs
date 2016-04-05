@@ -12,7 +12,7 @@ namespace Core.Components.DotSpatial.Converter
             switch (symbol)
             {
                 case PointSymbol.Circle:
-                    shape = PointShape.Undefined;
+                    shape = PointShape.Ellipse;
                     break;
                 case PointSymbol.Square:
                     shape = PointShape.Rectangle;

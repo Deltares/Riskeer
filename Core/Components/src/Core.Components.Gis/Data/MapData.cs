@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base;
-using Core.Components.Gis.Style;
 
 namespace Core.Components.Gis.Data
 {
@@ -30,6 +29,8 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public abstract class MapData : Observable
     {
+        private string name;
+
         /// <summary>
         /// Creates a new instance of <see cref="MapData"/>.
         /// </summary>
@@ -37,17 +38,26 @@ namespace Core.Components.Gis.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
         protected MapData(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException("A name must be set to map data", "name");
-            }
-
             Name = name;
         }
 
         /// <summary>
         /// The name of the <see cref="MapData"/>.
         /// </summary>
-        public string Name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("A name must be set to map data");
+                }
+                name = value;
+            }
+        }
     }
 }
