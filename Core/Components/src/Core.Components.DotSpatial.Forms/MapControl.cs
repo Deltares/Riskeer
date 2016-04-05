@@ -31,7 +31,6 @@ using Core.Components.Gis.Forms;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Topology;
-using MapFunctionPan = Core.Components.DotSpatial.MapFunctions.MapFunctionPan;
 
 namespace Core.Components.DotSpatial.Forms
 {
@@ -40,12 +39,13 @@ namespace Core.Components.DotSpatial.Forms
     /// </summary>
     public sealed class MapControl : Control, IMapControl, IObserver
     {
+        private readonly Cursor defaultCursor = Cursors.Default;
         private readonly MapFeatureLayerFactory mapFeatureLayerFactory = new MapFeatureLayerFactory();
 
         private Map map;
-        private IMapFunction mapFunctionSelectionZoom;
+        private MapFunctionPan mapFunctionPan;
+        private MapFunctionSelectionZoom mapFunctionSelectionZoom;
         private MouseCoordinatesMapExtension mouseCoordinatesMapExtension;
-        private IMapFunction mapFunctionPanning;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
@@ -64,6 +64,7 @@ namespace Core.Components.DotSpatial.Forms
         public bool IsPanningEnabled { get; private set; }
 
         public bool IsRectangleZoomingEnabled { get; private set; }
+
         public bool IsMouseCoordinatesVisible { get; private set; }
 
         public MapDataCollection Data { get; private set; }
@@ -81,35 +82,20 @@ namespace Core.Components.DotSpatial.Forms
 
         public void TogglePanning()
         {
-            if (!IsPanningEnabled)
-            {
-                ResetDefaultInteraction();
-                map.FunctionMode = FunctionMode.Pan;
-                IsPanningEnabled = true;
-                map.Cursor = Cursors.Hand;
+            ResetDefaultInteraction();
 
-                if (mapFunctionPanning == null)
-                {
-                    mapFunctionPanning = new MapFunctionPan(map);
-                }
-                map.ActivateMapFunction(mapFunctionPanning);
-            }
+            IsPanningEnabled = true;
+
+            map.FunctionMode = FunctionMode.Pan;
         }
 
         public void ToggleRectangleZooming()
         {
-            if (!IsRectangleZoomingEnabled)
-            {
-                ResetDefaultInteraction();
-                map.FunctionMode = FunctionMode.Select;
-                IsRectangleZoomingEnabled = true;
+            ResetDefaultInteraction();
 
-                if (mapFunctionSelectionZoom == null)
-                {
-                    mapFunctionSelectionZoom = new MapFunctionSelectionZoom(map);
-                }
-                map.ActivateMapFunction(mapFunctionSelectionZoom);
-            }
+            IsRectangleZoomingEnabled = true;
+
+            map.ActivateMapFunction(mapFunctionSelectionZoom);
         }
 
         public void ToggleMouseCoordinatesVisibility()
@@ -185,10 +171,57 @@ namespace Core.Components.DotSpatial.Forms
                 ZoomOutFartherThanMaxExtent = true
             };
 
+            // Configure the map pan function
+            mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+            mapFunctionPan.FunctionActivated += MapFunctionActivateFunction;
+            mapFunctionPan.MouseDown += MapFunctionPanOnMouseDown;
+            mapFunctionPan.MouseUp += MapFunctionOnMouseUp;
+
+            // Add and configure the map selection zoom function
+            mapFunctionSelectionZoom = new MapFunctionSelectionZoom(map);
+            map.MapFunctions.Add(mapFunctionSelectionZoom);
+            mapFunctionSelectionZoom.FunctionActivated += MapFunctionActivateFunction;
+            mapFunctionSelectionZoom.MouseDown += MapFunctionSelectionZoomOnMouseDown;
+            mapFunctionSelectionZoom.MouseUp += MapFunctionOnMouseUp;
+
             mouseCoordinatesMapExtension = new MouseCoordinatesMapExtension(map);
             ToggleMouseCoordinatesVisibility();
 
             Controls.Add(map);
+        }
+
+        private void MapFunctionActivateFunction(object sender, EventArgs e)
+        {
+            map.Cursor = defaultCursor;
+        }
+
+        private void MapFunctionOnMouseUp(object sender, GeoMouseArgs e)
+        {
+            map.Cursor = defaultCursor;
+        }
+
+        private void MapFunctionPanOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
+        {
+            if (geoMouseArgs.Button != MouseButtons.Right)
+            {
+                map.Cursor = Cursors.Hand;
+            }
+        }
+
+        private void MapFunctionSelectionZoomOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
+        {
+            switch (geoMouseArgs.Button)
+            {
+                case MouseButtons.Left:
+                    map.Cursor = Cursors.SizeNWSE;
+                    break;
+                case MouseButtons.Middle:
+                    map.Cursor = Cursors.Hand;
+                    break;
+                default:
+                    map.Cursor = defaultCursor;
+                    break;
+            }
         }
     }
 }
