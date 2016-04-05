@@ -73,6 +73,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             Assert.IsNull(info.CanDrop);
             Assert.IsNull(info.CanInsert);
             Assert.IsNull(info.OnDrop);
+            Assert.IsNull(info.ForeColor);
         }
 
         [Test]
@@ -105,22 +106,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
-        }
-
-        [Test]
-        public void ForeColor_Always_GrayText()
-        {
-            // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var context = new AssessmentSectionCommentContext(assessmentSectionMock);
-            
-            mocks.ReplayAll();
-
-            // Call
-            var color = info.ForeColor(context);
-
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
         }
 
         [Test]

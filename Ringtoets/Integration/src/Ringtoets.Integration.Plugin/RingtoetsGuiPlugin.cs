@@ -234,7 +234,6 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = comment => RingtoetsCommonDataResources.AssessmentSectionComment_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = comment => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
