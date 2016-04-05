@@ -100,6 +100,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             Assert.AreEqual(expected.Length, actual.Length);
             for (int i = 0; i < expected.Length; i++)
             {
+                Assert.AreEqual(expected[i].Value, actual[i].Value);
                 Assert.AreEqual(expected[i].DeviationType, actual[i].DeviationType);
                 Assert.AreEqual(expected[i].DistributionType, actual[i].DistributionType);
                 Assert.AreEqual(expected[i].Mean, actual[i].Mean);

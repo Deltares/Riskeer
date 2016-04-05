@@ -46,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
         /// <summary>
         /// Gets the minimum value to use while iterating to a target probability.
         /// </summary>
-        /// <remarks>This property is only applicable in case of type 2 computations.</remarks>
+        /// <remarks>This property is only applicable in case of type II computations.</remarks>
         public double ValueMin
         {
             get
@@ -58,7 +58,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
         /// <summary>
         /// Gets the maximum value to use while iterating to a target probability.
         /// </summary>
-        /// <remarks>This property is only applicable in case of type 2 computations.</remarks>
+        /// <remarks>This property is only applicable in case of type II computations.</remarks>
         public double ValueMax
         {
             get

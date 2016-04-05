@@ -47,7 +47,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         /// <param name="hydraRingCriticalOvertoppingStandardDeviation">The standard deviation of the critical overtopping to use during the calculation.</param>
         /// <param name="hydraRingProfilePoints">The profile points to use during the calculation.</param>
         /// <param name="hydraRingForelandPoints">The foreland points to use during the calculation.</param>
-        /// <param name="hydraRingBreakWaters">The break water to use during the calculation.</param>
+        /// <param name="hydraRingBreakWaters">The break waters to use during the calculation.</param>
         public OvertoppingCalculationInput(int hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
                                            double hydraRingDikeHeight, double hydraRingCriticalOvertoppingMean,
                                            double hydraRingCriticalOvertoppingStandardDeviation,

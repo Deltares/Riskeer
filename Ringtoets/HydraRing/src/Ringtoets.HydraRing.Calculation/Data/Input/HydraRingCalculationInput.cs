@@ -117,7 +117,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         /// <summary>
         /// Gets the reliability index to use during the calculation.
         /// </summary>
-        /// <remarks>Only relevant for type 2 computations.</remarks>
+        /// <remarks>Only relevant for type II computations.</remarks>
         public virtual double Beta
         {
             get

@@ -29,8 +29,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         /// <summary>
         /// Creates a new instance of the <see cref="OvertoppingVariableCriticalOvertopping"/> class.
         /// </summary>
-        /// <param name="mean">The mean value in case the variable is random.</param>
-        /// <param name="variability">The variability in case the variable is random.</param>
+        /// <param name="mean">The mean value.</param>
+        /// <param name="variability">The variability.</param>
         public OvertoppingVariableCriticalOvertopping(double mean, double variability)
             : base(17, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Standard,
                    !double.IsNaN(mean) ? mean : 0.004,

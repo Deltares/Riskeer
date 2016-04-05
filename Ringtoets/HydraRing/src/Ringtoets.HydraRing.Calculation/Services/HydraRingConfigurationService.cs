@@ -269,13 +269,13 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "LoadVariableId", defaultHydraRingValue // Fixed: not relevant
                     },
                     {
-                        "TableMin", defaultHydraRingValue // Fixed: no support for type 3 computations (see "Method")
+                        "TableMin", defaultHydraRingValue // Fixed: no support for type III computations (see "Method")
                     },
                     {
-                        "TableMax", defaultHydraRingValue // Fixed: no support for type 3 computations (see "Method")
+                        "TableMax", defaultHydraRingValue // Fixed: no support for type III computations (see "Method")
                     },
                     {
-                        "TableStepSize", defaultHydraRingValue // Fixed: no support for type 3 computations (see "Method")
+                        "TableStepSize", defaultHydraRingValue // Fixed: no support for type III computations (see "Method")
                     },
                     {
                         "ValueMin", GetHydraRingValue(failureMechanismSettings.ValueMin)
@@ -524,7 +524,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                             "SectionId", hydraRingCalculationInput.Section.SectionId
                         },
                         {
-                            "Type", GetHydraRingValue(breakWater.Type)
+                            "Type", breakWater.Type
                         },
                         {
                             "Height", GetHydraRingValue(breakWater.Height)

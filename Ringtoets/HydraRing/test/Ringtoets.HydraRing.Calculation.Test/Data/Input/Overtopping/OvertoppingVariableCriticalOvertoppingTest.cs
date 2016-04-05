@@ -38,8 +38,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             OvertoppingVariableCriticalOvertopping criticalOvertopping = new OvertoppingVariableCriticalOvertopping(mean, standardDeviation);
 
             // Assert
-            Assert.AreEqual(criticalOvertopping.Mean, expectedMean);
-            Assert.AreEqual(criticalOvertopping.Variability, expectedStandardDeviation);
+            Assert.AreEqual(expectedMean, criticalOvertopping.Mean);
+            Assert.AreEqual(expectedStandardDeviation, criticalOvertopping.Variability);
         }
     }
 }
