@@ -104,7 +104,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             using (var fileDisposeHelper = new FileDisposeHelper(validPath))
             {
-                fileDisposeHelper.CreateFile();
+                fileDisposeHelper.Create();
 
                 // Call
                 TestDelegate test = () => SqLiteDatabaseHelper.CreateDatabaseFile(validPath, validScript);
@@ -154,6 +154,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
                 // Assert
                 Assert.DoesNotThrow(test);
                 Assert.IsTrue(File.Exists(validPath));
+                CallGarbageCollector();
             }
         }
 
@@ -171,6 +172,12 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsNotNullOrEmpty(query);
             Assert.IsTrue(query.Contains(expectedCreateVersionTable));
             Assert.IsFalse(query.Contains(notExpectedCreateProjectEntityTable));
+        }
+
+        private static void CallGarbageCollector()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
     }
 }

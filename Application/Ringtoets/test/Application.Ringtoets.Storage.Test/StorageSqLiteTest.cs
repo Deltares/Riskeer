@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Storage.Test
             var expectedInnerExceptionMessage = "An error occurred while executing the command definition. See the inner exception for details.";
             var expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database\r\nno such table: ProjectEntity";
 
-            using (new FileDisposeHelper(tempRingtoetsFile))
+            using (new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
                 TestDelegate precondition = () => SqLiteDatabaseHelper.CreateDatabaseFile(tempRingtoetsFile, SqLiteDatabaseHelper.GetCorruptSchema());
                 Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
@@ -125,7 +125,7 @@ namespace Application.Ringtoets.Storage.Test
             projectMock.Description = "<some description>";
             projectMock.StorageId = 1L;
 
-            using (new FileDisposeHelper(tempRingtoetsFile))
+            using (new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
                 // Precondition
                 SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, projectMock);
@@ -166,7 +166,7 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             var storage = new StorageSqLite();
 
-            using (new FileDisposeHelper(tempRingtoetsFile))
+            using (new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
                 // Call
                 TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile, null);
@@ -183,7 +183,7 @@ namespace Application.Ringtoets.Storage.Test
             var project = new Project();
             var storage = new StorageSqLite();
 
-            using (new FileDisposeHelper(tempRingtoetsFile))
+            using (new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
                 // Call
                 TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile, project);
@@ -200,9 +200,9 @@ namespace Application.Ringtoets.Storage.Test
             var project = new Project();
             var storage = new StorageSqLite();
 
-            using (var fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile))
+            using (var fileDisposeHelper = new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
-                fileDisposeHelper.CreateFile();
+                fileDisposeHelper.Create();
 
                 // Call
                 TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile, project);
@@ -220,7 +220,7 @@ namespace Application.Ringtoets.Storage.Test
             var project = new Project();
             var storage = new StorageSqLite();
 
-            using (new FileDisposeHelper(tempRingtoetsFile))
+            using (new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
                 // Call
                 TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile, project);
@@ -265,7 +265,7 @@ namespace Application.Ringtoets.Storage.Test
             var storage = new StorageSqLite();
             Project storedProject = new Project();
 
-            using (new FileDisposeHelper(tempRingtoetsFile))
+            using (new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
                 // Precondition
                 SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
@@ -322,7 +322,7 @@ namespace Application.Ringtoets.Storage.Test
             var expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}'{1}: {2}", tempRingtoetsFile, "",
                                                 String.Format("Het object '{0}' met id '{1}' is niet gevonden.", "project", projectWithIncorrectStorageId.StorageId));
 
-            using (new FileDisposeHelper(tempRingtoetsFile))
+            using (new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
                 // Precondition
                 SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, savedProject);
@@ -350,9 +350,9 @@ namespace Application.Ringtoets.Storage.Test
             var expectedInnerExceptionMessage = "An error occurred while executing the command definition. See the inner exception for details.";
             var expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database\r\nno such table: ProjectEntity";
 
-            using (var fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile))
+            using (var fileDisposeHelper = new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
-                fileDisposeHelper.CreateFile();
+                fileDisposeHelper.Create();
 
                 TestDelegate precondition = () => SqLiteDatabaseHelper.CreateDatabaseFile(tempRingtoetsFile, SqLiteDatabaseHelper.GetCorruptSchema());
                 Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
@@ -386,7 +386,7 @@ namespace Application.Ringtoets.Storage.Test
             };
             var storage = new StorageSqLite();
 
-            using (new FileDisposeHelper(tempRingtoetsFile))
+            using (new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
                 TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, project);
                 Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
@@ -424,7 +424,7 @@ namespace Application.Ringtoets.Storage.Test
             StorageSqLite storageSqLite = new StorageSqLite();
             Project storedProject = new Project();
 
-            using (new FileDisposeHelper(tempRingtoetsFile))
+            using (new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
                 SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
                 Project loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
@@ -445,7 +445,7 @@ namespace Application.Ringtoets.Storage.Test
             Project storedProject = new Project();
             var changedName = "some name";
 
-            using (new FileDisposeHelper(tempRingtoetsFile))
+            using (new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
                 SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
                 Project loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
@@ -467,7 +467,7 @@ namespace Application.Ringtoets.Storage.Test
             Project storedProject = new Project();
             var changedDescription = "some description";
 
-            using (new FileDisposeHelper(tempRingtoetsFile))
+            using (new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
                 SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(tempRingtoetsFile, storedProject);
                 Project loadedProject = storageSqLite.LoadProject(tempRingtoetsFile);
@@ -491,9 +491,9 @@ namespace Application.Ringtoets.Storage.Test
             mockRepository.ReplayAll();
             var storage = new StorageSqLite();
 
-            using (var fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile))
+            using (var fileDisposeHelper = new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {
-                fileDisposeHelper.CreateFile();
+                fileDisposeHelper.Create();
 
                 // Precondition, required to set the connection string
                 TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, projectMock);
@@ -506,6 +506,18 @@ namespace Application.Ringtoets.Storage.Test
                 Assert.IsFalse(hasChanges);
             }
             mockRepository.VerifyAll();
+        }
+    }
+
+    internal class FileDisposeHelperGarbageCollected : FileDisposeHelper, IDisposable
+    {
+        public FileDisposeHelperGarbageCollected(string filePath) : base(filePath) {}
+
+        void IDisposable.Dispose()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            base.Dispose();
         }
     }
 }

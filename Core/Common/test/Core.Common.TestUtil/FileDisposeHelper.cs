@@ -5,7 +5,7 @@ using System.IO;
 namespace Core.Common.TestUtil
 {
     /// <summary>
-    /// This class can be used to set a temporary files while testing. 
+    /// This class can be used to set temporary files while testing. 
     /// Disposing an instance of this class will delete the files.
     /// </summary>
     /// <example>
@@ -44,11 +44,11 @@ namespace Core.Common.TestUtil
         /// <summary>
         /// Creates the temporary files.
         /// </summary>
-        public void CreateFile()
+        public void Create()
         {
             foreach (var file in files)
             {
-                using (File.Create(file)) {}
+                CreateFile(file);
             }
         }
 
@@ -57,11 +57,17 @@ namespace Core.Common.TestUtil
         /// </summary>
         public void Dispose()
         {
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
             foreach (var file in files)
             {
                 Dispose(file);
+            }
+        }
+
+        private static void CreateFile(string filename)
+        {
+            if (!string.IsNullOrWhiteSpace(filename))
+            {
+                using (File.Create(filename)) {}
             }
         }
 

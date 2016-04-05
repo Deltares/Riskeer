@@ -65,7 +65,7 @@ namespace Core.Common.TestUtil.Test
                 using (var fileDisposeHelper = new FileDisposeHelper(filePath))
                 {
                     // Call
-                    fileDisposeHelper.CreateFile();
+                    fileDisposeHelper.Create();
                     // Assert
                 Assert.IsTrue(File.Exists(filePath));
                 }

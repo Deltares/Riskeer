@@ -52,8 +52,15 @@ namespace Application.Ringtoets.Storage.TestUtil
                 using (var command = dbContext.CreateCommand())
                 {
                     dbContext.Open();
-                    command.CommandText = databaseSchemaQuery;
-                    command.ExecuteNonQuery();
+                    try
+                    {
+                        command.CommandText = databaseSchemaQuery;
+                        command.ExecuteNonQuery();
+                    }
+                    finally
+                    {
+                        SQLiteConnection.ClearAllPools();
+                    }
                 }
             }
         }
@@ -73,6 +80,10 @@ namespace Application.Ringtoets.Storage.TestUtil
             catch (Exception exception)
             {
                 Assert.Fail("Precondition failed: creating database file failed due to {0}", exception);
+            }
+            finally
+            {
+                SQLiteConnection.ClearAllPools();
             }
         }
 
