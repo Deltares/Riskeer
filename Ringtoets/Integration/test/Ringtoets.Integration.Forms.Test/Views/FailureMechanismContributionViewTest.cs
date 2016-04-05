@@ -7,6 +7,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -16,6 +17,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
     {
         private const string normInputTextBoxName = "normInput";
         private const string dataGridViewControlName = "probabilityDistributionGrid";
+        private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
 
         private Form testForm;
 
@@ -277,6 +279,113 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 mockRepository.VerifyAll();
             }
+        }
+
+        [Test]
+        [TestCase(AssessmentSectionComposition.Dike, "Dijk")]
+        [TestCase(AssessmentSectionComposition.Dune, "Duin")]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, "Dijk / Duin")]
+        public void CompositionComboBox_WithDataSet_SelectedDisplayTextAndValueCorrect(AssessmentSectionComposition composition, string expectedDisplayText)
+        {
+            // Setup
+            using (var view = new FailureMechanismContributionView())
+            {
+                var assessmentSection = new AssessmentSection();
+                assessmentSection.ChangeComposition(composition);
+
+                var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);
+
+                view.Data = context;
+                ShowFormWithView(view);
+
+                // Call
+                var compositionComboBox = (ComboBox)new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
+
+                // Assert
+                Assert.AreEqual(expectedDisplayText, compositionComboBox.SelectedText);
+                Assert.AreEqual(composition, compositionComboBox.SelectedValue);
+            }
+        }
+
+        [Test]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune)]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune)]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune)]
+        public void CompositionComboBox_ChangeComposition_UpdateAssessmentSectionContributionAndView(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
+        {
+            // Setup
+            using (var view = new FailureMechanismContributionView())
+            {
+                var assessmentSection = new AssessmentSection();
+                assessmentSection.ChangeComposition(initialComposition);
+
+                var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);
+
+                view.Data = context;
+                ShowFormWithView(view);
+
+                // Precondition
+                Assert.AreNotEqual(assessmentSection.Composition, newComposition);
+
+                var compositionComboBox = (ComboBox)new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
+
+                int dataGridInvalidatedCallCount = 0;
+                var contributionGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                contributionGridView.Invalidated += (sender, args) => dataGridInvalidatedCallCount++;
+
+                // Call
+                compositionComboBox.SelectedValue = newComposition;
+
+                // Assert
+                Assert.AreEqual(newComposition, compositionComboBox.SelectedValue);
+                Assert.AreEqual(newComposition, assessmentSection.Composition);
+
+                Assert.AreEqual(1, dataGridInvalidatedCallCount);
+                Assert.AreEqual(assessmentSection.FailureMechanismContribution.Distribution, contributionGridView.DataSource);
+            }
+        }
+
+        [Test]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune)]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune)]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune)]
+        public void CompositionComboBox_ChangeComposition_NotifyAssessmentSectionObservers(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
+        {
+            // Setup
+            using (var view = new FailureMechanismContributionView())
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                var assessmentSection = new AssessmentSection();
+                assessmentSection.ChangeComposition(initialComposition);
+                assessmentSection.Attach(observer);
+
+                var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);
+
+                view.Data = context;
+                ShowFormWithView(view);
+
+                // Precondition
+                Assert.AreNotEqual(assessmentSection.Composition, newComposition);
+
+                var compositionComboBox = (ComboBox)new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
+
+                // Call
+                compositionComboBox.SelectedValue = newComposition;
+
+                // Assert
+                mocks.VerifyAll(); // Expect UpdateObserver call
+            }
+
         }
 
         private void ShowFormWithView(FailureMechanismContributionView distributionView)

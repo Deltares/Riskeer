@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
 
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PresentationObjects;
 
@@ -52,6 +53,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             InitializeComponent();
             InitializeGridColumns();
+            InitializeAssessmentSectionCompositionComboBox();
             BindNormChange();
             BindNormInputLeave();
             SubscribeEvents();
@@ -89,6 +91,18 @@ namespace Ringtoets.Integration.Forms.Views
             base.Dispose(disposing);
         }
 
+        private void InitializeAssessmentSectionCompositionComboBox()
+        {
+            assessmentSectionCompositionComboBox.DataSource = new[]
+            {
+                Tuple.Create(AssessmentSectionComposition.Dike, "Dijk"),
+                Tuple.Create(AssessmentSectionComposition.Dune, "Duin"),
+                Tuple.Create(AssessmentSectionComposition.DikeAndDune, "Dijk / Duin")
+            };
+            assessmentSectionCompositionComboBox.ValueMember = TypeUtils.GetMemberName<Tuple<AssessmentSectionComposition, string>>(t => t.Item1);
+            assessmentSectionCompositionComboBox.DisplayMember = TypeUtils.GetMemberName<Tuple<AssessmentSectionComposition, string>>(t => t.Item2);
+        }
+
         private void SubscribeEvents()
         {
             probabilityDistributionGrid.CellFormatting += ProbabilityDistributionGridOnCellFormatting;
@@ -114,6 +128,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void HandleNewDataSet(FailureMechanismContributionContext value)
         {
+            UnbindAssessmentSectionCompositionChange();
             UnbindNormChange();
             DetachFromData();
 
@@ -121,9 +136,11 @@ namespace Ringtoets.Integration.Forms.Views
 
             SetGridDataSource();
             SetNormText();
+            SetAssessmentSectionComposition();
 
             AttachToData();
             BindNormChange();
+            BindAssessmentSectionCompositionChange();
         }
 
         private void SetGridDataSource()
@@ -131,6 +148,7 @@ namespace Ringtoets.Integration.Forms.Views
             if (data != null)
             {
                 probabilityDistributionGrid.DataSource = data.WrappedData.Distribution;
+                probabilityDistributionGrid.Invalidate();
             }
         }
 
@@ -148,6 +166,16 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 data.Detach(this);
             }
+        }
+
+        private void BindAssessmentSectionCompositionChange()
+        {
+            assessmentSectionCompositionComboBox.SelectedIndexChanged += AssessmentSectionCompositionComboBoxSelectedIndexChanged;
+        }
+
+        private void UnbindAssessmentSectionCompositionChange()
+        {
+            assessmentSectionCompositionComboBox.SelectedIndexChanged -= AssessmentSectionCompositionComboBoxSelectedIndexChanged;
         }
 
         private void BindNormChange()
@@ -194,6 +222,14 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
+        private void SetAssessmentSectionComposition()
+        {
+            if (data != null)
+            {
+                assessmentSectionCompositionComboBox.SelectedValue = data.Parent.Composition;
+            }
+        }
+
         private void InitializeGridColumns()
         {
             var assessmentName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(fmci => fmci.Assessment);
@@ -227,6 +263,15 @@ namespace Ringtoets.Integration.Forms.Views
 
             probabilityDistributionGrid.AutoGenerateColumns = false;
             probabilityDistributionGrid.Columns.AddRange(assessmentColumn, probabilityColumn, probabilityPerYearColumn);
+        }
+
+        private void AssessmentSectionCompositionComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            IAssessmentSection assessmentSection = data.Parent;
+
+            assessmentSection.ChangeComposition((AssessmentSectionComposition)assessmentSectionCompositionComboBox.SelectedValue);
+            SetGridDataSource();
+            assessmentSection.NotifyObservers();
         }
     }
 }

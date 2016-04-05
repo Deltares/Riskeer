@@ -92,6 +92,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.FailureMechanismContribution)
                              .Return(contribution);
+            assessmentSection.Stub(section => section.Composition)
+                             .Return(AssessmentSectionComposition.Dike);
             mocks.ReplayAll();
 
             var context = new FailureMechanismContributionContext(contribution, assessmentSection);
@@ -118,9 +120,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection1 = mocks.Stub<IAssessmentSection>();
             assessmentSection1.Stub(section => section.FailureMechanismContribution)
                               .Return(contribution1);
+            assessmentSection1.Stub(section => section.Composition)
+                              .Return(AssessmentSectionComposition.DikeAndDune);
             var assessmentSection2 = mocks.Stub<IAssessmentSection>();
             assessmentSection2.Stub(section => section.FailureMechanismContribution)
                               .Return(contribution2);
+            assessmentSection2.Stub(section => section.Composition)
+                              .Return(AssessmentSectionComposition.DikeAndDune);
             mocks.ReplayAll();
 
 
