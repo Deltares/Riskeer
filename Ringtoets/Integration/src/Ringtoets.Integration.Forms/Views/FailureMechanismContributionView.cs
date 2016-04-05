@@ -258,9 +258,12 @@ namespace Ringtoets.Integration.Forms.Views
                 HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_ProbabilitySpace,
                 Name = string.Format(columnNameFormat, probabilitySpaceName),
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                MinimumWidth = 100
+                MinimumWidth = 100,
+                DefaultCellStyle =
+                {
+                    Format = "1/#,#"
+                }
             };
-
             probabilityDistributionGrid.AutoGenerateColumns = false;
             probabilityDistributionGrid.Columns.AddRange(assessmentColumn, probabilityColumn, probabilityPerYearColumn);
         }

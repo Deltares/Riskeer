@@ -581,7 +581,7 @@
     <value>..\Resources\OptionsHS.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FailureMechanismContributionView_GridColumn_ProbabilitySpace" xml:space="preserve">
-    <value>Faalkansruimte [jaar]</value>
+    <value>Faalkansruimte [1/jaar]</value>
   </data>
   <data name="FailureMechanismContributionView_GridColumn_Contribution" xml:space="preserve">
     <value>Toegestane bijdrage aan faalkans [%]</value>

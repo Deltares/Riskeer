@@ -4,6 +4,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
+using CoreCommonResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
@@ -37,11 +38,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_UpliftProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_UpliftProbability_Description")]
         [PropertyOrder(3)]
-        public RoundedDouble UpliftProbability
+        public string UpliftProbability
         {
             get
             {
-                return data.UpliftProbability;
+                return ToProbabilityFormat(data.UpliftProbability);
             }
         }
 
@@ -73,11 +74,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_HeaveProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_HeaveProbability_Description")]
         [PropertyOrder(13)]
-        public RoundedDouble HeaveProbability
+        public string HeaveProbability
         {
             get
             {
-                return data.HeaveProbability;
+                return ToProbabilityFormat(data.HeaveProbability);
             }
         }
 
@@ -109,11 +110,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_SellmeijerProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_SellmeijerProbability_Description")]
         [PropertyOrder(23)]
-        public RoundedDouble SellmeijerProbability
+        public string SellmeijerProbability
         {
             get
             {
-                return data.SellmeijerProbability;
+                return ToProbabilityFormat(data.SellmeijerProbability);
             }
         }
 
@@ -121,11 +122,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_RequiredProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_RequiredProbability_Description")]
         [PropertyOrder(31)]
-        public RoundedDouble RequiredProbability
+        public string RequiredProbability
         {
             get
             {
-                return data.RequiredProbability;
+                return ToProbabilityFormat(data.RequiredProbability);
             }
         }
 
@@ -145,11 +146,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_PipingProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_PipingProbability_Description")]
         [PropertyOrder(33)]
-        public RoundedDouble PipingProbability
+        public string PipingProbability
         {
             get
             {
-                return data.PipingProbability;
+                return ToProbabilityFormat(data.PipingProbability);
             }
         }
 
@@ -175,6 +176,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 return data.PipingFactorOfSafety;
             }
+        }
+
+        private static string ToProbabilityFormat(RoundedDouble requiredProbability)
+        {
+            return string.Format(CoreCommonResources.ProbabilityPerYearFormat, requiredProbability.Value);
         }
     }
 }

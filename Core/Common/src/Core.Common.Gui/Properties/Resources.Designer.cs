@@ -597,7 +597,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkansruimte [jaar].
+        ///   Looks up a localized string similar to Faalkansruimte [1/jaar].
         /// </summary>
         public static string FailureMechanismContributionView_GridColumn_ProbabilitySpace {
             get {

@@ -272,6 +272,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
                 DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[2];
+                Assert.AreEqual("1/#,#" , probabilitySpaceCell.InheritedStyle.Format);
 
                 string expectedTextValue = new FailureMechanismContributionItem(failureMechanismStub, norm)
                     .ProbabilitySpace.ToString(probabilitySpaceCell.InheritedStyle.Format, probabilitySpaceCell.InheritedStyle.FormatProvider);
