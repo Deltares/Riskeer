@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Controls.TextEditor;
 using Core.Common.Controls.Views;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
@@ -79,15 +81,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        [RequiresSTA]
         public void Data_AssessmentSectionContainsComment_CommentSetOnRichTextEditor()
         {
             // Setup
-            var expectedText = "<Some_text>";
             var mocks = new MockRepository();
             var view = new AssessmentSectionCommentView();
             var data = mocks.Stub<IAssessmentSection>();
-            data.Comments = GetValidRtfString(expectedText);
+            var expectedText = "<Some_text>";
+            var validRtfString = GetValidRtfString(expectedText);
+            data.Comments = validRtfString;
 
             mocks.ReplayAll();
 
@@ -95,8 +97,43 @@ namespace Ringtoets.Integration.Forms.Test.Views
             view.Data = data;
 
             // Assert
-            var textBoxControl = view.Controls[0].Controls[0];
-            Assert.AreEqual(expectedText, textBoxControl.Text);
+            var textBoxControl = view.Controls[0] as RichTextBoxControl;
+            Assert.IsNotNull(textBoxControl);
+            Assert.AreEqual(validRtfString, textBoxControl.Rtf);
+        }
+
+        [Test]
+        public void RichTextEditorOnTextChanged_Always_SetsAssessmentSectionComments()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var expectedText = "<Some_text>";
+                var validRtfString = GetValidRtfString(expectedText);
+
+                var view = new AssessmentSectionCommentView();
+                form.Controls.Add(view);
+                form.Show();
+
+                var richTextBoxControl = (RichTextBoxControl)new ControlTester("RichTextBoxControl").TheObject;
+
+                var mocks = new MockRepository();
+                var data = mocks.Stub<IAssessmentSection>();
+                mocks.ReplayAll();
+
+                view.Data = data;
+
+                // Precondition
+                Assert.AreEqual(GetValidRtfString(""), data.Comments);
+
+                richTextBoxControl.Rtf = validRtfString;
+
+                // Call
+                EventHelper.RaiseEvent(richTextBoxControl, "TextBoxValueChanged", EventArgs.Empty);
+
+                // Assert
+                Assert.AreEqual(validRtfString, data.Comments);
+            }
         }
 
         private static string GetValidRtfString(string value)

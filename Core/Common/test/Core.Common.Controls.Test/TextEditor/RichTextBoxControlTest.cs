@@ -21,17 +21,91 @@ namespace Core.Common.Controls.Test.TextEditor
         }
 
         [Test]
-        public void Data_ValueSet_TextAsExpected()
+        public void Rtf_ValueSetWhenLoaded_TextAsExpected()
         {
             // Setup
-            var data = "<Some data>";
-            var control = new RichTextBoxControl();
+            using (var form = new Form())
+            {
+                // Show the view
+                var control = new RichTextBoxControl();
+                form.Controls.Add(control);
+                form.Show();
 
-            // Call
-            control.Rtf = GetValidRtfString(data);
+                var data = "<Some data>";
 
-            // Assert
-            Assert.AreEqual(data, control.Controls[0].Text);
+                // Call
+                control.Rtf = GetValidRtfString(data);
+
+                // Assert
+                Assert.AreEqual(data, control.Controls[0].Text);
+            }
+        }
+
+        [Test]
+        public void Rtf_ValueSetWhenFormNotLoaded_TextAsExpected()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                // Show the view
+                var control = new RichTextBoxControl();
+                
+                var data = "<Some data>";
+
+                control.Rtf = GetValidRtfString(data);
+                form.Controls.Add(control);
+                
+                // Call
+                form.Show();
+
+                // Assert
+                Assert.AreEqual(data, control.Controls[0].Text);
+            }
+        }
+
+        [Test]
+        public void Rtf_ValueSetWhenLoaded_ReturnsValue()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                // Show the view
+                var control = new RichTextBoxControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var data = "<Some data>";
+                var validRtfString = GetValidRtfString(data);
+
+                // Call
+                control.Rtf = validRtfString;
+
+                // Assert
+                Assert.AreEqual(validRtfString, control.Rtf);
+            }
+        }
+
+        [Test]
+        public void Rtf_ValueSetWhenFormNotLoaded_ReturnsValue()
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                // Show the view
+                var control = new RichTextBoxControl();
+
+                var data = "<Some data>";
+                var validRtfString = GetValidRtfString(data);
+
+                control.Rtf = validRtfString;
+                form.Controls.Add(control);
+
+                // Call
+                form.Show();
+
+                // Assert
+                Assert.AreEqual(validRtfString, control.Rtf);
+            }
         }
 
         [Test]
@@ -65,7 +139,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 // Assert
                 Assert.AreEqual(1, eventCounter);
                 Assert.AreSame(eventArgs, sendEventArgs);
-                Assert.AreSame(richTextBox, eventSender);
+                Assert.IsInstanceOf<RichTextBoxControl>(eventSender);
             }
         }
 

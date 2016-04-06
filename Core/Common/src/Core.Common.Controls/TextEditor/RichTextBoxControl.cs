@@ -21,8 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Core.Common.Controls.TextEditor
@@ -32,6 +30,9 @@ namespace Core.Common.Controls.TextEditor
     /// </summary>
     public partial class RichTextBoxControl : UserControl
     {
+        private bool loaded;
+        private string rtfToSetAfterLoad;
+
         /// <summary>
         /// The event which is send when the text changes.
         /// </summary>
@@ -46,17 +47,42 @@ namespace Core.Common.Controls.TextEditor
 
             richTextBox.TextChanged += OnTextChanged;
             richTextBox.KeyDown += OnKeyDown;
+
+            Load += OnLoad;
         }
 
+        /// <summary>
+        /// This is needed for the RichTextBox to apply styling.
+        /// </summary>
+        private void OnLoad(object sender, EventArgs eventArgs)
+        {
+            loaded = true;
+
+            if (!string.IsNullOrEmpty(rtfToSetAfterLoad))
+            {
+                richTextBox.Rtf = rtfToSetAfterLoad;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Rtf from the <see cref="RichTextBox"/>.
+        /// </summary>
         public string Rtf
         {
             get
             {
-                return richTextBox.Rtf;
+                return loaded ? richTextBox.Rtf : rtfToSetAfterLoad;
             }
             set
             {
-                richTextBox.Rtf = value;
+                if (loaded)
+                {
+                    richTextBox.Rtf = value;
+                }
+                else
+                {
+                    rtfToSetAfterLoad = value;
+                }
             }
         }
 
@@ -64,9 +90,14 @@ namespace Core.Common.Controls.TextEditor
 
         private void OnTextChanged(object sender, EventArgs e)
         {
+            OnTextBoxValueChanged(e);
+        }
+
+        private void OnTextBoxValueChanged(EventArgs e)
+        {
             if (TextBoxValueChanged != null)
             {
-                TextBoxValueChanged(sender, e);
+                TextBoxValueChanged(this, e);
             }
         }
 

@@ -70,10 +70,10 @@ namespace Ringtoets.Integration.Forms.Views
             };
             Controls.Add(richTextEditor);
 
-            richTextEditor.TextBoxValueChanged += RichTextEditorOnTextChanged;
+            richTextEditor.TextBoxValueChanged += OnTextBoxValueChanged;
         }
 
-        private void RichTextEditorOnTextChanged(object sender, EventArgs eventArgs)
+        private void OnTextBoxValueChanged(object sender, EventArgs eventArgs)
         {
             data.Comments = richTextEditor.Rtf;
         }
