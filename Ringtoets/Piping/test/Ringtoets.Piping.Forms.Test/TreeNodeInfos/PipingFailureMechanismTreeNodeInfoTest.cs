@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var mechanism = new PipingFailureMechanism();
+            var mechanism = new Data.Piping();
             var mechanismContext = new PipingFailureMechanismContext(mechanism, assessmentSection);
 
             // Call
@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new Data.Piping();
             var generalInputParameters = new GeneralPipingInput();
             var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
             pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters));
@@ -157,7 +157,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             CollectionAssert.AreEqual(pipingFailureMechanism.CalculationsGroup.Children, calculationsFolder.WrappedData.Children);
             Assert.AreSame(pipingFailureMechanism.SurfaceLines, calculationsFolder.AvailablePipingSurfaceLines);
             Assert.AreEqual(pipingFailureMechanism.StochasticSoilModels, calculationsFolder.AvailableStochasticSoilModels);
-            Assert.AreSame(pipingFailureMechanism, calculationsFolder.PipingFailureMechanism);
+            Assert.AreSame(pipingFailureMechanism, calculationsFolder.Piping);
 
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Uitvoer", outputsFolder.Name);
@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
             }
 
-            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
+            var dataMock = mocks.StrictMock<Data.Piping>();
             dataMock.Stub(dm => dm.CalculationItems).Return(new ICalculationItem[]
             {
                 pipingCalculation1,
@@ -253,7 +253,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             var pipingCalculation = new PipingCalculation(failureMechanism.GeneralInput, failureMechanism.SemiProbabilisticInput)
             {
                 Output = new TestPipingOutput()
@@ -316,7 +316,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
+            var dataMock = mocks.StrictMock<Data.Piping>();
             dataMock.Stub(dm => dm.CalculationItems).Return(new ICalculationItem[0]);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -351,7 +351,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Output = new TestPipingOutput()
             };
 
-            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
+            var dataMock = mocks.StrictMock<Data.Piping>();
             dataMock.Stub(dm => dm.CalculationItems).Return(new ICalculationItem[]
             {
                 pipingCalculation
@@ -387,7 +387,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var dataMock = new PipingFailureMechanism();
+            var dataMock = new Data.Piping();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanismContext = new PipingFailureMechanismContext(dataMock, assessmentSection);
@@ -419,7 +419,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new Data.Piping();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
@@ -463,7 +463,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var gui = mocks.StrictMock<IGui>();
 
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             failureMechanism.CalculationsGroup.Children.Clear();
             failureMechanism.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()));
 
@@ -509,7 +509,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var gui = mocks.StrictMock<IGui>();
 
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             failureMechanism.CalculationsGroup.Children.Clear();
             failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationGroup());
 
@@ -555,7 +555,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             failureMechanism.CalculationsGroup.Children.Clear();
 
             var validCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
@@ -604,7 +604,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             failureMechanism.CalculationsGroup.Children.Clear();
 
             var validCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();

@@ -11,7 +11,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
     public class FailureMechanismSectionResultContextTest
     {
         [Test]
-        public void Constructor_DefaultValues()
+        public void Constructor_WithSectionResultsAndFailureMechanism_PropertiesSet()
         {
             // Setup
             var mocks = new MockRepository();

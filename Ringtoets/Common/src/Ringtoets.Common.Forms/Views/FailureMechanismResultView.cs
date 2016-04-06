@@ -40,9 +40,8 @@ namespace Ringtoets.Common.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult> failureMechanismSectionResultObserver;
 
-        private IEnumerable<FailureMechanismSectionResult> pipingFailureMechanismSectionResult;
+        private IEnumerable<FailureMechanismSectionResult> failureMechanismSectionResult;
         private IFailureMechanism failureMechanism;
-        private string cellEditValue;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView"/>.
@@ -78,15 +77,19 @@ namespace Ringtoets.Common.Forms.Views
         {
             get
             {
-                return pipingFailureMechanismSectionResult;
+                return failureMechanismSectionResult;
             }
             set
             {
-                pipingFailureMechanismSectionResult = value as IEnumerable<FailureMechanismSectionResult>;
+                failureMechanismSectionResult = value as IEnumerable<FailureMechanismSectionResult>;
 
-                if (pipingFailureMechanismSectionResult != null)
+                if (failureMechanismSectionResult != null)
                 {
                     UpdataDataGridViewDataSource();
+                }
+                else
+                {
+                    dataGridView.DataSource = null;
                 }
             }
         }
@@ -107,7 +110,7 @@ namespace Ringtoets.Common.Forms.Views
             dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
             dataGridView.CellValidating += DataGridViewCellValidating;
             dataGridView.DataError += DataGridViewDataError;
-            dataGridView.CellEndEdit += DataGridViewCellEndEdit;
+//            dataGridView.CellEndEdit += DataGridViewCellEndEdit;
 
             var sectionName = new DataGridViewTextBoxColumn
             {
@@ -156,7 +159,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdataDataGridViewDataSource()
         {
-            dataGridView.DataSource = pipingFailureMechanismSectionResult.Select(sr => new FailureMechanismSectionResultRow(sr)).ToList();
+            dataGridView.DataSource = failureMechanismSectionResult.Select(sr => new FailureMechanismSectionResultRow(sr)).ToList();
             SetRowStyling();
         }
 
@@ -295,10 +298,12 @@ namespace Ringtoets.Common.Forms.Views
 
         private void DataGridViewCellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            cellEditValue = e.FormattedValue.ToString();
+            dataGridView.Rows[e.RowIndex].ErrorText = String.Empty;
+
+            var cellEditValue = e.FormattedValue.ToString();
             if (string.IsNullOrWhiteSpace(cellEditValue))
             {
-                dataGridView.Rows[e.RowIndex].ErrorText = "De tekst mag niet leeg zijn.";
+                dataGridView.Rows[e.RowIndex].ErrorText = Resources.FailureMechanismResultView_DataGridViewCellValidating_Text_may_not_be_empty;
             }
         }
 
@@ -307,18 +312,10 @@ namespace Ringtoets.Common.Forms.Views
             e.ThrowException = false;
             e.Cancel = true;
 
-            if (string.IsNullOrWhiteSpace(cellEditValue) || e.Exception == null)
+            if (string.IsNullOrWhiteSpace(dataGridView.Rows[e.RowIndex].ErrorText) && e.Exception != null)
             {
-                return;
+                dataGridView.Rows[e.RowIndex].ErrorText = e.Exception.Message;
             }
-
-            dataGridView.Rows[e.RowIndex].ErrorText = e.Exception.Message;
-        }
-
-        private void DataGridViewCellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            cellEditValue = string.Empty;
-            dataGridView.Rows[e.RowIndex].ErrorText = String.Empty;
         }
 
         #endregion

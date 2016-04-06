@@ -210,6 +210,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De tekst mag niet leeg zijn..
+        /// </summary>
+        public static string FailureMechanismResultView_DataGridViewCellValidating_Text_may_not_be_empty {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellValidating_Text_may_not_be_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toetslaag 1.
         /// </summary>
         public static string FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one {

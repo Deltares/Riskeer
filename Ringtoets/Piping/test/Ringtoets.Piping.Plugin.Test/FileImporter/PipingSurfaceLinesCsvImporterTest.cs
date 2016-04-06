@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var targetContext = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = null;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var targetContext = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -142,7 +142,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point2D(94270, 427812.08)
             });
             assessmentSection.ReferenceLine = referenceLine;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -233,7 +233,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point2D(94270, 427850),
             });
             assessmentSection.ReferenceLine = referenceLine;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
 
             mocks.ReplayAll();
 
@@ -297,7 +297,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -343,7 +343,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point2D(94270, 427812.08)
             });
             assessmentSection.ReferenceLine = referenceLine;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -381,7 +381,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -416,7 +416,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -457,7 +457,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -500,7 +500,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -547,7 +547,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 var observer = mocks.StrictMock<IObserver>();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.ReferenceLine = new ReferenceLine();
-                var failureMechanism = new PipingFailureMechanism();
+                var failureMechanism = new Data.Piping();
                 mocks.ReplayAll();
 
                 var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -611,7 +611,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             });
             assessmentSection.ReferenceLine = referenceLine;
 
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -666,7 +666,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point2D(9.8, 1)
             });
             assessmentSection.ReferenceLine = referenceLine;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -733,7 +733,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -788,7 +788,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -842,7 +842,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -889,7 +889,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point2D(94270, 427812.08)
             });
             assessmentSection.ReferenceLine = referenceLine;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -927,7 +927,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -977,7 +977,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -1036,7 +1036,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 var observer = mocks.StrictMock<IObserver>();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.ReferenceLine = new ReferenceLine();
-                var failureMechanism = new PipingFailureMechanism();
+                var failureMechanism = new Data.Piping();
                 mocks.ReplayAll();
 
                 var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -1114,7 +1114,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point2D(94270, 427812.08)
             });
             assessmentSection.ReferenceLine = referenceLine;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -1175,7 +1175,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point2D(94270, 427812.08)
             });
             assessmentSection.ReferenceLine = referenceLine;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -1255,7 +1255,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point2D(94270, 427812.08)
             });
             assessmentSection.ReferenceLine = referenceLine;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -1329,7 +1329,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point2D(94270, 427812.08)
             });
             assessmentSection.ReferenceLine = referenceLine;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -1408,7 +1408,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point2D(94270, 427812.08)
             });
             assessmentSection.ReferenceLine = referenceLine;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -1492,7 +1492,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point2D(94270, 427812.08)
             });
             assessmentSection.ReferenceLine = referenceLine;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -1600,7 +1600,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point2D(94270, 427812.08)
             });
             assessmentSection.ReferenceLine = referenceLine;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var mesagge = "Profielschematisatie ArtifcialLocal doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coordinaat systeem heeft.";
@@ -1657,7 +1657,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                 new Point2D(94271, 427813)
             });
             assessmentSection.ReferenceLine = referenceLine;
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
             mocks.ReplayAll();
 
             var mesagge = "Profielschematisatie Rotterdam1 doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd.";

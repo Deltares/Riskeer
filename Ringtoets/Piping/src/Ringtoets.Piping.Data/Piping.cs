@@ -31,12 +31,12 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class PipingFailureMechanism : BaseFailureMechanism
+    public class Piping : FailureMechanismBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
+        /// Initializes a new instance of the <see cref="Piping"/> class.
         /// </summary>
-        public PipingFailureMechanism()
+        public Piping()
             : base(PipingDataResources.PipingFailureMechanism_DisplayName)
         {
             SemiProbabilisticInput = new SemiProbabilisticPipingInput();

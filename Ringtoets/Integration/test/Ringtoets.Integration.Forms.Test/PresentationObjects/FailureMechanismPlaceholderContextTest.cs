@@ -20,13 +20,13 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new FailureMechanismPlaceholder("A");
+            var failureMechanism = new Placeholder("A");
 
             // Call
             var context = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismContext<FailureMechanismPlaceholder>>(context);
+            Assert.IsInstanceOf<FailureMechanismContext<Placeholder>>(context);
             Assert.AreSame(failureMechanism, context.WrappedData);
             Assert.AreSame(assessmentSection, context.Parent);
             mocks.VerifyAll();

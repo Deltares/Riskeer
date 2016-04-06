@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
             mocks.ReplayAll();
 
             // Call
@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.AreSame(group, groupContext.WrappedData);
             Assert.AreSame(surfaceLines, groupContext.AvailablePipingSurfaceLines);
             Assert.AreSame(soilModels, groupContext.AvailableStochasticSoilModels);
-            Assert.AreSame(pipingFailureMechanismMock, groupContext.PipingFailureMechanism);
+            Assert.AreSame(pipingFailureMechanismMock, groupContext.Piping);
             Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
         }
 
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             };
 
             var mocks = new MockRepository();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
             mocks.ReplayAll();
 
             // Call
@@ -107,7 +107,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = new MockRepository().StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -133,7 +133,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = new MockRepository().StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = new MockRepository().StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();

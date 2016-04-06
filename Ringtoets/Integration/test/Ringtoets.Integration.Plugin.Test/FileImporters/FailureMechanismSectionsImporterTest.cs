@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importer = new FailureMechanismSectionsImporter();
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -134,7 +134,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importer = new FailureMechanismSectionsImporter();
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             failureMechanism.AddSection(new FailureMechanismSection("A", assessmentSection.ReferenceLine.Points));
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -168,7 +168,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importer = new FailureMechanismSectionsImporter();
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -209,7 +209,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 }
             };
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -253,7 +253,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importer = new FailureMechanismSectionsImporter();
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -288,7 +288,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importer = new FailureMechanismSectionsImporter();
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -318,7 +318,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importer = new FailureMechanismSectionsImporter();
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -353,7 +353,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importer = new FailureMechanismSectionsImporter();
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -390,7 +390,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importer = new FailureMechanismSectionsImporter();
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -427,7 +427,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importer = new FailureMechanismSectionsImporter();
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -462,7 +462,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importer = new FailureMechanismSectionsImporter();
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -497,7 +497,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importer = new FailureMechanismSectionsImporter();
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -532,7 +532,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importer = new FailureMechanismSectionsImporter();
 
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             importer.Cancel();
@@ -616,9 +616,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             }
         }
 
-        private class SimpleFailureMechanism : BaseFailureMechanism
+        private class Simple : FailureMechanismBase
         {
-            public SimpleFailureMechanism() : base("Stubbed name") {}
+            public Simple() : base("Stubbed name") {}
 
             public override IEnumerable<ICalculationItem> CalculationItems
             {

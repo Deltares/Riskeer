@@ -174,7 +174,7 @@ namespace Ringtoets.Piping.Plugin.Test
             var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
 
-            Expect.Call(guiStub.ApplicationCore).Return(applicationCore).Repeat.Any();
+            guiStub.Stub(g => g.ApplicationCore).Return(applicationCore);
 
             mocks.ReplayAll();
 

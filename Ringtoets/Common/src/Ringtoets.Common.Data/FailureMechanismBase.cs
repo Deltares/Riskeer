@@ -31,17 +31,17 @@ namespace Ringtoets.Common.Data
     /// This class is the base implementation for a failure mechanism. Classes which want
     /// to implement IFailureMechanism can and should most likely inherit from this class.
     /// </summary>
-    public abstract class BaseFailureMechanism : Observable, IFailureMechanism
+    public abstract class FailureMechanismBase : Observable, IFailureMechanism
     {
         private readonly List<FailureMechanismSection> sections;
         private readonly List<FailureMechanismSectionResult> sectionResults;
         private double contribution;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseFailureMechanism"/> class.
+        /// Initializes a new instance of the <see cref="FailureMechanismBase"/> class.
         /// </summary>
         /// <param name="failureMechanismName">The name of the failure mechanism.</param>
-        protected BaseFailureMechanism(string failureMechanismName)
+        protected FailureMechanismBase(string failureMechanismName)
         {
             Name = failureMechanismName;
             sections = new List<FailureMechanismSection>();

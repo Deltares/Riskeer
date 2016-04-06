@@ -256,7 +256,7 @@ namespace Ringtoets.Integration.Plugin
         private static bool CloseFailureMechanismResultViewForData(FailureMechanismResultView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            return assessmentSection != null && assessmentSection.GetFailureMechanisms().Any(failureMechanism => view.Data == failureMechanism.SectionResults);
+            return assessmentSection != null && assessmentSection.GetFailureMechanisms().Any(failureMechanism => ReferenceEquals(view.Data, failureMechanism.SectionResults));
         }
 
         #endregion
@@ -304,8 +304,8 @@ namespace Ringtoets.Integration.Plugin
         {
             foreach (IFailureMechanism failureMechanism in nodeData.GetFailureMechanisms())
             {
-                var placeHolder = failureMechanism as FailureMechanismPlaceholder;
-                var piping = failureMechanism as PipingFailureMechanism;
+                var placeHolder = failureMechanism as Placeholder;
+                var piping = failureMechanism as Piping.Data.Piping;
                 if (placeHolder != null)
                 {
                     yield return new FailureMechanismPlaceholderContext(placeHolder, nodeData);
@@ -370,7 +370,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private IList GetInputs(FailureMechanismPlaceholder nodeData, IAssessmentSection assessmentSection)
+        private IList GetInputs(Placeholder nodeData, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -380,7 +380,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private IList GetOutputs(FailureMechanismPlaceholder nodeData)
+        private IList GetOutputs(Placeholder nodeData)
         {
             return new ArrayList
             {

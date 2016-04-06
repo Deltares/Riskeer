@@ -50,16 +50,16 @@ namespace Ringtoets.Integration.Data
         {
             Name = Resources.AssessmentSection_DisplayName;
 
-            PipingFailureMechanism = new PipingFailureMechanism();
-            GrassErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassErosionFailureMechanism_DisplayName);
-            MacrostabilityInwardFailureMechanism = new FailureMechanismPlaceholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName);
-            OvertoppingFailureMechanism = new FailureMechanismPlaceholder(Resources.OvertoppingFailureMechanism_DisplayName);
-            ClosingFailureMechanism = new FailureMechanismPlaceholder(Resources.ClosingFailureMechanism_DisplayName);
-            FailingOfConstructionFailureMechanism = new FailureMechanismPlaceholder(Resources.FailingOfConstructionFailureMechanism_DisplayName);
-            StoneRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.StoneRevetmentFailureMechanism_DisplayName);
-            AsphaltRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.AsphaltRevetmentFailureMechanism_DisplayName);
-            GrassRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassRevetmentFailureMechanism_DisplayName);
-            DuneErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.ErosionFailureMechanism_DisplayName);
+            Piping = new Piping.Data.Piping();
+            GrassErosion = new Placeholder(Resources.GrassErosionFailureMechanism_DisplayName);
+            MacrostabilityInward = new Placeholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName);
+            Overtopping = new Placeholder(Resources.OvertoppingFailureMechanism_DisplayName);
+            Closing = new Placeholder(Resources.ClosingFailureMechanism_DisplayName);
+            FailingOfConstruction = new Placeholder(Resources.FailingOfConstructionFailureMechanism_DisplayName);
+            StoneRevetment = new Placeholder(Resources.StoneRevetmentFailureMechanism_DisplayName);
+            AsphaltRevetment = new Placeholder(Resources.AsphaltRevetmentFailureMechanism_DisplayName);
+            GrassRevetment = new Placeholder(Resources.GrassRevetmentFailureMechanism_DisplayName);
+            DuneErosion = new Placeholder(Resources.ErosionFailureMechanism_DisplayName);
 
             FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
             ChangeComposition(AssessmentSectionComposition.Dike);
@@ -68,52 +68,52 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets the "Piping" failure mechanism.
         /// </summary>
-        public PipingFailureMechanism PipingFailureMechanism { get; private set; }
+        public Piping.Data.Piping Piping { get; private set; }
 
         /// <summary>
         /// Gets the "Graserosie kruin en binnentalud" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder GrassErosionFailureMechanism { get; private set; }
+        public Placeholder GrassErosion { get; private set; }
 
         /// <summary>
         /// Gets the "Macrostabiliteit binnenwaarts" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder MacrostabilityInwardFailureMechanism { get; private set; }
+        public Placeholder MacrostabilityInward { get; private set; }
 
         /// <summary>
         /// Gets the "Overslag en overloop" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder OvertoppingFailureMechanism { get; private set; }
+        public Placeholder Overtopping { get; private set; }
 
         /// <summary>
         /// Gets the "Niet sluiten" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder ClosingFailureMechanism { get; private set; }
+        public Placeholder Closing { get; private set; }
 
         /// <summary>
         /// Gets the "Constructief falen" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder FailingOfConstructionFailureMechanism { get; private set; }
+        public Placeholder FailingOfConstruction { get; private set; }
 
         /// <summary>
         /// Gets the "Steenbekledingen" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder StoneRevetmentFailureMechanism { get; private set; }
+        public Placeholder StoneRevetment { get; private set; }
 
         /// <summary>
         /// Gets the "Asfaltbekledingen" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder AsphaltRevetmentFailureMechanism { get; private set; }
+        public Placeholder AsphaltRevetment { get; private set; }
 
         /// <summary>
         /// Gets the "Grasbekledingen" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder GrassRevetmentFailureMechanism { get; private set; }
+        public Placeholder GrassRevetment { get; private set; }
 
         /// <summary>
         /// Gets the "Duinerosie" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder DuneErosionFailureMechanism { get; private set; }
+        public Placeholder DuneErosion { get; private set; }
 
         public string Name { get; set; }
 
@@ -130,7 +130,7 @@ namespace Ringtoets.Integration.Data
             set
             {
                 referenceLine = value;
-                PipingFailureMechanism.SemiProbabilisticInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
+                Piping.SemiProbabilisticInput.SectionLength = value == null ? double.NaN : Math2D.Length(value.Points);
             }
         }
 
@@ -143,7 +143,7 @@ namespace Ringtoets.Integration.Data
             private set
             {
                 contritbution = value;
-                PipingFailureMechanism.SemiProbabilisticInput.Norm = value.Norm;
+                Piping.SemiProbabilisticInput.Norm = value.Norm;
             }
         }
 
@@ -153,16 +153,16 @@ namespace Ringtoets.Integration.Data
 
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
-            yield return PipingFailureMechanism;
-            yield return GrassErosionFailureMechanism;
-            yield return MacrostabilityInwardFailureMechanism;
-            yield return OvertoppingFailureMechanism;
-            yield return ClosingFailureMechanism;
-            yield return FailingOfConstructionFailureMechanism;
-            yield return StoneRevetmentFailureMechanism;
-            yield return AsphaltRevetmentFailureMechanism;
-            yield return GrassRevetmentFailureMechanism;
-            yield return DuneErosionFailureMechanism;
+            yield return Piping;
+            yield return GrassErosion;
+            yield return MacrostabilityInward;
+            yield return Overtopping;
+            yield return Closing;
+            yield return FailingOfConstruction;
+            yield return StoneRevetment;
+            yield return AsphaltRevetment;
+            yield return GrassRevetment;
+            yield return DuneErosion;
         }
 
         public void ChangeComposition(AssessmentSectionComposition newComposition)
@@ -170,42 +170,42 @@ namespace Ringtoets.Integration.Data
             switch (newComposition)
             {
                 case AssessmentSectionComposition.Dike:
-                    PipingFailureMechanism.Contribution = 24;
-                    GrassErosionFailureMechanism.Contribution = 24;
-                    MacrostabilityInwardFailureMechanism.Contribution = 4;
-                    OvertoppingFailureMechanism.Contribution = 2;
-                    ClosingFailureMechanism.Contribution = 4;
-                    FailingOfConstructionFailureMechanism.Contribution = 2;
-                    StoneRevetmentFailureMechanism.Contribution = 4;
-                    AsphaltRevetmentFailureMechanism.Contribution = 3;
-                    GrassRevetmentFailureMechanism.Contribution = 3;
-                    DuneErosionFailureMechanism.Contribution = 0;
+                    Piping.Contribution = 24;
+                    GrassErosion.Contribution = 24;
+                    MacrostabilityInward.Contribution = 4;
+                    Overtopping.Contribution = 2;
+                    Closing.Contribution = 4;
+                    FailingOfConstruction.Contribution = 2;
+                    StoneRevetment.Contribution = 4;
+                    AsphaltRevetment.Contribution = 3;
+                    GrassRevetment.Contribution = 3;
+                    DuneErosion.Contribution = 0;
                     FailureMechanismContribution.UpdateContributions(GetFailureMechanisms(), 30);
                     break;
                 case AssessmentSectionComposition.Dune:
-                    PipingFailureMechanism.Contribution = 0;
-                    GrassErosionFailureMechanism.Contribution = 0;
-                    MacrostabilityInwardFailureMechanism.Contribution = 0;
-                    OvertoppingFailureMechanism.Contribution = 0;
-                    ClosingFailureMechanism.Contribution = 0;
-                    FailingOfConstructionFailureMechanism.Contribution = 0;
-                    StoneRevetmentFailureMechanism.Contribution = 0;
-                    AsphaltRevetmentFailureMechanism.Contribution = 0;
-                    GrassRevetmentFailureMechanism.Contribution = 0;
-                    DuneErosionFailureMechanism.Contribution = 70;
+                    Piping.Contribution = 0;
+                    GrassErosion.Contribution = 0;
+                    MacrostabilityInward.Contribution = 0;
+                    Overtopping.Contribution = 0;
+                    Closing.Contribution = 0;
+                    FailingOfConstruction.Contribution = 0;
+                    StoneRevetment.Contribution = 0;
+                    AsphaltRevetment.Contribution = 0;
+                    GrassRevetment.Contribution = 0;
+                    DuneErosion.Contribution = 70;
                     FailureMechanismContribution.UpdateContributions(GetFailureMechanisms(), 30);
                     break;
                 case AssessmentSectionComposition.DikeAndDune:
-                    PipingFailureMechanism.Contribution = 24;
-                    GrassErosionFailureMechanism.Contribution = 24;
-                    MacrostabilityInwardFailureMechanism.Contribution = 4;
-                    OvertoppingFailureMechanism.Contribution = 2;
-                    ClosingFailureMechanism.Contribution = 4;
-                    FailingOfConstructionFailureMechanism.Contribution = 2;
-                    StoneRevetmentFailureMechanism.Contribution = 4;
-                    AsphaltRevetmentFailureMechanism.Contribution = 3;
-                    GrassRevetmentFailureMechanism.Contribution = 3;
-                    DuneErosionFailureMechanism.Contribution = 10;
+                    Piping.Contribution = 24;
+                    GrassErosion.Contribution = 24;
+                    MacrostabilityInward.Contribution = 4;
+                    Overtopping.Contribution = 2;
+                    Closing.Contribution = 4;
+                    FailingOfConstruction.Contribution = 2;
+                    StoneRevetment.Contribution = 4;
+                    AsphaltRevetment.Contribution = 3;
+                    GrassRevetment.Contribution = 3;
+                    DuneErosion.Contribution = 10;
                     FailureMechanismContribution.UpdateContributions(GetFailureMechanisms(), 20);
                     break;
                 default:

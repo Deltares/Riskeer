@@ -32,7 +32,7 @@ using Ringtoets.Common.Data;
 namespace Application.Ringtoets.Storage.Persistors
 {
     /// <summary>
-    /// Persistor for classes derived from <see cref="BaseFailureMechanism"/>.
+    /// Persistor for classes derived from <see cref="FailureMechanismBase"/>.
     /// </summary>
     public abstract class FailureMechanismPersistorBase<T> where T : IFailureMechanism
     {

@@ -26,10 +26,10 @@ namespace Ringtoets.Piping.Data.Test
         public void DefaultConstructor_ExpectedValues()
         {
             // call
-            var piping = new PipingFailureMechanism();
+            var piping = new Piping();
 
             // assert
-            Assert.IsInstanceOf<BaseFailureMechanism>(piping);
+            Assert.IsInstanceOf<FailureMechanismBase>(piping);
             Assert.IsInstanceOf<GeneralPipingInput>(piping.GeneralInput);
             CollectionAssert.IsEmpty(piping.Sections);
             CollectionAssert.IsEmpty(piping.SurfaceLines);
@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Data.Test
 
             mockRepository.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new Piping();
 
             pipingFailureMechanism.Attach(observer);
 
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Data.Test
             observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             mockRepository.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new Piping();
 
             pipingFailureMechanism.Attach(observer);
             pipingFailureMechanism.Detach(observer);
@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.Data.Test
 
             mockRepository.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new Piping();
 
             pipingFailureMechanism.Attach(observerA);
             pipingFailureMechanism.Attach(observerB);
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Data.Test
 
             mockRepository.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new Piping();
 
             pipingFailureMechanism.Attach(observerA);
             pipingFailureMechanism.Attach(observerB);
@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var observer = mockRepository.StrictMock<IObserver>();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new Piping();
 
             // Call & Assert
             pipingFailureMechanism.Detach(observer);
@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Piping();
 
             // Call
             failureMechanism.CalculationsGroup.Children.Add(calculation);
@@ -154,7 +154,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Piping();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             // Call
@@ -170,7 +170,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var folder = new PipingCalculationGroup();
 
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Piping();
 
             // Call
             failureMechanism.CalculationsGroup.Children.Add(folder);
@@ -185,7 +185,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var folder = new PipingCalculationGroup();
 
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Piping();
             failureMechanism.CalculationsGroup.Children.Add(folder);
 
             // Call

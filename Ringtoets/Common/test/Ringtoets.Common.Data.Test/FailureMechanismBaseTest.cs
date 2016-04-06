@@ -10,7 +10,7 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.Common.Data.Test
 {
     [TestFixture]
-    public class BaseFailureMechanismTest
+    public class FailureMechanismBaseTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -19,7 +19,7 @@ namespace Ringtoets.Common.Data.Test
             const string name = "<cool name>";
 
             // Call
-            var failureMechanism = new SimpleBaseFailureMechanism(name);
+            var failureMechanism = new SimpleFailureMechanismBase(name);
 
             // Assert
             Assert.IsInstanceOf<Observable>(failureMechanism);
@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data.Test
         public void Contribution_ValueOutsideValidRegion_ThrowsArgumentException(double value)
         {
             // Setup
-            var failureMechanism = new SimpleBaseFailureMechanism("");
+            var failureMechanism = new SimpleFailureMechanismBase("");
 
             // Call
             TestDelegate test = () => failureMechanism.Contribution = value;
@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Data.Test
         public void Contribution_ValueIntsideValidRegion_DoesNotThrow(double value)
         {
             // Setup
-            var failureMechanism = new SimpleBaseFailureMechanism("");
+            var failureMechanism = new SimpleFailureMechanismBase("");
 
             // Call
             TestDelegate test = () => failureMechanism.Contribution = value;
@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Data.Test
         public void AddSection_SectionIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var failureMechanism = new SimpleBaseFailureMechanism("");
+            var failureMechanism = new SimpleFailureMechanismBase("");
 
             // Call
             TestDelegate call = () => failureMechanism.AddSection(null);
@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Data.Test
         public void AddSection_FirstSectionAdded_SectionAddedToSections()
         {
             // Setup
-            var failureMechanism = new SimpleBaseFailureMechanism("");
+            var failureMechanism = new SimpleFailureMechanismBase("");
 
             var section = new FailureMechanismSection("A", new[]
             {
@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Data.Test
         public void AddSection_SecondSectionEndConnectingToStartOfFirst_Section2InsertedBeforeSection1()
         {
             // Setup
-            var failureMechanism = new SimpleBaseFailureMechanism("");
+            var failureMechanism = new SimpleFailureMechanismBase("");
 
             const int matchingX = 1;
             const int matchingY = 2;
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Data.Test
         public void AddSection_SecondSectionStartConnectingToEndOfFirst_Section2AddedAfterSection1()
         {
             // Setup
-            var failureMechanism = new SimpleBaseFailureMechanism("");
+            var failureMechanism = new SimpleFailureMechanismBase("");
 
             const int matchingX = 1;
             const int matchingY = 2;
@@ -156,7 +156,7 @@ namespace Ringtoets.Common.Data.Test
         public void AddSection_SecondSectionDoesNotConnectToFirst_ThrowArgumentException()
         {
             // Setup
-            var failureMechanism = new SimpleBaseFailureMechanism("");
+            var failureMechanism = new SimpleFailureMechanismBase("");
 
             var section1 = new FailureMechanismSection("A", new[]
             {
@@ -184,7 +184,7 @@ namespace Ringtoets.Common.Data.Test
         public void AddSection_SectionValid_SectionAddedSectionResults()
         {
             // Setup
-            var failureMechanism = new SimpleBaseFailureMechanism("");
+            var failureMechanism = new SimpleFailureMechanismBase("");
 
             var section = new FailureMechanismSection("A", new[]
             {
@@ -206,7 +206,7 @@ namespace Ringtoets.Common.Data.Test
         public void PipingFailureMechanismSectionResults_Always_ReturnsPipingFailureMechanismSectionResults()
         {
             // Setup
-            var failureMechanism = new SimpleBaseFailureMechanism("");
+            var failureMechanism = new SimpleFailureMechanismBase("");
 
             var section = new FailureMechanismSection("A", new[]
             {
@@ -227,9 +227,7 @@ namespace Ringtoets.Common.Data.Test
             var data = failureMechanism.SectionResults.ToList();
 
             // Assert
-            Assert.AreEqual(2, data.Count);
-            Assert.AreEqual(section, data[0].Section);
-            Assert.AreEqual(section2, data[1].Section);
+            CollectionAssert.AreEqual(new[] { section, section2 }, data.Select(d => d.Section));
         }
 
         [Test]
@@ -242,7 +240,7 @@ namespace Ringtoets.Common.Data.Test
                 new Point2D(3.3, 4.4)
             });
 
-            var failureMechanism = new SimpleBaseFailureMechanism("A");
+            var failureMechanism = new SimpleFailureMechanismBase("A");
             failureMechanism.AddSection(section);
 
             // Call
@@ -252,7 +250,7 @@ namespace Ringtoets.Common.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 
-        private class SimpleBaseFailureMechanism : BaseFailureMechanism
+        private class SimpleFailureMechanismBase : FailureMechanismBase
         {
             public override IEnumerable<ICalculationItem> CalculationItems
             {
@@ -262,7 +260,7 @@ namespace Ringtoets.Common.Data.Test
                 }
             }
 
-            public SimpleBaseFailureMechanism(string failureMechanismName) : base(failureMechanismName) {}
+            public SimpleFailureMechanismBase(string failureMechanismName) : base(failureMechanismName) {}
         }
     }
 }

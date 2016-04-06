@@ -29,12 +29,12 @@ namespace Ringtoets.Common.Data.Contribution
     /// This class represents a failure mechanism which has no representative within Ringtoets but 
     /// contributes to the overall verdict nonetheless.
     /// </summary>
-    public class OtherFailureMechanism : BaseFailureMechanism
+    public class Other : FailureMechanismBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="OtherFailureMechanism"/>.
+        /// Creates a new instance of <see cref="Other"/>.
         /// </summary>
-        public OtherFailureMechanism() : base(Resources.OtherFailureMechanism_DisplayName) { }
+        public Other() : base(Resources.OtherFailureMechanism_DisplayName) { }
 
         public override IEnumerable<ICalculationItem> CalculationItems
         {

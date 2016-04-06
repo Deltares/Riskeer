@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
             var pipingCalculationsGroupMock = mocks.StrictMock<PipingCalculationGroup>();
             var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingCalculationsGroupMock, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
 
@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
             var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingFailureMechanismMock.CalculationsGroup, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
 
             mocks.ReplayAll();
@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
             var pipingCalculationsGroupMock = mocks.StrictMock<PipingCalculationGroup>();
             var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingCalculationsGroupMock, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
 
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Setup
             var viewMock = mocks.StrictMock<PipingCalculationsView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
             var pipingCalculationsGroupMock = mocks.StrictMock<PipingCalculationGroup>();
 
             viewMock.Expect(vm => vm.Data).Return(pipingCalculationsGroupMock);
@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Setup
             var viewMock = mocks.StrictMock<PipingCalculationsView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
 
             viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanismMock.CalculationsGroup);
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
@@ -165,12 +165,12 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Setup
             var viewMock = mocks.StrictMock<PipingCalculationsView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
             var pipingCalculationsGroupMock = mocks.StrictMock<PipingCalculationGroup>();
             var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingCalculationsGroupMock, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
 
             viewMock.Expect(v => v.AssessmentSection = assessmentSectionMock);
-            viewMock.Expect(v => v.PipingFailureMechanism = pipingFailureMechanismMock);
+            viewMock.Expect(v => v.Piping = pipingFailureMechanismMock);
             viewMock.Expect(v => v.ApplicationSelection = plugin.Gui);
 
             mocks.ReplayAll();

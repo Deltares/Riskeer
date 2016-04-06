@@ -52,22 +52,6 @@ namespace Ringtoets.Common.Data.Test
             Assert.AreEqual("section", exception.ParamName);
         }
 
-        [Test]
-        [TestCase(false)]
-        [TestCase(true)]
-        public void AssessmentLayerOne_Always_ReturnsAssessmentLayerOne(bool assessmentLayerOneChecked)
-        {
-            // Setup
-            var section = CreateSection();
-            var sectionResult = new FailureMechanismSectionResult(section);
-
-            // Call
-            sectionResult.AssessmentLayerOne = assessmentLayerOneChecked;
-
-            // Assert
-            Assert.AreEqual(assessmentLayerOneChecked, sectionResult.AssessmentLayerOne);
-        }
-
         private static FailureMechanismSection CreateSection()
         {
             var points = new[]

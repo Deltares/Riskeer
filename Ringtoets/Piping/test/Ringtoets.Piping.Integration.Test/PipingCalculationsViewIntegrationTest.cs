@@ -38,13 +38,13 @@ namespace Ringtoets.Piping.Integration.Test
 
                 // Set all necessary data to the view
                 var assessmentSection = new AssessmentSection();
-                pipingCalculationsView.Data = assessmentSection.PipingFailureMechanism.CalculationsGroup;
+                pipingCalculationsView.Data = assessmentSection.Piping.CalculationsGroup;
                 pipingCalculationsView.AssessmentSection = assessmentSection;
-                pipingCalculationsView.PipingFailureMechanism = assessmentSection.PipingFailureMechanism;
+                pipingCalculationsView.Piping = assessmentSection.Piping;
 
                 // Import failure mechanism sections and ensure the listbox is updated
                 ImportReferenceLine(assessmentSection);
-                ImportFailureMechanismSections(assessmentSection, assessmentSection.PipingFailureMechanism);
+                ImportFailureMechanismSections(assessmentSection, assessmentSection.Piping);
                 Assert.AreEqual(283, listBox.Items.Count);
 
                 // Import surface lines
@@ -55,20 +55,20 @@ namespace Ringtoets.Piping.Integration.Test
                 {
                     InputParameters =
                     {
-                        SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001")
+                        SurfaceLine = assessmentSection.Piping.SurfaceLines.First(sl => sl.Name == "PK001_0001")
                     }
                 };
                 var pipingCalculation2 = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
                 {
                     InputParameters =
                     {
-                        SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001")
+                        SurfaceLine = assessmentSection.Piping.SurfaceLines.First(sl => sl.Name == "PK001_0001")
                     }
                 };
 
                 // Add a piping calculation and ensure it is shown in the data grid view after selecting the corresponding dike section
-                assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation1);
-                listBox.SelectedItem = assessmentSection.PipingFailureMechanism.Sections.First(s => s.Name == "6-3_22");
+                assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculation1);
+                listBox.SelectedItem = assessmentSection.Piping.Sections.First(s => s.Name == "6-3_22");
                 Assert.AreEqual(1, dataGridView.Rows.Count);
 
                 // Import soil profiles and ensure the corresponding combobox items are updated
@@ -81,8 +81,8 @@ namespace Ringtoets.Piping.Integration.Test
 
                 // Add another, nested calculation and ensure the data grid view is updated
                 var nestedPipingCalculationGroup = new PipingCalculationGroup("New group", false);
-                assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(nestedPipingCalculationGroup);
-                assessmentSection.PipingFailureMechanism.CalculationsGroup.NotifyObservers();
+                assessmentSection.Piping.CalculationsGroup.Children.Add(nestedPipingCalculationGroup);
+                assessmentSection.Piping.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual(1, dataGridView.Rows.Count);
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation2);
                 nestedPipingCalculationGroup.NotifyObservers();
@@ -159,7 +159,7 @@ namespace Ringtoets.Piping.Integration.Test
                                                                                    "DR6_surfacelines.krp.csv"))
             {
                 var activity = new FileImportActivity(new PipingSurfaceLinesCsvImporter(),
-                                                      new RingtoetsPipingSurfaceLinesContext(assessmentSection.PipingFailureMechanism, assessmentSection),
+                                                      new RingtoetsPipingSurfaceLinesContext(assessmentSection.Piping, assessmentSection),
                                                       Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
 
                 activity.Run();
@@ -174,7 +174,7 @@ namespace Ringtoets.Piping.Integration.Test
                                                                                    "DR6.soil"))
             {
                 var activity = new FileImportActivity(new PipingSoilProfilesImporter(),
-                                                      new StochasticSoilModelContext(assessmentSection.PipingFailureMechanism, assessmentSection),
+                                                      new StochasticSoilModelContext(assessmentSection.Piping, assessmentSection),
                                                       Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
 
                 activity.Run();

@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var context = new FailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism);
             mocks.ReplayAll();
 
@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var viewMock = mocks.StrictMock<FailureMechanismResultView>();
 
             mocks.ReplayAll();
@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var viewMock = mocks.StrictMock<FailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
 
             viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
@@ -159,7 +159,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewMock = mocks.StrictMock<FailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mocks.Stub<IFailureMechanism>();
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
 
             viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
@@ -182,7 +182,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var viewMock = mocks.StrictMock<FailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
 
             viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
@@ -204,7 +204,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewMock = mocks.StrictMock<FailureMechanismResultView>();
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             var context = new FailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism);
 
             viewMock.Expect(v => v.FailureMechanism = failureMechanism);
@@ -218,9 +218,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.VerifyAll();
         }
 
-        private class SimpleFailureMechanism : BaseFailureMechanism
+        private class Simple : FailureMechanismBase
         {
-            public SimpleFailureMechanism() : base("simple failure mechanism") {}
+            public Simple() : base("simple failure mechanism") {}
 
             public override IEnumerable<ICalculationItem> CalculationItems
             {

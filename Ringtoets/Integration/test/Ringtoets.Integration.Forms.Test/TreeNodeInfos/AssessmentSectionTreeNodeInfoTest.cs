@@ -136,8 +136,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanisms = new IFailureMechanism[]
             {
-                new PipingFailureMechanism(),
-                new FailureMechanismPlaceholder("A")
+                new Piping.Data.Piping(),
+                new Placeholder("A")
             };
             var contribution = new FailureMechanismContribution(failureMechanisms, 10.0, 2);
             var comments = "some comment";

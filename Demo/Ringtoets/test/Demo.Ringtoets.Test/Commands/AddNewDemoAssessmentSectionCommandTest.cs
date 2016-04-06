@@ -75,14 +75,14 @@ namespace Demo.Ringtoets.Test.Commands
 
             Assert.AreEqual(2380, demoAssessmentSection.ReferenceLine.Points.Count());
 
-            var soilModels = demoAssessmentSection.PipingFailureMechanism.StochasticSoilModels.ToArray();
+            var soilModels = demoAssessmentSection.Piping.StochasticSoilModels.ToArray();
             Assert.AreEqual(4, soilModels.Length);
-            var surfaceLines = demoAssessmentSection.PipingFailureMechanism.SurfaceLines.ToArray();
+            var surfaceLines = demoAssessmentSection.Piping.SurfaceLines.ToArray();
             Assert.AreEqual(4, surfaceLines.Length);
             AssertCharacteristicPointsOnSurfaceLines(surfaceLines);
 
-            Assert.AreEqual(1, demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Count);
-            var calculation = demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.GetPipingCalculations().First();
+            Assert.AreEqual(1, demoAssessmentSection.Piping.CalculationsGroup.Children.Count);
+            var calculation = demoAssessmentSection.Piping.CalculationsGroup.GetPipingCalculations().First();
             AssertCalculationAbleToCalculate(calculation);
 
             foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())

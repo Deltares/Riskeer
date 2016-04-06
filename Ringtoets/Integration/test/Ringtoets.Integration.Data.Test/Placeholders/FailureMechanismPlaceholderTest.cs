@@ -15,10 +15,10 @@ namespace Ringtoets.Integration.Data.Test.Placeholders
             const string expectedName = "test";
 
             // Call
-            var failureMechanism = new FailureMechanismPlaceholder(expectedName);
+            var failureMechanism = new Placeholder(expectedName);
 
             // Assert
-            Assert.IsInstanceOf<BaseFailureMechanism>(failureMechanism);
+            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.AreEqual(expectedName, failureMechanism.Name);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.AreEqual("Locaties", failureMechanism.Locations.Name);

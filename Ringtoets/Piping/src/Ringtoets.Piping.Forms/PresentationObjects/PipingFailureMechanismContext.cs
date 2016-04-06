@@ -27,9 +27,9 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for an instance of <see cref="PipingFailureMechanism"/>.
+    /// This class is a presentation object for an instance of <see cref="Piping"/>.
     /// </summary>
-    public class PipingFailureMechanismContext : FailureMechanismContext<PipingFailureMechanism>
+    public class PipingFailureMechanismContext : FailureMechanismContext<Data.Piping>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanismContext"/> class.
@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or <paramref name="assessmentSection"/> are <c>null</c>.</exception>
-        public PipingFailureMechanismContext(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) :
+        public PipingFailureMechanismContext(Data.Piping failureMechanism, IAssessmentSection assessmentSection) :
             base(failureMechanism, assessmentSection)
         {
             

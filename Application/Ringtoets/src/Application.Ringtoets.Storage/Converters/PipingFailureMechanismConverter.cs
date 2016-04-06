@@ -26,12 +26,12 @@ using Ringtoets.Piping.Data;
 namespace Application.Ringtoets.Storage.Converters
 {
     /// <summary>
-    /// Converter for <see cref="FailureMechanismEntity"/> to <see cref="PipingFailureMechanism"/> 
-    /// and <see cref="PipingFailureMechanism"/> to <see cref="FailureMechanismEntity"/>.
+    /// Converter for <see cref="FailureMechanismEntity"/> to <see cref="Piping"/> 
+    /// and <see cref="Piping"/> to <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    public class PipingFailureMechanismConverter : IEntityConverter<PipingFailureMechanism, FailureMechanismEntity>
+    public class PipingFailureMechanismConverter : IEntityConverter<Piping, FailureMechanismEntity>
     {
-        public PipingFailureMechanism ConvertEntityToModel(FailureMechanismEntity entity)
+        public Piping ConvertEntityToModel(FailureMechanismEntity entity)
         {
             if (entity == null)
             {
@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Converters
                 throw new ArgumentException(@"Incorrect modelType", "entity");
             }
 
-            var failureMechanism = new PipingFailureMechanism
+            var failureMechanism = new Piping
             {
                 StorageId = entity.FailureMechanismEntityId
             };
@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Converters
             return failureMechanism;
         }
 
-        public void ConvertModelToEntity(PipingFailureMechanism modelObject, FailureMechanismEntity entity)
+        public void ConvertModelToEntity(Piping modelObject, FailureMechanismEntity entity)
         {
             if (modelObject == null)
             {

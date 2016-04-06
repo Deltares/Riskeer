@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Persistors
             {
                 if (failureMechanismEntity.FailureMechanismType == (int) FailureMechanismType.PipingFailureMechanism)
                 {
-                    pipingFailureMechanismEntityPersistor.LoadModel(failureMechanismEntity, assessmentSection.PipingFailureMechanism);
+                    pipingFailureMechanismEntityPersistor.LoadModel(failureMechanismEntity, assessmentSection.Piping);
                 }
             }
 
@@ -179,7 +179,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="entity">Referenced <see cref="AssessmentSectionEntity"/>.</param>
         private void UpdateChildren(AssessmentSection model, AssessmentSectionEntity entity)
         {
-            pipingFailureMechanismEntityPersistor.UpdateModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
+            pipingFailureMechanismEntityPersistor.UpdateModel(entity.FailureMechanismEntities, model.Piping);
             pipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
 
             hydraulicLocationEntityPersistor.UpdateModel(entity.HydraulicLocationEntities, model.HydraulicBoundaryDatabase);
@@ -193,7 +193,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="entity">Referenced <see cref="AssessmentSectionEntity"/>.</param>
         private void InsertChildren(AssessmentSection model, AssessmentSectionEntity entity)
         {
-            pipingFailureMechanismEntityPersistor.InsertModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
+            pipingFailureMechanismEntityPersistor.InsertModel(entity.FailureMechanismEntities, model.Piping);
             pipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
 
             hydraulicLocationEntityPersistor.InsertModel(entity.HydraulicLocationEntities, model.HydraulicBoundaryDatabase);

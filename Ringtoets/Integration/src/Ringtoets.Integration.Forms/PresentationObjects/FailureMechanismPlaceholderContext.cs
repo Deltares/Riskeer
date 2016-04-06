@@ -27,18 +27,18 @@ using Ringtoets.Integration.Data.Placeholders;
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for an instance of <see cref="FailureMechanismPlaceholder"/>.
+    /// This class is a presentation object for an instance of <see cref="Placeholder"/>.
     /// </summary>
-    public class FailureMechanismPlaceholderContext : FailureMechanismContext<FailureMechanismPlaceholder>
+    public class FailureMechanismPlaceholderContext : FailureMechanismContext<Placeholder>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismPlaceholderContext"/> class.
         /// </summary>
-        /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
-        /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism" />.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="parent"/> are <c>null</c>.</exception>
-        public FailureMechanismPlaceholderContext(FailureMechanismPlaceholder wrappedFailureMechanism, IAssessmentSection parent) :
-            base(wrappedFailureMechanism, parent)
+        /// <param name="wrapped">The failure mechanism.</param>
+        /// <param name="parent">The parent of <paramref name="wrapped" />.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrapped"/> or <paramref name="parent"/> are <c>null</c>.</exception>
+        public FailureMechanismPlaceholderContext(Placeholder wrapped, IAssessmentSection parent) :
+            base(wrapped, parent)
         {
             
         }

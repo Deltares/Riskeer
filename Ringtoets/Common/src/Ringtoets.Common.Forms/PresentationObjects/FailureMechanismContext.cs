@@ -32,14 +32,14 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismContext{T}"/> class.
         /// </summary>
-        /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
-        /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="parent"/> are <c>null</c>.</exception>
-        protected FailureMechanismContext(T wrappedFailureMechanism, IAssessmentSection parent)
+        /// <param name="wrapped">The failure mechanism.</param>
+        /// <param name="parent">The parent of <paramref name="wrapped"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrapped"/> or <paramref name="parent"/> are <c>null</c>.</exception>
+        protected FailureMechanismContext(T wrapped, IAssessmentSection parent)
         {
-            AssertInputsAreNotNull(wrappedFailureMechanism, parent);
+            AssertInputsAreNotNull(wrapped, parent);
 
-            WrappedData = wrappedFailureMechanism;
+            WrappedData = wrapped;
             Parent = parent;
         }
 

@@ -63,17 +63,17 @@ namespace Ringtoets.Common.Data
         public bool AssessmentLayerOne { get; set; }
 
         /// <summary>
-        /// Gets and sets the value of assesment layer two a.
+        /// Gets and sets the value of assessment layer two a.
         /// </summary>
         public RoundedDouble AssessmentLayerTwoA { get; set; }
 
         /// <summary>
-        /// Gets and sets the value of assesment layer two b.
+        /// Gets and sets the value of assessment layer two b.
         /// </summary>
         public RoundedDouble AssessmentLayerTwoB { get; set; }
 
         /// <summary>
-        /// Gets and sets the value of assesment layer three.
+        /// Gets and sets the value of assessment layer three.
         /// </summary>
         public RoundedDouble AssessmentLayerThree { get; set; }
     }

@@ -55,73 +55,97 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            var view = new FailureMechanismResultView();
-
-            // Assert
-            Assert.IsInstanceOf<UserControl>(view);
-            Assert.IsInstanceOf<IView>(view);
-            Assert.IsNull(view.Data);
-            Assert.IsNull(view.FailureMechanism);
+            using (var view = new FailureMechanismResultView())
+            {
+                // Assert
+                Assert.IsInstanceOf<UserControl>(view);
+                Assert.IsInstanceOf<IView>(view);
+                Assert.IsNull(view.Data);
+                Assert.IsNull(view.FailureMechanism);
+            }
         }
 
         [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            ShowFailureMechanismResultsView();
-
-            // Assert
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-
-            Assert.AreEqual(5, dataGridView.ColumnCount);
-
-            foreach (var column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
+            using (ShowFailureMechanismResultsView())
             {
-                Assert.AreEqual("This", column.ValueMember);
-                Assert.AreEqual("DisplayName", column.DisplayMember);
-            }
+                // Assert
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-            foreach (var column in dataGridView.Columns.OfType<DataGridViewColumn>())
-            {
-                Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, column.AutoSizeMode);
-                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, column.HeaderCell.Style.Alignment);
+                Assert.AreEqual(5, dataGridView.ColumnCount);
+
+                foreach (var column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
+                {
+                    Assert.AreEqual("This", column.ValueMember);
+                    Assert.AreEqual("DisplayName", column.DisplayMember);
+                }
+
+                foreach (var column in dataGridView.Columns.OfType<DataGridViewColumn>())
+                {
+                    Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, column.AutoSizeMode);
+                    Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, column.HeaderCell.Style.Alignment);
+                }
             }
         }
 
         [Test]
-        public void Data_SetFailureMechanismSectionResultListData_DataSet()
+        public void Data_DataAlreadySetNewDataSet_DataSetAndDataGridViewUpdated()
         {
             // Setup
-            var points = new[]
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            };
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
-            var section = new FailureMechanismSection("test", points);
-            var testData = new List<FailureMechanismSectionResult> { new FailureMechanismSectionResult(section) };
+                var points = new[]
+                {
+                    new Point2D(1, 2),
+                    new Point2D(3, 4)
+                };
 
-            var view = new FailureMechanismResultView();
+                var section = new FailureMechanismSection("test", points);
+                var sectionResult = new FailureMechanismSectionResult(section);
+                var testData = new List<FailureMechanismSectionResult>
+                {
+                    sectionResult
+                };
 
-            // Call
-            view.Data = testData;
+                // Precondition
+                Assert.AreEqual(2, dataGridView.RowCount);
 
-            // Assert
-            Assert.AreSame(testData, view.Data);
+                // Call
+                view.Data = testData;
+
+                // Assert
+                Assert.AreSame(testData, view.Data);
+
+                Assert.AreEqual(testData.Count, dataGridView.RowCount);
+                Assert.AreEqual(sectionResult.Section.Name, dataGridView.Rows[0].Cells[0].Value);
+            }
         }
 
         [Test]
-        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNull()
+        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewOneEmtpyRow()
         {
             // Setup
             var testData = new object();
-            var view = new FailureMechanismResultView();
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
-            // Call
-            view.Data = testData;
+                // Call
+                view.Data = testData;
 
-            // Assert
-            Assert.IsNull(view.Data);
+                // Assert
+                Assert.IsNull(view.Data);
+                
+                Assert.AreEqual(1, dataGridView.RowCount);
+                foreach (DataGridViewCell cell in dataGridView.Rows[0].Cells)
+                {
+                    Assert.IsNull(cell.Value);
+                }
+            }
         }
 
         [Test]
@@ -129,98 +153,108 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
             mocks.ReplayAll();
-
-            var view = new FailureMechanismResultView
+            using (var view = new FailureMechanismResultView { FailureMechanism = failureMechanism })
             {
-                FailureMechanism = failureMechanism
-            };
+                // Precondition
+                Assert.IsNotNull(view.FailureMechanism);
 
-            // Precondition
-            Assert.IsNotNull(view.FailureMechanism);
+                // Call
+                view.Dispose();
 
-            // Call
-            view.Dispose();
-
-            // Assert
-            Assert.IsNull(view.FailureMechanism);
+                // Assert
+                Assert.IsNull(view.FailureMechanism);
+            }
         }
 
         [Test]
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowFullyConfiguredFailureMechanismResultsView();
+            using (ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                // Assert
+                var rows = dataGridView.Rows;
+                Assert.AreEqual(2, rows.Count);
 
-            // Assert
-            var rows = dataGridView.Rows;
-            Assert.AreEqual(2, rows.Count);
+                var cells = rows[0].Cells;
+                Assert.AreEqual(5, cells.Count);
+                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoBIndex].FormattedValue);
+                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
 
-            var cells = rows[0].Cells;
-            Assert.AreEqual(5, cells.Count);
-            Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-            Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoAIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoBIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
-
-            cells = rows[1].Cells;
-            Assert.AreEqual(5, cells.Count);
-            Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-            Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoAIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoBIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
+                cells = rows[1].Cells;
+                Assert.AreEqual(5, cells.Count);
+                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
+                Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoBIndex].FormattedValue);
+                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
+            }
         }
 
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void FailureMechanismResultsView_ChangCheckBox_DataGridViewCorrectlySyncedAndStylingSet(bool checkBoxSelected)
+        public void FailureMechanismResultsView_ChangeCheckBox_DataGridViewCorrectlySyncedAndStylingSet(bool checkBoxSelected)
         {
             // Setup
-            ShowFullyConfiguredFailureMechanismResultsView();
-
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-
-            dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = checkBoxSelected;
-
-            // Assert
-            var rows = dataGridView.Rows;
-            
-            var cells = rows[0].Cells;
-            Assert.AreEqual(5, cells.Count);
-            Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual(checkBoxSelected, (bool)cells[assessmentLayerOneIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoAIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoBIndex].FormattedValue);
-            Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
-
-            if (checkBoxSelected)
+            using (ShowFullyConfiguredFailureMechanismResultsView())
             {
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cells[assessmentLayerTwoAIndex].Style.BackColor);
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cells[assessmentLayerTwoAIndex].Style.ForeColor);
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cells[assessmentLayerTwoBIndex].Style.BackColor);
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cells[assessmentLayerTwoBIndex].Style.ForeColor);
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cells[assessmentLayerThreeIndex].Style.BackColor);
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cells[assessmentLayerThreeIndex].Style.ForeColor);
-            }
-            else
-            {
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cells[assessmentLayerTwoAIndex].Style.BackColor);
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cells[assessmentLayerTwoAIndex].Style.ForeColor);
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cells[assessmentLayerTwoBIndex].Style.BackColor);
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cells[assessmentLayerTwoBIndex].Style.ForeColor);
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cells[assessmentLayerThreeIndex].Style.BackColor);
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cells[assessmentLayerThreeIndex].Style.ForeColor);
-            }
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-            Assert.AreEqual(checkBoxSelected, cells[assessmentLayerTwoAIndex].ReadOnly);
-            Assert.AreEqual(checkBoxSelected, cells[assessmentLayerTwoBIndex].ReadOnly);
-            Assert.AreEqual(checkBoxSelected, cells[assessmentLayerThreeIndex].ReadOnly);
+                dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = checkBoxSelected;
+
+                // Assert
+                var rows = dataGridView.Rows;
+
+                var cells = rows[0].Cells;
+                Assert.AreEqual(5, cells.Count);
+                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                var cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
+                var cellAssessmentLayerTwoB = cells[assessmentLayerTwoBIndex];
+                var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
+
+                Assert.AreEqual(checkBoxSelected, (bool) cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.AreEqual(string.Format("{0}", 0), cellAssessmentLayerTwoA.FormattedValue);
+                Assert.AreEqual(string.Format("{0}", 0), cellAssessmentLayerTwoB.FormattedValue);
+                Assert.AreEqual(string.Format("{0}", 0), cellAssessmentLayerThree.FormattedValue);
+
+                var cellAssessmentLayerTwoABackColor = cellAssessmentLayerTwoA.Style.BackColor;
+                var cellAssessmentLayerTwoAForeColor = cellAssessmentLayerTwoA.Style.ForeColor;
+                var cellAssessmentLayerTwoBBackColor = cellAssessmentLayerTwoB.Style.BackColor;
+                var cellAssessmentLayerTwoBForeColor = cellAssessmentLayerTwoB.Style.ForeColor;
+                var cellAssessmentLayerThreeBackColor = cellAssessmentLayerThree.Style.BackColor;
+                var cellAssessmentLayerThreeForeColor = cellAssessmentLayerThree.Style.ForeColor;
+
+                if (checkBoxSelected)
+                {
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellAssessmentLayerTwoABackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cellAssessmentLayerTwoAForeColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellAssessmentLayerTwoBBackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cellAssessmentLayerTwoBForeColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), cellAssessmentLayerThreeBackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), cellAssessmentLayerThreeForeColor);
+                }
+                else
+                {
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cellAssessmentLayerTwoABackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cellAssessmentLayerTwoAForeColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cellAssessmentLayerTwoBBackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cellAssessmentLayerTwoBForeColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.White), cellAssessmentLayerThreeBackColor);
+                    Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cellAssessmentLayerThreeForeColor);
+                }
+
+                Assert.AreEqual(checkBoxSelected, cellAssessmentLayerTwoA.ReadOnly);
+                Assert.AreEqual(checkBoxSelected, cellAssessmentLayerTwoB.ReadOnly);
+                Assert.AreEqual(checkBoxSelected, cellAssessmentLayerThree.ReadOnly);
+            }
         }
 
         [Test]
@@ -233,15 +267,16 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
-            ShowFullyConfiguredFailureMechanismResultsView();
+            using (ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            
-            // Call
-            dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+                // Call
+                dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
 
-            // Assert
-            Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+                // Assert
+                Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+            }
         }
 
         [Test]
@@ -260,23 +295,24 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue, int cellIndex, string propertyName)
         {
             // Setup
-            var view = ShowFullyConfiguredFailureMechanismResultsView();
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            
-            // Call
-            dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+                // Call
+                dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
 
-            // Assert
-            Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
+                // Assert
+                Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
 
-            var dataObject = view.Data as List<FailureMechanismSectionResult>;
-            Assert.IsNotNull(dataObject);
-            var row = dataObject.First();
+                var dataObject = view.Data as List<FailureMechanismSectionResult>;
+                Assert.IsNotNull(dataObject);
+                var row = dataObject.First();
 
-            var propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
+                var propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
 
-            Assert.AreEqual((RoundedDouble)double.Parse(newValue), propertyValue);
+                Assert.AreEqual((RoundedDouble) double.Parse(newValue), propertyValue);
+            }
         }
 
         private const int nameColumnIndex = 0;
@@ -287,7 +323,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private FailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
         {
-            var failureMechanism = new SimpleFailureMechanism();
+            var failureMechanism = new Simple();
 
             failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
             {
@@ -308,9 +344,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             return failureMechanismResultView;
         }
 
-        private class SimpleFailureMechanism : BaseFailureMechanism
+        private class Simple : FailureMechanismBase
         {
-            public SimpleFailureMechanism() : base("Stubbed name") { }
+            public Simple() : base("Stubbed name") { }
 
             public override IEnumerable<ICalculationItem> CalculationItems
             {

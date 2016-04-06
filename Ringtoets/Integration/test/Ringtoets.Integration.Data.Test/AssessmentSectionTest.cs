@@ -58,38 +58,38 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(AssessmentSectionComposition.Dike, section.Composition);
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
-            CollectionAssert.IsEmpty(section.PipingFailureMechanism.StochasticSoilModels);
-            CollectionAssert.IsEmpty(section.PipingFailureMechanism.SurfaceLines);
+            CollectionAssert.IsEmpty(section.Piping.StochasticSoilModels);
+            CollectionAssert.IsEmpty(section.Piping.SurfaceLines);
 
-            Assert.IsInstanceOf<PipingFailureMechanism>(section.PipingFailureMechanism);
-            Assert.AreEqual(grassErosionName, section.GrassErosionFailureMechanism.Name);
-            Assert.AreEqual(macrostailityInwardName, section.MacrostabilityInwardFailureMechanism.Name);
-            Assert.AreEqual(overtoppingName, section.OvertoppingFailureMechanism.Name);
-            Assert.AreEqual(closingName, section.ClosingFailureMechanism.Name);
-            Assert.AreEqual(failingOfConstructionName, section.FailingOfConstructionFailureMechanism.Name);
-            Assert.AreEqual(stoneRevetmentName, section.StoneRevetmentFailureMechanism.Name);
-            Assert.AreEqual(asphaltName, section.AsphaltRevetmentFailureMechanism.Name);
-            Assert.AreEqual(grassRevetmentName, section.GrassRevetmentFailureMechanism.Name);
-            Assert.AreEqual(duneErosionName, section.DuneErosionFailureMechanism.Name);
+            Assert.IsInstanceOf<Piping.Data.Piping>(section.Piping);
+            Assert.AreEqual(grassErosionName, section.GrassErosion.Name);
+            Assert.AreEqual(macrostailityInwardName, section.MacrostabilityInward.Name);
+            Assert.AreEqual(overtoppingName, section.Overtopping.Name);
+            Assert.AreEqual(closingName, section.Closing.Name);
+            Assert.AreEqual(failingOfConstructionName, section.FailingOfConstruction.Name);
+            Assert.AreEqual(stoneRevetmentName, section.StoneRevetment.Name);
+            Assert.AreEqual(asphaltName, section.AsphaltRevetment.Name);
+            Assert.AreEqual(grassRevetmentName, section.GrassRevetment.Name);
+            Assert.AreEqual(duneErosionName, section.DuneErosion.Name);
 
-            Assert.AreEqual(24, section.PipingFailureMechanism.Contribution);
-            Assert.AreEqual(24, section.GrassErosionFailureMechanism.Contribution);
-            Assert.AreEqual(4, section.MacrostabilityInwardFailureMechanism.Contribution);
-            Assert.AreEqual(2, section.OvertoppingFailureMechanism.Contribution);
-            Assert.AreEqual(4, section.ClosingFailureMechanism.Contribution);
-            Assert.AreEqual(2, section.FailingOfConstructionFailureMechanism.Contribution);
-            Assert.AreEqual(4, section.StoneRevetmentFailureMechanism.Contribution);
-            Assert.AreEqual(3, section.AsphaltRevetmentFailureMechanism.Contribution);
-            Assert.AreEqual(3, section.GrassRevetmentFailureMechanism.Contribution);
-            Assert.AreEqual(0, section.DuneErosionFailureMechanism.Contribution);
+            Assert.AreEqual(24, section.Piping.Contribution);
+            Assert.AreEqual(24, section.GrassErosion.Contribution);
+            Assert.AreEqual(4, section.MacrostabilityInward.Contribution);
+            Assert.AreEqual(2, section.Overtopping.Contribution);
+            Assert.AreEqual(4, section.Closing.Contribution);
+            Assert.AreEqual(2, section.FailingOfConstruction.Contribution);
+            Assert.AreEqual(4, section.StoneRevetment.Contribution);
+            Assert.AreEqual(3, section.AsphaltRevetment.Contribution);
+            Assert.AreEqual(3, section.GrassRevetment.Contribution);
+            Assert.AreEqual(0, section.DuneErosion.Contribution);
 
             Assert.AreEqual(contributions, section.FailureMechanismContribution.Distribution.Select(d => d.Contribution));
             Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
             Assert.AreEqual(Enumerable.Repeat(30000.0, 11), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
 
-            Assert.AreEqual(pipingContribution, section.PipingFailureMechanism.SemiProbabilisticInput.Contribution);
-            Assert.AreEqual(30000.0, section.PipingFailureMechanism.SemiProbabilisticInput.Norm);
-            Assert.AreEqual(double.NaN, section.PipingFailureMechanism.SemiProbabilisticInput.SectionLength);
+            Assert.AreEqual(pipingContribution, section.Piping.SemiProbabilisticInput.Contribution);
+            Assert.AreEqual(30000.0, section.Piping.SemiProbabilisticInput.Norm);
+            Assert.AreEqual(double.NaN, section.Piping.SemiProbabilisticInput.SectionLength);
 
             Assert.AreEqual(100, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
         }
@@ -139,16 +139,16 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.AreEqual(10, failureMechanisms.Length);
-            Assert.AreSame(assessmentSection.PipingFailureMechanism, failureMechanisms[0]);
-            Assert.AreSame(assessmentSection.GrassErosionFailureMechanism, failureMechanisms[1]);
-            Assert.AreSame(assessmentSection.MacrostabilityInwardFailureMechanism, failureMechanisms[2]);
-            Assert.AreSame(assessmentSection.OvertoppingFailureMechanism, failureMechanisms[3]);
-            Assert.AreSame(assessmentSection.ClosingFailureMechanism, failureMechanisms[4]);
-            Assert.AreSame(assessmentSection.FailingOfConstructionFailureMechanism, failureMechanisms[5]);
-            Assert.AreSame(assessmentSection.StoneRevetmentFailureMechanism, failureMechanisms[6]);
-            Assert.AreSame(assessmentSection.AsphaltRevetmentFailureMechanism, failureMechanisms[7]);
-            Assert.AreSame(assessmentSection.GrassRevetmentFailureMechanism, failureMechanisms[8]);
-            Assert.AreSame(assessmentSection.DuneErosionFailureMechanism, failureMechanisms[9]);
+            Assert.AreSame(assessmentSection.Piping, failureMechanisms[0]);
+            Assert.AreSame(assessmentSection.GrassErosion, failureMechanisms[1]);
+            Assert.AreSame(assessmentSection.MacrostabilityInward, failureMechanisms[2]);
+            Assert.AreSame(assessmentSection.Overtopping, failureMechanisms[3]);
+            Assert.AreSame(assessmentSection.Closing, failureMechanisms[4]);
+            Assert.AreSame(assessmentSection.FailingOfConstruction, failureMechanisms[5]);
+            Assert.AreSame(assessmentSection.StoneRevetment, failureMechanisms[6]);
+            Assert.AreSame(assessmentSection.AsphaltRevetment, failureMechanisms[7]);
+            Assert.AreSame(assessmentSection.GrassRevetment, failureMechanisms[8]);
+            Assert.AreSame(assessmentSection.DuneErosion, failureMechanisms[9]);
         }
 
         [Test]
@@ -206,16 +206,16 @@ namespace Ringtoets.Integration.Data.Test
         {
             double[] contributions = GetContributionsArray(composition);
 
-            Assert.AreEqual(contributions[0], assessmentSection.PipingFailureMechanism.Contribution);
-            Assert.AreEqual(contributions[1], assessmentSection.GrassErosionFailureMechanism.Contribution);
-            Assert.AreEqual(contributions[2], assessmentSection.MacrostabilityInwardFailureMechanism.Contribution);
-            Assert.AreEqual(contributions[3], assessmentSection.OvertoppingFailureMechanism.Contribution);
-            Assert.AreEqual(contributions[4], assessmentSection.ClosingFailureMechanism.Contribution);
-            Assert.AreEqual(contributions[5], assessmentSection.FailingOfConstructionFailureMechanism.Contribution);
-            Assert.AreEqual(contributions[6], assessmentSection.StoneRevetmentFailureMechanism.Contribution);
-            Assert.AreEqual(contributions[7], assessmentSection.AsphaltRevetmentFailureMechanism.Contribution);
-            Assert.AreEqual(contributions[8], assessmentSection.GrassRevetmentFailureMechanism.Contribution);
-            Assert.AreEqual(contributions[9], assessmentSection.DuneErosionFailureMechanism.Contribution);
+            Assert.AreEqual(contributions[0], assessmentSection.Piping.Contribution);
+            Assert.AreEqual(contributions[1], assessmentSection.GrassErosion.Contribution);
+            Assert.AreEqual(contributions[2], assessmentSection.MacrostabilityInward.Contribution);
+            Assert.AreEqual(contributions[3], assessmentSection.Overtopping.Contribution);
+            Assert.AreEqual(contributions[4], assessmentSection.Closing.Contribution);
+            Assert.AreEqual(contributions[5], assessmentSection.FailingOfConstruction.Contribution);
+            Assert.AreEqual(contributions[6], assessmentSection.StoneRevetment.Contribution);
+            Assert.AreEqual(contributions[7], assessmentSection.AsphaltRevetment.Contribution);
+            Assert.AreEqual(contributions[8], assessmentSection.GrassRevetment.Contribution);
+            Assert.AreEqual(contributions[9], assessmentSection.DuneErosion.Contribution);
 
             CollectionAssert.AreEqual(contributions, assessmentSection.FailureMechanismContribution.Distribution.Select(d => d.Contribution));
         }
@@ -317,7 +317,7 @@ namespace Ringtoets.Integration.Data.Test
             assessmentSection.ReferenceLine = referenceLine;
 
             // Assert
-            Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.PipingFailureMechanism.SemiProbabilisticInput.SectionLength);
+            Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.Piping.SemiProbabilisticInput.SectionLength);
         }
 
         [Test]
@@ -330,7 +330,7 @@ namespace Ringtoets.Integration.Data.Test
             assessmentSection.ReferenceLine = null;
 
             // Assert
-            Assert.AreEqual(double.NaN, assessmentSection.PipingFailureMechanism.SemiProbabilisticInput.SectionLength);
+            Assert.AreEqual(double.NaN, assessmentSection.Piping.SemiProbabilisticInput.SectionLength);
         }
     }
 }

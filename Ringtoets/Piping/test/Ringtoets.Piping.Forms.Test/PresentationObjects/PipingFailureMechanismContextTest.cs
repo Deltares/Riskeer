@@ -22,13 +22,13 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
 
             // Call
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismContext<PipingFailureMechanism>>(context);
+            Assert.IsInstanceOf<FailureMechanismContext<Data.Piping>>(context);
             Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
             mocks.VerifyAll();
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new Data.Piping();
 
             // Call
             TestDelegate call = () => new PipingFailureMechanismContext(failureMechanism, null);

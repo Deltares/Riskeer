@@ -26,13 +26,10 @@ using Ringtoets.Common.Data;
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for <see cref="FailureMechanismSectionResult"/>.
+    /// This class is a presentation object for a collection of <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
     public class FailureMechanismSectionResultContext
     {
-        private readonly IEnumerable<FailureMechanismSectionResult> sectionResults;
-        private readonly IFailureMechanism failureMechanism;
-
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionResultContext"/>.
         /// </summary>
@@ -49,30 +46,18 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             {
                 throw new ArgumentNullException("failureMechanism");
             }
-            this.sectionResults = sectionResults;
-            this.failureMechanism = failureMechanism;
+            SectionResults = sectionResults;
+            FailureMechanism = failureMechanism;
         }
 
         /// <summary>
         /// Gets the wrapped <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/>.
         /// </summary>
-        public IEnumerable<FailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public IEnumerable<FailureMechanismSectionResult> SectionResults { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="IFailureMechanism"/>.
         /// </summary>
-        public IFailureMechanism FailureMechanism
-        {
-            get
-            {
-                return failureMechanism;
-            }
-        }
+        public IFailureMechanism FailureMechanism { get; private set; }
     }
 }

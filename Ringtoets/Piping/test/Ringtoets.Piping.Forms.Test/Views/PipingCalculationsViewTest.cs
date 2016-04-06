@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.IsInstanceOf<UserControl>(pipingCalculationsView);
                 Assert.IsInstanceOf<IView>(pipingCalculationsView);
                 Assert.IsNull(pipingCalculationsView.Data);
-                Assert.IsNull(pipingCalculationsView.PipingFailureMechanism);
+                Assert.IsNull(pipingCalculationsView.Piping);
                 Assert.IsNull(pipingCalculationsView.AssessmentSection);
                 Assert.IsNull(pipingCalculationsView.ApplicationSelection);
             }
@@ -138,26 +138,26 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var pipingFailureMechanism = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanism = mocks.StrictMock<Data.Piping>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             mocks.ReplayAll();
 
             using (var pipingCalculationsView = new PipingCalculationsView
             {
-                PipingFailureMechanism = pipingFailureMechanism,
+                Piping = pipingFailureMechanism,
                 AssessmentSection = assessmentSection,
             })
             {
                 // Precondition
-                Assert.IsNotNull(pipingCalculationsView.PipingFailureMechanism);
+                Assert.IsNotNull(pipingCalculationsView.Piping);
                 Assert.IsNotNull(pipingCalculationsView.AssessmentSection);
 
                 // Call
                 pipingCalculationsView.Dispose();
 
                 // Assert
-                Assert.IsNull(pipingCalculationsView.PipingFailureMechanism);
+                Assert.IsNull(pipingCalculationsView.Piping);
                 Assert.IsNull(pipingCalculationsView.AssessmentSection);
             }
         }
@@ -216,7 +216,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void PipingFailureMechanism_PipingFailureMechanismWithSections_SectionsListBoxCorrectlyInitialized()
         {
             // Setup
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new Data.Piping();
             var failureMechanismSection1 = new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
@@ -240,7 +240,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingCalculationsView = ShowPipingCalculationsView();
 
             // Call
-            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+            pipingCalculationsView.Piping = pipingFailureMechanism;
 
             // Assert
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
@@ -316,7 +316,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var secondPipingInputItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]).InputParameters;
 
             applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
-            applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem, pipingCalculationsView.PipingFailureMechanism.SurfaceLines, pipingCalculationsView.PipingFailureMechanism.StochasticSoilModels, pipingCalculationsView.AssessmentSection));
+            applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem, pipingCalculationsView.Piping.SurfaceLines, pipingCalculationsView.Piping.StochasticSoilModels, pipingCalculationsView.AssessmentSection));
 
             mocks.ReplayAll();
 
@@ -341,7 +341,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
             var secondPipingInputItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]).InputParameters;
 
-            applicationSelectionMock.Stub(asm => asm.Selection).Return(new PipingInputContext(secondPipingInputItem, pipingCalculationsView.PipingFailureMechanism.SurfaceLines, pipingCalculationsView.PipingFailureMechanism.StochasticSoilModels, pipingCalculationsView.AssessmentSection));
+            applicationSelectionMock.Stub(asm => asm.Selection).Return(new PipingInputContext(secondPipingInputItem, pipingCalculationsView.Piping.SurfaceLines, pipingCalculationsView.Piping.StochasticSoilModels, pipingCalculationsView.AssessmentSection));
 
             mocks.ReplayAll();
 
@@ -367,7 +367,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var secondPipingInputItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]).InputParameters;
 
             applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
-            applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem, pipingCalculationsView.PipingFailureMechanism.SurfaceLines, pipingCalculationsView.PipingFailureMechanism.StochasticSoilModels, pipingCalculationsView.AssessmentSection));
+            applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem, pipingCalculationsView.Piping.SurfaceLines, pipingCalculationsView.Piping.StochasticSoilModels, pipingCalculationsView.AssessmentSection));
 
             mocks.ReplayAll();
 
@@ -396,7 +396,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var pipingCalculationsView = ShowPipingCalculationsView();
-            pipingCalculationsView.PipingFailureMechanism = new PipingFailureMechanism
+            pipingCalculationsView.Piping = new Data.Piping
             {
                 StochasticSoilModels =
                 {
@@ -417,7 +417,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var pipingCalculationsView = ShowPipingCalculationsView();
-            pipingCalculationsView.PipingFailureMechanism = new PipingFailureMechanism
+            pipingCalculationsView.Piping = new Data.Piping
             {
                 SurfaceLines =
                 {
@@ -438,7 +438,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var pipingCalculationsView = ShowPipingCalculationsView();
-            pipingCalculationsView.PipingFailureMechanism = new PipingFailureMechanism
+            pipingCalculationsView.Piping = new Data.Piping
             {
                 SurfaceLines =
                 {
@@ -463,8 +463,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Given
             var pipingCalculationsView = ShowPipingCalculationsView();
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+            var pipingFailureMechanism = new Data.Piping();
+            pipingCalculationsView.Piping = pipingFailureMechanism;
 
             // When
             pipingFailureMechanism.StochasticSoilModels.Add(new TestStochasticSoilModel());
@@ -480,8 +480,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Given
             var pipingCalculationsView = ShowPipingCalculationsView();
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+            var pipingFailureMechanism = new Data.Piping();
+            pipingCalculationsView.Piping = pipingFailureMechanism;
 
             // When
             pipingFailureMechanism.SurfaceLines.Add(new RingtoetsPipingSurfaceLine());
@@ -497,8 +497,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Given
             var pipingCalculationsView = ShowPipingCalculationsView();
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+            var pipingFailureMechanism = new Data.Piping();
+            pipingCalculationsView.Piping = pipingFailureMechanism;
 
             // When
             pipingFailureMechanism.SurfaceLines.Add(new RingtoetsPipingSurfaceLine());
@@ -514,13 +514,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Given
             var pipingCalculationsView = ShowPipingCalculationsView();
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+            var pipingFailureMechanism = new Data.Piping();
+            pipingCalculationsView.Piping = pipingFailureMechanism;
 
             // When
             pipingFailureMechanism.SurfaceLines.Add(new RingtoetsPipingSurfaceLine());
             pipingFailureMechanism.StochasticSoilModels.Add(new TestStochasticSoilModel());
-            pipingCalculationsView.PipingFailureMechanism.NotifyObservers();
+            pipingCalculationsView.Piping.NotifyObservers();
 
             // Then
             var button = (Button) new ButtonTester("buttonGenerateScenarios", testForm).TheObject;
@@ -532,7 +532,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Given
             var pipingCalculationsView = ShowPipingCalculationsView();
-            var pipingFailureMechanism = new PipingFailureMechanism
+            var pipingFailureMechanism = new Data.Piping
             {
                 SurfaceLines =
                 {
@@ -543,12 +543,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new TestStochasticSoilModel()
                 }
             };
-            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+            pipingCalculationsView.Piping = pipingFailureMechanism;
 
             // When
             pipingFailureMechanism.SurfaceLines.Clear();
             pipingFailureMechanism.StochasticSoilModels.Clear();
-            pipingCalculationsView.PipingFailureMechanism.NotifyObservers();
+            pipingCalculationsView.Piping.NotifyObservers();
 
             // Then
             var button = (Button) new ButtonTester("buttonGenerateScenarios", testForm).TheObject;
@@ -635,7 +635,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point3D(5.0, -5.0, 0.0)
             });
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanism = new Data.Piping();
 
             pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
             {
@@ -781,7 +781,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             };
 
             pipingCalculationsView.AssessmentSection = assessmentSection;
-            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+            pipingCalculationsView.Piping = pipingFailureMechanism;
 
             return pipingCalculationsView;
         }
