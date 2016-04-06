@@ -36,7 +36,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Integration.Forms
 {
     /// <summary>
-    /// This factory is used to create <see cref="MapData"/> with default styling based on differnt
+    /// This factory is used to create <see cref="MapData"/> with default styling based on different
     /// types of data.
     /// </summary>
     public static class MapDataFactory

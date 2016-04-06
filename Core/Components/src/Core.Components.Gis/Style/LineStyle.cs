@@ -24,17 +24,37 @@ using System.Drawing.Drawing2D;
 
 namespace Core.Components.Gis.Style
 {
+    /// <summary>
+    /// This class represents styling of a line on a map.
+    /// </summary>
     public class LineStyle
     {
-        public Color Color { get; private set; }
-        public int Width { get; private set; }
-        public DashStyle Style { get; private set; }
-
+        /// <summary>
+        /// Creates a new instance of <see cref="LineStyle"/>.
+        /// </summary>
+        /// <param name="color">The color of the line.</param>
+        /// <param name="width">The width of the line.</param>
+        /// <param name="style">The <see cref="DashStyle"/> of the line.</param>
         public LineStyle(Color color, int width, DashStyle style)
         {
             Color = color;
             Width = width;
             Style = style;
         }
+
+        /// <summary>
+        /// Gets the line color.
+        /// </summary>
+        public Color Color { get; private set; }
+
+        /// <summary>
+        /// Gets the line width.
+        /// </summary>
+        public int Width { get; private set; }
+
+        /// <summary>
+        /// Gets the line style.
+        /// </summary>
+        public DashStyle Style { get; private set; }
     }
 }

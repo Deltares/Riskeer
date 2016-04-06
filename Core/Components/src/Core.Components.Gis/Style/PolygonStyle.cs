@@ -23,17 +23,37 @@ using System.Drawing;
 
 namespace Core.Components.Gis.Style
 {
+    /// <summary>
+    /// This class represents styling of a polygon on a map.
+    /// </summary>
     public class PolygonStyle
     {
-        public Color FillColor { get; private set; }
-        public Color StrokeColor { get; private set; }
-        public int Width { get; private set; }
-
+        /// <summary>
+        /// Creates a new instance of <see cref="PolygonStyle"/>.
+        /// </summary>
+        /// <param name="fillColor">The fill color of the polygon.</param>
+        /// <param name="strokeColor">The stroke color of the polygon.</param>
+        /// <param name="width">The width of the polygon border.</param>
         public PolygonStyle(Color fillColor, Color strokeColor, int width)
         {
             FillColor = fillColor;
             StrokeColor = strokeColor;
             Width = width;
         }
+
+        /// <summary>
+        /// Gets the polygon fill color.
+        /// </summary>
+        public Color FillColor { get; private set; }
+
+        /// <summary>
+        /// Gets the polygon stroke color.
+        /// </summary>
+        public Color StrokeColor { get; private set; }
+
+        /// <summary>
+        /// Gets the polygon border width.
+        /// </summary>
+        public int Width { get; private set; }
     }
 }

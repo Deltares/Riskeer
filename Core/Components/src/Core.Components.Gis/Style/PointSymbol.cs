@@ -21,8 +21,13 @@
 
 namespace Core.Components.Gis.Style
 {
+    /// <summary>
+    /// All symbols supported by <see cref="PointStyle"/>.
+    /// </summary>
     public enum PointSymbol
     {
-        Circle, Square, Triangle
+        Circle,
+        Square,
+        Triangle
     }
 }

@@ -42,8 +42,9 @@ namespace Core.Components.Gis.Data
         }
 
         /// <summary>
-        /// The name of the <see cref="MapData"/>.
+        /// Gets or sets name of the <see cref="MapData"/>.
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is <c>null</c> or only whitespace.</exception>
         public string Name
         {
             get

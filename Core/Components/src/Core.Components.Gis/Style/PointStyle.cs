@@ -23,17 +23,37 @@ using System.Drawing;
 
 namespace Core.Components.Gis.Style
 {
-    public class PointStyle {
-
-        public Color Color { get; private set; }
-        public double Size { get; private set; }
-        public PointSymbol Symbol { get; private set; }
-
+    /// <summary>
+    /// This class represents styling of a point on a map.
+    /// </summary>
+    public class PointStyle
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="PointStyle"/>.
+        /// </summary>
+        /// <param name="color">The color of the point.</param>
+        /// <param name="size">The size of the point.</param>
+        /// <param name="symbol">The symbol of the point.</param>
         public PointStyle(Color color, int size, PointSymbol symbol)
         {
             Color = color;
             Size = size;
             Symbol = symbol;
         }
+
+        /// <summary>
+        /// Gets the point color.
+        /// </summary>
+        public Color Color { get; private set; }
+
+        /// <summary>
+        /// Gets the point size.
+        /// </summary>
+        public double Size { get; private set; }
+
+        /// <summary>
+        /// Gets the point symbol.
+        /// </summary>
+        public PointSymbol Symbol { get; private set; }
     }
 }
