@@ -93,8 +93,8 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// <returns>The corrupt databaseschema that will pass validation.</returns>
         public static string GetCorruptSchema()
         {
-            return "DROP TABLE IF EXISTS 'Version'; " +
-                   "CREATE TABLE Version (VersionId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+            return "DROP TABLE IF EXISTS 'VersionEntity'; " +
+                   "CREATE TABLE VersionEntity (VersionId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                    " FromVersion VARCHAR (16), ToVersion VARCHAR (16),Timestamp NUMERIC); ";
         }
     }

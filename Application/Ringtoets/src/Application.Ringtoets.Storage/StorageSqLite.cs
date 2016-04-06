@@ -292,7 +292,7 @@ namespace Application.Ringtoets.Storage
                 try
                 {
                     dbContext.Database.Initialize(true);
-                    dbContext.Versions.Load();
+                    dbContext.VersionEntities.Load();
                 }
                 catch (Exception exception)
                 {

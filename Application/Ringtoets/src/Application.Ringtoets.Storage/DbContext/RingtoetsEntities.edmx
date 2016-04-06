@@ -16,6 +16,7 @@
           <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="HydraulicDatabaseLocation" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Composition" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="FailureMechanismEntity">
           <Key>
@@ -54,7 +55,7 @@
           <Property Name="Y" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Version">
+        <EntityType Name="VersionEntity">
           <Key>
             <PropertyRef Name="VersionId" />
           </Key>
@@ -117,7 +118,7 @@
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="ReferenceLinePointEntity" EntityType="Self.ReferenceLinePointEntity" store:Type="Tables" />
-          <EntitySet Name="Version" EntityType="Self.Version" store:Type="Tables" />
+          <EntitySet Name="VersionEntity" EntityType="Self.VersionEntity" store:Type="Tables" />
           <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="Self.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntity" />
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
@@ -145,7 +146,7 @@
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="ReferenceLinePointEntities" EntityType="RingtoetsEntitiesModel.ReferenceLinePointEntity" />
-          <EntitySet Name="Versions" EntityType="RingtoetsEntitiesModel.Version" />
+          <EntitySet Name="VersionEntities" EntityType="RingtoetsEntitiesModel.VersionEntity" />
           <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntities" />
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
@@ -174,6 +175,7 @@
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="HydraulicDatabaseVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="HydraulicDatabaseLocation" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Composition" Type="Int16" Nullable="false" />
           <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ProjectEntity" />
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
@@ -220,7 +222,7 @@
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0" FromRole="ReferenceLinePointEntity" ToRole="AssessmentSectionEntity" />
         </EntityType>
-        <EntityType Name="Version">
+        <EntityType Name="VersionEntity">
           <Key>
             <PropertyRef Name="VersionId" />
           </Key>
@@ -286,6 +288,7 @@
           <EntitySetMapping Name="AssessmentSectionEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.AssessmentSectionEntity">
               <MappingFragment StoreEntitySet="AssessmentSectionEntity">
+                <ScalarProperty Name="Composition" ColumnName="Composition" />
                 <ScalarProperty Name="HydraulicDatabaseLocation" ColumnName="HydraulicDatabaseLocation" />
                 <ScalarProperty Name="HydraulicDatabaseVersion" ColumnName="HydraulicDatabaseVersion" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
@@ -337,9 +340,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Versions">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.Version">
-              <MappingFragment StoreEntitySet="Version">
+          <EntitySetMapping Name="VersionEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.VersionEntity">
+              <MappingFragment StoreEntitySet="VersionEntity">
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="ToVersion" ColumnName="ToVersion" />
                 <ScalarProperty Name="FromVersion" ColumnName="FromVersion" />

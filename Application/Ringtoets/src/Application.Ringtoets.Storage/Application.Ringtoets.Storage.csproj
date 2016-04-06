@@ -74,7 +74,7 @@
     <Compile Include="DbContext\ReferenceLinePointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\Version.cs">
+    <Compile Include="DbContext\VersionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistors\AssessmentSectionPersistor.cs" />

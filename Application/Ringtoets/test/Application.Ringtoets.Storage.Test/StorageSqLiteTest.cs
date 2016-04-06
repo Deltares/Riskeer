@@ -348,7 +348,8 @@ namespace Application.Ringtoets.Storage.Test
             var storage = new StorageSqLite();
             var expectedMessage = String.Format(@"Fout bij het schrijven naar bestand '{0}'{1}: {2}", tempRingtoetsFile, "", "Een fout is opgetreden met het updaten van het Ringtoets bestand.");
             var expectedInnerExceptionMessage = "An error occurred while executing the command definition. See the inner exception for details.";
-            var expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database\r\nno such table: ProjectEntity";
+            var expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database" + Environment.NewLine +
+                                                              "no such table: ProjectEntity";
 
             using (var fileDisposeHelper = new FileDisposeHelperGarbageCollected(tempRingtoetsFile))
             {

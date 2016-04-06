@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class Version
+    public partial class VersionEntity
     {
         public long VersionId { get; set; }
         public string FromVersion { get; set; }

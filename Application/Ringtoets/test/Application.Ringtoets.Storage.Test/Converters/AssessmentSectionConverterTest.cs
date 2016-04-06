@@ -20,9 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
+
+using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
@@ -55,7 +59,10 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        public void ConvertEntityToModel_ValidAssessmentSectionEntity_ReturnsTheAssessmentSectionEntityAsAssessmentSection()
+        [TestCase(AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.Dune)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune)]
+        public void ConvertEntityToModel_ValidAssessmentSectionEntity_ReturnsTheAssessmentSectionEntityAsAssessmentSection(AssessmentSectionComposition composition)
         {
             // Setup
             const long storageId = 1234L;
@@ -71,7 +78,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
                 ProjectEntityId = projectId,
                 Norm = norm,
                 HydraulicDatabaseVersion = hydraulicDatabaseVersion,
-                HydraulicDatabaseLocation = hydraulicDatabasePath
+                HydraulicDatabaseLocation = hydraulicDatabasePath,
+                Composition = (short)composition
             };
             AssessmentSectionConverter converter = new AssessmentSectionConverter();
 
@@ -82,7 +90,14 @@ namespace Application.Ringtoets.Storage.Test.Converters
             Assert.AreNotEqual(assessmentSectionEntity, assessmentSection);
             Assert.AreEqual(storageId, assessmentSection.StorageId);
             Assert.AreEqual(name, assessmentSection.Name);
+            Assert.AreEqual(composition, assessmentSection.Composition);
             Assert.AreEqual(norm, assessmentSection.FailureMechanismContribution.Norm);
+            double expectedFirstDistributionItemContribution = composition == AssessmentSectionComposition.Dune ?
+                                                                   0.0 : 24.0;
+            Assert.AreEqual(expectedFirstDistributionItemContribution, assessmentSection.FailureMechanismContribution.Distribution.First().Contribution);
+            double expectedLastDistributionItemContribution = composition == AssessmentSectionComposition.DikeAndDune ?
+                                                                  20.0 : 30.0;
+            Assert.AreEqual(expectedLastDistributionItemContribution, assessmentSection.FailureMechanismContribution.Distribution.Last().Contribution);
             Assert.AreEqual(hydraulicDatabaseVersion, assessmentSection.HydraulicBoundaryDatabase.Version);
             Assert.AreEqual(hydraulicDatabasePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
         }
@@ -116,7 +131,10 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        public void ConvertModelToEntity_ValidAssessmentSection_UpdatesTheAssessmentSectionAsAssessmentSectionEntity()
+        [TestCase(AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.Dune)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune)]
+        public void ConvertModelToEntity_ValidAssessmentSection_UpdatesTheAssessmentSectionAsAssessmentSectionEntity(AssessmentSectionComposition composition)
         {
             // Setup
             const long storageId = 1234L;
@@ -139,6 +157,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
                     FilePath = hydraulicDatabasePath
                 }
             };
+            assessmentSection.ChangeComposition(composition);
+
             AssessmentSectionEntity assessmentSectionEntity = new AssessmentSectionEntity
             {
                 ProjectEntityId = projectId
@@ -153,6 +173,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             Assert.AreEqual(storageId, assessmentSectionEntity.AssessmentSectionEntityId);
             Assert.AreEqual(projectId, assessmentSectionEntity.ProjectEntityId);
             Assert.AreEqual(name, assessmentSectionEntity.Name);
+            Assert.AreEqual((short)composition, assessmentSectionEntity.Composition);
             Assert.AreEqual(norm, assessmentSectionEntity.Norm);
             Assert.AreEqual(hydraulicDatabaseVersion, assessmentSectionEntity.HydraulicDatabaseVersion);
             Assert.AreEqual(hydraulicDatabasePath, assessmentSectionEntity.HydraulicDatabaseLocation);

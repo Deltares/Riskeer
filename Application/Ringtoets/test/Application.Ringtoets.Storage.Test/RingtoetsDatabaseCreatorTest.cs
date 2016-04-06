@@ -34,7 +34,8 @@ namespace Application.Ringtoets.Storage.Test
         private static readonly string pathToStorageProject = Path.Combine(TestHelper.TestDataDirectory, "Application", "Ringtoets", "src", "Application.Ringtoets.Storage");
 
         /// <summary>
-        /// Creates a new Ringtoets.rtd file in the root of the <see cref="Application.Ringtoets.Storage"/>, which is used to auto-generate the database code.
+        /// Creates a new Ringtoets.rtd file in the root of the <see cref="Application.Ringtoets.Storage"/>, 
+        /// which is used to auto-generate the database code.
         /// </summary>
         [Test]
         public void RingtoetsDatabaseCreator_Explicit_CreatesRingtoetsProjectDatabaseFile()

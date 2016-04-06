@@ -50,6 +50,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public int Order { get; set; }
         public string HydraulicDatabaseVersion { get; set; }
         public string HydraulicDatabaseLocation { get; set; }
+        public short Composition { get; set; }
     
         public virtual ProjectEntity ProjectEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -162,7 +162,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void GetCorruptSchema_Always_ScriptThatOnlyGeneratesEnoughToPassValidation()
         {
             // Setup
-            const string expectedCreateVersionTable = "CREATE TABLE Version ";
+            const string expectedCreateVersionTable = "CREATE TABLE VersionEntity ";
             const string notExpectedCreateProjectEntityTable = "CREATE TABLE ProjectEntity ";
 
             // Call
