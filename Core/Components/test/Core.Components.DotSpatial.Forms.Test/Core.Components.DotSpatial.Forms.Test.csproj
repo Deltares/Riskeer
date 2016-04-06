@@ -84,6 +84,9 @@
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NUnitForms">
+      <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
       <Private>True</Private>
@@ -114,6 +117,10 @@
     <ProjectReference Include="..\..\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj">
       <Project>{5a91174a-fb95-4c9d-9ca5-81c0b8d4361a}</Project>
       <Name>Core.Components.DotSpatial.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj">
+      <Project>{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}</Project>
+      <Name>Core.Components.DotSpatial</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
       <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>

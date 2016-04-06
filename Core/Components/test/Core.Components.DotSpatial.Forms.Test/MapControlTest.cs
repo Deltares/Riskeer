@@ -25,12 +25,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
+using Core.Components.DotSpatial.MapFunctions;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using DotSpatial.Data;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 
 namespace Core.Components.DotSpatial.Forms.Test
@@ -53,6 +55,26 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsTrue(map.IsPanningEnabled);
                 Assert.IsFalse(map.IsRectangleZoomingEnabled);
                 Assert.IsTrue(map.IsMouseCoordinatesVisible);
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void DefaultConstructor_MapFunctionsCorrectlyInitialized()
+        {
+            using (var form = new Form())
+            {
+                // Call
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+
+                // Assert
+                Assert.AreEqual(9, map.MapFunctions.Count);
+                Assert.AreEqual(1, map.MapFunctions.OfType<MapFunctionPan>().Count());
+                Assert.AreEqual(1, map.MapFunctions.OfType<MapFunctionSelectionZoom>().Count());
             }
         }
 
@@ -251,71 +273,242 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void ToggleRectangleZooming_PanningIsEnabled_RectangleZoomingIsEnabled()
+        [RequiresSTA]
+        public void SelectionZoom_MouseUp_DefaultCursorSet()
         {
-            // Setup
-            using (var map = new MapControl())
+            using (var form = new Form())
             {
-                Assert.IsFalse(map.IsRectangleZoomingEnabled, "Precondition failed: IsRectangleZoomingEnabled is true");
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+
+                map.Cursor = Cursors.WaitCursor;
 
                 // Call
-                map.ToggleRectangleZooming();
+                EventHelper.RaiseEvent(mapFunctionSelectionZoom, "MouseUp", new GeoMouseArgs(new MouseEventArgs(MouseButtons.None, 1, 2, 3, 4), map));
 
                 // Assert
-                Assert.IsTrue(map.IsRectangleZoomingEnabled);
-                Assert.IsFalse(map.IsPanningEnabled);
+                Assert.AreEqual(Cursors.Default, map.Cursor);
             }
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ToggleRectangleZooming_Always_ChangesState(bool isRectangleZooming)
+        [RequiresSTA]
+        public void SelectionZoom_LeftMouseDown_SizeNWSECursorSet()
         {
-            // Setup
-            using (var map = new MapControl())
+            using (var form = new Form())
             {
-                if (isRectangleZooming)
-                {
-                    map.ToggleRectangleZooming();
-                }
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
 
-                // Precondition
-                Assert.AreEqual(isRectangleZooming, map.IsRectangleZoomingEnabled,
-                                String.Format("Precondition failed: IsRectangleZoomingEnabled is {0}", map.IsRectangleZoomingEnabled));
-                Assert.AreEqual(!isRectangleZooming, map.IsPanningEnabled,
-                                String.Format("Precondition failed: IsPanningEnabled is {0}", map.IsPanningEnabled));
+                var map = (Map) new ControlTester("Map").TheObject;
+                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+
+                map.Cursor = Cursors.WaitCursor;
 
                 // Call
-                map.ToggleRectangleZooming();
+                EventHelper.RaiseEvent(mapFunctionSelectionZoom, "MouseDown", new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, 2, 3, 4), map));
 
                 // Assert
-                Assert.IsTrue(map.IsRectangleZoomingEnabled);
+                Assert.AreEqual(Cursors.SizeNWSE, map.Cursor);
             }
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ToggleMouseCoordinatesVisibility_Always_ChangesState(bool isShowingCoordinates)
+        [RequiresSTA]
+        public void SelectionZoom_MiddleMouseDown_HandCursorSet()
         {
-            // Setup
-            using (var map = new MapControl())
+            using (var form = new Form())
             {
-                if (!isShowingCoordinates)
-                {
-                    // Make sure the state is correct
-                    map.ToggleMouseCoordinatesVisibility();
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
 
-                    // Precondition
-                    Assert.IsFalse(map.IsMouseCoordinatesVisible);
-                }
+                var map = (Map) new ControlTester("Map").TheObject;
+                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+
+                map.Cursor = Cursors.WaitCursor;
 
                 // Call
-                map.ToggleMouseCoordinatesVisibility();
+                EventHelper.RaiseEvent(mapFunctionSelectionZoom, "MouseDown", new GeoMouseArgs(new MouseEventArgs(MouseButtons.Middle, 1, 2, 3, 4), map));
 
                 // Assert
-                Assert.AreNotEqual(isShowingCoordinates, map.IsMouseCoordinatesVisible);
+                Assert.AreEqual(Cursors.Hand, map.Cursor);
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void SelectionZoom_RightMouseDown_DefaultCursorSet()
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                EventHelper.RaiseEvent(mapFunctionSelectionZoom, "MouseDown", new GeoMouseArgs(new MouseEventArgs(MouseButtons.Right, 1, 2, 3, 4), map));
+
+                // Assert
+                Assert.AreEqual(Cursors.Default, map.Cursor);
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void SelectionZoom_Activated_DefaultCursorSet()
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                mapFunctionSelectionZoom.Activate();
+
+                // Assert
+                Assert.AreEqual(Cursors.Default, map.Cursor);
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void Panning_MouseUp_DefaultCursorSet()
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                EventHelper.RaiseEvent(mapFunctionPan, "MouseUp", new GeoMouseArgs(new MouseEventArgs(MouseButtons.None, 1, 2, 3, 4), map));
+
+                // Assert
+                Assert.AreEqual(Cursors.Default, map.Cursor);
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void Panning_Activated_DefaultCursorSet()
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                mapFunctionPan.Activate();
+
+                // Assert
+                Assert.AreEqual(Cursors.Default, map.Cursor);
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void Panning_LeftMouseDown_HandCursorSet()
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                EventHelper.RaiseEvent(mapFunctionPan, "MouseDown", new GeoMouseArgs(new MouseEventArgs(MouseButtons.Left, 1, 2, 3, 4), map));
+
+                // Assert
+                Assert.AreEqual(Cursors.Hand, map.Cursor);
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void Panning_MiddleMouseDown_HandCursorSet()
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                EventHelper.RaiseEvent(mapFunctionPan, "MouseDown", new GeoMouseArgs(new MouseEventArgs(MouseButtons.Middle, 1, 2, 3, 4), map));
+
+                // Assert
+                Assert.AreEqual(Cursors.Hand, map.Cursor);
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void Panning_RightMouseDown_DefaultCursorSet()
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                EventHelper.RaiseEvent(mapFunctionPan, "MouseDown", new GeoMouseArgs(new MouseEventArgs(MouseButtons.Right, 1, 2, 3, 4), map));
+
+                // Assert
+                Assert.AreEqual(Cursors.Default, map.Cursor);
             }
         }
 
@@ -345,6 +538,84 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Assert
                 Assert.AreEqual(1, view.Layers.Count);
                 Assert.AreNotSame(layers[0], view.Layers[0]);
+            }
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ToggleRectangleZooming_Always_ChangesState(bool isRectangleZooming)
+        {
+            // Setup
+            using (var map = new MapControl())
+            {
+                if (isRectangleZooming)
+                {
+                    map.ToggleRectangleZooming();
+                }
+
+                // Precondition
+                Assert.AreEqual(isRectangleZooming, map.IsRectangleZoomingEnabled,
+                                String.Format("Precondition failed: IsRectangleZoomingEnabled is {0}", map.IsRectangleZoomingEnabled));
+                Assert.AreEqual(!isRectangleZooming, map.IsPanningEnabled,
+                                String.Format("Precondition failed: IsPanningEnabled is {0}", map.IsPanningEnabled));
+
+                // Call
+                map.ToggleRectangleZooming();
+
+                // Assert
+                Assert.IsTrue(map.IsRectangleZoomingEnabled);
+                Assert.IsFalse(map.IsPanningEnabled);
+            }
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void TogglePanning_Always_ChangesState(bool isPanning)
+        {
+            // Setup
+            using (var map = new MapControl())
+            {
+                if (!isPanning)
+                {
+                    map.ToggleRectangleZooming();
+                }
+
+                // Precondition
+                Assert.AreEqual(isPanning, map.IsPanningEnabled,
+                                String.Format("Precondition failed: IsPanningEnabled is {0}", map.IsPanningEnabled));
+                Assert.AreEqual(!isPanning, map.IsRectangleZoomingEnabled,
+                                String.Format("Precondition failed: IsRectangleZoomingEnabled is {0}", map.IsRectangleZoomingEnabled));
+
+                // Call
+                map.TogglePanning();
+
+                // Assert
+                Assert.IsTrue(map.IsPanningEnabled);
+                Assert.IsFalse(map.IsRectangleZoomingEnabled);
+            }
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ToggleMouseCoordinatesVisibility_Always_ChangesState(bool isShowingCoordinates)
+        {
+            // Setup
+            using (var map = new MapControl())
+            {
+                if (!isShowingCoordinates)
+                {
+                    // Make sure the state is correct
+                    map.ToggleMouseCoordinatesVisibility();
+
+                    // Precondition
+                    Assert.IsFalse(map.IsMouseCoordinatesVisible);
+                }
+
+                // Call
+                map.ToggleMouseCoordinatesVisibility();
+
+                // Assert
+                Assert.AreNotEqual(isShowingCoordinates, map.IsMouseCoordinatesVisible);
             }
         }
 

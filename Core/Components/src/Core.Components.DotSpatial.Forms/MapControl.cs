@@ -202,10 +202,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private void MapFunctionPanOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
         {
-            if (geoMouseArgs.Button != MouseButtons.Right)
-            {
-                map.Cursor = Cursors.Hand;
-            }
+            map.Cursor = geoMouseArgs.Button != MouseButtons.Right ? Cursors.Hand : defaultCursor;
         }
 
         private void MapFunctionSelectionZoomOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
