@@ -12,21 +12,16 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             string filePath = "doesNotExist.tmp";
+            Assert.IsFalse(File.Exists(filePath), String.Format("Precondition failed: File '{0}' should not exist", filePath));
+            FileDisposeHelper disposeHelper = null;
+
+            // Call
+            TestDelegate test = () => disposeHelper = new FileDisposeHelper(filePath);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+            disposeHelper.Dispose();
             Assert.IsFalse(File.Exists(filePath));
-
-            try
-            {
-                // Call
-                TestDelegate test = () => new FileDisposeHelper(filePath);
-
-                // Assert
-                Assert.DoesNotThrow(test);
-                Assert.IsFalse(File.Exists(filePath));
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
         }
 
         [Test]
@@ -34,22 +29,26 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             string filePath = "doesNotExist.tmp";
+            FileDisposeHelper disposeHelper = null;
 
             try
             {
                 using (File.Create(filePath)) {}
-                Assert.IsTrue(File.Exists(filePath));
+                Assert.IsTrue(File.Exists(filePath), String.Format("Precondition failed: File '{0}' should exist", filePath));
 
                 // Call
-                TestDelegate test = () => new FileDisposeHelper(filePath);
+                TestDelegate test = () => disposeHelper = new FileDisposeHelper(filePath);
 
                 // Assert
                 Assert.DoesNotThrow(test);
+                disposeHelper.Dispose();
             }
-            finally
+            catch (Exception exception)
             {
                 File.Delete(filePath);
+                Assert.Fail(exception.Message);
             }
+            Assert.IsFalse(File.Exists(filePath));
         }
 
         [Test]
@@ -61,19 +60,21 @@ namespace Core.Common.TestUtil.Test
             try
             {
                 Assert.IsFalse(File.Exists(filePath));
-
                 using (var fileDisposeHelper = new FileDisposeHelper(filePath))
                 {
                     // Call
                     fileDisposeHelper.Create();
+
                     // Assert
-                Assert.IsTrue(File.Exists(filePath));
+                    Assert.IsTrue(File.Exists(filePath));
                 }
             }
-            finally
+            catch (Exception exception)
             {
                 File.Delete(filePath);
+                Assert.Fail(exception.Message);
             }
+            Assert.IsFalse(File.Exists(filePath));
         }
 
         [Test]
@@ -102,14 +103,15 @@ namespace Core.Common.TestUtil.Test
 
                 // Call
                 using (new FileDisposeHelper(filePath)) {}
-
-                // Assert
-                Assert.IsFalse(File.Exists(filePath));
             }
-            finally
+            catch (Exception exception)
             {
                 File.Delete(filePath);
+                Assert.Fail(exception.Message);
             }
+
+            // Assert
+            Assert.IsFalse(File.Exists(filePath));
         }
 
         [Test]
@@ -126,26 +128,26 @@ namespace Core.Common.TestUtil.Test
             {
                 foreach (var filePath in filePaths)
                 {
-                    using (File.Create(filePath)) { }
+                    using (File.Create(filePath)) {}
                     Assert.IsTrue(File.Exists(filePath));
                 }
-                
-                // Call
-                using (new FileDisposeHelper(filePaths)) { }
 
-                // Assert
-                foreach (var filePath in filePaths)
-                {
-                    Assert.IsFalse(File.Exists(filePath));
-                }
+                // Call
+                using (new FileDisposeHelper(filePaths)) {}
             }
-            finally
+            catch (Exception exception)
             {
                 foreach (var filePath in filePaths)
                 {
                     File.Delete(filePath);
                 }
-                
+                Assert.Fail(exception.Message);
+            }
+
+            // Assert
+            foreach (var filePath in filePaths)
+            {
+                Assert.IsFalse(File.Exists(filePath));
             }
         }
     }

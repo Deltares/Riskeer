@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                                                "WHERE SectionId = @SectionId " +
                                                "ORDER BY BetaId DESC LIMIT 0,1;";
 
-        private const string alphaResultsQuery = "SELECT RingCombinMethod, PresentationSectionId, MainMechanismId, MainMechanismCombinMethod, MechanismId, LayerId, AlternativeId, Alpha " +
+        private const string alphaResultsQuery = "SELECT RingCombinMethod, PresentationSectionId, MainMechanismId, MainMechanismCombinMethod, MechanismId, LayerId, AlternativeId, VariableId, LoadVariableId, Alpha " +
                                                  "FROM AlphaResults " +
                                                  "WHERE BetaId = @BetaId " +
                                                  "ORDER BY BetaId, VariableId, LoadVariableId;";
@@ -63,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         private static ExceedanceProbabilityCalculationOutput DoParse(string outputFilePath, int sectionId)
         {
-            using (var sqLiteConnection = OpenConnection(outputFilePath))
+            using (var sqLiteConnection = CreateConnection(outputFilePath))
             {
                 sqLiteConnection.Open();
 
@@ -92,7 +92,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
         }
 
-        private static SQLiteConnection OpenConnection(string databaseFile)
+        private static SQLiteConnection CreateConnection(string databaseFile)
         {
             var connectionStringBuilder = new SQLiteConnectionStringBuilder
             {
@@ -145,10 +145,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             var mechanismId = Convert.ToInt32(sqLiteDataReader["MechanismId"]);
             var layerId = Convert.ToInt32(sqLiteDataReader["LayerId"]);
             var alternativeId = Convert.ToInt32(sqLiteDataReader["AlternativeId"]);
+            var variableId = Convert.ToInt32(sqLiteDataReader["VariableId"]);
+            var loadVariableId = Convert.ToInt32(sqLiteDataReader["LoadVariableId"]);
             var alpha = Convert.ToDouble(sqLiteDataReader["Alpha"]);
             return new ExceedanceProbabilityCalculationAlphaOutput(
                 ringCombinMethod, presentationSectionId, mainMechanismId, mainMechanismCombinMethod,
-                mechanismId, sectionId, layerId, alternativeId, alpha);
+                mechanismId, sectionId, layerId, alternativeId, variableId, loadVariableId, alpha);
         }
 
         #endregion

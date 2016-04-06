@@ -68,6 +68,7 @@
     <Compile Include="Data\Input\Overtopping\OvertoppingCalculationInputTest.cs" />
     <Compile Include="Data\Input\Overtopping\OvertoppingVariableCriticalOvertoppingTest.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationAlphaOutputTest.cs" />
+    <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputBaseTest.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputTest.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutputTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />

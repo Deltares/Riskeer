@@ -76,11 +76,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             var hydraRingCalculationService = new HydraRingCalculationService();
             var incorrectStationId = 999;
             var hydraRingSection = new HydraRingSection(incorrectStationId, "999", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-            var targetProbabilityCalculationInput = new OvertoppingCalculationInput(incorrectStationId, hydraRingSection,
-                                                                                    1, 2, 3,
-                                                                                    new List<HydraRingRoughnessProfilePoint>(),
-                                                                                    new List<HydraRingForelandPoint>(),
-                                                                                    new List<HydraRingBreakWater>());
+            var overtoppingCalculationInput = new OvertoppingCalculationInput(incorrectStationId, hydraRingSection,
+                                                                              1, 2, 3,
+                                                                              new List<HydraRingRoughnessProfilePoint>(),
+                                                                              new List<HydraRingForelandPoint>(),
+                                                                              new List<HydraRingBreakWater>());
             var outputFolder = Path.Combine(Path.GetTempPath(), "" + incorrectStationId);
             var outputFiles = new[]
             {
@@ -93,12 +93,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             using (new FileDisposeHelper(outputFiles))
             {
                 // Call
-                var targetProbabilityCalculationOutput = hydraRingCalculationService.PerformCalculation(
+                var overtoppingCalculationOutput = hydraRingCalculationService.PerformCalculation(
                     hlcdDirectory, "dummyRingId", HydraRingTimeIntegrationSchemeType.FBC,
-                    HydraRingUncertaintiesType.All, targetProbabilityCalculationInput);
+                    HydraRingUncertaintiesType.All, overtoppingCalculationInput);
 
                 // Assert
-                Assert.IsNull(targetProbabilityCalculationOutput);
+                Assert.IsNull(overtoppingCalculationOutput);
                 Assert.IsTrue(Directory.Exists(outputFolder));
                 foreach (var outputFile in outputFiles)
                 {

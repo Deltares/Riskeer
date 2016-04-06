@@ -25,7 +25,7 @@ using Ringtoets.HydraRing.Calculation.Data.Output;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
 {
     [TestFixture]
-    public class ExceedanceProbabilityCalculationAlphaOutputTest
+    public class ExceedanceProbabilityCalculationOutputBaseTest
     {
         [Test]
         public void Constructor_Always_ExpectedValues()
@@ -39,15 +39,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
             int sectionId = 6;
             int layerId = 7;
             int alternativeId = 8;
-            int variableId = 9;
-            int loadVariableId = 10;
-            double alpha = 11.11;
 
             // Call
-            ExceedanceProbabilityCalculationAlphaOutput exceedanceProbabilityCalculationOutput =
-                new ExceedanceProbabilityCalculationAlphaOutput(ringCombinMethod, presentationSectionId,
-                                                                mainMechanismId, mainMechanismCombinMethod, mechanismId,
-                                                                sectionId, layerId, alternativeId, variableId, loadVariableId, alpha);
+            ExceedanceProbabilityCalculationOutputBaseImplementation exceedanceProbabilityCalculationOutput =
+                new ExceedanceProbabilityCalculationOutputBaseImplementation(ringCombinMethod, presentationSectionId,
+                                                                             mainMechanismId, mainMechanismCombinMethod, mechanismId,
+                                                                             sectionId, layerId, alternativeId);
 
             // Assert
             Assert.IsNotNull(exceedanceProbabilityCalculationOutput);
@@ -59,9 +56,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
             Assert.AreEqual(sectionId, exceedanceProbabilityCalculationOutput.SectionId);
             Assert.AreEqual(layerId, exceedanceProbabilityCalculationOutput.LayerId);
             Assert.AreEqual(alternativeId, exceedanceProbabilityCalculationOutput.AlternativeId);
-            Assert.AreEqual(variableId, exceedanceProbabilityCalculationOutput.VariableId);
-            Assert.AreEqual(loadVariableId, exceedanceProbabilityCalculationOutput.LoadVariableId);
-            Assert.AreEqual(alpha, exceedanceProbabilityCalculationOutput.Alpha);
         }
+    }
+
+    internal class ExceedanceProbabilityCalculationOutputBaseImplementation : ExceedanceProbabilityCalculationOutputBase
+    {
+        public ExceedanceProbabilityCalculationOutputBaseImplementation(int ringCombinMethod, int presentationSectionId, int mainMechanismId, int mainMechanismCombinMethod, int mechanismId, int sectionId, int layerId, int alternativeId)
+            : base(ringCombinMethod, presentationSectionId, mainMechanismId, mainMechanismCombinMethod, mechanismId, sectionId, layerId, alternativeId) {}
     }
 }

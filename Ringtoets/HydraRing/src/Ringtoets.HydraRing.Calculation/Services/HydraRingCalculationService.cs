@@ -45,7 +45,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="targetProbabilityCalculationInput">The input of the calculation to perform.</param>
-        /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> or <c>null</c> when something went wrong.</returns>
+        /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> on a succesfull calculation, <c>null</c> otherwise.</returns>
         public virtual TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, TargetProbabilityCalculationInput targetProbabilityCalculationInput)
         {
             return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType,

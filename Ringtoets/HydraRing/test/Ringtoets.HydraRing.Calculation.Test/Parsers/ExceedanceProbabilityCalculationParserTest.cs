@@ -46,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             Assert.DoesNotThrow(test);
             Assert.IsNull(exceedanceProbabilityCalculationOutput);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(filePath));
+            Assert.IsFalse(File.Exists(testDataPath));
         }
 
         [Test]
@@ -81,13 +81,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var beta = 2.74030893482198;
             var alphaValues = new List<ExceedanceProbabilityCalculationAlphaOutput>
             {
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, -0.414848705277957),
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, -0.499651535355214),
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, -0.580660162401853),
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 0.463049288940854),
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 0.0434055709671213),
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 0.150241106274945),
-                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 0.0470275786268176)
+                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 0, 1, -0.414848705277957),
+                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 0, 23, -0.499651535355214),
+                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 0, 51, -0.580660162401853),
+                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 1, 0, 0.463049288940854),
+                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 10, 0, 0.0434055709671213),
+                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 11, 0, 0.150241106274945),
+                new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 17, 0, 0.0470275786268176)
             };
 
             // Call
@@ -117,6 +117,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
                 Assert.AreEqual(expectedAlpha.MechanismId, actualAlpha.MechanismId);
                 Assert.AreEqual(expectedAlpha.LayerId, actualAlpha.LayerId);
                 Assert.AreEqual(expectedAlpha.AlternativeId, actualAlpha.AlternativeId);
+                Assert.AreEqual(expectedAlpha.VariableId, actualAlpha.VariableId);
+                Assert.AreEqual(expectedAlpha.LoadVariableId, actualAlpha.LoadVariableId);
                 Assert.AreEqual(expectedAlpha.Alpha, actualAlpha.Alpha);
             }
 

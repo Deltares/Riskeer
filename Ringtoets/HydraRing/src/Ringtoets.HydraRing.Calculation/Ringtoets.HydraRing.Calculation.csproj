@@ -57,6 +57,7 @@
     <Compile Include="Data\Input\Overtopping\OvertoppingVariableCriticalOvertopping.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationAlphaOutput.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutput.cs" />
+    <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputBase.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutput.cs" />
     <Compile Include="Activities\HydraRingActivityFactory.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParser.cs" />
