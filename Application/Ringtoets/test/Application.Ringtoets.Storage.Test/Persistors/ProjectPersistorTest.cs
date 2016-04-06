@@ -29,6 +29,8 @@ using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
+
+using Ringtoets.Common.Data;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Test.Persistors
@@ -277,7 +279,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 Description = description,
                 Items =
                 {
-                    new AssessmentSection()
+                    new AssessmentSection(AssessmentSectionComposition.Dike)
                 }
             };
 
@@ -441,7 +443,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 Description = description,
                 Items =
                 {
-                    new AssessmentSection()
+                    new AssessmentSection(AssessmentSectionComposition.Dike)
                 }
             };
 

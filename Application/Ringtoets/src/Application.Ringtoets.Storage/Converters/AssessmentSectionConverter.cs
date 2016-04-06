@@ -47,11 +47,10 @@ namespace Application.Ringtoets.Storage.Converters
                 throw new ArgumentNullException("entity");
             }
 
-            var assessmentSection = new AssessmentSection();
+            var assessmentSection = new AssessmentSection(GetAssessmentSectionComposition(entity.Composition));
             assessmentSection.StorageId = entity.AssessmentSectionEntityId;
             assessmentSection.Name = entity.Name ?? string.Empty;
             assessmentSection.FailureMechanismContribution.Norm = entity.Norm;
-            assessmentSection.ChangeComposition(GetAssessmentSectionComposition(entity.Composition));
 
             if (entity.HydraulicDatabaseLocation != null && entity.HydraulicDatabaseVersion != null)
             {

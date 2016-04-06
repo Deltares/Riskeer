@@ -107,7 +107,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         {
             // Setup
             AssessmentSectionConverter converter = new AssessmentSectionConverter();
-            AssessmentSection assessmentSection = new AssessmentSection();
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
             TestDelegate test = () => converter.ConvertModelToEntity(assessmentSection, null);
@@ -143,7 +143,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             const string name = "test";
             const string hydraulicDatabaseVersion = "1.0";
             const string hydraulicDatabasePath = "testPath";
-            AssessmentSection assessmentSection = new AssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection(composition)
             {
                 StorageId = storageId,
                 Name = name,
@@ -157,7 +157,6 @@ namespace Application.Ringtoets.Storage.Test.Converters
                     FilePath = hydraulicDatabasePath
                 }
             };
-            assessmentSection.ChangeComposition(composition);
 
             AssessmentSectionEntity assessmentSectionEntity = new AssessmentSectionEntity
             {

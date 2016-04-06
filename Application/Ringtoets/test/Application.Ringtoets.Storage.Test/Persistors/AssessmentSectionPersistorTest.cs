@@ -252,7 +252,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             AssessmentSectionPersistor persistor = new AssessmentSectionPersistor(ringtoetsEntities);
-            var assessmentSection = new AssessmentSection();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
             TestDelegate test = () => persistor.InsertModel(null, assessmentSection, 0);
@@ -293,17 +293,15 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             ICollection<AssessmentSectionEntity> parentNavigationProperty = new List<AssessmentSectionEntity>();
-            AssessmentSection assessmentSection =
-                new AssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection(composition)
+            {
+                Name = name,
+                FailureMechanismContribution =
                 {
-                    Name = name,
-                    FailureMechanismContribution =
-                    {
-                        Norm = norm
-                    },
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-                };
-            assessmentSection.ChangeComposition(composition);
+                    Norm = norm
+                },
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            };
 
             AssessmentSectionPersistor persistor = new AssessmentSectionPersistor(ringtoetsEntities);
 
@@ -345,7 +343,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             AssessmentSectionPersistor persistor = new AssessmentSectionPersistor(ringtoetsEntities);
 
-            AssessmentSection assessmentSection = new AssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 StorageId = storageId,
                 Name = name,
@@ -385,7 +383,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const double locationX = 253;
             const double locationY = 123;
 
-            AssessmentSection assessmentSection = new AssessmentSection();
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(locationId, name, locationX, locationY)
             {
@@ -424,7 +422,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             AssessmentSectionPersistor persistor = new AssessmentSectionPersistor(ringtoetsEntities);
-            var assessmentSection = new AssessmentSection();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
             TestDelegate test = () => persistor.UpdateModel(null, assessmentSection, 0);
@@ -464,7 +462,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             AssessmentSectionPersistor persistor = new AssessmentSectionPersistor(ringtoetsEntities);
             ICollection<AssessmentSectionEntity> parentNavigationProperty = new List<AssessmentSectionEntity>();
-            AssessmentSection assessmentSection = new AssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection(composition)
             {
                 Name = name,
                 FailureMechanismContribution =
@@ -473,7 +471,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 },
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
-            assessmentSection.ChangeComposition(composition);
 
             // Call
             persistor.UpdateModel(parentNavigationProperty, assessmentSection, 0);
@@ -501,16 +498,15 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
             AssessmentSectionPersistor persistor = new AssessmentSectionPersistor(ringtoetsEntities);
             ICollection<AssessmentSectionEntity> parentNavigationProperty = new List<AssessmentSectionEntity>();
-            AssessmentSection assessmentSection =
-                new AssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                StorageId = storageId,
+                Name = name,
+                FailureMechanismContribution =
                 {
-                    StorageId = storageId,
-                    Name = name,
-                    FailureMechanismContribution =
-                    {
-                        Norm = norm
-                    }
-                };
+                    Norm = norm
+                }
+            };
 
             // Call
             TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, assessmentSection, 0);
@@ -536,7 +532,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     AssessmentSectionEntityId = 4567L
                 }
             };
-            AssessmentSection assessmentSection = new AssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 StorageId = storageId
             };
@@ -569,7 +565,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     AssessmentSectionEntityId = storageId
                 }
             };
-            AssessmentSection assessmentSection = new AssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 StorageId = storageId
             };
@@ -606,7 +602,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     Composition = (short)AssessmentSectionComposition.Dune
                 }
             };
-            AssessmentSection assessmentSection = new AssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection(composition)
             {
                 StorageId = storageId,
                 Name = name,
@@ -616,7 +612,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 },
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
-            assessmentSection.ChangeComposition(composition);
 
             // Call
             persistor.UpdateModel(parentNavigationProperty, assessmentSection, 0);
@@ -664,7 +659,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             AssessmentSectionPersistor persistor = new AssessmentSectionPersistor(ringtoetsEntities);
 
-            AssessmentSection assessmentSection = new AssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection(composition)
             {
                 StorageId = storageId,
                 Name = name,
@@ -674,7 +669,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 },
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
-            assessmentSection.ChangeComposition(composition);
 
             // Call
             persistor.UpdateModel(parentNavigationProperty, assessmentSection, 0);
@@ -702,7 +696,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             mockRepository.ReplayAll();
 
             AssessmentSectionPersistor persistor = new AssessmentSectionPersistor(ringtoetsEntities);
-            AssessmentSection assessmentSection = new AssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 StorageId = storageId,
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
@@ -769,16 +763,15 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             ringtoetsEntities.AssessmentSectionEntities.Add(entityToDelete);
 
             AssessmentSectionPersistor persistor = new AssessmentSectionPersistor(ringtoetsEntities);
-            AssessmentSection assessmentSection =
-                new AssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                Name = name,
+                FailureMechanismContribution =
                 {
-                    Name = name,
-                    FailureMechanismContribution =
-                    {
-                        Norm = norm
-                    },
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-                };
+                    Norm = norm
+                },
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            };
 
             persistor.InsertModel(parentNavigationProperty, assessmentSection, 0);
 
@@ -822,7 +815,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             ringtoetsEntities.AssessmentSectionEntities.Add(entityToUpdate);
 
             AssessmentSectionPersistor persistor = new AssessmentSectionPersistor(ringtoetsEntities);
-            AssessmentSection assessmentSection = new AssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection(composition)
             {
                 Name = name,
                 FailureMechanismContribution =
@@ -832,7 +825,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 StorageId = storageId,
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
-            assessmentSection.ChangeComposition(composition);
 
             TestDelegate updateTest = () => persistor.UpdateModel(parentNavigationProperty, assessmentSection, 0);
             Assert.DoesNotThrow(updateTest, "Precondition failed: Update should not throw exception.");
@@ -874,7 +866,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             ringtoetsEntities.AssessmentSectionEntities.Add(secondEntityToDelete);
             AssessmentSectionPersistor persistor = new AssessmentSectionPersistor(ringtoetsEntities);
 
-            AssessmentSection assessmentSection = new AssessmentSection
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
@@ -926,7 +918,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             for (var i = 0; i < numberOfInserts; i++)
             {
-                assessmentSections.Add(new AssessmentSection
+                assessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
                     StorageId = 0L,
                     HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()

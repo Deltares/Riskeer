@@ -30,7 +30,6 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Data.Properties;
-using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Data
 {
@@ -46,7 +45,9 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Initializes a new instance of the <see cref="AssessmentSection"/> class.
         /// </summary>
-        public AssessmentSection()
+        /// <param name="composition">The composition of the assessment section, e.g. what
+        /// type of elements can be found within the assessment section.</param>
+        public AssessmentSection(AssessmentSectionComposition composition)
         {
             Name = Resources.AssessmentSection_DisplayName;
 
@@ -62,7 +63,7 @@ namespace Ringtoets.Integration.Data
             DuneErosion = new Placeholder(Resources.ErosionFailureMechanism_DisplayName);
 
             FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
-            ChangeComposition(AssessmentSectionComposition.Dike);
+            ChangeComposition(composition);
         }
 
         /// <summary>

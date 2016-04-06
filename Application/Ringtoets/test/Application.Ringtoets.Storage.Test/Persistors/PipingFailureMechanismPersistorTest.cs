@@ -29,6 +29,8 @@ using Application.Ringtoets.Storage.Persistors;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+
+using Ringtoets.Common.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 
@@ -125,7 +127,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             const long storageId = 1234L;
-            Piping model = new Piping()
+            Piping model = new Piping
             {
                 StorageId = storageId
             };
@@ -137,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
 
-            var assessmentSection = new AssessmentSection();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
             persistor.LoadModel(entity, assessmentSection.Piping);

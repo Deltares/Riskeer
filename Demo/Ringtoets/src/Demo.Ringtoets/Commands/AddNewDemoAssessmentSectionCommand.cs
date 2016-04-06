@@ -5,6 +5,8 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Utils.IO;
+
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.HydraRing.Data;
@@ -55,7 +57,7 @@ namespace Demo.Ringtoets.Commands
 
         private AssessmentSection CreateNewDemoAssessmentSection()
         {
-            var demoAssessmentSection = new AssessmentSection
+            var demoAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 Name = "Demo traject"
             };

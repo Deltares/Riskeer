@@ -291,8 +291,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             using (var view = new FailureMechanismContributionView())
             {
-                var assessmentSection = new AssessmentSection();
-                assessmentSection.ChangeComposition(composition);
+                var assessmentSection = new AssessmentSection(composition);
 
                 var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);
 
@@ -320,8 +319,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             using (var view = new FailureMechanismContributionView())
             {
-                var assessmentSection = new AssessmentSection();
-                assessmentSection.ChangeComposition(initialComposition);
+                var assessmentSection = new AssessmentSection(initialComposition);
 
                 var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);
 
@@ -366,8 +364,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 observer.Expect(o => o.UpdateObserver());
                 mocks.ReplayAll();
 
-                var assessmentSection = new AssessmentSection();
-                assessmentSection.ChangeComposition(initialComposition);
+                var assessmentSection = new AssessmentSection(initialComposition);
                 assessmentSection.Attach(observer);
 
                 var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);

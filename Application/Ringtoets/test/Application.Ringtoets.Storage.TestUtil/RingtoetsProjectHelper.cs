@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                 Description = "description",
                 Items =
                 {
-                    new AssessmentSection
+                    new AssessmentSection(AssessmentSectionComposition.Dike)
                     {
                         Name = "assessmentSection",
                         HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(),

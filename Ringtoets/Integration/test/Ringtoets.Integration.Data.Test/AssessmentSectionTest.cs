@@ -6,7 +6,6 @@ using NUnit.Framework;
 
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Piping.Data;
 
 using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 
@@ -16,10 +15,13 @@ namespace Ringtoets.Integration.Data.Test
     public class AssessmentSectionTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        [TestCase(AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.Dune)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune)]
+        public void Constructor_ExpectedValues(AssessmentSectionComposition composition)
         {
             // Call
-            var section = new AssessmentSection();
+            var section = new AssessmentSection(composition);
 
             var pipingName = "Dijken - Piping";
             var grassErosionName = "Dijken - Graserosie kruin en binnentalud";
@@ -32,8 +34,6 @@ namespace Ringtoets.Integration.Data.Test
             var grassRevetmentName = "Dijken - Grasbekledingen";
             var duneErosionName = "Duinen - Erosie";
 
-            var pipingContribution = 24;
-            var contributions = new double[] { pipingContribution, 24, 4, 2, 4, 2, 4, 3, 3, 0, 30 };
             var names = new[] {
                 pipingName,
                 grassErosionName,
@@ -54,8 +54,8 @@ namespace Ringtoets.Integration.Data.Test
 
             Assert.AreEqual("Traject", section.Name);
             Assert.IsNull(section.Comments);
-            Assert.IsNull(section.ReferenceLine);            
-            Assert.AreEqual(AssessmentSectionComposition.Dike, section.Composition);
+            Assert.IsNull(section.ReferenceLine);
+            Assert.AreEqual(composition, section.Composition);
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
             CollectionAssert.IsEmpty(section.Piping.StochasticSoilModels);
@@ -72,22 +72,11 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(grassRevetmentName, section.GrassRevetment.Name);
             Assert.AreEqual(duneErosionName, section.DuneErosion.Name);
 
-            Assert.AreEqual(24, section.Piping.Contribution);
-            Assert.AreEqual(24, section.GrassErosion.Contribution);
-            Assert.AreEqual(4, section.MacrostabilityInward.Contribution);
-            Assert.AreEqual(2, section.Overtopping.Contribution);
-            Assert.AreEqual(4, section.Closing.Contribution);
-            Assert.AreEqual(2, section.FailingOfConstruction.Contribution);
-            Assert.AreEqual(4, section.StoneRevetment.Contribution);
-            Assert.AreEqual(3, section.AsphaltRevetment.Contribution);
-            Assert.AreEqual(3, section.GrassRevetment.Contribution);
-            Assert.AreEqual(0, section.DuneErosion.Contribution);
+            AssertExpectedContributions(composition, section);
 
-            Assert.AreEqual(contributions, section.FailureMechanismContribution.Distribution.Select(d => d.Contribution));
             Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
             Assert.AreEqual(Enumerable.Repeat(30000.0, 11), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
 
-            Assert.AreEqual(pipingContribution, section.Piping.SemiProbabilisticInput.Contribution);
             Assert.AreEqual(30000.0, section.Piping.SemiProbabilisticInput.Norm);
             Assert.AreEqual(double.NaN, section.Piping.SemiProbabilisticInput.SectionLength);
 
@@ -98,7 +87,7 @@ namespace Ringtoets.Integration.Data.Test
         public void Name_SetingNewValue_GetNewValue()
         {
             // Setup
-            var section = new AssessmentSection();
+            var section = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             const string newValue = "new value";
 
@@ -113,7 +102,7 @@ namespace Ringtoets.Integration.Data.Test
         public void Comments_SettingNewValue_GetNewValue()
         {
             // Setup
-            var section = new AssessmentSection();
+            var section = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             const string newValue = "new comment value";
 
@@ -131,8 +120,7 @@ namespace Ringtoets.Integration.Data.Test
         public void GetFailureMechanisms_Always_ReturnAllFailureMechanisms(AssessmentSectionComposition composition)
         {
             // Setup
-            var assessmentSection = new AssessmentSection();
-            assessmentSection.ChangeComposition(composition);
+            var assessmentSection = new AssessmentSection(composition);
 
             // Call
             var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
@@ -158,8 +146,7 @@ namespace Ringtoets.Integration.Data.Test
         public void FailureMechanismContribution_DefaultConstructed_FailureMechanismContributionWithItemsForFailureMechanismsAndOther(AssessmentSectionComposition composition)
         {
             // Setup
-            var assessmentSection = new AssessmentSection();
-            assessmentSection.ChangeComposition(composition);
+            var assessmentSection = new AssessmentSection(composition);
 
             const int norm = 30000;
 
@@ -193,7 +180,13 @@ namespace Ringtoets.Integration.Data.Test
         public void ChangeComposition_ToTargetValue_UpdateContributions(AssessmentSectionComposition composition)
         {
             // Setup
-            var assessmentSection = new AssessmentSection();
+            var initialComposition = composition == AssessmentSectionComposition.Dike ?
+                                         AssessmentSectionComposition.Dune : 
+                                         AssessmentSectionComposition.Dike;
+            var assessmentSection = new AssessmentSection(initialComposition);
+
+            // Precondition
+            Assert.AreNotEqual(assessmentSection.Composition, composition);
             
             // Call
             assessmentSection.ChangeComposition(composition);
@@ -285,7 +278,7 @@ namespace Ringtoets.Integration.Data.Test
         public void ReferenceLine_SetNewValue_GetNewValue()
         {
             // Setup
-            var assessmentSection = new AssessmentSection();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             
             var referenceLine = new ReferenceLine();
 
@@ -301,7 +294,7 @@ namespace Ringtoets.Integration.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var assessmentSection = new AssessmentSection();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ReferenceLine referenceLine = new ReferenceLine();
 
             Point2D[] somePointsCollection =
@@ -324,7 +317,7 @@ namespace Ringtoets.Integration.Data.Test
         public void ReferenceLine_Null_GeneralPipingInputSectionLengthNaN()
         {
             // Setup
-            var assessmentSection = new AssessmentSection();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
             assessmentSection.ReferenceLine = null;

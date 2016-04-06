@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Plugin
                 CreateData = owner =>
                 {
                     var project = (Project) owner;
-                    var assessmentSection = new AssessmentSection();
+                    var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                     assessmentSection.Name = GetUniqueForAssessmentSectionName(project, assessmentSection.Name);
                     return assessmentSection;
                 }

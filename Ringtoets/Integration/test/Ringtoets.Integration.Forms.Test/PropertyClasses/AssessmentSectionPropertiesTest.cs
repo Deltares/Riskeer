@@ -27,7 +27,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var assessmentSection = new AssessmentSection
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 Name = "Test"
             };
@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var assessmentSection = new AssessmentSection();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             assessmentSection.Attach(projectObserver);
 
             var properties = new AssessmentSectionProperties

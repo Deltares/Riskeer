@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Integration.Test
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Set all necessary data to the view
-                var assessmentSection = new AssessmentSection();
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 pipingCalculationsView.Data = assessmentSection.Piping.CalculationsGroup;
                 pipingCalculationsView.AssessmentSection = assessmentSection;
                 pipingCalculationsView.Piping = assessmentSection.Piping;
