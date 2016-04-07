@@ -165,6 +165,8 @@ namespace Ringtoets.Piping.Forms.Views
         {
             dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
             dataGridView.CellClick += DataGridViewOnCellClick;
+            dataGridView.CellValidating += DataGridViewCellValidating;
+            dataGridView.DataError += DataGridViewDataError;
 
             var nameColumn = new DataGridViewTextBoxColumn
             {
@@ -691,6 +693,28 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             UpdateApplicationSelection();
+        }
+
+        private void DataGridViewCellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            dataGridView.Rows[e.RowIndex].ErrorText = String.Empty;
+
+            var cellEditValue = e.FormattedValue.ToString();
+            if (string.IsNullOrWhiteSpace(cellEditValue))
+            {
+                dataGridView.Rows[e.RowIndex].ErrorText = Resources.DataGridViewCellValidating_Text_may_not_be_empty;
+            }
+        }
+
+        private void DataGridViewDataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.ThrowException = false;
+            e.Cancel = true;
+
+            if (string.IsNullOrWhiteSpace(dataGridView.Rows[e.RowIndex].ErrorText) && e.Exception != null)
+            {
+                dataGridView.Rows[e.RowIndex].ErrorText = e.Exception.Message;
+            }
         }
 
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)

@@ -197,6 +197,15 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De tekst mag niet leeg zijn..
+        /// </summary>
+        public static string DataGridViewCellValidating_Text_may_not_be_empty {
+            get {
+                return ResourceManager.GetString("DataGridViewCellValidating_Text_may_not_be_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De representatieve waarde die gebruikt wordt door de berekening..
         /// </summary>
         public static string DesignVariableTypeConverter_DesignValue_Description {

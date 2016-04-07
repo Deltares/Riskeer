@@ -730,4 +730,7 @@
   <data name="PipingInput_StochasticSoilModel_Description" xml:space="preserve">
     <value>Het stochastisch ondergrondmodel dat voor de piping berekening gebruikt wordt.</value>
   </data>
+  <data name="DataGridViewCellValidating_Text_may_not_be_empty" xml:space="preserve">
+    <value>De tekst mag niet leeg zijn.</value>
+  </data>
 </root>
