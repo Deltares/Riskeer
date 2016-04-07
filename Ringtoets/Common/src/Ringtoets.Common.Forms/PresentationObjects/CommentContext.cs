@@ -20,33 +20,32 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for the comment of an <see cref="IAssessmentSection"/>.
+    /// This class is a presentation object for the comment of <see cref="T"/>.
     /// </summary>
-    public class AssessmentSectionCommentContext
+    public class CommentContext<T> where T : IComment
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionCommentContext"/>.
+        /// Creates a new instance of <see cref="CommentContext{T}"/>.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to wrap.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public AssessmentSectionCommentContext(IAssessmentSection assessmentSection)
+        /// <param name="commentContainer">The container to wrap.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="commentContainer"/> is <c>null</c>.</exception>
+        public CommentContext(T commentContainer)
         {
-            if (assessmentSection == null)
+            if (commentContainer == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException("commentContainer");
             }
-
-            AssessmentSection = assessmentSection;
+            CommentContainer = commentContainer;
         }
 
         /// <summary>
-        /// Gets the wrapped assessment section
+        /// Gets the wrapped comment container.
         /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
+        public T CommentContainer { get; private set; }
     }
 }

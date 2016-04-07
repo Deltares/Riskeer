@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(AssessmentSectionCommentContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CommentContext<IComment>));
         }
 
         [TearDown]
@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(AssessmentSectionCommentContext), info.TagType);
+            Assert.AreEqual(typeof(CommentContext<IComment>), info.TagType);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var context = new AssessmentSectionCommentContext(assessmentSectionMock);
+            var context = new CommentContext<IComment>(assessmentSectionMock);
 
             mocks.ReplayAll();
 
@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var context = new AssessmentSectionCommentContext(assessmentSectionMock);
+            var context = new CommentContext<IComment>(assessmentSectionMock);
 
             mocks.ReplayAll();
 

@@ -114,10 +114,10 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
 
-            yield return new ViewInfo<AssessmentSectionCommentContext, IAssessmentSection, AssessmentSectionCommentView>
+            yield return new ViewInfo<CommentContext<IComment>, IComment, AssessmentSectionCommentView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.AssessmentSectionComment_DisplayName,
-                GetViewData = context => context.AssessmentSection,
+                GetViewData = context => context.CommentContainer,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseAssessmentSectionCommentViewForData
             };
@@ -232,7 +232,7 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<AssessmentSectionCommentContext>
+            yield return new TreeNodeInfo<CommentContext<IComment>>
             {
                 Text = comment => RingtoetsCommonDataResources.AssessmentSectionComment_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -293,7 +293,7 @@ namespace Ringtoets.Integration.Plugin
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData),
-                new AssessmentSectionCommentContext(nodeData)
+                new CommentContext<IComment>(nodeData)
             };
 
             var failureMechanismContexts = WrapFailureMechanismsInContexts(nodeData);

@@ -31,17 +31,12 @@ namespace Ringtoets.Common.Data.AssessmentSection
     /// <summary>
     /// Base implementation of assessment sections.
     /// </summary>
-    public interface IAssessmentSection : IObservable, IStorable
+    public interface IAssessmentSection : IComment, IObservable, IStorable
     {
         /// <summary>
         /// Gets or sets the name of the assessment section.
         /// </summary>
         string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the comments of the assessment section.
-        /// </summary>
-        string Comments { get; set; }
 
         /// <summary>
         /// Gets the composition of the assessment section, e.g. what type of elements can 

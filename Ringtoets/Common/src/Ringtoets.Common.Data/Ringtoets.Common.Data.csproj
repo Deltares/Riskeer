@@ -45,6 +45,7 @@
     <Compile Include="FailureMechanism\FailureMechanismSectionResult.cs" />
     <Compile Include="FailureMechanism\ICalculationItem.cs" />
     <Compile Include="FailureMechanism\IFailureMechanism.cs" />
+    <Compile Include="IComment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

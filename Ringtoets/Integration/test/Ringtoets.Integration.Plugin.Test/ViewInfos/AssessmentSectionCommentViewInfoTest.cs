@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(AssessmentSectionCommentContext), info.DataType);
+            Assert.AreEqual(typeof(CommentContext<IComment>), info.DataType);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(AssessmentSectionCommentContext), dataType);
+            Assert.AreEqual(typeof(CommentContext<IComment>), dataType);
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(IAssessmentSection), viewDataType);
+            Assert.AreEqual(typeof(IComment), viewDataType);
         }
 
         [Test]

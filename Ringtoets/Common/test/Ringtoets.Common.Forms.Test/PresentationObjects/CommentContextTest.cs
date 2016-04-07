@@ -1,14 +1,13 @@
 ﻿using System;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class AssessmentSectionCommentContextTest
+    public class CommentContextTest
     {
         [Test]
         public void Constuctor_DefaultValues()
@@ -20,21 +19,21 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            var context = new AssessmentSectionCommentContext(assessmentSectionMock);
+            var context = new CommentContext<IAssessmentSection>(assessmentSectionMock);
 
             // Assert
-            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
+            Assert.AreSame(assessmentSectionMock, context.CommentContainer);
         }
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionCommentContext(null);
+            TestDelegate call = () => new CommentContext<IAssessmentSection>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
+            Assert.AreEqual("commentContainer", exception.ParamName);
         }
     }
 }
