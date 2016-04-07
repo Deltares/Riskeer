@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Data_SetNewPipingFailureMechanismContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
             var properties = new PipingFailureMechanismContextProperties();
 
             // Call

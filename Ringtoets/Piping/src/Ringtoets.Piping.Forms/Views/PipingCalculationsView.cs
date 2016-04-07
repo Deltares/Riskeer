@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Forms.Views
         private IAssessmentSection assessmentSection;
         private DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn;
         private PipingCalculationGroup pipingCalculationGroup;
-        private Data.Piping piping;
+        private PipingFailureMechanism pipingFailureMechanism;
         private DataGridViewComboBoxColumn stochasticSoilModelColumn;
         private DataGridViewComboBoxColumn stochasticSoilProfileColumn;
         private bool updatingDataSource;
@@ -78,17 +78,17 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Gets or sets the piping failure mechanism.
         /// </summary>
-        public Data.Piping Piping
+        public PipingFailureMechanism PipingFailureMechanism
         {
             get
             {
-                return piping;
+                return pipingFailureMechanism;
             }
             set
             {
-                piping = value;
-                pipingStochasticSoilModelsObserver.Observable = piping != null ? piping.StochasticSoilModels : null;
-                pipingFailureMechanismObserver.Observable = piping;
+                pipingFailureMechanism = value;
+                pipingStochasticSoilModelsObserver.Observable = pipingFailureMechanism != null ? pipingFailureMechanism.StochasticSoilModels : null;
+                pipingFailureMechanismObserver.Observable = pipingFailureMechanism;
 
                 UpdateStochasticSoilModelColumn();
                 UpdateStochasticSoilProfileColumn();
@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.Forms.Views
         protected override void Dispose(bool disposing)
         {
             AssessmentSection = null;
-            Piping = null;
+            PipingFailureMechanism = null;
 
             if (disposing && (components != null))
             {
@@ -305,9 +305,9 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void UpdateGenerateScenariosButtonState()
         {
-            buttonGenerateScenarios.Enabled = piping != null &&
-                                              piping.SurfaceLines.Any() &&
-                                              piping.StochasticSoilModels.Any();
+            buttonGenerateScenarios.Enabled = pipingFailureMechanism != null &&
+                                              pipingFailureMechanism.SurfaceLines.Any() &&
+                                              pipingFailureMechanism.StochasticSoilModels.Any();
         }
 
         private void RefreshDataGridView()
@@ -386,13 +386,13 @@ namespace Ringtoets.Piping.Forms.Views
 
         private IEnumerable<StochasticSoilModel> GetSoilModelsForCalculation(PipingCalculation pipingCalculation)
         {
-            if (piping == null)
+            if (pipingFailureMechanism == null)
             {
                 return Enumerable.Empty<StochasticSoilModel>();
             }
             return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
                 pipingCalculation.InputParameters.SurfaceLine,
-                piping.StochasticSoilModels);
+                pipingFailureMechanism.StochasticSoilModels);
         }
 
         private IEnumerable<StochasticSoilProfile> GetSoilProfilesForCalculation(PipingCalculation pipingCalculation)
@@ -420,10 +420,10 @@ namespace Ringtoets.Piping.Forms.Views
         {
             listBox.Items.Clear();
 
-            if (piping != null && piping.Sections.Any())
+            if (pipingFailureMechanism != null && pipingFailureMechanism.Sections.Any())
             {
-                listBox.Items.AddRange(piping.Sections.Cast<object>().ToArray());
-                listBox.SelectedItem = piping.Sections.First();
+                listBox.Items.AddRange(pipingFailureMechanism.Sections.Cast<object>().ToArray());
+                listBox.SelectedItem = pipingFailureMechanism.Sections.First();
             }
         }
 
@@ -477,7 +477,7 @@ namespace Ringtoets.Piping.Forms.Views
             // items.
             using (new SuspendDataGridViewColumnResizes(stochasticSoilModelColumn))
             {
-                var stochasticSoilModels = piping.StochasticSoilModels;
+                var stochasticSoilModels = pipingFailureMechanism.StochasticSoilModels;
                 SetItemsOnObjectCollection(stochasticSoilModelColumn.Items, GetStochasticSoilModelColumnsDataSource(stochasticSoilModels).ToArray());
             }
             using (new SuspendDataGridViewColumnResizes(stochasticSoilProfileColumn))
@@ -498,9 +498,9 @@ namespace Ringtoets.Piping.Forms.Views
 
         private StochasticSoilProfile[] GetPipingStochasticSoilProfilesFromStochasticSoilModels()
         {
-            if (piping != null)
+            if (pipingFailureMechanism != null)
             {
-                return piping.StochasticSoilModels
+                return pipingFailureMechanism.StochasticSoilModels
                              .SelectMany(ssm => ssm.StochasticSoilProfiles)
                              .Distinct()
                              .ToArray();
@@ -725,13 +725,13 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void OnGenerateScenariosButtonClick(object sender, EventArgs e)
         {
-            var dialog = new PipingSurfaceLineSelectionDialog(Parent, piping.SurfaceLines);
+            var dialog = new PipingSurfaceLineSelectionDialog(Parent, pipingFailureMechanism.SurfaceLines);
             dialog.ShowDialog();
             var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
                 dialog.SelectedSurfaceLines,
-                piping.StochasticSoilModels,
-                piping.GeneralInput,
-                piping.SemiProbabilisticInput);
+                pipingFailureMechanism.StochasticSoilModels,
+                pipingFailureMechanism.GeneralInput,
+                pipingFailureMechanism.SemiProbabilisticInput);
             foreach (var item in calculationsStructure)
             {
                 pipingCalculationGroup.Children.Add(item);
@@ -755,8 +755,8 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 selection = new PipingInputContext(
                     pipingCalculationRow.PipingCalculation.InputParameters,
-                    piping.SurfaceLines,
-                    piping.StochasticSoilModels,
+                    pipingFailureMechanism.SurfaceLines,
+                    pipingFailureMechanism.StochasticSoilModels,
                     assessmentSection);
             }
 

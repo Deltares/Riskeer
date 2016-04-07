@@ -3,8 +3,6 @@
 using NUnit.Framework;
 
 using Rhino.Mocks;
-
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
@@ -23,13 +21,13 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
             var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismContext<Data.Piping>>(context);
+            Assert.IsInstanceOf<FailureMechanismContext<PipingFailureMechanism>>(context);
             Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
             mocks.VerifyAll();
@@ -55,7 +53,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
             TestDelegate call = () => new PipingFailureMechanismContext(failureMechanism, null);

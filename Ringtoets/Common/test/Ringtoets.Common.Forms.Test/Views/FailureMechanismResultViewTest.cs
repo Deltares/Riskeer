@@ -154,7 +154,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = new Simple();
+            var failureMechanism = new SimpleFailureMechanism();
             mocks.ReplayAll();
             using (var view = new FailureMechanismResultView { FailureMechanism = failureMechanism })
             {
@@ -324,7 +324,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private FailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
         {
-            var failureMechanism = new Simple();
+            var failureMechanism = new SimpleFailureMechanism();
 
             failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
             {
@@ -345,9 +345,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             return failureMechanismResultView;
         }
 
-        private class Simple : FailureMechanismBase
+        private class SimpleFailureMechanism : FailureMechanismBase
         {
-            public Simple() : base("Stubbed name") { }
+            public SimpleFailureMechanism() : base("Stubbed name") { }
 
             public override IEnumerable<ICalculationItem> CalculationItems
             {

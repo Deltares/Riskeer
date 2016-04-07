@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             PipingFailureMechanismConverter converter = new PipingFailureMechanismConverter();
 
             // Assert
-            Assert.IsInstanceOf<IEntityConverter<Piping, FailureMechanismEntity>>(converter);
+            Assert.IsInstanceOf<IEntityConverter<PipingFailureMechanism, FailureMechanismEntity>>(converter);
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             };
 
             // Call
-            Piping failureMechanism = converter.ConvertEntityToModel(entity);
+            PipingFailureMechanism failureMechanism = converter.ConvertEntityToModel(entity);
 
             // Assert
             Assert.AreEqual(entity.FailureMechanismEntityId, failureMechanism.StorageId);
@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             PipingFailureMechanismConverter converter = new PipingFailureMechanismConverter();
 
             // Call
-            TestDelegate test = () => converter.ConvertModelToEntity(new Piping(), null);
+            TestDelegate test = () => converter.ConvertModelToEntity(new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -138,7 +138,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             const long storageId = 1234L;
             var entity = new FailureMechanismEntity();
 
-            var model = new Piping
+            var model = new PipingFailureMechanism
             {
                 StorageId = storageId
             };

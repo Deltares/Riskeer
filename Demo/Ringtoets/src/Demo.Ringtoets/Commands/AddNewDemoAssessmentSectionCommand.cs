@@ -107,7 +107,7 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeDemoPipingData(AssessmentSection demoAssessmentSection)
         {
-            var pipingFailureMechanism = demoAssessmentSection.Piping;
+            var pipingFailureMechanism = demoAssessmentSection.PipingFailureMechanism;
 
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
             {

@@ -152,7 +152,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(name, section.Name);
             Assert.AreEqual(composition, section.Composition);
             Assert.AreEqual(norm, section.FailureMechanismContribution.Norm);
-            Assert.AreEqual(pipingFailureMechanismStorageId, section.Piping.StorageId);
+            Assert.AreEqual(pipingFailureMechanismStorageId, section.PipingFailureMechanism.StorageId);
             Assert.AreEqual(hydraulicDatabaseVersion, section.HydraulicBoundaryDatabase.Version);
             Assert.AreEqual(hydraulicDatabasePath, section.HydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(2, section.HydraulicBoundaryDatabase.Locations.Count);

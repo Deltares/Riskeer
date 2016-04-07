@@ -16,7 +16,7 @@ namespace Ringtoets.Integration.Data.Test.Placeholders
             const string expectedName = "test";
 
             // Call
-            var failureMechanism = new Placeholder(expectedName);
+            var failureMechanism = new FailureMechanismPlaceholder(expectedName);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);

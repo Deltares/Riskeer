@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            var mechanism = new Piping.Data.Piping();
+            var mechanism = new PipingFailureMechanism();
             var context = new FailureMechanismSectionResultContext(mechanism.SectionResults, mechanism);
 
             // Call

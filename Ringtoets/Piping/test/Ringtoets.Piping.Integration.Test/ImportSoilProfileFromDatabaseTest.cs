@@ -24,7 +24,7 @@ namespace Ringtoets.Piping.Integration.Test
         {
             // Given
             var databasePath = Path.Combine(testDataPath, "1dprofile.soil");
-            var pipingFailureMechanism = new Data.Piping();
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Integration.Test
         {
             // Given
             var databasePath = Path.Combine(testDataPath, "invalid2dGeometry.soil");
-            var pipingFailureMechanism = new Data.Piping();
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -149,7 +149,7 @@ namespace Ringtoets.Piping.Integration.Test
         {
             // Given
             var databasePath = Path.Combine(testDataPath, "1dprofileNoValues.soil");
-            var pipingFailureMechanism = new Data.Piping();
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();

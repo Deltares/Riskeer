@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new Data.Piping();
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
 
@@ -149,7 +149,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             assessmentSectionMock.ReferenceLine = referenceLine;
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new Data.Piping();
+            var pipingFailureMechanism = new PipingFailureMechanism();
             pipingFailureMechanism.SurfaceLines.Add(new RingtoetsPipingSurfaceLine());
             pipingFailureMechanism.AddSection(new FailureMechanismSection("A", refereceGeometryPoints.Take(2)));
             pipingFailureMechanism.AddSection(new FailureMechanismSection("B", refereceGeometryPoints.Skip(1).Take(2)));
@@ -192,7 +192,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase1
             };
 
-            var pipingFailureMechanism = new Data.Piping();
+            var pipingFailureMechanism = new PipingFailureMechanism();
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
             view.Data = pipingContext;
@@ -248,7 +248,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             };
             assessmentSection.ReferenceLine.SetGeometry(points);
 
-            var pipingFailureMechanism = new Data.Piping();
+            var pipingFailureMechanism = new PipingFailureMechanism();
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
             view.Data = pipingContext;
@@ -287,7 +287,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new Data.Piping();
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
 
@@ -324,7 +324,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new Data.Piping();
+            var pipingFailureMechanism = new PipingFailureMechanism();
 
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
 
@@ -374,7 +374,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(2.0, 1.0)
             });
 
-            var pipingFailureMechanism = new Data.Piping();
+            var pipingFailureMechanism = new PipingFailureMechanism();
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
             view.Data = pipingContext;
@@ -418,7 +418,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(2.0, 1.0)
             });
 
-            var pipingFailureMechanism = new Data.Piping();
+            var pipingFailureMechanism = new PipingFailureMechanism();
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
             view.Data = pipingContext;
@@ -454,8 +454,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                     new Point2D(3,4)
             });
 
-            var oldPipingFailureMechanismContext = new PipingFailureMechanismContext(new Data.Piping(), oldAssessmentSectionMock);
-            var newPipingFailureMechanismContext = new PipingFailureMechanismContext(new Data.Piping(), newAssessmentSectionMock);
+            var oldPipingFailureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), oldAssessmentSectionMock);
+            var newPipingFailureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), newAssessmentSectionMock);
             var view = new PipingFailureMechanismView();
             var map = (MapControl)view.Controls[0];
 
@@ -572,7 +572,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             public void ChangeComposition(AssessmentSectionComposition newComposition)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
 
             public long StorageId { get; set; }

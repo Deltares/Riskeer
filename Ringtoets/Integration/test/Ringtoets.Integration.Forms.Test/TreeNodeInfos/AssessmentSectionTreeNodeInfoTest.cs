@@ -36,6 +36,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
@@ -145,8 +146,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanisms = new IFailureMechanism[]
             {
-                new Piping.Data.Piping(),
-                new Placeholder("A")
+                new PipingFailureMechanism(),
+                new FailureMechanismPlaceholder("A")
             };
             var contribution = new FailureMechanismContribution(failureMechanisms, 10.0, 2);
             var comments = "some comment";

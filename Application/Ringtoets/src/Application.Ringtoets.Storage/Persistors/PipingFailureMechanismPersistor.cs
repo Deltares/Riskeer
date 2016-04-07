@@ -27,9 +27,9 @@ using Ringtoets.Piping.Data;
 namespace Application.Ringtoets.Storage.Persistors
 {
     /// <summary>
-    /// Persistor for <see cref="Piping"/>.
+    /// Persistor for <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingFailureMechanismPersistor : FailureMechanismPersistorBase<Piping>
+    public class PipingFailureMechanismPersistor : FailureMechanismPersistorBase<PipingFailureMechanism>
     {
         /// <summary>
         /// New instance of <see cref="PipingFailureMechanismPersistor"/>.

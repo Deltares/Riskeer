@@ -53,6 +53,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
@@ -352,8 +353,8 @@ namespace Ringtoets.Integration.Plugin
         {
             foreach (IFailureMechanism failureMechanism in nodeData.GetFailureMechanisms())
             {
-                var placeHolder = failureMechanism as Placeholder;
-                var piping = failureMechanism as Piping.Data.Piping;
+                var placeHolder = failureMechanism as FailureMechanismPlaceholder;
+                var piping = failureMechanism as PipingFailureMechanism;
                 if (placeHolder != null)
                 {
                     yield return new FailureMechanismPlaceholderContext(placeHolder, nodeData);
@@ -418,7 +419,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private IList GetInputs(Placeholder nodeData, IAssessmentSection assessmentSection)
+        private IList GetInputs(FailureMechanismPlaceholder nodeData, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -429,7 +430,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private IList GetOutputs(Placeholder nodeData)
+        private IList GetOutputs(FailureMechanismPlaceholder nodeData)
         {
             return new ArrayList
             {

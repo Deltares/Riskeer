@@ -2,7 +2,6 @@
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -17,7 +16,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -52,7 +51,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
             TestDelegate test = () => new RingtoetsPipingSurfaceLinesContext(failureMechanism, null);
@@ -72,7 +71,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
@@ -93,7 +92,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
@@ -117,7 +116,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
@@ -136,7 +135,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -155,7 +154,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -173,7 +172,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -196,8 +195,8 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new Data.Piping();
-            var otherFailureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
+            var otherFailureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
@@ -220,7 +219,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);

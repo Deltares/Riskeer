@@ -111,7 +111,6 @@ namespace Ringtoets.Common.Forms.Views
             dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
             dataGridView.CellValidating += DataGridViewCellValidating;
             dataGridView.DataError += DataGridViewDataError;
-//            dataGridView.CellEndEdit += DataGridViewCellEndEdit;
 
             var sectionName = new DataGridViewTextBoxColumn
             {

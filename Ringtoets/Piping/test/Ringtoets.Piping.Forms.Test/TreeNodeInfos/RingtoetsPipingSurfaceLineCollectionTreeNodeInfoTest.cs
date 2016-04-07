@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLinesContext>(failureMechanism, assessmentSection);
 
@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLinesContext>(failureMechanism, assessmentSection);
 
@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ForeColor_CollectionWithoutSurfaceLines_ReturnsGrayText()
         {
             // Setup
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var ringtoetsPipingSurfaceLines = mocks.StrictMock<RingtoetsPipingSurfaceLinesContext>(failureMechanism, assessmentSection);
 
@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var ringtoetsPipingSurfaceLine1 = new RingtoetsPipingSurfaceLine();
             var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine();
 
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.SurfaceLines.Add(ringtoetsPipingSurfaceLine1);
             failureMechanism.SurfaceLines.Add(ringtoetsPipingSurfaceLine2);
 
@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var ringtoetsPipingSurfaceLine1 = new RingtoetsPipingSurfaceLine();
             var ringtoetsPipingSurfaceLine2 = new RingtoetsPipingSurfaceLine();
 
-            var failureMechanism = new Data.Piping();
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.SurfaceLines.Add(ringtoetsPipingSurfaceLine1);
             failureMechanism.SurfaceLines.Add(ringtoetsPipingSurfaceLine2);
 

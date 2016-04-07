@@ -136,7 +136,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// <exception cref="ArgumentException">Thrown when <paramref name="otherContribution"/> is not in interval [0,100]</exception>
         private void AddOtherContributionItem(double otherContribution)
         {
-            var otherFailureMechanism = new Other
+            var otherFailureMechanism = new OtherFailureMechanism
             {
                 Contribution = otherContribution
             };

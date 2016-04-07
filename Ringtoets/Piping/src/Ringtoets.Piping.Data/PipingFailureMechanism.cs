@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -32,12 +31,12 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class Piping : FailureMechanismBase
+    public class PipingFailureMechanism : FailureMechanismBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Piping"/> class.
+        /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
         /// </summary>
-        public Piping()
+        public PipingFailureMechanism()
             : base(PipingDataResources.PipingFailureMechanism_DisplayName)
         {
             SemiProbabilisticInput = new SemiProbabilisticPipingInput();

@@ -7,7 +7,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
-
+using Ringtoets.Piping.Data;
 using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.Test
@@ -59,10 +59,10 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(composition, section.Composition);
             Assert.IsInstanceOf<FailureMechanismContribution>(section.FailureMechanismContribution);
 
-            CollectionAssert.IsEmpty(section.Piping.StochasticSoilModels);
-            CollectionAssert.IsEmpty(section.Piping.SurfaceLines);
+            CollectionAssert.IsEmpty(section.PipingFailureMechanism.StochasticSoilModels);
+            CollectionAssert.IsEmpty(section.PipingFailureMechanism.SurfaceLines);
 
-            Assert.IsInstanceOf<Piping.Data.Piping>(section.Piping);
+            Assert.IsInstanceOf<PipingFailureMechanism>(section.PipingFailureMechanism);
             Assert.AreEqual(grassErosionName, section.GrassErosion.Name);
             Assert.AreEqual(macrostailityInwardName, section.MacrostabilityInward.Name);
             Assert.AreEqual(overtoppingName, section.Overtopping.Name);
@@ -78,8 +78,8 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
             Assert.AreEqual(Enumerable.Repeat(30000.0, 11), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
 
-            Assert.AreEqual(30000.0, section.Piping.SemiProbabilisticInput.Norm);
-            Assert.AreEqual(double.NaN, section.Piping.SemiProbabilisticInput.SectionLength);
+            Assert.AreEqual(30000.0, section.PipingFailureMechanism.SemiProbabilisticInput.Norm);
+            Assert.AreEqual(double.NaN, section.PipingFailureMechanism.SemiProbabilisticInput.SectionLength);
 
             Assert.AreEqual(100, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
         }
@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.AreEqual(10, failureMechanisms.Length);
-            Assert.AreSame(assessmentSection.Piping, failureMechanisms[0]);
+            Assert.AreSame(assessmentSection.PipingFailureMechanism, failureMechanisms[0]);
             Assert.AreSame(assessmentSection.GrassErosion, failureMechanisms[1]);
             Assert.AreSame(assessmentSection.MacrostabilityInward, failureMechanisms[2]);
             Assert.AreSame(assessmentSection.Overtopping, failureMechanisms[3]);
@@ -200,7 +200,7 @@ namespace Ringtoets.Integration.Data.Test
         {
             double[] contributions = GetContributionsArray(composition);
 
-            Assert.AreEqual(contributions[0], assessmentSection.Piping.Contribution);
+            Assert.AreEqual(contributions[0], assessmentSection.PipingFailureMechanism.Contribution);
             Assert.AreEqual(contributions[1], assessmentSection.GrassErosion.Contribution);
             Assert.AreEqual(contributions[2], assessmentSection.MacrostabilityInward.Contribution);
             Assert.AreEqual(contributions[3], assessmentSection.Overtopping.Contribution);
@@ -311,7 +311,7 @@ namespace Ringtoets.Integration.Data.Test
             assessmentSection.ReferenceLine = referenceLine;
 
             // Assert
-            Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.Piping.SemiProbabilisticInput.SectionLength);
+            Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.PipingFailureMechanism.SemiProbabilisticInput.SectionLength);
         }
 
         [Test]
@@ -324,7 +324,7 @@ namespace Ringtoets.Integration.Data.Test
             assessmentSection.ReferenceLine = null;
 
             // Assert
-            Assert.AreEqual(double.NaN, assessmentSection.Piping.SemiProbabilisticInput.SectionLength);
+            Assert.AreEqual(double.NaN, assessmentSection.PipingFailureMechanism.SemiProbabilisticInput.SectionLength);
         }
     }
 }

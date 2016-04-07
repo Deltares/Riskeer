@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculationGroup = new PipingCalculationGroup();
 
             var mocks = new MockRepository();
-            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
-            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var calculationGroup = new PipingCalculationGroup("A", nameIsEditable);
 
             var mocks = new MockRepository();
-            var pipingFailureMechanismMock = mocks.StrictMock<Data.Piping>();
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 

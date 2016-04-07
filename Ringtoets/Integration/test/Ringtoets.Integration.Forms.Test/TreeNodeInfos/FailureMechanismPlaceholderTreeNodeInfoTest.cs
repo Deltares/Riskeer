@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var testName = "ttt";
-            var placeholder = new Placeholder(testName);
+            var placeholder = new FailureMechanismPlaceholder(testName);
             var placeholderContext = new FailureMechanismPlaceholderContext(placeholder, assessmentSection);
 
             using (var plugin = new RingtoetsGuiPlugin())
@@ -125,7 +125,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var info = GetInfo(plugin);
 
-                var failureMechanism = new Placeholder("test");
+                var failureMechanism = new FailureMechanismPlaceholder("test");
                 failureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(1, 2),

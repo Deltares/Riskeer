@@ -27,13 +27,12 @@ using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Persistors
 {
     /// <summary>
-    /// Persistor for classes derived from <see cref="FailureMechanismBase"/>.
+    /// Persistor for classes which implement <see cref="IFailureMechanism"/>.
     /// </summary>
     public abstract class FailureMechanismPersistorBase<T> where T : IFailureMechanism
     {

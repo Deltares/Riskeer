@@ -85,13 +85,13 @@ namespace Ringtoets.Piping.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, calculationGroup) => calculationGroup.Name,
                 Image = PipingFormsResources.FolderIcon,
-                AdditionalDataCheck = context => context.WrappedData == context.Piping.CalculationsGroup,
+                AdditionalDataCheck = context => context.WrappedData == context.PipingFailureMechanism.CalculationsGroup,
                 CloseForData = ClosePipingCalculationsViewForData,
                 AfterCreate = (view, context) =>
                 {
                     view.ApplicationSelection = Gui;
                     view.AssessmentSection = context.AssessmentSection;
-                    view.Piping = context.Piping;
+                    view.PipingFailureMechanism = context.PipingFailureMechanism;
                 }
             };
         }
@@ -264,7 +264,7 @@ namespace Ringtoets.Piping.Plugin
             if (assessmentSection != null)
             {
                 var pipingFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                              .OfType<Data.Piping>()
+                                                              .OfType<PipingFailureMechanism>()
                                                               .FirstOrDefault();
 
                 if (pipingFailureMechanism != null)
@@ -331,12 +331,12 @@ namespace Ringtoets.Piping.Plugin
                       .Build();
         }
 
-        private static IEnumerable<PipingCalculation> GetAllPipingCalculations(Data.Piping failureMechanism)
+        private static IEnumerable<PipingCalculation> GetAllPipingCalculations(PipingFailureMechanism failureMechanism)
         {
             return failureMechanism.CalculationItems.OfType<PipingCalculation>();
         }
 
-        private StrictContextMenuItem CreateCalculateAllItem(Data.Piping failureMechanism)
+        private StrictContextMenuItem CreateCalculateAllItem(PipingFailureMechanism failureMechanism)
         {
             var menuItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
@@ -354,7 +354,7 @@ namespace Ringtoets.Piping.Plugin
             return menuItem;
         }
 
-        private StrictContextMenuItem CreateValidateAllItem(Data.Piping failureMechanism)
+        private StrictContextMenuItem CreateValidateAllItem(PipingFailureMechanism failureMechanism)
         {
             var menuItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Validate_all,
@@ -372,7 +372,7 @@ namespace Ringtoets.Piping.Plugin
             return menuItem;
         }
 
-        private static void ClearAll(Data.Piping failureMechanism)
+        private static void ClearAll(PipingFailureMechanism failureMechanism)
         {
             if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContext_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
@@ -386,7 +386,7 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private void ValidateAll(Data.Piping failureMechanism)
+        private void ValidateAll(PipingFailureMechanism failureMechanism)
         {
             foreach (PipingCalculation calculation in GetAllPipingCalculations(failureMechanism))
             {
@@ -394,12 +394,12 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private void CalculateAll(Data.Piping failureMechanism)
+        private void CalculateAll(PipingFailureMechanism failureMechanism)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow, GetAllPipingCalculations(failureMechanism).Select(calc => new PipingCalculationActivity(calc)));
         }
 
-        private void AddCalculationGroup(Data.Piping failureMechanism)
+        private void AddCalculationGroup(PipingFailureMechanism failureMechanism)
         {
             var calculation = new PipingCalculationGroup
             {
@@ -409,7 +409,7 @@ namespace Ringtoets.Piping.Plugin
             failureMechanism.CalculationsGroup.NotifyObservers();
         }
 
-        private void AddCalculation(Data.Piping failureMechanism)
+        private void AddCalculation(PipingFailureMechanism failureMechanism)
         {
             var calculation = new PipingCalculation(failureMechanism.GeneralInput, failureMechanism.SemiProbabilisticInput)
             {
@@ -421,7 +421,7 @@ namespace Ringtoets.Piping.Plugin
 
         private object[] FailureMechanismChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)
         {
-            Data.Piping wrappedData = pipingFailureMechanismContext.WrappedData;
+            PipingFailureMechanism wrappedData = pipingFailureMechanismContext.WrappedData;
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, pipingFailureMechanismContext.Parent), TreeFolderCategory.Input),
@@ -430,7 +430,7 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private static IList GetInputs(Data.Piping failureMechanism, IAssessmentSection assessmentSection)
+        private static IList GetInputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -441,7 +441,7 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private IList GetOutputs(Data.Piping failureMechanism)
+        private IList GetOutputs(PipingFailureMechanism failureMechanism)
         {
             return new ArrayList
             {
@@ -573,7 +573,7 @@ namespace Ringtoets.Piping.Plugin
                     childNodeObjects.Add(new PipingCalculationContext(calculation,
                                                                       nodeData.AvailablePipingSurfaceLines,
                                                                       nodeData.AvailableStochasticSoilModels,
-                                                                      nodeData.Piping,
+                                                                      nodeData.PipingFailureMechanism,
                                                                       nodeData.AssessmentSection));
                 }
                 else if (group != null)
@@ -581,7 +581,7 @@ namespace Ringtoets.Piping.Plugin
                     childNodeObjects.Add(new PipingCalculationGroupContext(group,
                                                                            nodeData.AvailablePipingSurfaceLines,
                                                                            nodeData.AvailableStochasticSoilModels,
-                                                                           nodeData.Piping,
+                                                                           nodeData.PipingFailureMechanism,
                                                                            nodeData.AssessmentSection));
                 }
                 else
@@ -615,7 +615,7 @@ namespace Ringtoets.Piping.Plugin
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation_ToolTip,
                 PipingFormsResources.PipingIcon, (o, args) =>
                 {
-                    var calculation = new PipingCalculation(nodeData.Piping.GeneralInput, nodeData.Piping.SemiProbabilisticInput)
+                    var calculation = new PipingCalculation(nodeData.PipingFailureMechanism.GeneralInput, nodeData.PipingFailureMechanism.SemiProbabilisticInput)
                     {
                         Name = NamingHelper.GetUniqueName(group.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
                     };
@@ -725,7 +725,7 @@ namespace Ringtoets.Piping.Plugin
             var view = new PipingSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailablePipingSurfaceLines);
             view.ShowDialog();
 
-            GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines, nodeData.AvailableStochasticSoilModels, nodeData.Piping.GeneralInput, nodeData.Piping.SemiProbabilisticInput);
+            GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines, nodeData.AvailableStochasticSoilModels, nodeData.PipingFailureMechanism.GeneralInput, nodeData.PipingFailureMechanism.SemiProbabilisticInput);
 
             nodeData.NotifyObservers();
         }
@@ -855,18 +855,18 @@ namespace Ringtoets.Piping.Plugin
             return ReferenceEquals(sourceFailureMechanism, targetFailureMechanism);
         }
 
-        private static Data.Piping GetParentFailureMechanism(object data)
+        private static PipingFailureMechanism GetParentFailureMechanism(object data)
         {
             var calculationContext = data as PipingCalculationContext;
             if (calculationContext != null)
             {
-                return calculationContext.Piping;
+                return calculationContext.PipingFailureMechanism;
             }
 
             var groupContext = data as PipingCalculationGroupContext;
             if (groupContext != null)
             {
-                return groupContext.Piping;
+                return groupContext.PipingFailureMechanism;
             }
 
             return null;

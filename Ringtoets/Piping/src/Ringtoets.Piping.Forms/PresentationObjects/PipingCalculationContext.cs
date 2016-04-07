@@ -40,24 +40,24 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="calculation">The <see cref="PipingCalculation"/> instance wrapped by this context object.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
-        /// <param name="piping">The piping failure mechanism which the piping context belongs to.</param>
+        /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
-        public PipingCalculationContext(PipingCalculation calculation, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, Data.Piping piping, IAssessmentSection assessmentSection)
+        public PipingCalculationContext(PipingCalculation calculation, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection)
             : base(calculation, surfaceLines, stochasticSoilModels, assessmentSection)
         {
-            if (piping == null)
+            if (pipingFailureMechanism == null)
             {
                 var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.PipingContext_DataDescription_PipingFailureMechanism);
-                throw new ArgumentNullException("piping", message);
+                throw new ArgumentNullException("pipingFailureMechanism", message);
             }
 
-            Piping = piping;
+            PipingFailureMechanism = pipingFailureMechanism;
         }
 
         /// <summary>
-        /// Gets the piping failure mechanism which the piping context belongs to.
+        /// Gets the PipingFailureMechanism failure mechanism which the PipingFailureMechanism context belongs to.
         /// </summary>
-        public Data.Piping Piping { get; private set; }
+        public PipingFailureMechanism PipingFailureMechanism { get; private set; }
     }
 }
