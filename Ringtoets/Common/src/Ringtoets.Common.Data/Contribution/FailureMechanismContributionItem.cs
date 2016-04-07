@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-
+using Ringtoets.Common.Data.FailureMechanism;
 using CommonResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.Data.Contribution

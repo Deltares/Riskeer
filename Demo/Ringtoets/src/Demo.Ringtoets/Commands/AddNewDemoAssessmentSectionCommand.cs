@@ -7,6 +7,7 @@ using Core.Common.Gui;
 using Core.Common.Utils.IO;
 
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.HydraRing.Data;

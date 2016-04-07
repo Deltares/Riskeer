@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data
+namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
     /// This class is the base implementation for a failure mechanism. Classes which want

@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.Piping.Data.Properties;
 

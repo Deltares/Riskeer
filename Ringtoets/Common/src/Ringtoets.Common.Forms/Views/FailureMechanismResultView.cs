@@ -28,6 +28,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views

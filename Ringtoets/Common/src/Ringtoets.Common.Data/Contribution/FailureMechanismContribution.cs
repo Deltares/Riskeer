@@ -24,7 +24,7 @@ using System.Collections.Generic;
 
 using Core.Common.Base;
 using Core.Common.Utils.Extensions;
-
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Contribution

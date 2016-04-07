@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Persistors
 {

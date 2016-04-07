@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.TextEditor;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Integration.Forms.Views
 {

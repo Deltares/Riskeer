@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Common.Data
+namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>.

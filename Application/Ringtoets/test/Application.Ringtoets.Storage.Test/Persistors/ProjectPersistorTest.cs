@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Test.Persistors

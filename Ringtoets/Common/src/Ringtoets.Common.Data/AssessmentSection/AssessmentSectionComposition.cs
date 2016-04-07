@@ -19,24 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
-using Ringtoets.HydraRing.Data;
-
-namespace Ringtoets.Common.Data
+namespace Ringtoets.Common.Data.AssessmentSection
 {
     /// <summary>
-    /// A calculation related object.
+    /// Describes the configuration of an <see cref="IAssessmentSection"/>.
     /// </summary>
-    public interface ICalculationItem : IObservable
+    public enum AssessmentSectionComposition
     {
         /// <summary>
-        /// Clears the calculated output.
+        /// The assessment section consists only out of 'dike' elements.
         /// </summary>
-        void ClearOutput();
-
+        Dike = 0,
         /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> assessment level.
+        /// The assessment section consists only out of 'dune' elements.
         /// </summary>
-        void ClearHydraulicBoundaryLocation();
+        Dune = 1,
+        /// <summary>
+        /// The assessment section consists out of a combination of 'dike' and 'dune' elements
+        /// </summary>
+        DikeAndDune = 2
     }
 }

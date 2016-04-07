@@ -52,14 +52,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FailureMechanismBaseTest.cs" />
+    <Compile Include="AssessmentSection\ReferenceLineTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionItemTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionTest.cs" />
     <Compile Include="Contribution\OtherFailureMechanismTest.cs" />
-    <Compile Include="FailureMechanismSectionTest.cs" />
-    <Compile Include="FailureMechanismSectionResultTest.cs" />
+    <Compile Include="FailureMechanism\FailureMechanismBaseTest.cs" />
+    <Compile Include="FailureMechanism\FailureMechanismSectionResultTest.cs" />
+    <Compile Include="FailureMechanism\FailureMechanismSectionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReferenceLineTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

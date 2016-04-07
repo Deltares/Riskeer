@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Placeholders;
 
 namespace Ringtoets.Integration.Data.Test.Placeholders

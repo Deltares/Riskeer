@@ -28,6 +28,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
 
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Forms.PresentationObjects;
 

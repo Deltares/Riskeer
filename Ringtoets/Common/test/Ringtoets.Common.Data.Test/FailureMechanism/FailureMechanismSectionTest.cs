@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Common.Data.Test
+namespace Ringtoets.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
     public class FailureMechanismSectionTest

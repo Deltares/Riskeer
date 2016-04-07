@@ -30,6 +30,7 @@ using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Integration.Forms.Test

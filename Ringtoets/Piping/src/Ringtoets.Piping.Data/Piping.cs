@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;

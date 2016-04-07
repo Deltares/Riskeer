@@ -22,12 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
-
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Common.Data
+namespace Ringtoets.Common.Data.AssessmentSection
 {
     /// <summary>
     /// Class representing the reference line used as a basis for assessment.

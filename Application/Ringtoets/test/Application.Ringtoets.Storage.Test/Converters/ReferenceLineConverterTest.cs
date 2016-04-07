@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Application.Ringtoets.Storage.Test.Converters
 {

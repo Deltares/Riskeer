@@ -4,6 +4,7 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Application.Ringtoets.Storage.Converters
 {

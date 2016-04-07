@@ -33,6 +33,7 @@ using Core.Common.IO.Readers;
 using log4net;
 
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;

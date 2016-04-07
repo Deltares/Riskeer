@@ -6,6 +6,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;

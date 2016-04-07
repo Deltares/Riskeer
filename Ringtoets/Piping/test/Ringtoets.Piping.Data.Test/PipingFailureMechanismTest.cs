@@ -7,6 +7,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test

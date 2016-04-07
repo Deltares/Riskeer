@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 

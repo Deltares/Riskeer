@@ -1,11 +1,10 @@
 ﻿using System;
-
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Common.Data.Test
+namespace Ringtoets.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
     public class ReferenceLineTest

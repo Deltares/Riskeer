@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Placeholder;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 

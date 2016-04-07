@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Storage;
 
-namespace Ringtoets.Common.Data
+namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
     /// Defines a failure mechanism.

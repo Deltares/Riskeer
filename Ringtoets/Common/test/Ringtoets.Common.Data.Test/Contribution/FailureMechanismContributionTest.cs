@@ -10,6 +10,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Data.Test.Contribution
 {
