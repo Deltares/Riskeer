@@ -37,14 +37,13 @@ namespace Core.Components.DotSpatial.MapFunctions
     /// <remarks>This is a copy of <see cref="MapFunctionClickZoom"/> with the following changes:
     /// <list type="bullet">
     /// <item>It does not zoom out on right mouse clicks.</item>
-    /// <item>It does not zoom when the location of the cursus on <see cref="OnMouseUp"/> is equal to the location set at 
+    /// <item>It does not zoom when the location of the cursor on <see cref="OnMouseUp"/> is equal to the location set at 
     /// <see cref="OnMouseDown"/>.</item>
     /// </list>
     /// </remarks>
     public class MapFunctionSelectionZoom : MapFunction
     {
         private readonly Pen selectionPen;
-        private readonly Cursor defaultCursor = Cursors.Default;
         private Point currentPoint;
         private Coordinate geoStartPoint;
         private bool isDragging;
@@ -61,7 +60,6 @@ namespace Core.Components.DotSpatial.MapFunctions
                 DashStyle = DashStyle.Dash
             };
             YieldStyle = YieldStyles.LeftButton | YieldStyles.RightButton;
-            FunctionActivated += ActivateFunction;
         }
 
         protected override void OnDraw(MapDrawArgs e)
@@ -86,7 +84,6 @@ namespace Core.Components.DotSpatial.MapFunctions
                 geoStartPoint = e.GeographicLocation;
                 isDragging = true;
                 Map.IsBusy = true;
-                Map.Cursor = Cursors.SizeNWSE;
             }
             base.OnMouseDown(e);
         }
@@ -141,12 +138,6 @@ namespace Core.Components.DotSpatial.MapFunctions
 
             base.OnMouseUp(e);
             Map.IsBusy = false;
-            Map.Cursor = defaultCursor;
-        }
-
-        private void ActivateFunction(object sender, EventArgs e)
-        {
-            Map.Cursor = defaultCursor;
         }
     }
 }

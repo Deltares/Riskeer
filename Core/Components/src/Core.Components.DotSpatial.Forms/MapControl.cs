@@ -86,7 +86,7 @@ namespace Core.Components.DotSpatial.Forms
 
             IsPanningEnabled = true;
 
-            map.FunctionMode = FunctionMode.Pan;
+            map.ActivateMapFunction(mapFunctionPan);
         }
 
         public void ToggleRectangleZooming()
