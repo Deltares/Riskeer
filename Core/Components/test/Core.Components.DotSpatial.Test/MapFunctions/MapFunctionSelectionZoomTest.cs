@@ -61,31 +61,13 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
         }
 
         [Test]
-        public void Constructor_ActivateEvent_ExpectedValues()
-        {
-            // Setup
-            var mapMock = mockingRepository.StrictMock<IMap>();
-            mapMock.Expect(m => m.Cursor).SetPropertyWithArgument(Cursors.Default);
-            mockingRepository.ReplayAll();
-
-            // Call
-            MapFunctionSelectionZoom mapFunction = new MapFunctionSelectionZoom(mapMock);
-            mapFunction.Activate();
-
-            // Assert
-            Assert.IsInstanceOf<MapFunction>(mapFunction);
-            mockingRepository.VerifyAll();
-        }
-
-        [Test]
-        public void OnMouseDown_Always_SetsCursorToHand()
+        public void OnMouseDown_Always_SetsMapBusy()
         {
             // Setup
             var mapMock = mockingRepository.Stub<IMap>();
             mapMock.MapFrame = mockingRepository.Stub<IMapFrame>();
             mockingRepository.ReplayAll();
 
-            mapMock.Cursor = Cursors.Cross;
             var mapFunction = new MapFunctionSelectionZoom(mapMock);
 
             // Call
@@ -93,7 +75,6 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
 
             // Assert
             Assert.IsTrue(mapMock.IsBusy);
-            Assert.AreEqual(Cursors.SizeNWSE, mapMock.Cursor);
             mockingRepository.VerifyAll();
         }
 
@@ -123,7 +104,6 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
 
             // Assert
             Assert.IsTrue(mapMock.IsBusy);
-            Assert.AreEqual(Cursors.SizeNWSE, mapMock.Cursor);
             mockingRepository.VerifyAll();
         }
 
@@ -145,7 +125,6 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             // Assert
             Assert.IsNull(mapMock.ViewExtents);
             Assert.IsFalse(mapMock.IsBusy);
-            Assert.AreEqual(Cursors.Default, mapMock.Cursor);
             mockingRepository.VerifyAll();
         }
 
@@ -178,7 +157,6 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             // Assert
             Assert.AreEqual(expectedExtend, mapMock.ViewExtents);
             Assert.IsFalse(mapMock.IsBusy);
-            Assert.AreEqual(Cursors.Default, mapMock.Cursor);
             mockingRepository.VerifyAll();
         }
 
@@ -207,7 +185,6 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
 
             // Assert
             Assert.IsFalse(mapMock.IsBusy);
-            Assert.AreEqual(Cursors.Default, mapMock.Cursor);
             mockingRepository.VerifyAll();
         }
 
@@ -221,7 +198,6 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             inGraphics.Expect(e => e.DrawRectangle(null, 0, 0, 0, 0)).IgnoreArguments().Repeat.Never();
             mockingRepository.ReplayAll();
 
-            mapMock.Cursor = Cursors.Cross;
             var mapFunction = new MapFunctionSelectionZoom(mapMock);
 
             var clipRectangle = new Rectangle(0, 0, 0, 0);
@@ -253,7 +229,6 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
 
             mockingRepository.ReplayAll();
 
-            mapMock.Cursor = Cursors.Cross;
             var mapFunction = new MapFunctionSelectionZoom(mapMock);
 
             var clipRectangle = new Rectangle(0, 0, 0, 0);
