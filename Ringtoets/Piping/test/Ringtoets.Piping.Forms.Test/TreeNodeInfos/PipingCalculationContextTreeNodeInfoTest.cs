@@ -12,6 +12,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -162,7 +163,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(4, children.Length);
-            Assert.AreSame(pipingCalculationContext.WrappedData.Comments, children[0]);
+            var commentContext = children[0] as CommentContext<IComment>;
+            Assert.IsNotNull(commentContext);
+            Assert.AreSame(pipingCalculationContext.WrappedData.Comments, commentContext.CommentContainer.Comments);
+
             var pipingInputContext = (PipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
@@ -193,7 +197,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(4, children.Length);
-            Assert.AreSame(pipingCalculationContext.WrappedData.Comments, children[0]);
+            var commentContext = children[0] as CommentContext<IComment>;
+            Assert.IsNotNull(commentContext);
+            Assert.AreSame(pipingCalculationContext.WrappedData.Comments, commentContext.CommentContainer.Comments); 
+            
             var pipingInputContext = (PipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);

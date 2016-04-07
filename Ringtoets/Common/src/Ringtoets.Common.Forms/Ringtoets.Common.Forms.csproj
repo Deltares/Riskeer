@@ -59,6 +59,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\CommentView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CommentView.Designer.cs">
+      <DependentUpon>CommentView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>

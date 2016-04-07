@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.Piping.Data.Properties;
@@ -54,15 +53,11 @@ namespace Ringtoets.Piping.Data
             }
             Name = Resources.PipingCalculation_DefaultName;
 
-            Comments = new InputPlaceholder(Resources.Comments_DisplayName);
             InputParameters = new PipingInput(generalInputParameters);
             SemiProbabilisticParameters = semiProbabilisticInputParameters;
         }
 
-        /// <summary>
-        /// Gets the user notes for this calculation.
-        /// </summary>
-        public PlaceholderWithReadonlyName Comments { get; private set; }
+        public string Comments { get; set; }
 
         /// <summary>
         /// Gets the parameters required to perform a semi-probabilistic assessment.

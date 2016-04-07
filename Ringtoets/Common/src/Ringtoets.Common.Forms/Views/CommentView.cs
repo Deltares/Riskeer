@@ -24,22 +24,21 @@ using System.Windows.Forms;
 using Core.Common.Controls.TextEditor;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
     /// This class represents a simple view with a rich text editor, to which data can be added. 
     /// </summary>
-    public partial class AssessmentSectionCommentView : UserControl, IView
+    public partial class CommentView : UserControl, IView
     {
-        private IAssessmentSection data;
+        private IComment data;
         private RichTextBoxControl richTextEditor;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionCommentView"/>.
+        /// Creates a new instance of <see cref="CommentView"/>.
         /// </summary>
-        public AssessmentSectionCommentView()
+        public CommentView()
         {
             InitializeComponent();
 
@@ -54,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
             set
             {
-                data = value as IAssessmentSection;
+                data = value as IComment;
 
                 if (data != null)
                 {

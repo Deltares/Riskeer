@@ -37,7 +37,6 @@ using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
@@ -53,7 +52,6 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
@@ -162,12 +160,12 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
 
-            yield return new ViewInfo<CommentContext<IComment>, IComment, AssessmentSectionCommentView>
+            yield return new ViewInfo<CommentContext<IComment>, IComment, CommentView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.AssessmentSectionComment_DisplayName,
                 GetViewData = context => context.CommentContainer,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseAssessmentSectionCommentViewForData
+                CloseForData = CloseCommentViewForData
             };
         }
 
@@ -311,12 +309,12 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        #region AssessmentSectionComment ViewInfo
+        #region Comment ViewInfo
 
-        private static bool CloseAssessmentSectionCommentViewForData(AssessmentSectionCommentView view, object o)
+        private static bool CloseCommentViewForData(CommentView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
-            return assessmentSection != null && assessmentSection == view.Data;
+            var comment = o as IComment;
+            return comment != null && comment == view.Data;
         }
 
         #endregion
@@ -426,7 +424,8 @@ namespace Ringtoets.Integration.Plugin
             {
                 new FailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.Locations,
-                nodeData.BoundaryConditions
+                nodeData.BoundaryConditions,
+                new CommentContext<IComment>(nodeData)
             };
         }
 

@@ -35,7 +35,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class AssessmentSectionCommentContextTreeNodeInfoTest
+    public class CommentContextTreeNodeInfoTest
     {
         private MockRepository mocks;
 
@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
-            var context = new CommentContext<IComment>(assessmentSectionMock);
+                var context = new CommentContext<IComment>(assessmentSectionMock);
 
                 // Call
                 var image = info.Image(context);

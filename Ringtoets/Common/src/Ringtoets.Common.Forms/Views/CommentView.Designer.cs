@@ -1,6 +1,6 @@
-﻿namespace Ringtoets.Integration.Forms.Views
+﻿namespace Ringtoets.Common.Forms.Views
 {
-    partial class AssessmentSectionCommentView
+    partial class CommentView
     {
         /// <summary> 
         /// Required designer variable.

@@ -6,13 +6,13 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.Views;
+using Ringtoets.Common.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class AssessmentSectionCommentViewInfoTest
+    public class CommentViewInfoTest
     {
         private MockRepository mocks;
         private RingtoetsGuiPlugin plugin;
@@ -23,7 +23,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionCommentView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(CommentView));
         }
 
         [TearDown]
@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var viewMock = mocks.StrictMock<AssessmentSectionCommentView>();
+            var viewMock = mocks.StrictMock<CommentView>();
 
             mocks.ReplayAll();
 
@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewType = info.ViewType;
 
             // Assert
-            Assert.AreEqual(typeof(AssessmentSectionCommentView), viewType);
+            Assert.AreEqual(typeof(CommentView), viewType);
         }
 
         [Test]
@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var viewMock = mocks.StrictMock<AssessmentSectionCommentView>();
+            var viewMock = mocks.StrictMock<CommentView>();
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
 
             viewMock.Expect(vm => vm.Data).Return(assessmentSectionMock);
@@ -117,7 +117,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var viewMock = mocks.StrictMock<AssessmentSectionCommentView>();
+            var viewMock = mocks.StrictMock<CommentView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var assessmentSectionMock2 = mocks.StrictMock<IAssessmentSection>();
 

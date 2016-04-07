@@ -26,20 +26,19 @@ using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Forms.Views;
+using Ringtoets.Common.Forms.Views;
 
-namespace Ringtoets.Integration.Forms.Test.Views
+namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class AssessmentSectionCommentViewTest
+    public class CommentViewTest
     {
         [Test]
         public void Constructor_DefaultValues()
         {
             // Call
-            var view = new AssessmentSectionCommentView();
+            var view = new CommentView();
 
             // Assert
             Assert.IsInstanceOf<IView>(view);
@@ -55,7 +54,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var view = new AssessmentSectionCommentView();
+            var view = new CommentView();
             var data = mocks.Stub<IAssessmentSection>();
 
             mocks.ReplayAll();
@@ -71,7 +70,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Data_NoAssessmentSection_DataNull()
         {
             // Setup
-            var view = new AssessmentSectionCommentView();
+            var view = new CommentView();
             var data = new object();
 
             // Call
@@ -86,7 +85,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var view = new AssessmentSectionCommentView();
+            var view = new CommentView();
             var data = mocks.Stub<IAssessmentSection>();
             var expectedText = "<Some_text>";
             var validRtfString = GetValidRtfString(expectedText);
@@ -112,7 +111,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var expectedText = "<Some_text>";
                 var validRtfString = GetValidRtfString(expectedText);
 
-                var view = new AssessmentSectionCommentView();
+                var view = new CommentView();
                 form.Controls.Add(view);
                 form.Show();
 

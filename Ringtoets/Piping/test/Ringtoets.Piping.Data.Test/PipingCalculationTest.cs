@@ -34,10 +34,10 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
 
-            Assert.AreEqual("Commentaar", calculation.Comments.Name);
             Assert.IsInstanceOf<PipingInput>(calculation.InputParameters);
 
             Assert.IsFalse(calculation.HasOutput);
+            Assert.IsNull(calculation.Comments);
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.SemiProbabilisticOutput);
         }

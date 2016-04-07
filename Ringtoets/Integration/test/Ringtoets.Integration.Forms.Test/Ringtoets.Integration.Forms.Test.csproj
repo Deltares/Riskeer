@@ -64,7 +64,7 @@
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\AssessmentSectionTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\AssessmentSectionCommentContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismContributionContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismPlaceholderTreeNodeInfoTest.cs" />
@@ -76,7 +76,6 @@
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\AssessmentSectionViewTest.cs" />
-    <Compile Include="Views\AssessmentSectionCommentViewTest.cs" />
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
   </ItemGroup>
   <ItemGroup>

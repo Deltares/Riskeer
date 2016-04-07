@@ -94,6 +94,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// </summary>
         public long StorageId { get; set; }
 
+        public string Comments { get; set; }
+
         public void AddSection(FailureMechanismSection section)
         {
             if (section == null)

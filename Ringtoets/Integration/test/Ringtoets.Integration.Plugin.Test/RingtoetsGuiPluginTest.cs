@@ -201,7 +201,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, resultViewInfo.Image);
 
                 var commentView = viewInfos.Single(vi => vi.DataType == typeof(CommentContext<IComment>));
-                Assert.AreEqual(typeof(AssessmentSectionCommentView), commentView.ViewType);
+                Assert.AreEqual(typeof(CommentView), commentView.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, commentView.Image);
             }
         }
