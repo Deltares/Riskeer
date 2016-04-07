@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output
         /// <param name="sectionId">The section id used.</param>
         /// <param name="layerId">The layer id used.</param>
         /// <param name="alternativeId">The alternative id used.</param>
-        public ExceedanceProbabilityCalculationOutputBase(int ringCombinMethod, int presentationSectionId,
+        protected ExceedanceProbabilityCalculationOutputBase(int ringCombinMethod, int presentationSectionId,
                                                           int mainMechanismId, int mainMechanismCombinMethod, int mechanismId,
                                                           int sectionId, int layerId, int alternativeId)
         {
