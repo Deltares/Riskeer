@@ -1049,7 +1049,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het Stochastisch ondergrondmodel dat voor de piping berekening gebruikt wordt..
+        ///   Looks up a localized string similar to Het stochastisch ondergrondmodel dat voor de piping berekening gebruikt wordt..
         /// </summary>
         public static string PipingInput_StochasticSoilModel_Description {
             get {

@@ -728,6 +728,6 @@
     <value>Stochastisch ondergrondmodel</value>
   </data>
   <data name="PipingInput_StochasticSoilModel_Description" xml:space="preserve">
-    <value>Het Stochastisch ondergrondmodel dat voor de piping berekening gebruikt wordt.</value>
+    <value>Het stochastisch ondergrondmodel dat voor de piping berekening gebruikt wordt.</value>
   </data>
 </root>

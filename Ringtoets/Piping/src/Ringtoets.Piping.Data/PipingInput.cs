@@ -173,10 +173,21 @@ namespace Ringtoets.Piping.Data
 
         private void UpdateStochasticSoilProfile()
         {
-            if (stochasticSoilModel == null || !stochasticSoilModel.StochasticSoilProfiles.Contains(StochasticSoilProfile))
+            if (stochasticSoilModel == null)
             {
                 StochasticSoilProfile = null;
+                return;
             }
+            if (stochasticSoilModel.StochasticSoilProfiles.Contains(StochasticSoilProfile))
+            {
+                return;
+            }
+            if (stochasticSoilModel.StochasticSoilProfiles.Count == 1)
+            {
+                StochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First();
+                return;
+            }
+            StochasticSoilProfile = null;
         }
 
         private void UpdateEntryAndExitPoint()
