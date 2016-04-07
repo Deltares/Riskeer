@@ -98,6 +98,7 @@ namespace Ringtoets.Integration.Forms.Views
             // assessmentSectionCompositionComboBox
             // 
             resources.ApplyResources(this.assessmentSectionCompositionComboBox, "assessmentSectionCompositionComboBox");
+            this.assessmentSectionCompositionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.assessmentSectionCompositionComboBox.FormattingEnabled = true;
             this.assessmentSectionCompositionComboBox.Name = "assessmentSectionCompositionComboBox";
             // 

@@ -296,18 +296,18 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             using (var view = new FailureMechanismContributionView())
             {
+                ShowFormWithView(view);
+
                 var assessmentSection = new AssessmentSection(composition);
 
                 var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);
-
                 view.Data = context;
-                ShowFormWithView(view);
 
                 // Call
                 var compositionComboBox = (ComboBox)new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
 
                 // Assert
-                Assert.AreEqual(expectedDisplayText, compositionComboBox.SelectedText);
+                Assert.AreEqual(expectedDisplayText, compositionComboBox.Text);
                 Assert.AreEqual(composition, compositionComboBox.SelectedValue);
             }
         }
