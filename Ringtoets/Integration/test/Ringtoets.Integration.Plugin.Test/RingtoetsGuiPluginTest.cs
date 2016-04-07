@@ -1,21 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
+using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Placeholder;
+using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -31,25 +37,128 @@ namespace Ringtoets.Integration.Plugin.Test
         [STAThread] // For creation of XAML UI component
         public void DefaultConstructor_ExpectedValues()
         {
-            // call
+            // Call
             using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
             {
-                // assert
-                Assert.IsInstanceOf<GuiPlugin>(ringtoetsGuiPlugin);
+                // Assert
+                Assert.IsInstanceOf<Core.Common.Gui.Plugin.GuiPlugin>(ringtoetsGuiPlugin);
                 Assert.IsInstanceOf<RingtoetsRibbon>(ringtoetsGuiPlugin.RibbonCommandHandler);
+            }
+        }
+
+        [Test]
+        [STAThread] // For creation of XAML UI component
+        public void GivenGuiPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithoutHydraulicBoundaryDatabase_ThenNoWarning()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
+            {
+                ringtoetsGuiPlugin.Gui = gui;
+                gui.Run();
+
+                // Call
+                Action action = () => gui.Project = new Project();
+
+                // Assert
+                TestHelper.AssertLogMessagesCount(action, 0);
+            }
+        }
+
+        [Test]
+        [STAThread] // For creation of XAML UI component
+        public void GivenGuiPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseWithExistingLocation_ThenNoWarning()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            var testDataDir = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
+            var testDataPath = Path.Combine(testDataDir, "complete.sqlite");
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
+            {
+                ringtoetsGuiPlugin.Gui = gui;
+                gui.Run();
+
+                var project = new Project();
+                IAssessmentSection section = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                    {
+                        FilePath = testDataPath
+                    }
+                };
+                project.Items.Add(section);
+
+                // Call
+                Action action = () =>
+                {
+                    gui.Project = project;
+                };
+
+                // Assert
+                TestHelper.AssertLogMessagesCount(action, 0);
+            }
+        }
+
+        [Test]
+        [STAThread] // For creation of XAML UI component
+        public void GivenGuiPluginWithGuiSet_WhenProjectOnGuiChangesToProjectWithHydraulicBoundaryDatabaseWithNonExistingLocation_ThenWarning()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, new ApplicationCore(), new GuiCoreSettings()))
+            using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
+            {
+                var project = new Project();
+                var notExistingFile = "not_existing_file";
+
+                IAssessmentSection section = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                    {
+                        FilePath = notExistingFile
+                    }
+                };
+                project.Items.Add(section);
+
+                ringtoetsGuiPlugin.Gui = gui;
+                gui.Run();
+
+                // Call
+                Action action = () =>
+                {
+                    gui.Project = project;
+                };
+
+                // Assert
+                string message = string.Format(
+                    Properties.Resources.RingtoetsGuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_could_not_be_found_on_path_0_, 
+                    notExistingFile);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
             }
         }
 
         [Test]
         public void GetPropertyInfos_ReturnsSupportedPropertyClasses()
         {
-            // setup
+            // Setup
             using (var guiPlugin = new RingtoetsGuiPlugin())
             {
-                // call
+                // Call
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
-                // assert
+                // Assert
                 Assert.AreEqual(2, propertyInfos.Length);
 
                 var assessmentSectionProperties = propertyInfos.Single(pi => pi.DataType == typeof(IAssessmentSection));
@@ -100,7 +209,7 @@ namespace Ringtoets.Integration.Plugin.Test
         [Test]
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var applicationCore = new ApplicationCore();
 
@@ -115,10 +224,10 @@ namespace Ringtoets.Integration.Plugin.Test
                 Gui = guiStub
             })
             {
-                // call
+                // Call
                 TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
 
-                // assert
+                // Assert
                 Assert.AreEqual(10, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(IAssessmentSection)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));

@@ -24,41 +24,37 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
     public class ReferenceLineContextTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsGuiPlugin plugin;
-        private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ReferenceLineContext));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Assert
-            Assert.AreEqual(typeof(ReferenceLineContext), info.TagType);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
-            Assert.IsNull(info.ChildNodeObjects);
-            Assert.IsNull(info.CanRename);
-            Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.IsChecked);
-            Assert.IsNull(info.OnNodeChecked);
-            Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.OnDrop);
+            // Setup
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                // Assert
+                Assert.AreEqual(typeof(ReferenceLineContext), info.TagType);
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.ChildNodeObjects);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNull(info.CanCheck);
+                Assert.IsNull(info.IsChecked);
+                Assert.IsNull(info.OnNodeChecked);
+                Assert.IsNull(info.CanDrag);
+                Assert.IsNull(info.CanDrop);
+                Assert.IsNull(info.CanInsert);
+                Assert.IsNull(info.OnDrop);
+            }
         }
 
         [Test]
@@ -70,12 +66,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            // Call
-            var text = info.Text(referenceLineContext);
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual("Referentielijn", text);
+                // Call
+                var text = info.Text(referenceLineContext);
 
+                // Assert
+                Assert.AreEqual("Referentielijn", text);
+            }
             mocks.VerifyAll();
         }
 
@@ -88,12 +88,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            // Call
-            var image = info.Image(referenceLineContext);
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ReferenceLineIcon, image);
+                // Call
+                var image = info.Image(referenceLineContext);
 
+                // Assert
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ReferenceLineIcon, image);
+            }
             mocks.VerifyAll();
         }
 
@@ -105,16 +109,22 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             gui.Expect(g => g.Get(null, treeViewControlMock)).Return(menuBuilderMock);
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
             mocks.ReplayAll();
 
-            plugin.Gui = gui;
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            info.ContextMenuStrip(null, null, treeViewControlMock);
+                plugin.Gui = gui;
 
+                // Call
+                info.ContextMenuStrip(null, null, treeViewControlMock);
+            }
             // Assert
             mocks.VerifyAll();
         }
@@ -128,11 +138,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            // Call
-            Color color = info.ForeColor(referenceLineContext);
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+                // Call
+                Color color = info.ForeColor(referenceLineContext);
+
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+            }
             mocks.VerifyAll();
         }
 
@@ -146,12 +161,22 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            // Call
-            Color color = info.ForeColor(referenceLineContext);
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+                // Call
+                Color color = info.ForeColor(referenceLineContext);
+
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+            }
             mocks.VerifyAll();
+        }
+
+        private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)
+        {
+            return guiPlugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ReferenceLineContext));
         }
     }
 }

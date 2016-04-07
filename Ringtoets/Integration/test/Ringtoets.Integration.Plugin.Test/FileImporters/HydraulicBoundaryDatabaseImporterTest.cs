@@ -147,10 +147,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
             mocks.ReplayAll();
 
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
-
             // Call
-            TestDelegate call = () => importer.Import(context);
+            TestDelegate call = () => importer.Import(assessmentSection);
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(call);
@@ -168,8 +166,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             assessmentSection.Expect(section => section.NotifyObservers());
             mocks.ReplayAll();
 
-            var importTarget = new HydraulicBoundaryDatabaseContext(assessmentSection);
-
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             // Precondition
@@ -179,7 +175,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Call
             var importResult = false;
-            Action call = () => importResult = importer.Import(importTarget);
+            Action call = () => importResult = importer.Import(assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -188,7 +184,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 StringAssert.EndsWith("De hydraulische randvoorwaarden locaties zijn ingelezen.", messageArray[0]);
             });
             Assert.IsTrue(importResult);
-            ICollection<HydraulicBoundaryLocation> importedLocations = importTarget.Parent.HydraulicBoundaryDatabase.Locations;
+            ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(18, importedLocations.Count);
             CollectionAssert.AllItemsAreNotNull(importedLocations);
             CollectionAssert.AllItemsAreUnique(importedLocations);
@@ -204,8 +200,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
             mocks.ReplayAll();
 
-            var importTarget = new HydraulicBoundaryDatabaseContext(assessmentSection);
-
             string corruptPath = Path.Combine(testDataPath, "corruptschema.sqlite");
             var expectedLogMessage = string.Format("Fout bij het lezen van bestand '{0}': Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database. Het bestand wordt overgeslagen.", corruptPath);
 
@@ -214,12 +208,12 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             importer.ValidateAndConnectTo(corruptPath);
 
             // Call
-            Action call = () => importResult = importer.Import(importTarget);
+            Action call = () => importResult = importer.Import(assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.IsFalse(importResult);
-            Assert.IsNull(importTarget.Parent.HydraulicBoundaryDatabase, "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
+            Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase, "No HydraulicBoundaryDatabase object should be created when import from corrupt database.");
 
             mocks.VerifyAll();
         }
@@ -231,7 +225,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
-            var importTarget = mocks.StrictMock<HydraulicBoundaryDatabaseContext>(assessmentSection);
             mocks.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, "corruptschema.sqlite");
@@ -242,7 +235,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.DoesNotThrow(precondition, "Precodition failed: ValidateAndConnectTo failed");
 
             // Call
-            Action call = () => importResult = importer.Import(importTarget);
+            Action call = () => importResult = importer.Import(assessmentSection);
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath)

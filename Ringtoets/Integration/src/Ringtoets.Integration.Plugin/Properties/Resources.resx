@@ -163,4 +163,7 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="RingtoetsGuiPlugin_Error_during_assessment_level_calculation" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens de berekening: inspecteer het logbestand.</value>
   </data>
+  <data name="RingtoetsGuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_could_not_be_found_on_path_0_" xml:space="preserve">
+    <value>Hydraulische randvoorwaarden database kon niet gevonden worden op locatie {0}.</value>
+  </data>
 </root>

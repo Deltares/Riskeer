@@ -1029,7 +1029,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
                 grid = new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject as DataGridView;
 
-                new ButtonTester("CancelButton", selectionDialog).Click();
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
             };
 
             var contextMenu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);

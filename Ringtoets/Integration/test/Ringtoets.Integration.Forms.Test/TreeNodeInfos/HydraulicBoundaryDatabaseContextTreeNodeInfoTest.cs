@@ -13,9 +13,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
@@ -27,8 +27,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
     public class HydraulicBoundaryDatabaseContextTreeNodeInfoTest : NUnitFormTest
     {
         private MockRepository mocks;
-        private RingtoetsGuiPlugin plugin;
-        private TreeNodeInfo info;
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabase");
 
@@ -36,29 +34,26 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext));
-        }
-
-        [TearDown]
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            base.TearDown();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Assert
-            Assert.AreEqual(typeof(HydraulicBoundaryDatabaseContext), info.TagType);
-            Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.IsChecked);
-            Assert.IsNull(info.OnNodeChecked);
-            Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.OnDrop);
+            // Setup
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                // Assert
+                Assert.AreEqual(typeof(HydraulicBoundaryDatabaseContext), info.TagType);
+                Assert.IsNull(info.CanCheck);
+                Assert.IsNull(info.IsChecked);
+                Assert.IsNull(info.OnNodeChecked);
+                Assert.IsNull(info.CanDrag);
+                Assert.IsNull(info.CanDrop);
+                Assert.IsNull(info.CanInsert);
+                Assert.IsNull(info.OnDrop);
+            }
         }
 
         [Test]
@@ -72,33 +67,49 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var context = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
-            // Call
-            var text = info.Text(context);
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual(name, text);
+                // Call
+                var text = info.Text(context);
 
+                // Assert
+                Assert.AreEqual(name, text);
+            }
             mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnsGenericIcon()
         {
-            // Call
-            var image = info.Image(null);
+            // Setup
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+                // Call
+                var image = info.Image(null);
+
+                // Assert
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+            }
         }
 
         [Test]
         public void CanRenameNode_Always_ReturnsFalse()
         {
-            // Call
-            var renameAllowed = info.CanRename(null, null);
+            // Setup
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            Assert.IsFalse(renameAllowed);
+                // Call
+                var renameAllowed = info.CanRename(null, null);
+
+                // Assert
+                Assert.IsFalse(renameAllowed);
+            }
         }
 
         [Test]
@@ -124,14 +135,20 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
             guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(menuBuilderMock);
+            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
             mocks.ReplayAll();
 
-            plugin.Gui = guiMock;
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+                plugin.Gui = guiMock;
 
+                // Call
+                info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+            }
             // Assert
             mocks.VerifyAll();
         }
@@ -147,20 +164,26 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
             guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
             mocks.ReplayAll();
 
-            plugin.Gui = guiMock;
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+                plugin.Gui = guiMock;
 
+                // Call
+                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+                const string expectedItemText = "&Toetspeilen berekenen";
+                const string expectedItemTooltip = "Er is geen hydraulische randvoorwaarden database beschikbaar om de toetspeilen te berekenen.";
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsFormsResources.FailureMechanismIcon, false);
+            }
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
-
-            const string expectedItemText = "&Toetspeilen berekenen";
-            const string expectedItemTooltip = "Er is geen hydraulische randvoorwaarden database beschikbaar om de toetspeilen te berekenen.";
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsFormsResources.FailureMechanismIcon, false);
         }
 
         [Test]
@@ -175,21 +198,28 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             nodeData.Parent.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
             mocks.ReplayAll();
 
-            plugin.Gui = guiMock;
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            nodeData.Parent.HydraulicBoundaryDatabase.FilePath = testDataPath;
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+                plugin.Gui = guiMock;
 
+                // Call
+                nodeData.Parent.HydraulicBoundaryDatabase.FilePath = testDataPath;
+                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+                const string expectedItemText = "&Toetspeilen berekenen";
+                const string expectedItemTooltip = "Bereken de toetspeilen";
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsFormsResources.FailureMechanismIcon);
+            }
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
 
-            const string expectedItemText = "&Toetspeilen berekenen";
-            const string expectedItemTooltip = "Bereken de toetspeilen";
-            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsFormsResources.FailureMechanismIcon);
         }
 
         [Test]
@@ -221,14 +251,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 FilePath = "D:/nonExistingDirectory/nonExistingFile",
                 Version = "random"
             };
-            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 10, 30000);
 
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.Name = "Dummy";
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            assessmentSectionMock.Stub(section => section.FailureMechanismContribution).Return(failureMechanismContribution);
-            assessmentSectionMock.Expect(section => section.NotifyObservers());
-
+            var assessmentSectionMock = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+            };
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
             hydraulicBoundaryDatabaseContextObserver.Expect(o => o.UpdateObserver());
@@ -239,35 +266,38 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             hydraulicBoundaryDatabaseContext.Attach(hydraulicBoundaryDatabaseContextObserver);
 
-            plugin.Gui = gui;
-
-            var contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControlMock);
-
-            DialogBoxHandler = (name, wnd) =>
+            using (var plugin = new RingtoetsGuiPlugin())
             {
-                // Don't care about dialogs in this test.
-            };
+                var info = GetInfo(plugin);
+                plugin.Gui = gui;
 
-            // When
-            Action action = () => { contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick(); };
+                var contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControlMock);
 
-            // Then
-            TestHelper.AssertLogMessages(action, messages =>
-            {
-                var msgs = messages.GetEnumerator();
-                Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening: inspecteer het logbestand.", msgs.Current);
-                Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Uitvoeren van 'Toetspeil berekenen voor locatie '100001'' is mislukt.", msgs.Current);
-                Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening: inspecteer het logbestand.", msgs.Current);
-                Assert.IsTrue(msgs.MoveNext());
-                StringAssert.StartsWith("Uitvoeren van 'Toetspeil berekenen voor locatie '100002'' is mislukt.", msgs.Current);
-            });
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Don't care about dialogs in this test.
+                };
 
-            Assert.IsNaN(hydraulicBoundaryLocation1.DesignWaterLevel); // No result set
-            Assert.AreEqual(4.2, hydraulicBoundaryLocation2.DesignWaterLevel); // Previous result not cleared
+                // When
+                Action action = () => { contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick(); };
 
+                // Then
+                TestHelper.AssertLogMessages(action, messages =>
+                {
+                    var msgs = messages.GetEnumerator();
+                    Assert.IsTrue(msgs.MoveNext());
+                    StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening: inspecteer het logbestand.", msgs.Current);
+                    Assert.IsTrue(msgs.MoveNext());
+                    StringAssert.StartsWith("Uitvoeren van 'Toetspeil berekenen voor locatie '100001'' is mislukt.", msgs.Current);
+                    Assert.IsTrue(msgs.MoveNext());
+                    StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening: inspecteer het logbestand.", msgs.Current);
+                    Assert.IsTrue(msgs.MoveNext());
+                    StringAssert.StartsWith("Uitvoeren van 'Toetspeil berekenen voor locatie '100002'' is mislukt.", msgs.Current);
+                });
+
+                Assert.IsNaN(hydraulicBoundaryLocation1.DesignWaterLevel); // No result set
+                Assert.AreEqual(4.2, hydraulicBoundaryLocation2.DesignWaterLevel); // Previous result not cleared
+            }
             mocks.VerifyAll();
         }
 
@@ -280,11 +310,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            // Call
-            Color color = info.ForeColor(hydraulicBoundaryDatabaseContext);
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
+                // Call
+                Color color = info.ForeColor(hydraulicBoundaryDatabaseContext);
 
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+            }
             mocks.VerifyAll();
         }
 
@@ -298,12 +332,21 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            // Call
-            Color color = info.ForeColor(hydraulicBoundaryDatabaseContext);
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
+                // Call
+                Color color = info.ForeColor(hydraulicBoundaryDatabaseContext);
 
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+            }
             mocks.VerifyAll();
+        }
+
+        private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)
+        {
+            return guiPlugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext));
         }
     }
 }

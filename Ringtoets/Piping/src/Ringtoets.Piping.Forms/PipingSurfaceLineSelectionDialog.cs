@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Forms
 
         protected override Button GetCancelButton()
         {
-            return CancelButton;
+            return CustomCancelButton;
         }
 
         private PipingSurfaceLineSelectionView PipingSurfaceLineSelectionView { get; set; }

@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryDatabase"/>.
     /// </summary>
-    public class HydraulicBoundaryDatabaseContext : Observable
+    public class HydraulicBoundaryDatabaseContext : IObservable
     {
         private readonly IAssessmentSection parent;
 
@@ -89,6 +89,25 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         public override int GetHashCode()
         {
             return (parent != null ? parent.GetHashCode() : 0);
+        }
+
+        #endregion
+
+        #region IObservable
+
+        public void Attach(IObserver observer)
+        {
+            Parent.Attach(observer);
+        }
+
+        public void Detach(IObserver observer)
+        {
+            Parent.Detach(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            Parent.NotifyObservers();
         }
 
         #endregion

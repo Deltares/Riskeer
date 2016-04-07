@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using Core.Common.Gui.Forms.MessageWindow;
+using Core.Common.Gui.TestUtil;
+using Core.Common.TestUtil;
 using log4net.Core;
 using log4net.Util;
 using NUnit.Framework;
@@ -43,16 +45,16 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        [TestCase(LogLevel.Off)]
-        [TestCase(LogLevel.Fatal)]
-        [TestCase(LogLevel.Error)]
-        [TestCase(LogLevel.Warn)]
-        [TestCase(LogLevel.Info)]
-        [TestCase(LogLevel.Debug)]
-        public void DoAppend_AppenderEnabled_ForwardAllMessagesToMessageWindow(LogLevel logLevel)
+        [TestCase(LogLevelConstant.Off)]
+        [TestCase(LogLevelConstant.Fatal)]
+        [TestCase(LogLevelConstant.Error)]
+        [TestCase(LogLevelConstant.Warn)]
+        [TestCase(LogLevelConstant.Info)]
+        [TestCase(LogLevelConstant.Debug)]
+        public void DoAppend_AppenderEnabled_ForwardAllMessagesToMessageWindow(LogLevelConstant logLevel)
         {
             // Setup
-            Level level = CreateLog4NetLevel(logLevel);
+            Level level = logLevel.ToLog4NetLevel();
             var dataTime = DateTime.Now;
             const string message = "<some nice log-message>";
 
@@ -92,7 +94,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
 
             const string expectedText = "Gestart in 1,20 seconden.";
 
-            Level level = CreateLog4NetLevel(LogLevel.Warn);
+            Level level = LogLevelConstant.Warn.ToLog4NetLevel();
             var dataTime = DateTime.Now;
             var logEvent = new LoggingEvent(null, null, "<doesn't matter>", Level.Warn,
                                             new SystemStringFormat(CultureInfo.InvariantCulture, messageText, formatArgument),
@@ -126,7 +128,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             const string messageText = "Gestart in {5:f2} seconden.";
             const double formatArgument = 1.2;
 
-            Level level = CreateLog4NetLevel(LogLevel.Warn);
+            Level level = LogLevelConstant.Warn.ToLog4NetLevel();
             var dataTime = DateTime.Now;
             var logEvent = new LoggingEvent(null, null, "<doesn't matter>", Level.Warn,
                                             new SystemStringFormat(CultureInfo.InvariantCulture, messageText, formatArgument),
@@ -159,7 +161,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
             // Setup
             const string messageText = "Gestart in {5:f2} seconden.";
 
-            Level level = CreateLog4NetLevel(LogLevel.Warn);
+            Level level = LogLevelConstant.Warn.ToLog4NetLevel();
             var dataTime = DateTime.Now;
             var logEvent = new LoggingEvent(null, null, "<doesn't matter>", Level.Warn,
                                             new SystemStringFormat(CultureInfo.InvariantCulture, messageText, null),
@@ -194,7 +196,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                                                 messageText, Environment.NewLine, "Controleer logbestand voor meer informatie (\"Bestand\"->\"Help\"->\"Log tonen\").");
             var exception = new Exception();
 
-            Level level = CreateLog4NetLevel(LogLevel.Error);
+            Level level = LogLevelConstant.Error.ToLog4NetLevel();
             var dataTime = DateTime.Now;
             var logEvent = new LoggingEvent(null, null, "<doesn't matter>", Level.Error,
                                             messageText, exception);
@@ -220,16 +222,16 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        [TestCase(LogLevel.Off)]
-        [TestCase(LogLevel.Fatal)]
-        [TestCase(LogLevel.Error)]
-        [TestCase(LogLevel.Warn)]
-        [TestCase(LogLevel.Info)]
-        [TestCase(LogLevel.Debug)]
-        public void DoAppend_AppenderDisabled_MessagesNotForwardedToMessageWindow(LogLevel logLevel)
+        [TestCase(LogLevelConstant.Off)]
+        [TestCase(LogLevelConstant.Fatal)]
+        [TestCase(LogLevelConstant.Error)]
+        [TestCase(LogLevelConstant.Warn)]
+        [TestCase(LogLevelConstant.Info)]
+        [TestCase(LogLevelConstant.Debug)]
+        public void DoAppend_AppenderDisabled_MessagesNotForwardedToMessageWindow(LogLevelConstant logLevel)
         {
             // Setup
-            Level level = CreateLog4NetLevel(logLevel);
+            Level level = logLevel.ToLog4NetLevel();
             var dataTime = DateTime.Now;
             const string message = "<some nice log-message>";
 
@@ -259,16 +261,16 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        [TestCase(LogLevel.Off)]
-        [TestCase(LogLevel.Fatal)]
-        [TestCase(LogLevel.Error)]
-        [TestCase(LogLevel.Warn)]
-        [TestCase(LogLevel.Info)]
-        [TestCase(LogLevel.Debug)]
-        public void Enabled_FromFalseToTrue_ForwardAllCachedMessagesToMessageWindow(LogLevel logLevel)
+        [TestCase(LogLevelConstant.Off)]
+        [TestCase(LogLevelConstant.Fatal)]
+        [TestCase(LogLevelConstant.Error)]
+        [TestCase(LogLevelConstant.Warn)]
+        [TestCase(LogLevelConstant.Info)]
+        [TestCase(LogLevelConstant.Debug)]
+        public void Enabled_FromFalseToTrue_ForwardAllCachedMessagesToMessageWindow(LogLevelConstant logLevel)
         {
             // Setup
-            Level level = CreateLog4NetLevel(logLevel);
+            Level level = logLevel.ToLog4NetLevel();
             var dataTime = DateTime.Today;
             const string message = "<yet another nice log-message>";
 
@@ -300,16 +302,16 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
         }
 
         [Test]
-        [TestCase(LogLevel.Off)]
-        [TestCase(LogLevel.Fatal)]
-        [TestCase(LogLevel.Error)]
-        [TestCase(LogLevel.Warn)]
-        [TestCase(LogLevel.Info)]
-        [TestCase(LogLevel.Debug)]
-        public void MessageWindow_FromNullToProperInstance_ForwardAllCachedMessagesToMessageWindow(LogLevel logLevel)
+        [TestCase(LogLevelConstant.Off)]
+        [TestCase(LogLevelConstant.Fatal)]
+        [TestCase(LogLevelConstant.Error)]
+        [TestCase(LogLevelConstant.Warn)]
+        [TestCase(LogLevelConstant.Info)]
+        [TestCase(LogLevelConstant.Debug)]
+        public void MessageWindow_FromNullToProperInstance_ForwardAllCachedMessagesToMessageWindow(LogLevelConstant logLevel)
         {
             // Setup
-            Level level = CreateLog4NetLevel(logLevel);
+            Level level = logLevel.ToLog4NetLevel();
             var dataTime = DateTime.Today;
             const string message = "<another nice log-message>";
 
@@ -337,37 +339,6 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        private Level CreateLog4NetLevel(LogLevel level)
-        {
-            switch (level)
-            {
-                case LogLevel.Off:
-                    return Level.Off;
-                case LogLevel.Fatal:
-                    return Level.Fatal;
-                case LogLevel.Error:
-                    return Level.Error;
-                case LogLevel.Warn:
-                    return Level.Warn;
-                case LogLevel.Info:
-                    return Level.Info;
-                case LogLevel.Debug:
-                    return Level.Debug;
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
-        public enum LogLevel
-        {
-            Off,
-            Fatal,
-            Error,
-            Warn,
-            Info,
-            Debug
         }
     }
 }

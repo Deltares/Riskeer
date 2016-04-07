@@ -88,6 +88,7 @@
     <Compile Include="FileDisposeHelper.cs" />
     <Compile Include="GuiTestHelper.cs" />
     <Compile Include="LogHelper.cs" />
+    <Compile Include="LogLevelConstant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

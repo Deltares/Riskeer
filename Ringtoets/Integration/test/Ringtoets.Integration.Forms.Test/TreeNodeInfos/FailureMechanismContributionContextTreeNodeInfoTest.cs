@@ -22,64 +22,70 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
     public class FailureMechanismContributionContextTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsGuiPlugin plugin;
-        private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismContributionContext));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Assert
-            Assert.AreEqual(typeof(FailureMechanismContributionContext), info.TagType);
-            Assert.IsNull(info.ForeColor);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
-            Assert.IsNull(info.ChildNodeObjects);
-            Assert.IsNull(info.CanRename);
-            Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.IsChecked);
-            Assert.IsNull(info.OnNodeChecked);
-            Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.OnDrop);
+            // Setup
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                // Assert
+                Assert.AreEqual(typeof(FailureMechanismContributionContext), info.TagType);
+                Assert.IsNull(info.ForeColor);
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.ChildNodeObjects);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNull(info.CanCheck);
+                Assert.IsNull(info.IsChecked);
+                Assert.IsNull(info.OnNodeChecked);
+                Assert.IsNull(info.CanDrag);
+                Assert.IsNull(info.CanDrop);
+                Assert.IsNull(info.CanInsert);
+                Assert.IsNull(info.OnDrop);
+            }
         }
 
         [Test]
         public void Text_Always_ReturnsTextFromResource()
         {
-            // Call
-            var text = info.Text(null);
+            // Setup
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual(RingtoetsIntegrationDataResources.FailureMechanismContribution_DisplayName, text);
+                // Call
+                var text = info.Text(null);
+
+                // Assert
+                Assert.AreEqual(RingtoetsIntegrationDataResources.FailureMechanismContribution_DisplayName, text);
+            }
         }
 
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
-            // Call
-            var image = info.Image(null);
+            // Setup
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+                // Call
+                var image = info.Image(null);
 
-            mocks.VerifyAll();
+                // Assert
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+            }
         }
 
         [Test]
@@ -98,6 +104,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var gui = mocks.StrictMock<IGui>();
             gui.Expect(cmp => cmp.Get(contribution, treeViewControlMock)).Return(menuBuilderMock);
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
@@ -105,13 +113,23 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var context = new FailureMechanismContributionContext(contribution, assessmentSection);
 
-            plugin.Gui = gui;
+            
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            info.ContextMenuStrip(context, null, treeViewControlMock);
+                plugin.Gui = gui;
 
+                // Call
+                info.ContextMenuStrip(context, null, treeViewControlMock);
+            }
             // Assert
             mocks.VerifyAll();
+        }
+
+        private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)
+        {
+            return guiPlugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismContributionContext));
         }
     }
 }

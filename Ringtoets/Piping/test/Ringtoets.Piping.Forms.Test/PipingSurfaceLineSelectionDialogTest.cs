@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using NUnit.Extensions.Forms;
@@ -108,7 +107,7 @@ namespace Ringtoets.Piping.Forms.Test
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
-                var cancelButton = new ButtonTester("CancelButton", dialog);
+                var cancelButton = new ButtonTester("CustomCancelButton", dialog);
                 cancelButton.Click();
 
                 // Then

@@ -31,13 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PipingSurfaceLineSelectionDialog));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.OkButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CustomCancelButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.CancelButton);
+            this.flowLayoutPanel1.Controls.Add(this.CustomCancelButton);
             this.flowLayoutPanel1.Controls.Add(this.OkButton);
             resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -51,10 +51,10 @@
             // 
             // CancelButton
             // 
-            resources.ApplyResources(this.CancelButton, "CancelButton");
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButtonOnClick);
+            resources.ApplyResources(this.CustomCancelButton, "CustomCancelButton");
+            this.CustomCancelButton.Name = "CustomCancelButton";
+            this.CustomCancelButton.UseVisualStyleBackColor = true;
+            this.CustomCancelButton.Click += new System.EventHandler(this.CancelButtonOnClick);
             // 
             // PipingSurfaceLineSelectionDialog
             // 
@@ -70,7 +70,7 @@
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CustomCancelButton;
         private System.Windows.Forms.Button OkButton;
     }
 }

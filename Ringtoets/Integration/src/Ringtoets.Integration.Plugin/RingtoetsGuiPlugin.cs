@@ -28,6 +28,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -66,15 +67,62 @@ namespace Ringtoets.Integration.Plugin
     /// <summary>
     /// The GUI plugin for the Ringtoets application.
     /// </summary>
-    public class RingtoetsGuiPlugin : GuiPlugin
+    public class RingtoetsGuiPlugin : Core.Common.Gui.Plugin.GuiPlugin
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(GuiPlugin));
+        private static readonly ILog log = LogManager.GetLogger(typeof(Core.Common.Gui.Plugin.GuiPlugin));
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
             get
             {
                 return new RingtoetsRibbon();
+            }
+        }
+
+        public override IGui Gui
+        {
+            get
+            {
+                return base.Gui;
+            }
+            set
+            {
+                RemoveOnOpenProjectListener(base.Gui);
+                base.Gui = value;
+                AddOnOpenProjectListener(value);
+            }
+        }
+
+        private void RemoveOnOpenProjectListener(IProjectOwner projectOwner)
+        {
+            if (projectOwner != null)
+            {
+                projectOwner.ProjectOpened -= VerifyHydraulicBoundaryDatabasePath;
+            }
+        }
+
+        private void AddOnOpenProjectListener(IProjectOwner projectOwner)
+        {
+            if (projectOwner != null)
+            {
+                projectOwner.ProjectOpened += VerifyHydraulicBoundaryDatabasePath;
+            }
+        }
+
+        private void VerifyHydraulicBoundaryDatabasePath(Project project)
+        {
+            var sectionsWithDatabase = project.Items.OfType<IAssessmentSection>().Where(i => i.HydraulicBoundaryDatabase != null);
+            foreach (IAssessmentSection section in sectionsWithDatabase)
+            {
+                string selectedFile = section.HydraulicBoundaryDatabase.FilePath;
+                try
+                {
+                    CreateHydraulicDatabaseImporter(selectedFile);
+                }
+                catch (CriticalFileReadException)
+                {
+                    log.WarnFormat(Resources.RingtoetsGuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_could_not_be_found_on_path_0_, selectedFile);
+                }
             }
         }
 
@@ -506,7 +554,7 @@ namespace Ringtoets.Integration.Plugin
             var connectionItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect,
                 RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
-                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => { SelectDatabaseFile(nodeData); });
+                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => { SelectDatabaseFile(nodeData.Parent); });
 
             var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.DesignWaterLevel_Calculate,
@@ -520,7 +568,6 @@ namespace Ringtoets.Integration.Plugin
                     ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
 
                     nodeData.Parent.NotifyObservers();
-                    nodeData.NotifyObservers();
                 }
                 );
 
@@ -543,7 +590,7 @@ namespace Ringtoets.Integration.Plugin
                       .Build();
         }
 
-        private void SelectDatabaseFile(HydraulicBoundaryDatabaseContext nodeData)
+        private void SelectDatabaseFile(IAssessmentSection assessmentSection)
         {
             var windowTitle = RingtoetsFormsResources.SelectHydraulicBoundaryDatabaseFile_Title;
             using (var dialog = new OpenFileDialog
@@ -557,50 +604,63 @@ namespace Ringtoets.Integration.Plugin
             {
                 if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
                 {
-                    ValidateAndImportSelectedFile(nodeData, dialog.FileName);
+                    try
+                    {
+                        ValidateAndImportSelectedFile(dialog.FileName, assessmentSection);
+                    }
+                    catch (CriticalFileReadException exception)
+                    {
+                        log.Error(exception.Message, exception);
+                    }
                 }
             }
         }
 
-        private static void ValidateAndImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData, string selectedFile)
+        /// <summary>
+        /// Attempts to update the <paramref name="assessmentSection"/> based on the <paramref name="selectedFile"/>.
+        /// </summary>
+        /// <param name="selectedFile">The file to use to import a <see cref="HydraulicBoundaryDatabase"/> from.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to which the imported <see cref="HydraulicBoundaryDatabase"/> will be assigned.</param>
+        /// <returns>A new <see cref="HydraulicBoundaryDatabaseImporter"/> which is connected to the <paramref name="selectedFile"/>.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the importer could not be created for the selected file.</exception>
+        private static void ValidateAndImportSelectedFile(string selectedFile, IAssessmentSection assessmentSection)
+        {
+            var hydraulicBoundaryLocationsImporter = CreateHydraulicDatabaseImporter(selectedFile);
+
+            if (assessmentSection.HydraulicBoundaryDatabase != null)
+            {
+                var newVersion = hydraulicBoundaryLocationsImporter.GetHydraulicBoundaryDatabaseVersion();
+
+                var currentVersion = assessmentSection.HydraulicBoundaryDatabase.Version;
+                var currentFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
+
+                if (currentVersion != newVersion && HasClearCalculationConfirmation())
+                {
+                    ClearCalculations(assessmentSection);
+                    ImportSelectedFile(assessmentSection, hydraulicBoundaryLocationsImporter);
+                }
+                else if (currentFilePath != selectedFile)
+                {
+                    SetBoundaryDatabaseData(assessmentSection, selectedFile);
+                }
+            }
+            else
+            {
+                ImportSelectedFile(assessmentSection, hydraulicBoundaryLocationsImporter);
+            }
+        }
+
+        /// <summary>
+        /// Attempts to connect a new <see cref="HydraulicBoundaryDatabaseImporter"/> to the <paramref name="selectedFile"/>.
+        /// </summary>
+        /// <param name="selectedFile">The file to use to import a <see cref="HydraulicBoundaryDatabase"/> from.</param>
+        /// <returns>A new <see cref="HydraulicBoundaryDatabaseImporter"/> which is connected to the <paramref name="selectedFile"/>.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the importer could not be created for the selected file.</exception>
+        private static HydraulicBoundaryDatabaseImporter CreateHydraulicDatabaseImporter(string selectedFile)
         {
             var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter();
-
-            string newVersion;
-            try
-            {
-                hydraulicBoundaryLocationsImporter.ValidateAndConnectTo(selectedFile);
-
-                if (nodeData.Parent.HydraulicBoundaryDatabase == null)
-                {
-                    ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter);
-                    return;
-                }
-
-                newVersion = hydraulicBoundaryLocationsImporter.GetHydraulicBoundaryDatabaseVersion();
-            }
-            catch (CriticalFileReadException exception)
-            {
-                log.Error(exception.Message, exception);
-                return;
-            }
-
-            var currentVersion = nodeData.Parent.HydraulicBoundaryDatabase.Version;
-            var currentFilePath = nodeData.Parent.HydraulicBoundaryDatabase.FilePath;
-
-            // Compare
-            if (currentVersion != newVersion)
-            {
-                // Show dialog
-                ShowCleanDialog(nodeData, hydraulicBoundaryLocationsImporter);
-                return;
-            }
-
-            if (currentFilePath != selectedFile)
-            {
-                // Only set the new file path. Don't import the complete database.
-                SetBoundaryDatabaseData(nodeData, selectedFile);
-            }
+            hydraulicBoundaryLocationsImporter.ValidateAndConnectTo(selectedFile);
+            return hydraulicBoundaryLocationsImporter;
         }
 
         private static TargetProbabilityCalculationActivity CreateHydraRingActivity(IAssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation, string hlcdDirectory)
@@ -627,20 +687,14 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private static void ShowCleanDialog(HydraulicBoundaryDatabaseContext nodeData,
-                                            HydraulicBoundaryDatabaseImporter hydraulicBoundaryLocationsImporter)
+        private static bool HasClearCalculationConfirmation()
         {
             var confirmation = MessageBox.Show(
                 RingtoetsFormsResources.Delete_Calculations_Text,
                 BaseResources.Confirm,
                 MessageBoxButtons.OKCancel);
 
-            if (confirmation == DialogResult.OK)
-            {
-                ClearCalculations(nodeData.Parent);
-
-                ImportSelectedFile(nodeData, hydraulicBoundaryLocationsImporter);
-            }
+            return (confirmation == DialogResult.OK);
         }
 
         private static void ClearCalculations(IAssessmentSection nodeData)
@@ -657,25 +711,23 @@ namespace Ringtoets.Integration.Plugin
             log.Info(RingtoetsFormsResources.Calculations_Deleted);
         }
 
-        private static void ImportSelectedFile(HydraulicBoundaryDatabaseContext nodeData,
-                                               HydraulicBoundaryDatabaseImporter hydraulicBoundaryLocationsImporter)
+        private static void ImportSelectedFile(IAssessmentSection assessmentSection, HydraulicBoundaryDatabaseImporter hydraulicBoundaryLocationsImporter)
         {
-            if (hydraulicBoundaryLocationsImporter.Import(nodeData))
+            if (hydraulicBoundaryLocationsImporter.Import(assessmentSection))
             {
-                SetBoundaryDatabaseData(nodeData);
+                SetBoundaryDatabaseData(assessmentSection);
             }
         }
 
-        private static void SetBoundaryDatabaseData(HydraulicBoundaryDatabaseContext nodeData, string selectedFile = null)
+        private static void SetBoundaryDatabaseData(IAssessmentSection assessmentSection, string selectedFile = null)
         {
             if (!String.IsNullOrEmpty(selectedFile))
             {
-                nodeData.Parent.HydraulicBoundaryDatabase.FilePath = selectedFile;
+                assessmentSection.HydraulicBoundaryDatabase.FilePath = selectedFile;
             }
 
-            nodeData.Parent.NotifyObservers();
-            nodeData.NotifyObservers();
-            log.InfoFormat(RingtoetsFormsResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked, nodeData.Parent.HydraulicBoundaryDatabase.FilePath);
+            assessmentSection.NotifyObservers();
+            log.InfoFormat(RingtoetsFormsResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked, assessmentSection.HydraulicBoundaryDatabase.FilePath);
         }
 
         #endregion

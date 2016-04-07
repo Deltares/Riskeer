@@ -254,7 +254,7 @@ namespace Core.Common.TestUtil
         public static void AssertLogMessages(Action action, Action<IEnumerable<string>> assertLogMessages)
         {
             var renderedMessages = GetAllRenderedMessages(action);
-            assertLogMessages(renderedMessages);
+            assertLogMessages(renderedMessages.Select(rm => rm.Item1));
         }
 
         /// <summary>
@@ -353,6 +353,65 @@ namespace Core.Common.TestUtil
             Assert.AreEqual(expectedCustomMessage, message);
         }
 
+        /// <summary>
+        /// Method used to check if a collection of messages have occured in the log.
+        /// This function allowed checking log messages being generated like <see cref="AssertLogMessageIsGenerated"/>
+        /// without having to rerun the action for every single message. Fails the test when any of checks fail.
+        /// </summary>
+        /// <param name="action">Action to be performed while recording the log.</param>
+        /// <param name="message">The message that should occur in the log with a certain log level.</param>
+        /// <param name="expectedLogMessageCount">Optional: assert that log has this number of messages.</param>
+        /// <seealso cref="AssertLogMessageIsGenerated"/>
+        public static void AssertLogMessageWithLevelIsGenerated(Action action, Tuple<string, LogLevelConstant> message, int? expectedLogMessageCount = null)
+        {
+            AssertLogMessagesWithLevelAreGenerated(action, new[]
+            {
+                message
+            }, expectedLogMessageCount);
+        }
+
+        /// <summary>
+        /// Method used to check if a collection of messages have occured in the log.
+        /// This function allowed checking log messages being generated like <see cref="AssertLogMessageIsGenerated"/>
+        /// without having to rerun the action for every single message. Fails the test when any of checks fail.
+        /// </summary>
+        /// <param name="action">Action to be performed while recording the log</param>
+        /// <param name="messages">The collection of messages that should occur in the log</param>
+        /// <param name="expectedLogMessageCount">Optional: assert that log has this number of messages.</param>
+        /// <seealso cref="AssertLogMessageIsGenerated"/>
+        public static void AssertLogMessagesWithLevelAreGenerated(Action action, IEnumerable<Tuple<string, LogLevelConstant>> messages, int? expectedLogMessageCount = null)
+        {
+            var renderedMessages = GetAllRenderedMessages(action);
+
+            AssertExpectedMessagesInRenderedMessages(messages, renderedMessages);
+            if (expectedLogMessageCount != null)
+            {
+                Assert.AreEqual((int) expectedLogMessageCount, renderedMessages.Count());
+            }
+        }
+
+        private static void AssertExpectedMessagesInRenderedMessages(IEnumerable<string> messages, IEnumerable<Tuple<string, Level>> renderedMessages)
+        {
+            foreach (string message in messages)
+            {
+                CollectionAssert.Contains(renderedMessages.Select(rm => rm.Item1), message);
+            }
+        }
+
+        /// <summary>
+        /// Checks if all messages from <paramref name="messages"/> occur in <paramref name="renderedMessages"/>
+        /// </summary>
+        /// <param name="messages">The collection of expected messages</param>
+        /// <param name="renderedMessages">The collection of messages in the log</param>
+        private static void AssertExpectedMessagesInRenderedMessages(IEnumerable<Tuple<string, LogLevelConstant>> messages, IEnumerable<Tuple<string, Level>> renderedMessages)
+        {
+            var messagesWithLog4NetLevel = messages.Select(m => Tuple.Create(m.Item1, m.Item2.ToLog4NetLevel()));
+            foreach (Tuple<string, Level> message in messagesWithLog4NetLevel)
+            {
+                CollectionAssert.Contains(renderedMessages, message);
+            }
+        }
+
         private static void AssertContextMenuStripContainsItem(ToolStripItemCollection items, int position, string text, string toolTip, Image icon, bool enabled = true)
         {
             Assert.Less(position, items.Count);
@@ -448,36 +507,7 @@ namespace Core.Common.TestUtil
             return 1.0f;
         }
 
-        /// <summary>
-        /// Checks if all messages from <paramref name="messages"/> occur in <paramref name="renderedMessages"/>
-        /// </summary>
-        /// <param name="messages">The collection of expected messages</param>
-        /// <param name="renderedMessages">The collection of messages in the log</param>
-        private static void AssertExpectedMessagesInRenderedMessages(IEnumerable<string> messages, IEnumerable<string> renderedMessages)
-        {
-            foreach (string message in messages)
-            {
-                CollectionAssert.Contains(renderedMessages, message);
-            }
-        }
-
-        /// <summary>
-        /// Checks if none of the messages from <paramref name="messages"/> occurs in <paramref name="renderedMessages"/>
-        /// </summary>
-        /// <param name="messages">The collection of unwanted messages</param>
-        /// <param name="renderedMessages">The collection of log messages in the log</param>
-        private static void AssertUnwantedMessagesNotInRenderedMessages(IEnumerable<string> messages, IEnumerable<string> renderedMessages)
-        {
-            foreach (var renderedMessage in renderedMessages)
-            {
-                if (messages.Contains(renderedMessage))
-                {
-                    Assert.Fail("Message \"{0}\" found in messages of log4net", renderedMessage);
-                }
-            }
-        }
-
-        private static IEnumerable<string> GetAllRenderedMessages(Action action)
+        private static IEnumerable<Tuple<string, Level>> GetAllRenderedMessages(Action action)
         {
             var memoryAppender = new MemoryAppender();
             BasicConfigurator.Configure(memoryAppender);
@@ -485,7 +515,7 @@ namespace Core.Common.TestUtil
 
             action();
 
-            var renderedMessages = memoryAppender.GetEvents().Select(le => le.RenderedMessage).ToList();
+            var renderedMessages = memoryAppender.GetEvents().Select(le => Tuple.Create(le.RenderedMessage, le.Level)).ToList();
 
             memoryAppender.Close();
             LogHelper.ResetLogging();

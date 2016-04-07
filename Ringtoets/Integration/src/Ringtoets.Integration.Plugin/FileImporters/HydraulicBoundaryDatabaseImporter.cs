@@ -75,6 +75,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         /// Gets the version of the database.
         /// </summary>
         /// <returns>The database version.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the version could not be obtained from the database.</exception>
         public string GetHydraulicBoundaryDatabaseVersion()
         {
             return hydraulicBoundaryDatabaseReader.GetVersion();
@@ -84,10 +85,12 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>, based upon the data read from 
         /// the hydraulic boundary database file, and saved into <paramref name="targetItem"/>.
         /// </summary>
-        /// <param name="targetItem"><see cref="HydraulicBoundaryDatabaseContext"/> to set the newly 
+        /// <param name="targetItem"><see cref="IAssessmentSection"/> to set the newly 
         /// created <see cref="HydraulicBoundaryDatabase"/>.</param>
         /// <returns><c>True</c> if the import was successful, <c>false</c> otherwise.</returns>
-        public bool Import(HydraulicBoundaryDatabaseContext targetItem)
+        /// <exception cref="InvalidOperationException">The reader has not been initialized by calling
+        /// <see cref="ValidateAndConnectTo"/>.</exception>
+        public bool Import(IAssessmentSection targetItem)
         {
             if (hydraulicBoundaryDatabaseReader == null)
             {
@@ -101,7 +104,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 return false;
             }
 
-            AddImportedDataToModel(targetItem.Parent, importResult);
+            AddImportedDataToModel(targetItem, importResult);
             log.Info(Resources.HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read);
             return true;
         }

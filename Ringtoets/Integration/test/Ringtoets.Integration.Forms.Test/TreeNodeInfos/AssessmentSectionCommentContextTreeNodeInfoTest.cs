@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -39,26 +38,21 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
     public class AssessmentSectionCommentContextTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsGuiPlugin plugin;
-        private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CommentContext<IComment>));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
+
             // Assert
             Assert.AreEqual(typeof(CommentContext<IComment>), info.TagType);
             Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -76,21 +70,30 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             Assert.IsNull(info.OnDrop);
             Assert.IsNull(info.ForeColor);
         }
+}
 
         [Test]
         public void Text_Always_ReturnsName()
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var context = new CommentContext<IComment>(assessmentSectionMock);
 
             mocks.ReplayAll();
 
-            // Call
-            var text = info.Text(context);
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual("Opmerkingen", text);
+                var context = new CommentContext<IComment>(assessmentSectionMock);
+
+                // Call
+                var text = info.Text(context);
+
+                // Assert
+                Assert.AreEqual("Opmerkingen", text);
+
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
@@ -98,40 +101,57 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var context = new CommentContext<IComment>(assessmentSectionMock);
-
             mocks.ReplayAll();
 
-            // Call
-            var image = info.Image(context);
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
+            var context = new CommentContext<IComment>(assessmentSectionMock);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+                // Call
+                var image = info.Image(context);
+
+                // Assert
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.StrictMultiMock<IGui>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var gui = mocks.StrictMock<IGui>();
+                var treeViewControl = mocks.StrictMock<TreeViewControl>();
+                var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
-            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
-            mocks.ReplayAll();
+                var info = GetInfo(plugin);
 
-            plugin.Gui = gui;
+                mocks.ReplayAll();
 
-            // Call
-            info.ContextMenuStrip(null, null, treeViewControl);
+                plugin.Gui = gui;
+
+                // Call
+                info.ContextMenuStrip(null, null, treeViewControl);
+            }
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        private TreeNodeInfo GetInfo(Core.Common.Gui.Plugin.GuiPlugin gui)
+        {
+            return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CommentContext<IComment>));
         }
     }
 }

@@ -15,40 +15,36 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
     public class CategoryTreeFolderTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsGuiPlugin plugin;
-        private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CategoryTreeFolder));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Assert
-            Assert.AreEqual(typeof(CategoryTreeFolder), info.TagType);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
-            Assert.IsNull(info.CanRename);
-            Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.IsChecked);
-            Assert.IsNull(info.OnNodeChecked);
-            Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.OnDrop);
+            // Setup
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                // Assert
+                Assert.AreEqual(typeof(CategoryTreeFolder), info.TagType);
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNull(info.CanCheck);
+                Assert.IsNull(info.IsChecked);
+                Assert.IsNull(info.OnNodeChecked);
+                Assert.IsNull(info.CanDrag);
+                Assert.IsNull(info.CanDrop);
+                Assert.IsNull(info.CanInsert);
+                Assert.IsNull(info.OnDrop);
+            }
         }
 
         [Test]
@@ -57,12 +53,17 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var testname = "testName";
             var categoryTreeFolder = new CategoryTreeFolder(testname, new object[0]);
+            
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            var text = info.Text(categoryTreeFolder);
+                // Call
+                var text = info.Text(categoryTreeFolder);
 
-            // Assert
-            Assert.AreEqual(testname, text);
+                // Assert
+                Assert.AreEqual(testname, text);
+            }
         }
 
         [Test]
@@ -70,12 +71,17 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var categoryTreeFolder = new CategoryTreeFolder("", new object[0]);
+            
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            var image = info.Image(categoryTreeFolder);
+                // Call
+                var image = info.Image(categoryTreeFolder);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
+                // Assert
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
+            }
         }
 
         [Test]
@@ -83,12 +89,17 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var categoryTreeFolder = new CategoryTreeFolder("", new object[0], TreeFolderCategory.Input);
+            
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            var image = info.Image(categoryTreeFolder);
+                // Call
+                var image = info.Image(categoryTreeFolder);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.InputFolderIcon, image);
+                // Assert
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.InputFolderIcon, image);
+            }
         }
 
         [Test]
@@ -96,12 +107,17 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var categoryTreeFolder = new CategoryTreeFolder("", new object[0], TreeFolderCategory.Output);
+            
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            var image = info.Image(categoryTreeFolder);
+                // Call
+                var image = info.Image(categoryTreeFolder);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.OutputFolderIcon, image);
+                // Assert
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.OutputFolderIcon, image);
+            }
         }
 
         [Test]
@@ -111,13 +127,21 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var object1 = new object();
             var object2 = new object();
             var categoryTreeFolder = new CategoryTreeFolder("", new[] { object1, object2 });
+            
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            var objects = info.ChildNodeObjects(categoryTreeFolder);
+                // Call
+                var objects = info.ChildNodeObjects(categoryTreeFolder);
 
-            // Assert
-            CollectionAssert.AreEqual(new[] { object1, object2 }, objects);
-
+                // Assert
+                CollectionAssert.AreEqual(new[]
+                {
+                    object1,
+                    object2
+                }, objects);
+            }
             mocks.VerifyAll();
         }
 
@@ -134,15 +158,27 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
             gui.Expect(cmp => cmp.Get(null, treeViewControlMock)).Return(menuBuilderMock);
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
+            
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            plugin.Gui = gui;
+                plugin.Gui = gui;
 
-            // Call
-            info.ContextMenuStrip(null, null, treeViewControlMock);
-
+                // Call
+                info.ContextMenuStrip(null, null, treeViewControlMock);
+            }
             // Assert
             mocks.VerifyAll();
+        }
+
+
+        private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)
+        {
+            return guiPlugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CategoryTreeFolder));
         }
     }
 }

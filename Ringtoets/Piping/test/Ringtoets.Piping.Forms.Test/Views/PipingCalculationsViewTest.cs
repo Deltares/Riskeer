@@ -44,7 +44,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Forms.Test.Views
 {
     [TestFixture]
-    public class PipingCalculationsViewTest
+    public class PipingCalculationsViewTest : NUnitFormTest
     {
         private Form testForm;
 
@@ -467,6 +467,89 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(state);
+        }
+
+        [Test]
+        public void GivenPipingCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
+        {
+            // Given
+            var pipingCalculationsView = ShowPipingCalculationsView();
+            var pipingFailureMechanism = new Data.Piping
+            {
+                SurfaceLines =
+                {
+                    new RingtoetsPipingSurfaceLine(),
+                    new RingtoetsPipingSurfaceLine()
+                },
+                StochasticSoilModels =
+                {
+                    new TestStochasticSoilModel()
+                }
+            };
+            pipingCalculationsView.Piping = pipingFailureMechanism;
+            pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
+            var button = new ButtonTester("buttonGenerateScenarios", testForm);
+
+            PipingSurfaceLineSelectionDialog selectionDialog = null;
+            DataGridView grid = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
+                grid = new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject as DataGridView;
+
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
+
+            // When
+            button.Click();
+
+            // Then
+            Assert.NotNull(selectionDialog);
+            Assert.NotNull(grid);
+            Assert.AreEqual(2, grid.RowCount);
+        }
+
+        [Test]
+        [TestCase("OkButton")]
+        [TestCase("CustomCancelButton")]
+        public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup(string buttonName)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var pipingCalculationsView = ShowPipingCalculationsView();
+            var pipingFailureMechanism = new Data.Piping
+            {
+                SurfaceLines =
+                {
+                    new RingtoetsPipingSurfaceLine(),
+                    new RingtoetsPipingSurfaceLine()
+                },
+                StochasticSoilModels =
+                {
+                    new TestStochasticSoilModel()
+                }
+            };
+            pipingCalculationsView.Piping = pipingFailureMechanism;
+            pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
+            pipingFailureMechanism.CalculationsGroup.Attach(observer);
+            var button = new ButtonTester("buttonGenerateScenarios", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
+
+                // When
+                new ButtonTester(buttonName, selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            mocks.VerifyAll();
         }
 
         [Test]
