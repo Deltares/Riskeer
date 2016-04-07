@@ -26,7 +26,7 @@ using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.Test.Views
@@ -50,12 +50,12 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_AssessmentSection_DataSet()
+        public void Data_IComment_DataSet()
         {
             // Setup
             var mocks = new MockRepository();
             var view = new CommentView();
-            var data = mocks.Stub<IAssessmentSection>();
+            var data = mocks.Stub<IComment>();
 
             mocks.ReplayAll();
 
@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_NoAssessmentSection_DataNull()
+        public void Data_NoIComment_DataNull()
         {
             // Setup
             var view = new CommentView();
@@ -81,12 +81,12 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Data_AssessmentSectionContainsComment_CommentSetOnRichTextEditor()
+        public void Data_ContainsComment_CommentSetOnRichTextEditor()
         {
             // Setup
             var mocks = new MockRepository();
             var view = new CommentView();
-            var data = mocks.Stub<IAssessmentSection>();
+            var data = mocks.Stub<IComment>();
             var expectedText = "<Some_text>";
             var validRtfString = GetValidRtfString(expectedText);
             data.Comments = validRtfString;
@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void RichTextEditorOnTextChanged_Always_SetsAssessmentSectionComments()
+        public void RichTextEditorOnTextChanged_Always_SetsComments()
         {
             // Setup
             using (var form = new Form())
@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var richTextBoxControl = (RichTextBoxControl)new ControlTester("RichTextBoxControl").TheObject;
 
                 var mocks = new MockRepository();
-                var data = mocks.Stub<IAssessmentSection>();
+                var data = mocks.Stub<IComment>();
                 mocks.ReplayAll();
 
                 view.Data = data;
