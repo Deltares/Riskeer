@@ -22,7 +22,7 @@
 namespace Ringtoets.HydraRing.Calculation.Data.Output
 {
     /// <summary>
-    /// Base class for ExceedanceProbabilityCalculationOutputs.
+    /// Base class for exceedance probability calculation output.
     /// </summary>
     public abstract class ExceedanceProbabilityCalculationOutputBase
     {

@@ -32,7 +32,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output
         /// </summary>
         /// <param name="ringCombinMethod">The ring combine method used.</param>
         /// <param name="presentationSectionId">The presentation section id used.</param>
-        /// <param name="mainMechanismId">The main mechanism id.</param>
+        /// <param name="mainMechanismId">The main mechanism id used.</param>
         /// <param name="mainMechanismCombinMethod">The main mechanism combine method used.</param>
         /// <param name="mechanismId">The mechanism id used.</param>
         /// <param name="sectionId">The section id used.</param>

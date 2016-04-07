@@ -47,7 +47,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
                                                                              sectionId, layerId, alternativeId);
 
             // Assert
-            Assert.IsNotNull(exceedanceProbabilityCalculationOutput);
             Assert.AreEqual(ringCombinMethod, exceedanceProbabilityCalculationOutput.RingCombinMethod);
             Assert.AreEqual(presentationSectionId, exceedanceProbabilityCalculationOutput.PresentationSectionId);
             Assert.AreEqual(mainMechanismId, exceedanceProbabilityCalculationOutput.MainMechanismId);
