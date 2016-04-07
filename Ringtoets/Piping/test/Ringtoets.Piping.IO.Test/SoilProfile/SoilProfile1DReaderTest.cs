@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
             var expectedMessage = new FileReaderErrorMessageBuilder(path)
-                .WithSubject(string.Format("ondergrondschematisering '{0}'", profileName))
+                .WithSubject(string.Format("ondergrondschematisatie '{0}'", profileName))
                 .Build("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
@@ -69,8 +69,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
             var expectedMessage = new FileReaderErrorMessageBuilder(path)
-                .WithSubject(string.Format("ondergrondschematisering '{0}'", profileName))
-                .Build("Ondergrondschematisering bevat geen geldige waarde in kolom 'Bottom'.");
+                .WithSubject(string.Format("ondergrondschematisatie '{0}'", profileName))
+                .Build("Ondergrondschematisatie bevat geen geldige waarde in kolom 'Bottom'.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
             var expectedMessage = new FileReaderErrorMessageBuilder(path)
-                .WithSubject(string.Format("ondergrondschematisering '{0}'", profileName))
+                .WithSubject(string.Format("ondergrondschematisatie '{0}'", profileName))
                 .Build("Geen lagen gevonden voor het profiel.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
@@ -120,8 +120,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
             var expectedMessage = new FileReaderErrorMessageBuilder(path)
-                .WithSubject(string.Format("ondergrondschematisering '{0}'", profileName))
-                .Build("Ondergrondschematisering bevat geen geldige waarde in kolom 'IsAquifer'.");
+                .WithSubject(string.Format("ondergrondschematisatie '{0}'", profileName))
+                .Build("Ondergrondschematisatie bevat geen geldige waarde in kolom 'IsAquifer'.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();

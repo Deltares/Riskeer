@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            var expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Ondergrondschematisering bevat geen geldige waarde in kolom 'IntersectionX'.");
+            var expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Ondergrondschematisatie bevat geen geldige waarde in kolom 'IntersectionX'.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            var expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Ondergrondschematisering bevat geen geldige waarde in kolom 'IsAquifer'.");
+            var expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Ondergrondschematisatie bevat geen geldige waarde in kolom 'IsAquifer'.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -276,7 +276,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         private static string GetExpectedSoilProfileReaderErrorMessage(string path, string name, string errorMessage)
         {
             return new FileReaderErrorMessageBuilder(path)
-                .WithSubject(string.Format("ondergrondschematisering '{0}'", name))
+                .WithSubject(string.Format("ondergrondschematisatie '{0}'", name))
                 .Build(errorMessage);
         }
     }

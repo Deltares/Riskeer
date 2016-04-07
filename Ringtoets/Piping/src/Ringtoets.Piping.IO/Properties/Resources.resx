@@ -133,7 +133,7 @@
     <value>Kon geen ondergrond profielen verkrijgen van de database.</value>
   </data>
   <data name="PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_" xml:space="preserve">
-    <value>Ondergrondschematisering bevat geen geldige waarde in kolom '{0}'.</value>
+    <value>Ondergrondschematisatie bevat geen geldige waarde in kolom '{0}'.</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_File_invalid_header" xml:space="preserve">
     <value>Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).</value>
@@ -178,7 +178,7 @@
     <value>profielschematisatie '{0}'</value>
   </data>
   <data name="PipingSoilProfileReader_SoilProfileName_0_" xml:space="preserve">
-    <value>ondergrondschematisering '{0}'</value>
+    <value>ondergrondschematisatie '{0}'</value>
   </data>
   <data name="CharacteristicPointsCsvReader_File_invalid_header" xml:space="preserve">
     <value>Het bestand is niet geschikt om karakteristieke punten uit te lezen: koptekst komt niet overeen met wat verwacht wordt.</value>

@@ -287,13 +287,13 @@
     <value>Importeer nieuwe profielschematisaties van een *.csv bestand.</value>
   </data>
   <data name="StochasticSoilProfileCollection_DisplayName" xml:space="preserve">
-    <value>Ondergrondschematiseringen</value>
+    <value>Ondergrondschematisaties</value>
   </data>
   <data name="Import_SoilProfiles" xml:space="preserve">
-    <value>Importeer ondergrondschematiseringen</value>
+    <value>Importeer ondergrondschematisaties</value>
   </data>
   <data name="Import_SoilProfiles_Tooltip" xml:space="preserve">
-    <value>Importeer nieuwe ondergrondschematiseringen van een *.soil bestand.</value>
+    <value>Importeer nieuwe ondergrondschematisaties van een *.soil bestand.</value>
   </data>
   <data name="PipingSoilProfileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -332,13 +332,13 @@
     <value>Bodemniveau</value>
   </data>
   <data name="StochasticSoilProfile_Name_Description" xml:space="preserve">
-    <value>De naam van de ondergrondschematisering.</value>
+    <value>De naam van de ondergrondschematisatie.</value>
   </data>
   <data name="StochasticSoilProfile_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
   <data name="StochasticSoilProfileProperties_DisplayName" xml:space="preserve">
-    <value>Ondergrondschematisering</value>
+    <value>Ondergrondschematisatie</value>
   </data>
   <data name="StochasticSoilProfile_Tops_Description" xml:space="preserve">
     <value>De niveaus van de bovenkant van de lagen binnen dit profiel.</value>
@@ -347,10 +347,10 @@
     <value>Topniveaus</value>
   </data>
   <data name="PipingInput_StochasticSoilProfile_Description" xml:space="preserve">
-    <value>De ondergrondschematisering die voor de piping berekening gebruikt wordt.</value>
+    <value>De ondergrondschematisatie die voor de piping berekening gebruikt wordt.</value>
   </data>
   <data name="PipingInput_StochasticSoilProfile_DisplayName" xml:space="preserve">
-    <value>Ondergrondschematisering</value>
+    <value>Ondergrondschematisatie</value>
   </data>
   <data name="PipingCalculationGroup_Add_PipingCalculation" xml:space="preserve">
     <value>&amp;Berekening toevoegen</value>
@@ -452,7 +452,7 @@
     <value>De verzameling van profielschematisaties</value>
   </data>
   <data name="PipingContext_DataDescription_Soilprofiles" xml:space="preserve">
-    <value>De verzameling van ondergrondschematiseringen</value>
+    <value>De verzameling van ondergrondschematisaties</value>
   </data>
   <data name="PipingContext_DataDescription_PipingFailureMechanism" xml:space="preserve">
     <value>Het piping faalmechanisme</value>
@@ -677,7 +677,7 @@
     <value>Aandeel in scenario [%]</value>
   </data>
   <data name="StochasticSoilProfile_Type_Description" xml:space="preserve">
-    <value>Het type van de ondergrondschematisering.</value>
+    <value>Het type van de ondergrondschematisatie.</value>
   </data>
   <data name="StochasticSoilProfile_Type_DisplayName" xml:space="preserve">
     <value>Type</value>

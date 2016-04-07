@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PipingCalculation_Validate_Lacks_SoilProfile_uplift" xml:space="preserve">
-    <value>Een ondergrondschematisering moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.</value>
+    <value>Een ondergrondschematisatie moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.</value>
   </data>
   <data name="PipingCalculation_Validate_Lacks_surfaceline_uplift" xml:space="preserve">
     <value>Een profielschematisatie moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.</value>

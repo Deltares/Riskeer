@@ -293,7 +293,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
 
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
-            Assert.AreEqual("Een ondergrondschematisering moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.", validationMessages[0]);
+            Assert.AreEqual("Een ondergrondschematisatie moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.", validationMessages[0]);
         }
         
         [Test]

@@ -227,7 +227,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 // Assert
                 var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
                 var expectedMessage = new FileReaderErrorMessageBuilder(databaseFilePath)
-                    .WithSubject("ondergrondschematisering 'Profile'")
+                    .WithSubject("ondergrondschematisatie 'Profile'")
                     .Build(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml);
                 Assert.AreEqual(expectedMessage, exception.Message);
 
@@ -256,7 +256,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 // Assert
                 var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
                 var message = new FileReaderErrorMessageBuilder(databaseFilePath)
-                    .WithSubject("ondergrondschematisering 'Profile'")
+                    .WithSubject("ondergrondschematisatie 'Profile'")
                     .Build(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, 85.2));
                 Assert.AreEqual(message, exception.Message);
 
@@ -307,7 +307,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 // Assert
                 var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
                 var message = new FileReaderErrorMessageBuilder(databaseFilePath)
-                    .WithSubject("ondergrondschematisering 'Profile'")
+                    .WithSubject("ondergrondschematisatie 'Profile'")
                     .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, "Bottom"));
                 Assert.AreEqual(message, exceptionMessage);
             }
@@ -327,7 +327,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 // Assert
                 var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
                 var message = new FileReaderErrorMessageBuilder(databaseFilePath)
-                    .WithSubject("ondergrondschematisering 'Profile'")
+                    .WithSubject("ondergrondschematisatie 'Profile'")
                     .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, "Top"));
                 Assert.AreEqual(message, exceptionMessage);
             }
@@ -347,7 +347,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 // Assert
                 var exceptionMessage = Assert.Throws<PipingSoilProfileReadException>(profile).Message;
                 var message = new FileReaderErrorMessageBuilder(databaseFilePath)
-                    .WithSubject("ondergrondschematisering 'Profile'")
+                    .WithSubject("ondergrondschematisatie 'Profile'")
                     .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, "DryUnitWeight"));
                 Assert.AreEqual(message, exceptionMessage);
             }

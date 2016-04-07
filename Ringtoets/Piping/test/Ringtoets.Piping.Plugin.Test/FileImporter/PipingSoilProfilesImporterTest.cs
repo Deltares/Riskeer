@@ -255,7 +255,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             };
             for (var i = 1; i <= expectedProfiles; i++)
             {
-                expectedProgressMessages.Add(new ProgressNotification("Inlezen van de ondergrondschematisering uit de D-Soil Model database.", i, expectedProfiles));
+                expectedProgressMessages.Add(new ProgressNotification("Inlezen van de ondergrondschematisatie uit de D-Soil Model database.", i, expectedProfiles));
             }
             expectedProgressMessages.Add(new ProgressNotification("Inlezen van de D-Soil Model database.", 1, 1));
             for (var i = 1; i <= expectedModels; i++)
@@ -462,7 +462,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath)
-                .WithSubject("ondergrondschematisering 'Profile'")
+                .WithSubject("ondergrondschematisatie 'Profile'")
                 .Build(string.Format(RingtoetsIOResources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_,
                                      "IntersectionX"));
             var expectedLogMessages = new[]

@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreSame(invalidCastException, exception.InnerException);
             var expectedMessage = new FileReaderErrorMessageBuilder(path)
-                .WithSubject(string.Format("ondergrondschematisering '{0}'", profileName))
+                .WithSubject(string.Format("ondergrondschematisatie '{0}'", profileName))
                 .Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
             Assert.AreEqual(expectedMessage, exception.Message);
 
