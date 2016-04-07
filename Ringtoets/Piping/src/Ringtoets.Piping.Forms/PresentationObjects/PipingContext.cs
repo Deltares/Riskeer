@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         protected PipingContext(
             T wrappedData,
             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
-            IEnumerable<StochasticSoilModel> stochasticSoilModels, 
+            IEnumerable<StochasticSoilModel> stochasticSoilModels,
             IAssessmentSection assessmentSection)
         {
             AssertInputsAreNotNull(wrappedData, surfaceLines, stochasticSoilModels, assessmentSection);
@@ -60,21 +60,6 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
             AssessmentSection = assessmentSection;
         }
 
-        public override bool Equals(object obj)
-        {
-            var context = obj as PipingContext<T>;
-            if (context != null)
-            {
-                return WrappedData.Equals(context.WrappedData);
-            }
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return WrappedData.GetHashCode();
-        }
-
         /// <summary>
         /// Gets the available piping surface lines in order for the user to select one to 
         /// set <see cref="PipingInput.SurfaceLine"/>.
@@ -82,8 +67,8 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         public IEnumerable<RingtoetsPipingSurfaceLine> AvailablePipingSurfaceLines { get; private set; }
 
         /// <summary>
-        /// Gets the available stochastic soil models in order for the user to select a <see cref="PipingSoilProfile"/>
-        /// to set <see cref="PipingInput.SoilProfile"/>.
+        /// Gets the available stochastic soil models in order for the user to select a <see cref="StochasticSoilModel"/> and <see cref="StochasticSoilProfile"/>
+        /// to set <see cref="PipingInput.StochasticSoilProfile"/> and <see cref="PipingInput.StochasticSoilModel"/>.
         /// </summary>
         public IEnumerable<StochasticSoilModel> AvailableStochasticSoilModels { get; private set; }
 
@@ -91,7 +76,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// Gets the available hydraulic boundary locations in order for the user to select one to 
         /// set <see cref="PipingInput.HydraulicBoundaryLocation"/>.
         /// </summary>
-        public IEnumerable<HydraulicBoundaryLocation> AvailableHydraulicBoundaryLocations 
+        public IEnumerable<HydraulicBoundaryLocation> AvailableHydraulicBoundaryLocations
         {
             get
             {
@@ -112,6 +97,21 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// Gets the assessment section which the piping context belongs to.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
+
+        public override bool Equals(object obj)
+        {
+            var context = obj as PipingContext<T>;
+            if (context != null)
+            {
+                return WrappedData.Equals(context.WrappedData);
+            }
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return WrappedData.GetHashCode();
+        }
 
         /// <summary>
         /// Asserts the inputs are not null.

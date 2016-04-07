@@ -71,11 +71,19 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         /// <summary>
+        /// Gets the available stochastic soil models on <see cref="PipingCalculationContext"/>.
+        /// </summary>
+        public IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels()
+        {
+            return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(data.WrappedData.SurfaceLine, data.AvailableStochasticSoilModels);
+        }
+
+        /// <summary>
         /// Gets the available stochastic soil profiles on <see cref="PipingCalculationContext"/>.
         /// </summary>
         public IEnumerable<StochasticSoilProfile> GetAvailableStochasticSoilProfiles()
         {
-            return PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(data.WrappedData.SurfaceLine, data.AvailableStochasticSoilModels);
+            return data.WrappedData.StochasticSoilModel != null ? data.WrappedData.StochasticSoilModel.StochasticSoilProfiles : new List<StochasticSoilProfile>();
         }
 
         /// <summary>
@@ -169,6 +177,26 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [Editor(typeof(PipingInputContextStochasticSoilModelSelectionEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_StochasticSoilModel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_StochasticSoilModel_Description")]
+        public StochasticSoilModel StochasticSoilModel
+        {
+            get
+            {
+                return data.WrappedData.StochasticSoilModel;
+            }
+            set
+            {
+                if (!ReferenceEquals(value, data.WrappedData.StochasticSoilModel))
+                {
+                    data.WrappedData.StochasticSoilModel = value;
+                    data.WrappedData.NotifyObservers();
+                }
+            }
+        }
+
         [Editor(typeof(PipingInputContextStochasticSoilProfileSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_StochasticSoilProfile_DisplayName")]
@@ -181,8 +209,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.StochasticSoilProfile = value;
-                data.WrappedData.NotifyObservers();
+                if (!ReferenceEquals(value, data.WrappedData.StochasticSoilProfile))
+                {
+                    data.WrappedData.StochasticSoilProfile = value;
+                    data.WrappedData.NotifyObservers();
+                }
             }
         }
 

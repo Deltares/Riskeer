@@ -6,13 +6,11 @@ using Core.Common.Base.Service;
 using Core.Common.Utils.IO;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -73,13 +71,15 @@ namespace Ringtoets.Piping.Integration.Test
                 listBox.SelectedItem = assessmentSection.Piping.Sections.First(s => s.Name == "6-3_22");
                 Assert.AreEqual(1, dataGridView.Rows.Count);
 
-                // Import soil profiles and ensure the corresponding combobox items are updated
+                // Import soil models and profiles and ensure the corresponding combobox items are updated
                 ImportSoilProfiles(assessmentSection);
-                Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[1]).Items.Count);
+                Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items.Count);
+                Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items.Count);
+                Assert.AreEqual("<geen>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
 
                 // Import hydraulic boundary locations and ensure the corresponding combobox items are updated
                 ImportHydraulicBoundaryDatabase(assessmentSection);
-                Assert.AreEqual(19, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[2]).Items.Count);
+                Assert.AreEqual(19, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[hydraulicBoundaryLocationsColumnIndex]).Items.Count);
 
                 // Add another, nested calculation and ensure the data grid view is updated
                 var nestedPipingCalculationGroup = new PipingCalculationGroup("New group", false);
@@ -93,14 +93,23 @@ namespace Ringtoets.Piping.Integration.Test
                 // Change the name of the first calculation and ensure the data grid view is updated
                 pipingCalculation1.Name = "New name";
                 pipingCalculation1.NotifyObservers();
-                Assert.AreEqual("New name", dataGridView.Rows[0].Cells[0].FormattedValue);
+                Assert.AreEqual("New name", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
 
                 // Change an input parameter of the second calculation and ensure the data grid view is updated
                 pipingCalculation2.InputParameters.ExitPointL = (RoundedDouble) 111.11;
                 pipingCalculation2.InputParameters.NotifyObservers();
-                Assert.AreEqual(string.Format("{0}", 111.11), dataGridView.Rows[1].Cells[6].FormattedValue);
+                Assert.AreEqual(string.Format("{0}", 111.11), dataGridView.Rows[1].Cells[exitPointLColumnIndex].FormattedValue);
             }
         }
+
+        private const int nameColumnIndex = 0;
+        private const int stochasticSoilModelsColumnIndex = 1;
+        private const int stochasticSoilProfilesColumnIndex = 2;
+        private const int hydraulicBoundaryLocationsColumnIndex = 3;
+        private const int dampingFactorExitMeanColumnIndex = 4;
+        private const int phreaticLevelExitMeanColumnIndex = 5;
+        private const int entryPointLColumnIndex = 6;
+        private const int exitPointLColumnIndex = 7;
 
         private void ImportReferenceLine(AssessmentSection assessmentSection)
         {

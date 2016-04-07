@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Test
         #region GetPipingSoilProfilesForSurfaceLine
 
         [Test]
-        public void GetPipingSoilProfilesForSurfaceLine_SurfaceLineIntersectingSoilModel_ReturnSoilProfilesOfSoilModel()
+        public void GetStochasticSoilModelsForSurfaceLine_SurfaceLineIntersectingSoilModel_ReturnSoilProfilesOfSoilModel()
         {
             // Setup
             var soilProfile1 = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
@@ -97,19 +97,18 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<StochasticSoilProfile> result = PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
+            IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(surfaceLine, availableSoilModels);
 
             // Assert
-            StochasticSoilProfile[] expected =
+            StochasticSoilModel[] expected =
             {
-                soilProfile1,
-                soilProfile2
+                soilModel
             };
             CollectionAssert.AreEquivalent(expected, result);
         }
 
         [Test]
-        public void GetPipingSoilProfilesForSurfaceLine_NoSurfaceLine_ReturnEmpty()
+        public void GetStochasticSoilModelsForSurfaceLine_NoSurfaceLine_ReturnEmpty()
         {
             // Setup
             var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
@@ -148,14 +147,14 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<StochasticSoilProfile> result = PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(null, availableSoilModels);
+            IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(null, availableSoilModels);
 
             // Assert
             CollectionAssert.IsEmpty(result);
         }
 
         [Test]
-        public void GetPipingSoilProfilesForSurfaceLine_NoSoilModels_ReturnEmpty()
+        public void GetStochasticSoilModelsForSurfaceLine_NoSoilModels_ReturnEmpty()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
@@ -167,14 +166,14 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<StochasticSoilProfile> result = PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(surfaceLine, Enumerable.Empty<StochasticSoilModel>());
+            IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(surfaceLine, Enumerable.Empty<StochasticSoilModel>());
 
             // Assert
             CollectionAssert.IsEmpty(result);
         }
 
         [Test]
-        public void GetPipingSoilProfilesForSurfaceLine_NoSoilProfiles_ReturnEmpty()
+        public void GetStochasticSoilModelsForSurfaceLine_NoSoilProfiles_ReturnEmpty()
         {
             // Setup
             var soilModel = new StochasticSoilModel(1, "A", "B");
@@ -198,14 +197,14 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<StochasticSoilProfile> result = PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
+            IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(surfaceLine, availableSoilModels);
 
             // Assert
             CollectionAssert.IsEmpty(result);
         }
 
         [Test]
-        public void GetPipingSoilProfilesForSurfaceLine_SoilModelGeometryNotIntersecting_ReturnEmpty()
+        public void GetStochasticSoilModelsForSurfaceLine_SoilModelGeometryNotIntersecting_ReturnEmpty()
         {
             // Setup
             var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
@@ -252,14 +251,14 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<StochasticSoilProfile> result = PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
+            IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(surfaceLine, availableSoilModels);
 
             // Assert
             CollectionAssert.IsEmpty(result);
         }
 
         [Test]
-        public void GetPipingSoilProfilesForSurfaceLine_SurfaceLineOverlappingSoilModel_ReturnSoilProfilesOfSoilModel()
+        public void GetStochasticSoilModelsForSurfaceLine_SurfaceLineOverlappingSoilModel_ReturnSoilProfilesOfSoilModel()
         {
             // Setup
             var soilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
@@ -318,13 +317,13 @@ namespace Ringtoets.Piping.Forms.Test
             });
 
             // Call
-            IEnumerable<StochasticSoilProfile> result = PipingCalculationConfigurationHelper.GetStochasticSoilProfilesForSurfaceLine(surfaceLine, availableSoilModels);
+            IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(surfaceLine, availableSoilModels);
 
             // Assert
-            StochasticSoilProfile[] expected =
+            StochasticSoilModel[] expected =
             {
-                soilProfile1,
-                soilProfile2
+                soilModel1,
+                soilModel2
             };
             CollectionAssert.AreEquivalent(expected, result);
         }

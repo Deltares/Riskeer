@@ -31,7 +31,6 @@ using Core.Common.Gui.Selection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
@@ -86,7 +85,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsFalse(dataGridView.AutoGenerateColumns);
-            Assert.AreEqual(7, dataGridView.ColumnCount);
+            Assert.AreEqual(8, dataGridView.ColumnCount);
 
             foreach (var column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
             {
@@ -100,7 +99,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, column.HeaderCell.Style.Alignment);
             }
 
-            var soilProfilesCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[soilProfilesColumnIndex];
+            var soilProfilesCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[stochasticSoilProfilesColumnIndex];
             var soilProfilesComboboxItems = soilProfilesCombobox.Items;
             Assert.AreEqual(0, soilProfilesComboboxItems.Count); // Row dependend
 
@@ -253,6 +252,27 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void PipingCalculationsView_CalculationsWithCorrespondingStochasticSoilModel_StochasticSoilModelsComboboxCorrectlyInitialized()
+        {
+            // Setup & Call
+            ShowFullyConfiguredPipingCalculationsView();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Assert
+            var stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items;
+            Assert.AreEqual(2, stochasticSoilModelsComboboxItems.Count);
+            Assert.AreEqual("<geen>", stochasticSoilModelsComboboxItems[0].ToString());
+            Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
+
+            stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilModelsColumnIndex]).Items;
+            Assert.AreEqual(3, stochasticSoilModelsComboboxItems.Count);
+            Assert.AreEqual("<geen>", stochasticSoilModelsComboboxItems[0].ToString());
+            Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
+            Assert.AreEqual("Model E", stochasticSoilModelsComboboxItems[2].ToString());
+        }
+
+        [Test]
         public void PipingCalculationsView_CalculationsWithCorrespondingSoilProfiles_SoilProfilesComboboxCorrectlyInitialized()
         {
             // Setup & Call
@@ -261,18 +281,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Assert
-            var soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[soilProfilesColumnIndex]).Items;
+            var soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items;
             Assert.AreEqual(3, soilProfilesComboboxItems.Count);
             Assert.AreEqual("<geen>", soilProfilesComboboxItems[0].ToString());
             Assert.AreEqual("Profile 1", soilProfilesComboboxItems[1].ToString());
             Assert.AreEqual("Profile 2", soilProfilesComboboxItems[2].ToString());
 
-            soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[soilProfilesColumnIndex]).Items;
-            Assert.AreEqual(4, soilProfilesComboboxItems.Count);
+            soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesColumnIndex]).Items;
+            Assert.AreEqual(2, soilProfilesComboboxItems.Count);
             Assert.AreEqual("<geen>", soilProfilesComboboxItems[0].ToString());
-            Assert.AreEqual("Profile 1", soilProfilesComboboxItems[1].ToString());
-            Assert.AreEqual("Profile 2", soilProfilesComboboxItems[2].ToString());
-            Assert.AreEqual("Profile 5", soilProfilesComboboxItems[3].ToString());
+            Assert.AreEqual("Profile 5", soilProfilesComboboxItems[1].ToString());
         }
 
         [Test]
@@ -288,9 +306,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(2, rows.Count);
 
             var cells = rows[0].Cells;
-            Assert.AreEqual(7, cells.Count);
+            Assert.AreEqual(8, cells.Count);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Profile 1", cells[soilProfilesColumnIndex].FormattedValue);
+            Assert.AreEqual("Model A", cells[stochasticSoilModelsColumnIndex].FormattedValue);
+            Assert.AreEqual("Profile 1", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
             Assert.AreEqual("Location 1", cells[hydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual(1.111.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
             Assert.AreEqual(2.222.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
@@ -298,9 +317,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(4.44.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
-            Assert.AreEqual(7, cells.Count);
+            Assert.AreEqual(8, cells.Count);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Profile 5", cells[soilProfilesColumnIndex].FormattedValue);
+            Assert.AreEqual("Model E", cells[stochasticSoilModelsColumnIndex].FormattedValue);
+            Assert.AreEqual("Profile 5", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
             Assert.AreEqual("Location 2", cells[hydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual(5.556.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
             Assert.AreEqual(6.667.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
@@ -313,7 +333,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingInputItem = ((PipingCalculation)((PipingCalculationGroup)pipingCalculationsView.Data).Children[1]).InputParameters;
+            var secondPipingInputItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]).InputParameters;
 
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
@@ -650,7 +670,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [TestCase(nameColumnIndex, "New name", 1, 0)]
-        [TestCase(soilProfilesColumnIndex, null, 0, 1)]
+        [TestCase(stochasticSoilProfilesColumnIndex, null, 0, 1)]
         [TestCase(hydraulicBoundaryLocationsColumnIndex, null, 0, 1)]
         [TestCase(dampingFactorExitMeanColumnIndex, 1.1, 0, 1)]
         [TestCase(phreaticLevelExitMeanColumnIndex, 1.1, 0, 1)]
@@ -682,12 +702,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         private const int nameColumnIndex = 0;
-        private const int soilProfilesColumnIndex = 1;
-        private const int hydraulicBoundaryLocationsColumnIndex = 2;
-        private const int dampingFactorExitMeanColumnIndex = 3;
-        private const int phreaticLevelExitMeanColumnIndex = 4;
-        private const int entryPointLColumnIndex = 5;
-        private const int exitPointLColumnIndex = 6;
+        private const int stochasticSoilModelsColumnIndex = 1;
+        private const int stochasticSoilProfilesColumnIndex = 2;
+        private const int hydraulicBoundaryLocationsColumnIndex = 3;
+        private const int dampingFactorExitMeanColumnIndex = 4;
+        private const int phreaticLevelExitMeanColumnIndex = 5;
+        private const int entryPointLColumnIndex = 6;
+        private const int exitPointLColumnIndex = 7;
 
         private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView()
         {
@@ -753,17 +774,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 }, SoilProfileType.SoilProfile1D, 1)
             };
 
-            var stochasticSoilProfile5 = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = new PipingSoilProfile("Profile 5", -10.0, new[]
-                {
-                    new PipingSoilLayer(-5.0),
-                    new PipingSoilLayer(-2.0),
-                    new PipingSoilLayer(1.0)
-                }, SoilProfileType.SoilProfile1D, 1)
-            };
-
-            pipingFailureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(1, "A", "B")
+            var stochasticSoilModelA = new StochasticSoilModel(1, "Model A", "Model B")
             {
                 Geometry =
                 {
@@ -782,9 +793,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
                         }, SoilProfileType.SoilProfile1D, 2)
                     }
                 }
-            });
+            };
 
-            pipingFailureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(1, "C", "D")
+            pipingFailureMechanism.StochasticSoilModels.Add(stochasticSoilModelA);
+
+            pipingFailureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(1, "Model C", "Model D")
             {
                 Geometry =
                 {
@@ -813,7 +826,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 }
             });
 
-            pipingFailureMechanism.StochasticSoilModels.Add(new StochasticSoilModel(1, "E", "F")
+            var stochasticSoilProfile5 = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
+            {
+                SoilProfile = new PipingSoilProfile("Profile 5", -10.0, new[]
+                {
+                    new PipingSoilLayer(-5.0),
+                    new PipingSoilLayer(-2.0),
+                    new PipingSoilLayer(1.0)
+                }, SoilProfileType.SoilProfile1D, 1)
+            };
+
+            var stochasticSoilModelE = new StochasticSoilModel(1, "Model E", "Model F")
             {
                 Geometry =
                 {
@@ -823,7 +846,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 {
                     stochasticSoilProfile5
                 }
-            });
+            };
+
+            pipingFailureMechanism.StochasticSoilModels.Add(stochasticSoilModelE);
 
             var pipingCalculationsView = ShowPipingCalculationsView();
 
@@ -837,6 +862,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                         InputParameters =
                         {
                             SurfaceLine = surfaceLine1,
+                            StochasticSoilModel = stochasticSoilModelA,
                             StochasticSoilProfile = stochasticSoilProfile1,
                             HydraulicBoundaryLocation = hydraulicBoundaryLocation1,
                             DampingFactorExit =
@@ -857,6 +883,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                         InputParameters =
                         {
                             SurfaceLine = surfaceLine2,
+                            StochasticSoilModel = stochasticSoilModelE,
                             StochasticSoilProfile = stochasticSoilProfile5,
                             HydraulicBoundaryLocation = hydraulicBoundaryLocation2,
                             DampingFactorExit =

@@ -69,5 +69,10 @@ namespace Ringtoets.Piping.Data
         /// Gets the list of <see cref="StochasticSoilProfile"/>.
         /// </summary>
         public List<StochasticSoilProfile> StochasticSoilProfiles { get; private set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

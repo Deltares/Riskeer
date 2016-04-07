@@ -724,4 +724,10 @@
   <data name="PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip" xml:space="preserve">
     <value>Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.</value>
   </data>
+  <data name="PipingInput_StochasticSoilModel_DisplayName" xml:space="preserve">
+    <value>Stochastisch ondergrondmodel</value>
+  </data>
+  <data name="PipingInput_StochasticSoilModel_Description" xml:space="preserve">
+    <value>Het Stochastisch ondergrondmodel dat voor de piping berekening gebruikt wordt.</value>
+  </data>
 </root>

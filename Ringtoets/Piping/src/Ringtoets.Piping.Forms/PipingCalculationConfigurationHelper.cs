@@ -75,46 +75,49 @@ namespace Ringtoets.Piping.Forms
         }
 
         /// <summary>
-        /// Gets the stochastic soil profiles matching the input of a calculation.
+        /// Gets the stochastic soil models matching the input of a calculation.
         /// </summary>
         /// <param name="surfaceLine">The surface line used to match a <see cref="StochasticSoilModel"/>.</param>
-        /// <param name="availableSoilModels">The available soil models.</param>
-        /// <returns>The (sub)set of soil profiles from <paramref name="availableSoilModels"/>
+        /// <param name="availableSoilModels">The available stochastic soil models.</param>
+        /// <returns>The (sub)set of stochastic soil models from <paramref name="availableSoilModels"/>
         /// or empty if no matching <see cref="StochasticSoilModel"/> instances can be found
         /// or when there is not enough information to associate soil profiles to the calculation.</returns>
-        public static IEnumerable<StochasticSoilProfile> GetStochasticSoilProfilesForSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> availableSoilModels)
+        public static IEnumerable<StochasticSoilModel> GetStochasticSoilModelsForSurfaceLine(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> availableSoilModels)
         {
             if (surfaceLine == null)
             {
-                return Enumerable.Empty<StochasticSoilProfile>();
+                return Enumerable.Empty<StochasticSoilModel>();
             }
 
             Segment2D[] surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))).ToArray();
 
-            var soilProfileObjectsForCalculation = new List<StochasticSoilProfile>();
+            var soilModelObjectsForCalculation = new List<StochasticSoilModel>();
             foreach (StochasticSoilModel stochasticSoilModel in availableSoilModels.Where(sm => sm.StochasticSoilProfiles.Any()))
             {
                 if (DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(stochasticSoilModel, surfaceLineSegments))
                 {
-                    soilProfileObjectsForCalculation.AddRange(stochasticSoilModel.StochasticSoilProfiles);
+                    soilModelObjectsForCalculation.Add(stochasticSoilModel);
                 }
             }
-            return soilProfileObjectsForCalculation;
+            return soilModelObjectsForCalculation;
         }
 
         private static IPipingCalculationItem CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
         {
             var pipingCalculationGroup = new PipingCalculationGroup(surfaceLine.Name, true);
-
-            foreach (var profile in GetStochasticSoilProfilesForSurfaceLine(surfaceLine, soilModels))
+            var stochasticSoilModels = GetStochasticSoilModelsForSurfaceLine(surfaceLine, soilModels);
+            foreach (var stochasticSoilModel in stochasticSoilModels)
             {
-                pipingCalculationGroup.Children.Add(CreatePipingCalculation(surfaceLine, profile, pipingCalculationGroup.Children, generalInput, semiProbabilisticInput));
+                foreach (var soilProfile in stochasticSoilModel.StochasticSoilProfiles)
+                {
+                    pipingCalculationGroup.Children.Add(CreatePipingCalculation(surfaceLine, stochasticSoilModel, soilProfile, pipingCalculationGroup.Children, generalInput, semiProbabilisticInput));
+                }
             }
 
             return pipingCalculationGroup;
         }
 
-        private static IPipingCalculationItem CreatePipingCalculation(RingtoetsPipingSurfaceLine surfaceLine, StochasticSoilProfile stochasticSoilProfile, IEnumerable<IPipingCalculationItem> calculations, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
+        private static IPipingCalculationItem CreatePipingCalculation(RingtoetsPipingSurfaceLine surfaceLine, StochasticSoilModel stochasticSoilModel, StochasticSoilProfile stochasticSoilProfile, IEnumerable<IPipingCalculationItem> calculations, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
         {
             var nameBase = string.Format("{0} {1}", surfaceLine.Name, stochasticSoilProfile);
             var name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
@@ -125,6 +128,7 @@ namespace Ringtoets.Piping.Forms
                 InputParameters =
                 {
                     SurfaceLine = surfaceLine,
+                    StochasticSoilModel = stochasticSoilModel,
                     StochasticSoilProfile = stochasticSoilProfile
                 }
             };

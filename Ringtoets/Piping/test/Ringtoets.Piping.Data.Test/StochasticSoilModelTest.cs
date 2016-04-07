@@ -90,5 +90,18 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(stochasticSoilProfileProbabilityMock, stochasticSoilModelSegment.StochasticSoilProfiles[0]);
             mockRepository.VerifyAll();
         }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("some name")]
+        public void ToString_WithName_ReturnsName(string name)
+        {
+            // Setup
+            var stochasticSoilModel = new StochasticSoilModel(1, name, "segmentName");
+
+            // Call & Assert
+            Assert.AreEqual(name, stochasticSoilModel.ToString());
+        }
     }
 }

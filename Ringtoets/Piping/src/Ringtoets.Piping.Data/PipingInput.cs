@@ -46,6 +46,7 @@ namespace Ringtoets.Piping.Data
         private RoundedDouble exitPointL;
         private RoundedDouble entryPointL;
         private RingtoetsPipingSurfaceLine surfaceLine;
+        private StochasticSoilModel stochasticSoilModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingInput"/> class.
@@ -145,6 +146,22 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
+        /// Gets or sets the stochastic soil model which is linked to the <see cref="StochasticSoilProfile"/>.
+        /// </summary>
+        public StochasticSoilModel StochasticSoilModel
+        {
+            get
+            {
+                return stochasticSoilModel;
+            }
+            set
+            {
+                stochasticSoilModel = value;
+                UpdateStochasticSoilProfile();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the profile which contains a 1 dimensional definition of soil layers with properties.
         /// </summary>
         public StochasticSoilProfile StochasticSoilProfile { get; set; }
@@ -153,6 +170,14 @@ namespace Ringtoets.Piping.Data
         /// Gets or set the hydraulic boundary location from which to use the assessment level.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+
+        private void UpdateStochasticSoilProfile()
+        {
+            if (stochasticSoilModel == null || !stochasticSoilModel.StochasticSoilProfiles.Contains(StochasticSoilProfile))
+            {
+                StochasticSoilProfile = null;
+            }
+        }
 
         private void UpdateEntryAndExitPoint()
         {

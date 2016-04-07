@@ -27,7 +27,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -105,7 +104,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-            var stochasticSoilModel = new StochasticSoilModel(0, string.Empty, string.Empty)
+            var stochasticSoilModel = new StochasticSoilModel(0, "Model", string.Empty)
             {
                 Geometry =
                 {
@@ -127,6 +126,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine,
+                StochasticSoilModel = stochasticSoilModel,
                 StochasticSoilProfile = stochasticSoilProfile
             };
             var inputParametersContext = new PipingInputContext(pipingInput,
