@@ -30,13 +30,14 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_ExistingFile_DoesNotThrowException()
         {
             // Setup
-            string filePath = "doesNotExist.tmp";
+            string filePath = "doesExist.tmp";
             FileDisposeHelper disposeHelper = null;
 
             try
             {
-                // Precondition
                 using (File.Create(filePath)) {}
+
+                // Precondition
                 Assert.IsTrue(File.Exists(filePath), String.Format("Precondition failed: File '{0}' should exist", filePath));
 
                 // Call
@@ -55,14 +56,16 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void CreateFile_FileDoesNotExist_Createsfile()
+        public void Create_FileDoesNotExist_Createsfile()
         {
             // Setup
-            string filePath = "doesExist.tmp";
+            string filePath = "willExist.tmp";
 
             try
             {
+                // Precondition
                 Assert.IsFalse(File.Exists(filePath));
+
                 using (var fileDisposeHelper = new FileDisposeHelper(filePath))
                 {
                     // Call
@@ -81,19 +84,21 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void CreateFile_InvalidPath_DoesNotThrowException()
+        public void Create_InvalidPath_DoesNotThrowException()
         {
             // Setup
-            string filePath = String.Empty;
+            var filePath = String.Empty;
+            var fileDisposeHelper = new FileDisposeHelper(filePath);
 
-            TestDelegate test = () => new FileDisposeHelper(filePath);
+            // Call
+            TestDelegate test = () => fileDisposeHelper.Create();
 
             // Assert
             Assert.DoesNotThrow(test);
         }
 
         [Test]
-        public void CreateFile_MultipleFiles_CreatesFiles()
+        public void Create_MultipleFiles_CreatesFiles()
         {
             // Setup
             var filePaths = new[]
@@ -104,9 +109,9 @@ namespace Core.Common.TestUtil.Test
 
             try
             {
-                // Call
                 using (var fileDisposeHelper = new FileDisposeHelper(filePaths))
                 {
+                    // Call
                     fileDisposeHelper.Create();
 
                     // Assert
@@ -148,6 +153,8 @@ namespace Core.Common.TestUtil.Test
             try
             {
                 using (File.Create(filePath)) {}
+
+                // Precondition
                 Assert.IsTrue(File.Exists(filePath));
 
                 // Call
@@ -178,6 +185,8 @@ namespace Core.Common.TestUtil.Test
                 foreach (var filePath in filePaths)
                 {
                     using (File.Create(filePath)) {}
+
+                    // Precondition
                     Assert.IsTrue(File.Exists(filePath));
                 }
 
