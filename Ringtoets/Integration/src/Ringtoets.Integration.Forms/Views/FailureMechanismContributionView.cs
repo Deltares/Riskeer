@@ -27,11 +27,12 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
 
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 
+using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
@@ -46,6 +47,8 @@ namespace Ringtoets.Integration.Forms.Views
     {
         private DataGridViewColumn probabilityPerYearColumn;
         private FailureMechanismContributionContext data;
+
+        private bool revertingComboBoxSelectedValue;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
@@ -271,11 +274,36 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void AssessmentSectionCompositionComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
+            if (revertingComboBoxSelectedValue)
+            {
+                return;
+            }
+
             IAssessmentSection assessmentSection = data.Parent;
 
-            assessmentSection.ChangeComposition((AssessmentSectionComposition)assessmentSectionCompositionComboBox.SelectedValue);
-            SetGridDataSource();
-            assessmentSection.NotifyObservers();
+            var dialogResult = MessageBox.Show(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ChangeComposition_Change_will_clear_calculation_output_accept_question,
+                                               CoreCommonBaseResources.Confirm,
+                                               MessageBoxButtons.OKCancel);
+            if (dialogResult == DialogResult.OK)
+            {
+                assessmentSection.ChangeComposition((AssessmentSectionComposition)assessmentSectionCompositionComboBox.SelectedValue);
+                SetGridDataSource();
+                foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+                {
+                    foreach (ICalculationItem calculation in failureMechanism.CalculationItems)
+                    {
+                        calculation.ClearOutput();
+                        calculation.NotifyObservers();
+                    }
+                }
+                assessmentSection.NotifyObservers();
+            }
+            else
+            {
+                revertingComboBoxSelectedValue = true;
+                assessmentSectionCompositionComboBox.SelectedValue = assessmentSection.Composition;
+                revertingComboBoxSelectedValue = false;
+            }
         }
     }
 }

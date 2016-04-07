@@ -228,4 +228,9 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="FailureMechanismContributionView_ProbabilityPerYear_Not_applicable" xml:space="preserve">
     <value>n.v.t</value>
   </data>
+  <data name="FailureMechanismContributionView_ChangeComposition_Change_will_clear_calculation_output_accept_question" xml:space="preserve">
+    <value>Het veranderen van het traject type zorgt ervoor dat de uitvoer van alle berekeningen wordt gewist.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
 </root>
