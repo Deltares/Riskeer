@@ -3,7 +3,6 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
@@ -52,6 +51,7 @@ namespace Ringtoets.Integration.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(section);
             Assert.IsInstanceOf<IAssessmentSection>(section);
+            Assert.IsInstanceOf<IComment>(section);
 
             Assert.AreEqual("Traject", section.Name);
             Assert.IsNull(section.Comments);

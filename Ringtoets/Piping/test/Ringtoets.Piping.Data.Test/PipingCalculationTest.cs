@@ -4,6 +4,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 
@@ -31,6 +32,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsInstanceOf<IPipingCalculationItem>(calculation);
+            Assert.IsInstanceOf<IComment>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
 
