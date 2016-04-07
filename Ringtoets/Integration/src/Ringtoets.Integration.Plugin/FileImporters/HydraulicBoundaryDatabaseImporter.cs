@@ -22,14 +22,13 @@
 using System;
 using System.IO;
 using Core.Common.IO.Exceptions;
+using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using log4net;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.Properties;
 
 namespace Ringtoets.Integration.Plugin.FileImporters
@@ -41,8 +40,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
     public class HydraulicBoundaryDatabaseImporter : IDisposable
     {
         private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryDatabaseImporter));
-        private string hydraulicBoundaryDatabaseFilePath;
-
         private HydraulicBoundarySqLiteDatabaseReader hydraulicBoundaryDatabaseReader;
         private HydraulicLocationConfigurationSqLiteDatabaseReader hydraulicLocationConfigurationDatabaseReader;
 
@@ -50,34 +47,37 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         /// Validates the file and opens a connection.
         /// </summary>
         /// <param name="filePath">The path to the file to read.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when: <list type="bullet">
+        /// <exception cref="CriticalFileReadException">Thrown when: 
+        /// <list type="bullet">
         /// <item>The given file at <paramref name="filePath"/> cannot be read.</item>
-        /// <item>The file 'HLCD.sqlite' in the same folder as <paramref name="filePath"/> cannot be read.</item></list></exception>
-        public void ValidateAndConnectTo(string filePath)
+        /// <item>The file 'HLCD.sqlite' in the same folder as <paramref name="filePath"/> cannot be read.</item>
+        /// </list>
+        /// </exception>
+        private void ValidateAndConnectTo(string filePath)
         {
             hydraulicBoundaryDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(filePath);
-            hydraulicBoundaryDatabaseFilePath = filePath;
-            var fileDirectory = Path.GetDirectoryName(filePath);
-            if (fileDirectory == null)
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
+
+            try
             {
-                throw new ArgumentNullException("filePath");
+                hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath);
             }
-            var hlcdFilePath = Path.Combine(fileDirectory, "hlcd.sqlite");
-            if (!File.Exists(hlcdFilePath))
+            catch (CriticalFileReadException)
             {
                 var message = new FileReaderErrorMessageBuilder(filePath).Build(Resources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
                 throw new CriticalFileReadException(message);
             }
-            hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath);
         }
 
         /// <summary>
         /// Gets the version of the database.
         /// </summary>
+        /// <param name="filePath">The path to the database to obtain the version for.</param>
         /// <returns>The database version.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the version could not be obtained from the database.</exception>
-        public string GetHydraulicBoundaryDatabaseVersion()
+        public string GetHydraulicBoundaryDatabaseVersion(string filePath)
         {
+            ValidateAndConnectTo(filePath);
             return hydraulicBoundaryDatabaseReader.GetVersion();
         }
 
@@ -87,17 +87,19 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         /// </summary>
         /// <param name="targetItem"><see cref="IAssessmentSection"/> to set the newly 
         /// created <see cref="HydraulicBoundaryDatabase"/>.</param>
+        /// <param name="filePath">The path of the hydraulic boundary database file to import from.</param>
         /// <returns><c>True</c> if the import was successful, <c>false</c> otherwise.</returns>
-        /// <exception cref="InvalidOperationException">The reader has not been initialized by calling
-        /// <see cref="ValidateAndConnectTo"/>.</exception>
-        public bool Import(IAssessmentSection targetItem)
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The given file at <paramref name="filePath"/> cannot be read.</item>
+        /// <item>The file 'HLCD.sqlite' in the same folder as <paramref name="filePath"/> cannot be read.</item>
+        /// </list>
+        /// </exception>
+        public bool Import(IAssessmentSection targetItem, string filePath)
         {
-            if (hydraulicBoundaryDatabaseReader == null)
-            {
-                throw new InvalidOperationException(Resources.HydraulicBoundaryDatabaseImporter_File_not_opened);
-            }
+            ValidateAndConnectTo(filePath);
 
-            var importResult = GetHydraulicBoundaryDatabase(hydraulicBoundaryDatabaseFilePath);
+            var importResult = GetHydraulicBoundaryDatabase();
 
             if (importResult == null)
             {
@@ -129,7 +131,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             log.Error(message);
         }
 
-        private HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase(string path)
+        private HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase()
         {
             // Get region
             var regionId = GetRegionId();
@@ -142,7 +144,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             {
                 var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
-                    FilePath = path,
+                    FilePath = hydraulicBoundaryDatabaseReader.Path,
                     Version = hydraulicBoundaryDatabaseReader.GetVersion()
                 };
 

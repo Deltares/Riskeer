@@ -28,13 +28,12 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.FileImporters
 {
@@ -66,80 +65,40 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void ValidateAndConnectTo_ExistingFile_DoesNotThrowException()
-        {
-            // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            // Call
-            TestDelegate test = () => importer.ValidateAndConnectTo(validFilePath);
-
-            // Assert
-            Assert.DoesNotThrow(test);
-        }
-
-        [Test]
-        public void ValidateAndConnectTo_NonExistingFile_ThrowsCriticalFileReadException()
-        {
-            // Setup
-            string filePath = Path.Combine(testDataPath, "nonexisting.sqlite");
-            var expectedExceptionMessage = String.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", filePath);
-
-            // Call
-            TestDelegate test = () => importer.ValidateAndConnectTo(filePath);
-
-            // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(expectedExceptionMessage, exception.Message);
-        }
-
-        [Test]
-        public void ValidateAndConnectTo_InvalidFile_ThrowsCriticalFileReadException()
-        {
-            // Setup
-            string filePath = Path.Combine(testDataPath, "/");
-            var expectedExceptionMessage = String.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.", filePath);
-
-            // Call
-            TestDelegate test = () => importer.ValidateAndConnectTo(filePath);
-
-            // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(expectedExceptionMessage, exception.Message);
-            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
-        }
-
-        [Test]
-        public void ValidateAndConnectTo_ExistingFileWithoutHlcd_ThrowCriticalFileReadException()
-        {
-            // Setup
-            string validFilePath = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");
-            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build("Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.");
-
-            // Call
-            TestDelegate test = () => importer.ValidateAndConnectTo(validFilePath);
-
-            // Assert
-            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(expectedMessage, exception.Message);
-        }
-
-        [Test]
         public void GetHydraulicBoundaryDatabaseVersion_ValidFile_GetDatabaseVersion()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            importer.ValidateAndConnectTo(validFilePath);
 
             // Call
-            string version = importer.GetHydraulicBoundaryDatabaseVersion();
+            string version = importer.GetHydraulicBoundaryDatabaseVersion(validFilePath);
 
             // Assert
             Assert.IsNotNullOrEmpty(version);
         }
 
         [Test]
-        public void Import_ConnectionNotOpened_ThrowsInValidOperationException()
+        public void Import_ExistingFile_DoesNotThrowException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers());
+            mocks.ReplayAll();
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            // Call
+            TestDelegate test = () => importer.Import(assessmentSection, validFilePath);
+
+            // Assert
+            Assert.DoesNotThrow(test);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_NonExistingFile_ThrowsCriticalFileReadException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -147,13 +106,87 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
             mocks.ReplayAll();
 
+            string filePath = Path.Combine(testDataPath, "nonexisting.sqlite");
+            var expectedExceptionMessage = String.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", filePath);
+
             // Call
-            TestDelegate call = () => importer.Import(assessmentSection);
+            TestDelegate test = () => importer.Import(assessmentSection, filePath);
 
             // Assert
-            var exception = Assert.Throws<InvalidOperationException>(call);
-            var expectedMessage = "Er is nog geen bestand geopend.";
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreEqual(expectedExceptionMessage, exception.Message);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_InvalidFile_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
+            mocks.ReplayAll();
+
+            var invalidPath = Path.Combine(testDataPath, "complete.sqlite");
+            invalidPath = invalidPath.Replace('c', Path.GetInvalidPathChars()[0]);
+
+            // Call
+            TestDelegate test = () => importer.Import(assessmentSection, invalidPath);
+
+            // Assert
+            var expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
+                .Build(String.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
+                                     String.Join(", ", Path.GetInvalidFileNameChars())));
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_FileIsDirectory_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
+            mocks.ReplayAll();
+
+            string filePath = Path.Combine(testDataPath, "/");
+            var expectedExceptionMessage = String.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet naar een map verwijzen.", filePath);
+
+            // Call
+            TestDelegate test = () => importer.Import(assessmentSection, filePath);
+
+            // Assert
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreEqual(expectedExceptionMessage, exception.Message);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ExistingFileWithoutHlcd_ThrowCriticalFileReadException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Never();
+            mocks.ReplayAll();
+
+            string validFilePath = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");
+
+            // Call
+            TestDelegate test = () => importer.Import(assessmentSection, validFilePath);
+
+            // Assert
+            string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath).Build("Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.");
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+
             mocks.VerifyAll();
         }
 
@@ -171,11 +204,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             // Precondition
             Assert.IsTrue(File.Exists(validFilePath), string.Format("Precodition failed. File does not exist: {0}", validFilePath));
 
-            importer.ValidateAndConnectTo(validFilePath);
-
             // Call
             var importResult = false;
-            Action call = () => importResult = importer.Import(assessmentSection);
+            Action call = () => importResult = importer.Import(assessmentSection, validFilePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -205,10 +236,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importResult = true;
 
-            importer.ValidateAndConnectTo(corruptPath);
-
             // Call
-            Action call = () => importResult = importer.Import(assessmentSection);
+            Action call = () => importResult = importer.Import(assessmentSection, corruptPath);
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
@@ -230,12 +259,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string validFilePath = Path.Combine(testDataPath, "corruptschema.sqlite");
             var importResult = true;
 
-            // Precondition
-            TestDelegate precondition = () => importer.ValidateAndConnectTo(validFilePath);
-            Assert.DoesNotThrow(precondition, "Precodition failed: ValidateAndConnectTo failed");
-
             // Call
-            Action call = () => importResult = importer.Import(assessmentSection);
+            Action call = () => importResult = importer.Import(assessmentSection, validFilePath);
 
             // Assert
             string expectedMessage = new FileReaderErrorMessageBuilder(validFilePath)

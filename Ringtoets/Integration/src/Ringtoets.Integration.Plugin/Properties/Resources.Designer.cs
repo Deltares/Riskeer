@@ -199,12 +199,22 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden database kon niet gevonden worden op locatie {0}..
+        ///   Looks up a localized string similar to Kon geen berekeningen starten. {0}.
         /// </summary>
-        public static string RingtoetsGuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_could_not_be_found_on_path_0_ {
+        public static string RingtoetsGuiPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_failed_0_ {
+            get {
+                return ResourceManager.GetString("RingtoetsGuiPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_fa" +
+                        "iled_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Herstellen van de connectie naar de hydraulische randvoorwaarden database mislukt. {0}.
+        /// </summary>
+        public static string RingtoetsGuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_ {
             get {
                 return ResourceManager.GetString("RingtoetsGuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_databas" +
-                        "e_could_not_be_found_on_path_0_", resourceCulture);
+                        "e_connection_failed_0_", resourceCulture);
             }
         }
     }

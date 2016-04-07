@@ -115,6 +115,29 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
+        public void TestAssertLogMessageWithLevel()
+        {
+            TestHelper.AssertLogMessageWithLevelIsGenerated(() => log.Error("test 1"), Tuple.Create("test 1", LogLevelConstant.Error));
+            TestHelper.AssertLogMessageWithLevelIsGenerated(() => log.Warn("test 2"), Tuple.Create("test 2", LogLevelConstant.Warn));
+            TestHelper.AssertLogMessageWithLevelIsGenerated(() => log.Info("test 3"), Tuple.Create("test 3", LogLevelConstant.Info));
+        }
+
+        [Test]
+        public void TestAssertLogMessagesWithLevelAreGenerated()
+        {
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(() =>
+            {
+                log.Error("test 1");
+                log.Warn("test 2");
+                log.Info("test 3");
+            }, new [] {
+                Tuple.Create("test 1", LogLevelConstant.Error),
+                Tuple.Create("test 2", LogLevelConstant.Warn),
+                Tuple.Create("test 3", LogLevelConstant.Info)
+            });
+        }
+
+        [Test]
         public void AssertImagesAreEqual_TwoIdenticalImages_NoAssertionErrors()
         {
             // Setup

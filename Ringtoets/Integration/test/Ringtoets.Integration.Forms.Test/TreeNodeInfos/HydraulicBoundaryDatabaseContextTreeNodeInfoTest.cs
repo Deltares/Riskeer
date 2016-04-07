@@ -11,9 +11,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -24,7 +22,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseContextTreeNodeInfoTest : NUnitFormTest
+    public class HydraulicBoundaryDatabaseContextTreeNodeInfoTest
     {
         private MockRepository mocks;
 
@@ -223,14 +221,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenHydraulicBoundaryDatabaseWithNonExistingFilePath_WhenCalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffectedAndObserversNotified()
+        public void GivenHydraulicBoundaryDatabaseWithNonExistingFilePath_WhenCalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
         {
             // Given
             var gui = mocks.DynamicMock<IGui>();
 
-            var hydraulicBoundaryDatabaseContextObserver = mocks.StrictMock<IObserver>();
-
-            var mainWindow = mocks.DynamicMock<IMainWindow>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             var contextMenuRunAssessmentLevelCalculationsIndex = 3;
@@ -258,13 +253,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             };
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
-            hydraulicBoundaryDatabaseContextObserver.Expect(o => o.UpdateObserver());
             gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
-            gui.Expect(g => g.MainWindow).Return(mainWindow);
 
             mocks.ReplayAll();
-
-            hydraulicBoundaryDatabaseContext.Attach(hydraulicBoundaryDatabaseContextObserver);
 
             using (var plugin = new RingtoetsGuiPlugin())
             {
@@ -273,27 +264,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 var contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControlMock);
 
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    // Don't care about dialogs in this test.
-                };
-
                 // When
                 Action action = () => { contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick(); };
 
                 // Then
-                TestHelper.AssertLogMessages(action, messages =>
-                {
-                    var msgs = messages.GetEnumerator();
-                    Assert.IsTrue(msgs.MoveNext());
-                    StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening: inspecteer het logbestand.", msgs.Current);
-                    Assert.IsTrue(msgs.MoveNext());
-                    StringAssert.StartsWith("Uitvoeren van 'Toetspeil berekenen voor locatie '100001'' is mislukt.", msgs.Current);
-                    Assert.IsTrue(msgs.MoveNext());
-                    StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening: inspecteer het logbestand.", msgs.Current);
-                    Assert.IsTrue(msgs.MoveNext());
-                    StringAssert.StartsWith("Uitvoeren van 'Toetspeil berekenen voor locatie '100002'' is mislukt.", msgs.Current);
-                });
+                string message = string.Format("Kon geen berekeningen starten. Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
+                    hydraulicBoundaryDatabase.FilePath);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
 
                 Assert.IsNaN(hydraulicBoundaryLocation1.DesignWaterLevel); // No result set
                 Assert.AreEqual(4.2, hydraulicBoundaryLocation2.DesignWaterLevel); // Previous result not cleared

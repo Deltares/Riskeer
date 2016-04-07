@@ -53,16 +53,37 @@ namespace Core.Common.IO.Test.Readers
         }
 
         [Test]
+        public void Constructor_WithInvalidPath_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            var testFile = Path.Combine(testDataPath, "empty.sqlite");
+
+            var invalidCharacters = Path.GetInvalidPathChars();
+
+            var corruptPath = testFile.Replace('e', invalidCharacters[0]);
+
+            // Call
+            TestDelegate test = () => new TestReader(corruptPath).Dispose();
+
+            // Assert
+            var expectedMessage = new FileReaderErrorMessageBuilder(corruptPath)
+                .Build(String.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
+                                     String.Join(", ", Path.GetInvalidFileNameChars())));
+            var exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
         public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()
         {
             // Setup
             var testFile = Path.Combine(testDataPath, "none.sqlite");
-            var expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
 
             // Call
             TestDelegate test = () => new TestReader(testFile).Dispose();
 
             // Assert
+            var expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }

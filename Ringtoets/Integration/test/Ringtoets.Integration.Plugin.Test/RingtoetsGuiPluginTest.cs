@@ -142,9 +142,10 @@ namespace Ringtoets.Integration.Plugin.Test
                 };
 
                 // Assert
+                var fileMissingMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", notExistingFile);
                 string message = string.Format(
-                    Properties.Resources.RingtoetsGuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_could_not_be_found_on_path_0_, 
-                    notExistingFile);
+                    Properties.Resources.RingtoetsGuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_,
+                    fileMissingMessage);
                 TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
             }
         }
