@@ -436,7 +436,8 @@ namespace Ringtoets.Piping.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection),
-                new StochasticSoilModelContext(failureMechanism, assessmentSection)
+                new StochasticSoilModelContext(failureMechanism, assessmentSection),
+                new CommentContext<IComment>(failureMechanism)
             };
         }
 

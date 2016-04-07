@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Plugin;
 using Core.Common.Controls.TreeView;
@@ -29,8 +28,6 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
