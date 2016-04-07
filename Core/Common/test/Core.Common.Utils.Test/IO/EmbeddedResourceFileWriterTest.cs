@@ -12,12 +12,33 @@ namespace Core.Common.Utils.Test.IO
         [TestCase(false)]
         public void EmbeddedResourceFileWriter_ValidEmbeddedResources_FilesCorrectlyWritten(bool removeFilesOnDispose)
         {
+            // Setup
+            const string fileName1 = "EmbeddedResource1.txt";
+            const string fileName2 = "EmbeddedResource2.txt";
+
             // Call
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, removeFilesOnDispose, "EmbeddedResource1.txt", "EmbeddedResource2.txt"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, removeFilesOnDispose, fileName1, fileName2))
             {
                 // Assert
-                Assert.IsTrue(File.Exists(Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "EmbeddedResource1.txt")));
-                Assert.IsTrue(File.Exists(Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "EmbeddedResource2.txt")));
+                string filePath1 = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, fileName1);
+                string filePath2 = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, fileName2);
+
+                try
+                {
+                    Assert.IsTrue(File.Exists(filePath1));
+                    Assert.IsTrue(File.Exists(filePath2));
+                }
+                finally
+                {
+                    if (File.Exists(filePath1))
+                    {
+                        File.Delete(filePath1);
+                    }
+                    if (File.Exists(filePath2))
+                    {
+                        File.Delete(filePath2);
+                    }
+                }
             }
         }
 
@@ -35,13 +56,18 @@ namespace Core.Common.Utils.Test.IO
             }
 
             // Assert
-            Assert.AreEqual(!removeFilesOnDispose, File.Exists(Path.Combine(targetFolderPath, "EmbeddedResource1.txt")));
-            Assert.AreEqual(!removeFilesOnDispose, File.Exists(Path.Combine(targetFolderPath, "EmbeddedResource2.txt")));
-
-            // Cleanup
-            if (!removeFilesOnDispose)
+            try
             {
-                Directory.Delete(targetFolderPath, true);
+                Assert.AreEqual(!removeFilesOnDispose, File.Exists(Path.Combine(targetFolderPath, "EmbeddedResource1.txt")));
+                Assert.AreEqual(!removeFilesOnDispose, File.Exists(Path.Combine(targetFolderPath, "EmbeddedResource2.txt")));
+            }
+            finally
+            {
+                // Cleanup
+                if (!removeFilesOnDispose)
+                {
+                    Directory.Delete(targetFolderPath, true);
+                }
             }
         }
 

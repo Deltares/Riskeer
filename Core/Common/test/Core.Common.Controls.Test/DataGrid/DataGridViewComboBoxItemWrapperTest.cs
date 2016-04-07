@@ -39,21 +39,26 @@ namespace Core.Common.Controls.Test.DataGrid
             // Setup
             var testClass = new TestClass();
 
-            // Call
             var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(testClass);
 
+            // Call
+            string text = dataGridViewComboBoxItemWrapper.ToString();
+
             // Assert
-            Assert.AreEqual(dataGridViewComboBoxItemWrapper.DisplayName, dataGridViewComboBoxItemWrapper.ToString());
+            Assert.AreEqual(dataGridViewComboBoxItemWrapper.DisplayName, text);
         }
 
         [Test]
         public void ToString_WithWrappedObjectNull_ReturnsDisplayName()
         {
-            // Call
+            // Setup
             var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(null);
 
+            // Call
+            string text = dataGridViewComboBoxItemWrapper.ToString();
+
             // Assert
-            Assert.AreEqual(dataGridViewComboBoxItemWrapper.DisplayName, dataGridViewComboBoxItemWrapper.ToString());
+            Assert.AreEqual(dataGridViewComboBoxItemWrapper.DisplayName, text);
         }
 
         [Test]

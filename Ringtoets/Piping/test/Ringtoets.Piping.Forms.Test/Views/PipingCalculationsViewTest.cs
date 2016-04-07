@@ -312,14 +312,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void PipingCalculationsView_SelectingCellInRow_ApplicationSelectionCorrectlySynced()
         {
             // Setup
+            var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
+            var secondPipingInputItem = ((PipingCalculation)((PipingCalculationGroup)pipingCalculationsView.Data).Children[1]).InputParameters;
+
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
-            var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingInputItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]).InputParameters;
-
             applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
-            applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem, pipingCalculationsView.Piping.SurfaceLines, pipingCalculationsView.Piping.StochasticSoilModels, pipingCalculationsView.AssessmentSection));
-
+            applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem,
+                                                                                          pipingCalculationsView.Piping.SurfaceLines,
+                                                                                          pipingCalculationsView.Piping.StochasticSoilModels,
+                                                                                          pipingCalculationsView.AssessmentSection));
             mocks.ReplayAll();
 
             pipingCalculationsView.ApplicationSelection = applicationSelectionMock;
@@ -343,7 +345,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
             var secondPipingInputItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]).InputParameters;
 
-            applicationSelectionMock.Stub(asm => asm.Selection).Return(new PipingInputContext(secondPipingInputItem, pipingCalculationsView.Piping.SurfaceLines, pipingCalculationsView.Piping.StochasticSoilModels, pipingCalculationsView.AssessmentSection));
+            applicationSelectionMock.Stub(asm => asm.Selection)
+                                    .Return(new PipingInputContext(secondPipingInputItem,
+                                                                   pipingCalculationsView.Piping.SurfaceLines,
+                                                                   pipingCalculationsView.Piping.StochasticSoilModels,
+                                                                   pipingCalculationsView.AssessmentSection));
 
             mocks.ReplayAll();
 
@@ -369,7 +375,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var secondPipingInputItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]).InputParameters;
 
             applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
-            applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem, pipingCalculationsView.Piping.SurfaceLines, pipingCalculationsView.Piping.StochasticSoilModels, pipingCalculationsView.AssessmentSection));
+            applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem,
+                                                                                          pipingCalculationsView.Piping.SurfaceLines,
+                                                                                          pipingCalculationsView.Piping.StochasticSoilModels,
+                                                                                          pipingCalculationsView.AssessmentSection));
 
             mocks.ReplayAll();
 
