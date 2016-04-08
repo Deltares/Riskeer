@@ -322,7 +322,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         [Test]
         [RequiresSTA]
-        public void SelectionZoom_MiddleMouseDown_HandCursorSet()
+        public void SelectionZoom_MiddleMouseDown_DefaultCursorSet()
         {
             using (var form = new Form())
             {
@@ -340,7 +340,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 EventHelper.RaiseEvent(mapFunctionSelectionZoom, "MouseDown", new GeoMouseArgs(new MouseEventArgs(MouseButtons.Middle, 1, 2, 3, 4), map));
 
                 // Assert
-                Assert.AreEqual(Cursors.Hand, map.Cursor);
+                Assert.AreEqual(Cursors.Default, map.Cursor);
             }
         }
 
@@ -568,6 +568,31 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
+        [Test]
+        [RequiresSTA]
+        public void ToggleRectangleZooming_Always_CorrectlySetsMapFunctions()
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+
+                // Call
+                mapControl.ToggleRectangleZooming();
+
+                // Assert
+                Assert.IsTrue(mapFunctionSelectionZoom.Enabled);
+                Assert.IsFalse(mapFunctionPan.Enabled);
+                Assert.AreEqual(FunctionMode.None, map.FunctionMode);
+            }
+        }
+
         [TestCase(true)]
         [TestCase(false)]
         public void TogglePanning_Always_ChangesState(bool isPanning)
@@ -592,6 +617,33 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Assert
                 Assert.IsTrue(map.IsPanningEnabled);
                 Assert.IsFalse(map.IsRectangleZoomingEnabled);
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void TogglePanning_Always_CorrectlySetsMapFunctions()
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                mapControl.ToggleRectangleZooming();
+
+                var map = (Map)new ControlTester("Map").TheObject;
+                var mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
+                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+
+                // Call
+                mapControl.TogglePanning();
+
+                // Assert
+                Assert.IsTrue(mapFunctionPan.Enabled);
+                Assert.IsFalse(mapFunctionSelectionZoom.Enabled);
+                Assert.AreEqual(FunctionMode.Pan, map.FunctionMode);
             }
         }
 

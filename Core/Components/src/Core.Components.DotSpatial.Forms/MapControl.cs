@@ -86,7 +86,7 @@ namespace Core.Components.DotSpatial.Forms
 
             IsPanningEnabled = true;
 
-            map.ActivateMapFunction(mapFunctionPan);
+            map.FunctionMode = FunctionMode.Pan;
         }
 
         public void ToggleRectangleZooming()
@@ -147,6 +147,8 @@ namespace Core.Components.DotSpatial.Forms
         {
             IsPanningEnabled = false;
             IsRectangleZoomingEnabled = false;
+
+            map.FunctionMode = FunctionMode.None;
         }
 
         private void DrawFeatureSets()
@@ -167,7 +169,6 @@ namespace Core.Components.DotSpatial.Forms
             {
                 ProjectionModeDefine = ActionMode.Never,
                 Dock = DockStyle.Fill,
-                FunctionMode = FunctionMode.Pan,
                 ZoomOutFartherThanMaxExtent = true
             };
 
@@ -211,9 +212,6 @@ namespace Core.Components.DotSpatial.Forms
             {
                 case MouseButtons.Left:
                     map.Cursor = Cursors.SizeNWSE;
-                    break;
-                case MouseButtons.Middle:
-                    map.Cursor = Cursors.Hand;
                     break;
                 default:
                     map.Cursor = defaultCursor;
