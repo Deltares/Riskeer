@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -29,7 +30,6 @@ using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 
@@ -313,6 +313,32 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
 
                 Assert.AreEqual((RoundedDouble) double.Parse(newValue), propertyValue);
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultView_EditValueDirtyStateChangedEventFired_ValueCommittedCellInEditMode()
+        {
+            // Setup
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                sections[0].AssessmentLayerOne = false;
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+                var dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerOneIndex];
+
+                dataGridView.CurrentCell = dataGridViewCell;
+                dataGridView.BeginEdit(false);
+                gridTester.FireEvent("KeyUp", new KeyEventArgs(Keys.Space));
+
+                // Call
+                gridTester.FireEvent("CurrentCellDirtyStateChanged", EventArgs.Empty);
+
+                // Assert
+                Assert.IsTrue(dataGridViewCell.IsInEditMode);
+                Assert.IsTrue(sections[0].AssessmentLayerOne);
             }
         }
 
