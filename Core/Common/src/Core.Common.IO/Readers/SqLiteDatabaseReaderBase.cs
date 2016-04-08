@@ -34,8 +34,6 @@ namespace Core.Common.IO.Readers
     /// </summary>
     public abstract class SqLiteDatabaseReaderBase : IDisposable
     {
-        private readonly string fullFilePath;
-
         /// <summary>
         /// Creates a new instance of <see cref="SqLiteDatabaseReaderBase"/> which will use the <paramref name="databaseFilePath"/>
         /// as its source.
@@ -64,20 +62,14 @@ namespace Core.Common.IO.Readers
                 throw new CriticalFileReadException(message);
             }
 
-            fullFilePath = databaseFilePath;
+            Path = databaseFilePath;
             OpenConnection(databaseFilePath);
         }
 
         /// <summary>
         /// Gets the path to the file.
         /// </summary>
-        public string Path
-        {
-            get
-            {
-                return fullFilePath;
-            }
-        }
+        public string Path { get; private set; }
 
         /// <summary>
         /// Closes and disposes the existing <see cref="Connection"/>.

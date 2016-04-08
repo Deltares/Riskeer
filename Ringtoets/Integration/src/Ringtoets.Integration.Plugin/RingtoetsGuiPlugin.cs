@@ -615,7 +615,7 @@ namespace Ringtoets.Integration.Plugin
                 {
                     try
                     {
-                        ValidateAndImportSelectedFile(dialog.FileName, assessmentSection);
+                        ImportHydraulicBoundaryDatabase(dialog.FileName, assessmentSection);
                     }
                     catch (CriticalFileReadException exception)
                     {
@@ -626,36 +626,33 @@ namespace Ringtoets.Integration.Plugin
         }
 
         /// <summary>
-        /// Attempts to update the <paramref name="assessmentSection"/> based on the <paramref name="selectedFile"/>.
+        /// Attempts to update the <paramref name="assessmentSection"/> with a <see cref="HydraulicBoundaryDatabase"/> 
+        /// imported from the <paramref name="databaseFile"/>.
         /// </summary>
-        /// <param name="selectedFile">The file to use to import a <see cref="HydraulicBoundaryDatabase"/> from.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to which the imported <see cref="HydraulicBoundaryDatabase"/> will be assigned.</param>
-        /// <returns>A new <see cref="HydraulicBoundaryDatabaseImporter"/> which is connected to the <paramref name="selectedFile"/>.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the importer could not be created for the selected file.</exception>
-        private static void ValidateAndImportSelectedFile(string selectedFile, IAssessmentSection assessmentSection)
+        /// <param name="databaseFile">The file to use to import a <see cref="HydraulicBoundaryDatabase"/> from.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to which the imported 
+        /// <see cref="HydraulicBoundaryDatabase"/> will be assigned.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when importing from the <paramref name="databaseFile"/>
+        /// failed.</exception>
+        private static void ImportHydraulicBoundaryDatabase(string databaseFile, IAssessmentSection assessmentSection)
         {
-            using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
+            var hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+
+            var isHydraulicBoundaryDatabaseSet = hydraulicBoundaryDatabase != null;
+            var isClearConfirmationRequired = isHydraulicBoundaryDatabaseSet && !HydraulicDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
+            var isClearConfirmationGiven = isClearConfirmationRequired && IsClearCalculationConfirmationGiven();
+
+            if (!isHydraulicBoundaryDatabaseSet || !isClearConfirmationRequired || isClearConfirmationGiven)
             {
-                if (assessmentSection.HydraulicBoundaryDatabase != null)
+                var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter();
+                if (hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
                 {
-                    var newVersion = hydraulicBoundaryLocationsImporter.GetHydraulicBoundaryDatabaseVersion(selectedFile);
-
-                    var currentVersion = assessmentSection.HydraulicBoundaryDatabase.Version;
-                    var currentFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
-
-                    if (currentVersion != newVersion && HasClearCalculationConfirmation())
+                    if (isClearConfirmationRequired)
                     {
                         ClearCalculations(assessmentSection);
-                        ImportSelectedFile(assessmentSection, selectedFile, hydraulicBoundaryLocationsImporter);
                     }
-                    else if (currentFilePath != selectedFile)
-                    {
-                        SetBoundaryDatabaseData(assessmentSection, selectedFile);
-                    }
-                }
-                else
-                {
-                    ImportSelectedFile(assessmentSection, selectedFile, hydraulicBoundaryLocationsImporter);
+                    assessmentSection.NotifyObservers();
+                    log.InfoFormat(RingtoetsFormsResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked, assessmentSection.HydraulicBoundaryDatabase.FilePath);
                 }
             }
         }
@@ -684,7 +681,7 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private static bool HasClearCalculationConfirmation()
+        private static bool IsClearCalculationConfirmationGiven()
         {
             var confirmation = MessageBox.Show(
                 RingtoetsFormsResources.Delete_Calculations_Text,
@@ -706,25 +703,6 @@ namespace Ringtoets.Integration.Plugin
             }
 
             log.Info(RingtoetsFormsResources.Calculations_Deleted);
-        }
-
-        private static void ImportSelectedFile(IAssessmentSection assessmentSection, string hydraulicDatabasePath, HydraulicBoundaryDatabaseImporter hydraulicBoundaryLocationsImporter)
-        {
-            if (hydraulicBoundaryLocationsImporter.Import(assessmentSection, hydraulicDatabasePath))
-            {
-                SetBoundaryDatabaseData(assessmentSection);
-            }
-        }
-
-        private static void SetBoundaryDatabaseData(IAssessmentSection assessmentSection, string selectedFile = null)
-        {
-            if (!String.IsNullOrEmpty(selectedFile))
-            {
-                assessmentSection.HydraulicBoundaryDatabase.FilePath = selectedFile;
-            }
-
-            assessmentSection.NotifyObservers();
-            log.InfoFormat(RingtoetsFormsResources.RingtoetsGuiPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked, assessmentSection.HydraulicBoundaryDatabase.FilePath);
         }
 
         #endregion

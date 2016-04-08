@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Core.Common.IO.Exceptions;
 using log4net;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
 
@@ -31,6 +33,49 @@ namespace Ringtoets.HydraRing.IO
                 return e.Message;
             }
             return null;
+        }
+
+        /// <summary>
+        /// Returns the version from the database pointed at by the <paramref name="filePath"/>.
+        /// </summary>
+        /// <param name="filePath">The location of the database.</param>
+        /// <returns>The version from the database as a <see cref="string"/>.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when no connection with the hydraulic 
+        /// boundary database could be created.</exception>
+        private static string GetVersion(string filePath)
+        {
+            using (var db = new HydraulicBoundarySqLiteDatabaseReader(filePath))
+            {
+                return db.GetVersion();
+            }
+        }
+
+        /// <summary>
+        /// Checks whether the version of a <see cref="HydraulicBoundaryDatabase"/> matches the version
+        /// of a database at the given <see cref="pathToDatabase"/>.
+        /// </summary>
+        /// <param name="database">The database to compare the version of.</param>
+        /// <param name="pathToDatabase">The path to the database to compare the version of.</param>
+        /// <returns><c>true</c> if <paramref name="database"/> is of the given <paramref name="version"/>,
+        /// <c>false</c> otherwise.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when no connection with the hydraulic 
+        /// boundary database could be created using <paramref name="pathToDatabase"/>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="database"/> is <c>null</c></item>
+        /// <item><paramref name="pathToDatabase"/> is <c>null</c></item>
+        /// </list></exception>
+        public static bool HaveEqualVersion(HydraulicBoundaryDatabase database, string pathToDatabase)
+        {
+            if (database == null)
+            {
+                throw new ArgumentNullException("database");
+            }
+            if (pathToDatabase == null)
+            {
+                throw new ArgumentNullException("pathToDatabase");
+            }
+            return database.Version == GetVersion(pathToDatabase);
         }
     }
 }

@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -56,8 +55,8 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         private void ValidateAndConnectTo(string filePath)
         {
             hydraulicBoundaryDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(filePath);
-            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
 
+            string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
             try
             {
                 hydraulicLocationConfigurationDatabaseReader = new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath);
@@ -67,18 +66,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 var message = new FileReaderErrorMessageBuilder(filePath).Build(Resources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
                 throw new CriticalFileReadException(message);
             }
-        }
-
-        /// <summary>
-        /// Gets the version of the database.
-        /// </summary>
-        /// <param name="filePath">The path to the database to obtain the version for.</param>
-        /// <returns>The database version.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the version could not be obtained from the database.</exception>
-        public string GetHydraulicBoundaryDatabaseVersion(string filePath)
-        {
-            ValidateAndConnectTo(filePath);
-            return hydraulicBoundaryDatabaseReader.GetVersion();
         }
 
         /// <summary>
@@ -99,16 +86,30 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         {
             ValidateAndConnectTo(filePath);
 
-            var importResult = GetHydraulicBoundaryDatabase();
-
-            if (importResult == null)
+            var hydraulicBoundaryDatabase = targetItem.HydraulicBoundaryDatabase;
+            if (!IsImportRequired(hydraulicBoundaryDatabase))
             {
-                return false;
+                hydraulicBoundaryDatabase.FilePath = filePath;
+            }
+            else
+            {
+                var importResult = GetHydraulicBoundaryDatabase();
+
+                if (importResult == null)
+                {
+                    return false;
+                }
+
+                AddImportedDataToModel(targetItem, importResult);
+                log.Info(Resources.HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read);
             }
 
-            AddImportedDataToModel(targetItem, importResult);
-            log.Info(Resources.HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read);
             return true;
+        }
+
+        private bool IsImportRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            return hydraulicBoundaryDatabase == null || hydraulicBoundaryDatabaseReader.GetVersion() != hydraulicBoundaryDatabase.Version;
         }
 
         public void Dispose()

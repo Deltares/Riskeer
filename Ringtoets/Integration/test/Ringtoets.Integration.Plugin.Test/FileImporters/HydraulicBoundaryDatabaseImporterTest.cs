@@ -65,19 +65,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void GetHydraulicBoundaryDatabaseVersion_ValidFile_GetDatabaseVersion()
-        {
-            // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            // Call
-            string version = importer.GetHydraulicBoundaryDatabaseVersion(validFilePath);
-
-            // Assert
-            Assert.IsNotNullOrEmpty(version);
-        }
-
-        [Test]
         public void Import_ExistingFile_DoesNotThrowException()
         {
             // Setup
