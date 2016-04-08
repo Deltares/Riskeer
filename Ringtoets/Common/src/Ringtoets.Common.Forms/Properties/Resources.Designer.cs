@@ -165,6 +165,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De tekst mag niet leeg zijn..
+        /// </summary>
+        public static string DataGridViewCellValidating_Text_may_not_be_empty {
+            get {
+                return ResourceManager.GetString("DataGridViewCellValidating_Text_may_not_be_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invoer.
         /// </summary>
         public static string FailureMechanism_Inputs_DisplayName {
@@ -206,15 +215,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanism_Sections_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_Sections_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De tekst mag niet leeg zijn..
-        /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellValidating_Text_may_not_be_empty {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellValidating_Text_may_not_be_empty", resourceCulture);
             }
         }
         

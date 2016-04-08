@@ -303,7 +303,7 @@ namespace Ringtoets.Common.Forms.Views
             var cellEditValue = e.FormattedValue.ToString();
             if (string.IsNullOrWhiteSpace(cellEditValue))
             {
-                dataGridView.Rows[e.RowIndex].ErrorText = Resources.FailureMechanismResultView_DataGridViewCellValidating_Text_may_not_be_empty;
+                dataGridView.Rows[e.RowIndex].ErrorText = Resources.DataGridViewCellValidating_Text_may_not_be_empty;
             }
         }
 
