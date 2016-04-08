@@ -292,7 +292,6 @@ namespace Ringtoets.Common.Forms.Views
             if (currentColumn is DataGridViewCheckBoxColumn)
             {
                 dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
-                dataGridView.EndEdit();
             }
         }
 
