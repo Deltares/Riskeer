@@ -48,14 +48,18 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private Form testForm;
 
         [SetUp]
-        public void Setup()
+        public override void Setup()
         {
+            base.Setup();
+
             testForm = new Form();
         }
 
         [TearDown]
-        public void TearDown()
+        public override void TearDown()
         {
+            base.TearDown();
+
             testForm.Dispose();
         }
 
@@ -420,6 +424,60 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(1, dataGridView.Rows.Count);
             Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("test", dampingFactorExitMeanColumnIndex)]
+        [TestCase("test", phreaticLevelExitMeanColumnIndex)]
+        [TestCase("test", entryPointLColumnIndex)]
+        [TestCase("test", exitPointLColumnIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", dampingFactorExitMeanColumnIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", phreaticLevelExitMeanColumnIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", entryPointLColumnIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", exitPointLColumnIndex)]
+        public void PipingCalculationsView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
+        {
+            // Setup
+            ShowFullyConfiguredPipingCalculationsView();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+
+            // Assert
+            Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+        }
+
+        [Test]
+        [TestCase("1", dampingFactorExitMeanColumnIndex)]
+        [TestCase("1e-6", dampingFactorExitMeanColumnIndex)]
+        [TestCase("1e+6", dampingFactorExitMeanColumnIndex)]
+        [TestCase("14.3", dampingFactorExitMeanColumnIndex)]
+        [TestCase("1", phreaticLevelExitMeanColumnIndex)]
+        [TestCase("1e-6", phreaticLevelExitMeanColumnIndex)]
+        [TestCase("1e+6", phreaticLevelExitMeanColumnIndex)]
+        [TestCase("14.3", phreaticLevelExitMeanColumnIndex)]
+        [TestCase("1", entryPointLColumnIndex)]
+        [TestCase("1e-6", entryPointLColumnIndex)]
+        [TestCase("1e+6", entryPointLColumnIndex)]
+        [TestCase("14.3", entryPointLColumnIndex)]
+        [TestCase("1", exitPointLColumnIndex)]
+        [TestCase("1e-6", exitPointLColumnIndex)]
+        [TestCase("1e+6", exitPointLColumnIndex)]
+        [TestCase("14.3", exitPointLColumnIndex)]
+        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(string newValue, int cellIndex)
+        {
+            // Setup
+            ShowFullyConfiguredPipingCalculationsView();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+
+            // Assert
+            Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
         }
 
         [Test]
