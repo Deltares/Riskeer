@@ -178,9 +178,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        private static string ToProbabilityFormat(RoundedDouble requiredProbability)
+        private static string ToProbabilityFormat(RoundedDouble probability)
         {
-            return string.Format(CoreCommonResources.ProbabilityPerYearFormat, requiredProbability.Value);
+            return string.Format(CoreCommonResources.ProbabilityPerYearFormat, probability);
         }
     }
 }

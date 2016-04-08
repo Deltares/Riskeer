@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 
 using Core.Common.Base.Data;
@@ -25,6 +26,7 @@ namespace Core.Common.Base.Test.Data
             // Assert
             Assert.IsInstanceOf<IEquatable<RoundedDouble>>(roundedDouble);
             Assert.IsInstanceOf<IEquatable<double>>(roundedDouble);
+            Assert.IsInstanceOf<IFormattable>(roundedDouble);
             Assert.AreEqual(numberOfDecimalPlaces, roundedDouble.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, roundedDouble.Value);
 
@@ -174,6 +176,78 @@ namespace Core.Common.Base.Test.Data
 
             // Call
             string text = roundedValue.ToString();
+
+            // Assert
+            Assert.AreEqual(expectedText, text);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase("N", 1.0, 2, "1,00")]
+        [TestCase("N0", 123456789.0, 3, "123.456.789")]
+        [TestCase("N1", 12345678.90, 2, "12.345.678,9")]
+        [TestCase("N1", 12345678.90, 3, "12.345.678,9")]
+        [TestCase("G", 1234567.890, 2, "1234567,89")]
+        [TestCase("G3", 1234567.890, 3, "1,23E+06")]
+        [TestCase("G9", 123456.7890, 2, "123456,79")]
+        [TestCase("P3", 12.34567890, 2, "1.235,000 %")]
+        [TestCase("P1", 12.34567890, 3, "1.234,6 %")]
+        [TestCase("P", 1.234567890, 2, "123,00 %")]
+        [TestCase("P3", 1.234567890, 3, "123,500 %")]
+        [TestCase("F1", 0.1234567890, 2, "0,1")]
+        [TestCase("F3", 0.1234567890, 3, "0,123")]
+        [TestCase("F3", 0.01234567890, 2, "0,010")]
+        [TestCase("F5", 0.01234567890, 3, "0,01200")]
+        [TestCase("F2", 0.001234567890, 2, "0,00")]
+        [TestCase("N0", 0.0001234567890, 2, "0")]
+        [TestCase("N1", 0.0001234567890, 3, "0,0")]
+        [TestCase("N", double.NaN, 2, "NaN")]
+        [TestCase("F7", double.NegativeInfinity, 2, "-Oneindig")]
+        [TestCase("G3", double.PositiveInfinity, 2, "Oneindig")]
+        public void ToString_WithFormatAndCurrentCultureVariousScenarios_ExpectedText(string format,
+            double value, int numberOfDecimals, string expectedText)
+        {
+            // Setup
+            var roundedValue = new RoundedDouble(numberOfDecimals, value);
+
+            // Call
+            string text = roundedValue.ToString(format, null);
+
+            // Assert
+            Assert.AreEqual(expectedText, text);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase("N", 1.0, 2, "1.00")]
+        [TestCase("N0", 123456789.0, 3, "123,456,789")]
+        [TestCase("N1", 12345678.90, 2, "12,345,678.9")]
+        [TestCase("N1", 12345678.90, 3, "12,345,678.9")]
+        [TestCase("G", 1234567.890, 2, "1234567.89")]
+        [TestCase("G3", 1234567.890, 3, "1.23E+06")]
+        [TestCase("G9", 123456.7890, 2, "123456.79")]
+        [TestCase("P3", 12.34567890, 2, "1,235.000 %")]
+        [TestCase("P1", 12.34567890, 3, "1,234.6 %")]
+        [TestCase("P", 1.234567890, 2, "123.00 %")]
+        [TestCase("P3", 1.234567890, 3, "123.500 %")]
+        [TestCase("F1", 0.1234567890, 2, "0.1")]
+        [TestCase("F3", 0.1234567890, 3, "0.123")]
+        [TestCase("F3", 0.01234567890, 2, "0.010")]
+        [TestCase("F5", 0.01234567890, 3, "0.01200")]
+        [TestCase("F2", 0.001234567890, 2, "0.00")]
+        [TestCase("N0", 0.0001234567890, 2, "0")]
+        [TestCase("N1", 0.0001234567890, 3, "0.0")]
+        [TestCase("N", double.NaN, 2, "NaN")]
+        [TestCase("F7", double.NegativeInfinity, 2, "-Oneindig")]
+        [TestCase("G3", double.PositiveInfinity, 2, "Oneindig")]
+        public void ToString_WithFormatAndDifferentCultureVariousScenarios_ExpectedText(string format,
+            double value, int numberOfDecimals, string expectedText)
+        {
+            // Setup
+            var roundedValue = new RoundedDouble(numberOfDecimals, value);
+
+            // Call
+            string text = roundedValue.ToString(format, CultureInfo.GetCultureInfo("en-GB"));
 
             // Assert
             Assert.AreEqual(expectedText, text);

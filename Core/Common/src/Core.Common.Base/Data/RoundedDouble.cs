@@ -12,7 +12,7 @@ namespace Core.Common.Base.Data
     /// number of places.
     /// </summary>
     [TypeConverter(typeof(RoundedDoubleConverter))]
-    public struct RoundedDouble : IEquatable<RoundedDouble>, IEquatable<Double>
+    public struct RoundedDouble : IEquatable<RoundedDouble>, IEquatable<Double>, IFormattable
     {
         /// <summary>
         /// The maximum number of decimal places supported by this class.
@@ -144,7 +144,7 @@ namespace Core.Common.Base.Data
             return Value.GetHashCode();
         }
 
-        public override string ToString()
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             if (double.IsPositiveInfinity(value))
             {
@@ -154,7 +154,13 @@ namespace Core.Common.Base.Data
             {
                 return Resources.RoundedDouble_ToString_NegativeInfinity;
             }
-            return Value.ToString(GetFormat(), CultureInfo.CurrentCulture);
+            
+            return Value.ToString(format ?? GetFormat(), formatProvider ?? CultureInfo.CurrentCulture);
+        }
+
+        public override string ToString()
+        {
+            return ToString(null, null);
         }
 
         public bool Equals(double other)
