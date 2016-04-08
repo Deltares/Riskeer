@@ -1,8 +1,28 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
-
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
@@ -10,12 +30,10 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin.FileImporter;
-
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using PipingIOResources = Ringtoets.Piping.IO.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
@@ -255,10 +273,10 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var mesages = new[]
             {
                 string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
-                    validFilePath),
+                              validFilePath),
                 "Profielschematisatie Rotterdam1 bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.",
                 string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
-                    validFilePath),
+                              validFilePath),
                 string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
                               Path.Combine(ioTestDataPath, "ValidSurfaceLine_HasConsecutiveDuplicatePoints.krp.csv")),
                 PipingPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Start_adding_surface_lines,
@@ -1385,13 +1403,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        [TestCase("TwoValidSurfaceLines_CharacteristicPointsInvalidBottomDitchDikeSide", "Slootbodem dijkzijde")]
-        [TestCase("TwoValidSurfaceLines_CharacteristicPointsInvalidBottomDitchPolderSide", "Slootbodem polderzijde")]
-        [TestCase("TwoValidSurfaceLines_CharacteristicPointsInvalidDikeToeAtPolder", "Teen dijk binnenwaarts")]
-        [TestCase("TwoValidSurfaceLines_CharacteristicPointsInvalidDikeToeAtRiver", "Teen dijk buitenwaarts")]
-        [TestCase("TwoValidSurfaceLines_CharacteristicPointsInvalidDitchDikeSide", "Insteek sloot dijkzijde")]
-        [TestCase("TwoValidSurfaceLines_CharacteristicPointsInvalidDitchPolderSide", "Insteek sloot polderzijde")]
-        public void Import_FileWithTwoValidLinesAndCharacteristicPointNotOnGeometry_LogInvalidPointDefinition(string fileName, string characteristicPointName)
+        [TestCase("Slootbodem dijkzijde", "TwoValidSurfaceLines_CharacteristicPointsInvalidBottomDitchDikeSide")]
+        [TestCase("Slootbodem polderzijde", "TwoValidSurfaceLines_CharacteristicPointsInvalidBottomDitchPolderSide")]
+        [TestCase("Teen dijk binnenwaarts", "TwoValidSurfaceLines_CharacteristicPointsInvalidDikeToeAtPolder")]
+        [TestCase("Teen dijk buitenwaarts", "TwoValidSurfaceLines_CharacteristicPointsInvalidDikeToeAtRiver")]
+        [TestCase("Insteek sloot dijkzijde", "TwoValidSurfaceLines_CharacteristicPointsInvalidDitchDikeSide")]
+        [TestCase("Insteek sloot polderzijde", "TwoValidSurfaceLines_CharacteristicPointsInvalidDitchPolderSide")]
+        public void Import_FileWithTwoValidLinesAndCharacteristicPointNotOnGeometry_LogInvalidPointDefinition(string characteristicPointName, string fileName)
         {
             // Setup
             string surfaceLinesPath = Path.Combine(pluginSurfaceLinesTestDataPath, string.Format(surfaceLineFormat, fileName));

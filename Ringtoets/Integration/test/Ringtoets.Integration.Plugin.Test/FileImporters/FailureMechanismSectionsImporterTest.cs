@@ -1,23 +1,38 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.Integration.Plugin.FileImporters;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.FileImporters
@@ -205,10 +220,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var importer = new FailureMechanismSectionsImporter
             {
-                ProgressChanged = (description, step, steps) =>
-                {
-                    progressChangeNotifications.Add(new ProgressNotification(description, step, steps));
-                }
+                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
             };
 
             var failureMechanism = new Simple();
@@ -299,7 +311,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Assert
             var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Het bestand bestaat niet. ", sectionsFilePath) + Environment.NewLine +
-                      "Er is geen vakindeling geïmporteerd.";
+                                  "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -373,12 +385,13 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        [TestCase("Artificial_referencelijn_testA_InvalidVakken_SectionStartTooFarFromReferenceline.shp")]
-        [TestCase("Artificial_referencelijn_testA_InvalidVakken_SectionEndTooFarFromReferenceline.shp")]
-        public void Import_InvalidArtificialFileBecauseOfStartEndPointsTooFarFromReferenceLine_CancelImportWithErrorMessage(string shapeFileName)
+        [TestCase("StartTooFarFromReferenceline")]
+        [TestCase("EndTooFarFromReferenceline")]
+        public void Import_InvalidArtificialFileBecauseOfStartEndPointsTooFarFromReferenceLine_CancelImportWithErrorMessage(string shapeCondition)
         {
             // Setup
             var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA.shp");
+            var shapeFileName = String.Format("Artificial_referencelijn_testA_InvalidVakken_Section{0}.shp", shapeCondition);
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, shapeFileName);
 
             var mocks = new MockRepository();
@@ -410,12 +423,13 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        [TestCase("Artificial_referencelijn_testA_InvalidVakken_StartTooFarFromReferencelineStart.shp")]
-        [TestCase("Artificial_referencelijn_testA_InvalidVakken_EndTooFarFromReferencelineEnd.shp")]
-        public void Import_InvalidArtificialFileBecauseOfStartEndPointsTooFarFromStartEndOfReferenceLine_CancelImportWithErrorMessage(string shapeFileName)
+        [TestCase("StartTooFarFromReferencelineStart")]
+        [TestCase("EndTooFarFromReferencelineEnd")]
+        public void Import_InvalidArtificialFileBecauseOfStartEndPointsTooFarFromStartEndOfReferenceLine_CancelImportWithErrorMessage(string shapeCondition)
         {
             // Setup
             var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "Artificial_referencelijn_testA.shp");
+            var shapeFileName = String.Format("Artificial_referencelijn_testA_InvalidVakken_{0}.shp", shapeCondition);
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, shapeFileName);
 
             var mocks = new MockRepository();
@@ -558,22 +572,22 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // 1. Start & End coherence:
             Assert.AreEqual(referenceLineGeometry[0], sections[0].GetStart(),
-                "Start of the sections should correspond to the Start of the reference line.");
-            Assert.AreEqual(referenceLineGeometry[referenceLineGeometry.Length - 1], sections[sections.Length-1].GetLast(),
-                "End of the sections should correspond to the End of the reference line.");
+                            "Start of the sections should correspond to the Start of the reference line.");
+            Assert.AreEqual(referenceLineGeometry[referenceLineGeometry.Length - 1], sections[sections.Length - 1].GetLast(),
+                            "End of the sections should correspond to the End of the reference line.");
 
             // 2. Total length coherence:
             var totalLengthOfSections = sections.Sum(s => GetLengthOfLine(s.Points));
             var totalLengthOfReferenceLine = GetLengthOfLine(referenceLineGeometry);
             Assert.AreEqual(totalLengthOfReferenceLine, totalLengthOfSections, 1e-6,
-                "The length of all sections should sum up to the length of the reference line.");
+                            "The length of all sections should sum up to the length of the reference line.");
 
             // 3. Section Start and End coherence
             IEnumerable<Point2D> allStartAndEndPoints = sections.Select(s => s.GetStart()).Concat(sections.Select(s => s.GetLast()));
             foreach (Point2D point in allStartAndEndPoints)
             {
                 Assert.Less(GetDistanceToReferenceLine(point, referenceLine), 1e-6,
-                    "All start- and end points should be on the reference line.");
+                            "All start- and end points should be on the reference line.");
             }
 
             // 4. Section Start and End points coherence
@@ -586,7 +600,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 if (sectionTowardsStart != null)
                 {
                     Assert.AreEqual(sectionTowardsStart.GetLast(), sectionTowardsEnd.GetStart(),
-                        "All sections should be connected and in order of connectedness.");
+                                    "All sections should be connected and in order of connectedness.");
                 }
             }
         }
@@ -626,7 +640,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             {
                 get
                 {
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
                 }
             }
         }
