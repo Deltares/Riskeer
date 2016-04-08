@@ -43,16 +43,32 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var commentMock = mocks.StrictMock<IComment>();
             var viewMock = mocks.StrictMock<CommentView>();
 
             mocks.ReplayAll();
 
             // Call
-            var viewName = info.GetViewName(viewMock, assessmentSectionMock);
+            var viewName = info.GetViewName(viewMock, commentMock);
 
             // Assert
             Assert.AreEqual("Opmerkingen", viewName);
+        }
+
+        [Test]
+        public void GetViewData_Always_ReturnsIComment()
+        {
+            // Setup
+            var commentMock = mocks.StrictMock<IComment>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var contextMock = mocks.StrictMock<CommentContext<IComment>>(commentMock, assessmentSectionMock);
+            mocks.ReplayAll();
+
+            // Call
+            var viewData = info.GetViewData(contextMock);
+
+            // Assert
+            Assert.AreSame(commentMock, viewData);
         }
 
         [Test]
@@ -100,9 +116,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewMock = mocks.StrictMock<CommentView>();
+            var commentMock = mocks.Stub<IComment>();
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
 
-            viewMock.Expect(vm => vm.Data).Return(assessmentSectionMock);
+            viewMock.Expect(vm => vm.Data).Return(commentMock);
+            viewMock.Expect(vm => vm.AssessmentSection).Return(assessmentSectionMock);
 
             mocks.ReplayAll();
 
@@ -118,10 +136,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewMock = mocks.StrictMock<CommentView>();
+            var commentMock = mocks.Stub<IComment>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var assessmentSectionMock2 = mocks.StrictMock<IAssessmentSection>();
 
-            viewMock.Expect(vm => vm.Data).Return(assessmentSectionMock2);
+            viewMock.Expect(vm => vm.Data).Return(commentMock);
+            viewMock.Expect(vm => vm.AssessmentSection).Return(assessmentSectionMock2);
 
             mocks.ReplayAll();
 

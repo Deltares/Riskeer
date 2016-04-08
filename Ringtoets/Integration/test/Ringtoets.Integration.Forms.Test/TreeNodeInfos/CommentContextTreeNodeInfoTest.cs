@@ -76,6 +76,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
+            var commentMock = mocks.StrictMock<IComment>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
             mocks.ReplayAll();
@@ -84,7 +85,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var info = GetInfo(plugin);
 
-                var context = new CommentContext<IComment>(assessmentSectionMock);
+                var context = new CommentContext<IComment>(commentMock, assessmentSectionMock);
 
                 // Call
                 var text = info.Text(context);
@@ -100,13 +101,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
+            var commentMock = mocks.StrictMock<IComment>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
-                var context = new CommentContext<IComment>(assessmentSectionMock);
+                var context = new CommentContext<IComment>(commentMock, assessmentSectionMock);
 
                 // Call
                 var image = info.Image(context);

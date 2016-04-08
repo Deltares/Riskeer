@@ -437,7 +437,7 @@ namespace Ringtoets.Piping.Plugin
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection),
                 new StochasticSoilModelContext(failureMechanism, assessmentSection),
-                new CommentContext<IComment>(failureMechanism)
+                new CommentContext<IComment>(failureMechanism, assessmentSection)
             };
         }
 
@@ -498,7 +498,7 @@ namespace Ringtoets.Piping.Plugin
         {
             var childNodes = new List<object>
             {
-                new CommentContext<IComment>(pipingCalculationContext.WrappedData),
+                new CommentContext<IComment>(pipingCalculationContext.WrappedData, pipingCalculationContext.AssessmentSection),
                 new PipingInputContext(pipingCalculationContext.WrappedData.InputParameters,
                                        pipingCalculationContext.AvailablePipingSurfaceLines,
                                        pipingCalculationContext.AvailableStochasticSoilModels,

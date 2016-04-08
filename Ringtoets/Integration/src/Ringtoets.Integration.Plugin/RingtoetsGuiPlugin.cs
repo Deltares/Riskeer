@@ -166,7 +166,8 @@ namespace Ringtoets.Integration.Plugin
                 GetViewName = (v, o) => RingtoetsCommonDataResources.AssessmentSectionComment_DisplayName,
                 GetViewData = context => context.CommentContainer,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseCommentViewForData
+                CloseForData = CloseCommentViewForData,
+                AfterCreate = (view, context) => view.AssessmentSection = context.AssessmentSection
             };
         }
 
@@ -314,8 +315,8 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool CloseCommentViewForData(CommentView view, object o)
         {
-            var comment = o as IComment;
-            return comment != null && comment == view.Data;
+            var assessmentSection = o as IAssessmentSection;
+            return assessmentSection != null && assessmentSection == view.AssessmentSection;
         }
 
         #endregion
@@ -340,7 +341,7 @@ namespace Ringtoets.Integration.Plugin
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData),
-                new CommentContext<IComment>(nodeData)
+                new CommentContext<IComment>(nodeData, nodeData)
             };
 
             var failureMechanismContexts = WrapFailureMechanismsInContexts(nodeData);
@@ -426,7 +427,7 @@ namespace Ringtoets.Integration.Plugin
                 new FailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.Locations,
                 nodeData.BoundaryConditions,
-                new CommentContext<IComment>(nodeData)
+                new CommentContext<IComment>(nodeData, assessmentSection)
             };
         }
 

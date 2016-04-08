@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.TextEditor;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -44,6 +45,11 @@ namespace Ringtoets.Common.Forms.Views
 
             InitializeRichTextEditor();
         }
+
+        /// <summary>
+        /// Gets and sets the assessment section the <see cref="CommentView"/> belongs to.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; set; }
 
         public object Data
         {
