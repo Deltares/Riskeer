@@ -80,16 +80,7 @@ namespace Core.Components.OxyPlot
             IsPanningEnabled = false;
             IsRectangleZoomingEnabled = false;
 
-            EnableMiddleMouseButtonPanning();
             EnableScrollWheelZooming();
-        }
-
-        /// <summary>
-        /// Enables panning using the middle mouse button.
-        /// </summary>
-        private void EnableMiddleMouseButtonPanning()
-        {
-            this.BindMouseDown(OxyMouseButton.Middle, PlotCommands.PanAt);
         }
 
         /// <summary>
@@ -106,6 +97,7 @@ namespace Core.Components.OxyPlot
         private void EnablePanning()
         {
             this.BindMouseDown(OxyMouseButton.Left, PlotCommands.PanAt);
+            this.BindMouseDown(OxyMouseButton.Middle, PlotCommands.PanAt);
             IsPanningEnabled = true;
         }
 

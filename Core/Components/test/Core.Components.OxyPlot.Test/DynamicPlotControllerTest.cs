@@ -18,9 +18,9 @@ namespace Core.Components.OxyPlot.Test
             Assert.IsTrue(controller.IsPanningEnabled);
             Assert.IsFalse(controller.IsRectangleZoomingEnabled);
             Assert.AreEqual(3, controller.InputCommandBindings.Count);
-            AssertDefaultPanAtCommand(controller, 0);
-            AssertDefaultWheelZoomCommand(controller, 1);
-            AssertCustomPanCommand(controller, 2);
+            AssertWheelZoomCommandBinding(controller, 0);
+            AssertMousePanAtCommandBinding(controller, 1, OxyMouseButton.Left);
+            AssertMousePanAtCommandBinding(controller, 2, OxyMouseButton.Middle);
         }
 
         [Test]
@@ -37,9 +37,9 @@ namespace Core.Components.OxyPlot.Test
             Assert.IsTrue(controller.IsPanningEnabled);
             Assert.IsFalse(controller.IsRectangleZoomingEnabled);
             Assert.AreEqual(3, controller.InputCommandBindings.Count);
-            AssertDefaultPanAtCommand(controller, 0);
-            AssertDefaultWheelZoomCommand(controller, 1);
-            AssertCustomPanCommand(controller, 2);
+            AssertWheelZoomCommandBinding(controller, 0);
+            AssertMousePanAtCommandBinding(controller, 1, OxyMouseButton.Left);
+            AssertMousePanAtCommandBinding(controller, 2, OxyMouseButton.Middle);
         }
 
         [Test]
@@ -54,31 +54,23 @@ namespace Core.Components.OxyPlot.Test
             // Assert
             Assert.IsTrue(controller.IsRectangleZoomingEnabled);
             Assert.IsFalse(controller.IsPanningEnabled);
-            Assert.AreEqual(3, controller.InputCommandBindings.Count);
-            AssertDefaultPanAtCommand(controller, 0);
-            AssertDefaultWheelZoomCommand(controller, 1);
-            AssertCustomRectangleZoomCommand(controller, 2);
+            Assert.AreEqual(2, controller.InputCommandBindings.Count);
+            AssertWheelZoomCommandBinding(controller, 0);
+            AssertCustomRectangleZoomCommand(controller, 1);
         }
 
-        private static void AssertDefaultPanAtCommand(DynamicPlotController controller, int index)
+        private static void AssertMousePanAtCommandBinding(DynamicPlotController controller, int index, OxyMouseButton expectedMouseButton)
         {
             var panAtCommand = controller.InputCommandBindings[index];
-            Assert.AreEqual(OxyMouseButton.Middle, ((OxyMouseDownGesture) panAtCommand.Gesture).MouseButton);
+            Assert.AreEqual(expectedMouseButton, ((OxyMouseDownGesture)panAtCommand.Gesture).MouseButton);
             Assert.AreEqual(PlotCommands.PanAt, panAtCommand.Command);
         }
 
-        private static void AssertDefaultWheelZoomCommand(DynamicPlotController controller, int index)
+        private static void AssertWheelZoomCommandBinding(DynamicPlotController controller, int index)
         {
             var wheelZoomCommand = controller.InputCommandBindings[index];
             Assert.IsTrue(wheelZoomCommand.Gesture is OxyMouseWheelGesture);
             Assert.AreEqual(PlotCommands.ZoomWheel, wheelZoomCommand.Command);
-        }
-
-        private void AssertCustomPanCommand(DynamicPlotController controller, int index)
-        {
-            var panAtCommand = controller.InputCommandBindings[index];
-            Assert.AreEqual(OxyMouseButton.Left, ((OxyMouseDownGesture) panAtCommand.Gesture).MouseButton);
-            Assert.AreEqual(PlotCommands.PanAt, panAtCommand.Command);
         }
 
         private void AssertCustomRectangleZoomCommand(DynamicPlotController controller, int index)
