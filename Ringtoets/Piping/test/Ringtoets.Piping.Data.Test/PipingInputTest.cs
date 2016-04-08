@@ -149,48 +149,6 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void StochasticSoilModel_NewStochasticSoilModelWithOneStochasticSoilProfile_SetsStochasticSoilProfile()
-        {
-            // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput());
-            StochasticSoilModel stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
-            StochasticSoilProfile stochasticSoilProfile = new StochasticSoilProfile(1.1, SoilProfileType.SoilProfile1D, 0);
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
-
-            // Call
-            pipingInput.StochasticSoilModel = stochasticSoilModel;
-
-            // Assert
-            Assert.AreEqual(stochasticSoilProfile, pipingInput.StochasticSoilProfile);
-            Assert.AreEqual(stochasticSoilModel, pipingInput.StochasticSoilModel);
-        }
-
-        [Test]
-        public void StochasticSoilModel_NewStochasticSoilModelWithMultipleStochasticSoilProfile_SetsStochasticSoilProfileToNull()
-        {
-            // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput());
-
-            StochasticSoilModel stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
-            StochasticSoilProfile stochasticSoilProfile = new StochasticSoilProfile(1.1, SoilProfileType.SoilProfile1D, 0);
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
-
-            StochasticSoilModel stochasticSoilModelWithMiltipleProfiles = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
-            stochasticSoilModelWithMiltipleProfiles.StochasticSoilProfiles.Add(new StochasticSoilProfile(1.1, SoilProfileType.SoilProfile1D, 1));
-            stochasticSoilModelWithMiltipleProfiles.StochasticSoilProfiles.Add(new StochasticSoilProfile(2.2, SoilProfileType.SoilProfile1D, 2));
-
-            // Precondition
-            pipingInput.StochasticSoilModel = stochasticSoilModel;
-            Assert.AreEqual(stochasticSoilProfile, pipingInput.StochasticSoilProfile);
-
-            // Call
-            pipingInput.StochasticSoilModel = stochasticSoilModelWithMiltipleProfiles;
-
-            // Assert
-            Assert.IsNull(pipingInput.StochasticSoilProfile);
-        }
-
-        [Test]
         public void ExitPointL_SetToValueWithTooManyDecimalPlaces_ValueIsRounded()
         {
             // Setup

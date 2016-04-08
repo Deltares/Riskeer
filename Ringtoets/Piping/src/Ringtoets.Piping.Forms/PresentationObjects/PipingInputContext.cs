@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Ringtoets.Common.Data;
+using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
@@ -43,8 +43,37 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
         public PipingInputContext(PipingInput pipingInput, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, IAssessmentSection assessmentSection)
-            : base(pipingInput, surfaceLines, stochasticSoilModels, assessmentSection)
+            : base(pipingInput, surfaceLines, stochasticSoilModels, assessmentSection) {}
+
+        /// <summary>
+        /// Sets <see cref="PipingInput.StochasticSoilModel"/> and <see cref="PipingInput.StochasticSoilProfile"/> that matching the input of a calculation if there is one matching 
+        /// <see cref="StochasticSoilModel"/> or <see cref="StochasticSoilProfile"/> respectively.
+        /// </summary>
+        public void SetStochasticSoilModelAndStochasticSoilProfileForSurfaceLine()
         {
+            var available = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(WrappedData.SurfaceLine, AvailableStochasticSoilModels).ToList();
+            if (available.Count == 1)
+            {
+                if (WrappedData.StochasticSoilModel == available.First())
+                {
+                    return;
+                }
+                WrappedData.StochasticSoilModel = available.First();
+            }
+            SetStochasticSoilProfile();
+        }
+
+        private void SetStochasticSoilProfile()
+        {
+            if (WrappedData.StochasticSoilModel != null)
+            {
+                if (WrappedData.StochasticSoilModel.StochasticSoilProfiles.Count == 1)
+                {
+                    WrappedData.StochasticSoilProfile = WrappedData.StochasticSoilModel.StochasticSoilProfiles.First();
+                    return;
+                }
+            }
+            WrappedData.StochasticSoilProfile = null;
         }
     }
 }

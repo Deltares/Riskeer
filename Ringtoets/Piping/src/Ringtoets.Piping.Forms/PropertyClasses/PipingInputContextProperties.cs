@@ -171,8 +171,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 if (!ReferenceEquals(value, data.WrappedData.SurfaceLine))
                 {
                     data.WrappedData.SurfaceLine = value;
-                    data.WrappedData.StochasticSoilModel = null;
-                    data.WrappedData.StochasticSoilProfile = null;
+                    data.SetStochasticSoilModelAndStochasticSoilProfileForSurfaceLine();
                     data.WrappedData.NotifyObservers();
                 }
             }
