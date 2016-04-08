@@ -315,6 +315,13 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool CloseCommentViewForData(CommentView view, object o)
         {
+            var calculationContext = o as PipingCalculationContext;
+
+            if (calculationContext != null && calculationContext.WrappedData == view.Data)
+            {
+                return true;
+            }
+
             var assessmentSection = o as IAssessmentSection;
             return assessmentSection != null && assessmentSection == view.AssessmentSection;
         }

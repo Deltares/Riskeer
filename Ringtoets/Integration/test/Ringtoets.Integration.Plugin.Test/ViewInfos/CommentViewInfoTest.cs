@@ -7,6 +7,9 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
@@ -147,6 +150,55 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Call
             var closeForData = info.CloseForData(viewMock, assessmentSectionMock);
+
+            // Assert
+            Assert.IsFalse(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedCalculationItem_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+            var viewMock = mocks.StrictMock<CommentView>();
+            var calculationContextMock = mocks.StrictMock<PipingCalculationContext>(calculation, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
+
+            viewMock.Expect(vm => vm.Data).Return(calculationContextMock.WrappedData);
+
+            mocks.ReplayAll();
+
+            // Call
+            var closeForData = info.CloseForData(viewMock, calculationContextMock);
+
+            // Assert
+            Assert.IsTrue(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedCalculationItem_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation2 = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+            var viewMock = mocks.StrictMock<CommentView>();
+            var calculationContextMock = mocks.StrictMock<PipingCalculationContext>(calculation, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
+            var calculationContextMock2 = mocks.StrictMock<PipingCalculationContext>(calculation2, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
+
+            viewMock.Expect(vm => vm.Data).Return(calculationContextMock2.WrappedData);
+            viewMock.Expect(vm => vm.AssessmentSection).Return(assessmentSectionMock);
+
+            mocks.ReplayAll();
+
+            // Call
+            var closeForData = info.CloseForData(viewMock, calculationContextMock);
 
             // Assert
             Assert.IsFalse(closeForData);
