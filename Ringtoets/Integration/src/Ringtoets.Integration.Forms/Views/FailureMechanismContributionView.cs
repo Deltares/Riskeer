@@ -46,9 +46,10 @@ namespace Ringtoets.Integration.Forms.Views
     public partial class FailureMechanismContributionView : UserControl, IView, IObserver
     {
         private DataGridViewColumn probabilityPerYearColumn;
-        private FailureMechanismContributionContext data;
+        private FailureMechanismContribution data;
 
         private bool revertingComboBoxSelectedValue;
+        private IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
@@ -71,7 +72,22 @@ namespace Ringtoets.Integration.Forms.Views
             }
             set
             {
-                HandleNewDataSet((FailureMechanismContributionContext)value);
+                HandleNewDataSet((FailureMechanismContribution)value);
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets the assessment section this view belongs to.
+        /// </summary>
+        public IAssessmentSection AssessmentSection
+        {
+            get
+            {
+                return assessmentSection;
+            }
+            set
+            {
+                HandleNewAssessmentSectionSet(value);
             }
         }
 
@@ -121,7 +137,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (e.ColumnIndex == probabilityPerYearColumn.Index)
             {
-                var contributionItem = data.WrappedData.Distribution.ElementAt(e.RowIndex);
+                var contributionItem = data.Distribution.ElementAt(e.RowIndex);
                 if (contributionItem.Contribution == 0.0)
                 {
                     e.Value = RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ProbabilityPerYear_Not_applicable;
@@ -130,9 +146,8 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        private void HandleNewDataSet(FailureMechanismContributionContext value)
+        private void HandleNewDataSet(FailureMechanismContribution value)
         {
-            UnbindAssessmentSectionCompositionChange();
             UnbindNormChange();
             DetachFromData();
 
@@ -140,10 +155,18 @@ namespace Ringtoets.Integration.Forms.Views
 
             SetGridDataSource();
             SetNormText();
-            SetAssessmentSectionComposition();
 
             AttachToData();
             BindNormChange();
+        }
+
+        private void HandleNewAssessmentSectionSet(IAssessmentSection value)
+        {
+            UnbindAssessmentSectionCompositionChange();
+
+            assessmentSection = value;
+
+            SetAssessmentSectionComposition();
             BindAssessmentSectionCompositionChange();
         }
 
@@ -151,7 +174,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (data != null)
             {
-                probabilityDistributionGrid.DataSource = data.WrappedData.Distribution;
+                probabilityDistributionGrid.DataSource = data.Distribution;
                 probabilityDistributionGrid.Invalidate();
             }
         }
@@ -204,10 +227,8 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void NormValueChanged(object sender, EventArgs eventArgs)
         {
-            FailureMechanismContribution contribution = data.WrappedData;
-
-            contribution.Norm = Convert.ToInt32(normInput.Value);
-            contribution.NotifyObservers();
+            data.Norm = Convert.ToInt32(normInput.Value);
+            data.NotifyObservers();
         }
 
         private void ResetTextIfEmtpy()
@@ -222,15 +243,15 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (data != null)
             {
-                normInput.Value = data.WrappedData.Norm;
+                normInput.Value = data.Norm;
             }
         }
 
         private void SetAssessmentSectionComposition()
         {
-            if (data != null)
+            if (AssessmentSection != null)
             {
-                assessmentSectionCompositionComboBox.SelectedValue = data.Parent.Composition;
+                assessmentSectionCompositionComboBox.SelectedValue = AssessmentSection.Composition;
             }
         }
 
@@ -279,8 +300,6 @@ namespace Ringtoets.Integration.Forms.Views
                 return;
             }
 
-            IAssessmentSection assessmentSection = data.Parent;
-
             var dialogResult = MessageBox.Show(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ChangeComposition_Change_will_clear_calculation_output_accept_question,
                                                CoreCommonBaseResources.Confirm,
                                                MessageBoxButtons.OKCancel);
@@ -288,13 +307,10 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 assessmentSection.ChangeComposition((AssessmentSectionComposition)assessmentSectionCompositionComboBox.SelectedValue);
                 SetGridDataSource();
-                foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+                foreach (ICalculationItem calculation in assessmentSection.GetFailureMechanisms().SelectMany(failureMechanism => failureMechanism.CalculationItems)) 
                 {
-                    foreach (ICalculationItem calculation in failureMechanism.CalculationItems)
-                    {
-                        calculation.ClearOutput();
-                        calculation.NotifyObservers();
-                    }
+                    calculation.ClearOutput();
+                    calculation.NotifyObservers();
                 }
                 assessmentSection.NotifyObservers();
             }

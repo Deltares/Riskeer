@@ -4,7 +4,6 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -39,20 +38,27 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var view = new FailureMechanismContributionView();
 
             var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 1000);
 
-            var context = new FailureMechanismContributionContext(failureMechanismContribution, assessmentSection);
-
             // Call
-            var viewName = info.GetViewName(view, context);
+            var viewName = info.GetViewName(view, failureMechanismContribution);
 
             // Assert
             Assert.AreEqual("Faalkansverdeling", viewName);
+        }
+
+        [Test]
+        public void ViewDataType_Always_ReturnsViewDataType()
+        {
+            // Call
+            var viewDataType = info.ViewDataType;
+
+            // Assert
+            Assert.AreEqual(typeof(FailureMechanismContribution), viewDataType);
         }
 
         [Test]
@@ -86,6 +92,23 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void GetViewData_Always_Returns_FailureMechanismContribution()
+        {
+            // Setup
+            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 123456);
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var context = new FailureMechanismContributionContext(contribution, assessmentSection);
+
+            mocks.ReplayAll();
+
+            // Call
+            var viewData = info.GetViewData(context);
+
+            // Assert
+            Assert.AreSame(viewData, contribution);
+        }
+
+        [Test]
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
@@ -98,11 +121,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                              .Return(AssessmentSectionComposition.Dike);
             mocks.ReplayAll();
 
-            var context = new FailureMechanismContributionContext(contribution, assessmentSection);
-
             var view = new FailureMechanismContributionView
             {
-                Data = context
+                Data = contribution,
+                AssessmentSection = assessmentSection
             };
 
             // Call
@@ -132,11 +154,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
 
-            var context = new FailureMechanismContributionContext(contribution1, assessmentSection1);
-
             var view = new FailureMechanismContributionView
             {
-                Data = context
+                Data = contribution1,
+                AssessmentSection = assessmentSection1
             };
 
             // Call

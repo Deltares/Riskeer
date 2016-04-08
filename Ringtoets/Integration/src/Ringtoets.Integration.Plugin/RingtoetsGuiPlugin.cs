@@ -37,6 +37,7 @@ using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
@@ -139,11 +140,13 @@ namespace Ringtoets.Integration.Plugin
         /// </summary>
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<FailureMechanismContributionContext, FailureMechanismContributionView>
+            yield return new ViewInfo<FailureMechanismContributionContext, FailureMechanismContribution, FailureMechanismContributionView>
             {
                 GetViewName = (v, o) => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
+                GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseFailureMechanismContributionViewForData
+                CloseForData = CloseFailureMechanismContributionViewForData,
+                AfterCreate = (view, context) => view.AssessmentSection = context.Parent
             };
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
@@ -253,7 +256,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = failureMechanismContribution => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
                 Image = failureMechanismContribution => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = (failureMechanismContribution, parentData, treeViewControl) => Gui.Get(failureMechanismContribution.WrappedData, treeViewControl)
+                ContextMenuStrip = (failureMechanismContribution, parentData, treeViewControl) => Gui.Get(failureMechanismContribution, treeViewControl)
                                                                                                      .AddOpenItem()
                                                                                                      .AddSeparator()
                                                                                                      .AddExportItem()
@@ -295,8 +298,7 @@ namespace Ringtoets.Integration.Plugin
         private static bool CloseFailureMechanismContributionViewForData(FailureMechanismContributionView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            var viewData = view.Data as FailureMechanismContributionContext;
-            return assessmentSection != null && viewData != null && assessmentSection.FailureMechanismContribution == viewData.WrappedData;
+            return assessmentSection != null && assessmentSection.FailureMechanismContribution == view.Data && assessmentSection == view.AssessmentSection;
         }
 
         #endregion

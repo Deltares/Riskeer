@@ -56,11 +56,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 failureMechanism
             }, otherContribution, norm);
 
-            var context = new FailureMechanismContributionContext(contribution, assessmentSection);
-
             using (var contributionView = new FailureMechanismContributionView
             {
-                Data = context
+                Data = contribution,
+                AssessmentSection = assessmentSection
             })
             {
                 ShowFormWithView(contributionView);
@@ -95,11 +94,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }, otherContribution, norm);
             distribution.Attach(observerMock);
 
-            var context = new FailureMechanismContributionContext(distribution, assessmentSection);
-
             using (var distributionView = new FailureMechanismContributionView
             {
-                Data = context
+                Data = distribution,
+                AssessmentSection = assessmentSection
             })
             {
                 ShowFormWithView(distributionView);
@@ -142,12 +140,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 someMechanism
             }, random.Next(0, 100), expectedValue);
 
-            var initialContext = new FailureMechanismContributionContext(initialContribution, assessmentSection1);
-            var newContext = new FailureMechanismContributionContext(newContribution, assessmentSection2);
-
             using (var distributionView = new FailureMechanismContributionView
             {
-                Data = initialContext
+                Data = initialContribution,
+                AssessmentSection = assessmentSection1
             })
             {
                 ShowFormWithView(distributionView);
@@ -157,7 +153,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(aValue.ToString(), normTester.Properties.Text);
 
                 // Call
-                distributionView.Data = newContext;
+                distributionView.Data = newContribution;
+                distributionView.AssessmentSection = assessmentSection2;
 
                 // Assert
                 Assert.AreEqual(expectedValue.ToString(), normTester.Properties.Text);
@@ -177,7 +174,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var mockRepository = new MockRepository();
 
             var someMechanism = mockRepository.Stub<IFailureMechanism>();
-            var assessmentSection1 = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
 
             mockRepository.ReplayAll();
 
@@ -186,11 +183,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 someMechanism
             }, random.Next(0, 100), initialValue);
 
-            var context = new FailureMechanismContributionContext(contribution, assessmentSection1);
-
             using (var distributionView = new FailureMechanismContributionView
             {
-                Data = context
+                Data = contribution,
+                AssessmentSection = assessmentSection
             })
             {
                 ShowFormWithView(distributionView);
@@ -229,9 +225,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 {
                     failureMechanismStub
                 }, 100, 500);
-                var context = new FailureMechanismContributionContext(contributionData, assessmentSection);
 
-                view.Data = context;
+                view.Data = contributionData;
+                view.AssessmentSection = assessmentSection;
                 ShowFormWithView(view);
 
                 // Then
@@ -267,9 +263,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 {
                     failureMechanismStub
                 }, 100.0 - contribution, norm);
-                var context = new FailureMechanismContributionContext(contributionData, assessmentSection);
 
-                view.Data = context;
+                view.Data = contributionData;
+                view.AssessmentSection = assessmentSection;
                 ShowFormWithView(view);
 
                 // Then
@@ -300,8 +296,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 var assessmentSection = new AssessmentSection(composition);
 
-                var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);
-                view.Data = context;
+                view.Data = assessmentSection.FailureMechanismContribution;
+                view.AssessmentSection = assessmentSection;
 
                 // Call
                 var compositionComboBox = (ComboBox)new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
@@ -326,9 +322,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 var assessmentSection = new AssessmentSection(initialComposition);
 
-                var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);
-
-                view.Data = context;
+                view.Data = assessmentSection.FailureMechanismContribution;
+                view.AssessmentSection = assessmentSection;
                 ShowFormWithView(view);
 
                 // Precondition
@@ -376,9 +371,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 var assessmentSection = new AssessmentSection(initialComposition);
 
-                var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);
-
-                view.Data = context;
+                view.Data = assessmentSection.FailureMechanismContribution;
+                view.AssessmentSection = assessmentSection;
                 ShowFormWithView(view);
 
                 // Precondition
@@ -428,9 +422,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var assessmentSection = new AssessmentSection(initialComposition);
                 assessmentSection.Attach(observer);
 
-                var context = new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection);
-
-                view.Data = context;
+                view.Data = assessmentSection.FailureMechanismContribution;
+                view.AssessmentSection = assessmentSection;
                 ShowFormWithView(view);
 
                 // Precondition
@@ -506,9 +499,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 assessmentSection.Expect(section => section.ChangeComposition(newComposition));
                 secondMockRepository.ReplayAll();
 
-                var context = new FailureMechanismContributionContext(failureMechanismContribution, assessmentSection);
-
-                view.Data = context;
+                view.Data = failureMechanismContribution;
+                view.AssessmentSection = assessmentSection;
                 ShowFormWithView(view);
 
                 // Precondition
@@ -583,9 +575,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 assessmentSection.Expect(section => section.ChangeComposition(newComposition)).Repeat.Never();
                 secondMockRepository.ReplayAll();
 
-                var context = new FailureMechanismContributionContext(failureMechanismContribution, assessmentSection);
-
-                view.Data = context;
+                view.Data = failureMechanismContribution;
+                view.AssessmentSection = assessmentSection;
                 ShowFormWithView(view);
 
                 // Precondition

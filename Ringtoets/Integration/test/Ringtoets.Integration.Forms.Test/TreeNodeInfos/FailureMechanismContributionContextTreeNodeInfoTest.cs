@@ -93,7 +93,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 150000);
-
+            
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var context = new FailureMechanismContributionContext(contribution, assessmentSection);
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
@@ -103,15 +105,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
             var gui = mocks.StrictMock<IGui>();
-            gui.Expect(cmp => cmp.Get(contribution, treeViewControlMock)).Return(menuBuilderMock);
+            gui.Expect(cmp => cmp.Get(context, treeViewControlMock)).Return(menuBuilderMock);
             gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             mocks.ReplayAll();
-
-            var context = new FailureMechanismContributionContext(contribution, assessmentSection);
 
             
             using (var plugin = new RingtoetsGuiPlugin())
