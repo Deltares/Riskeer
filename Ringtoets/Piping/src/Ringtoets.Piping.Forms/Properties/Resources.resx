@@ -733,4 +733,7 @@
   <data name="DataGridViewCellValidating_Text_may_not_be_empty" xml:space="preserve">
     <value>De tekst mag niet leeg zijn.</value>
   </data>
+  <data name="PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_RingtoetsPipingSurfaceLine_0_skipped" xml:space="preserve">
+    <value>Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.</value>
+  </data>
 </root>

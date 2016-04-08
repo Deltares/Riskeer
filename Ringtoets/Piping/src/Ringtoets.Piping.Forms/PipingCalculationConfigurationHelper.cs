@@ -23,8 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using log4net;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms
@@ -34,6 +36,8 @@ namespace Ringtoets.Piping.Forms
     /// </summary>
     public static class PipingCalculationConfigurationHelper
     {
+        private static ILog log = LogManager.GetLogger(typeof(PipingCalculationConfigurationHelper));
+
         /// <summary>
         /// Creates a structure of <see cref="PipingCalculationGroup"/> and <see cref="PipingCalculation"/> based on combination of the
         /// <paramref name="surfaceLines"/> and the <paramref name="soilModels"/>.
@@ -71,7 +75,22 @@ namespace Ringtoets.Piping.Forms
                 throw new ArgumentNullException("semiProbabilisticInput");
             }
 
-            return surfaceLines.Select(sl => CreateCalculationGroup(sl, soilModels, generalInput, semiProbabilisticInput));
+            List<IPipingCalculationItem> groups = new List<IPipingCalculationItem>();
+            foreach (var sl in surfaceLines)
+            {
+                var group = CreateCalculationGroup(sl, soilModels, generalInput, semiProbabilisticInput);
+                if (group.GetPipingCalculations().Any())
+                {
+                    groups.Add(group);
+                }
+                else
+                {
+                    log.WarnFormat(
+                        Resources.PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_RingtoetsPipingSurfaceLine_0_skipped,
+                        sl.Name);
+                }
+            }
+            return groups;
         }
 
         /// <summary>
