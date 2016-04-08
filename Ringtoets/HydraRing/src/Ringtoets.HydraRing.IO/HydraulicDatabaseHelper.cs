@@ -1,13 +1,15 @@
 ﻿using System;
 using System.IO;
 using Core.Common.IO.Exceptions;
-using log4net;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
 
 namespace Ringtoets.HydraRing.IO
 {
+    /// <summary>
+    /// This class defines helper methods for obtaining meta data from hyraulic boundary databases.
+    /// </summary>
     public static class HydraulicDatabaseHelper
     {
         /// <summary>

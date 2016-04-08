@@ -62,6 +62,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryDatabaseImporter>(importer);
+            Assert.IsInstanceOf<IDisposable>(importer);
         }
 
         [Test]

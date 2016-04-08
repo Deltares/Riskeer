@@ -199,7 +199,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kon geen berekeningen starten. {0}.
+        ///   Looks up a localized string similar to Berekeningen konden niet worden gestart. {0}.
         /// </summary>
         public static string RingtoetsGuiPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_failed_0_ {
             get {

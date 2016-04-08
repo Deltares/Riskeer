@@ -167,6 +167,6 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Herstellen van de connectie naar de hydraulische randvoorwaarden database mislukt. {0}</value>
   </data>
   <data name="RingtoetsGuiPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_failed_0_" xml:space="preserve">
-    <value>Kon geen berekeningen starten. {0}</value>
+    <value>Berekeningen konden niet worden gestart. {0}</value>
   </data>
 </root>

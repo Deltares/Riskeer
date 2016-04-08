@@ -13,7 +13,7 @@ namespace Ringtoets.HydraRing.IO.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
 
         [Test]
-        public void ValidateAndConnectTo_ExistingFileWithHlcd_ReturnsTrue()
+        public void ValidatePathForCalculation_ExistingFileWithHlcd_ReturnsNull()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -26,7 +26,7 @@ namespace Ringtoets.HydraRing.IO.Test
         }
 
         [Test]
-        public void ValidateAndConnectTo_NonExistingFile_ReturnsFalse()
+        public void ValidatePathForCalculation_NonExistingFile_ReturnsMessageWithError()
         {
             // Setup
             var nonexistingSqlite = "nonexisting.sqlite";
@@ -40,7 +40,7 @@ namespace Ringtoets.HydraRing.IO.Test
         }
 
         [Test]
-        public void ValidateAndConnectTo_InvalidFile_ReturnsFalse()
+        public void ValidatePathForCalculation_InvalidFile_ReturnsMessageWithError()
         {
             // Setup
             var invalidPath = Path.Combine(testDataPath, "complete.sqlite");
@@ -54,7 +54,7 @@ namespace Ringtoets.HydraRing.IO.Test
         }
 
         [Test]
-        public void ValidateAndConnectTo_FileIsDirectory_ReturnsFalse()
+        public void ValidatePathForCalculation_FileIsDirectory_ReturnsMessageWithError()
         {
             // Setup
             string filePath = Path.Combine(testDataPath, "/");
@@ -67,7 +67,7 @@ namespace Ringtoets.HydraRing.IO.Test
         }
 
         [Test]
-        public void ValidateAndConnectTo_ExistingFileWithoutHlcd_ReturnsFalse()
+        public void ValidatePathForCalculation_ExistingFileWithoutHlcd_ReturnsMessageWithError()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "withoutHLCD", "empty.sqlite");

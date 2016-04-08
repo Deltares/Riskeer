@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Plugin.Test
             using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
             {
                 // Assert
-                Assert.IsInstanceOf<Core.Common.Gui.Plugin.GuiPlugin>(ringtoetsGuiPlugin);
+                Assert.IsInstanceOf<GuiPlugin>(ringtoetsGuiPlugin);
                 Assert.IsInstanceOf<RingtoetsRibbon>(ringtoetsGuiPlugin.RibbonCommandHandler);
             }
         }
