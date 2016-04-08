@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Forms
     /// </summary>
     public static class PipingCalculationConfigurationHelper
     {
-        private static ILog log = LogManager.GetLogger(typeof(PipingCalculationConfigurationHelper));
+        private static readonly ILog log = LogManager.GetLogger(typeof(PipingCalculationConfigurationHelper));
 
         /// <summary>
         /// Creates a structure of <see cref="PipingCalculationGroup"/> and <see cref="PipingCalculation"/> based on combination of the

@@ -265,9 +265,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             var stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items;
-            Assert.AreEqual(2, stochasticSoilModelsComboboxItems.Count);
-            Assert.AreEqual("<geen>", stochasticSoilModelsComboboxItems[0].ToString());
-            Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
+            Assert.AreEqual(1, stochasticSoilModelsComboboxItems.Count);
+            Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[0].ToString());
 
             stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilModelsColumnIndex]).Items;
             Assert.AreEqual(3, stochasticSoilModelsComboboxItems.Count);
@@ -292,9 +291,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("Profile 2", soilProfilesComboboxItems[2].ToString());
 
             soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesColumnIndex]).Items;
-            Assert.AreEqual(2, soilProfilesComboboxItems.Count);
-            Assert.AreEqual("<geen>", soilProfilesComboboxItems[0].ToString());
-            Assert.AreEqual("Profile 5", soilProfilesComboboxItems[1].ToString());
+            Assert.AreEqual(1, soilProfilesComboboxItems.Count);
+            Assert.AreEqual("Profile 5", soilProfilesComboboxItems[0].ToString());
         }
 
         [Test]
@@ -313,7 +311,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(8, cells.Count);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Model A", cells[stochasticSoilModelsColumnIndex].FormattedValue);
-            Assert.AreEqual("Profile 1", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+            Assert.AreEqual("<geen>", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
             Assert.AreEqual("Location 1", cells[hydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual(1.111.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
             Assert.AreEqual(2.222.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);

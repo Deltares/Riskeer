@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Forms.Test
         #region GetPipingSoilProfilesForSurfaceLine
 
         [Test]
-        public void GetStochasticSoilModelsForSurfaceLine_SurfaceLineIntersectingSoilModel_ReturnSoilProfilesOfSoilModel()
+        public void GetStochasticSoilModelsForSurfaceLine_SurfaceLineIntersectingSoilModel_ReturnSoilModel()
         {
             // Setup
             var soilProfile1 = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
@@ -267,7 +267,7 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GetStochasticSoilModelsForSurfaceLine_SurfaceLineOverlappingSoilModel_ReturnSoilProfilesOfSoilModel()
+        public void GetStochasticSoilModelsForSurfaceLine_SurfaceLineOverlappingSoilModels_ReturnSoilModels()
         {
             // Setup
             var soilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)

@@ -33,6 +33,7 @@ using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.TypeConverters;
 using Ringtoets.Piping.Forms.UITypeEditors;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
@@ -171,7 +172,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 if (!ReferenceEquals(value, data.WrappedData.SurfaceLine))
                 {
                     data.WrappedData.SurfaceLine = value;
-                    data.SetStochasticSoilModelAndStochasticSoilProfileForSurfaceLine();
+                    PipingInputService.SetMatchingStochasticSoilModel(data.WrappedData, GetAvailableStochasticSoilModels());
                     data.WrappedData.NotifyObservers();
                 }
             }
@@ -192,6 +193,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 if (!ReferenceEquals(value, data.WrappedData.StochasticSoilModel))
                 {
                     data.WrappedData.StochasticSoilModel = value;
+                    PipingInputService.SyncStochasticSoilProfileWithStochasticSoilModel(data.WrappedData);
                     data.WrappedData.NotifyObservers();
                 }
             }

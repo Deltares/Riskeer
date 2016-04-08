@@ -26,6 +26,10 @@ using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Forms.UITypeEditors
 {
+    /// <summary>
+    /// This class defines a drop down list edit-control from which the user can select a
+    /// <see cref="StochasticSoilModel"/> from a collection.
+    /// </summary>
     public class PipingInputContextStochasticSoilModelSelectionEditor : PipingInputContextSelectionEditor<StochasticSoilModel>
     {
         /// <summary>

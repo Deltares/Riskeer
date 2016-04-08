@@ -180,19 +180,22 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var saturatedVolumicWeightOfCoverageLoayer = new ShiftedLognormalDistribution(2);
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
-            StochasticSoilProfile stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
-            {
-                SoilProfile = new TestPipingSoilProfile()
-            };
-            StochasticSoilModel stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
-            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
+            StochasticSoilModel stochasticSoilModel1 = ValidStochasticSoilModel(0.0, 4.0);
+
+            StochasticSoilModel stochasticSoilModel2 = ValidStochasticSoilModel(0.0, 4.0);
+            var stochasticSoilProfile2 = stochasticSoilModel2.StochasticSoilProfiles.First();
+            stochasticSoilModel2.StochasticSoilProfiles.Add(new StochasticSoilProfile(0.0,SoilProfileType.SoilProfile1D, 1234));
 
             // Call
             new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<StochasticSoilModel>(),
+                                              new[]
+                                              {
+                                                  stochasticSoilModel1,
+                                                  stochasticSoilModel2
+                                              },
                                               assessmentSectionMock),
                 DampingFactorExit = new LognormalDistributionDesignVariable(dampingFactorExit),
                 PhreaticLevelExit = new NormalDistributionDesignVariable(phreaticLevelExit),
@@ -200,8 +203,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 DarcyPermeability = new LognormalDistributionDesignVariable(darcyPermeability),
                 SaturatedVolumicWeightOfCoverageLayer = new ShiftedLognormalDistributionDesignVariable(saturatedVolumicWeightOfCoverageLoayer),
                 SurfaceLine = surfaceLine,
-                StochasticSoilModel = stochasticSoilModel,
-                StochasticSoilProfile = stochasticSoilProfile,
+                StochasticSoilModel = stochasticSoilModel2,
+                StochasticSoilProfile = stochasticSoilProfile2,
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(assessmentLevel)
             };
 
@@ -236,8 +239,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                             inputParameters.SaturatedVolumicWeightOfCoverageLayer.GetAccuracy());
 
             Assert.AreEqual(surfaceLine, inputParameters.SurfaceLine);
-            Assert.AreEqual(stochasticSoilModel, inputParameters.StochasticSoilModel);
-            Assert.AreEqual(stochasticSoilProfile, inputParameters.StochasticSoilProfile);
+            Assert.AreEqual(stochasticSoilModel2, inputParameters.StochasticSoilModel);
+            Assert.AreEqual(stochasticSoilProfile2, inputParameters.StochasticSoilModel.StochasticSoilProfiles.First());
 
             mocks.VerifyAll();
         }
@@ -471,7 +474,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SurfaceLine_NewSurfaceLine_SoilProfileSetToNull()
+        public void SurfaceLine_NewSurfaceLine_StochasticSoilModelAndSoilProfileSetToNull()
         {
             // Setup
             var mocks = new MockRepository();
@@ -495,6 +498,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.SurfaceLine = ValidSurfaceLine(0, 2);
 
             // Assert
+            Assert.IsNull(inputParameters.StochasticSoilModel);
             Assert.IsNull(inputParameters.StochasticSoilProfile);
         }
 
@@ -511,17 +515,23 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
+            var stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
+            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
             var inputParameters = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = testSurfaceLine,
+                StochasticSoilModel = stochasticSoilModel,
                 StochasticSoilProfile = stochasticSoilProfile
             };
             var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                              Enumerable.Empty<StochasticSoilModel>(),
+                                              new[]
+                                              {
+                                                  stochasticSoilModel
+                                              },
                                               assessmentSectionMock)
             };
 
@@ -529,11 +539,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.SurfaceLine = testSurfaceLine;
 
             // Assert
+            Assert.AreSame(stochasticSoilModel, inputParameters.StochasticSoilModel);
             Assert.AreSame(stochasticSoilProfile, inputParameters.StochasticSoilProfile);
         }
 
         [Test]
-        public void SurfaceLine_DifferentSurfaceLine_SoilProfileSetToNull()
+        public void SurfaceLine_DifferentSurfaceLine_StochasticSoilModelAndSoilProfileSetToNull()
         {
             // Setup
             var mocks = new MockRepository();
@@ -544,11 +555,61 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 SoilProfile = new TestPipingSoilProfile()
             };
-
+            var stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
+            stochasticSoilModel.StochasticSoilProfiles.Add(testPipingSoilProfile);
             var inputParameters = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = ValidSurfaceLine(0, 2),
+                StochasticSoilModel = stochasticSoilModel,
                 StochasticSoilProfile = testPipingSoilProfile
+            };
+            var properties = new PipingInputContextProperties
+            {
+                Data = new PipingInputContext(inputParameters,
+                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                              new[]
+                                              {
+                                                  stochasticSoilModel
+                                              },
+                                              assessmentSectionMock)
+            };
+
+            // Call
+            properties.SurfaceLine = ValidSurfaceLine(0, 2);
+
+            // Assert
+            Assert.IsNull(inputParameters.StochasticSoilModel);
+            Assert.IsNull(inputParameters.StochasticSoilProfile);
+        }
+
+        [Test]
+        public void StochasticSoilProfile_DifferentStochasticSoilModel_SoilProfileSetToNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var testSurfaceLine = ValidSurfaceLine(0, 2);
+            var stochasticSoilProfile1 = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new TestPipingSoilProfile()
+            };
+            var stochasticSoilModel1 = new StochasticSoilModel(0, "StochasticSoilModel1Name", "StochasticSoilModelSegment1Name");
+            stochasticSoilModel1.StochasticSoilProfiles.Add(stochasticSoilProfile1);
+
+            var stochasticSoilProfile2 = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
+            {
+                SoilProfile = new TestPipingSoilProfile()
+            };
+            var stochasticSoilModel2 = new StochasticSoilModel(0, "StochasticSoilModel2Name", "StochasticSoilModelSegment2Name");
+            stochasticSoilModel1.StochasticSoilProfiles.Add(stochasticSoilProfile2);
+
+            var inputParameters = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = testSurfaceLine,
+                StochasticSoilModel = stochasticSoilModel1,
+                StochasticSoilProfile = stochasticSoilProfile1
             };
             var properties = new PipingInputContextProperties
             {
@@ -559,7 +620,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Call
-            properties.SurfaceLine = ValidSurfaceLine(0, 2);
+            properties.StochasticSoilModel = stochasticSoilModel2;
 
             // Assert
             Assert.IsNull(inputParameters.StochasticSoilProfile);
@@ -603,6 +664,18 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Then
             Assert.IsFalse(double.IsNaN(inputParameters.PiezometricHeadExit));
             mocks.VerifyAll();
+        }
+
+        private static StochasticSoilModel ValidStochasticSoilModel(double xMin, double xMax)
+        {
+            var stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
+            stochasticSoilModel.StochasticSoilProfiles.Add(new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 1234)
+            {
+                SoilProfile = new TestPipingSoilProfile()
+            });
+            stochasticSoilModel.Geometry.Add(new Point2D(xMin, 1.0));
+            stochasticSoilModel.Geometry.Add(new Point2D(xMax, 0.0));
+            return stochasticSoilModel;
         }
 
         private static RingtoetsPipingSurfaceLine ValidSurfaceLine(double xMin, double xMax)
