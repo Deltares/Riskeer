@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(section);
             Assert.IsInstanceOf<IAssessmentSection>(section);
-            Assert.IsInstanceOf<IComment>(section);
+            Assert.IsInstanceOf<ICommentable>(section);
 
             Assert.AreEqual("Traject", section.Name);
             Assert.IsNull(section.Comments);

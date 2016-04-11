@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var view = new CommentView();
-            var data = mocks.Stub<IComment>();
+            var data = mocks.Stub<ICommentable>();
 
             mocks.ReplayAll();
 
@@ -86,7 +86,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var view = new CommentView();
-            var data = mocks.Stub<IComment>();
+            var data = mocks.Stub<ICommentable>();
             var expectedText = "<Some_text>";
             var validRtfString = GetValidRtfString(expectedText);
             data.Comments = validRtfString;
@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var richTextBoxControl = (RichTextBoxControl)new ControlTester("richTextBoxControl").TheObject;
 
                 var mocks = new MockRepository();
-                var data = mocks.Stub<IComment>();
+                var data = mocks.Stub<ICommentable>();
                 mocks.ReplayAll();
 
                 view.Data = data;

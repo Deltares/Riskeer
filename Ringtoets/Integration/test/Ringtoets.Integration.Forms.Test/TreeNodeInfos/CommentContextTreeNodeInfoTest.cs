@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -54,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var info = GetInfo(plugin);
 
             // Assert
-            Assert.AreEqual(typeof(CommentContext<IComment>), info.TagType);
+            Assert.AreEqual(typeof(CommentContext<ICommentable>), info.TagType);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
@@ -76,16 +75,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var commentMock = mocks.StrictMock<IComment>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
+            var commentMock = mocks.StrictMock<ICommentable>();
             mocks.ReplayAll();
 
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
 
-                var context = new CommentContext<IComment>(commentMock, assessmentSectionMock);
+                var context = new CommentContext<ICommentable>(commentMock);
 
                 // Call
                 var text = info.Text(context);
@@ -101,14 +98,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var commentMock = mocks.StrictMock<IComment>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var commentMock = mocks.StrictMock<ICommentable>();
             mocks.ReplayAll();
 
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
-                var context = new CommentContext<IComment>(commentMock, assessmentSectionMock);
+                var context = new CommentContext<ICommentable>(commentMock);
 
                 // Call
                 var image = info.Image(context);
@@ -152,7 +148,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
         private TreeNodeInfo GetInfo(Core.Common.Gui.Plugin.GuiPlugin gui)
         {
-            return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CommentContext<IComment>));
+            return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CommentContext<ICommentable>));
         }
     }
 }

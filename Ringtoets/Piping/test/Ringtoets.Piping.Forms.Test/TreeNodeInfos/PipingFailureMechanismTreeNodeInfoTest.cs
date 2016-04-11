@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreSame(pipingFailureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(assessmentSection, stochasticSoilModelContext.AssessmentSection);
 
-            var commentContext = (CommentContext<IComment>) inputsFolder.Contents[3];
+            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
             Assert.AreSame(pipingFailureMechanism, commentContext.CommentContainer);
 
             var calculationsFolder = (PipingCalculationGroupContext) children[1];

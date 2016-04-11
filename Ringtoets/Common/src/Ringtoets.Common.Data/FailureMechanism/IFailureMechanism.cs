@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     /// <summary>
     /// Defines a failure mechanism.
     /// </summary>
-    public interface IFailureMechanism : IComment, IStorable, IObservable
+    public interface IFailureMechanism : ICommentable, IStorable, IObservable
     {
         /// <summary>
         /// Gets the amount of contribution as a percentage (0-100) for the <see cref="IFailureMechanism"/>

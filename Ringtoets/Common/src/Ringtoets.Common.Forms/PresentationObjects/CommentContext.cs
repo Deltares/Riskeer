@@ -21,43 +21,31 @@
 
 using System;
 using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for the comment of <see cref="T"/>.
     /// </summary>
-    public class CommentContext<T> where T : IComment
+    public class CommentContext<T> where T : ICommentable
     {
         /// <summary>
         /// Creates a new instance of <see cref="CommentContext{T}"/>.
         /// </summary>
         /// <param name="commentContainer">The container to wrap.</param>
-        /// <param name="assessmentSection">The assessment section the <paramref name="commentContainer"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="commentContainer"/> is <c>null</c>.</exception>
-        public CommentContext(T commentContainer, IAssessmentSection assessmentSection)
+        public CommentContext(T commentContainer)
         {
             if (commentContainer == null)
             {
                 throw new ArgumentNullException("commentContainer");
             }
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException("assessmentSection");
-            }
             CommentContainer = commentContainer;
-            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
         /// Gets the wrapped comment container.
         /// </summary>
         public T CommentContainer { get; private set; }
-
-        /// <summary>
-        /// Gets the assessment section which the <see cref="CommentContainer"/> belongs to.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; private set; }
     }
 }

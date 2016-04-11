@@ -164,13 +164,12 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
 
-            yield return new ViewInfo<CommentContext<IComment>, IComment, CommentView>
+            yield return new ViewInfo<CommentContext<ICommentable>, ICommentable, CommentView>
             {
                 GetViewName = (v, o) => Resources.Comment_DisplayName,
                 GetViewData = context => context.CommentContainer,
                 Image = RingtoetsCommonFormsResources.EditDocumentIcon,
-                CloseForData = CloseCommentViewForData,
-                AfterCreate = (view, context) => view.AssessmentSection = context.AssessmentSection
+                CloseForData = CloseCommentViewForData
             };
         }
 
@@ -283,7 +282,7 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<CommentContext<IComment>>
+            yield return new TreeNodeInfo<CommentContext<ICommentable>>
             {
                 Text = comment => Resources.Comment_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.EditDocumentIcon,
@@ -315,17 +314,52 @@ namespace Ringtoets.Integration.Plugin
 
         #region Comment ViewInfo
 
-        private static bool CloseCommentViewForData(CommentView view, object o)
+        private static bool CloseCommentViewForData(CommentView commentView, object o)
         {
             var calculationContext = o as PipingCalculationContext;
-
-            if (calculationContext != null && calculationContext.WrappedData == view.Data)
+            if (calculationContext != null)
             {
-                return true;
+                return calculationContext.WrappedData == commentView.Data;
+            }
+
+            var calculationGroupContext = o as PipingCalculationGroupContext;
+            if (calculationGroupContext != null)
+            {
+                return GetCommentableElements(calculationGroupContext)
+                    .Any(commentableElement => ReferenceEquals(commentView.Data, commentableElement));
             }
 
             var assessmentSection = o as IAssessmentSection;
-            return assessmentSection != null && assessmentSection == view.AssessmentSection;
+            if (assessmentSection != null)
+            {
+                return GetCommentableElements(assessmentSection)
+                    .Any(commentableElement => ReferenceEquals(commentView.Data, commentableElement));
+            }
+
+            return false;
+        }
+
+        private static IEnumerable<ICommentable> GetCommentableElements(PipingCalculationGroupContext calculationGroupContext)
+        {
+            return calculationGroupContext.WrappedData.GetPipingCalculations();
+        }
+
+        private static IEnumerable<ICommentable> GetCommentableElements(IAssessmentSection assessmentSection)
+        {
+            yield return assessmentSection;
+            foreach (var commentable in assessmentSection.GetFailureMechanisms().SelectMany(GetCommentableElements)) 
+            {
+                yield return commentable;
+            }
+        }
+
+        private static IEnumerable<ICommentable> GetCommentableElements(IFailureMechanism failureMechanism)
+        {
+            yield return failureMechanism;
+            foreach (ICalculationItem commentableCalculation in failureMechanism.CalculationItems)
+            {
+                yield return commentableCalculation;
+            }
         }
 
         #endregion
@@ -350,7 +384,7 @@ namespace Ringtoets.Integration.Plugin
                 new ReferenceLineContext(nodeData),
                 new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
                 new HydraulicBoundaryDatabaseContext(nodeData),
-                new CommentContext<IComment>(nodeData, nodeData)
+                new CommentContext<ICommentable>(nodeData)
             };
 
             var failureMechanismContexts = WrapFailureMechanismsInContexts(nodeData);
@@ -436,7 +470,7 @@ namespace Ringtoets.Integration.Plugin
                 new FailureMechanismSectionsContext(nodeData, assessmentSection),
                 nodeData.Locations,
                 nodeData.BoundaryConditions,
-                new CommentContext<IComment>(nodeData, assessmentSection)
+                new CommentContext<ICommentable>(nodeData)
             };
         }
 

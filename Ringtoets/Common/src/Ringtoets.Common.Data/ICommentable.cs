@@ -22,12 +22,12 @@
 namespace Ringtoets.Common.Data
 {
     /// <summary>
-    /// Base implementation of the comments.
+    /// Interface for a object for which people can leave comments about.
     /// </summary>
-    public interface IComment
+    public interface ICommentable
     {
         /// <summary>
-        /// Gets or sets the comments of the assessment section.
+        /// Gets or sets the comments associated with the data object.
         /// </summary>
         string Comments { get; set; } 
     }

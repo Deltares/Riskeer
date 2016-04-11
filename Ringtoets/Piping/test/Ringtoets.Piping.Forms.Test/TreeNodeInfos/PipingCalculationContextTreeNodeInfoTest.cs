@@ -163,9 +163,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(4, children.Length);
-            var commentContext = children[0] as CommentContext<IComment>;
+            var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
-            Assert.AreSame(pipingCalculationContext.WrappedData.Comments, commentContext.CommentContainer.Comments);
+            Assert.AreSame(pipingCalculationContext.WrappedData, commentContext.CommentContainer);
 
             var pipingInputContext = (PipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
@@ -197,9 +197,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(4, children.Length);
-            var commentContext = children[0] as CommentContext<IComment>;
+            var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
-            Assert.AreSame(pipingCalculationContext.WrappedData.Comments, commentContext.CommentContainer.Comments); 
+            Assert.AreSame(pipingCalculationContext.WrappedData, commentContext.CommentContainer); 
             
             var pipingInputContext = (PipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);

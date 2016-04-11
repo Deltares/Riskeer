@@ -25,7 +25,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             Assert.IsInstanceOf<Observable>(failureMechanism);
             Assert.IsInstanceOf<IFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IComment>(failureMechanism);
+            Assert.IsInstanceOf<ICommentable>(failureMechanism);
             Assert.AreEqual(0, failureMechanism.Contribution);
             Assert.AreEqual(name, failureMechanism.Name);
             Assert.AreEqual(0, failureMechanism.StorageId);

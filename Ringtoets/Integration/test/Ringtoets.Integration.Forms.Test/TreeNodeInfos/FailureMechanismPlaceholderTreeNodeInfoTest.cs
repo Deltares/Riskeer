@@ -150,7 +150,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism.Locations, inputFolder.Contents[1]);
                 Assert.AreSame(failureMechanism.BoundaryConditions, inputFolder.Contents[2]);
 
-                var commentContext = (CommentContext<IComment>) inputFolder.Contents[3];
+                var commentContext = (CommentContext<ICommentable>) inputFolder.Contents[3];
                 Assert.IsNotNull(commentContext);
                 Assert.AreSame(failureMechanism, commentContext.CommentContainer);
 
@@ -227,8 +227,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Call
                 var menu = info.ContextMenuStrip(null, null, treeViewControlMock);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 0, RingtoetsCommonFormsResources.Calculate_all, RingtoetsCommonFormsResources.Calculate_all_ToolTip, RingtoetsCommonFormsResources.CalculateAllIcon, false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 1, RingtoetsCommonFormsResources.Clear_all_output, RingtoetsCommonFormsResources.Clear_all_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon, false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 0,
+                                                              RingtoetsCommonFormsResources.Calculate_all,
+                                                              RingtoetsCommonFormsResources.Calculate_all_ToolTip,
+                                                              RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 1,
+                                                              RingtoetsCommonFormsResources.Clear_all_output,
+                                                              RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
+                                                              RingtoetsCommonFormsResources.ClearIcon,
+                                                              false);
             }
 
             // Assert

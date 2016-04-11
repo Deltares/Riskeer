@@ -23,7 +23,6 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -32,7 +31,7 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class CommentView : UserControl, IView
     {
-        private IComment data;
+        private ICommentable data;
 
         /// <summary>
         /// Creates a new instance of <see cref="CommentView"/>.
@@ -44,11 +43,6 @@ namespace Ringtoets.Common.Forms.Views
             InitializeRichTextEditor();
         }
 
-        /// <summary>
-        /// Gets and sets the assessment section the <see cref="CommentView"/> belongs to.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; set; }
-
         public object Data
         {
             get
@@ -57,7 +51,7 @@ namespace Ringtoets.Common.Forms.Views
             }
             set
             {
-                data = value as IComment;
+                data = value as ICommentable;
 
                 if (data != null)
                 {

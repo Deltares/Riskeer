@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
@@ -39,14 +40,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(CommentContext<IComment>), info.DataType);
+            Assert.AreEqual(typeof(CommentContext<ICommentable>), info.DataType);
         }
 
         [Test]
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var commentMock = mocks.StrictMock<IComment>();
+            var commentMock = mocks.StrictMock<ICommentable>();
             var viewMock = mocks.StrictMock<CommentView>();
 
             mocks.ReplayAll();
@@ -62,9 +63,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsIComment()
         {
             // Setup
-            var commentMock = mocks.StrictMock<IComment>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var contextMock = mocks.StrictMock<CommentContext<IComment>>(commentMock, assessmentSectionMock);
+            var commentMock = mocks.StrictMock<ICommentable>();
+            var contextMock = mocks.StrictMock<CommentContext<ICommentable>>(commentMock);
             mocks.ReplayAll();
 
             // Call
@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(CommentContext<IComment>), dataType);
+            Assert.AreEqual(typeof(CommentContext<ICommentable>), dataType);
         }
 
         [Test]
@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(IComment), viewDataType);
+            Assert.AreEqual(typeof(ICommentable), viewDataType);
         }
 
         [Test]
@@ -115,93 +115,339 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
+        public void CloseForData_ObjectIsNotObjectOfInterest_ReturnFalse()
         {
             // Setup
-            var commentMock = mocks.Stub<IComment>();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            var viewMock = mocks.StrictMock<CommentView>();
-
-            viewMock.Expect(vm => vm.Data).Return(commentMock);
-            viewMock.Expect(vm => vm.AssessmentSection).Return(assessmentSectionMock);
-
+            var commentableMock = mocks.Stub<ICommentable>();
             mocks.ReplayAll();
 
-            // Call
-            var closeForData = info.CloseForData(viewMock, assessmentSectionMock);
+            using (var view = new CommentView
+            {
+                Data = commentableMock
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, new object());
 
-            // Assert
-            Assert.IsTrue(closeForData);
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        public void CloseForData_ViewDataIsDeletedAssessmentSection_ReturnTrue()
         {
             // Setup
-            var commentMock = mocks.Stub<IComment>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var assessmentSectionMock2 = mocks.StrictMock<IAssessmentSection>();
-            var viewMock = mocks.StrictMock<CommentView>();
-
-            viewMock.Expect(vm => vm.Data).Return(commentMock);
-            viewMock.Expect(vm => vm.AssessmentSection).Return(assessmentSectionMock2);
-
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             mocks.ReplayAll();
 
-            // Call
-            var closeForData = info.CloseForData(viewMock, assessmentSectionMock);
+            using (var view = new CommentView
+            {
+                Data = assessmentSection
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, assessmentSection);
 
-            // Assert
-            Assert.IsFalse(closeForData);
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsOtherInstanceThenDeletedAssessmentSection_ReturnFalse()
+        {
+            // Setup
+            var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
+            deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
+
+            var viewDataAssessmentSection = mocks.Stub<IAssessmentSection>();
+            viewDataAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = viewDataAssessmentSection
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, deletedAssessmentSection);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsFailureMechanismOfDeletedAssessmentSection_ReturnTrue()
+        {
+            // Setup
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.CalculationItems).Return(Enumerable.Empty<ICalculationItem>());
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = failureMechanism
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsFailureMechanismButNotOfDeletedAssessmentSection_ReturnFalse()
+        {
+            // Setup
+            var viewDataFailureMechanism = mocks.Stub<IFailureMechanism>();
+            viewDataFailureMechanism.Stub(fm => fm.CalculationItems).Return(Enumerable.Empty<ICalculationItem>());
+
+            var deletedFailureMechanism = mocks.Stub<IFailureMechanism>();
+            deletedFailureMechanism.Stub(fm => fm.CalculationItems).Return(Enumerable.Empty<ICalculationItem>());
+
+            var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
+            deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
+            {
+                deletedFailureMechanism
+            });
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = viewDataFailureMechanism
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, deletedAssessmentSection);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsCalculationOfDeletedAssessmentSection_ReturnTrue()
+        {
+            // Setup
+            var calculation = mocks.Stub<ICalculationItem>();
+
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.CalculationItems).Return(new[]
+            {
+                calculation
+            });
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = calculation
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsCalculationButNotOfDeletedAssessmentSection_ReturnFalse()
+        {
+            // Setup
+            var viewDataCalculation = mocks.Stub<ICalculationItem>();
+
+            var deletedCalculation = mocks.Stub<ICalculationItem>();
+            
+            var deletedfailureMechanism = mocks.Stub<IFailureMechanism>();
+            deletedfailureMechanism.Stub(fm => fm.CalculationItems).Return(new[]
+            {
+                deletedCalculation
+            });
+
+            var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
+            deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
+            {
+                deletedfailureMechanism
+            });
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = viewDataCalculation
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, deletedAssessmentSection);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedCalculationItem_ReturnsTrue()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
-
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
-            var calculationContextMock = mocks.StrictMock<PipingCalculationContext>(calculation, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
-            var viewMock = mocks.StrictMock<CommentView>();
-
-            viewMock.Expect(vm => vm.Data).Return(calculationContextMock.WrappedData);
-
             mocks.ReplayAll();
 
-            // Call
-            var closeForData = info.CloseForData(viewMock, calculationContextMock);
+            var viewDataCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
 
-            // Assert
-            Assert.IsTrue(closeForData);
+            var deletedCalculationContext = new PipingCalculationContext(viewDataCalculation,
+                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                  Enumerable.Empty<StochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSectionMock);
+
+            using (var view = new CommentView
+            {
+                Data = viewDataCalculation
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, deletedCalculationContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+            
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedCalculationItem_ReturnsFalse()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
-            var calculation2 = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
-
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
-            var calculationContextMock = mocks.StrictMock<PipingCalculationContext>(calculation, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
-            var calculationContextMock2 = mocks.StrictMock<PipingCalculationContext>(calculation2, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
-            var viewMock = mocks.StrictMock<CommentView>();
-
-            viewMock.Expect(vm => vm.Data).Return(calculationContextMock2.WrappedData);
-            viewMock.Expect(vm => vm.AssessmentSection).Return(assessmentSectionMock);
-
             mocks.ReplayAll();
 
-            // Call
-            var closeForData = info.CloseForData(viewMock, calculationContextMock);
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var viewDataCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
-            // Assert
-            Assert.IsFalse(closeForData);
+            var failureMechanism = new PipingFailureMechanism();
+
+            var deletedCalculationContext = new PipingCalculationContext(calculation,
+                                                                         Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                         Enumerable.Empty<StochasticSoilModel>(),
+                                                                         failureMechanism,
+                                                                         assessmentSectionMock);
+
+            using (var view = new CommentView
+            {
+                Data = viewDataCalculation
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, deletedCalculationContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsCalculationOfRemovedCalculationGroup_ReturnsTrue()
+        {
+            // Setup
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var viewDataCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var deletedGroup = new PipingCalculationGroup
+            {
+                Children =
+                {
+                    viewDataCalculation
+                }
+            };
+            var deletedGroupContext = new PipingCalculationGroupContext(deletedGroup,
+                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                        Enumerable.Empty<StochasticSoilModel>(),
+                                                                        failureMechanism,
+                                                                        assessmentSectionMock);
+
+            using (var view = new CommentView
+            {
+                Data = viewDataCalculation
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, deletedGroupContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsCalculationButNotOfRemovedCalculationGroup_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            var viewDataCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+
+            var deletedCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var deletedGroup = new PipingCalculationGroup
+            {
+                Children =
+                {
+                    deletedCalculation
+                }
+            };
+            var deletedGroupContext = new PipingCalculationGroupContext(deletedGroup,
+                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                        Enumerable.Empty<StochasticSoilModel>(),
+                                                                        failureMechanism,
+                                                                        assessmentSectionMock);
+
+            using (var view = new CommentView
+            {
+                Data = viewDataCalculation
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, deletedGroupContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+
+                mocks.VerifyAll();
+            }
         }
     }
 }

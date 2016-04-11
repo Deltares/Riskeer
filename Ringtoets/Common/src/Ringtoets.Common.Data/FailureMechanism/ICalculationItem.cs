@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     /// <summary>
     /// A calculation related object.
     /// </summary>
-    public interface ICalculationItem : IComment, IObservable
+    public interface ICalculationItem : ICommentable, IObservable
     {
         /// <summary>
         /// Clears the calculated output.

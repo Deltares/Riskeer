@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Data.Test.Contribution
 {
@@ -15,6 +16,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             // Assert
             Assert.AreEqual("Overig", result.Name);
+            Assert.IsInstanceOf<FailureMechanismBase>(result);
+            CollectionAssert.IsEmpty(result.CalculationItems);
         }
     }
 }
