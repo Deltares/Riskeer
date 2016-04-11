@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Service
     public static class PipingInputService
     {
         /// <summary>
-        /// Sets <see cref="PipingInput.StochasticSoilModel"/> and <see cref="PipingInput.StochasticSoilProfile"/> that matching the input of a calculation if there is one matching 
+        /// Sets <see cref="PipingInput.StochasticSoilModel"/> and <see cref="PipingInput.StochasticSoilProfile"/> that match the input of a calculation if there is one matching 
         /// <see cref="StochasticSoilModel"/> or <see cref="StochasticSoilProfile"/> respectively.
         /// </summary>
         /// <param name="pipingInput">The input parameters to set the <see cref="StochasticSoilModel"/>.</param>
@@ -39,18 +39,14 @@ namespace Ringtoets.Piping.Service
         public static void SetMatchingStochasticSoilModel(PipingInput pipingInput, IEnumerable<StochasticSoilModel> availableStochasticSoilModels)
         {
             var available = availableStochasticSoilModels.ToList();
-            if (available.Count == 0)
+            switch (available.Count)
             {
-                pipingInput.StochasticSoilModel = null;
-            }
-            else if (available.Count == 1)
-            {
-                if (pipingInput.StochasticSoilModel == available.First())
-                {
-                    return;
-                }
-
-                pipingInput.StochasticSoilModel = available.First();
+                case 0:
+                    pipingInput.StochasticSoilModel = null;
+                    break;
+                case 1:
+                    pipingInput.StochasticSoilModel = available.First();
+                    break;
             }
             SyncStochasticSoilProfileWithStochasticSoilModel(pipingInput);
         }

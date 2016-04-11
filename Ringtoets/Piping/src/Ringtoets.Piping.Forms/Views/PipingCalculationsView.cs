@@ -496,14 +496,10 @@ namespace Ringtoets.Piping.Forms.Views
 
         private StochasticSoilProfile[] GetPipingStochasticSoilProfilesFromStochasticSoilModels()
         {
-            if (pipingFailureMechanism != null)
-            {
-                return pipingFailureMechanism.StochasticSoilModels
-                                             .SelectMany(ssm => ssm.StochasticSoilProfiles)
-                                             .Distinct()
-                                             .ToArray();
-            }
-            return null;
+            return pipingFailureMechanism != null ? pipingFailureMechanism.StochasticSoilModels
+                                                                          .SelectMany(ssm => ssm.StochasticSoilProfiles)
+                                                                          .Distinct()
+                                                                          .ToArray() : null;
         }
 
         #endregion

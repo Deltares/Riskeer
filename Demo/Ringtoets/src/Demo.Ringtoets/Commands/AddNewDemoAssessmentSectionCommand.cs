@@ -5,14 +5,11 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Utils.IO;
-
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
@@ -132,8 +129,9 @@ namespace Demo.Ringtoets.Commands
                 StandardDeviation = originalPhreaticLevelExit.StandardDeviation
             };
             calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
-            calculation.InputParameters.StochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(sm => sm.Name == "PK001_0001_Piping");
-            calculation.InputParameters.StochasticSoilProfile = calculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles.First(sp => sp.SoilProfile.Name == "W1-6_0_1D1");
+            var stochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(sm => sm.Name == "PK001_0001_Piping");
+            calculation.InputParameters.StochasticSoilModel = stochasticSoilModel;
+            calculation.InputParameters.StochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First(sp => sp.SoilProfile.Name == "W1-6_0_1D1");
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
 
             calculation.InputParameters.NotifyObservers();

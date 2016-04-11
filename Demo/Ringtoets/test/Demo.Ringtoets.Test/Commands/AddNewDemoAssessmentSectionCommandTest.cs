@@ -187,6 +187,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(37, inputParameters.BeddingAngle, 1e-3);
 
             Assert.AreEqual("PK001_0001", inputParameters.SurfaceLine.Name);
+            Assert.AreEqual("PK001_0001_Piping", inputParameters.StochasticSoilModel.Name);
             Assert.AreEqual("W1-6_0_1D1", inputParameters.StochasticSoilProfile.SoilProfile.Name);
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
             Assert.AreEqual(5.78, inputParameters.HydraulicBoundaryLocation.DesignWaterLevel, 1e-3);

@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Data
 
         public override string ToString()
         {
-            return SoilProfile == null ? "" : SoilProfile.ToString();
+            return SoilProfile == null ? string.Empty : SoilProfile.ToString();
         }
     }
 }
