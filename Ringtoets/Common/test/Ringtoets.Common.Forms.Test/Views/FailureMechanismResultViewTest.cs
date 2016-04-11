@@ -379,7 +379,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 get
                 {
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
                 }
             }
         }

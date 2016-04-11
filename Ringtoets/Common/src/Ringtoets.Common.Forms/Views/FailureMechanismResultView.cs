@@ -27,7 +27,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 
@@ -54,6 +53,8 @@ namespace Ringtoets.Common.Forms.Views
 
             failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
             failureMechanismSectionResultObserver = new RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
+
+            Load += OnLoad;
         }
 
         /// <summary>
@@ -71,6 +72,14 @@ namespace Ringtoets.Common.Forms.Views
 
                 failureMechanismObserver.Observable = failureMechanism;
                 failureMechanismSectionResultObserver.Observable = failureMechanism;
+            }
+        }
+
+        private void OnLoad(object sender, EventArgs e)
+        {
+            if (failureMechanismSectionResult != null && failureMechanismSectionResult.Any())
+            {
+                SetRowStyling();
             }
         }
 
