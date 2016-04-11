@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.TextEditor;
 using NUnit.Extensions.Forms;
@@ -10,6 +11,28 @@ namespace Core.Common.Controls.Test.TextEditor
     [TestFixture]
     public class RichTextBoxControlTest
     {
+        private static RichTextBox tempRichTextBox;
+        private const string text = "Test DEZE regel";
+
+        [SetUp]
+        public void SetUp()
+        {
+            tempRichTextBox = new RichTextBox
+            {
+                Text = text
+            };
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            if (tempRichTextBox != null)
+            {
+                tempRichTextBox.Dispose();
+                tempRichTextBox = null;
+            }
+        }
+
         [Test]
         public void Constructor_DefaultValues()
         {
@@ -131,23 +154,20 @@ namespace Core.Common.Controls.Test.TextEditor
                     eventCounter++;
                 };
 
-                var eventArgs = new EventArgs();
-
                 // Call
-                EventHelper.RaiseEvent(richTextBox, "TextChanged", eventArgs);
+                richTextBox.Text = "Test";
 
                 // Assert
                 Assert.AreEqual(1, eventCounter);
-                Assert.AreSame(eventArgs, sendEventArgs);
                 Assert.IsInstanceOf<RichTextBoxControl>(eventSender);
             }
         }
 
         [Test]
         [TestCase(Keys.B, true, false ,false)]
-        [TestCase(Keys.I, false, true ,false)]
-        [TestCase(Keys.U, false, false ,true)]
-        public void RichTextBoxControl_TextDoesNotHaveStyleOnStyleKeyDown_SetsStyleOnSelectedText(Keys key, bool bold, bool italic, bool underline)
+        [TestCase(Keys.I, false, true, false)]
+        [TestCase(Keys.U, false, false, true)]
+        public void RichTextBoxControl_TextDoesNotHaveStyleOnStyleKeyDown_SelectionFontStyleApplied(Keys key, bool bold, bool italic, bool underline)
         {
             // Setup
             using (var form = new Form())
@@ -157,7 +177,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 form.Show();
 
                 var richTextBox = (RichTextBox)new ControlTester("richTextBox").TheObject;
-                richTextBox.Text = "Test deze regel";
+                richTextBox.AppendText(text);
 
                 richTextBox.SelectionStart = 5;
                 richTextBox.SelectionLength = 4;
@@ -166,6 +186,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 Assert.False(richTextBox.SelectionFont.Bold);
                 Assert.False(richTextBox.SelectionFont.Italic);
                 Assert.False(richTextBox.SelectionFont.Underline);
+                Assert.AreEqual(GetValidRtfString(text), richTextBox.Rtf);
 
                 // Call
                 EventHelper.RaiseEvent(richTextBox, "KeyDown", new KeyEventArgs(key | Keys.Control));
@@ -174,6 +195,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 Assert.AreEqual(bold, richTextBox.SelectionFont.Bold);
                 Assert.AreEqual(italic, richTextBox.SelectionFont.Italic);
                 Assert.AreEqual(underline, richTextBox.SelectionFont.Underline);
+                Assert.AreEqual(GetValidRtfString(5, 4, bold, italic, underline), richTextBox.Rtf);
             }
         }
 
@@ -191,7 +213,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 form.Show();
 
                 var richTextBox = (RichTextBox)new ControlTester("richTextBox").TheObject;
-                richTextBox.Text = "Test deze regel";
+                richTextBox.AppendText(text);
 
                 richTextBox.SelectionStart = 5;
                 richTextBox.SelectionLength = 4;
@@ -202,6 +224,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 Assert.AreEqual(bold, richTextBox.SelectionFont.Bold);
                 Assert.AreEqual(italic, richTextBox.SelectionFont.Italic);
                 Assert.AreEqual(underline, richTextBox.SelectionFont.Underline);
+                Assert.AreEqual(GetValidRtfString(5, 4, bold, italic, underline), richTextBox.Rtf);
 
                 // Call
                 EventHelper.RaiseEvent(richTextBox, "KeyDown", new KeyEventArgs(key | Keys.Control));
@@ -210,6 +233,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 Assert.IsFalse(richTextBox.SelectionFont.Bold);
                 Assert.IsFalse(richTextBox.SelectionFont.Italic);
                 Assert.IsFalse(richTextBox.SelectionFont.Underline);
+                Assert.AreEqual(GetValidRtfString(5, 4, bold, italic, underline), richTextBox.Rtf);
             }
         }
 
@@ -228,10 +252,13 @@ namespace Core.Common.Controls.Test.TextEditor
                 form.Show();
 
                 var richTextBox = (RichTextBox)new ControlTester("richTextBox").TheObject;
-                richTextBox.Text = "Test deze regel";
+                richTextBox.AppendText(text);
 
                 richTextBox.SelectionStart = 5;
                 richTextBox.SelectionLength = 4;
+
+                // Precondition
+                Assert.AreEqual(GetValidRtfString(text), richTextBox.Rtf);
 
                 // Call
                 foreach (var key in keys)
@@ -243,17 +270,158 @@ namespace Core.Common.Controls.Test.TextEditor
                 Assert.AreEqual(underline, richTextBox.SelectionFont.Underline);
                 Assert.AreEqual(bold, richTextBox.SelectionFont.Bold);
                 Assert.AreEqual(italic, richTextBox.SelectionFont.Italic);
+                Assert.AreEqual(GetValidRtfString(5, 4, bold, italic, underline), richTextBox.Rtf);
+            }
+        }
+
+        [Test]
+        [TestCase(Keys.B, true, false, false)]
+        [TestCase(Keys.I, false, true, false)]
+        [TestCase(Keys.U, false, false, true)]
+        public void RichTextBoxControl_SetStyleBeforeAddingText_AddedTextHasStyle(Keys key, bool bold, bool italic, bool underline)
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new RichTextBoxControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var richTextBox = (RichTextBox)new ControlTester("richTextBox").TheObject;
+
+                EventHelper.RaiseEvent(richTextBox, "KeyDown", new KeyEventArgs(key | Keys.Control));
+
+                // Call
+                richTextBox.AppendText(text);
+
+                richTextBox.SelectionStart = 0;
+                richTextBox.SelectionLength = 4;
+
+                // Assert
+                Assert.AreEqual(bold, richTextBox.SelectionFont.Bold);
+                Assert.AreEqual(italic, richTextBox.SelectionFont.Italic);
+                Assert.AreEqual(underline, richTextBox.SelectionFont.Underline);
+            }
+        }
+
+        [Test]
+        [TestCase(Keys.B, true, false, false)]
+        [TestCase(Keys.I, false, true, false)]
+        [TestCase(Keys.U, false, false, true)]
+        public void RichTextBoxControl_AddCharachterSetStyleAddCharacter_FirstCharacterNoStyleSecondCharacterStyleApplied(Keys key, bool bold, bool italic, bool underline)
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new RichTextBoxControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var richTextBox = (RichTextBox) new ControlTester("richTextBox").TheObject;
+
+                richTextBox.AppendText("A");
+
+                EventHelper.RaiseEvent(richTextBox, "KeyDown", new KeyEventArgs(key | Keys.Control));
+
+                // Call
+                richTextBox.AppendText("B");
+
+                richTextBox.SelectionStart = 0;
+                richTextBox.SelectionLength = 1;
+
+                // Assert
+                Assert.IsFalse(richTextBox.SelectionFont.Bold);
+                Assert.IsFalse(richTextBox.SelectionFont.Italic);
+                Assert.IsFalse(richTextBox.SelectionFont.Underline);
+
+                richTextBox.SelectionStart = 1;
+
+                Assert.AreEqual(bold, richTextBox.SelectionFont.Bold);
+                Assert.AreEqual(italic, richTextBox.SelectionFont.Italic);
+                Assert.AreEqual(underline, richTextBox.SelectionFont.Underline);
+            }
+        }
+
+        [Test]
+        [TestCase(Keys.B, true, false, false)]
+        [TestCase(Keys.I, false, true, false)]
+        [TestCase(Keys.U, false, false, true)]
+        public void RichTextBoxControl_AddCharachterSetStyleAddCharacterRemoveAllCharachtersAndAddAgain_FirstCharacterNoStyleSecondCharacterStyleAppliedAfterRemoveNoStyleApplied(Keys key, bool bold, bool italic, bool underline)
+        {
+            // Setup
+            using (var form = new Form())
+            {
+                var control = new RichTextBoxControl();
+                form.Controls.Add(control);
+                form.Show();
+
+                var richTextBox = (RichTextBox)new ControlTester("richTextBox").TheObject;
+
+                richTextBox.AppendText("A");
+
+                EventHelper.RaiseEvent(richTextBox, "KeyDown", new KeyEventArgs(key | Keys.Control));
+
+                richTextBox.AppendText("B");
+
+                richTextBox.SelectionStart = 0;
+                richTextBox.SelectionLength = 1;
+
+                // Precondition
+                Assert.IsFalse(richTextBox.SelectionFont.Bold);
+                Assert.IsFalse(richTextBox.SelectionFont.Italic);
+                Assert.IsFalse(richTextBox.SelectionFont.Underline);
+
+                richTextBox.SelectionStart = 1;
+
+                Assert.AreEqual(bold, richTextBox.SelectionFont.Bold);
+                Assert.AreEqual(italic, richTextBox.SelectionFont.Italic);
+                Assert.AreEqual(underline, richTextBox.SelectionFont.Underline);
+
+                // Call
+                richTextBox.Text = string.Empty;
+                richTextBox.AppendText("C");
+
+                richTextBox.SelectionStart = 0;
+
+                // Assert
+                Assert.IsFalse(richTextBox.SelectionFont.Bold);
+                Assert.IsFalse(richTextBox.SelectionFont.Italic);
+                Assert.IsFalse(richTextBox.SelectionFont.Underline);
             }
         }
 
         private static string GetValidRtfString(string value)
         {
-            RichTextBox richTextBox = new RichTextBox
-            {
-                Text = value
-            };
+            tempRichTextBox.Text = value;
 
-            return richTextBox.Rtf;
+            return tempRichTextBox.Rtf;
+        }
+
+        private static string GetValidRtfString(int selectionStart, int selectionLength, bool bold, bool italic, bool underline)
+        {
+            tempRichTextBox.SelectionStart = selectionStart;
+            tempRichTextBox.SelectionLength = selectionLength;
+
+            FontStyle newStyle = tempRichTextBox.SelectionFont.Style;
+
+            if (bold)
+            {
+                newStyle = newStyle ^ FontStyle.Bold;
+            }
+
+            if (italic)
+            {
+                newStyle = newStyle ^ FontStyle.Italic;
+            }
+
+            if (underline)
+            {
+                newStyle = newStyle ^ FontStyle.Underline;
+            }
+
+            tempRichTextBox.SelectionFont = new Font(tempRichTextBox.SelectionFont, newStyle);
+
+            return tempRichTextBox.Rtf;
         }
     }
 }

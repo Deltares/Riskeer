@@ -174,6 +174,16 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap EditDocumentIcon {
+            get {
+                object obj = ResourceManager.GetObject("EditDocumentIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invoer.
         /// </summary>
         public static string FailureMechanism_Inputs_DisplayName {

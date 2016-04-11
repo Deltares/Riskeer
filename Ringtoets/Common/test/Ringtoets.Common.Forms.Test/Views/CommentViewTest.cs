@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 form.Controls.Add(view);
                 form.Show();
 
-                var richTextBoxControl = (RichTextBoxControl)new ControlTester("RichTextBoxControl").TheObject;
+                var richTextBoxControl = (RichTextBoxControl)new ControlTester("richTextBoxControl").TheObject;
 
                 var mocks = new MockRepository();
                 var data = mocks.Stub<IComment>();
@@ -126,9 +126,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Precondition
                 Assert.AreEqual(GetValidRtfString(""), data.Comments);
 
-                richTextBoxControl.Rtf = validRtfString;
-
                 // Call
+                richTextBoxControl.Rtf = validRtfString;
                 EventHelper.RaiseEvent(richTextBoxControl, "TextBoxValueChanged", EventArgs.Empty);
 
                 // Assert

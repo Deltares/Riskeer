@@ -21,7 +21,6 @@
 
 using System;
 using System.Windows.Forms;
-using Core.Common.Controls.TextEditor;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -34,7 +33,6 @@ namespace Ringtoets.Common.Forms.Views
     public partial class CommentView : UserControl, IView
     {
         private IComment data;
-        private RichTextBoxControl richTextEditor;
 
         /// <summary>
         /// Creates a new instance of <see cref="CommentView"/>.
@@ -63,25 +61,19 @@ namespace Ringtoets.Common.Forms.Views
 
                 if (data != null)
                 {
-                    richTextEditor.Rtf = data.Comments;
+                    richTextBoxControl.Rtf = data.Comments;
                 }
             }
         }
 
         private void InitializeRichTextEditor()
         {
-            richTextEditor = new RichTextBoxControl
-            {
-                Dock = DockStyle.Fill
-            };
-            Controls.Add(richTextEditor);
-
-            richTextEditor.TextBoxValueChanged += OnTextBoxValueChanged;
+            richTextBoxControl.TextBoxValueChanged += OnTextBoxValueChanged;
         }
 
         private void OnTextBoxValueChanged(object sender, EventArgs eventArgs)
         {
-            data.Comments = richTextEditor.Rtf;
+            data.Comments = richTextBoxControl.Rtf;
         }
     }
 }

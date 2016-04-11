@@ -52,7 +52,8 @@ namespace Ringtoets.Piping.Service
         }
 
         /// <summary>
-        /// Sets the <paramref name="pipingInput.StochasticSoilProfile"/> to the corresponding <paramref name="pipingInput.StochasticSoilModel"/>:<list type="bullet">
+        /// Sets the <paramref name="pipingInput.StochasticSoilProfile"/> to the corresponding <paramref name="pipingInput.StochasticSoilModel"/>:
+        /// <list type="bullet">
         /// <item><c>null</c> if no <paramref name="pipingInput.StochasticSoilModel"/> is set.</item>
         /// <item>The first element of <paramref name="pipingInput.StochasticSoilModel.StochasticSoilProfiles"/> when it is the only element.</item>
         /// </list>

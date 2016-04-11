@@ -61,15 +61,6 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opmerkingen.
-        /// </summary>
-        public static string AssessmentSectionComment_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionComment_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Vak &apos;{0}&apos; sluit niet aan op de al gedefinieerde vakken van het faalmechanisme..
         /// </summary>
         public static string BaseFailureMechanism_AddSection_Section_0_must_connect_to_existing_sections {

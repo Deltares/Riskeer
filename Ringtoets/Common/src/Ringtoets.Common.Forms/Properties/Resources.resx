@@ -232,4 +232,7 @@
   <data name="DataGridViewCellValidating_Text_may_not_be_empty" xml:space="preserve">
     <value>De tekst mag niet leeg zijn.</value>
   </data>
+  <data name="EditDocumentIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blue-document--pencil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

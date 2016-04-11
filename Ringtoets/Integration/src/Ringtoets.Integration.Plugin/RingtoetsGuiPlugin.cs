@@ -166,9 +166,9 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<CommentContext<IComment>, IComment, CommentView>
             {
-                GetViewName = (v, o) => RingtoetsCommonDataResources.AssessmentSectionComment_DisplayName,
+                GetViewName = (v, o) => Resources.Comment_DisplayName,
                 GetViewData = context => context.CommentContainer,
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = RingtoetsCommonFormsResources.EditDocumentIcon,
                 CloseForData = CloseCommentViewForData,
                 AfterCreate = (view, context) => view.AssessmentSection = context.AssessmentSection
             };
@@ -285,8 +285,8 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<CommentContext<IComment>>
             {
-                Text = comment => RingtoetsCommonDataResources.AssessmentSectionComment_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Text = comment => Resources.Comment_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.EditDocumentIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()

@@ -105,22 +105,19 @@ namespace Core.Common.Controls.TextEditor
         {
             if (e.Modifiers == Keys.Control)
             {
-                Font existingFont = richTextBox.SelectionFont;
-
-                switch (e.KeyCode)
-                {
+                switch (e.KeyCode) {
                     case Keys.B:
                         e.Handled = true;
-                        SetStyle(FontStyle.Bold, !existingFont.Bold);
+                        SetStyle(FontStyle.Bold);
                         break;
                     case Keys.I:
                         e.SuppressKeyPress = true;
                         e.Handled = true;
-                        SetStyle(FontStyle.Italic, !existingFont.Italic);
+                        SetStyle(FontStyle.Italic);
                         break;
                     case Keys.U:
                         e.Handled = true;
-                        SetStyle(FontStyle.Underline, !existingFont.Underline);
+                        SetStyle(FontStyle.Underline);
                         break;
                 }
             }
@@ -130,42 +127,15 @@ namespace Core.Common.Controls.TextEditor
 
         #region Fontstyle
 
-        private void SetStyle(FontStyle fontStyle, bool setStyle = false)
+        private void SetStyle(FontStyle newFontStyle)
         {
-            int txtStartPosition = richTextBox.SelectionStart;
-            int selectionLength = richTextBox.SelectionLength;
-            if (selectionLength > 0)
-            {
-                using (RichTextBox txtTemp = new RichTextBox())
-                {
-                    txtTemp.Rtf = richTextBox.SelectedRtf;
-                    for (int i = 0; i < selectionLength; ++i)
-                    {
-                        txtTemp.Select(i, 1);
-                        txtTemp.SelectionFont = RenderFont(txtTemp.SelectionFont, fontStyle, setStyle);
-                    }
-
-                    txtTemp.Select(0, selectionLength);
-                    richTextBox.SelectedRtf = txtTemp.SelectedRtf;
-                    richTextBox.Select(txtStartPosition, selectionLength);
-                }
-            }
+            richTextBox.SelectionFont = CreateFontWithToggledStyle(richTextBox.SelectionFont, newFontStyle);
         }
 
-        private Font RenderFont(Font originalFont, FontStyle fontStyle, bool setStyle)
+        private Font CreateFontWithToggledStyle(Font originalFont, FontStyle newFontStyle)
         {
-            FontStyle newStyle;
-
-            if (originalFont != null && setStyle)
-            {
-                newStyle = originalFont.Style | fontStyle;
-            }
-            else
-            {
-                newStyle = originalFont.Style & ~fontStyle;
-            }
-
-            return new Font(originalFont.FontFamily.Name, originalFont.Size, newStyle);
+            FontStyle newStyle = originalFont.Style ^ newFontStyle;
+            return new Font(originalFont, newStyle);
         }
 
         #endregion

@@ -169,4 +169,7 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="RingtoetsGuiPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_failed_0_" xml:space="preserve">
     <value>Berekeningen konden niet worden gestart. {0}</value>
   </data>
+  <data name="Comment_DisplayName" xml:space="preserve">
+    <value>Opmerkingen</value>
+  </data>
 </root>

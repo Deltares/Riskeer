@@ -114,7 +114,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var image = info.Image(context);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.EditDocumentIcon, image);
 
                 mocks.VerifyAll();
             }
@@ -126,16 +126,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             using (var plugin = new RingtoetsGuiPlugin())
             {
-                var gui = mocks.StrictMock<IGui>();
                 var treeViewControl = mocks.StrictMock<TreeViewControl>();
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
+                var gui = mocks.StrictMock<IGui>();
                 gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
-                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
                 var info = GetInfo(plugin);
 

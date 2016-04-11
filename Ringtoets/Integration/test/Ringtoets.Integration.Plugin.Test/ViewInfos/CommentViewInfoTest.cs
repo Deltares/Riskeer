@@ -111,16 +111,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var image = info.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.EditDocumentIcon, image);
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var viewMock = mocks.StrictMock<CommentView>();
             var commentMock = mocks.Stub<IComment>();
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var viewMock = mocks.StrictMock<CommentView>();
 
             viewMock.Expect(vm => vm.Data).Return(commentMock);
             viewMock.Expect(vm => vm.AssessmentSection).Return(assessmentSectionMock);
@@ -138,10 +138,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var viewMock = mocks.StrictMock<CommentView>();
             var commentMock = mocks.Stub<IComment>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var assessmentSectionMock2 = mocks.StrictMock<IAssessmentSection>();
+            var viewMock = mocks.StrictMock<CommentView>();
 
             viewMock.Expect(vm => vm.Data).Return(commentMock);
             viewMock.Expect(vm => vm.AssessmentSection).Return(assessmentSectionMock2);
@@ -164,8 +164,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-            var viewMock = mocks.StrictMock<CommentView>();
             var calculationContextMock = mocks.StrictMock<PipingCalculationContext>(calculation, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
+            var viewMock = mocks.StrictMock<CommentView>();
 
             viewMock.Expect(vm => vm.Data).Return(calculationContextMock.WrappedData);
 
@@ -188,9 +188,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-            var viewMock = mocks.StrictMock<CommentView>();
             var calculationContextMock = mocks.StrictMock<PipingCalculationContext>(calculation, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
             var calculationContextMock2 = mocks.StrictMock<PipingCalculationContext>(calculation2, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
+            var viewMock = mocks.StrictMock<CommentView>();
 
             viewMock.Expect(vm => vm.Data).Return(calculationContextMock2.WrappedData);
             viewMock.Expect(vm => vm.AssessmentSection).Return(assessmentSectionMock);

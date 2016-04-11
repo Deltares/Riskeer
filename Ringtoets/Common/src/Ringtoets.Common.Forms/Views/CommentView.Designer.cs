@@ -28,10 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.richTextBoxControl = new Core.Common.Controls.TextEditor.RichTextBoxControl();
+            this.SuspendLayout();
+            // 
+            // richTextBoxControl
+            // 
+            this.richTextBoxControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxControl.Location = new System.Drawing.Point(0, 0);
+            this.richTextBoxControl.Name = "richTextBoxControl";
+            this.richTextBoxControl.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 Microsoft S" +
+    "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17\\par\r\n}\r\n";
+            this.richTextBoxControl.Size = new System.Drawing.Size(150, 150);
+            this.richTextBoxControl.TabIndex = 0;
+            // 
+            // CommentView
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.richTextBoxControl);
+            this.Name = "CommentView";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private Core.Common.Controls.TextEditor.RichTextBoxControl richTextBoxControl;
     }
 }
