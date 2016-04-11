@@ -215,8 +215,8 @@ namespace Core.Components.DotSpatial.Forms
                     break;
                 default:
                     map.Cursor = map.IsBusy
-                        ? Cursors.SizeNWSE
-                        : defaultCursor;
+                                     ? Cursors.SizeNWSE
+                                     : defaultCursor;
                     break;
             }
         }

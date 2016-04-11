@@ -41,13 +41,14 @@ namespace Core.Components.DotSpatial.MapFunctions
     /// <see cref="OnMouseDown"/>.</item>
     /// </list>
     /// </remarks>
-    public class MapFunctionSelectionZoom : MapFunction
+    public class MapFunctionSelectionZoom : MapFunctionZoom
     {
         private readonly Pen selectionPen;
         private Point currentPoint;
         private Coordinate geoStartPoint;
         private bool isDragging;
         private Point startPoint = Point.Empty;
+        private bool mouseButtonMiddleDown;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapFunctionSelectionZoom"/>.
@@ -59,7 +60,7 @@ namespace Core.Components.DotSpatial.MapFunctions
             {
                 DashStyle = DashStyle.Dash
             };
-            YieldStyle = YieldStyles.LeftButton | YieldStyles.RightButton;
+            YieldStyle = YieldStyles.LeftButton | YieldStyles.RightButton | YieldStyles.Scroll;
         }
 
         protected override void OnDraw(MapDrawArgs e)
@@ -77,6 +78,10 @@ namespace Core.Components.DotSpatial.MapFunctions
 
         protected override void OnMouseDown(GeoMouseArgs e)
         {
+            if (e.Button == MouseButtons.Middle)
+            {
+                mouseButtonMiddleDown = true;
+            }
             if (e.Button == MouseButtons.Left)
             {
                 startPoint = e.Location;
@@ -99,11 +104,19 @@ namespace Core.Components.DotSpatial.MapFunctions
                 currentPoint = e.Location;
                 Map.Invalidate(new Rectangle(x, y, mx - x, my - y));
             }
+            if (mouseButtonMiddleDown)
+            {
+                return;
+            }
             base.OnMouseMove(e);
         }
 
         protected override void OnMouseUp(GeoMouseArgs e)
         {
+            if (e.Button == MouseButtons.Middle)
+            {
+                mouseButtonMiddleDown = false;
+            }
             if (!(e.Map.IsZoomedToMaxExtent && e.Button == MouseButtons.Right))
             {
                 e.Map.IsZoomedToMaxExtent = false;

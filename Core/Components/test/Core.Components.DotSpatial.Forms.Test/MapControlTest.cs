@@ -346,32 +346,6 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
-        [RequiresSTA]
-        [TestCase(MouseButtons.Right)]
-        [TestCase(MouseButtons.Middle)]
-        public void SelectionZoom_OtherThanMouseLeftDownAndMapBusy_SizeNWSECursorSet(MouseButtons mouseButton)
-        {
-            using (var form = new Form())
-            {
-                // Setup
-                var mapControl = new MapControl();
-                form.Controls.Add(mapControl);
-                form.Show();
-
-                var map = (Map) new ControlTester("Map").TheObject;
-                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
-
-                map.IsBusy = true;
-                map.Cursor = Cursors.WaitCursor;
-
-                // Call
-                EventHelper.RaiseEvent(mapFunctionSelectionZoom, "MouseDown", new GeoMouseArgs(new MouseEventArgs(mouseButton, 1, 2, 3, 4), map));
-
-                // Assert
-                Assert.AreEqual(Cursors.SizeNWSE, map.Cursor);
-            }
-        }
-
         [Test]
         [RequiresSTA]
         public void SelectionZoom_Activated_DefaultCursorSet()
@@ -594,6 +568,32 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsTrue(mapFunctionPan.Enabled);
                 Assert.IsFalse(mapFunctionSelectionZoom.Enabled);
                 Assert.AreEqual(FunctionMode.Pan, map.FunctionMode);
+            }
+        }
+
+        [RequiresSTA]
+        [TestCase(MouseButtons.Right)]
+        [TestCase(MouseButtons.Middle)]
+        public void SelectionZoom_OtherThanMouseLeftDownAndMapBusy_SizeNWSECursorSet(MouseButtons mouseButton)
+        {
+            using (var form = new Form())
+            {
+                // Setup
+                var mapControl = new MapControl();
+                form.Controls.Add(mapControl);
+                form.Show();
+
+                var map = (Map) new ControlTester("Map").TheObject;
+                var mapFunctionSelectionZoom = map.MapFunctions.OfType<MapFunctionSelectionZoom>().First();
+
+                map.IsBusy = true;
+                map.Cursor = Cursors.WaitCursor;
+
+                // Call
+                EventHelper.RaiseEvent(mapFunctionSelectionZoom, "MouseDown", new GeoMouseArgs(new MouseEventArgs(mouseButton, 1, 2, 3, 4), map));
+
+                // Assert
+                Assert.AreEqual(Cursors.SizeNWSE, map.Cursor);
             }
         }
 
