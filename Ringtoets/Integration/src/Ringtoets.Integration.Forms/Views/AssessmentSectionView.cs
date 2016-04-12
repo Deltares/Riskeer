@@ -19,13 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -93,7 +91,7 @@ namespace Ringtoets.Integration.Forms.Views
         private void SetDataToMap()
         {
             mapControl.Data.Name = Resources.AssessmentSectionMap_DisplayName;
-            
+
             if (data != null)
             {
                 // Bottommost layer
@@ -103,7 +101,6 @@ namespace Ringtoets.Integration.Forms.Views
             }
 
             mapControl.Data.NotifyObservers();
-
         }
 
         private MapData AddOrUpdateMapData(MapData oldMapData, MapData newMapData)

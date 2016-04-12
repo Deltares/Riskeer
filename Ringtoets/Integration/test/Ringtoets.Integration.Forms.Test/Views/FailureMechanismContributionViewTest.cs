@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Windows.Forms;
 using Core.Common.Base;
 using NUnit.Extensions.Forms;
@@ -7,7 +28,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 
@@ -16,10 +36,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class FailureMechanismContributionViewTest : NUnitFormTest
     {
-        private const string normInputTextBoxName = "normInput";
-        private const string dataGridViewControlName = "probabilityDistributionGrid";
-        private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
-
         private Form testForm;
 
         [SetUp]
@@ -231,7 +247,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ShowFormWithView(view);
 
                 // Then
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
                 DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
                 DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[2];
@@ -269,11 +285,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ShowFormWithView(view);
 
                 // Then
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
                 DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
                 DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[2];
-                Assert.AreEqual("1/#,#" , probabilitySpaceCell.InheritedStyle.Format);
+                Assert.AreEqual("1/#,#", probabilitySpaceCell.InheritedStyle.Format);
 
                 string expectedTextValue = new FailureMechanismContributionItem(failureMechanismStub, norm)
                     .ProbabilitySpace.ToString(probabilitySpaceCell.InheritedStyle.Format, probabilitySpaceCell.InheritedStyle.FormatProvider);
@@ -300,7 +316,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 view.AssessmentSection = assessmentSection;
 
                 // Call
-                var compositionComboBox = (ComboBox)new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
+                var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
 
                 // Assert
                 Assert.AreEqual(expectedDisplayText, compositionComboBox.Text);
@@ -329,10 +345,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Precondition
                 Assert.AreNotEqual(assessmentSection.Composition, newComposition);
 
-                var compositionComboBox = (ComboBox)new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
+                var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
 
                 int dataGridInvalidatedCallCount = 0;
-                var contributionGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var contributionGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 contributionGridView.Invalidated += (sender, args) => dataGridInvalidatedCallCount++;
 
                 string messageBoxTitle = null, messageBoxText = null;
@@ -379,7 +395,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreNotEqual(assessmentSection.Composition, newComposition);
 
                 int dataGridInvalidatedCallCount = 0;
-                var contributionGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var contributionGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 contributionGridView.Invalidated += (sender, args) => dataGridInvalidatedCallCount++;
 
                 DialogBoxHandler = (name, wnd) =>
@@ -388,7 +404,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     messageBox.ClickOk();
                 };
 
-                var compositionComboBox = (ComboBox)new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
+                var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
 
                 // Call
                 compositionComboBox.SelectedValue = newComposition;
@@ -435,7 +451,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     messageBox.ClickOk();
                 };
 
-                var compositionComboBox = (ComboBox)new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
+                var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
 
                 // Call
                 compositionComboBox.SelectedValue = newComposition;
@@ -443,7 +459,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 mocks.VerifyAll(); // Expect UpdateObserver call
             }
-
         }
 
         [Test]
@@ -484,7 +499,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 var failureMechanisms = new[]
                 {
-                    failureMechanism1, 
+                    failureMechanism1,
                     failureMechanism2
                 };
 
@@ -507,7 +522,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreNotEqual(assessmentSection.Composition, newComposition);
 
                 int dataGridInvalidatedCallCount = 0;
-                var contributionGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var contributionGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 contributionGridView.Invalidated += (sender, args) => dataGridInvalidatedCallCount++;
 
                 DialogBoxHandler = (name, wnd) =>
@@ -516,7 +531,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     messageBox.ClickOk();
                 };
 
-                var compositionComboBox = (ComboBox)new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
+                var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
 
                 // Call
                 compositionComboBox.SelectedValue = newComposition;
@@ -583,10 +598,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreNotEqual(assessmentSection.Composition, newComposition);
 
                 int dataGridInvalidatedCallCount = 0;
-                var contributionGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var contributionGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 contributionGridView.Invalidated += (sender, args) => dataGridInvalidatedCallCount++;
 
-                var compositionComboBox = (ComboBox)new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
+                var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -604,6 +619,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 secondMockRepository.VerifyAll();
             }
         }
+
+        private const string normInputTextBoxName = "normInput";
+        private const string dataGridViewControlName = "probabilityDistributionGrid";
+        private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
 
         private void ShowFormWithView(FailureMechanismContributionView distributionView)
         {

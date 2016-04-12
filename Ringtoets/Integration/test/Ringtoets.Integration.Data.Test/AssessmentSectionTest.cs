@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -34,7 +55,8 @@ namespace Ringtoets.Integration.Data.Test
             var grassRevetmentName = "Dijken - Grasbekledingen";
             var duneErosionName = "Duinen - Erosie";
 
-            var names = new[] {
+            var names = new[]
+            {
                 pipingName,
                 grassErosionName,
                 macrostailityInwardName,
@@ -89,7 +111,6 @@ namespace Ringtoets.Integration.Data.Test
         {
             // Setup
             var section = new AssessmentSection(AssessmentSectionComposition.Dike);
-
             const string newValue = "new value";
 
             // Call
@@ -104,7 +125,6 @@ namespace Ringtoets.Integration.Data.Test
         {
             // Setup
             var section = new AssessmentSection(AssessmentSectionComposition.Dike);
-
             const string newValue = "new comment value";
 
             // Call
@@ -164,7 +184,7 @@ namespace Ringtoets.Integration.Data.Test
                 Assert.AreEqual(failureMechanisms[i].Name, contribution[i].Assessment);
                 Assert.AreEqual(failureMechanisms[i].Contribution, contribution[i].Contribution);
                 Assert.AreEqual(norm, contribution[i].Norm);
-                Assert.AreEqual((norm / contribution[i].Contribution) * 100, contribution[i].ProbabilitySpace);
+                Assert.AreEqual((norm/contribution[i].Contribution)*100, contribution[i].ProbabilitySpace);
             }
             Assert.AreEqual("Overig", contribution[10].Assessment);
             double expectedOtherContribution = composition == AssessmentSectionComposition.DikeAndDune ? 20.0 : 30.0;
@@ -182,18 +202,70 @@ namespace Ringtoets.Integration.Data.Test
         {
             // Setup
             var initialComposition = composition == AssessmentSectionComposition.Dike ?
-                                         AssessmentSectionComposition.Dune : 
+                                         AssessmentSectionComposition.Dune :
                                          AssessmentSectionComposition.Dike;
             var assessmentSection = new AssessmentSection(initialComposition);
 
             // Precondition
             Assert.AreNotEqual(assessmentSection.Composition, composition);
-            
+
             // Call
             assessmentSection.ChangeComposition(composition);
 
             // Assert
             AssertExpectedContributions(composition, assessmentSection);
+        }
+
+        [Test]
+        public void ReferenceLine_SetNewValue_GetNewValue()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var referenceLine = new ReferenceLine();
+
+            // Call
+            assessmentSection.ReferenceLine = referenceLine;
+
+            // Assert
+            Assert.AreSame(referenceLine, assessmentSection.ReferenceLine);
+        }
+
+        [Test]
+        public void ReferenceLine_SomeReferenceLine_GeneralPipingInputSectionLengthSet()
+        {
+            // Setup
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ReferenceLine referenceLine = new ReferenceLine();
+
+            Point2D[] somePointsCollection =
+            {
+                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble())
+            };
+            referenceLine.SetGeometry(somePointsCollection);
+
+            // Call
+            assessmentSection.ReferenceLine = referenceLine;
+
+            // Assert
+            Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.PipingFailureMechanism.SemiProbabilisticInput.SectionLength);
+        }
+
+        [Test]
+        public void ReferenceLine_Null_GeneralPipingInputSectionLengthNaN()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            // Call
+            assessmentSection.ReferenceLine = null;
+
+            // Assert
+            Assert.AreEqual(double.NaN, assessmentSection.PipingFailureMechanism.SemiProbabilisticInput.SectionLength);
         }
 
         private void AssertExpectedContributions(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
@@ -216,7 +288,7 @@ namespace Ringtoets.Integration.Data.Test
 
         private static double[] GetContributionsArray(AssessmentSectionComposition composition)
         {
-            double[] contributions;
+            double[] contributions = null;
             switch (composition)
             {
                 case AssessmentSectionComposition.Dike:
@@ -269,62 +341,9 @@ namespace Ringtoets.Integration.Data.Test
                     break;
                 default:
                     Assert.Fail("{0} does not have expectancy implemented!", composition);
-                    contributions = null;
                     break;
             }
             return contributions;
-        }
-
-        [Test]
-        public void ReferenceLine_SetNewValue_GetNewValue()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            
-            var referenceLine = new ReferenceLine();
-
-            // Call
-            assessmentSection.ReferenceLine = referenceLine;
-
-            // Assert
-            Assert.AreSame(referenceLine, assessmentSection.ReferenceLine);
-        }
-
-        [Test]
-        public void ReferenceLine_SomeReferenceLine_GeneralPipingInputSectionLengthSet()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ReferenceLine referenceLine = new ReferenceLine();
-
-            Point2D[] somePointsCollection =
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            };
-            referenceLine.SetGeometry(somePointsCollection);
-
-            // Call
-            assessmentSection.ReferenceLine = referenceLine;
-
-            // Assert
-            Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.PipingFailureMechanism.SemiProbabilisticInput.SectionLength);
-        }
-
-        [Test]
-        public void ReferenceLine_Null_GeneralPipingInputSectionLengthNaN()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            // Call
-            assessmentSection.ReferenceLine = null;
-
-            // Assert
-            Assert.AreEqual(double.NaN, assessmentSection.PipingFailureMechanism.SemiProbabilisticInput.SectionLength);
         }
     }
 }

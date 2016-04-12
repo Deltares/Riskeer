@@ -21,8 +21,6 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -65,11 +63,6 @@ namespace Application.Ringtoets.Storage.Converters
             return assessmentSection;
         }
 
-        private AssessmentSectionComposition GetAssessmentSectionComposition(short composition)
-        {
-            return (AssessmentSectionComposition)composition;
-        }
-
         /// <summary>
         /// Converts <paramref name="modelObject"/> to <paramref name="entity"/>.
         /// </summary>
@@ -91,7 +84,7 @@ namespace Application.Ringtoets.Storage.Converters
             }
             entity.AssessmentSectionEntityId = modelObject.StorageId;
             entity.Name = modelObject.Name;
-            entity.Composition = (short)modelObject.Composition;
+            entity.Composition = (short) modelObject.Composition;
             entity.Norm = modelObject.FailureMechanismContribution.Norm;
 
             if (modelObject.HydraulicBoundaryDatabase != null)
@@ -99,6 +92,11 @@ namespace Application.Ringtoets.Storage.Converters
                 entity.HydraulicDatabaseLocation = modelObject.HydraulicBoundaryDatabase.FilePath;
                 entity.HydraulicDatabaseVersion = modelObject.HydraulicBoundaryDatabase.Version;
             }
+        }
+
+        private AssessmentSectionComposition GetAssessmentSectionComposition(short composition)
+        {
+            return (AssessmentSectionComposition) composition;
         }
     }
 }

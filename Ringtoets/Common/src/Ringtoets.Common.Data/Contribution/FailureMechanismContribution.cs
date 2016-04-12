@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-
 using Core.Common.Base;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -96,7 +95,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// </summary>
         /// <param name="newFailureMechanisms">The new failure mechanisms.</param>
         /// <param name="otherContribution">The collective contribution for other failure mechanisms.</param>
-        /// <exception cref="System.ArgumentNullException">newFailureMechanisms</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="newFailureMechanisms"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item>any of the <paramref name="newFailureMechanisms"/> has a value for 
@@ -104,7 +103,6 @@ namespace Ringtoets.Common.Data.Contribution
         /// <item>the value of <paramref name="otherContribution"/> is not in interval [0,100]</item>
         /// </list>
         /// </exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="newFailureMechanisms"/> is <c>null</c>.</exception>
         public void UpdateContributions(IEnumerable<IFailureMechanism> newFailureMechanisms, double otherContribution)
         {
             if (newFailureMechanisms == null)

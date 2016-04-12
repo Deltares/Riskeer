@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -28,7 +29,6 @@ using Core.Common.Controls.Views;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -328,7 +328,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             public void ChangeComposition(AssessmentSectionComposition newComposition)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
     }

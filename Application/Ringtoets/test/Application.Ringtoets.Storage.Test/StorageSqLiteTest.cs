@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
@@ -91,7 +112,8 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             var expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': ", tempRingtoetsFile);
             var expectedInnerExceptionMessage = "An error occurred while executing the command definition. See the inner exception for details.";
-            var expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database\r\nno such table: ProjectEntity";
+            var expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database" + Environment.NewLine + 
+                "no such table: ProjectEntity";
 
             using (new FileDisposeHelper(tempRingtoetsFile))
             {

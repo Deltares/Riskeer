@@ -94,38 +94,6 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private void RemoveOnOpenProjectListener(IProjectOwner projectOwner)
-        {
-            if (projectOwner != null)
-            {
-                projectOwner.ProjectOpened -= VerifyHydraulicBoundaryDatabasePath;
-            }
-        }
-
-        private void AddOnOpenProjectListener(IProjectOwner projectOwner)
-        {
-            if (projectOwner != null)
-            {
-                projectOwner.ProjectOpened += VerifyHydraulicBoundaryDatabasePath;
-            }
-        }
-
-        private void VerifyHydraulicBoundaryDatabasePath(Project project)
-        {
-            var sectionsWithDatabase = project.Items.OfType<IAssessmentSection>().Where(i => i.HydraulicBoundaryDatabase != null);
-            foreach (IAssessmentSection section in sectionsWithDatabase)
-            {
-                string selectedFile = section.HydraulicBoundaryDatabase.FilePath;
-                var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(selectedFile);
-                if(validationProblem != null)
-                {
-                    log.WarnFormat(
-                        Resources.RingtoetsGuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_,
-                        validationProblem);
-                }
-            }
-        }
-
         /// <summary>
         /// Returns all <see cref="Core.Common.Gui.Plugin.PropertyInfo"/> instances provided for data of <see cref="RingtoetsGuiPlugin"/>.
         /// </summary>
@@ -290,6 +258,38 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
+        }
+
+        private void RemoveOnOpenProjectListener(IProjectOwner projectOwner)
+        {
+            if (projectOwner != null)
+            {
+                projectOwner.ProjectOpened -= VerifyHydraulicBoundaryDatabasePath;
+            }
+        }
+
+        private void AddOnOpenProjectListener(IProjectOwner projectOwner)
+        {
+            if (projectOwner != null)
+            {
+                projectOwner.ProjectOpened += VerifyHydraulicBoundaryDatabasePath;
+            }
+        }
+
+        private static void VerifyHydraulicBoundaryDatabasePath(Project project)
+        {
+            var sectionsWithDatabase = project.Items.OfType<IAssessmentSection>().Where(i => i.HydraulicBoundaryDatabase != null);
+            foreach (IAssessmentSection section in sectionsWithDatabase)
+            {
+                string selectedFile = section.HydraulicBoundaryDatabase.FilePath;
+                var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(selectedFile);
+                if (validationProblem != null)
+                {
+                    log.WarnFormat(
+                        Resources.RingtoetsGuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_,
+                        validationProblem);
+                }
+            }
         }
 
         #region FailureMechanismContributionContext ViewInfo

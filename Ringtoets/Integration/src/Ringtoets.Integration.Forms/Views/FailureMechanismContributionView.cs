@@ -22,16 +22,12 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
-
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
@@ -64,18 +60,6 @@ namespace Ringtoets.Integration.Forms.Views
             SubscribeEvents();
         }
 
-        public object Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                HandleNewDataSet((FailureMechanismContribution)value);
-            }
-        }
-
         /// <summary>
         /// Gets and sets the assessment section this view belongs to.
         /// </summary>
@@ -91,6 +75,18 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
+        public object Data
+        {
+            get
+            {
+                return data;
+            }
+            set
+            {
+                HandleNewDataSet((FailureMechanismContribution) value);
+            }
+        }
+
         public void UpdateObserver()
         {
             SetNormText();
@@ -100,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing"><c>true</c> if managed resources should be disposed; otherwise, <c>false</c>.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -305,9 +301,9 @@ namespace Ringtoets.Integration.Forms.Views
                                                MessageBoxButtons.OKCancel);
             if (dialogResult == DialogResult.OK)
             {
-                assessmentSection.ChangeComposition((AssessmentSectionComposition)assessmentSectionCompositionComboBox.SelectedValue);
+                assessmentSection.ChangeComposition((AssessmentSectionComposition) assessmentSectionCompositionComboBox.SelectedValue);
                 SetGridDataSource();
-                foreach (ICalculationItem calculation in assessmentSection.GetFailureMechanisms().SelectMany(failureMechanism => failureMechanism.CalculationItems)) 
+                foreach (ICalculationItem calculation in assessmentSection.GetFailureMechanisms().SelectMany(failureMechanism => failureMechanism.CalculationItems))
                 {
                     calculation.ClearOutput();
                     calculation.NotifyObservers();

@@ -1,16 +1,34 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Test.Contribution
 {
@@ -32,12 +50,9 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var random = new Random(21);
             var contribution = random.Next(1, 100);
             var norm = random.Next(1, int.MaxValue);
-            
+
             // Call
-            TestDelegate test = () =>
-            {
-                new FailureMechanismContribution(null, contribution, norm);
-            };
+            TestDelegate test = () => { new FailureMechanismContribution(null, contribution, norm); };
 
             // Assert
             const string expectedMessage = "Kan geen bijdrageoverzicht maken zonder faalmechanismen.";
@@ -71,13 +86,10 @@ namespace Ringtoets.Common.Data.Test.Contribution
         {
             // Setup
             var random = new Random(21);
-            var contribution = random.Next(1,100);
+            var contribution = random.Next(1, 100);
 
             // Call
-            TestDelegate test = () =>
-            {
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm);
-            };
+            TestDelegate test = () => { new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm); };
 
             // Assert
             const string expectedMessage = "De faalkansbijdrage kan alleen bepaald worden als de norm van het traject groter is dan 0.";
@@ -96,13 +108,10 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var norm = random.Next(1, int.MaxValue);
 
             // Call
-            TestDelegate test = () =>
-            {
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm);
-            };
+            TestDelegate test = () => { new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm); };
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Properties.Resources.Contribution_Value_should_be_in_interval_0_100);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.Contribution_Value_should_be_in_interval_0_100);
         }
 
         [Test]
@@ -276,16 +285,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
                 newOtherContribution
             };
             CollectionAssert.AreEqual(contributionValues, failureMechanismContribution.Distribution.Select(d => d.Contribution));
-
             CollectionAssert.AreEqual(Enumerable.Repeat(norm, 4), failureMechanismContribution.Distribution.Select(d => d.Norm));
-
             mocks.VerifyAll();
-        }
-
-        private void AssertFailureProbabilitySpace(double newOtherContribution, int norm, double probabilitySpace)
-        {
-            double expectedProbabilitySpace = (norm / newOtherContribution) * 100.0;
-            Assert.AreEqual(expectedProbabilitySpace, probabilitySpace);
         }
 
         [Test]
@@ -301,13 +302,22 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             mockRepository.ReplayAll();
 
-            var failureMechanismContribution = new FailureMechanismContribution(new[] { failureMechanism }, otherContribution, norm);
+            var failureMechanismContribution = new FailureMechanismContribution(new[]
+            {
+                failureMechanism
+            }, otherContribution, norm);
 
             // Call
             failureMechanismContribution.Norm = newNorm;
 
             // Assert
-            Assert.AreEqual(Enumerable.Repeat(newNorm,2) , failureMechanismContribution.Distribution.Select(d => d.Norm));
+            Assert.AreEqual(Enumerable.Repeat(newNorm, 2), failureMechanismContribution.Distribution.Select(d => d.Norm));
+        }
+
+        private void AssertFailureProbabilitySpace(double newOtherContribution, int norm, double probabilitySpace)
+        {
+            double expectedProbabilitySpace = (norm/newOtherContribution)*100.0;
+            Assert.AreEqual(expectedProbabilitySpace, probabilitySpace);
         }
     }
 }

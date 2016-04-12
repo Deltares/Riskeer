@@ -29,8 +29,6 @@ using Application.Ringtoets.Storage.Persistors;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -127,7 +125,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     }
                 },
                 HydraulicDatabaseVersion = hydraulicDatabaseVersion, HydraulicDatabaseLocation = hydraulicDatabasePath,
-                Composition = (short)composition,
+                Composition = (short) composition,
                 HydraulicLocationEntities = new List<HydraulicLocationEntity>
                 {
                     new HydraulicLocationEntity
@@ -188,7 +186,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 {
                     AssessmentSectionEntityId = 1, Name = "test1", Norm = 12,
                     HydraulicDatabaseVersion = "1.0", HydraulicDatabaseLocation = "temp/test",
-                    Composition = (short)AssessmentSectionComposition.Dune,
+                    Composition = (short) AssessmentSectionComposition.Dune,
                     HydraulicLocationEntities = new List<HydraulicLocationEntity>
                     {
                         new HydraulicLocationEntity
@@ -201,7 +199,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 {
                     AssessmentSectionEntityId = 2, Name = "test2", Norm = 22,
                     HydraulicDatabaseVersion = "2.0", HydraulicDatabaseLocation = "test",
-                    Composition = (short)AssessmentSectionComposition.Dike,
+                    Composition = (short) AssessmentSectionComposition.Dike,
                     HydraulicLocationEntities = new List<HydraulicLocationEntity>
                     {
                         new HydraulicLocationEntity
@@ -224,7 +222,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             {
                 Assert.AreEqual(parentNavigationPropertyList[i].AssessmentSectionEntityId, loadedModelsList[i].StorageId);
                 Assert.AreEqual(parentNavigationPropertyList[i].Name, loadedModelsList[i].Name);
-                Assert.AreEqual((AssessmentSectionComposition)parentNavigationPropertyList[i].Composition, loadedModelsList[i].Composition);
+                Assert.AreEqual((AssessmentSectionComposition) parentNavigationPropertyList[i].Composition, loadedModelsList[i].Composition);
                 Assert.AreEqual(parentNavigationPropertyList[i].Norm, loadedModelsList[i].FailureMechanismContribution.Norm);
                 Assert.AreEqual(parentNavigationPropertyList[i].HydraulicDatabaseVersion, loadedModelsList[i].HydraulicBoundaryDatabase.Version);
                 Assert.AreEqual(parentNavigationPropertyList[i].HydraulicDatabaseLocation, loadedModelsList[i].HydraulicBoundaryDatabase.FilePath);
@@ -316,7 +314,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(0, entity.AssessmentSectionEntityId);
             Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(norm, entity.Norm);
-            Assert.AreEqual((short)composition, entity.Composition);
+            Assert.AreEqual((short) composition, entity.Composition);
 
             mockRepository.VerifyAll();
         }
@@ -482,7 +480,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var entity = parentNavigationPropertyList[0];
             Assert.AreEqual(0, entity.AssessmentSectionEntityId);
             Assert.AreEqual(name, entity.Name);
-            Assert.AreEqual((short)composition, entity.Composition);
+            Assert.AreEqual((short) composition, entity.Composition);
             Assert.AreEqual(norm, entity.Norm);
 
             mockRepository.VerifyAll();
@@ -600,7 +598,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     AssessmentSectionEntityId = storageId,
                     Name = "old name",
                     Norm = 1,
-                    Composition = (short)AssessmentSectionComposition.Dune
+                    Composition = (short) AssessmentSectionComposition.Dune
                 }
             };
             AssessmentSection assessmentSection = new AssessmentSection(composition)
@@ -623,7 +621,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var entity = parentNavigationPropertyList[0];
             Assert.AreEqual(storageId, entity.AssessmentSectionEntityId);
             Assert.AreEqual(name, entity.Name);
-            Assert.AreEqual((short)composition, entity.Composition);
+            Assert.AreEqual((short) composition, entity.Composition);
             Assert.AreEqual(norm, entity.Norm);
 
             mockRepository.VerifyAll();
@@ -654,7 +652,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     AssessmentSectionEntityId = storageId,
                     Name = "Entity to update",
                     Norm = 1,
-                    Composition = (short)AssessmentSectionComposition.Dune
+                    Composition = (short) AssessmentSectionComposition.Dune
                 }
             };
 
@@ -680,7 +678,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.IsInstanceOf<AssessmentSectionEntity>(entity);
             Assert.AreEqual(storageId, entity.AssessmentSectionEntityId);
             Assert.AreEqual(name, entity.Name);
-            Assert.AreEqual((short)composition, entity.Composition);
+            Assert.AreEqual((short) composition, entity.Composition);
             Assert.AreEqual(norm, entity.Norm);
 
             mockRepository.VerifyAll();
