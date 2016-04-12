@@ -59,6 +59,7 @@
     <Compile Include="IPipingCalculationItemExtensions.cs" />
     <Compile Include="PipingCalculation.cs" />
     <Compile Include="PipingCalculationGroup.cs" />
+    <Compile Include="PipingCalculationScenario.cs" />
     <Compile Include="PipingFailureMechanism.cs" />
     <Compile Include="PipingInput.cs" />
     <Compile Include="PipingOutput.cs" />

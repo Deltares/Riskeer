@@ -59,6 +59,7 @@
     <Compile Include="GeneralPipingInputTest.cs" />
     <Compile Include="IPipingCalculationItemExtensionsTest.cs" />
     <Compile Include="PipingCalculationGroupTest.cs" />
+    <Compile Include="PipingCalculationScenarioTest.cs" />
     <Compile Include="PipingCalculationTest.cs" />
     <Compile Include="PipingFailureMechanismTest.cs" />
     <Compile Include="PipingInputTest.cs" />
