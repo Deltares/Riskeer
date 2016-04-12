@@ -229,7 +229,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>n.v.t</value>
   </data>
   <data name="FailureMechanismContributionView_ChangeComposition_Change_will_clear_calculation_output_accept_question" xml:space="preserve">
-    <value>Het veranderen van het traject type zorgt ervoor dat de uitvoer van alle berekeningen wordt gewist.
+    <value>U heeft een ander trajecttype geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>

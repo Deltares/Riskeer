@@ -366,7 +366,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual("Bevestigen", messageBoxTitle);
-                string expectedText = "Het veranderen van het traject type zorgt ervoor dat de uitvoer van alle berekeningen wordt gewist." + Environment.NewLine +
+                string expectedText = "U heeft een ander trajecttype geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden." + Environment.NewLine +
                                       Environment.NewLine +
                                       "Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedText, messageBoxText);
