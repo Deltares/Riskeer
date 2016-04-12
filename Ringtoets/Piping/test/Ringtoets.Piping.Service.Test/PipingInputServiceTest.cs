@@ -166,5 +166,25 @@ namespace Ringtoets.Piping.Service.Test
             // Assert
             Assert.IsNull(pipingInput.StochasticSoilProfile);
         }
+
+        [Test]
+        public void SyncStochasticSoilProfileWithStochasticSoilModel_SingleStochasticSoilProfileInSoilModelAlreadySet_StochasticSoilProfileDoesNotChange()
+        {
+            // Setup
+            var soilProfile = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1);
+
+            var soilModel = new StochasticSoilModel(1, "A", "B");
+            soilModel.StochasticSoilProfiles.Add(soilProfile);
+
+            var pipingInput = new PipingInput(new GeneralPipingInput());
+            pipingInput.StochasticSoilModel = soilModel;
+            pipingInput.StochasticSoilProfile = soilProfile;
+
+            // Call
+            PipingInputService.SyncStochasticSoilProfileWithStochasticSoilModel(pipingInput);
+
+            // Assert
+            Assert.AreEqual(soilProfile, pipingInput.StochasticSoilProfile);
+        }
     }
 }
