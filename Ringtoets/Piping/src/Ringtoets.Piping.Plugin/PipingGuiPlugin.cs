@@ -411,7 +411,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void AddCalculation(PipingFailureMechanism failureMechanism)
         {
-            var calculation = new PipingCalculation(failureMechanism.GeneralInput, failureMechanism.SemiProbabilisticInput)
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput, failureMechanism.SemiProbabilisticInput)
             {
                 Name = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
             };
@@ -615,7 +615,7 @@ namespace Ringtoets.Piping.Plugin
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation_ToolTip,
                 PipingFormsResources.PipingIcon, (o, args) =>
                 {
-                    var calculation = new PipingCalculation(nodeData.PipingFailureMechanism.GeneralInput, nodeData.PipingFailureMechanism.SemiProbabilisticInput)
+                    var calculation = new PipingCalculationScenario(nodeData.PipingFailureMechanism.GeneralInput, nodeData.PipingFailureMechanism.SemiProbabilisticInput)
                     {
                         Name = NamingHelper.GetUniqueName(group.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
                     };

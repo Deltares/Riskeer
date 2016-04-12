@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.Forms
             var nameBase = string.Format("{0} {1}", surfaceLine.Name, stochasticSoilProfile);
             var name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
 
-            return new PipingCalculation(generalInput, semiProbabilisticInput)
+            return new PipingCalculationScenario(generalInput, semiProbabilisticInput)
             {
                 Name = name,
                 InputParameters =

@@ -29,12 +29,12 @@ namespace Ringtoets.Piping.Data.TestUtil
 {
     public static class PipingCalculationFactory
     {
-        public static PipingCalculation CreateCalculationWithInvalidData()
+        public static PipingCalculationScenario CreateCalculationWithInvalidData()
         {
-            return new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            return new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
         }
 
-        public static PipingCalculation CreateCalculationWithValidInput()
+        public static PipingCalculationScenario CreateCalculationWithValidInput()
         {
             var bottom = 1.12;
             var top = 10.56;
@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             {
                 DesignWaterLevel = (RoundedDouble) 1.0
             };
-            return new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            return new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 InputParameters =
                 {

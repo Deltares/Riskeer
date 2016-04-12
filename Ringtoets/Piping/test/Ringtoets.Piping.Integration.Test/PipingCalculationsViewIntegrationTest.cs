@@ -51,14 +51,14 @@ namespace Ringtoets.Piping.Integration.Test
                 ImportSurfaceLines(assessmentSection);
 
                 // Setup some calculations
-                var pipingCalculation1 = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+                var pipingCalculation1 = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
                 {
                     InputParameters =
                     {
                         SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001")
                     }
                 };
-                var pipingCalculation2 = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+                var pipingCalculation2 = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
                 {
                     InputParameters =
                     {
@@ -104,14 +104,14 @@ namespace Ringtoets.Piping.Integration.Test
             }
         }
 
-        private const int nameColumnIndex = 0;
-        private const int stochasticSoilModelsColumnIndex = 1;
-        private const int stochasticSoilProfilesColumnIndex = 2;
-        private const int hydraulicBoundaryLocationsColumnIndex = 3;
-        private const int dampingFactorExitMeanColumnIndex = 4;
-        private const int phreaticLevelExitMeanColumnIndex = 5;
-        private const int entryPointLColumnIndex = 6;
-        private const int exitPointLColumnIndex = 7;
+        private const int nameColumnIndex = 2;
+        private const int stochasticSoilModelsColumnIndex = 3;
+        private const int stochasticSoilProfilesColumnIndex = 4;
+        private const int hydraulicBoundaryLocationsColumnIndex = 5;
+        private const int dampingFactorExitMeanColumnIndex = 6;
+        private const int phreaticLevelExitMeanColumnIndex = 7;
+        private const int entryPointLColumnIndex = 8;
+        private const int exitPointLColumnIndex = 9;
 
         private void ImportReferenceLine(AssessmentSection assessmentSection)
         {

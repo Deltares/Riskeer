@@ -170,6 +170,20 @@ namespace Ringtoets.Piping.Forms.Views
             dataGridView.CellValidating += DataGridViewCellValidating;
             dataGridView.DataError += DataGridViewDataError;
 
+            var relevantColumn = new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = "IsRelevant",
+                HeaderText = "In eindbeoordeling",
+                Name = "column_IsRelevant"
+            };
+
+            var contributionColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Contribution",
+                HeaderText = "Bijdrage",
+                Name = "column_Contribution"
+            };
+
             var nameColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Name",
@@ -238,6 +252,8 @@ namespace Ringtoets.Piping.Forms.Views
 
             dataGridView.AutoGenerateColumns = false;
             dataGridView.Columns.AddRange(
+                relevantColumn,
+                contributionColumn,
                 nameColumn,
                 stochasticSoilModelColumn,
                 stochasticSoilProfileColumn,
@@ -531,18 +547,44 @@ namespace Ringtoets.Piping.Forms.Views
 
         private class PipingCalculationRow
         {
-            private readonly PipingCalculation pipingCalculation;
+            private readonly PipingCalculationScenario pipingCalculation;
 
-            public PipingCalculationRow(PipingCalculation pipingCalculation)
+            public PipingCalculationRow(PipingCalculationScenario pipingCalculation)
             {
                 this.pipingCalculation = pipingCalculation;
             }
 
-            public PipingCalculation PipingCalculation
+            public PipingCalculationScenario PipingCalculation
             {
                 get
                 {
                     return pipingCalculation;
+                }
+            }
+
+            public bool IsRelevant
+            {
+                get
+                {
+                    return pipingCalculation.IsRelevant;
+                }
+                set
+                {
+                    pipingCalculation.IsRelevant = value;
+                    pipingCalculation.NotifyObservers();
+                }
+            }
+
+            public RoundedDouble Contribution
+            {
+                get
+                {
+                    return pipingCalculation.Contribution;
+                }
+                set
+                {
+                    pipingCalculation.Contribution = value;
+                    pipingCalculation.NotifyObservers();
                 }
             }
 

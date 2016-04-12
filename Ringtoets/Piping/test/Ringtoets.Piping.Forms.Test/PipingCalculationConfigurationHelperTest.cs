@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Forms.Test
     [TestFixture]
     public class PipingCalculationConfigurationHelperTest
     {
-        private static void CompareGeneralInputToInput(GeneralPipingInput generalInput, PipingCalculation calculationInput)
+        private static void CompareGeneralInputToInput(GeneralPipingInput generalInput, PipingCalculationScenario calculationInput)
         {
             Assert.AreEqual(generalInput.BeddingAngle, calculationInput.InputParameters.BeddingAngle);
             Assert.AreEqual(generalInput.CriticalHeaveGradient, calculationInput.InputParameters.CriticalHeaveGradient);
@@ -521,13 +521,13 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.NotNull(calculationGroup);
 
             Assert.AreEqual(2, calculationGroup.Children.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup.Children, typeof(PipingCalculation));
+            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup.Children, typeof(PipingCalculationScenario));
 
-            var calculationInput1 = ((PipingCalculation) calculationGroup.Children[0]).InputParameters;
+            var calculationInput1 = ((PipingCalculationScenario)calculationGroup.Children[0]).InputParameters;
             Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput1.SurfaceLine);
 
-            var calculationInput2 = ((PipingCalculation) calculationGroup.Children[1]).InputParameters;
+            var calculationInput2 = ((PipingCalculationScenario)calculationGroup.Children[1]).InputParameters;
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput2.SurfaceLine);
         }
@@ -740,13 +740,13 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.NotNull(calculationGroup);
 
             Assert.AreEqual(2, calculationGroup.Children.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup.Children, typeof(PipingCalculation));
+            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup.Children, typeof(PipingCalculationScenario));
 
-            var calculationInput1 = ((PipingCalculation) calculationGroup.Children[0]).InputParameters;
+            var calculationInput1 = ((PipingCalculationScenario)calculationGroup.Children[0]).InputParameters;
             Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput1.SurfaceLine);
 
-            var calculationInput2 = ((PipingCalculation) calculationGroup.Children[1]).InputParameters;
+            var calculationInput2 = ((PipingCalculationScenario)calculationGroup.Children[1]).InputParameters;
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput2.SurfaceLine);
         }
@@ -843,13 +843,13 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.NotNull(calculationGroup1);
 
             Assert.AreEqual(2, calculationGroup1.Children.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup1.Children, typeof(PipingCalculation));
+            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup1.Children, typeof(PipingCalculationScenario));
 
-            var calculationInput1 = ((PipingCalculation) calculationGroup1.Children[0]).InputParameters;
+            var calculationInput1 = ((PipingCalculationScenario)calculationGroup1.Children[0]).InputParameters;
             Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine1, calculationInput1.SurfaceLine);
 
-            var calculationInput2 = ((PipingCalculation) calculationGroup1.Children[1]).InputParameters;
+            var calculationInput2 = ((PipingCalculationScenario)calculationGroup1.Children[1]).InputParameters;
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine1, calculationInput2.SurfaceLine);
 
@@ -857,9 +857,9 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.NotNull(calculationGroup2);
 
             Assert.AreEqual(1, calculationGroup2.Children.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup2.Children, typeof(PipingCalculation));
+            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup2.Children, typeof(PipingCalculationScenario));
 
-            var calculationInput3 = ((PipingCalculation) calculationGroup2.Children[0]).InputParameters;
+            var calculationInput3 = ((PipingCalculationScenario)calculationGroup2.Children[0]).InputParameters;
             Assert.AreSame(soilProfile2, calculationInput3.StochasticSoilProfile);
             Assert.AreSame(surfaceLine2, calculationInput3.SurfaceLine);
         }
@@ -968,13 +968,13 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.NotNull(calculationGroup1);
 
             Assert.AreEqual(2, calculationGroup1.Children.Count);
-            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup1.Children, typeof(PipingCalculation));
+            CollectionAssert.AllItemsAreInstancesOfType(calculationGroup1.Children, typeof(PipingCalculationScenario));
 
-            var calculationInput1 = ((PipingCalculation) calculationGroup1.Children[0]).InputParameters;
+            var calculationInput1 = ((PipingCalculationScenario)calculationGroup1.Children[0]).InputParameters;
             Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine1, calculationInput1.SurfaceLine);
 
-            var calculationInput2 = ((PipingCalculation) calculationGroup1.Children[1]).InputParameters;
+            var calculationInput2 = ((PipingCalculationScenario)calculationGroup1.Children[1]).InputParameters;
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine1, calculationInput2.SurfaceLine);
 
@@ -1048,8 +1048,8 @@ namespace Ringtoets.Piping.Forms.Test
             // Assert
             var group = result.First(sl => sl.Name == surfaceLine.Name) as PipingCalculationGroup;
             Assert.NotNull(group);
-            var calculationInput1 = (PipingCalculation) group.Children[0];
-            var calculationInput2 = (PipingCalculation) group.Children[1];
+            var calculationInput1 = (PipingCalculationScenario) group.Children[0];
+            var calculationInput2 = (PipingCalculationScenario) group.Children[1];
 
             Assert.AreEqual(string.Format("{0} {1}", surfaceLine.Name, soilProfile1.Name), calculationInput1.Name);
             Assert.AreEqual(string.Format("{0} {1}", surfaceLine.Name, soilProfile2.Name), calculationInput2.Name);
@@ -1137,9 +1137,9 @@ namespace Ringtoets.Piping.Forms.Test
             // Assert
             var group = result.First(sl => sl.Name == surfaceLine.Name) as PipingCalculationGroup;
             Assert.NotNull(group);
-            var calculationInput1 = (PipingCalculation) group.Children[0];
-            var calculationInput2 = (PipingCalculation) group.Children[1];
-            var calculationInput3 = (PipingCalculation) group.Children[2];
+            var calculationInput1 = (PipingCalculationScenario)group.Children[0];
+            var calculationInput2 = (PipingCalculationScenario)group.Children[1];
+            var calculationInput3 = (PipingCalculationScenario)group.Children[2];
 
             Assert.AreEqual(string.Format("{0} {1}", surfaceLine.Name, soilProfile1.Name), calculationInput1.Name);
             Assert.AreEqual(string.Format("{0} {1} (1)", surfaceLine.Name, soilProfile2.Name), calculationInput2.Name);

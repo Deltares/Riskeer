@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsFalse(dataGridView.AutoGenerateColumns);
-            Assert.AreEqual(8, dataGridView.ColumnCount);
+            Assert.AreEqual(10, dataGridView.ColumnCount);
 
             foreach (var column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
             {
@@ -308,7 +308,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(2, rows.Count);
 
             var cells = rows[0].Cells;
-            Assert.AreEqual(8, cells.Count);
+            Assert.AreEqual(10, cells.Count);
+            Assert.IsTrue((bool) cells[isRelevantColumnIndex].FormattedValue);
+            Assert.AreEqual(0.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Model A", cells[stochasticSoilModelsColumnIndex].FormattedValue);
             Assert.AreEqual("<geen>", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
@@ -319,7 +321,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(4.44.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
-            Assert.AreEqual(8, cells.Count);
+            Assert.AreEqual(10, cells.Count);
+            Assert.IsTrue((bool)cells[isRelevantColumnIndex].FormattedValue);
+            Assert.AreEqual(0.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Model E", cells[stochasticSoilModelsColumnIndex].FormattedValue);
             Assert.AreEqual("Profile 5", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
@@ -425,10 +429,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        [TestCase("test", contributionColumnIndex)]
         [TestCase("test", dampingFactorExitMeanColumnIndex)]
         [TestCase("test", phreaticLevelExitMeanColumnIndex)]
         [TestCase("test", entryPointLColumnIndex)]
         [TestCase("test", exitPointLColumnIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", contributionColumnIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", dampingFactorExitMeanColumnIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", phreaticLevelExitMeanColumnIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", entryPointLColumnIndex)]
@@ -448,6 +454,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        [TestCase("1", contributionColumnIndex)]
+        [TestCase("1e-6", contributionColumnIndex)]
+        [TestCase("1e+6", contributionColumnIndex)]
+        [TestCase("14.3", contributionColumnIndex)]
         [TestCase("1", dampingFactorExitMeanColumnIndex)]
         [TestCase("1e-6", dampingFactorExitMeanColumnIndex)]
         [TestCase("1e+6", dampingFactorExitMeanColumnIndex)]
@@ -725,6 +735,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsFalse(button.Enabled);
         }
 
+        [TestCase(isRelevantColumnIndex, true, 1, 0)]
+        [TestCase(contributionColumnIndex, 30.0, 1, 0)]
         [TestCase(nameColumnIndex, "New name", 1, 0)]
         [TestCase(stochasticSoilProfilesColumnIndex, null, 0, 1)]
         [TestCase(hydraulicBoundaryLocationsColumnIndex, null, 0, 1)]
@@ -738,7 +750,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
 
             var data = (PipingCalculationGroup) pipingCalculationView.Data;
-            var pipingCalculation = (PipingCalculation) data.Children.First();
+            var pipingCalculation = (PipingCalculationScenario)data.Children.First();
             var pipingCalculationCounter = 0;
             var pipingCalculationInputCounter = 0;
             var pipingCalculationObserver = new Observer(() => pipingCalculationCounter++);
@@ -757,14 +769,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(expectedPipingCalculationInputCounter, pipingCalculationInputCounter);
         }
 
-        private const int nameColumnIndex = 0;
-        private const int stochasticSoilModelsColumnIndex = 1;
-        private const int stochasticSoilProfilesColumnIndex = 2;
-        private const int hydraulicBoundaryLocationsColumnIndex = 3;
-        private const int dampingFactorExitMeanColumnIndex = 4;
-        private const int phreaticLevelExitMeanColumnIndex = 5;
-        private const int entryPointLColumnIndex = 6;
-        private const int exitPointLColumnIndex = 7;
+        private const int isRelevantColumnIndex = 0;
+        private const int contributionColumnIndex = 1;
+        private const int nameColumnIndex = 2;
+        private const int stochasticSoilModelsColumnIndex = 3;
+        private const int stochasticSoilProfilesColumnIndex = 4;
+        private const int hydraulicBoundaryLocationsColumnIndex = 5;
+        private const int dampingFactorExitMeanColumnIndex = 6;
+        private const int phreaticLevelExitMeanColumnIndex = 7;
+        private const int entryPointLColumnIndex = 8;
+        private const int exitPointLColumnIndex = 9;
 
         private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView()
         {
@@ -912,7 +926,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 Children =
                 {
-                    new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+                    new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
                     {
                         Name = "Calculation 1",
                         InputParameters =
@@ -933,7 +947,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                             ExitPointL = (RoundedDouble) 4.4444
                         }
                     },
-                    new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+                    new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
                     {
                         Name = "Calculation 2",
                         InputParameters =

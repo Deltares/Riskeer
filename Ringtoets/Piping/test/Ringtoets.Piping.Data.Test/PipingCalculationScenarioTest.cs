@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using NUnit.Framework;
 
 namespace Ringtoets.Piping.Data.Test
@@ -40,7 +41,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<PipingCalculation>(scenario);
             Assert.AreSame(semiProbabilisticInputParameters, scenario.SemiProbabilisticParameters);
             Assert.IsTrue(scenario.IsRelevant);
-            Assert.AreEqual(0, scenario.Contribution);
+            Assert.AreEqual(new RoundedDouble(0, 0), scenario.Contribution);
         }
 
         [Test]
@@ -72,11 +73,13 @@ namespace Ringtoets.Piping.Data.Test
 
             var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
 
+            var roundedDouble = (RoundedDouble) newValue;
+
             // Call
-            scenario.Contribution = newValue;
+            scenario.Contribution = roundedDouble;
 
             // Assert
-            Assert.AreEqual(newValue, scenario.Contribution);
+            Assert.AreEqual(roundedDouble, scenario.Contribution);
         }
     }
 }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 
 namespace Ringtoets.Piping.Data
 {
@@ -28,6 +29,8 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingCalculationScenario : PipingCalculation
     {
+        private RoundedDouble contribution;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationScenario"/> with default values set for some of the parameters.
         /// </summary>
@@ -51,6 +54,16 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the contribution of the scenario.
         /// </summary>
-        public double Contribution { get; set; }
+        public RoundedDouble Contribution
+        {
+            get
+            {
+                return contribution;
+            }
+            set
+            {
+                contribution = value.ToPrecision(0);
+            }
+        }
     }
 }

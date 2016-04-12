@@ -35,9 +35,9 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="pipingCalculationItem">The calculation item to be evaluated.</param>
         /// <returns>Returns all contained piping calculations as an enumerable result.</returns>
-        public static IEnumerable<PipingCalculation> GetPipingCalculations(this IPipingCalculationItem pipingCalculationItem)
+        public static IEnumerable<PipingCalculationScenario> GetPipingCalculations(this IPipingCalculationItem pipingCalculationItem)
         {
-            var calculation = pipingCalculationItem as PipingCalculation;
+            var calculation = pipingCalculationItem as PipingCalculationScenario;
             if (calculation != null)
             {
                 yield return calculation;
@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Data
             var group = pipingCalculationItem as PipingCalculationGroup;
             if (group != null)
             {
-                foreach (PipingCalculation calculationInGroup in group.Children.GetPipingCalculations())
+                foreach (PipingCalculationScenario calculationInGroup in group.Children.GetPipingCalculations())
                 {
                     yield return calculationInGroup;
                 }
@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="pipingCalculationItems">The calculation items to be evaluated.</param>
         /// <returns>Returns all contained piping calculations as an enumerable result.</returns>
-        public static IEnumerable<PipingCalculation> GetPipingCalculations(this IEnumerable<IPipingCalculationItem> pipingCalculationItems)
+        public static IEnumerable<PipingCalculationScenario> GetPipingCalculations(this IEnumerable<IPipingCalculationItem> pipingCalculationItems)
         {
             return pipingCalculationItems.SelectMany(GetPipingCalculations);
         }

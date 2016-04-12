@@ -155,7 +155,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(new Point3D(154586.088, 568119.17, -4), surfaceLine4.DikeToeAtRiver);
         }
 
-        private void AssertCalculationAbleToCalculate(PipingCalculation calculation)
+        private void AssertCalculationAbleToCalculate(PipingCalculationScenario calculation)
         {
             PipingInput inputParameters = calculation.InputParameters;
             AssertExpectedPipingInput(inputParameters);

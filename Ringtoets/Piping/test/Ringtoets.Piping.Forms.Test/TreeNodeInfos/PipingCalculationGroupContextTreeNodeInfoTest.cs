@@ -194,7 +194,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var group = new PipingCalculationGroup();
 
             parentGroup.Children.Add(group);
-            group.Children.Add(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = new TestPipingOutput()
             });
@@ -312,7 +312,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var group = new PipingCalculationGroup();
 
-            group.Children.Add(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = new TestPipingOutput()
             });
@@ -419,7 +419,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var group = new PipingCalculationGroup();
 
-            group.Children.Add(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = new TestPipingOutput()
             });

@@ -339,7 +339,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var viewDataCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var viewDataCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             var deletedCalculationContext = new PipingCalculationContext(viewDataCalculation,
@@ -370,8 +370,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
-            var viewDataCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var viewDataCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             var failureMechanism = new PipingFailureMechanism();
 
@@ -403,7 +403,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var viewDataCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var viewDataCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var deletedGroup = new PipingCalculationGroup
             {
                 Children =
@@ -440,9 +440,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var viewDataCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var viewDataCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
-            var deletedCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var deletedCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var deletedGroup = new PipingCalculationGroup
             {
                 Children =

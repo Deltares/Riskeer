@@ -127,8 +127,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingFailureMechanism = new PipingFailureMechanism();
             var generalInputParameters = new GeneralPipingInput();
             var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
-            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters));
-            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters));
+            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters));
+            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters));
 
             var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
@@ -186,11 +186,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var generalInputParameters = new GeneralPipingInput();
             var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
-            var pipingCalculation1 = new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters)
+            var pipingCalculation1 = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters)
             {
                 Output = new TestPipingOutput()
             };
-            var pipingCalculation2 = new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters)
+            var pipingCalculation2 = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters)
             {
                 Output = new TestPipingOutput()
             };
@@ -260,7 +260,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var failureMechanism = new PipingFailureMechanism();
-            var pipingCalculation = new PipingCalculation(failureMechanism.GeneralInput, failureMechanism.SemiProbabilisticInput)
+            var pipingCalculation = new PipingCalculationScenario(failureMechanism.GeneralInput, failureMechanism.SemiProbabilisticInput)
             {
                 Output = new TestPipingOutput()
             };
@@ -352,7 +352,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var pipingCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Output = new TestPipingOutput()
             };
@@ -471,7 +471,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Clear();
-            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput()));
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
@@ -503,7 +503,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             IPipingCalculationItem addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
             Assert.AreEqual("Nieuwe berekening (1)", addedItem.Name,
                             "Because there is already an item with the same default name, '(1)' should be appended.");
-            Assert.IsInstanceOf<PipingCalculation>(addedItem);
+            Assert.IsInstanceOf<PipingCalculationScenario>(addedItem);
 
             mocks.VerifyAll();
         }
