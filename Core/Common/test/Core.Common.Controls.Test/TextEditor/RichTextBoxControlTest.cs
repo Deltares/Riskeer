@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.TextEditor;
@@ -146,11 +145,9 @@ namespace Core.Common.Controls.Test.TextEditor
 
                 int eventCounter = 0;
                 object eventSender = null;
-                EventArgs sendEventArgs = null;
                 control.TextBoxValueChanged += (sender, args) =>
                 {
                     eventSender = sender;
-                    sendEventArgs = args;
                     eventCounter++;
                 };
 
@@ -346,7 +343,7 @@ namespace Core.Common.Controls.Test.TextEditor
         [TestCase(Keys.B, true, false, false)]
         [TestCase(Keys.I, false, true, false)]
         [TestCase(Keys.U, false, false, true)]
-        public void RichTextBoxControl_AddCharachterSetStyleAddCharacterRemoveAllCharachtersAndAddAgain_FirstCharacterNoStyleSecondCharacterStyleAppliedAfterRemoveNoStyleApplied(Keys key, bool bold, bool italic, bool underline)
+        public void RichTextBoxControl_ClearStyledText_TypedTextAfterClearIsUnstyled(Keys key, bool bold, bool italic, bool underline)
         {
             // Setup
             using (var form = new Form())
@@ -397,24 +394,25 @@ namespace Core.Common.Controls.Test.TextEditor
             return tempRichTextBox.Rtf;
         }
 
-        private static string GetValidRtfString(int selectionStart, int selectionLength, bool bold, bool italic, bool underline)
+        private static string GetValidRtfString(int selectionStart, int selectionLength,
+                                                bool toggleBold, bool toggleItalic, bool toggleUnderline)
         {
             tempRichTextBox.SelectionStart = selectionStart;
             tempRichTextBox.SelectionLength = selectionLength;
 
             FontStyle newStyle = tempRichTextBox.SelectionFont.Style;
 
-            if (bold)
+            if (toggleBold)
             {
                 newStyle = newStyle ^ FontStyle.Bold;
             }
 
-            if (italic)
+            if (toggleItalic)
             {
                 newStyle = newStyle ^ FontStyle.Italic;
             }
 
-            if (underline)
+            if (toggleUnderline)
             {
                 newStyle = newStyle ^ FontStyle.Underline;
             }
