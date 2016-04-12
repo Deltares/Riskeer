@@ -173,14 +173,14 @@ namespace Ringtoets.Piping.Forms.Views
             var relevantColumn = new DataGridViewCheckBoxColumn
             {
                 DataPropertyName = "IsRelevant",
-                HeaderText = "In eindbeoordeling",
+                HeaderText = Resources.PipingCalculationsView_InitializeDataGridView_In_final_rating,
                 Name = "column_IsRelevant"
             };
 
             var contributionColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Contribution",
-                HeaderText = "Bijdrage",
+                HeaderText = Resources.PipingCalculationsView_InitializeDataGridView_Contribution,
                 Name = "column_Contribution"
             };
 
@@ -207,6 +207,13 @@ namespace Ringtoets.Piping.Forms.Views
                 Name = "column_SoilProfile",
                 ValueMember = "This",
                 DisplayMember = "DisplayName"
+            };
+
+            var stochasticSoilProfileProbabilityColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "StochasticSoilProfileProbability",
+                HeaderText = Resources.PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability,
+                Name = "column_SoilProfileProbability",
             };
 
             hydraulicBoundaryLocationColumn = new DataGridViewComboBoxColumn
@@ -257,6 +264,7 @@ namespace Ringtoets.Piping.Forms.Views
                 nameColumn,
                 stochasticSoilModelColumn,
                 stochasticSoilProfileColumn,
+                stochasticSoilProfileProbabilityColumn,
                 hydraulicBoundaryLocationColumn,
                 dampingFactorExitMeanColumn,
                 phreaticLevelExitMeanColumn,
@@ -630,6 +638,14 @@ namespace Ringtoets.Piping.Forms.Views
                                                                                   : null;
 
                     pipingCalculation.InputParameters.NotifyObservers();
+                }
+            }
+
+            public double StochasticSoilProfileProbability
+            {
+                get
+                {
+                    return pipingCalculation.InputParameters.StochasticSoilProfile != null ? pipingCalculation.InputParameters.StochasticSoilProfile.Probability : 0;
                 }
             }
 

@@ -107,11 +107,11 @@ namespace Ringtoets.Piping.Integration.Test
         private const int nameColumnIndex = 2;
         private const int stochasticSoilModelsColumnIndex = 3;
         private const int stochasticSoilProfilesColumnIndex = 4;
-        private const int hydraulicBoundaryLocationsColumnIndex = 5;
-        private const int dampingFactorExitMeanColumnIndex = 6;
-        private const int phreaticLevelExitMeanColumnIndex = 7;
-        private const int entryPointLColumnIndex = 8;
-        private const int exitPointLColumnIndex = 9;
+        private const int hydraulicBoundaryLocationsColumnIndex = 6;
+        private const int dampingFactorExitMeanColumnIndex = 7;
+        private const int phreaticLevelExitMeanColumnIndex = 8;
+        private const int entryPointLColumnIndex = 9;
+        private const int exitPointLColumnIndex = 10;
 
         private void ImportReferenceLine(AssessmentSection assessmentSection)
         {

@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsFalse(dataGridView.AutoGenerateColumns);
-            Assert.AreEqual(10, dataGridView.ColumnCount);
+            Assert.AreEqual(11, dataGridView.ColumnCount);
 
             foreach (var column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
             {
@@ -308,7 +308,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(2, rows.Count);
 
             var cells = rows[0].Cells;
-            Assert.AreEqual(10, cells.Count);
+            Assert.AreEqual(11, cells.Count);
             Assert.IsTrue((bool) cells[isRelevantColumnIndex].FormattedValue);
             Assert.AreEqual(0.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
@@ -321,7 +321,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(4.44.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
-            Assert.AreEqual(10, cells.Count);
+            Assert.AreEqual(11, cells.Count);
             Assert.IsTrue((bool)cells[isRelevantColumnIndex].FormattedValue);
             Assert.AreEqual(0.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
@@ -774,11 +774,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private const int nameColumnIndex = 2;
         private const int stochasticSoilModelsColumnIndex = 3;
         private const int stochasticSoilProfilesColumnIndex = 4;
-        private const int hydraulicBoundaryLocationsColumnIndex = 5;
-        private const int dampingFactorExitMeanColumnIndex = 6;
-        private const int phreaticLevelExitMeanColumnIndex = 7;
-        private const int entryPointLColumnIndex = 8;
-        private const int exitPointLColumnIndex = 9;
+        private const int stochasticSoilProfilesProbabilityColumnIndex = 5;
+        private const int hydraulicBoundaryLocationsColumnIndex = 6;
+        private const int dampingFactorExitMeanColumnIndex = 7;
+        private const int phreaticLevelExitMeanColumnIndex = 8;
+        private const int entryPointLColumnIndex = 9;
+        private const int exitPointLColumnIndex = 10;
 
         private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView()
         {
