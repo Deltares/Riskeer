@@ -934,7 +934,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                         {
                             SurfaceLine = surfaceLine1,
                             StochasticSoilModel = stochasticSoilModelA,
-                            StochasticSoilProfile = stochasticSoilProfile1,
                             HydraulicBoundaryLocation = hydraulicBoundaryLocation1,
                             DampingFactorExit =
                             {
