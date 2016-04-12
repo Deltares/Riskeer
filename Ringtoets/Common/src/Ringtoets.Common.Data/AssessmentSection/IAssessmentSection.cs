@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
         string Name { get; set; }
 
         /// <summary>
-        /// Gets the composition of the assessment section, e.g. what type of elements can 
+        /// Gets the composition of the assessment section, i.e. what type of elements can 
         /// be found within the assessment section.
         /// </summary>
         AssessmentSectionComposition Composition { get; }
