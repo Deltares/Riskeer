@@ -296,6 +296,8 @@ namespace Ringtoets.Integration.Forms.Views
                 return;
             }
 
+            double[] originalFailureMechanismContributions = assessmentSection.GetFailureMechanisms().Select(fm => fm.Contribution).ToArray();
+
             var dialogResult = MessageBox.Show(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ChangeComposition_Change_will_clear_calculation_output_accept_question,
                                                CoreCommonBaseResources.Confirm,
                                                MessageBoxButtons.OKCancel);
@@ -303,11 +305,8 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 assessmentSection.ChangeComposition((AssessmentSectionComposition) assessmentSectionCompositionComboBox.SelectedValue);
                 SetGridDataSource();
-                foreach (ICalculationItem calculation in assessmentSection.GetFailureMechanisms().SelectMany(failureMechanism => failureMechanism.CalculationItems))
-                {
-                    calculation.ClearOutput();
-                    calculation.NotifyObservers();
-                }
+
+                ClearCalculationOutputForChangedContributions(originalFailureMechanismContributions);
                 assessmentSection.NotifyObservers();
             }
             else
@@ -315,6 +314,23 @@ namespace Ringtoets.Integration.Forms.Views
                 revertingComboBoxSelectedValue = true;
                 assessmentSectionCompositionComboBox.SelectedValue = assessmentSection.Composition;
                 revertingComboBoxSelectedValue = false;
+            }
+        }
+
+        private void ClearCalculationOutputForChangedContributions(double[] originalFailureMechanismContributions)
+        {
+            var allFailureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+            for (int i = 0; i < allFailureMechanisms.Length; i++)
+            {
+                IFailureMechanism failureMechanism = allFailureMechanisms[i];
+                if (originalFailureMechanismContributions[i] != failureMechanism.Contribution)
+                {
+                    foreach (ICalculationItem calculation in failureMechanism.CalculationItems)
+                    {
+                        calculation.ClearOutput();
+                        calculation.NotifyObservers();
+                    }
+                }
             }
         }
     }

@@ -478,15 +478,18 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var calculationItem1 = firstMockRepository.Stub<ICalculationItem>();
                 calculationItem1.Expect(ci => ci.ClearOutput());
                 calculationItem1.Expect(ci => ci.NotifyObservers());
-                var calculationItem2 = firstMockRepository.Stub<ICalculationItem>();
-                calculationItem2.Expect(ci => ci.ClearOutput());
-                calculationItem2.Expect(ci => ci.NotifyObservers());
+
+                // Expect no clear output as failure mechanism doesn't have different Contribution:
+                var calculationItem2 = firstMockRepository.StrictMock<ICalculationItem>(); 
+
+                double contributionBeforeChange = 1.1, contributionAfterChange = 2.2;
 
                 var failureMechanism1 = firstMockRepository.Stub<IFailureMechanism>();
                 failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
                 {
                     calculationItem1
                 });
+                failureMechanism1.Contribution = contributionBeforeChange;
                 failureMechanism1.Stub(fm => fm.Name).Return("A");
                 var failureMechanism2 = firstMockRepository.Stub<IFailureMechanism>();
                 failureMechanism2.Stub(fm => fm.CalculationItems).Return(new[]
@@ -511,7 +514,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 assessmentSection.Stub(section => section.Composition).Return(initialComposition);
                 assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(failureMechanisms);
                 assessmentSection.Stub(section => section.NotifyObservers());
-                assessmentSection.Expect(section => section.ChangeComposition(newComposition));
+                assessmentSection.Expect(section => section.ChangeComposition(newComposition))
+                                 .WhenCalled(invocation => failureMechanism1.Contribution = contributionAfterChange);
                 secondMockRepository.ReplayAll();
 
                 view.Data = failureMechanismContribution;
