@@ -21,7 +21,6 @@
 
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
@@ -43,6 +42,7 @@ namespace Ringtoets.Piping.Forms.Views
         private MapData hydraulicBoundaryDatabaseLocations;
         private MapData referenceLineData;
         private MapData surfaceLinesMapData;
+        private MapData stochasticSoilModelMapData;
         private MapData sectionsMapData;
         private MapData sectionsStartPointsMapData;
         private MapData sectionsEndPointMapData;
@@ -114,8 +114,9 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 // Bottom most layer
                 referenceLineData = AddOrUpdateMapData(referenceLineData, GetReferenceLineMapData());
-                surfaceLinesMapData = AddOrUpdateMapData(surfaceLinesMapData, GetSurfaceLinesMapData());
                 sectionsMapData = AddOrUpdateMapData(sectionsMapData, GetSectionsMapData());
+                stochasticSoilModelMapData = AddOrUpdateMapData(stochasticSoilModelMapData, GetStochasticSoilModelMapData());
+                surfaceLinesMapData = AddOrUpdateMapData(surfaceLinesMapData, GetSurfaceLinesMapData());
                 sectionsStartPointsMapData = AddOrUpdateMapData(sectionsStartPointsMapData, GetSectionsStartPointsMapData());
                 sectionsEndPointMapData = AddOrUpdateMapData(sectionsEndPointMapData, GetSectionsEndPointsMapData());
                 hydraulicBoundaryDatabaseLocations = AddOrUpdateMapData(hydraulicBoundaryDatabaseLocations, GetHydraulicBoundaryLocationsMapData());
@@ -164,6 +165,15 @@ namespace Ringtoets.Piping.Forms.Views
                 return PipingMapDataFactory.CreateEmptyLineData(PipingFormsResources.PipingSurfaceLinesCollection_DisplayName);
             }
             return PipingMapDataFactory.Create(data.WrappedData.SurfaceLines);
+        }
+
+        private MapData GetStochasticSoilModelMapData()
+        {
+            if (data == null || data.WrappedData == null || data.WrappedData.StochasticSoilModels == null || !data.WrappedData.StochasticSoilModels.Any())
+            {
+                return PipingMapDataFactory.CreateEmptyLineData(PipingFormsResources.StochasticSoilModelCollection);
+            }
+            return PipingMapDataFactory.Create(data.WrappedData.StochasticSoilModels);
         }
 
         private MapData GetSectionsMapData()

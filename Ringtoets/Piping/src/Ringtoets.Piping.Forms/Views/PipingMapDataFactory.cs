@@ -29,10 +29,10 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
@@ -64,6 +64,30 @@ namespace Ringtoets.Piping.Forms.Views
             return new MapLineData(mapFeatures, Resources.PipingSurfaceLinesCollection_DisplayName)
             {
                 Style = new LineStyle(Color.DarkSeaGreen, 2, DashStyle.Solid)
+            };
+        }
+
+        /// <summary>
+        /// Create <see cref="MapData"/> with default styling based on the <paramref name="stochasticSoilModels"/>.
+        /// </summary>
+        /// <param name="stochasticSoilModels">The <see cref="RingtoetsPipingSurfaceLine"/> collection for which to create <see cref="MapData"/>.</param>
+        /// <returns><see cref="MapData"/> based on <paramref name="stochasticSoilModels"/>.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="stochasticSoilModels"/> is <c>null</c>.</exception>
+        public static MapData Create(IEnumerable<StochasticSoilModel> stochasticSoilModels)
+        {
+            if (stochasticSoilModels == null)
+            {
+                throw new ArgumentNullException("stochasticSoilModels");
+            }
+
+            var mapFeatures = new List<MapFeature>
+            {
+                new MapFeature(stochasticSoilModels.Select(stochasticSoilModel => new MapGeometry(stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y)))))
+            };
+
+            return new MapLineData(mapFeatures, Resources.StochasticSoilModelCollection)
+            {
+                Style = new LineStyle(Color.SaddleBrown, 5, DashStyle.Solid)
             };
         }
 

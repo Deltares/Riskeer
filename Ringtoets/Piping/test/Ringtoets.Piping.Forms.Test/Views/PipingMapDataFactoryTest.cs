@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -8,10 +29,10 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
@@ -95,6 +116,54 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("surfaceLines", parameter);
+        }
+
+        [Test]
+        public void Create_GivenStochasticSoilModels_ReturnsMapFeaturesWithDefaultStyling()
+        {
+            // Setup
+            var pointsOne = new[]
+            {
+                new Point2D(1.2, 2.3),
+                new Point2D(2.7, 2.0)
+            };
+            var pointsTwo = new[]
+            {
+                new Point2D(3.2, 23.3),
+                new Point2D(7.7, 12.6)
+            };
+            var stochasticSoilModels = new[]
+            {
+                new StochasticSoilModel(1, "StochasticSoilModelName1", "StochasticSoilModelSegmentName1"),
+                new StochasticSoilModel(2, "StochasticSoilModelName2", "StochasticSoilModelSegmentName2")
+            };
+            stochasticSoilModels[0].Geometry.AddRange(pointsOne);
+            stochasticSoilModels[1].Geometry.AddRange(pointsTwo);
+
+            // Call
+            MapData data = PipingMapDataFactory.Create(stochasticSoilModels);
+
+            // Assert
+            Assert.IsInstanceOf<MapLineData>(data);
+            var mapLineData = (MapLineData) data;
+            Assert.AreEqual(1, mapLineData.Features.Count());
+            Assert.AreEqual(2, mapLineData.Features.ElementAt(0).MapGeometries.Count());
+            AssertEqualPointCollections(pointsOne, mapLineData.Features.ElementAt(0).MapGeometries.ElementAt(0));
+            AssertEqualPointCollections(pointsTwo, mapLineData.Features.ElementAt(0).MapGeometries.ElementAt(1));
+            Assert.AreEqual(Resources.StochasticSoilModelCollection, data.Name);
+
+            AssertEqualStyle(mapLineData.Style, Color.SaddleBrown, 5, DashStyle.Solid);
+        }
+
+        [Test]
+        public void Create_NoStochasticSoilModels_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => PipingMapDataFactory.Create((IEnumerable<StochasticSoilModel>) null);
+
+            // Assert
+            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("stochasticSoilModels", parameter);
         }
 
         [Test]
@@ -300,7 +369,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<MapPointData>(data);
-            var mapPointData = (MapPointData)data;
+            var mapPointData = (MapPointData) data;
             Assert.AreEqual(1, mapPointData.Features.Count());
             Assert.AreEqual(1, mapPointData.Features.ElementAt(0).MapGeometries.Count());
             AssertEqualPointCollections(pointsOne, mapPointData.Features.ElementAt(0).MapGeometries.ElementAt(0));
