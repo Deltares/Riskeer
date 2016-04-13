@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Primitives
         /// <param name="level">The level under which the aquifer layer is sought.</param>
         /// <returns>The thickness of the part of the consecutive aquifer layer(s) under the <paramref name="level"/>.</returns>
         /// <exception cref="ArgumentException"><paramref name="level"/> is less than <see cref="Bottom"/>.</exception>
-        public double GetConsecutiveAquiferLayerThicknessBelowLevel(double level)
+        public double GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(double level)
         {
             ValidateLevelToBottom(level);
 

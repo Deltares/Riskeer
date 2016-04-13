@@ -154,7 +154,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsThicknessAquiferLayer()
+        public void ThicknessAquiferLayer_SoilProfileSingleAquiferAndCoverageUnderSurfaceLine_ReturnsMeanExpectedThicknessAquiferLayer()
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -182,7 +182,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_InputWithoutSoilProfile_MeansSetToNaN()
+        public void ThicknessAquiferLayer_InputWithoutSoilProfile_ReturnMeanNaN()
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -212,7 +212,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_InputWithoutSurfaceLine_MeansSetToNaN()
+        public void ThicknessAquiferLayer_InputWithoutSurfaceLine_ReturnMeanNaN()
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -264,7 +264,7 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         [TestCase(1e-6)]
         [TestCase(1)]
-        public void ThicknessAquiferLayer_SoilProfileSingleAquiferAboveSurfaceLine_ThicknessCoverageLayerNaN(double deltaAboveSurfaceLine)
+        public void ThicknessAquiferLayer_SoilProfileSingleAquiferAboveSurfaceLine_ReturnMeanNaN(double deltaAboveSurfaceLine)
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithSingleAquiferLayerAboveSurfaceLine(deltaAboveSurfaceLine);
@@ -278,7 +278,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_AquiferMeanSetToConsecutiveAquiferLayerThickness()
+        public void ThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_MeanSetToTopmostConsecutiveAquiferLayerThickness()
         {
             // Setup
             double expectedThickness;
@@ -293,7 +293,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_MeanSetExitPointSetToNaN_ThicknessAquiferLayerNaN()
+        public void ThicknessAquiferLayer_MeanSetExitPointSetToNaN_ReturnMeanNaN()
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -310,7 +310,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_MeanSetExitPointSetBeyondSurfaceLine_ThicknessAquiferLayerNaN()
+        public void ThicknessAquiferLayer_MeanSetExitPointSetBeyondSurfaceLine_ReturnMeanNaN()
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -383,7 +383,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_ProfileWithoutAquiferLayer_ThicknessAquiferLayerNaN()
+        public void ThicknessAquiferLayer_ProfileWithoutAquiferLayer_ReturnMeanNaN()
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -407,7 +407,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SoilProfileSingleAquiferUnderSurfaceLine_ThicknessAquiferLayerMeanSet()
+        public void ThicknessAquiferLayer_SoilProfileSingleAquiferUnderSurfaceLine_ReturnMeanExpectedThicknessAquiferLayer()
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -421,22 +421,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_MeanSetToConsecutiveAquiferLayerThickness()
-        {
-            // Setup
-            double expectedThickness;
-            var input = PipingCalculationFactory.CreateInputWithMultipleAquiferLayersUnderSurfaceLine(out expectedThickness);
-            var derivedInput = new DerivedPipingInput(input);
-
-            // Call
-            var thicknessAquiferLayer = derivedInput.ThicknessAquiferLayer;
-
-            // Assert
-            Assert.AreEqual(expectedThickness, thicknessAquiferLayer.Mean, 1e-6);
-        }
-
-        [Test]
-        public void ThicknessAquiferLayer_MeanSetSoilProfileSetToNull_ThicknessAquiferLayerNaN()
+        public void ThicknessAquiferLayer_MeanSetSoilProfileSetToNull_ReturnMeanNaN()
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -452,7 +437,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_InputResultsInZeroAquiferThickness_ThicknessAquiferLayerNaN()
+        public void ThicknessAquiferLayer_InputResultsInZeroAquiferThickness_ReturnMeanNaN()
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -508,7 +493,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SurfaceLineHalfWayProfileLayer_ThicknessSetToLayerHeightUnderSurfaceLine()
+        public void ThicknessAquiferLayer_SurfaceLineHalfWayProfileLayer_ConsecutiveThicknessSetToLayerHeightUnderSurfaceLine()
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();

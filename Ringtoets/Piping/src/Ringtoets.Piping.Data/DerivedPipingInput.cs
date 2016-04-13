@@ -174,7 +174,7 @@ namespace Ringtoets.Piping.Data
             try
             {
                 var zAtL = surfaceLine.GetZAtL(exitPointL);
-                return soilProfile.GetConsecutiveAquiferLayerThicknessBelowLevel(zAtL);
+                return soilProfile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(zAtL);
             }
             catch (ArgumentOutOfRangeException)
             {
