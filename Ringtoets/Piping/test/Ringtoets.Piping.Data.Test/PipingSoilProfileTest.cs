@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GetTopAquiferLayerThicknessBelowLevel_NoAquiferLayer_NaN()
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_NoAquiferLayer_NaN()
         {
             // Setup
             var pipingSoilLayers = new[]
@@ -176,14 +176,14 @@ namespace Ringtoets.Piping.Data.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.0);
+            var result = profile.GetConsecutiveAquiferLayerThicknessBelowLevel(1.0);
 
             // Assert
             Assert.IsNaN(result);
         }
 
         [Test]
-        public void GetTopAquiferLayerThicknessBelowLevel_AquiferLayerAboveLevel_NaN()
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_AquiferLayerAboveLevel_NaN()
         {
             // Setup
             var pipingSoilLayers = new[]
@@ -197,14 +197,14 @@ namespace Ringtoets.Piping.Data.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.0);
+            var result = profile.GetConsecutiveAquiferLayerThicknessBelowLevel(1.0);
 
             // Assert
             Assert.IsNaN(result);
         }
 
         [Test]
-        public void GetTopAquiferLayerThicknessBelowLevel_AquiferLayerCompletelyBelowLevel_ReturnAquiferLayerThickness()
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_AquiferLayerCompletelyBelowLevel_ReturnAquiferLayerThickness()
         {
             // Setup
             var pipingSoilLayers = new[]
@@ -217,14 +217,14 @@ namespace Ringtoets.Piping.Data.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = profile.GetTopAquiferLayerThicknessBelowLevel(2.2);
+            var result = profile.GetConsecutiveAquiferLayerThicknessBelowLevel(2.2);
 
             // Assert
-            Assert.AreEqual(2.1, result);
+            Assert.AreEqual(2.1, result, 1e-6);
         }
 
         [Test]
-        public void GetTopAquiferLayerThicknessBelowLevel_AquiferLayerPartlyBelowLevel_ReturnAquiferLayerThicknessUpTillLevel()
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_AquiferLayerPartlyBelowLevel_ReturnAquiferLayerThicknessUpTillLevel()
         {
             // Setup
             var pipingSoilLayers = new[]
@@ -237,14 +237,14 @@ namespace Ringtoets.Piping.Data.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.6);
+            var result = profile.GetConsecutiveAquiferLayerThicknessBelowLevel(1.6);
 
             // Assert
-            Assert.AreEqual(1.6, result);
+            Assert.AreEqual(1.6, result, 1e-6);
         }
 
         [Test]
-        public void GetTopAquiferLayerThicknessBelowLevel_AquiferLayerTopEqualToLevel_ReturnAquiferLayerThickness()
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_AquiferLayerTopEqualToLevel_ReturnAquiferLayerThickness()
         {
             // Setup
             var pipingSoilLayers = new[]
@@ -257,14 +257,14 @@ namespace Ringtoets.Piping.Data.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.6);
+            var result = profile.GetConsecutiveAquiferLayerThicknessBelowLevel(1.6);
 
             // Assert
-            Assert.AreEqual(1.6, result);
+            Assert.AreEqual(1.6, result, 1e-6);
         }
 
         [Test]
-        public void GetTopAquiferLayerThicknessBelowLevel_TwoAquiferLayersCompletelyBelowLevel_ReturnTopAquiferLayerThickness()
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_TwoAquiferLayersCompletelyBelowLevel_ReturnConsecutiveAquiferLayerThickness()
         {
             // Setup
             var pipingSoilLayers = new[]
@@ -276,19 +276,20 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(1.1)
                 {
                     IsAquifer = true
-                }
+                },
+                new PipingSoilLayer(0.5)
             };
             var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = profile.GetTopAquiferLayerThicknessBelowLevel(2.2);
+            var result = profile.GetConsecutiveAquiferLayerThicknessBelowLevel(2.2);
 
             // Assert
-            Assert.AreEqual(1.0, result);
+            Assert.AreEqual(1.6, result, 1e-6);
         }
 
         [Test]
-        public void GetTopAquiferLayerThicknessBelowLevel_TopmostAquiferLayerTopEqualToLevel_ReturnTopAquiferLayerThickness()
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_TopmostAquiferLayerTopEqualToLevel_ReturnConsecutiveAquiferLayerThickness()
         {
             // Setup
             var pipingSoilLayers = new[]
@@ -300,19 +301,51 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(1.1)
                 {
                     IsAquifer = true
+                },
+                new PipingSoilLayer(0.5)
+                {
+                    IsAquifer = false
                 }
             };
             var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = profile.GetTopAquiferLayerThicknessBelowLevel(2.1);
+            var result = profile.GetConsecutiveAquiferLayerThicknessBelowLevel(2.1);
 
             // Assert
-            Assert.AreEqual(1.0, result);
+            Assert.AreEqual(1.6, result, 1e-6);
         }
 
         [Test]
-        public void GetTopAquiferLayerThicknessBelowLevel_TopmostAquiferLayerCompletelyAboveLevel_ReturnBottomAquiferLayerThickness()
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_TopmostAquiferLayerTopPartlyBelowLevel_ReturnConsecutiveAquiferLayerThickness()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(2.1)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(1.1)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(0.5)
+                {
+                    IsAquifer = false
+                }
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = profile.GetConsecutiveAquiferLayerThicknessBelowLevel(2.0);
+
+            // Assert
+            Assert.AreEqual(1.5, result, 1e-6);
+        }
+
+        [Test]
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_TopmostAquiferLayerCompletelyAboveLevel_ReturnBottomAquiferLayerThickness()
         {
             // Setup
             var pipingSoilLayers = new[]
@@ -333,14 +366,14 @@ namespace Ringtoets.Piping.Data.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.3);
+            var result = profile.GetConsecutiveAquiferLayerThicknessBelowLevel(1.3);
 
             // Assert
-            Assert.AreEqual(1.1, result);
+            Assert.AreEqual(1.1, result, 1e-6);
         }
 
         [Test]
-        public void GetTopAquiferLayerThicknessBelowLevel_TopmostAquiferLayerPartlyAboveLevel_ReturnTopAquiferLayerThicknessUpTillLevel()
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_TopmostAquiferLayerPartlyAboveLevel_ReturnConsecutiveAquiferLayerThicknessUpTillLevel()
         {
             // Setup
             var pipingSoilLayers = new[]
@@ -357,14 +390,43 @@ namespace Ringtoets.Piping.Data.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.5);
+            var result = profile.GetConsecutiveAquiferLayerThicknessBelowLevel(1.5);
 
             // Assert
-            Assert.AreEqual(0.4, result, 1e-6);
+            Assert.AreEqual(1.5, result, 1e-6);
         }
 
         [Test]
-        public void GetTopAquiferLayerThicknessBelowLevel_AllAquiferLayersAboveLevel_NaN()
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_TwoConsecutiveAquiferLayersAndOneNonConsecutiveAquiferLayer_ReturnConsecutiveAquiferLayerThicknessUpTillLevel()
+        {
+            // Setup
+            var pipingSoilLayers = new[]
+            {
+                new PipingSoilLayer(2.1)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(1.1)
+                {
+                    IsAquifer = true
+                },
+                new PipingSoilLayer(1.0),
+                new PipingSoilLayer(0.5)
+                {
+                    IsAquifer = true
+                }
+            };
+            var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = profile.GetConsecutiveAquiferLayerThicknessBelowLevel(1.5);
+
+            // Assert
+            Assert.AreEqual(0.5, result, 1e-6);
+        }
+
+        [Test]
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_AllAquiferLayersAboveLevel_NaN()
         {
             // Setup
             var pipingSoilLayers = new[]
@@ -385,14 +447,14 @@ namespace Ringtoets.Piping.Data.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = profile.GetTopAquiferLayerThicknessBelowLevel(0.5);
+            var result = profile.GetConsecutiveAquiferLayerThicknessBelowLevel(0.5);
 
             // Assert
             Assert.IsNaN(result);
         }
 
         [Test]
-        public void GetTopAquiferLayerThicknessBelowLevel_BottomAquiferLayerTopEqualToLevel_BottomAquiferLayerThickness()
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_BottomAquiferLayerTopEqualToLevel_BottomAquiferLayerThickness()
         {
             // Setup
             var pipingSoilLayers = new[]
@@ -409,14 +471,14 @@ namespace Ringtoets.Piping.Data.Test
             var profile = new PipingSoilProfile(string.Empty, 0.0, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            var result = profile.GetTopAquiferLayerThicknessBelowLevel(1.1);
+            var result = profile.GetConsecutiveAquiferLayerThicknessBelowLevel(1.1);
 
             // Assert
-            Assert.AreEqual(1.1, result);
+            Assert.AreEqual(1.1, result, 1e-6);
         }
 
         [Test]
-        public void GetTopAquiferLayerThicknessBelowLevel_LevelBelowProfile_ArgumentException()
+        public void GetConsecutiveAquiferLayerThicknessBelowLevel_LevelBelowProfile_ArgumentException()
         {
             // Setup
             var pipingSoilLayers = new[]
@@ -429,7 +491,7 @@ namespace Ringtoets.Piping.Data.Test
             var profile = new PipingSoilProfile(string.Empty, 0.5, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Call
-            TestDelegate call = () => profile.GetTopAquiferLayerThicknessBelowLevel(0.0);
+            TestDelegate call = () => profile.GetConsecutiveAquiferLayerThicknessBelowLevel(0.0);
 
             // Assert
             var message = string.Format("Level {0} is below the bottom of the soil profile {1}.", 0.0, 0.5);

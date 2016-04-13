@@ -116,34 +116,48 @@ namespace Ringtoets.Piping.Primitives
         }
 
         /// <summary>
-        /// Retrieves the thickness of the topmost aquifer layer under a certain <paramref name="level"/>.
+        /// Retrieves the thickness of the consecutive aquifer layers (if any) under a certain <paramref name="level"/>.
         /// Only the thickness of the part of the aquifer layer under the level is determined. 
         /// Aquifer layers above <paramref name="level"/> are not considered.
         /// </summary>
         /// <param name="level">The level under which the aquifer layer is sought.</param>
-        /// <returns>The thickness of the part of the topmost aquifer layer under the <paramref name="level"/>.</returns>
+        /// <returns>The thickness of the part of the consecutive aquifer layer(s) under the <paramref name="level"/>.</returns>
         /// <exception cref="ArgumentException"><paramref name="level"/> is less than <see cref="Bottom"/>.</exception>
-        public double GetTopAquiferLayerThicknessBelowLevel(double level)
+        public double GetConsecutiveAquiferLayerThicknessBelowLevel(double level)
         {
             ValidateLevelToBottom(level);
 
-            PipingSoilLayer currentTopAquiferLayer = null;
+            PipingSoilLayer previousAquiferLayer = null;
+            var aquiferLayerThickness = 0.0;
             foreach (var pipingSoilLayer in Layers)
             {
                 if (pipingSoilLayer.Top > level)
                 {
-                    currentTopAquiferLayer = null;
+                    previousAquiferLayer = null;
+                    if (!pipingSoilLayer.IsAquifer)
+                    {
+                        aquiferLayerThickness = 0.0;
+                    }
                 }
-                if (currentTopAquiferLayer != null && pipingSoilLayer.Top < level)
+
+                if (!pipingSoilLayer.IsAquifer)
                 {
-                    break;
+                    if (previousAquiferLayer != null)
+                    {
+                        break;
+                    }
+                    continue;
                 }
-                if (pipingSoilLayer.IsAquifer)
+
+                previousAquiferLayer = pipingSoilLayer;
+                var layerThickness = GetLayerThicknessBelowLevel(pipingSoilLayer, level);
+                if (!double.IsNaN(layerThickness))
                 {
-                    currentTopAquiferLayer = pipingSoilLayer;
+                    aquiferLayerThickness += layerThickness;
                 }
             }
-            return GetLayerThicknessBelowLevel(currentTopAquiferLayer, level);
+
+            return previousAquiferLayer == null ? double.NaN : aquiferLayerThickness;
         }
 
         public override string ToString()

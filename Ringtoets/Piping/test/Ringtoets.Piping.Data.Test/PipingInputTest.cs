@@ -522,7 +522,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_AquiferMeanSetToTopAquiferThickness()
+        public void ThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_AquiferMeanSetToConsecutiveAquiferLayerThickness()
         {
             // Setup
             double expectedThickness;
@@ -653,7 +653,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_MeanSetToTopAquiferThickness()
+        public void ThicknessAquiferLayer_SoilProfileMultipleAquiferUnderSurfaceLine_MeanSetToConsecutiveAquiferLayerThickness()
         {
             // Setup
             double expectedThickness;
@@ -759,7 +759,7 @@ namespace Ringtoets.Piping.Data.Test
             var thicknessAquiferLayer = input.ThicknessAquiferLayer;
 
             // Assert
-            Assert.AreEqual(0.5, thicknessAquiferLayer.Mean.Value);
+            Assert.AreEqual(2.0, thicknessAquiferLayer.Mean.Value, 1e-6);
         }
 
         [Test]

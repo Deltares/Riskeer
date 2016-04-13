@@ -216,7 +216,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 StochasticSoilProfile = stochasticSoilProfile,
                 ExitPointL = (RoundedDouble) 0.5
             };
-            expectedThickness = 2.2;
+            expectedThickness = 3.3;
             return input;
         }
     }
