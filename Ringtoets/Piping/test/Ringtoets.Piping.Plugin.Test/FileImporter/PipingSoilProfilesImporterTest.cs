@@ -8,11 +8,12 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin.FileImporter;
+using Ringtoets.Piping.Primitives;
+
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
@@ -469,7 +470,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipped,
                               internalErrorMessage),
-                string.Format("Er zijn geen profielen gevonden in het stochastich ondersgrondmodel '{0}', deze wordt overgeslagen.", "Name")
+                string.Format("Het stochastisch ondergrondmodel '{0}' heeft een stochastisch profiel zonder grondprofiel, deze wordt overgeslagen.", "Name")
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
 
@@ -573,6 +574,119 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var expectedLogMessages = "De som van de kans van voorkomen in het stochastich ondergrondmodel 'Name' is niet gelijk aan 100%.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessages, 1);
             Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
+            Assert.IsTrue(importResult);
+
+            mockRepository.VerifyAll(); // Ensure there are no calls to UpdateObserver
+        }
+
+        [Test]
+        public void Import_TwoSoilModelsReusingSameProfile1D_ImportSoilModelsToCollection()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "reusedSoilProfile1D.soil");
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            mockRepository.ReplayAll();
+
+            var importer = new PipingSoilProfilesImporter();
+
+            var context = new StochasticSoilModelContext(pipingFailureMechanism, assessmentSection);
+
+            // Call
+            var importResult = importer.Import(context, validFilePath);
+
+            // Assert
+            Assert.IsTrue(importResult);
+
+            Assert.AreEqual(2, pipingFailureMechanism.StochasticSoilModels.Count);
+            StochasticSoilModel model1 = pipingFailureMechanism.StochasticSoilModels[0];
+            StochasticSoilModel model2 = pipingFailureMechanism.StochasticSoilModels[1];
+
+            Assert.AreEqual(1, model1.StochasticSoilProfiles.Count);
+            Assert.AreEqual(1, model2.StochasticSoilProfiles.Count);
+
+            StochasticSoilProfile profile1 = model1.StochasticSoilProfiles[0];
+            StochasticSoilProfile profile2 = model2.StochasticSoilProfiles[0];
+            Assert.AreNotSame(profile1, profile2);
+            Assert.AreSame(profile1.SoilProfile, profile2.SoilProfile);
+
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, profile1.SoilProfileType,
+                            "Expected database to have 1D profiles.");
+            Assert.AreEqual(SoilProfileType.SoilProfile1D, profile2.SoilProfileType,
+                            "Expected database to have 1D profiles.");
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Import_TwoSoilModelsReusingSameProfile2D_ImportSoilModelsToCollection()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "reusedSoilProfile2D.soil");
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            mockRepository.ReplayAll();
+
+            var importer = new PipingSoilProfilesImporter();
+
+            var context = new StochasticSoilModelContext(pipingFailureMechanism, assessmentSection);
+
+            // Call
+            var importResult = importer.Import(context, validFilePath);
+
+            // Assert
+            Assert.IsTrue(importResult);
+
+            Assert.AreEqual(2, pipingFailureMechanism.StochasticSoilModels.Count);
+            StochasticSoilModel model1 = pipingFailureMechanism.StochasticSoilModels[0];
+            StochasticSoilModel model2 = pipingFailureMechanism.StochasticSoilModels[1];
+
+            Assert.AreEqual(1, model1.StochasticSoilProfiles.Count);
+            Assert.AreEqual(1, model2.StochasticSoilProfiles.Count);
+
+            StochasticSoilProfile profile1 = model1.StochasticSoilProfiles[0];
+            StochasticSoilProfile profile2 = model2.StochasticSoilProfiles[0];
+            Assert.AreNotSame(profile1, profile2);
+            Assert.AreSame(profile1.SoilProfile, profile2.SoilProfile);
+
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, profile1.SoilProfileType,
+                            "Expected database to have 2D profiles.");
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, profile2.SoilProfileType,
+                            "Expected database to have 2D profiles.");
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ModelWithOneInvalidStochasticSoilProfileDueToMissingProfile_SkipModelAndLog()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "EmptySoilModel.soil");
+
+            var observer = mockRepository.StrictMock<IObserver>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            var failureMechanism = new PipingFailureMechanism();
+            mockRepository.ReplayAll();
+
+            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            context.Attach(observer);
+
+            var importer = new PipingSoilProfilesImporter();
+
+            var importResult = false;
+
+            // Call
+            Action call = () => importResult = importer.Import(context, validFilePath);
+
+            // Assert
+            var expectedLogMessage = @"Er zijn geen profielen gevonden in het stochastisch ondersgrondmodel 'Model', deze wordt overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            Assert.AreEqual(0, failureMechanism.StochasticSoilModels.Count);
             Assert.IsTrue(importResult);
 
             mockRepository.VerifyAll(); // Ensure there are no calls to UpdateObserver

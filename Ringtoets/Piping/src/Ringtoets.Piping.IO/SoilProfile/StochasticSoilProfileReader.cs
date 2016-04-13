@@ -33,7 +33,8 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.IO.SoilProfile
 {
     /// <summary>
-    /// This class reads a DSoil database file and reads <see cref="StochasticSoilProfile"/> from this database.
+    /// This class reads a DSoil database file and reads <see cref="StochasticSoilProfile"/>
+    /// from this database.
     /// </summary>
     public class StochasticSoilProfileReader : SqLiteDatabaseReaderBase
     {
@@ -57,18 +58,24 @@ namespace Ringtoets.Piping.IO.SoilProfile
         }
 
         /// <summary>
-        /// Gets a value indicating whether or not more stochastic soil profiles can be read using 
-        /// the <see cref="StochasticSoilProfileReader"/>.
+        /// Gets a value indicating whether or not more stochastic soil profiles can be read 
+        /// using the <see cref="StochasticSoilProfileReader"/>.
         /// </summary>
         public bool HasNext { get; private set; }
 
         /// <summary>
-        /// Reads the information for the next stochastic soil profile from the database and creates a 
-        /// <see cref="StochasticSoilProfile"/> instance of the information.
+        /// Reads the information for the next stochastic soil profile from the database
+        /// and creates a <see cref="StochasticSoilProfile"/> instance of the information.
         /// </summary>
-        /// <param name="stochasticSoilModelId">Identifier of the next <see cref="StochasticSoilModel"/> to look for.</param>
-        /// <returns>The next <see cref="StochasticSoilProfile"/> from the database, or <c>null</c> if no more stochastic soil profiles can be read.</returns>
-        /// <exception cref="StochasticSoilProfileReadException">Thrown when the database returned incorrect values for required properties.</exception>
+        /// <param name="stochasticSoilModelId">Identifier of the next <see cref="StochasticSoilModel"/> 
+        /// to look for.</param>
+        /// <returns>The next <see cref="StochasticSoilProfile"/> from the database, or <c>null</c> 
+        /// if no more stochastic soil profiles can be read.</returns>
+        /// <exception cref="StochasticSoilProfileReadException">Thrown when the database returned 
+        /// incorrect values for required properties.</exception>
+        /// <remarks>Rows are being read in ascending order based on the database ID of the 
+        /// stochastic soil model. Therefore once a stochastic soil model has been read already, 
+        /// it will not be found with this method.</remarks>
         public StochasticSoilProfile ReadStochasticSoilProfile(long stochasticSoilModelId)
         {
             if (!HasNext)
@@ -90,7 +97,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
             {
                 if (exception is FormatException || exception is OverflowException || exception is InvalidCastException)
                 {
-                    var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
+                    var message = new FileReaderErrorMessageBuilder(Path)
+                        .Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
                     throw new StochasticSoilProfileReadException(message, exception);
                 }
                 throw;
@@ -107,10 +115,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
         }
 
         /// <summary>
-        /// Prepares a new data reader with queries for obtaining the profiles and updates the reader
-        /// so that it points to the first row of the result set.
+        /// Prepares a new data reader with queries for obtaining the profiles and updates
+        /// the reader so that it points to the first row of the result set.
         /// </summary>
-        /// <exception cref="CriticalFileReadException">A query could not be executed on the database schema.</exception>
+        /// <exception cref="CriticalFileReadException">A query could not be executed on 
+        /// the database schema.</exception>
         private void InitializeReader()
         {
             CreateDataReader();
@@ -135,7 +144,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
             catch (SQLiteException exception)
             {
                 CloseConnection();
-                var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilModelDatabaseReader_Failed_to_read_database);
+                var message = new FileReaderErrorMessageBuilder(Path)
+                    .Build(Resources.StochasticSoilModelDatabaseReader_Failed_to_read_database);
                 throw new CriticalFileReadException(message, exception);
             }
         }
@@ -201,7 +211,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 return soilProfile2DId;
             }
 
-            var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
+            var message = new FileReaderErrorMessageBuilder(Path)
+                .Build(Resources.StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value);
             throw new StochasticSoilProfileReadException(message);
         }
 

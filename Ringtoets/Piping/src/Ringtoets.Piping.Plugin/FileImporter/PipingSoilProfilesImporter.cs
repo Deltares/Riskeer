@@ -185,9 +185,15 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private bool ValidateStochasticSoilModel(StochasticSoilModel stochasticSoilModel)
         {
-            if (stochasticSoilModel.StochasticSoilProfiles.Any(s => s.SoilProfile == null))
+            if (!stochasticSoilModel.StochasticSoilProfiles.Any())
             {
                 log.WarnFormat(RingtoetsPluginResources.PipingSoilProfilesImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0,
+                               stochasticSoilModel.Name);
+                return false;
+            }
+            if (stochasticSoilModel.StochasticSoilProfiles.Any(ssp => ssp.SoilProfile == null))
+            {
+                log.WarnFormat(RingtoetsPluginResources.PipingSoilProfilesImporter_ValidateStochasticSoilModel_SoilModel_0_with_stochastic_soil_profile_without_profile,
                                stochasticSoilModel.Name);
                 return false;
             }
@@ -212,7 +218,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return ((StochasticSoilModelContext) targetItem).AssessmentSection.ReferenceLine != null;
         }
 
-        private void HandleException(string path, Exception e)
+        private void HandleException(Exception e)
         {
             var message = string.Format(RingtoetsPluginResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped,
                                         e.Message);
@@ -235,17 +241,17 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 using (var stochasticSoilModelReader = new StochasticSoilModelReader(path))
                 {
-                    return GetStochasticSoilModelReadResult(path, stochasticSoilModelReader);
+                    return GetStochasticSoilModelReadResult(stochasticSoilModelReader);
                 }
             }
             catch (CriticalFileReadException e)
             {
-                HandleException(path, e);
+                HandleException(e);
             }
             return new ReadResult<StochasticSoilModel>(true);
         }
 
-        private ReadResult<StochasticSoilModel> GetStochasticSoilModelReadResult(string path, StochasticSoilModelReader stochasticSoilModelReader)
+        private ReadResult<StochasticSoilModel> GetStochasticSoilModelReadResult(StochasticSoilModelReader stochasticSoilModelReader)
         {
             var totalNumberOfSteps = stochasticSoilModelReader.PipingStochasticSoilModelCount;
             var currentStep = 1;
@@ -290,7 +296,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
             catch (CriticalFileReadException e)
             {
-                HandleException(path, e);
+                HandleException(e);
             }
             return new ReadResult<PipingSoilProfile>(true);
         }

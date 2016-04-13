@@ -182,8 +182,11 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 }
 
                 // Assert
-                Assert.AreEqual(2, pipingSoilProfilesReader.Count);
-                Assert.AreEqual(2, result.Count);
+                const int expectedNumberOfProfiles = 2;
+                Assert.AreEqual(expectedNumberOfProfiles, pipingSoilProfilesReader.Count);
+                Assert.AreEqual(expectedNumberOfProfiles, result.Count);
+                Assert.AreEqual(SoilProfileType.SoilProfile2D, result[0].SoilProfileType);
+                Assert.AreEqual(SoilProfileType.SoilProfile1D, result[1].SoilProfileType);
                 Assert.AreEqual(result[0].Name, result[1].Name);
             }
         }
@@ -458,14 +461,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         [SetCulture("nl-NL")]
         public void GivenACompleteDatabaseAndDutchLocale_WhenReadingTheCompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
         {
-            GivenACompleteDatabase_WhenReadingTheCompleteDatabase_Returns2ProfilesWithLayersAndGeometries();
+            GivenACompleteDatabase_WhenReadingTheCompleteDatabase_ReturnsProfilesWithLayersAndGeometries();
         }
 
         [Test]
         [SetCulture("en-US")]
         public void GivenACompleteDatabaseAndEnglishLocale_WhenReadingTheCompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
         {
-            GivenACompleteDatabase_WhenReadingTheCompleteDatabase_Returns2ProfilesWithLayersAndGeometries();
+            GivenACompleteDatabase_WhenReadingTheCompleteDatabase_ReturnsProfilesWithLayersAndGeometries();
         }
 
         private void GivenDatabaseWith1DProfile_WhenReadingTheCompleteDatabase_ReturnsCompleteSoilProfile()
@@ -504,7 +507,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             }
         }
 
-        private void GivenACompleteDatabase_WhenReadingTheCompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
+        private void GivenACompleteDatabase_WhenReadingTheCompleteDatabase_ReturnsProfilesWithLayersAndGeometries()
         {
             // Setup
             var testFile = "complete.soil";
