@@ -29,58 +29,43 @@ namespace Core.Components.DotSpatial.Forms
     /// The DotSpatial Map Control for 2D applications.
     /// </summary>
     /// <remarks>This class was introduced to prevent a <see cref="StackOverflowException"/> when zooming in on 
-    /// an extent smaller than 1e-7 and should be removed when DotSpatial solved the issue.</remarks>
+    /// an extent smaller than 1e-6 and should be removed when DotSpatial solved the issue.</remarks>
     public class DotSpatialMap : Map
     {
-        private const double minExt = 1e-7;
+        private const double minExt = 1e-6;
 
         /// <summary>
-        /// Fires the ViewExtentsChanged event. Corrects the ViewExtent if it is smaller than 1e-7. If ZoomOutFartherThanMaxExtent is set, it corrects the 
+        /// Fires the ViewExtentsChanged event. Corrects the ViewExtent if it is smaller than 1e-6. If ZoomOutFartherThanMaxExtent is set, it corrects the 
         /// ViewExtent if it is bigger then 1e+9. Otherwise it corrects the ViewExtent if it is bigger than the Maps extent + 10%.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="args">An object that contains extent data.</param>
-        /// <remarks>Corrects the <see cref="Map.OnViewExtentsChanged"/> with a minimum extent of 1e-7.</remarks>
+        /// <remarks>Corrects the <see cref="Map.OnViewExtentsChanged"/> with a minimum extent of 1e-6.</remarks>
         protected override void OnViewExtentsChanged(object sender, ExtentArgs args)
         {
-            if (ViewExtents.Width < minExt || ViewExtents.Height < minExt) // the current height or width is smaller than minExt
+            if (RoundDouble(ViewExtents.Width, 6) < minExt || RoundDouble(ViewExtents.Height, 6) < minExt) // the current height or width is smaller than minExt
             {
                 var x = ViewExtents.Center.X;
                 var y = ViewExtents.Center.Y;
                 var newExtents = new Extent(x - minExt/2, y - minExt/2, x + minExt/2, y + minExt/2); // resize to stay above the minExt
-                if (ExtentEquals(newExtents, ViewExtents))
-                {
-                    return;
-                }
                 ViewExtents = newExtents;
                 return;
             }
             base.OnViewExtentsChanged(sender, args);
         }
 
-        private static bool ExtentEquals(IExtent obj, IExtent other)
+        private static double RoundDouble(double value, int numberOfDecimalPlaces)
         {
-            if (obj == null || other == null)
-            {
-                return false;
-            }
-            if (Math.Abs(obj.MinX - other.MinX) > minExt)
-            {
-                return false;
-            }
-            if (Math.Abs(obj.MaxX - other.MaxX) > minExt)
-            {
-                return false;
-            }
-            if (Math.Abs(obj.MinY - other.MinY) > minExt)
-            {
-                return false;
-            }
-            if (Math.Abs(obj.MaxY - other.MaxY) > minExt)
-            {
-                return false;
-            }
-            return true;
+            return IsSpecialDoubleValue(value) ?
+                       value :
+                       Math.Round(value, numberOfDecimalPlaces, MidpointRounding.AwayFromZero);
+        }
+
+        private static bool IsSpecialDoubleValue(double value)
+        {
+            return double.IsNaN(value) ||
+                   double.IsPositiveInfinity(value) ||
+                   double.IsNegativeInfinity(value);
         }
     }
 }
