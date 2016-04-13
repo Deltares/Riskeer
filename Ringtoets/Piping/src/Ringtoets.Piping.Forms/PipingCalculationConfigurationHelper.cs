@@ -76,9 +76,9 @@ namespace Ringtoets.Piping.Forms
             }
 
             List<IPipingCalculationItem> groups = new List<IPipingCalculationItem>();
-            foreach (var sl in surfaceLines)
+            foreach (var surfaceLine in surfaceLines)
             {
-                var group = CreateCalculationGroup(sl, soilModels, generalInput, semiProbabilisticInput);
+                var group = CreateCalculationGroup(surfaceLine, soilModels, generalInput, semiProbabilisticInput);
                 if (group.GetPipingCalculations().Any())
                 {
                     groups.Add(group);
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Forms
                 {
                     log.WarnFormat(
                         Resources.PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_RingtoetsPipingSurfaceLine_0_skipped,
-                        sl.Name);
+                        surfaceLine.Name);
                 }
             }
             return groups;

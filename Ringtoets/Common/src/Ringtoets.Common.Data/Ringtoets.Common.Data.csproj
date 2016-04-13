@@ -44,6 +44,7 @@
     <Compile Include="FailureMechanism\FailureMechanismSection.cs" />
     <Compile Include="FailureMechanism\FailureMechanismSectionResult.cs" />
     <Compile Include="FailureMechanism\ICalculationItem.cs" />
+    <Compile Include="FailureMechanism\ICalculationScenario.cs" />
     <Compile Include="FailureMechanism\IFailureMechanism.cs" />
     <Compile Include="ICommentable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

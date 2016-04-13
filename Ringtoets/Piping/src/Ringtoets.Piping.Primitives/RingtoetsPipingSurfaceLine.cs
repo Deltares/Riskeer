@@ -257,7 +257,7 @@ namespace Ringtoets.Piping.Primitives
             IEnumerable<Point2D> intersectionPoints = Math2D.SegmentsIntersectionWithVerticalLine(segments, l).OrderBy(p => p.Y).ToArray();
 
             const double intersectionTolerance = 1e-6;
-            bool equalIntersections = Math.Abs((double) (intersectionPoints.First().Y - intersectionPoints.Last().Y)) < intersectionTolerance;
+            bool equalIntersections = Math.Abs(intersectionPoints.First().Y - intersectionPoints.Last().Y) < intersectionTolerance;
 
             if (equalIntersections)
             {
@@ -320,8 +320,8 @@ namespace Ringtoets.Piping.Primitives
 
         private static ArgumentException CreatePointNotInGeometryException(Point3D point, string characteristicPointDescription)
         {
-            var message = string.Format((string) Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                        (object) point,
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                                        point,
                                         characteristicPointDescription);
             return new ArgumentException(message);
         }
@@ -352,7 +352,7 @@ namespace Ringtoets.Piping.Primitives
             Point2D lastLocalPoint = geometryInLocalCoordinates.Last();
             if (firstLocalPoint.X > localCoordinateL || lastLocalPoint.X < localCoordinateL)
             {
-                var outOfRangeMessage = string.Format((string) Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range,
+                var outOfRangeMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range,
                                                       Resources.RingtoetsPipingSurfaceLine_GetZAtL_Cannot_determine_height,
                                                       firstLocalPoint.X,
                                                       lastLocalPoint.X);

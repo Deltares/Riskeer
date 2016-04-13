@@ -21,13 +21,14 @@
 
 using System;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// This class holds the information for a calculation scenario.
     /// </summary>
-    public class PipingCalculationScenario : PipingCalculation
+    public class PipingCalculationScenario : PipingCalculation, ICalculationScenario
     {
         private RoundedDouble contribution;
 

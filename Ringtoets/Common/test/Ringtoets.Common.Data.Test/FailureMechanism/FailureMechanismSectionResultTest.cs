@@ -40,6 +40,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
             // Assert
             Assert.AreSame(section, sectionResult.Section);
+            CollectionAssert.IsEmpty(sectionResult.CalculationScenarios);
         }
 
         [Test]

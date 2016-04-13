@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 
@@ -44,6 +45,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
                 throw new ArgumentNullException("section");
             }
             this.section = section;
+            CalculationScenarios = new List<ICalculationScenario>();
         }
 
         /// <summary>
@@ -76,5 +78,10 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// Gets and sets the value of assessment layer three.
         /// </summary>
         public RoundedDouble AssessmentLayerThree { get; set; }
+
+        /// <summary>
+        /// Gets and sets a list of <see cref="ICalculationScenario"/>
+        /// </summary>
+        public List<ICalculationScenario> CalculationScenarios { get; set; }
     }
 }

@@ -639,6 +639,107 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenNotifySectionResult()
+        {
+            // Given
+            var surfaceLine1 = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line 1",
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+
+            surfaceLine1.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+
+            var surfaceLine2 = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line 2",
+                ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
+            };
+
+            surfaceLine2.SetGeometry(new[]
+            {
+                new Point3D(5.0, 5.0, 0.0),
+                new Point3D(5.0, 0.0, 1.0),
+                new Point3D(5.0, -5.0, 0.0)
+            });
+
+            var pipingCalculationsView = ShowPipingCalculationsView();
+            var pipingFailureMechanism = new PipingFailureMechanism
+            {
+                SurfaceLines =
+                {
+                    surfaceLine1,
+                    surfaceLine2
+                },
+                StochasticSoilModels =
+                {
+                    new TestStochasticSoilModel()
+                    {
+                        Geometry =
+                        {
+                            new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                        },
+                    }
+                }
+            };
+
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            }));
+
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            }));
+
+            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+            pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
+
+            // Precondition
+            foreach (var failureMechanismSectionResult in pipingCalculationsView.PipingFailureMechanism.SectionResults)
+            {
+                CollectionAssert.IsEmpty(failureMechanismSectionResult.CalculationScenarios);
+            }
+
+            var button = new ButtonTester("buttonGenerateScenarios", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
+
+                var selectionView = (DataGridView)new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
+
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                new ButtonTester("OkButton", selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            var failureMechanismSectionResult1 = pipingCalculationsView.PipingFailureMechanism.SectionResults.First();
+            var failureMechanismSectionResult2 = pipingCalculationsView.PipingFailureMechanism.SectionResults.ElementAt(1);
+
+            Assert.AreEqual(2, failureMechanismSectionResult1.CalculationScenarios.Count);
+
+            foreach (var calculationScenario in failureMechanismSectionResult1.CalculationScenarios)
+            {
+                Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
+            }
+
+            CollectionAssert.IsEmpty(failureMechanismSectionResult2.CalculationScenarios);
+        }
+
+        [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSoilModelAndNotify_ThenButtonDisabled()
         {
             // Given

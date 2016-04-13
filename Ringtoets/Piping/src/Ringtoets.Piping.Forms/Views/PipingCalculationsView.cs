@@ -794,7 +794,24 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 pipingCalculationGroup.Children.Add(item);
             }
+
             pipingCalculationGroup.NotifyObservers();
+
+            AddCalculationScenariosToFailureMechanismSectionResult();
+        }
+
+        private void AddCalculationScenariosToFailureMechanismSectionResult()
+        {
+            foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
+            {
+                var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSectionResult.Section.Points);
+                var calculationScenarios = pipingCalculationGroup.GetPipingCalculations().Where(pc => IsSurfaceLineIntersectionWithReferenceLineInSection(pc.InputParameters.SurfaceLine, lineSegments)).ToList();
+
+                if (calculationScenarios.Any())
+                {
+                    failureMechanismSectionResult.CalculationScenarios.AddRange(calculationScenarios);
+                }
+            }
         }
 
         private void OnPipingFailureMechanismUpdate()
