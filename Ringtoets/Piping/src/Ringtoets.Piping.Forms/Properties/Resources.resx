@@ -737,9 +737,9 @@
     <value>In eindbeoordeling</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_Contribution" xml:space="preserve">
-    <value>Bijdrage</value>
+    <value>Bijdrage in %</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" xml:space="preserve">
-    <value>Bijdrage ondergrond profiel</value>
+    <value>Bijdrage ondergrond profiel in %</value>
   </data>
 </root>

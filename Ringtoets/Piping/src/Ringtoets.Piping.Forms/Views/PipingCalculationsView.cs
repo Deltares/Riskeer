@@ -587,11 +587,11 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 get
                 {
-                    return pipingCalculation.Contribution;
+                    return new RoundedDouble(0, pipingCalculation.Contribution * 100);
                 }
                 set
                 {
-                    pipingCalculation.Contribution = value;
+                    pipingCalculation.Contribution = new RoundedDouble(2, value / 100);
                     pipingCalculation.NotifyObservers();
                 }
             }
@@ -645,7 +645,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 get
                 {
-                    return pipingCalculation.InputParameters.StochasticSoilProfile != null ? pipingCalculation.InputParameters.StochasticSoilProfile.Probability : 0;
+                    return pipingCalculation.InputParameters.StochasticSoilProfile != null ? pipingCalculation.InputParameters.StochasticSoilProfile.Probability * 100 : 0;
                 }
             }
 

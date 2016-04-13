@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Data
             }
             set
             {
-                contribution = value.ToPrecision(0);
+                contribution = value;
             }
         }
     }
