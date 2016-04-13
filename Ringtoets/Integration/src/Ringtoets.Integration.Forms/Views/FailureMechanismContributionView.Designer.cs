@@ -27,12 +27,12 @@ namespace Ringtoets.Integration.Forms.Views
             this.probabilityDistributionGrid = new System.Windows.Forms.DataGridView();
             this.normInput = new System.Windows.Forms.NumericUpDown();
             this.perYearLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.assessmentSectionConfigurationLabel = new System.Windows.Forms.Label();
             this.assessmentSectionCompositionComboBox = new System.Windows.Forms.ComboBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.probabilityDistributionGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.normInput)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // normLabel
@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.probabilityDistributionGrid.AllowUserToResizeColumns = false;
             this.probabilityDistributionGrid.AllowUserToResizeRows = false;
             this.probabilityDistributionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tableLayoutPanel1.SetColumnSpan(this.probabilityDistributionGrid, 5);
+            this.tableLayoutPanel.SetColumnSpan(this.probabilityDistributionGrid, 5);
             resources.ApplyResources(this.probabilityDistributionGrid, "probabilityDistributionGrid");
             this.probabilityDistributionGrid.Name = "probabilityDistributionGrid";
             this.probabilityDistributionGrid.ReadOnly = true;
@@ -78,10 +78,10 @@ namespace Ringtoets.Integration.Forms.Views
             resources.ApplyResources(this.perYearLabel, "perYearLabel");
             this.perYearLabel.Name = "perYearLabel";
             // 
-            // label1
+            // assessmentSectionConfigurationLabel
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.assessmentSectionConfigurationLabel, "assessmentSectionConfigurationLabel");
+            this.assessmentSectionConfigurationLabel.Name = "assessmentSectionConfigurationLabel";
             // 
             // assessmentSectionCompositionComboBox
             // 
@@ -90,35 +90,35 @@ namespace Ringtoets.Integration.Forms.Views
             this.assessmentSectionCompositionComboBox.FormattingEnabled = true;
             this.assessmentSectionCompositionComboBox.Name = "assessmentSectionCompositionComboBox";
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanel
             // 
-            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.assessmentSectionCompositionComboBox, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.normLabel, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.normInput, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.perYearLabel, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.probabilityDistributionGrid, 0, 1);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            resources.ApplyResources(this.tableLayoutPanel, "tableLayoutPanel");
+            this.tableLayoutPanel.Controls.Add(this.assessmentSectionConfigurationLabel, 0, 0);
+            this.tableLayoutPanel.Controls.Add(this.assessmentSectionCompositionComboBox, 1, 0);
+            this.tableLayoutPanel.Controls.Add(this.normLabel, 2, 0);
+            this.tableLayoutPanel.Controls.Add(this.normInput, 3, 0);
+            this.tableLayoutPanel.Controls.Add(this.perYearLabel, 4, 0);
+            this.tableLayoutPanel.Controls.Add(this.probabilityDistributionGrid, 0, 1);
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
             // 
             // FailureMechanismContributionView
             // 
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.tableLayoutPanel);
             this.Name = "FailureMechanismContributionView";
             resources.ApplyResources(this, "$this");
             ((System.ComponentModel.ISupportInitialize)(this.probabilityDistributionGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.normInput)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel.ResumeLayout(false);
+            this.tableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Label label1;
+        private Label assessmentSectionConfigurationLabel;
         private ComboBox assessmentSectionCompositionComboBox;
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tableLayoutPanel;
 
     }
 }
