@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -1144,6 +1145,91 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(string.Format("{0} {1}", surfaceLine.Name, soilProfile1.Name), calculationInput1.Name);
             Assert.AreEqual(string.Format("{0} {1} (1)", surfaceLine.Name, soilProfile2.Name), calculationInput2.Name);
             Assert.AreEqual(string.Format("{0} {1} (2)", surfaceLine.Name, soilProfile3.Name), calculationInput3.Name);
+        }
+
+        #endregion
+
+        #region IsSurfaceLineIntersectionWithReferenceLineInSection
+
+        [Test]
+        public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineNull_ReturnsFalse()
+        {
+            // Call
+            var intersects = PipingCalculationConfigurationHelper.IsSurfaceLineIntersectionWithReferenceLineInSection(null, Enumerable.Empty<Segment2D>());
+
+            // Assert
+            Assert.IsFalse(intersects);
+        }
+
+        [Test]
+        public void IsSurfaceLineIntersectionWithReferenceLineInSection_EmptySegmentCollection_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate call = () => PipingCalculationConfigurationHelper.IsSurfaceLineIntersectionWithReferenceLineInSection(surfaceLine, Enumerable.Empty<Segment2D>());
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineIntersectsReferenceline_ReturnsTrue()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+            var lineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points);
+
+            // Call
+            var intersects = PipingCalculationConfigurationHelper.IsSurfaceLineIntersectionWithReferenceLineInSection(surfaceLine, lineSegments);
+
+            // Assert
+            Assert.IsTrue(intersects);
+        }
+
+        [Test]
+        public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineDoesNotIntersectsReferenceline_ReturnsFalse()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(10.0, 0.0),
+                new Point2D(20.0, 0.0)
+            });
+            var lineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points);
+
+            // Call
+            var intersects = PipingCalculationConfigurationHelper.IsSurfaceLineIntersectionWithReferenceLineInSection(surfaceLine, lineSegments);
+
+            // Assert
+            Assert.IsFalse(intersects);
         }
 
         #endregion

@@ -121,6 +121,23 @@ namespace Ringtoets.Piping.Forms
             return soilModelObjectsForCalculation;
         }
 
+        /// <summary>
+        /// Determines if the surfaceline of a calculation is instersecting with the section reference line.
+        /// </summary>
+        /// <param name="surfaceLine">The calculation surface line.</param>
+        /// <param name="lineSegments">The line segments that defines the reference line.</param>
+        /// <returns><c>true</c> when intersecting. <c>false</c> otherwise.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when <paramref name="lineSegments"/> contains no elements.</exception>
+        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<Segment2D> lineSegments)
+        {
+            if (surfaceLine == null)
+            {
+                return false;
+            }
+            var minimalDistance = lineSegments.Min(segment => segment.GetEuclideanDistanceToPoint(surfaceLine.ReferenceLineIntersectionWorldPoint));
+            return minimalDistance < 1.0e-6;
+        }
+
         private static IPipingCalculationItem CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
         {
             var pipingCalculationGroup = new PipingCalculationGroup(surfaceLine.Name, true);

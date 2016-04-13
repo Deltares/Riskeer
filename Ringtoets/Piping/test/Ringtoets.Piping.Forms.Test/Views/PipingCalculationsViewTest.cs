@@ -639,7 +639,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenNotifySectionResult()
+        public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
         {
             // Given
             var surfaceLine1 = new RingtoetsPipingSurfaceLine
@@ -678,7 +678,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 },
                 StochasticSoilModels =
                 {
-                    new TestStochasticSoilModel()
+                    new TestStochasticSoilModel
                     {
                         Geometry =
                         {

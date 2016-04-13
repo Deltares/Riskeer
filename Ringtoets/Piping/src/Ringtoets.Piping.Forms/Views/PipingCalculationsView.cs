@@ -328,16 +328,6 @@ namespace Ringtoets.Piping.Forms.Views
                                               pipingFailureMechanism.StochasticSoilModels.Any();
         }
 
-        private static bool IsSurfaceLineIntersectionWithReferenceLineInSection(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<Segment2D> lineSegments)
-        {
-            if (surfaceLine == null)
-            {
-                return false;
-            }
-            var minimalDistance = lineSegments.Min(segment => segment.GetEuclideanDistanceToPoint(surfaceLine.ReferenceLineIntersectionWorldPoint));
-            return minimalDistance < 1.0e-6;
-        }
-
         private void FillAvailableSoilModelsList(DataGridViewRow dataGridViewRow)
         {
             var rowData = (PipingCalculationRow) dataGridViewRow.DataBoundItem;
@@ -411,7 +401,7 @@ namespace Ringtoets.Piping.Forms.Views
             var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSection.Points);
             var pipingCalculations = pipingCalculationGroup
                 .GetPipingCalculations()
-                .Where(pc => IsSurfaceLineIntersectionWithReferenceLineInSection(pc.InputParameters.SurfaceLine, lineSegments));
+                .Where(pc => PipingCalculationConfigurationHelper.IsSurfaceLineIntersectionWithReferenceLineInSection(pc.InputParameters.SurfaceLine, lineSegments));
 
             updatingDataSource = true;
 
@@ -805,7 +795,7 @@ namespace Ringtoets.Piping.Forms.Views
             foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
             {
                 var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSectionResult.Section.Points);
-                var calculationScenarios = pipingCalculationGroup.GetPipingCalculations().Where(pc => IsSurfaceLineIntersectionWithReferenceLineInSection(pc.InputParameters.SurfaceLine, lineSegments)).ToList();
+                var calculationScenarios = pipingCalculationGroup.GetPipingCalculations().Where(pc => PipingCalculationConfigurationHelper.IsSurfaceLineIntersectionWithReferenceLineInSection(pc.InputParameters.SurfaceLine, lineSegments)).ToList();
 
                 if (calculationScenarios.Any())
                 {

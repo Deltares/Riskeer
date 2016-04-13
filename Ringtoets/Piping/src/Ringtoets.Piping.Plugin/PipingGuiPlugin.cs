@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
@@ -728,6 +729,8 @@ namespace Ringtoets.Piping.Plugin
             GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines, nodeData.AvailableStochasticSoilModels, nodeData.PipingFailureMechanism.GeneralInput, nodeData.PipingFailureMechanism.SemiProbabilisticInput);
 
             nodeData.NotifyObservers();
+
+            AddCalculationScenariosToFailureMechanismSectionResult(nodeData.WrappedData, nodeData.PipingFailureMechanism);
         }
 
         private void GeneratePipingCalculations(PipingCalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
@@ -735,6 +738,20 @@ namespace Ringtoets.Piping.Plugin
             foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, soilModels, generalInput, semiProbabilisticInput))
             {
                 target.Children.Add(group);
+            }
+        }
+
+        private void AddCalculationScenariosToFailureMechanismSectionResult(PipingCalculationGroup pipingCalculationGroup, PipingFailureMechanism pipingFailureMechanism)
+        {
+            foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
+            {
+                var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSectionResult.Section.Points);
+                var calculationScenarios = pipingCalculationGroup.GetPipingCalculations().Where(pc => PipingCalculationConfigurationHelper.IsSurfaceLineIntersectionWithReferenceLineInSection(pc.InputParameters.SurfaceLine, lineSegments)).ToList();
+
+                if (calculationScenarios.Any())
+                {
+                    failureMechanismSectionResult.CalculationScenarios.AddRange(calculationScenarios);
+                }
             }
         }
 

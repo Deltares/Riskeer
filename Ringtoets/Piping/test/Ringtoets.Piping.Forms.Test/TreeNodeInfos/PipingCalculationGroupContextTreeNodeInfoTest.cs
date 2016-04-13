@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -14,6 +16,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -1041,6 +1044,118 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.NotNull(selectionDialog);
             Assert.NotNull(grid);
             Assert.AreEqual(2, grid.RowCount);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
+        {
+            // Given
+            var gui = mocks.StrictMock<IGui>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var group = new PipingCalculationGroup();
+
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var parentData = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
+
+            var surfaceLine1 = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line 1",
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+
+            surfaceLine1.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+
+            var surfaceLine2 = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line 2",
+                ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
+            };
+
+            surfaceLine2.SetGeometry(new[]
+            {
+                new Point3D(5.0, 5.0, 0.0),
+                new Point3D(5.0, 0.0, 1.0),
+                new Point3D(5.0, -5.0, 0.0)
+            });
+
+            var surfaceLines = new[]
+            {
+                surfaceLine1,
+                surfaceLine2
+            };
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            }));
+
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            }));
+
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             surfaceLines,
+                                                             new[]
+                                                             {
+                                                                 new TestStochasticSoilModel
+                                                                 {
+                                                                    Geometry =
+                                                                    {
+                                                                        new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                                                                    },
+                                                                 }
+                                                             },
+                                                             pipingFailureMechanism,
+                                                             assessmentSectionMock);
+
+            gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+            gui.Expect(g => g.MainWindow).Return(mainWindow);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
+                var grid = new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject as DataGridView;
+
+                grid.Rows[0].Cells[0].Value = true;
+
+                new ButtonTester("OkButton", selectionDialog).Click();
+            };
+
+            var contextMenu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+
+            // When
+            contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
+
+            // Then
+            var failureMechanismSectionResult1 = pipingFailureMechanism.SectionResults.First();
+            var failureMechanismSectionResult2 = pipingFailureMechanism.SectionResults.ElementAt(1);
+
+            Assert.AreEqual(2, failureMechanismSectionResult1.CalculationScenarios.Count);
+
+            foreach (var calculationScenario in failureMechanismSectionResult1.CalculationScenarios)
+            {
+                Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
+            }
+
+            CollectionAssert.IsEmpty(failureMechanismSectionResult2.CalculationScenarios);
 
             mocks.VerifyAll();
         }
