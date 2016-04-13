@@ -48,7 +48,10 @@ namespace Core.Components.DotSpatial.Forms
                 var x = ViewExtents.Center.X;
                 var y = ViewExtents.Center.Y;
                 var newExtents = new Extent(x - minExt/2, y - minExt/2, x + minExt/2, y + minExt/2); // resize to stay above the minExt
-                ViewExtents = newExtents;
+                if (!ViewExtents.Equals(newExtents))
+                {
+                    ViewExtents = newExtents;
+                }
                 return;
             }
             base.OnViewExtentsChanged(sender, args);

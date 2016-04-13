@@ -31,7 +31,13 @@ namespace Core.Components.DotSpatial.Forms.Test
     {
         [Test]
         [RequiresSTA]
-        public void ToggleRectangleZooming_Always_CorrectlySetsMapFunctions()
+        [TestCase(1e-5)]
+        [TestCase(1e-6)]
+        [TestCase(1e-7)]
+        [TestCase(1e+8)]
+        [TestCase(1e+9)]
+        [TestCase(1e+10)]
+        public void OnViewExtentsChanged_EdgeCases_DoesNotThrowException(double minExt)
         {
             using (var form = new Form())
             {
@@ -39,7 +45,6 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapControl = new MapControl();
                 form.Controls.Add(mapControl);
                 form.Show();
-                var minExt = 1e-8;
 
                 var map = (DotSpatialMap) new ControlTester("Map").TheObject;
 
@@ -48,7 +53,6 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Assert
                 Assert.DoesNotThrow(test);
-                Assert.AreEqual(map.ViewExtents, map.ViewExtents);
             }
         }
     }
