@@ -165,7 +165,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private void InitializeMapView()
         {
-            map = new Map
+            map = new DotSpatialMap
             {
                 ProjectionModeDefine = ActionMode.Never,
                 Dock = DockStyle.Fill,

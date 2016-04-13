@@ -91,6 +91,9 @@
     <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="DotSpatialMap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="MapControl.cs">
       <SubType>Component</SubType>
     </Compile>

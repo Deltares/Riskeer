@@ -571,6 +571,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
+        [Test]
         [RequiresSTA]
         [TestCase(MouseButtons.Right)]
         [TestCase(MouseButtons.Middle)]
@@ -597,6 +598,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void ToggleRectangleZooming_Always_ChangesState(bool isRectangleZooming)
@@ -624,6 +626,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void TogglePanning_Always_ChangesState(bool isPanning)
@@ -651,6 +654,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             }
         }
 
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void ToggleMouseCoordinatesVisibility_Always_ChangesState(bool isShowingCoordinates)
