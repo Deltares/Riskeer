@@ -692,6 +692,183 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             mockRepository.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
+        [Test]
+        public void Import_ModelWithOneStochasticSoilProfile2DWithoutLayerPropertiesSet_ImportModelToCollection()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "SingleSoilProfile2D_noLayerProperties.soil");
+
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            var failureMechanism = new PipingFailureMechanism();
+            mockRepository.ReplayAll();
+
+            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            context.Attach(observer);
+
+            var importer = new PipingSoilProfilesImporter
+            {
+                ProgressChanged = IncrementProgress
+            };
+
+            // Precondition
+            CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+            Assert.IsTrue(File.Exists(validFilePath));
+
+            // Call
+            bool importResult = importer.Import(context, validFilePath);
+
+            // Assert
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
+
+            StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
+            Assert.AreEqual(1, soilModel.StochasticSoilProfiles.Count);
+
+            StochasticSoilProfile stochasticProfile = soilModel.StochasticSoilProfiles[0];
+            Assert.AreEqual(100.0, stochasticProfile.Probability);
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, stochasticProfile.SoilProfileType);
+
+            PipingSoilProfile profile = stochasticProfile.SoilProfile;
+            Assert.AreEqual("AD647M30_Segment_36005_1D1", profile.Name);
+            Assert.AreEqual(-45.0, profile.Bottom);
+            Assert.AreEqual(9, profile.Layers.Count());
+            var expectedLayerTops = new[]
+            {
+                4.8899864439741778,
+                3.25,
+                2.75,
+                1.25,
+                1.0,
+                -2.5,
+                -13.0,
+                -17.0,
+                -25.0
+            };
+            CollectionAssert.AreEqual(expectedLayerTops, profile.Layers.Select(l => l.Top));
+            int expectedNumberOfLayers = expectedLayerTops.Length;
+            CollectionAssert.AreEqual(Enumerable.Repeat(false, expectedNumberOfLayers),
+                                      profile.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEqual(Enumerable.Repeat<double?>(null, expectedNumberOfLayers),
+                                      profile.Layers.Select(l => l.AbovePhreaticLevel));
+            CollectionAssert.AreEqual(Enumerable.Repeat<double?>(null, expectedNumberOfLayers),
+                                      profile.Layers.Select(l => l.BelowPhreaticLevel));
+            CollectionAssert.AreEqual(Enumerable.Repeat<double?>(null, expectedNumberOfLayers),
+                                      profile.Layers.Select(l => l.DryUnitWeight));
+
+            Assert.AreEqual(6, progress);
+        }
+
+        [Test]
+        public void Import_ModelWithOneStochasticSoilProfile2DWithLayerPropertiesSet_ImportModelToCollection()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "SingleSoilProfile2D_withLayerProperties.soil");
+
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = new ReferenceLine();
+            var failureMechanism = new PipingFailureMechanism();
+            mockRepository.ReplayAll();
+
+            var context = new StochasticSoilModelContext(failureMechanism, assessmentSection);
+            context.Attach(observer);
+
+            var importer = new PipingSoilProfilesImporter
+            {
+                ProgressChanged = IncrementProgress
+            };
+
+            // Precondition
+            CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+            Assert.IsTrue(File.Exists(validFilePath));
+
+            // Call
+            bool importResult = importer.Import(context, validFilePath);
+
+            // Assert
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
+
+            StochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[0];
+            Assert.AreEqual(1, soilModel.StochasticSoilProfiles.Count);
+
+            StochasticSoilProfile stochasticProfile = soilModel.StochasticSoilProfiles[0];
+            Assert.AreEqual(100.0, stochasticProfile.Probability);
+            Assert.AreEqual(SoilProfileType.SoilProfile2D, stochasticProfile.SoilProfileType);
+
+            PipingSoilProfile profile = stochasticProfile.SoilProfile;
+            Assert.AreEqual("Test 2d profile", profile.Name);
+            Assert.AreEqual(-45.0, profile.Bottom);
+            const int expectedNumberOfLayers = 9;
+            Assert.AreEqual(expectedNumberOfLayers, profile.Layers.Count());
+            var expectedLayerTops = new[]
+            {
+                5.0571018353300463,
+                3.25,
+                2.75,
+                1.25,
+                1.0,
+                -2.5,
+                -13.0,
+                -17.0,
+                -25.0
+            };
+            var expectedIsAquiferValues = new[]
+            {
+                false,
+                false,
+                false,
+                true,
+                false,
+                false,
+                true,
+                false,
+                false
+            };
+            CollectionAssert.AreEqual(expectedIsAquiferValues,
+                                      profile.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEqual(expectedLayerTops, profile.Layers.Select(l => l.Top));
+            var expectedAbovePhreaticLevelValues = new[]
+            {
+                1.1,
+                2.2,
+                3.3,
+                4.4,
+                7.7,
+                9.9,
+                11.11,
+                13.13,
+                14.14
+            };
+            CollectionAssert.AreEqual(expectedAbovePhreaticLevelValues,
+                                      profile.Layers.Select(l => l.AbovePhreaticLevel));
+            var expectedBelowPhreaticLevelValues = new[]
+            {
+                27.27,
+                28.28,
+                29.29,
+                30.3,
+                33.33,
+                35.35,
+                37.37,
+                39.39,
+                40.4
+            };
+            CollectionAssert.AreEqual(expectedBelowPhreaticLevelValues,
+                                      profile.Layers.Select(l => l.BelowPhreaticLevel));
+            CollectionAssert.AreEqual(Enumerable.Repeat<double?>(null, expectedNumberOfLayers),
+                                      profile.Layers.Select(l => l.DryUnitWeight));
+
+
+            Assert.AreEqual(6, progress);
+        }
+
         private void IncrementProgress(string a, int b, int c)
         {
             progress++;
