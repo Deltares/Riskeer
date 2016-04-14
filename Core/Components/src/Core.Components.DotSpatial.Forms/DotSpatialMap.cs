@@ -48,13 +48,38 @@ namespace Core.Components.DotSpatial.Forms
                 var x = ViewExtents.Center.X;
                 var y = ViewExtents.Center.Y;
                 var newExtents = new Extent(x - minExt/2, y - minExt/2, x + minExt/2, y + minExt/2); // resize to stay above the minExt
-                if (!ViewExtents.Equals(newExtents))
+                if (!ExtentEquals(ViewExtents, newExtents))
                 {
                     ViewExtents = newExtents;
                 }
                 return;
             }
             base.OnViewExtentsChanged(sender, args);
+        }
+
+        private static bool ExtentEquals(IExtent obj, IExtent other)
+        {
+            if (obj == null || other == null)
+            {
+                return false;
+            }
+            if (Math.Abs(obj.MinX - other.MinX) > minExt)
+            {
+                return false;
+            }
+            if (Math.Abs(obj.MaxX - other.MaxX) > minExt)
+            {
+                return false;
+            }
+            if (Math.Abs(obj.MinY - other.MinY) > minExt)
+            {
+                return false;
+            }
+            if (Math.Abs(obj.MaxY - other.MaxY) > minExt)
+            {
+                return false;
+            }
+            return true;
         }
 
         private static double RoundDouble(double value, int numberOfDecimalPlaces)
