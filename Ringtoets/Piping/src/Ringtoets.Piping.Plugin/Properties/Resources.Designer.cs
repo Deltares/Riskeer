@@ -206,7 +206,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De som van de kans van voorkomen in het stochastich ondergrondmodel &apos;{0}&apos; is niet gelijk aan 100%..
+        ///   Looks up a localized string similar to De som van de kansen van voorkomen in het stochastich ondergrondmodel &apos;{0}&apos; is niet gelijk aan 100%..
         /// </summary>
         public static string PipingSoilProfilesImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct {
             get {

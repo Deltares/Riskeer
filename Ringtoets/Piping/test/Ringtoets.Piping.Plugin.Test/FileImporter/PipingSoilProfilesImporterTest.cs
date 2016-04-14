@@ -570,7 +570,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(context, validFilePath);
 
             // Assert
-            var expectedLogMessages = "De som van de kans van voorkomen in het stochastich ondergrondmodel 'Name' is niet gelijk aan 100%.";
+            var expectedLogMessages = "De som van de kansen van voorkomen in het stochastich ondergrondmodel 'Name' is niet gelijk aan 100%.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessages, 1);
             Assert.AreEqual(1, failureMechanism.StochasticSoilModels.Count);
             Assert.IsTrue(importResult);

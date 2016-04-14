@@ -228,7 +228,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>Inlezen van de stochastische ondergrondmodellen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_ValidateStochasticSoilModel_Sum_of_probabilities_of_stochastic_soil_model_0_is_not_correct" xml:space="preserve">
-    <value>De som van de kans van voorkomen in het stochastich ondergrondmodel '{0}' is niet gelijk aan 100%.</value>
+    <value>De som van de kansen van voorkomen in het stochastich ondergrondmodel '{0}' is niet gelijk aan 100%.</value>
   </data>
   <data name="PipingSoilProfilesImporter_GetStochasticSoilModelReadResult_Error_0_stochastic_soil_model_skipped" xml:space="preserve">
     <value>{0} Dit stochastisch ondergrondmodel wordt overgeslagen.</value>
