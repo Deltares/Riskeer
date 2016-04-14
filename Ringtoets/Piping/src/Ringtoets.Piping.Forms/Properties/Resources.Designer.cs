@@ -807,6 +807,15 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De berekening.
+        /// </summary>
+        public static string PipingContext_DataDescription_PipingCalculationItem {
+            get {
+                return ResourceManager.GetString("PipingContext_DataDescription_PipingCalculationItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het piping faalmechanisme.
         /// </summary>
         public static string PipingContext_DataDescription_PipingFailureMechanism {

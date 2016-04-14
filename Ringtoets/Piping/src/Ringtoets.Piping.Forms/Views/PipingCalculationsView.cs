@@ -830,8 +830,10 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 selection = new PipingInputContext(
                     pipingCalculationRow.PipingCalculation.InputParameters,
+                    pipingCalculationRow.PipingCalculation,
                     pipingFailureMechanism.SurfaceLines,
                     pipingFailureMechanism.StochasticSoilModels,
+                    pipingFailureMechanism,
                     assessmentSection);
             }
 

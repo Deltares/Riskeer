@@ -198,10 +198,15 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var inputParameters = new PipingInput(new GeneralPipingInput());
             var inputParametersContext = new PipingInputContext(inputParameters,
+                                                                calculationItem,
                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
+                                                                failureMechanism,
                                                                 assessmentSectionMock);
 
             var inputParameterContextProperties = new PipingInputContextProperties

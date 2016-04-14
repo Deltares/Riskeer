@@ -501,8 +501,10 @@ namespace Ringtoets.Piping.Plugin
             {
                 new CommentContext<ICommentable>(pipingCalculationContext.WrappedData),
                 new PipingInputContext(pipingCalculationContext.WrappedData.InputParameters,
+                                       pipingCalculationContext.WrappedData,
                                        pipingCalculationContext.AvailablePipingSurfaceLines,
                                        pipingCalculationContext.AvailableStochasticSoilModels,
+                                       pipingCalculationContext.PipingFailureMechanism,
                                        pipingCalculationContext.AssessmentSection)
             };
 

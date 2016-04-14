@@ -51,16 +51,21 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
 
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 StochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName")
             };
             var pipingInputContext = new PipingInputContext(pipingInput,
+                                                            calculationItem,
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                             new[]
                                                             {
                                                                 new TestStochasticSoilModel()
                                                             },
+                                                            failureMechanism,
                                                             assessmentSectionMock);
 
             var properties = new PipingInputContextProperties
@@ -120,6 +125,9 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                 new Point3D(2, 3, 0)
             });
 
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine,
@@ -127,11 +135,13 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                 StochasticSoilProfile = stochasticSoilProfile
             };
             var inputParametersContext = new PipingInputContext(pipingInput,
+                                                                calculationItem,
                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                 new[]
                                                                 {
                                                                     stochasticSoilModel
                                                                 },
+                                                                failureMechanism,
                                                                 assessmentSectionMock);
 
             var properties = new PipingInputContextProperties

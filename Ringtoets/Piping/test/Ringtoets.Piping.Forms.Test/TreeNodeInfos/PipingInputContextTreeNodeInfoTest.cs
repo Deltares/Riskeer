@@ -5,7 +5,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -56,7 +55,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var pipingInputContext = mocks.StrictMock<PipingInputContext>(new PipingInput(new GeneralPipingInput()), Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), assessmentSection);
+            var pipingInputContext = new PipingInputContext(
+                new PipingInput(new GeneralPipingInput()),
+                new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()),
+                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                Enumerable.Empty<StochasticSoilModel>(),
+                new PipingFailureMechanism(),
+                assessmentSection);
 
             mocks.ReplayAll();
 
@@ -74,7 +79,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var pipingInputContext = mocks.StrictMock<PipingInputContext>(new PipingInput(new GeneralPipingInput()), Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), assessmentSection);
+            var pipingInputContext = new PipingInputContext(
+                new PipingInput(new GeneralPipingInput()), 
+                new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()),  
+                Enumerable.Empty<RingtoetsPipingSurfaceLine>(), 
+                Enumerable.Empty<StochasticSoilModel>(),
+                new PipingFailureMechanism(),
+                assessmentSection);
 
             mocks.ReplayAll();
 

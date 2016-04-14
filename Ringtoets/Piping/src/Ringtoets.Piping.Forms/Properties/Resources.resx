@@ -745,4 +745,7 @@
   <data name="StochasticSoilModelCollection_DisplayName" xml:space="preserve">
     <value>Stochastisch ondergrondmodellen</value>
   </data>
+  <data name="PipingContext_DataDescription_PipingCalculationItem" xml:space="preserve">
+    <value>De berekening</value>
+  </data>
 </root>

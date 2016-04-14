@@ -339,14 +339,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingInputItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]).InputParameters;
+            var secondPipingCalculationItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]);
+            var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
             applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem,
+                                                                                          secondPipingCalculationItem,
                                                                                           pipingCalculationsView.PipingFailureMechanism.SurfaceLines,
                                                                                           pipingCalculationsView.PipingFailureMechanism.StochasticSoilModels,
+                                                                                          pipingCalculationsView.PipingFailureMechanism,
                                                                                           pipingCalculationsView.AssessmentSection));
             mocks.ReplayAll();
 
@@ -369,12 +372,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingInputItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]).InputParameters;
+            var secondPipingCalculationItem = ((PipingCalculation)((PipingCalculationGroup)pipingCalculationsView.Data).Children[1]);
+            var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
             applicationSelectionMock.Stub(asm => asm.Selection)
                                     .Return(new PipingInputContext(secondPipingInputItem,
+                                                                   secondPipingCalculationItem,
                                                                    pipingCalculationsView.PipingFailureMechanism.SurfaceLines,
                                                                    pipingCalculationsView.PipingFailureMechanism.StochasticSoilModels,
+                                                                   pipingCalculationsView.PipingFailureMechanism,
                                                                    pipingCalculationsView.AssessmentSection));
 
             mocks.ReplayAll();
@@ -398,12 +404,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingInputItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]).InputParameters;
+            var secondPipingCalculationItem = ((PipingCalculation)((PipingCalculationGroup)pipingCalculationsView.Data).Children[1]);
+            var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
             applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
             applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem,
+                                                                                          secondPipingCalculationItem,
                                                                                           pipingCalculationsView.PipingFailureMechanism.SurfaceLines,
                                                                                           pipingCalculationsView.PipingFailureMechanism.StochasticSoilModels,
+                                                                                          pipingCalculationsView.PipingFailureMechanism,
                                                                                           pipingCalculationsView.AssessmentSection));
 
             mocks.ReplayAll();

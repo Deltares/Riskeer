@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
@@ -37,11 +40,47 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// Creates a new instance of <see cref="PipingInputContext"/>
         /// </summary>
         /// <param name="pipingInput">The piping input instance wrapped by this context object.</param>
+        /// <param name="pipingCalculationItem">The piping calculation item the <paramref name="pipingInput"/> belongs to.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
+        /// <param name="pipingFailureMechanism">The failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
-        /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
-        public PipingInputContext(PipingInput pipingInput, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, IAssessmentSection assessmentSection)
-            : base(pipingInput, surfaceLines, stochasticSoilModels, assessmentSection) {}
+        /// <exception cref="ArgumentNullException">When any input parameter is null.</exception>
+        public PipingInputContext(PipingInput pipingInput,
+                                  IPipingCalculationItem pipingCalculationItem,
+                                  IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
+                                  IEnumerable<StochasticSoilModel> stochasticSoilModels,
+                                  PipingFailureMechanism pipingFailureMechanism,
+                                  IAssessmentSection assessmentSection)
+            : base(pipingInput, surfaceLines, stochasticSoilModels, assessmentSection)
+        {
+            if (pipingCalculationItem == null)
+            {
+                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                                            Resources.PipingContext_DataDescription_PipingCalculationItem);
+
+                throw new ArgumentNullException("pipingCalculationItem", message);
+            }
+            if (pipingFailureMechanism == null)
+            {
+                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                                            Resources.PipingContext_DataDescription_PipingFailureMechanism);
+
+                throw new ArgumentNullException("pipingFailureMechanism", message);
+            }
+
+            PipingCalculationItem = pipingCalculationItem;
+            PipingFailureMechanism = pipingFailureMechanism;
+        }
+
+        /// <summary>
+        /// Gets the calculation item which the piping context belongs to.
+        /// </summary>
+        public IPipingCalculationItem PipingCalculationItem { get; private set; }
+
+        /// <summary>
+        /// Gets the failure mechanism which the piping context belongs to.
+        /// </summary>
+        public PipingFailureMechanism PipingFailureMechanism { get; private set; }
     }
 }

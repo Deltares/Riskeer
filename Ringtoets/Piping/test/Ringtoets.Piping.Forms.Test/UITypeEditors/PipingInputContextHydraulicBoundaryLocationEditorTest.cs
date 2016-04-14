@@ -36,13 +36,18 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
             };
             var pipingInputContext = new PipingInputContext(pipingInput,
+                                                            calculationItem,
                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                             Enumerable.Empty<StochasticSoilModel>(),
+                                                            failureMechanism,
                                                             assessmentSectionMock);
 
             var properties = new PipingInputContextProperties
@@ -84,14 +89,19 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                  .Repeat.AtLeastOnce();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
             var inputParametersContext = new PipingInputContext(pipingInput,
+                                                                calculationItem,
                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                 Enumerable.Empty<StochasticSoilModel>(),
+                                                                failureMechanism,
                                                                 assessmentSectionMock);
 
             var properties = new PipingInputContextProperties

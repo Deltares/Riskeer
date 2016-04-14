@@ -89,11 +89,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             inputParameters.StochasticSoilModel = stochasticSoilModel;
             inputParameters.StochasticSoilProfile = (stochasticSoilProfile);
 
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
                                               assessmentSectionMock)
             };
 
@@ -134,14 +139,19 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var inputParameters = new PipingInput(new GeneralPipingInput());
             inputParameters.Attach(projectObserver);
 
             var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
                                               assessmentSectionMock)
             };
 
@@ -166,7 +176,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
+            var inputParameters = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = ValidSurfaceLine(0.0, 4.0)
+            };
             inputParameters.Attach(projectObserver);
 
             Random random = new Random(22);
@@ -190,12 +206,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               new[]
                                               {
                                                   stochasticSoilModel1,
                                                   stochasticSoilModel2
                                               },
+                                              failureMechanism,
                                               assessmentSectionMock),
                 DampingFactorExit = new LognormalDistributionDesignVariable(dampingFactorExit),
                 PhreaticLevelExit = new NormalDistributionDesignVariable(phreaticLevelExit),
@@ -262,6 +280,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var inputParameters = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine
@@ -271,8 +292,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
                                               assessmentSectionMock),
                 ExitPointL = (RoundedDouble) exitPoint,
                 EntryPointL = (RoundedDouble) entryPoint
@@ -298,6 +321,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var inputParameters = new PipingInput(new GeneralPipingInput());
             inputParameters.SurfaceLine = surfaceLine;
             inputParameters.Attach(inputObserver);
@@ -305,8 +331,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
                                               assessmentSectionMock),
                 EntryPointL = (RoundedDouble) 0.5,
                 ExitPointL = (RoundedDouble) 2
@@ -331,6 +359,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var inputParameters = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine
@@ -339,8 +370,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
                                               assessmentSectionMock)
             };
 
@@ -369,14 +402,19 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var surfaceLine = ValidSurfaceLine(0.0, 4.0);
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var inputParameters = new PipingInput(new GeneralPipingInput());
             inputParameters.SurfaceLine = surfaceLine;
 
             var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
                                               assessmentSectionMock)
             };
 
@@ -405,6 +443,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             double assessmentLevel = new Random(21).NextDouble();
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var inputParameters = new PipingInput(new GeneralPipingInput())
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, String.Empty, 0.0, 0.0)
@@ -417,8 +458,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
                                               assessmentSectionMock)
             };
 
@@ -447,14 +490,19 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(1);
             mocks.ReplayAll();
 
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var inputParameters = new PipingInput(new GeneralPipingInput());
             inputParameters.Attach(projectObserver);
 
             var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
                                               assessmentSectionMock)
             };
 
@@ -481,12 +529,20 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
+            var inputParameters = new PipingInput(new GeneralPipingInput())
+            {
+                SurfaceLine = ValidSurfaceLine(0.0, 4.0)
+            };
             var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
                                               assessmentSectionMock)
             };
             inputParameters.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
@@ -518,6 +574,9 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var inputParameters = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = testSurfaceLine,
@@ -527,11 +586,13 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               new[]
                                               {
                                                   stochasticSoilModel
                                               },
+                                              failureMechanism,
                                               assessmentSectionMock)
             };
 
@@ -563,14 +624,19 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 StochasticSoilModel = stochasticSoilModel,
                 StochasticSoilProfile = testPipingSoilProfile
             };
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               new[]
                                               {
                                                   stochasticSoilModel
                                               },
+                                              failureMechanism,
                                               assessmentSectionMock)
             };
 
@@ -611,11 +677,16 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 StochasticSoilModel = stochasticSoilModel1,
                 StochasticSoilProfile = stochasticSoilProfile1
             };
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var properties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
                                               assessmentSectionMock)
             };
 
@@ -636,12 +707,17 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var typeDescriptorContextMock = mocks.StrictMock<ITypeDescriptorContext>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+
             var inputParameters = new PipingInput(new GeneralPipingInput());
             var contextProperties = new PipingInputContextProperties
             {
                 Data = new PipingInputContext(inputParameters,
+                                              calculationItem,
                                               Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                               Enumerable.Empty<StochasticSoilModel>(),
+                                              failureMechanism,
                                               assessmentSectionMock)
             };
             inputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
