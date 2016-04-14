@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             return new MapLineData(mapFeatures, Resources.StochasticSoilModelCollection_DisplayName)
             {
-                Style = new LineStyle(Color.SaddleBrown, 5, DashStyle.Solid)
+                Style = new LineStyle(Color.FromArgb(70, Color.SaddleBrown), 5, DashStyle.Solid)
             };
         }
 

@@ -94,6 +94,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 data.Parent.Attach(this);
                 data.WrappedData.Attach(this);
+                data.WrappedData.StochasticSoilModels.Attach(this);
             }
         }
 
@@ -103,6 +104,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 data.Parent.Detach(this);
                 data.WrappedData.Detach(this);
+                data.WrappedData.StochasticSoilModels.Detach(this);
             }
         }
 

@@ -152,7 +152,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             AssertEqualPointCollections(pointsTwo, mapLineData.Features.ElementAt(0).MapGeometries.ElementAt(1));
             Assert.AreEqual(Resources.StochasticSoilModelCollection_DisplayName, data.Name);
 
-            AssertEqualStyle(mapLineData.Style, Color.SaddleBrown, 5, DashStyle.Solid);
+            AssertEqualStyle(mapLineData.Style, Color.FromArgb(70, Color.SaddleBrown), 5, DashStyle.Solid);
         }
 
         [Test]

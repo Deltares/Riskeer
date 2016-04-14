@@ -386,7 +386,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var view = new PipingFailureMechanismView();
-            var map = (MapControl)view.Controls[0];
+            var map = (MapControl) view.Controls[0];
 
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
@@ -396,9 +396,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
 
             view.Data = pipingContext;
-            var oldStochasticSoilModelData = (FeatureBasedMapData)map.Data.List.ElementAt(stochasticSoilModelsLayerIndex);
+            var oldStochasticSoilModelData = (FeatureBasedMapData) map.Data.List.ElementAt(stochasticSoilModelsLayerIndex);
 
-            var stochasticSoilModel = new StochasticSoilModel(0,"","");
+            var stochasticSoilModel = new StochasticSoilModel(0, "", "");
             stochasticSoilModel.Geometry.AddRange(new[]
             {
                 new Point2D(1, 2),
@@ -407,10 +407,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             pipingFailureMechanism.StochasticSoilModels.Add(stochasticSoilModel);
 
             // Call
-            pipingFailureMechanism.NotifyObservers();
+            pipingFailureMechanism.StochasticSoilModels.NotifyObservers();
 
             // Assert
-            var stochasticSoilModelData = (FeatureBasedMapData)map.Data.List.ElementAt(stochasticSoilModelsLayerIndex);
+            var stochasticSoilModelData = (FeatureBasedMapData) map.Data.List.ElementAt(stochasticSoilModelsLayerIndex);
             Assert.AreNotEqual(oldStochasticSoilModelData, stochasticSoilModelData);
             Assert.IsInstanceOf<MapDataCollection>(map.Data);
 
@@ -443,7 +443,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(1.1, 2.2)
             });
             var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]{stochasticSoilModel});
+            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                stochasticSoilModel
+            });
             var pipingContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
 
             view.Data = pipingContext;
