@@ -2,8 +2,6 @@
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Reflection;
-
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

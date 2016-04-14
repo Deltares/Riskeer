@@ -844,8 +844,6 @@ namespace Core.Common.Controls.TreeView
 
             if (e.Button.HasFlag(MouseButtons.Right))
             {
-                //treeView.SelectedNode = clickedNode;
-
                 var parentTag = GetParentTag(clickedNode);
 
                 // Update the context menu
