@@ -156,7 +156,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             {
                 MoveNext();
             }
-            if (ReadStochasticSoilModelId() == stochasticSoilModelId)
+            if (HasNext && ReadStochasticSoilModelId() == stochasticSoilModelId)
             {
                 return true;
             }

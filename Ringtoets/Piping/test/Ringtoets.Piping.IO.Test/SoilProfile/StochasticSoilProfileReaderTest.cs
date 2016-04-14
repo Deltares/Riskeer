@@ -238,6 +238,25 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadStochasticSoilProfile_SoilModelIdNotInDataBase_ReturnNull()
+        {
+            // Setup
+            var dbName = "complete.soil";
+            string dbFile = Path.Combine(testDataPath, dbName);
+
+            using (var stochasticSoilProfileReader = new StochasticSoilProfileReader(dbFile))
+            {
+                // Call
+                StochasticSoilProfile stochasticSoilProfile = stochasticSoilProfileReader.ReadStochasticSoilProfile(987654321);
+
+                // Assert
+                Assert.IsNull(stochasticSoilProfile);
+            }
+
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
         public void ReadStochasticSoilProfile_EmptyDatabase_ReturnsNull()
         {
             // Setup
