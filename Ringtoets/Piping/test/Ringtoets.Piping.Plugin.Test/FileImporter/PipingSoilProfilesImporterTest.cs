@@ -13,7 +13,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
-
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
@@ -684,7 +683,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(context, validFilePath);
 
             // Assert
-            var expectedLogMessage = @"Er zijn geen profielen gevonden in het stochastisch ondersgrondmodel 'Model', deze wordt overgeslagen.";
+            var expectedLogMessage = @"Er zijn geen profielen gevonden in het stochastisch ondergrondmodel 'Model', deze wordt overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.AreEqual(0, failureMechanism.StochasticSoilModels.Count);
             Assert.IsTrue(importResult);
@@ -864,7 +863,6 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                       profile.Layers.Select(l => l.BelowPhreaticLevel));
             CollectionAssert.AreEqual(Enumerable.Repeat<double?>(null, expectedNumberOfLayers),
                                       profile.Layers.Select(l => l.DryUnitWeight));
-
 
             Assert.AreEqual(6, progress);
         }

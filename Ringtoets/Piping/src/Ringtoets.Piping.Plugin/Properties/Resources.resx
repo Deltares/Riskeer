@@ -222,7 +222,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>Er is geen referentielijn beschikbaar. Geen data ingelezen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0" xml:space="preserve">
-    <value>Er zijn geen profielen gevonden in het stochastisch ondersgrondmodel '{0}', deze wordt overgeslagen.</value>
+    <value>Er zijn geen profielen gevonden in het stochastisch ondergrondmodel '{0}', deze wordt overgeslagen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_GetStochasticSoilModelReadResult_Reading_stochastic_soil_models_from_database" xml:space="preserve">
     <value>Inlezen van de stochastische ondergrondmodellen.</value>
