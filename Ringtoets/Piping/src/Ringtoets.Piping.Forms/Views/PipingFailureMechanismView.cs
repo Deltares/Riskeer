@@ -171,7 +171,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             if (data == null || data.WrappedData == null || data.WrappedData.StochasticSoilModels == null || !data.WrappedData.StochasticSoilModels.Any())
             {
-                return PipingMapDataFactory.CreateEmptyLineData(PipingFormsResources.StochasticSoilModelCollection);
+                return PipingMapDataFactory.CreateEmptyLineData(PipingFormsResources.StochasticSoilModelCollection_DisplayName);
             }
             return PipingMapDataFactory.Create(data.WrappedData.StochasticSoilModels);
         }

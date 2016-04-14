@@ -742,7 +742,7 @@
   <data name="PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" xml:space="preserve">
     <value>Bijdrage ondergrond profiel in %</value>
   </data>
-  <data name="StochasticSoilModelCollection" xml:space="preserve">
+  <data name="StochasticSoilModelCollection_DisplayName" xml:space="preserve">
     <value>Stochastisch ondergrondmodellen</value>
   </data>
 </root>

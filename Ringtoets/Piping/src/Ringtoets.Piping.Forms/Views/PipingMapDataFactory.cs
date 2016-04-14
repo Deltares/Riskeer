@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.Forms.Views
                 new MapFeature(stochasticSoilModels.Select(stochasticSoilModel => new MapGeometry(stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y)))))
             };
 
-            return new MapLineData(mapFeatures, Resources.StochasticSoilModelCollection)
+            return new MapLineData(mapFeatures, Resources.StochasticSoilModelCollection_DisplayName)
             {
                 Style = new LineStyle(Color.SaddleBrown, 5, DashStyle.Solid)
             };
