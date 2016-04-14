@@ -19,10 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -205,5 +208,147 @@ namespace Ringtoets.Piping.Data.Test
             };
             CollectionAssert.AreEquivalent(expectedCalculationItems, result);
         }
+
+        #region IsSurfaceLineIntersectionWithReferenceLineInSection
+
+        [Test]
+        public void IsSurfaceLineIntersectionWithReferenceLineInSection_IPipingCalculationItemNotPipingCalculationScenario_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+
+            // Call
+            var intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
+
+            // Assert
+            Assert.IsFalse(intersects);
+        }
+
+        [Test]
+        public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineNull_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+
+            // Call
+            var intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
+
+            // Assert
+            Assert.IsFalse(intersects);
+        }
+
+        [Test]
+        public void IsSurfaceLineIntersectionWithReferenceLineInSection_EmptySegmentCollection_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine
+                }
+            };
+
+            // Call
+            TestDelegate call = () => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineIntersectsReferenceline_ReturnsTrue()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine
+                }
+            };
+
+            var lineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points);
+
+            // Call
+            var intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
+
+            // Assert
+            Assert.IsTrue(intersects);
+        }
+
+        [Test]
+        public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineDoesNotIntersectsReferenceline_ReturnsFalse()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(10.0, 0.0),
+                new Point2D(20.0, 0.0)
+            });
+
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine
+                }
+            };
+
+            var lineSegments = Math2D.ConvertLinePointsToLineSegments(referenceLine.Points);
+
+            // Call
+            var intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
+
+            // Assert
+            Assert.IsFalse(intersects);
+        }
+
+        #endregion
     }
 }

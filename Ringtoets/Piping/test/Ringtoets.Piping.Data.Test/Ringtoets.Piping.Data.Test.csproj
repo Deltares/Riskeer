@@ -58,6 +58,7 @@
     <Compile Include="Exceptions\RingtoetsPipingSurfaceLineExceptionTest.cs" />
     <Compile Include="GeneralPipingInputTest.cs" />
     <Compile Include="IPipingCalculationItemExtensionsTest.cs" />
+    <Compile Include="PipingCalculationGroupExtensionsTest.cs" />
     <Compile Include="PipingCalculationGroupTest.cs" />
     <Compile Include="PipingCalculationScenarioTest.cs" />
     <Compile Include="PipingCalculationTest.cs" />
@@ -100,6 +101,10 @@
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
+      <Project>{7CD038E1-E111-4969-ACED-22C5BD2974E1}</Project>
+      <Name>Ringtoets.Piping.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>

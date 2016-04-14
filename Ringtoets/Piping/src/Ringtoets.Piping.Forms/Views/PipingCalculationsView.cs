@@ -401,7 +401,7 @@ namespace Ringtoets.Piping.Forms.Views
             var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSection.Points);
             var pipingCalculations = pipingCalculationGroup
                 .GetPipingCalculations()
-                .Where(pc => PipingCalculationConfigurationHelper.IsSurfaceLineIntersectionWithReferenceLineInSection(pc.InputParameters.SurfaceLine, lineSegments));
+                .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
             updatingDataSource = true;
 
@@ -787,21 +787,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             pipingCalculationGroup.NotifyObservers();
 
-            AddCalculationScenariosToFailureMechanismSectionResult();
-        }
-
-        private void AddCalculationScenariosToFailureMechanismSectionResult()
-        {
-            foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
-            {
-                var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSectionResult.Section.Points);
-                var calculationScenarios = pipingCalculationGroup.GetPipingCalculations().Where(pc => PipingCalculationConfigurationHelper.IsSurfaceLineIntersectionWithReferenceLineInSection(pc.InputParameters.SurfaceLine, lineSegments)).ToList();
-
-                if (calculationScenarios.Any())
-                {
-                    failureMechanismSectionResult.CalculationScenarios.AddRange(calculationScenarios);
-                }
-            }
+            pipingCalculationGroup.AddCalculationScenariosToFailureMechanismSectionResult(pipingFailureMechanism);
         }
 
         private void OnPipingFailureMechanismUpdate()

@@ -642,63 +642,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
         {
             // Given
-            var surfaceLine1 = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Surface line 1",
-                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
-            };
-
-            surfaceLine1.SetGeometry(new[]
-            {
-                new Point3D(0.0, 5.0, 0.0),
-                new Point3D(0.0, 0.0, 1.0),
-                new Point3D(0.0, -5.0, 0.0)
-            });
-
-            var surfaceLine2 = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Surface line 2",
-                ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
-            };
-
-            surfaceLine2.SetGeometry(new[]
-            {
-                new Point3D(5.0, 5.0, 0.0),
-                new Point3D(5.0, 0.0, 1.0),
-                new Point3D(5.0, -5.0, 0.0)
-            });
-
             var pipingCalculationsView = ShowPipingCalculationsView();
-            var pipingFailureMechanism = new PipingFailureMechanism
-            {
-                SurfaceLines =
-                {
-                    surfaceLine1,
-                    surfaceLine2
-                },
-                StochasticSoilModels =
-                {
-                    new TestStochasticSoilModel
-                    {
-                        Geometry =
-                        {
-                            new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
-                        },
-                    }
-                }
-            };
-
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }));
-
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            }));
+            var pipingFailureMechanism = GetFailureMechanism();
 
             pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
             pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
@@ -737,6 +682,45 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
 
             CollectionAssert.IsEmpty(failureMechanismSectionResult2.CalculationScenarios);
+        }
+
+        [Test]
+        public void GivenPipingCalculatoinsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_SectionResultScenariosNotUpdated()
+        {
+             // Given
+            var pipingCalculationsView = ShowPipingCalculationsView();
+            var pipingFailureMechanism = GetFailureMechanism();
+
+            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+            pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
+
+            // Precondition
+            foreach (var failureMechanismSectionResult in pipingCalculationsView.PipingFailureMechanism.SectionResults)
+            {
+                CollectionAssert.IsEmpty(failureMechanismSectionResult.CalculationScenarios);
+            }
+
+            var button = new ButtonTester("buttonGenerateScenarios", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
+
+                var selectionView = (DataGridView)new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
+
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            foreach (var failureMechanismSectionResult in pipingCalculationsView.PipingFailureMechanism.SectionResults)
+            {
+                CollectionAssert.IsEmpty(failureMechanismSectionResult.CalculationScenarios);
+            }
         }
 
         [Test]
@@ -1076,6 +1060,68 @@ namespace Ringtoets.Piping.Forms.Test.Views
             pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
 
             return pipingCalculationsView;
+        }
+
+        private PipingFailureMechanism GetFailureMechanism()
+        {
+            var surfaceLine1 = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line 1",
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+
+            surfaceLine1.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+
+            var surfaceLine2 = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line 2",
+                ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
+            };
+
+            surfaceLine2.SetGeometry(new[]
+            {
+                new Point3D(5.0, 5.0, 0.0),
+                new Point3D(5.0, 0.0, 1.0),
+                new Point3D(5.0, -5.0, 0.0)
+            });
+
+            var pipingFailureMechanism = new PipingFailureMechanism
+            {
+                SurfaceLines =
+                {
+                    surfaceLine1,
+                    surfaceLine2
+                },
+                StochasticSoilModels =
+                {
+                    new TestStochasticSoilModel
+                    {
+                        Geometry =
+                        {
+                            new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                        },
+                    }
+                }
+            };
+
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            }));
+
+            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            }));
+
+            return pipingFailureMechanism;
         }
 
         private PipingCalculationsView ShowPipingCalculationsView()

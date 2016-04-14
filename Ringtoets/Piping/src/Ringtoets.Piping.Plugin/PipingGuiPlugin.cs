@@ -730,7 +730,7 @@ namespace Ringtoets.Piping.Plugin
 
             nodeData.NotifyObservers();
 
-            AddCalculationScenariosToFailureMechanismSectionResult(nodeData.WrappedData, nodeData.PipingFailureMechanism);
+            nodeData.WrappedData.AddCalculationScenariosToFailureMechanismSectionResult(nodeData.PipingFailureMechanism);
         }
 
         private void GeneratePipingCalculations(PipingCalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
@@ -738,20 +738,6 @@ namespace Ringtoets.Piping.Plugin
             foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, soilModels, generalInput, semiProbabilisticInput))
             {
                 target.Children.Add(group);
-            }
-        }
-
-        private void AddCalculationScenariosToFailureMechanismSectionResult(PipingCalculationGroup pipingCalculationGroup, PipingFailureMechanism pipingFailureMechanism)
-        {
-            foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
-            {
-                var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSectionResult.Section.Points);
-                var calculationScenarios = pipingCalculationGroup.GetPipingCalculations().Where(pc => PipingCalculationConfigurationHelper.IsSurfaceLineIntersectionWithReferenceLineInSection(pc.InputParameters.SurfaceLine, lineSegments)).ToList();
-
-                if (calculationScenarios.Any())
-                {
-                    failureMechanismSectionResult.CalculationScenarios.AddRange(calculationScenarios);
-                }
             }
         }
 

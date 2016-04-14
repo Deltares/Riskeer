@@ -19,13 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Defines extension methods dealing with with <see cref="IPipingCalculationItem"/> instances.
+    /// Defines extension methods dealing with <see cref="IPipingCalculationItem"/> instances.
     /// </summary>
     public static class IPipingCalculationItemExtensions
     {
@@ -61,6 +63,31 @@ namespace Ringtoets.Piping.Data
         public static IEnumerable<PipingCalculationScenario> GetPipingCalculations(this IEnumerable<IPipingCalculationItem> pipingCalculationItems)
         {
             return pipingCalculationItems.SelectMany(GetPipingCalculations);
+        }
+
+        /// <summary>
+        /// Determines if the surfaceline of a calculation is instersecting with the section reference line.
+        /// </summary>
+        /// <param name="pipingCalculationItem">The calculation containing the surface line.</param>
+        /// <param name="lineSegments">The line segments that defines the reference line.</param>
+        /// <returns><c>true</c> when intersecting. <c>false</c> otherwise.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when <paramref name="lineSegments"/> contains no elements.</exception>
+        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this IPipingCalculationItem pipingCalculationItem, IEnumerable<Segment2D> lineSegments)
+        {
+            var pipingCalculation = pipingCalculationItem as PipingCalculationScenario;
+
+            if (pipingCalculation == null)
+            {
+                return false;
+            }
+
+            var surfaceLine = pipingCalculation.InputParameters.SurfaceLine;
+            if (surfaceLine == null)
+            {
+                return false;
+            }
+            var minimalDistance = lineSegments.Min(segment => segment.GetEuclideanDistanceToPoint(surfaceLine.ReferenceLineIntersectionWorldPoint));
+            return minimalDistance < 1.0e-6;
         }
     }
 }
