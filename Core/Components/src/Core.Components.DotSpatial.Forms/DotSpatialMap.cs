@@ -43,57 +43,14 @@ namespace Core.Components.DotSpatial.Forms
         /// <remarks>Corrects the <see cref="Map.OnViewExtentsChanged"/> with a minimum extent of 1e-6.</remarks>
         protected override void OnViewExtentsChanged(object sender, ExtentArgs args)
         {
-            if (RoundDouble(ViewExtents.Width, 6) < minExt || RoundDouble(ViewExtents.Height, 6) < minExt) // the current height or width is smaller than minExt
+            if (ViewExtents.Width < minExt || ViewExtents.Height < minExt) // the current height or width is smaller than minExt
             {
                 var x = ViewExtents.Center.X;
                 var y = ViewExtents.Center.Y;
-                var newExtents = new Extent(x - minExt/2, y - minExt/2, x + minExt/2, y + minExt/2); // resize to stay above the minExt
-                if (!ExtentEquals(ViewExtents, newExtents))
-                {
-                    ViewExtents = newExtents;
-                }
+                ViewExtents.SetCenter(x, y, minExt, minExt);
                 return;
             }
             base.OnViewExtentsChanged(sender, args);
-        }
-
-        private static bool ExtentEquals(IExtent obj, IExtent other)
-        {
-            if (obj == null || other == null)
-            {
-                return false;
-            }
-            if (Math.Abs(obj.MinX - other.MinX) > minExt)
-            {
-                return false;
-            }
-            if (Math.Abs(obj.MaxX - other.MaxX) > minExt)
-            {
-                return false;
-            }
-            if (Math.Abs(obj.MinY - other.MinY) > minExt)
-            {
-                return false;
-            }
-            if (Math.Abs(obj.MaxY - other.MaxY) > minExt)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        private static double RoundDouble(double value, int numberOfDecimalPlaces)
-        {
-            return IsSpecialDoubleValue(value) ?
-                       value :
-                       Math.Round(value, numberOfDecimalPlaces, MidpointRounding.AwayFromZero);
-        }
-
-        private static bool IsSpecialDoubleValue(double value)
-        {
-            return double.IsNaN(value) ||
-                   double.IsPositiveInfinity(value) ||
-                   double.IsNegativeInfinity(value);
         }
     }
 }
