@@ -82,6 +82,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Gets and sets a list of <see cref="ICalculationScenario"/>
         /// </summary>
-        public List<ICalculationScenario> CalculationScenarios { get; set; }
+        public List<ICalculationScenario> CalculationScenarios { get; private set; }
     }
 }

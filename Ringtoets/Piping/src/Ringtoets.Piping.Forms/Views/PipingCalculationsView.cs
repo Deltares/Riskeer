@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -631,11 +632,13 @@ namespace Ringtoets.Piping.Forms.Views
                 }
             }
 
-            public double StochasticSoilProfileProbability
+            public string StochasticSoilProfileProbability
             {
                 get
                 {
-                    return pipingCalculation.InputParameters.StochasticSoilProfile != null ? pipingCalculation.InputParameters.StochasticSoilProfile.Probability * 100 : 0;
+                    return pipingCalculation.InputParameters.StochasticSoilProfile != null 
+                        ? new RoundedDouble(3, pipingCalculation.InputParameters.StochasticSoilProfile.Probability*100).Value.ToString(CultureInfo.CurrentCulture) 
+                        : new RoundedDouble(3).Value.ToString(CultureInfo.CurrentCulture);
                 }
             }
 

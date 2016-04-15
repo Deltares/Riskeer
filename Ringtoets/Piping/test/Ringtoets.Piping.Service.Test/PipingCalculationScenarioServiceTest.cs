@@ -65,18 +65,29 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void SyncCalculationScenarioWithNewSurfaceLine_SurfaceLineNull_ThrowsArgumentNullException()
+        public void SyncCalculationScenarioWithNewSurfaceLine_OldSurfaceLineNull_SectionResultsUpdated()
         {
             // Setup
-            var pipingCalculationScenario = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var failureMechanism = GetFailureMechanism();
+            var newSurfaceLine = failureMechanism.SurfaceLines.ElementAt(1);
+
+            var calculationGroup = failureMechanism.CalculationsGroup.Children.First() as PipingCalculationGroup;
+            var calculationToSync = calculationGroup.Children.First() as PipingCalculationScenario;
+
+            // Precondition
+            Assert.IsNotNull(calculationToSync);
+
+            calculationToSync.InputParameters.SurfaceLine = newSurfaceLine;
+
+            var sectionResultScenariosBeforeSync = failureMechanism.SectionResults.First().CalculationScenarios.ToList();
+            var sectionResultScenariosBeforeSync2 = failureMechanism.SectionResults.ElementAt(1).CalculationScenarios.ToList();
 
             // Call
-            TestDelegate call = () => PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine(pipingCalculationScenario, failureMechanism, null);
+            PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine(calculationToSync, failureMechanism, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("oldSurfaceLine", exception.ParamName);
+            CollectionAssert.AreNotEqual(sectionResultScenariosBeforeSync, failureMechanism.SectionResults.First().CalculationScenarios);
+            CollectionAssert.AreNotEqual(sectionResultScenariosBeforeSync2, failureMechanism.SectionResults.ElementAt(1).CalculationScenarios);
         }
 
         [Test]

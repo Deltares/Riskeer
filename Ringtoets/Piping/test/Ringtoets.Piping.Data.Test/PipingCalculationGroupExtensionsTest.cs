@@ -95,13 +95,14 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var failureMechanism = GetFailureMechanismWithSections();
+            var stochasticSoilModel = failureMechanism.StochasticSoilModels.First();
             var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 InputParameters =
                 {
                     SurfaceLine = failureMechanism.SurfaceLines.First(),
-                    StochasticSoilModel = failureMechanism.StochasticSoilModels.First(),
-                    StochasticSoilProfile = failureMechanism.StochasticSoilModels.First().StochasticSoilProfiles.First()
+                    StochasticSoilModel = stochasticSoilModel,
+                    StochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First()
                 }
             };
 

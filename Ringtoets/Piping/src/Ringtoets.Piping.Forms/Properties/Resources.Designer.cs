@@ -761,7 +761,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijdrage in %.
+        ///   Looks up a localized string similar to Bijdrage [%].
         /// </summary>
         public static string PipingCalculationsView_InitializeDataGridView_Contribution {
             get {
@@ -779,7 +779,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijdrage ondergrond profiel in %.
+        ///   Looks up a localized string similar to Bijdrage ondergrondschematisatie [%].
         /// </summary>
         public static string PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability {
             get {

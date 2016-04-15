@@ -39,24 +39,25 @@ namespace Ringtoets.Piping.Service
         /// <param name="calculationScenario">The calculation scenario to set containing the new surface line.</param>
         /// <param name="failureMechanism">The failure mechanism containing the <see cref="FailureMechanismSectionResult"/>.</param>
         /// <param name="oldSurfaceLine">The old surface line for the calculation scenario.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationScenario"/> or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static void SyncCalculationScenarioWithNewSurfaceLine(PipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism, RingtoetsPipingSurfaceLine oldSurfaceLine)
         {
             if (calculationScenario == null)
             {
                 throw new ArgumentNullException("calculationScenario");
             }
-            
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            if (oldSurfaceLine == null)
+            if (oldSurfaceLine != null && calculationScenario.InputParameters.SurfaceLine.Equals(oldSurfaceLine))
             {
-                throw new ArgumentNullException("oldSurfaceLine");
+                return;
             }
 
-            if (RemoveScenarioFromOldSectionResult(calculationScenario, failureMechanism, oldSurfaceLine))
+            if (RemoveScenarioFromOldSectionResult(calculationScenario, failureMechanism))
             {
                 AddScenarioToNewSectionResult(calculationScenario, failureMechanism);
             }
@@ -76,24 +77,13 @@ namespace Ringtoets.Piping.Service
             }
         }
 
-        private static bool RemoveScenarioFromOldSectionResult(PipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism, RingtoetsPipingSurfaceLine oldSurfaceLine)
+        private static bool RemoveScenarioFromOldSectionResult(PipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism)
         {
-            for (int i = 0; i < failureMechanism.SectionResults.Count(); i++)
+            foreach (var sectionResult in failureMechanism.SectionResults.Where(sectionResult => sectionResult.CalculationScenarios.Contains(calculationScenario)))
             {
-                var sectionResult = failureMechanism.SectionResults.ElementAt(i);
-
-                for (int j = 0; j < sectionResult.CalculationScenarios.Count; j++)
-                {
-                    var pipingCalculation = (PipingCalculation)sectionResult.CalculationScenarios[j];
-
-                    if (pipingCalculation.Equals(calculationScenario) && !calculationScenario.InputParameters.SurfaceLine.Equals(oldSurfaceLine))
-                    {
-                        sectionResult.CalculationScenarios.Remove(calculationScenario);
-                        return true;
-                    }
-                }
+                sectionResult.CalculationScenarios.Remove(calculationScenario);
+                return true;
             }
-
             return false;
         }
     }

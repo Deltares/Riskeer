@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,7 +35,6 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
@@ -35,14 +55,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         private MockRepository mocks;
         private PipingGuiPlugin plugin;
         private TreeNodeInfo info;
-
-        private const int contextMenuAddGenerateCalculationsIndex = 1;
-
-        private const int contextMenuAddCalculationGroupIndex = 0;
-        private const int contextMenuAddCalculationIndex = 1;
-        private const int contextMenuValidateAllIndex = 3;
-        private const int contextMenuCalculateAllIndex = 4;
-        private const int contextMenuClearOutputIndex = 5;
 
         [SetUp]
         public void SetUp()
@@ -68,7 +80,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         {
             // Setup
             var testname = "testName";
-            var group = new PipingCalculationGroup { Name = testname };
+            var group = new PipingCalculationGroup
+            {
+                Name = testname
+            };
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
@@ -180,7 +195,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var returnedCalculationContext = (PipingCalculationContext) children[1];
             Assert.AreSame(childCalculation, returnedCalculationContext.WrappedData);
             Assert.AreSame(pipingFailureMechanismMock, returnedCalculationContext.PipingFailureMechanism);
-            var returnedCalculationGroupContext = (PipingCalculationGroupContext)children[2];
+            var returnedCalculationGroupContext = (PipingCalculationGroupContext) children[2];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             Assert.AreSame(pipingFailureMechanismMock, returnedCalculationGroupContext.PipingFailureMechanism);
             Assert.AreSame(assessmentSectionMock, returnedCalculationGroupContext.AssessmentSection);
@@ -526,20 +541,19 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var group = new PipingCalculationGroup();
-            
+
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
             var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             new []
+                                                             new[]
                                                              {
                                                                  new TestStochasticSoilModel()
                                                              },
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
-
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
@@ -580,7 +594,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
 
-
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
@@ -606,13 +619,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var group = new PipingCalculationGroup();
-            
+
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
             var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
             var nodeData = new PipingCalculationGroupContext(group,
-                                                             new []
+                                                             new[]
                                                              {
                                                                  new RingtoetsPipingSurfaceLine()
                                                              },
@@ -622,7 +635,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              },
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
-
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
@@ -1002,16 +1014,16 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             {
                 new RingtoetsPipingSurfaceLine
                 {
-                    Name= "surfaceLine1"
+                    Name = "surfaceLine1"
                 },
                 new RingtoetsPipingSurfaceLine
                 {
-                    Name= "surfaceLine2"
+                    Name = "surfaceLine2"
                 }
             };
             var nodeData = new PipingCalculationGroupContext(group,
                                                              surfaceLines,
-                                                             new []
+                                                             new[]
                                                              {
                                                                  new TestStochasticSoilModel()
                                                              },
@@ -1113,10 +1125,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              {
                                                                  new TestStochasticSoilModel
                                                                  {
-                                                                    Geometry =
-                                                                    {
-                                                                        new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
-                                                                    },
+                                                                     Geometry =
+                                                                     {
+                                                                         new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                                                                     },
                                                                  }
                                                              },
                                                              pipingFailureMechanism,
@@ -1231,10 +1243,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              {
                                                                  new TestStochasticSoilModel
                                                                  {
-                                                                    Geometry =
-                                                                    {
-                                                                        new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
-                                                                    },
+                                                                     Geometry =
+                                                                     {
+                                                                         new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                                                                     },
                                                                  }
                                                              },
                                                              pipingFailureMechanism,
@@ -1650,7 +1662,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
             CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
             Assert.AreSame(draggedItem, newOwnerGroup.Children.Last(),
-                "Dragging node at the end of the target PipingCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
+                           "Dragging node at the end of the target PipingCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
 
             mocks.VerifyAll();
         }
@@ -1697,11 +1709,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
             Assert.AreNotSame(draggedItem, originalOwnerGroup.Children[1],
-                "Should have removed 'draggedItem' from its original location in the collection.");
+                              "Should have removed 'draggedItem' from its original location in the collection.");
             Assert.AreSame(draggedItem, originalOwnerGroup.Children[newIndex],
-                "Dragging node to specific location within owning PipingCalculationGroup should put the dragged data at that index.");
+                           "Dragging node to specific location within owning PipingCalculationGroup should put the dragged data at that index.");
             Assert.AreEqual(name, draggedItem.Name,
-                "No renaming should occur when dragging within the same PipingCalculationGroup.");
+                            "No renaming should occur when dragging within the same PipingCalculationGroup.");
 
             mocks.VerifyAll();
         }
@@ -1751,7 +1763,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
             CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
             CollectionAssert.Contains(newOwnerGroup.Children.Select(c => c.Name), draggedItem.Name,
-                "Name of the dragged item should already exist in new owner.");
+                                      "Name of the dragged item should already exist in new owner.");
 
             // Call
             info.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewControlMock);
@@ -1760,7 +1772,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
             CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
             Assert.AreSame(draggedItem, newOwnerGroup.Children.First(),
-                "Dragging to insert node at start of newOwnerGroup should place the node at the start of the list.");
+                           "Dragging to insert node at start of newOwnerGroup should place the node at the start of the list.");
             switch (draggedItemType)
             {
                 case PipingCalculationItemType.Calculation:
@@ -1773,6 +1785,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             mocks.VerifyAll();
         }
+
+        private const int contextMenuAddGenerateCalculationsIndex = 1;
+        private const int contextMenuAddCalculationGroupIndex = 0;
+        private const int contextMenuAddCalculationIndex = 1;
+        private const int contextMenuValidateAllIndex = 3;
+        private const int contextMenuCalculateAllIndex = 4;
+        private const int contextMenuClearOutputIndex = 5;
 
         /// <summary>
         /// Creates an instance of <see cref="PipingCalculationGroup"/> and the corresponding

@@ -23,10 +23,13 @@ using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.FailureMechanism
 {
+    /// <summary>
+    /// Defines a calculation scenario.
+    /// </summary>
     public interface ICalculationScenario : ICalculationItem
     {
         /// <summary>
-        /// Gets  or sets whether this scenario is relevant or not.
+        /// Gets or sets whether this scenario is relevant or not.
         /// </summary>
         bool IsRelevant { get; set; }
 

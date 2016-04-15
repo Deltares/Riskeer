@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Determines if the surfaceline of a calculation is instersecting with the section reference line.
+        /// Determines if the surfaceline of a calculation is intersecting with the section reference line.
         /// </summary>
         /// <param name="pipingCalculationItem">The calculation containing the surface line.</param>
         /// <param name="lineSegments">The line segments that defines the reference line.</param>
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Data
                 return false;
             }
             var minimalDistance = lineSegments.Min(segment => segment.GetEuclideanDistanceToPoint(surfaceLine.ReferenceLineIntersectionWorldPoint));
-            return minimalDistance < 1.0e-6;
+            return minimalDistance < 1e-6;
         }
     }
 }

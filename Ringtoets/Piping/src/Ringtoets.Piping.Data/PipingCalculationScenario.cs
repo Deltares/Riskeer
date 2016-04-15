@@ -30,8 +30,6 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingCalculationScenario : PipingCalculation, ICalculationScenario
     {
-        private RoundedDouble contribution;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationScenario"/> with default values set for some of the parameters.
         /// </summary>
@@ -48,23 +46,13 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets  or sets whether this scenario is relevant or not.
+        /// Gets or sets whether this scenario is relevant or not.
         /// </summary>
         public bool IsRelevant { get; set; }
 
         /// <summary>
         /// Gets the contribution of the scenario.
         /// </summary>
-        public RoundedDouble Contribution
-        {
-            get
-            {
-                return contribution;
-            }
-            set
-            {
-                contribution = value;
-            }
-        }
+        public RoundedDouble Contribution { get; set; }
     }
 }

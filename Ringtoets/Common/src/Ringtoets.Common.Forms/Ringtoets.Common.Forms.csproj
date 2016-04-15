@@ -83,6 +83,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FailureMechanismResultView.resx">
       <DependentUpon>FailureMechanismResultView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
