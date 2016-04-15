@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var image = info.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismContributionIcon, image);
         }
 
         [Test]

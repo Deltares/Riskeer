@@ -135,6 +135,8 @@
     <None Include="Resources\chart_single_line.png" />
     <None Include="Resources\blue-document-list.png" />
     <None Include="Resources\blue-document--pencil.png" />
+    <None Include="Resources\document-task.png" />
+    <None Include="Resources\chart-pie-separate.png" />
     <Content Include="Resources\PlayHS.png" />
     <None Include="Resources\Sections.png" />
     <Content Include="Resources\tickAll.png" />

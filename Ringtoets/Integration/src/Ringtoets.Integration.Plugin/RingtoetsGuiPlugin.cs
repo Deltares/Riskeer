@@ -112,7 +112,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetViewName = (v, o) => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
                 GetViewData = context => context.WrappedData,
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
                 CloseForData = CloseFailureMechanismContributionViewForData,
                 AfterCreate = (view, context) => view.AssessmentSection = context.Parent
             };
@@ -126,7 +126,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new ViewInfo<FailureMechanismSectionResultContext, IEnumerable<FailureMechanismSectionResult>, FailureMechanismResultView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.SectionResults,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
@@ -222,7 +222,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new TreeNodeInfo<FailureMechanismContributionContext>
             {
                 Text = failureMechanismContribution => RingtoetsDataResources.FailureMechanismContribution_DisplayName,
-                Image = failureMechanismContribution => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = failureMechanismContribution => RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
                 ContextMenuStrip = (failureMechanismContribution, parentData, treeViewControl) => Gui.Get(failureMechanismContribution, treeViewControl)
                                                                                                      .AddOpenItem()
                                                                                                      .AddSeparator()
@@ -244,7 +244,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext>
             {
                 Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
