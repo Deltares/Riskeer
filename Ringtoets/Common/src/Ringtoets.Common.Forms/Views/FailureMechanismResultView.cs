@@ -42,6 +42,9 @@ namespace Ringtoets.Common.Forms.Views
 
         private IEnumerable<FailureMechanismSectionResult> failureMechanismSectionResult;
         private IFailureMechanism failureMechanism;
+        private DataGridViewTextBoxColumn assessmentLayerTwoA;
+        private DataGridViewTextBoxColumn assessmentLayerTwoB;
+        private DataGridViewTextBoxColumn assessmentLayerThree;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView"/>.
@@ -72,14 +75,6 @@ namespace Ringtoets.Common.Forms.Views
 
                 failureMechanismObserver.Observable = failureMechanism;
                 failureMechanismSectionResultObserver.Observable = failureMechanism;
-            }
-        }
-
-        private void OnLoad(object sender, EventArgs e)
-        {
-            if (failureMechanismSectionResult != null && failureMechanismSectionResult.Any())
-            {
-                SetRowStyling();
             }
         }
 
@@ -115,6 +110,14 @@ namespace Ringtoets.Common.Forms.Views
             base.Dispose(disposing);
         }
 
+        private void OnLoad(object sender, EventArgs e)
+        {
+            if (failureMechanismSectionResult != null && failureMechanismSectionResult.Any())
+            {
+                SetRowStyling();
+            }
+        }
+
         private void InitializeDataGridView()
         {
             dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
@@ -135,21 +138,21 @@ namespace Ringtoets.Common.Forms.Views
                 Name = "column_AssessmentLayerOne"
             };
 
-            var assessmentLayerTwoA = new DataGridViewTextBoxColumn
+            assessmentLayerTwoA = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "AssessmentLayerTwoA",
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 Name = "column_AssessmentLayerTwoA"
             };
 
-            var assessmentLayerTwoB = new DataGridViewTextBoxColumn
+            assessmentLayerTwoB = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "AssessmentLayerTwoB",
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b,
                 Name = "column_AssessmentLayerTwoB"
             };
 
-            var assessmentLayerThree = new DataGridViewTextBoxColumn
+            assessmentLayerThree = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "AssessmentLayerThree",
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three,
@@ -192,26 +195,26 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        private static void SetRowEditMode(DataGridViewRow row, bool checkboxSelected)
+        private void SetRowEditMode(DataGridViewRow row, bool checkboxSelected)
         {
-            row.Cells[2].ReadOnly = checkboxSelected;
-            row.Cells[3].ReadOnly = checkboxSelected;
-            row.Cells[4].ReadOnly = checkboxSelected;
+            row.Cells[assessmentLayerTwoA.Index].ReadOnly = checkboxSelected;
+            row.Cells[assessmentLayerTwoB.Index].ReadOnly = checkboxSelected;
+            row.Cells[assessmentLayerThree.Index].ReadOnly = checkboxSelected;
         }
 
         private void SetRowStyle(bool checkboxSelected, DataGridViewRow row)
         {
             if (checkboxSelected)
             {
-                SetCellStyle(row.Cells[2], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
-                SetCellStyle(row.Cells[3], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
-                SetCellStyle(row.Cells[4], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
+                SetCellStyle(row.Cells[assessmentLayerTwoA.Index], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
+                SetCellStyle(row.Cells[assessmentLayerTwoB.Index], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
+                SetCellStyle(row.Cells[assessmentLayerThree.Index], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
             }
             else
             {
-                SetCellStyle(row.Cells[2], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
-                SetCellStyle(row.Cells[3], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
-                SetCellStyle(row.Cells[4], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
+                SetCellStyle(row.Cells[assessmentLayerTwoA.Index], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
+                SetCellStyle(row.Cells[assessmentLayerTwoB.Index], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
+                SetCellStyle(row.Cells[assessmentLayerThree.Index], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
             }
         }
 
