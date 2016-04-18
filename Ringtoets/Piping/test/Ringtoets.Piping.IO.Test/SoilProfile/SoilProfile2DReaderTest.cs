@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            var expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Geen lagen gevonden voor het profiel.");
+            var expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Geen lagen gevonden voor de ondergrondschematisatie.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();

@@ -1821,7 +1821,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stochastisch ondergrondmodellen uit de database..
+        ///   Looks up a localized string similar to Ondergrondschematisaties uit de database..
         /// </summary>
         public static string StochasticSoilModel_StochasticSoilProfiles_Description {
             get {

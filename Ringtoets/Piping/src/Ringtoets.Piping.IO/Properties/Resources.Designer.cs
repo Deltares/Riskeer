@@ -317,7 +317,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kon geen stochatische ondergrondmodellen verkrijgen uit de database..
+        ///   Looks up a localized string similar to Kon geen stochastische ondergrondmodellen verkrijgen uit de database..
         /// </summary>
         public static string StochasticSoilModelDatabaseReader_Failed_to_read_database {
             get {

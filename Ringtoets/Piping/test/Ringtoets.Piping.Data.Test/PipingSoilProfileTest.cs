@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
+using PrimitivesResources = Ringtoets.Piping.Primitives.Properties.Resources;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -65,7 +66,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => new PipingSoilProfile(String.Empty, Double.NaN, new Collection<PipingSoilLayer>(), SoilProfileType.SoilProfile1D, 0);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, PrimitivesResources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers);
         }
 
         [Test]
@@ -75,7 +76,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => new PipingSoilProfile(String.Empty, Double.NaN, null, SoilProfileType.SoilProfile1D, 0);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, PrimitivesResources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers);
         }
 
         [Test]
@@ -123,7 +124,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => new PipingSoilProfile(String.Empty, bottom, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Eén of meerdere lagen hebben een top onder de bodem van het profiel.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.");
         }
 
         [Test]

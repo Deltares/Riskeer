@@ -707,7 +707,7 @@
     <value>Segment naam</value>
   </data>
   <data name="StochasticSoilModel_StochasticSoilProfiles_Description" xml:space="preserve">
-    <value>Stochastisch ondergrondmodellen uit de database.</value>
+    <value>Ondergrondschematisaties uit de database.</value>
   </data>
   <data name="StochasticSoilModel_StochasticSoilProfiles_DisplayName" xml:space="preserve">
     <value>Ondergrondschematisaties</value>
