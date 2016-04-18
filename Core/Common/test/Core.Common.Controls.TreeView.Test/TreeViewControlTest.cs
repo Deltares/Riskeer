@@ -1349,12 +1349,12 @@ namespace Core.Common.Controls.TreeView.Test
 
         [Test]
         [RequiresSTA]
-        [TestCase(MouseButtons.Left, true)]
+        [TestCase(MouseButtons.Left, false)]
         [TestCase(MouseButtons.Right, true)]
         [TestCase(MouseButtons.Middle, false)]
         [TestCase(MouseButtons.XButton1, false)]
         [TestCase(MouseButtons.XButton2, false)]
-        public void GivenTreeViewControl_WhenMouseButtonDownOnNode_SelectThatNodeForLeftAndRightMouseButtons(
+        public void GivenTreeViewControl_WhenMouseClickOnNode_SelectThatNodeForRightMouseButtons(
             MouseButtons mouseButtonDown, bool changeSelectionToTarget)
         {
             // Setup
@@ -1393,10 +1393,69 @@ namespace Core.Common.Controls.TreeView.Test
                     var treeViewTester = new TreeViewTester(identifier);
 
                     // Call
-                    treeViewTester.FireEvent("MouseDown", new MouseEventArgs(mouseButtonDown, 1, 60, 30, 0));
+                    treeViewTester.FireEvent("MouseClick", new MouseEventArgs(mouseButtonDown, 1, 60, 30, 0));
 
                     // Assert
                     object expectedSelectedData = changeSelectionToTarget ? selectionTarget : data;
+                    Assert.AreEqual(expectedSelectedData, treeViewControl.SelectedData);
+                }
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
+            }
+        }
+
+
+        [Test]
+        [RequiresSTA]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenTreeViewControl_WhenTreeViewItemDragOnNode_SelectThatNode(
+            bool canRenameNode)
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var selectionTarget = "I'm the target!";
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    ChildNodeObjects = o => new object[]
+                    {
+                        selectionTarget
+                    },
+                    CanRename = (d,p) => canRenameNode
+                };
+                var childTreeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(string),
+                    Text = o => o.ToString()
+                };
+                treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+                var data = new object();
+                treeViewControl.Data = data;
+                treeViewControl.TryExpandAllNodesForData(data);
+
+                // Precondition:
+                Assert.AreSame(data, treeViewControl.SelectedData);
+
+                var identifier = "identifier";
+                var treeView = (System.Windows.Forms.TreeView)treeViewControl.Controls[0];
+                treeView.Name = identifier;
+                var childNode = treeView.Nodes[0].Nodes[0];
+
+                try
+                {
+                    WindowsFormsTestHelper.Show(treeViewControl);
+                    var treeViewTester = new TreeViewTester(identifier);
+
+                    // Call
+                    treeViewTester.FireEvent("ItemDrag", new ItemDragEventArgs(MouseButtons.Left, childNode));
+
+                    // Assert
+                    object expectedSelectedData = selectionTarget;
                     Assert.AreEqual(expectedSelectedData, treeViewControl.SelectedData);
                 }
                 finally

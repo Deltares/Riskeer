@@ -156,6 +156,7 @@ namespace Core.Common.Controls.TreeView
         public void HandleItemDrag(FormsTreeView treeView, ItemDragEventArgs e, Func<object, TreeNodeInfo> getTreeNodeInfoForData)
         {
             var draggedNode = (TreeNode) e.Item;
+            treeView.SelectedNode = draggedNode;
             TreeNodeInfo treeNodeInfo = getTreeNodeInfoForData(draggedNode.Tag);
             var parentTag = draggedNode.Parent != null ? draggedNode.Parent.Tag : null;
 

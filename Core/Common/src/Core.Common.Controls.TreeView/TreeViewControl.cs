@@ -117,7 +117,6 @@ namespace Core.Common.Controls.TreeView
             treeView.AfterLabelEdit += TreeViewAfterLabelEdit;
             treeView.AfterCheck += TreeViewAfterCheck;
             treeView.KeyDown += TreeViewKeyDown;
-            treeView.MouseDown += TreeViewOnMouseDown;
             treeView.MouseClick += TreeViewMouseClick;
             treeView.DoubleClick += TreeViewDoubleClick;
             treeView.DragDrop += TreeViewDragDrop;
@@ -817,20 +816,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private void TreeViewOnMouseDown(object sender, MouseEventArgs e)
-        {
-            var point = new Point(e.X, e.Y);
-            var clickedNode = treeView.GetNodeAt(point);
-            if (clickedNode == null)
-            {
-                return;
-            }
-            if (e.Button.HasFlag(MouseButtons.Left) || e.Button.HasFlag(MouseButtons.Right))
-            {
-                treeView.SelectedNode = clickedNode;
-            }
-        }
-
         private void TreeViewMouseClick(object sender, MouseEventArgs e)
         {
             var point = new Point(e.X, e.Y);
@@ -844,6 +829,8 @@ namespace Core.Common.Controls.TreeView
 
             if (e.Button.HasFlag(MouseButtons.Right))
             {
+                treeView.SelectedNode = clickedNode;
+
                 var parentTag = GetParentTag(clickedNode);
 
                 // Update the context menu
