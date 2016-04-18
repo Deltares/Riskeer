@@ -130,7 +130,7 @@
     <value>Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{0}'.</value>
   </data>
   <data name="Error_SoilProfile_read_from_database" xml:space="preserve">
-    <value>Kon geen ondergrond profielen verkrijgen van de database.</value>
+    <value>Kon geen ondergrondschematisaties verkrijgen uit de database.</value>
   </data>
   <data name="PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_" xml:space="preserve">
     <value>Ondergrondschematisatie bevat geen geldige waarde in kolom '{0}'.</value>
@@ -208,7 +208,7 @@
     <value>Het uitlezen van een stochastisch ondergrondmodel is mislukt, deze zal worden overgeslagen.</value>
   </data>
   <data name="StochasticSoilModelDatabaseReader_Failed_to_read_database" xml:space="preserve">
-    <value>Kon geen ondergrondmodellen verkrijgen van de database.</value>
+    <value>Kon geen stochatische ondergrondmodellen verkrijgen uit de database.</value>
   </data>
   <data name="StochasticSoilModelDatabaseReader_SegmentPoint_has_invalid_value" xml:space="preserve">
     <value>De coördinaten van het stochastisch ondergrondmodel bevatten geen geldige waarde.</value>

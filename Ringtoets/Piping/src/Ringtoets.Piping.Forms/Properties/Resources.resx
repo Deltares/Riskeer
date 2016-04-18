@@ -326,7 +326,7 @@
     <value>Naam</value>
   </data>
   <data name="StochasticSoilProfile_Bottom_Description" xml:space="preserve">
-    <value>Het niveau van de onderkant van dit profiel.</value>
+    <value>Het niveau van de onderkant van de ondergrondschematisatie.</value>
   </data>
   <data name="StochasticSoilProfile_Bottom_DisplayName" xml:space="preserve">
     <value>Bodemniveau</value>
@@ -341,7 +341,7 @@
     <value>Ondergrondschematisatie</value>
   </data>
   <data name="StochasticSoilProfile_Tops_Description" xml:space="preserve">
-    <value>De niveaus van de bovenkant van de lagen binnen dit profiel.</value>
+    <value>De niveaus van de bovenkant van de lagen binnen de ondergrondschematisatie.</value>
   </data>
   <data name="StochasticSoilProfile_Tops_DisplayName" xml:space="preserve">
     <value>Topniveaus</value>
@@ -710,7 +710,7 @@
     <value>Stochastisch ondergrondmodellen uit de database.</value>
   </data>
   <data name="StochasticSoilModel_StochasticSoilProfiles_DisplayName" xml:space="preserve">
-    <value>Stochastisch ondergrondmodellen</value>
+    <value>Ondergrondschematisaties</value>
   </data>
   <data name="GeneratePipingCalculationsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\wand-hat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

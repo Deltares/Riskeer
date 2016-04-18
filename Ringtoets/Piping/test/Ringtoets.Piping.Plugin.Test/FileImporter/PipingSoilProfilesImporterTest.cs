@@ -262,7 +262,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 expectedProgressMessages.Add(new ProgressNotification("Inlezen van de stochastische ondergrondmodellen.", i, expectedModels));
             }
-            expectedProgressMessages.Add(new ProgressNotification("Controleren van ondergrondprofielen.", 1, 1));
+            expectedProgressMessages.Add(new ProgressNotification("Controleren van ondergrondschematisaties.", 1, 1));
             for (var i = 1; i <= expectedModels; i++)
             {
                 expectedProgressMessages.Add(new ProgressNotification("Geïmporteerde data toevoegen aan faalmechanisme.", i, expectedModels));

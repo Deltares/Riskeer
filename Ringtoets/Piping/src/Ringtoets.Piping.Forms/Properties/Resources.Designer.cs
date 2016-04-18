@@ -1830,7 +1830,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stochastisch ondergrondmodellen.
+        ///   Looks up a localized string similar to Ondergrondschematisaties.
         /// </summary>
         public static string StochasticSoilModel_StochasticSoilProfiles_DisplayName {
             get {
@@ -1858,7 +1858,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het niveau van de onderkant van dit profiel..
+        ///   Looks up a localized string similar to Het niveau van de onderkant van de ondergrondschematisatie..
         /// </summary>
         public static string StochasticSoilProfile_Bottom_Description {
             get {
@@ -1912,7 +1912,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De niveaus van de bovenkant van de lagen binnen dit profiel..
+        ///   Looks up a localized string similar to De niveaus van de bovenkant van de lagen binnen de ondergrondschematisatie..
         /// </summary>
         public static string StochasticSoilProfile_Tops_Description {
             get {
