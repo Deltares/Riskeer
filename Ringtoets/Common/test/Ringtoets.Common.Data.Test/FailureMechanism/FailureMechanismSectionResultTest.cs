@@ -106,7 +106,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             var assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual("1/41,661,830", assessmentLayerTwoA);
+            Assert.AreEqual(string.Format("1/{0:N0}", 41661830), assessmentLayerTwoA);
             mocks.VerifyAll();
         }
 
