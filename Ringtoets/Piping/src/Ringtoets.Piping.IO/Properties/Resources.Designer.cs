@@ -344,7 +344,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ondergrondschematisatie verwijst naar geen geldige waarde..
+        ///   Looks up a localized string similar to De ondergrondschematisatie verwijst naar een ongeldige waarde..
         /// </summary>
         public static string StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value {
             get {

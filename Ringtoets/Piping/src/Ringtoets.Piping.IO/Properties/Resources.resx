@@ -214,6 +214,6 @@
     <value>De coördinaten van het stochastische ondergrondmodel bevatten geen geldige waarde.</value>
   </data>
   <data name="StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value" xml:space="preserve">
-    <value>De ondergrondschematisatie verwijst naar geen geldige waarde.</value>
+    <value>De ondergrondschematisatie verwijst naar een ongeldige waarde.</value>
   </data>
 </root>

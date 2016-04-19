@@ -252,6 +252,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>Klaar met het inlezen van karakteristieke punten uit bestand '{0}'.</value>
   </data>
   <data name="PipingSoilProfilesImporter_ValidateStochasticSoilModel_SoilModel_0_with_stochastic_soil_profile_without_profile" xml:space="preserve">
-    <value>Het stochastische ondergrondmodel '{0}' heeft een ondergrondschematisatie die niet gespecificeerd is. Dit model wordt overgeslagen.</value>
+    <value>Het stochastische ondergrondmodel '{0}' heeft een ongespecificeerde ondergrondschematisatie. Dit model wordt overgeslagen.</value>
   </data>
 </root>

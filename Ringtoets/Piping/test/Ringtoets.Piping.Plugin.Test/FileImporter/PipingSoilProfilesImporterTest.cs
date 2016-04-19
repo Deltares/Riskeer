@@ -469,7 +469,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_ParseErrorMessage_0_SoilProfile_skipped,
                               internalErrorMessage),
-                string.Format("Het stochastische ondergrondmodel '{0}' heeft een ondergrondschematisatie die niet gespecificeerd is. Dit model wordt overgeslagen.", "Name")
+                string.Format("Het stochastische ondergrondmodel '{0}' heeft een ongespecificeerde ondergrondschematisatie. Dit model wordt overgeslagen.", "Name")
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, 2);
 
@@ -535,7 +535,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(context, validFilePath);
 
             // Assert
-            var expectedLogMessage = String.Format("Fout bij het lezen van bestand '{0}': De ondergrondschematisatie verwijst naar geen geldige waarde." +
+            var expectedLogMessage = String.Format("Fout bij het lezen van bestand '{0}': De ondergrondschematisatie verwijst naar een ongeldige waarde." +
                                                    " Dit stochastische ondergrondmodel wordt overgeslagen.", validFilePath);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.AreEqual(0, failureMechanism.StochasticSoilModels.Count);

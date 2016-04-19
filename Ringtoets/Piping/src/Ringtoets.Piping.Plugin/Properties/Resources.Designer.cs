@@ -196,7 +196,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het stochastische ondergrondmodel &apos;{0}&apos; heeft een ondergrondschematisatie die niet gespecificeerd is. Dit model wordt overgeslagen..
+        ///   Looks up a localized string similar to Het stochastische ondergrondmodel &apos;{0}&apos; heeft een ongespecificeerde ondergrondschematisatie. Dit model wordt overgeslagen..
         /// </summary>
         public static string PipingSoilProfilesImporter_ValidateStochasticSoilModel_SoilModel_0_with_stochastic_soil_profile_without_profile {
             get {
