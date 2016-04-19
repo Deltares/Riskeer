@@ -85,6 +85,11 @@ namespace Application.Ringtoets.Storage.Persistors
             LoadChildren(failureMechanism, entity);
         }
 
+        /// <summary>
+        /// Implement to provide a way to load the children of the <paramref name="entity"/> as children of <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <typeparamref name="T"/> to load into.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to load from.</param>
         protected abstract void LoadChildren(T model, FailureMechanismEntity entity);
 
         /// <summary>
@@ -138,6 +143,11 @@ namespace Application.Ringtoets.Storage.Persistors
             UpdateChildren(model, entity);
         }
 
+        /// <summary>
+        /// Implement to provide a way to update the children of the <paramref name="entity"/> with data from <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <typeparamref name="T"/> for which to use the data to update the <paramref name="entity"/>.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to update.</param>
         protected abstract void UpdateChildren(T model, FailureMechanismEntity entity);
 
         /// <summary>
@@ -147,7 +157,6 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="model"><see cref="IFailureMechanism"/> to be saved in the storage.</param>
         /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
         /// <item><paramref name="parentNavigationProperty"/> is <c>null</c>.</item>
-        /// <item><paramref name="model"/> is <c>null</c>.</item>
         /// </list></exception>
         public void InsertModel(ICollection<FailureMechanismEntity> parentNavigationProperty, T model)
         {
@@ -170,6 +179,12 @@ namespace Application.Ringtoets.Storage.Persistors
             InsertChildren(model, entity);
         }
 
+
+        /// <summary>
+        /// Implement to provide a way to insert the children of the <paramref name="model"/> into the <paramref name="entity"/>.
+        /// </summary>
+        /// <param name="model">The <typeparamref name="T"/> for which to use the data to update the <paramref name="entity"/>.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to update.</param>
         protected abstract void InsertChildren(T model, FailureMechanismEntity entity);
 
         /// <summary>

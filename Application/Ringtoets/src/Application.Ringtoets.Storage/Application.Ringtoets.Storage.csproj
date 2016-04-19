@@ -55,6 +55,7 @@
     <Compile Include="Converters\AssessmentSectionConverter.cs" />
     <Compile Include="Converters\PipingFailureMechanismConverter.cs" />
     <Compile Include="Converters\HydraulicLocationConverter.cs" />
+    <Compile Include="Converters\PipingSoilProfileConverter.cs" />
     <Compile Include="Converters\ProjectConverter.cs" />
     <Compile Include="Converters\IEntityConverter.cs" />
     <Compile Include="Converters\ReferenceLineConverter.cs" />
@@ -154,6 +155,10 @@
     <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
       <Name>Ringtoets.Piping.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
+      <Project>{14c6f716-64e2-4bc4-a1ef-05865fcefa4c}</Project>
+      <Name>Ringtoets.Piping.Primitives</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

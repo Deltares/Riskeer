@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Converters
 {
@@ -32,10 +33,16 @@ namespace Application.Ringtoets.Storage.Converters
             {
                 throw new ArgumentNullException("entity");
             }
-            return new StochasticSoilModel(-1, entity.Name, entity.SegmentName)
+            var convertedModel = new StochasticSoilModel(-1, entity.Name, entity.SegmentName)
             {
                 StorageId = entity.StochasticSoilModelEntityId
             };
+            foreach (var profileEntity in entity.StochasticSoilProfileEntities)
+            {
+                var profile = new StochasticSoilProfile((double)profileEntity.Probability.Value, SoilProfileType.SoilProfile1D, -1);
+                convertedModel.StochasticSoilProfiles.Add(profile);
+            }
+            return convertedModel;
         }
 
         public void ConvertModelToEntity(StochasticSoilModel modelObject, StochasticSoilModelEntity entity)
@@ -51,6 +58,15 @@ namespace Application.Ringtoets.Storage.Converters
             entity.Name = modelObject.Name;
             entity.SegmentName = modelObject.SegmentName;
             entity.StochasticSoilModelEntityId = modelObject.StorageId;
+
+            foreach (var stochasticProfile in modelObject.StochasticSoilProfiles)
+            {
+                var profile = new StochasticSoilProfileEntity
+                {
+                    Probability = Convert.ToDecimal(stochasticProfile.Probability)
+                };
+                entity.StochasticSoilProfileEntities.Add(profile);
+            }
         }
     }
 }

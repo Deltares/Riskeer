@@ -27,13 +27,17 @@ using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
+using Core.Common.Utils;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Persistors
 {
     public class StochasticSoilModelPersistor
     {
-        private readonly StochasticSoilModelConverter converter;
+        private readonly StochasticSoilModelConverter soilModelConverter = new StochasticSoilModelConverter();
+        private readonly PipingSoilProfileConverter soilProfileConverter = new PipingSoilProfileConverter();
+
         private readonly ICollection<StochasticSoilModelEntity> modifiedList = new List<StochasticSoilModelEntity>();
         private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> insertedList = new Dictionary<StochasticSoilModelEntity, StochasticSoilModel>();
         private readonly DbSet<StochasticSoilModelEntity> stochasticSoilModelSet;
@@ -45,7 +49,6 @@ namespace Application.Ringtoets.Storage.Persistors
                 throw new ArgumentNullException("ringtoetsContext");
             }
             stochasticSoilModelSet = ringtoetsContext.StochasticSoilModelEntities;
-            converter = new StochasticSoilModelConverter();
         }
 
         public IEnumerable<StochasticSoilModel> LoadModel(IEnumerable<StochasticSoilModelEntity> entities)
@@ -54,9 +57,17 @@ namespace Application.Ringtoets.Storage.Persistors
             {
                 throw new ArgumentNullException("entities");
             }
-            return entities.Select(e => converter.ConvertEntityToModel(e));
+            return entities.Select(e => soilModelConverter.ConvertEntityToModel(e));
         }
 
+        /// <summary>
+        /// Ensures that the model is added as <see cref="StochasticSoilModelEntity"/> in the <paramref name="parentNavigationProperty"/>.
+        /// </summary>
+        /// <param name="parentNavigationProperty">Collection where <see cref="StochasticSoilModelEntity"/> objects can be added. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
+        /// <param name="stochasticSoilModels"><see cref="StochasticSoilModel"/> to be saved in the storage.</param>
+        /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
+        /// <item><paramref name="parentNavigationProperty"/> is <c>null</c>.</item>
+        /// </list></exception>
         public void InsertModel(ICollection<StochasticSoilModelEntity> parentNavigationProperty, ICollection<StochasticSoilModel> stochasticSoilModels)
         {
             if (parentNavigationProperty == null)
@@ -71,6 +82,21 @@ namespace Application.Ringtoets.Storage.Persistors
             foreach (var stochasticSoilModel in stochasticSoilModels)
             {
                 InsertStochasticSoilModel(parentNavigationProperty, stochasticSoilModel);
+            }
+
+            InsertStochasticSoilProfiles(parentNavigationProperty, stochasticSoilModels);
+        }
+
+        private void InsertStochasticSoilProfiles(ICollection<StochasticSoilModelEntity> parentNavigationProperty, ICollection<StochasticSoilModel> stochasticSoilModels)
+        {
+            var profiles = stochasticSoilModels.SelectMany(ssm => ssm.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile));
+
+            var convertedProfiles = new Dictionary<PipingSoilProfile, SoilProfileEntity>(new ReferenceEqualityComparer<PipingSoilProfile>());
+            foreach (var soilProfile in profiles)
+            {
+                var entity = new SoilProfileEntity();
+                soilProfileConverter.ConvertModelToEntity(soilProfile, entity);
+                convertedProfiles.Add(soilProfile, entity);
             }
         }
 
@@ -116,7 +142,7 @@ namespace Application.Ringtoets.Storage.Persistors
 
                     modifiedList.Add(entity);
 
-                    converter.ConvertModelToEntity(stochasticSoilModel, entity);
+                    soilModelConverter.ConvertModelToEntity(stochasticSoilModel, entity);
                 }
             }
 
@@ -138,7 +164,7 @@ namespace Application.Ringtoets.Storage.Persistors
         private void InsertStochasticSoilModel(ICollection<StochasticSoilModelEntity> parentNavigationProperty, StochasticSoilModel stochasticSoilModel)
         {
             var entity = new StochasticSoilModelEntity();
-            converter.ConvertModelToEntity(stochasticSoilModel, entity);
+            soilModelConverter.ConvertModelToEntity(stochasticSoilModel, entity);
             parentNavigationProperty.Add(entity);
             insertedList.Add(entity, stochasticSoilModel);
         }

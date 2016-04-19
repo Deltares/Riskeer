@@ -37,8 +37,8 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long SoilLayerEntityId { get; set; }
         public long SoilProfileEntityId { get; set; }
-        public Nullable<decimal> Top { get; set; }
-        public Nullable<long> IsAquifer { get; set; }
+        public decimal Top { get; set; }
+        public byte IsAquifer { get; set; }
     
         public virtual SoilProfileEntity SoilProfileEntity { get; set; }
     }

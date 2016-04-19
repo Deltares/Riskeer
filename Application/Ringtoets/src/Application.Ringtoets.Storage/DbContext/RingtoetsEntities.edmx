@@ -61,15 +61,16 @@
           </Key>
           <Property Name="SoilLayerEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SoilProfileEntityId" Type="integer" Nullable="false" />
-          <Property Name="Top" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="IsAquifer" Type="integer" />
+          <Property Name="Top" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="IsAquifer" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="SoilProfileEntity">
           <Key>
             <PropertyRef Name="SoilProfileEntityId" />
           </Key>
           <Property Name="SoilProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Bottom" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Bottom" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="StochasticSoilModelEntity">
           <Key>
@@ -351,8 +352,8 @@
           </Key>
           <Property Name="SoilLayerEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Top" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="IsAquifer" Type="Int64" />
+          <Property Name="Top" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="IsAquifer" Type="Byte" Nullable="false" />
           <NavigationProperty Name="SoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0" FromRole="SoilLayerEntity" ToRole="SoilProfileEntity" />
         </EntityType>
         <EntityType Name="SoilProfileEntity">
@@ -360,7 +361,8 @@
             <PropertyRef Name="SoilProfileEntityId" />
           </Key>
           <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Bottom" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Bottom" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SoilLayerEntities" Relationship="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0" FromRole="SoilProfileEntity" ToRole="SoilLayerEntity" />
           <NavigationProperty Name="StochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="SoilProfileEntity" ToRole="StochasticSoilProfileEntity" />
         </EntityType>
@@ -565,6 +567,7 @@
           <EntitySetMapping Name="SoilProfileEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.SoilProfileEntity">
               <MappingFragment StoreEntitySet="SoilProfileEntity">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Bottom" ColumnName="Bottom" />
                 <ScalarProperty Name="SoilProfileEntityId" ColumnName="SoilProfileEntityId" />
               </MappingFragment>
