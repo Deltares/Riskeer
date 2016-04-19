@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.Style;
 using DotSpatial.Controls;
 using DotSpatial.Data;
@@ -31,7 +32,8 @@ using DotSpatial.Topology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapPointData"/> into a <see cref="IMapFeatureLayer"/> containing one or more <see cref="Coordinate"/>.
+    /// The converter that converts <see cref="MapPointData"/> into a <see cref="IMapFeatureLayer"/>
+    /// containing one or more <see cref="Coordinate"/>.
     /// </summary>
     public class MapPointDataConverter : MapDataConverter<MapPointData>
     {
@@ -39,9 +41,9 @@ namespace Core.Components.DotSpatial.Converter
         {
             var featureSet = new FeatureSet(FeatureType.Point);
 
-            foreach (var point in data.Features.SelectMany(features => features.MapGeometries.SelectMany(mapGeometry => mapGeometry.PointCollections.First()))) 
+            foreach (Coordinate coordinate in GetAllPointCoordinates(data))
             {
-                featureSet.Features.Add(new Coordinate(point.X, point.Y));
+                featureSet.Features.Add(coordinate);
             }
 
             var layer = new MapPointLayer(featureSet)
@@ -56,6 +58,16 @@ namespace Core.Components.DotSpatial.Converter
             {
                 layer
             };
+        }
+
+        private static IEnumerable<Coordinate> GetAllPointCoordinates(FeatureBasedMapData data)
+        {
+            return data.Features.SelectMany(GetAllMapFeatureCoordinates);
+        }
+
+        private static IEnumerable<Coordinate> GetAllMapFeatureCoordinates(MapFeature features)
+        {
+            return features.MapGeometries.SelectMany(mapGeometry => ConvertPoint2DElementsToCoordinates(mapGeometry.PointCollections.First()));
         }
 
         private void CreateStyle(MapPointLayer layer, PointStyle style)

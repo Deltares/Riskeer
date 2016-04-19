@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using System.Linq;
 
+using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using DotSpatial.Controls;
@@ -33,7 +33,8 @@ using DotSpatial.Topology;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapPolygonData"/> into a <see cref="IMapFeatureLayer"/> containing a <see cref="Polygon"/>.
+    /// The converter that converts <see cref="MapPolygonData"/> into a <see cref="IMapFeatureLayer"/>
+    /// containing a <see cref="Polygon"/>.
     /// </summary>
     public class MapPolygonDataConverter : MapDataConverter<MapPolygonData>
     {
@@ -48,8 +49,19 @@ namespace Core.Components.DotSpatial.Converter
                 
                 foreach (var mapGeometry in mapFeature.MapGeometries)
                 {
-                    var coordinates = mapGeometry.PointCollections.First().Select(p => new Coordinate(p.X, p.Y));
-                    IPolygon polygon = new Polygon(coordinates);
+                    IEnumerable<Point2D>[] pointCollections = mapGeometry.PointCollections.ToArray();
+
+                    IEnumerable<Coordinate> outerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[0]);
+                    ILinearRing outerRing = new LinearRing(outerRingCoordinates);
+
+                    ILinearRing[] innerRings = new ILinearRing[pointCollections.Length - 1];
+                    for (int i = 1; i < pointCollections.Length; i++)
+                    {
+                        IEnumerable<Coordinate> innerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[i]);
+                        innerRings[i-1] = new LinearRing(innerRingCoordinates);
+                    }
+
+                    IPolygon polygon = new Polygon(outerRing, innerRings);
                     geometryList.Add(polygon);
                 }
 

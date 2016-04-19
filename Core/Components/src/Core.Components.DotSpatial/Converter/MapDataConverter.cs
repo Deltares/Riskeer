@@ -21,8 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
+using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using DotSpatial.Controls;
+using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Converter
 {
@@ -57,5 +61,10 @@ namespace Core.Components.DotSpatial.Converter
         /// <param name="data">The data to transform into one or more <see cref="IMapFeatureLayer"/>.</param>
         /// <returns>A new <see cref="List{T}"/> of <see cref="IMapFeatureLayer"/>.</returns>
         protected abstract IList<IMapFeatureLayer> Convert(T data);
+
+        protected static IEnumerable<Coordinate> ConvertPoint2DElementsToCoordinates(IEnumerable<Point2D> points)
+        {
+            return points.Select(point => new Coordinate(point.X, point.Y));
+        }
     }
 }

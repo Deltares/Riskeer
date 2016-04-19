@@ -110,6 +110,98 @@ namespace Core.Components.DotSpatial.Test.Converter
         }
 
         [Test]
+        public void Convert_MapFeatureWithSimplePolygon_ReturnPolygonLayerWithOnePolygonFeature()
+        {
+            // Setup
+            Point2D[] outerRingPoints = CreateRectangularRing(0.0, 10.0);
+            var feature = new List<MapFeature>
+            {
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(new[]
+                    {
+                        outerRingPoints
+                    })
+                })
+            };
+            const string layerName = "test data";
+            var polygonData = new MapPolygonData(feature, layerName);
+
+            // Call
+            IList<IMapFeatureLayer> layers = new MapPolygonDataConverter().Convert(polygonData);
+
+            // Assert
+            Assert.AreEqual(1, layers.Count);
+            var polygonLayer = (MapPolygonLayer)layers[0];
+            Assert.AreEqual(polygonData.IsVisible, polygonLayer.IsVisible);
+            Assert.AreEqual(layerName, polygonLayer.Name);
+            Assert.AreEqual(FeatureType.Polygon, polygonLayer.FeatureSet.FeatureType);
+            Assert.AreEqual(1, polygonLayer.FeatureSet.Features.Count);
+
+            var featureGeometry = (IMultiPolygon)polygonLayer.FeatureSet.Features[0].BasicGeometry;
+            Assert.AreEqual(1, featureGeometry.NumGeometries);
+
+            var polygonGeometry = (IBasicPolygon)featureGeometry.Geometries[0];
+            CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
+            CollectionAssert.IsEmpty(polygonGeometry.Holes);
+        }
+
+        [Test]
+        public void Convert_MapFeatureWithPolygonWithHoles_ReturnPolygonLayerWithOnePolygonFeature()
+        {
+            // Setup
+            Point2D[] outerRingPoints = CreateRectangularRing(0.0, 10.0);
+            Point2D[] innerRing1Points = CreateRectangularRing(2.0, 3.0);
+            Point2D[] innerRing2Points = CreateRectangularRing(8.0, 5.0);
+            var feature = new List<MapFeature>
+            {
+                new MapFeature(new List<MapGeometry>
+                {
+                    new MapGeometry(new[]
+                    {
+                        outerRingPoints,
+                        innerRing1Points,
+                        innerRing2Points
+                    })
+                })
+            };
+            const string layerName = "test data";
+            var polygonData = new MapPolygonData(feature, layerName);
+
+            // Call
+            IList<IMapFeatureLayer> layers = new MapPolygonDataConverter().Convert(polygonData);
+
+            // Assert
+            Assert.AreEqual(1, layers.Count);
+            var polygonLayer = (MapPolygonLayer)layers[0];
+            Assert.AreEqual(polygonData.IsVisible, polygonLayer.IsVisible);
+            Assert.AreEqual(layerName, polygonLayer.Name);
+            Assert.AreEqual(FeatureType.Polygon, polygonLayer.FeatureSet.FeatureType);
+            Assert.AreEqual(1, polygonLayer.FeatureSet.Features.Count);
+
+            var featureGeometry = (IMultiPolygon)polygonLayer.FeatureSet.Features[0].BasicGeometry;
+            Assert.AreEqual(1, featureGeometry.NumGeometries);
+
+            var polygonGeometry = (IBasicPolygon)featureGeometry.Geometries[0];
+            CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
+            Assert.AreEqual(2, polygonGeometry.Holes.Count);
+            CollectionAssert.AreEqual(innerRing1Points, polygonGeometry.Holes.ElementAt(0).Coordinates.Select(c => new Point2D(c.X, c.Y)));
+            CollectionAssert.AreEqual(innerRing2Points, polygonGeometry.Holes.ElementAt(1).Coordinates.Select(c => new Point2D(c.X, c.Y)));
+        }
+
+        private static Point2D[] CreateRectangularRing(double xy1, double xy2)
+        {
+            return new[]
+            {
+                new Point2D(xy1, xy1),
+                new Point2D(xy2, xy1),
+                new Point2D(xy2, xy2),
+                new Point2D(xy1, xy2),
+                new Point2D(xy1, xy1)
+            };
+        }
+
+        [Test]
         public void Convert_MultipleFeatures_ConvertsAllFeatures()
         {
             // Setup

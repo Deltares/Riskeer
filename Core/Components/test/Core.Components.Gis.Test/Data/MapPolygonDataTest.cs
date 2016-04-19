@@ -50,22 +50,14 @@ namespace Core.Components.Gis.Test.Data
         }
 
         [Test]
-        [TestCase(0)]
-        [TestCase(2)]
-        [TestCase(5)]
-        public void Constructor_InvalidGeometryConfiguration_ThrowArgumentException(int numberOfPointCollections)
+        public void Constructor_EmptyPointsCollection_ThrowArgumentException()
         {
             // Setup
-            var invalidPointsCollections = new IEnumerable<Point2D>[numberOfPointCollections];
-            for (int i = 0; i < numberOfPointCollections; i++)
-            {
-                invalidPointsCollections[i] = CreateOuterRingPoint2Ds();
-            }
             var features = new[]
             {
                 new MapFeature(new[]
                 {
-                    new MapGeometry(invalidPointsCollections),
+                    new MapGeometry(Enumerable.Empty<IEnumerable<Point2D>>())
                 })
             };
 
@@ -108,7 +100,10 @@ namespace Core.Components.Gis.Test.Data
             {
                 new MapFeature(new Collection<MapGeometry>
                 {
-                    new MapGeometry(CreateTestPointsCollections())
+                    new MapGeometry(new[]
+                    {
+                        CreateOuterRingPoints()
+                    })
                 })
             };
 
@@ -118,7 +113,45 @@ namespace Core.Components.Gis.Test.Data
             // Assert
             Assert.IsInstanceOf<MapData>(data);
             Assert.AreNotSame(features, data.Features);
-            CollectionAssert.AreEqual(CreateTestPointsCollections(), data.Features.First().MapGeometries.First().PointCollections);
+            CollectionAssert.AreEqual(new[]
+            {
+                CreateOuterRingPoints()
+            }, data.Features.First().MapGeometries.First().PointCollections);
+        }
+
+        [Test]
+        public void Constructor_WithOuterAndInnerRingPoints_CreatesNewMapPointData()
+        {
+            // Setup
+            Point2D[] outerRingPoints = CreateOuterRingPoints();
+            Point2D[] innerRing1Points = CreateInnerRingPoints(2.0, 4.0);
+            Point2D[] innerRing2Points = CreateInnerRingPoints(8.0, 5.0);
+            var features = new[]
+            {
+                new MapFeature(new[]
+                {
+                    new MapGeometry(new[]
+                    {
+                        outerRingPoints,
+                        innerRing1Points,
+                        innerRing2Points
+                    })
+                })
+            };
+
+            // Call
+            var data = new MapPolygonData(features, "test data");
+
+            // Assert
+            Assert.IsInstanceOf<MapData>(data);
+            Assert.AreNotSame(features, data.Features);
+
+            MapGeometry mapFeatureGeometry = data.Features.First().MapGeometries.First();
+            var pointCollections = mapFeatureGeometry.PointCollections.ToArray();
+            Assert.AreEqual(3, pointCollections.Length);
+            CollectionAssert.AreEqual(outerRingPoints, pointCollections[0]);
+            CollectionAssert.AreEqual(innerRing1Points, pointCollections[1]);
+            CollectionAssert.AreEqual(innerRing2Points, pointCollections[2]);
         }
 
         [Test]
@@ -144,21 +177,27 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual(name, data.Name);
         }
 
-        private static IEnumerable<IEnumerable<Point2D>> CreateTestPointsCollections()
+        private Point2D[] CreateOuterRingPoints()
         {
             return new[]
             {
-                CreateOuterRingPoint2Ds()
+                new Point2D(0.0, 0.0),
+                new Point2D(10.0, 0.0),
+                new Point2D(10.0, 10.0),
+                new Point2D(0.0, 10.0),
+                new Point2D(0.0, 0.0)
             };
         }
 
-        private static Point2D[] CreateOuterRingPoint2Ds()
+        private Point2D[] CreateInnerRingPoints(double lowerLeftCubeX, double upperRightCubeX)
         {
-            return new []
+            return new[]
             {
-                new Point2D(0.0, 1.1),
-                new Point2D(1.0, 2.1),
-                new Point2D(1.6, 1.6)
+                new Point2D(lowerLeftCubeX, lowerLeftCubeX),
+                new Point2D(upperRightCubeX, lowerLeftCubeX),
+                new Point2D(upperRightCubeX, upperRightCubeX),
+                new Point2D(lowerLeftCubeX, upperRightCubeX),
+                new Point2D(lowerLeftCubeX, lowerLeftCubeX)
             };
         }
     }

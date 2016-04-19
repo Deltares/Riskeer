@@ -33,7 +33,8 @@ using LineStyle = Core.Components.Gis.Style.LineStyle;
 namespace Core.Components.DotSpatial.Converter
 {
     /// <summary>
-    /// The converter that converts <see cref="MapLineData"/> into a <see cref="IMapFeatureLayer"/> containing a <see cref="LineString"/>.
+    /// The converter that converts <see cref="MapLineData"/> into a <see cref="IMapFeatureLayer"/>
+    /// containing a <see cref="LineString"/>.
     /// </summary>
     public class MapLineDataConverter : MapDataConverter<MapLineData>
     {
@@ -48,7 +49,7 @@ namespace Core.Components.DotSpatial.Converter
 
                 foreach (var mapGeometry in mapFeature.MapGeometries)
                 {
-                    var coordinates = mapGeometry.PointCollections.First().Select(p => new Coordinate(p.X, p.Y));
+                    var coordinates = ConvertPoint2DElementsToCoordinates(mapGeometry.PointCollections.First());
                     IBasicLineString lineString = new LineString(coordinates);
                     geometryList.Add(lineString);
                 }

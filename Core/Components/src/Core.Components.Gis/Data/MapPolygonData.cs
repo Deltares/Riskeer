@@ -62,16 +62,16 @@ namespace Core.Components.Gis.Data
         {
             base.ValidateFeatures(features);
 
-            if (HasFeatureWithMultiplePointCollections(features))
+            if (HasFeatureWithEmptyPointCollections(features))
             {
                 throw new ArgumentException("MapPolygonData only accept MapFeature instances whose MapGeometries contain a single point-collection.");
             }
         }
 
-        private static bool HasFeatureWithMultiplePointCollections(IEnumerable<MapFeature> lineFeatures)
+        private static bool HasFeatureWithEmptyPointCollections(IEnumerable<MapFeature> lineFeatures)
         {
             return lineFeatures.SelectMany(feature => feature.MapGeometries)
-                                .Any(geometry => geometry.PointCollections.Count() != 1);
+                                .Any(geometry => !geometry.PointCollections.Any());
         }
     }
 }

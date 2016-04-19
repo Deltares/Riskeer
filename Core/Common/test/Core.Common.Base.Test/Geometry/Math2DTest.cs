@@ -1074,26 +1074,5 @@ namespace Core.Common.Base.Test.Geometry
             var lineLength = Math2D.ConvertLinePointsToLineSegments(lineGeometryPoints).Sum(s => s.Length);
             return relativeLengths.Select(l => lineLength * l).ToArray();
         }
-
-        private class Point2DComparerWithTolerance : IComparer<Point2D>, IComparer
-        {
-            private readonly double tolerance;
-
-            public Point2DComparerWithTolerance(double tolerance)
-            {
-                this.tolerance = tolerance;
-            }
-
-            public int Compare(object x, object y)
-            {
-                return Compare(x as Point2D, y as Point2D);
-            }
-
-            public int Compare(Point2D p0, Point2D p1)
-            {
-                double diff = p0.GetEuclideanDistanceTo(p1);
-                return Math.Abs(diff) < tolerance ? 0 : 1;
-            }
-        }
     }
 }

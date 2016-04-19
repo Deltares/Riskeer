@@ -22,12 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+
 using DotSpatial.Data;
 using DotSpatial.Topology;
 
@@ -78,7 +80,8 @@ namespace Core.Components.Gis.IO.Readers
             try
             {
                 IFeature polygonFeature = GetFeature(readIndex);
-                return ConvertPolygonFeatureToMapPolygonData(polygonFeature, !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PolygonShapeFileReader_ReadLine_Polygon);
+                string featureName = GetFeatureName(name);
+                return ConvertPolygonFeatureToMapPolygonData(polygonFeature, featureName);
             }
             finally
             {
@@ -94,12 +97,18 @@ namespace Core.Components.Gis.IO.Readers
                 featureList.Add(ReadFeatureLine());
             }
 
-            return ConvertPolygonFeaturesToMapPointData(featureList, !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PolygonShapeFileReader_ReadLine_Polygon);
+            string featureName = GetFeatureName(name);
+            return ConvertPolygonFeaturesToMapPointData(featureList, featureName);
         }
 
         public override IFeature GetFeature(int index)
         {
             return ShapeFile.Features[index];
+        }
+
+        private static string GetFeatureName(string name)
+        {
+            return !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PolygonShapeFileReader_ReadLine_Polygon;
         }
 
         private IFeature ReadFeatureLine()
@@ -117,7 +126,10 @@ namespace Core.Components.Gis.IO.Readers
         private FeatureBasedMapData ConvertPolygonFeatureToMapPolygonData(IFeature polygonFeature, string name)
         {
             var mapFeature = CreateMapFeatureForPolygonFeature(polygonFeature);
-            IEnumerable<MapFeature> mapFeatures = new [] { mapFeature };
+            IEnumerable<MapFeature> mapFeatures = new[]
+            {
+                mapFeature
+            };
             return new MapPolygonData(mapFeatures, name);
         }
 
@@ -133,21 +145,22 @@ namespace Core.Components.Gis.IO.Readers
 
             for (int i = 0; i < polygonFeature.BasicGeometry.NumGeometries; i++)
             {
-                IBasicGeometry polygonFeatureGeometry = polygonFeature.BasicGeometry.GetBasicGeometryN(i);
+                var basicPolygon = (IBasicPolygon)polygonFeature.BasicGeometry.GetBasicGeometryN(i);
 
-                MapGeometry mapGeometry = new MapGeometry(GetMapGeometryPointCollections(polygonFeatureGeometry.Coordinates));
+                MapGeometry mapGeometry = new MapGeometry(GetMapGeometryPointCollections(basicPolygon));
                 geometries.Add(mapGeometry);
             }
 
             return new MapFeature(geometries);
         }
 
-        private static IEnumerable<IEnumerable<Point2D>> GetMapGeometryPointCollections(IEnumerable<Coordinate> polygonCoordinates)
+        private static IEnumerable<IEnumerable<Point2D>> GetMapGeometryPointCollections(IBasicPolygon polygon)
         {
-            return new[]
+            yield return polygon.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y));
+            foreach (IBasicLineString hole in polygon.Holes)
             {
-                polygonCoordinates.Select(c => new Point2D(c.X, c.Y))
-            };
+                yield return hole.Coordinates.Select(c => new Point2D(c.X, c.Y));
+            }
         }
     }
 }

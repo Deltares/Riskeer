@@ -90,6 +90,22 @@ namespace Core.Components.Gis.IO.Test.Readers
         }
 
         [Test]
+        public void GetNumberOfLines_ShapeFileWithOnePolygonWithHoles_ReturnOne()
+        {
+            // Setup
+            string shapeWithOnePolygonWithHoles = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                                             "Single_Polygon_with_two_holes_with_ID.shp");
+            using (var reader = new PolygonShapeFileReader(shapeWithOnePolygonWithHoles))
+            {
+                // Call
+                var count = reader.GetNumberOfLines();
+
+                // Assert
+                Assert.AreEqual(1, count);
+            }
+        }
+
+        [Test]
         public void GetNumberOfLines_ShapeFileWithMultipleLineFeatures_ReturnThatNumberOfFeatures()
         {
             // Setup
@@ -169,6 +185,68 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(30, firstPointCollection.Length);
                 Assert.AreEqual(-0.264, firstPointCollection[25].X, 1e-1);
                 Assert.AreEqual(0.169, firstPointCollection[25].Y, 1e-1);
+            }
+        }
+
+        [Test]
+        public void ReadLine_ShapeFileWithOnePolygonWithTwoHolesFeature_ReturnShape()
+        {
+            // Setup
+            string shapeWithOnePolygonWithHoles = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                                             "Single_Polygon_with_two_holes_with_ID.shp");
+            using (var reader = new PolygonShapeFileReader(shapeWithOnePolygonWithHoles))
+            {
+                // Call
+                MapPolygonData polygon = (MapPolygonData)reader.ReadLine();
+
+                // Assert
+                Assert.IsNotNull(polygon);
+                MapFeature[] polygonFeatures = polygon.Features.ToArray();
+                Assert.AreEqual(1, polygonFeatures.Length);
+
+                MapGeometry[] polygonGeometries = polygonFeatures[0].MapGeometries.ToArray();
+                Assert.AreEqual(1, polygonGeometries.Length);
+
+                IEnumerable<Point2D>[] polygonPointCollections = polygonGeometries[0].PointCollections.ToArray();
+                Assert.AreEqual(3, polygonPointCollections.Length);
+
+                var pointComparer = new Point2DComparerWithTolerance(1e-6);
+
+                var outerRingPoints = polygonPointCollections[0].ToArray();
+                var expectedOuterRingPoints = new[]
+                {
+                    new Point2D(-866522.534211655, -5517886.97470326),
+                    new Point2D(-569923.527795405, -5517539.26191731),
+                    new Point2D(-565403.261578042, -5759199.6481533),
+                    new Point2D(-865479.395853802, -5759199.6481533),
+                    new Point2D(-866522.534211655, -5517886.97470326)
+                };
+                CollectionAssert.AreEqual(expectedOuterRingPoints, outerRingPoints,
+                                          pointComparer);
+
+                var innerRing1Points = polygonPointCollections[1].ToArray();
+                var expectedInnerRing1Points = new[]
+                {
+                    new Point2D(-829317.266114892, -5539445.16743223),
+                    new Point2D(-831055.830044648, -5604119.74561913),
+                    new Point2D(-746213.91027259, -5604815.17119103),
+                    new Point2D(-747257.048630444, -5538749.74186033),
+                    new Point2D(-829317.266114892, -5539445.16743223)
+                };
+                CollectionAssert.AreEqual(expectedInnerRing1Points, innerRing1Points,
+                                          pointComparer);
+
+                var innerRing2Points = polygonPointCollections[2].ToArray();
+                var expectedInnerRing2Points = new[]
+                {
+                    new Point2D(-715615.185108898, -5673314.59002339),
+                    new Point2D(-657547.149855071, -5731730.33806316),
+                    new Point2D(-591829.433310322, -5686875.38867548),
+                    new Point2D(-648506.617420344, -5624634.79999024),
+                    new Point2D(-715615.185108898, -5673314.59002339)
+                };
+                CollectionAssert.AreEqual(expectedInnerRing2Points, innerRing2Points,
+                                          pointComparer);
             }
         }
 
