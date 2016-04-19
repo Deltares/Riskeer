@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <item><paramref name="entity"/> is <c>null</c>.</item>
         /// <item><paramref name="failureMechanism"/> is <c>null</c>.</item>
         /// </list></exception>
-        public void LoadModel(FailureMechanismEntity entity, IFailureMechanism failureMechanism)
+        public void LoadModel(FailureMechanismEntity entity, T failureMechanism)
         {
             if (entity == null)
             {
@@ -81,7 +81,11 @@ namespace Application.Ringtoets.Storage.Persistors
             var model = converter.ConvertEntityToModel(entity);
 
             failureMechanism.StorageId = model.StorageId;
+
+            LoadChildren(failureMechanism, entity);
         }
+
+        protected abstract void LoadChildren(T model, FailureMechanismEntity entity);
 
         /// <summary>
         /// Ensures that the <paramref name="model"/> is set as <see cref="FailureMechanismEntity"/> in the <paramref name="parentNavigationProperty"/>.
@@ -130,7 +134,11 @@ namespace Application.Ringtoets.Storage.Persistors
             modifiedList.Add(entity);
 
             converter.ConvertModelToEntity(model, entity);
+
+            UpdateChildren(model, entity);
         }
+
+        protected abstract void UpdateChildren(T model, FailureMechanismEntity entity);
 
         /// <summary>
         /// Ensures that the model is added as <see cref="FailureMechanismEntity"/> in the <paramref name="parentNavigationProperty"/>.
@@ -158,7 +166,11 @@ namespace Application.Ringtoets.Storage.Persistors
             {
                 modifiedList.Add(entity);
             }
+
+            InsertChildren(model, entity);
         }
+
+        protected abstract void InsertChildren(T model, FailureMechanismEntity entity);
 
         /// <summary>
         /// All unmodified <see cref="FailureMechanismEntity"/> in <paramref name="parentNavigationProperty"/> will be removed.

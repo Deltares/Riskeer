@@ -112,7 +112,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var persistor = new StochasticSoilModelPersistor(ringtoetsEntitiesMock);
 
             // Call
-            TestDelegate test = () => persistor.InsertModel(null, new StochasticSoilModel(-1, string.Empty, string.Empty));
+            TestDelegate test = () => persistor.InsertModel(null, new [] { new StochasticSoilModel(-1, string.Empty, string.Empty) });
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -167,7 +167,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             };
 
             // Call
-            persistor.InsertModel(parentNavigationProperty, model);
+            persistor.InsertModel(parentNavigationProperty, new [] { model });
 
             // Assert
             Assert.AreEqual(2, parentNavigationProperty.Count);

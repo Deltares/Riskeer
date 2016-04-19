@@ -57,23 +57,24 @@ namespace Application.Ringtoets.Storage.Persistors
             return entities.Select(e => converter.ConvertEntityToModel(e));
         }
 
-        public void InsertModel(IList<StochasticSoilModelEntity> parentNavigationProperty, StochasticSoilModel stochasticSoilModel)
+        public void InsertModel(ICollection<StochasticSoilModelEntity> parentNavigationProperty, ICollection<StochasticSoilModel> stochasticSoilModels)
         {
             if (parentNavigationProperty == null)
             {
                 throw new ArgumentNullException("parentNavigationProperty");
             }
-            if (stochasticSoilModel == null)
+            if (stochasticSoilModels == null)
             {
                 return;
             }
-            var entity = new StochasticSoilModelEntity();
-            converter.ConvertModelToEntity(stochasticSoilModel, entity);
-            parentNavigationProperty.Add(entity);
-            insertedList.Add(entity, stochasticSoilModel);
+
+            foreach (var stochasticSoilModel in stochasticSoilModels)
+            {
+                InsertStochasticSoilModel(parentNavigationProperty, stochasticSoilModel);
+            }
         }
 
-        public void UpdateModel(IList<StochasticSoilModelEntity> parentNavigationProperty, IList<StochasticSoilModel> model)
+        public void UpdateModel(ICollection<StochasticSoilModelEntity> parentNavigationProperty, IList<StochasticSoilModel> model)
         {
             if (model == null)
             {
@@ -94,7 +95,7 @@ namespace Application.Ringtoets.Storage.Persistors
 
                 if (stochasticSoilModel.StorageId < 1)
                 {
-                    InsertModel(parentNavigationProperty, stochasticSoilModel);
+                    InsertStochasticSoilModel(parentNavigationProperty, stochasticSoilModel);
                 }
                 else
                 {
@@ -122,14 +123,6 @@ namespace Application.Ringtoets.Storage.Persistors
             RemoveUnModifiedEntries(parentNavigationProperty);
         }
 
-        private void RemoveUnModifiedEntries(IList<StochasticSoilModelEntity> parentNavigationProperty)
-        {
-            var untouchedModifiedList = parentNavigationProperty.Where(e => e.StochasticSoilModelEntityId > 0 && !modifiedList.Contains(e));
-            stochasticSoilModelSet.RemoveRange(untouchedModifiedList);
-
-            modifiedList.Clear();
-        } 
-
         /// <summary>
         /// Perform actions that can only be executed after <see cref="IRingtoetsEntities.SaveChanges"/> has been called.
         /// </summary>
@@ -140,6 +133,22 @@ namespace Application.Ringtoets.Storage.Persistors
                 entry.Value.StorageId = entry.Key.StochasticSoilModelEntityId;
             }
             insertedList.Clear();
+        }
+
+        private void InsertStochasticSoilModel(ICollection<StochasticSoilModelEntity> parentNavigationProperty, StochasticSoilModel stochasticSoilModel)
+        {
+            var entity = new StochasticSoilModelEntity();
+            converter.ConvertModelToEntity(stochasticSoilModel, entity);
+            parentNavigationProperty.Add(entity);
+            insertedList.Add(entity, stochasticSoilModel);
+        }
+
+        private void RemoveUnModifiedEntries(IEnumerable<StochasticSoilModelEntity> parentNavigationProperty)
+        {
+            var untouchedModifiedList = parentNavigationProperty.Where(e => e.StochasticSoilModelEntityId > 0 && !modifiedList.Contains(e));
+            stochasticSoilModelSet.RemoveRange(untouchedModifiedList);
+
+            modifiedList.Clear();
         }
     }
 }

@@ -31,12 +31,32 @@ namespace Application.Ringtoets.Storage.Persistors
     /// </summary>
     public class PipingFailureMechanismPersistor : FailureMechanismPersistorBase<PipingFailureMechanism>
     {
+        private readonly StochasticSoilModelPersistor stochasticSoilModelPersistor;
+
         /// <summary>
         /// New instance of <see cref="PipingFailureMechanismPersistor"/>.
         /// </summary>
         /// <param name="ringtoetsContext">The storage context.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
         public PipingFailureMechanismPersistor(IRingtoetsEntities ringtoetsContext) :
-            base(ringtoetsContext, new PipingFailureMechanismConverter()) {}
+            base(ringtoetsContext, new PipingFailureMechanismConverter())
+        {
+            stochasticSoilModelPersistor = new StochasticSoilModelPersistor(ringtoetsContext);
+        }
+
+        protected override void LoadChildren(PipingFailureMechanism model, FailureMechanismEntity entity)
+        {
+            model.StochasticSoilModels.AddRange(stochasticSoilModelPersistor.LoadModel(entity.StochasticSoilModelEntities));
+        }
+
+        protected override void UpdateChildren(PipingFailureMechanism model, FailureMechanismEntity entity)
+        {
+            stochasticSoilModelPersistor.UpdateModel(entity.StochasticSoilModelEntities, model.StochasticSoilModels);
+        }
+
+        protected override void InsertChildren(PipingFailureMechanism model, FailureMechanismEntity entity)
+        {
+            stochasticSoilModelPersistor.InsertModel(entity.StochasticSoilModelEntities, model.StochasticSoilModels);
+        }
     }
 }
