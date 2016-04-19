@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void AssessmentLayerTwoA_ScenariosDoNotAddUpToHunderdPercent_ThrowsArgumentException()
+        public void AssessmentLayerTwoA_ScenariosDoNotAddUpToHunderdPercent_ReturnsNaN()
         {
             // Setup
             var section = CreateSection();
@@ -77,11 +77,10 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
 
             // Call
-            var assessmentLayerTwoA = new RoundedDouble();
-            TestDelegate call = () => assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
+            var assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
 
             // Assert
-            Assert.Throws<ArgumentException>(call);
+            Assert.IsNaN(assessmentLayerTwoA);
             mocks.VerifyAll();
         }
 
