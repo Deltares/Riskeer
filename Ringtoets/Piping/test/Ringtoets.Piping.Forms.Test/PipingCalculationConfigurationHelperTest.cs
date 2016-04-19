@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -524,11 +525,17 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(2, calculationGroup.Children.Count);
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup.Children, typeof(PipingCalculationScenario));
 
-            var calculationInput1 = ((PipingCalculationScenario)calculationGroup.Children[0]).InputParameters;
+            var pipingCalculationScenario1 = (PipingCalculationScenario)calculationGroup.Children[0];
+            Assert.AreEqual((RoundedDouble)soilProfile1.Probability, pipingCalculationScenario1.Contribution);
+
+            var calculationInput1 = pipingCalculationScenario1.InputParameters;
             Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput1.SurfaceLine);
 
-            var calculationInput2 = ((PipingCalculationScenario)calculationGroup.Children[1]).InputParameters;
+            var pipingCalculationScenario2 = (PipingCalculationScenario)calculationGroup.Children[1];
+            Assert.AreEqual((RoundedDouble)soilProfile2.Probability, pipingCalculationScenario2.Contribution);
+
+            var calculationInput2 = pipingCalculationScenario2.InputParameters;
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput2.SurfaceLine);
         }
@@ -743,11 +750,17 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(2, calculationGroup.Children.Count);
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup.Children, typeof(PipingCalculationScenario));
 
-            var calculationInput1 = ((PipingCalculationScenario)calculationGroup.Children[0]).InputParameters;
+            var pipingCalculationScenario1 = (PipingCalculationScenario)calculationGroup.Children[0];
+            Assert.AreEqual((RoundedDouble)soilProfile1.Probability, pipingCalculationScenario1.Contribution);
+
+            var calculationInput1 = pipingCalculationScenario1.InputParameters;
             Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput1.SurfaceLine);
 
-            var calculationInput2 = ((PipingCalculationScenario)calculationGroup.Children[1]).InputParameters;
+            var pipingCalculationScenario2 = ((PipingCalculationScenario)calculationGroup.Children[1]);
+            Assert.AreEqual((RoundedDouble)soilProfile2.Probability, pipingCalculationScenario2.Contribution);
+
+            var calculationInput2 = pipingCalculationScenario2.InputParameters;
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput2.SurfaceLine);
         }
@@ -846,11 +859,17 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(2, calculationGroup1.Children.Count);
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup1.Children, typeof(PipingCalculationScenario));
 
-            var calculationInput1 = ((PipingCalculationScenario)calculationGroup1.Children[0]).InputParameters;
+            var pipingCalculationScenario1 = (PipingCalculationScenario)calculationGroup1.Children[0];
+            Assert.AreEqual((RoundedDouble)soilProfile1.Probability, pipingCalculationScenario1.Contribution);
+
+            var calculationInput1 = pipingCalculationScenario1.InputParameters;
             Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine1, calculationInput1.SurfaceLine);
 
-            var calculationInput2 = ((PipingCalculationScenario)calculationGroup1.Children[1]).InputParameters;
+            var pipingCalculationScenario2 = (PipingCalculationScenario)calculationGroup1.Children[1];
+            Assert.AreEqual((RoundedDouble)soilProfile2.Probability, pipingCalculationScenario1.Contribution);
+
+            var calculationInput2 = pipingCalculationScenario2.InputParameters;
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine1, calculationInput2.SurfaceLine);
 
@@ -860,7 +879,10 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(1, calculationGroup2.Children.Count);
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup2.Children, typeof(PipingCalculationScenario));
 
-            var calculationInput3 = ((PipingCalculationScenario)calculationGroup2.Children[0]).InputParameters;
+            var pipingCalculationScenario3 = (PipingCalculationScenario)calculationGroup2.Children[0];
+            Assert.AreEqual((RoundedDouble)soilProfile2.Probability, pipingCalculationScenario1.Contribution);
+
+            var calculationInput3 = pipingCalculationScenario3.InputParameters;
             Assert.AreSame(soilProfile2, calculationInput3.StochasticSoilProfile);
             Assert.AreSame(surfaceLine2, calculationInput3.SurfaceLine);
         }
@@ -971,7 +993,10 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(2, calculationGroup1.Children.Count);
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup1.Children, typeof(PipingCalculationScenario));
 
-            var calculationInput1 = ((PipingCalculationScenario)calculationGroup1.Children[0]).InputParameters;
+            var pipingCalculationScenario1 = (PipingCalculationScenario)calculationGroup1.Children[0];
+            Assert.AreEqual((RoundedDouble)soilProfile1.Probability, pipingCalculationScenario1.Contribution);
+
+            var calculationInput1 = pipingCalculationScenario1.InputParameters;
             Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine1, calculationInput1.SurfaceLine);
 

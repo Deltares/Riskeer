@@ -257,7 +257,7 @@ namespace Ringtoets.Common.Forms.Views
                 }
             }
 
-            public RoundedDouble AssessmentLayerTwoA
+            public string AssessmentLayerTwoA
             {
                 get
                 {
@@ -328,13 +328,17 @@ namespace Ringtoets.Common.Forms.Views
 
         private void DataGridViewCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == assessmentLayerTwoA.Index && e.Value != null && double.IsNaN((RoundedDouble) e.Value))
+            double doubleValue = 0;
+            if (e.Value != null)
             {
-                dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
+                double.TryParse(e.Value.ToString(), out doubleValue);
             }
-            else
+
+            if (e.ColumnIndex == assessmentLayerTwoA.Index)
             {
-                dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = string.Empty;
+                dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = double.IsNaN(doubleValue)
+                                                                                   ? Resources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100
+                                                                                   : string.Empty;
             }
         }
 

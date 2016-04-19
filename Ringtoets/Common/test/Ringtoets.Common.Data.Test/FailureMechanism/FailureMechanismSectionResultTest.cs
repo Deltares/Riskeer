@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsFalse(sectionResult.AssessmentLayerOne);
-            Assert.AreEqual((RoundedDouble)0, sectionResult.AssessmentLayerTwoA);
+            Assert.AreEqual("-", sectionResult.AssessmentLayerTwoA);
             Assert.AreEqual((RoundedDouble)0, sectionResult.AssessmentLayerTwoB);
             Assert.AreEqual((RoundedDouble)0, sectionResult.AssessmentLayerThree);
             CollectionAssert.IsEmpty(sectionResult.CalculationScenarios);
@@ -70,7 +70,33 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
             calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)50);
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)0.5);
+
+            mocks.ReplayAll();
+
+            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
+
+            // Call
+            double assessmentLayerTwoA;
+            double.TryParse(failureMechanismSectionResult.AssessmentLayerTwoA, out assessmentLayerTwoA);
+
+            // Assert
+            Assert.IsNaN(assessmentLayerTwoA);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_ScenariosAddUpToHunderdPercent_ReturnsValueAsString()
+        {
+            // Setup
+            var section = CreateSection();
+            var failureMechanismSectionResult = new FailureMechanismSectionResult(section);
+
+            var mocks = new MockRepository();
+            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
+            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true);
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0).Repeat.Twice();
+            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble)41661830);
 
             mocks.ReplayAll();
 
@@ -80,7 +106,32 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             var assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
 
             // Assert
-            Assert.IsNaN(assessmentLayerTwoA);
+            Assert.AreEqual("1/41,661,830", assessmentLayerTwoA);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_ScenariosAddUpToHunderdPercentScenarioNotCalculated_ReturnsString()
+        {
+            // Setup
+            var section = CreateSection();
+            var failureMechanismSectionResult = new FailureMechanismSectionResult(section);
+
+            var mocks = new MockRepository();
+            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
+            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true);
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0).Repeat.Twice();
+            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble)double.NaN);
+
+            mocks.ReplayAll();
+
+            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
+
+            // Call
+            var assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.AreEqual("-", assessmentLayerTwoA);
             mocks.VerifyAll();
         }
 

@@ -45,14 +45,16 @@ namespace Ringtoets.Piping.Data
             IsRelevant = true;
         }
 
-        /// <summary>
-        /// Gets or sets whether this scenario is relevant or not.
-        /// </summary>
         public bool IsRelevant { get; set; }
 
-        /// <summary>
-        /// Gets the contribution of the scenario.
-        /// </summary>
         public RoundedDouble Contribution { get; set; }
+
+        public RoundedDouble Probability
+        {
+            get
+            {
+                return SemiProbabilisticOutput != null ? SemiProbabilisticOutput.PipingProbability : (RoundedDouble) double.NaN;
+            }
+        }
     }
 }

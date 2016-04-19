@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using log4net;
 using Ringtoets.Common.Forms.Helpers;
@@ -149,7 +150,8 @@ namespace Ringtoets.Piping.Forms
                     SurfaceLine = surfaceLine,
                     StochasticSoilModel = stochasticSoilModel,
                     StochasticSoilProfile = stochasticSoilProfile
-                }
+                },
+                Contribution = (RoundedDouble) stochasticSoilProfile.Probability
             };
         }
 

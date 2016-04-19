@@ -34,8 +34,13 @@ namespace Ringtoets.Common.Data.FailureMechanism
         bool IsRelevant { get; set; }
 
         /// <summary>
-        /// Gets the contribution of the scenario.
+        /// Gets or sets the contribution of the scenario.
         /// </summary>
         RoundedDouble Contribution { get; set; }
+
+        /// <summary>
+        /// Gets the probability of the scenario.
+        /// </summary>
+        RoundedDouble Probability { get; }
     }
 }

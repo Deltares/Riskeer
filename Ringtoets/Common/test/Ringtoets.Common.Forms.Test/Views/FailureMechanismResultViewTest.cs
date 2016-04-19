@@ -186,7 +186,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(5, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoBIndex].FormattedValue);
                 Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
 
@@ -194,7 +194,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(5, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                 Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerTwoBIndex].FormattedValue);
                 Assert.AreEqual(string.Format("{0}", 0), cells[assessmentLayerThreeIndex].FormattedValue);
             }
@@ -223,7 +223,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
 
                 Assert.AreEqual(checkBoxSelected, (bool) cells[assessmentLayerOneIndex].FormattedValue);
-                Assert.AreEqual(string.Format("{0}", 0), cellAssessmentLayerTwoA.FormattedValue);
+                Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
                 Assert.AreEqual(string.Format("{0}", 0), cellAssessmentLayerTwoB.FormattedValue);
                 Assert.AreEqual(string.Format("{0}", 0), cellAssessmentLayerThree.FormattedValue);
 
@@ -259,10 +259,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        [TestCase("test", assessmentLayerTwoAIndex)]
         [TestCase("test", assessmentLayerTwoBIndex)]
         [TestCase("test", assessmentLayerThreeIndex)]
-        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", assessmentLayerTwoAIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", assessmentLayerTwoBIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", assessmentLayerThreeIndex)]
         public void FailureMechanismResultView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)

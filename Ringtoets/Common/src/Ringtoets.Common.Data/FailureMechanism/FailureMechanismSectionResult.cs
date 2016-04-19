@@ -21,9 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using CoreCommonResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Common.Data.FailureMechanism
 {
@@ -68,7 +70,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Gets and sets the value of assessment layer two a.
         /// </summary>
-        public RoundedDouble AssessmentLayerTwoA
+        public string AssessmentLayerTwoA
         {
             get
             {
@@ -91,17 +93,21 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// </summary>
         public List<ICalculationScenario> CalculationScenarios { get; private set; }
 
-        private RoundedDouble GetAssessmentResult()
+        private string GetAssessmentResult()
         {
             var relevantScenarios = CalculationScenarios.Where(cs => cs.IsRelevant).ToList();
             double totalContribution = relevantScenarios.Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
 
             if (relevantScenarios.Any() && Math.Abs(totalContribution - 1.0) > 1e-6)
             {
-                return (RoundedDouble) double.NaN;
+                return double.NaN.ToString(CultureInfo.InvariantCulture);
             }
 
-            return new RoundedDouble();
+            var probability = relevantScenarios.Select(relevantScenario => relevantScenario.Contribution*relevantScenario.Probability).Aggregate(0.0, (current, probabilityContribution) => current + probabilityContribution);
+
+            return double.IsNaN(probability) || Math.Abs(probability) < 1e-6
+                       ? "-"
+                       : string.Format(CoreCommonResources.ProbabilityPerYearFormat, probability);
         }
     }
 }

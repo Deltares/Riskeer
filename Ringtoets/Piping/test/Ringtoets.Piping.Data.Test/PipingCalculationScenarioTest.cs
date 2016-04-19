@@ -41,7 +41,8 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<PipingCalculation>(scenario);
             Assert.AreSame(semiProbabilisticInputParameters, scenario.SemiProbabilisticParameters);
             Assert.IsTrue(scenario.IsRelevant);
-            Assert.AreEqual(new RoundedDouble(0, 0), scenario.Contribution);
+            Assert.AreEqual(new RoundedDouble(0), scenario.Contribution);
+            Assert.IsNaN(scenario.Probability);
         }
 
         [Test]
@@ -80,6 +81,41 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(roundedDouble, scenario.Contribution);
+        }
+
+        [Test]
+        public void Probability_PipingOutputSet_ReturnsPipingOutputProbability()
+        {
+            // Setup
+            RoundedDouble expectedProbability = new RoundedDouble(0, 49862180);
+
+            var generalInputParameters = new GeneralPipingInput();
+            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
+
+            var scenario =  new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
+            scenario.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, expectedProbability, 0, 0);
+            
+            // Call
+            var probability = scenario.Probability;
+
+            // Assert
+            Assert.AreEqual(expectedProbability, probability);
+        }
+
+        [Test]
+        public void Probability_PipingOutputNull_ReturnsNaN()
+        {
+            // Setup
+            var generalInputParameters = new GeneralPipingInput();
+            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
+
+            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
+
+            // Call
+            var propability = scenario.Probability;
+
+            // Assert
+            Assert.IsNaN(propability);
         }
     }
 }
