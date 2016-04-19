@@ -33,20 +33,14 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class FailureMechanismEntity
+    public partial class StochasticSoilProfileEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FailureMechanismEntity()
-        {
-            this.StochasticSoilModelEntities = new HashSet<StochasticSoilModelEntity>();
-        }
+        public long StochasticSoilProfileEntityId { get; set; }
+        public long SoilProfileEntityId { get; set; }
+        public long StochasticSoilModelEntityId { get; set; }
+        public Nullable<decimal> Probability { get; set; }
     
-        public long FailureMechanismEntityId { get; set; }
-        public long AssessmentSectionEntityId { get; set; }
-        public short FailureMechanismType { get; set; }
-    
-        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StochasticSoilModelEntity> StochasticSoilModelEntities { get; set; }
+        public virtual SoilProfileEntity SoilProfileEntity { get; set; }
+        public virtual StochasticSoilModelEntity StochasticSoilModelEntity { get; set; }
     }
 }

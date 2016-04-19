@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -54,6 +54,40 @@
           <Property Name="X" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="Y" Type="decimal" Precision="53" Scale="0" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoilLayerEntity">
+          <Key>
+            <PropertyRef Name="SoilLayerEntityId" />
+          </Key>
+          <Property Name="SoilLayerEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SoilProfileEntityId" Type="integer" Nullable="false" />
+          <Property Name="Top" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="IsAquifer" Type="integer" />
+        </EntityType>
+        <EntityType Name="SoilProfileEntity">
+          <Key>
+            <PropertyRef Name="SoilProfileEntityId" />
+          </Key>
+          <Property Name="SoilProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bottom" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="StochasticSoilModelEntity">
+          <Key>
+            <PropertyRef Name="StochasticSoilModelEntityId" />
+          </Key>
+          <Property Name="StochasticSoilModelEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="SegmentName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StochasticSoilProfileEntity">
+          <Key>
+            <PropertyRef Name="StochasticSoilProfileEntityId" />
+          </Key>
+          <Property Name="StochasticSoilProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SoilProfileEntityId" Type="integer" Nullable="false" />
+          <Property Name="StochasticSoilModelEntityId" Type="integer" Nullable="false" />
+          <Property Name="Probability" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
         <EntityType Name="VersionEntity">
           <Key>
@@ -112,12 +146,64 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SoilLayerEntity_0_0">
+          <End Role="SoilProfileEntity" Type="Self.SoilProfileEntity" Multiplicity="1" />
+          <End Role="SoilLayerEntity" Type="Self.SoilLayerEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SoilProfileEntity">
+              <PropertyRef Name="SoilProfileEntityId" />
+            </Principal>
+            <Dependent Role="SoilLayerEntity">
+              <PropertyRef Name="SoilProfileEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StochasticSoilModelEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
+          <End Role="StochasticSoilModelEntity" Type="Self.StochasticSoilModelEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="StochasticSoilModelEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StochasticSoilProfileEntity_0_0">
+          <End Role="StochasticSoilModelEntity" Type="Self.StochasticSoilModelEntity" Multiplicity="1" />
+          <End Role="StochasticSoilProfileEntity" Type="Self.StochasticSoilProfileEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StochasticSoilModelEntity">
+              <PropertyRef Name="StochasticSoilModelEntityId" />
+            </Principal>
+            <Dependent Role="StochasticSoilProfileEntity">
+              <PropertyRef Name="StochasticSoilModelEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StochasticSoilProfileEntity_1_0">
+          <End Role="SoilProfileEntity" Type="Self.SoilProfileEntity" Multiplicity="1" />
+          <End Role="StochasticSoilProfileEntity" Type="Self.StochasticSoilProfileEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SoilProfileEntity">
+              <PropertyRef Name="SoilProfileEntityId" />
+            </Principal>
+            <Dependent Role="StochasticSoilProfileEntity">
+              <PropertyRef Name="SoilProfileEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="RingtoetsEntitiesModelStoreContainer">
           <EntitySet Name="AssessmentSectionEntity" EntityType="Self.AssessmentSectionEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismEntity" EntityType="Self.FailureMechanismEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="ReferenceLinePointEntity" EntityType="Self.ReferenceLinePointEntity" store:Type="Tables" />
+          <EntitySet Name="SoilLayerEntity" EntityType="Self.SoilLayerEntity" store:Type="Tables" />
+          <EntitySet Name="SoilProfileEntity" EntityType="Self.SoilProfileEntity" store:Type="Tables" />
+          <EntitySet Name="StochasticSoilModelEntity" EntityType="Self.StochasticSoilModelEntity" store:Type="Tables" />
+          <EntitySet Name="StochasticSoilProfileEntity" EntityType="Self.StochasticSoilProfileEntity" store:Type="Tables" />
           <EntitySet Name="VersionEntity" EntityType="Self.VersionEntity" store:Type="Tables" />
           <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="Self.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntity" />
@@ -135,6 +221,22 @@
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
             <End Role="ReferenceLinePointEntity" EntitySet="ReferenceLinePointEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_SoilLayerEntity_0_0" Association="Self.FK_SoilLayerEntity_0_0">
+            <End Role="SoilProfileEntity" EntitySet="SoilProfileEntity" />
+            <End Role="SoilLayerEntity" EntitySet="SoilLayerEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StochasticSoilModelEntity_0_0" Association="Self.FK_StochasticSoilModelEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="StochasticSoilModelEntity" EntitySet="StochasticSoilModelEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StochasticSoilProfileEntity_0_0" Association="Self.FK_StochasticSoilProfileEntity_0_0">
+            <End Role="StochasticSoilModelEntity" EntitySet="StochasticSoilModelEntity" />
+            <End Role="StochasticSoilProfileEntity" EntitySet="StochasticSoilProfileEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StochasticSoilProfileEntity_1_0" Association="Self.FK_StochasticSoilProfileEntity_1_0">
+            <End Role="SoilProfileEntity" EntitySet="SoilProfileEntity" />
+            <End Role="StochasticSoilProfileEntity" EntitySet="StochasticSoilProfileEntity" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -146,6 +248,10 @@
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="ReferenceLinePointEntities" EntityType="RingtoetsEntitiesModel.ReferenceLinePointEntity" />
+          <EntitySet Name="SoilLayerEntities" EntityType="RingtoetsEntitiesModel.SoilLayerEntity" />
+          <EntitySet Name="SoilProfileEntities" EntityType="RingtoetsEntitiesModel.SoilProfileEntity" />
+          <EntitySet Name="StochasticSoilModelEntities" EntityType="RingtoetsEntitiesModel.StochasticSoilModelEntity" />
+          <EntitySet Name="StochasticSoilProfileEntities" EntityType="RingtoetsEntitiesModel.StochasticSoilProfileEntity" />
           <EntitySet Name="VersionEntities" EntityType="RingtoetsEntitiesModel.VersionEntity" />
           <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntities" />
@@ -162,6 +268,22 @@
           <AssociationSet Name="FK_ReferenceLinePointEntity_0_0" Association="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="ReferenceLinePointEntity" EntitySet="ReferenceLinePointEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StochasticSoilModelEntity_0_0" Association="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="StochasticSoilModelEntity" EntitySet="StochasticSoilModelEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoilLayerEntity_0_0" Association="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0">
+            <End Role="SoilProfileEntity" EntitySet="SoilProfileEntities" />
+            <End Role="SoilLayerEntity" EntitySet="SoilLayerEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StochasticSoilProfileEntity_1_0" Association="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0">
+            <End Role="SoilProfileEntity" EntitySet="SoilProfileEntities" />
+            <End Role="StochasticSoilProfileEntity" EntitySet="StochasticSoilProfileEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StochasticSoilProfileEntity_0_0" Association="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_0_0">
+            <End Role="StochasticSoilModelEntity" EntitySet="StochasticSoilModelEntities" />
+            <End Role="StochasticSoilProfileEntity" EntitySet="StochasticSoilProfileEntities" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AssessmentSectionEntity">
@@ -189,6 +311,7 @@
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="FailureMechanismType" Type="Int16" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="StochasticSoilModelEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StochasticSoilModelEntity" />
         </EntityType>
         <EntityType Name="HydraulicLocationEntity">
           <Key>
@@ -221,6 +344,47 @@
           <Property Name="Y" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0" FromRole="ReferenceLinePointEntity" ToRole="AssessmentSectionEntity" />
+        </EntityType>
+        <EntityType Name="SoilLayerEntity">
+          <Key>
+            <PropertyRef Name="SoilLayerEntityId" />
+          </Key>
+          <Property Name="SoilLayerEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Top" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="IsAquifer" Type="Int64" />
+          <NavigationProperty Name="SoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0" FromRole="SoilLayerEntity" ToRole="SoilProfileEntity" />
+        </EntityType>
+        <EntityType Name="SoilProfileEntity">
+          <Key>
+            <PropertyRef Name="SoilProfileEntityId" />
+          </Key>
+          <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bottom" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SoilLayerEntities" Relationship="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0" FromRole="SoilProfileEntity" ToRole="SoilLayerEntity" />
+          <NavigationProperty Name="StochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="SoilProfileEntity" ToRole="StochasticSoilProfileEntity" />
+        </EntityType>
+        <EntityType Name="StochasticSoilModelEntity">
+          <Key>
+            <PropertyRef Name="StochasticSoilModelEntityId" />
+          </Key>
+          <Property Name="StochasticSoilModelEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="SegmentName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="StochasticSoilModelEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="StochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_0_0" FromRole="StochasticSoilModelEntity" ToRole="StochasticSoilProfileEntity" />
+        </EntityType>
+        <EntityType Name="StochasticSoilProfileEntity">
+          <Key>
+            <PropertyRef Name="StochasticSoilProfileEntityId" />
+          </Key>
+          <Property Name="StochasticSoilProfileEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" />
+          <Property Name="StochasticSoilModelEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Probability" Type="Decimal" Precision="53" Scale="0" />
+          <NavigationProperty Name="SoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="StochasticSoilProfileEntity" ToRole="SoilProfileEntity" />
+          <NavigationProperty Name="StochasticSoilModelEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_0_0" FromRole="StochasticSoilProfileEntity" ToRole="StochasticSoilModelEntity" />
         </EntityType>
         <EntityType Name="VersionEntity">
           <Key>
@@ -276,6 +440,54 @@
             </Principal>
             <Dependent Role="ReferenceLinePointEntity">
               <PropertyRef Name="AssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StochasticSoilModelEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.StochasticSoilModelEntity" Role="StochasticSoilModelEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="StochasticSoilModelEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoilLayerEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.SoilProfileEntity" Role="SoilProfileEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.SoilLayerEntity" Role="SoilLayerEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SoilProfileEntity">
+              <PropertyRef Name="SoilProfileEntityId" />
+            </Principal>
+            <Dependent Role="SoilLayerEntity">
+              <PropertyRef Name="SoilProfileEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StochasticSoilProfileEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.SoilProfileEntity" Role="SoilProfileEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.StochasticSoilProfileEntity" Role="StochasticSoilProfileEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SoilProfileEntity">
+              <PropertyRef Name="SoilProfileEntityId" />
+            </Principal>
+            <Dependent Role="StochasticSoilProfileEntity">
+              <PropertyRef Name="SoilProfileEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StochasticSoilProfileEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.StochasticSoilModelEntity" Role="StochasticSoilModelEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.StochasticSoilProfileEntity" Role="StochasticSoilProfileEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StochasticSoilModelEntity">
+              <PropertyRef Name="StochasticSoilModelEntityId" />
+            </Principal>
+            <Dependent Role="StochasticSoilProfileEntity">
+              <PropertyRef Name="StochasticSoilModelEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -337,6 +549,44 @@
                 <ScalarProperty Name="X" ColumnName="X" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
                 <ScalarProperty Name="ReferenceLinePointEntityId" ColumnName="ReferenceLinePointEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoilLayerEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.SoilLayerEntity">
+              <MappingFragment StoreEntitySet="SoilLayerEntity">
+                <ScalarProperty Name="IsAquifer" ColumnName="IsAquifer" />
+                <ScalarProperty Name="Top" ColumnName="Top" />
+                <ScalarProperty Name="SoilProfileEntityId" ColumnName="SoilProfileEntityId" />
+                <ScalarProperty Name="SoilLayerEntityId" ColumnName="SoilLayerEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoilProfileEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.SoilProfileEntity">
+              <MappingFragment StoreEntitySet="SoilProfileEntity">
+                <ScalarProperty Name="Bottom" ColumnName="Bottom" />
+                <ScalarProperty Name="SoilProfileEntityId" ColumnName="SoilProfileEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StochasticSoilModelEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StochasticSoilModelEntity">
+              <MappingFragment StoreEntitySet="StochasticSoilModelEntity">
+                <ScalarProperty Name="SegmentName" ColumnName="SegmentName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="StochasticSoilModelEntityId" ColumnName="StochasticSoilModelEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StochasticSoilProfileEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StochasticSoilProfileEntity">
+              <MappingFragment StoreEntitySet="StochasticSoilProfileEntity">
+                <ScalarProperty Name="Probability" ColumnName="Probability" />
+                <ScalarProperty Name="StochasticSoilModelEntityId" ColumnName="StochasticSoilModelEntityId" />
+                <ScalarProperty Name="SoilProfileEntityId" ColumnName="SoilProfileEntityId" />
+                <ScalarProperty Name="StochasticSoilProfileEntityId" ColumnName="StochasticSoilProfileEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -60,6 +60,12 @@ namespace Application.Ringtoets.Storage.DbContext
         /// </summary>
         DbSet<ReferenceLinePointEntity> ReferenceLinePointEntities { get; }
 
+        /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="StochasticSoilModelEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<StochasticSoilModelEntity> StochasticSoilModelEntities { get; }
+
         /// <summary> 
         /// Persists all updates to the database and resets change tracking in the object context, see <see cref="ObjectContext.SaveChanges()"/>.
         /// </summary>

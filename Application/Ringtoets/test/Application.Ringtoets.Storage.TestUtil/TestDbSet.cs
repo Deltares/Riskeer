@@ -29,14 +29,6 @@ using System.Linq.Expressions;
 
 namespace Application.Ringtoets.Storage.TestUtil
 {
-    public static class DbTestSet
-    {
-        public static DbSet<T> GetDbTestSet<T>(ObservableCollection<T> data) where T : class
-        {
-            return new TestDbSet<T>(data);
-        }
-    }
-
     public class TestDbSet<T> : DbSet<T>, IDbSet<T> where T : class
     {
         private readonly IQueryable<T> queryable;

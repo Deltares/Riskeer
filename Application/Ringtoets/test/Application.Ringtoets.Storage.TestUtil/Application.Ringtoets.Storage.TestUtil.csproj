@@ -61,7 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbTestSet.cs" />
+    <Compile Include="TestDbSet.cs" />
     <Compile Include="RingtoetsEntitiesHelper.cs" />
     <Compile Include="RingtoetsProjectHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

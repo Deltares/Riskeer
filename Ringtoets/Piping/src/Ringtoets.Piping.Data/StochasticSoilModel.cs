@@ -46,6 +46,11 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
+        /// Gets or sets the unique identifier for the storage of the <see cref="StochasticSoilModel"/>.
+        /// </summary>
+        public long StorageId { get; set; }
+
+        /// <summary>
         /// Gets the database identifier of the stochastic soil model.
         /// </summary>
         public long Id { get; private set; }

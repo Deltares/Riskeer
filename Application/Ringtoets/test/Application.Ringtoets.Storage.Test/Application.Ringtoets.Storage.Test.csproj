@@ -86,8 +86,10 @@
     <Compile Include="Converters\HydraulicLocationConverterTest.cs" />
     <Compile Include="Converters\ProjectConverterTest.cs" />
     <Compile Include="Converters\AssessmentSectionConverterTest.cs" />
+    <Compile Include="Converters\StochasticSoilModelConverterTest.cs" />
     <Compile Include="Persistors\HydraulicBoundaryLocationPersistorTest.cs" />
     <Compile Include="Persistors\ReferenceLinePersistorTest.cs" />
+    <Compile Include="Persistors\StochasticSoilModelPersistorTest.cs" />
     <Compile Include="RingtoetsDatabaseCreatorTest.cs" />
     <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
     <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />
@@ -132,6 +134,10 @@
     <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
       <Name>Ringtoets.Piping.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\test\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
+      <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
+      <Name>Ringtoets.Piping.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Application.Ringtoets.Storage\Application.Ringtoets.Storage.csproj">
       <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>

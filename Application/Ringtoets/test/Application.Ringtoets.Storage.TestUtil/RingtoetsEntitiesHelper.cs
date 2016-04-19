@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using Application.Ringtoets.Storage.DbContext;
 using Rhino.Mocks;
 
@@ -30,16 +31,18 @@ namespace Application.Ringtoets.Storage.TestUtil
         public static IRingtoetsEntities Create(MockRepository mockRepository)
         {
             var ringtoetsEntities = mockRepository.Stub<IRingtoetsEntities>();
-            var pSet = DbTestSet.GetDbTestSet(new ObservableCollection<ProjectEntity>());
-            var hlSet = DbTestSet.GetDbTestSet(new ObservableCollection<HydraulicLocationEntity>());
-            var fmSet = DbTestSet.GetDbTestSet(new ObservableCollection<FailureMechanismEntity>());
-            var dasSet = DbTestSet.GetDbTestSet(new ObservableCollection<AssessmentSectionEntity>());
-            var rlpSet = DbTestSet.GetDbTestSet(new ObservableCollection<ReferenceLinePointEntity>());
+            var pSet = (DbSet<ProjectEntity>) new TestDbSet<ProjectEntity>(new ObservableCollection<ProjectEntity>());
+            var hlSet = (DbSet<HydraulicLocationEntity>) new TestDbSet<HydraulicLocationEntity>(new ObservableCollection<HydraulicLocationEntity>());
+            var fmSet = (DbSet<FailureMechanismEntity>) new TestDbSet<FailureMechanismEntity>(new ObservableCollection<FailureMechanismEntity>());
+            var dasSet = (DbSet<AssessmentSectionEntity>) new TestDbSet<AssessmentSectionEntity>(new ObservableCollection<AssessmentSectionEntity>());
+            var rlpSet = (DbSet<ReferenceLinePointEntity>) new TestDbSet<ReferenceLinePointEntity>(new ObservableCollection<ReferenceLinePointEntity>());
+            var ssmSet = (DbSet<StochasticSoilModelEntity>) new TestDbSet<StochasticSoilModelEntity>(new ObservableCollection<StochasticSoilModelEntity>());
             ringtoetsEntities.Stub(r => r.ProjectEntities).Return(pSet);
             ringtoetsEntities.Stub(r => r.HydraulicLocationEntities).Return(hlSet);
             ringtoetsEntities.Stub(r => r.FailureMechanismEntities).Return(fmSet);
             ringtoetsEntities.Stub(r => r.AssessmentSectionEntities).Return(dasSet);
             ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(rlpSet);
+            ringtoetsEntities.Stub(r => r.StochasticSoilModelEntities).Return(ssmSet);
             return ringtoetsEntities;
         }
     }

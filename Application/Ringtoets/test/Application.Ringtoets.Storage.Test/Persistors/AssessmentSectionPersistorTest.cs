@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Persistors;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -138,6 +139,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                         Name = otherHydraulicDatabaseLocationName, DesignWaterLevel = otherHydraulicDatabaseLocationDesignWaterLevel, HydraulicLocationEntityId = otherHydraulicDatabaseLocationStorageId,
                         LocationId = otherHydraulicDatabaseLocationLocationId, LocationX = otherHydraulicDatabaseLocationX, LocationY = otherHydraulicDatabaseLocationY,
                     }
+                },
+                ReferenceLinePointEntities = new []
+                {
+                    new ReferenceLinePointEntity
+                    {
+                        X = Convert.ToDecimal(1.1), Y = Convert.ToDecimal(2.3)
+                    }
                 }
             };
             mockRepository.ReplayAll();
@@ -171,6 +179,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(otherHydraulicDatabaseLocationX, secondLocation.Location.X);
             Assert.AreEqual(otherHydraulicDatabaseLocationY, secondLocation.Location.Y);
 
+            var line = section.ReferenceLine;
+            Assert.AreEqual(1, line.Points.Count());
+            Assert.AreEqual(1.1, line.Points.ElementAt(0).X);
+            Assert.AreEqual(2.3, line.Points.ElementAt(0).Y);
+
             mockRepository.VerifyAll();
         }
 
@@ -193,6 +206,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                         {
                             Name = "test", DesignWaterLevel = 15.6, HydraulicLocationEntityId = 1234L, LocationId = 1300001, LocationX = 253, LocationY = 123
                         }
+                    },
+                    ReferenceLinePointEntities = new []
+                    {
+                        new ReferenceLinePointEntity
+                        {
+                            X = Convert.ToDecimal(1.1), Y = Convert.ToDecimal(2.3)
+                        }
                     }
                 },
                 new AssessmentSectionEntity
@@ -205,6 +225,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                         new HydraulicLocationEntity
                         {
                             Name = "test2", DesignWaterLevel = 135.6, HydraulicLocationEntityId = 134L, LocationId = 1400001, LocationX = 23, LocationY = 23
+                        }
+                    },
+                    ReferenceLinePointEntities = new []
+                    {
+                        new ReferenceLinePointEntity
+                        {
+                            X = Convert.ToDecimal(2.2), Y = Convert.ToDecimal(6.3)
                         }
                     }
                 }
@@ -238,6 +265,11 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     Assert.AreEqual(locations[j].LocationX, loadedModelsList[i].HydraulicBoundaryDatabase.Locations[j].Location.X);
                     Assert.AreEqual(locations[j].LocationY, loadedModelsList[i].HydraulicBoundaryDatabase.Locations[j].Location.Y);
                 }
+
+                var referenceLinePoints = parentNavigationPropertyList[i].ReferenceLinePointEntities;
+                Assert.AreEqual(1, referenceLinePoints.Count);
+                Assert.AreEqual(referenceLinePoints.ElementAt(0).X, loadedModelsList[i].ReferenceLine.Points.ElementAt(0).X);
+                Assert.AreEqual(referenceLinePoints.ElementAt(0).Y, loadedModelsList[i].ReferenceLine.Points.ElementAt(0).Y);
             }
 
             mockRepository.VerifyAll();
@@ -299,7 +331,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 {
                     Norm = norm
                 },
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
             };
 
             AssessmentSectionPersistor persistor = new AssessmentSectionPersistor(ringtoetsEntities);
@@ -382,11 +414,25 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const double locationX = 253;
             const double locationY = 123;
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(locationId, name, locationX, locationY)
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                StorageId = hydraulicLocationEntityId, DesignWaterLevel = designWaterLevel
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(locationId, name, locationX, locationY)
+                        {
+                            StorageId = hydraulicLocationEntityId, DesignWaterLevel = designWaterLevel
+                        }
+                    }
+                },
+                ReferenceLine = new ReferenceLine()
+            };
+            var pointX = 3.2;
+            var pointY = 1.1;
+            assessmentSection.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(pointX, pointY)
             });
 
             IList<AssessmentSectionEntity> parentNavigationProperty = new List<AssessmentSectionEntity>();
@@ -409,6 +455,9 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(locationId, locationEntity.LocationId);
             Assert.AreEqual(locationX, locationEntity.LocationX);
             Assert.AreEqual(locationY, locationEntity.LocationY);
+
+            Assert.AreEqual(pointX, entity.ReferenceLinePointEntities.First().X);
+            Assert.AreEqual(pointY, entity.ReferenceLinePointEntities.First().Y);
 
             mockRepository.VerifyAll();
         }
@@ -698,11 +747,18 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 StorageId = storageId,
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase(),
+                ReferenceLine = new ReferenceLine()
             };
             assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1300001, "test", 253, 123)
             {
                 StorageId = hydraulicLocationEntityId,
+            });
+            var pointX = 2.4;
+            var pointY = 3.0;
+            assessmentSection.ReferenceLine.SetGeometry(new []
+            {
+                new Point2D(pointX, pointY)
             });
 
             IList<AssessmentSectionEntity> parentNavigationProperty = new List<AssessmentSectionEntity>
@@ -716,7 +772,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                         {
                             HydraulicLocationEntityId = hydraulicLocationEntityId
                         }
-                    }
+                    },
+                    ReferenceLinePointEntities = new List<ReferenceLinePointEntity>()
                 }
             };
 
@@ -734,6 +791,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             var hydraulicLocationEntity = entity.HydraulicLocationEntities.First();
             Assert.AreEqual(hydraulicLocationEntityId, hydraulicLocationEntity.HydraulicLocationEntityId);
+
+            var referenceLinePointEntity = entity.ReferenceLinePointEntities.First();
+            Assert.AreEqual(pointX, referenceLinePointEntity.X);
+            Assert.AreEqual(pointY, referenceLinePointEntity.Y);
 
             mockRepository.VerifyAll();
         }

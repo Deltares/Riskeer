@@ -58,6 +58,7 @@
     <Compile Include="Converters\ProjectConverter.cs" />
     <Compile Include="Converters\IEntityConverter.cs" />
     <Compile Include="Converters\ReferenceLineConverter.cs" />
+    <Compile Include="Converters\StochasticSoilModelConverter.cs" />
     <Compile Include="DbContext\AssessmentSectionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -74,6 +75,18 @@
     <Compile Include="DbContext\ReferenceLinePointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\SoilLayerEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\SoilProfileEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\StochasticSoilModelEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\StochasticSoilProfileEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\VersionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -83,6 +96,7 @@
     <Compile Include="Persistors\PipingFailureMechanismPersistor.cs" />
     <Compile Include="Persistors\ProjectPersistor.cs" />
     <Compile Include="Persistors\ReferenceLinePersistor.cs" />
+    <Compile Include="Persistors\StochasticSoilModelPersistor.cs" />
     <Compile Include="StorageSqliteCreator.cs" />
     <Compile Include="DbContext\PartialRingtoetsEntities.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />

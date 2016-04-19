@@ -25,7 +25,6 @@ using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Application.Ringtoets.Storage.Persistors

@@ -420,15 +420,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var persistor = new HydraulicBoundaryLocationPersistor(ringtoetsEntitiesMock);
 
             IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>();
+
             HydraulicBoundaryLocation model = new HydraulicBoundaryLocation(13001, "test", 13, 52)
             {
                 StorageId = 0
             };
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(model);
-
-            // Precondition
-            Assert.AreEqual(0, parentNavigationProperty.Count, "Precondition failed: parentNavigationProperty should be empty");
 
             // Call
             persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
@@ -478,7 +476,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             ringtoetsEntitiesMock.HydraulicLocationEntities.Add(entityToDelete);
 
-            ObservableCollection<HydraulicLocationEntity> parentNavigationProperty = new ObservableCollection<HydraulicLocationEntity>
+            var parentNavigationProperty = new List<HydraulicLocationEntity>
             {
                 entityToDelete
             };
