@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 
@@ -67,7 +68,13 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Gets and sets the value of assessment layer two a.
         /// </summary>
-        public RoundedDouble AssessmentLayerTwoA { get; set; }
+        public RoundedDouble AssessmentLayerTwoA
+        {
+            get
+            {
+                return GetAssessmentResult();
+            }
+        }
 
         /// <summary>
         /// Gets and sets the value of assessment layer two b.
@@ -83,5 +90,18 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// Gets and sets a list of <see cref="ICalculationScenario"/>
         /// </summary>
         public List<ICalculationScenario> CalculationScenarios { get; private set; }
+
+        private RoundedDouble GetAssessmentResult()
+        {
+            var relevantScenarios = CalculationScenarios.Where(cs => cs.IsRelevant).ToList();
+            double totalContribution = relevantScenarios.Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
+
+            if (relevantScenarios.Any() && Math.Abs(totalContribution - 1.0) > 1e-6)
+            {
+                return (RoundedDouble) double.NaN;
+            }
+
+            return new RoundedDouble();
+        }
     }
 }

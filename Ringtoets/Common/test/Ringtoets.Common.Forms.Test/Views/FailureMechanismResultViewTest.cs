@@ -76,6 +76,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 Assert.AreEqual(5, dataGridView.ColumnCount);
+                Assert.IsTrue(dataGridView.Columns[assessmentLayerTwoAIndex].ReadOnly);
 
                 foreach (var column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
                 {
@@ -252,7 +253,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                     Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), cellAssessmentLayerThreeForeColor);
                 }
 
-                Assert.AreEqual(checkBoxSelected, cellAssessmentLayerTwoA.ReadOnly);
                 Assert.AreEqual(checkBoxSelected, cellAssessmentLayerTwoB.ReadOnly);
                 Assert.AreEqual(checkBoxSelected, cellAssessmentLayerThree.ReadOnly);
             }
@@ -281,10 +281,6 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        [TestCase("1", assessmentLayerTwoAIndex, "AssessmentLayerTwoA")]
-        [TestCase("1e-6", assessmentLayerTwoAIndex, "AssessmentLayerTwoA")]
-        [TestCase("1e+6", assessmentLayerTwoAIndex, "AssessmentLayerTwoA")]
-        [TestCase("14.3", assessmentLayerTwoAIndex, "AssessmentLayerTwoA")]
         [TestCase("1", assessmentLayerTwoBIndex, "AssessmentLayerTwoB")]
         [TestCase("1e-6", assessmentLayerTwoBIndex, "AssessmentLayerTwoB")]
         [TestCase("1e+6", assessmentLayerTwoBIndex, "AssessmentLayerTwoB")]
@@ -339,6 +335,68 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.IsTrue(dataGridViewCell.IsInEditMode);
                 Assert.IsTrue(sections[0].AssessmentLayerOne);
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 0.3);
+            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true);
+
+            mocks.ReplayAll();
+
+            var rowIndex = 0;
+
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                sections[0].CalculationScenarios.Add(calculationScenarioMock);
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak zijn opgeteld niet gelijk aan 100%", dataGridViewCell.ErrorText);
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultView_AssessmentLayerTwoAHasValue_DoesNotShowsErrorTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0);
+            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true);
+
+            mocks.ReplayAll();
+
+            var rowIndex = 0;
+
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                sections[0].CalculationScenarios.Add(calculationScenarioMock);
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
             }
         }
 

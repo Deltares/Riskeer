@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Data.Test.FailureMechanism
@@ -40,6 +42,10 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
             // Assert
             Assert.AreSame(section, sectionResult.Section);
+            Assert.IsFalse(sectionResult.AssessmentLayerOne);
+            Assert.AreEqual((RoundedDouble)0, sectionResult.AssessmentLayerTwoA);
+            Assert.AreEqual((RoundedDouble)0, sectionResult.AssessmentLayerTwoB);
+            Assert.AreEqual((RoundedDouble)0, sectionResult.AssessmentLayerThree);
             CollectionAssert.IsEmpty(sectionResult.CalculationScenarios);
         }
 
@@ -52,6 +58,31 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("section", exception.ParamName);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_ScenariosDoNotAddUpToHunderdPercent_ThrowsArgumentException()
+        {
+            // Setup
+            var section = CreateSection();
+            var failureMechanismSectionResult = new FailureMechanismSectionResult(section);
+
+            var mocks = new MockRepository();
+            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
+            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true);
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)50);
+
+            mocks.ReplayAll();
+
+            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
+
+            // Call
+            var assessmentLayerTwoA = new RoundedDouble();
+            TestDelegate call = () => assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+            mocks.VerifyAll();
         }
 
         private static FailureMechanismSection CreateSection()

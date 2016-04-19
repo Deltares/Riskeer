@@ -123,6 +123,7 @@ namespace Ringtoets.Common.Forms.Views
             dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
             dataGridView.CellValidating += DataGridViewCellValidating;
             dataGridView.DataError += DataGridViewDataError;
+            dataGridView.CellFormatting += DataGridViewCellFormatting;
 
             var sectionName = new DataGridViewTextBoxColumn
             {
@@ -142,7 +143,8 @@ namespace Ringtoets.Common.Forms.Views
             {
                 DataPropertyName = "AssessmentLayerTwoA",
                 HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
-                Name = "column_AssessmentLayerTwoA"
+                Name = "column_AssessmentLayerTwoA",
+                ReadOnly = true
             };
 
             assessmentLayerTwoB = new DataGridViewTextBoxColumn
@@ -197,7 +199,6 @@ namespace Ringtoets.Common.Forms.Views
 
         private void SetRowEditMode(DataGridViewRow row, bool checkboxSelected)
         {
-            row.Cells[assessmentLayerTwoA.Index].ReadOnly = checkboxSelected;
             row.Cells[assessmentLayerTwoB.Index].ReadOnly = checkboxSelected;
             row.Cells[assessmentLayerThree.Index].ReadOnly = checkboxSelected;
         }
@@ -262,10 +263,6 @@ namespace Ringtoets.Common.Forms.Views
                 {
                     return failureMechanismSectionResult.AssessmentLayerTwoA;
                 }
-                set
-                {
-                    failureMechanismSectionResult.AssessmentLayerTwoA = value;
-                }
             }
 
             public RoundedDouble AssessmentLayerTwoB
@@ -326,6 +323,18 @@ namespace Ringtoets.Common.Forms.Views
             if (string.IsNullOrWhiteSpace(dataGridView.Rows[e.RowIndex].ErrorText) && e.Exception != null)
             {
                 dataGridView.Rows[e.RowIndex].ErrorText = e.Exception.Message;
+            }
+        }
+
+        private void DataGridViewCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == assessmentLayerTwoA.Index && e.Value != null && double.IsNaN((RoundedDouble) e.Value))
+            {
+                dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
+            }
+            else
+            {
+                dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = string.Empty;
             }
         }
 
