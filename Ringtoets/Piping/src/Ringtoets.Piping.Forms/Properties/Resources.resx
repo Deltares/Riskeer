@@ -689,19 +689,19 @@
     <value>Geometrie</value>
   </data>
   <data name="StochasticSoilModel_Id_Description" xml:space="preserve">
-    <value>Id van het stochastisch ondergrondmodel in de database.</value>
+    <value>Id van het stochastische ondergrondmodel in de database.</value>
   </data>
   <data name="StochasticSoilModel_Id_DisplayName" xml:space="preserve">
     <value>Id</value>
   </data>
   <data name="StochasticSoilModel_Name_Description" xml:space="preserve">
-    <value>Naam van het stochastisch ondergrondmodel.</value>
+    <value>Naam van het stochastische ondergrondmodel.</value>
   </data>
   <data name="StochasticSoilModel_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
   <data name="StochasticSoilModel_SegmentName_Description" xml:space="preserve">
-    <value>Naam van het stochastisch ondergrondmodel segment.</value>
+    <value>Naam van het stochastische ondergrondmodel segment.</value>
   </data>
   <data name="StochasticSoilModel_SegmentName_DisplayName" xml:space="preserve">
     <value>Segment naam</value>
@@ -728,7 +728,7 @@
     <value>Stochastisch ondergrondmodel</value>
   </data>
   <data name="PipingInput_StochasticSoilModel_Description" xml:space="preserve">
-    <value>Het stochastisch ondergrondmodel dat voor de piping berekening gebruikt wordt.</value>
+    <value>Het stochastische ondergrondmodel dat voor de piping berekening gebruikt wordt.</value>
   </data>
   <data name="PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_RingtoetsPipingSurfaceLine_0_skipped" xml:space="preserve">
     <value>Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.</value>
@@ -743,7 +743,7 @@
     <value>Bijdrage ondergrondschematisatie [%]</value>
   </data>
   <data name="StochasticSoilModelCollection_DisplayName" xml:space="preserve">
-    <value>Stochastisch ondergrondmodellen</value>
+    <value>Stochastische ondergrondmodellen</value>
   </data>
   <data name="PipingContext_DataDescription_PipingCalculationItem" xml:space="preserve">
     <value>De berekening</value>

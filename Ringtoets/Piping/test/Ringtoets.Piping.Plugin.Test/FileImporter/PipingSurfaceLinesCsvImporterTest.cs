@@ -1622,7 +1622,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var failureMechanism = new PipingFailureMechanism();
             mocks.ReplayAll();
 
-            var mesagge = "Profielschematisatie ArtifcialLocal doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coordinaat systeem heeft.";
+            var mesagge = "Profielschematisatie ArtifcialLocal doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
 
             var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
             context.Attach(observer);

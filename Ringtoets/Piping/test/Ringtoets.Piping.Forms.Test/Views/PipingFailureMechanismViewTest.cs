@@ -130,7 +130,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var stochasticSoilModelsData = mapData.List[stochasticSoilModelsLayerIndex] as FeatureBasedMapData;
             Assert.NotNull(stochasticSoilModelsData);
             Assert.IsEmpty(stochasticSoilModelsData.Features);
-            Assert.AreEqual("Stochastisch ondergrondmodellen", stochasticSoilModelsData.Name);
+            Assert.AreEqual("Stochastische ondergrondmodellen", stochasticSoilModelsData.Name);
 
             mocks.VerifyAll();
         }
@@ -663,7 +663,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var stochasticSoilModel = stochasticSoilModelsArray[index];
                 CollectionAssert.AreEquivalent(stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y)), geometries[index].PointCollections.First());
             }
-            Assert.AreEqual("Stochastisch ondergrondmodellen", mapData.Name);
+            Assert.AreEqual("Stochastische ondergrondmodellen", mapData.Name);
         }
 
         private class TestAssessmentSection : Observable, IAssessmentSection
