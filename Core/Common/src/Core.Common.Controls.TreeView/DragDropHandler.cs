@@ -109,7 +109,7 @@ namespace Core.Common.Controls.TreeView
             TreeNode nodeOver = treeView.GetNodeAt(point);
             var draggedNode = (TreeNode) e.Data.GetData(typeof(TreeNode));
 
-            if (nodeOver == null || nodeOver == draggedNode || IsDropTargetChildOfDraggedNode(nodeOver, draggedNode))
+            if (nodeOver == null || draggedNode == null || nodeOver == draggedNode || IsDropTargetChildOfDraggedNode(nodeOver, draggedNode))
             {
                 RemovePlaceHolder(treeView);
 
