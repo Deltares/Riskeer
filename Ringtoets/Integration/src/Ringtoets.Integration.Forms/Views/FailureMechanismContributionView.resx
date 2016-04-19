@@ -169,7 +169,7 @@
     <value>1</value>
   </data>
   <data name="assessmentSectionConfigurationLabel.Text" xml:space="preserve">
-    <value>Traject type:</value>
+    <value>Trajecttype:</value>
   </data>
   <data name="assessmentSectionConfigurationLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
