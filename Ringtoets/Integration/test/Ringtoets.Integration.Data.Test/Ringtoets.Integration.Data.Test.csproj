@@ -93,6 +93,10 @@
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+      <Project>{90de728e-48ef-4665-ab38-3d88e41d9f4d}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>

@@ -130,6 +130,16 @@
       <Name>Ringtoets.Common.Placeholder</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+      <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Forms\Ringtoets.GrassCoverErosionInwards.Forms.csproj">
+      <Project>{C540E627-B95B-4CC0-A1B6-A0BDF74936C7}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
       <Name>Ringtoets.HydraRing.Calculation</Name>

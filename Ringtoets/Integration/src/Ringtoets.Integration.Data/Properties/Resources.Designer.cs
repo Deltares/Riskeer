@@ -115,15 +115,6 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken - Graserosie kruin en binnentalud.
-        /// </summary>
-        public static string GrassErosionFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassErosionFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dijken - Grasbekledingen.
         /// </summary>
         public static string GrassRevetmentFailureMechanism_DisplayName {

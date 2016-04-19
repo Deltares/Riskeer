@@ -42,6 +42,9 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Placeholder;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Forms;
+using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -312,6 +315,17 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
+        #region FailureMechanismSectionsContext
+
+        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddImportItem()
+                      .Build();
+        }
+
+        #endregion
+
         #region Comment ViewInfo
 
         private static bool CloseCommentViewForData(CommentView commentView, object o)
@@ -347,7 +361,7 @@ namespace Ringtoets.Integration.Plugin
         private static IEnumerable<ICommentable> GetCommentableElements(IAssessmentSection assessmentSection)
         {
             yield return assessmentSection;
-            foreach (var commentable in assessmentSection.GetFailureMechanisms().SelectMany(GetCommentableElements)) 
+            foreach (var commentable in assessmentSection.GetFailureMechanisms().SelectMany(GetCommentableElements))
             {
                 yield return commentable;
             }
@@ -360,17 +374,6 @@ namespace Ringtoets.Integration.Plugin
             {
                 yield return commentableCalculation;
             }
-        }
-
-        #endregion
-
-        #region FailureMechanismSectionsContext
-
-        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddImportItem()
-                      .Build();
         }
 
         #endregion
@@ -399,6 +402,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 var placeHolder = failureMechanism as FailureMechanismPlaceholder;
                 var piping = failureMechanism as PipingFailureMechanism;
+                var grassCoverErosionInwards = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
                 if (placeHolder != null)
                 {
                     yield return new FailureMechanismPlaceholderContext(placeHolder, nodeData);
@@ -406,6 +410,10 @@ namespace Ringtoets.Integration.Plugin
                 else if (piping != null)
                 {
                     yield return new PipingFailureMechanismContext(piping, nodeData);
+                }
+                else if (grassCoverErosionInwards != null)
+                {
+                    yield return new GrassCoverErosionInwardsFailureMechanismContext(grassCoverErosionInwards, nodeData);
                 }
                 else
                 {

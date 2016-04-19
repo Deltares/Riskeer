@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Data.Properties;
@@ -52,8 +53,8 @@ namespace Ringtoets.Integration.Data
             Name = Resources.AssessmentSection_DisplayName;
 
             PipingFailureMechanism = new PipingFailureMechanism();
-            GrassErosion = new FailureMechanismPlaceholder(Resources.GrassErosionFailureMechanism_DisplayName);
-            MacrostabilityInward = new FailureMechanismPlaceholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName);
+            GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
+            MacrostabilityInwards = new FailureMechanismPlaceholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName);
             Overtopping = new FailureMechanismPlaceholder(Resources.OvertoppingFailureMechanism_DisplayName);
             Closing = new FailureMechanismPlaceholder(Resources.ClosingFailureMechanism_DisplayName);
             FailingOfConstruction = new FailureMechanismPlaceholder(Resources.FailingOfConstructionFailureMechanism_DisplayName);
@@ -67,19 +68,19 @@ namespace Ringtoets.Integration.Data
         }
 
         /// <summary>
-        /// Gets the "PipingFailureMechanism" failure mechanism.
+        /// Gets the "Dijken - Piping" failure mechanism.
         /// </summary>
         public PipingFailureMechanism PipingFailureMechanism { get; private set; }
 
         /// <summary>
-        /// Gets the "Graserosie kruin en binnentalud" failure mechanism.
+        /// Gets the "Dijken - Grasbekleding erosie kruin en binnentalud" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder GrassErosion { get; private set; }
+        public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwards { get; private set; }
 
         /// <summary>
-        /// Gets the "Macrostabiliteit binnenwaarts" failure mechanism.
+        /// Gets the "Dijken - Macrostabiliteit binnenwaarts" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder MacrostabilityInward { get; private set; }
+        public FailureMechanismPlaceholder MacrostabilityInwards { get; private set; }
 
         /// <summary>
         /// Gets the "Overslag en overloop" failure mechanism.
@@ -155,8 +156,8 @@ namespace Ringtoets.Integration.Data
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
             yield return PipingFailureMechanism;
-            yield return GrassErosion;
-            yield return MacrostabilityInward;
+            yield return GrassCoverErosionInwards;
+            yield return MacrostabilityInwards;
             yield return Overtopping;
             yield return Closing;
             yield return FailingOfConstruction;
@@ -172,8 +173,8 @@ namespace Ringtoets.Integration.Data
             {
                 case AssessmentSectionComposition.Dike:
                     PipingFailureMechanism.Contribution = 24;
-                    GrassErosion.Contribution = 24;
-                    MacrostabilityInward.Contribution = 4;
+                    GrassCoverErosionInwards.Contribution = 24;
+                    MacrostabilityInwards.Contribution = 4;
                     Overtopping.Contribution = 2;
                     Closing.Contribution = 4;
                     FailingOfConstruction.Contribution = 2;
@@ -185,8 +186,8 @@ namespace Ringtoets.Integration.Data
                     break;
                 case AssessmentSectionComposition.Dune:
                     PipingFailureMechanism.Contribution = 0;
-                    GrassErosion.Contribution = 0;
-                    MacrostabilityInward.Contribution = 0;
+                    GrassCoverErosionInwards.Contribution = 0;
+                    MacrostabilityInwards.Contribution = 0;
                     Overtopping.Contribution = 0;
                     Closing.Contribution = 0;
                     FailingOfConstruction.Contribution = 0;
@@ -198,8 +199,8 @@ namespace Ringtoets.Integration.Data
                     break;
                 case AssessmentSectionComposition.DikeAndDune:
                     PipingFailureMechanism.Contribution = 24;
-                    GrassErosion.Contribution = 24;
-                    MacrostabilityInward.Contribution = 4;
+                    GrassCoverErosionInwards.Contribution = 24;
+                    MacrostabilityInwards.Contribution = 4;
                     Overtopping.Contribution = 2;
                     Closing.Contribution = 4;
                     FailingOfConstruction.Contribution = 2;

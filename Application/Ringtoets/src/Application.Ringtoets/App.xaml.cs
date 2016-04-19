@@ -45,6 +45,7 @@ using Core.Plugins.DotSpatial;
 using Core.Plugins.OxyPlot;
 using Core.Plugins.ProjectExplorer;
 using log4net;
+using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
 using MessageBox = System.Windows.MessageBox;
@@ -160,6 +161,7 @@ namespace Application.Ringtoets
                     new ProjectExplorerGuiPlugin(),
                     new CommonToolsGuiPlugin(),
                     new RingtoetsGuiPlugin(),
+                    new GrassCoverErosionInwardsGuiPlugin(),
                     new PipingGuiPlugin(),
                     new OxyPlotGuiPlugin(),
                     new DotSpatialGuiPlugin()

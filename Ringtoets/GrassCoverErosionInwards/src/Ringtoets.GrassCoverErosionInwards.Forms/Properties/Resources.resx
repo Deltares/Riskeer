@@ -117,37 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FailureMechanismContribution_DisplayName" xml:space="preserve">
-    <value>Faalkansverdeling</value>
-  </data>
-  <data name="HydraulicBoundaryDatabase_DisplayName" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden</value>
-  </data>
-  <data name="ErosionFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Duinen - Erosie</value>
-  </data>
-  <data name="AssessmentSection_DisplayName" xml:space="preserve">
-    <value>Traject</value>
-  </data>
-  <data name="MacrostabilityInwardFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken - Macrostabiliteit binnenwaarts</value>
-  </data>
-  <data name="OvertoppingFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Kunstwerken - Overslag en overloop</value>
-  </data>
-  <data name="ClosingFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Kunstwerken - Niet sluiten</value>
-  </data>
-  <data name="FailingOfConstructionFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Kunstwerken - Constructief falen</value>
-  </data>
-  <data name="StoneRevetmentFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken - Steenbekledingen</value>
-  </data>
-  <data name="AsphaltRevetmentFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken - Asfaltbekledingen</value>
-  </data>
-  <data name="GrassRevetmentFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken - Grasbekledingen</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="GrassCoverErosionInwardsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\leaf-wormhole.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

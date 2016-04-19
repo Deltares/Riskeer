@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Piping.Data;
 using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 
@@ -45,7 +46,7 @@ namespace Ringtoets.Integration.Data.Test
             var section = new AssessmentSection(composition);
 
             var pipingName = "Dijken - Piping";
-            var grassErosionName = "Dijken - Graserosie kruin en binnentalud";
+            var grassErosionName = "Dijken - Grasbekleding erosie kruin en binnentalud";
             var macrostailityInwardName = "Dijken - Macrostabiliteit binnenwaarts";
             var overtoppingName = "Kunstwerken - Overslag en overloop";
             var closingName = "Kunstwerken - Niet sluiten";
@@ -85,8 +86,8 @@ namespace Ringtoets.Integration.Data.Test
             CollectionAssert.IsEmpty(section.PipingFailureMechanism.SurfaceLines);
 
             Assert.IsInstanceOf<PipingFailureMechanism>(section.PipingFailureMechanism);
-            Assert.AreEqual(grassErosionName, section.GrassErosion.Name);
-            Assert.AreEqual(macrostailityInwardName, section.MacrostabilityInward.Name);
+            Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanism>(section.GrassCoverErosionInwards);
+            Assert.AreEqual(macrostailityInwardName, section.MacrostabilityInwards.Name);
             Assert.AreEqual(overtoppingName, section.Overtopping.Name);
             Assert.AreEqual(closingName, section.Closing.Name);
             Assert.AreEqual(failingOfConstructionName, section.FailingOfConstruction.Name);
@@ -149,8 +150,8 @@ namespace Ringtoets.Integration.Data.Test
             // Assert
             Assert.AreEqual(10, failureMechanisms.Length);
             Assert.AreSame(assessmentSection.PipingFailureMechanism, failureMechanisms[0]);
-            Assert.AreSame(assessmentSection.GrassErosion, failureMechanisms[1]);
-            Assert.AreSame(assessmentSection.MacrostabilityInward, failureMechanisms[2]);
+            Assert.AreSame(assessmentSection.GrassCoverErosionInwards, failureMechanisms[1]);
+            Assert.AreSame(assessmentSection.MacrostabilityInwards, failureMechanisms[2]);
             Assert.AreSame(assessmentSection.Overtopping, failureMechanisms[3]);
             Assert.AreSame(assessmentSection.Closing, failureMechanisms[4]);
             Assert.AreSame(assessmentSection.FailingOfConstruction, failureMechanisms[5]);
@@ -273,8 +274,8 @@ namespace Ringtoets.Integration.Data.Test
             double[] contributions = GetContributionsArray(composition);
 
             Assert.AreEqual(contributions[0], assessmentSection.PipingFailureMechanism.Contribution);
-            Assert.AreEqual(contributions[1], assessmentSection.GrassErosion.Contribution);
-            Assert.AreEqual(contributions[2], assessmentSection.MacrostabilityInward.Contribution);
+            Assert.AreEqual(contributions[1], assessmentSection.GrassCoverErosionInwards.Contribution);
+            Assert.AreEqual(contributions[2], assessmentSection.MacrostabilityInwards.Contribution);
             Assert.AreEqual(contributions[3], assessmentSection.Overtopping.Contribution);
             Assert.AreEqual(contributions[4], assessmentSection.Closing.Contribution);
             Assert.AreEqual(contributions[5], assessmentSection.FailingOfConstruction.Contribution);

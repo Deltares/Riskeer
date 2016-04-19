@@ -157,6 +157,11 @@
       <Project>{ffe3a667-3a4c-4f48-bc6b-1589867fcb41}</Project>
       <Name>Demo.Ringtoets</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Plugin\Ringtoets.GrassCoverErosionInwards.Plugin.csproj">
+      <Project>{20955E2A-8CEB-46B0-ADC4-A97D4C6BBDF5}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Plugin</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
       <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
       <Name>Ringtoets.Integration.Plugin</Name>
