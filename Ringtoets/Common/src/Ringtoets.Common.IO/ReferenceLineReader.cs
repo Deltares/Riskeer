@@ -28,6 +28,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO;
 using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.Data;
@@ -149,8 +150,8 @@ namespace Ringtoets.Common.IO
                 throw new CriticalFileReadException(message);
             }
 
-            var referenceGeometry = referenceGeometries.First();
-            referenceLine.SetGeometry(referenceGeometry.Points.Select(t => new Point2D(t.X, t.Y)));
+            MapGeometry referenceGeometry = referenceGeometries[0];
+            referenceLine.SetGeometry(referenceGeometry.PointCollections.First().Select(t => new Point2D(t.X, t.Y)));
             return referenceLine;
         }
     }

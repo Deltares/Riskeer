@@ -1,7 +1,12 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Readers;
 using NUnit.Framework;
 
@@ -40,7 +45,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string nonPolygonShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 shapeFileName);
+                                                                    shapeFileName);
 
             // Call
             TestDelegate call = () => new PolygonShapeFileReader(nonPolygonShapeFile);
@@ -57,7 +62,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Empty_Polygon_with_ID.shp");
+                                                                    "Empty_Polygon_with_ID.shp");
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
@@ -73,7 +78,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Polygon_with_ID.shp");
+                                                                    "Single_Polygon_with_ID.shp");
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
@@ -89,7 +94,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithMultiplePolygons = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                       "Multiple_Polygon_with_ID.shp");
+                                                                          "Multiple_Polygon_with_ID.shp");
 
             using (var reader = new PolygonShapeFileReader(shapeWithMultiplePolygons))
             {
@@ -108,11 +113,11 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Polygon_with_ID.shp");
+                                                                    "Single_Polygon_with_ID.shp");
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                MapPolygonData polygon = reader.ReadLine(name) as MapPolygonData;
+                MapPolygonData polygon = (MapPolygonData)reader.ReadLine(name);
 
                 // Assert
                 Assert.AreEqual(name, polygon.Name);
@@ -127,11 +132,11 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Polygon_with_ID.shp");
+                                                                    "Single_Polygon_with_ID.shp");
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                MapPolygonData polygon = reader.ReadLine(name) as MapPolygonData;
+                MapPolygonData polygon = (MapPolygonData)reader.ReadLine(name);
 
                 // Assert
                 Assert.AreEqual("Polygoon", polygon.Name);
@@ -143,22 +148,27 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Polygon_with_ID.shp");
+                                                                    "Single_Polygon_with_ID.shp");
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                MapPolygonData polygon = reader.ReadLine() as MapPolygonData;
+                MapPolygonData polygon = (MapPolygonData)reader.ReadLine();
 
                 // Assert
                 Assert.IsNotNull(polygon);
-                var polygonFeatures = polygon.Features.ToArray();
+                MapFeature[] polygonFeatures = polygon.Features.ToArray();
                 Assert.AreEqual(1, polygonFeatures.Length);
-                var polygonGeometries = polygonFeatures[0].MapGeometries.ToArray();
+
+                MapGeometry[] polygonGeometries = polygonFeatures[0].MapGeometries.ToArray();
                 Assert.AreEqual(1, polygonGeometries.Length);
-                var polygonPoints = polygonGeometries[0].Points.ToArray();
-                Assert.AreEqual(30, polygonPoints.Length);
-                Assert.AreEqual(-0.264, polygonPoints[25].X, 1e-1);
-                Assert.AreEqual(0.169, polygonPoints[25].Y, 1e-1);
+
+                IEnumerable<Point2D>[] polygonPointCollections = polygonGeometries[0].PointCollections.ToArray();
+                Assert.AreEqual(1, polygonPointCollections.Length);
+
+                var firstPointCollection = polygonPointCollections[0].ToArray();
+                Assert.AreEqual(30, firstPointCollection.Length);
+                Assert.AreEqual(-0.264, firstPointCollection[25].X, 1e-1);
+                Assert.AreEqual(0.169, firstPointCollection[25].Y, 1e-1);
             }
         }
 
@@ -166,23 +176,29 @@ namespace Core.Components.Gis.IO.Test.Readers
         public void ReadLine_ShapeFileWithSingeFeatureMultiplePolygons_ReturnShapes()
         {
             // Setup
-            string shape = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Multi-Polygon_with_ID.shp");
+            string shape = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                      "Single_Multi-Polygon_with_ID.shp");
 
             using (var reader = new PolygonShapeFileReader(shape))
             {
                 // Call
-                MapPolygonData polygon = reader.ReadLine() as MapPolygonData;
+                MapPolygonData polygon = (MapPolygonData)reader.ReadLine();
 
                 // Assert
                 Assert.IsNotNull(polygon);
-                var polygonFeatures = polygon.Features.ToArray();
+                MapFeature[] polygonFeatures = polygon.Features.ToArray();
                 Assert.AreEqual(1, polygonFeatures.Length);
-                var polygonGeometries = polygonFeatures[0].MapGeometries.ToArray();
+
+                MapGeometry[] polygonGeometries = polygonFeatures[0].MapGeometries.ToArray();
                 Assert.AreEqual(2, polygonGeometries.Length);
-                var polygonPoints = polygonGeometries[0].Points.ToArray();
-                Assert.AreEqual(7, polygonPoints.Length);
-                Assert.AreEqual(-2.257, polygonPoints[4].X, 1e-1);
-                Assert.AreEqual(0.419, polygonPoints[4].Y, 1e-1);
+
+                IEnumerable<Point2D>[] firstGeometryPointCollections = polygonGeometries[0].PointCollections.ToArray();
+                Assert.AreEqual(1, firstGeometryPointCollections.Length);
+
+                Point2D[] firstGeometryFirstPointCollection = firstGeometryPointCollections[0].ToArray();
+                Assert.AreEqual(7, firstGeometryFirstPointCollection.Length);
+                Assert.AreEqual(-2.257, firstGeometryFirstPointCollection[4].X, 1e-1);
+                Assert.AreEqual(0.419, firstGeometryFirstPointCollection[4].Y, 1e-1);
             }
         }
 
@@ -191,76 +207,92 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithMultiplePolygons = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Multiple_Polygon_with_ID.shp");
+                                                                          "Multiple_Polygon_with_ID.shp");
             using (var reader = new PolygonShapeFileReader(shapeWithMultiplePolygons))
             {
                 // Precondition
                 Assert.AreEqual(4, reader.GetNumberOfLines());
 
                 // Call
-                MapPolygonData polygons1 = reader.ReadLine() as MapPolygonData;
-                MapPolygonData polygons2 = reader.ReadLine() as MapPolygonData;
-                MapPolygonData polygons3 = reader.ReadLine() as MapPolygonData;
-                MapPolygonData polygons4 = reader.ReadLine() as MapPolygonData;
+                MapPolygonData polygons1 = (MapPolygonData)reader.ReadLine();
+                MapPolygonData polygons2 = (MapPolygonData)reader.ReadLine();
+                MapPolygonData polygons3 = (MapPolygonData)reader.ReadLine();
+                MapPolygonData polygons4 = (MapPolygonData)reader.ReadLine();
 
                 // Assert
                 #region Assertsions for 'polygon1'
                 
-                var features1 = polygons1.Features.ToArray();
+                MapFeature[] features1 = polygons1.Features.ToArray();
                 Assert.AreEqual(1, features1.Length);
 
-                var polygon1 = features1[0];
-                var polygon1Geometry = polygon1.MapGeometries.ToArray();
+                MapFeature polygon1 = features1[0];
+                MapGeometry[] polygon1Geometry = polygon1.MapGeometries.ToArray();
                 Assert.AreEqual(1, polygon1Geometry.Length);
-                var polygon1Points = polygon1Geometry[0].Points.ToArray();
-                Assert.AreEqual(6, polygon1Points.Length);
-                Assert.AreEqual(-1.070, polygon1Points[2].X, 1e-1);
-                Assert.AreEqual(0.066, polygon1Points[2].Y, 1e-1);
+
+                IEnumerable<Point2D>[] polygon1PointCollections = polygon1Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, polygon1PointCollections.Length);
+
+                var polygon1PointCollection = polygon1PointCollections[0].ToArray();
+                Assert.AreEqual(6, polygon1PointCollection.Length);
+                Assert.AreEqual(-1.070, polygon1PointCollection[2].X, 1e-1);
+                Assert.AreEqual(0.066, polygon1PointCollection[2].Y, 1e-1);
 
                 #endregion
 
                 #region Assertsions for 'polygon2'
 
-                var features2 = polygons2.Features.ToArray();
+                MapFeature[] features2 = polygons2.Features.ToArray();
                 Assert.AreEqual(1, features2.Length);
 
-                var polygon2 = features2[0];
-                var polygon2Geometry = polygon2.MapGeometries.ToArray();
+                MapFeature polygon2 = features2[0];
+                MapGeometry[] polygon2Geometry = polygon2.MapGeometries.ToArray();
                 Assert.AreEqual(1, polygon2Geometry.Length);
-                var polygon2Points = polygon2Geometry[0].Points.ToArray();
-                Assert.AreEqual(25, polygon2Points.Length);
-                Assert.AreEqual(-2.172, polygon2Points[23].X, 1e-1);
-                Assert.AreEqual(0.212, polygon2Points[23].Y, 1e-1);
+
+                IEnumerable<Point2D>[] polygon2PointCollections = polygon2Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, polygon2PointCollections.Length);
+
+                Point2D[] polygon2PointCollection = polygon2PointCollections[0].ToArray();
+                Assert.AreEqual(25, polygon2PointCollection.Length);
+                Assert.AreEqual(-2.172, polygon2PointCollection[23].X, 1e-1);
+                Assert.AreEqual(0.212, polygon2PointCollection[23].Y, 1e-1);
 
                 #endregion
 
                 #region Assertsions for 'polygon3'
 
-                var features3 = polygons3.Features.ToArray();
+                MapFeature[] features3 = polygons3.Features.ToArray();
                 Assert.AreEqual(1, features3.Length);
 
-                var polygon3 = features3[0];
-                var polygon3Geometry = polygon3.MapGeometries.ToArray();
+                MapFeature polygon3 = features3[0];
+                MapGeometry[] polygon3Geometry = polygon3.MapGeometries.ToArray();
                 Assert.AreEqual(1, polygon3Geometry.Length);
-                var polygon3Points = polygon3Geometry[0].Points.ToArray();
-                Assert.AreEqual(10, polygon3Points.Length);
-                Assert.AreEqual(-1.091, polygon3Points[0].X, 1e-1);
-                Assert.AreEqual(0.566, polygon3Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] polygon3PointCollections = polygon3Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, polygon3PointCollections.Length);
+
+                Point2D[] polygon3PointCollection = polygon3PointCollections[0].ToArray();
+                Assert.AreEqual(10, polygon3PointCollection.Length);
+                Assert.AreEqual(-1.091, polygon3PointCollection[0].X, 1e-1);
+                Assert.AreEqual(0.566, polygon3PointCollection[0].Y, 1e-1);
 
                 #endregion
 
                 #region Assertsions for 'polygon4'
 
-                var features4 = polygons4.Features.ToArray();
+                MapFeature[] features4 = polygons4.Features.ToArray();
                 Assert.AreEqual(1, features4.Length);
 
-                var polygon4 = features4[0];
-                var polygon4Geometry = polygon4.MapGeometries.ToArray();
+                MapFeature polygon4 = features4[0];
+                MapGeometry[] polygon4Geometry = polygon4.MapGeometries.ToArray();
                 Assert.AreEqual(1, polygon4Geometry.Length);
-                var polygon4Points = polygon4Geometry[0].Points.ToArray();
-                Assert.AreEqual(9, polygon4Points.Length);
-                Assert.AreEqual(-1.917, polygon4Points[8].X, 1e-1);
-                Assert.AreEqual(0.759, polygon4Points[8].Y, 1e-1);
+
+                IEnumerable<Point2D>[] polygon4PointCollections = polygon4Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, polygon4PointCollections.Length);
+
+                var polygon4PointCollection = polygon4PointCollections[0].ToArray();
+                Assert.AreEqual(9, polygon4PointCollection.Length);
+                Assert.AreEqual(-1.917, polygon4PointCollection[8].X, 1e-1);
+                Assert.AreEqual(0.759, polygon4PointCollection[8].Y, 1e-1);
 
                 #endregion
             }
@@ -271,22 +303,27 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Polygon_with_ID.shp");
+                                                                    "Single_Polygon_with_ID.shp");
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                MapPolygonData polygon = reader.ReadShapeFile() as MapPolygonData;
+                MapPolygonData polygon = (MapPolygonData)reader.ReadShapeFile();
 
                 // Assert
                 Assert.IsNotNull(polygon);
-                var polygonFeatures = polygon.Features.ToArray();
+                MapFeature[] polygonFeatures = polygon.Features.ToArray();
                 Assert.AreEqual(1, polygonFeatures.Length);
-                var polygonGeometries = polygonFeatures[0].MapGeometries.ToArray();
+
+                MapGeometry[] polygonGeometries = polygonFeatures[0].MapGeometries.ToArray();
                 Assert.AreEqual(1, polygonGeometries.Length);
-                var polygonPoints = polygonGeometries[0].Points.ToArray();
-                Assert.AreEqual(30, polygonPoints.Length);
-                Assert.AreEqual(-0.264, polygonPoints[25].X, 1e-1);
-                Assert.AreEqual(0.169, polygonPoints[25].Y, 1e-1);
+
+                IEnumerable<Point2D>[] polygonPointCollections = polygonGeometries[0].PointCollections.ToArray();
+                Assert.AreEqual(1, polygonPointCollections.Length);
+
+                var polygonFirstPointCollection = polygonPointCollections[0].ToArray();
+                Assert.AreEqual(30, polygonFirstPointCollection.Length);
+                Assert.AreEqual(-0.264, polygonFirstPointCollection[25].X, 1e-1);
+                Assert.AreEqual(0.169, polygonFirstPointCollection[25].Y, 1e-1);
             }
         }
 
@@ -294,23 +331,29 @@ namespace Core.Components.Gis.IO.Test.Readers
         public void ReadShapeFile_ShapeFileWithSingeFeatureMultiplePolygons_ReturnShapes()
         {
             // Setup
-            string shape = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Multi-Polygon_with_ID.shp");
+            string shape = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                      "Single_Multi-Polygon_with_ID.shp");
 
             using (var reader = new PolygonShapeFileReader(shape))
             {
                 // Call
-                MapPolygonData polygon = reader.ReadShapeFile() as MapPolygonData;
+                MapPolygonData polygon = (MapPolygonData)reader.ReadShapeFile();
 
                 // Assert
                 Assert.IsNotNull(polygon);
-                var polygonFeatures = polygon.Features.ToArray();
+                MapFeature[] polygonFeatures = polygon.Features.ToArray();
                 Assert.AreEqual(1, polygonFeatures.Length);
-                var polygonGeometries = polygonFeatures[0].MapGeometries.ToArray();
+
+                MapGeometry[] polygonGeometries = polygonFeatures[0].MapGeometries.ToArray();
                 Assert.AreEqual(2, polygonGeometries.Length);
-                var polygonPoints = polygonGeometries[0].Points.ToArray();
-                Assert.AreEqual(7, polygonPoints.Length);
-                Assert.AreEqual(-2.257, polygonPoints[4].X, 1e-1);
-                Assert.AreEqual(0.419, polygonPoints[4].Y, 1e-1);
+
+                IEnumerable<Point2D>[] polygonPointCollections = polygonGeometries[0].PointCollections.ToArray();
+                Assert.AreEqual(1, polygonPointCollections.Length);
+
+                var firstPointCollection = polygonPointCollections[0].ToArray();
+                Assert.AreEqual(7, firstPointCollection.Length);
+                Assert.AreEqual(-2.257, firstPointCollection[4].X, 1e-1);
+                Assert.AreEqual(0.419, firstPointCollection[4].Y, 1e-1);
             }
         }
 
@@ -321,11 +364,11 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Polygon_with_ID.shp");
+                                                                    "Single_Polygon_with_ID.shp");
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                MapPolygonData polygon = reader.ReadShapeFile(name) as MapPolygonData;
+                MapPolygonData polygon = (MapPolygonData)reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual(name, polygon.Name);
@@ -340,11 +383,11 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePolygon = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Polygon_with_ID.shp");
+                                                                    "Single_Polygon_with_ID.shp");
             using (var reader = new PolygonShapeFileReader(shapeWithOnePolygon))
             {
                 // Call
-                MapPolygonData polygon = reader.ReadShapeFile(name) as MapPolygonData;
+                MapPolygonData polygon = (MapPolygonData)reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual("Polygoon", polygon.Name);
@@ -356,64 +399,80 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithMultiplePolygons = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Multiple_Polygon_with_ID.shp");
+                                                                          "Multiple_Polygon_with_ID.shp");
             using (var reader = new PolygonShapeFileReader(shapeWithMultiplePolygons))
             {
                 // Precondition
                 Assert.AreEqual(4, reader.GetNumberOfLines());
                 
                 // Call
-                MapPolygonData polygons = reader.ReadShapeFile() as MapPolygonData;
+                MapPolygonData polygons = (MapPolygonData)reader.ReadShapeFile();
 
                 // Assert
-                var features = polygons.Features.ToArray();
+                MapFeature[] features = polygons.Features.ToArray();
                 Assert.AreEqual(4, features.Length);
 
                 #region Assertsions for 'polygon1'
 
-                var polygon1 = features[0];
-                var polygon1Geometry = polygon1.MapGeometries.ToArray();
+                MapFeature polygon1 = features[0];
+                MapGeometry[] polygon1Geometry = polygon1.MapGeometries.ToArray();
                 Assert.AreEqual(1, polygon1Geometry.Length);
-                var polygon1Points = polygon1Geometry[0].Points.ToArray();
-                Assert.AreEqual(6, polygon1Points.Length);
-                Assert.AreEqual(-1.070, polygon1Points[2].X, 1e-1);
-                Assert.AreEqual(0.066, polygon1Points[2].Y, 1e-1);
+
+                IEnumerable<Point2D>[] polygon1PointCollections = polygon1Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, polygon1PointCollections.Length);
+
+                Point2D[] polygon1FirstPointCollection = polygon1PointCollections[0].ToArray();
+                Assert.AreEqual(6, polygon1FirstPointCollection.Length);
+                Assert.AreEqual(-1.070, polygon1FirstPointCollection[2].X, 1e-1);
+                Assert.AreEqual(0.066, polygon1FirstPointCollection[2].Y, 1e-1);
 
                 #endregion
 
                 #region Assertsions for 'polygon2'
 
-                var polygon2 = features[1];
-                var polygon2Geometry = polygon2.MapGeometries.ToArray();
+                MapFeature polygon2 = features[1];
+                MapGeometry[] polygon2Geometry = polygon2.MapGeometries.ToArray();
                 Assert.AreEqual(1, polygon2Geometry.Length);
-                var polygon2Points = polygon2Geometry[0].Points.ToArray();
-                Assert.AreEqual(25, polygon2Points.Length);
-                Assert.AreEqual(-2.172, polygon2Points[23].X, 1e-1);
-                Assert.AreEqual(0.212, polygon2Points[23].Y, 1e-1);
+
+                IEnumerable<Point2D>[] polygon2PointCollections = polygon2Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, polygon2PointCollections.Length);
+
+                Point2D[] polygon2FirstPointCollection = polygon2PointCollections[0].ToArray();
+                Assert.AreEqual(25, polygon2FirstPointCollection.Length);
+                Assert.AreEqual(-2.172, polygon2FirstPointCollection[23].X, 1e-1);
+                Assert.AreEqual(0.212, polygon2FirstPointCollection[23].Y, 1e-1);
 
                 #endregion
 
                 #region Assertsions for 'polygon3'
 
-                var polygon3 = features[2];
-                var polygon3Geometry = polygon3.MapGeometries.ToArray();
+                MapFeature polygon3 = features[2];
+                MapGeometry[] polygon3Geometry = polygon3.MapGeometries.ToArray();
                 Assert.AreEqual(1, polygon3Geometry.Length);
-                var polygon3Points = polygon3Geometry[0].Points.ToArray();
-                Assert.AreEqual(10, polygon3Points.Length);
-                Assert.AreEqual(-1.091, polygon3Points[0].X, 1e-1);
-                Assert.AreEqual(0.566, polygon3Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] polygon3PointCollections = polygon3Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, polygon3PointCollections.Length);
+
+                Point2D[] polygon3FirstPointCollection = polygon3PointCollections[0].ToArray();
+                Assert.AreEqual(10, polygon3FirstPointCollection.Length);
+                Assert.AreEqual(-1.091, polygon3FirstPointCollection[0].X, 1e-1);
+                Assert.AreEqual(0.566, polygon3FirstPointCollection[0].Y, 1e-1);
 
                 #endregion
 
                 #region Assertsions for 'polygon4'
 
-                var polygon4 = features[3];
-                var polygon4Geometry = polygon4.MapGeometries.ToArray();
+                MapFeature polygon4 = features[3];
+                MapGeometry[] polygon4Geometry = polygon4.MapGeometries.ToArray();
                 Assert.AreEqual(1, polygon4Geometry.Length);
-                var polygon4Points = polygon4Geometry[0].Points.ToArray();
-                Assert.AreEqual(9, polygon4Points.Length);
-                Assert.AreEqual(-1.917, polygon4Points[8].X, 1e-1);
-                Assert.AreEqual(0.759, polygon4Points[8].Y, 1e-1);
+
+                IEnumerable<Point2D>[] polygon4PointCollections = polygon4Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, polygon4PointCollections.Length);
+
+                Point2D[] polygon4FirstPointCollection = polygon4PointCollections[0].ToArray();
+                Assert.AreEqual(9, polygon4FirstPointCollection.Length);
+                Assert.AreEqual(-1.917, polygon4FirstPointCollection[8].X, 1e-1);
+                Assert.AreEqual(0.759, polygon4FirstPointCollection[8].Y, 1e-1);
 
                 #endregion
             }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -39,7 +38,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             {
                 new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(Enumerable.Empty<Point2D>())
+                    new MapGeometry(new[]
+                    {
+                        Enumerable.Empty<Point2D>()
+                    })
                 })
             };
 
@@ -80,9 +82,12 @@ namespace Core.Components.DotSpatial.Test.Converter
             {
                 features.Add(new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]
                     {
-                        new Point2D(random.NextDouble(), random.NextDouble())
+                        new[]
+                        {
+                            new Point2D(random.NextDouble(), random.NextDouble())
+                        }
                     })
                 }));
             }
@@ -99,7 +104,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(pointData.Features.ToArray().Length, layer.DataSet.Features.Count);
             Assert.IsInstanceOf<MapPointLayer>(layer);
             Assert.AreEqual(FeatureType.Point, layer.DataSet.FeatureType);
-            CollectionAssert.AreNotEqual(pointData.Features.First().MapGeometries.First().Points, layer.DataSet.Features[0].Coordinates);
+            CollectionAssert.AreNotEqual(pointData.Features.First().MapGeometries.First().PointCollections, layer.DataSet.Features[0].Coordinates);
         }
 
         [Test]
@@ -111,23 +116,32 @@ namespace Core.Components.DotSpatial.Test.Converter
             {
                 new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]
                     {
-                        new Point2D(1, 2)
+                        new[]
+                        {
+                            new Point2D(1, 2)
+                        }
                     })
                 }),
                 new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]
                     {
-                        new Point2D(2, 3)
+                        new[]
+                        {
+                            new Point2D(2, 3)
+                        }
                     })
                 }),
                 new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]
                     {
-                        new Point2D(4, 6)
+                        new[]
+                        {
+                            new Point2D(4, 6)
+                        }
                     })
                 })
             };

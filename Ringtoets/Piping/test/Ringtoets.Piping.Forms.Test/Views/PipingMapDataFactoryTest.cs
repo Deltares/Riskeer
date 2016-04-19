@@ -418,7 +418,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
         private void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)
         {
-            CollectionAssert.AreEqual(points.Select(p => new Point2D(p.X, p.Y)), geometry.Points);
+            CollectionAssert.AreEqual(points.Select(p => new Point2D(p.X, p.Y)), geometry.PointCollections.First());
         }
     }
 }

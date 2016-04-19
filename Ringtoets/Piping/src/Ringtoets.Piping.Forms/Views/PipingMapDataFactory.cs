@@ -58,7 +58,10 @@ namespace Ringtoets.Piping.Forms.Views
 
             var mapFeatures = new List<MapFeature>
             {
-                new MapFeature(surfaceLines.Select(surfaceLine => new MapGeometry(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)))))
+                new MapFeature(surfaceLines.Select(surfaceLine => new MapGeometry(new[]
+                {
+                    surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))
+                })))
             };
 
             return new MapLineData(mapFeatures, Resources.PipingSurfaceLinesCollection_DisplayName)
@@ -82,7 +85,10 @@ namespace Ringtoets.Piping.Forms.Views
 
             var mapFeatures = new List<MapFeature>
             {
-                new MapFeature(stochasticSoilModels.Select(stochasticSoilModel => new MapGeometry(stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y)))))
+                new MapFeature(stochasticSoilModels.Select(stochasticSoilModel => new MapGeometry(new[]
+                {
+                    stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y))
+                })))
             };
 
             return new MapLineData(mapFeatures, Resources.StochasticSoilModelCollection_DisplayName)
@@ -106,7 +112,10 @@ namespace Ringtoets.Piping.Forms.Views
 
             var mapFeatures = new List<MapFeature>
             {
-                new MapFeature(sections.Select(section => new MapGeometry(section.Points.Select(p => new Point2D(p.X, p.Y)))))
+                new MapFeature(sections.Select(section => new MapGeometry(new[]
+                {
+                    section.Points.Select(p => new Point2D(p.X, p.Y))
+                })))
             };
 
             return new MapLineData(mapFeatures, Common.Forms.Properties.Resources.FailureMechanism_Sections_DisplayName)
@@ -227,14 +236,16 @@ namespace Ringtoets.Piping.Forms.Views
 
         private static IEnumerable<MapFeature> GetMapFeature(IEnumerable<Point2D> points)
         {
-            var features = new List<MapFeature>
+            return new[]
             {
-                new MapFeature(new List<MapGeometry>
+                new MapFeature(new[]
                 {
-                    new MapGeometry(points)
+                    new MapGeometry(new[]
+                    {
+                        points
+                    })
                 })
             };
-            return features;
         }
     }
 }

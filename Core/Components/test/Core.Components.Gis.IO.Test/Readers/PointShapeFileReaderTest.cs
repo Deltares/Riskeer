@@ -1,7 +1,12 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Readers;
 using NUnit.Framework;
 
@@ -107,7 +112,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = reader.ReadLine(name) as MapPointData;
+                MapPointData pointData = (MapPointData)reader.ReadLine(name);
 
                 // Assert
                 Assert.AreEqual(name, pointData.Name);
@@ -126,7 +131,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = reader.ReadLine(name) as MapPointData;
+                MapPointData pointData = (MapPointData)reader.ReadLine(name);
 
                 // Assert
                 Assert.AreEqual("Punten", pointData.Name);
@@ -147,9 +152,17 @@ namespace Core.Components.Gis.IO.Test.Readers
                 // Assert
                 Assert.IsNotNull(pointData);                
                 Assert.AreEqual(1, pointData.Features.Count());
-                var points = pointData.Features.First().MapGeometries.First().Points.ToArray();
-                Assert.AreEqual(1.705, points[0].X, 1e-1);
-                Assert.AreEqual(0.922, points[0].Y, 1e-1);
+
+                MapGeometry[] mapGeometries = pointData.Features.First().MapGeometries.ToArray();
+                Assert.AreEqual(1, mapGeometries.Length);
+
+                IEnumerable<Point2D>[] pointCollections = mapGeometries[0].PointCollections.ToArray();
+                Assert.AreEqual(1, pointCollections.Length);
+
+                Point2D[] firstPointCollection = pointCollections[0].ToArray();
+                Assert.AreEqual(1, firstPointCollection.Length);
+                Assert.AreEqual(1.705, firstPointCollection[0].X, 1e-1);
+                Assert.AreEqual(0.922, firstPointCollection[0].Y, 1e-1);
             }
         }
 
@@ -158,19 +171,19 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithMultiplePoints = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Multiple_Point_with_ID.shp");
+                                                                        "Multiple_Point_with_ID.shp");
             using (var reader = new PointShapeFileReader(shapeWithMultiplePoints))
             {
                 // Precondition
                 Assert.AreEqual(6, reader.GetNumberOfLines());
 
                 // Call
-                MapPointData points1 = reader.ReadLine() as MapPointData;
-                MapPointData points2 = reader.ReadLine() as MapPointData;
-                MapPointData points3 = reader.ReadLine() as MapPointData;
-                MapPointData points4 = reader.ReadLine() as MapPointData;
-                MapPointData points5 = reader.ReadLine() as MapPointData;
-                MapPointData points6 = reader.ReadLine() as MapPointData;
+                MapPointData points1 = (MapPointData)reader.ReadLine();
+                MapPointData points2 = (MapPointData)reader.ReadLine();
+                MapPointData points3 = (MapPointData)reader.ReadLine();
+                MapPointData points4 = (MapPointData)reader.ReadLine();
+                MapPointData points5 = (MapPointData)reader.ReadLine();
+                MapPointData points6 = (MapPointData)reader.ReadLine();
 
                 // Assert
 
@@ -179,84 +192,110 @@ namespace Core.Components.Gis.IO.Test.Readers
                 var features1 = points1.Features.ToArray();
                 Assert.AreEqual(1, features1.Length);
 
-                var point1 = features1[0];
-                var point1Geometry = point1.MapGeometries.ToArray();
+                MapFeature point1 = features1[0];
+                MapGeometry[] point1Geometry = point1.MapGeometries.ToArray();
                 Assert.AreEqual(1, point1Geometry.Length);
-                var point1Points = point1Geometry[0].Points.ToArray();
-                Assert.AreEqual(1, point1Points.Length);
-                Assert.AreEqual(-1.750, point1Points[0].X, 1e-1);
-                Assert.AreEqual(-0.488, point1Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] point1PointCollections = point1Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, point1PointCollections.Length);
+
+                Point2D[] point1FirstPointCpllection = point1PointCollections[0].ToArray();
+                Assert.AreEqual(1, point1FirstPointCpllection.Length);
+                Assert.AreEqual(-1.750, point1FirstPointCpllection[0].X, 1e-1);
+                Assert.AreEqual(-0.488, point1FirstPointCpllection[0].Y, 1e-1);
 
                 #endregion
 
                 #region Assertion for 'point2'
 
-                var features2 = points2.Features.ToArray();
+                MapFeature[] features2 = points2.Features.ToArray();
                 Assert.AreEqual(1, features2.Length);
 
-                var point2 = features2[0];
-                var point2Geometry = point2.MapGeometries.ToArray();
+                MapFeature point2 = features2[0];
+                MapGeometry[] point2Geometry = point2.MapGeometries.ToArray();
                 Assert.AreEqual(1, point2Geometry.Length);
-                var point2Points = point2Geometry[0].Points.ToArray();
-                Assert.AreEqual(1, point2Points.Length);
-                Assert.AreEqual(-0.790, point2Points[0].X, 1e-1);
-                Assert.AreEqual(-0.308, point2Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] point2PointCollections = point2Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, point2PointCollections.Length);
+
+                Point2D[] point2FirstPointCollection = point2PointCollections[0].ToArray();
+                Assert.AreEqual(1, point2FirstPointCollection.Length);
+                Assert.AreEqual(-0.790, point2FirstPointCollection[0].X, 1e-1);
+                Assert.AreEqual(-0.308, point2FirstPointCollection[0].Y, 1e-1);
 
                 #endregion
 
                 #region Assertion for 'point3'
-                var features3 = points3.Features.ToArray();
+
+                MapFeature[] features3 = points3.Features.ToArray();
                 Assert.AreEqual(1, features3.Length);
 
-                var point3 = features3[0];
-                var point3Geometry = point3.MapGeometries.ToArray();
+                MapFeature point3 = features3[0];
+                MapGeometry[] point3Geometry = point3.MapGeometries.ToArray();
                 Assert.AreEqual(1, point3Geometry.Length);
-                var point3Points = point3Geometry[0].Points.ToArray();
-                Assert.AreEqual(1, point3Points.Length);
-                Assert.AreEqual(0.740, point3Points[0].X, 1e-1);
-                Assert.AreEqual(-0.577, point3Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] point3PointCollections = point3Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, point3PointCollections.Length);
+
+                Point2D[] point3FirstPointCollection = point3PointCollections[0].ToArray();
+                Assert.AreEqual(1, point3FirstPointCollection.Length);
+                Assert.AreEqual(0.740, point3FirstPointCollection[0].X, 1e-1);
+                Assert.AreEqual(-0.577, point3FirstPointCollection[0].Y, 1e-1);
 
                 #endregion
 
                 #region Assertion for 'point4'
-                var features4 = points4.Features.ToArray();
+
+                MapFeature[] features4 = points4.Features.ToArray();
                 Assert.AreEqual(1, features4.Length);
 
-                var point4 = features4[0];
-                var point4Geometry = point4.MapGeometries.ToArray();
+                MapFeature point4 = features4[0];
+                MapGeometry[] point4Geometry = point4.MapGeometries.ToArray();
                 Assert.AreEqual(1, point4Geometry.Length);
-                var point4Points = point4Geometry[0].Points.ToArray();
-                Assert.AreEqual(1, point4Points.Length);
-                Assert.AreEqual(0.787, point4Points[0].X, 1e-1);
-                Assert.AreEqual(0.759, point4Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] point4PointCollections = point4Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, point4PointCollections.Length);
+
+                Point2D[] point4FirstPointCollection = point4PointCollections[0].ToArray();
+                Assert.AreEqual(1, point4FirstPointCollection.Length);
+                Assert.AreEqual(0.787, point4FirstPointCollection[0].X, 1e-1);
+                Assert.AreEqual(0.759, point4FirstPointCollection[0].Y, 1e-1);
 
                 #endregion
 
                 #region Assertion for 'point5'
-                var features5 = points5.Features.ToArray();
+                MapFeature[] features5 = points5.Features.ToArray();
                 Assert.AreEqual(1, features5.Length);
 
-                var point5 = features5[0];
+                MapFeature point5 = features5[0];
                 var point5Geometry = point5.MapGeometries.ToArray();
                 Assert.AreEqual(1, point5Geometry.Length);
-                var point5Points = point5Geometry[0].Points.ToArray();
-                Assert.AreEqual(1, point5Points.Length);
-                Assert.AreEqual(-0.544, point5Points[0].X, 1e-1);
-                Assert.AreEqual(0.283, point5Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] point5PointCollections = point5Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, point5PointCollections.Length);
+
+                Point2D[] point5FirstPointCollection = point5PointCollections[0].ToArray();
+                Assert.AreEqual(1, point5FirstPointCollection.Length);
+                Assert.AreEqual(-0.544, point5FirstPointCollection[0].X, 1e-1);
+                Assert.AreEqual(0.283, point5FirstPointCollection[0].Y, 1e-1);
 
                 #endregion
 
                 #region Assertion for 'point6'
-                var features6 = points6.Features.ToArray();
+                MapFeature[] features6 = points6.Features.ToArray();
                 Assert.AreEqual(1, features6.Length);
 
-                var point6 = features6[0];
-                var point6Geometry = point6.MapGeometries.ToArray();
+                MapFeature point6 = features6[0];
+                MapGeometry[] point6Geometry = point6.MapGeometries.ToArray();
                 Assert.AreEqual(1, point6Geometry.Length);
-                var point6Points = point6Geometry[0].Points.ToArray();
-                Assert.AreEqual(1, point6Points.Length);
-                Assert.AreEqual(-2.066, point6Points[0].X, 1e-1);
-                Assert.AreEqual(0.827, point6Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] point6PointCollections = point6Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, point6PointCollections.Length);
+
+                Point2D[] point6FirstPointCollection = point6PointCollections[0].ToArray();
+                Assert.AreEqual(1, point6FirstPointCollection.Length);
+                Assert.AreEqual(-2.066, point6FirstPointCollection[0].X, 1e-1);
+                Assert.AreEqual(0.827, point6FirstPointCollection[0].Y, 1e-1);
 
                 #endregion
             }
@@ -273,7 +312,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = reader.ReadShapeFile(name) as MapPointData;
+                MapPointData pointData = (MapPointData)reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual(name, pointData.Name);
@@ -292,7 +331,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = reader.ReadShapeFile(name) as MapPointData;
+                MapPointData pointData = (MapPointData)reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual("Punten", pointData.Name);
@@ -304,14 +343,14 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithMultiplePoints = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Multiple_Point_with_ID.shp");
+                                                                        "Multiple_Point_with_ID.shp");
             using (var reader = new PointShapeFileReader(shapeWithMultiplePoints))
             {
                 // Precondition
                 Assert.AreEqual(6, reader.GetNumberOfLines());
 
                 // Call
-                MapPointData points = reader.ReadShapeFile() as MapPointData;
+                MapPointData points = (MapPointData)reader.ReadShapeFile();
 
                 // Assert
                 var features = points.Features.ToArray();
@@ -319,73 +358,97 @@ namespace Core.Components.Gis.IO.Test.Readers
 
                 #region Assertion for 'point1'
 
-                var point1 = features[0];                
-                var point1Geometry = point1.MapGeometries.ToArray();
+                MapFeature point1 = features[0];                
+                MapGeometry[] point1Geometry = point1.MapGeometries.ToArray();
                 Assert.AreEqual(1, point1Geometry.Length);
-                var point1Points = point1Geometry[0].Points.ToArray();
-                Assert.AreEqual(1, point1Points.Length);
-                Assert.AreEqual(-1.750, point1Points[0].X, 1e-1);
-                Assert.AreEqual(-0.488, point1Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] point1PointCollections = point1Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, point1PointCollections.Length);
+
+                Point2D[] point1FirstPointCollection = point1PointCollections[0].ToArray();
+                Assert.AreEqual(1, point1FirstPointCollection.Length);
+                Assert.AreEqual(-1.750, point1FirstPointCollection[0].X, 1e-1);
+                Assert.AreEqual(-0.488, point1FirstPointCollection[0].Y, 1e-1);
 
                 #endregion
 
                 #region Assertion for 'point2'
 
-                var point2 = features[1];
-                var point2Geometry = point2.MapGeometries.ToArray();
+                MapFeature point2 = features[1];
+                MapGeometry[] point2Geometry = point2.MapGeometries.ToArray();
                 Assert.AreEqual(1, point2Geometry.Length);
-                var point2Points = point2Geometry[0].Points.ToArray();
-                Assert.AreEqual(1, point2Points.Length);
-                Assert.AreEqual(-0.790, point2Points[0].X, 1e-1);
-                Assert.AreEqual(-0.308, point2Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] point2PointCollections = point2Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, point2PointCollections.Length);
+
+                Point2D[] point2FirstPointCollection = point2PointCollections[0].ToArray();
+                Assert.AreEqual(1, point2FirstPointCollection.Length);
+                Assert.AreEqual(-0.790, point2FirstPointCollection[0].X, 1e-1);
+                Assert.AreEqual(-0.308, point2FirstPointCollection[0].Y, 1e-1);
 
                 #endregion
 
                 #region Assertion for 'point3'
 
-                var point3 = features[2];
-                var point3Geometry = point3.MapGeometries.ToArray();
+                MapFeature point3 = features[2];
+                MapGeometry[] point3Geometry = point3.MapGeometries.ToArray();
                 Assert.AreEqual(1, point3Geometry.Length);
-                var point3Points = point3Geometry[0].Points.ToArray();
-                Assert.AreEqual(1, point3Points.Length);
-                Assert.AreEqual(0.740, point3Points[0].X, 1e-1);
-                Assert.AreEqual(-0.577, point3Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] point3PointCollections = point3Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, point3PointCollections.Length);
+
+                Point2D[] point3FirstPointCollection = point3PointCollections[0].ToArray();
+                Assert.AreEqual(1, point3FirstPointCollection.Length);
+                Assert.AreEqual(0.740, point3FirstPointCollection[0].X, 1e-1);
+                Assert.AreEqual(-0.577, point3FirstPointCollection[0].Y, 1e-1);
 
                 #endregion
 
                 #region Assertion for 'point4'
 
-                var point4 = features[3];
-                var point4Geometry = point4.MapGeometries.ToArray();
+                MapFeature point4 = features[3];
+                MapGeometry[] point4Geometry = point4.MapGeometries.ToArray();
                 Assert.AreEqual(1, point4Geometry.Length);
-                var point4Points = point4Geometry[0].Points.ToArray();
-                Assert.AreEqual(1, point4Points.Length);
-                Assert.AreEqual(0.787, point4Points[0].X, 1e-1);
-                Assert.AreEqual(0.759, point4Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] point4PointCollections = point4Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, point4PointCollections.Length);
+
+                Point2D[] point4FirstPointCollection = point4PointCollections[0].ToArray();
+                Assert.AreEqual(1, point4FirstPointCollection.Length);
+                Assert.AreEqual(0.787, point4FirstPointCollection[0].X, 1e-1);
+                Assert.AreEqual(0.759, point4FirstPointCollection[0].Y, 1e-1);
 
                 #endregion
 
                 #region Assertion for 'point5'
 
-                var point5 = features[4];
-                var point5Geometry = point5.MapGeometries.ToArray();
+                MapFeature point5 = features[4];
+                MapGeometry[] point5Geometry = point5.MapGeometries.ToArray();
                 Assert.AreEqual(1, point5Geometry.Length);
-                var point5Points = point5Geometry[0].Points.ToArray();
-                Assert.AreEqual(1, point5Points.Length);
-                Assert.AreEqual(-0.544, point5Points[0].X, 1e-1);
-                Assert.AreEqual(0.283, point5Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] point5PointCollections = point5Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, point5PointCollections.Length);
+
+                Point2D[] point5FirstPointCollection = point5PointCollections[0].ToArray();
+                Assert.AreEqual(1, point5FirstPointCollection.Length);
+                Assert.AreEqual(-0.544, point5FirstPointCollection[0].X, 1e-1);
+                Assert.AreEqual(0.283, point5FirstPointCollection[0].Y, 1e-1);
 
                 #endregion
 
                 #region Assertion for 'point6'
 
-                var point6 = features[5];
-                var point6Geometry = point6.MapGeometries.ToArray();
+                MapFeature point6 = features[5];
+                MapGeometry[] point6Geometry = point6.MapGeometries.ToArray();
                 Assert.AreEqual(1, point6Geometry.Length);
-                var point6Points = point6Geometry[0].Points.ToArray();
-                Assert.AreEqual(1, point6Points.Length);
-                Assert.AreEqual(-2.066, point6Points[0].X, 1e-1);
-                Assert.AreEqual(0.827, point6Points[0].Y, 1e-1);
+
+                IEnumerable<Point2D>[] point6PointCollections = point6Geometry[0].PointCollections.ToArray();
+                Assert.AreEqual(1, point6PointCollections.Length);
+
+                Point2D[] point6FirstPointCollection = point6PointCollections[0].ToArray();
+                Assert.AreEqual(1, point6FirstPointCollection.Length);
+                Assert.AreEqual(-2.066, point6FirstPointCollection[0].X, 1e-1);
+                Assert.AreEqual(0.827, point6FirstPointCollection[0].Y, 1e-1);
 
                 #endregion
             }            

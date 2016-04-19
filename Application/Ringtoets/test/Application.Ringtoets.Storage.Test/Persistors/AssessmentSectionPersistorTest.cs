@@ -743,7 +743,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         {
             // Setup
             const string name = "test";
-            const long storageId = 0L; // Newly inserted entities have Id = 0 untill they are saved
             const int norm = 30000;
             AssessmentSectionEntity entityToDelete = new AssessmentSectionEntity
             {

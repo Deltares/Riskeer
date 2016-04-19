@@ -33,20 +33,20 @@ namespace Core.Components.Gis.Geometries
         /// <summary>
         /// Creates a new instance of <see cref="MapGeometry"/>.
         /// </summary>
-        /// <param name="points">An <see cref="IEnumerable{T}"/> of <see cref="Point2D"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
-        public MapGeometry(IEnumerable<Point2D> points)
+        /// <param name="pointCollections">A sequence of <see cref="Point2D"/>-sequences.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pointCollections"/> is <c>null</c>.</exception>
+        public MapGeometry(IEnumerable<IEnumerable<Point2D>> pointCollections)
         {
-            if (points == null)
+            if (pointCollections == null)
             {
-                throw new ArgumentNullException("points", "MapGeometry cannot be created without points.");
+                throw new ArgumentNullException("pointCollections", "MapGeometry cannot be created without points.");
             }
-            Points = points;
+            PointCollections = pointCollections;
         }
 
         /// <summary>
         /// Gets the points associated with the <see cref="MapGeometry"/>.
         /// </summary>
-        public IEnumerable<Point2D> Points { get; private set; }
+        public IEnumerable<IEnumerable<Point2D>> PointCollections { get; private set; }
     }
 }

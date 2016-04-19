@@ -167,11 +167,14 @@ namespace Core.Plugins.DotSpatial.Test.Legend
 
         private Collection<MapFeature> CreateFeature()
         {
-            return new Collection<MapFeature> 
+            return new Collection<MapFeature>
             {
                 new MapFeature(new Collection<MapGeometry>
                 {
-                    new MapGeometry(Enumerable.Empty<Point2D>())
+                    new MapGeometry(new[]
+                    {
+                        Enumerable.Empty<Point2D>()
+                    })
                 })
             };
         }

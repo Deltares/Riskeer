@@ -29,6 +29,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
+using DotSpatial.Topology;
+
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 
@@ -74,7 +76,8 @@ namespace Core.Components.Gis.IO.Readers
                 featureList.Add(ReadFeatureLine());
             }
 
-            return ConvertPointFeaturesToMapPointData(featureList, !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PointShapeFileReader_ReadLine_Points);
+            string mapFeatureName = !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PointShapeFileReader_ReadLine_Points;
+            return ConvertPointFeaturesToMapPointData(featureList, mapFeatureName);
         }
 
         public override FeatureBasedMapData ReadLine(string name = null)
@@ -87,7 +90,8 @@ namespace Core.Components.Gis.IO.Readers
             try
             {
                 IFeature pointFeature = GetFeature(readIndex);
-                return ConvertPointFeatureToMapPointData(pointFeature, !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PointShapeFileReader_ReadLine_Points);
+                string mapFeatureName = !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PointShapeFileReader_ReadLine_Points;
+                return ConvertPointFeatureToMapPointData(pointFeature, mapFeatureName);
             }
             finally
             {
@@ -97,8 +101,7 @@ namespace Core.Components.Gis.IO.Readers
 
         public override IFeature GetFeature(int index)
         {
-            IFeature pointFeature = ShapeFile.Features[index];
-            return pointFeature;
+            return ShapeFile.Features[index];
         }
 
         private IFeature ReadFeatureLine()
@@ -115,31 +118,35 @@ namespace Core.Components.Gis.IO.Readers
 
         private FeatureBasedMapData ConvertPointFeatureToMapPointData(IFeature pointFeature, string name)
         {
-            var feature = new MapFeature(pointFeature.Coordinates.Select(c => new MapGeometry(new List<Point2D>
-            {
-                new Point2D(c.X, c.Y)
-            })));
-
-            return new MapPointData(new List<MapFeature>
+            MapFeature feature = CreateMapFeatureForPointFeature(pointFeature);
+            IEnumerable<MapFeature> mapFeatures = new List<MapFeature>
             {
                 feature
-            }, name);
+            };
+            return new MapPointData(mapFeatures, name);
         }
 
-        private FeatureBasedMapData ConvertPointFeaturesToMapPointData(List<IFeature> featureList, string name)
+        private FeatureBasedMapData ConvertPointFeaturesToMapPointData(IEnumerable<IFeature> featureList, string name)
         {
-            var mapFeatureList = new List<MapFeature>();
-            foreach (var feature in featureList)
+            IEnumerable<MapFeature> mapFeatures = featureList.Select(CreateMapFeatureForPointFeature);
+            return new MapPointData(mapFeatures, name);
+        }
+
+        private static MapFeature CreateMapFeatureForPointFeature(IFeature pointFeature)
+        {
+            IEnumerable<MapGeometry> mapGeometries = pointFeature.Coordinates.Select(c => new MapGeometry(GetMapGeometryPointCollections(c)));
+            return new MapFeature(mapGeometries);
+        }
+
+        private static IEnumerable<IEnumerable<Point2D>> GetMapGeometryPointCollections(Coordinate c)
+        {
+            return new[]
             {
-                var f = new MapFeature(feature.Coordinates.Select(c => new MapGeometry(new List<Point2D>
+                new[]
                 {
                     new Point2D(c.X, c.Y)
-                })));
-
-                mapFeatureList.Add(f);
-            }
-
-            return new MapPointData(mapFeatureList, name);
+                }
+            };
         }
     }
 }

@@ -150,7 +150,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 new FailureMechanismPlaceholder("A")
             };
             var contribution = new FailureMechanismContribution(failureMechanisms, 10.0, 2);
-            var comments = "some comment";
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.FailureMechanismContribution).Return(contribution);

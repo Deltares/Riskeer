@@ -39,7 +39,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             {
                 new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(Enumerable.Empty<Point2D>())
+                    new MapGeometry(new[]
+                    {
+                        Enumerable.Empty<Point2D>()
+                    })
                 })
             };
             var converter = new MapLineDataConverter();
@@ -115,7 +118,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             {
                 new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(points)
+                    new MapGeometry(new[]
+                    {
+                        points
+                    })
                 })
             };
 
@@ -163,25 +169,37 @@ namespace Core.Components.DotSpatial.Test.Converter
             {
                 new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]
                     {
-                        new Point2D(1.0, 2.0),
-                        new Point2D(2.0, 1.0),
+                        new[]
+                        {
+                            new Point2D(1.0, 2.0),
+                            new Point2D(2.0, 1.0),
+                        }
                     }),
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]
                     {
-                        new Point2D(2.0, 2.0),
-                        new Point2D(3.0, 2.0),
+                        new[]
+                        {
+                            new Point2D(2.0, 2.0),
+                            new Point2D(3.0, 2.0),
+                        }
                     }),
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]
                     {
-                        new Point2D(1.0, 3.0),
-                        new Point2D(1.0, 4.0),
+                        new[]
+                        {
+                            new Point2D(1.0, 3.0),
+                            new Point2D(1.0, 4.0),
+                        }
                     }),
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]
                     {
-                        new Point2D(3.0, 2.0),
-                        new Point2D(4.0, 1.0),
+                        new[]
+                        {
+                            new Point2D(3.0, 2.0),
+                            new Point2D(4.0, 1.0),
+                        }
                     })
                 })
             };

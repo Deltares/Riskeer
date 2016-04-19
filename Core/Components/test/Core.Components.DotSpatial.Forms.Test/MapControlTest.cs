@@ -165,10 +165,13 @@ namespace Core.Components.DotSpatial.Forms.Test
                 {
                     new MapFeature(new Collection<MapGeometry>
                     {
-                        new MapGeometry(new Collection<Point2D>
+                        new MapGeometry(new[]
                         {
-                            new Point2D(0.0, 0.0),
-                            new Point2D(1.0, 1.0)
+                            new[]
+                            {
+                                new Point2D(0.0, 0.0),
+                                new Point2D(1.0, 1.0)
+                            }
                         })
                     })
                 };
@@ -228,7 +231,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         [TestCase(5.0, 5.0)]
         [TestCase(5.0, 1.0)]
         [TestCase(1.0, 5.0)]
-        [TestCase(Double.MaxValue*0.96, Double.MaxValue*0.96)]
+        [TestCase(Double.MaxValue * 0.96, Double.MaxValue * 0.96)]
         [TestCase(Double.MaxValue, Double.MaxValue)]
         public void ZoomToAllVisibleLayers_LayersOfVariousDimensions_ZoomToVisibleLayersExtent(double xMax, double yMax)
         {
@@ -241,10 +244,13 @@ namespace Core.Components.DotSpatial.Forms.Test
                 {
                     new MapFeature(new List<MapGeometry>
                     {
-                        new MapGeometry(new List<Point2D>
+                        new MapGeometry(new[]
                         {
-                            new Point2D(0.0, 0.0),
-                            new Point2D(xMax, yMax)
+                            new[]
+                            {
+                                new Point2D(0.0, 0.0),
+                                new Point2D(xMax, yMax)
+                            }
                         })
                     })
                 }, "test data")
@@ -254,7 +260,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             var expectedExtent = new Extent(0.0, 0.0, xMax, yMax);
             var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
-            expectedExtent.ExpandBy(smallest*padding);
+            expectedExtent.ExpandBy(smallest * padding);
 
             // Call
             map.ZoomToAllVisibleLayers();
@@ -687,17 +693,26 @@ namespace Core.Components.DotSpatial.Forms.Test
             {
                 new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]
                     {
-                        new Point2D(1.5, 2)
+                        new[]
+                        {
+                            new Point2D(1.5, 2)
+                        }
                     }),
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]
                     {
-                        new Point2D(1.1, 1)
+                        new[]
+                        {
+                            new Point2D(1.1, 1)
+                        }
                     }),
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]
                     {
-                        new Point2D(0.8, 0.5)
+                        new[]
+                        {
+                            new Point2D(0.8, 0.5)
+                        }
                     })
                 })
             }, "test data");
@@ -705,11 +720,14 @@ namespace Core.Components.DotSpatial.Forms.Test
             {
                 new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]
                     {
-                        new Point2D(0.0, 1.1),
-                        new Point2D(1.0, 2.1),
-                        new Point2D(1.6, 1.6)
+                        new[]
+                        {
+                            new Point2D(0.0, 1.1),
+                            new Point2D(1.0, 2.1),
+                            new Point2D(1.6, 1.6)
+                        }
                     })
                 })
             }, "test data");
@@ -717,11 +735,14 @@ namespace Core.Components.DotSpatial.Forms.Test
             {
                 new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]
                     {
-                        new Point2D(1.0, 1.3),
-                        new Point2D(3.0, 2.6),
-                        new Point2D(5.6, 1.6)
+                        new[]
+                        {
+                            new Point2D(1.0, 1.3),
+                            new Point2D(3.0, 2.6),
+                            new Point2D(5.6, 1.6)
+                        }
                     })
                 })
             }, "test data")

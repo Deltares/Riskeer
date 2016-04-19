@@ -107,14 +107,16 @@ namespace Ringtoets.Integration.Forms
 
         private static IEnumerable<MapFeature> GetMapFeature(IEnumerable<Point2D> points)
         {
-            var features = new List<MapFeature>
+            return new[]
             {
-                new MapFeature(new List<MapGeometry>
+                new MapFeature(new[]
                 {
-                    new MapGeometry(points)
+                    new MapGeometry(new[]
+                    {
+                        points
+                    })
                 })
             };
-            return features;
         }
     }
 }

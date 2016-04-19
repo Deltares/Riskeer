@@ -82,11 +82,14 @@ namespace Core.Plugins.DotSpatial.Test.Forms
         public void Data_SetToMapCollectionData_MapDataSet()
         {
             // Setup
-            var features = new Collection<MapFeature> 
+            var features = new Collection<MapFeature>
             {
                 new MapFeature(new Collection<MapGeometry>
                 {
-                    new MapGeometry(Enumerable.Empty<Point2D>())
+                    new MapGeometry(new[]
+                    {
+                        Enumerable.Empty<Point2D>()
+                    })
                 })
             };
 

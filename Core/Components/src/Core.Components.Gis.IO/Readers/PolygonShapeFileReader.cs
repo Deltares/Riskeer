@@ -29,6 +29,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
+using DotSpatial.Topology;
+
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 
@@ -97,8 +99,7 @@ namespace Core.Components.Gis.IO.Readers
 
         public override IFeature GetFeature(int index)
         {
-            IFeature polygonFeature = ShapeFile.Features[index];
-            return polygonFeature;
+            return ShapeFile.Features[index];
         }
 
         private IFeature ReadFeatureLine()
@@ -115,41 +116,38 @@ namespace Core.Components.Gis.IO.Readers
 
         private FeatureBasedMapData ConvertPolygonFeatureToMapPolygonData(IFeature polygonFeature, string name)
         {
+            var mapFeature = CreateMapFeatureForPolygonFeature(polygonFeature);
+            IEnumerable<MapFeature> mapFeatures = new [] { mapFeature };
+            return new MapPolygonData(mapFeatures, name);
+        }
+
+        private FeatureBasedMapData ConvertPolygonFeaturesToMapPointData(IEnumerable<IFeature> featureList, string name)
+        {
+            var mapFeatures = featureList.Select(CreateMapFeatureForPolygonFeature);
+            return new MapPolygonData(mapFeatures, name);
+        }
+
+        private static MapFeature CreateMapFeatureForPolygonFeature(IFeature polygonFeature)
+        {
             var geometries = new List<MapGeometry>();
 
             for (int i = 0; i < polygonFeature.BasicGeometry.NumGeometries; i++)
             {
-                var polygonFeatureGeometry = polygonFeature.BasicGeometry.GetBasicGeometryN(i);
+                IBasicGeometry polygonFeatureGeometry = polygonFeature.BasicGeometry.GetBasicGeometryN(i);
 
-                geometries.Add(new MapGeometry(polygonFeatureGeometry.Coordinates.Select(c => new Point2D(c.X, c.Y))));
+                MapGeometry mapGeometry = new MapGeometry(GetMapGeometryPointCollections(polygonFeatureGeometry.Coordinates));
+                geometries.Add(mapGeometry);
             }
 
-            return new MapPolygonData(new List<MapFeature>
-            {
-                new MapFeature(geometries)
-            }, name);
+            return new MapFeature(geometries);
         }
 
-        private FeatureBasedMapData ConvertPolygonFeaturesToMapPointData(List<IFeature> featureList, string name)
+        private static IEnumerable<IEnumerable<Point2D>> GetMapGeometryPointCollections(IEnumerable<Coordinate> polygonCoordinates)
         {
-            var mapFeatureList = new List<MapFeature>();
-            foreach (var feature in featureList)
+            return new[]
             {
-                var featureGeometry = new List<MapGeometry>();
-
-                for (int i = 0; i < feature.BasicGeometry.NumGeometries; i++)
-                {
-                    var polygonFeatureGeometry = feature.BasicGeometry.GetBasicGeometryN(i);
-
-                    featureGeometry.Add(new MapGeometry(polygonFeatureGeometry.Coordinates.Select(c => new Point2D(c.X, c.Y))));
-                }
-
-                var polygonFeature = new MapFeature(featureGeometry);
-
-                mapFeatureList.Add(polygonFeature);
-            }
-
-            return new MapPolygonData(mapFeatureList, name);
+                polygonCoordinates.Select(c => new Point2D(c.X, c.Y))
+            };
         }
     }
 }

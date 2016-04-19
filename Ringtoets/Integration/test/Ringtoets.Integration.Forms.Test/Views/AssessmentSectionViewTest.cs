@@ -130,12 +130,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsNotNull(mapData);
 
             var hrLocationsMapData = (MapPointData) mapData.List[0];
-            CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations.Select(l => l.Location), hrLocationsMapData.Features.First().MapGeometries.First().Points);
+            CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations.Select(l => l.Location), hrLocationsMapData.Features.First().MapGeometries.First().PointCollections.First());
             Assert.AreEqual("Hydraulische randvoorwaarden", hrLocationsMapData.Name);
             Assert.IsTrue(hrLocationsMapData.IsVisible);
 
             var referenceLineMapData = (MapLineData) mapData.List[1];
-            CollectionAssert.AreEqual(referenceLine.Points, referenceLineMapData.Features.First().MapGeometries.First().Points);
+            CollectionAssert.AreEqual(referenceLine.Points, referenceLineMapData.Features.First().MapGeometries.First().PointCollections.First());
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             Assert.IsTrue(referenceLineMapData.IsVisible);
         }
@@ -156,11 +156,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             view.Data = assessmentSection;
             var mapData = map.Data;
 
-            var mapDataElementBeforeUpdate = mapData.List.First() as MapPointData;
-            var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().Points.First();
+            var mapDataElementBeforeUpdate = (MapPointData)mapData.List.First();
+            var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
             // Precondition
-            Assert.AreEqual(geometryBeforeUpdate, new Point2D(1.0, 2.0));
+            Assert.AreEqual(new Point2D(1.0, 2.0), geometryBeforeUpdate.First());
 
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
@@ -173,10 +173,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(mapData, map.Data);
             CollectionAssert.AreEquivalent(mapData.List, map.Data.List);
 
-            var mapDataElementAfterUpdate = map.Data.List.First() as MapPointData;
-            var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().Points.First();
+            var mapDataElementAfterUpdate = (MapPointData)map.Data.List.First();
+            var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
-            Assert.AreEqual(geometryAfterUpdate, new Point2D(2.0, 3.0));
+            Assert.AreEqual(new Point2D(2.0, 3.0), geometryAfterUpdate.First());
         }
 
         [Test]
@@ -207,8 +207,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             view.Data = assessmentSection;
             var mapData = map.Data;
 
-            var mapDataElementBeforeUpdate = mapData.List.ElementAt(1) as MapLineData;
-            var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().Points;
+            var mapDataElementBeforeUpdate = (MapLineData)mapData.List.ElementAt(1);
+            var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
             // Precondition
             CollectionAssert.AreEquivalent(geometryBeforeUpdate, points);
@@ -224,8 +224,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(mapData, map.Data);
             CollectionAssert.AreEquivalent(mapData.List, map.Data.List);
 
-            var mapDataElementAfterUpdate = map.Data.List.ElementAt(1) as MapLineData;
-            var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().Points;
+            var mapDataElementAfterUpdate = (MapLineData)map.Data.List.ElementAt(1);
+            var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
             CollectionAssert.AreEquivalent(geometryAfterUpdate, pointsUpdate);
         }

@@ -29,7 +29,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 
@@ -158,7 +157,7 @@ namespace Ringtoets.Integration.Forms.Test
         
         private void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)
         {
-            CollectionAssert.AreEqual(points.Select(p => new Point2D(p.X, p.Y)), geometry.Points);
+            CollectionAssert.AreEqual(points.Select(p => new Point2D(p.X, p.Y)), geometry.PointCollections.First());
         } 
     }
 }

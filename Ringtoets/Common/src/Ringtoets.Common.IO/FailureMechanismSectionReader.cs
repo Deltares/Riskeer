@@ -146,7 +146,7 @@ namespace Ringtoets.Common.IO
                 throw new CriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
             }
 
-            var feature = features.First();
+            var feature = features[0];
 
             string name = GetSectionName(feature);
             IEnumerable<Point2D> geometryPoints = GetSectionGeometry(feature);
@@ -166,7 +166,7 @@ namespace Ringtoets.Common.IO
                 throw new CriticalFileReadException(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_has_unsupported_multiPolyline);
             }
 
-            return mapGeometries.First().Points.Select(p => new Point2D(p.X, p.Y));
+            return mapGeometries[0].PointCollections.First().Select(p => new Point2D(p.X, p.Y));
         }
     }
 }

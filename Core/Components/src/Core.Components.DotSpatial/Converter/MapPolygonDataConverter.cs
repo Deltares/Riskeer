@@ -48,7 +48,7 @@ namespace Core.Components.DotSpatial.Converter
                 
                 foreach (var mapGeometry in mapFeature.MapGeometries)
                 {
-                    var coordinates = mapGeometry.Points.Select(p => new Coordinate(p.X, p.Y));
+                    var coordinates = mapGeometry.PointCollections.First().Select(p => new Coordinate(p.X, p.Y));
                     IPolygon polygon = new Polygon(coordinates);
                     geometryList.Add(polygon);
                 }

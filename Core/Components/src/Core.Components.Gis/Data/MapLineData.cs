@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
@@ -37,9 +39,9 @@ namespace Core.Components.Gis.Data
         /// </summary>
         /// <param name="features">A <see cref="IEnumerable{T}"/> of <see cref="MapFeature"/> which describes a <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>.</param>
         /// <param name="name">The name of the <see cref="MapData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when 
+        /// <exception cref="ArgumentException">Thrown when 
         /// <list type="bullet">
-        /// <item><paramref name="features"/> is <c>null</c>.</item>
+        /// <item><paramref name="features"/> is invalid.</item>
         /// <item><paramref name="name"/> is <c>null</c> or only whitespace.</item>
         /// </list>
         /// </exception>
@@ -49,5 +51,27 @@ namespace Core.Components.Gis.Data
         /// The style of the line.
         /// </summary>
         public LineStyle Style { get; set; }
+
+        /// <summary>
+        /// Validates the features.
+        /// </summary>
+        /// <param name="features">The features.</param>
+        /// <exception cref="System.ArgumentNullException">When <paramref name="features"/> is null
+        /// or any feature contains multiple point-collections.</exception>
+        protected override void ValidateFeatures(IEnumerable<MapFeature> features)
+        {
+            base.ValidateFeatures(features);
+
+            if (HasFeatureWithMultiplePointCollections(features))
+            {
+                throw new ArgumentException("MapLineData only accept MapFeature instances whose MapGeometries contain a single point-collection.");
+            }
+        }
+
+        private static bool HasFeatureWithMultiplePointCollections(IEnumerable<MapFeature> lineFeatures)
+        {
+            return lineFeatures.SelectMany(feature => feature.MapGeometries)
+                                .Any(geometry => geometry.PointCollections.Count() != 1);
+        }
     }
 }

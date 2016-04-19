@@ -105,7 +105,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             {
                 new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(points)
+                    new MapGeometry(new[]
+                    {
+                        points
+                    })
                 })
             };
 
@@ -113,7 +116,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             {
                 new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(linePoints)
+                    new MapGeometry(new[]
+                    {
+                        linePoints
+                    })
                 })
             };
 

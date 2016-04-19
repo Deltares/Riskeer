@@ -14,18 +14,39 @@ namespace Core.Components.Gis.Test.Geometries
         public void ParameteredConstructor_WithPoints_PointsSet()
         {
             // Setup
-            var points = new List<Point2D>
+            var list1 = new List<Point2D>
             {
-                new Point2D(0.1, 1.3),
-                new Point2D(2.1, 5.3),
-                new Point2D(3.8, 1.1)
+                new Point2D(1.1, 2.2),
+                new Point2D(3.3, 4.4),
+                new Point2D(5.5, 6.6)
+            };
+
+            var list2 = new List<Point2D>
+            {
+                new Point2D(7.7, 8.8),
+                new Point2D(9.9, 10.1),
+                new Point2D(11.11, 12.12)
+            };
+
+            var list3 = new List<Point2D>
+            {
+                new Point2D(13.13, 14.14),
+                new Point2D(15.15, 16.16),
+                new Point2D(17.17, 18.18)
+            };
+
+            var geometriesList = new List<IEnumerable<Point2D>>
+            {
+                list1,
+                list2,
+                list3
             };
 
             // Call
-            var mapGeometry = new MapGeometry(points);
+            var mapGeometry = new MapGeometry(geometriesList);
 
             // Assert
-            CollectionAssert.AreEqual(points, mapGeometry.Points);
+            CollectionAssert.AreEqual(geometriesList, mapGeometry.PointCollections);
         }
 
         [Test]

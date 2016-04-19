@@ -22,7 +22,7 @@ namespace Core.Components.Gis.Test.Data
 
             // Assert
             var expectedMessage = "A feature collection is required when creating a subclass of Core.Components.Gis.Data.FeatureBasedMapData.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -32,11 +32,14 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_InvalidName_ThrowsArgumentExcpetion(string invalidName)
         {
             // Setup
-            var features = new Collection<MapFeature> 
+            var features = new Collection<MapFeature>
             {
                 new MapFeature(new Collection<MapGeometry>
                 {
-                    new MapGeometry(Enumerable.Empty<Point2D>())
+                    new MapGeometry(new[]
+                    {
+                        Enumerable.Empty<Point2D>()
+                    })
                 })
             };
 
@@ -51,17 +54,20 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_WithPoints_PropertiesSet()
         {
             // Setup
-            var points = new Collection<Point2D>
+            var points = new[]
             {
                 new Point2D(0.0, 1.0),
                 new Point2D(2.5, 1.1)
             };
 
-            var features = new Collection<MapFeature> 
+            var features = new[]
             {
-                new MapFeature(new Collection<MapGeometry>
+                new MapFeature(new[]
                 {
-                    new MapGeometry(points)
+                    new MapGeometry(new[]
+                    {
+                        points
+                    })
                 })
             };
 
@@ -70,7 +76,9 @@ namespace Core.Components.Gis.Test.Data
 
             // Assert
             Assert.AreNotSame(features, data.Features);
-            CollectionAssert.AreEqual(points, data.Features.First().MapGeometries.First().Points);
+            Assert.AreEqual(features.Length, data.Features.Count());
+            Assert.AreEqual(features[0].MapGeometries.Count(), data.Features.First().MapGeometries.Count());
+            CollectionAssert.AreEqual(points, data.Features.First().MapGeometries.First().PointCollections.First());
             Assert.IsTrue(data.IsVisible);
         }
 
@@ -78,11 +86,14 @@ namespace Core.Components.Gis.Test.Data
         public void Constructor_WithName_SetsName()
         {
             // Setup
-            var features = new Collection<MapFeature> 
+            var features = new Collection<MapFeature>
             {
                 new MapFeature(new Collection<MapGeometry>
                 {
-                    new MapGeometry(Enumerable.Empty<Point2D>())
+                    new MapGeometry(new[]
+                    {
+                        Enumerable.Empty<Point2D>()
+                    })
                 })
             };
             var name = "Some name";

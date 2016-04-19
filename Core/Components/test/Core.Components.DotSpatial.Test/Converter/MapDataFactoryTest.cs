@@ -80,7 +80,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                 new MapPolygonData(testData, "test data")
             }, "test data");
 
-            var points = testData.First().MapGeometries.First().Points.ToArray();
+            var points = testData.First().MapGeometries.First().PointCollections.First().ToArray();
 
             // Call
             IList<IMapFeatureLayer> layers = factory.Create(mapDataCollection);
@@ -128,12 +128,12 @@ namespace Core.Components.DotSpatial.Test.Converter
             {
                 new MapFeature(new List<MapGeometry>
                 {
-                    new MapGeometry(new List<Point2D>
+                    new MapGeometry(new[]{new []
                     {
                         new Point2D(1.2, 3.4),
                         new Point2D(3.2, 3.4),
                         new Point2D(0.2, 2.4)
-                    })
+                    }})
                 })
             };
         }

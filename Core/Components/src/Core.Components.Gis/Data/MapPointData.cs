@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
@@ -35,19 +37,42 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Create a new instance of <see cref="MapPointData"/>.
         /// </summary>
-        /// <param name="features">A <see cref="IEnumerable{T}"/> of <see cref="MapFeature"/> which describes a <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>.</param>
+        /// <param name="features">A <see cref="IEnumerable{T}"/> of <see cref="MapFeature"/> 
+        /// which describes a <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>.</param>
         /// <param name="name">The name of the <see cref="MapData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when 
+        /// <exception cref="ArgumentException">Thrown when 
         /// <list type="bullet">
-        /// <item><paramref name="features"/> is <c>null</c>.</item>
+        /// <item><paramref name="features"/> is invalid.</item>
         /// <item><paramref name="name"/> is <c>null</c> or only whitespace.</item>
         /// </list>
         /// </exception>
-        public MapPointData(IEnumerable<MapFeature> features, string name) : base(features, name) { }
+        public MapPointData(IEnumerable<MapFeature> features, string name) : base(features, name) {}
 
         /// <summary>
         /// The style of the points.
         /// </summary>
         public PointStyle Style { get; set; }
+
+        /// <summary>
+        /// Validates the features.
+        /// </summary>
+        /// <param name="features">The features.</param>
+        /// <exception cref="System.ArgumentNullException">When <paramref name="features"/> is null
+        /// or any feature contains multiple point-collections.</exception>
+        protected override void ValidateFeatures(IEnumerable<MapFeature> features)
+        {
+            base.ValidateFeatures(features);
+
+            if (HasFeatureWithMultiplePointCollections(features))
+            {
+                throw new ArgumentException("MapPointData only accept MapFeature instances whose MapGeometries contain a single point-collection.");
+            }
+        }
+
+        private static bool HasFeatureWithMultiplePointCollections(IEnumerable<MapFeature> pointFeatures)
+        {
+            return pointFeatures.SelectMany(feature => feature.MapGeometries)
+                                .Any(geometry => geometry.PointCollections.Count() != 1);
+        }
     }
 }

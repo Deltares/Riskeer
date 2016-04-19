@@ -18,7 +18,10 @@ namespace Core.Components.Gis.Test.Features
             // Setup
             var mapGeometries = new List<MapGeometry>
             {
-                new MapGeometry(Enumerable.Empty<Point2D>())
+                new MapGeometry(new[]
+                {
+                    Enumerable.Empty<Point2D>()
+                })
             };
 
             // Call

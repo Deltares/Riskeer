@@ -166,11 +166,14 @@ namespace Demo.Ringtoets.Commands
 
         private IEnumerable<MapFeature> GetFeatureWithPoints(Collection<Point2D> points)
         {
-            return new Collection<MapFeature> 
+            return new Collection<MapFeature>
             {
                 new MapFeature(new Collection<MapGeometry>
                 {
-                    new MapGeometry(points)
+                    new MapGeometry(new[]
+                    {
+                        points
+                    })
                 })
             };
         }

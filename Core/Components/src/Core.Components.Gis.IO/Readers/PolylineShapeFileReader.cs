@@ -30,6 +30,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
+using DotSpatial.Topology;
+
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 
@@ -120,33 +122,16 @@ namespace Core.Components.Gis.IO.Readers
         /// <returns>The feature that consists out of 1 whole polyline.</returns>
         public override IFeature GetFeature(int index)
         {
-            IFeature lineFeature = ShapeFile.Features[index];
-            return lineFeature;
+            return ShapeFile.Features[index];
         }
 
         private MapLineData ConvertSingleLineFeatureToMapLineData(IFeature lineFeature, string name)
         {
-            var geometries = new List<MapGeometry>();
-            for (int i = 0; i < lineFeature.BasicGeometry.NumGeometries; i++)
-            {
-                var polygonFeatureGeometry = lineFeature.BasicGeometry.GetBasicGeometryN(i);
+            MapFeature feature = CreateMapFeatureForLineFeature(lineFeature);
+            CopyMetaDataIntoFeature(feature, readIndex);
 
-                geometries.Add(new MapGeometry(polygonFeatureGeometry.Coordinates.Select(c => new Point2D(c.X, c.Y))));
-            }
-
-            var feature = new MapFeature(geometries);
-
-            DataTable table = ShapeFile.GetAttributes(readIndex, 1);
-            DataRow dataRow = table.Rows[0];
-            for (int i = 0; i < table.Columns.Count; i++)
-            {
-                feature.MetaData[table.Columns[i].ColumnName] = dataRow[i];
-            }
-
-            return new MapLineData(new List<MapFeature>
-            {
-                feature
-            }, name);
+            IEnumerable<MapFeature> mapFeatures = new[] { feature };
+            return new MapLineData(mapFeatures, name);
         }
 
         private MapLineData ConvertMultiLineFeatureToMapLineData(List<IFeature> lineFeatures, string name)
@@ -154,28 +139,48 @@ namespace Core.Components.Gis.IO.Readers
             var mapFeatureList = new List<MapFeature>();
             for (int featureIndex = 0; featureIndex < lineFeatures.Count; featureIndex++)
             {
-                var lineFeature = lineFeatures[featureIndex];
-                var geometries = new List<MapGeometry>();
-                for (int i = 0; i < lineFeature.BasicGeometry.NumGeometries; i++)
-                {
-                    var polygonFeatureGeometry = lineFeature.BasicGeometry.GetBasicGeometryN(i);
-
-                    geometries.Add(new MapGeometry(polygonFeatureGeometry.Coordinates.Select(c => new Point2D(c.X, c.Y))));
-                }
-
-                var feature = new MapFeature(geometries);
-
-                DataTable table = ShapeFile.GetAttributes(featureIndex, 1);
-                DataRow dataRow = table.Rows[0];
-                for (int i = 0; i < table.Columns.Count; i++)
-                {
-                    feature.MetaData[table.Columns[i].ColumnName] = dataRow[i];
-                }
+                IFeature lineFeature = lineFeatures[featureIndex];
+                MapFeature feature = CreateMapFeatureForLineFeature(lineFeature);
+                CopyMetaDataIntoFeature(feature, featureIndex);
 
                 mapFeatureList.Add(feature);
             }
 
             return new MapLineData(mapFeatureList, name);
+        }
+
+        private static MapFeature CreateMapFeatureForLineFeature(IFeature lineFeature)
+        {
+            var geometries = new List<MapGeometry>();
+
+            for (int i = 0; i < lineFeature.BasicGeometry.NumGeometries; i++)
+            {
+                var polylineGeometry = lineFeature.BasicGeometry.GetBasicGeometryN(i);
+
+                MapGeometry mapGeometry = new MapGeometry(GetMapGeometryPointCollections(polylineGeometry.Coordinates));
+                geometries.Add(mapGeometry);
+            }
+
+            return new MapFeature(geometries);
+        }
+
+        private static IEnumerable<Point2D>[] GetMapGeometryPointCollections(IEnumerable<Coordinate> lineCoordinates)
+        {
+            return new[]
+            {
+                lineCoordinates.Select(c => new Point2D(c.X, c.Y))
+            };
+        }
+
+        private void CopyMetaDataIntoFeature(MapFeature targetFeature, int sourceFeatureIndex)
+        {
+            DataTable table = ShapeFile.GetAttributes(sourceFeatureIndex, 1);
+            DataRow dataRow = table.Rows[0];
+
+            for (int i = 0; i < table.Columns.Count; i++)
+            {
+                targetFeature.MetaData[table.Columns[i].ColumnName] = dataRow[i];
+            }
         }
     }
 }

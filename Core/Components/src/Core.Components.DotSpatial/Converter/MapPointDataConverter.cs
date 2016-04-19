@@ -39,7 +39,7 @@ namespace Core.Components.DotSpatial.Converter
         {
             var featureSet = new FeatureSet(FeatureType.Point);
 
-            foreach (var point in data.Features.SelectMany(features => features.MapGeometries.SelectMany(mapGeometry => mapGeometry.Points))) 
+            foreach (var point in data.Features.SelectMany(features => features.MapGeometries.SelectMany(mapGeometry => mapGeometry.PointCollections.First()))) 
             {
                 featureSet.Features.Add(new Coordinate(point.X, point.Y));
             }

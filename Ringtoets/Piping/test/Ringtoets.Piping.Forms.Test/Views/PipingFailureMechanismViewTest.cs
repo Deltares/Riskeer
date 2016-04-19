@@ -224,11 +224,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             view.Data = pipingContext;
             var mapData = map.Data;
 
-            var mapDataElementBeforeUpdate = mapData.List.ElementAt(hydraulicLocationsLayerIndex) as MapPointData;
-            var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().Points.First();
+            var mapDataElementBeforeUpdate = (MapPointData)mapData.List.ElementAt(hydraulicLocationsLayerIndex);
+            var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
             // Precondition
-            Assert.AreEqual(geometryBeforeUpdate, new Point2D(1.0, 2.0));
+            Assert.AreEqual(new Point2D(1.0, 2.0), geometryBeforeUpdate.First());
 
             var hydraulicBoundaryDatabase2 = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase2.Locations.Add(new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0));
@@ -243,10 +243,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(mapData, map.Data);
             CollectionAssert.AreEquivalent(mapData.List, map.Data.List);
 
-            var mapDataElementAfterUpdate = map.Data.List.ElementAt(hydraulicLocationsLayerIndex) as MapPointData;
-            var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().Points.First();
+            var mapDataElementAfterUpdate = (MapPointData)map.Data.List.ElementAt(hydraulicLocationsLayerIndex);
+            var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
-            Assert.AreEqual(geometryAfterUpdate, new Point2D(2.0, 3.0));
+            Assert.AreEqual(new Point2D(2.0, 3.0), geometryAfterUpdate.First());
         }
 
         [Test]
@@ -280,11 +280,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             view.Data = pipingContext;
             var mapData = map.Data;
 
-            var mapDataElementBeforeUpdate = mapData.List.ElementAt(referenceLineLayerIndex) as MapLineData;
-            var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().Points;
+            var mapDataElementBeforeUpdate = (MapLineData)mapData.List.ElementAt(referenceLineLayerIndex);
+            var geometryBeforeUpdate = mapDataElementBeforeUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
             // Precondition
-            CollectionAssert.AreEquivalent(geometryBeforeUpdate, points);
+            CollectionAssert.AreEquivalent(points, geometryBeforeUpdate);
 
             assessmentSection.ReferenceLine.SetGeometry(pointsUpdate);
 
@@ -296,10 +296,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(mapData, map.Data);
             CollectionAssert.AreEquivalent(mapData.List, map.Data.List);
 
-            var mapDataElementAfterUpdate = map.Data.List.ElementAt(referenceLineLayerIndex) as MapLineData;
-            var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().Points;
+            var mapDataElementAfterUpdate = (MapLineData)map.Data.List.ElementAt(referenceLineLayerIndex);
+            var geometryAfterUpdate = mapDataElementAfterUpdate.Features.First().MapGeometries.First().PointCollections.First();
 
-            CollectionAssert.AreEquivalent(geometryAfterUpdate, pointsUpdate);
+            CollectionAssert.AreEquivalent(pointsUpdate, geometryAfterUpdate);
         }
 
         [Test]
@@ -569,11 +569,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var referenceLineData = (MapLineData) mapData;
             if (referenceLine == null)
             {
-                CollectionAssert.IsEmpty(referenceLineData.Features.First().MapGeometries.First().Points);
+                CollectionAssert.IsEmpty(referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
             }
             else
             {
-                CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Features.First().MapGeometries.First().Points);
+                CollectionAssert.AreEqual(referenceLine.Points, referenceLineData.Features.First().MapGeometries.First().PointCollections.First());
             }
             Assert.AreEqual("Referentielijn", mapData.Name);
         }
@@ -584,11 +584,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var hydraulicLocationsMapData = (MapPointData) mapData;
             if (database == null)
             {
-                CollectionAssert.IsEmpty(hydraulicLocationsMapData.Features.First().MapGeometries.First().Points);
+                CollectionAssert.IsEmpty(hydraulicLocationsMapData.Features.First().MapGeometries.First().PointCollections.First());
             }
             else
             {
-                CollectionAssert.AreEqual(database.Locations.Select(hrp => hrp.Location), hydraulicLocationsMapData.Features.First().MapGeometries.First().Points);
+                CollectionAssert.AreEqual(database.Locations.Select(hrp => hrp.Location), hydraulicLocationsMapData.Features.First().MapGeometries.First().PointCollections.First());
             }
             Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
         }
@@ -607,7 +607,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             for (int index = 0; index < sectionsArray.Length; index++)
             {
                 var failureMechanismSection = sectionsArray[index];
-                CollectionAssert.AreEquivalent(geometries[index].Points, failureMechanismSection.Points);
+                CollectionAssert.AreEquivalent(failureMechanismSection.Points, geometries[index].PointCollections.First());
             }
             Assert.AreEqual("Vakindeling", mapData.Name);
         }
@@ -616,7 +616,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
             var sectionsStartPointData = (MapPointData) mapData;
-            CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().Points);
+            CollectionAssert.AreEqual(sections.Select(s => s.GetStart()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
             Assert.AreEqual("Vakindeling (startpunten)", mapData.Name);
         }
 
@@ -624,7 +624,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             Assert.IsInstanceOf<MapPointData>(mapData);
             var sectionsStartPointData = (MapPointData) mapData;
-            CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsStartPointData.Features.First().MapGeometries.First().Points);
+            CollectionAssert.AreEqual(sections.Select(s => s.GetLast()), sectionsStartPointData.Features.First().MapGeometries.First().PointCollections.First());
             Assert.AreEqual("Vakindeling (eindpunten)", mapData.Name);
         }
 
@@ -642,7 +642,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             for (int index = 0; index < surfaceLinesArray.Length; index++)
             {
                 var surfaceLine = surfaceLinesArray[index];
-                CollectionAssert.AreEquivalent(geometries[index].Points, surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)));
+                CollectionAssert.AreEquivalent(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y)), geometries[index].PointCollections.First());
             }
             Assert.AreEqual("Profielschematisaties", mapData.Name);
         }
@@ -661,7 +661,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             for (int index = 0; index < stochasticSoilModelsArray.Length; index++)
             {
                 var stochasticSoilModel = stochasticSoilModelsArray[index];
-                CollectionAssert.AreEquivalent(geometries[index].Points, stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y)));
+                CollectionAssert.AreEquivalent(stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y)), geometries[index].PointCollections.First());
             }
             Assert.AreEqual("Stochastisch ondergrondmodellen", mapData.Name);
         }
