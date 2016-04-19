@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+
 using Ringtoets.Common.Data.FailureMechanism;
+
 using CommonResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.Data.Contribution
@@ -31,6 +33,8 @@ namespace Ringtoets.Common.Data.Contribution
     /// </summary>
     public class FailureMechanismContributionItem
     {
+        private readonly IFailureMechanism failureMechanism;
+
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionItem"/>. With
         /// <see cref="Assessment"/>, <see cref="Contribution"/> and <see cref="Norm"/> set.
@@ -44,6 +48,7 @@ namespace Ringtoets.Common.Data.Contribution
             {
                 throw new ArgumentNullException("failureMechanism", CommonResources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
             }
+            this.failureMechanism = failureMechanism;
             Assessment = failureMechanism.Name;
             Contribution = failureMechanism.Contribution;
             Norm = norm;
@@ -73,6 +78,30 @@ namespace Ringtoets.Common.Data.Contribution
             {
                 return (Norm / Contribution) * 100;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the corresponding failure mechanism is
+        /// relevant or not.
+        /// </summary>
+        public bool IsRelevant
+        {
+            get
+            {
+                return failureMechanism.IsRelevant;
+            }
+            set
+            {
+                failureMechanism.IsRelevant = value;
+            }
+        }
+
+        /// <summary>
+        /// Notifies the observers for the wrapped <see cref="IFailureMechanism"/>.
+        /// </summary>
+        public void NotifyFailureMechanismObservers()
+        {
+            failureMechanism.NotifyObservers();
         }
     }
 }

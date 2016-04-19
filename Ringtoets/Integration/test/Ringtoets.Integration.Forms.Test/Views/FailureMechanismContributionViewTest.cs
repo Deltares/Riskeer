@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using NUnit.Extensions.Forms;
@@ -37,7 +39,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
     public class FailureMechanismContributionViewTest : NUnitFormTest
     {
         private Form testForm;
-
+        
         [SetUp]
         public override void Setup()
         {
@@ -223,6 +225,42 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenFailureMechanismContributionView_WhenSettingData_ProperlyInitializeRelevancyColumn(bool isFailureMechanismRelevant)
+        {
+            // Given
+            using (var view = new FailureMechanismContributionView())
+            {
+                // When
+                var mockRepository = new MockRepository();
+                var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+
+                var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+                failureMechanismStub.Stub(fm => fm.Name).Return("A");
+                failureMechanismStub.Contribution = 100;
+                failureMechanismStub.IsRelevant = isFailureMechanismRelevant;
+                mockRepository.ReplayAll();
+
+                var contributionData = new FailureMechanismContribution(new[]
+                {
+                    failureMechanismStub
+                }, 100, 500);
+
+                view.Data = contributionData;
+                view.AssessmentSection = assessmentSection;
+                ShowFormWithView(view);
+
+                // Then
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+
+                DataGridViewRow row = dataGridView.Rows[0];
+                var isRelevantGridCell = (DataGridViewCheckBoxCell)row.Cells[isRelevantColumnIndex];
+                Assert.AreEqual(isFailureMechanismRelevant, isRelevantGridCell.Value);
+            }
+        }
+
+        [Test]
         public void GivenFailureMechanismContributionView_WhenSettingDataWithZeroContributionFailureMechanism_ProbabilitySpaceShowsAsNotApplicable()
         {
             // Given
@@ -250,7 +288,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
                 DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
-                DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[2];
+                DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[probabilitySpaceColumnIndex];
                 Assert.AreEqual("n.v.t", probabilitySpaceCell.FormattedValue);
 
                 mockRepository.VerifyAll();
@@ -288,7 +326,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
                 DataGridViewRow zeroContributionFailureMechanismRow = dataGridView.Rows[0];
-                DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[2];
+                DataGridViewCell probabilitySpaceCell = zeroContributionFailureMechanismRow.Cells[probabilitySpaceColumnIndex];
                 Assert.AreEqual("1/#,#", probabilitySpaceCell.InheritedStyle.Format);
 
                 string expectedTextValue = new FailureMechanismContributionItem(failureMechanismStub, norm)
@@ -394,9 +432,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Precondition
                 Assert.AreNotEqual(assessmentSection.Composition, newComposition);
 
-                int dataGridInvalidatedCallCount = 0;
+                bool dataGridInvalidated = false;
                 var contributionGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-                contributionGridView.Invalidated += (sender, args) => dataGridInvalidatedCallCount++;
+                contributionGridView.Invalidated += (sender, args) => dataGridInvalidated = true;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -413,8 +451,24 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(newComposition, compositionComboBox.SelectedValue);
                 Assert.AreEqual(newComposition, assessmentSection.Composition);
 
-                Assert.AreEqual(1, dataGridInvalidatedCallCount);
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.Distribution, contributionGridView.DataSource);
+                Assert.IsTrue(dataGridInvalidated,
+                    "Expect the DataGridView to be flagged for redrawing.");
+                AssertDataGridViewDataSource(assessmentSection.FailureMechanismContribution.Distribution, contributionGridView);
+            }
+        }
+
+        private void AssertDataGridViewDataSource(IEnumerable<FailureMechanismContributionItem> expectedDistributionElements, DataGridView dataGridView)
+        {
+            FailureMechanismContributionItem[] itemArray = expectedDistributionElements.ToArray();
+            Assert.AreEqual(itemArray.Length, dataGridView.RowCount);
+            for (int i = 0; i < itemArray.Length; i++)
+            {
+                FailureMechanismContributionItem expectedElement = itemArray[i];
+                DataGridViewRow row = dataGridView.Rows[i];
+                Assert.AreEqual(expectedElement.IsRelevant, row.Cells[0].Value);
+                Assert.AreEqual(expectedElement.Assessment, row.Cells[1].Value);
+                Assert.AreEqual(expectedElement.Contribution, row.Cells[2].Value);
+                Assert.AreEqual(expectedElement.ProbabilitySpace, row.Cells[3].Value);
             }
         }
 
@@ -525,9 +579,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Precondition
                 Assert.AreNotEqual(assessmentSection.Composition, newComposition);
 
-                int dataGridInvalidatedCallCount = 0;
+                bool dataGridViewInvalidated = false;
                 var contributionGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-                contributionGridView.Invalidated += (sender, args) => dataGridInvalidatedCallCount++;
+                contributionGridView.Invalidated += (sender, args) => dataGridViewInvalidated = true;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -543,7 +597,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(newComposition, compositionComboBox.SelectedValue);
 
-                Assert.AreEqual(1, dataGridInvalidatedCallCount);
+                Assert.IsTrue(dataGridViewInvalidated,
+                    "Expect the data grid view to be marked for redrawing.");
 
                 firstMockRepository.VerifyAll(); // Expect ICalculationItem.ClearOutput and ICalculationItem.NotifyObservers
                 secondMockRepository.VerifyAll();
@@ -627,6 +682,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const string normInputTextBoxName = "normInput";
         private const string dataGridViewControlName = "probabilityDistributionGrid";
         private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
+        private const int isRelevantColumnIndex = 0;
+        private const int probabilitySpaceColumnIndex = 3;
 
         private void ShowFormWithView(FailureMechanismContributionView distributionView)
         {

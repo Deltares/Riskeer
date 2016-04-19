@@ -29,7 +29,23 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             Assert.AreEqual(0, failureMechanism.Contribution);
             Assert.AreEqual(name, failureMechanism.Name);
             Assert.AreEqual(0, failureMechanism.StorageId);
+            Assert.IsTrue(failureMechanism.IsRelevant);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IsRelevant_SetNewValue_GetNewlySetValue(bool relevant)
+        {
+            // Setup
+            var failureMechanism = new SimpleFailureMechanismBase("A");
+
+            // Call
+            failureMechanism.IsRelevant = relevant;
+
+            // Assert
+            Assert.AreEqual(relevant, failureMechanism.IsRelevant);
         }
 
         [Test]

@@ -48,7 +48,6 @@ namespace Ringtoets.Integration.Forms.Views
             this.tableLayoutPanel.SetColumnSpan(this.probabilityDistributionGrid, 5);
             resources.ApplyResources(this.probabilityDistributionGrid, "probabilityDistributionGrid");
             this.probabilityDistributionGrid.Name = "probabilityDistributionGrid";
-            this.probabilityDistributionGrid.ReadOnly = true;
             this.probabilityDistributionGrid.RowHeadersVisible = false;
             this.probabilityDistributionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.probabilityDistributionGrid.StandardTab = true;

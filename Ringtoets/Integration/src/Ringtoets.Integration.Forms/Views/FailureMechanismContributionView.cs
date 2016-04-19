@@ -22,12 +22,15 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
+
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
@@ -36,8 +39,8 @@ namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
     /// View for the <see cref="FailureMechanismContribution"/>, from which the <see cref="FailureMechanismContribution.Norm"/>
-    /// can be updated and the <see cref="FailureMechanismContributionItem.Contribution"/> and <see cref="FailureMechanismContributionItem.ProbabilitySpace"/>
-    /// can be seen in a grid.
+    /// can be updated and the <see cref="FailureMechanismContributionItem.Contribution"/>
+    /// and <see cref="FailureMechanismContributionItem.ProbabilitySpace"/> can be seen in a grid.
     /// </summary>
     public partial class FailureMechanismContributionView : UserControl, IView, IObserver
     {
@@ -83,7 +86,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
             set
             {
-                HandleNewDataSet((FailureMechanismContribution) value);
+                HandleNewDataSet((FailureMechanismContribution)value);
             }
         }
 
@@ -170,7 +173,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (data != null)
             {
-                probabilityDistributionGrid.DataSource = data.Distribution;
+                probabilityDistributionGrid.DataSource = data.Distribution.Select(ci => new FailureMechanismContributionItemRow(ci)).ToArray();
                 probabilityDistributionGrid.Invalidate();
             }
         }
@@ -253,26 +256,41 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void InitializeGridColumns()
         {
-            var assessmentName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(fmci => fmci.Assessment);
+            probabilityDistributionGrid.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
+
             var columnNameFormat = "column_{0}";
+
+            var isRelevantName = TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.IsRelevant);
+            var isRelevantColumn = new DataGridViewCheckBoxColumn
+            {
+                DataPropertyName = isRelevantName,
+                HeaderText = "Algemeen filter",
+                Name = string.Format(columnNameFormat, isRelevantName),
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
+                ReadOnly = true
+            };
+
+            var assessmentName = TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Assessment);
             var assessmentColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = assessmentName,
                 HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_Assessment,
                 Name = string.Format(columnNameFormat, assessmentName),
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader,
+                ReadOnly = true
             };
 
-            var contributionName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(fmci => fmci.Contribution);
+            var contributionName = TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Contribution);
             var probabilityColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = contributionName,
                 HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_Contribution,
                 Name = string.Format(columnNameFormat, contributionName),
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
+                ReadOnly = true
             };
 
-            var probabilitySpaceName = TypeUtils.GetMemberName<FailureMechanismContributionItem>(fmci => fmci.ProbabilitySpace);
+            var probabilitySpaceName = TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.ProbabilitySpace);
             probabilityPerYearColumn = new DataGridViewTextBoxColumn
             {
                 DataPropertyName = probabilitySpaceName,
@@ -283,10 +301,21 @@ namespace Ringtoets.Integration.Forms.Views
                 DefaultCellStyle =
                 {
                     Format = "1/#,#"
-                }
+                },
+                ReadOnly = true
             };
             probabilityDistributionGrid.AutoGenerateColumns = false;
-            probabilityDistributionGrid.Columns.AddRange(assessmentColumn, probabilityColumn, probabilityPerYearColumn);
+            probabilityDistributionGrid.Columns.AddRange(isRelevantColumn, assessmentColumn, probabilityColumn, probabilityPerYearColumn);
+        }
+
+        private void DataGridViewCurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            // Ensure checkbox values are directly committed
+            DataGridViewColumn currentColumn = probabilityDistributionGrid.Columns[probabilityDistributionGrid.CurrentCell.ColumnIndex];
+            if (currentColumn is DataGridViewCheckBoxColumn)
+            {
+                probabilityDistributionGrid.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
         }
 
         private void AssessmentSectionCompositionComboBoxSelectedIndexChanged(object sender, EventArgs e)
@@ -303,7 +332,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                MessageBoxButtons.OKCancel);
             if (dialogResult == DialogResult.OK)
             {
-                assessmentSection.ChangeComposition((AssessmentSectionComposition) assessmentSectionCompositionComboBox.SelectedValue);
+                assessmentSection.ChangeComposition((AssessmentSectionComposition)assessmentSectionCompositionComboBox.SelectedValue);
                 SetGridDataSource();
 
                 ClearCalculationOutputForChangedContributions(originalFailureMechanismContributions);
@@ -330,6 +359,61 @@ namespace Ringtoets.Integration.Forms.Views
                         calculation.ClearOutput();
                         calculation.NotifyObservers();
                     }
+                }
+            }
+        }
+
+        private class FailureMechanismContributionItemRow
+        {
+            private readonly FailureMechanismContributionItem item;
+
+            public FailureMechanismContributionItemRow(FailureMechanismContributionItem item)
+            {
+                this.item = item;
+            }
+
+            public string Assessment
+            {
+                get
+                {
+                    return item.Assessment;
+                }
+            }
+
+            public double Contribution
+            {
+                get
+                {
+                    return item.Contribution;
+                }
+            }
+
+            public int Norm
+            {
+                get
+                {
+                    return item.Norm;
+                }
+            }
+
+            public double ProbabilitySpace
+            {
+                get
+                {
+                    return item.ProbabilitySpace;
+                }
+            }
+
+            public bool IsRelevant
+            {
+                get
+                {
+                    return item.IsRelevant;
+                }
+                set
+                {
+                    item.IsRelevant = value;
+                    item.NotifyFailureMechanismObservers();
                 }
             }
         }

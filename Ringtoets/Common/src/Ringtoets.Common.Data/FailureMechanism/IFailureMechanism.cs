@@ -44,6 +44,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
         string Name { get; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this failure mechanism is relevant.
+        /// </summary>
+        bool IsRelevant { get; set; }
+
+        /// <summary>
         /// Gets a <see cref="IEnumerable{T}"/> of <see cref="ICalculationItem"/>.
         /// </summary>
         IEnumerable<ICalculationItem> CalculationItems { get; }

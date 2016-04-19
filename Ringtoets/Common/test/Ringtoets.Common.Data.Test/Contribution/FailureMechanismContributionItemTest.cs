@@ -47,11 +47,13 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var random = new Random(21);
             double contribution = random.Next(1, 100);
             var norm = random.Next(1, int.MaxValue);
+            const bool isRelevant = false;
 
             var failureMechanism = mockRepository.StrictMock<IFailureMechanism>();
 
             failureMechanism.Expect(fm => fm.Name).Return(name);
             failureMechanism.Expect(fm => fm.Contribution).Return(contribution);
+            failureMechanism.Expect(fm => fm.IsRelevant).Return(isRelevant);
 
             mockRepository.ReplayAll();
 
@@ -62,6 +64,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             Assert.AreEqual(name, result.Assessment);
             Assert.AreEqual(contribution, result.Contribution);
             Assert.AreEqual(norm, result.Norm);
+            Assert.AreEqual(isRelevant, result.IsRelevant);
 
             mockRepository.VerifyAll();
         }
@@ -91,6 +94,43 @@ namespace Ringtoets.Common.Data.Test.Contribution
             Assert.AreEqual(expectedResult, result, double.Epsilon);
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IsRelevant_SetNewValue_FailureMechanismIsRelevantChanged(bool newIsRelevantValue)
+        {
+            // Setup
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var contributionItem = new FailureMechanismContributionItem(failureMechanism, 30000);
+
+            // Call
+            contributionItem.IsRelevant = newIsRelevantValue;
+
+            // Assert
+            Assert.AreEqual(newIsRelevantValue, failureMechanism.IsRelevant);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void NotifyFailureMechanismObservers_Always_CallsFailureMechanismUpdateObservers()
+        {
+            // Setup
+            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Name).Return("A");
+            failureMechanism.Expect(fm => fm.NotifyObservers());
+            mockRepository.ReplayAll();
+            
+            var contributionItem = new FailureMechanismContributionItem(failureMechanism, 30000);
+
+            // Call
+            contributionItem.NotifyFailureMechanismObservers();
+
+            // Assert
+            mockRepository.VerifyAll(); // Expect NotifyObservers on 'failureMechanism'
         }
     }
 }

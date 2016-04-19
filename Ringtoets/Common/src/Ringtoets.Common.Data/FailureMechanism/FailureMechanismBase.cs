@@ -46,6 +46,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             Name = failureMechanismName;
             sections = new List<FailureMechanismSection>();
             sectionResults = new List<FailureMechanismSectionResult>();
+            IsRelevant = true;
         }
 
         public IEnumerable<FailureMechanismSectionResult> SectionResults
@@ -89,12 +90,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
         }
 
-        /// <summary>
-        /// Gets or sets the unique identifier for the storage of the class.
-        /// </summary>
         public long StorageId { get; set; }
 
         public string Comments { get; set; }
+
+        public bool IsRelevant { get; set; }
 
         public void AddSection(FailureMechanismSection section)
         {
