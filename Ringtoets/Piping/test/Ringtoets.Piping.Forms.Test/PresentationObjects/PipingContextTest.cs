@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 Environment.NewLine
             }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Het piping data object mag niet 'null' zijn.", customMessage);
+            Assert.AreEqual("Wrapped data of context cannot be null.", customMessage);
             mocks.VerifyAll();
         }
 

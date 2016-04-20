@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Controls.PresentationObjects;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -50,7 +51,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var context = new FailureMechanismContributionContext(contribution, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<IEquatable<FailureMechanismContributionContext>>(context);
+            Assert.IsInstanceOf<IEquatable<WrappedObjectContextBase<FailureMechanismContribution>>>(context);
             Assert.IsInstanceOf<IObservable>(context);
             Assert.AreSame(contribution, context.WrappedData);
             Assert.AreSame(assessmentSection, context.Parent);
@@ -69,7 +70,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             TestDelegate call = () => new FailureMechanismContributionContext(null, assessmentSection);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Failure mechanism contribution cannot be null.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Wrapped data of context cannot be null.");
             mocks.VerifyAll();
         }
 

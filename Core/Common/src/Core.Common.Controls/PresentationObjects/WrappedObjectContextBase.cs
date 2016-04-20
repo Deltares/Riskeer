@@ -12,6 +12,11 @@ namespace Core.Common.Controls.PresentationObjects
     /// <typeparam name="T">The object type of the wrapped instance.</typeparam>
     public abstract class WrappedObjectContextBase<T> : IObservable, IEquatable<WrappedObjectContextBase<T>> where T : IObservable
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WrappedObjectContextBase{T}"/> class.
+        /// </summary>
+        /// <param name="wrappedData">The wrapped data.</param>
+        /// <exception cref="System.ArgumentNullException">When <paramref name="wrappedData"/> is <c>null</c>.</exception>
         protected WrappedObjectContextBase(T wrappedData)
         {
             if (wrappedData == null)

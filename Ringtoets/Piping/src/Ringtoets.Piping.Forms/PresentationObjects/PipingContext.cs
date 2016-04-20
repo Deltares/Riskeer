@@ -23,6 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Controls.PresentationObjects;
+
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
@@ -35,7 +37,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// Presentation object representing all required piping knowledge to configure and create
     /// piping related objects. It'll delegate observable behavior to the wrapped data object.
     /// </summary>
-    public abstract class PipingContext<T> : IObservable where T : IObservable
+    public abstract class PipingContext<T> : WrappedObjectContextBase<T> where T : IObservable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingContext{T}"/> class.
@@ -49,11 +51,10 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
             T wrappedData,
             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
             IEnumerable<StochasticSoilModel> stochasticSoilModels,
-            IAssessmentSection assessmentSection)
+            IAssessmentSection assessmentSection) : base(wrappedData)
         {
-            AssertInputsAreNotNull(wrappedData, surfaceLines, stochasticSoilModels, assessmentSection);
+            AssertInputsAreNotNull(surfaceLines, stochasticSoilModels, assessmentSection);
 
-            WrappedData = wrappedData;
             AvailablePipingSurfaceLines = surfaceLines;
             AvailableStochasticSoilModels = stochasticSoilModels;
             AssessmentSection = assessmentSection;
@@ -88,46 +89,19 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the concrete data instance wrapped by this context object.
-        /// </summary>
-        public T WrappedData { get; private set; }
-
-        /// <summary>
         /// Gets the assessment section which the piping context belongs to.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
 
-        public override bool Equals(object obj)
-        {
-            var context = obj as PipingContext<T>;
-            if (context != null)
-            {
-                return WrappedData.Equals(context.WrappedData);
-            }
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return WrappedData.GetHashCode();
-        }
-
         /// <summary>
         /// Asserts the inputs are not null.
         /// </summary>
-        /// <param name="wrappedData">The wrapped data.</param>
         /// <param name="surfaceLines">The surface lines.</param>
         /// <param name="soilProfiles">The soil profiles.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
-        private static void AssertInputsAreNotNull(object wrappedData, object surfaceLines, object soilProfiles, object assessmentSection)
+        private static void AssertInputsAreNotNull(object surfaceLines, object soilProfiles, object assessmentSection)
         {
-            if (wrappedData == null)
-            {
-                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.PipingContext_DataDescription_WrappedData);
-                throw new ArgumentNullException("wrappedData", message);
-            }
             if (surfaceLines == null)
             {
                 var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
@@ -147,24 +121,5 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
                 throw new ArgumentNullException("assessmentSection", message);
             }
         }
-
-        #region IObservable
-
-        public void Attach(IObserver observer)
-        {
-            WrappedData.Attach(observer);
-        }
-
-        public void Detach(IObserver observer)
-        {
-            WrappedData.Detach(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            WrappedData.NotifyObservers();
-        }
-
-        #endregion
     }
 }
