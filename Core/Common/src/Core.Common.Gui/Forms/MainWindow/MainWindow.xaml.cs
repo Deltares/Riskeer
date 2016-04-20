@@ -401,7 +401,7 @@ namespace Core.Common.Gui.Forms.MainWindow
                 throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitPropertiesWindowAndActivate'.");
             }
 
-            if ((propertyGrid == null) || (propertyGrid.IsDisposed))
+            if (propertyGrid == null || propertyGrid.IsDisposed)
             {
                 propertyGrid = new PropertyGridView.PropertyGridView(applicationSelection, gui.PropertyResolver);
             }
@@ -479,11 +479,13 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             if (e.Item == propertyGrid)
             {
+                propertyGrid.Dispose();
                 propertyGrid = null;
             }
 
             if (e.Item == MessageWindow)
             {
+                messageWindow.Dispose();
                 messageWindow = null;
             }
         }

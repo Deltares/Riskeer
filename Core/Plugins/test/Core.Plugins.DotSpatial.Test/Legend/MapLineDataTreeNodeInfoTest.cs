@@ -22,6 +22,12 @@ namespace Core.Plugins.DotSpatial.Test.Legend
         private MapLegendView mapLegendView;
         private TreeNodeInfo info;
 
+        [TearDown]
+        public void TearDown()
+        {
+            mapLegendView.Dispose();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {

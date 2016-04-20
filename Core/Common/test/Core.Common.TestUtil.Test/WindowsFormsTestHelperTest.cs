@@ -73,7 +73,7 @@ namespace Core.Common.TestUtil.Test
             
             var exception = Assert.Throws<GuiTestHelper.UnhandledException>(testDelegate);
 
-            Assert.IsTrue(exception.Message.Contains("my message from thread"));
+            Assert.IsTrue(exception.Message.Contains("Throwing this exception is intended and part of a test."));
             Assert.IsTrue(exception.StackTrace.Contains("MethodWithExceptionInSeparateThread"));
 
             WindowsFormsTestHelper.CloseAll();
@@ -120,7 +120,7 @@ namespace Core.Common.TestUtil.Test
 
         private void MethodWithExceptionInSeparateThread()
         {
-            throw new InvalidOperationException("my message from thread");
+            throw new InvalidOperationException("Throwing this exception is intended and part of a test.");
         }
     }
 }
