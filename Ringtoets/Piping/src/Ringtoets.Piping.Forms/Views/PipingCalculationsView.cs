@@ -723,7 +723,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             // Ensure combobox values are directly committed
             DataGridViewColumn currentColumn = dataGridView.Columns[dataGridView.CurrentCell.ColumnIndex];
-            if (currentColumn is DataGridViewComboBoxColumn)
+            if (currentColumn is DataGridViewComboBoxColumn || currentColumn is DataGridViewCheckBoxColumn)
             {
                 dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
                 dataGridView.EndEdit();

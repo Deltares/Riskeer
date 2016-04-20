@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Forms.Views
 
             failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
             failureMechanismSectionResultObserver = new RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
-            calculationScenarioObserver = new RecursiveObserver<IFailureMechanism, ICalculationScenario>(RefreshDataGridView, mechanism => mechanism.SectionResults.Select(sr => sr.CalculationScenarios));
+            calculationScenarioObserver = new RecursiveObserver<IFailureMechanism, ICalculationScenario>(UpdataDataGridViewDataSource, mechanism => mechanism.SectionResults.Select(sr => sr.CalculationScenarios));
 
             Load += OnLoad;
         }
@@ -176,7 +176,7 @@ namespace Ringtoets.Common.Forms.Views
                 column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
-        }
+        }        
 
         private void UpdataDataGridViewDataSource()
         {
@@ -268,14 +268,16 @@ namespace Ringtoets.Common.Forms.Views
             {
                 get
                 {
-                    if (failureMechanismSectionResult.CalculationScenarios.Any() && Math.Abs(failureMechanismSectionResult.TotalContribution - 1.0) > tolerance)
+                    var relevantScenarios = failureMechanismSectionResult.CalculationScenarios.Where(cs => cs.IsRelevant).ToList();
+
+                    if (relevantScenarios.Any() && Math.Abs(failureMechanismSectionResult.TotalContribution - 1.0) > tolerance)
                     {
                         return double.NaN.ToString(CultureInfo.InvariantCulture);
                     }
 
                     var layerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
 
-                    if (!failureMechanismSectionResult.CalculationScenarios.Any() || !layerTwoA.HasValue || double.IsNaN(layerTwoA.Value))
+                    if (!relevantScenarios.Any() || !layerTwoA.HasValue || double.IsNaN(layerTwoA.Value))
                     {
                         return Resources.FailureMechanismSectionResultRow_AssessmentLayerTwoA_No_result_dash;
                     }
@@ -353,13 +355,15 @@ namespace Ringtoets.Common.Forms.Views
             {
                 FailureMechanismSectionResult rowObject = resultRow.failureMechanismSectionResult;
 
-                if (rowObject.AssessmentLayerOne)
+                var relevantScenarios = rowObject.CalculationScenarios.Where(cs => cs.IsRelevant).ToList();
+
+                if (rowObject.AssessmentLayerOne || !relevantScenarios.Any())
                 {
                     dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = string.Empty;
                     return;
                 }
 
-                if (rowObject.CalculationScenarios.Any() && Math.Abs(rowObject.TotalContribution - 1.0) > tolerance)
+                if (relevantScenarios.Any() && Math.Abs(rowObject.TotalContribution - 1.0) > tolerance)
                 {
                     dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
                     return;

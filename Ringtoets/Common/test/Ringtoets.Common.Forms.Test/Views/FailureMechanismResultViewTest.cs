@@ -495,6 +495,39 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void FailureMechanismResultView_NoCalculationScenariosRelevant_DoesNotShowErrorTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(false).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?)double.NaN).Repeat.Any();
+
+            mocks.ReplayAll();
+
+            var rowIndex = 0;
+
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                sections[0].CalculationScenarios.Add(calculationScenarioMock);
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
+                Assert.AreEqual("-", formattedValue);
+            }
+        }
+
+        [Test]
         public void FailureMechanismResultView_AssessmentLayerTrueAndAssessmentLayerTwoAHasError_DoesNotShowError()
         {
             // Setup
