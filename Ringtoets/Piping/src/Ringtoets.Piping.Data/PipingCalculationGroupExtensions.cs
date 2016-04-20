@@ -50,6 +50,8 @@ namespace Ringtoets.Piping.Data
                     failureMechanismSectionResult.CalculationScenarios.AddRange(calculationScenarios);
                 }
             }
+
+            pipingFailureMechanism.NotifyObservers();
         }
     }
 }
