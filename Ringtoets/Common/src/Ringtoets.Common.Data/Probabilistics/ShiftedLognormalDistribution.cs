@@ -19,61 +19,43 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-
 using Core.Common.Base.Data;
 
-using Ringtoets.Piping.Data.Properties;
-
-namespace Ringtoets.Piping.Data.Probabilistics
+namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
-    /// Class representing a normal (or Gaussian) distribution.
+    /// Class represents a specialized case of <see cref="LognormalDistribution"/> that has
+    /// been shifted along the X-axis.
     /// </summary>
-    public class NormalDistribution : IDistribution
+    public class ShiftedLognormalDistribution : LognormalDistribution
     {
-        private RoundedDouble standardDeviation;
-        private RoundedDouble mean;
+        private RoundedDouble shift;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormalDistribution"/> class,
-        /// initialized as the standard normal distribution.
+        /// Initializes a new instance of the <see cref="ShiftedLognormalDistribution"/> class,
+        /// initialized as the standard log-normal distribution (mu=0, sigma=1).
         /// </summary>
-        /// <param name="numberOfDecimalPlaces">The number of decimal places of the distribution.</param>
+        /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">
         /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
         /// </exception>
-        public NormalDistribution(int numberOfDecimalPlaces)
+        public ShiftedLognormalDistribution(int numberOfDecimalPlaces) : base(numberOfDecimalPlaces)
         {
-            mean = new RoundedDouble(numberOfDecimalPlaces, 0.0);
-            standardDeviation = new RoundedDouble(numberOfDecimalPlaces, 1.0);
+            shift = new RoundedDouble(numberOfDecimalPlaces);
         }
 
-        public RoundedDouble Mean
+        /// <summary>
+        /// Gets or sets the shift applied to the log-normal distribution.
+        /// </summary>
+        public RoundedDouble Shift
         {
             get
             {
-                return mean;
+                return shift;
             }
             set
             {
-                mean = value.ToPrecision(mean.NumberOfDecimalPlaces);
-            }
-        }
-
-        public RoundedDouble StandardDeviation
-        {
-            get
-            {
-                return standardDeviation;
-            }
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_than_or_equal_to_zero);
-                }
-                standardDeviation = value.ToPrecision(standardDeviation.NumberOfDecimalPlaces);
+                shift = value.ToPrecision(shift.NumberOfDecimalPlaces);
             }
         }
     }

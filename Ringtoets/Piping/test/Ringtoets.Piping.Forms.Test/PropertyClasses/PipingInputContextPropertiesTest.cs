@@ -29,9 +29,9 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -203,7 +203,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             StochasticSoilModel stochasticSoilModel2 = ValidStochasticSoilModel(0.0, 4.0);
             var stochasticSoilProfile2 = stochasticSoilModel2.StochasticSoilProfiles.First();
-            stochasticSoilModel2.StochasticSoilProfiles.Add(new StochasticSoilProfile(0.0,SoilProfileType.SoilProfile1D, 1234));
+            stochasticSoilModel2.StochasticSoilProfiles.Add(new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 1234));
 
             // Call
             new PipingInputContextProperties

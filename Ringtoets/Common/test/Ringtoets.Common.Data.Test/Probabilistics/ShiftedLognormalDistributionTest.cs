@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
 
-using Ringtoets.Piping.Data.Probabilistics;
-
-namespace Ringtoets.Piping.Data.Test.Probabilistics
+namespace Ringtoets.Common.Data.Test.Probabilistics
 {
     [TestFixture]
     public class ShiftedLognormalDistributionTest

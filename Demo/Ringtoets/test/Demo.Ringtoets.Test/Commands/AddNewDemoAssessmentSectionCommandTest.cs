@@ -9,10 +9,10 @@ using Core.Common.Gui;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 

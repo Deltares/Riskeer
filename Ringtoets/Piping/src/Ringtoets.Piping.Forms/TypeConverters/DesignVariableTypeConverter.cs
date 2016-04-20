@@ -26,7 +26,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
-using Ringtoets.Piping.Data.Probabilistics;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
@@ -69,10 +69,10 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             for (int i = 0; i < Parameters.Length; i++)
             {
                 var propertyDescriptor = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i]);
-                propertyDescriptor = allParametersAreReadonly ? 
-                    new ReadOnlyPropertyDescriptorDecorator(propertyDescriptor) : 
-                    CreateContainingPropertyUpdateDescriptor(propertyDescriptor, context);
-                
+                propertyDescriptor = allParametersAreReadonly ?
+                                         new ReadOnlyPropertyDescriptorDecorator(propertyDescriptor) :
+                                         CreateContainingPropertyUpdateDescriptor(propertyDescriptor, context);
+
                 properties[i + 1] = propertyDescriptor;
             }
             properties[Parameters.Length + 1] = new SimpleReadonlyPropertyDescriptorItem(PipingFormsResources.DesignVariableTypeConverter_DesignValue_DisplayName,

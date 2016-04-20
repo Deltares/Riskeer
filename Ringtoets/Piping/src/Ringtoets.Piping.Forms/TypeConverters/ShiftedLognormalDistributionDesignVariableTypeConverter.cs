@@ -21,8 +21,7 @@
 
 using System;
 using System.ComponentModel;
-
-using Ringtoets.Piping.Data.Probabilistics;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.PropertyClasses;
 

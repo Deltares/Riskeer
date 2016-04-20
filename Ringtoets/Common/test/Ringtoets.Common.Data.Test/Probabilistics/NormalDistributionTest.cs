@@ -20,15 +20,12 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
 
-using Ringtoets.Piping.Data.Probabilistics;
-
-namespace Ringtoets.Piping.Data.Test.Probabilistics
+namespace Ringtoets.Common.Data.Test.Probabilistics
 {
     [TestFixture]
     public class NomalDistributionTest
@@ -77,7 +74,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             var distribution = new NormalDistribution(2);
 
             // Call
-            TestDelegate call = () => distribution.StandardDeviation = (RoundedDouble)newStd;
+            TestDelegate call = () => distribution.StandardDeviation = (RoundedDouble) newStd;
 
             // Assert
             const string expectedMessage = "Standaard afwijking (\u03C3) moet groter zijn dan of gelijk zijn aan 0.";

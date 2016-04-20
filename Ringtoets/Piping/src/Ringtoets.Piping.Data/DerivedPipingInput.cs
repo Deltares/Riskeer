@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.InputParameterCalculation;
 using Ringtoets.Piping.Primitives;
 

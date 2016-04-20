@@ -19,26 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Piping.Data.Probabilistics
+namespace Ringtoets.Common.Data.Probabilistics
 {
-    /// <summary>
-    /// This object represents a probabilistic distribution.
-    /// </summary>
-    public interface IDistribution
+    public class NormalDistributionDesignVariable : DesignVariable<NormalDistribution>
     {
-        /// <summary>
-        /// Gets or sets the mean (expected value, E(X)) of the distribution.
-        /// </summary>
-        RoundedDouble Mean { get; set; }
+        public NormalDistributionDesignVariable(NormalDistribution distribution) : base(distribution) {}
 
-        /// <summary>
-        /// Gets or sets the standard deviation (square root of the Var(X)) of the distribution.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Standard deviation is less than 0.</exception>
-        RoundedDouble StandardDeviation { get; set; }
+        public override RoundedDouble GetDesignValue()
+        {
+            return DetermineDesignValue(Distribution.Mean, Distribution.StandardDeviation);
+        }
     }
 }

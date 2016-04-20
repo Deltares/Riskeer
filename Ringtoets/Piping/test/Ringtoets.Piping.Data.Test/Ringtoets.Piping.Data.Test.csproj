@@ -68,13 +68,6 @@
     <Compile Include="PipingSemiProbabilisticOutputTest.cs" />
     <Compile Include="PipingSoilLayerTest.cs" />
     <Compile Include="PipingSoilProfileTest.cs" />
-    <Compile Include="Probabilistics\DesignVariableTest.cs" />
-    <Compile Include="Probabilistics\LognormalDistributionDesignVariableTest.cs" />
-    <Compile Include="Probabilistics\LognormalDistributionTest.cs" />
-    <Compile Include="Probabilistics\NormalDistributionDesignVariableTest.cs" />
-    <Compile Include="Probabilistics\NormalDistributionTest.cs" />
-    <Compile Include="Probabilistics\ShiftedLognormalDistributionDesignVariableTest.cs" />
-    <Compile Include="Probabilistics\ShiftedLognormalDistributionTest.cs" />
     <Compile Include="RingtoetsPipingSurfaceLineTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SemiProbabilisticPipingInputTest.cs" />

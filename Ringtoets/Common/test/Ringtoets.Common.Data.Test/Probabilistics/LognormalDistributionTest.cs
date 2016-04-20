@@ -20,15 +20,12 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
 
-using Ringtoets.Piping.Data.Probabilistics;
-
-namespace Ringtoets.Piping.Data.Test.Probabilistics
+namespace Ringtoets.Common.Data.Test.Probabilistics
 {
     [TestFixture]
     public class LognormalDistributionTest

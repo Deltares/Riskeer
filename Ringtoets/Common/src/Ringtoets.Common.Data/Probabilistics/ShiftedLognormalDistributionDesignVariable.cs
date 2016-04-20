@@ -21,7 +21,7 @@
 
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Piping.Data.Probabilistics
+namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
     /// This class defines a design variable for a shifted lognormal distribution.

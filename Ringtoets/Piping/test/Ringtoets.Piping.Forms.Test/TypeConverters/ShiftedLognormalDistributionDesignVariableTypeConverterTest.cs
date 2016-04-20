@@ -1,12 +1,8 @@
 ﻿using System.ComponentModel;
-
 using Core.Common.Base.Data;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
-using Ringtoets.Piping.Data.Probabilistics;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.Forms.TypeConverters;
 
 namespace Ringtoets.Piping.Forms.Test.TypeConverters
@@ -43,9 +39,9 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             // Setup
             var distribution = new ShiftedLognormalDistribution(5)
             {
-                Mean = (RoundedDouble)1.1,
-                StandardDeviation = (RoundedDouble)2.2,
-                Shift = (RoundedDouble)3.3
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 2.2,
+                Shift = (RoundedDouble) 3.3
             };
             var designVariable = new ShiftedLognormalDistributionDesignVariable(distribution);
             var converter = new ShiftedLognormalDistributionDesignVariableTypeConverter();

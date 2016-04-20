@@ -1,8 +1,7 @@
 ﻿using System;
 
 using Core.Common.Base.Data;
-
-using Ringtoets.Piping.Data.Probabilistics;
+using Ringtoets.Common.Data.Probabilistics;
 
 namespace Ringtoets.Piping.Data.TestUtil
 {

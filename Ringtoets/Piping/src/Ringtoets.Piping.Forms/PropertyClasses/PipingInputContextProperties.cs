@@ -25,9 +25,9 @@ using System.Drawing.Design;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.TypeConverters;
@@ -176,7 +176,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                     data.WrappedData.SurfaceLine = value;
                     PipingInputService.SetMatchingStochasticSoilModel(data.WrappedData, GetAvailableStochasticSoilModels());
 
-                    PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine((PipingCalculationScenario)data.PipingCalculationItem, new PipingFailureMechanism(), oldSurfaceLine);
+                    PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine((PipingCalculationScenario) data.PipingCalculationItem, new PipingFailureMechanism(), oldSurfaceLine);
                     data.WrappedData.NotifyObservers();
                 }
             }

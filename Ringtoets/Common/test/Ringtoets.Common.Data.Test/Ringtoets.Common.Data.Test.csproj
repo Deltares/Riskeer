@@ -40,6 +40,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MathNet.Numerics, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\MathNet.Numerics.3.8.0\lib\net40\MathNet.Numerics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -50,6 +54,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssessmentSection\ReferenceLineTest.cs" />
@@ -59,6 +64,13 @@
     <Compile Include="FailureMechanism\FailureMechanismBaseTest.cs" />
     <Compile Include="FailureMechanism\FailureMechanismSectionResultTest.cs" />
     <Compile Include="FailureMechanism\FailureMechanismSectionTest.cs" />
+    <Compile Include="Probabilistics\DesignVariableTest.cs" />
+    <Compile Include="Probabilistics\LognormalDistributionDesignVariableTest.cs" />
+    <Compile Include="Probabilistics\LognormalDistributionTest.cs" />
+    <Compile Include="Probabilistics\NormalDistributionDesignVariableTest.cs" />
+    <Compile Include="Probabilistics\NormalDistributionTest.cs" />
+    <Compile Include="Probabilistics\ShiftedLognormalDistributionDesignVariableTest.cs" />
+    <Compile Include="Probabilistics\ShiftedLognormalDistributionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

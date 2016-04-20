@@ -20,15 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Security.Cryptography;
-
 using Core.Common.Base.Data;
-
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
 
-using Ringtoets.Piping.Data.Probabilistics;
-
-namespace Ringtoets.Piping.Data.Test.Probabilistics
+namespace Ringtoets.Common.Data.Test.Probabilistics
 {
     [TestFixture]
     public class ShiftedLognormalDistributionDesignVariableTest
@@ -74,9 +70,9 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             const int numberOfDecimalPlaces = 4;
             var shiftedLognormalDistribution = new ShiftedLognormalDistribution(numberOfDecimalPlaces)
             {
-                Mean = (RoundedDouble)expectedValue,
-                StandardDeviation = (RoundedDouble)Math.Sqrt(variance),
-                Shift = (RoundedDouble)shift
+                Mean = (RoundedDouble) expectedValue,
+                StandardDeviation = (RoundedDouble) Math.Sqrt(variance),
+                Shift = (RoundedDouble) shift
             };
 
             var designVariable = new ShiftedLognormalDistributionDesignVariable(shiftedLognormalDistribution)
@@ -107,9 +103,9 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             const int numberOfDecimalPlaces = 6;
             var shiftedLognormalDistribution = new ShiftedLognormalDistribution(numberOfDecimalPlaces)
             {
-                Mean = (RoundedDouble)expectedValue,
-                StandardDeviation = (RoundedDouble)Math.Sqrt(variance),
-                Shift = (RoundedDouble)0.0
+                Mean = (RoundedDouble) expectedValue,
+                StandardDeviation = (RoundedDouble) Math.Sqrt(variance),
+                Shift = (RoundedDouble) 0.0
             };
 
             var designVariable = new ShiftedLognormalDistributionDesignVariable(shiftedLognormalDistribution)

@@ -20,46 +20,33 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Properties;
 
-using Ringtoets.Piping.Data.Properties;
-
-namespace Ringtoets.Piping.Data.Probabilistics
+namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
-    /// Class representing a log-normal distribution.
+    /// Class representing a normal (or Gaussian) distribution.
     /// </summary>
-    public class LognormalDistribution : IDistribution
+    public class NormalDistribution : IDistribution
     {
         private RoundedDouble standardDeviation;
         private RoundedDouble mean;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LognormalDistribution"/> class,
-        /// initialized as the standard log-normal distribution (mu=0, sigma=1).
+        /// Initializes a new instance of the <see cref="NormalDistribution"/> class,
+        /// initialized as the standard normal distribution.
         /// </summary>
-        /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
+        /// <param name="numberOfDecimalPlaces">The number of decimal places of the distribution.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [1, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
+        /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
         /// </exception>
-        public LognormalDistribution(int numberOfDecimalPlaces)
+        public NormalDistribution(int numberOfDecimalPlaces)
         {
-            if (numberOfDecimalPlaces == 0)
-            {
-                // This causes the default initialization set mean to 0, which is invalid.
-                throw new ArgumentOutOfRangeException("numberOfDecimalPlaces",
-                    "Value must be in range [1, 15].");
-            }
-            // Simplified calculation mean and standard deviation given mu=0 and sigma=1.
-            mean = new RoundedDouble(numberOfDecimalPlaces, Math.Exp(-0.5));
-            standardDeviation = new RoundedDouble(numberOfDecimalPlaces, Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1)));
+            mean = new RoundedDouble(numberOfDecimalPlaces, 0.0);
+            standardDeviation = new RoundedDouble(numberOfDecimalPlaces, 1.0);
         }
 
-        /// <summary>
-        /// Gets or sets the mean (expected value, E(X)) of the distribution.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Expected value is less then or equal to 0.</exception>
         public RoundedDouble Mean
         {
             get
@@ -68,10 +55,6 @@ namespace Ringtoets.Piping.Data.Probabilistics
             }
             set
             {
-                if (value <= 0)
-                {
-                    throw new ArgumentOutOfRangeException("value", Resources.LognormalDistribution_Mean_must_be_greater_equal_to_zero);
-                }
                 mean = value.ToPrecision(mean.NumberOfDecimalPlaces);
             }
         }

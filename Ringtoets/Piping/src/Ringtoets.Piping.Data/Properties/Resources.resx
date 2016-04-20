@@ -117,20 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="StandardDeviation_Should_be_greater_than_or_equal_to_zero" xml:space="preserve">
-    <value>Standaard afwijking (σ) moet groter zijn dan of gelijk zijn aan 0.</value>
-  </data>
-  <data name="DesignVariable_Percentile_must_be_in_range" xml:space="preserve">
-    <value>Percentiel moet in het bereik van [0, 1] vallen.</value>
-  </data>
-  <data name="DesignVariable_GetDesignValue_Distribution_must_be_set" xml:space="preserve">
-    <value>Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.</value>
-  </data>
   <data name="IDistribution_InverseCDF_Probability_must_be_in_range" xml:space="preserve">
     <value>Kans moet in het bereik van [0, 1] opgegeven worden.</value>
-  </data>
-  <data name="LognormalDistribution_Mean_must_be_greater_equal_to_zero" xml:space="preserve">
-    <value>Gemiddelde moet groter zijn dan 0.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l" xml:space="preserve">
     <value>Kan geen hoogte bepalen op het punt L={0}, omdat de profielschematisatie verticaal loopt op dat punt.</value>

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Piping.Data.Probabilistics;
+using Ringtoets.Common.Data.Probabilistics;
 
 namespace Ringtoets.Piping.Data
 {
@@ -28,6 +28,30 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public static class PipingSemiProbabilisticDesignValueFactory
     {
+        private static DesignVariable<NormalDistribution> CreateDesignVariable(NormalDistribution distribution, double percentile)
+        {
+            return new NormalDistributionDesignVariable(distribution)
+            {
+                Percentile = percentile
+            };
+        }
+
+        private static DesignVariable<LognormalDistribution> CreateDesignVariable(LognormalDistribution distribution, double percentile)
+        {
+            return new LognormalDistributionDesignVariable(distribution)
+            {
+                Percentile = percentile
+            };
+        }
+
+        private static DesignVariable<ShiftedLognormalDistribution> CreateDesignVariable(ShiftedLognormalDistribution distribution, double percentile)
+        {
+            return new ShiftedLognormalDistributionDesignVariable(distribution)
+            {
+                Percentile = percentile
+            };
+        }
+
         #region General parameters
 
         /// <summary>
@@ -99,29 +123,5 @@ namespace Ringtoets.Piping.Data
         }
 
         #endregion
-
-        private static DesignVariable<NormalDistribution> CreateDesignVariable(NormalDistribution distribution, double percentile)
-        {
-            return new NormalDistributionDesignVariable(distribution)
-            {
-                Percentile = percentile
-            };
-        }
-
-        private static DesignVariable<LognormalDistribution> CreateDesignVariable(LognormalDistribution distribution, double percentile)
-        {
-            return new LognormalDistributionDesignVariable(distribution)
-            {
-                Percentile = percentile
-            };
-        }
-
-        private static DesignVariable<ShiftedLognormalDistribution> CreateDesignVariable(ShiftedLognormalDistribution distribution, double percentile)
-        {
-            return new ShiftedLognormalDistributionDesignVariable(distribution)
-            {
-                Percentile = percentile
-            };
-        }
     }
 }

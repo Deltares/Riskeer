@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Data;
-
 using MathNet.Numerics.Distributions;
+using Ringtoets.Common.Data.Properties;
 
-using Ringtoets.Piping.Data.Properties;
-
-namespace Ringtoets.Piping.Data.Probabilistics
+namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
     /// This class is a representation of a variable derived from a probabilistic distribution,
@@ -106,7 +103,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
             // CDF function of the standard normal distribution. For more information see:
             // "Quantile function" https://en.wikipedia.org/wiki/Normal_distribution
             double designFactor = Normal.InvCDF(0.0, 1.0, Percentile);
-            return expectedValue + designFactor * standardDeviation;
+            return expectedValue + designFactor*standardDeviation;
         }
     }
 }

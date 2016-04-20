@@ -20,16 +20,12 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Data;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Probabilistics;
 
-using Ringtoets.Piping.Data.Probabilistics;
-
-namespace Ringtoets.Piping.Data.Test.Probabilistics
+namespace Ringtoets.Common.Data.Test.Probabilistics
 {
     [TestFixture]
     public class DesignVariableTest
@@ -48,7 +44,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             // Assert
             Assert.AreSame(distributionMock, designVariable.Distribution);
             Assert.AreEqual(0.5, designVariable.Percentile);
-            mocks.VerifyAll(); // Expect no cals on mocks
+            mocks.VerifyAll(); // Expect no calls on mocks
         }
 
         [Test]
@@ -59,7 +55,10 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessagePart = exception.Message.Split(new[] { Environment.NewLine }, StringSplitOptions.None)[0];
+            string customMessagePart = exception.Message.Split(new[]
+            {
+                Environment.NewLine
+            }, StringSplitOptions.None)[0];
             Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.", customMessagePart);
         }
 
@@ -82,9 +81,12 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
-            string customMessagePart = exception.Message.Split(new []{ Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)[0];
+            string customMessagePart = exception.Message.Split(new[]
+            {
+                Environment.NewLine
+            }, StringSplitOptions.RemoveEmptyEntries)[0];
             Assert.AreEqual("Percentiel moet in het bereik van [0, 1] vallen.", customMessagePart);
-            mocks.VerifyAll(); // Expect no cals on mocks
+            mocks.VerifyAll(); // Expect no calls on mocks
         }
 
         [Test]
@@ -105,7 +107,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
 
             // Assert
             Assert.AreEqual(validPercentile, designVariable.Percentile);
-            mocks.VerifyAll(); // Expect no cals on mocks
+            mocks.VerifyAll(); // Expect no calls on mocks
         }
 
         [Test]
@@ -123,7 +125,10 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessagePart = exception.Message.Split(new []{Environment.NewLine}, StringSplitOptions.None)[0];
+            string customMessagePart = exception.Message.Split(new[]
+            {
+                Environment.NewLine
+            }, StringSplitOptions.None)[0];
             Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.", customMessagePart);
         }
 

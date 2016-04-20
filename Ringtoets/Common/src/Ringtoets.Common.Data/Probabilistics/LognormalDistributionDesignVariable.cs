@@ -20,10 +20,9 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Data;
 
-namespace Ringtoets.Piping.Data.Probabilistics
+namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
     /// This class defines a design variable for a lognormal distribution.
@@ -53,9 +52,9 @@ namespace Ringtoets.Piping.Data.Probabilistics
             // design value can only be determined in 'normal distribution' space.
             // Below formula's come from Tu-Delft College dictaat "b3 Probabilistisch Ontwerpen"
             // by ir. A.C.W.M. Vrouwenvelder and ir.J.K. Vrijling 5th reprint 1987.
-            double sigmaLogOverMuLog = Distribution.StandardDeviation / Distribution.Mean;
-            double sigmaNormal = Math.Sqrt(Math.Log(sigmaLogOverMuLog * sigmaLogOverMuLog + 1.0));
-            double muNormal = Math.Log(Distribution.Mean) - 0.5 * sigmaNormal * sigmaNormal;
+            double sigmaLogOverMuLog = Distribution.StandardDeviation/Distribution.Mean;
+            double sigmaNormal = Math.Sqrt(Math.Log(sigmaLogOverMuLog*sigmaLogOverMuLog + 1.0));
+            double muNormal = Math.Log(Distribution.Mean) - 0.5*sigmaNormal*sigmaNormal;
             return DetermineDesignValue(new RoundedDouble(Distribution.Mean.NumberOfDecimalPlaces, muNormal),
                                         new RoundedDouble(Distribution.StandardDeviation.NumberOfDecimalPlaces, sigmaNormal));
         }
