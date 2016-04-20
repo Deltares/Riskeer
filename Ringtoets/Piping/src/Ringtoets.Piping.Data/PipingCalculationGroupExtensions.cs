@@ -42,7 +42,8 @@ namespace Ringtoets.Piping.Data
                 var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSectionResult.Section.Points);
                 var calculationScenarios = pipingCalculationGroup.GetPipingCalculations()
                                                                  .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments))
-                                                                 .Where(pc => pc.GetType() == typeof(PipingCalculationScenario)).ToList();
+                                                                 .Where(pc => pc.GetType() == typeof(PipingCalculationScenario))
+                                                                 .Where(pc => !failureMechanismSectionResult.CalculationScenarios.Contains(pc)).ToList();
 
                 if (calculationScenarios.Any())
                 {

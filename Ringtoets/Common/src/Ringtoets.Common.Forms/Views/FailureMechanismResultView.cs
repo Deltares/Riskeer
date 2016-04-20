@@ -379,8 +379,6 @@ namespace Ringtoets.Common.Forms.Views
 
                 dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = string.Empty;
             }
-
-            
         }
 
         #endregion
