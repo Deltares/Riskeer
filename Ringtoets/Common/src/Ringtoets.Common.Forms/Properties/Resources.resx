@@ -244,4 +244,13 @@
   <data name="FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100" xml:space="preserve">
     <value>Bijdrage van de geselecteerde scenario's voor dit vak zijn opgeteld niet gelijk aan 100%</value>
   </data>
+  <data name="FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed" xml:space="preserve">
+    <value>Niet alle berekeningen voor dit vak zijn uitgevoerd.</value>
+  </data>
+  <data name="FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output" xml:space="preserve">
+    <value>Niet alle berekeningen voor dit vak hebben een geldige uitkomst.</value>
+  </data>
+  <data name="FailureMechanismSectionResultRow_AssessmentLayerTwoA_No_result_dash" xml:space="preserve">
+    <value>-</value>
+  </data>
 </root>

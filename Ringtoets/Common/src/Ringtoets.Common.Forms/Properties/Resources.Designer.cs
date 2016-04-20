@@ -239,6 +239,26 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Niet alle berekeningen voor dit vak zijn uitgevoerd..
+        /// </summary>
+        public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_ex" +
+                        "ecuted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niet alle berekeningen voor dit vak hebben een geldige uitkomst..
+        /// </summary>
+        public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_v" +
+                        "alid_output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bijdrage van de geselecteerde scenario&apos;s voor dit vak zijn opgeteld niet gelijk aan 100%.
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100 {
@@ -300,6 +320,15 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("FailureMechanismSectionResultIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -.
+        /// </summary>
+        public static string FailureMechanismSectionResultRow_AssessmentLayerTwoA_No_result_dash {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionResultRow_AssessmentLayerTwoA_No_result_dash", resourceCulture);
             }
         }
         

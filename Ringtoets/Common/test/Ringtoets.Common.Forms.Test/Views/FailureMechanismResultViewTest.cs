@@ -337,13 +337,14 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip()
+        public void FailureMechanismResultView_TotalContributionNotHundred_ShowsErrorTooltip()
         {
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 0.3);
-            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true);
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 0.3).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble) 1000).Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -364,6 +365,8 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak zijn opgeteld niet gelijk aan 100%", dataGridViewCell.ErrorText);
+                Assert.AreEqual(double.NaN.ToString(), formattedValue);
+                mocks.VerifyAll();
             }
         }
 
@@ -373,8 +376,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0);
-            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true);
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?) 1000).Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -395,6 +399,133 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
+                Assert.AreEqual(string.Format("1/{0:N0}", calculationScenarioMock.Probability), formattedValue);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultView_AssessmentLayerTwoANull_ShowsErrorTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.Probability).Return(null).Repeat.Any();
+
+            mocks.ReplayAll();
+
+            var rowIndex = 0;
+
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                sections[0].CalculationScenarios.Add(calculationScenarioMock);
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual("Niet alle berekeningen voor dit vak zijn uitgevoerd.", dataGridViewCell.ErrorText);
+                Assert.AreEqual("-", formattedValue);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultView_AssessmentLayerTwoANaN_ShowsErrorTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?) double.NaN).Repeat.Any();
+
+            mocks.ReplayAll();
+
+            var rowIndex = 0;
+
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                sections[0].CalculationScenarios.Add(calculationScenarioMock);
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual("Niet alle berekeningen voor dit vak hebben een geldige uitkomst.", dataGridViewCell.ErrorText);
+                Assert.AreEqual("-", formattedValue);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultView_NoCalculationScenarios_DoesNotShowErrorTooltip()
+        {
+            // Setup
+            var rowIndex = 0;
+
+            using (ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
+                Assert.AreEqual("-", formattedValue);
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultView_AssessmentLayerTrueAndAssessmentLayerTwoAHasError_DoesNotShowError()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?)double.NaN).Repeat.Any();
+
+            mocks.ReplayAll();
+
+            var rowIndex = 0;
+
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                sections[0].CalculationScenarios.Add(calculationScenarioMock);
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView)gridTester.TheObject;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
+
+                // Call
+                dataGridView.Rows[rowIndex].Cells[assessmentLayerOneIndex].Value = true;
+                var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
+
+                // Assert
+                Assert.AreEqual(string.Empty, dataGridViewCell.ErrorText);
+                Assert.AreEqual("-", formattedValue);
+                mocks.VerifyAll();
             }
         }
 

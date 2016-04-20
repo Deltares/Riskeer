@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -29,6 +30,7 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
+using CoreCommonResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -45,6 +47,7 @@ namespace Ringtoets.Common.Forms.Views
         private DataGridViewTextBoxColumn assessmentLayerTwoA;
         private DataGridViewTextBoxColumn assessmentLayerTwoB;
         private DataGridViewTextBoxColumn assessmentLayerThree;
+        private const double tolerance = 1e-6;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView"/>.
@@ -229,7 +232,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private class FailureMechanismSectionResultRow
         {
-            private readonly FailureMechanismSectionResult failureMechanismSectionResult;
+            public readonly FailureMechanismSectionResult failureMechanismSectionResult;
 
             public FailureMechanismSectionResultRow(FailureMechanismSectionResult failureMechanismSectionResult)
             {
@@ -261,7 +264,19 @@ namespace Ringtoets.Common.Forms.Views
             {
                 get
                 {
-                    return failureMechanismSectionResult.AssessmentLayerTwoA;
+                    if (failureMechanismSectionResult.CalculationScenarios.Any() && Math.Abs(failureMechanismSectionResult.TotalContribution - 1.0) > tolerance)
+                    {
+                        return double.NaN.ToString(CultureInfo.InvariantCulture);
+                    }
+
+                    var layerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
+
+                    if (!failureMechanismSectionResult.CalculationScenarios.Any() || !layerTwoA.HasValue || double.IsNaN(layerTwoA.Value))
+                    {
+                        return Resources.FailureMechanismSectionResultRow_AssessmentLayerTwoA_No_result_dash;
+                    }
+
+                    return string.Format(CoreCommonResources.ProbabilityPerYearFormat, layerTwoA.Value);
                 }
             }
 
@@ -328,18 +343,44 @@ namespace Ringtoets.Common.Forms.Views
 
         private void DataGridViewCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            double doubleValue = 0;
-            if (e.Value != null)
+            FailureMechanismSectionResultRow resultRow = dataGridView.Rows[e.RowIndex].DataBoundItem as FailureMechanismSectionResultRow;
+
+            if (resultRow != null && e.ColumnIndex == assessmentLayerTwoA.Index)
             {
-                double.TryParse(e.Value.ToString(), out doubleValue);
+                FailureMechanismSectionResult rowObject = resultRow.failureMechanismSectionResult;
+
+                if (rowObject.AssessmentLayerOne)
+                {
+                    dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = string.Empty;
+                    return;
+                }
+
+                if (rowObject.CalculationScenarios.Any() && Math.Abs(rowObject.TotalContribution - 1.0) > tolerance)
+                {
+                    dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
+                    return;
+                }
+
+                var layerTwoA = rowObject.AssessmentLayerTwoA;
+
+                if (!layerTwoA.HasValue)
+                {
+                    // Calculation not done.
+                    dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed;
+                    return;
+                }
+                
+                if (double.IsNaN(layerTwoA.Value))
+                {
+                    // Calculation output not valid.
+                    dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output;
+                    return;
+                }
+
+                dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = string.Empty;
             }
 
-            if (e.ColumnIndex == assessmentLayerTwoA.Index)
-            {
-                dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = double.IsNaN(doubleValue)
-                                                                                   ? Resources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100
-                                                                                   : string.Empty;
-            }
+            
         }
 
         #endregion

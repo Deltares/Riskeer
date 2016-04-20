@@ -21,11 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using CoreCommonResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Common.Data.FailureMechanism
 {
@@ -70,11 +68,22 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Gets and sets the value of assessment layer two a.
         /// </summary>
-        public string AssessmentLayerTwoA
+        public RoundedDouble? AssessmentLayerTwoA
         {
             get
             {
-                return GetAssessmentResult();
+                var totalProbablity = (RoundedDouble?) 0.0;
+                foreach (var scenario in CalculationScenarios.Where(cs => cs.IsRelevant))
+                {
+                    if (!scenario.Probability.HasValue)
+                    {
+                        return null;
+                    }
+
+                    totalProbablity += (scenario.Contribution*scenario.Probability.Value);
+                }
+
+                return totalProbablity;
             }
         }
 
@@ -88,26 +97,17 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// </summary>
         public RoundedDouble AssessmentLayerThree { get; set; }
 
+        public RoundedDouble TotalContribution
+        {
+            get
+            {
+                return (RoundedDouble) CalculationScenarios.Where(cs => cs.IsRelevant).Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
+            }
+        }
+
         /// <summary>
         /// Gets and sets a list of <see cref="ICalculationScenario"/>
         /// </summary>
         public List<ICalculationScenario> CalculationScenarios { get; private set; }
-
-        private string GetAssessmentResult()
-        {
-            var relevantScenarios = CalculationScenarios.Where(cs => cs.IsRelevant).ToList();
-            double totalContribution = relevantScenarios.Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
-
-            if (relevantScenarios.Any() && Math.Abs(totalContribution - 1.0) > 1e-6)
-            {
-                return double.NaN.ToString(CultureInfo.InvariantCulture);
-            }
-
-            var probability = relevantScenarios.Select(relevantScenario => relevantScenario.Contribution*relevantScenario.Probability).Aggregate(0.0, (current, probabilityContribution) => current + probabilityContribution);
-
-            return double.IsNaN(probability) || Math.Abs(probability) < 1e-6
-                       ? "-"
-                       : string.Format(CoreCommonResources.ProbabilityPerYearFormat, probability);
-        }
     }
 }

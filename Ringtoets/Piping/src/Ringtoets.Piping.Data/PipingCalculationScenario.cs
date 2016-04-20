@@ -49,11 +49,11 @@ namespace Ringtoets.Piping.Data
 
         public RoundedDouble Contribution { get; set; }
 
-        public RoundedDouble Probability
+        public RoundedDouble? Probability
         {
             get
             {
-                return SemiProbabilisticOutput != null ? SemiProbabilisticOutput.PipingProbability : (RoundedDouble) double.NaN;
+                return SemiProbabilisticOutput != null ? SemiProbabilisticOutput.PipingProbability : (RoundedDouble?) null;
             }
         }
     }

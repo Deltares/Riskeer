@@ -41,6 +41,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Gets the probability of the scenario.
         /// </summary>
-        RoundedDouble Probability { get; }
+        RoundedDouble? Probability { get; }
     }
 }

@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreSame(semiProbabilisticInputParameters, scenario.SemiProbabilisticParameters);
             Assert.IsTrue(scenario.IsRelevant);
             Assert.AreEqual(new RoundedDouble(0), scenario.Contribution);
-            Assert.IsNaN(scenario.Probability);
+            Assert.IsNull(scenario.Probability);
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Probability_PipingOutputNull_ReturnsNaN()
+        public void Probability_PipingOutputNull_ReturnsNull()
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
@@ -115,7 +115,24 @@ namespace Ringtoets.Piping.Data.Test
             var propability = scenario.Probability;
 
             // Assert
-            Assert.IsNaN(propability);
+            Assert.IsNull(propability);
+        }
+
+        [Test]
+        public void Probabilty_ScenarioInvalid_ReturnsNaN()
+        {
+            // Setup
+            var generalInputParameters = new GeneralPipingInput();
+            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
+
+            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
+            scenario.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, double.NaN, 0, 0);
+
+            // Call
+            var propability = scenario.Probability;
+
+            // Assert
+            Assert.IsNaN(propability.Value);
         }
     }
 }
