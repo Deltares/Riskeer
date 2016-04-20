@@ -38,15 +38,16 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_DefaultValues()
         {
             // Call
-            var view = new CommentView();
-
-            // Assert
-            Assert.IsInstanceOf<IView>(view);
-            Assert.IsInstanceOf<UserControl>(view);
-            Assert.IsNull(view.Data);
-            Assert.AreEqual(1, view.Controls.Count);
-            var control = view.Controls[0];
-            Assert.IsInstanceOf<RichTextBoxControl>(control);
+            using (var view = new CommentView())
+            {
+                // Assert
+                Assert.IsInstanceOf<IView>(view);
+                Assert.IsInstanceOf<UserControl>(view);
+                Assert.IsNull(view.Data);
+                Assert.AreEqual(1, view.Controls.Count);
+                var control = view.Controls[0];
+                Assert.IsInstanceOf<RichTextBoxControl>(control);
+            }
         }
 
         [Test]
@@ -54,77 +55,88 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var view = new CommentView();
             var data = mocks.Stub<ICommentable>();
-
             mocks.ReplayAll();
 
-            // Call
-            view.Data = data;
+            using (var view = new CommentView())
+            {
+                // Call
+                view.Data = data;
 
-            // Assert
-            Assert.AreSame(data, view.Data);
+                // Assert
+                Assert.AreSame(data, view.Data);
+            }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Data_NoIComment_DataNull()
         {
             // Setup
-            var view = new CommentView();
-            var data = new object();
+            using (var view = new CommentView())
+            {
+                var data = new object();
 
-            // Call
-            view.Data = data;
+                // Call
+                view.Data = data;
 
-            // Assert
-            Assert.IsNull(view.Data);
+                // Assert
+                Assert.IsNull(view.Data);
+            }
         }
 
         [Test]
         public void Data_ContainsComment_CommentSetOnRichTextEditor()
         {
             // Setup
-            var mocks = new MockRepository();
-            var view = new CommentView();
-            var data = mocks.Stub<ICommentable>();
             var expectedText = "<Some_text>";
             var validRtfString = GetValidRtfString(expectedText);
-            data.Comments = validRtfString;
 
+            var mocks = new MockRepository();
+            var data = mocks.Stub<ICommentable>();
+            data.Comments = validRtfString;
             mocks.ReplayAll();
 
-            // Call
-            view.Data = data;
+            using (var view = new CommentView())
+            {
+                // Call
+                view.Data = data;
 
-            // Assert
-            var textBoxControl = view.Controls[0] as RichTextBoxControl;
-            Assert.IsNotNull(textBoxControl);
-            Assert.AreEqual(validRtfString, textBoxControl.Rtf);
+                // Assert
+                var textBoxControl = view.Controls[0] as RichTextBoxControl;
+                Assert.IsNotNull(textBoxControl);
+                Assert.AreEqual(validRtfString, textBoxControl.Rtf);
+            }
+
+            mocks.VerifyAll();
         }
 
         [Test]
+        [Timeout(250)] // Temporary guard, as this test has timed out > 50minutes in the past.
         public void RichTextEditorOnTextChanged_Always_SetsComments()
         {
             // Setup
-            using (var form = new Form())
-            {
-                var expectedText = "<Some_text>";
-                var validRtfString = GetValidRtfString(expectedText);
+            var mocks = new MockRepository();
+            var data = mocks.Stub<ICommentable>();
+            mocks.ReplayAll();
 
-                var view = new CommentView();
+            using (var form = new Form())
+            using (var view = new CommentView())
+            {
                 form.Controls.Add(view);
                 form.Show();
 
-                var richTextBoxControl = (RichTextBoxControl)new ControlTester("richTextBoxControl").TheObject;
-
-                var mocks = new MockRepository();
-                var data = mocks.Stub<ICommentable>();
-                mocks.ReplayAll();
-
+                // Set data after showing control:
                 view.Data = data;
 
                 // Precondition
                 Assert.AreEqual(GetValidRtfString(""), data.Comments);
+
+                var expectedText = "<Some_text>";
+                var validRtfString = GetValidRtfString(expectedText);
+
+                var richTextBoxControl = (RichTextBoxControl)new ControlTester("richTextBoxControl").TheObject;
 
                 // Call
                 richTextBoxControl.Rtf = validRtfString;
@@ -133,16 +145,19 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(validRtfString, data.Comments);
             }
+
+            mocks.VerifyAll();
         }
 
         private static string GetValidRtfString(string value)
         {
-            RichTextBox richTextBox = new RichTextBox
+            using (var richTextBox = new RichTextBox
             {
                 Text = value
-            };
-
-            return richTextBox.Rtf;
+            })
+            {
+                return richTextBox.Rtf;
+            }
         }
     }
 }
