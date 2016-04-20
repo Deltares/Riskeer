@@ -37,12 +37,14 @@ namespace Application.Ringtoets.Storage.TestUtil
             var dasSet = (DbSet<AssessmentSectionEntity>) new TestDbSet<AssessmentSectionEntity>(new ObservableCollection<AssessmentSectionEntity>());
             var rlpSet = (DbSet<ReferenceLinePointEntity>) new TestDbSet<ReferenceLinePointEntity>(new ObservableCollection<ReferenceLinePointEntity>());
             var ssmSet = (DbSet<StochasticSoilModelEntity>) new TestDbSet<StochasticSoilModelEntity>(new ObservableCollection<StochasticSoilModelEntity>());
+            var sspSet = (DbSet<StochasticSoilProfileEntity>)new TestDbSet<StochasticSoilProfileEntity>(new ObservableCollection<StochasticSoilProfileEntity>());
             ringtoetsEntities.Stub(r => r.ProjectEntities).Return(pSet);
             ringtoetsEntities.Stub(r => r.HydraulicLocationEntities).Return(hlSet);
             ringtoetsEntities.Stub(r => r.FailureMechanismEntities).Return(fmSet);
             ringtoetsEntities.Stub(r => r.AssessmentSectionEntities).Return(dasSet);
             ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(rlpSet);
             ringtoetsEntities.Stub(r => r.StochasticSoilModelEntities).Return(ssmSet);
+            ringtoetsEntities.Stub(r => r.StochasticSoilProfileEntities).Return(sspSet);
             return ringtoetsEntities;
         }
     }

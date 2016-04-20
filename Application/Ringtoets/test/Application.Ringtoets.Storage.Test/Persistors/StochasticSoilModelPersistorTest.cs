@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
@@ -8,6 +29,8 @@ using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Persistors
 {
@@ -63,7 +86,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("entities", exception.ParamName);
+            Assert.AreEqual("entity", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
@@ -87,18 +110,64 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             };
 
             // Call
-            List<StochasticSoilModel> models = persistor.LoadModel(new List<StochasticSoilModelEntity>
-            {
-                entity
-            }).ToList();
+            StochasticSoilModel model = persistor.LoadModel(entity);
 
             // Assert
-            Assert.AreEqual(1, models.Count);
-            var model = models[0];
             Assert.AreEqual(name, model.Name);
             Assert.AreEqual(segmentName, model.SegmentName);
             Assert.AreEqual(storageId, model.StorageId);
 
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void LoadModel_ValidEntityValidModelWithStochasticProfiles_EntityAsModel()
+        {
+            // Setup
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
+            var persistor = new StochasticSoilModelPersistor(ringtoetsEntitiesMock);
+
+            const string name = "someName";
+            const string segmentName = "someSegmentName";
+            long storageId = new Random(21).Next();
+            var entity = new StochasticSoilModelEntity
+            {
+                Name = name,
+                SegmentName = segmentName,
+                StochasticSoilModelEntityId = storageId,
+                StochasticSoilProfileEntities = new List<StochasticSoilProfileEntity>
+                {
+                    new StochasticSoilProfileEntity
+                    {
+                        Probability = Convert.ToDecimal(0.5),
+                        SoilProfileEntity = new SoilProfileEntity
+                        {
+                            Bottom = Convert.ToDecimal(-1.5),
+                            SoilLayerEntities = new[]
+                            {
+                                new SoilLayerEntity
+                                {
+                                    Top = Convert.ToDecimal(1.0)
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Call
+            StochasticSoilModel model = persistor.LoadModel(entity);
+
+            // Assert
+            var stochasticProfile = model.StochasticSoilProfiles.ElementAt(0);
+            var soilProfile = stochasticProfile.SoilProfile;
+            Assert.AreEqual(-1.5, soilProfile.Bottom);
+            Assert.AreEqual(1, soilProfile.Layers.Count());
+            var soilLayer = soilProfile.Layers.ElementAt(0);
+
+            Assert.AreEqual(1.0, soilLayer.Top);
             mockRepository.VerifyAll();
         }
 
@@ -112,7 +181,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var persistor = new StochasticSoilModelPersistor(ringtoetsEntitiesMock);
 
             // Call
-            TestDelegate test = () => persistor.InsertModel(null, new [] { new StochasticSoilModel(-1, string.Empty, string.Empty) });
+            TestDelegate test = () => persistor.InsertModel(null, new StochasticSoilModel(-1, string.Empty, string.Empty));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -167,7 +236,51 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             };
 
             // Call
-            persistor.InsertModel(parentNavigationProperty, new [] { model });
+            persistor.InsertModel(parentNavigationProperty, model);
+
+            // Assert
+            Assert.AreEqual(2, parentNavigationProperty.Count);
+            var parentNavigationPropertyList = parentNavigationProperty.ToList();
+            var entity = parentNavigationPropertyList[1];
+            Assert.AreEqual(storageId, entity.StochasticSoilModelEntityId);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void InsertModel_SingleStochasticSoilModelWithStochasticSoilProfiles_StochasticSoilModelAsEntityInParentNavigationProperty()
+        {
+            // Setup
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
+            var persistor = new StochasticSoilModelPersistor(ringtoetsEntitiesMock);
+
+            const long storageId = 1234L;
+            StochasticSoilModelEntity entityToDelete = new StochasticSoilModelEntity
+            {
+                StochasticSoilModelEntityId = storageId
+            };
+
+            IList<StochasticSoilModelEntity> parentNavigationProperty = new List<StochasticSoilModelEntity>
+            {
+                entityToDelete
+            };
+
+            StochasticSoilModel model = new StochasticSoilModel(-1, string.Empty, string.Empty)
+            {
+                StorageId = storageId,
+                StochasticSoilProfiles =
+                {
+                    new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, -1)
+                    {
+                        SoilProfile = new TestPipingSoilProfile()
+                    }
+                }
+            };
+
+            // Call
+            persistor.InsertModel(parentNavigationProperty, model);
 
             // Assert
             Assert.AreEqual(2, parentNavigationProperty.Count);
@@ -187,13 +300,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             var persistor = new StochasticSoilModelPersistor(ringtoetsEntitiesMock);
 
-            var soilModels = new[]
-            {
-                new StochasticSoilModel(-1, string.Empty, string.Empty)
-            };
+            var soilModel = new StochasticSoilModel(-1, string.Empty, string.Empty);
 
             // Call
-            TestDelegate test = () => persistor.UpdateModel(null, soilModels);
+            TestDelegate test = () => persistor.UpdateModel(null, soilModel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -220,29 +330,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void UpdateModel_EmptyDatasetNullEntryInModel_ArgumentException()
-        {
-            // Setup
-            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
-            mockRepository.ReplayAll();
-
-            var persistor = new StochasticSoilModelPersistor(ringtoetsEntitiesMock);
-            IList<StochasticSoilModelEntity> parentNavigationProperty = new List<StochasticSoilModelEntity>();
-
-            var soilModels = new StochasticSoilModel[]
-            {
-                null
-            };
-
-            // Call
-            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, soilModels);
-
-            // Assert
-            var message = Assert.Throws<ArgumentException>(test).Message;
-            Assert.AreEqual("A null StochasticSoilModel cannot be added", message);
-        }
-
-        [Test]
         public void UpdateModel_EmptyDataset_ThrowsEntityNotFoundException()
         {
             // Setup
@@ -254,16 +341,14 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var persistor = new StochasticSoilModelPersistor(ringtoetsEntitiesMock);
             IList<StochasticSoilModelEntity> parentNavigationProperty = new List<StochasticSoilModelEntity>();
 
-            var soilModels = new[]
+            var soilModel = new StochasticSoilModel(-1, string.Empty, string.Empty)
             {
-                new StochasticSoilModel(-1, string.Empty, string.Empty)
-                {
-                    StorageId = storageId
-                }
+                StorageId = storageId
             };
+                
 
             // Call
-            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, soilModels);
+            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, soilModel);
 
             // Assert
             var expectedMessage = String.Format("Het object 'StochasticSoilModelEntity' met id '{0}' is niet gevonden.", storageId);
@@ -294,16 +379,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 }
             };
 
-            var soilModels = new[]
+            var soilModel = new StochasticSoilModel(-1, string.Empty, string.Empty)
             {
-                new StochasticSoilModel(-1, string.Empty, string.Empty)
-                {
-                    StorageId = storageId
-                }
+                StorageId = storageId
             };
 
             // Call
-            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, soilModels);
+            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, soilModel);
 
             // Assert
             var expectedMessage = String.Format("Het object 'StochasticSoilModelEntity' met id '{0}' is niet gevonden.", storageId);
@@ -332,16 +414,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             var name = "someName";
             var segmentName = "someSegmentName";
-            var soilModels = new[]
+            var soilModel = new StochasticSoilModel(-1, name, segmentName)
             {
-                new StochasticSoilModel(-1, name, segmentName)
-                {
-                    StorageId = storageId
-                }
+                StorageId = storageId
             };
 
             // Call
-            persistor.UpdateModel(parentNavigationProperty, soilModels);
+            persistor.UpdateModel(parentNavigationProperty, soilModel);
 
             // Assert
             Assert.AreEqual(1, parentNavigationProperty.Length);
@@ -366,16 +445,13 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             var name = "someName";
             var segmentName = "someSegmentName";
-            var soilModels = new[]
+            var soilModel = new StochasticSoilModel(-1, name, segmentName)
             {
-                new StochasticSoilModel(-1, name, segmentName)
-                {
-                    StorageId = 0
-                }
+                StorageId = 0
             };
 
             // Call
-            persistor.UpdateModel(parentNavigationProperty, soilModels);
+            persistor.UpdateModel(parentNavigationProperty, soilModel);
 
             // Assert
             Assert.AreEqual(1, parentNavigationProperty.Count);
@@ -384,7 +460,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void UpdateModel_SingleEntityInParentNavigationPropertySingleStochasticSoilModelWithoutStorageId_UpdatedStochasticSoilModelAsEntityInParentNavigationPropertyAndOthersDeletedInDbSet()
+        public void UpdateModel_SingleEntityInParentNavigationPropertySingleStochasticSoilModelWithoutStorageId_UpdatedStochasticSoilModelAsEntityInParentNavigationProperty()
         {
             // Setup
             const long storageId = 0L; // Newly inserted entities have Id = 0 untill they are saved
@@ -410,16 +486,12 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             StochasticSoilModelPersistor persistor = new StochasticSoilModelPersistor(ringtoetsEntitiesMock);
             var name = "someName";
             var segmentName = "someSegmentName";
-            var soilModels = new[]
-            {
-                new StochasticSoilModel(-1, name, segmentName)
-            };
+            var soilModel = new StochasticSoilModel(-1, name, segmentName);
 
             // Call
-            persistor.UpdateModel(parentNavigationProperty, soilModels);
+            persistor.UpdateModel(parentNavigationProperty, soilModel);
 
             // Assert
-            CollectionAssert.IsEmpty(ringtoetsEntitiesMock.StochasticSoilModelEntities);
             Assert.AreEqual(2, parentNavigationProperty.Count);
             StochasticSoilModelEntity entity = parentNavigationProperty.SingleOrDefault(x => x.StochasticSoilModelEntityId == storageId);
             Assert.IsNotNull(entity);
@@ -429,6 +501,45 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             mockRepository.VerifyAll();
         }
+
+        [Test]
+        public void RemoveUnModifiedEntries_SingleEntityInParentNavigationPropertySingleStochasticSoilModelWithoutStorageId_DbSetCleared()
+        {
+            // Setup
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
+            StochasticSoilModelEntity entityToDelete = new StochasticSoilModelEntity
+            {
+                StochasticSoilModelEntityId = 4567L,
+                Name = "Entity to delete"
+            };
+
+            ringtoetsEntitiesMock.StochasticSoilModelEntities.Add(entityToDelete);
+
+            var parentNavigationProperty = new List<StochasticSoilModelEntity>
+            {
+                entityToDelete
+            };
+
+            mockRepository.ReplayAll();
+
+            StochasticSoilModelPersistor persistor = new StochasticSoilModelPersistor(ringtoetsEntitiesMock);
+            var name = "someName";
+            var segmentName = "someSegmentName";
+            var soilModel = new StochasticSoilModel(-1, name, segmentName);
+
+            persistor.UpdateModel(parentNavigationProperty, soilModel);
+
+            // Call
+            persistor.RemoveUnModifiedEntries(parentNavigationProperty);
+
+            // Assert
+            Assert.IsEmpty(ringtoetsEntitiesMock.StochasticSoilModelEntities);
+
+            mockRepository.VerifyAll();
+        }
+
 
         [Test]
         public void PerformPostSaveActions_NoInserts_DoesNotThrowException()
@@ -461,19 +572,20 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var parentNavigationProperty = new List<StochasticSoilModelEntity>();
 
             IList<StochasticSoilModel> stochasticSoilModel = new List<StochasticSoilModel>();
-            for (var i = 0; i < numberOfInserts; i++)
-            {
-                stochasticSoilModel.Add(new StochasticSoilModel(-1, string.Empty, string.Empty)
-                {
-                    StorageId = 0L
-                });
-            }
 
             var persistor = new StochasticSoilModelPersistor(ringtoetsEntitiesMock);
 
             try
             {
-                persistor.UpdateModel(parentNavigationProperty, stochasticSoilModel);
+                for (var i = 0; i < numberOfInserts; i++)
+                {
+                    var soilModel = new StochasticSoilModel(-1, string.Empty, string.Empty)
+                    {
+                        StorageId = 0L
+                    };
+                    stochasticSoilModel.Add(soilModel);
+                    persistor.UpdateModel(parentNavigationProperty, soilModel);
+                }
             }
             catch (Exception)
             {

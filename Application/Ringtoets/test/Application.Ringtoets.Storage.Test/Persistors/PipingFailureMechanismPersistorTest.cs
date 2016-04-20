@@ -34,6 +34,8 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Persistors
 {
@@ -76,7 +78,9 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void LoadModel_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
-            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
 
             // Call
@@ -85,13 +89,17 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("entity", exception.ParamName);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void LoadModel_NullAssessmentSection_ThrowsArgumentNullException()
         {
             // Setup
-            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
             FailureMechanismEntity entity = new FailureMechanismEntity();
 
@@ -101,19 +109,23 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void LoadModel_EntityWithIncorrectType_ThrowsArgumentException()
         {
             // Setup
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             const long storageId = 1234L;
             FailureMechanismEntity entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = storageId,
                 FailureMechanismType = (int) FailureMechanismType.StoneRevetmentFailureMechanism,
             };
-            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
 
             // Call
@@ -121,12 +133,17 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Assert
             Assert.Throws<ArgumentException>(test);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void LoadModel_ValidEntity_UpdatedModel()
         {
             // Setup
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             const long storageId = 1234L;
             PipingFailureMechanism model = new PipingFailureMechanism
             {
@@ -137,7 +154,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 FailureMechanismEntityId = storageId,
                 FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism,
             };
-            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -150,17 +166,18 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.IsInstanceOf<PipingFailureMechanism>(loadedModel);
             Assert.AreEqual(loadedModel.StorageId, entity.FailureMechanismEntityId);
             Assert.AreEqual(model.StorageId, loadedModel.StorageId);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void LoadModel_ValidEntityWithStochasticSoilModels_UpdatedModel()
         {
             // Setup
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
             const long storageId = 1234L;
-            PipingFailureMechanism model = new PipingFailureMechanism
-            {
-                StorageId = storageId
-            };
             var firstId = 122;
             var secondId = 234;
             FailureMechanismEntity entity = new FailureMechanismEntity
@@ -179,7 +196,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                     }
                 }
             };
-            var ringtoetsEntities = mockRepository.StrictMock<IRingtoetsEntities>();
             PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -192,6 +208,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(2, loadedModel.Count);
             Assert.AreEqual(firstId, loadedModel[0].StorageId);
             Assert.AreEqual(secondId, loadedModel[1].StorageId);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -729,6 +747,64 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 var insertedModel = pipingFailureMechanisms.SingleOrDefault(x => x.StorageId == entity.FailureMechanismEntityId);
                 Assert.IsInstanceOf<PipingFailureMechanism>(insertedModel);
             }
+
+            mockRepository.VerifyAll();
+        }
+
+
+        [Test]
+        public void PerformPostSaveActions_InsertedWithChildrenWithoutStorageId_ModelsWithStorageId()
+        {
+            // Setup
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
+            var insertedFailureMechanismEntities = new List<FailureMechanismEntity>();
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                StorageId = 0L,
+                StochasticSoilModels =
+                {
+                    new StochasticSoilModel(-1, string.Empty, string.Empty)
+                    {
+                        StochasticSoilProfiles =
+                        {
+                            new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, -1)
+                            {
+                                SoilProfile = new TestPipingSoilProfile()
+                            }
+                        }
+                    }
+                }
+            };
+
+            PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
+            mockRepository.ReplayAll();
+
+            try
+            {
+                persistor.UpdateModel(insertedFailureMechanismEntities, failureMechanism);
+            }
+            catch (Exception)
+            {
+                Assert.Fail("Precondition failed: persistor.UpdateModel");
+            }
+
+            long failureMechanismStorageId = 1226;
+            long soilModelStorageId = 1227;
+            long soilProfileStorageId = 1228;
+            insertedFailureMechanismEntities[0].FailureMechanismEntityId = failureMechanismStorageId;
+            insertedFailureMechanismEntities[0].StochasticSoilModelEntities.ElementAt(0).StochasticSoilModelEntityId = soilModelStorageId;
+            insertedFailureMechanismEntities[0].StochasticSoilModelEntities.ElementAt(0).StochasticSoilProfileEntities.ElementAt(0).StochasticSoilProfileEntityId = soilProfileStorageId;
+
+            // Call
+            persistor.PerformPostSaveActions();
+
+            // Assert
+            Assert.AreEqual(failureMechanismStorageId, failureMechanism.StorageId);
+            Assert.AreEqual(soilModelStorageId, failureMechanism.StochasticSoilModels[0].StorageId);
+            Assert.AreEqual(soilProfileStorageId, failureMechanism.StochasticSoilModels[0].StochasticSoilProfiles[0].StorageId);
 
             mockRepository.VerifyAll();
         }

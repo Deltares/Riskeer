@@ -55,7 +55,7 @@
     <Compile Include="Converters\AssessmentSectionConverter.cs" />
     <Compile Include="Converters\PipingFailureMechanismConverter.cs" />
     <Compile Include="Converters\HydraulicLocationConverter.cs" />
-    <Compile Include="Converters\PipingSoilProfileConverter.cs" />
+    <Compile Include="Converters\StochasticSoilProfileConverter.cs" />
     <Compile Include="Converters\ProjectConverter.cs" />
     <Compile Include="Converters\IEntityConverter.cs" />
     <Compile Include="Converters\ReferenceLineConverter.cs" />
@@ -98,6 +98,7 @@
     <Compile Include="Persistors\ProjectPersistor.cs" />
     <Compile Include="Persistors\ReferenceLinePersistor.cs" />
     <Compile Include="Persistors\StochasticSoilModelPersistor.cs" />
+    <Compile Include="Persistors\StochasticSoilProfilePersistor.cs" />
     <Compile Include="StorageSqliteCreator.cs" />
     <Compile Include="DbContext\PartialRingtoetsEntities.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />

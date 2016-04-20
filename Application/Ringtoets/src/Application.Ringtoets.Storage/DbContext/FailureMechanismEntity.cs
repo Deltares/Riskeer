@@ -44,6 +44,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long FailureMechanismEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
         public short FailureMechanismType { get; set; }
+        public byte IsRelevant { get; set; }
     
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

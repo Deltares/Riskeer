@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Linq;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
@@ -51,23 +72,21 @@ namespace Application.Ringtoets.Storage.Test.Converters
             var converter = new StochasticSoilModelConverter();
 
             // Call
-            StochasticSoilModel location = converter.ConvertEntityToModel(entity);
+            StochasticSoilModel model = converter.ConvertEntityToModel(entity);
 
             // Assert
-            Assert.AreEqual(storageId, location.StorageId);
-            Assert.AreEqual(name, location.Name);
-            Assert.AreEqual(segmentName, location.SegmentName);
+            Assert.AreEqual(storageId, model.StorageId);
+            Assert.AreEqual(name, model.Name);
+            Assert.AreEqual(segmentName, model.SegmentName);
         }
 
         [Test]
-        public void ConvertEntityToModel_WithStochasticSoilProfiles_ReturnsTheEntityAsModelWithStochasticSoilProfiles()
+        public void ConvertEntityToModel_WithStochasticSoilProfiles_ReturnsTheEntityAsModelWithoutStochasticSoilProfiles()
         {
             // Setup
             var storageId = new Random(21).Next();
             var segmentName = "SomeSegmentName";
             var name = "SomeName";
-            var firstProfileProbability = 3.0;
-            var secondProfileProbability = 8.0;
             var entity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = storageId,
@@ -77,31 +96,25 @@ namespace Application.Ringtoets.Storage.Test.Converters
                 {
                     new StochasticSoilProfileEntity
                     {
-                        Probability = Convert.ToDecimal(firstProfileProbability)
+                        Probability = Convert.ToDecimal(3.0)
                     },
                     new StochasticSoilProfileEntity
                     {
-                        Probability = Convert.ToDecimal(secondProfileProbability)
+                        Probability = Convert.ToDecimal(8.0)
                     }
                 }
             };
             var converter = new StochasticSoilModelConverter();
 
             // Call
-            StochasticSoilModel location = converter.ConvertEntityToModel(entity);
+            StochasticSoilModel model = converter.ConvertEntityToModel(entity);
 
             // Assert
-            Assert.AreEqual(storageId, location.StorageId);
-            Assert.AreEqual(name, location.Name);
-            Assert.AreEqual(segmentName, location.SegmentName);
+            Assert.AreEqual(storageId, model.StorageId);
+            Assert.AreEqual(name, model.Name);
+            Assert.AreEqual(segmentName, model.SegmentName);
 
-            Assert.AreEqual(2, location.StochasticSoilProfiles.Count);
-
-            var firstStochasticProfile = location.StochasticSoilProfiles.ElementAt(0);
-            var secondStochasticProfile = location.StochasticSoilProfiles.ElementAt(1);
-
-            Assert.AreEqual(firstProfileProbability, firstStochasticProfile.Probability);
-            Assert.AreEqual(secondProfileProbability, secondStochasticProfile.Probability);
+            Assert.IsEmpty(model.StochasticSoilProfiles);
         }
 
         [Test]
@@ -160,7 +173,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
 
         [Test]
         
-        public void ConvertModelToEntity_ValidModelValidEntityWithStochasticSoilProfiles_ReturnsModelAsEntityWithStochasticSoilProfiles()
+        public void ConvertModelToEntity_ValidModelValidEntityWithStochasticSoilProfiles_ReturnsModelAsEntityWithoutStochasticSoilProfiles()
         {
             // Setup
             var converter = new StochasticSoilModelConverter();
@@ -171,15 +184,13 @@ namespace Application.Ringtoets.Storage.Test.Converters
             string name = "someName";
             long id = random.Next();
             long storageId = random.Next();
-            var firstProfileProbability = 3.0;
-            var secondProfileProbability = 8.0;
             var model = new StochasticSoilModel(id, name, segmentName)
             {
                 StorageId = storageId,
                 StochasticSoilProfiles =
                 {
-                    new StochasticSoilProfile(firstProfileProbability, SoilProfileType.SoilProfile1D, -1),
-                    new StochasticSoilProfile(secondProfileProbability, SoilProfileType.SoilProfile1D, -1)
+                    new StochasticSoilProfile(3.0, SoilProfileType.SoilProfile1D, -1),
+                    new StochasticSoilProfile(8.0, SoilProfileType.SoilProfile1D, -1)
                 }
             };
 
@@ -191,13 +202,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(segmentName, entity.SegmentName);
 
-            Assert.AreEqual(2, entity.StochasticSoilProfileEntities.Count);
-
-            var firstProfileEntity = entity.StochasticSoilProfileEntities.ElementAt(0);
-            var secondProfileEntity = entity.StochasticSoilProfileEntities.ElementAt(1);
-
-            Assert.AreEqual(firstProfileProbability, firstProfileEntity.Probability);
-            Assert.AreEqual(secondProfileProbability, secondProfileEntity.Probability);
+            Assert.IsEmpty(entity.StochasticSoilProfileEntities);
         }
     }
 }

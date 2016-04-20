@@ -86,11 +86,12 @@
     <Compile Include="Converters\HydraulicLocationConverterTest.cs" />
     <Compile Include="Converters\ProjectConverterTest.cs" />
     <Compile Include="Converters\AssessmentSectionConverterTest.cs" />
-    <Compile Include="Converters\PipingSoilProfileConverterTest.cs" />
+    <Compile Include="Converters\StochasticSoilProfileConverterTest.cs" />
     <Compile Include="Converters\StochasticSoilModelConverterTest.cs" />
     <Compile Include="Persistors\HydraulicBoundaryLocationPersistorTest.cs" />
     <Compile Include="Persistors\ReferenceLinePersistorTest.cs" />
     <Compile Include="Persistors\StochasticSoilModelPersistorTest.cs" />
+    <Compile Include="Persistors\StochasticSoilProfilePersistorTest.cs" />
     <Compile Include="RingtoetsDatabaseCreatorTest.cs" />
     <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
     <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />

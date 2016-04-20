@@ -25,6 +25,7 @@
           <Property Name="FailureMechanismEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="FailureMechanismType" Type="smallint" Nullable="false" />
+          <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="HydraulicLocationEntity">
           <Key>
@@ -88,7 +89,7 @@
           <Property Name="StochasticSoilProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SoilProfileEntityId" Type="integer" Nullable="false" />
           <Property Name="StochasticSoilModelEntityId" Type="integer" Nullable="false" />
-          <Property Name="Probability" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="Probability" Type="decimal" Precision="53" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="VersionEntity">
           <Key>
@@ -311,6 +312,7 @@
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="FailureMechanismType" Type="Int16" Nullable="false" />
+          <Property Name="IsRelevant" Type="Byte" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="StochasticSoilModelEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StochasticSoilModelEntity" />
         </EntityType>
@@ -384,7 +386,7 @@
           <Property Name="StochasticSoilProfileEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" />
           <Property Name="StochasticSoilModelEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Probability" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="Probability" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
           <NavigationProperty Name="SoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="StochasticSoilProfileEntity" ToRole="SoilProfileEntity" />
           <NavigationProperty Name="StochasticSoilModelEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_0_0" FromRole="StochasticSoilProfileEntity" ToRole="StochasticSoilModelEntity" />
         </EntityType>
@@ -516,6 +518,7 @@
           <EntitySetMapping Name="FailureMechanismEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.FailureMechanismEntity">
               <MappingFragment StoreEntitySet="FailureMechanismEntity">
+                <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
                 <ScalarProperty Name="FailureMechanismType" ColumnName="FailureMechanismType" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />

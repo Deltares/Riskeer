@@ -27,21 +27,24 @@ using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
-using Core.Common.Utils;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Persistors
 {
     public class StochasticSoilModelPersistor
     {
+        private readonly StochasticSoilProfilePersistor soilProfilePersistor;
         private readonly StochasticSoilModelConverter soilModelConverter = new StochasticSoilModelConverter();
-        private readonly PipingSoilProfileConverter soilProfileConverter = new PipingSoilProfileConverter();
 
         private readonly ICollection<StochasticSoilModelEntity> modifiedList = new List<StochasticSoilModelEntity>();
         private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> insertedList = new Dictionary<StochasticSoilModelEntity, StochasticSoilModel>();
         private readonly DbSet<StochasticSoilModelEntity> stochasticSoilModelSet;
 
+        /// <summary>
+        /// New instance of <see cref="StochasticSoilModelPersistor"/>.
+        /// </summary>
+        /// <param name="ringtoetsContext">The storage context.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
         public StochasticSoilModelPersistor(IRingtoetsEntities ringtoetsContext)
         {
             if (ringtoetsContext == null)
@@ -49,104 +52,119 @@ namespace Application.Ringtoets.Storage.Persistors
                 throw new ArgumentNullException("ringtoetsContext");
             }
             stochasticSoilModelSet = ringtoetsContext.StochasticSoilModelEntities;
+            soilProfilePersistor = new StochasticSoilProfilePersistor(ringtoetsContext);
         }
 
-        public IEnumerable<StochasticSoilModel> LoadModel(IEnumerable<StochasticSoilModelEntity> entities)
+        /// <summary>
+        /// Loads the <see cref="StochasticSoilModelEntity"/> as <see cref="StochasticSoilModel"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> to load.</param>
+        /// <returns>A new instance of <see cref="StochasticSoilModel"/>, based on the properties of <paramref name="entity"/>.</returns>
+        public StochasticSoilModel LoadModel(StochasticSoilModelEntity entity)
         {
-            if (entities == null)
+            if (entity == null)
             {
-                throw new ArgumentNullException("entities");
+                throw new ArgumentNullException("entity");
             }
-            return entities.Select(e => soilModelConverter.ConvertEntityToModel(e));
+            var stochasticSoilModel = soilModelConverter.ConvertEntityToModel(entity);
+
+            LoadChildren(stochasticSoilModel, entity);
+
+            return stochasticSoilModel;
+        }
+
+        private void LoadChildren(StochasticSoilModel stochasticSoilModel, StochasticSoilModelEntity entity)
+        {
+            foreach (var profileEntity in entity.StochasticSoilProfileEntities)
+            {
+                stochasticSoilModel.StochasticSoilProfiles.Add(soilProfilePersistor.LoadModel(profileEntity));
+            }
         }
 
         /// <summary>
         /// Ensures that the model is added as <see cref="StochasticSoilModelEntity"/> in the <paramref name="parentNavigationProperty"/>.
         /// </summary>
         /// <param name="parentNavigationProperty">Collection where <see cref="StochasticSoilModelEntity"/> objects can be added. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
-        /// <param name="stochasticSoilModels"><see cref="StochasticSoilModel"/> to be saved in the storage.</param>
+        /// <param name="stochasticSoilModel"><see cref="StochasticSoilModel"/> to be saved in the storage.</param>
         /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
         /// <item><paramref name="parentNavigationProperty"/> is <c>null</c>.</item>
         /// </list></exception>
-        public void InsertModel(ICollection<StochasticSoilModelEntity> parentNavigationProperty, ICollection<StochasticSoilModel> stochasticSoilModels)
+        public void InsertModel(ICollection<StochasticSoilModelEntity> parentNavigationProperty, StochasticSoilModel stochasticSoilModel)
         {
             if (parentNavigationProperty == null)
             {
                 throw new ArgumentNullException("parentNavigationProperty");
             }
-            if (stochasticSoilModels == null)
+            if (stochasticSoilModel == null)
             {
                 return;
             }
 
-            foreach (var stochasticSoilModel in stochasticSoilModels)
+            var entity = InsertStochasticSoilModel(parentNavigationProperty, stochasticSoilModel);
+
+            InsertChildren(entity, stochasticSoilModel);
+        }
+
+        private void InsertChildren(StochasticSoilModelEntity entity, StochasticSoilModel stochasticSoilModel)
+        {
+            foreach (var stochasticSoilProfile in stochasticSoilModel.StochasticSoilProfiles)
+            {
+                soilProfilePersistor.InsertModel(entity.StochasticSoilProfileEntities, stochasticSoilProfile);
+            }
+        }
+
+        /// <summary>
+        /// Ensures that the <paramref name="stochasticSoilModel"/> is set as <see cref="StochasticSoilModel"/> in the <paramref name="parentNavigationProperty"/>.
+        /// </summary>
+        /// <param name="parentNavigationProperty">Collection where <see cref="StochasticSoilModelEntity"/> objects can be searched and added. Usually, this collection is a navigation property of a <see cref="IDbSet{TEntity}"/>.</param>
+        /// <param name="stochasticSoilModel"><see cref="StochasticSoilModel"/> to be saved in the storage.</param>
+        /// <exception cref="ArgumentNullException">Thrown when: <list type="bullet">
+        /// <item><paramref name="parentNavigationProperty"/> is <c>null</c>.</item>
+        /// </list></exception>
+        public void UpdateModel(ICollection<StochasticSoilModelEntity> parentNavigationProperty, StochasticSoilModel stochasticSoilModel)
+        {
+            if (stochasticSoilModel == null)
+            {
+                return;
+            }
+
+            if (parentNavigationProperty == null)
+            {
+                throw new ArgumentNullException("parentNavigationProperty");
+            }
+
+            if (stochasticSoilModel.StorageId < 1)
             {
                 InsertStochasticSoilModel(parentNavigationProperty, stochasticSoilModel);
             }
-
-            InsertStochasticSoilProfiles(parentNavigationProperty, stochasticSoilModels);
-        }
-
-        private void InsertStochasticSoilProfiles(ICollection<StochasticSoilModelEntity> parentNavigationProperty, ICollection<StochasticSoilModel> stochasticSoilModels)
-        {
-            var profiles = stochasticSoilModels.SelectMany(ssm => ssm.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile));
-
-            var convertedProfiles = new Dictionary<PipingSoilProfile, SoilProfileEntity>(new ReferenceEqualityComparer<PipingSoilProfile>());
-            foreach (var soilProfile in profiles)
+            else
             {
-                var entity = new SoilProfileEntity();
-                soilProfileConverter.ConvertModelToEntity(soilProfile, entity);
-                convertedProfiles.Add(soilProfile, entity);
-            }
-        }
-
-        public void UpdateModel(ICollection<StochasticSoilModelEntity> parentNavigationProperty, IList<StochasticSoilModel> model)
-        {
-            if (model == null)
-            {
-                return;
-            }
-
-            if (parentNavigationProperty == null)
-            {
-                throw new ArgumentNullException("parentNavigationProperty");
-            }
-
-            foreach (var stochasticSoilModel in model)
-            {
-                if (stochasticSoilModel == null)
+                StochasticSoilModelEntity entity;
+                try
                 {
-                    throw new ArgumentException("A null StochasticSoilModel cannot be added");
+                    entity = parentNavigationProperty.SingleOrDefault(db => db.StochasticSoilModelEntityId == stochasticSoilModel.StorageId);
+                }
+                catch (InvalidOperationException exception)
+                {
+                    throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "StochasticSoilModelEntity", stochasticSoilModel.StorageId), exception);
                 }
 
-                if (stochasticSoilModel.StorageId < 1)
+                if (entity == null)
                 {
-                    InsertStochasticSoilModel(parentNavigationProperty, stochasticSoilModel);
+                    throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "StochasticSoilModelEntity", stochasticSoilModel.StorageId));
                 }
-                else
+
+                modifiedList.Add(entity);
+
+                soilModelConverter.ConvertModelToEntity(stochasticSoilModel, entity);
+
+                foreach (var soilProfile in stochasticSoilModel.StochasticSoilProfiles)
                 {
-                    StochasticSoilModelEntity entity;
-                    try
-                    {
-                        entity = parentNavigationProperty.SingleOrDefault(db => db.StochasticSoilModelEntityId == stochasticSoilModel.StorageId);
-                    }
-                    catch (InvalidOperationException exception)
-                    {
-                        throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "StochasticSoilModelEntity", stochasticSoilModel.StorageId), exception);
-                    }
-
-                    if (entity == null)
-                    {
-                        throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "StochasticSoilModelEntity", stochasticSoilModel.StorageId));
-                    }
-
-                    modifiedList.Add(entity);
-
-                    soilModelConverter.ConvertModelToEntity(stochasticSoilModel, entity);
+                    soilProfilePersistor.UpdateModel(entity.StochasticSoilProfileEntities, soilProfile);
                 }
+
+                soilProfilePersistor.RemoveUnModifiedEntries(entity.StochasticSoilProfileEntities);
             }
-
-            RemoveUnModifiedEntries(parentNavigationProperty);
         }
 
         /// <summary>
@@ -159,17 +177,20 @@ namespace Application.Ringtoets.Storage.Persistors
                 entry.Value.StorageId = entry.Key.StochasticSoilModelEntityId;
             }
             insertedList.Clear();
+
+            soilProfilePersistor.PerformPostSaveActions();
         }
 
-        private void InsertStochasticSoilModel(ICollection<StochasticSoilModelEntity> parentNavigationProperty, StochasticSoilModel stochasticSoilModel)
+        private StochasticSoilModelEntity InsertStochasticSoilModel(ICollection<StochasticSoilModelEntity> parentNavigationProperty, StochasticSoilModel stochasticSoilModel)
         {
             var entity = new StochasticSoilModelEntity();
             soilModelConverter.ConvertModelToEntity(stochasticSoilModel, entity);
             parentNavigationProperty.Add(entity);
             insertedList.Add(entity, stochasticSoilModel);
+            return entity;
         }
 
-        private void RemoveUnModifiedEntries(IEnumerable<StochasticSoilModelEntity> parentNavigationProperty)
+        public void RemoveUnModifiedEntries(IEnumerable<StochasticSoilModelEntity> parentNavigationProperty)
         {
             var untouchedModifiedList = parentNavigationProperty.Where(e => e.StochasticSoilModelEntityId > 0 && !modifiedList.Contains(e));
             stochasticSoilModelSet.RemoveRange(untouchedModifiedList);

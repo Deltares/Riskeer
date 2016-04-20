@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Plugin;
 using Core.Common.Gui;
@@ -33,6 +35,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.IntegrationTests
 {
@@ -159,6 +163,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 Assert.IsNotNull(assessmentSection);
                 AssertHydraulicBoundaryDatabase(fullProject.Items.OfType<AssessmentSection>().FirstOrDefault(), assessmentSection);
                 AssertReferenceLine(fullProject.Items.OfType<AssessmentSection>().FirstOrDefault(), assessmentSection);
+                AssertStochasticSoilModels(fullProject.Items.OfType<AssessmentSection>().FirstOrDefault(), assessmentSection);
             }
 
             // TearDown
@@ -252,6 +257,59 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 var resultingPoint = project.ReferenceLine.Points.ElementAt(i);
                 Assert.AreEqual(expectedPoint.X, resultingPoint.X);
                 Assert.AreEqual(expectedPoint.Y, resultingPoint.Y);
+            }
+        }
+
+        private void AssertStochasticSoilModels(AssessmentSection expectedProject, AssessmentSection project)
+        {
+            var expectedModels = expectedProject.PipingFailureMechanism.StochasticSoilModels;
+            var actualModels = project.PipingFailureMechanism.StochasticSoilModels;
+
+            Assert.Less(0, actualModels.Count);
+            Assert.AreEqual(expectedModels.Count, actualModels.Count);
+            
+            for (int i = 0; i < expectedModels.Count; i++)
+            {
+                var expectedModel = expectedModels.ElementAt(i);
+                var actualModel = actualModels.ElementAt(i);
+
+                Assert.AreEqual(expectedModel.Name, actualModel.Name);
+                Assert.AreEqual(expectedModel.SegmentName, actualModel.SegmentName);
+                AssertStochasticSoilProfiles(expectedModel.StochasticSoilProfiles, actualModel.StochasticSoilProfiles);
+            }
+        }
+
+        private void AssertStochasticSoilProfiles(List<StochasticSoilProfile> expectedStochasticSoilProfiles, List<StochasticSoilProfile> actualStochasticSoilProfiles)
+        {
+            Assert.Less(0, actualStochasticSoilProfiles.Count);
+            Assert.AreEqual(expectedStochasticSoilProfiles.Count, actualStochasticSoilProfiles.Count);
+
+            for (int i = 0; i < expectedStochasticSoilProfiles.Count; i++)
+            {
+                var expectedProfile = expectedStochasticSoilProfiles.ElementAt(i);
+                var actualProfile = actualStochasticSoilProfiles.ElementAt(i);
+
+                Assert.AreEqual(expectedProfile.Probability, actualProfile.Probability);
+                Assert.AreEqual(expectedProfile.SoilProfile.Bottom, actualProfile.SoilProfile.Bottom);
+                Assert.AreEqual(expectedProfile.SoilProfile.Name, actualProfile.SoilProfile.Name);
+                AssertSoilLayers(expectedProfile.SoilProfile.Layers, actualProfile.SoilProfile.Layers);
+            }
+        }
+
+        private void AssertSoilLayers(IEnumerable<PipingSoilLayer> expectedLayers, IEnumerable<PipingSoilLayer> actualLayers)
+        {
+            var actualLayerArray = actualLayers.ToArray();
+            var expectedLayerArray = expectedLayers.ToArray();
+            Assert.Less(0, actualLayerArray.Length);
+            Assert.AreEqual(expectedLayerArray.Length, actualLayerArray.Length);
+
+            for (int i = 0; i < expectedLayerArray.Length; i++)
+            {
+                var expectedLayer = actualLayerArray[i];
+                var actualLayer = expectedLayerArray[i];
+
+                Assert.AreEqual(expectedLayer.Top, actualLayer.Top);
+                Assert.AreEqual(expectedLayer.IsAquifer, actualLayer.IsAquifer);
             }
         }
 

@@ -25,6 +25,9 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.TestUtil
 {
@@ -49,7 +52,27 @@ namespace Application.Ringtoets.Storage.TestUtil
                     {
                         Name = "assessmentSection",
                         HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(),
-                        ReferenceLine = GetReferenceLine()
+                        ReferenceLine = GetReferenceLine(),
+                        PipingFailureMechanism =
+                        {
+                            StochasticSoilModels =
+                            {
+                                new StochasticSoilModel(-1, "modelName", "modelSegmentName")
+                                {
+                                    StochasticSoilProfiles =
+                                    {
+                                        new StochasticSoilProfile(0.2, SoilProfileType.SoilProfile1D, -1)
+                                        {
+                                            SoilProfile = new TestPipingSoilProfile()
+                                        },
+                                        new StochasticSoilProfile(0.8, SoilProfileType.SoilProfile1D, -1)
+                                        {
+                                            SoilProfile = new TestPipingSoilProfile()
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             };

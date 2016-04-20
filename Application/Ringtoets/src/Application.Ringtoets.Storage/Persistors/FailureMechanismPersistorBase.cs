@@ -179,7 +179,6 @@ namespace Application.Ringtoets.Storage.Persistors
             InsertChildren(model, entity);
         }
 
-
         /// <summary>
         /// Implement to provide a way to insert the children of the <paramref name="model"/> into the <paramref name="entity"/>.
         /// </summary>
@@ -210,6 +209,13 @@ namespace Application.Ringtoets.Storage.Persistors
                 entry.Value.StorageId = entry.Key.FailureMechanismEntityId;
             }
             insertedList.Clear();
+
+            PerformChildPostSaveAction();
         }
+
+        /// <summary>
+        /// Implement to provide a way to perform post save actions on the children of the <see cref="FailureMechanismPersistorBase{T}"/>.
+        /// </summary>
+        protected abstract void PerformChildPostSaveAction();
     }
 }

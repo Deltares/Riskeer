@@ -61,6 +61,11 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public PipingSoilProfile SoilProfile { get; set; }
 
+        /// <summary>
+        /// Gets or sets the unique identifier for the storage of the <see cref="StochasticSoilProfile"/>.
+        /// </summary>
+        public long StorageId { get; set; }
+
         public override string ToString()
         {
             return SoilProfile == null ? string.Empty : SoilProfile.ToString();

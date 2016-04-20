@@ -94,11 +94,6 @@ namespace Ringtoets.Piping.Primitives
         public SoilProfileType SoilProfileType { get; private set; }
 
         /// <summary>
-        /// Gets or sets the unique identifier for the storage of the <see cref="PipingSoilProfile"/>.
-        /// </summary>
-        public long StorageId { get; set; }
-
-        /// <summary>
         /// Gets the thickness of the given layer in the <see cref="PipingSoilProfile"/>.
         /// Thickness of a layer is determined by its top and the top of the layer below it.
         /// </summary>

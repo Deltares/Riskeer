@@ -46,17 +46,32 @@ namespace Application.Ringtoets.Storage.Persistors
 
         protected override void LoadChildren(PipingFailureMechanism model, FailureMechanismEntity entity)
         {
-            model.StochasticSoilModels.AddRange(stochasticSoilModelPersistor.LoadModel(entity.StochasticSoilModelEntities));
+            foreach (var soilModelEntity in entity.StochasticSoilModelEntities)
+            {
+                model.StochasticSoilModels.Add(stochasticSoilModelPersistor.LoadModel(soilModelEntity));
+            }
         }
 
         protected override void UpdateChildren(PipingFailureMechanism model, FailureMechanismEntity entity)
         {
-            stochasticSoilModelPersistor.UpdateModel(entity.StochasticSoilModelEntities, model.StochasticSoilModels);
+            foreach (var soilModel in model.StochasticSoilModels)
+            {
+                stochasticSoilModelPersistor.UpdateModel(entity.StochasticSoilModelEntities, soilModel);
+            }
+            stochasticSoilModelPersistor.RemoveUnModifiedEntries(entity.StochasticSoilModelEntities);
         }
 
         protected override void InsertChildren(PipingFailureMechanism model, FailureMechanismEntity entity)
         {
-            stochasticSoilModelPersistor.InsertModel(entity.StochasticSoilModelEntities, model.StochasticSoilModels);
+            foreach (var soilModel in model.StochasticSoilModels)
+            {
+                stochasticSoilModelPersistor.InsertModel(entity.StochasticSoilModelEntities, soilModel);
+            }
+        }
+
+        protected override void PerformChildPostSaveAction()
+        {
+            stochasticSoilModelPersistor.PerformPostSaveActions();
         }
     }
 }
