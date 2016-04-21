@@ -616,7 +616,7 @@ namespace Ringtoets.Integration.Plugin
                     if (validationProblem == null)
                     {
                         var hlcdDirectory = Path.GetDirectoryName(hrdFile);
-                        var activities = nodeData.Parent.HydraulicBoundaryDatabase.Locations.Select(hbl => CreateHydraRingActivity(nodeData.Parent, hbl, hlcdDirectory)).ToList();
+                        var activities = nodeData.Parent.HydraulicBoundaryDatabase.Locations.Select(hbl => CreateHydraRingTargetProbabilityCalculationActivity(nodeData.Parent, hbl, hlcdDirectory)).ToList();
 
                         ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
 
@@ -705,7 +705,8 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private static TargetProbabilityCalculationActivity CreateHydraRingActivity(IAssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation, string hlcdDirectory)
+        private static TargetProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(IAssessmentSection assessmentSection,
+                                                                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation, string hlcdDirectory)
         {
             return HydraRingActivityFactory.Create(
                 string.Format(Resources.RingtoetsGuiPlugin_Calculate_assessment_level_for_location_0_, hydraulicBoundaryLocation.Id),

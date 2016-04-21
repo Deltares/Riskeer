@@ -32,8 +32,101 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
     [TestFixture]
     public class HydraRingActivityFactoryTest
     {
+        #region ExceedanceProbabilityCalculationInput
+
         [Test]
-        public void Create_EmptyName_ThrowsArgumentException()
+        public void Create_ExceedanceProbabilityCalculationEmptyName_ThrowsArgumentException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var exceedanceProbabilityCalculationInput = mocks.StrictMock<ExceedanceProbabilityCalculationInput>(1);
+
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => HydraRingActivityFactory.Create("", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, output => { });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test, "Name should be set.");
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_ExceedanceProbabilityCalculationEmptyHlcdDirectory_ThrowsArgumentException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var exceedanceProbabilityCalculationInput = mocks.StrictMock<ExceedanceProbabilityCalculationInput>(1);
+
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => HydraRingActivityFactory.Create("name", "", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, output => { });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test, "HLCD directory should be set.");
+            Assert.AreEqual("hlcdDirectory", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_ExceedanceProbabilityCalculationEmptyRingId_ThrowsArgumentException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var exceedanceProbabilityCalculationInput = mocks.StrictMock<ExceedanceProbabilityCalculationInput>(1);
+
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => HydraRingActivityFactory.Create("name", "hlcdDirectory", "", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, output => { });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test, "Ring id should be set.");
+            Assert.AreEqual("ringId", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_ExceedanceProbabilityCalculationHandleCalculationOutputActionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var exceedanceProbabilityCalculationInput = mocks.StrictMock<ExceedanceProbabilityCalculationInput>(1);
+
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => HydraRingActivityFactory.Create("name", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test, "Handle calculation output action should be set.");
+            Assert.AreEqual("handleCalculationOutputAction", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_ExceedanceProbabilityCalculationValidParameters_ReturnsExpectedExceedanceProbabilityCalculationActivity()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var exceedanceProbabilityCalculationInput = mocks.StrictMock<ExceedanceProbabilityCalculationInput>(1);
+
+            mocks.ReplayAll();
+
+            // Call
+            var activity = HydraRingActivityFactory.Create("name", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, output => { });
+
+            // Assert
+            Assert.IsInstanceOf<ExceedanceProbabilityCalculationActivity>(activity);
+            Assert.AreEqual("name", activity.Name);
+            Assert.IsNull(activity.ProgressText);
+            Assert.AreEqual(ActivityState.None, activity.State);
+        }
+
+        #endregion
+
+        #region TargetProbabilityCalculationInput
+
+        [Test]
+        public void CreateTargetProbabilityCalculationInput_InputEmptyName_ThrowsArgumentException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -50,7 +143,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         }
 
         [Test]
-        public void Create_EmptyHlcdDirectory_ThrowsArgumentException()
+        public void CreateTargetProbabilityCalculationInput_InputEmptyHlcdDirectory_ThrowsArgumentException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -67,7 +160,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         }
 
         [Test]
-        public void Create_EmptyRingId_ThrowsArgumentException()
+        public void CreateTargetProbabilityCalculationInput_InputEmptyRingId_ThrowsArgumentException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -84,18 +177,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         }
 
         [Test]
-        public void Create_CalculationInputNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => HydraRingActivityFactory.Create("name", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, null, output => { });
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test, "Calculation input should be set.");
-            Assert.AreEqual("targetProbabilityCalculationInput", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_HandleCalculationOutputActionNull_ThrowsArgumentNullException()
+        public void CreateTargetProbabilityCalculationInput_InputHandleCalculationOutputActionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -112,7 +194,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         }
 
         [Test]
-        public void Create_ValidParameters_ReturnsExpectedTargetProbabilityCalculationActivity()
+        public void CreateTargetProbabilityCalculationInput_CalculationInputValidParameters_ReturnsExpectedTargetProbabilityCalculationActivity()
         {
             // Setup
             var mocks = new MockRepository();
@@ -129,5 +211,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
         }
+
+        #endregion
     }
 }

@@ -82,5 +82,53 @@ namespace Ringtoets.HydraRing.Calculation.Activities
 
             return new TargetProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, handleCalculationOutputAction, hydraRingCalculationService);
         }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ExceedanceProbabilityCalculationActivity"/> class.
+        /// </summary>
+        /// <param name="name">The name of the activity.</param>
+        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
+        /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
+        /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
+        /// <param name="exceedanceProbabilityCalculationInput">The input of the calculation to perform.</param>
+        /// <param name="handleCalculationOutputAction">The action to perform after the calculation is performed.</param>
+        /// <exception cref="ArgumentException">Thrown when one of the <c>string</c> arguments is null or empty.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when one of the other arguments is <c>null</c>.</exception>
+        public static ExceedanceProbabilityCalculationActivity Create(string name,
+                                                                      string hlcdDirectory,
+                                                                      string ringId,
+                                                                      HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
+                                                                      HydraRingUncertaintiesType uncertaintiesType,
+                                                                      ExceedanceProbabilityCalculationInput exceedanceProbabilityCalculationInput,
+                                                                      Action<ExceedanceProbabilityCalculationOutput> handleCalculationOutputAction)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Name should be set.", "name");
+            }
+
+            if (string.IsNullOrEmpty(hlcdDirectory))
+            {
+                throw new ArgumentException("HLCD directory should be set.", "hlcdDirectory");
+            }
+
+            if (string.IsNullOrEmpty(ringId))
+            {
+                throw new ArgumentException("Ring id should be set.", "ringId");
+            }
+
+            if (exceedanceProbabilityCalculationInput == null)
+            {
+                throw new ArgumentNullException("exceedanceProbabilityCalculationInput", "Calculation input should be set.");
+            }
+
+            if (handleCalculationOutputAction == null)
+            {
+                throw new ArgumentNullException("handleCalculationOutputAction", "Handle calculation output action should be set.");
+            }
+
+            return new ExceedanceProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, exceedanceProbabilityCalculationInput, handleCalculationOutputAction, hydraRingCalculationService);
+        }
     }
 }
