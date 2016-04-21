@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
 
@@ -29,44 +28,16 @@ namespace Application.Ringtoets.Storage.Converters
     /// Converter for <see cref="FailureMechanismEntity"/> to <see cref="PipingFailureMechanism"/> 
     /// and <see cref="PipingFailureMechanism"/> to <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    public class PipingFailureMechanismConverter : IEntityConverter<PipingFailureMechanism, FailureMechanismEntity>
+    public class PipingFailureMechanismConverter : FailureMechanismConverterBase<PipingFailureMechanism>
     {
-        public PipingFailureMechanism ConvertEntityToModel(FailureMechanismEntity entity)
+        protected override PipingFailureMechanism ConstructFailureMechanism()
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-
-            if (entity.FailureMechanismType != (int) FailureMechanismType.PipingFailureMechanism)
-            {
-                throw new ArgumentException(@"Incorrect modelType", "entity");
-            }
-
-            var failureMechanism = new PipingFailureMechanism
-            {
-                StorageId = entity.FailureMechanismEntityId,
-                IsRelevant = entity.IsRelevant == 1
-            };
-
-            return failureMechanism;
+            return new PipingFailureMechanism();
         }
 
-        public void ConvertModelToEntity(PipingFailureMechanism modelObject, FailureMechanismEntity entity)
+        protected override FailureMechanismType GetFailureMechanismType()
         {
-            if (modelObject == null)
-            {
-                throw new ArgumentNullException("modelObject");
-            }
-
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-
-            entity.FailureMechanismEntityId = modelObject.StorageId;
-            entity.FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism;
-            entity.IsRelevant = modelObject.IsRelevant ? (byte)1 : (byte)0;
+            return FailureMechanismType.PipingFailureMechanism;
         }
     }
 }

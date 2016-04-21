@@ -53,6 +53,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Converters\AssessmentSectionConverter.cs" />
+    <Compile Include="Converters\FailureMechanismConverterBase.cs" />
     <Compile Include="Converters\PipingFailureMechanismConverter.cs" />
     <Compile Include="Converters\HydraulicLocationConverter.cs" />
     <Compile Include="Converters\StochasticSoilProfileConverter.cs" />

@@ -81,6 +81,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\FailureMechanismConverterBaseTest.cs" />
     <Compile Include="Converters\ReferenceLineConverterTest.cs" />
     <Compile Include="Converters\PipingFailureMechanismConverterTest.cs" />
     <Compile Include="Converters\HydraulicLocationConverterTest.cs" />
