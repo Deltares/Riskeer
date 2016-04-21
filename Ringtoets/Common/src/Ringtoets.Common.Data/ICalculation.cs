@@ -21,12 +21,12 @@
 
 using Core.Common.Base;
 
-namespace Ringtoets.Piping.Data
+namespace Ringtoets.Common.Data
 {
     /// <summary>
-    /// A piping calculation related object.
+    /// A calculation related object.
     /// </summary>
-    public interface IPipingCalculationItem : IObservable
+    public interface ICalculation : IObservable
     {
         /// <summary>
         /// Gets the name of this calculation object.
@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.Data
         string Name { get; }
 
         /// <summary>
-        /// Gets a value indicating whether or not  this calculation item contains piping calculation outputs.
+        /// Gets a value indicating whether or not  this calculation item contains calculation outputs.
         /// </summary>
         bool HasOutput { get; }
     }

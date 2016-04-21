@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Primitives;
 
@@ -36,20 +37,23 @@ namespace Ringtoets.Piping.Data.Test
         public void GetPipingCalculations_FromPipingCalculation_ReturnThatCalculationInstance()
         {
             // Setup
-            IPipingCalculationItem calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            ICalculation calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             // Call
             IEnumerable<PipingCalculationScenario> result = calculation.GetPipingCalculations();
 
             // Assert
-            CollectionAssert.AreEqual(new[]{calculation}, result);
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation
+            }, result);
         }
 
         [Test]
         public void GetPipingCalculations_FromPipingCalculationGroupWithoutChildren_ReturnEmpty()
         {
             // Setup
-            IPipingCalculationItem groupWithoutChildren = new PipingCalculationGroup();
+            ICalculation groupWithoutChildren = new PipingCalculationGroup();
 
             // Call
             IEnumerable<PipingCalculation> result = groupWithoutChildren.GetPipingCalculations();
@@ -67,7 +71,7 @@ namespace Ringtoets.Piping.Data.Test
             rootGroup.Children.Add(new PipingCalculationGroup());
             rootGroup.Children.Add(new PipingCalculationGroup());
 
-            IPipingCalculationItem groupsWithoutChildren = rootGroup;
+            ICalculation groupsWithoutChildren = rootGroup;
 
             // Call
             IEnumerable<PipingCalculationScenario> result = groupsWithoutChildren.GetPipingCalculations();
@@ -102,7 +106,7 @@ namespace Ringtoets.Piping.Data.Test
             rootGroup.Children.Add(calculation1);
             rootGroup.Children.Add(subgroup2);
 
-            IPipingCalculationItem groupWithoutChildren = rootGroup;
+            ICalculation groupWithoutChildren = rootGroup;
 
             // Call
             IEnumerable<PipingCalculationScenario> result = groupWithoutChildren.GetPipingCalculations();
@@ -122,7 +126,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetPipingCalculations_FromEmptyEnummerable_ReturnEmpty()
         {
             // Setup
-            IEnumerable<IPipingCalculationItem> emptyEnumerable = Enumerable.Empty<IPipingCalculationItem>();
+            IEnumerable<ICalculation> emptyEnumerable = Enumerable.Empty<ICalculation>();
 
             // Call
             IEnumerable<PipingCalculationScenario> result = emptyEnumerable.GetPipingCalculations();
@@ -139,7 +143,11 @@ namespace Ringtoets.Piping.Data.Test
             var semiProbabilisticInput = new SemiProbabilisticPipingInput();
             var calculation1 = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInput);
             var calculation2 = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInput);
-            IEnumerable<IPipingCalculationItem> calculationArray = new[] { calculation1, calculation2 };
+            IEnumerable<ICalculation> calculationArray = new[]
+            {
+                calculation1,
+                calculation2
+            };
 
             // Call
             IEnumerable<PipingCalculationScenario> result = calculationArray.GetPipingCalculations();
@@ -154,7 +162,11 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var emptyGroup1 = new PipingCalculationGroup();
             var emptyGroup2 = new PipingCalculationGroup();
-            IEnumerable<IPipingCalculationItem> emptyEnumerable = new[] { emptyGroup1, emptyGroup2 };
+            IEnumerable<ICalculation> emptyEnumerable = new[]
+            {
+                emptyGroup1,
+                emptyGroup2
+            };
 
             // Call
             IEnumerable<PipingCalculationScenario> result = emptyEnumerable.GetPipingCalculations();
@@ -192,7 +204,12 @@ namespace Ringtoets.Piping.Data.Test
 
             var emptyRootGroup = new PipingCalculationGroup();
 
-            IEnumerable<IPipingCalculationItem> mixedArray = new IPipingCalculationItem[] { emptyRootGroup, rootGroup, rootcalculation };
+            IEnumerable<ICalculation> mixedArray = new ICalculation[]
+            {
+                emptyRootGroup,
+                rootGroup,
+                rootcalculation
+            };
 
             // Call
             IEnumerable<PipingCalculationScenario> result = mixedArray.GetPipingCalculations();

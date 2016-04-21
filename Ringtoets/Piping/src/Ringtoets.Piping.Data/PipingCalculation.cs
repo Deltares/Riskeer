@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data.Properties;
 
@@ -29,7 +30,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class holds the information which can be made visible in the graphical interface of the application.
     /// </summary>
-    public class PipingCalculation : Observable, ICalculationItem, IPipingCalculationItem
+    public class PipingCalculation : Observable, ICalculationItem, ICalculation
     {
         /// <summary>
         /// Constructs a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.
@@ -55,8 +56,6 @@ namespace Ringtoets.Piping.Data
             InputParameters = new PipingInput(generalInputParameters);
             SemiProbabilisticParameters = semiProbabilisticInputParameters;
         }
-
-        public string Comments { get; set; }
 
         /// <summary>
         /// Gets the parameters required to perform a semi-probabilistic assessment.
@@ -93,6 +92,8 @@ namespace Ringtoets.Piping.Data
                 return Output != null;
             }
         }
+
+        public string Comments { get; set; }
 
         public void ClearOutput()
         {

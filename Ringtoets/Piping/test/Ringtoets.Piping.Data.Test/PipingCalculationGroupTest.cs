@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -39,7 +37,7 @@ namespace Ringtoets.Piping.Data.Test
             var group = new PipingCalculationGroup();
 
             // Assert
-            Assert.IsInstanceOf<IPipingCalculationItem>(group);
+            Assert.IsInstanceOf<ICalculation>(group);
             Assert.IsInstanceOf<Observable>(group);
             Assert.IsTrue(group.IsNameEditable);
             Assert.AreEqual("Nieuwe map", group.Name);
@@ -59,7 +57,7 @@ namespace Ringtoets.Piping.Data.Test
             var group = new PipingCalculationGroup(newName, isNameEditable);
 
             // Assert
-            Assert.IsInstanceOf<IPipingCalculationItem>(group);
+            Assert.IsInstanceOf<ICalculation>(group);
             Assert.IsInstanceOf<Observable>(group);
             Assert.AreEqual(isNameEditable, group.IsNameEditable);
             Assert.AreEqual(newName, group.Name);
@@ -157,8 +155,12 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(2, group.Children.Count);
             Assert.AreSame(calculationToInsert, group.Children[index]);
-            CollectionAssert.AreEquivalent(new[]{calculationToInsert,calculation}, group.Children,
-                "Already existing items should have remained in collection and new item should be added.");
+            CollectionAssert.AreEquivalent(new[]
+            {
+                calculationToInsert,
+                calculation
+            }, group.Children,
+                                           "Already existing items should have remained in collection and new item should be added.");
         }
 
         [Test]
@@ -210,8 +212,12 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual(2, group.Children.Count);
             Assert.AreSame(groupToInsert, group.Children[index]);
-            CollectionAssert.AreEquivalent(new[] { groupToInsert, existingGroup }, group.Children,
-                "Already existing items should have remained in collection and new item should be added.");
+            CollectionAssert.AreEquivalent(new[]
+            {
+                groupToInsert,
+                existingGroup
+            }, group.Children,
+                                           "Already existing items should have remained in collection and new item should be added.");
         }
 
         [Test]
@@ -235,10 +241,10 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var childWithoutOutput = mocks.Stub<IPipingCalculationItem>();
+            var childWithoutOutput = mocks.Stub<ICalculation>();
             childWithoutOutput.Stub(c => c.HasOutput).Return(false);
 
-            var childWithOutput = mocks.Stub<IPipingCalculationItem>();
+            var childWithOutput = mocks.Stub<ICalculation>();
             childWithOutput.Stub(c => c.HasOutput).Return(true);
             mocks.ReplayAll();
 
@@ -259,10 +265,10 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var child1WithoutOutput = mocks.Stub<IPipingCalculationItem>();
+            var child1WithoutOutput = mocks.Stub<ICalculation>();
             child1WithoutOutput.Stub(c => c.HasOutput).Return(false);
 
-            var child2WithoutOutput = mocks.Stub<IPipingCalculationItem>();
+            var child2WithoutOutput = mocks.Stub<ICalculation>();
             child2WithoutOutput.Stub(c => c.HasOutput).Return(false);
             mocks.ReplayAll();
 

@@ -495,7 +495,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
-            IPipingCalculationItem addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
+            ICalculation addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
             Assert.AreEqual("Nieuwe berekening (1)", addedItem.Name,
                             "Because there is already an item with the same default name, '(1)' should be appended.");
             Assert.IsInstanceOf<PipingCalculationScenario>(addedItem);
@@ -540,7 +540,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
-            IPipingCalculationItem addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
+            ICalculation addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
             Assert.AreEqual("Nieuwe map (1)", addedItem.Name,
                             "Because there is already an item with the same default name, '(1)' should be appended.");
             Assert.IsInstanceOf<PipingCalculationGroup>(addedItem);

@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
@@ -433,7 +434,7 @@ namespace Ringtoets.Piping.Forms.Test
                     Name = testName4
                 }
             };
-            IEnumerable<IPipingCalculationItem> result = null;
+            IEnumerable<ICalculation> result = null;
 
             // Call
             Action call = () =>
@@ -511,7 +512,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            IEnumerable<ICalculation> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
                 surfaceLines,
                 availableSoilModels,
                 new GeneralPipingInput(),
@@ -573,7 +574,7 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLine
             };
 
-            IEnumerable<IPipingCalculationItem> result = null;
+            IEnumerable<ICalculation> result = null;
             // Call
             Action call = () =>
             {
@@ -649,7 +650,7 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLine
             };
 
-            IEnumerable<IPipingCalculationItem> result = null; 
+            IEnumerable<ICalculation> result = null; 
 
             // Call
             Action call = () =>
@@ -736,7 +737,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            IEnumerable<ICalculation> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
                 surfaceLines, 
                 availableSoilModels, 
                 new GeneralPipingInput(), 
@@ -845,7 +846,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            IEnumerable<ICalculation> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
                 surfaceLines, 
                 availableSoilModels, 
                 new GeneralPipingInput(), 
@@ -966,7 +967,7 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLine2
             };
 
-            IEnumerable<IPipingCalculationItem> result = null;
+            IEnumerable<ICalculation> result = null;
 
             // Call
             Action call = () =>
@@ -1065,7 +1066,7 @@ namespace Ringtoets.Piping.Forms.Test
             SemiProbabilisticPipingInput semiProbabilisticInput = new SemiProbabilisticPipingInput();
 
             // Call
-            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            IEnumerable<ICalculation> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
                 surfaceLines,
                 availableSoilModels,
                 generalInput,
@@ -1154,7 +1155,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<IPipingCalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            IEnumerable<ICalculation> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
                 surfaceLines,
                 availableSoilModels,
                 new GeneralPipingInput(),

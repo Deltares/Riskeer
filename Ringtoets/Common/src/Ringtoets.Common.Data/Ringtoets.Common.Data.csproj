@@ -52,6 +52,7 @@
     <Compile Include="FailureMechanism\ICalculationScenario.cs" />
     <Compile Include="FailureMechanism\IFailureMechanism.cs" />
     <Compile Include="ICommentable.cs" />
+    <Compile Include="ICalculation.cs" />
     <Compile Include="Probabilistics\DesignVariable.cs" />
     <Compile Include="Probabilistics\IDistribution.cs" />
     <Compile Include="Probabilistics\LognormalDistribution.cs" />

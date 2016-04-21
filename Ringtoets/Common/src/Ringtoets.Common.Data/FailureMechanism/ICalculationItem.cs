@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Data.FailureMechanism
@@ -27,7 +26,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     /// <summary>
     /// A calculation related object.
     /// </summary>
-    public interface ICalculationItem : ICommentable, IObservable
+    public interface ICalculationItem : ICalculation, ICommentable
     {
         /// <summary>
         /// Clears the calculated output.
