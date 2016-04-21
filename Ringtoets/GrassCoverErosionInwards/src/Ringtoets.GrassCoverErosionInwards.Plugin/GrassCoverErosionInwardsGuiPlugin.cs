@@ -22,6 +22,9 @@
 using System.Collections.Generic;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
+
+using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 
@@ -34,11 +37,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
     {
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return new TreeNodeInfo<GrassCoverErosionInwardsFailureMechanismContext>
-            {
-                Text = pipingFailureMechanism => pipingFailureMechanism.WrappedData.Name,
-                Image = pipingFailureMechanism => GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsIcon
-            };
+            yield return new DefaultFailureMechanismTreeNodeInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanism>(null, null, Gui);
         }
     }
 }

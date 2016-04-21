@@ -94,23 +94,30 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var image = info.Image(null);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.FailureMechanismIcon, image);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismIcon, image);
             }
         }
 
         [Test]
-        public void ForeColor_Always_ReturnsGrayText()
+        public void ForeColor_Always_ReturnsControlText()
         {
             // Setup
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                mocks.ReplayAll();
+
+                var failureMechanism = new FailureMechanismPlaceholder("C");
+                var context = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
 
                 // Call
-                var textColor = info.ForeColor(null);
+                var textColor = info.ForeColor(context);
 
                 // Assert
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), textColor);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), textColor);
+                
+                mocks.VerifyAll();
             }
         }
 
@@ -169,78 +176,91 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
-            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-
-            gui.Expect(cmp => cmp.Get(null, treeViewControlMock)).Return(menuBuilderMock);
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
-            mocks.ReplayAll();
-
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var treeView = new TreeViewControl())
             {
-                var info = GetInfo(plugin);
+                var failureMechanism = new FailureMechanismPlaceholder("A");
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var context = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
 
-                plugin.Gui = gui;
+                var gui = mocks.StrictMock<IGui>();
+                var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-                // Call
-                info.ContextMenuStrip(null, null, treeViewControlMock);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+                gui.Expect(cmp => cmp.Get(context, treeView)).Return(menuBuilderMock);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+
+                mocks.ReplayAll();
+
+                using (var plugin = new RingtoetsGuiPlugin())
+                {
+                    var info = GetInfo(plugin);
+
+                    plugin.Gui = gui;
+
+                    // Call
+                    info.ContextMenuStrip(context, assessmentSection, treeView);
+                }
+                // Assert
+                mocks.VerifyAll();
             }
-            // Assert
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ContextMenuStrip_Always_CalculateAllAndClearAllItemDisabled()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var menuBuilderMock = new CustomItemsOnlyContextMenuBuilder();
-
-            gui.Expect(cmp => cmp.Get(null, treeViewControlMock)).Return(menuBuilderMock);
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-
-            mocks.ReplayAll();
-
-            using (var plugin = new RingtoetsGuiPlugin())
+            using (var treeView = new TreeViewControl())
             {
-                var info = GetInfo(plugin);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var failureMechanism = new FailureMechanismPlaceholder("A");
+                var context = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
 
-                plugin.Gui = gui;
+                var menuBuilderMock = new CustomItemsOnlyContextMenuBuilder();
 
-                // Call
-                var menu = info.ContextMenuStrip(null, null, treeViewControlMock);
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(context, treeView)).Return(menuBuilderMock);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 0,
-                                                              RingtoetsCommonFormsResources.Calculate_all,
-                                                              RingtoetsCommonFormsResources.Calculate_all_ToolTip,
-                                                              RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                              false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 1,
-                                                              RingtoetsCommonFormsResources.Clear_all_output,
-                                                              RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
-                                                              RingtoetsCommonFormsResources.ClearIcon,
-                                                              false);
+
+                mocks.ReplayAll();
+
+                using (var plugin = new RingtoetsGuiPlugin())
+                {
+                    plugin.Gui = gui;
+
+                    var info = GetInfo(plugin);
+
+                    // Call
+                    var menu = info.ContextMenuStrip(context, assessmentSection, treeView);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 0,
+                                                                  RingtoetsCommonFormsResources.Calculate_all,
+                                                                  RingtoetsCommonFormsResources.Calculate_all_ToolTip,
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 1,
+                                                                  RingtoetsCommonFormsResources.Clear_all_output,
+                                                                  RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
+                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
+                }
+
+                // Assert
+                mocks.VerifyAll();
             }
-
-            // Assert
-            mocks.VerifyAll();
         }
 
         private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)

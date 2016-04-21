@@ -65,6 +65,10 @@
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>Core.Common.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
       <Name>Ringtoets.Common.Data</Name>

@@ -3,7 +3,6 @@ using NUnit.Framework;
 
 using Rhino.Mocks;
 
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -44,7 +43,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("wrappedFailureMechanism", exception.ParamName);
+            Assert.AreEqual("wrappedData", exception.ParamName);
         }
 
         [Test]

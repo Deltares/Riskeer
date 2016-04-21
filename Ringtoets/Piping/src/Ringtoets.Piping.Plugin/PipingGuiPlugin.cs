@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -101,13 +102,10 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return new TreeNodeInfo<PipingFailureMechanismContext>
-            {
-                Text = pipingFailureMechanism => pipingFailureMechanism.WrappedData.Name,
-                Image = pipingFailureMechanism => PipingFormsResources.PipingIcon,
-                ContextMenuStrip = FailureMechanismContextMenuStrip,
-                ChildNodeObjects = FailureMechanismChildNodeObjects,
-            };
+            yield return new DefaultFailureMechanismTreeNodeInfo<PipingFailureMechanismContext, PipingFailureMechanism>(
+                FailureMechanismChildNodeObjects,
+                FailureMechanismContextMenuStrip,
+                Gui);
 
             yield return new TreeNodeInfo<PipingCalculationContext>
             {

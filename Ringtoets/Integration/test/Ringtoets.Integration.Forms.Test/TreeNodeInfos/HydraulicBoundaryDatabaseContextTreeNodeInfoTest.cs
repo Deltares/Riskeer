@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
+
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-using NUnit.Extensions.Forms;
+
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -178,7 +177,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 const string expectedItemText = "&Toetspeilen berekenen";
                 const string expectedItemTooltip = "Er is geen hydraulische randvoorwaarden database beschikbaar om de toetspeilen te berekenen.";
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsFormsResources.FailureMechanismIcon, false);
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon, false);
             }
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
@@ -213,7 +212,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 const string expectedItemText = "&Toetspeilen berekenen";
                 const string expectedItemTooltip = "Bereken de toetspeilen";
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsFormsResources.FailureMechanismIcon);
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon);
             }
             // Assert
             mocks.VerifyAll(); // Expect no calls on arguments

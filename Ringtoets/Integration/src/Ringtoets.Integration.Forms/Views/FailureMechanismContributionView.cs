@@ -264,10 +264,9 @@ namespace Ringtoets.Integration.Forms.Views
             var isRelevantColumn = new DataGridViewCheckBoxColumn
             {
                 DataPropertyName = isRelevantName,
-                HeaderText = "Algemeen filter",
+                HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_RelevancyFilter,
                 Name = string.Format(columnNameFormat, isRelevantName),
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader,
-                ReadOnly = true
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
             };
 
             var assessmentName = TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Assessment);

@@ -66,6 +66,7 @@
     <Compile Include="TreeNodeInfos\AssessmentSectionTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\DisabledFailureMechanismTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismContributionContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismPlaceholderTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismSectionsContextTreeNodeInfoTest.cs" />

@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             // Assert
             Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContext), info.TagType);
-            Assert.IsNull(info.ForeColor);
+            Assert.IsNotNull(info.ForeColor);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);

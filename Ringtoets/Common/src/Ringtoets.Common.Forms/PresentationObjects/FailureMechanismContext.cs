@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System;
+
+using Core.Common.Controls.PresentationObjects;
+
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -28,7 +31,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for a <see cref="IFailureMechanism"/> instance.
     /// </summary>
-    public abstract class FailureMechanismContext<T> where T : IFailureMechanism
+    public abstract class FailureMechanismContext<T> : WrappedObjectContextBase<T> where T : IFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismContext{T}"/> class.
@@ -36,66 +39,24 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="parent"/> are <c>null</c>.</exception>
-        protected FailureMechanismContext(T wrappedFailureMechanism, IAssessmentSection parent)
+        protected FailureMechanismContext(T wrappedFailureMechanism, IAssessmentSection parent) : base(wrappedFailureMechanism)
         {
-            AssertInputsAreNotNull(wrappedFailureMechanism, parent);
+            AssertInputsAreNotNull(parent);
 
-            WrappedData = wrappedFailureMechanism;
             Parent = parent;
         }
 
         /// <summary>
-        /// Gets the parent of <see cref="WrappedData"/>.
+        /// Gets the parent of <see cref="WrappedObjectContextBase{T}.WrappedData"/>.
         /// </summary>
         public IAssessmentSection Parent { get; private set; }
 
-        /// <summary>
-        /// Gets the wrapped failure mechanism.
-        /// </summary>
-        public T WrappedData { get; private set; }
-
-        private void AssertInputsAreNotNull(T wrappedFailureMechanism, IAssessmentSection parent)
+        private void AssertInputsAreNotNull(IAssessmentSection parent)
         {
-            if (wrappedFailureMechanism == null)
-            {
-                throw new ArgumentNullException("wrappedFailureMechanism", "Failure mechanism cannot be null.");
-            }
-
             if (parent == null)
             {
                 throw new ArgumentNullException("parent", "The assessment section cannot be null.");
             }
         }
-
-        #region Equals implementation
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-            return Equals((FailureMechanismContext<T>) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return WrappedData.GetHashCode();
-        }
-
-        private bool Equals(FailureMechanismContext<T> other)
-        {
-            return WrappedData.Equals(other.WrappedData);
-        }
-
-        #endregion
     }
 }

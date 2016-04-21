@@ -26,6 +26,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -34,12 +35,15 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.IO.Exceptions;
+
 using log4net;
+
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Placeholder;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -58,6 +62,7 @@ using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -167,7 +172,7 @@ namespace Ringtoets.Integration.Plugin
                 Text = assessmentSection => assessmentSection.Name,
                 Image = assessmentSection => RingtoetsFormsResources.AssessmentSectionFolderIcon,
                 EnsureVisibleOnCreate = assessmentSection => true,
-                ChildNodeObjects = assessmentSectionChildNodeObjects,
+                ChildNodeObjects = AssessmentSectionChildNodeObjects,
                 ContextMenuStrip = AssessmentSectionContextMenuStrip,
                 CanRename = (assessmentSection, parentData) => true,
                 OnNodeRenamed = AssessmentSectionOnNodeRenamed,
@@ -186,14 +191,10 @@ namespace Ringtoets.Integration.Plugin
                                    Gui.Get(nodeData, treeViewControl).AddImportItem().Build()
             };
 
-            yield return new TreeNodeInfo<FailureMechanismPlaceholderContext>
-            {
-                Text = failureMechanismPlaceholder => failureMechanismPlaceholder.WrappedData.Name,
-                Image = failureMechanismPlaceholder => RingtoetsFormsResources.FailureMechanismIcon,
-                ForeColor = failureMechanismPlaceholder => Color.FromKnownColor(KnownColor.GrayText),
-                ChildNodeObjects = FailureMechanismPlaceholderChildNodeObjects,
-                ContextMenuStrip = FailureMechanismPlaceholderContextMenuStrip
-            };
+            yield return new DefaultFailureMechanismTreeNodeInfo<FailureMechanismPlaceholderContext, FailureMechanismPlaceholder>(
+                FailureMechanismPlaceholderChildNodeObjects,
+                FailureMechanismPlaceholderContextMenuStrip,
+                Gui);
 
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
             {
@@ -379,7 +380,7 @@ namespace Ringtoets.Integration.Plugin
 
         # region assessmentSection
 
-        private object[] assessmentSectionChildNodeObjects(IAssessmentSection nodeData)
+        private object[] AssessmentSectionChildNodeObjects(IAssessmentSection nodeData)
         {
             var childNodes = new List<object>
             {
@@ -389,7 +390,7 @@ namespace Ringtoets.Integration.Plugin
                 new CommentContext<ICommentable>(nodeData)
             };
 
-            var failureMechanismContexts = WrapFailureMechanismsInContexts(nodeData);
+            IEnumerable<object> failureMechanismContexts = WrapFailureMechanismsInContexts(nodeData);
             childNodes.AddRange(failureMechanismContexts);
 
             return childNodes.ToArray();
@@ -429,7 +430,7 @@ namespace Ringtoets.Integration.Plugin
 
         private void AssessmentSectionOnNodeRemoved(IAssessmentSection nodeData, object parentNodeData)
         {
-            var parentProject = (Project) parentNodeData;
+            var parentProject = (Project)parentNodeData;
 
             parentProject.Items.Remove(nodeData);
             parentProject.NotifyObservers();
@@ -610,7 +611,7 @@ namespace Ringtoets.Integration.Plugin
             var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.DesignWaterLevel_Calculate,
                 RingtoetsFormsResources.DesignWaterLevel_Calculate_ToolTip,
-                RingtoetsFormsResources.FailureMechanismIcon,
+                RingtoetsCommonFormsResources.FailureMechanismIcon,
                 (sender, args) =>
                 {
                     var hrdFile = nodeData.Parent.HydraulicBoundaryDatabase.FilePath;
@@ -715,7 +716,7 @@ namespace Ringtoets.Integration.Plugin
                 assessmentSection.Name, // TODO: Provide name of reference line instead
                 HydraRingTimeIntegrationSchemeType.FBC,
                 HydraRingUncertaintiesType.All,
-                new AssessmentLevelCalculationInput((int) hydraulicBoundaryLocation.Id, assessmentSection.FailureMechanismContribution.Norm),
+                new AssessmentLevelCalculationInput((int)hydraulicBoundaryLocation.Id, assessmentSection.FailureMechanismContribution.Norm),
                 output => { ParseHydraRingOutput(hydraulicBoundaryLocation, output); });
         }
 
