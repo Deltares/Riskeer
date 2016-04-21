@@ -129,15 +129,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void Detach_DetachNonAttachedObserver_ThrowsNoException()
+        public void Detach_DetachNonAttachedObserver_DoesNotThrowException()
         {
             // Setup
             var observer = mockRepository.StrictMock<IObserver>();
+            mockRepository.ReplayAll();
 
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call & Assert
             grassCoverErosionInwardsFailureMechanism.Detach(observer);
+            mockRepository.VerifyAll();
         }
     }
 }

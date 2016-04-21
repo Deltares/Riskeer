@@ -27,6 +27,9 @@ using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInward
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin
 {
+    /// <summary>
+    /// The GUI plug-in for the <see cref="Ringtoets.GrassCoverErosionInwards.Data.GrassCoverErosionInwardsFailureMechanism"/>.
+    /// </summary>
     public class GrassCoverErosionInwardsGuiPlugin : GuiPlugin
     {
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()

@@ -49,14 +49,9 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
+    [TestFixture]
     public class PipingFailureMechanismTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuAddFolderIndex = 1;
-        private const int contextMenuAddCalculationIndex = 2;
-        private const int contextMenuValidateAllIndex = 4;
-        private const int contextMenuCalculateAllIndex = 5;
-        private const int contextMenuClearIndex = 6;
-
         private MockRepository mocks;
         private PipingGuiPlugin plugin;
         private TreeNodeInfo info;
@@ -140,7 +135,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var inputsFolder = (CategoryTreeFolder) children[0];
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
-            
+
             Assert.AreEqual(4, inputsFolder.Contents.Count);
             var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
             CollectionAssert.AreEqual(pipingFailureMechanism.Sections, failureMechanismSectionsContext.WrappedData);
@@ -169,7 +164,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Uitvoer", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext)outputsFolder.Contents[0];
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext) outputsFolder.Contents[0];
             Assert.AreSame(pipingFailureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
             mocks.VerifyAll();
@@ -644,5 +639,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             mocks.VerifyAll();
         }
+
+        private const int contextMenuAddFolderIndex = 1;
+        private const int contextMenuAddCalculationIndex = 2;
+        private const int contextMenuValidateAllIndex = 4;
+        private const int contextMenuCalculateAllIndex = 5;
+        private const int contextMenuClearIndex = 6;
     }
 }

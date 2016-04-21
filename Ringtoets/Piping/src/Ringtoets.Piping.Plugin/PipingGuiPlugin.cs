@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
@@ -50,6 +49,9 @@ using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin
 {
+    /// <summary>
+    /// The GUI plug-in for the <see cref="PipingFailureMechanism"/>.
+    /// </summary>
     public class PipingGuiPlugin : GuiPlugin
     {
         public override IRibbonCommandHandler RibbonCommandHandler

@@ -26,6 +26,9 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
 {
+    /// <summary>
+    /// This class is a presentation object for an instance of <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
+    /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismContext : FailureMechanismContext<GrassCoverErosionInwardsFailureMechanism>
     {
         /// <summary>
