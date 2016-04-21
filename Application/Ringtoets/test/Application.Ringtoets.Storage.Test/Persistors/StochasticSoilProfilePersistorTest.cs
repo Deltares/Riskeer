@@ -122,6 +122,46 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
+        public void LoadModel_DifferentStochasticProfileEntitiesWithSameSoilProfileEntity_ReturnStochasticProfileWithSameSoilProfile()
+        {
+            // Setup
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
+            var persistor = new StochasticSoilProfilePersistor(ringtoetsEntitiesMock);
+
+            
+            var soilProfileEntity = new SoilProfileEntity
+            {
+                SoilLayerEntities = new List<SoilLayerEntity>
+                {
+                    new SoilLayerEntity()
+                }
+            };
+
+            var firstStochasticProfileEntity = new StochasticSoilProfileEntity
+            {
+                Probability = Convert.ToDecimal(1.0),
+                SoilProfileEntity = soilProfileEntity
+            };
+            var secondStochasticProfileEntity = new StochasticSoilProfileEntity
+            {
+                Probability = Convert.ToDecimal(1.0),
+                SoilProfileEntity = soilProfileEntity
+            };
+
+            StochasticSoilProfile firstModel = persistor.LoadModel(firstStochasticProfileEntity);
+
+            // Call
+            StochasticSoilProfile secondModel = persistor.LoadModel(secondStochasticProfileEntity);
+
+            // Assert
+            Assert.AreSame(firstModel.SoilProfile, secondModel.SoilProfile);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void InsertModel_NullParentNavigationProperty_ThrowsArgumentNullException()
         {
             // Setup
@@ -194,6 +234,48 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var parentNavigationPropertyList = parentNavigationProperty.ToList();
             var entity = parentNavigationPropertyList[1];
             Assert.AreEqual(storageId, entity.StochasticSoilProfileEntityId);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void InsertModel_DifferentStochasticProfileWithSameSoilProfile_ReturnStochasticProfileEntityWithSameSoilProfileEntity()
+        {
+            // Setup
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
+            var persistor = new StochasticSoilProfilePersistor(ringtoetsEntitiesMock);
+
+            const long storageId = 1234L;
+
+            IList<StochasticSoilProfileEntity> parentNavigationProperty = new List<StochasticSoilProfileEntity>();
+
+            var pipingSoilProfile = new TestPipingSoilProfile();
+            StochasticSoilProfile firstSoilProfile = new StochasticSoilProfile(0.1, SoilProfileType.SoilProfile1D, -1)
+            {
+                StorageId = storageId,
+                SoilProfile = pipingSoilProfile
+            };
+
+            StochasticSoilProfile secondSoilProfile = new StochasticSoilProfile(0.1, SoilProfileType.SoilProfile1D, -1)
+            {
+                StorageId = storageId,
+                SoilProfile = pipingSoilProfile
+            };
+
+            persistor.InsertModel(parentNavigationProperty, firstSoilProfile);
+
+            // Call
+            persistor.InsertModel(parentNavigationProperty, secondSoilProfile);
+
+            // Assert
+            Assert.AreEqual(2, parentNavigationProperty.Count);
+            var parentNavigationPropertyList = parentNavigationProperty.ToArray();
+            var firstStochasticProfileEntity = parentNavigationPropertyList[0];
+            var secondStochasticProfileEntity = parentNavigationPropertyList[1];
+
+            Assert.AreSame(firstStochasticProfileEntity.SoilProfileEntity, secondStochasticProfileEntity.SoilProfileEntity);
 
             mockRepository.VerifyAll();
         }
@@ -414,8 +496,6 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         public void UpdateModel_SingleEntityInParentNavigationPropertySingleStochasticSoilProfileWithoutStorageId_DbSetCleared()
         {
             // Setup
-            const long storageId = 0L; // Newly inserted entities have Id = 0 untill they are saved
-
             var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
             mockRepository.ReplayAll();
 

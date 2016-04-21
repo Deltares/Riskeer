@@ -27,7 +27,9 @@ using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
+using Core.Common.Utils;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Persistors
 {
@@ -38,6 +40,9 @@ namespace Application.Ringtoets.Storage.Persistors
         private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> insertedList = new Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile>();
         private readonly ICollection<StochasticSoilProfileEntity> modifiedList = new List<StochasticSoilProfileEntity>();
         private readonly StochasticSoilProfileConverter stochasticSoilProfileConverter = new StochasticSoilProfileConverter();
+
+        private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> loadedProfiles;
+        private readonly Dictionary<PipingSoilProfile, SoilProfileEntity> savedProfiles; 
 
         /// <summary>
         /// New instance of <see cref="StochasticSoilProfilePersistor"/>.
@@ -51,6 +56,8 @@ namespace Application.Ringtoets.Storage.Persistors
                 throw new ArgumentNullException("ringtoetsContext");
             }
             stochasticSoilProfileSet = ringtoetsContext.StochasticSoilProfileEntities;
+            loadedProfiles = new Dictionary<SoilProfileEntity, PipingSoilProfile>(new ReferenceEqualityComparer<SoilProfileEntity>());
+            savedProfiles = new Dictionary<PipingSoilProfile, SoilProfileEntity>(new ReferenceEqualityComparer<PipingSoilProfile>());
         }
 
         /// <summary>
@@ -64,7 +71,17 @@ namespace Application.Ringtoets.Storage.Persistors
             {
                 throw new ArgumentNullException("entity");
             }
-            return stochasticSoilProfileConverter.ConvertEntityToModel(entity);
+
+            var model = stochasticSoilProfileConverter.ConvertEntityToModel(entity);
+            if (loadedProfiles.ContainsKey(entity.SoilProfileEntity))
+            {
+                model.SoilProfile = loadedProfiles[entity.SoilProfileEntity];
+            }
+            else
+            {
+                loadedProfiles[entity.SoilProfileEntity] = model.SoilProfile;
+            }
+            return model;
         }
 
         /// <summary>
@@ -149,8 +166,17 @@ namespace Application.Ringtoets.Storage.Persistors
 
         private void InsertStochasticSoilProfile(ICollection<StochasticSoilProfileEntity> parentNavigationProperty, StochasticSoilProfile stochasticSoilProfile)
         {
-            var entity = new StochasticSoilProfileEntity();
+            StochasticSoilProfileEntity entity = new StochasticSoilProfileEntity();
             stochasticSoilProfileConverter.ConvertModelToEntity(stochasticSoilProfile, entity);
+
+            if (savedProfiles.ContainsKey(stochasticSoilProfile.SoilProfile))
+            {
+                entity.SoilProfileEntity = savedProfiles[stochasticSoilProfile.SoilProfile];
+            }
+            else
+            {
+                savedProfiles[stochasticSoilProfile.SoilProfile] = entity.SoilProfileEntity;
+            }
             parentNavigationProperty.Add(entity);
             insertedList.Add(entity, stochasticSoilProfile);
         }
