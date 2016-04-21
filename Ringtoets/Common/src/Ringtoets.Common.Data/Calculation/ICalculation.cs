@@ -19,28 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Data;
+using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.Common.Data.FailureMechanism
+namespace Ringtoets.Common.Data.Calculation
 {
     /// <summary>
-    /// Defines a calculation scenario.
+    /// A calculation related object.
     /// </summary>
-    public interface ICalculationScenario : ICalculationItem
+    public interface ICalculation : ICalculationItem, ICommentable
     {
         /// <summary>
-        /// Gets or sets whether this scenario is relevant or not.
+        /// Clears the calculated output.
         /// </summary>
-        bool IsRelevant { get; set; }
+        void ClearOutput();
 
         /// <summary>
-        /// Gets or sets the contribution of the scenario.
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> assessment level.
         /// </summary>
-        RoundedDouble Contribution { get; set; }
-
-        /// <summary>
-        /// Gets the probability of the scenario.
-        /// </summary>
-        RoundedDouble? Probability { get; }
+        void ClearHydraulicBoundaryLocation();
     }
 }

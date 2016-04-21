@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.FailureMechanism
@@ -80,7 +81,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
         public string Name { get; private set; }
 
-        public abstract IEnumerable<ICalculationItem> CalculationItems { get; }
+        public abstract IEnumerable<ICalculation> Calculations { get; }
 
         public IEnumerable<FailureMechanismSection> Sections
         {

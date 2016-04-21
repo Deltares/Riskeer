@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.Base;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -46,7 +47,7 @@ namespace Ringtoets.Piping.Data
             CalculationsGroup = new PipingCalculationGroup(PipingDataResources.PipingFailureMechanism_Calculations_DisplayName, false);
         }
 
-        public override IEnumerable<ICalculationItem> CalculationItems
+        public override IEnumerable<ICalculation> Calculations
         {
             get
             {

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
@@ -36,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public GrassCoverErosionInwardsFailureMechanism()
             : base(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName) {}
 
-        public override IEnumerable<ICalculationItem> CalculationItems
+        public override IEnumerable<ICalculation> Calculations
         {
             get
             {

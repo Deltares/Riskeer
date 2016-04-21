@@ -24,6 +24,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -37,7 +38,7 @@ namespace Ringtoets.Piping.Data.Test
             var group = new PipingCalculationGroup();
 
             // Assert
-            Assert.IsInstanceOf<ICalculation>(group);
+            Assert.IsInstanceOf<ICalculationItem>(group);
             Assert.IsInstanceOf<Observable>(group);
             Assert.IsTrue(group.IsNameEditable);
             Assert.AreEqual("Nieuwe map", group.Name);
@@ -57,7 +58,7 @@ namespace Ringtoets.Piping.Data.Test
             var group = new PipingCalculationGroup(newName, isNameEditable);
 
             // Assert
-            Assert.IsInstanceOf<ICalculation>(group);
+            Assert.IsInstanceOf<ICalculationItem>(group);
             Assert.IsInstanceOf<Observable>(group);
             Assert.AreEqual(isNameEditable, group.IsNameEditable);
             Assert.AreEqual(newName, group.Name);
@@ -241,10 +242,10 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var childWithoutOutput = mocks.Stub<ICalculation>();
+            var childWithoutOutput = mocks.Stub<ICalculationItem>();
             childWithoutOutput.Stub(c => c.HasOutput).Return(false);
 
-            var childWithOutput = mocks.Stub<ICalculation>();
+            var childWithOutput = mocks.Stub<ICalculationItem>();
             childWithOutput.Stub(c => c.HasOutput).Return(true);
             mocks.ReplayAll();
 
@@ -265,10 +266,10 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var mocks = new MockRepository();
-            var child1WithoutOutput = mocks.Stub<ICalculation>();
+            var child1WithoutOutput = mocks.Stub<ICalculationItem>();
             child1WithoutOutput.Stub(c => c.HasOutput).Return(false);
 
-            var child2WithoutOutput = mocks.Stub<ICalculation>();
+            var child2WithoutOutput = mocks.Stub<ICalculationItem>();
             child2WithoutOutput.Stub(c => c.HasOutput).Return(false);
             mocks.ReplayAll();
 

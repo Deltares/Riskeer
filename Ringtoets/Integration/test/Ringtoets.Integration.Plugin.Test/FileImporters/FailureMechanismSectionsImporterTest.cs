@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
@@ -636,7 +637,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         {
             public Simple() : base("Stubbed name") {}
 
-            public override IEnumerable<ICalculationItem> CalculationItems
+            public override IEnumerable<ICalculation> Calculations
             {
                 get
                 {

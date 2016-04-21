@@ -28,6 +28,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
 
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -353,7 +354,7 @@ namespace Ringtoets.Integration.Forms.Views
                 IFailureMechanism failureMechanism = allFailureMechanisms[i];
                 if (originalFailureMechanismContributions[i] != failureMechanism.Contribution)
                 {
-                    foreach (ICalculationItem calculation in failureMechanism.CalculationItems)
+                    foreach (ICalculation calculation in failureMechanism.Calculations)
                     {
                         calculation.ClearOutput();
                         calculation.NotifyObservers();

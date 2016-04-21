@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Properties;
 
@@ -34,9 +35,9 @@ namespace Ringtoets.Common.Data.Contribution
         /// <summary>
         /// Creates a new instance of <see cref="OtherFailureMechanism"/>.
         /// </summary>
-        public OtherFailureMechanism() : base(Resources.OtherFailureMechanism_DisplayName) { }
+        public OtherFailureMechanism() : base(Resources.OtherFailureMechanism_DisplayName) {}
 
-        public override IEnumerable<ICalculationItem> CalculationItems
+        public override IEnumerable<ICalculation> Calculations
         {
             get
             {

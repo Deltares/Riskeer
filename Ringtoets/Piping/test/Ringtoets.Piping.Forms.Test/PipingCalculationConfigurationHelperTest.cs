@@ -26,8 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -102,7 +101,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Call
             IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
-                surfaceLine, 
+                surfaceLine,
                 availableSoilModels);
 
             // Assert
@@ -154,7 +153,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Call
             IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
-                null, 
+                null,
                 availableSoilModels);
 
             // Assert
@@ -175,7 +174,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Call
             IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
-                surfaceLine, 
+                surfaceLine,
                 Enumerable.Empty<StochasticSoilModel>());
 
             // Assert
@@ -208,7 +207,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Call
             IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
-                surfaceLine, 
+                surfaceLine,
                 availableSoilModels);
 
             // Assert
@@ -330,7 +329,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Call
             IEnumerable<StochasticSoilModel> result = PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
-                surfaceLine, 
+                surfaceLine,
                 availableSoilModels);
 
             // Assert
@@ -344,13 +343,13 @@ namespace Ringtoets.Piping.Forms.Test
 
         #endregion
 
-        #region GenerateCalculationsStructure
+        #region GenerateCalculationItemsStructure
 
         [Test]
-        public void GenerateCalculationsStructure_WithoutSurfaceLines_ThrowsArgumentNullException()
+        public void GenerateCalculationItemsStructure_WithoutSurfaceLines_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 null,
                 Enumerable.Empty<StochasticSoilModel>(),
                 new GeneralPipingInput(),
@@ -362,10 +361,10 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationsStructure_WithoutSoilModels_ThrowsArgumentNullException()
+        public void GenerateCalculationItemsStructure_WithoutSoilModels_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                 null,
                 new GeneralPipingInput(),
@@ -377,10 +376,10 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationsStructure_WithoutGeneralInput_ThrowsArgumentNullException()
+        public void GenerateCalculationItemsStructure_WithoutGeneralInput_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                 Enumerable.Empty<StochasticSoilModel>(),
                 null,
@@ -392,10 +391,10 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationsStructure_WithoutSemiProbabilisticInput_ThrowsArgumentNullException()
+        public void GenerateCalculationItemsStructure_WithoutSemiProbabilisticInput_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            TestDelegate test = () => PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                 Enumerable.Empty<StochasticSoilModel>(),
                 new GeneralPipingInput(),
@@ -407,7 +406,7 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationsStructure_WithSurfaceLinesWithEmptySoilModels_LogFourWanings()
+        public void GenerateCalculationItemsStructure_WithSurfaceLinesWithEmptySoilModels_LogFourWanings()
         {
             // Setup
             const string testName1 = "group1";
@@ -434,12 +433,12 @@ namespace Ringtoets.Piping.Forms.Test
                     Name = testName4
                 }
             };
-            IEnumerable<ICalculation> result = null;
+            IEnumerable<ICalculationItem> result = null;
 
             // Call
             Action call = () =>
             {
-                result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+                result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                     ringtoetsPipingSurfaceLines,
                     Enumerable.Empty<StochasticSoilModel>(),
                     new GeneralPipingInput(),
@@ -460,7 +459,7 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationsStructure_SurfaceLineIntersectingSoilModel_ReturnOneGroupWithTwoCalculations()
+        public void GenerateCalculationItemsStructure_SurfaceLineIntersectingSoilModel_ReturnOneGroupWithTwoCalculations()
         {
             // Setup
             var soilProfile1 = new StochasticSoilProfile(0.3, SoilProfileType.SoilProfile1D, 1)
@@ -512,7 +511,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<ICalculation> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            IEnumerable<ICalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 surfaceLines,
                 availableSoilModels,
                 new GeneralPipingInput(),
@@ -526,15 +525,15 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(2, calculationGroup.Children.Count);
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup.Children, typeof(PipingCalculationScenario));
 
-            var pipingCalculationScenario1 = (PipingCalculationScenario)calculationGroup.Children[0];
-            Assert.AreEqual((RoundedDouble)soilProfile1.Probability, pipingCalculationScenario1.Contribution);
+            var pipingCalculationScenario1 = (PipingCalculationScenario) calculationGroup.Children[0];
+            Assert.AreEqual((RoundedDouble) soilProfile1.Probability, pipingCalculationScenario1.Contribution);
 
             var calculationInput1 = pipingCalculationScenario1.InputParameters;
             Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput1.SurfaceLine);
 
-            var pipingCalculationScenario2 = (PipingCalculationScenario)calculationGroup.Children[1];
-            Assert.AreEqual((RoundedDouble)soilProfile2.Probability, pipingCalculationScenario2.Contribution);
+            var pipingCalculationScenario2 = (PipingCalculationScenario) calculationGroup.Children[1];
+            Assert.AreEqual((RoundedDouble) soilProfile2.Probability, pipingCalculationScenario2.Contribution);
 
             var calculationInput2 = pipingCalculationScenario2.InputParameters;
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
@@ -542,7 +541,7 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationsStructure_NoSoilProfiles_LogWarning()
+        public void GenerateCalculationItemsStructure_NoSoilProfiles_LogWarning()
         {
             // Setup
             var soilModel = new StochasticSoilModel(1, "A", "B");
@@ -574,11 +573,11 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLine
             };
 
-            IEnumerable<ICalculation> result = null;
+            IEnumerable<ICalculationItem> result = null;
             // Call
             Action call = () =>
             {
-                result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+                result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                     surfaceLines, availableSoilModels,
                     new GeneralPipingInput(),
                     new SemiProbabilisticPipingInput()).ToArray();
@@ -595,7 +594,7 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationsStructure_SoilModelGeometryNotIntersecting_LogWarning()
+        public void GenerateCalculationItemsStructure_SoilModelGeometryNotIntersecting_LogWarning()
         {
             // Setup
             var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
@@ -650,12 +649,12 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLine
             };
 
-            IEnumerable<ICalculation> result = null; 
+            IEnumerable<ICalculationItem> result = null;
 
             // Call
             Action call = () =>
             {
-                result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+                result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                     surfaceLines,
                     availableSoilModels,
                     new GeneralPipingInput(),
@@ -665,7 +664,7 @@ namespace Ringtoets.Piping.Forms.Test
             // Assert
             var expectedMessage = Tuple.Create(
                 string.Format(
-                    "Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.", 
+                    "Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.",
                     testName),
                 LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage);
@@ -673,7 +672,7 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationsStructure_SurfaceLineOverlappingSoilModel_ReturnOneGroupWithProfilesFromBothSoilModels()
+        public void GenerateCalculationItemsStructure_SurfaceLineOverlappingSoilModel_ReturnOneGroupWithProfilesFromBothSoilModels()
         {
             // Setup
             var soilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
@@ -737,10 +736,10 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<ICalculation> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
-                surfaceLines, 
-                availableSoilModels, 
-                new GeneralPipingInput(), 
+            IEnumerable<ICalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+                surfaceLines,
+                availableSoilModels,
+                new GeneralPipingInput(),
                 new SemiProbabilisticPipingInput()).ToArray();
 
             // Assert
@@ -751,15 +750,15 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(2, calculationGroup.Children.Count);
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup.Children, typeof(PipingCalculationScenario));
 
-            var pipingCalculationScenario1 = (PipingCalculationScenario)calculationGroup.Children[0];
-            Assert.AreEqual((RoundedDouble)soilProfile1.Probability, pipingCalculationScenario1.Contribution);
+            var pipingCalculationScenario1 = (PipingCalculationScenario) calculationGroup.Children[0];
+            Assert.AreEqual((RoundedDouble) soilProfile1.Probability, pipingCalculationScenario1.Contribution);
 
             var calculationInput1 = pipingCalculationScenario1.InputParameters;
             Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine, calculationInput1.SurfaceLine);
 
-            var pipingCalculationScenario2 = ((PipingCalculationScenario)calculationGroup.Children[1]);
-            Assert.AreEqual((RoundedDouble)soilProfile2.Probability, pipingCalculationScenario2.Contribution);
+            var pipingCalculationScenario2 = ((PipingCalculationScenario) calculationGroup.Children[1]);
+            Assert.AreEqual((RoundedDouble) soilProfile2.Probability, pipingCalculationScenario2.Contribution);
 
             var calculationInput2 = pipingCalculationScenario2.InputParameters;
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
@@ -767,7 +766,7 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationsStructure_SurfaceLinesEachIntersectingSoilModel_ReturnTwoGroupsWithProfilesFromIntersectingSoilModels()
+        public void GenerateCalculationItemsStructure_SurfaceLinesEachIntersectingSoilModel_ReturnTwoGroupsWithProfilesFromIntersectingSoilModels()
         {
             // Setup
             var soilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
@@ -846,10 +845,10 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<ICalculation> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
-                surfaceLines, 
-                availableSoilModels, 
-                new GeneralPipingInput(), 
+            IEnumerable<ICalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+                surfaceLines,
+                availableSoilModels,
+                new GeneralPipingInput(),
                 new SemiProbabilisticPipingInput()).ToArray();
 
             // Assert
@@ -860,15 +859,15 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(2, calculationGroup1.Children.Count);
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup1.Children, typeof(PipingCalculationScenario));
 
-            var pipingCalculationScenario1 = (PipingCalculationScenario)calculationGroup1.Children[0];
-            Assert.AreEqual((RoundedDouble)soilProfile1.Probability, pipingCalculationScenario1.Contribution);
+            var pipingCalculationScenario1 = (PipingCalculationScenario) calculationGroup1.Children[0];
+            Assert.AreEqual((RoundedDouble) soilProfile1.Probability, pipingCalculationScenario1.Contribution);
 
             var calculationInput1 = pipingCalculationScenario1.InputParameters;
             Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine1, calculationInput1.SurfaceLine);
 
-            var pipingCalculationScenario2 = (PipingCalculationScenario)calculationGroup1.Children[1];
-            Assert.AreEqual((RoundedDouble)soilProfile2.Probability, pipingCalculationScenario1.Contribution);
+            var pipingCalculationScenario2 = (PipingCalculationScenario) calculationGroup1.Children[1];
+            Assert.AreEqual((RoundedDouble) soilProfile2.Probability, pipingCalculationScenario1.Contribution);
 
             var calculationInput2 = pipingCalculationScenario2.InputParameters;
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
@@ -880,8 +879,8 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(1, calculationGroup2.Children.Count);
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup2.Children, typeof(PipingCalculationScenario));
 
-            var pipingCalculationScenario3 = (PipingCalculationScenario)calculationGroup2.Children[0];
-            Assert.AreEqual((RoundedDouble)soilProfile2.Probability, pipingCalculationScenario1.Contribution);
+            var pipingCalculationScenario3 = (PipingCalculationScenario) calculationGroup2.Children[0];
+            Assert.AreEqual((RoundedDouble) soilProfile2.Probability, pipingCalculationScenario1.Contribution);
 
             var calculationInput3 = pipingCalculationScenario3.InputParameters;
             Assert.AreSame(soilProfile2, calculationInput3.StochasticSoilProfile);
@@ -889,7 +888,7 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationsStructure_OneSurfaceLineIntersectingSoilModelOneSurfaceLineNoIntersection_ReturnOneGroupsWithProfilesAndLogOneWarning()
+        public void GenerateCalculationItemsStructure_OneSurfaceLineIntersectingSoilModelOneSurfaceLineNoIntersection_ReturnOneGroupsWithProfilesAndLogOneWarning()
         {
             // Setup
             var soilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
@@ -967,12 +966,12 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLine2
             };
 
-            IEnumerable<ICalculation> result = null;
+            IEnumerable<ICalculationItem> result = null;
 
             // Call
             Action call = () =>
             {
-                result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+                result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                     surfaceLines,
                     availableSoilModels,
                     new GeneralPipingInput(),
@@ -994,21 +993,20 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(2, calculationGroup1.Children.Count);
             CollectionAssert.AllItemsAreInstancesOfType(calculationGroup1.Children, typeof(PipingCalculationScenario));
 
-            var pipingCalculationScenario1 = (PipingCalculationScenario)calculationGroup1.Children[0];
-            Assert.AreEqual((RoundedDouble)soilProfile1.Probability, pipingCalculationScenario1.Contribution);
+            var pipingCalculationScenario1 = (PipingCalculationScenario) calculationGroup1.Children[0];
+            Assert.AreEqual((RoundedDouble) soilProfile1.Probability, pipingCalculationScenario1.Contribution);
 
             var calculationInput1 = pipingCalculationScenario1.InputParameters;
             Assert.AreSame(soilProfile1, calculationInput1.StochasticSoilProfile);
             Assert.AreSame(surfaceLine1, calculationInput1.SurfaceLine);
 
-            var calculationInput2 = ((PipingCalculationScenario)calculationGroup1.Children[1]).InputParameters;
+            var calculationInput2 = ((PipingCalculationScenario) calculationGroup1.Children[1]).InputParameters;
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine1, calculationInput2.SurfaceLine);
-
         }
 
         [Test]
-        public void GenerateCalculationsStructure_Always_CreateCalculationsWithSurfaceLineNameSoilProfileNameGeneralInputAndSemiProbabilisticInput()
+        public void GenerateCalculationItemsStructure_Always_CreateCalculationsWithSurfaceLineNameSoilProfileNameGeneralInputAndSemiProbabilisticInput()
         {
             // Setup
             var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
@@ -1066,7 +1064,7 @@ namespace Ringtoets.Piping.Forms.Test
             SemiProbabilisticPipingInput semiProbabilisticInput = new SemiProbabilisticPipingInput();
 
             // Call
-            IEnumerable<ICalculation> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            IEnumerable<ICalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 surfaceLines,
                 availableSoilModels,
                 generalInput,
@@ -1089,7 +1087,7 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationsStructure_SoilProfileEqualNames_CalculationsGetUniqueName()
+        public void GenerateCalculationItemsStructure_SoilProfileEqualNames_CalculationsGetUniqueName()
         {
             // Setup
             // Setup
@@ -1155,7 +1153,7 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Call
-            IEnumerable<ICalculation> result = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            IEnumerable<ICalculationItem> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 surfaceLines,
                 availableSoilModels,
                 new GeneralPipingInput(),
@@ -1164,9 +1162,9 @@ namespace Ringtoets.Piping.Forms.Test
             // Assert
             var group = result.First(sl => sl.Name == surfaceLine.Name) as PipingCalculationGroup;
             Assert.NotNull(group);
-            var calculationInput1 = (PipingCalculationScenario)group.Children[0];
-            var calculationInput2 = (PipingCalculationScenario)group.Children[1];
-            var calculationInput3 = (PipingCalculationScenario)group.Children[2];
+            var calculationInput1 = (PipingCalculationScenario) group.Children[0];
+            var calculationInput2 = (PipingCalculationScenario) group.Children[1];
+            var calculationInput3 = (PipingCalculationScenario) group.Children[2];
 
             Assert.AreEqual(string.Format("{0} {1}", surfaceLine.Name, soilProfile1.Name), calculationInput1.Name);
             Assert.AreEqual(string.Format("{0} {1} (1)", surfaceLine.Name, soilProfile2.Name), calculationInput2.Name);

@@ -24,11 +24,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Defines extension methods dealing with <see cref="ICalculation"/> instances.
+    /// Defines extension methods dealing with <see cref="ICalculationItem"/> instances.
     /// </summary>
     public static class IPipingCalculationItemExtensions
     {
@@ -36,16 +37,16 @@ namespace Ringtoets.Piping.Data
         /// Recursively enumerates across over the contents of the piping calculation item, 
         /// yielding the piping calculations found within the calculation item.
         /// </summary>
-        /// <param name="calculation">The calculation item to be evaluated.</param>
+        /// <param name="calculationItem">The calculation item to be evaluated.</param>
         /// <returns>Returns all contained piping calculations as an enumerable result.</returns>
-        public static IEnumerable<PipingCalculationScenario> GetPipingCalculations(this ICalculation calculation)
+        public static IEnumerable<PipingCalculationScenario> GetPipingCalculations(this ICalculationItem calculationItem)
         {
-            var calculationScenario = calculation as PipingCalculationScenario;
+            var calculationScenario = calculationItem as PipingCalculationScenario;
             if (calculationScenario != null)
             {
                 yield return calculationScenario;
             }
-            var group = calculation as PipingCalculationGroup;
+            var group = calculationItem as PipingCalculationGroup;
             if (group != null)
             {
                 foreach (PipingCalculationScenario calculationInGroup in group.Children.GetPipingCalculations())
@@ -61,7 +62,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="pipingCalculationItems">The calculation items to be evaluated.</param>
         /// <returns>Returns all contained piping calculations as an enumerable result.</returns>
-        public static IEnumerable<PipingCalculationScenario> GetPipingCalculations(this IEnumerable<ICalculation> pipingCalculationItems)
+        public static IEnumerable<PipingCalculationScenario> GetPipingCalculations(this IEnumerable<ICalculationItem> pipingCalculationItems)
         {
             return pipingCalculationItems.SelectMany(GetPipingCalculations);
         }
@@ -69,13 +70,13 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Determines if the surfaceline of a calculation is intersecting with the section reference line.
         /// </summary>
-        /// <param name="calculation">The calculation containing the surface line.</param>
+        /// <param name="calculationItem">The calculation containing the surface line.</param>
         /// <param name="lineSegments">The line segments that defines the reference line.</param>
         /// <returns><c>true</c> when intersecting. <c>false</c> otherwise.</returns>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="lineSegments"/> contains no elements.</exception>
-        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this ICalculation calculation, IEnumerable<Segment2D> lineSegments)
+        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this ICalculationItem calculationItem, IEnumerable<Segment2D> lineSegments)
         {
-            var pipingCalculation = calculation as PipingCalculationScenario;
+            var pipingCalculation = calculationItem as PipingCalculationScenario;
 
             if (pipingCalculation == null)
             {

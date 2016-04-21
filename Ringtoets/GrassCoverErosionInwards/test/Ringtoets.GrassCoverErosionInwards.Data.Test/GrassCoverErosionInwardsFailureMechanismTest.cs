@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // assert
             Assert.IsInstanceOf<FailureMechanismBase>(grassCoverErosionInwardsFailureMechanism);
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, grassCoverErosionInwardsFailureMechanism.Name);
-            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.CalculationItems);
+            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.Calculations);
         }
 
         [Test]

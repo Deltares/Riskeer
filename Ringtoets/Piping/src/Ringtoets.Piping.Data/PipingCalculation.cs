@@ -21,8 +21,7 @@
 
 using System;
 using Core.Common.Base;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
@@ -30,7 +29,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class holds the information which can be made visible in the graphical interface of the application.
     /// </summary>
-    public class PipingCalculation : Observable, ICalculationItem, ICalculation
+    public class PipingCalculation : Observable, ICalculation
     {
         /// <summary>
         /// Constructs a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.

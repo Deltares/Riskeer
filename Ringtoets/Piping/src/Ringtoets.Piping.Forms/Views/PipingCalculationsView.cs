@@ -778,7 +778,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             var dialog = new PipingSurfaceLineSelectionDialog(Parent, pipingFailureMechanism.SurfaceLines);
             dialog.ShowDialog();
-            var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 dialog.SelectedSurfaceLines,
                 pipingFailureMechanism.StochasticSoilModels,
                 pipingFailureMechanism.GeneralInput,

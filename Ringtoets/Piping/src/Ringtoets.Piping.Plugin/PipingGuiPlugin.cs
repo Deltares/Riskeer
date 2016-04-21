@@ -31,7 +31,7 @@ using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -334,7 +334,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static IEnumerable<PipingCalculation> GetAllPipingCalculations(PipingFailureMechanism failureMechanism)
         {
-            return failureMechanism.CalculationItems.OfType<PipingCalculation>();
+            return failureMechanism.Calculations.OfType<PipingCalculation>();
         }
 
         private StrictContextMenuItem CreateCalculateAllItem(PipingFailureMechanism failureMechanism)
@@ -380,7 +380,7 @@ namespace Ringtoets.Piping.Plugin
                 return;
             }
 
-            foreach (ICalculationItem calc in failureMechanism.CalculationItems)
+            foreach (ICalculation calc in failureMechanism.Calculations)
             {
                 calc.ClearOutput();
                 calc.NotifyObservers();
@@ -566,7 +566,7 @@ namespace Ringtoets.Piping.Plugin
         {
             var childNodeObjects = new List<object>();
 
-            foreach (ICalculation item in nodeData.WrappedData.Children)
+            foreach (ICalculationItem item in nodeData.WrappedData.Children)
             {
                 var calculation = item as PipingCalculation;
                 var group = item as PipingCalculationGroup;
@@ -737,7 +737,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void GeneratePipingCalculations(PipingCalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
         {
-            foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationsStructure(surfaceLines, soilModels, generalInput, semiProbabilisticInput))
+            foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput, semiProbabilisticInput))
             {
                 target.Children.Add(group);
             }
@@ -832,10 +832,10 @@ namespace Ringtoets.Piping.Plugin
 
         private bool PipingCalculationGroupContextCanDropOrCanInsert(object draggedData, object targetData)
         {
-            return GetAsICalculation(draggedData) != null && NodesHaveSameParentFailureMechanism(draggedData, targetData);
+            return GetAsICalculationItem(draggedData) != null && NodesHaveSameParentFailureMechanism(draggedData, targetData);
         }
 
-        private static ICalculation GetAsICalculation(object item)
+        private static ICalculationItem GetAsICalculationItem(object item)
         {
             var calculationContext = item as PipingCalculationContext;
             if (calculationContext != null)
@@ -879,16 +879,16 @@ namespace Ringtoets.Piping.Plugin
 
         private void PipingCalculationGroupContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
         {
-            ICalculation calculation = GetAsICalculation(droppedData);
+            ICalculationItem calculationItem = GetAsICalculationItem(droppedData);
             var originalOwnerContext = oldParentData as PipingCalculationGroupContext;
             var target = newParentData as PipingCalculationGroupContext;
 
-            if (calculation != null && originalOwnerContext != null && target != null)
+            if (calculationItem != null && originalOwnerContext != null && target != null)
             {
                 var isMoveWithinSameContainer = ReferenceEquals(originalOwnerContext, target);
 
                 DroppingPipingCalculationInContainerStrategy dropHandler = GetDragDropStrategy(isMoveWithinSameContainer, originalOwnerContext, target);
-                dropHandler.Execute(droppedData, calculation, position, treeViewControl);
+                dropHandler.Execute(droppedData, calculationItem, position, treeViewControl);
             }
         }
 
@@ -904,7 +904,7 @@ namespace Ringtoets.Piping.Plugin
         #region Nested Types: DroppingPipingCalculationInContainerStrategy and implementations
 
         /// <summary>
-        /// Strategy pattern implementation for dealing with drag & dropping a <see cref="ICalculation"/>
+        /// Strategy pattern implementation for dealing with drag & dropping a <see cref="ICalculationItem"/>
         /// onto <see cref="PipingCalculationGroup"/> data.
         /// </summary>
         private abstract class DroppingPipingCalculationInContainerStrategy
@@ -922,26 +922,26 @@ namespace Ringtoets.Piping.Plugin
             /// Perform the drag & drop operation.
             /// </summary>
             /// <param name="draggedData">The dragged data.</param>
-            /// <param name="calculation">The calculation wrapped by <see cref="draggedData"/>.</param>
+            /// <param name="calculationItem">The calculation item wrapped by <see cref="draggedData"/>.</param>
             /// <param name="newPosition">The index of the new position within the new owner's collection.</param>
             /// <param name="treeViewControl">The tree view control which is at stake.</param>
-            public virtual void Execute(object draggedData, ICalculation calculation, int newPosition, TreeViewControl treeViewControl)
+            public virtual void Execute(object draggedData, ICalculationItem calculationItem, int newPosition, TreeViewControl treeViewControl)
             {
-                MoveCalculationItemToNewOwner(calculation, newPosition);
+                MoveCalculationItemToNewOwner(calculationItem, newPosition);
 
                 NotifyObservers();
             }
 
             /// <summary>
-            /// Moves the <see cref="ICalculation"/> instance to its new location.
+            /// Moves the <see cref="ICalculationItem"/> instance to its new location.
             /// </summary>
-            /// <param name="calculation">The instance to be relocated.</param>
+            /// <param name="calculationItem">The instance to be relocated.</param>
             /// <param name="position">The index in the new <see cref="PipingCalculationGroup"/>
             /// owner within its <see cref="PipingCalculationGroup.Children"/>.</param>
-            protected void MoveCalculationItemToNewOwner(ICalculation calculation, int position)
+            protected void MoveCalculationItemToNewOwner(ICalculationItem calculationItem, int position)
             {
-                originalOwnerContext.WrappedData.Children.Remove(calculation);
-                target.WrappedData.Children.Insert(position, calculation);
+                originalOwnerContext.WrappedData.Children.Remove(calculationItem);
+                target.WrappedData.Children.Insert(position, calculationItem);
             }
 
             /// <summary>
@@ -954,7 +954,7 @@ namespace Ringtoets.Piping.Plugin
         }
 
         /// <summary>
-        /// Strategy implementation for rearranging the order of an <see cref="ICalculation"/>
+        /// Strategy implementation for rearranging the order of an <see cref="ICalculationItem"/>
         /// within a <see cref="PipingCalculationGroup"/> through a drag & drop action.
         /// </summary>
         private class DroppingPipingCalculationWithinSameContainer : DroppingPipingCalculationInContainerStrategy
@@ -971,7 +971,7 @@ namespace Ringtoets.Piping.Plugin
         }
 
         /// <summary>
-        /// Strategy implementation for moving an <see cref="ICalculation"/> from
+        /// Strategy implementation for moving an <see cref="ICalculationItem"/> from
         /// one <see cref="PipingCalculationGroup"/> to another using a drag & drop action.
         /// </summary>
         private class DroppingPipingCalculationToNewContainer : DroppingPipingCalculationInContainerStrategy
@@ -986,17 +986,17 @@ namespace Ringtoets.Piping.Plugin
             public DroppingPipingCalculationToNewContainer(PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
                 base(originalOwnerContext, target) {}
 
-            public override void Execute(object draggedData, ICalculation calculation, int newPosition, TreeViewControl treeViewControl)
+            public override void Execute(object draggedData, ICalculationItem calculationItem, int newPosition, TreeViewControl treeViewControl)
             {
-                MoveCalculationItemToNewOwner(calculation, newPosition);
+                MoveCalculationItemToNewOwner(calculationItem, newPosition);
 
                 NotifyObservers();
 
                 // Try to start a name edit action when an item with the same name was already present
                 if (target.WrappedData.Children.Except(new[]
                 {
-                    calculation
-                }).Any(c => c.Name.Equals(calculation.Name)))
+                    calculationItem
+                }).Any(c => c.Name.Equals(calculationItem.Name)))
                 {
                     treeViewControl.TryRenameNodeForData(draggedData);
                 }

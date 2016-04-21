@@ -19,14 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
@@ -191,7 +192,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 failureMechanism
             });
-            
+
             mocks.ReplayAll();
 
             // Call
@@ -224,11 +225,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             public Simple() : base("simple failure mechanism") {}
 
-            public override IEnumerable<ICalculationItem> CalculationItems
+            public override IEnumerable<ICalculation> Calculations
             {
                 get
                 {
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
                 }
             }
         }

@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             // Assert
             Assert.AreEqual("Overig", result.Name);
             Assert.IsInstanceOf<FailureMechanismBase>(result);
-            CollectionAssert.IsEmpty(result.CalculationItems);
+            CollectionAssert.IsEmpty(result.Calculations);
         }
     }
 }

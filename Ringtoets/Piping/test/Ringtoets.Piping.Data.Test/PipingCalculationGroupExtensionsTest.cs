@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var failureMechanism = GetFailureMechanismWithSections();
 
-            var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 failureMechanism.SurfaceLines,
                 failureMechanism.StochasticSoilModels,
                 failureMechanism.GeneralInput,
@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var failureMechanism = GetFailureMechanismWithoutSections();
 
-            var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 failureMechanism.SurfaceLines,
                 failureMechanism.StochasticSoilModels,
                 failureMechanism.GeneralInput,
@@ -159,7 +159,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var failureMechanism = GetFailureMechanismWithSections();
 
-            var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 failureMechanism.SurfaceLines,
                 failureMechanism.StochasticSoilModels,
                 failureMechanism.GeneralInput,
@@ -201,7 +201,7 @@ namespace Ringtoets.Piping.Data.Test
 
             var failureMechanism = GetFailureMechanismWithSections();
 
-            var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 failureMechanism.SurfaceLines,
                 failureMechanism.StochasticSoilModels,
                 failureMechanism.GeneralInput,

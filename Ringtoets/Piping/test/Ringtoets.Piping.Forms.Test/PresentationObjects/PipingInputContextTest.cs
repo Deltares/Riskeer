@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var surfaceLines = new[]
             {
                 new RingtoetsPipingSurfaceLine()
@@ -57,12 +57,12 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            var context = new PipingInputContext(calculationItem.InputParameters, calculationItem, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
+            var context = new PipingInputContext(calculation.InputParameters, calculation, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<PipingContext<PipingInput>>(context);
-            Assert.AreSame(calculationItem.InputParameters, context.WrappedData);
-            Assert.AreSame(calculationItem, context.PipingCalculationItem);
+            Assert.AreSame(calculation.InputParameters, context.WrappedData);
+            Assert.AreSame(calculation, context.PipingCalculation);
             Assert.AreSame(failureMechanism, context.PipingFailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             CollectionAssert.AreEqual(surfaceLines, context.AvailablePipingSurfaceLines);
@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var surfaceLines = new[]
             {
                 new RingtoetsPipingSurfaceLine()
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate call = () => new PipingInputContext(calculationItem.InputParameters, calculationItem, surfaceLines, stochasticSoilModels, failureMechanism, null);
+            TestDelegate call = () => new PipingInputContext(calculation.InputParameters, calculation, surfaceLines, stochasticSoilModels, failureMechanism, null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var surfaceLines = new[]
             {
                 new RingtoetsPipingSurfaceLine()
@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new PipingInputContext(calculationItem.InputParameters, calculationItem, surfaceLines, stochasticSoilModels, null, assessmentSection);
+            TestDelegate call = () => new PipingInputContext(calculation.InputParameters, calculation, surfaceLines, stochasticSoilModels, null, assessmentSection);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het piping faalmechanisme mag niet 'null' zijn.");
@@ -158,10 +158,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingInputContext(calculationItem.InputParameters, 
-                                                 calculationItem,
+            var context = new PipingInputContext(calculation.InputParameters,
+                                                 calculation,
                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                  failureMechanism,
@@ -171,7 +171,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             context.Attach(observer);
 
             // Assert
-            calculationItem.InputParameters.NotifyObservers(); // Notification on wrapped object
+            calculation.InputParameters.NotifyObservers(); // Notification on wrapped object
             mocks.VerifyAll(); // Expected UpdateObserver call
         }
 
@@ -184,10 +184,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingInputContext(calculationItem.InputParameters, 
-                                                 calculationItem,
+            var context = new PipingInputContext(calculation.InputParameters,
+                                                 calculation,
                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                  Enumerable.Empty<StochasticSoilModel>(),
                                                  failureMechanism,
@@ -199,7 +199,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             context.Detach(observer);
 
             // Assert
-            calculationItem.InputParameters.NotifyObservers(); // Notification on wrapped object
+            calculation.InputParameters.NotifyObservers(); // Notification on wrapped object
             mocks.VerifyAll(); // Expected no UpdateObserver call
         }
 
@@ -215,7 +215,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingInputContext(calculationItem.InputParameters, 
+            var context = new PipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                  Enumerable.Empty<StochasticSoilModel>(),

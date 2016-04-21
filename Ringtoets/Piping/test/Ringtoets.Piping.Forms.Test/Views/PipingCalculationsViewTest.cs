@@ -32,6 +32,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
@@ -322,7 +323,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             cells = rows[1].Cells;
             Assert.AreEqual(11, cells.Count);
-            Assert.IsTrue((bool)cells[isRelevantColumnIndex].FormattedValue);
+            Assert.IsTrue((bool) cells[isRelevantColumnIndex].FormattedValue);
             Assert.AreEqual(0.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Model E", cells[stochasticSoilModelsColumnIndex].FormattedValue);
@@ -372,7 +373,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingCalculationItem = ((PipingCalculation)((PipingCalculationGroup)pipingCalculationsView.Data).Children[1]);
+            var secondPipingCalculationItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]);
             var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
             applicationSelectionMock.Stub(asm => asm.Selection)
@@ -404,7 +405,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingCalculationItem = ((PipingCalculation)((PipingCalculationGroup)pipingCalculationsView.Data).Children[1]);
+            var secondPipingCalculationItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]);
             var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
             applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
@@ -669,7 +670,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 var selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
 
-                var selectionView = (DataGridView)new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
+                var selectionView = (DataGridView) new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
 
                 selectionView.Rows[0].Cells[0].Value = true;
 
@@ -696,7 +697,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         [Test]
         public void GivenPipingCalculatoinsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_SectionResultScenariosNotUpdated()
         {
-             // Given
+            // Given
             var pipingCalculationsView = ShowPipingCalculationsView();
             var pipingFailureMechanism = GetFailureMechanism();
 
@@ -715,7 +716,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 var selectionDialog = new FormTester(name).TheObject as PipingSurfaceLineSelectionDialog;
 
-                var selectionView = (DataGridView)new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
+                var selectionView = (DataGridView) new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
 
                 selectionView.Rows[0].Cells[0].Value = true;
 
@@ -844,7 +845,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
 
             var data = (PipingCalculationGroup) pipingCalculationView.Data;
-            var pipingCalculation = (PipingCalculationScenario)data.Children.First();
+            var pipingCalculation = (PipingCalculationScenario) data.Children.First();
             var pipingCalculationCounter = 0;
             var pipingCalculationInputCounter = 0;
             var pipingCalculationObserver = new Observer(() => pipingCalculationCounter++);

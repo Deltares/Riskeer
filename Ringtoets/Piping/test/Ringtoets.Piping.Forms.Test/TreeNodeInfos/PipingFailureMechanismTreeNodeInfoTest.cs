@@ -35,7 +35,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -197,7 +197,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             }
 
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
-            dataMock.Stub(dm => dm.CalculationItems).Return(new ICalculationItem[]
+            dataMock.Stub(dm => dm.Calculations).Return(new ICalculation[]
             {
                 pipingCalculation1,
                 pipingCalculation2
@@ -318,7 +318,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
-            dataMock.Stub(dm => dm.CalculationItems).Return(new ICalculationItem[0]);
+            dataMock.Stub(dm => dm.Calculations).Return(new ICalculation[0]);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanismContext = new PipingFailureMechanismContext(dataMock, assessmentSection);
@@ -353,7 +353,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             };
 
             var dataMock = mocks.StrictMock<PipingFailureMechanism>();
-            dataMock.Stub(dm => dm.CalculationItems).Return(new ICalculationItem[]
+            dataMock.Stub(dm => dm.Calculations).Return(new ICalculation[]
             {
                 pipingCalculation
             });
@@ -495,7 +495,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
-            ICalculation addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
+            ICalculationItem addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
             Assert.AreEqual("Nieuwe berekening (1)", addedItem.Name,
                             "Because there is already an item with the same default name, '(1)' should be appended.");
             Assert.IsInstanceOf<PipingCalculationScenario>(addedItem);
@@ -540,7 +540,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
-            ICalculation addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
+            ICalculationItem addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
             Assert.AreEqual("Nieuwe map (1)", addedItem.Name,
                             "Because there is already an item with the same default name, '(1)' should be appended.");
             Assert.IsInstanceOf<PipingCalculationGroup>(addedItem);

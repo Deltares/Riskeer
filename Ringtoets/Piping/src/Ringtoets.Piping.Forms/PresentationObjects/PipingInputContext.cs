@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
@@ -40,26 +40,26 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// Creates a new instance of <see cref="PipingInputContext"/>
         /// </summary>
         /// <param name="pipingInput">The piping input instance wrapped by this context object.</param>
-        /// <param name="calculationItem">The calculation item the <paramref name="pipingInput"/> belongs to.</param>
+        /// <param name="calculation">The calculation item the <paramref name="pipingInput"/> belongs to.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
         /// <param name="pipingFailureMechanism">The failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input parameter is null.</exception>
         public PipingInputContext(PipingInput pipingInput,
-                                  ICalculationItem calculationItem,
+                                  ICalculation calculation,
                                   IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
                                   IEnumerable<StochasticSoilModel> stochasticSoilModels,
                                   PipingFailureMechanism pipingFailureMechanism,
                                   IAssessmentSection assessmentSection)
             : base(pipingInput, surfaceLines, stochasticSoilModels, assessmentSection)
         {
-            if (calculationItem == null)
+            if (calculation == null)
             {
                 var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.PipingContext_DataDescription_PipingCalculationItem);
 
-                throw new ArgumentNullException("calculationItem", message);
+                throw new ArgumentNullException("calculation", message);
             }
             if (pipingFailureMechanism == null)
             {
@@ -69,14 +69,14 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
                 throw new ArgumentNullException("pipingFailureMechanism", message);
             }
 
-            PipingCalculationItem = calculationItem;
+            PipingCalculation = calculation;
             PipingFailureMechanism = pipingFailureMechanism;
         }
 
         /// <summary>
         /// Gets the calculation item which the piping context belongs to.
         /// </summary>
-        public ICalculationItem PipingCalculationItem { get; private set; }
+        public ICalculation PipingCalculation { get; private set; }
 
         /// <summary>
         /// Gets the failure mechanism which the piping context belongs to.

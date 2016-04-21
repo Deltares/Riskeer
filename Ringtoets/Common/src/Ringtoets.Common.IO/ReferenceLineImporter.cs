@@ -214,7 +214,7 @@ namespace Ringtoets.Common.IO
 
         private void ClearCalculationOutput(IFailureMechanism failureMechanism)
         {
-            foreach (var calculationItem in failureMechanism.CalculationItems)
+            foreach (var calculationItem in failureMechanism.Calculations)
             {
                 calculationItem.ClearOutput();
                 changedObservables.Add(calculationItem);

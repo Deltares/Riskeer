@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Common.Data.FailureMechanism
 {

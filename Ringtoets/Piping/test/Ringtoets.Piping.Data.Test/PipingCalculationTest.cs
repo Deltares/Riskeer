@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 
@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Data.Test
             var calculation = new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters);
 
             // Assert
-            Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<ICalculationItem>(calculation);
             Assert.IsInstanceOf<ICommentable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Data.Test
             mockRepository.ReplayAll();
 
             var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
-            
+
             calculation.Attach(observer);
 
             // Call & Assert
@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Data.Test
             mockRepository.ReplayAll();
 
             var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
-            
+
             calculation.Attach(observer);
             calculation.Detach(observer);
 

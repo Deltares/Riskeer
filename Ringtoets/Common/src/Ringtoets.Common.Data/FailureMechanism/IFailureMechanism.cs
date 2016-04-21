@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Storage;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Common.Data.FailureMechanism
 {
@@ -49,9 +50,9 @@ namespace Ringtoets.Common.Data.FailureMechanism
         bool IsRelevant { get; set; }
 
         /// <summary>
-        /// Gets a <see cref="IEnumerable{T}"/> of <see cref="ICalculationItem"/>.
+        /// Gets a <see cref="IEnumerable{T}"/> of <see cref="ICalculation"/>.
         /// </summary>
-        IEnumerable<ICalculationItem> CalculationItems { get; }
+        IEnumerable<ICalculation> Calculations { get; }
 
         /// <summary>
         /// Gets the sections that define areas for which a calculation could determine

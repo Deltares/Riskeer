@@ -8,8 +8,8 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -75,8 +75,14 @@ namespace Ringtoets.Common.IO.Test
 
             var expectedProgressMessages = new[]
             {
-                new ExpectedProgressNotification{ Text = "Inlezen referentielijn.", CurrentStep = 1, MaxNrOfSteps = 2 },
-                new ExpectedProgressNotification{ Text = "Geïmporteerde data toevoegen aan het traject.", CurrentStep = 2, MaxNrOfSteps = 2 },
+                new ExpectedProgressNotification
+                {
+                    Text = "Inlezen referentielijn.", CurrentStep = 1, MaxNrOfSteps = 2
+                },
+                new ExpectedProgressNotification
+                {
+                    Text = "Geïmporteerde data toevoegen aan het traject.", CurrentStep = 2, MaxNrOfSteps = 2
+                },
             };
             var progressChangedCallCount = 0;
             var importer = new ReferenceLineImporter
@@ -161,17 +167,17 @@ namespace Ringtoets.Common.IO.Test
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var calculation1 = mocks.StrictMock<ICalculationItem>();
-            var calculation3 = mocks.StrictMock<ICalculationItem>();
+            var calculation1 = mocks.StrictMock<ICalculation>();
+            var calculation3 = mocks.StrictMock<ICalculation>();
 
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();
-            failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
+            failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation1,
             });
 
             var failureMechanism2 = mocks.Stub<IFailureMechanism>();
-            failureMechanism2.Stub(fm => fm.CalculationItems).Return(new[]
+            failureMechanism2.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation3,
             });
@@ -224,18 +230,18 @@ namespace Ringtoets.Common.IO.Test
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var calculation1 = mocks.Stub<ICalculationItem>();
+            var calculation1 = mocks.Stub<ICalculation>();
             calculation1.Expect(c => c.ClearOutput());
-            var calculation2 = mocks.Stub<ICalculationItem>();
+            var calculation2 = mocks.Stub<ICalculation>();
             calculation2.Expect(c => c.ClearOutput());
-            var calculation3 = mocks.Stub<ICalculationItem>();
+            var calculation3 = mocks.Stub<ICalculation>();
             calculation3.Expect(c => c.ClearOutput());
-            var calculation4 = mocks.Stub<ICalculationItem>();
+            var calculation4 = mocks.Stub<ICalculation>();
             calculation4.Expect(c => c.ClearOutput());
 
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();
             failureMechanism1.Expect(fm => fm.ClearAllSections());
-            failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
+            failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation1,
                 calculation2
@@ -243,7 +249,7 @@ namespace Ringtoets.Common.IO.Test
 
             var failureMechanism2 = mocks.Stub<IFailureMechanism>();
             failureMechanism2.Expect(fm => fm.ClearAllSections());
-            failureMechanism2.Stub(fm => fm.CalculationItems).Return(new[]
+            failureMechanism2.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation3,
                 calculation4
@@ -302,12 +308,12 @@ namespace Ringtoets.Common.IO.Test
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var calculation1 = mocks.Stub<ICalculationItem>();
-            var calculation2 = mocks.Stub<ICalculationItem>();
+            var calculation1 = mocks.Stub<ICalculation>();
+            var calculation2 = mocks.Stub<ICalculation>();
 
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();
             failureMechanism1.Expect(fm => fm.ClearAllSections());
-            failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
+            failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation1,
                 calculation2
@@ -327,10 +333,22 @@ namespace Ringtoets.Common.IO.Test
 
             var expectedProgressMessages = new[]
             {
-                new ExpectedProgressNotification { Text = "Inlezen referentielijn.", CurrentStep = 1, MaxNrOfSteps = 4 }, 
-                new ExpectedProgressNotification { Text = "Geïmporteerde data toevoegen aan het traject.", CurrentStep = 2, MaxNrOfSteps = 4 }, 
-                new ExpectedProgressNotification { Text = "Wissen rekenresultaten en vakindelingen van faalmechanismen.", CurrentStep = 3, MaxNrOfSteps = 4 }, 
-                new ExpectedProgressNotification { Text = "Verwijderen uitvoer van hydraulische randvoorwaarden.", CurrentStep = 4, MaxNrOfSteps = 4 }, 
+                new ExpectedProgressNotification
+                {
+                    Text = "Inlezen referentielijn.", CurrentStep = 1, MaxNrOfSteps = 4
+                },
+                new ExpectedProgressNotification
+                {
+                    Text = "Geïmporteerde data toevoegen aan het traject.", CurrentStep = 2, MaxNrOfSteps = 4
+                },
+                new ExpectedProgressNotification
+                {
+                    Text = "Wissen rekenresultaten en vakindelingen van faalmechanismen.", CurrentStep = 3, MaxNrOfSteps = 4
+                },
+                new ExpectedProgressNotification
+                {
+                    Text = "Verwijderen uitvoer van hydraulische randvoorwaarden.", CurrentStep = 4, MaxNrOfSteps = 4
+                },
             };
             var progressChangedCallCount = 0;
             var importer = new ReferenceLineImporter();
@@ -468,23 +486,23 @@ namespace Ringtoets.Common.IO.Test
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var calculation1 = mocks.Stub<ICalculationItem>();
+            var calculation1 = mocks.Stub<ICalculation>();
             calculation1.Stub(c => c.ClearOutput());
             calculation1.Expect(c => c.NotifyObservers());
-            var calculation2 = mocks.Stub<ICalculationItem>();
+            var calculation2 = mocks.Stub<ICalculation>();
             calculation2.Stub(c => c.ClearOutput());
             calculation2.Expect(c => c.NotifyObservers());
-            var calculation3 = mocks.Stub<ICalculationItem>();
+            var calculation3 = mocks.Stub<ICalculation>();
             calculation3.Stub(c => c.ClearOutput());
             calculation3.Expect(c => c.NotifyObservers());
-            var calculation4 = mocks.Stub<ICalculationItem>();
+            var calculation4 = mocks.Stub<ICalculation>();
             calculation4.Stub(c => c.ClearOutput());
             calculation4.Expect(c => c.NotifyObservers());
 
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();
             failureMechanism1.Expect(fm => fm.ClearAllSections());
             failureMechanism1.Expect(fm => fm.NotifyObservers());
-            failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
+            failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation1,
                 calculation2
@@ -493,7 +511,7 @@ namespace Ringtoets.Common.IO.Test
             var failureMechanism2 = mocks.Stub<IFailureMechanism>();
             failureMechanism2.Expect(fm => fm.ClearAllSections());
             failureMechanism2.Expect(fm => fm.NotifyObservers());
-            failureMechanism2.Stub(fm => fm.CalculationItems).Return(new[]
+            failureMechanism2.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation3,
                 calculation4
@@ -581,10 +599,10 @@ namespace Ringtoets.Common.IO.Test
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var calculation1 = mocks.StrictMock<ICalculationItem>();
+            var calculation1 = mocks.StrictMock<ICalculation>();
 
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();
-            failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
+            failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation1
             });
@@ -631,23 +649,23 @@ namespace Ringtoets.Common.IO.Test
             var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
-            var calculation1 = mocks.Stub<ICalculationItem>();
+            var calculation1 = mocks.Stub<ICalculation>();
             calculation1.Stub(c => c.ClearOutput());
             calculation1.Expect(c => c.NotifyObservers());
-            var calculation2 = mocks.Stub<ICalculationItem>();
+            var calculation2 = mocks.Stub<ICalculation>();
             calculation2.Stub(c => c.ClearOutput());
             calculation2.Expect(c => c.NotifyObservers());
-            var calculation3 = mocks.Stub<ICalculationItem>();
+            var calculation3 = mocks.Stub<ICalculation>();
             calculation3.Stub(c => c.ClearOutput());
             calculation3.Expect(c => c.NotifyObservers());
-            var calculation4 = mocks.Stub<ICalculationItem>();
+            var calculation4 = mocks.Stub<ICalculation>();
             calculation4.Stub(c => c.ClearOutput());
             calculation4.Expect(c => c.NotifyObservers());
 
             var failureMechanism1 = mocks.Stub<IFailureMechanism>();
             failureMechanism1.Expect(fm => fm.ClearAllSections()).Repeat.Twice();
             failureMechanism1.Expect(fm => fm.NotifyObservers());
-            failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
+            failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation1,
                 calculation2
@@ -656,7 +674,7 @@ namespace Ringtoets.Common.IO.Test
             var failureMechanism2 = mocks.Stub<IFailureMechanism>();
             failureMechanism2.Expect(fm => fm.ClearAllSections()).Repeat.Twice();
             failureMechanism2.Expect(fm => fm.NotifyObservers());
-            failureMechanism2.Stub(fm => fm.CalculationItems).Return(new[]
+            failureMechanism2.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation3,
                 calculation4

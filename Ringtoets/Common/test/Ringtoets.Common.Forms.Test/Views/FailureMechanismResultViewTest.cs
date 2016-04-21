@@ -30,6 +30,7 @@ using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 
@@ -98,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 var points = new[]
                 {
@@ -134,14 +135,14 @@ namespace Ringtoets.Common.Forms.Test.Views
             var testData = new object();
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
                 view.Data = testData;
 
                 // Assert
                 Assert.IsNull(view.Data);
-                
+
                 Assert.AreEqual(1, dataGridView.RowCount);
                 foreach (DataGridViewCell cell in dataGridView.Rows[0].Cells)
                 {
@@ -157,7 +158,10 @@ namespace Ringtoets.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var failureMechanism = new SimpleFailureMechanism();
             mocks.ReplayAll();
-            using (var view = new FailureMechanismResultView { FailureMechanism = failureMechanism })
+            using (var view = new FailureMechanismResultView
+            {
+                FailureMechanism = failureMechanism
+            })
             {
                 // Precondition
                 Assert.IsNotNull(view.FailureMechanism);
@@ -316,7 +320,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                var sections = (List<FailureMechanismSectionResult>) view.Data;
                 sections[0].AssessmentLayerOne = false;
 
                 var gridTester = new ControlTester("dataGridView");
@@ -352,11 +356,11 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                var sections = (List<FailureMechanismSectionResult>) view.Data;
                 sections[0].CalculationScenarios.Add(calculationScenarioMock);
 
                 var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
@@ -376,7 +380,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 1.0).Repeat.Any();
             calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
             calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?) 1000).Repeat.Any();
 
@@ -386,11 +390,11 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                var sections = (List<FailureMechanismSectionResult>) view.Data;
                 sections[0].CalculationScenarios.Add(calculationScenarioMock);
 
                 var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
@@ -410,7 +414,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 1.0).Repeat.Any();
             calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
             calculationScenarioMock.Expect(cs => cs.Probability).Return(null).Repeat.Any();
 
@@ -420,11 +424,11 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                var sections = (List<FailureMechanismSectionResult>) view.Data;
                 sections[0].CalculationScenarios.Add(calculationScenarioMock);
 
                 var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
@@ -444,7 +448,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 1.0).Repeat.Any();
             calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
             calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?) double.NaN).Repeat.Any();
 
@@ -454,11 +458,11 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                var sections = (List<FailureMechanismSectionResult>) view.Data;
                 sections[0].CalculationScenarios.Add(calculationScenarioMock);
 
                 var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
@@ -481,7 +485,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (ShowFullyConfiguredFailureMechanismResultsView())
             {
                 var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
@@ -500,9 +504,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 1.0).Repeat.Any();
             calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(false).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?)double.NaN).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?) double.NaN).Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -510,11 +514,11 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                var sections = (List<FailureMechanismSectionResult>) view.Data;
                 sections[0].CalculationScenarios.Add(calculationScenarioMock);
 
                 var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
@@ -533,9 +537,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble)1.0).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 1.0).Repeat.Any();
             calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?)double.NaN).Repeat.Any();
+            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?) double.NaN).Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -543,11 +547,11 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>)view.Data;
+                var sections = (List<FailureMechanismSectionResult>) view.Data;
                 sections[0].CalculationScenarios.Add(calculationScenarioMock);
 
                 var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[rowIndex].Cells[assessmentLayerTwoAIndex];
 
@@ -593,9 +597,9 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private class SimpleFailureMechanism : FailureMechanismBase
         {
-            public SimpleFailureMechanism() : base("Stubbed name") { }
+            public SimpleFailureMechanism() : base("Stubbed name") {}
 
-            public override IEnumerable<ICalculationItem> CalculationItems
+            public override IEnumerable<ICalculation> Calculations
             {
                 get
                 {

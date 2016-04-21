@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
@@ -208,7 +209,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.CalculationItems).Return(Enumerable.Empty<ICalculationItem>());
+            failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
@@ -236,10 +237,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataFailureMechanism = mocks.Stub<IFailureMechanism>();
-            viewDataFailureMechanism.Stub(fm => fm.CalculationItems).Return(Enumerable.Empty<ICalculationItem>());
+            viewDataFailureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
 
             var deletedFailureMechanism = mocks.Stub<IFailureMechanism>();
-            deletedFailureMechanism.Stub(fm => fm.CalculationItems).Return(Enumerable.Empty<ICalculationItem>());
+            deletedFailureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
 
             var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
             deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
@@ -266,10 +267,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewDataIsCalculationOfDeletedAssessmentSection_ReturnTrue()
         {
             // Setup
-            var calculation = mocks.Stub<ICalculationItem>();
+            var calculation = mocks.Stub<ICalculation>();
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.CalculationItems).Return(new[]
+            failureMechanism.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation
             });
@@ -300,12 +301,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewDataIsCalculationButNotOfDeletedAssessmentSection_ReturnFalse()
         {
             // Setup
-            var viewDataCalculation = mocks.Stub<ICalculationItem>();
+            var viewDataCalculation = mocks.Stub<ICalculation>();
 
-            var deletedCalculation = mocks.Stub<ICalculationItem>();
+            var deletedCalculation = mocks.Stub<ICalculation>();
 
             var deletedfailureMechanism = mocks.Stub<IFailureMechanism>();
-            deletedfailureMechanism.Stub(fm => fm.CalculationItems).Return(new[]
+            deletedfailureMechanism.Stub(fm => fm.Calculations).Return(new[]
             {
                 deletedCalculation
             });

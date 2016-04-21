@@ -19,23 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
+using Core.Common.Base.Data;
 
-namespace Ringtoets.Common.Data
+namespace Ringtoets.Common.Data.Calculation
 {
     /// <summary>
-    /// A calculation related object.
+    /// Defines a calculation scenario.
     /// </summary>
-    public interface ICalculation : IObservable
+    public interface ICalculationScenario : ICalculation
     {
         /// <summary>
-        /// Gets the name of this calculation object.
+        /// Gets or sets whether this scenario is relevant or not.
         /// </summary>
-        string Name { get; }
+        bool IsRelevant { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether or not  this calculation item contains calculation outputs.
+        /// Gets or sets the contribution of the scenario.
         /// </summary>
-        bool HasOutput { get; }
+        RoundedDouble Contribution { get; set; }
+
+        /// <summary>
+        /// Gets the probability of the scenario.
+        /// </summary>
+        RoundedDouble? Probability { get; }
     }
 }

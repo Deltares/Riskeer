@@ -48,11 +48,11 @@
     <Compile Include="FailureMechanism\FailureMechanismBase.cs" />
     <Compile Include="FailureMechanism\FailureMechanismSection.cs" />
     <Compile Include="FailureMechanism\FailureMechanismSectionResult.cs" />
-    <Compile Include="FailureMechanism\ICalculationItem.cs" />
-    <Compile Include="FailureMechanism\ICalculationScenario.cs" />
+    <Compile Include="Calculation\ICalculation.cs" />
+    <Compile Include="Calculation\ICalculationScenario.cs" />
     <Compile Include="FailureMechanism\IFailureMechanism.cs" />
     <Compile Include="ICommentable.cs" />
-    <Compile Include="ICalculation.cs" />
+    <Compile Include="Calculation\ICalculationItem.cs" />
     <Compile Include="Probabilistics\DesignVariable.cs" />
     <Compile Include="Probabilistics\IDistribution.cs" />
     <Compile Include="Probabilistics\LognormalDistribution.cs" />

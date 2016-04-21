@@ -26,7 +26,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -35,11 +34,10 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.IO.Exceptions;
-
 using log4net;
-
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -62,7 +60,6 @@ using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
-
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -370,7 +367,7 @@ namespace Ringtoets.Integration.Plugin
         private static IEnumerable<ICommentable> GetCommentableElements(IFailureMechanism failureMechanism)
         {
             yield return failureMechanism;
-            foreach (ICalculationItem commentableCalculation in failureMechanism.CalculationItems)
+            foreach (ICalculation commentableCalculation in failureMechanism.Calculations)
             {
                 yield return commentableCalculation;
             }
@@ -430,7 +427,7 @@ namespace Ringtoets.Integration.Plugin
 
         private void AssessmentSectionOnNodeRemoved(IAssessmentSection nodeData, object parentNodeData)
         {
-            var parentProject = (Project)parentNodeData;
+            var parentProject = (Project) parentNodeData;
 
             parentProject.Items.Remove(nodeData);
             parentProject.NotifyObservers();
@@ -716,7 +713,7 @@ namespace Ringtoets.Integration.Plugin
                 assessmentSection.Name, // TODO: Provide name of reference line instead
                 HydraRingTimeIntegrationSchemeType.FBC,
                 HydraRingUncertaintiesType.All,
-                new AssessmentLevelCalculationInput((int)hydraulicBoundaryLocation.Id, assessmentSection.FailureMechanismContribution.Norm),
+                new AssessmentLevelCalculationInput((int) hydraulicBoundaryLocation.Id, assessmentSection.FailureMechanismContribution.Norm),
                 output => { ParseHydraRingOutput(hydraulicBoundaryLocation, output); });
         }
 
@@ -746,7 +743,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var failureMechanisms = nodeData.GetFailureMechanisms();
 
-            foreach (ICalculationItem calc in failureMechanisms.SelectMany(fm => fm.CalculationItems))
+            foreach (ICalculation calc in failureMechanisms.SelectMany(fm => fm.Calculations))
             {
                 calc.ClearOutput();
                 calc.ClearHydraulicBoundaryLocation();

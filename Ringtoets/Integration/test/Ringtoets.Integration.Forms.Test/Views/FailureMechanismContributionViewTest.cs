@@ -28,6 +28,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
@@ -39,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
     public class FailureMechanismContributionViewTest : NUnitFormTest
     {
         private Form testForm;
-        
+
         [SetUp]
         public override void Setup()
         {
@@ -252,10 +253,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ShowFormWithView(view);
 
                 // Then
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
                 DataGridViewRow row = dataGridView.Rows[0];
-                var isRelevantGridCell = (DataGridViewCheckBoxCell)row.Cells[isRelevantColumnIndex];
+                var isRelevantGridCell = (DataGridViewCheckBoxCell) row.Cells[isRelevantColumnIndex];
                 Assert.AreEqual(isFailureMechanismRelevant, isRelevantGridCell.Value);
             }
         }
@@ -452,23 +453,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(newComposition, assessmentSection.Composition);
 
                 Assert.IsTrue(dataGridInvalidated,
-                    "Expect the DataGridView to be flagged for redrawing.");
+                              "Expect the DataGridView to be flagged for redrawing.");
                 AssertDataGridViewDataSource(assessmentSection.FailureMechanismContribution.Distribution, contributionGridView);
-            }
-        }
-
-        private void AssertDataGridViewDataSource(IEnumerable<FailureMechanismContributionItem> expectedDistributionElements, DataGridView dataGridView)
-        {
-            FailureMechanismContributionItem[] itemArray = expectedDistributionElements.ToArray();
-            Assert.AreEqual(itemArray.Length, dataGridView.RowCount);
-            for (int i = 0; i < itemArray.Length; i++)
-            {
-                FailureMechanismContributionItem expectedElement = itemArray[i];
-                DataGridViewRow row = dataGridView.Rows[i];
-                Assert.AreEqual(expectedElement.IsRelevant, row.Cells[0].Value);
-                Assert.AreEqual(expectedElement.Assessment, row.Cells[1].Value);
-                Assert.AreEqual(expectedElement.Contribution, row.Cells[2].Value);
-                Assert.AreEqual(expectedElement.ProbabilitySpace, row.Cells[3].Value);
             }
         }
 
@@ -529,24 +515,24 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 var firstMockRepository = new MockRepository();
 
-                var calculationItem1 = firstMockRepository.Stub<ICalculationItem>();
+                var calculationItem1 = firstMockRepository.Stub<ICalculation>();
                 calculationItem1.Expect(ci => ci.ClearOutput());
                 calculationItem1.Expect(ci => ci.NotifyObservers());
 
                 // Expect no clear output as failure mechanism doesn't have different Contribution:
-                var calculationItem2 = firstMockRepository.StrictMock<ICalculationItem>(); 
+                var calculationItem2 = firstMockRepository.StrictMock<ICalculation>();
 
                 double contributionBeforeChange = 1.1, contributionAfterChange = 2.2;
 
                 var failureMechanism1 = firstMockRepository.Stub<IFailureMechanism>();
-                failureMechanism1.Stub(fm => fm.CalculationItems).Return(new[]
+                failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
                 {
                     calculationItem1
                 });
                 failureMechanism1.Contribution = contributionBeforeChange;
                 failureMechanism1.Stub(fm => fm.Name).Return("A");
                 var failureMechanism2 = firstMockRepository.Stub<IFailureMechanism>();
-                failureMechanism2.Stub(fm => fm.CalculationItems).Return(new[]
+                failureMechanism2.Stub(fm => fm.Calculations).Return(new[]
                 {
                     calculationItem2
                 });
@@ -598,9 +584,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(newComposition, compositionComboBox.SelectedValue);
 
                 Assert.IsTrue(dataGridViewInvalidated,
-                    "Expect the data grid view to be marked for redrawing.");
+                              "Expect the data grid view to be marked for redrawing.");
 
-                firstMockRepository.VerifyAll(); // Expect ICalculationItem.ClearOutput and ICalculationItem.NotifyObservers
+                firstMockRepository.VerifyAll(); // Expect ICalculation.ClearOutput and ICalculation.NotifyObservers
                 secondMockRepository.VerifyAll();
             }
         }
@@ -619,13 +605,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 var firstMockRepository = new MockRepository();
 
-                var calculationItem1 = firstMockRepository.Stub<ICalculationItem>();
+                var calculationItem1 = firstMockRepository.Stub<ICalculation>();
                 calculationItem1.Expect(ci => ci.ClearOutput()).Repeat.Never();
-                var calculationItem2 = firstMockRepository.Stub<ICalculationItem>();
+                var calculationItem2 = firstMockRepository.Stub<ICalculation>();
                 calculationItem2.Expect(ci => ci.ClearOutput()).Repeat.Never();
 
                 var failureMechanism = firstMockRepository.Stub<IFailureMechanism>();
-                failureMechanism.Stub(fm => fm.CalculationItems).Return(new[]
+                failureMechanism.Stub(fm => fm.Calculations).Return(new[]
                 {
                     calculationItem1,
                     calculationItem2
@@ -676,6 +662,21 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(initialComposition, compositionComboBox.SelectedValue);
 
                 secondMockRepository.VerifyAll();
+            }
+        }
+
+        private void AssertDataGridViewDataSource(IEnumerable<FailureMechanismContributionItem> expectedDistributionElements, DataGridView dataGridView)
+        {
+            FailureMechanismContributionItem[] itemArray = expectedDistributionElements.ToArray();
+            Assert.AreEqual(itemArray.Length, dataGridView.RowCount);
+            for (int i = 0; i < itemArray.Length; i++)
+            {
+                FailureMechanismContributionItem expectedElement = itemArray[i];
+                DataGridViewRow row = dataGridView.Rows[i];
+                Assert.AreEqual(expectedElement.IsRelevant, row.Cells[0].Value);
+                Assert.AreEqual(expectedElement.Assessment, row.Cells[1].Value);
+                Assert.AreEqual(expectedElement.Contribution, row.Cells[2].Value);
+                Assert.AreEqual(expectedElement.ProbabilitySpace, row.Cells[3].Value);
             }
         }
 

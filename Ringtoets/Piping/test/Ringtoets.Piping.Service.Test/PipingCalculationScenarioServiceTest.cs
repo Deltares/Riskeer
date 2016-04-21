@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Call
             TestDelegate call = () => PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine(pipingCalculationScenario, null, surfaceLine);
-            
+
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
@@ -196,7 +196,7 @@ namespace Ringtoets.Piping.Service.Test
                 new Point2D(10.0, 0.0)
             }));
 
-            var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationsStructure(
+            var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 failureMechanism.SurfaceLines,
                 failureMechanism.StochasticSoilModels,
                 failureMechanism.GeneralInput,
