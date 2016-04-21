@@ -28,7 +28,6 @@ using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Application.Ringtoets.Storage.Test.Persistors
@@ -127,7 +126,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
-        public void InsertModel_WithNonEmptyEntityCollectionWithReferenceLine_EntityCollectionClearedAddsNewEntitiesToContext()
+        public void InsertModel_WithNonEmptyEntityCollectionWithReferenceLineWithOneDifferentPoint_EntityCollectionClearedAddsNewEntitiesToContext()
         {
             // Setup
             var mocks = new MockRepository();
@@ -166,15 +165,91 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
+        public void InsertModel_WithNonEmptyEntityCollectionWithReferenceLineWithOneMorePoint_EntityCollectionClearedAddsNewEntitiesToContext()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var context = RingtoetsEntitiesHelper.Create(mocks);
+            mocks.ReplayAll();
+
+            var entities = new List<ReferenceLinePointEntity>();
+            for (int i = 0; i < 3; i++)
+            {
+                entities.Add(new ReferenceLinePointEntity
+                {
+                    Order = i
+                });
+            }
+
+            context.ReferenceLinePointEntities.Add(entities[0]);
+            context.ReferenceLinePointEntities.Add(entities[1]);
+            context.ReferenceLinePointEntities.Add(new ReferenceLinePointEntity());
+
+            var persistor = new ReferenceLinePersistor(context);
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(3, 2),
+                new Point2D(1, 3),
+                new Point2D(6, 3)
+            });
+
+            // Call
+            persistor.InsertModel(entities, referenceLine);
+
+            // Assert
+            AssertCreatedEntities(entities, referenceLine);
+            Assert.AreEqual(1, context.ReferenceLinePointEntities.Count());
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void InsertModel_WithNonEmptyEntityCollectionWithReferenceLineWithOneLessPoint_EntityCollectionClearedAddsNewEntitiesToContext()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var context = RingtoetsEntitiesHelper.Create(mocks);
+            mocks.ReplayAll();
+
+            var entities = new List<ReferenceLinePointEntity>();
+            for (int i = 0; i < 3; i++)
+            {
+                entities.Add(new ReferenceLinePointEntity
+                {
+                    Order = i
+                });
+            }
+
+            context.ReferenceLinePointEntities.Add(entities[0]);
+            context.ReferenceLinePointEntities.Add(entities[1]);
+            context.ReferenceLinePointEntities.Add(new ReferenceLinePointEntity());
+
+            var persistor = new ReferenceLinePersistor(context);
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(3, 2),
+            });
+
+            // Call
+            persistor.InsertModel(entities, referenceLine);
+
+            // Assert
+            AssertCreatedEntities(entities, referenceLine);
+            Assert.AreEqual(1, context.ReferenceLinePointEntities.Count());
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void InsertModel_EmptyCollectionNullReferenceLine_ShouldNotClearCollection()
         {
             // Setup
-            var backingList = new List<ReferenceLinePointEntity>();
-
             var mocks = new MockRepository();
             var context = RingtoetsEntitiesHelper.Create(mocks);
             var entities = mocks.StrictMock<ICollection<ReferenceLinePointEntity>>();
-            entities.Expect(e => e.GetEnumerator()).Return(backingList.GetEnumerator());
+            entities.Expect(e => e.GetEnumerator()).Return(new List<ReferenceLinePointEntity>().GetEnumerator());
             mocks.ReplayAll();
 
             var persistor = new ReferenceLinePersistor(context);

@@ -374,6 +374,28 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
+        public void UpdateModel_LocationNull_ThrowsArgumentException()
+        {
+            // Setup
+            var ringtoetsEntitiesMock = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
+            var persistor = new HydraulicBoundaryLocationPersistor(ringtoetsEntitiesMock);
+            IList<HydraulicLocationEntity> parentNavigationProperty = new List<HydraulicLocationEntity>();
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(null);
+
+            // Call
+            TestDelegate test = () => persistor.UpdateModel(parentNavigationProperty, hydraulicBoundaryDatabase);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void UpdateModel_SingleEntityInParentNavigationPropertySingleHydraulicLocationWithStorageId_UpdatedHydraulicLocationAsEntityInParentNavigationProperty()
         {
             // Setup

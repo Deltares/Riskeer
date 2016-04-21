@@ -24,7 +24,7 @@ namespace Application.Ringtoets.Storage.Converters
                 IsAquifer = sl.IsAquifer == 1
             });
 
-            return new StochasticSoilProfile((double)entity.Probability, SoilProfileType.SoilProfile1D, -1)
+            return new StochasticSoilProfile((double) entity.Probability, SoilProfileType.SoilProfile1D, -1)
             {
                 SoilProfile = new PipingSoilProfile(entity.SoilProfileEntity.Name, (double) entity.SoilProfileEntity.Bottom, layers, SoilProfileType.SoilProfile1D, -1),
                 StorageId = entity.StochasticSoilProfileEntityId
