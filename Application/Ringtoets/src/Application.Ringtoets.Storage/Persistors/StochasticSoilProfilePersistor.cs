@@ -39,6 +39,8 @@ namespace Application.Ringtoets.Storage.Persistors
     public class StochasticSoilProfilePersistor
     {
         private readonly DbSet<StochasticSoilProfileEntity> stochasticSoilProfileSet;
+        private readonly DbSet<SoilProfileEntity> soilProfileSet;
+        private readonly DbSet<SoilLayerEntity> soilLayerSet;
 
         private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> insertedList = new Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile>();
         private readonly ICollection<StochasticSoilProfileEntity> modifiedList = new List<StochasticSoilProfileEntity>();
@@ -59,6 +61,9 @@ namespace Application.Ringtoets.Storage.Persistors
                 throw new ArgumentNullException("ringtoetsContext");
             }
             stochasticSoilProfileSet = ringtoetsContext.StochasticSoilProfileEntities;
+            soilProfileSet = ringtoetsContext.SoilProfileEntities;
+            soilLayerSet = ringtoetsContext.SoilLayerEntities;
+
             loadedProfiles = new Dictionary<SoilProfileEntity, PipingSoilProfile>(new ReferenceEqualityComparer<SoilProfileEntity>());
             savedProfiles = new Dictionary<PipingSoilProfile, SoilProfileEntity>(new ReferenceEqualityComparer<PipingSoilProfile>());
         }
@@ -150,8 +155,17 @@ namespace Application.Ringtoets.Storage.Persistors
                 }
 
                 modifiedList.Add(entity);
-
+                RemoveOldProfiles(entity);
                 stochasticSoilProfileConverter.ConvertModelToEntity(stochasticSoilProfile, entity);
+            }
+        }
+
+        private void RemoveOldProfiles(StochasticSoilProfileEntity entity)
+        {
+            if (entity.SoilProfileEntity != null)
+            {
+                soilLayerSet.RemoveRange(entity.SoilProfileEntity.SoilLayerEntities);
+                soilProfileSet.Remove(entity.SoilProfileEntity);
             }
         }
 

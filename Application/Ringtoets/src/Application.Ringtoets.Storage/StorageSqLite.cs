@@ -23,6 +23,7 @@ using System;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Persistors;
