@@ -6,6 +6,10 @@ using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Converters
 {
+    /// <summary>
+    /// Converts <see cref="StochasticSoilProfile"/> and underlying objects into a <see cref="StochasticSoilProfileEntity"/>
+    /// and underlying entities; and vice versa. 
+    /// </summary>
     public class StochasticSoilProfileConverter : IEntityConverter<StochasticSoilProfile, StochasticSoilProfileEntity>
     {
         public StochasticSoilProfile ConvertEntityToModel(StochasticSoilProfileEntity entity)

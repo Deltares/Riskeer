@@ -25,6 +25,9 @@ using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Converters
 {
+    /// <summary>
+    /// Converts <see cref="StochasticSoilModel"/> into a <see cref="StochasticSoilModelEntity"/> and vice versa. 
+    /// </summary>
     public class StochasticSoilModelConverter : IEntityConverter<StochasticSoilModel, StochasticSoilModelEntity> {
         public StochasticSoilModel ConvertEntityToModel(StochasticSoilModelEntity entity)
         {

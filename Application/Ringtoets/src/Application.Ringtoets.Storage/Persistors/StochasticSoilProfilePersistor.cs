@@ -33,6 +33,9 @@ using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Persistors
 {
+    /// <summary>
+    /// Class responsible for loading and saving <see cref="StochasticSoilProfile"/> objects from and into the database.
+    /// </summary>
     public class StochasticSoilProfilePersistor
     {
         private readonly DbSet<StochasticSoilProfileEntity> stochasticSoilProfileSet;
@@ -42,7 +45,7 @@ namespace Application.Ringtoets.Storage.Persistors
         private readonly StochasticSoilProfileConverter stochasticSoilProfileConverter = new StochasticSoilProfileConverter();
 
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> loadedProfiles;
-        private readonly Dictionary<PipingSoilProfile, SoilProfileEntity> savedProfiles; 
+        private readonly Dictionary<PipingSoilProfile, SoilProfileEntity> savedProfiles;
 
         /// <summary>
         /// New instance of <see cref="StochasticSoilProfilePersistor"/>.
@@ -164,6 +167,18 @@ namespace Application.Ringtoets.Storage.Persistors
             insertedList.Clear();
         }
 
+        /// <summary>
+        /// Remove the entries which were not modified by this <see cref="StochasticSoilProfilePersistor"/>.
+        /// </summary>
+        /// <param name="parentNavigationProperty">The collection to remove unmodified entries for.</param>
+        public void RemoveUnModifiedEntries(IEnumerable<StochasticSoilProfileEntity> parentNavigationProperty)
+        {
+            var untouchedModifiedList = parentNavigationProperty.Where(e => e.StochasticSoilProfileEntityId > 0 && !modifiedList.Contains(e));
+            stochasticSoilProfileSet.RemoveRange(untouchedModifiedList);
+
+            modifiedList.Clear();
+        }
+
         private void InsertStochasticSoilProfile(ICollection<StochasticSoilProfileEntity> parentNavigationProperty, StochasticSoilProfile stochasticSoilProfile)
         {
             StochasticSoilProfileEntity entity = new StochasticSoilProfileEntity();
@@ -179,14 +194,6 @@ namespace Application.Ringtoets.Storage.Persistors
             }
             parentNavigationProperty.Add(entity);
             insertedList.Add(entity, stochasticSoilProfile);
-        }
-
-        public void RemoveUnModifiedEntries(IEnumerable<StochasticSoilProfileEntity> parentNavigationProperty)
-        {
-            var untouchedModifiedList = parentNavigationProperty.Where(e => e.StochasticSoilProfileEntityId > 0 && !modifiedList.Contains(e));
-            stochasticSoilProfileSet.RemoveRange(untouchedModifiedList);
-
-            modifiedList.Clear();
         }
     }
 }

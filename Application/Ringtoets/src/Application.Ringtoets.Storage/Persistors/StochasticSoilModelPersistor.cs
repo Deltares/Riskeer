@@ -31,6 +31,9 @@ using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Persistors
 {
+    /// <summary>
+    /// Class responsible for loading and saving <see cref="StochasticSoilModel"/> objects from and into the database.
+    /// </summary>
     public class StochasticSoilModelPersistor
     {
         private readonly StochasticSoilProfilePersistor soilProfilePersistor;
@@ -73,14 +76,6 @@ namespace Application.Ringtoets.Storage.Persistors
             return stochasticSoilModel;
         }
 
-        private void LoadChildren(StochasticSoilModel stochasticSoilModel, StochasticSoilModelEntity entity)
-        {
-            foreach (var profileEntity in entity.StochasticSoilProfileEntities)
-            {
-                stochasticSoilModel.StochasticSoilProfiles.Add(soilProfilePersistor.LoadModel(profileEntity));
-            }
-        }
-
         /// <summary>
         /// Ensures that the model is added as <see cref="StochasticSoilModelEntity"/> in the <paramref name="parentNavigationProperty"/>.
         /// </summary>
@@ -103,14 +98,6 @@ namespace Application.Ringtoets.Storage.Persistors
             var entity = InsertStochasticSoilModel(parentNavigationProperty, stochasticSoilModel);
 
             InsertChildren(entity, stochasticSoilModel);
-        }
-
-        private void InsertChildren(StochasticSoilModelEntity entity, StochasticSoilModel stochasticSoilModel)
-        {
-            foreach (var stochasticSoilProfile in stochasticSoilModel.StochasticSoilProfiles)
-            {
-                soilProfilePersistor.InsertModel(entity.StochasticSoilProfileEntities, stochasticSoilProfile);
-            }
         }
 
         /// <summary>
@@ -181,6 +168,34 @@ namespace Application.Ringtoets.Storage.Persistors
             soilProfilePersistor.PerformPostSaveActions();
         }
 
+        /// <summary>
+        /// Remove the entries which were not modified by this <see cref="StochasticSoilModelPersistor"/>.
+        /// </summary>
+        /// <param name="parentNavigationProperty">The collection to remove unmodified entries for.</param>
+        public void RemoveUnModifiedEntries(IEnumerable<StochasticSoilModelEntity> parentNavigationProperty)
+        {
+            var untouchedModifiedList = parentNavigationProperty.Where(e => e.StochasticSoilModelEntityId > 0 && !modifiedList.Contains(e));
+            stochasticSoilModelSet.RemoveRange(untouchedModifiedList);
+
+            modifiedList.Clear();
+        }
+
+        private void LoadChildren(StochasticSoilModel stochasticSoilModel, StochasticSoilModelEntity entity)
+        {
+            foreach (var profileEntity in entity.StochasticSoilProfileEntities)
+            {
+                stochasticSoilModel.StochasticSoilProfiles.Add(soilProfilePersistor.LoadModel(profileEntity));
+            }
+        }
+
+        private void InsertChildren(StochasticSoilModelEntity entity, StochasticSoilModel stochasticSoilModel)
+        {
+            foreach (var stochasticSoilProfile in stochasticSoilModel.StochasticSoilProfiles)
+            {
+                soilProfilePersistor.InsertModel(entity.StochasticSoilProfileEntities, stochasticSoilProfile);
+            }
+        }
+
         private StochasticSoilModelEntity InsertStochasticSoilModel(ICollection<StochasticSoilModelEntity> parentNavigationProperty, StochasticSoilModel stochasticSoilModel)
         {
             var entity = new StochasticSoilModelEntity();
@@ -188,14 +203,6 @@ namespace Application.Ringtoets.Storage.Persistors
             parentNavigationProperty.Add(entity);
             insertedList.Add(entity, stochasticSoilModel);
             return entity;
-        }
-
-        public void RemoveUnModifiedEntries(IEnumerable<StochasticSoilModelEntity> parentNavigationProperty)
-        {
-            var untouchedModifiedList = parentNavigationProperty.Where(e => e.StochasticSoilModelEntityId > 0 && !modifiedList.Contains(e));
-            stochasticSoilModelSet.RemoveRange(untouchedModifiedList);
-
-            modifiedList.Clear();
         }
     }
 }
