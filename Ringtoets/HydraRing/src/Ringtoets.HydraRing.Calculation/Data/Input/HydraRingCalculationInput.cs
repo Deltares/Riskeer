@@ -129,7 +129,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         /// <summary>
         /// Gets the sub mechanism model id corresponding to the provided sub mechanism id.
         /// </summary>
-        /// <param name="subMechanismId">The sub mechanim id to get the sub mechanism model id for.</param>
+        /// <param name="subMechanismId">The sub mechanism id to get the sub mechanism model id for.</param>
         /// <returns>The corresponding sub mechanism model id or <c>null</c> otherwise.</returns>
         public virtual int? GetSubMechanismModelId(int subMechanismId)
         {

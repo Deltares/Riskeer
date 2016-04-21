@@ -44,7 +44,13 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="BreakWater.cs" />
+    <Compile Include="RoughnessProfileSection.cs" />
+    <Compile Include="GrassCoverErosionInwardsCalculation.cs" />
     <Compile Include="GrassCoverErosionInwardsFailureMechanism.cs" />
+    <Compile Include="GrassCoverErosionInwardsInput.cs" />
+    <Compile Include="GrassCoverErosionInwardsOutput.cs" />
+    <Compile Include="BreakWaterType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -67,6 +73,10 @@
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

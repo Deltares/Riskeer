@@ -120,4 +120,7 @@
   <data name="GrassCoverErosionInwardsFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken - Grasbekleding erosie kruin en binnentalud</value>
   </data>
+  <data name="GrassCoverErosionInwardsCalculation_DefaultName" xml:space="preserve">
+    <value>Nieuwe berekening</value>
+  </data>
 </root>
