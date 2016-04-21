@@ -78,9 +78,10 @@ namespace Application.Ringtoets.Storage.Persistors
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var model = converter.ConvertEntityToModel(entity);
+            T model = converter.ConvertEntityToModel(entity);
 
             failureMechanism.StorageId = model.StorageId;
+            failureMechanism.IsRelevant = model.IsRelevant;
 
             LoadChildren(failureMechanism, entity);
         }

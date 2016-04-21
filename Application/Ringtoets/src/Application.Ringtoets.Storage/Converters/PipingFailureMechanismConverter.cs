@@ -45,7 +45,8 @@ namespace Application.Ringtoets.Storage.Converters
 
             var failureMechanism = new PipingFailureMechanism
             {
-                StorageId = entity.FailureMechanismEntityId
+                StorageId = entity.FailureMechanismEntityId,
+                IsRelevant = entity.IsRelevant == 1
             };
 
             return failureMechanism;
@@ -65,6 +66,7 @@ namespace Application.Ringtoets.Storage.Converters
 
             entity.FailureMechanismEntityId = modelObject.StorageId;
             entity.FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism;
+            entity.IsRelevant = modelObject.IsRelevant ? (byte)1 : (byte)0;
         }
     }
 }

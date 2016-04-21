@@ -23,9 +23,7 @@ using System;
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.FailureMechanism;
+
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Converters
@@ -47,10 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
         public void ConvertEntityToModel_NullEntity_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
             PipingFailureMechanismConverter converter = new PipingFailureMechanismConverter();
-            mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => converter.ConvertEntityToModel(null);
@@ -58,11 +53,12 @@ namespace Application.Ringtoets.Storage.Test.Converters
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("entity", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void ConvertEntityToModel_ValidEntityValidModel_ReturnsEntityAsModel()
+        [TestCase(1)]
+        [TestCase(0)]
+        public void ConvertEntityToModel_ValidEntityValidModel_ReturnsEntityAsModel(byte isRelevant)
         {
             // Setup
             PipingFailureMechanismConverter converter = new PipingFailureMechanismConverter();
@@ -72,6 +68,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             {
                 FailureMechanismEntityId = storageId,
                 FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism,
+                IsRelevant = isRelevant
             };
 
             // Call
@@ -79,6 +76,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
 
             // Assert
             Assert.AreEqual(entity.FailureMechanismEntityId, failureMechanism.StorageId);
+            var expectedIsRelevant = isRelevant == 1;
+            Assert.AreEqual(expectedIsRelevant, failureMechanism.IsRelevant);
         }
 
         [Test]
@@ -92,6 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             {
                 FailureMechanismEntityId = storageId,
                 FailureMechanismType = (int) FailureMechanismType.MacrostabilityInwardsFailureMechanism,
+                IsRelevant = 1
             };
 
             // Call
@@ -130,7 +130,9 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        public void ConvertModelToEntity_ValidModelValidEntity_ReturnsModelAsEntity()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ConvertModelToEntity_ValidModelValidEntity_ReturnsModelAsEntity(bool isRelevant)
         {
             // Setup
             PipingFailureMechanismConverter converter = new PipingFailureMechanismConverter();
@@ -140,7 +142,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
 
             var model = new PipingFailureMechanism
             {
-                StorageId = storageId
+                StorageId = storageId,
+                IsRelevant = isRelevant
             };
 
             // Call
@@ -148,6 +151,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
 
             // Assert
             Assert.AreEqual(model.StorageId, entity.FailureMechanismEntityId);
+            byte expectedIsRelevantValue = isRelevant ? (byte)1 : (byte)0;
+            Assert.AreEqual(expectedIsRelevantValue, entity.IsRelevant);
         }
     }
 }

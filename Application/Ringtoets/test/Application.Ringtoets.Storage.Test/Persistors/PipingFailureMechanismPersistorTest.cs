@@ -153,6 +153,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             {
                 FailureMechanismEntityId = storageId,
                 FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism,
+                IsRelevant = 0
             };
             PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
 
@@ -166,6 +167,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.IsInstanceOf<PipingFailureMechanism>(loadedModel);
             Assert.AreEqual(loadedModel.StorageId, entity.FailureMechanismEntityId);
             Assert.AreEqual(model.StorageId, loadedModel.StorageId);
+            Assert.IsFalse(loadedModel.IsRelevant);
 
             mockRepository.VerifyAll();
         }
@@ -266,9 +268,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Assert
             Assert.AreEqual(1, parentNavigationProperty.Count);
-            var entity = parentNavigationProperty[0];
+            FailureMechanismEntity entity = parentNavigationProperty[0];
             Assert.AreNotEqual(model, entity);
             Assert.AreEqual((int) FailureMechanismType.PipingFailureMechanism, entity.FailureMechanismType);
+            Assert.AreEqual(1, entity.IsRelevant);
 
             mockRepository.VerifyAll();
         }
@@ -293,7 +296,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             PipingFailureMechanismPersistor persistor = new PipingFailureMechanismPersistor(ringtoetsEntities);
             PipingFailureMechanism pipingFailureMechanism = new PipingFailureMechanism
             {
-                StorageId = storageId
+                StorageId = storageId,
+                IsRelevant = false
             };
 
             // Call
@@ -301,9 +305,10 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Assert
             Assert.AreEqual(2, parentNavigationProperty.Count);
-            var parentNavigationPropertyList = parentNavigationProperty.ToList();
-            var entity = parentNavigationPropertyList[1];
+            List<FailureMechanismEntity> parentNavigationPropertyList = parentNavigationProperty.ToList();
+            FailureMechanismEntity entity = parentNavigationPropertyList[1];
             Assert.AreEqual(storageId, entity.FailureMechanismEntityId);
+            Assert.AreEqual(0, entity.IsRelevant);
 
             mockRepository.VerifyAll();
         }
@@ -450,12 +455,14 @@ namespace Application.Ringtoets.Storage.Test.Persistors
                 new FailureMechanismEntity
                 {
                     FailureMechanismEntityId = storageId,
-                    FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism
+                    FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism,
+                    IsRelevant = 1
                 }
             };
             PipingFailureMechanism model = new PipingFailureMechanism
             {
-                StorageId = storageId
+                StorageId = storageId,
+                IsRelevant = false
             };
 
             // Call
@@ -466,7 +473,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var parentNavigationPropertyList = parentNavigationProperty.ToList();
             var entity = parentNavigationPropertyList[0];
             Assert.AreEqual(storageId, entity.FailureMechanismEntityId);
-
+            Assert.AreEqual(0, entity.IsRelevant);
             mockRepository.VerifyAll();
         }
 
