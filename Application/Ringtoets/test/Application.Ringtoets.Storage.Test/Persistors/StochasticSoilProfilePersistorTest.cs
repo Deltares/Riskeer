@@ -399,7 +399,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             {
                 new StochasticSoilProfileEntity
                 {
-                    StochasticSoilProfileEntityId = storageId
+                    StochasticSoilProfileEntityId = storageId,
+                    SoilProfileEntity = new SoilProfileEntity()
                 }
             };
 
