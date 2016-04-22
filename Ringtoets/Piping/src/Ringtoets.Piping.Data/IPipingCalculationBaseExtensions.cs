@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Data
             {
                 yield return calculationScenario;
             }
-            var group = calculationItem as PipingCalculationGroup;
+            var group = calculationItem as CalculationGroup;
             if (group != null)
             {
                 foreach (PipingCalculationScenario calculationInGroup in group.Children.GetPipingCalculations())

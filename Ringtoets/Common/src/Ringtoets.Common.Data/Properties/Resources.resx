@@ -171,4 +171,10 @@
   <data name="StandardDeviation_Should_be_greater_than_or_equal_to_zero" xml:space="preserve">
     <value>Standaard afwijking (σ) moet groter zijn dan of gelijk zijn aan 0.</value>
   </data>
+  <data name="CalculationGroup_DefaultName" xml:space="preserve">
+    <value>Nieuwe map</value>
+  </data>
+  <data name="CalculationGroup_Setting_readonly_name_error_message" xml:space="preserve">
+    <value>Kan de naam van deze groep niet aanpassen, omdat 'IsNameEditable' op 'false' staat.</value>
+  </data>
 </root>

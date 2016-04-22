@@ -44,6 +44,7 @@
     <Compile Include="AssessmentSection\ReferenceLine.cs" />
     <Compile Include="Calculation\ICalculationGroup.cs" />
     <Compile Include="Calculation\ICalculationInput.cs" />
+    <Compile Include="Calculation\CalculationGroup.cs" />
     <Compile Include="Contribution\FailureMechanismContribution.cs" />
     <Compile Include="Contribution\FailureMechanismContributionItem.cs" />
     <Compile Include="Contribution\OtherFailureMechanism.cs" />

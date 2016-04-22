@@ -515,7 +515,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Clear();
-            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationGroup());
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
@@ -546,7 +546,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             ICalculationBase addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
             Assert.AreEqual("Nieuwe map (1)", addedItem.Name,
                             "Because there is already an item with the same default name, '(1)' should be appended.");
-            Assert.IsInstanceOf<PipingCalculationGroup>(addedItem);
+            Assert.IsInstanceOf<CalculationGroup>(addedItem);
 
             mocks.VerifyAll();
         }

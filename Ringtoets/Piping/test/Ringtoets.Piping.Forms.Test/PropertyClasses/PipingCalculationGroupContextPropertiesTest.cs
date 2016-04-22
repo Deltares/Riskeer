@@ -1,17 +1,17 @@
 ﻿using System.Linq;
+using System.Reflection;
 using Core.Common.Base;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives;
-using PropertyInfo = System.Reflection.PropertyInfo;
 
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnTheSameValueAsData()
         {
             // Setup
-            var calculationGroup = new PipingCalculationGroup();
+            var calculationGroup = new CalculationGroup();
 
             var mocks = new MockRepository();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationGroup = new PipingCalculationGroup();
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Attach(projectObserver);
 
             var properties = new PipingCalculationGroupContextProperties
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void Name_GroupHasEditableName_NameShouldNotBeReadonly(bool nameIsEditable)
         {
             // Setup
-            var calculationGroup = new PipingCalculationGroup("A", nameIsEditable);
+            var calculationGroup = new CalculationGroup("A", nameIsEditable);
 
             var mocks = new MockRepository();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();

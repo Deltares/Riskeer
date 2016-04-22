@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
@@ -29,20 +30,20 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="PipingCalculationGroup"/>
+    /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
     /// in order be able to create configurable piping calculations.
     /// </summary>
-    public class PipingCalculationGroupContext : PipingContext<PipingCalculationGroup>
+    public class PipingCalculationGroupContext : PipingContext<CalculationGroup>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationGroupContext"/> class.
         /// </summary>
-        /// <param name="calculationGroup">The <see cref="PipingCalculationGroup"/> instance wrapped by this context object.</param>
+        /// <param name="calculationGroup">The <see cref="CalculationGroup"/> instance wrapped by this context object.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
         /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
-        public PipingCalculationGroupContext(PipingCalculationGroup calculationGroup, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection)
+        public PipingCalculationGroupContext(CalculationGroup calculationGroup, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection)
             : base(calculationGroup, surfaceLines, stochasticSoilModels, assessmentSection)
         {
             if (pipingFailureMechanism == null)

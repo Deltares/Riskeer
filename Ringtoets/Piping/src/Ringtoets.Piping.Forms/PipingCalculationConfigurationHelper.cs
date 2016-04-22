@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Forms
         private static readonly ILog log = LogManager.GetLogger(typeof(PipingCalculationConfigurationHelper));
 
         /// <summary>
-        /// Creates a structure of <see cref="PipingCalculationGroup"/> and <see cref="PipingCalculation"/> based on combination of the
+        /// Creates a structure of <see cref="CalculationGroup"/> and <see cref="PipingCalculation"/> based on combination of the
         /// <paramref name="surfaceLines"/> and the <paramref name="soilModels"/>.
         /// </summary>
         /// <param name="surfaceLines">Surface lines to generate the structure for and to use to configure <see cref="PipingCalculation"/>
@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Forms
 
         private static ICalculationBase CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
         {
-            var pipingCalculationGroup = new PipingCalculationGroup(surfaceLine.Name, true);
+            var pipingCalculationGroup = new CalculationGroup(surfaceLine.Name, true);
             var stochasticSoilModels = GetStochasticSoilModelsForSurfaceLine(surfaceLine, soilModels);
             foreach (var stochasticSoilModel in stochasticSoilModels)
             {

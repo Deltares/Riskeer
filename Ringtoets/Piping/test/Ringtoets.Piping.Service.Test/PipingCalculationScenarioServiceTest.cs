@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -71,7 +72,7 @@ namespace Ringtoets.Piping.Service.Test
             var failureMechanism = GetFailureMechanism();
             var newSurfaceLine = failureMechanism.SurfaceLines.ElementAt(1);
 
-            var calculationGroup = failureMechanism.CalculationsGroup.Children.First() as PipingCalculationGroup;
+            var calculationGroup = failureMechanism.CalculationsGroup.Children.First() as CalculationGroup;
             var calculationToSync = calculationGroup.Children.First() as PipingCalculationScenario;
 
             // Precondition
@@ -95,7 +96,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var failureMechanism = GetFailureMechanism();
-            var calculationGroup = failureMechanism.CalculationsGroup.Children.First() as PipingCalculationGroup;
+            var calculationGroup = failureMechanism.CalculationsGroup.Children.First() as CalculationGroup;
             var calculationToSync = calculationGroup.Children.First() as PipingCalculationScenario;
 
             // Precondition
@@ -117,7 +118,7 @@ namespace Ringtoets.Piping.Service.Test
             var failureMechanism = GetFailureMechanism();
             var newSurfaceLine = failureMechanism.SurfaceLines.ElementAt(1);
 
-            var calculationGroup = failureMechanism.CalculationsGroup.Children.First() as PipingCalculationGroup;
+            var calculationGroup = failureMechanism.CalculationsGroup.Children.First() as CalculationGroup;
             var calculationToSync = calculationGroup.Children.First() as PipingCalculationScenario;
 
             // Precondition

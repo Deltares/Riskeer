@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms;
@@ -36,10 +37,10 @@ namespace Ringtoets.Piping.Data.Test
     public class PipingCalculationGroupExtensionsTest
     {
         [Test]
-        public void AddCalculationScenariosToFailureMechanismSectionResult_PipingCalculationGroupNoChildren_NoScenariosAddedToFailureMechanismSectionResult()
+        public void AddCalculationScenariosToFailureMechanismSectionResult_CalculationGroupNoChildren_NoScenariosAddedToFailureMechanismSectionResult()
         {
             // Setup
-            var calculationGroup = new PipingCalculationGroup();
+            var calculationGroup = new CalculationGroup();
             var failureMechanism = GetFailureMechanismWithSections();
 
             // Precondition
@@ -59,7 +60,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AddCalculationScenariosToFailureMechanismSectionResult_PipingCalculationGroupWithChildren_ScenariosAddedToFailureMechanismSectionResult()
+        public void AddCalculationScenariosToFailureMechanismSectionResult_CalculationGroupWithChildren_ScenariosAddedToFailureMechanismSectionResult()
         {
             // Setup
             var failureMechanism = GetFailureMechanismWithSections();
@@ -93,7 +94,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AddCalculationScenariosToFailureMechanismSectionResult_PipingCalculationGroupChildrenNoScenarios_NoScenariosAddedToFailureMechanismSectionResult()
+        public void AddCalculationScenariosToFailureMechanismSectionResult_CalculationGroupChildrenNoScenarios_NoScenariosAddedToFailureMechanismSectionResult()
         {
             // Setup
             var failureMechanism = GetFailureMechanismWithSections();

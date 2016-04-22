@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Data
             GeneralInput = new GeneralPipingInput();
             SurfaceLines = new List<RingtoetsPipingSurfaceLine>();
             StochasticSoilModels = new ObservableList<StochasticSoilModel>();
-            CalculationsGroup = new PipingCalculationGroup(PipingDataResources.PipingFailureMechanism_Calculations_DisplayName, false);
+            CalculationsGroup = new CalculationGroup(PipingDataResources.PipingFailureMechanism_Calculations_DisplayName, false);
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets all available piping calculations.
         /// </summary>
-        public PipingCalculationGroup CalculationsGroup { get; private set; }
+        public CalculationGroup CalculationsGroup { get; private set; }
 
         /// <summary>
         /// Gets the general piping calculation input parameters that apply to each piping calculation.

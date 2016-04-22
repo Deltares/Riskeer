@@ -340,7 +340,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingCalculationItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]);
+            var secondPipingCalculationItem = ((PipingCalculation) ((CalculationGroup) pipingCalculationsView.Data).Children[1]);
             var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
             var mocks = new MockRepository();
@@ -373,7 +373,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingCalculationItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]);
+            var secondPipingCalculationItem = ((PipingCalculation) ((CalculationGroup) pipingCalculationsView.Data).Children[1]);
             var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
             applicationSelectionMock.Stub(asm => asm.Selection)
@@ -405,7 +405,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingCalculationItem = ((PipingCalculation) ((PipingCalculationGroup) pipingCalculationsView.Data).Children[1]);
+            var secondPipingCalculationItem = ((PipingCalculation) ((CalculationGroup) pipingCalculationsView.Data).Children[1]);
             var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
             applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
@@ -844,7 +844,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
 
-            var data = (PipingCalculationGroup) pipingCalculationView.Data;
+            var data = (CalculationGroup) pipingCalculationView.Data;
             var pipingCalculation = (PipingCalculationScenario) data.Children.First();
             var pipingCalculationCounter = 0;
             var pipingCalculationInputCounter = 0;
@@ -1018,7 +1018,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var pipingCalculationsView = ShowPipingCalculationsView();
 
-            pipingCalculationsView.Data = new PipingCalculationGroup("Group", true)
+            pipingCalculationsView.Data = new CalculationGroup("Group", true)
             {
                 Children =
                 {

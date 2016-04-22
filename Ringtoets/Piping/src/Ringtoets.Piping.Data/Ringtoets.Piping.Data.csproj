@@ -53,7 +53,6 @@
     <Compile Include="GeneralPipingInput.cs" />
     <Compile Include="IPipingCalculationBaseExtensions.cs" />
     <Compile Include="PipingCalculation.cs" />
-    <Compile Include="PipingCalculationGroup.cs" />
     <Compile Include="PipingCalculationGroupExtensions.cs" />
     <Compile Include="PipingCalculationScenario.cs" />
     <Compile Include="PipingFailureMechanism.cs" />

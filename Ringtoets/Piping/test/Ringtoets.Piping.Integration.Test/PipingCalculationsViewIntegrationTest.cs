@@ -7,6 +7,7 @@ using Core.Common.Utils.IO;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
@@ -84,7 +85,7 @@ namespace Ringtoets.Piping.Integration.Test
                 Assert.AreEqual(19, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[hydraulicBoundaryLocationsColumnIndex]).Items.Count);
 
                 // Add another, nested calculation and ensure the data grid view is updated
-                var nestedPipingCalculationGroup = new PipingCalculationGroup("New group", false);
+                var nestedPipingCalculationGroup = new CalculationGroup("New group", false);
                 assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(nestedPipingCalculationGroup);
                 assessmentSection.PipingFailureMechanism.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual(1, dataGridView.Rows.Count);

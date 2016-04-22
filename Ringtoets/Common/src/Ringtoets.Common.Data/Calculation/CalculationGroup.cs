@@ -22,30 +22,29 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Piping.Data.Properties;
+using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Piping.Data
+namespace Ringtoets.Common.Data.Calculation
 {
     /// <summary>
-    /// Class to allow grouping one or multiple <see cref="PipingCalculation"/> instances.
+    /// Class to allow grouping one or multiple <see cref="ICalculation"/> instances.
     /// </summary>
-    public class PipingCalculationGroup : Observable, ICalculationGroup
+    public class CalculationGroup : Observable, ICalculationGroup
     {
         private string name;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingCalculationGroup"/> class
+        /// Initializes a new instance of the <see cref="CalculationGroup"/> class
         /// with an editable name.
         /// </summary>
-        public PipingCalculationGroup() : this(Resources.PipingCalculationGroup_DefaultName, true) {}
+        public CalculationGroup() : this(Resources.CalculationGroup_DefaultName, true) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingCalculationGroup"/> class.
+        /// Initializes a new instance of the <see cref="CalculationGroup"/> class.
         /// </summary>
         /// <param name="newName">The name of the group.</param>
         /// <param name="canEditName">Determines if the name of the group is editable (true) or not.</param>
-        public PipingCalculationGroup(string newName, bool canEditName)
+        public CalculationGroup(string newName, bool canEditName)
         {
             name = newName;
             IsNameEditable = canEditName;
@@ -72,7 +71,7 @@ namespace Ringtoets.Piping.Data
             {
                 if (!IsNameEditable)
                 {
-                    throw new InvalidOperationException(Resources.PipingCalculationGroup_Setting_readonly_name_error_message);
+                    throw new InvalidOperationException(Resources.CalculationGroup_Setting_readonly_name_error_message);
                 }
                 name = value;
             }

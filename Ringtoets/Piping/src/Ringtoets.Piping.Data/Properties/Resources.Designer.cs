@@ -151,24 +151,6 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuwe map.
-        /// </summary>
-        public static string PipingCalculationGroup_DefaultName {
-            get {
-                return ResourceManager.GetString("PipingCalculationGroup_DefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan de naam van deze groep niet aanpassen, omdat &apos;IsNameEditable&apos; op &apos;false&apos; staat..
-        /// </summary>
-        public static string PipingCalculationGroup_Setting_readonly_name_error_message {
-            get {
-                return ResourceManager.GetString("PipingCalculationGroup_Setting_readonly_name_error_message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekeningen.
         /// </summary>
         public static string PipingFailureMechanism_Calculations_DisplayName {

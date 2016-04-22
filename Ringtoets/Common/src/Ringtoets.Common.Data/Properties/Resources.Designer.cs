@@ -70,6 +70,24 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieuwe map.
+        /// </summary>
+        public static string CalculationGroup_DefaultName {
+            get {
+                return ResourceManager.GetString("CalculationGroup_DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan de naam van deze groep niet aanpassen, omdat &apos;IsNameEditable&apos; op &apos;false&apos; staat..
+        /// </summary>
+        public static string CalculationGroup_Setting_readonly_name_error_message {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Setting_readonly_name_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor de toegestane bijdrage aan faalkans moet in interval [0,100] liggen..
         /// </summary>
         public static string Contribution_Value_should_be_in_interval_0_100 {

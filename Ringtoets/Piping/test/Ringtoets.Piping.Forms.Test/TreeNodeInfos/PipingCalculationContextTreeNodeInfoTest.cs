@@ -12,6 +12,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -199,8 +200,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual(4, children.Length);
             var commentContext = children[0] as CommentContext<ICommentable>;
             Assert.IsNotNull(commentContext);
-            Assert.AreSame(pipingCalculationContext.WrappedData, commentContext.CommentContainer); 
-            
+            Assert.AreSame(pipingCalculationContext.WrappedData, commentContext.CommentContainer);
+
             var pipingInputContext = (PipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
@@ -375,11 +376,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CanRemove_ParentIsPipingCalculationGroupWithCalculation_ReturnTrue(bool groupNameEditable)
+        public void CanRemove_ParentIsCalculationGroupWithCalculation_ReturnTrue(bool groupNameEditable)
         {
             // Setup
             var calculationToBeRemoved = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
-            var group = new PipingCalculationGroup("", groupNameEditable);
+            var group = new CalculationGroup("", groupNameEditable);
             group.Children.Add(calculationToBeRemoved);
 
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
@@ -407,11 +408,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CanRemove_ParentIsPipingCalculationGroupWithoutCalculation_ReturnFalse(bool groupNameEditable)
+        public void CanRemove_ParentIsCalculationGroupWithoutCalculation_ReturnFalse(bool groupNameEditable)
         {
             // Setup
             var calculationToBeRemoved = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
-            var group = new PipingCalculationGroup("", groupNameEditable);
+            var group = new CalculationGroup("", groupNameEditable);
 
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
@@ -469,7 +470,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var elementToBeRemoved = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
-            var group = new PipingCalculationGroup();
+            var group = new CalculationGroup();
             group.Children.Add(elementToBeRemoved);
             group.Children.Add(new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()));
             group.Attach(observer);

@@ -405,7 +405,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
             var viewDataCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
-            var deletedGroup = new PipingCalculationGroup
+            var deletedGroup = new CalculationGroup
             {
                 Children =
                 {
@@ -444,7 +444,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewDataCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             var deletedCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
-            var deletedGroup = new PipingCalculationGroup
+            var deletedGroup = new CalculationGroup
             {
                 Children =
                 {

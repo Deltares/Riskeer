@@ -19,15 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Primitives;
 
@@ -187,10 +183,10 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Calculations_AddPipingCalculationGroup_ItemIsAddedToCollection()
+        public void Calculations_AddCalculationGroup_ItemIsAddedToCollection()
         {
             // Setup
-            var folder = new PipingCalculationGroup();
+            var folder = new CalculationGroup();
 
             var failureMechanism = new PipingFailureMechanism();
 
@@ -202,10 +198,10 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Calculations_RemovePipingCalculationGroup_ItemIsRemovedFromCollection()
+        public void Calculations_RemoveCalculationGroup_ItemIsRemovedFromCollection()
         {
             // Setup
-            var folder = new PipingCalculationGroup();
+            var folder = new CalculationGroup();
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(folder);

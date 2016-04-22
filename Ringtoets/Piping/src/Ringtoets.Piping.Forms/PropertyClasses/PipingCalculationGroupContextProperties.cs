@@ -19,19 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Gui;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-
-using Ringtoets.Piping.Data;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// Object properties class for <see cref="PipingCalculationGroup"/>
+    /// Object properties class for <see cref="CalculationGroup"/>
     /// </summary>
     [ResourcesDisplayName(typeof(Resources), "PipingCalculationGroupContextProperties_DisplayName")]
     public class PipingCalculationGroupContextProperties : ObjectProperties<PipingCalculationGroupContext>
@@ -52,6 +50,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
                 data.NotifyObservers();
             }
         }
+
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadonlyValidator(string propertyName)
         {

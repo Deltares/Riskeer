@@ -50,10 +50,10 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GetPipingCalculations_FromPipingCalculationGroupWithoutChildren_ReturnEmpty()
+        public void GetPipingCalculations_FromCalculationGroupWithoutChildren_ReturnEmpty()
         {
             // Setup
-            ICalculationBase groupWithoutChildren = new PipingCalculationGroup();
+            ICalculationBase groupWithoutChildren = new CalculationGroup();
 
             // Call
             IEnumerable<PipingCalculation> result = groupWithoutChildren.GetPipingCalculations();
@@ -63,13 +63,13 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GetPipingCalculations_FromPipingCalculationGroupWithEmptyGroups_ReturnEmpty()
+        public void GetPipingCalculations_FromCalculationGroupWithEmptyGroups_ReturnEmpty()
         {
             // Setup
-            var rootGroup = new PipingCalculationGroup();
-            rootGroup.Children.Add(new PipingCalculationGroup());
-            rootGroup.Children.Add(new PipingCalculationGroup());
-            rootGroup.Children.Add(new PipingCalculationGroup());
+            var rootGroup = new CalculationGroup();
+            rootGroup.Children.Add(new CalculationGroup());
+            rootGroup.Children.Add(new CalculationGroup());
+            rootGroup.Children.Add(new CalculationGroup());
 
             ICalculationBase groupsWithoutChildren = rootGroup;
 
@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GetPipingCalculations_FromPipingCalculationGroupWithGroupsAndCalculations_ReturnAllCalculationsRecursiveslyInAnyOrder()
+        public void GetPipingCalculations_FromCalculationGroupWithGroupsAndCalculations_ReturnAllCalculationsRecursiveslyInAnyOrder()
         {
             // Setup
             var generalPipingInput = new GeneralPipingInput();
@@ -91,17 +91,17 @@ namespace Ringtoets.Piping.Data.Test
             var calculation3 = new PipingCalculationScenario(generalPipingInput, semiProbabilisticInput);
             var calculation4 = new PipingCalculationScenario(generalPipingInput, semiProbabilisticInput);
 
-            var subsubGroup = new PipingCalculationGroup();
+            var subsubGroup = new CalculationGroup();
             subsubGroup.Children.Add(calculation4);
 
-            var subgroup1 = new PipingCalculationGroup();
+            var subgroup1 = new CalculationGroup();
             subgroup1.Children.Add(calculation2);
             subgroup1.Children.Add(subsubGroup);
 
-            var subgroup2 = new PipingCalculationGroup();
+            var subgroup2 = new CalculationGroup();
             subgroup2.Children.Add(calculation3);
 
-            var rootGroup = new PipingCalculationGroup();
+            var rootGroup = new CalculationGroup();
             rootGroup.Children.Add(subgroup1);
             rootGroup.Children.Add(calculation1);
             rootGroup.Children.Add(subgroup2);
@@ -160,8 +160,8 @@ namespace Ringtoets.Piping.Data.Test
         public void GetPipingCalculations_FromArrayWithEmptyGroups_ReturnEmpty()
         {
             // Setup
-            var emptyGroup1 = new PipingCalculationGroup();
-            var emptyGroup2 = new PipingCalculationGroup();
+            var emptyGroup1 = new CalculationGroup();
+            var emptyGroup2 = new CalculationGroup();
             IEnumerable<ICalculationBase> emptyEnumerable = new[]
             {
                 emptyGroup1,
@@ -187,22 +187,22 @@ namespace Ringtoets.Piping.Data.Test
             var calculation3 = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInput);
             var calculation4 = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInput);
 
-            var subsubGroup = new PipingCalculationGroup();
+            var subsubGroup = new CalculationGroup();
             subsubGroup.Children.Add(calculation4);
 
-            var subgroup1 = new PipingCalculationGroup();
+            var subgroup1 = new CalculationGroup();
             subgroup1.Children.Add(calculation2);
             subgroup1.Children.Add(subsubGroup);
 
-            var subgroup2 = new PipingCalculationGroup();
+            var subgroup2 = new CalculationGroup();
             subgroup2.Children.Add(calculation3);
 
-            var rootGroup = new PipingCalculationGroup();
+            var rootGroup = new CalculationGroup();
             rootGroup.Children.Add(subgroup1);
             rootGroup.Children.Add(calculation1);
             rootGroup.Children.Add(subgroup2);
 
-            var emptyRootGroup = new PipingCalculationGroup();
+            var emptyRootGroup = new CalculationGroup();
 
             IEnumerable<ICalculationBase> mixedArray = new ICalculationBase[]
             {

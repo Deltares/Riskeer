@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssessmentSection\ReferenceLineTest.cs" />
+    <Compile Include="Calculation\PipingCalculationGroupTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionItemTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionTest.cs" />
     <Compile Include="Contribution\OtherFailureMechanismTest.cs" />

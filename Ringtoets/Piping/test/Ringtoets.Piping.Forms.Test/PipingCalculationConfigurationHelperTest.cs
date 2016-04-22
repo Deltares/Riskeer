@@ -519,7 +519,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Assert
             Assert.AreEqual(1, result.Count());
-            var calculationGroup = result.First() as PipingCalculationGroup;
+            var calculationGroup = result.First() as CalculationGroup;
             Assert.NotNull(calculationGroup);
 
             Assert.AreEqual(2, calculationGroup.Children.Count);
@@ -744,7 +744,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Assert
             Assert.AreEqual(1, result.Count());
-            var calculationGroup = result.First() as PipingCalculationGroup;
+            var calculationGroup = result.First() as CalculationGroup;
             Assert.NotNull(calculationGroup);
 
             Assert.AreEqual(2, calculationGroup.Children.Count);
@@ -853,7 +853,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Assert
             Assert.AreEqual(2, result.Count());
-            var calculationGroup1 = result.First(g => g.Name == surfaceLineName1) as PipingCalculationGroup;
+            var calculationGroup1 = result.First(g => g.Name == surfaceLineName1) as CalculationGroup;
             Assert.NotNull(calculationGroup1);
 
             Assert.AreEqual(2, calculationGroup1.Children.Count);
@@ -873,7 +873,7 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreSame(soilProfile2, calculationInput2.StochasticSoilProfile);
             Assert.AreSame(surfaceLine1, calculationInput2.SurfaceLine);
 
-            var calculationGroup2 = result.First(g => g.Name == surfaceLineName2) as PipingCalculationGroup;
+            var calculationGroup2 = result.First(g => g.Name == surfaceLineName2) as CalculationGroup;
             Assert.NotNull(calculationGroup2);
 
             Assert.AreEqual(1, calculationGroup2.Children.Count);
@@ -987,7 +987,7 @@ namespace Ringtoets.Piping.Forms.Test
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(1, result.Count());
-            var calculationGroup1 = result.First(g => g.Name == surfaceLineName1) as PipingCalculationGroup;
+            var calculationGroup1 = result.First(g => g.Name == surfaceLineName1) as CalculationGroup;
             Assert.NotNull(calculationGroup1);
 
             Assert.AreEqual(2, calculationGroup1.Children.Count);
@@ -1071,7 +1071,7 @@ namespace Ringtoets.Piping.Forms.Test
                 semiProbabilisticInput).ToArray();
 
             // Assert
-            var group = result.First(sl => sl.Name == surfaceLine.Name) as PipingCalculationGroup;
+            var group = result.First(sl => sl.Name == surfaceLine.Name) as CalculationGroup;
             Assert.NotNull(group);
             var calculationInput1 = (PipingCalculationScenario) group.Children[0];
             var calculationInput2 = (PipingCalculationScenario) group.Children[1];
@@ -1160,7 +1160,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new SemiProbabilisticPipingInput()).ToArray();
 
             // Assert
-            var group = result.First(sl => sl.Name == surfaceLine.Name) as PipingCalculationGroup;
+            var group = result.First(sl => sl.Name == surfaceLine.Name) as CalculationGroup;
             Assert.NotNull(group);
             var calculationInput1 = (PipingCalculationScenario) group.Children[0];
             var calculationInput2 = (PipingCalculationScenario) group.Children[1];

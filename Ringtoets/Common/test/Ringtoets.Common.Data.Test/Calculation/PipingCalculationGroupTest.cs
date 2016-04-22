@@ -22,9 +22,10 @@
 using System;
 using Core.Common.Base;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Piping.Data.Test
+namespace Ringtoets.Common.Data.Test.Calculation
 {
     [TestFixture]
     public class PipingCalculationGroupTest
@@ -33,7 +34,7 @@ namespace Ringtoets.Piping.Data.Test
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var group = new PipingCalculationGroup();
+            var group = new CalculationGroup();
 
             // Assert
             Assert.IsInstanceOf<ICalculationGroup>(group);
@@ -52,7 +53,7 @@ namespace Ringtoets.Piping.Data.Test
             const string newName = "new Name";
 
             // Call
-            var group = new PipingCalculationGroup(newName, isNameEditable);
+            var group = new CalculationGroup(newName, isNameEditable);
 
             // Assert
             Assert.IsInstanceOf<ICalculationGroup>(group);
@@ -66,9 +67,9 @@ namespace Ringtoets.Piping.Data.Test
         public void Name_SettingValueWhileNameEditable_ChangeName()
         {
             // Setup
-            var group = new PipingCalculationGroup("a", true);
+            var group = new CalculationGroup("a", true);
 
-            // Precondtion
+            // Precondition
             Assert.IsTrue(group.IsNameEditable);
 
             // Call
@@ -84,9 +85,9 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             const string originalName = "a";
-            var group = new PipingCalculationGroup(originalName, false);
+            var group = new CalculationGroup(originalName, false);
 
-            // Precondtion
+            // Precondition
             Assert.IsFalse(group.IsNameEditable);
 
             // Call
@@ -103,33 +104,39 @@ namespace Ringtoets.Piping.Data.Test
         public void Children_AddPipingCalculation_CalculationAddedToCollection()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var mockingRepository = new MockRepository();
+            var calculationMock = mockingRepository.StrictMock<ICalculation>();
+            mockingRepository.ReplayAll();
 
-            var group = new PipingCalculationGroup();
+            var group = new CalculationGroup();
 
             // Call
-            group.Children.Add(calculation);
+            group.Children.Add(calculationMock);
 
             // Assert
             Assert.AreEqual(1, group.Children.Count);
-            CollectionAssert.Contains(group.Children, calculation);
+            CollectionAssert.Contains(group.Children, calculationMock);
+            mockingRepository.VerifyAll();
         }
 
         [Test]
         public void Children_RemovePipingCalculation_CalculationRemovedFromCollection()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var mockingRepository = new MockRepository();
+            var calculationMock = mockingRepository.StrictMock<ICalculation>();
+            mockingRepository.ReplayAll();
 
-            var group = new PipingCalculationGroup();
-            group.Children.Add(calculation);
+            var group = new CalculationGroup();
+            group.Children.Add(calculationMock);
 
             // Call
-            group.Children.Remove(calculation);
+            group.Children.Remove(calculationMock);
 
             // Assert
             Assert.AreEqual(0, group.Children.Count);
-            CollectionAssert.DoesNotContain(group.Children, calculation);
+            CollectionAssert.DoesNotContain(group.Children, calculationMock);
+            mockingRepository.VerifyAll();
         }
 
         [Test]
@@ -138,35 +145,35 @@ namespace Ringtoets.Piping.Data.Test
         public void Children_AddPipingCalculationAtIndex_CalculationAddedToCollectionAtIndex(int index)
         {
             // Setup
-            var generalInputParameters = new GeneralPipingInput();
-            var semiProbabilisticInputParameters = new SemiProbabilisticPipingInput();
-            var calculation = new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters);
-            var calculationToInsert = new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters);
+            var mockingRepository = new MockRepository();
+            var calculationMock = mockingRepository.StrictMock<ICalculation>();
+            var calculationMockToInsert = mockingRepository.StrictMock<ICalculation>();
+            mockingRepository.ReplayAll();
 
-            var group = new PipingCalculationGroup();
-            group.Children.Add(calculation);
+            var group = new CalculationGroup();
+            group.Children.Add(calculationMock);
 
             // Call
-            group.Children.Insert(index, calculationToInsert);
+            group.Children.Insert(index, calculationMockToInsert);
 
             // Assert
             Assert.AreEqual(2, group.Children.Count);
-            Assert.AreSame(calculationToInsert, group.Children[index]);
+            Assert.AreSame(calculationMockToInsert, group.Children[index]);
             CollectionAssert.AreEquivalent(new[]
             {
-                calculationToInsert,
-                calculation
-            }, group.Children,
-                                           "Already existing items should have remained in collection and new item should be added.");
+                calculationMockToInsert,
+                calculationMock
+            }, group.Children, "Already existing items should have remained in collection and new item should be added.");
+            mockingRepository.VerifyAll();
         }
 
         [Test]
         public void Children_AddPipingCalculationGroup_GroupAddedToCollection()
         {
             // Setup
-            var childGroup = new PipingCalculationGroup();
+            var childGroup = new CalculationGroup();
 
-            var group = new PipingCalculationGroup();
+            var group = new CalculationGroup();
 
             // Call
             group.Children.Add(childGroup);
@@ -179,9 +186,9 @@ namespace Ringtoets.Piping.Data.Test
         public void Children_RemovePipingCalculationGroup_GroupRemovedFromCollection()
         {
             // Setup
-            var childGroup = new PipingCalculationGroup();
+            var childGroup = new CalculationGroup();
 
-            var group = new PipingCalculationGroup();
+            var group = new CalculationGroup();
             group.Children.Add(childGroup);
 
             // Call
@@ -197,10 +204,10 @@ namespace Ringtoets.Piping.Data.Test
         public void Children_RemovePipingCalculationGroup_CalculationRemovedFromCollection(int index)
         {
             // Setup
-            var existingGroup = new PipingCalculationGroup();
-            var groupToInsert = new PipingCalculationGroup();
+            var existingGroup = new CalculationGroup();
+            var groupToInsert = new CalculationGroup();
 
-            var group = new PipingCalculationGroup();
+            var group = new CalculationGroup();
             group.Children.Add(existingGroup);
 
             // Call

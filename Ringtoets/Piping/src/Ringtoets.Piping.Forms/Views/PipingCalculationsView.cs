@@ -31,6 +31,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Selection;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
@@ -47,14 +48,14 @@ namespace Ringtoets.Piping.Forms.Views
     public partial class PipingCalculationsView : UserControl, IView
     {
         private readonly Observer assessmentSectionObserver;
-        private readonly RecursiveObserver<PipingCalculationGroup, PipingCalculationGroup> pipingCalculationGroupObserver;
-        private readonly RecursiveObserver<PipingCalculationGroup, PipingCalculationScenario> pipingCalculationObserver;
+        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> pipingCalculationGroupObserver;
+        private readonly RecursiveObserver<CalculationGroup, PipingCalculationScenario> pipingCalculationObserver;
         private readonly Observer pipingFailureMechanismObserver;
-        private readonly RecursiveObserver<PipingCalculationGroup, PipingInput> pipingInputObserver;
+        private readonly RecursiveObserver<CalculationGroup, PipingInput> pipingInputObserver;
         private readonly Observer pipingStochasticSoilModelsObserver;
         private IAssessmentSection assessmentSection;
         private DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn;
-        private PipingCalculationGroup pipingCalculationGroup;
+        private CalculationGroup pipingCalculationGroup;
         private PipingFailureMechanism pipingFailureMechanism;
         private DataGridViewComboBoxColumn stochasticSoilModelColumn;
         private DataGridViewComboBoxColumn stochasticSoilProfileColumn;
@@ -72,9 +73,9 @@ namespace Ringtoets.Piping.Forms.Views
             pipingStochasticSoilModelsObserver = new Observer(OnStochasticSoilModelsUpdate);
             pipingFailureMechanismObserver = new Observer(OnPipingFailureMechanismUpdate);
             assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryLocationsColumn);
-            pipingInputObserver = new RecursiveObserver<PipingCalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
-            pipingCalculationObserver = new RecursiveObserver<PipingCalculationGroup, PipingCalculationScenario>(RefreshDataGridView, pcg => pcg.Children);
-            pipingCalculationGroupObserver = new RecursiveObserver<PipingCalculationGroup, PipingCalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
+            pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
+            pipingCalculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(RefreshDataGridView, pcg => pcg.Children);
+            pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
         }
 
         /// <summary>
@@ -131,7 +132,7 @@ namespace Ringtoets.Piping.Forms.Views
             }
             set
             {
-                pipingCalculationGroup = value as PipingCalculationGroup;
+                pipingCalculationGroup = value as CalculationGroup;
 
                 if (pipingCalculationGroup != null)
                 {
@@ -577,11 +578,11 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 get
                 {
-                    return new RoundedDouble(0, pipingCalculation.Contribution * 100);
+                    return new RoundedDouble(0, pipingCalculation.Contribution*100);
                 }
                 set
                 {
-                    pipingCalculation.Contribution = new RoundedDouble(2, value / 100);
+                    pipingCalculation.Contribution = new RoundedDouble(2, value/100);
                     pipingCalculation.NotifyObservers();
                 }
             }
@@ -635,9 +636,9 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 get
                 {
-                    return pipingCalculation.InputParameters.StochasticSoilProfile != null 
-                        ? new RoundedDouble(3, pipingCalculation.InputParameters.StochasticSoilProfile.Probability*100).Value.ToString(CultureInfo.CurrentCulture) 
-                        : new RoundedDouble(3).Value.ToString(CultureInfo.CurrentCulture);
+                    return pipingCalculation.InputParameters.StochasticSoilProfile != null
+                               ? new RoundedDouble(3, pipingCalculation.InputParameters.StochasticSoilProfile.Probability*100).Value.ToString(CultureInfo.CurrentCulture)
+                               : new RoundedDouble(3).Value.ToString(CultureInfo.CurrentCulture);
                 }
             }
 
