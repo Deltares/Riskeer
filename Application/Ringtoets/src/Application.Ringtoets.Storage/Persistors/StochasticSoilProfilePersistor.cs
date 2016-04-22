@@ -155,8 +155,11 @@ namespace Application.Ringtoets.Storage.Persistors
                 }
 
                 modifiedList.Add(entity);
-                RemoveOldProfiles(entity);
-                stochasticSoilProfileConverter.ConvertModelToEntity(stochasticSoilProfile, entity);
+                if (HasChanges(entity.SoilProfileEntity))
+                {
+                    RemoveOldProfiles(entity);
+                    stochasticSoilProfileConverter.ConvertModelToEntity(stochasticSoilProfile, entity);
+                }
             }
         }
 
@@ -167,6 +170,15 @@ namespace Application.Ringtoets.Storage.Persistors
                 soilLayerSet.RemoveRange(entity.SoilProfileEntity.SoilLayerEntities);
                 soilProfileSet.Remove(entity.SoilProfileEntity);
             }
+        }
+
+        private bool HasChanges(SoilProfileEntity soilProfileEntity)
+        {
+            if (soilProfileEntity.SoilProfileEntityId <= 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
