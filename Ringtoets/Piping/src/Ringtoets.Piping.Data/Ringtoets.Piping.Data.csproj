@@ -51,7 +51,7 @@
     </Compile>
     <Compile Include="DerivedPipingInput.cs" />
     <Compile Include="GeneralPipingInput.cs" />
-    <Compile Include="IPipingCalculationItemExtensions.cs" />
+    <Compile Include="IPipingCalculationBaseExtensions.cs" />
     <Compile Include="PipingCalculation.cs" />
     <Compile Include="PipingCalculationGroup.cs" />
     <Compile Include="PipingCalculationGroupExtensions.cs" />

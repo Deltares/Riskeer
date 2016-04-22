@@ -57,7 +57,7 @@
     <Compile Include="DerivedPipingInputTest.cs" />
     <Compile Include="Exceptions\RingtoetsPipingSurfaceLineExceptionTest.cs" />
     <Compile Include="GeneralPipingInputTest.cs" />
-    <Compile Include="IPipingCalculationItemExtensionsTest.cs" />
+    <Compile Include="IPipingCalculationBaseExtensionsTest.cs" />
     <Compile Include="PipingCalculationGroupExtensionsTest.cs" />
     <Compile Include="PipingCalculationGroupTest.cs" />
     <Compile Include="PipingCalculationScenarioTest.cs" />

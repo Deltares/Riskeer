@@ -26,16 +26,11 @@ namespace Ringtoets.Common.Data.Calculation
     /// <summary>
     /// A calculation related item.
     /// </summary>
-    public interface ICalculationItem : IObservable
+    public interface ICalculationBase : IObservable
     {
         /// <summary>
         /// Gets the name of this calculation object.
         /// </summary>
         string Name { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether or not  this calculation item contains calculation outputs.
-        /// </summary>
-        bool HasOutput { get; }
     }
 }

@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Primitives;
@@ -32,13 +31,13 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
-    public class IPipingCalculationItemExtensionsTest
+    public class IPipingCalculationBaseExtensionsTest
     {
         [Test]
         public void GetPipingCalculations_FromPipingCalculation_ReturnThatCalculationInstance()
         {
             // Setup
-            ICalculationItem calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            ICalculationBase calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             // Call
             IEnumerable<PipingCalculationScenario> result = calculationItem.GetPipingCalculations();
@@ -54,7 +53,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetPipingCalculations_FromPipingCalculationGroupWithoutChildren_ReturnEmpty()
         {
             // Setup
-            ICalculationItem groupWithoutChildren = new PipingCalculationGroup();
+            ICalculationBase groupWithoutChildren = new PipingCalculationGroup();
 
             // Call
             IEnumerable<PipingCalculation> result = groupWithoutChildren.GetPipingCalculations();
@@ -72,7 +71,7 @@ namespace Ringtoets.Piping.Data.Test
             rootGroup.Children.Add(new PipingCalculationGroup());
             rootGroup.Children.Add(new PipingCalculationGroup());
 
-            ICalculationItem groupsWithoutChildren = rootGroup;
+            ICalculationBase groupsWithoutChildren = rootGroup;
 
             // Call
             IEnumerable<PipingCalculationScenario> result = groupsWithoutChildren.GetPipingCalculations();
@@ -107,7 +106,7 @@ namespace Ringtoets.Piping.Data.Test
             rootGroup.Children.Add(calculation1);
             rootGroup.Children.Add(subgroup2);
 
-            ICalculationItem groupWithoutChildren = rootGroup;
+            ICalculationBase groupWithoutChildren = rootGroup;
 
             // Call
             IEnumerable<PipingCalculationScenario> result = groupWithoutChildren.GetPipingCalculations();
@@ -127,7 +126,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetPipingCalculations_FromEmptyEnummerable_ReturnEmpty()
         {
             // Setup
-            IEnumerable<ICalculationItem> emptyEnumerable = Enumerable.Empty<ICalculationItem>();
+            IEnumerable<ICalculationBase> emptyEnumerable = Enumerable.Empty<ICalculationBase>();
 
             // Call
             IEnumerable<PipingCalculationScenario> result = emptyEnumerable.GetPipingCalculations();
@@ -144,7 +143,7 @@ namespace Ringtoets.Piping.Data.Test
             var semiProbabilisticInput = new SemiProbabilisticPipingInput();
             var calculation1 = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInput);
             var calculation2 = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInput);
-            IEnumerable<ICalculationItem> calculationArray = new[]
+            IEnumerable<ICalculationBase> calculationArray = new[]
             {
                 calculation1,
                 calculation2
@@ -163,7 +162,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var emptyGroup1 = new PipingCalculationGroup();
             var emptyGroup2 = new PipingCalculationGroup();
-            IEnumerable<ICalculationItem> emptyEnumerable = new[]
+            IEnumerable<ICalculationBase> emptyEnumerable = new[]
             {
                 emptyGroup1,
                 emptyGroup2
@@ -205,7 +204,7 @@ namespace Ringtoets.Piping.Data.Test
 
             var emptyRootGroup = new PipingCalculationGroup();
 
-            IEnumerable<ICalculationItem> mixedArray = new ICalculationItem[]
+            IEnumerable<ICalculationBase> mixedArray = new ICalculationBase[]
             {
                 emptyRootGroup,
                 rootGroup,

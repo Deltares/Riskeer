@@ -166,7 +166,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_GroupWithMixedContents_ReturnChildren()
         {
             // Setup
-            var calculationItem = mocks.StrictMock<ICalculationItem>();
+            var calculationItem = mocks.StrictMock<ICalculationBase>();
 
             var childCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
@@ -708,7 +708,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
 
-            var calculationItem = mocks.Stub<ICalculationItem>();
+            var calculationItem = mocks.Stub<ICalculationBase>();
             calculationItem.Expect(ci => ci.Name).Return("Nieuwe map");
 
             var observer = mocks.StrictMock<IObserver>();
@@ -759,7 +759,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
 
-            var calculationItem = mocks.Stub<ICalculationItem>();
+            var calculationItem = mocks.Stub<ICalculationBase>();
             calculationItem.Expect(ci => ci.Name).Return("Nieuwe berekening");
 
             var observer = mocks.StrictMock<IObserver>();
@@ -977,17 +977,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     messageBox.ClickCancel();
                 }
             };
-
-            // Precondition
-            Assert.IsTrue(group.HasOutput);
-
             var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // Call
             contextMenu.Items[contextMenuClearOutputIndex].PerformClick();
 
             // Assert
-            Assert.AreNotEqual(confirm, group.HasOutput);
             Assert.AreNotEqual(confirm, calculation1.HasOutput);
             Assert.AreNotEqual(confirm, calculation2.HasOutput);
 
@@ -1530,7 +1525,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             [Values(PipingCalculationType.Calculation, PipingCalculationType.Group)] PipingCalculationType draggedItemType)
         {
             // Setup
-            ICalculationItem draggedItem;
+            ICalculationBase draggedItem;
             object draggedItemContext;
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1577,7 +1572,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             [Values(PipingCalculationType.Calculation, PipingCalculationType.Group)] PipingCalculationType draggedItemType)
         {
             // Setup
-            ICalculationItem draggedItem;
+            ICalculationBase draggedItem;
             object draggedItemContext;
 
             var targetFailureMechanism = new PipingFailureMechanism();
@@ -1629,7 +1624,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
-            ICalculationItem draggedItem;
+            ICalculationBase draggedItem;
             object draggedItemContext;
             CreatePipingCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, assessmentSection);
 
@@ -1681,11 +1676,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             const string name = "Very cool name";
-            ICalculationItem draggedItem;
+            ICalculationBase draggedItem;
             object draggedItemContext;
             CreatePipingCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, assessmentSection, name);
 
-            var existingItemStub = mocks.Stub<ICalculationItem>();
+            var existingItemStub = mocks.Stub<ICalculationBase>();
             existingItemStub.Stub(i => i.Name).Return("");
 
             PipingCalculationGroup originalOwnerGroup;
@@ -1730,7 +1725,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
-            ICalculationItem draggedItem;
+            ICalculationBase draggedItem;
             object draggedItemContext;
             CreatePipingCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, assessmentSection);
 
@@ -1743,7 +1738,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             PipingCalculationGroupContext newOwnerGroupContext;
             CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
 
-            var sameNamedItem = mocks.Stub<ICalculationItem>();
+            var sameNamedItem = mocks.Stub<ICalculationBase>();
             sameNamedItem.Stub(i => i.Name).Return(draggedItem.Name);
 
             var originalOwnerObserver = mocks.StrictMock<IObserver>();
@@ -1815,16 +1810,16 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="ICalculationItem"/> and the corresponding context.
+        /// Creates an instance of <see cref="ICalculationBase"/> and the corresponding context.
         /// </summary>
-        /// <param name="type">Defines the implementation of <see cref="ICalculationItem"/> to be constructed.</param>
+        /// <param name="type">Defines the implementation of <see cref="ICalculationBase"/> to be constructed.</param>
         /// <param name="data">Output: The concrete create class based on <paramref name="type"/>.</param>
         /// <param name="dataContext">Output: The <see cref="PipingContext{T}"/> corresponding with <paramref name="data"/>.</param>
         /// <param name="pipingFailureMechanism">The piping failure mechanism the item and context belong to.</param>
         /// <param name="assessmentSection">The assessment section the item and context belong to.</param>
         /// <param name="initialName">Optional: The name of <paramref name="data"/>.</param>
         /// <exception cref="System.NotSupportedException"></exception>
-        private static void CreatePipingCalculationAndContext(PipingCalculationType type, out ICalculationItem data, out object dataContext, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection, string initialName = null)
+        private static void CreatePipingCalculationAndContext(PipingCalculationType type, out ICalculationBase data, out object dataContext, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection, string initialName = null)
         {
             switch (type)
             {
@@ -1876,7 +1871,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         /// <summary>
-        /// Type indicator for implementations of <see cref="ICalculationItem"/> to be created in a test.
+        /// Type indicator for implementations of <see cref="ICalculationBase"/> to be created in a test.
         /// </summary>
         public enum PipingCalculationType
         {

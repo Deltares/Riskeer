@@ -40,17 +40,17 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class FailureMechanismResultView : UserControl, IView
     {
+        private const double tolerance = 1e-6;
         private readonly Observer failureMechanismObserver;
         private readonly RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult> failureMechanismSectionResultObserver;
-        private readonly RecursiveObserver<IFailureMechanism, ICalculationItem> calculationScenarioObserver;
-        private readonly RecursiveObserver<IFailureMechanism, ICalculationInput> calculationInputObserver; 
+        private readonly RecursiveObserver<IFailureMechanism, ICalculationBase> calculationScenarioObserver;
+        private readonly RecursiveObserver<IFailureMechanism, ICalculationInput> calculationInputObserver;
 
         private IEnumerable<FailureMechanismSectionResult> failureMechanismSectionResult;
         private IFailureMechanism failureMechanism;
         private DataGridViewTextBoxColumn assessmentLayerTwoA;
         private DataGridViewTextBoxColumn assessmentLayerTwoB;
         private DataGridViewTextBoxColumn assessmentLayerThree;
-        private const double tolerance = 1e-6;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView"/>.
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms.Views
 
             failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
             failureMechanismSectionResultObserver = new RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
-            calculationScenarioObserver = new RecursiveObserver<IFailureMechanism, ICalculationItem>(UpdataDataGridViewDataSource, mechanism => mechanism.SectionResults.SelectMany(sr => sr.CalculationScenarios));
+            calculationScenarioObserver = new RecursiveObserver<IFailureMechanism, ICalculationBase>(UpdataDataGridViewDataSource, mechanism => mechanism.SectionResults.SelectMany(sr => sr.CalculationScenarios));
             calculationInputObserver = new RecursiveObserver<IFailureMechanism, ICalculationInput>(UpdataDataGridViewDataSource, mechanism => mechanism.SectionResults.SelectMany(sr => sr.CalculationScenarios).Select(cs => cs.Input));
             Load += OnLoad;
         }
@@ -183,7 +183,7 @@ namespace Ringtoets.Common.Forms.Views
                 column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
-        }        
+        }
 
         private void UpdataDataGridViewDataSource()
         {
@@ -384,7 +384,7 @@ namespace Ringtoets.Common.Forms.Views
                     dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed;
                     return;
                 }
-                
+
                 if (double.IsNaN(layerTwoA.Value))
                 {
                     // Calculation output not valid.

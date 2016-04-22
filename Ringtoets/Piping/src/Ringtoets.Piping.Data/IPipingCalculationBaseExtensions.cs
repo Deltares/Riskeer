@@ -28,9 +28,9 @@ using Ringtoets.Common.Data.Calculation;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Defines extension methods dealing with <see cref="ICalculationItem"/> instances.
+    /// Defines extension methods dealing with <see cref="ICalculationBase"/> instances.
     /// </summary>
-    public static class IPipingCalculationItemExtensions
+    public static class IPipingCalculationBaseExtensions
     {
         /// <summary>
         /// Recursively enumerates across over the contents of the piping calculation item, 
@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="calculationItem">The calculation item to be evaluated.</param>
         /// <returns>Returns all contained piping calculations as an enumerable result.</returns>
-        public static IEnumerable<PipingCalculationScenario> GetPipingCalculations(this ICalculationItem calculationItem)
+        public static IEnumerable<PipingCalculationScenario> GetPipingCalculations(this ICalculationBase calculationItem)
         {
             var calculationScenario = calculationItem as PipingCalculationScenario;
             if (calculationScenario != null)
@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="pipingCalculationItems">The calculation items to be evaluated.</param>
         /// <returns>Returns all contained piping calculations as an enumerable result.</returns>
-        public static IEnumerable<PipingCalculationScenario> GetPipingCalculations(this IEnumerable<ICalculationItem> pipingCalculationItems)
+        public static IEnumerable<PipingCalculationScenario> GetPipingCalculations(this IEnumerable<ICalculationBase> pipingCalculationItems)
         {
             return pipingCalculationItems.SelectMany(GetPipingCalculations);
         }
@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Data
         /// <param name="lineSegments">The line segments that defines the reference line.</param>
         /// <returns><c>true</c> when intersecting. <c>false</c> otherwise.</returns>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="lineSegments"/> contains no elements.</exception>
-        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this ICalculationItem calculationItem, IEnumerable<Segment2D> lineSegments)
+        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this ICalculationBase calculationItem, IEnumerable<Segment2D> lineSegments)
         {
             var pipingCalculation = calculationItem as PipingCalculationScenario;
 

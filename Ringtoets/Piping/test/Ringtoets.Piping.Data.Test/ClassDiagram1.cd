@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Ringtoets.Piping.Data.PipingCalculation">
+    <Position X="6.25" Y="1" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Ringtoets.Piping.Data.PipingCalculationGroup">
+    <Position X="13.5" Y="4.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Ringtoets.Piping.Data.PipingCalculationScenario">
+    <Position X="6" Y="5.5" Width="2.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Ringtoets.Piping.Data.PipingFailureMechanism">
+    <Position X="9.75" Y="4.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="CalculationsGroup" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="Ringtoets.Common.Data.Calculation.ICalculation">
+    <Position X="14.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Ringtoets.Common.Data.Calculation.ICalculationBase">
+    <Position X="17.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Ringtoets.Common.Data.Calculation.ICalculationGroup">
+    <Position X="17.25" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Ringtoets.Common.Data.Calculation.ICalculationScenario">
+    <Position X="11.25" Y="0.5" Width="2.5" />
+    <InheritanceLine Type="Ringtoets.Common.Data.Calculation.ICalculationBase" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="17.25" Y="3.061" />
+        <Point X="12.5" Y="3.061" />
+        <Point X="12.5" Y="2.506" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Ringtoets.Common.Data.ICommentable">
+    <Position X="17.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

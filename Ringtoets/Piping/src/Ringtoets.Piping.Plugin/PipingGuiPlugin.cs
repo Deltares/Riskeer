@@ -566,7 +566,7 @@ namespace Ringtoets.Piping.Plugin
         {
             var childNodeObjects = new List<object>();
 
-            foreach (ICalculationItem item in nodeData.WrappedData.Children)
+            foreach (ICalculationBase item in nodeData.WrappedData.Children)
             {
                 var calculation = item as PipingCalculation;
                 var group = item as PipingCalculationGroup;
@@ -835,7 +835,7 @@ namespace Ringtoets.Piping.Plugin
             return GetAsICalculationItem(draggedData) != null && NodesHaveSameParentFailureMechanism(draggedData, targetData);
         }
 
-        private static ICalculationItem GetAsICalculationItem(object item)
+        private static ICalculationBase GetAsICalculationItem(object item)
         {
             var calculationContext = item as PipingCalculationContext;
             if (calculationContext != null)
@@ -879,7 +879,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void PipingCalculationGroupContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
         {
-            ICalculationItem calculationItem = GetAsICalculationItem(droppedData);
+            ICalculationBase calculationItem = GetAsICalculationItem(droppedData);
             var originalOwnerContext = oldParentData as PipingCalculationGroupContext;
             var target = newParentData as PipingCalculationGroupContext;
 
@@ -925,7 +925,7 @@ namespace Ringtoets.Piping.Plugin
             /// <param name="calculationItem">The calculation item wrapped by <see cref="draggedData"/>.</param>
             /// <param name="newPosition">The index of the new position within the new owner's collection.</param>
             /// <param name="treeViewControl">The tree view control which is at stake.</param>
-            public virtual void Execute(object draggedData, ICalculationItem calculationItem, int newPosition, TreeViewControl treeViewControl)
+            public virtual void Execute(object draggedData, ICalculationBase calculationItem, int newPosition, TreeViewControl treeViewControl)
             {
                 MoveCalculationItemToNewOwner(calculationItem, newPosition);
 
@@ -933,12 +933,12 @@ namespace Ringtoets.Piping.Plugin
             }
 
             /// <summary>
-            /// Moves the <see cref="ICalculationItem"/> instance to its new location.
+            /// Moves the <see cref="ICalculationBase"/> instance to its new location.
             /// </summary>
             /// <param name="calculationItem">The instance to be relocated.</param>
             /// <param name="position">The index in the new <see cref="PipingCalculationGroup"/>
             /// owner within its <see cref="PipingCalculationGroup.Children"/>.</param>
-            protected void MoveCalculationItemToNewOwner(ICalculationItem calculationItem, int position)
+            protected void MoveCalculationItemToNewOwner(ICalculationBase calculationItem, int position)
             {
                 originalOwnerContext.WrappedData.Children.Remove(calculationItem);
                 target.WrappedData.Children.Insert(position, calculationItem);
@@ -986,7 +986,7 @@ namespace Ringtoets.Piping.Plugin
             public DroppingPipingCalculationToNewContainer(PipingCalculationGroupContext originalOwnerContext, PipingCalculationGroupContext target) :
                 base(originalOwnerContext, target) {}
 
-            public override void Execute(object draggedData, ICalculationItem calculationItem, int newPosition, TreeViewControl treeViewControl)
+            public override void Execute(object draggedData, ICalculationBase calculationItem, int newPosition, TreeViewControl treeViewControl)
             {
                 MoveCalculationItemToNewOwner(calculationItem, newPosition);
 

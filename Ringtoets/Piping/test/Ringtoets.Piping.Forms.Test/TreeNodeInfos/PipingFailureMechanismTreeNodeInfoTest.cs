@@ -242,7 +242,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             contextMenuAdapter.Items[contextMenuClearIndex].PerformClick();
 
             // Then
-            Assert.AreNotEqual(confirm, dataMock.CalculationsGroup.HasOutput);
+            foreach (var calc in dataMock.CalculationsGroup.Children.OfType<ICalculation>())
+            {
+                Assert.AreNotEqual(confirm, calc.HasOutput);
+            }
 
             Assert.AreEqual("Bevestigen", messageBoxTitle);
             Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
@@ -495,7 +498,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
-            ICalculationItem addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
+            ICalculationBase addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
             Assert.AreEqual("Nieuwe berekening (1)", addedItem.Name,
                             "Because there is already an item with the same default name, '(1)' should be appended.");
             Assert.IsInstanceOf<PipingCalculationScenario>(addedItem);
@@ -540,7 +543,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
-            ICalculationItem addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
+            ICalculationBase addedItem = failureMechanism.CalculationsGroup.Children.ElementAt(1);
             Assert.AreEqual("Nieuwe map (1)", addedItem.Name,
                             "Because there is already an item with the same default name, '(1)' should be appended.");
             Assert.IsInstanceOf<PipingCalculationGroup>(addedItem);

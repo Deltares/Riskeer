@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data.Properties;
@@ -31,7 +30,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Class to allow grouping one or multiple <see cref="PipingCalculation"/> instances.
     /// </summary>
-    public class PipingCalculationGroup : Observable, ICalculationItem
+    public class PipingCalculationGroup : Observable, ICalculationGroup
     {
         private string name;
 
@@ -50,18 +49,15 @@ namespace Ringtoets.Piping.Data
         {
             name = newName;
             IsNameEditable = canEditName;
-            Children = new List<ICalculationItem>();
+            Children = new List<ICalculationBase>();
         }
-
-        /// <summary>
-        /// Gets the children that define this group.
-        /// </summary>
-        public IList<ICalculationItem> Children { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether or not <see cref="Name"/> is editable.
         /// </summary>
         public bool IsNameEditable { get; private set; }
+
+        public IList<ICalculationBase> Children { get; private set; }
 
         /// <summary>
         /// Gets or sets the name of this calculation grouping object.
@@ -79,14 +75,6 @@ namespace Ringtoets.Piping.Data
                     throw new InvalidOperationException(Resources.PipingCalculationGroup_Setting_readonly_name_error_message);
                 }
                 name = value;
-            }
-        }
-
-        public bool HasOutput
-        {
-            get
-            {
-                return Children.Any(c => c.HasOutput);
             }
         }
     }

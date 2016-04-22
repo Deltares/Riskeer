@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Data.Test
             var calculation = new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters);
 
             // Assert
-            Assert.IsInstanceOf<ICalculationItem>(calculation);
+            Assert.IsInstanceOf<ICalculationBase>(calculation);
             Assert.IsInstanceOf<ICommentable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);

@@ -22,8 +22,6 @@
 using System;
 using Core.Common.Base;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data.Test
@@ -38,11 +36,10 @@ namespace Ringtoets.Piping.Data.Test
             var group = new PipingCalculationGroup();
 
             // Assert
-            Assert.IsInstanceOf<ICalculationItem>(group);
+            Assert.IsInstanceOf<ICalculationGroup>(group);
             Assert.IsInstanceOf<Observable>(group);
             Assert.IsTrue(group.IsNameEditable);
             Assert.AreEqual("Nieuwe map", group.Name);
-            Assert.IsFalse(group.HasOutput);
             CollectionAssert.IsEmpty(group.Children);
         }
 
@@ -58,11 +55,10 @@ namespace Ringtoets.Piping.Data.Test
             var group = new PipingCalculationGroup(newName, isNameEditable);
 
             // Assert
-            Assert.IsInstanceOf<ICalculationItem>(group);
+            Assert.IsInstanceOf<ICalculationGroup>(group);
             Assert.IsInstanceOf<Observable>(group);
             Assert.AreEqual(isNameEditable, group.IsNameEditable);
             Assert.AreEqual(newName, group.Name);
-            Assert.IsFalse(group.HasOutput);
             CollectionAssert.IsEmpty(group.Children);
         }
 
@@ -219,70 +215,6 @@ namespace Ringtoets.Piping.Data.Test
                 existingGroup
             }, group.Children,
                                            "Already existing items should have remained in collection and new item should be added.");
-        }
-
-        [Test]
-        public void HasOutput_NoChildren_ReturnFalse()
-        {
-            // Setup
-            var group = new PipingCalculationGroup();
-
-            // Precondition
-            CollectionAssert.IsEmpty(group.Children);
-
-            // Call
-            var hasOutput = group.HasOutput;
-
-            // Assert
-            Assert.IsFalse(hasOutput);
-        }
-
-        [Test]
-        public void HasOutput_HasChildWithOutput_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var childWithoutOutput = mocks.Stub<ICalculationItem>();
-            childWithoutOutput.Stub(c => c.HasOutput).Return(false);
-
-            var childWithOutput = mocks.Stub<ICalculationItem>();
-            childWithOutput.Stub(c => c.HasOutput).Return(true);
-            mocks.ReplayAll();
-
-            var group = new PipingCalculationGroup();
-            group.Children.Add(childWithoutOutput);
-            group.Children.Add(childWithOutput);
-
-            // Call
-            var hasOutput = group.HasOutput;
-
-            // Assert
-            Assert.IsTrue(hasOutput);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void HasOutput_HasChildrenAllWithoutOutput_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var child1WithoutOutput = mocks.Stub<ICalculationItem>();
-            child1WithoutOutput.Stub(c => c.HasOutput).Return(false);
-
-            var child2WithoutOutput = mocks.Stub<ICalculationItem>();
-            child2WithoutOutput.Stub(c => c.HasOutput).Return(false);
-            mocks.ReplayAll();
-
-            var group = new PipingCalculationGroup();
-            group.Children.Add(child1WithoutOutput);
-            group.Children.Add(child2WithoutOutput);
-
-            // Call
-            var hasOutput = group.HasOutput;
-
-            // Assert
-            Assert.IsFalse(hasOutput);
-            mocks.VerifyAll();
         }
     }
 }
