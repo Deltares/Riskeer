@@ -123,4 +123,7 @@
   <data name="GrassCoverErosionInwardsCalculation_DefaultName" xml:space="preserve">
     <value>Nieuwe berekening</value>
   </data>
+  <data name="GrassCoverErosionInwardsFailureMechanism_Calculations_DisplayName" xml:space="preserve">
+    <value>Berekeningen</value>
+  </data>
 </root>

@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Data
         public ObservableList<StochasticSoilModel> StochasticSoilModels { get; private set; }
 
         /// <summary>
-        /// Gets all available piping calculations.
+        /// Gets all available piping calculation groups.
         /// </summary>
         public CalculationGroup CalculationsGroup { get; private set; }
 

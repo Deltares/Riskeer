@@ -27,7 +27,7 @@ using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// Model for performing GrassCoverErosionInwards calculations.
+    /// Model for performing grass cover erosion inwards calculations.
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase
     {
@@ -35,14 +35,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanism"/> class.
         /// </summary>
         public GrassCoverErosionInwardsFailureMechanism()
-            : base(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName) {}
+            : base(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName)
+        {
+            CalculationsGroup = new CalculationGroup(Resources.GrassCoverErosionInwardsFailureMechanism_Calculations_DisplayName, false);
+        }
 
         public override IEnumerable<ICalculation> Calculations
         {
             get
             {
-                yield break;
+                return CalculationsGroup.GetGrassCoverErosionInwardsCalculations();
             }
         }
+
+        /// <summary>
+        /// Gets all available grass cover erosion inwards calculation groups.
+        /// </summary>
+        public CalculationGroup CalculationsGroup { get; private set; }
     }
 }

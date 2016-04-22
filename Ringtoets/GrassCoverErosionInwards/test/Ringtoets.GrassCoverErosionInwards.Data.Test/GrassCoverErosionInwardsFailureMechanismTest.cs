@@ -22,6 +22,7 @@
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
@@ -48,6 +49,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsInstanceOf<FailureMechanismBase>(grassCoverErosionInwardsFailureMechanism);
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, grassCoverErosionInwardsFailureMechanism.Name);
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.Calculations);
+            Assert.AreEqual("Berekeningen", grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Name);
+            Assert.IsEmpty(grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children);
         }
 
         [Test]
@@ -140,6 +143,72 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Call & Assert
             grassCoverErosionInwardsFailureMechanism.Detach(observer);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculations_AddGrassCoverErosionInwardsCalculation_ItemIsAddedToCollection()
+        {
+            // Setup
+            var calculationMock = mockRepository.StrictMock<ICalculation>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            // Call
+            failureMechanism.CalculationsGroup.Children.Add(calculationMock);
+
+            // Assert
+            CollectionAssert.Contains(failureMechanism.CalculationsGroup.Children, calculationMock);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculations_RemoveGrassCoverErosionInwardsCalculation_ItemIsRemovedFromCollection()
+        {
+            // Setup
+            var calculationMock = mockRepository.StrictMock<ICalculation>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationMock);
+
+            // Call
+            failureMechanism.CalculationsGroup.Children.Remove(calculationMock);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, calculationMock);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculations_AddCalculationGroup_ItemIsAddedToCollection()
+        {
+            // Setup
+            var folder = new CalculationGroup();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            // Call
+            failureMechanism.CalculationsGroup.Children.Add(folder);
+
+            // Assert
+            CollectionAssert.Contains(failureMechanism.CalculationsGroup.Children, folder);
+        }
+
+        [Test]
+        public void Calculations_RemoveCalculationGroup_ItemIsRemovedFromCollection()
+        {
+            // Setup
+            var folder = new CalculationGroup();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(folder);
+
+            // Call
+            failureMechanism.CalculationsGroup.Children.Remove(folder);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, folder);
         }
     }
 }

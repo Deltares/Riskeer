@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Calculation;
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Defines extension methods dealing with <see cref="ICalculationBase"/> instances.
+    /// Defines extension methods dealing with <see cref="ICalculationBase"/> instances for piping.
     /// </summary>
     public static class IPipingCalculationBaseExtensions
     {
