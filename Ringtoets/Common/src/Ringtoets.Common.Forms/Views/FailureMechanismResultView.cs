@@ -42,7 +42,8 @@ namespace Ringtoets.Common.Forms.Views
     {
         private readonly Observer failureMechanismObserver;
         private readonly RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult> failureMechanismSectionResultObserver;
-        private readonly RecursiveObserver<IFailureMechanism, ICalculationScenario> calculationScenarioObserver; 
+        private readonly RecursiveObserver<IFailureMechanism, ICalculationItem> calculationScenarioObserver;
+        private readonly RecursiveObserver<IFailureMechanism, ICalculationInput> calculationInputObserver; 
 
         private IEnumerable<FailureMechanismSectionResult> failureMechanismSectionResult;
         private IFailureMechanism failureMechanism;
@@ -61,8 +62,8 @@ namespace Ringtoets.Common.Forms.Views
 
             failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
             failureMechanismSectionResultObserver = new RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
-            calculationScenarioObserver = new RecursiveObserver<IFailureMechanism, ICalculationScenario>(UpdataDataGridViewDataSource, mechanism => mechanism.SectionResults.Select(sr => sr.CalculationScenarios));
-
+            calculationScenarioObserver = new RecursiveObserver<IFailureMechanism, ICalculationItem>(UpdataDataGridViewDataSource, mechanism => mechanism.SectionResults.SelectMany(sr => sr.CalculationScenarios));
+            calculationInputObserver = new RecursiveObserver<IFailureMechanism, ICalculationInput>(UpdataDataGridViewDataSource, mechanism => mechanism.SectionResults.SelectMany(sr => sr.CalculationScenarios).Select(cs => cs.Input));
             Load += OnLoad;
         }
 
@@ -81,6 +82,8 @@ namespace Ringtoets.Common.Forms.Views
 
                 failureMechanismObserver.Observable = failureMechanism;
                 failureMechanismSectionResultObserver.Observable = failureMechanism;
+                calculationScenarioObserver.Observable = failureMechanism;
+                calculationInputObserver.Observable = failureMechanism;
             }
         }
 
@@ -97,12 +100,10 @@ namespace Ringtoets.Common.Forms.Views
                 if (failureMechanismSectionResult != null)
                 {
                     UpdataDataGridViewDataSource();
-                    calculationScenarioObserver.Observable = failureMechanism;
                 }
                 else
                 {
                     dataGridView.DataSource = null;
-                    calculationScenarioObserver.Observable = null;
                 }
             }
         }
@@ -110,6 +111,11 @@ namespace Ringtoets.Common.Forms.Views
         protected override void Dispose(bool disposing)
         {
             FailureMechanism = null;
+
+            failureMechanismObserver.Dispose();
+            failureMechanismSectionResultObserver.Dispose();
+            calculationScenarioObserver.Dispose();
+            calculationInputObserver.Dispose();
 
             if (disposing && (components != null))
             {

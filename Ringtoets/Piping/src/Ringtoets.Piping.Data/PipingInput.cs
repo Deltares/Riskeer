@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Properties;
@@ -35,7 +36,7 @@ namespace Ringtoets.Piping.Data
     /// Class that holds all piping calculation specific input parameters, e.g. the values
     /// that can differ across various calculations.
     /// </summary>
-    public class PipingInput : Observable
+    public class PipingInput : Observable, ICalculationInput
     {
         private readonly GeneralPipingInput generalInputParameters;
         private readonly NormalDistribution phreaticLevelExit;

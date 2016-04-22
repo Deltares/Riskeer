@@ -19,28 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.HydraRing.Data;
+using Core.Common.Base;
 
 namespace Ringtoets.Common.Data.Calculation
 {
     /// <summary>
-    /// A calculation related object.
+    /// A calculation input related item.
     /// </summary>
-    public interface ICalculation : ICalculationItem, ICommentable
-    {
-        /// <summary>
-        /// Clears the calculated output.
-        /// </summary>
-        void ClearOutput();
-
-        /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> assessment level.
-        /// </summary>
-        void ClearHydraulicBoundaryLocation();
-
-        /// <summary>
-        /// Gets the input of the calculation.
-        /// </summary>
-        ICalculationInput Input { get; }
-    }
+    public interface ICalculationInput : IObservable {}
 }

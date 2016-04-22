@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Properties;
@@ -50,6 +51,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsInstanceOf<Observable>(inputParameters);
+            Assert.IsInstanceOf<ICalculationInput>(inputParameters);
 
             Assert.IsInstanceOf<NormalDistribution>(inputParameters.PhreaticLevelExit);
             Assert.AreEqual(0, inputParameters.PhreaticLevelExit.Mean.Value);

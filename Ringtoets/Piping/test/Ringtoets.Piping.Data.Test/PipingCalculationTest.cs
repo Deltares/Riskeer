@@ -254,5 +254,19 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsNaN(calculation.InputParameters.AssessmentLevel);
         }
+
+        [Test]
+        public void Input_Always_ReturnsInputParamaters()
+        {
+            // Setup
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var inputParameters = calculation.InputParameters;
+
+            // Call
+            var input = calculation.Input;
+
+            // Assert
+            Assert.AreEqual(inputParameters, input);
+        }
     }
 }

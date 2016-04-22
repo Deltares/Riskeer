@@ -21,9 +21,11 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -38,7 +40,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var input = new GrassCoverErosionInwardsInput();
 
             // Assert
-            Assert.IsNotNull(input);
+            Assert.IsInstanceOf<Observable>(input);
+            Assert.IsInstanceOf<ICalculationInput>(input);
             CollectionAssert.IsEmpty(input.DikeGeometry);
             Assert.IsNull(input.HydraulicBoundaryLocation);
         }

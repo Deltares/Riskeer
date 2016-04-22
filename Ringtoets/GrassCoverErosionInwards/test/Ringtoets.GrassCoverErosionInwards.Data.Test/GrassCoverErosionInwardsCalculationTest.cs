@@ -233,6 +233,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
         }
+
+        [Test]
+        public void Input_Always_ReturnsInputParamaters()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var inputParameters = calculation.InputParameters;
+
+            // Call
+            var input = calculation.Input;
+
+            // Assert
+            Assert.AreEqual(inputParameters, input);
+        }
     }
 
     public class TestGrassCoverErosionInwardsOutput : GrassCoverErosionInwardsOutput

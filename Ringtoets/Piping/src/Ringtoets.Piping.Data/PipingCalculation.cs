@@ -76,6 +76,14 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public PipingSemiProbabilisticOutput SemiProbabilisticOutput { get; set; }
 
+        public ICalculationInput Input
+        {
+            get
+            {
+                return InputParameters;
+            }
+        }
+
         /// <summary>
         /// Gets or sets the name of this calculation.
         /// </summary>

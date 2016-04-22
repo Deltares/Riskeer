@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Piping.Data
 {

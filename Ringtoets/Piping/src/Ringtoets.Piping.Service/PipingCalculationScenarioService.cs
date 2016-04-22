@@ -57,10 +57,8 @@ namespace Ringtoets.Piping.Service
                 return;
             }
 
-            if (RemoveScenarioFromOldSectionResult(calculationScenario, failureMechanism))
-            {
-                AddScenarioToNewSectionResult(calculationScenario, failureMechanism);
-            }
+            RemoveScenarioFromOldSectionResult(calculationScenario, failureMechanism);
+            AddScenarioToNewSectionResult(calculationScenario, failureMechanism);
         }
 
         private static void AddScenarioToNewSectionResult(PipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism)
@@ -77,14 +75,13 @@ namespace Ringtoets.Piping.Service
             }
         }
 
-        private static bool RemoveScenarioFromOldSectionResult(PipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism)
+        private static void RemoveScenarioFromOldSectionResult(PipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism)
         {
             foreach (var sectionResult in failureMechanism.SectionResults.Where(sectionResult => sectionResult.CalculationScenarios.Contains(calculationScenario)))
             {
                 sectionResult.CalculationScenarios.Remove(calculationScenario);
-                return true;
+                break;
             }
-            return false;
         }
     }
 }

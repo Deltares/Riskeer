@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Dynamic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
@@ -48,6 +49,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets or sets <see cref="GrassCoverErosionInwardsOutput"/>, which contains the results of a grass cover erosion inwards calculation.
         /// </summary>
         public GrassCoverErosionInwardsOutput Output { get; set; }
+
+        public ICalculationInput Input
+        {
+            get
+            {
+                return InputParameters;
+            }
+        }
 
         public string Comments { get; set; }
 
