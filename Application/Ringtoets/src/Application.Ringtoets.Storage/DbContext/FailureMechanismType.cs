@@ -21,16 +21,99 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
+    /// <summary>
+    /// The type failure mechanism available in the application.
+    /// </summary>
     public enum FailureMechanismType
     {
-        PipingFailureMechanism = 0,
-        OvertoppingFailureMechanism = 1,
-        MacrostabilityInwardsFailureMechanism = 2,
-        StructuresOvertoppingFailureMechanism = 3,
-        StructuresClosureFailureMechanism = 4,
-        StructuresStructuralFailureFailureMechanism = 5,
-        StoneRevetmentFailureMechanism = 6,
-        AsphaltRevetmentFailureMechanism = 7,
-        RoughnessRevetmentFailureMechanism = 8
+        /// <summary>
+        /// Piping - STPH
+        /// </summary>
+        Piping = 1,
+
+        /// <summary>
+        /// Macrostability binnenwaarts - STBI
+        /// </summary>
+        MacrostabilityInwards = 2,
+
+        /// <summary>
+        /// Golfklappen op asfaltbekleding - AGK
+        /// </summary>
+        WaveImpactOnAsphaltRevetment = 3,
+
+        /// <summary>
+        /// Grasbekleding erosie buitentalud - GEBU
+        /// </summary>
+        GrassRevetmentErosionOutwards = 4,
+
+        /// <summary>
+        /// Grasbekleding afschuiven buitentalud - GABU
+        /// </summary>
+        GrassRevetmentSlidingOutwards = 5,
+
+        /// <summary>
+        /// Grasbekleding erosie kruin en binnentalud - GEKB
+        /// </summary>
+        GrassRevetmentTopErosionAndInwards = 6,
+
+        /// <summary>
+        /// Stabiliteit steenzetting - ZST
+        /// </summary>
+        StabilityStoneRevetment = 7,
+
+        /// <summary>
+        /// Duinafslag - DA
+        /// </summary>
+        DuneErosion = 8,
+
+        /// <summary>
+        /// Hoogte kunstwerk - HTKW
+        /// </summary>
+        StructureHeight = 9,
+
+        /// <summary>
+        /// Betrouwbaarheid sluiting kunstwerk - BSKW
+        /// </summary>
+        ReliabilityClosingOfStructure = 10,
+
+        /// <summary>
+        /// Piping bij kunstwerk - PKW
+        /// </summary>
+        PipingAtStructure = 11,
+
+        /// <summary>
+        /// Sterkte en stabiliteit puntconstructies - STKWp
+        /// </summary>
+        StrengthAndStabilityPointConstruction = 12,
+
+        /// <summary>
+        /// Macrostabiliteit buitenwaarts - STBU
+        /// </summary>
+        MacrostabilityOutwards = 13,
+
+        /// <summary>
+        /// Microstabiliteit - STMI
+        /// </summary>
+        Microstability = 14,
+
+        /// <summary>
+        /// Wateroverdruk bij asfaltbekleding - AWO
+        /// </summary>
+        WaterOverpressureAsphaltRevetment = 15,
+
+        /// <summary>
+        /// Grasbekleding afschuiven binnentalud - GABI
+        /// </summary>
+        GrassRevetmentSlidingInwards = 16,
+
+        /// <summary>
+        /// Sterkte en stabiliteit langsconstructires - STKWl
+        /// </summary>
+        StrengthAndStabilityParallelConstruction = 17,
+
+        /// <summary>
+        /// Technische innovaties - INN
+        /// </summary>
+        TechnicalInnovations = 18
     }
 }

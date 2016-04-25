@@ -20,24 +20,36 @@
 // All rights reserved.
 
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Piping.Data;
+
+using Ringtoets.Integration.Data.Placeholders;
 
 namespace Application.Ringtoets.Storage.Converters
 {
     /// <summary>
-    /// Converter for <see cref="FailureMechanismEntity"/> to <see cref="PipingFailureMechanism"/> 
-    /// and <see cref="PipingFailureMechanism"/> to <see cref="FailureMechanismEntity"/>.
+    /// Converter for <see cref="FailureMechanismEntity"/> to <see cref="FailureMechanismPlaceholder"/> 
+    /// and <see cref="FailureMechanismPlaceholder"/> to <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    public class PipingFailureMechanismConverter : FailureMechanismConverterBase<PipingFailureMechanism>
+    public class FailureMechanismPlaceholderConverter : FailureMechanismConverterBase<FailureMechanismPlaceholder>
     {
-        protected override PipingFailureMechanism ConstructFailureMechanism()
+        private readonly FailureMechanismType type;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FailureMechanismPlaceholderConverter"/> class.
+        /// </summary>
+        /// <param name="type">The type of failure mechanism where the placeholder is used for.</param>
+        public FailureMechanismPlaceholderConverter(FailureMechanismType type)
         {
-            return new PipingFailureMechanism();
+            this.type = type;
+        }
+
+        protected override FailureMechanismPlaceholder ConstructFailureMechanism()
+        {
+            return new FailureMechanismPlaceholder(GetFailureMechanismType().ToString());
         }
 
         protected override FailureMechanismType GetFailureMechanismType()
         {
-            return FailureMechanismType.Piping;
+            return type;
         }
     }
 }

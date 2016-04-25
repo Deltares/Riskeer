@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Persistors
         private readonly Dictionary<FailureMechanismEntity, T> insertedList = new Dictionary<FailureMechanismEntity, T>();
         private readonly ICollection<FailureMechanismEntity> modifiedList = new List<FailureMechanismEntity>();
 
-        private readonly IEntityConverter<T, FailureMechanismEntity> converter;
+        private readonly FailureMechanismConverterBase<T> converter;
 
         /// <summary>
         /// New instance of <see cref="FailureMechanismPersistorBase{T}"/>.
@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <param name="ringtoetsContext">The storage context.</param>
         /// <param name="converter">An implementation of the <see cref="IEntityConverter{T,T}"/> to use in the persistor.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="ringtoetsContext"/> is <c>null</c>.</exception>
-        protected FailureMechanismPersistorBase(IRingtoetsEntities ringtoetsContext, IEntityConverter<T, FailureMechanismEntity> converter)
+        protected FailureMechanismPersistorBase(IRingtoetsEntities ringtoetsContext, FailureMechanismConverterBase<T> converter)
         {
             if (ringtoetsContext == null)
             {
@@ -194,8 +194,9 @@ namespace Application.Ringtoets.Storage.Persistors
         /// <exception cref="NotSupportedException">Thrown when the <paramref name="parentNavigationProperty"/> is read-only.</exception>
         public void RemoveUnModifiedEntries(ICollection<FailureMechanismEntity> parentNavigationProperty)
         {
-            var untouchedModifiedList = parentNavigationProperty.Where(e => e.FailureMechanismEntityId > 0 && !modifiedList.Contains(e));
-            failureMechanismSet.RemoveRange(untouchedModifiedList);
+            IEnumerable<FailureMechanismEntity> failureMechanismOrphans = parentNavigationProperty.Where(e => converter.CorrespondsToFailureMechanismType(e) &&
+                                                                                                         e.FailureMechanismEntityId > 0 && !modifiedList.Contains(e));
+            failureMechanismSet.RemoveRange(failureMechanismOrphans);
 
             modifiedList.Clear();
         }

@@ -45,12 +45,12 @@ namespace Application.Ringtoets.Storage.Test.Converters
             // Setup
             var converter = new SimpleFailureMechanismConverter<IFailureMechanism>
             {
-                FailureMechanismType = FailureMechanismType.AsphaltRevetmentFailureMechanism
+                FailureMechanismType = FailureMechanismType.StrengthAndStabilityParallelConstruction
             };
 
             var entity = new FailureMechanismEntity
             {
-                FailureMechanismType = (short)FailureMechanismType.PipingFailureMechanism
+                FailureMechanismType = (short)FailureMechanismType.Piping
             };
 
             // Call
@@ -62,8 +62,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        [TestCase(0, FailureMechanismType.PipingFailureMechanism, 1)]
-        [TestCase(1, FailureMechanismType.OvertoppingFailureMechanism, 5)]
+        [TestCase(0, FailureMechanismType.Piping, 1)]
+        [TestCase(1, FailureMechanismType.DuneErosion, 5)]
         public void ConvertEntityToModel_ValidEntity_ReturnInitializedFailureMechanism(
             byte isRelevant, FailureMechanismType type, long id)
         {
@@ -97,8 +97,8 @@ namespace Application.Ringtoets.Storage.Test.Converters
         }
 
         [Test]
-        [TestCase(true, FailureMechanismType.MacrostabilityInwardsFailureMechanism, 123456789)]
-        [TestCase(false, FailureMechanismType.StructuresClosureFailureMechanism, 986532)]
+        [TestCase(true, FailureMechanismType.MacrostabilityInwards, 123456789)]
+        [TestCase(false, FailureMechanismType.GrassRevetmentSlidingOutwards, 986532)]
         public void ConvertModelToEntity_ValidFailureMechanism_ProperlyInitializeEntity(
             bool isRelevant, FailureMechanismType type, long id)
         {
@@ -160,6 +160,51 @@ namespace Application.Ringtoets.Storage.Test.Converters
             Assert.Throws<ArgumentNullException>(call);
             
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CorrespondsToFailureMechanismType_TypeMatches_ReturnTrue()
+        {
+            // Setup
+            var type = FailureMechanismType.DuneErosion;
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (short)type
+            };
+
+            var converter = new SimpleFailureMechanismConverter<IFailureMechanism>
+            {
+                FailureMechanismType = type
+            };
+
+            // Call
+            bool isCorresponding = converter.CorrespondsToFailureMechanismType(entity);
+
+            // Assert
+            Assert.IsTrue(isCorresponding);
+        }
+
+        [Test]
+        public void CorrespondsToFailureMechanismType_TypeDoesNotMatch_ReturnFalse()
+        {
+            // Setup
+            var type1 = FailureMechanismType.GrassRevetmentSlidingInwards;
+            var type2 = FailureMechanismType.PipingAtStructure;
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (short)type1
+            };
+
+            var converter = new SimpleFailureMechanismConverter<IFailureMechanism>
+            {
+                FailureMechanismType = type2
+            };
+
+            // Call
+            bool isCorresponding = converter.CorrespondsToFailureMechanismType(entity);
+
+            // Assert
+            Assert.IsFalse(isCorresponding);
         }
 
         private class SimpleFailureMechanismConverter<T> : FailureMechanismConverterBase<T> where T : IFailureMechanism

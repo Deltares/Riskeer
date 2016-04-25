@@ -96,19 +96,21 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             const string name = "test";
             const int norm = 30000;
             const long pipingFailureMechanismStorageId = 1L;
+            const long asphaltFailureMechanismStorageId = 2L;
+            const long overtoppingFailureMechanismStorageId = 3L;
 
             const string hydraulicDatabaseVersion = "1.0";
             const string hydraulicDatabasePath = "/temp/test";
             const string hydraulicDatabaseLocationName = "test";
             const double hydraulicDatabaseLocationDesignWaterLevel = 15.6;
-            const long hydraulicDatabaseLocationLocationId = 1300001;
+            const long hydraulicDatabaseLocationLocationId = 1300001L;
             const long hydraulicDatabaseLocationStorageId = 1234L;
             const decimal hydraulicDatabaseLocationX = 253;
             const decimal hydraulicDatabaseLocationY = 123;
 
             const string otherHydraulicDatabaseLocationName = "test2";
             const double otherHydraulicDatabaseLocationDesignWaterLevel = 18.6;
-            const long otherHydraulicDatabaseLocationLocationId = 1300005;
+            const long otherHydraulicDatabaseLocationLocationId = 1300005L;
             const long otherHydraulicDatabaseLocationStorageId = 4321L;
             const decimal otherHydraulicDatabaseLocationX = 3927;
             const decimal otherHydraulicDatabaseLocationY = 372;
@@ -118,12 +120,27 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             AssessmentSectionPersistor persistor = new AssessmentSectionPersistor(ringtoetsEntities);
             var entity = new AssessmentSectionEntity
             {
-                AssessmentSectionEntityId = storageId, Name = name, Norm = norm, FailureMechanismEntities = new List<FailureMechanismEntity>
+                AssessmentSectionEntityId = storageId, Name = name, Norm = norm,
+                FailureMechanismEntities = new List<FailureMechanismEntity>
                 {
                     new FailureMechanismEntity
                     {
-                        FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism, FailureMechanismEntityId = pipingFailureMechanismStorageId
-                    }
+                        FailureMechanismType = (int) FailureMechanismType.Piping, 
+                        FailureMechanismEntityId = pipingFailureMechanismStorageId,
+                        IsRelevant = 0
+                    },
+                    new FailureMechanismEntity
+                    {
+                        FailureMechanismType = (short) FailureMechanismType.WaveImpactOnAsphaltRevetment,
+                        FailureMechanismEntityId = asphaltFailureMechanismStorageId,
+                        IsRelevant = 0
+                    },
+                    new FailureMechanismEntity
+                    {
+                        FailureMechanismType = (short) FailureMechanismType.StructureHeight,
+                        FailureMechanismEntityId = overtoppingFailureMechanismStorageId,
+                        IsRelevant = 1
+                    },
                 },
                 HydraulicDatabaseVersion = hydraulicDatabaseVersion, HydraulicDatabaseLocation = hydraulicDatabasePath,
                 Composition = (short) composition,
@@ -158,7 +175,16 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(name, section.Name);
             Assert.AreEqual(composition, section.Composition);
             Assert.AreEqual(norm, section.FailureMechanismContribution.Norm);
+
             Assert.AreEqual(pipingFailureMechanismStorageId, section.PipingFailureMechanism.StorageId);
+            Assert.IsFalse(section.PipingFailureMechanism.IsRelevant);
+
+            Assert.AreEqual(asphaltFailureMechanismStorageId, section.AsphaltRevetment.StorageId);
+            Assert.IsFalse(section.AsphaltRevetment.IsRelevant);
+
+            Assert.AreEqual(overtoppingFailureMechanismStorageId, section.Overtopping.StorageId);
+            Assert.IsTrue(section.Overtopping.IsRelevant);
+
             Assert.AreEqual(hydraulicDatabaseVersion, section.HydraulicBoundaryDatabase.Version);
             Assert.AreEqual(hydraulicDatabasePath, section.HydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(2, section.HydraulicBoundaryDatabase.Locations.Count);
@@ -352,6 +378,59 @@ namespace Application.Ringtoets.Storage.Test.Persistors
         }
 
         [Test]
+        public void InsertModel_PersistingFailureMechanismPlaceholders_FailureMechanismEntitiesHaveElementsAdded()
+        {
+            // Setup
+            var ringtoetsContext = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
+            var persistor = new AssessmentSectionPersistor(ringtoetsContext);
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                PipingFailureMechanism =
+                {
+                    IsRelevant = false
+                },
+                Closing =
+                {
+                    IsRelevant = false
+                },
+                AsphaltRevetment =
+                {
+                    IsRelevant = true
+                }
+            };
+
+            var parentNavigationProperty = new List<AssessmentSectionEntity>();
+
+            // Call
+            persistor.InsertModel(parentNavigationProperty, assessmentSection, 0);
+
+            // Assert
+            Assert.AreEqual(1, parentNavigationProperty.Count);
+
+            AssessmentSectionEntity assessmentSectionEntity = parentNavigationProperty[0];
+            Assert.AreEqual(9, assessmentSectionEntity.FailureMechanismEntities.Count);
+
+            FailureMechanismEntity pipingFailureMechanismEntity = assessmentSectionEntity.FailureMechanismEntities
+                .First(fme => fme.FailureMechanismType == (short)FailureMechanismType.Piping);
+            Assert.AreEqual(0, pipingFailureMechanismEntity.IsRelevant,
+                "Set IsRelevant to false, so expecting a value of 0.");
+
+            FailureMechanismEntity closingFailureMechanismEntity = assessmentSectionEntity.FailureMechanismEntities
+                .First(fme => fme.FailureMechanismType == (short)FailureMechanismType.ReliabilityClosingOfStructure);
+            Assert.AreEqual(0, closingFailureMechanismEntity.IsRelevant,
+                "Set IsRelevant to false, so expecting a value of 0.");
+
+            FailureMechanismEntity asphaltFailureMechanismEntity = assessmentSectionEntity.FailureMechanismEntities
+                .First(fme => fme.FailureMechanismType == (short)FailureMechanismType.WaveImpactOnAsphaltRevetment);
+            Assert.AreEqual(1, asphaltFailureMechanismEntity.IsRelevant,
+                "Set IsRelevant to true, so expecting a value of 1.");
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void InsertModel_SingleEntityInParentNavigationPropertySingleAssessmentSectionWithSameStorageId_AssessmentSectionAsEntityInParentNavigationProperty()
         {
             // Setup
@@ -416,7 +495,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
                     Locations =
                     {
@@ -445,8 +524,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var entity = parentNavigationProperty.ToList()[0];
             Assert.AreNotEqual(assessmentSection, entity);
 
-            Assert.AreEqual(1, entity.FailureMechanismEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismEntities.Count(db => db.FailureMechanismType.Equals((int) FailureMechanismType.PipingFailureMechanism)));
+            Assert.AreEqual(9, entity.FailureMechanismEntities.Count);
+            Assert.AreEqual(1, entity.FailureMechanismEntities.Count(db => db.FailureMechanismType.Equals((short) FailureMechanismType.Piping)));
             Assert.AreEqual(1, entity.HydraulicLocationEntities.Count);
             var locationEntity = entity.HydraulicLocationEntities.First();
             Assert.AreEqual(name, locationEntity.Name);
@@ -459,6 +538,135 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(pointX, entity.ReferenceLinePointEntities.First().X);
             Assert.AreEqual(pointY, entity.ReferenceLinePointEntities.First().Y);
 
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateModel_AssessmentSectionNeverPersistedBefore_FailureMechanismEntitiesHaveElementsAdded()
+        {
+            // Setup
+            var ringtoetsContext = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
+            var persistor = new AssessmentSectionPersistor(ringtoetsContext);
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                PipingFailureMechanism =
+                {
+                    IsRelevant = false
+                },
+                Overtopping = 
+                {
+                    IsRelevant = false
+                },
+                StoneRevetment = 
+                {
+                    IsRelevant = true
+                }
+            };
+
+            // Precondition:
+            Assert.AreEqual(0, assessmentSection.StorageId,
+                "StorageId of 0 expected for assessment sections that haven't been persisted before.");
+
+            var parentNavigationProperty = new List<AssessmentSectionEntity>();
+
+            // Call
+            persistor.UpdateModel(parentNavigationProperty, assessmentSection, 0);
+
+            // Assert
+            Assert.AreEqual(1, parentNavigationProperty.Count);
+
+            AssessmentSectionEntity assessmentSectionEntity = parentNavigationProperty[0];
+            Assert.AreEqual(9, assessmentSectionEntity.FailureMechanismEntities.Count);
+
+            FailureMechanismEntity pipingFailureMechanismEntity = assessmentSectionEntity.FailureMechanismEntities
+                .First(fme => fme.FailureMechanismType == (short)FailureMechanismType.Piping);
+            Assert.AreEqual(0, pipingFailureMechanismEntity.IsRelevant,
+                "Set IsRelevant to false, so expecting a value of 0.");
+
+            FailureMechanismEntity closingFailureMechanismEntity = assessmentSectionEntity.FailureMechanismEntities
+                .First(fme => fme.FailureMechanismType == (short)FailureMechanismType.StructureHeight);
+            Assert.AreEqual(0, closingFailureMechanismEntity.IsRelevant,
+                "Set IsRelevant to false, so expecting a value of 0.");
+
+            FailureMechanismEntity asphaltFailureMechanismEntity = assessmentSectionEntity.FailureMechanismEntities
+                .First(fme => fme.FailureMechanismType == (short)FailureMechanismType.StabilityStoneRevetment);
+            Assert.AreEqual(1, asphaltFailureMechanismEntity.IsRelevant,
+                "Set IsRelevant to true, so expecting a value of 1.");
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateModel_AssessmentSectionHadBeenPersistedBefore_FailureMechanismEntitiesHaveElementsUpdated()
+        {
+            // Setup
+            var ringtoetsContext = RingtoetsEntitiesHelper.Create(mockRepository);
+            mockRepository.ReplayAll();
+
+            var persistor = new AssessmentSectionPersistor(ringtoetsContext);
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                PipingFailureMechanism =
+                {
+                    IsRelevant = false
+                },
+                FailingOfConstruction = 
+                {
+                    IsRelevant = false
+                },
+                MacrostabilityInwards = 
+                {
+                    IsRelevant = true
+                }
+            };
+
+            var parentNavigationProperty = new List<AssessmentSectionEntity>();
+
+            persistor.InsertModel(parentNavigationProperty, assessmentSection, 0);
+            parentNavigationProperty[0].AssessmentSectionEntityId = 1;
+            AssessmentSectionEntity sectionEntity = parentNavigationProperty[0];
+            for (int i = 0; i < sectionEntity.FailureMechanismEntities.Count; i++)
+            {
+                sectionEntity.FailureMechanismEntities.ElementAt(i).FailureMechanismEntityId = i+1;
+            }
+            persistor.PerformPostSaveActions();
+
+            // Precondition:
+            Assert.AreNotEqual(0, assessmentSection.StorageId,
+                "StorageId > 0 expected for failure mechanism that have been persisted.");
+            Assert.AreNotEqual(0, assessmentSection.PipingFailureMechanism.StorageId,
+                               "StorageId > 0 expected for failure mechanisms that have been persisted.");
+            Assert.AreNotEqual(0, assessmentSection.FailingOfConstruction.StorageId,
+                               "StorageId > 0 expected for failure mechanisms that have been persisted.");
+            Assert.AreNotEqual(0, assessmentSection.MacrostabilityInwards.StorageId,
+                               "StorageId > 0 expected for failure mechanisms that have been persisted.");
+
+            // Call
+            persistor.UpdateModel(parentNavigationProperty, assessmentSection, 0);
+
+            // Assert
+            Assert.AreEqual(1, parentNavigationProperty.Count);
+
+            AssessmentSectionEntity assessmentSectionEntity = parentNavigationProperty[0];
+            Assert.AreEqual(9, assessmentSectionEntity.FailureMechanismEntities.Count);
+
+            FailureMechanismEntity pipingFailureMechanismEntity = assessmentSectionEntity.FailureMechanismEntities
+                .First(fme => fme.FailureMechanismType == (short)FailureMechanismType.Piping);
+            Assert.AreEqual(0, pipingFailureMechanismEntity.IsRelevant,
+                "Set IsRelevant to false, so expecting a value of 0.");
+
+            FailureMechanismEntity closingFailureMechanismEntity = assessmentSectionEntity.FailureMechanismEntities
+                .First(fme => fme.FailureMechanismType == (short)FailureMechanismType.StrengthAndStabilityPointConstruction);
+            Assert.AreEqual(0, closingFailureMechanismEntity.IsRelevant,
+                "Set IsRelevant to false, so expecting a value of 0.");
+
+            FailureMechanismEntity asphaltFailureMechanismEntity = assessmentSectionEntity.FailureMechanismEntities
+                .First(fme => fme.FailureMechanismType == (short)FailureMechanismType.MacrostabilityInwards);
+            Assert.AreEqual(1, asphaltFailureMechanismEntity.IsRelevant,
+                "Set IsRelevant to true, so expecting a value of 1.");
             mockRepository.VerifyAll();
         }
 
@@ -785,8 +993,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var entity = parentNavigationProperty.ToList()[0];
             Assert.AreNotEqual(assessmentSection, entity);
 
-            Assert.AreEqual(1, entity.FailureMechanismEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismEntities.Count(db => db.FailureMechanismType.Equals((int) FailureMechanismType.PipingFailureMechanism)));
+            Assert.AreEqual(9, entity.FailureMechanismEntities.Count);
+            Assert.AreEqual(1, entity.FailureMechanismEntities.Count(db => db.FailureMechanismType.Equals((short) FailureMechanismType.Piping)));
             Assert.AreEqual(1, entity.HydraulicLocationEntities.Count);
 
             var hydraulicLocationEntity = entity.HydraulicLocationEntities.First();

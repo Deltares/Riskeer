@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             FailureMechanismEntity entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = storageId,
-                FailureMechanismType = (int) FailureMechanismType.PipingFailureMechanism,
+                FailureMechanismType = (int) FailureMechanismType.Piping,
                 IsRelevant = isRelevant
             };
 
@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Converters
             FailureMechanismEntity entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = storageId,
-                FailureMechanismType = (int) FailureMechanismType.MacrostabilityInwardsFailureMechanism,
+                FailureMechanismType = (int) FailureMechanismType.MacrostabilityInwards,
                 IsRelevant = 1
             };
 

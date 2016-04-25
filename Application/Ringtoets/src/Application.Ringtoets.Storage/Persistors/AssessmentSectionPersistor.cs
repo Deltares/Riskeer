@@ -24,11 +24,14 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
+
 using Application.Ringtoets.Storage.Converters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
+
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Placeholders;
 
 namespace Application.Ringtoets.Storage.Persistors
 {
@@ -43,6 +46,8 @@ namespace Application.Ringtoets.Storage.Persistors
         private readonly ICollection<AssessmentSectionEntity> modifiedList = new List<AssessmentSectionEntity>();
 
         private readonly PipingFailureMechanismPersistor pipingFailureMechanismEntityPersistor;
+        private readonly IDictionary<FailureMechanismType, FailureMechanismPlaceholderPersistor> placeholderPersistors;
+
         private readonly HydraulicBoundaryLocationPersistor hydraulicLocationEntityPersistor;
         private readonly ReferenceLinePersistor referenceLinePersistor;
 
@@ -62,6 +67,8 @@ namespace Application.Ringtoets.Storage.Persistors
             converter = new AssessmentSectionConverter();
 
             pipingFailureMechanismEntityPersistor = new PipingFailureMechanismPersistor(ringtoetsContext);
+            placeholderPersistors = CreatePlaceHolderPersistors(ringtoetsContext);
+
             hydraulicLocationEntityPersistor = new HydraulicBoundaryLocationPersistor(ringtoetsContext);
             referenceLinePersistor = new ReferenceLinePersistor(ringtoetsContext);
         }
@@ -82,9 +89,13 @@ namespace Application.Ringtoets.Storage.Persistors
 
             foreach (var failureMechanismEntity in entity.FailureMechanismEntities)
             {
-                if (failureMechanismEntity.FailureMechanismType == (int) FailureMechanismType.PipingFailureMechanism)
+                if (failureMechanismEntity.FailureMechanismType == (int)FailureMechanismType.Piping)
                 {
                     pipingFailureMechanismEntityPersistor.LoadModel(failureMechanismEntity, assessmentSection.PipingFailureMechanism);
+                }
+                else
+                {
+                    LoadExternalFailureMechanism(failureMechanismEntity, assessmentSection);
                 }
             }
 
@@ -169,7 +180,59 @@ namespace Application.Ringtoets.Storage.Persistors
             UpdateStorageIdsInModel();
 
             pipingFailureMechanismEntityPersistor.PerformPostSaveActions();
+            foreach (FailureMechanismPlaceholderPersistor persistor in placeholderPersistors.Values)
+            {
+                persistor.PerformPostSaveActions();
+            }
             hydraulicLocationEntityPersistor.PerformPostSaveActions();
+        }
+
+        private IDictionary<FailureMechanismType, FailureMechanismPlaceholderPersistor> CreatePlaceHolderPersistors(IRingtoetsEntities ringtoetsContext)
+        {
+            return new[]
+            {
+                FailureMechanismType.MacrostabilityInwards,
+                FailureMechanismType.StructureHeight,
+                FailureMechanismType.ReliabilityClosingOfStructure,
+                FailureMechanismType.StrengthAndStabilityPointConstruction,
+                FailureMechanismType.StabilityStoneRevetment,
+                FailureMechanismType.WaveImpactOnAsphaltRevetment,
+                FailureMechanismType.GrassRevetmentErosionOutwards,
+                FailureMechanismType.DuneErosion
+            }.ToDictionary(type => type, type => new FailureMechanismPlaceholderPersistor(ringtoetsContext, type));
+        }
+
+        private void LoadExternalFailureMechanism(FailureMechanismEntity failureMechanismEntity, AssessmentSection assessmentSection)
+        {
+            var failureMechanismType = (FailureMechanismType)failureMechanismEntity.FailureMechanismType;
+            FailureMechanismPlaceholderPersistor persistor = placeholderPersistors[failureMechanismType];
+            FailureMechanismPlaceholder failureMechanism = GetFailureMechanismPlaceholder(assessmentSection, failureMechanismType);
+            persistor.LoadModel(failureMechanismEntity, failureMechanism);
+        }
+
+        private static FailureMechanismPlaceholder GetFailureMechanismPlaceholder(AssessmentSection assessmentSection, FailureMechanismType failureMechanismType)
+        {
+            switch (failureMechanismType)
+            {
+                case FailureMechanismType.WaveImpactOnAsphaltRevetment:
+                    return assessmentSection.AsphaltRevetment;
+                case FailureMechanismType.MacrostabilityInwards:
+                    return assessmentSection.MacrostabilityInwards;
+                case FailureMechanismType.StructureHeight:
+                    return assessmentSection.Overtopping;
+                case FailureMechanismType.GrassRevetmentErosionOutwards:
+                    return assessmentSection.GrassRevetment;
+                case FailureMechanismType.StabilityStoneRevetment:
+                    return assessmentSection.StoneRevetment;
+                case FailureMechanismType.ReliabilityClosingOfStructure:
+                    return assessmentSection.Closing;
+                case FailureMechanismType.StrengthAndStabilityPointConstruction:
+                    return assessmentSection.FailingOfConstruction;
+                case FailureMechanismType.DuneErosion:
+                    return assessmentSection.DuneErosion;
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
         /// <summary>
@@ -181,6 +244,15 @@ namespace Application.Ringtoets.Storage.Persistors
         {
             pipingFailureMechanismEntityPersistor.UpdateModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
             pipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
+
+            foreach (KeyValuePair<FailureMechanismType, FailureMechanismPlaceholderPersistor> keyValuePair in placeholderPersistors)
+            {
+                FailureMechanismPlaceholder failureMechanism = GetFailureMechanismPlaceholder(model, keyValuePair.Key);
+
+                FailureMechanismPlaceholderPersistor persistor = keyValuePair.Value;
+                persistor.UpdateModel(entity.FailureMechanismEntities, failureMechanism);
+                persistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
+            }
 
             hydraulicLocationEntityPersistor.UpdateModel(entity.HydraulicLocationEntities, model.HydraulicBoundaryDatabase);
             referenceLinePersistor.InsertModel(entity.ReferenceLinePointEntities, model.ReferenceLine);
@@ -195,6 +267,15 @@ namespace Application.Ringtoets.Storage.Persistors
         {
             pipingFailureMechanismEntityPersistor.InsertModel(entity.FailureMechanismEntities, model.PipingFailureMechanism);
             pipingFailureMechanismEntityPersistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
+
+            foreach (KeyValuePair<FailureMechanismType, FailureMechanismPlaceholderPersistor> keyValuePair in placeholderPersistors)
+            {
+                FailureMechanismPlaceholder failureMechanism = GetFailureMechanismPlaceholder(model, keyValuePair.Key);
+
+                FailureMechanismPlaceholderPersistor persistor = keyValuePair.Value;
+                persistor.InsertModel(entity.FailureMechanismEntities, failureMechanism);
+                persistor.RemoveUnModifiedEntries(entity.FailureMechanismEntities);
+            }
 
             hydraulicLocationEntityPersistor.InsertModel(entity.HydraulicLocationEntities, model.HydraulicBoundaryDatabase);
             referenceLinePersistor.InsertModel(entity.ReferenceLinePointEntities, model.ReferenceLine);
@@ -268,8 +349,8 @@ namespace Application.Ringtoets.Storage.Persistors
         {
             foreach (var entry in insertedList)
             {
-                Debug.Assert(entry.Key.AssessmentSectionEntityId > 0, 
-                    "AssessmentSectionEntityId is not set. Have you called IRingtoetsEntities.SaveChanges?");
+                Debug.Assert(entry.Key.AssessmentSectionEntityId > 0,
+                             "AssessmentSectionEntityId is not set. Have you called IRingtoetsEntities.SaveChanges?");
                 entry.Value.StorageId = entry.Key.AssessmentSectionEntityId;
             }
             insertedList.Clear();

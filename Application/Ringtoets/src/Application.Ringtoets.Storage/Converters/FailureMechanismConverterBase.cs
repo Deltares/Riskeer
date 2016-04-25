@@ -27,7 +27,14 @@ using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Converters
 {
-    public abstract class FailureMechanismConverterBase<T> : IEntityConverter<T, FailureMechanismEntity> where T : IFailureMechanism
+    /// <summary>
+    /// Common <see cref="IEntityConverter{TModel,TEntity}"/> implementation for converting
+    /// failure mechanisms.
+    /// </summary>
+    /// <typeparam name="T">The type of failure mechanism used to convert from and to by
+    /// this converter.</typeparam>
+    /// <seealso cref="Application.Ringtoets.Storage.Converters.IEntityConverter{T,FailureMechanismEntity}" />
+    public abstract class FailureMechanismConverterBase<T> : IFailureMechanismEntityConverter<T> where T : IFailureMechanism
     {
         public T ConvertEntityToModel(FailureMechanismEntity entity)
         {
@@ -35,7 +42,7 @@ namespace Application.Ringtoets.Storage.Converters
             {
                 throw new ArgumentNullException("entity");
             }
-            if (entity.FailureMechanismType != (short)GetFailureMechanismType())
+            if (!CorrespondsToFailureMechanismType(entity))
             {
                 throw new ArgumentException("Incorrect modelType", "entity");
             }
@@ -62,6 +69,11 @@ namespace Application.Ringtoets.Storage.Converters
             entity.FailureMechanismEntityId = modelObject.StorageId;
             entity.FailureMechanismType = (short)GetFailureMechanismType();
             entity.IsRelevant = modelObject.IsRelevant ? (byte)1 : (byte)0;
+        }
+
+        public bool CorrespondsToFailureMechanismType(FailureMechanismEntity entity)
+        {
+            return (short)GetFailureMechanismType() == entity.FailureMechanismType;
         }
 
         protected abstract T ConstructFailureMechanism();

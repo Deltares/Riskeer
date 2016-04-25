@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\FailureMechanismConverterBaseTest.cs" />
+    <Compile Include="Converters\FailureMechanismPlaceholderConverterTest.cs" />
     <Compile Include="Converters\ReferenceLineConverterTest.cs" />
     <Compile Include="Converters\PipingFailureMechanismConverterTest.cs" />
     <Compile Include="Converters\HydraulicLocationConverterTest.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Converters\AssessmentSectionConverterTest.cs" />
     <Compile Include="Converters\StochasticSoilProfileConverterTest.cs" />
     <Compile Include="Converters\StochasticSoilModelConverterTest.cs" />
+    <Compile Include="Persistors\FailureMechanismPlaceholderPersistorTest.cs" />
     <Compile Include="Persistors\HydraulicBoundaryLocationPersistorTest.cs" />
     <Compile Include="Persistors\ReferenceLinePersistorTest.cs" />
     <Compile Include="Persistors\StochasticSoilModelPersistorTest.cs" />
