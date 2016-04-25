@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<PipingCalculation>(scenario);
             Assert.AreSame(semiProbabilisticInputParameters, scenario.SemiProbabilisticParameters);
             Assert.IsTrue(scenario.IsRelevant);
-            Assert.AreEqual(new RoundedDouble(0), scenario.Contribution);
+            Assert.AreEqual((RoundedDouble) 1.0, scenario.Contribution);
             Assert.IsNull(scenario.Probability);
         }
 

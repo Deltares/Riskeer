@@ -311,7 +311,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var cells = rows[0].Cells;
             Assert.AreEqual(11, cells.Count);
             Assert.IsTrue((bool) cells[isRelevantColumnIndex].FormattedValue);
-            Assert.AreEqual(0.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Model A", cells[stochasticSoilModelsColumnIndex].FormattedValue);
             Assert.AreEqual("<geen>", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
@@ -324,7 +324,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             cells = rows[1].Cells;
             Assert.AreEqual(11, cells.Count);
             Assert.IsTrue((bool) cells[isRelevantColumnIndex].FormattedValue);
-            Assert.AreEqual(0.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual(100.ToString(CultureInfo.CurrentCulture), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("Model E", cells[stochasticSoilModelsColumnIndex].FormattedValue);
             Assert.AreEqual("Profile 5", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
@@ -695,7 +695,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingCalculatoinsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_SectionResultScenariosNotUpdated()
+        public void GivenPipingCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_SectionResultScenariosNotUpdated()
         {
             // Given
             var pipingCalculationsView = ShowPipingCalculationsView();

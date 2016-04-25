@@ -50,8 +50,8 @@ namespace Ringtoets.Piping.Forms.Views
     {
         private readonly Observer assessmentSectionObserver;
         private readonly RecursiveObserver<CalculationGroup, PipingInput> pipingInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> pipingCalculationGroupObserver;
-        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> pipingCalculationObserver;
+        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> pipingCalculationGroupObserver;
+        private readonly RecursiveObserver<CalculationGroup, PipingCalculationScenario> pipingCalculationObserver;
         private readonly Observer pipingFailureMechanismObserver;
         private readonly Observer pipingStochasticSoilModelsObserver;
         private IAssessmentSection assessmentSection;
@@ -74,9 +74,10 @@ namespace Ringtoets.Piping.Forms.Views
             pipingStochasticSoilModelsObserver = new Observer(OnStochasticSoilModelsUpdate);
             pipingFailureMechanismObserver = new Observer(OnPipingFailureMechanismUpdate);
             assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryLocationsColumn);
-            pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters));
-            pipingCalculationObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(RefreshDataGridView, pcg => pcg.Children);
-            pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, pcg => pcg.Children);
+            // The concat is needed to observe the input of calculations in child groups.
+            pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
+            pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
+            pipingCalculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(RefreshDataGridView, pcg => pcg.Children);
         }
 
         /// <summary>
@@ -156,6 +157,13 @@ namespace Ringtoets.Piping.Forms.Views
         {
             AssessmentSection = null;
             PipingFailureMechanism = null;
+
+            assessmentSectionObserver.Dispose();
+            pipingFailureMechanismObserver.Dispose();
+            pipingInputObserver.Dispose();
+            pipingCalculationObserver.Dispose();
+            pipingCalculationGroupObserver.Dispose();
+            pipingStochasticSoilModelsObserver.Dispose();
 
             if (disposing && (components != null))
             {
@@ -792,6 +800,7 @@ namespace Ringtoets.Piping.Forms.Views
             pipingCalculationGroup.NotifyObservers();
 
             pipingCalculationGroup.AddCalculationScenariosToFailureMechanismSectionResult(pipingFailureMechanism);
+            pipingFailureMechanism.NotifyObservers();
         }
 
         private void OnPipingFailureMechanismUpdate()

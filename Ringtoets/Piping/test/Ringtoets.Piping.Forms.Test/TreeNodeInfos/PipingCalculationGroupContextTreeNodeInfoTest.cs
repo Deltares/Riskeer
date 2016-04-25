@@ -168,7 +168,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Setup
             var calculationItem = mocks.StrictMock<ICalculationBase>();
 
-            var childCalculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var childCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             var childGroup = new CalculationGroup();
 
@@ -1473,6 +1473,60 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void OnNodeRemoved_ParentIsPipingCalculationGroupContainingGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var group = new CalculationGroup();
+            var pipingFailureMechanism = GetFailureMechanism();
+            var surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
+
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLines[0]
+                }
+            };
+
+            group.Children.Add(calculation);
+
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var nodeData = new PipingCalculationGroupContext(group,
+                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                             Enumerable.Empty<StochasticSoilModel>(),
+                                                             pipingFailureMechanism,
+                                                             assessmentSectionMock);
+
+            var parentGroup = new CalculationGroup();
+            parentGroup.Children.Add(group);
+            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<StochasticSoilModel>(),
+                                                                   pipingFailureMechanism,
+                                                                   assessmentSectionMock);
+            parentNodeData.Attach(observer);
+
+            parentGroup.AddCalculationScenariosToFailureMechanismSectionResult(pipingFailureMechanism);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
+            var sectionResults = pipingFailureMechanism.SectionResults.ToArray();
+            CollectionAssert.Contains(sectionResults[0].CalculationScenarios, calculation);
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentNodeData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(parentGroup.Children, group);
+            CollectionAssert.DoesNotContain(sectionResults[0].CalculationScenarios, calculation);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void CanDrag_WithParentNodeDefaultBehavior_ReturnTrue()
         {
             // Setup
@@ -1824,7 +1878,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             switch (type)
             {
                 case PipingCalculationType.Calculation:
-                    var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+                    var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
                     if (initialName != null)
                     {
                         calculation.Name = initialName;
@@ -1852,6 +1906,52 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 default:
                     throw new NotSupportedException();
             }
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingFailureMechanism"/> with sections and a surface line.
+        /// </summary>
+        /// <returns>A new instance of <see cref="PipingFailureMechanism"/>.</returns>
+        private static PipingFailureMechanism GetFailureMechanism()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surface line",
+                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
+            };
+
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 5.0, 0.0),
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(0.0, -5.0, 0.0)
+            });
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                SurfaceLines =
+                {
+                    surfaceLine
+                },
+                StochasticSoilModels =
+                {
+                    new TestStochasticSoilModel
+                    {
+                        Geometry =
+                        {
+                            new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
+                        },
+                    }
+                }
+            };
+
+            failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            }));
+
+            return failureMechanism;
         }
 
         /// <summary>

@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="PipingCalculation"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class PipingCalculationContext : PipingContext<PipingCalculation>
+    public class PipingCalculationContext : PipingContext<PipingCalculationScenario>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationContext"/> class.
@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
         /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
-        public PipingCalculationContext(PipingCalculation calculation, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection)
+        public PipingCalculationContext(PipingCalculationScenario calculation, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection)
             : base(calculation, surfaceLines, stochasticSoilModels, assessmentSection)
         {
             if (pipingFailureMechanism == null)

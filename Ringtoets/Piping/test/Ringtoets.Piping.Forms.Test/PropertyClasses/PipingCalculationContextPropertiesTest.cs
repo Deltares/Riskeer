@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             const string name = "<very cool name>";
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
             {
                 Name = name
             };
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             calculation.Attach(projectObserver);
 
             var properties = new PipingCalculationContextProperties
@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             calculation.Attach(projectObserver);
 
             var properties = new PipingCalculationContextProperties

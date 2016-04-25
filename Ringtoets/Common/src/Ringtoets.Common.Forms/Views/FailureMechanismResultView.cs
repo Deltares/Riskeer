@@ -63,7 +63,8 @@ namespace Ringtoets.Common.Forms.Views
 
             failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
             failureMechanismSectionResultObserver = new RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
-            calculationInputObserver = new RecursiveObserver<ICalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.GetCalculations().Select(c => c.Input));
+            // The concat is needed to observe the input of calculations in child groups.
+            calculationInputObserver = new RecursiveObserver<ICalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.Input)));
             calculationGroupObserver = new RecursiveObserver<ICalculationGroup, ICalculationBase>(UpdataDataGridViewDataSource, c => c.Children);
             Load += OnLoad;
         }

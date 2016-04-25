@@ -72,23 +72,25 @@ namespace Ringtoets.Piping.Service.Test
             var failureMechanism = GetFailureMechanism();
             var newSurfaceLine = failureMechanism.SurfaceLines.ElementAt(1);
 
-            var calculationGroup = failureMechanism.CalculationsGroup.Children.First() as CalculationGroup;
-            var calculationToSync = calculationGroup.Children.First() as PipingCalculationScenario;
+            var calculationGroup = failureMechanism.CalculationsGroup.Children[0] as CalculationGroup;
+            var calculationToSync = calculationGroup.Children[0] as PipingCalculationScenario;
 
             // Precondition
             Assert.IsNotNull(calculationToSync);
 
             calculationToSync.InputParameters.SurfaceLine = newSurfaceLine;
 
-            var sectionResultScenariosBeforeSync = failureMechanism.SectionResults.First().CalculationScenarios.ToList();
-            var sectionResultScenariosBeforeSync2 = failureMechanism.SectionResults.ElementAt(1).CalculationScenarios.ToList();
+            var sectionResults = failureMechanism.SectionResults.ToArray();
+
+            var sectionResultScenariosBeforeSync = sectionResults[0].CalculationScenarios.ToList();
+            var sectionResultScenariosBeforeSync2 = sectionResults[1].CalculationScenarios.ToList();
 
             // Call
             PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine(calculationToSync, failureMechanism, null);
 
             // Assert
-            CollectionAssert.AreNotEqual(sectionResultScenariosBeforeSync, failureMechanism.SectionResults.First().CalculationScenarios);
-            CollectionAssert.AreNotEqual(sectionResultScenariosBeforeSync2, failureMechanism.SectionResults.ElementAt(1).CalculationScenarios);
+            CollectionAssert.AreNotEqual(sectionResultScenariosBeforeSync, sectionResults[0].CalculationScenarios);
+            CollectionAssert.AreNotEqual(sectionResultScenariosBeforeSync2, sectionResults[1].CalculationScenarios);
         }
 
         [Test]
@@ -96,19 +98,21 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var failureMechanism = GetFailureMechanism();
-            var calculationGroup = failureMechanism.CalculationsGroup.Children.First() as CalculationGroup;
-            var calculationToSync = calculationGroup.Children.First() as PipingCalculationScenario;
+            var calculationGroup = failureMechanism.CalculationsGroup.Children[0] as CalculationGroup;
+            var calculationToSync = calculationGroup.Children[0] as PipingCalculationScenario;
 
             // Precondition
             Assert.IsNotNull(calculationToSync);
 
-            var expectedSectionResultScenarios = failureMechanism.SectionResults.First().CalculationScenarios.ToList();
+            var sectionResults = failureMechanism.SectionResults.ToArray();
+
+            var expectedSectionResultScenarios = sectionResults[0].CalculationScenarios.ToList();
 
             // Call
             PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine(calculationToSync, failureMechanism, calculationToSync.InputParameters.SurfaceLine);
 
             // Assert
-            CollectionAssert.AreEqual(expectedSectionResultScenarios, failureMechanism.SectionResults.First().CalculationScenarios);
+            CollectionAssert.AreEqual(expectedSectionResultScenarios, sectionResults[0].CalculationScenarios);
         }
 
         [Test]
@@ -116,10 +120,11 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var failureMechanism = GetFailureMechanism();
-            var newSurfaceLine = failureMechanism.SurfaceLines.ElementAt(1);
+            var surfaceLines = failureMechanism.SurfaceLines.ToArray();
+            var newSurfaceLine = surfaceLines[1];
 
-            var calculationGroup = failureMechanism.CalculationsGroup.Children.First() as CalculationGroup;
-            var calculationToSync = calculationGroup.Children.First() as PipingCalculationScenario;
+            var calculationGroup = failureMechanism.CalculationsGroup.Children[0] as CalculationGroup;
+            var calculationToSync = calculationGroup.Children[0] as PipingCalculationScenario;
 
             // Precondition
             Assert.IsNotNull(calculationToSync);
@@ -127,15 +132,87 @@ namespace Ringtoets.Piping.Service.Test
             var oldSurfaceLine = calculationToSync.InputParameters.SurfaceLine;
             calculationToSync.InputParameters.SurfaceLine = newSurfaceLine;
 
-            var sectionResultScenariosBeforeSync = failureMechanism.SectionResults.First().CalculationScenarios.ToList();
-            var sectionResultScenariosBeforeSync2 = failureMechanism.SectionResults.ElementAt(1).CalculationScenarios.ToList();
+            var sectionResults = failureMechanism.SectionResults.ToArray();
+
+            var sectionResultScenariosBeforeSync = sectionResults[0].CalculationScenarios.ToList();
+            var sectionResultScenariosBeforeSync2 = sectionResults[1].CalculationScenarios.ToList();
 
             // Call
             PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine(calculationToSync, failureMechanism, oldSurfaceLine);
 
             // Assert
-            CollectionAssert.AreNotEqual(sectionResultScenariosBeforeSync, failureMechanism.SectionResults.First().CalculationScenarios);
-            CollectionAssert.AreNotEqual(sectionResultScenariosBeforeSync2, failureMechanism.SectionResults.ElementAt(1).CalculationScenarios);
+            CollectionAssert.AreNotEqual(sectionResultScenariosBeforeSync, sectionResults[0].CalculationScenarios);
+            CollectionAssert.AreNotEqual(sectionResultScenariosBeforeSync2, sectionResults[1].CalculationScenarios);
+        }
+
+        [Test]
+        public void RemoveCalculationScenarioFromSectionResult_CalculationScenarioNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = GetFailureMechanism();
+
+            // Call
+            TestDelegate call = () => PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(null, failureMechanism);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationScenario", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveCalculationScenarioFromSectionResult_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+
+            // Call
+            TestDelegate call = () => PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(calculation, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void RemoveCalculationScenarioFromSectionResult_ScenarioNotInSectionResult_ScenarioNotRemovedFromSectionResult()
+        {
+            // Setup
+            var failureMechanism = GetFailureMechanism();
+
+            var calculationToRemove = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+
+            var sectionResults = failureMechanism.SectionResults.ToArray();
+            var sectionResultScenariosBeforeRemove = sectionResults[0].CalculationScenarios.ToList();
+            var sectionResultScenariosBeforeRemove2 = sectionResults[1].CalculationScenarios.ToList();
+
+            // Call
+            PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(calculationToRemove, failureMechanism);
+
+            // Assert
+            CollectionAssert.AreEqual(sectionResultScenariosBeforeRemove, sectionResults[0].CalculationScenarios);
+            CollectionAssert.AreEqual(sectionResultScenariosBeforeRemove2, sectionResults[1].CalculationScenarios);
+        }
+
+        [Test]
+        public void RemoveCalculationScenarioFromSectionResult_ScenarioInSectionResult_RemovesScenarioFromSectionResult()
+        {
+            // Setup
+            var failureMechanism = GetFailureMechanism();
+
+            var calculationGroup = failureMechanism.CalculationsGroup.Children[0] as CalculationGroup;
+            var calculationToRemove = calculationGroup.Children[0] as PipingCalculationScenario;
+
+            var sectionResults = failureMechanism.SectionResults.ToArray();
+
+            // Precondition
+            Assert.IsNotNull(calculationToRemove);
+            CollectionAssert.Contains(sectionResults[0].CalculationScenarios, calculationToRemove);
+
+            // Call
+            PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(calculationToRemove, failureMechanism);
+            
+            // Assert
+            CollectionAssert.DoesNotContain(sectionResults[0].CalculationScenarios, calculationToRemove);
         }
 
         private static PipingFailureMechanism GetFailureMechanism()

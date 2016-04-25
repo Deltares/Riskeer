@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new TestStochasticSoilModel()
             };
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
 
             var mocks = new MockRepository();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<IObservable>(presentationObject);
-            Assert.IsInstanceOf<PipingContext<PipingCalculation>>(presentationObject);
+            Assert.IsInstanceOf<PipingContext<PipingCalculationScenario>>(presentationObject);
             Assert.AreSame(calculation, presentationObject.WrappedData);
             Assert.AreSame(surfacelines, presentationObject.AvailablePipingSurfaceLines);
             Assert.AreSame(soilModels, presentationObject.AvailableStochasticSoilModels);
@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new TestStochasticSoilModel()
             };
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
@@ -83,7 +83,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 new TestStochasticSoilModel()
             };
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var mocks = new MockRepository();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestStochasticSoilModel()
             };
 
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var context = new PipingCalculationContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
 
             // Call
@@ -145,7 +145,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestStochasticSoilModel()
             };
 
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var context = new PipingCalculationContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
 
             context.Attach(observer);
@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
                 new TestStochasticSoilModel()
             };
 
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
             var context = new PipingCalculationContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
 
             calculation.Attach(observer); // Attach to wrapped object

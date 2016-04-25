@@ -534,7 +534,7 @@ namespace Ringtoets.Piping.Plugin
             return calculationGroupContext != null && calculationGroupContext.WrappedData.Children.Contains(pipingCalculationContext.WrappedData);
         }
 
-        private static void PipingCalculationContextOnNodeRemoved(PipingCalculationContext pipingCalculationContext, object parentNodeData)
+        private void PipingCalculationContextOnNodeRemoved(PipingCalculationContext pipingCalculationContext, object parentNodeData)
         {
             var calculationGroupContext = parentNodeData as PipingCalculationGroupContext;
             if (calculationGroupContext != null)
@@ -542,6 +542,7 @@ namespace Ringtoets.Piping.Plugin
                 var succesfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(pipingCalculationContext.WrappedData);
                 if (succesfullyRemovedData)
                 {
+                    RemoveCalculation(pipingCalculationContext.WrappedData, pipingCalculationContext.PipingFailureMechanism);
                     calculationGroupContext.NotifyObservers();
                 }
             }
@@ -568,7 +569,7 @@ namespace Ringtoets.Piping.Plugin
 
             foreach (ICalculationBase item in nodeData.WrappedData.Children)
             {
-                var calculation = item as PipingCalculation;
+                var calculation = item as PipingCalculationScenario;
                 var group = item as CalculationGroup;
 
                 if (calculation != null)
@@ -610,7 +611,7 @@ namespace Ringtoets.Piping.Plugin
                     };
 
                     group.Children.Add(newGroup);
-                    nodeData.NotifyObservers();
+                    nodeData.WrappedData.NotifyObservers();
                 });
 
             var addCalculationItem = new StrictContextMenuItem(
@@ -624,7 +625,7 @@ namespace Ringtoets.Piping.Plugin
                     };
 
                     group.Children.Add(calculation);
-                    nodeData.NotifyObservers();
+                    nodeData.WrappedData.NotifyObservers();
                 });
 
             var generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
@@ -733,6 +734,7 @@ namespace Ringtoets.Piping.Plugin
             nodeData.NotifyObservers();
 
             nodeData.WrappedData.AddCalculationScenariosToFailureMechanismSectionResult(nodeData.PipingFailureMechanism);
+            nodeData.PipingFailureMechanism.NotifyObservers();
         }
 
         private void GeneratePipingCalculations(ICalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
@@ -816,8 +818,19 @@ namespace Ringtoets.Piping.Plugin
             if (group != null)
             {
                 group.WrappedData.Children.Remove(nodeData.WrappedData);
+
+                foreach (var calculation in nodeData.WrappedData.GetCalculations().Cast<PipingCalculationScenario>()) 
+                {
+                    RemoveCalculation(calculation, nodeData.PipingFailureMechanism);
+                }
+
                 group.NotifyObservers();
             }
+        }
+
+        private void RemoveCalculation(PipingCalculationScenario calculation, PipingFailureMechanism pipingFailureMechanism)
+        {
+            PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(calculation, pipingFailureMechanism);
         }
 
         private bool PipingCalculationGroupContextCanDrag(PipingCalculationGroupContext nodeData, object parentData)

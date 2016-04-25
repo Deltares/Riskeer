@@ -43,6 +43,7 @@ namespace Ringtoets.Piping.Data
             : base(generalInputParameters, semiProbabilisticInputParameters)
         {
             IsRelevant = true;
+            Contribution = (RoundedDouble) 1.0;
         }
 
         public bool IsRelevant { get; set; }

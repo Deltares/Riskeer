@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
@@ -60,6 +59,27 @@ namespace Ringtoets.Piping.Service
 
             RemoveScenarioFromOldSectionResult(calculationScenario, failureMechanism);
             AddScenarioToNewSectionResult(calculationScenario, failureMechanism);
+        }
+
+        /// <summary>
+        /// Removes the <paramref name="calculationScenario"/> from the <see cref="FailureMechanismSectionResult"/>.
+        /// </summary>
+        /// <param name="calculationScenario">The calculation scenario to remove.</param>
+        /// <param name="failureMechanism">The failure mechanism containing the <see cref="FailureMechanismSectionResult"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationScenario"/> or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static void RemoveCalculationScenarioFromSectionResult(PipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism)
+        {
+            if (calculationScenario == null)
+            {
+                throw new ArgumentNullException("calculationScenario");
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            RemoveScenarioFromOldSectionResult(calculationScenario, failureMechanism);
         }
 
         private static void AddScenarioToNewSectionResult(PipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism)

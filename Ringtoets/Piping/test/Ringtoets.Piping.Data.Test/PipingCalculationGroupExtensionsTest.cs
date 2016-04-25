@@ -191,42 +191,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(2, failureMechanismSectionResult4.CalculationScenarios.Count);
         }
 
-        [Test]
-        public void AddCalculationScenariosToFailureMechanismSectionResult_ScenariosAdded_NotifiesObserver()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = GetFailureMechanismWithSections();
-
-            var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                failureMechanism.SurfaceLines,
-                failureMechanism.StochasticSoilModels,
-                failureMechanism.GeneralInput,
-                failureMechanism.SemiProbabilisticInput);
-
-            foreach (var item in calculationsStructure)
-            {
-                failureMechanism.CalculationsGroup.Children.Add(item);
-            }
-
-            failureMechanism.Attach(observer);
-
-            // Call
-            failureMechanism.CalculationsGroup.AddCalculationScenariosToFailureMechanismSectionResult(failureMechanism);
-
-            // Assert
-            var failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
-            var failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
-
-            Assert.AreEqual(4, failureMechanismSectionResult1.CalculationScenarios.Count);
-            Assert.AreEqual(2, failureMechanismSectionResult2.CalculationScenarios.Count);
-            mocks.VerifyAll();
-        }
-
         private static PipingFailureMechanism GetFailureMechanismWithoutSections()
         {
             return GetFailureMechanism();
