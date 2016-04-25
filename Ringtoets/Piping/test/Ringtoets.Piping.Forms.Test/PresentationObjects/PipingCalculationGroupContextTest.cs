@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Attach_Observer_ObserverAttachedToPipingCalculationGroup()
+        public void Attach_Observer_ObserverAttachedToCalculationGroup()
         {
             // Setup
             var mocks = new MockRepository();
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Detach_Observer_ObserverDetachedFromPipingCalculationGroup()
+        public void Detach_Observer_ObserverDetachedFromCalculationGroup()
         {
             // Setup
             var mocks = new MockRepository();

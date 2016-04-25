@@ -11,6 +11,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 {
@@ -41,7 +42,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(PipingCalculationGroupContext), info.DataType);
             Assert.AreEqual(typeof(ICalculationGroup), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(PipingFormsResources.FolderIcon, info.Image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, info.Image);
         }
 
         [Test]

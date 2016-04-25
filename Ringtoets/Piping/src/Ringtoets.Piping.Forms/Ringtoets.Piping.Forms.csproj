@@ -219,13 +219,9 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
-    <None Include="Resources\folder-stand.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\control_equalizer_blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\folder.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\u48.png" />
@@ -239,7 +235,6 @@
   <ItemGroup>
     <None Include="Resources\blue-document-list.png" />
     <None Include="Resources\control-record.png" />
-    <None Include="Resources\folder_add.png" />
     <None Include="Resources\table.png" />
   </ItemGroup>
   <ItemGroup>

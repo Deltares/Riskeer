@@ -61,16 +61,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap AddFolderIcon {
-            get {
-                object obj = ResourceManager.GetObject("AddFolderIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Karakteristieke punten.
         /// </summary>
         public static string Categories_Characteristic_points {
@@ -229,16 +219,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string DesignVariableTypeConverter_DistributionType_Description {
             get {
                 return ResourceManager.GetString("DesignVariableTypeConverter_DistributionType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap FolderIcon {
-            get {
-                object obj = ResourceManager.GetObject("FolderIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -633,24 +613,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Map toevoegen.
-        /// </summary>
-        public static string PipingCalculationGroup_Add_PipingCalculationGroup {
-            get {
-                return ResourceManager.GetString("PipingCalculationGroup_Add_PipingCalculationGroup", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap..
-        /// </summary>
-        public static string PipingCalculationGroup_Add_PipingCalculationGroup_ToolTip {
-            get {
-                return ResourceManager.GetString("PipingCalculationGroup_Add_PipingCalculationGroup_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Valideer en voer alle berekeningen binnen deze berekeningsmap uit..
         /// </summary>
         public static string PipingCalculationGroup_CalculateAll_ToolTip {
@@ -857,15 +819,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingFailureMechanism_Add_PipingCalculation_Tooltip {
             get {
                 return ResourceManager.GetString("PipingFailureMechanism_Add_PipingCalculation_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe berekeningsmap toe aan dit faalmechanisme..
-        /// </summary>
-        public static string PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip {
-            get {
-                return ResourceManager.GetString("PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip", resourceCulture);
             }
         }
         

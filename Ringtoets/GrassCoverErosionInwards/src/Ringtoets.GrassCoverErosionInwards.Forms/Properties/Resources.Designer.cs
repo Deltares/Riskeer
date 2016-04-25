@@ -61,6 +61,63 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Berekening toevoegen.
+        /// </summary>
+        public static string CalculationGroup_Add_GrassCoverErosionInwardsCalculation {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Add_GrassCoverErosionInwardsCalculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuwe berekening toe aan deze berekeningsmap..
+        /// </summary>
+        public static string CalculationGroup_Add_GrassCoverErosionInwardsCalculation_ToolTip {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Add_GrassCoverErosionInwardsCalculation_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} mag niet &apos;null&apos; zijn..
+        /// </summary>
+        public static string GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_b" +
+                        "e_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het traject.
+        /// </summary>
+        public static string GrassCoverErosionInwardsContext_DataDescription_AssessmentSection {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsContext_DataDescription_AssessmentSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het grasbekleding erosie kruin en binnentalud faalmechanisme.
+        /// </summary>
+        public static string GrassCoverErosionInwardsContext_DataDescription_GrassCoverErosionInwardsFailureMechanism {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsContext_DataDescription_GrassCoverErosionInwardsFailureMe" +
+                        "chanism", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuwe grasbekleding erosie kruin en binnentalud berekening toe aan dit faalmechanisme..
+        /// </summary>
+        public static string GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_" +
+                        "Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap GrassCoverErosionInwardsIcon {

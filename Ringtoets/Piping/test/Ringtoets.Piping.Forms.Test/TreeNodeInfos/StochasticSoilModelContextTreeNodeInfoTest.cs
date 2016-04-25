@@ -28,13 +28,13 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Plugin;
 using Ringtoets.Piping.Primitives;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var image = info.Image(stochasticSoilModelContextMock);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.FolderIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
 
             mocks.VerifyAll();
         }

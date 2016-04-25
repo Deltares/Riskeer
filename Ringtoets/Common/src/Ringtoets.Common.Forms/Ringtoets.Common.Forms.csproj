@@ -148,6 +148,7 @@
     <None Include="Resources\document-task.png" />
     <None Include="Resources\chart-pie-separate.png" />
     <None Include="Resources\control_equalizer_blue.png" />
+    <None Include="Resources\folder_add.png" />
     <Content Include="Resources\PlayHS.png" />
     <None Include="Resources\Sections.png" />
     <Content Include="Resources\tickAll.png" />

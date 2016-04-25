@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, calculationGroup) => calculationGroup.Name,
-                Image = PipingFormsResources.FolderIcon,
+                Image = RingtoetsCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.PipingFailureMechanism.CalculationsGroup,
                 CloseForData = ClosePipingCalculationsViewForData,
                 AfterCreate = (view, context) =>
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new TreeNodeInfo<PipingCalculationGroupContext>
             {
                 Text = pipingCalculationGroupContext => pipingCalculationGroupContext.WrappedData.Name,
-                Image = pipingCalculationGroupContext => PipingFormsResources.FolderIcon,
+                Image = pipingCalculationGroupContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 EnsureVisibleOnCreate = pipingCalculationGroupContext => true,
                 ChildNodeObjects = PipingCalculationGroupContextChildNodeObjects,
                 ContextMenuStrip = PipingCalculationGroupContextContextMenuStrip,
@@ -153,7 +153,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new TreeNodeInfo<RingtoetsPipingSurfaceLinesContext>
             {
                 Text = ringtoetsPipingSurfaceLine => PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
-                Image = ringtoetsPipingSurfaceLine => PipingFormsResources.FolderIcon,
+                Image = ringtoetsPipingSurfaceLine => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.FailureMechanism.SurfaceLines.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.FailureMechanism.SurfaceLines.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new TreeNodeInfo<StochasticSoilModelContext>
             {
                 Text = stochasticSoilModelContext => PipingFormsResources.StochasticSoilProfileCollection_DisplayName,
-                Image = stochasticSoilModelContext => PipingFormsResources.FolderIcon,
+                Image = stochasticSoilModelContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.FailureMechanism.StochasticSoilModels.Any() ?
                                                               Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = stochasticSoilModelContext => stochasticSoilModelContext.FailureMechanism.StochasticSoilModels.Cast<object>().ToArray(),
@@ -284,9 +284,9 @@ namespace Ringtoets.Piping.Plugin
         private ContextMenuStrip FailureMechanismContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
         {
             var addCalculationGroupItem = new StrictContextMenuItem(
-                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
-                PipingFormsResources.PipingFailureMechanism_Add_PipingCalculationGroup_Tooltip,
-                PipingFormsResources.AddFolderIcon,
+                RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
+                RingtoetsCommonFormsResources.AddFolderIcon,
                 (o, args) => AddCalculationGroup(pipingFailureMechanismContext.WrappedData)
                 );
 
@@ -600,9 +600,9 @@ namespace Ringtoets.Piping.Plugin
         {
             var group = nodeData.WrappedData;
             var addCalculationGroupItem = new StrictContextMenuItem(
-                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup,
-                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculationGroup_ToolTip,
-                PipingFormsResources.AddFolderIcon, (o, args) =>
+                RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup_ToolTip,
+                RingtoetsCommonFormsResources.AddFolderIcon, (o, args) =>
                 {
                     var newGroup = new CalculationGroup
                     {

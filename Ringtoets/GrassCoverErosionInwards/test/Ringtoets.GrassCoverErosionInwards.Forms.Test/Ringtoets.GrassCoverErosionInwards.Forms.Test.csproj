@@ -60,6 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PresentationObjects\GrassCoverErosionInwardsCalculationGroupContextTest.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionInwardsContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsFailureMechanismContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsFailureMechanismTreeNodeInfoTest.cs" />

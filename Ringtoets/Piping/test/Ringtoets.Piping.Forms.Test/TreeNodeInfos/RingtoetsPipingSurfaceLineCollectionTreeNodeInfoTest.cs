@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -7,13 +6,13 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Plugin;
 using Ringtoets.Piping.Primitives;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
@@ -84,7 +83,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var image = info.Image(ringtoetsPipingSurfaceLines);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.FolderIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
 
             mocks.VerifyAll();
         }
@@ -153,7 +152,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var objects = info.ChildNodeObjects(ringtoetsPipingSurfaceLineContext);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { ringtoetsPipingSurfaceLine1, ringtoetsPipingSurfaceLine2 }, objects);
+            CollectionAssert.AreEqual(new[]
+            {
+                ringtoetsPipingSurfaceLine1,
+                ringtoetsPipingSurfaceLine2
+            }, objects);
 
             mocks.VerifyAll();
         }

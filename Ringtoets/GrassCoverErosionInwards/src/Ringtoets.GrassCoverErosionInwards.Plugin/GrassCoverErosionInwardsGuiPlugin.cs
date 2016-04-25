@@ -20,11 +20,20 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
+using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -34,7 +43,9 @@ using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
+using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin
@@ -46,7 +57,44 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
     {
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return new DefaultFailureMechanismTreeNodeInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanism>(null, null, Gui);
+            yield return new DefaultFailureMechanismTreeNodeInfo<GrassCoverErosionInwardsFailureMechanismContext,
+                GrassCoverErosionInwardsFailureMechanism>(FailureMechanismChildNodeObjects,
+                                                          FailureMechanismContextMenuStrip, Gui);
+
+            yield return new TreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>
+            {
+                Text = grassCoverErosionInwardsFailureMechanismContext => grassCoverErosionInwardsFailureMechanismContext.WrappedData.Name,
+                Image = grassCoverErosionInwardsCalculationGroupContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                EnsureVisibleOnCreate = grassCoverErosionInwardsCalculationGroupContext => true
+            };
+        }
+
+        private object[] FailureMechanismChildNodeObjects(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext)
+        {
+            GrassCoverErosionInwardsFailureMechanism wrappedData = grassCoverErosionInwardsFailureMechanismContext.WrappedData;
+            return new object[]
+            {
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, grassCoverErosionInwardsFailureMechanismContext.Parent), TreeFolderCategory.Input),
+                new GrassCoverErosionInwardsCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData, grassCoverErosionInwardsFailureMechanismContext.Parent),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+            };
+        }
+
+        private static IList GetInputs(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return new ArrayList
+            {
+                new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new CommentContext<ICommentable>(failureMechanism)
+            };
+        }
+
+        private static IList GetOutputs(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        {
+            return new ArrayList
+            {
+                new FailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism)
+            };
         }
 
         private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
@@ -120,5 +168,60 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 throw new InvalidOperationException(Resources.GrassCoverErosionInwardsGuiPlugin_Error_during_overtopping_calculation);
             }
         }
+
+        #region GrassCoverErosionInwards TreeNodeInfo
+
+        private ContextMenuStrip FailureMechanismContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        {
+            var addCalculationGroupItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
+                RingtoetsCommonFormsResources.AddFolderIcon,
+                (o, args) => AddCalculationGroup(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
+                );
+
+            var addCalculationItem = new StrictContextMenuItem(
+                GrassCoverErosionInwardsFormsResources.CalculationGroup_Add_GrassCoverErosionInwardsCalculation,
+                GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip,
+                GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsIcon,
+                (s, e) => AddCalculation(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
+                );
+
+            return Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
+                      .AddCustomItem(addCalculationGroupItem)
+                      .AddCustomItem(addCalculationItem)
+                      .AddSeparator()
+                      .AddSeparator()
+                      .AddImportItem()
+                      .AddExportItem()
+                      .AddSeparator()
+                      .AddExpandAllItem()
+                      .AddCollapseAllItem()
+                      .Build();
+        }
+
+        private static void AddCalculationGroup(IFailureMechanism failureMechanism)
+        {
+            var calculation = new CalculationGroup
+            {
+                Name = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, RingtoetsCommonDataResources.CalculationGroup_DefaultName, c => c.Name)
+            };
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.NotifyObservers();
+        }
+
+        private static void AddCalculation(IFailureMechanism failureMechanism)
+        {
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsCalculation_DefaultName, c => c.Name)
+            };
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.NotifyObservers();
+        }
+
+        #endregion
     }
 }
