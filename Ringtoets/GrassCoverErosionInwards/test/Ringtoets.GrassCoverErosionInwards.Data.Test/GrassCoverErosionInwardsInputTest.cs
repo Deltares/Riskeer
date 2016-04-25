@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -54,17 +55,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var orientation = new RoundedDouble(2, 1.18);
             var logNormal = new LognormalDistribution(2);
             const bool foreshorePresent = true;
-            var breakWater = new BreakWater(BreakWaterType.Caisson, 2.2);
+            var breakWater = new List<BreakWater>()
+            {
+                new BreakWater(BreakWaterType.Caisson, 2.2)
+            };
             const bool breakWaterPresent = true;
+            const double dikeHeight = 1.1;
 
             // Call
             input.Orientation = orientation;
             input.CriticalFlowRate = logNormal;
+            input.DikeHeight = dikeHeight;
             input.ForeshorePresent = foreshorePresent;
             input.BreakWater = breakWater;
             input.BreakWaterPresent = breakWaterPresent;
 
             // Assert
+            Assert.AreEqual(dikeHeight, input.DikeHeight);
             Assert.AreEqual(orientation, input.Orientation);
             Assert.AreEqual(logNormal, input.CriticalFlowRate);
             Assert.AreEqual(foreshorePresent, input.ForeshorePresent);

@@ -38,6 +38,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         private IEnumerable<RoughnessProfileSection> geometry;
 
         /// <summary>
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsInput"/>.
+        /// </summary>
+        public GrassCoverErosionInwardsInput()
+        {
+            BreakWater = new List<BreakWater>();
+        }
+
+        /// <summary>
         /// The dike's geometry (without foreshore geometry).
         /// </summary>
         public IEnumerable<RoughnessProfileSection> DikeGeometry
@@ -76,9 +84,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public bool ForeshorePresent { get; set; }
 
         /// <summary>
+        /// Gets or sets the dike height.
+        /// </summary>
+        public double DikeHeight { get; set; }
+
+        /// <summary>
         /// Gets or sets the number of profile points of the dike geometry that form the foreshore geometry. 
         /// </summary>
-        public int ForeshoreDikeGeometryPoints { get; set; }
+        public int ForeshoreDikeGeometryPoints { get; private set; }
 
         /// <summary>
         /// Defines if <see cref="BreakWater"/> needs to be taken into account.
@@ -88,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets or sets the <see cref="BreakWater"/>.
         /// </summary>
-        public BreakWater BreakWater { get; set; }
+        public IEnumerable<BreakWater> BreakWater { get; set; }
 
         /// <summary>
         /// Gets or set the hydraulic boundary location from which to use the assessment level.

@@ -29,16 +29,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// A wall.
         /// </summary>
-        Wall,
+        Wall = 1,
 
         /// <summary>
         /// A watertight retaining structure.
         /// </summary>
-        Caisson,
+        Caisson = 2,
 
         /// <summary>
         /// A barrier that impounds water or underground streams.
         /// </summary>
-        Dam
+        Dam = 3
     }
 }

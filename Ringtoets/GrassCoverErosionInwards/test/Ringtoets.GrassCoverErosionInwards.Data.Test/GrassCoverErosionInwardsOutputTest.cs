@@ -50,5 +50,50 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(reliability, output.Reliability);
             Assert.AreEqual(factorOfSafety, output.FactorOfSafety);
         }
+
+        [Test]
+        public void FactorOfSafety_VariousValues_ReturnsExpectedValues()
+        {
+            // Setup
+            var bigRoundedDouble = new RoundedDouble(15, 9.12345678901234567);
+            var output = new GrassCoverErosionInwardsOutput(0.0, 0.0, 0.0, 0.0, bigRoundedDouble);
+
+            // Call
+            output.FactorOfSafety = bigRoundedDouble;
+
+            // Assert
+            var expectedRoundedDouble = new RoundedDouble(3, bigRoundedDouble);
+            Assert.AreEqual(expectedRoundedDouble, output.FactorOfSafety);
+        }
+
+        [Test]
+        public void Reliability_VariousValues_ReturnsExpectedValues()
+        {
+            // Setup
+            var bigRoundedDouble = new RoundedDouble(15, 9.12345678901234567);
+            var output = new GrassCoverErosionInwardsOutput(0.0, 0.0, 0.0, bigRoundedDouble, 0.0);
+
+            // Call
+            output.Reliability = bigRoundedDouble;
+
+            // Assert
+            var expectedRoundedDouble = new RoundedDouble(3, bigRoundedDouble);
+            Assert.AreEqual(expectedRoundedDouble, output.Reliability);
+        }
+
+        [Test]
+        public void Probability_VariousValues_ReturnsExpectedValues()
+        {
+            // Setup
+            var bigRoundedDouble = new RoundedDouble(15, 9.12345678901234567);
+            var output = new GrassCoverErosionInwardsOutput(0.0, 0.0, bigRoundedDouble, 0.0, 0.0);
+
+            // Call
+            output.Probability = bigRoundedDouble;
+
+            // Assert
+            var expectedRoundedDouble = new RoundedDouble(2, bigRoundedDouble);
+            Assert.AreEqual(expectedRoundedDouble, output.Probability);
+        }
     }
 }

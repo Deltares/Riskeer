@@ -19,14 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
-
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
+using Ringtoets.HydraRing.Calculation.Activities;
+using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
+using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.Data;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin
 {
@@ -38,6 +47,79 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return new DefaultFailureMechanismTreeNodeInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanism>(null, null, Gui);
+        }
+
+        private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                                                                                    string hlcdDirectory,
+                                                                                                                    GrassCoverErosionInwardsInput inwardsInput,
+                                                                                                                    GrassCoverErosionInwardsOutput inwardsOutput
+            )
+        {
+            var hydraulicBoundaryLocationId = (int) hydraulicBoundaryLocation.Id;
+
+            // assessmentSection.FailureMechanismContribution.Norm ??
+            return HydraRingActivityFactory.Create(
+                string.Format(Resources.GrassCoverErosionInwardsGuiPlugin_Calculate_overtopping_for_location_0_, hydraulicBoundaryLocationId),
+                hlcdDirectory,
+                hydraulicBoundaryLocationId.ToString(),
+                HydraRingTimeIntegrationSchemeType.FBC,
+                HydraRingUncertaintiesType.All,
+                new OvertoppingCalculationInput(hydraulicBoundaryLocationId, new HydraRingSection(hydraulicBoundaryLocationId, hydraulicBoundaryLocationId.ToString(), double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
+                                                inwardsInput.DikeHeight, inwardsInput.CriticalFlowRate.StandardDeviation, inwardsInput.CriticalFlowRate.Mean,
+                                                ParseProfilePoints(inwardsInput.DikeGeometry), ParseForeshore(inwardsInput), ParseBreakWater(inwardsInput)
+                    ),
+                output => { ParseHydraRingOutput(inwardsOutput, output); });
+        }
+
+        private static IEnumerable<HydraRingBreakWater> ParseBreakWater(GrassCoverErosionInwardsInput input)
+        {
+            return input.BreakWaterPresent ?
+                       input.BreakWater.Select(water => new HydraRingBreakWater((int) water.Type, water.Height)) :
+                       Enumerable.Empty<HydraRingBreakWater>();
+        }
+
+        private static IEnumerable<HydraRingForelandPoint> ParseForeshore(GrassCoverErosionInwardsInput input)
+        {
+            if (!input.ForeshorePresent)
+            {
+                yield break;
+            }
+            if (input.ForeshoreGeometry.Any())
+            {
+                var first = input.ForeshoreGeometry.First();
+                yield return new HydraRingForelandPoint(first.StartingPoint.X, first.StartingPoint.Y);
+            }
+
+            foreach (var foreshore in input.ForeshoreGeometry)
+            {
+                yield return new HydraRingForelandPoint(foreshore.EndingPoint.X, foreshore.EndingPoint.Y);
+            }
+        }
+
+        private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(IEnumerable<RoughnessProfileSection> profileSections)
+        {
+            if (profileSections.Any())
+            {
+                var first = profileSections.First();
+                yield return new HydraRingRoughnessProfilePoint(first.StartingPoint.X, first.StartingPoint.Y, 0);
+            }
+
+            foreach (var profileSection in profileSections)
+            {
+                yield return new HydraRingRoughnessProfilePoint(profileSection.EndingPoint.X, profileSection.EndingPoint.Y, profileSection.Roughness);
+            }
+        }
+
+        private static void ParseHydraRingOutput(GrassCoverErosionInwardsOutput grassCoverErosionInwardsOutput, ExceedanceProbabilityCalculationOutput output)
+        {
+            if (output != null)
+            {
+                grassCoverErosionInwardsOutput.Probability = (RoundedDouble) output.Beta;
+            }
+            else
+            {
+                throw new InvalidOperationException(Resources.GrassCoverErosionInwardsGuiPlugin_Error_during_overtopping_calculation);
+            }
         }
     }
 }

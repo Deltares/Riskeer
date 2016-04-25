@@ -28,6 +28,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsOutput
     {
+        private RoundedDouble probability;
+        private RoundedDouble reliability;
+        private RoundedDouble factorOfSafety;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutput"/>.
         /// </summary>
@@ -40,9 +44,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             RequiredProbability = new RoundedDouble(2, requiredProbability);
             RequiredReliability = new RoundedDouble(3, requiredReliability);
-            Probability = new RoundedDouble(2, probability);
-            Reliability = new RoundedDouble(3, reliability);
-            FactorOfSafety = new RoundedDouble(3, factorOfSafety);
+            this.probability = new RoundedDouble(2, probability);
+            this.reliability = new RoundedDouble(3, reliability);
+            this.factorOfSafety = new RoundedDouble(3, factorOfSafety);
         }
 
         /// <summary>
@@ -58,16 +62,46 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the factor of safety of the failure mechanism.
         /// </summary>
-        public RoundedDouble FactorOfSafety { get; private set; }
+        public RoundedDouble FactorOfSafety
+        {
+            get
+            {
+                return factorOfSafety;
+            }
+            set
+            {
+                factorOfSafety = value.ToPrecision(factorOfSafety.NumberOfDecimalPlaces);
+            }
+        }
 
         /// <summary>
         /// Gets the reliability of the failure mechanism.
         /// </summary>
-        public RoundedDouble Reliability { get; private set; }
+        public RoundedDouble Reliability
+        {
+            get
+            {
+                return reliability;
+            }
+            set
+            {
+                reliability = value.ToPrecision(reliability.NumberOfDecimalPlaces);
+            }
+        }
 
         /// <summary>
         /// Gets the probability of failing..
         /// </summary>
-        public RoundedDouble Probability { get; private set; }
+        public RoundedDouble Probability
+        {
+            get
+            {
+                return probability;
+            }
+            set
+            {
+                probability = value.ToPrecision(probability.NumberOfDecimalPlaces);
+            }
+        }
     }
 }

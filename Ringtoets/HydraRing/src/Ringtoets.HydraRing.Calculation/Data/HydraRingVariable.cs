@@ -120,7 +120,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         }
 
         /// <summary>
-        /// Gets the variablity in case the variable is random.
+        /// Gets the variability in case the variable is random.
         /// </summary>
         /// <remarks>
         /// The value represents a standard deviation in case the <see cref="DeviationType"/> equals <see cref="HydraRingDeviationType.Standard"/>.
