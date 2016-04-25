@@ -644,6 +644,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                     throw new NotImplementedException();
                 }
             }
+
+            public override ICalculationGroup CalculationsGroup { get; protected set; }
         }
 
         private class ProgressNotification

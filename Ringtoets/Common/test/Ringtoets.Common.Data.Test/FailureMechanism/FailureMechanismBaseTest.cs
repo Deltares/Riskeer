@@ -300,6 +300,8 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                 }
             }
 
+            public override ICalculationGroup CalculationsGroup { get; protected set; }
+
             public SimpleFailureMechanismBase(string failureMechanismName) : base(failureMechanismName) {}
         }
     }

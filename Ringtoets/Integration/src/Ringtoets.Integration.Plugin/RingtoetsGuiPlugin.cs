@@ -352,7 +352,7 @@ namespace Ringtoets.Integration.Plugin
 
         private static IEnumerable<ICommentable> GetCommentableElements(PipingCalculationGroupContext calculationGroupContext)
         {
-            return calculationGroupContext.WrappedData.GetPipingCalculations();
+            return calculationGroupContext.WrappedData.GetCalculations();
         }
 
         private static IEnumerable<ICommentable> GetCommentableElements(IAssessmentSection assessmentSection)

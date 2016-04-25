@@ -709,7 +709,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              assessmentSectionMock);
 
             var calculationItem = mocks.Stub<ICalculationBase>();
-            calculationItem.Expect(ci => ci.Name).Return("Nieuwe map");
+            calculationItem.Name = "Nieuwe map";
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -760,7 +760,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              assessmentSectionMock);
 
             var calculationItem = mocks.Stub<ICalculationBase>();
-            calculationItem.Expect(ci => ci.Name).Return("Nieuwe berekening");
+            calculationItem.Name = "Nieuwe berekening";
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -1681,7 +1681,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             CreatePipingCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, assessmentSection, name);
 
             var existingItemStub = mocks.Stub<ICalculationBase>();
-            existingItemStub.Stub(i => i.Name).Return("");
+            existingItemStub.Name = "";
 
             CalculationGroup originalOwnerGroup;
             PipingCalculationGroupContext originalOwnerGroupContext;
@@ -1739,7 +1739,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
 
             var sameNamedItem = mocks.Stub<ICalculationBase>();
-            sameNamedItem.Stub(i => i.Name).Return(draggedItem.Name);
+            sameNamedItem.Name = draggedItem.Name;
 
             var originalOwnerObserver = mocks.StrictMock<IObserver>();
             originalOwnerObserver.Expect(o => o.UpdateObserver());

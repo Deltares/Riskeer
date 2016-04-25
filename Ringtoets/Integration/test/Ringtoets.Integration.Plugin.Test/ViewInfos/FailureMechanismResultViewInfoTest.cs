@@ -232,6 +232,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                     throw new NotImplementedException();
                 }
             }
+
+            public override ICalculationGroup CalculationsGroup { get; protected set; }
         }
     }
 }

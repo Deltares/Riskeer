@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Plugin
                 CloseForData = ClosePipingFailureMechanismViewForData
             };
 
-            yield return new ViewInfo<PipingCalculationGroupContext, CalculationGroup, PipingCalculationsView>
+            yield return new ViewInfo<PipingCalculationGroupContext, ICalculationGroup, PipingCalculationsView>
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, calculationGroup) => calculationGroup.Name,
@@ -643,14 +643,14 @@ namespace Ringtoets.Piping.Plugin
                         return;
                     }
 
-                    foreach (PipingCalculation calc in group.GetPipingCalculations().Where(c => c.HasOutput))
+                    foreach (PipingCalculation calc in group.GetCalculations().Where(c => c.HasOutput))
                     {
                         calc.ClearOutput();
                         calc.NotifyObservers();
                     }
                 });
 
-            if (!nodeData.WrappedData.GetPipingCalculations().Any(c => c.HasOutput))
+            if (!nodeData.WrappedData.GetCalculations().Any(c => c.HasOutput))
             {
                 clearAllItem.Enabled = false;
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
@@ -735,7 +735,7 @@ namespace Ringtoets.Piping.Plugin
             nodeData.WrappedData.AddCalculationScenariosToFailureMechanismSectionResult(nodeData.PipingFailureMechanism);
         }
 
-        private void GeneratePipingCalculations(CalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
+        private void GeneratePipingCalculations(ICalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
         {
             foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput, semiProbabilisticInput))
             {
@@ -743,14 +743,14 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private StrictContextMenuItem CreateCalculateAllItem(CalculationGroup group)
+        private StrictContextMenuItem CreateCalculateAllItem(ICalculationGroup group)
         {
             var menuItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
                 PipingFormsResources.PipingCalculationGroup_CalculateAll_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon, (o, args) => { CalculateAll(group); });
 
-            if (!group.GetPipingCalculations().Any())
+            if (!group.GetCalculations().Any())
             {
                 menuItem.Enabled = false;
                 menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run;
@@ -759,14 +759,14 @@ namespace Ringtoets.Piping.Plugin
             return menuItem;
         }
 
-        private static StrictContextMenuItem CreateValidateAllItem(CalculationGroup group)
+        private static StrictContextMenuItem CreateValidateAllItem(ICalculationGroup group)
         {
             var menuItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Validate_all,
                 PipingFormsResources.PipingCalculationGroup_Validate_All_ToolTip,
                 RingtoetsCommonFormsResources.ValidateAllIcon, (o, args) => { ValidateAll(group); });
 
-            if (!group.GetPipingCalculations().Any())
+            if (!group.GetCalculations().Any())
             {
                 menuItem.Enabled = false;
                 menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanism_CreateValidateAllItem_No_calculations_to_validate;
@@ -775,14 +775,14 @@ namespace Ringtoets.Piping.Plugin
             return menuItem;
         }
 
-        private void CalculateAll(CalculationGroup group)
+        private void CalculateAll(ICalculationGroup group)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, group.GetPipingCalculations().Select(pc => new PipingCalculationActivity(pc)));
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, group.GetCalculations().OfType<PipingCalculationScenario>().Select(pc => new PipingCalculationActivity(pc)));
         }
 
-        private static void ValidateAll(CalculationGroup group)
+        private static void ValidateAll(ICalculationGroup group)
         {
-            foreach (PipingCalculation calculation in group.Children.GetPipingCalculations())
+            foreach (PipingCalculation calculation in group.GetCalculations().OfType<PipingCalculation>())
             {
                 PipingCalculationService.Validate(calculation);
             }

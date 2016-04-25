@@ -32,5 +32,10 @@ namespace Ringtoets.Common.Data.Calculation
         /// Gets the children that define this group.
         /// </summary>
         IList<ICalculationBase> Children { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether or not <see cref="Name"/> is editable.
+        /// </summary>
+        bool IsNameEditable { get; }
     }
 }

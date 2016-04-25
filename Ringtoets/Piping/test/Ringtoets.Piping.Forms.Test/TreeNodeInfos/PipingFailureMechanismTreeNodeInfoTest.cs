@@ -202,6 +202,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 pipingCalculation1,
                 pipingCalculation2
             });
+            dataMock.Stub(dm => dm.CalculationsGroup).Return(new CalculationGroup());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanismContext = new PipingFailureMechanismContext(dataMock, assessmentSection);
@@ -360,6 +361,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             {
                 pipingCalculation
             });
+            dataMock.Stub(dm => dm.CalculationsGroup).Return(new CalculationGroup());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanismContext = new PipingFailureMechanismContext(dataMock, assessmentSection);

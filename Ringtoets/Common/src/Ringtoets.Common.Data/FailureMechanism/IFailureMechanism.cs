@@ -66,6 +66,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
         IEnumerable<FailureMechanismSectionResult> SectionResults { get; }
 
         /// <summary>
+        /// Gets all available piping calculations.
+        /// </summary>
+        ICalculationGroup CalculationsGroup { get; }
+
+        /// <summary>
         /// Adds a <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.
         /// </summary>
         /// <param name="section">The new section.</param>

@@ -20,31 +20,37 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Common.Data.Contribution
+namespace Ringtoets.Common.Data
 {
     /// <summary>
-    /// This class represents a failure mechanism which has no representative within Ringtoets but 
-    /// contributes to the overall verdict nonetheless.
+    /// Defines extension methods dealing with <see cref="ICalculationBase"/> instances.
     /// </summary>
-    public class OtherFailureMechanism : FailureMechanismBase
+    public static class ICalculationBaseExtensions
     {
         /// <summary>
-        /// Creates a new instance of <see cref="OtherFailureMechanism"/>.
+        /// Recursively enumerates across over the contents of the piping calculation item, 
+        /// yielding the piping calculations found within the calculation item.
         /// </summary>
-        public OtherFailureMechanism() : base(Resources.OtherFailureMechanism_DisplayName) {}
-
-        public override IEnumerable<ICalculation> Calculations
+        /// <param name="calculationItem">The calculation item to be evaluated.</param>
+        /// <returns>Returns all contained piping calculations as an enumerable result.</returns>
+        public static IEnumerable<ICalculationScenario> GetCalculations(this ICalculationBase calculationItem)
         {
-            get
+            var calculationScenario = calculationItem as ICalculationScenario;
+            if (calculationScenario != null)
             {
-                yield break;
+                yield return calculationScenario;
+            }
+            var group = calculationItem as CalculationGroup;
+            if (group != null)
+            {
+                foreach (ICalculationScenario calculationInGroup in group.Children.SelectMany(g => g.GetCalculations()))
+                {
+                    yield return calculationInGroup;
+                }
             }
         }
-
-        public override ICalculationGroup CalculationsGroup { get; protected set; }
     }
 }

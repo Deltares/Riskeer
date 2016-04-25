@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.Base;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Primitives;
@@ -51,7 +52,7 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return CalculationsGroup.GetPipingCalculations();
+                return CalculationsGroup.GetCalculations();
             }
         }
 
@@ -80,7 +81,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets all available piping calculation groups.
         /// </summary>
-        public CalculationGroup CalculationsGroup { get; private set; }
+        public override ICalculationGroup CalculationsGroup { get; protected set; }
 
         /// <summary>
         /// Gets the general piping calculation input parameters that apply to each piping calculation.

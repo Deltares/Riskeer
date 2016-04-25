@@ -48,9 +48,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
-        /// <summary>
-        /// Gets all available grass cover erosion inwards calculation groups.
-        /// </summary>
-        public CalculationGroup CalculationsGroup { get; private set; }
+        public override ICalculationGroup CalculationsGroup { get; protected set; }
     }
 }

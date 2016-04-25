@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -36,12 +37,12 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="pipingCalculationGroup">The group containing the calculations.</param>
         /// <param name="pipingFailureMechanism">The failure mechanism containing the section results.</param>
-        public static void AddCalculationScenariosToFailureMechanismSectionResult(this CalculationGroup pipingCalculationGroup, PipingFailureMechanism pipingFailureMechanism)
+        public static void AddCalculationScenariosToFailureMechanismSectionResult(this ICalculationGroup pipingCalculationGroup, PipingFailureMechanism pipingFailureMechanism)
         {
             foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
             {
                 var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSectionResult.Section.Points);
-                var calculationScenarios = pipingCalculationGroup.GetPipingCalculations()
+                var calculationScenarios = pipingCalculationGroup.GetCalculations().OfType<PipingCalculationScenario>()
                                                                  .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments))
                                                                  .Where(pc => pc.GetType() == typeof(PipingCalculationScenario))
                                                                  .Where(pc => !failureMechanismSectionResult.CalculationScenarios.Contains(pc)).ToList();

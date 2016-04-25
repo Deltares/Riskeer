@@ -28,6 +28,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
@@ -43,8 +44,8 @@ namespace Ringtoets.Common.Forms.Views
         private const double tolerance = 1e-6;
         private readonly Observer failureMechanismObserver;
         private readonly RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult> failureMechanismSectionResultObserver;
-        private readonly RecursiveObserver<IFailureMechanism, ICalculationBase> calculationScenarioObserver;
-        private readonly RecursiveObserver<IFailureMechanism, ICalculationInput> calculationInputObserver;
+        private readonly RecursiveObserver<ICalculationGroup, ICalculationInput> calculationInputObserver;
+        private readonly RecursiveObserver<ICalculationGroup, ICalculationBase> calculationGroupObserver; 
 
         private IEnumerable<FailureMechanismSectionResult> failureMechanismSectionResult;
         private IFailureMechanism failureMechanism;
@@ -62,8 +63,8 @@ namespace Ringtoets.Common.Forms.Views
 
             failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
             failureMechanismSectionResultObserver = new RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
-            calculationScenarioObserver = new RecursiveObserver<IFailureMechanism, ICalculationBase>(UpdataDataGridViewDataSource, mechanism => mechanism.SectionResults.SelectMany(sr => sr.CalculationScenarios));
-            calculationInputObserver = new RecursiveObserver<IFailureMechanism, ICalculationInput>(UpdataDataGridViewDataSource, mechanism => mechanism.SectionResults.SelectMany(sr => sr.CalculationScenarios).Select(cs => cs.Input));
+            calculationInputObserver = new RecursiveObserver<ICalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.GetCalculations().Select(c => c.Input));
+            calculationGroupObserver = new RecursiveObserver<ICalculationGroup, ICalculationBase>(UpdataDataGridViewDataSource, c => c.Children);
             Load += OnLoad;
         }
 
@@ -82,8 +83,8 @@ namespace Ringtoets.Common.Forms.Views
 
                 failureMechanismObserver.Observable = failureMechanism;
                 failureMechanismSectionResultObserver.Observable = failureMechanism;
-                calculationScenarioObserver.Observable = failureMechanism;
-                calculationInputObserver.Observable = failureMechanism;
+                calculationInputObserver.Observable = failureMechanism != null ? failureMechanism.CalculationsGroup : null;
+                calculationGroupObserver.Observable = failureMechanism != null ? failureMechanism.CalculationsGroup : null;
             }
         }
 
@@ -114,8 +115,8 @@ namespace Ringtoets.Common.Forms.Views
 
             failureMechanismObserver.Dispose();
             failureMechanismSectionResultObserver.Dispose();
-            calculationScenarioObserver.Dispose();
             calculationInputObserver.Dispose();
+            calculationGroupObserver.Dispose();
 
             if (disposing && (components != null))
             {

@@ -346,9 +346,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 0.3).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble) 1000).Repeat.Any();
+            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 0.3);
+            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
+            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble) 1000);
 
             mocks.ReplayAll();
 
@@ -380,9 +380,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 1.0).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?) 1000).Repeat.Any();
+            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
+            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
+            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble?) 1000);
 
             mocks.ReplayAll();
 
@@ -414,9 +414,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 1.0).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.Probability).Return(null).Repeat.Any();
+            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
+            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
+            calculationScenarioMock.Stub(cs => cs.Probability).Return(null);
 
             mocks.ReplayAll();
 
@@ -448,9 +448,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 1.0).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?) double.NaN).Repeat.Any();
+            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
+            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
+            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble?) double.NaN);
 
             mocks.ReplayAll();
 
@@ -504,9 +504,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 1.0).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(false).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?) double.NaN).Repeat.Any();
+            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
+            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(false);
+            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble?) double.NaN);
 
             mocks.ReplayAll();
 
@@ -537,9 +537,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
-            calculationScenarioMock.Expect(cs => cs.Contribution).Return((RoundedDouble) 1.0).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.IsRelevant).Return(true).Repeat.Any();
-            calculationScenarioMock.Expect(cs => cs.Probability).Return((RoundedDouble?) double.NaN).Repeat.Any();
+            calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
+            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
+            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble?) double.NaN);
 
             mocks.ReplayAll();
 
@@ -606,6 +606,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                     throw new NotImplementedException();
                 }
             }
+
+            public override ICalculationGroup CalculationsGroup { get; protected set; }
         }
 
         private FailureMechanismResultView ShowFailureMechanismResultsView()

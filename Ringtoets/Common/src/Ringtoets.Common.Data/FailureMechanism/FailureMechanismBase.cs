@@ -97,6 +97,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
         public bool IsRelevant { get; set; }
 
+        /// <summary>
+        /// Gets all available piping calculations.
+        /// </summary>
+        public abstract ICalculationGroup CalculationsGroup { get; protected set; }
+
         public void AddSection(FailureMechanismSection section)
         {
             if (section == null)

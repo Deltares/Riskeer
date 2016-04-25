@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(PipingCalculationGroupContext), info.DataType);
-            Assert.AreEqual(typeof(CalculationGroup), info.ViewDataType);
+            Assert.AreEqual(typeof(ICalculationGroup), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.FolderIcon, info.Image);
         }
 
@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismMock = mocks.Stub<PipingFailureMechanism>();
             var pipingCalculationsGroupMock = mocks.StrictMock<CalculationGroup>();
             var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingCalculationsGroupMock, Enumerable.Empty<RingtoetsPipingSurfaceLine>(), Enumerable.Empty<StochasticSoilModel>(), pipingFailureMechanismMock, assessmentSectionMock);
 
@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Setup
             var viewMock = mocks.StrictMock<PipingCalculationsView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var pipingFailureMechanismMock = mocks.Stub<PipingFailureMechanism>();
             var pipingCalculationsGroupMock = mocks.StrictMock<CalculationGroup>();
 
             viewMock.Expect(vm => vm.Data).Return(pipingCalculationsGroupMock);

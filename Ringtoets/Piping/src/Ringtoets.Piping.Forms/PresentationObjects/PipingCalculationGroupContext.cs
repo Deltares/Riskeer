@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
     /// in order be able to create configurable piping calculations.
     /// </summary>
-    public class PipingCalculationGroupContext : PipingContext<CalculationGroup>
+    public class PipingCalculationGroupContext : PipingContext<ICalculationGroup>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationGroupContext"/> class.
@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
         /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
-        public PipingCalculationGroupContext(CalculationGroup calculationGroup, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection)
+        public PipingCalculationGroupContext(ICalculationGroup calculationGroup, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection)
             : base(calculationGroup, surfaceLines, stochasticSoilModels, assessmentSection)
         {
             if (pipingFailureMechanism == null)

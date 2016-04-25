@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<IObservable>(groupContext);
-            Assert.IsInstanceOf<PipingContext<CalculationGroup>>(groupContext);
+            Assert.IsInstanceOf<PipingContext<ICalculationGroup>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
             Assert.AreSame(surfaceLines, groupContext.AvailablePipingSurfaceLines);
             Assert.AreSame(soilModels, groupContext.AvailableStochasticSoilModels);

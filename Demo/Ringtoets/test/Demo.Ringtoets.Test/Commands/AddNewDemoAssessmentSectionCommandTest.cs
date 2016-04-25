@@ -9,6 +9,7 @@ using Core.Common.Gui;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -82,7 +83,7 @@ namespace Demo.Ringtoets.Test.Commands
             AssertCharacteristicPointsOnSurfaceLines(surfaceLines);
 
             Assert.AreEqual(1, demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Count);
-            var calculation = demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.GetPipingCalculations().First();
+            var calculation = demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.GetCalculations().OfType<PipingCalculationScenario>().First();
             AssertCalculationAbleToCalculate(calculation);
 
             foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())

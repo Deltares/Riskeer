@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;

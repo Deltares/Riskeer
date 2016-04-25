@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using log4net;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
@@ -81,7 +82,7 @@ namespace Ringtoets.Piping.Forms
             foreach (var surfaceLine in surfaceLines)
             {
                 var group = CreateCalculationGroup(surfaceLine, soilModels, generalInput, semiProbabilisticInput);
-                if (group.GetPipingCalculations().Any())
+                if (group.GetCalculations().Any())
                 {
                     groups.Add(group);
                 }

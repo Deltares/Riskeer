@@ -30,6 +30,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Selection;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -48,10 +49,10 @@ namespace Ringtoets.Piping.Forms.Views
     public partial class PipingCalculationsView : UserControl, IView
     {
         private readonly Observer assessmentSectionObserver;
-        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> pipingCalculationGroupObserver;
-        private readonly RecursiveObserver<CalculationGroup, PipingCalculationScenario> pipingCalculationObserver;
-        private readonly Observer pipingFailureMechanismObserver;
         private readonly RecursiveObserver<CalculationGroup, PipingInput> pipingInputObserver;
+        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> pipingCalculationGroupObserver;
+        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> pipingCalculationObserver;
+        private readonly Observer pipingFailureMechanismObserver;
         private readonly Observer pipingStochasticSoilModelsObserver;
         private IAssessmentSection assessmentSection;
         private DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn;
@@ -73,9 +74,9 @@ namespace Ringtoets.Piping.Forms.Views
             pipingStochasticSoilModelsObserver = new Observer(OnStochasticSoilModelsUpdate);
             pipingFailureMechanismObserver = new Observer(OnPipingFailureMechanismUpdate);
             assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryLocationsColumn);
-            pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)));
-            pipingCalculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(RefreshDataGridView, pcg => pcg.Children);
-            pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
+            pipingInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters));
+            pipingCalculationObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(RefreshDataGridView, pcg => pcg.Children);
+            pipingCalculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, pcg => pcg.Children);
         }
 
         /// <summary>
@@ -401,14 +402,14 @@ namespace Ringtoets.Piping.Forms.Views
 
             var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSection.Points);
             var pipingCalculations = pipingCalculationGroup
-                .GetPipingCalculations()
+                .GetCalculations().OfType<PipingCalculationScenario>()
                 .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
             updatingDataSource = true;
 
             PrefillComboBoxListItemsAtColumnLevel();
 
-            dataGridView.DataSource = pipingCalculations
+            dataGridView.DataSource = pipingCalculations.OfType<PipingCalculationScenario>()
                 .Select(pc => new PipingCalculationRow(pc))
                 .ToList();
 
