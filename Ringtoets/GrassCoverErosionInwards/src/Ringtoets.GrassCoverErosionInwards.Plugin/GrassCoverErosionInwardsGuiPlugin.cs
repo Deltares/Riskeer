@@ -57,7 +57,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             var hydraulicBoundaryLocationId = (int) hydraulicBoundaryLocation.Id;
 
-            // assessmentSection.FailureMechanismContribution.Norm ??
             return HydraRingActivityFactory.Create(
                 string.Format(Resources.GrassCoverErosionInwardsGuiPlugin_Calculate_overtopping_for_location_0_, hydraulicBoundaryLocationId),
                 hlcdDirectory,

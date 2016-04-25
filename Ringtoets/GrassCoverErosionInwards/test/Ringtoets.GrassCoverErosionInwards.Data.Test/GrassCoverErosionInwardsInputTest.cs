@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var orientation = new RoundedDouble(2, 1.18);
             var logNormal = new LognormalDistribution(2);
             const bool foreshorePresent = true;
-            var breakWater = new List<BreakWater>()
+            var breakWater = new List<BreakWater>
             {
                 new BreakWater(BreakWaterType.Caisson, 2.2)
             };
@@ -93,13 +93,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void SetGeometry_ValidRoughnessProfileSections_ReturnsExpectedValues()
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void SetGeometry_ValidRoughnessProfileSections_ReturnsExpectedValues(int foreshoreDikeGeometryPoints)
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput();
             var foreshoreSection = new RoughnessProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4), 1.1);
             var dikeSection = new RoughnessProfileSection(new Point2D(3.3, 4.4), new Point2D(5.5, 6.6), 2.2);
-            const int foreshoreDikeGeometryPoints = 1;
 
             // Call
             input.SetGeometry(new[]
