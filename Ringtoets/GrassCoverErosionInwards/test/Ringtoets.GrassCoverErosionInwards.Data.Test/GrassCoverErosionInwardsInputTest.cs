@@ -100,20 +100,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput();
-            var foreshoreSection = new RoughnessProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4), 1.1);
-            var dikeSection = new RoughnessProfileSection(new Point2D(3.3, 4.4), new Point2D(5.5, 6.6), 2.2);
+            var sections = new[]
+            {
+                new RoughnessProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4), 1.1),
+                new RoughnessProfileSection(new Point2D(3.3, 4.4), new Point2D(5.5, 6.6), 2.2)
+            };
 
             // Call
-            input.SetGeometry(new[]
-            {
-                foreshoreSection,
-                dikeSection
-            }, foreshoreDikeGeometryPoints);
+            input.SetGeometry(sections, foreshoreDikeGeometryPoints);
 
             // Assert
-            Assert.AreEqual(foreshoreSection, input.ForeshoreGeometry.Single());
-            Assert.AreEqual(dikeSection, input.DikeGeometry.Single());
             Assert.AreEqual(foreshoreDikeGeometryPoints, input.ForeshoreDikeGeometryPoints);
+
+            var foreshoreSection = sections.Take(foreshoreDikeGeometryPoints);
+            Assert.AreEqual(foreshoreSection, input.ForeshoreGeometry);
+
+            var dikeSection = sections.Skip(foreshoreDikeGeometryPoints);
+            Assert.AreEqual(dikeSection, input.DikeGeometry);
         }
     }
 }
