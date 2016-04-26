@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="BreakWaterTest.cs" />
     <Compile Include="IGrassCoverErosionInwardsCalculationBaseExtensionsTest.cs" />
+    <Compile Include="NormProbabilityGrassCoverErosionInwardsInputTest.cs" />
     <Compile Include="RoughnessProfileSectionTest.cs" />
     <Compile Include="GrassCoverErosionInwardsCalculationTest.cs" />
     <Compile Include="GrassCoverErosionInwardsFailureMechanismTest.cs" />

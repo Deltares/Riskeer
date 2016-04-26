@@ -46,6 +46,7 @@
     </Compile>
     <Compile Include="BreakWater.cs" />
     <Compile Include="IGrassCoverErosionInwardsCalculationBaseExtensions.cs" />
+    <Compile Include="NormProbabilityGrassCoverErosionInwardsInput.cs" />
     <Compile Include="RoughnessProfileSection.cs" />
     <Compile Include="GrassCoverErosionInwardsCalculation.cs" />
     <Compile Include="GrassCoverErosionInwardsFailureMechanism.cs" />

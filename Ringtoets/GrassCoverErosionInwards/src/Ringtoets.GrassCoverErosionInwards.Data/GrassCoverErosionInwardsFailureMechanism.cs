@@ -38,6 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             : base(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode)
         {
             CalculationsGroup = new CalculationGroup(Resources.GrassCoverErosionInwardsFailureMechanism_Calculations_DisplayName, false);
+            NormProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -49,5 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         public override ICalculationGroup CalculationsGroup { get; protected set; }
+
+        public NormProbabilityGrassCoverErosionInwardsInput NormProbabilityInput { get; set; }
     }
 }

@@ -42,7 +42,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return 2;
+                return data.WrappedData.NormProbabilityInput.N;
+            }
+            set
+            {
+                data.WrappedData.NormProbabilityInput.N = value;
             }
         }
 

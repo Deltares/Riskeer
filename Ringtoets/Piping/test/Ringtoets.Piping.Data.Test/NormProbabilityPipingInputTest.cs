@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
-    public class SemiProbabilisticPipingInputTest
+    public class NormProbabilityPipingInputTest
     {
         [Test]
         public void Constructor_DefaultPropertiesSet()

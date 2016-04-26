@@ -69,7 +69,7 @@
     <Compile Include="PipingSoilProfileTest.cs" />
     <Compile Include="RingtoetsPipingSurfaceLineTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SemiProbabilisticPipingInputTest.cs" />
+    <Compile Include="NormProbabilityPipingInputTest.cs" />
     <Compile Include="StochasticSoilModelTest.cs" />
     <Compile Include="StochasticSoilProfileTest.cs" />
   </ItemGroup>
