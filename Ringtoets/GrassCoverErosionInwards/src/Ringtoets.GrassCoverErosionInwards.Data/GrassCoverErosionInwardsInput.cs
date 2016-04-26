@@ -36,6 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     public class GrassCoverErosionInwardsInput : Observable, ICalculationInput
     {
         private IEnumerable<RoughnessProfileSection> geometry;
+        private RoundedDouble orientation;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInput"/>.
@@ -43,6 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public GrassCoverErosionInwardsInput()
         {
             BreakWater = new List<BreakWater>();
+            orientation = new RoundedDouble(2);
         }
 
         /// <summary>
@@ -70,7 +72,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets or sets the dike's orientation
         /// </summary>
-        public RoundedDouble Orientation { get; set; }
+        public RoundedDouble Orientation
+        {
+            get
+            {
+                return orientation;
+            }
+            set
+            {
+                orientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the dike's critical flow rate.
@@ -101,7 +113,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets or sets the <see cref="BreakWater"/>.
         /// </summary>
-        public IEnumerable<BreakWater> BreakWater { get; set; }
+        public IList<BreakWater> BreakWater { get; set; }
 
         /// <summary>
         /// Gets or set the hydraulic boundary location from which to use the assessment level.

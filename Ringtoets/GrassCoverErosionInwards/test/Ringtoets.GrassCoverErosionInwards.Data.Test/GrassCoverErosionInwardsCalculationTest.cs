@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -54,6 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments);
             Assert.IsNull(calculation.Output);
+            AssertDemoInput(calculation.InputParameters);
         }
 
         [Test]
@@ -246,6 +248,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.AreEqual(inputParameters, input);
+        }
+
+        private void AssertDemoInput(GrassCoverErosionInwardsInput inputParameters)
+        {
+            // BreakWater
+            var breakWater = inputParameters.BreakWater.FirstOrDefault();
+            Assert.IsNotNull(breakWater);
+            Assert.AreEqual(10, breakWater.Height);
+            Assert.AreEqual(BreakWaterType.Dam, breakWater.Type);
+            Assert.IsTrue(inputParameters.BreakWaterPresent);
+
+            // Orientation
+            Assert.AreEqual(2, inputParameters.Orientation.NumberOfDecimalPlaces);
+            Assert.AreEqual(5.5, inputParameters.Orientation.Value);
+
+            // CriticalFlowRate
+            Assert.IsNotNull(inputParameters.CriticalFlowRate);
+
+            // Dike and Foreshore
+            Assert.IsTrue(inputParameters.ForeshoreGeometry.Any());
+            Assert.IsTrue(inputParameters.DikeGeometry.Any());
+            Assert.AreEqual(1, inputParameters.ForeshoreDikeGeometryPoints);
+            Assert.IsTrue(inputParameters.ForeshorePresent);
+
+            // Hydraulic boundaries location
+            Assert.AreEqual("Demo", inputParameters.HydraulicBoundaryLocation.Name);
+            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
+
+            // Dike height
+            Assert.AreEqual(10, inputParameters.DikeHeight);
         }
     }
 

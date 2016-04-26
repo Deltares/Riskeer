@@ -24,14 +24,21 @@ using Core.Common.Base.Geometry;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
+    /// <summary>
+    /// This class represents a sub-section of a line and the characteristic properties of that line.
+    /// </summary>
     public class RoughnessProfileSection
     {
         /// <summary>
         /// Creates a new instance of the <see cref="RoughnessProfileSection"/> class.
         /// </summary>
-        /// <param name="startingPoint"></param>
-        /// <param name="endingPoint"></param>
+        /// <param name="startingPoint">Starting point of the section.</param>
+        /// <param name="endingPoint">Ending point of the section.</param>
         /// <param name="roughness">The roughness of the section between <paramref name="startingPoint"/> and <paramref name="endingPoint"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when:<list type="bullet">
+        /// <item><paramref name="startingPoint"/> is <c>null</c>.</item>
+        /// <item><paramref name="endingPoint"/> is <c>null</c>.</item>
+        /// </list></exception>
         public RoughnessProfileSection(Point2D startingPoint, Point2D endingPoint, double roughness)
         {
             if (startingPoint == null)
