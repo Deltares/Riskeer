@@ -365,6 +365,60 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void CanRenameNode_ParentIsPipingFailureMechanismContext_ReturnFalse()
+        {
+            // Setup
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var failureMechanismContextMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanismContext>(failureMechanismMock, assessmentSectionMock);
+
+            mocks.ReplayAll();
+
+            // Call
+            bool isRenamingAllowed = info.CanRename(null, failureMechanismContextMock);
+
+            // Assert
+            Assert.IsFalse(isRenamingAllowed);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanRenameNode_EverythingElse_ReturnTrue()
+        {
+            // Call
+            bool isRenamingAllowed = info.CanRename(null, null);
+
+            // Assert
+            Assert.IsTrue(isRenamingAllowed);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OnNodeRenamed_WithData_RenameGroupAndNotifyObservers()
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var group = new CalculationGroup();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                             failureMechanismMock,
+                                                             assessmentSectionMock);
+            nodeData.Attach(observer);
+
+            // Call
+            const string newName = "new name";
+            info.OnNodeRenamed(nodeData, newName);
+
+            // Assert
+            Assert.AreEqual(newName, group.Name);
+            mocks.VerifyAll();
+        }
+
         private const int contextMenuAddCalculationGroupIndex = 1;
         private const int contextMenuAddCalculationItemIndex = 2;
     }

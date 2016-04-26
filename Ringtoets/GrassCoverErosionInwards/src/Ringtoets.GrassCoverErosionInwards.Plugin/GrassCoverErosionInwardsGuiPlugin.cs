@@ -68,7 +68,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Image = grassCoverErosionInwardsCalculationGroupContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 EnsureVisibleOnCreate = grassCoverErosionInwardsCalculationGroupContext => true,
                 ChildNodeObjects = CalculationGroupContextChildNodeObjects,
-                ContextMenuStrip = CalculationGroupContextContextMenuStrip
+                ContextMenuStrip = CalculationGroupContextContextMenuStrip,
+                CanRename = CalculationGroupCanRename,
+                OnNodeRenamed = CalculationGroupOnNodeRenamed
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsCalculationContext>
@@ -318,6 +320,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();
+        }
+
+        private bool CalculationGroupCanRename(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentData)
+        {
+            return !(parentData is GrassCoverErosionInwardsFailureMechanismContext);
+        }
+
+        private void CalculationGroupOnNodeRenamed(GrassCoverErosionInwardsCalculationGroupContext nodeData, string newName)
+        {
+            nodeData.WrappedData.Name = newName;
+            nodeData.NotifyObservers();
         }
 
         #endregion
