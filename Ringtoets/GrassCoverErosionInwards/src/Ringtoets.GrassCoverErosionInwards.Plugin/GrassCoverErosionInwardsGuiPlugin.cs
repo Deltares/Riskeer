@@ -70,6 +70,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 ChildNodeObjects = CalculationGroupContextChildNodeObjects,
                 ContextMenuStrip = CalculationGroupContextContextMenuStrip
             };
+
+            yield return new TreeNodeInfo<GrassCoverErosionInwardsCalculationContext>
+            {
+                Text = context => context.WrappedData.Name,
+                Image = context => GrassCoverErosionInwardsFormsResources.CalculationIcon,
+                EnsureVisibleOnCreate = context => true
+            };
         }
 
         private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
