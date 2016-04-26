@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Storage;
 using Ringtoets.Piping.Primitives.Properties;
 
 namespace Ringtoets.Piping.Primitives
@@ -29,7 +30,7 @@ namespace Ringtoets.Piping.Primitives
     /// <summary>
     /// This class represents a soil profile, which was imported for use in a piping calculation.
     /// </summary>
-    public class PipingSoilProfile
+    public class PipingSoilProfile : IStorable
     {
         private IEnumerable<PipingSoilLayer> layers;
 
@@ -212,5 +213,7 @@ namespace Ringtoets.Piping.Primitives
             }
             return thickness;
         }
+
+        public long StorageId { get; set; }
     }
 }

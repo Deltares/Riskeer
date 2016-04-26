@@ -63,6 +63,25 @@
     <Compile Include="Converters\IEntityConverter.cs" />
     <Compile Include="Converters\ReferenceLineConverter.cs" />
     <Compile Include="Converters\StochasticSoilModelConverter.cs" />
+    <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
+    <Compile Include="Create\FailureMechanismPlaceholderCreateExtensions.cs" />
+    <Compile Include="Create\PipingFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\HydraulicBoundaryLocationCreateExtensions.cs" />
+    <Compile Include="Create\CreateConversionCollector.cs" />
+    <Compile Include="Create\ProjectCreateExtensions.cs" />
+    <Compile Include="Create\Point2DCreateExtensions.cs" />
+    <Compile Include="Create\PipingSoilLayerCreateExtensions.cs" />
+    <Compile Include="Create\PipingSoilProfileCreateExtensions.cs" />
+    <Compile Include="Create\StochasticSoilModelCreateExtensions.cs" />
+    <Compile Include="Create\StochasticSoilProfileCreateExtensions.cs" />
+    <Compile Include="Read\FailureMechanismEntity.cs" />
+    <Compile Include="Read\HydraulicLocationEntity.cs" />
+    <Compile Include="Read\ReadConversionCollector.cs" />
+    <Compile Include="Read\ReferenceLinePointEntity.cs" />
+    <Compile Include="Read\SoilLayerEntity.cs" />
+    <Compile Include="Read\SoilProfileEntity.cs" />
+    <Compile Include="Read\StochasticSoilModelEntity.cs" />
+    <Compile Include="Read\StochasticSoilProfileEntity.cs" />
     <Compile Include="DbContext\AssessmentSectionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -94,6 +113,8 @@
     <Compile Include="DbContext\VersionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Read\AssessmentSectionEntity.cs" />
+    <Compile Include="Read\ProjectEntity.cs" />
     <Compile Include="Persistors\AssessmentSectionPersistor.cs" />
     <Compile Include="Persistors\FailureMechanismPersistorBase.cs" />
     <Compile Include="Persistors\FailureMechanismPlaceholderPersistor.cs" />
@@ -130,6 +151,17 @@
     </Compile>
     <Compile Include="SqLiteConnectionStringBuilder.cs" />
     <Compile Include="StorageSqLite.cs" />
+    <Compile Include="Update\AssessmentSectionUpdateExtensions.cs" />
+    <Compile Include="Update\FailureMechanismPlaceholderUpdateExtensions.cs" />
+    <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensions.cs" />
+    <Compile Include="Update\IStorableExtensions.cs" />
+    <Compile Include="Update\UpdateConversionCollector.cs" />
+    <Compile Include="Update\PipingFailureMechanismUpdateExtensions.cs" />
+    <Compile Include="Update\PipingSoilLayerUpdateExtensions.cs" />
+    <Compile Include="Update\PipingSoilProfileUpdateExtensions.cs" />
+    <Compile Include="Update\ProjectUpdateExtensions.cs" />
+    <Compile Include="Update\StochasticSoilModelUpdateExtensions.cs" />
+    <Compile Include="Update\StochasticSoilProfileUpdateExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

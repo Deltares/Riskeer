@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
-            TestDelegate test = () => persistor.GetEntityAsModel();
+            TestDelegate test = () => persistor.Read();
 
             // Assert
             Assert.DoesNotThrow(test);
@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
-            Project model = persistor.GetEntityAsModel();
+            Project model = persistor.Read();
 
             // Assert
             Assert.IsInstanceOf<Project>(model);
@@ -136,7 +136,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
-            Project model = persistor.GetEntityAsModel();
+            Project model = persistor.Read();
 
             // Assert
             Assert.IsInstanceOf<Project>(model);
@@ -167,7 +167,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
-            TestDelegate test = () => persistor.GetEntityAsModel();
+            TestDelegate test = () => persistor.Read();
 
             // Assert
             Assert.Throws<InvalidOperationException>(test);
@@ -203,7 +203,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             ProjectPersistor persistor = new ProjectPersistor(ringtoetsEntities);
 
             // Call
-            Project model = persistor.GetEntityAsModel();
+            Project model = persistor.Read();
 
             // Assert
             Assert.IsInstanceOf<Project>(model);

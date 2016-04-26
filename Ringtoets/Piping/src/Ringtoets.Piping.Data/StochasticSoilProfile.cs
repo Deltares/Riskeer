@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Storage;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
@@ -26,7 +27,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class couples a SoilProfile to a probability of occurrence.
     /// </summary>
-    public class StochasticSoilProfile
+    public class StochasticSoilProfile : IStorable
     {
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilProfile"/>.

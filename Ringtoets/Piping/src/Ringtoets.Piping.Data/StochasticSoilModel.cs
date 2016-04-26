@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Storage;
 
 namespace Ringtoets.Piping.Data
 {
@@ -28,7 +29,7 @@ namespace Ringtoets.Piping.Data
     /// This class represents a stochastic soil model which consists out of a collection of <see cref="StochasticSoilProfile"/>. 
     /// A stochastic soil model contains a segment for which the model applies.
     /// </summary>
-    public class StochasticSoilModel
+    public class StochasticSoilModel : IStorable
     {
         /// <summary>
         /// Creates a new instance of <see cref="StochasticSoilModel"/>.

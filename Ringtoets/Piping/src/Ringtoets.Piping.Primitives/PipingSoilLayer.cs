@@ -19,13 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Storage;
+
 namespace Ringtoets.Piping.Primitives
 {
     /// <summary>
     /// This class represents profiles that were imported from D-Soil Model and will later on be used to create the
     /// necessary input for executing a piping calculation.
     /// </summary>
-    public class PipingSoilLayer
+    public class PipingSoilLayer : IStorable
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingSoilLayer"/>, where the top is set to <paramref name="top"/>.
@@ -62,5 +64,7 @@ namespace Ringtoets.Piping.Primitives
         /// Gets or sets the dry unit weight for the <see cref="PipingSoilLayer"/>.
         /// </summary>
         public double? DryUnitWeight { get; set; }
+
+        public long StorageId { get; set; }
     }
 }

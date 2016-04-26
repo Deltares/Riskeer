@@ -91,10 +91,28 @@
     <Compile Include="Converters\StochasticSoilProfileConverterTest.cs" />
     <Compile Include="Converters\StochasticSoilModelConverterTest.cs" />
     <Compile Include="Persistors\FailureMechanismPlaceholderPersistorTest.cs" />
+    <Compile Include="Create\AssessmentSectionCreateExtensionsTest.cs" />
+    <Compile Include="Create\HydraulicBoundaryLocationCreateExtensionsTest.cs" />
+    <Compile Include="Create\PipingFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\PipingSoilLayerCreateExtensionsTest.cs" />
+    <Compile Include="Create\PipingSoilProfileCreateExtensionsTest.cs" />
+    <Compile Include="Create\Point2DCreateExtensionsTest.cs" />
+    <Compile Include="Create\ProjectCreateExtensionsTest.cs" />
+    <Compile Include="Create\StochasticSoilModelCreateExtensionsTest.cs" />
+    <Compile Include="Create\StochasticSoilProfileCreateExtensionsTest.cs" />
     <Compile Include="Persistors\HydraulicBoundaryLocationPersistorTest.cs" />
     <Compile Include="Persistors\ReferenceLinePersistorTest.cs" />
     <Compile Include="Persistors\StochasticSoilModelPersistorTest.cs" />
     <Compile Include="Persistors\StochasticSoilProfilePersistorTest.cs" />
+    <Compile Include="Read\AssessmentSectionEntityTest.cs" />
+    <Compile Include="Read\FailureMechanismEntityTest.cs" />
+    <Compile Include="Read\HydraulicLocationEntityTest.cs" />
+    <Compile Include="Read\ProjectEntityTest.cs" />
+    <Compile Include="Read\ReferenceLinePointEntityTest.cs" />
+    <Compile Include="Read\SoilLayerEntityTest.cs" />
+    <Compile Include="Read\SoilProfileEntityTest.cs" />
+    <Compile Include="Read\StochasticSoilModelEntityTest.cs" />
+    <Compile Include="Read\StochasticSoilProfileEntityTest.cs" />
     <Compile Include="RingtoetsDatabaseCreatorTest.cs" />
     <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
     <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />
@@ -106,6 +124,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqLiteConnectionStringBuilderTest.cs" />
     <Compile Include="StorageSqLiteTest.cs" />
+    <Compile Include="Update\AssessmentSectionUpdateExtensionsTest.cs" />
+    <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensionsTest.cs" />
+    <Compile Include="Update\IStorableExtensionsTest.cs" />
+    <Compile Include="Update\PipingFailureMechanismUpdateExtensionsTest.cs" />
+    <Compile Include="Update\PipingSoilLayerUpdateExtensionsTest.cs" />
+    <Compile Include="Update\PipingSoilProfileUpdateExtensionsTest.cs" />
+    <Compile Include="Update\ProjectUpdateExtensionsTest.cs" />
+    <Compile Include="Update\StochasticSoilModelUpdateExtensionsTest.cs" />
+    <Compile Include="Update\StochasticSoilProfileUpdateExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

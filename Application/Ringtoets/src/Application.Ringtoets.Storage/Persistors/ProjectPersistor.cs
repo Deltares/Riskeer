@@ -68,7 +68,7 @@ namespace Application.Ringtoets.Storage.Persistors
         /// </summary>
         /// <returns>A new <see cref="Project"/>, loaded from the sequence, or <c>null</c> when not found.</returns>
         /// <exception cref="InvalidOperationException">Thrown when there are more than one elements in the sequence.</exception>
-        public Project GetEntityAsModel()
+        public Project Read()
         {
             var entry = projectEntitySet.SingleOrDefault();
             if (entry == null)
@@ -144,15 +144,11 @@ namespace Application.Ringtoets.Storage.Persistors
             ProjectEntity entity;
             try
             {
-                entity = projectEntitySet.SingleOrDefault(db => db.ProjectEntityId == model.StorageId);
+                entity = projectEntitySet.Single(db => db.ProjectEntityId == model.StorageId);
             }
             catch (InvalidOperationException exception)
             {
                 throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "ProjectEntity", model.StorageId), exception);
-            }
-            if (entity == null)
-            {
-                throw new EntityNotFoundException(String.Format(Resources.Error_Entity_Not_Found_0_1, "ProjectEntity", model.StorageId));
             }
             modifiedList.Add(entity);
             converter.ConvertModelToEntity(model, entity);
