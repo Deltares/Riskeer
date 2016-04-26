@@ -134,23 +134,27 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 123456);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.FailureMechanismContribution)
-                             .Return(contribution);
+            assessmentSection.Stub(section => section.GetFailureMechanisms())
+                             .Return(Enumerable.Empty<IFailureMechanism>());
             assessmentSection.Stub(section => section.Composition)
                              .Return(AssessmentSectionComposition.Dike);
+            assessmentSection.Stub(section => section.FailureMechanismContribution)
+                             .Return(contribution);
+
             mocks.ReplayAll();
 
-            var view = new FailureMechanismContributionView
+            using (var view = new FailureMechanismContributionView
             {
                 Data = contribution,
                 AssessmentSection = assessmentSection
-            };
+            })
+            {
+                // Call
+                var closeForData = info.CloseForData(view, assessmentSection);
 
-            // Call
-            var closeForData = info.CloseForData(view, assessmentSection);
-
-            // Assert
-            Assert.IsTrue(closeForData);
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
             mocks.VerifyAll();
         }
 
@@ -166,11 +170,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                               .Return(contribution1);
             assessmentSection1.Stub(section => section.Composition)
                               .Return(AssessmentSectionComposition.DikeAndDune);
+            assessmentSection1.Stub(section => section.GetFailureMechanisms())
+                              .Return(Enumerable.Empty<IFailureMechanism>());
+
             var assessmentSection2 = mocks.Stub<IAssessmentSection>();
             assessmentSection2.Stub(section => section.FailureMechanismContribution)
                               .Return(contribution2);
             assessmentSection2.Stub(section => section.Composition)
                               .Return(AssessmentSectionComposition.DikeAndDune);
+            assessmentSection2.Stub(section => section.GetFailureMechanisms())
+                              .Return(Enumerable.Empty<IFailureMechanism>());
             mocks.ReplayAll();
 
             var view = new FailureMechanismContributionView

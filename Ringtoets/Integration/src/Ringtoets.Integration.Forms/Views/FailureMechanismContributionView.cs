@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -51,6 +52,10 @@ namespace Ringtoets.Integration.Forms.Views
         private bool revertingComboBoxSelectedValue;
         private IAssessmentSection assessmentSection;
 
+        private readonly Observer isFailureMechanismRelevantObserver;
+
+        private DataGridViewCheckBoxColumn isRelevantColumn;
+
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
         /// </summary>
@@ -62,6 +67,9 @@ namespace Ringtoets.Integration.Forms.Views
             BindNormChange();
             BindNormInputLeave();
             SubscribeEvents();
+
+            isFailureMechanismRelevantObserver = new Observer(SetRowStyling);
+            Load += OnLoad;
         }
 
         /// <summary>
@@ -108,7 +116,16 @@ namespace Ringtoets.Integration.Forms.Views
                 components.Dispose();
             }
             UnsubscribeEvents();
+            DetachFromFailureMechanisms();
             base.Dispose(disposing);
+        }
+
+        private void OnLoad(object sender, EventArgs e)
+        {
+            if (probabilityDistributionGrid.DataSource != null)
+            {
+                SetRowStyling();
+            }
         }
 
         private void InitializeAssessmentSectionCompositionComboBox()
@@ -163,11 +180,35 @@ namespace Ringtoets.Integration.Forms.Views
         private void HandleNewAssessmentSectionSet(IAssessmentSection value)
         {
             UnbindAssessmentSectionCompositionChange();
+            DetachFromFailureMechanisms();
 
             assessmentSection = value;
 
+            AttachToFailureMechanisms();
             SetAssessmentSectionComposition();
             BindAssessmentSectionCompositionChange();
+        }
+
+        private void DetachFromFailureMechanisms()
+        {
+            if (assessmentSection != null)
+            {
+                foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+                {
+                    failureMechanism.Detach(isFailureMechanismRelevantObserver);
+                }
+            }
+        }
+
+        private void AttachToFailureMechanisms()
+        {
+            if (assessmentSection != null)
+            {
+                foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+                {
+                    failureMechanism.Attach(isFailureMechanismRelevantObserver);
+                }
+            }
         }
 
         private void SetGridDataSource()
@@ -175,6 +216,7 @@ namespace Ringtoets.Integration.Forms.Views
             if (data != null)
             {
                 probabilityDistributionGrid.DataSource = data.Distribution.Select(ci => new FailureMechanismContributionItemRow(ci)).ToArray();
+                SetRowStyling();
                 probabilityDistributionGrid.Invalidate();
             }
         }
@@ -262,7 +304,7 @@ namespace Ringtoets.Integration.Forms.Views
             var columnNameFormat = "column_{0}";
 
             var isRelevantName = TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.IsRelevant);
-            var isRelevantColumn = new DataGridViewCheckBoxColumn
+            isRelevantColumn = new DataGridViewCheckBoxColumn
             {
                 DataPropertyName = isRelevantName,
                 HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_RelevancyFilter,
@@ -361,6 +403,40 @@ namespace Ringtoets.Integration.Forms.Views
                     }
                 }
             }
+        }
+
+        private void SetRowStyling()
+        {
+            foreach (DataGridViewRow row in probabilityDistributionGrid.Rows)
+            {
+                var isFailureMechanismRelevant = (bool)row.Cells[isRelevantColumn.Index].Value;
+
+                SetRowStyle(isFailureMechanismRelevant, row);
+            }
+        }
+
+        private void SetRowStyle(bool checkboxSelected, DataGridViewRow row)
+        {
+            for (int i = 0; i < row.Cells.Count; i++)
+            {
+                if (i != isRelevantColumn.Index)
+                {
+                    if (checkboxSelected)
+                    {
+                        SetCellStyle(row.Cells[i], Color.FromKnownColor(KnownColor.White), Color.FromKnownColor(KnownColor.ControlText));
+                    }
+                    else
+                    {
+                        SetCellStyle(row.Cells[i], Color.FromKnownColor(KnownColor.DarkGray), Color.FromKnownColor(KnownColor.GrayText));
+                    }
+                }
+            }
+        }
+
+        private void SetCellStyle(DataGridViewCell cell, Color backgroundColor, Color textColor)
+        {
+            cell.Style.BackColor = backgroundColor;
+            cell.Style.ForeColor = textColor;
         }
 
         private class FailureMechanismContributionItemRow
