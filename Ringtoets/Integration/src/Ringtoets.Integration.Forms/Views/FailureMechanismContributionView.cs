@@ -409,8 +409,11 @@ namespace Ringtoets.Integration.Forms.Views
         {
             foreach (DataGridViewRow row in probabilityDistributionGrid.Rows)
             {
-                var isFailureMechanismRelevant = (bool)row.Cells[isRelevantColumn.Index].Value;
+                var isRelevantCell = (DataGridViewCheckBoxCell)row.Cells[isRelevantColumn.Index];
+                FailureMechanismContributionItem rowData = data.Distribution.ElementAt(row.Index);
+                isRelevantCell.ReadOnly = rowData.IsAlwaysRelevant;
 
+                var isFailureMechanismRelevant = (bool)isRelevantCell.Value;
                 SetRowStyle(isFailureMechanismRelevant, row);
             }
         }

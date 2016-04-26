@@ -41,8 +41,11 @@ namespace Ringtoets.Common.Data.Contribution
         /// </summary>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> for which the contribution is defined.</param>
         /// <param name="norm">The norm used to calculate the probability space.</param>
+        /// <param name="isFailureMechanismAlwaysRelevant">Gets a value indicating whether
+        /// the corresponding failure mechanism is always relevant. When <c>true</c>, then
+        /// <see cref="IsRelevant"/> cannot be set to <c>false</c>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public FailureMechanismContributionItem(IFailureMechanism failureMechanism, int norm)
+        public FailureMechanismContributionItem(IFailureMechanism failureMechanism, int norm, bool isFailureMechanismAlwaysRelevant = false)
         {
             if (failureMechanism == null)
             {
@@ -52,6 +55,7 @@ namespace Ringtoets.Common.Data.Contribution
             Assessment = failureMechanism.Name;
             Contribution = failureMechanism.Contribution;
             Norm = norm;
+            IsAlwaysRelevant = isFailureMechanismAlwaysRelevant;
         }
 
         /// <summary>
@@ -88,13 +92,22 @@ namespace Ringtoets.Common.Data.Contribution
         {
             get
             {
-                return failureMechanism.IsRelevant;
+                return IsAlwaysRelevant || failureMechanism.IsRelevant;
             }
             set
             {
-                failureMechanism.IsRelevant = value;
+                if (!IsAlwaysRelevant)
+                {
+                    failureMechanism.IsRelevant = value;
+                }
             }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether the corresponding failure mechanism is always
+        /// relevant. When <c>true</c>, then <see cref="IsRelevant"/> cannot be set to <c>false</c>.
+        /// </summary>
+        public bool IsAlwaysRelevant { get; private set; }
 
         /// <summary>
         /// Notifies the observers for the wrapped <see cref="IFailureMechanism"/>.

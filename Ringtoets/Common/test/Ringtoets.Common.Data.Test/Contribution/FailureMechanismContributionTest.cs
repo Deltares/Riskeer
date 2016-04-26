@@ -132,6 +132,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
             FailureMechanismContributionItem otherFailureMechanismItem = result.Distribution.ElementAt(0);
             Assert.AreEqual(contribution, otherFailureMechanismItem.Contribution);
             AssertFailureProbabilitySpace(contribution, norm, otherFailureMechanismItem.ProbabilitySpace);
+            Assert.IsTrue(otherFailureMechanismItem.IsAlwaysRelevant);
+            Assert.IsTrue(otherFailureMechanismItem.IsRelevant);
             Assert.AreEqual(norm, result.Norm);
         }
 
@@ -179,7 +181,9 @@ namespace Ringtoets.Common.Data.Test.Contribution
             CollectionAssert.AreEqual(failureMechanismNames, result.Distribution.Select(d => d.Assessment));
             CollectionAssert.AreEqual(failureMechanismContributions, result.Distribution.Select(d => d.Contribution));
             CollectionAssert.AreEqual(failureMechanismContributions.Select(c => (norm/c)*100), result.Distribution.Select(d => d.ProbabilitySpace));
-
+            var expectedIsAlwaysRelevant = Enumerable.Repeat(false, failureMechanismCount)
+                                                     .Concat(Enumerable.Repeat(true, 1));
+            CollectionAssert.AreEqual(expectedIsAlwaysRelevant, result.Distribution.Select(d => d.IsAlwaysRelevant));
             mockRepository.VerifyAll();
         }
 

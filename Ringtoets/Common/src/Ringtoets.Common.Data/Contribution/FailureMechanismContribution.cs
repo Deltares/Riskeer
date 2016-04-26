@@ -138,7 +138,7 @@ namespace Ringtoets.Common.Data.Contribution
             {
                 Contribution = otherContribution
             };
-            var otherContributionItem = new FailureMechanismContributionItem(otherFailureMechanism, norm);
+            var otherContributionItem = new FailureMechanismContributionItem(otherFailureMechanism, norm, true);
             distribution.Add(otherContributionItem);
         }
     }

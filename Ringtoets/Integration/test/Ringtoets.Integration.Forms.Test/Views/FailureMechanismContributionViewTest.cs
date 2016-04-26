@@ -881,6 +881,35 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void GivenView_WhenSettingFailureMechanismThatIsAlwaysRelevant_IsRelevantFlagTrueAndReadonly()
+        {
+            // Given
+            using (var view = new FailureMechanismContributionView())
+            {
+                ShowFormWithView(view);
+
+                var failureMechanisms = Enumerable.Empty<IFailureMechanism>();
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 30000);
+
+                // Precondition:
+                FailureMechanismContributionItem[] contributionItems = contribution.Distribution.ToArray();
+                Assert.AreEqual(1, contributionItems.Length);
+                Assert.IsTrue(contributionItems[0].IsAlwaysRelevant);
+                Assert.IsTrue(contributionItems[0].IsRelevant);
+
+                // When
+                view.Data = contribution;
+
+                // Then
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                DataGridViewRow row = dataGridView.Rows[0];
+                DataGridViewCell isRelevantCell = row.Cells[isRelevantColumnIndex];
+                Assert.IsTrue((bool)isRelevantCell.Value);
+                Assert.IsTrue(isRelevantCell.ReadOnly);
+            }
+        }
+
         private void AssertDataGridViewDataSource(IEnumerable<FailureMechanismContributionItem> expectedDistributionElements, DataGridView dataGridView)
         {
             FailureMechanismContributionItem[] itemArray = expectedDistributionElements.ToArray();
