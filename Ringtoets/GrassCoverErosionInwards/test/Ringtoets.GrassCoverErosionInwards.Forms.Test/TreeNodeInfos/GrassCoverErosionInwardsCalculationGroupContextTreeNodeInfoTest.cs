@@ -151,8 +151,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
+            var calculationItem = mocks.StrictMock<ICalculationBase>();
+            var childCalculation = new GrassCoverErosionInwardsCalculation();
 
             group.Children.Add(childGroup);
+            group.Children.Add(calculationItem);
+            group.Children.Add(childCalculation);
 
             var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
@@ -163,12 +167,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                                  assessmentSectionMock);
 
             // Call
-            var children = info.ChildNodeObjects(groupContext);
+            var children = info.ChildNodeObjects(groupContext).ToArray();
 
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);            
-            var calculationContext = (GrassCoverErosionInwardsCalculationGroupContext) children[0];
-            Assert.AreSame(childGroup, calculationContext.WrappedData);
+            var calculationGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) children[0];
+            Assert.AreSame(childGroup, calculationGroupContext.WrappedData);
+            Assert.AreSame(failureMechanismMock, calculationGroupContext.GrassCoverErosionInwardsFailureMechanism);
+            Assert.AreSame(assessmentSectionMock, calculationGroupContext.AssessmentSection);
+            Assert.AreSame(calculationItem, children[1]);
+            var calculationContext = (GrassCoverErosionInwardsCalculationContext) children[2];
+            Assert.AreSame(childCalculation, calculationContext.WrappedData);
+            Assert.AreSame(assessmentSectionMock, calculationContext.AssessmentSection);
         }
 
         [Test]

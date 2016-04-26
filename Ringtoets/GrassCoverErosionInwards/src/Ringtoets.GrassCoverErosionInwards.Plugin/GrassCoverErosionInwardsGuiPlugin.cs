@@ -247,13 +247,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             foreach (ICalculationBase calculationItem in nodeData.WrappedData.Children)
             {
+                var calculation = calculationItem as GrassCoverErosionInwardsCalculation;
                 var group = calculationItem as CalculationGroup;
 
-                if (group != null)
+                if (calculation != null)
+                {
+                    childNodeObjects.Add(new GrassCoverErosionInwardsCalculationContext(calculation, nodeData.AssessmentSection));
+                }
+                else if (group != null)
                 {
                     childNodeObjects.Add(new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                              nodeData.GrassCoverErosionInwardsFailureMechanism,
                                                                                              nodeData.AssessmentSection));
+                }
+                else
+                {
+                    childNodeObjects.Add(calculationItem);
                 }
             }
 
