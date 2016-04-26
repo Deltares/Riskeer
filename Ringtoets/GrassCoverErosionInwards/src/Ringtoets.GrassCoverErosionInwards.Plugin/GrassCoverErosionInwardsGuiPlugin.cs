@@ -178,21 +178,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
                 RingtoetsCommonFormsResources.AddFolderIcon,
                 (o, args) => AddCalculationGroup(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
-                );
+                )
+            {
+                Enabled = false
+            };
 
             var addCalculationItem = new StrictContextMenuItem(
                 GrassCoverErosionInwardsFormsResources.CalculationGroup_Add_GrassCoverErosionInwardsCalculation,
                 GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip,
                 GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsIcon,
                 (s, e) => AddCalculation(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
-                );
+                )
+            {
+                Enabled = false
+            };
 
             return Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl)
                       .AddOpenItem()
                       .AddSeparator()
                       .AddCustomItem(addCalculationGroupItem)
                       .AddCustomItem(addCalculationItem)
-                      .AddSeparator()
                       .AddSeparator()
                       .AddImportItem()
                       .AddExportItem()

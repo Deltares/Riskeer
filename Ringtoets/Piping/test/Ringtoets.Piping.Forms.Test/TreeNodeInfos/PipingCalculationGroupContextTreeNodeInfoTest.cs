@@ -102,6 +102,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(testname, text);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -160,6 +161,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.IsEmpty(children);
+            mocks.VerifyAll();
         }
 
         [Test]

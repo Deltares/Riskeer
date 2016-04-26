@@ -70,12 +70,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
             // setup
             var mocks = new MockRepository();
             var applicationCore = new ApplicationCore();
-
             var guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
 
             Expect.Call(guiStub.ApplicationCore).Return(applicationCore).Repeat.Any();
-
             mocks.ReplayAll();
 
             using (var guiPlugin = new GrassCoverErosionInwardsGuiPlugin
