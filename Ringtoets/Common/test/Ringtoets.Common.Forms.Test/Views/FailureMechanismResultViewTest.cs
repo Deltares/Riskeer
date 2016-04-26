@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
@@ -369,7 +370,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak zijn opgeteld niet gelijk aan 100%", dataGridViewCell.ErrorText);
-                Assert.AreEqual(double.NaN.ToString(), formattedValue);
+                Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), formattedValue);
                 mocks.VerifyAll();
             }
         }

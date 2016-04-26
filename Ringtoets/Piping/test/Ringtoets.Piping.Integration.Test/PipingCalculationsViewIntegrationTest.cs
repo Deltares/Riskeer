@@ -1,22 +1,13 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
-using Core.Common.Base.Service;
-using Core.Common.Utils.IO;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.IO;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
-using Ringtoets.Piping.Plugin.FileImporter;
 
 namespace Ringtoets.Piping.Integration.Test
 {
@@ -44,12 +35,12 @@ namespace Ringtoets.Piping.Integration.Test
                 pipingCalculationsView.PipingFailureMechanism = assessmentSection.PipingFailureMechanism;
 
                 // Import failure mechanism sections and ensure the listbox is updated
-                ImportReferenceLine(assessmentSection);
-                ImportFailureMechanismSections(assessmentSection, assessmentSection.PipingFailureMechanism);
+                IntegrationTestHelper.ImportReferenceLine(assessmentSection);
+                IntegrationTestHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.PipingFailureMechanism);
                 Assert.AreEqual(283, listBox.Items.Count);
 
                 // Import surface lines
-                ImportSurfaceLines(assessmentSection);
+                IntegrationTestHelper.ImportSurfaceLines(assessmentSection);
 
                 // Setup some calculations
                 var pipingCalculation1 = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
@@ -73,7 +64,7 @@ namespace Ringtoets.Piping.Integration.Test
                 Assert.AreEqual(1, dataGridView.Rows.Count);
 
                 // Import soil models and profiles and ensure the corresponding combobox items are updated
-                ImportSoilProfiles(assessmentSection);
+                IntegrationTestHelper.ImportSoilProfiles(assessmentSection);
                 pipingCalculation1.InputParameters.StochasticSoilModel = assessmentSection.PipingFailureMechanism.StochasticSoilModels.First(sl => sl.Name == "PK001_0001_Piping");
                 Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items.Count);
                 Assert.AreEqual("PK001_0001_Piping", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
@@ -81,17 +72,29 @@ namespace Ringtoets.Piping.Integration.Test
                 Assert.AreEqual("<geen>", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
 
                 // Import hydraulic boundary locations and ensure the corresponding combobox items are updated
-                ImportHydraulicBoundaryDatabase(assessmentSection);
+                IntegrationTestHelper.ImportHydraulicBoundaryDatabase(assessmentSection);
                 Assert.AreEqual(19, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[hydraulicBoundaryLocationsColumnIndex]).Items.Count);
 
-                // Add another, nested calculation and ensure the data grid view is updated
+                // Add group and ensure the data grid view is not changed
                 var nestedPipingCalculationGroup = new CalculationGroup("New group", false);
                 assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(nestedPipingCalculationGroup);
                 assessmentSection.PipingFailureMechanism.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual(1, dataGridView.Rows.Count);
+
+                // Add another, nested calculation and ensure the data grid view is updated
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation2);
                 nestedPipingCalculationGroup.NotifyObservers();
                 Assert.AreEqual(2, dataGridView.Rows.Count);
+
+                // Add another, nested calculation without surface line and ensure the data grid view is updated when the surface line is set.
+                var pipingCalculation3 = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+                nestedPipingCalculationGroup.Children.Add(pipingCalculation3);
+                nestedPipingCalculationGroup.NotifyObservers();
+                Assert.AreEqual(2, dataGridView.Rows.Count);
+
+                pipingCalculation3.InputParameters.SurfaceLine = assessmentSection.PipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
+                pipingCalculation3.InputParameters.NotifyObservers();
+                Assert.AreEqual(3, dataGridView.Rows.Count);
 
                 // Change the name of the first calculation and ensure the data grid view is updated
                 pipingCalculation1.Name = "New name";
@@ -113,87 +116,5 @@ namespace Ringtoets.Piping.Integration.Test
         private const int phreaticLevelExitMeanColumnIndex = 8;
         private const int entryPointLColumnIndex = 9;
         private const int exitPointLColumnIndex = 10;
-
-        private void ImportReferenceLine(AssessmentSection assessmentSection)
-        {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
-                                                                                   true,
-                                                                                   "traject_6-3.shp",
-                                                                                   "traject_6-3.dbf",
-                                                                                   "traject_6-3.prj",
-                                                                                   "traject_6-3.shx"))
-            {
-                var activity = new FileImportActivity(new ReferenceLineImporter(),
-                                                      new ReferenceLineContext(assessmentSection),
-                                                      Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp"));
-
-                activity.Run();
-                activity.Finish();
-            }
-        }
-
-        private void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
-        {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
-                                                                                   true,
-                                                                                   "traject_6-3_vakken.shp",
-                                                                                   "traject_6-3_vakken.dbf",
-                                                                                   "traject_6-3_vakken.prj",
-                                                                                   "traject_6-3_vakken.shx"))
-            {
-                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(),
-                                                      new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                                                      Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp"));
-
-                activity.Run();
-                activity.Finish();
-            }
-        }
-
-        private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
-        {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
-                                                                                   false,
-                                                                                   "HRD dutch coast south.sqlite",
-                                                                                   "HLCD.sqlite"))
-            {
-                using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
-                {
-                    var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
-                    hydraulicBoundaryDatabaseImporter.Import(assessmentSection, filePath);
-                }
-            }
-        }
-
-        private void ImportSurfaceLines(AssessmentSection assessmentSection)
-        {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
-                                                                                   true,
-                                                                                   "DR6_surfacelines.csv",
-                                                                                   "DR6_surfacelines.krp.csv"))
-            {
-                var activity = new FileImportActivity(new PipingSurfaceLinesCsvImporter(),
-                                                      new RingtoetsPipingSurfaceLinesContext(assessmentSection.PipingFailureMechanism, assessmentSection),
-                                                      Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
-
-                activity.Run();
-                activity.Finish();
-            }
-        }
-
-        private void ImportSoilProfiles(AssessmentSection assessmentSection)
-        {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
-                                                                                   true,
-                                                                                   "DR6.soil"))
-            {
-                var activity = new FileImportActivity(new PipingSoilProfilesImporter(),
-                                                      new StochasticSoilModelContext(assessmentSection.PipingFailureMechanism, assessmentSection),
-                                                      Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
-
-                activity.Run();
-                activity.Finish();
-            }
-        }
     }
 }
