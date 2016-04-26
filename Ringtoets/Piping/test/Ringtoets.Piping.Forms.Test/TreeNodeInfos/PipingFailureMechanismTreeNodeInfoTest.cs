@@ -292,7 +292,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             TestHelper.AssertContextMenuStripContainsItem(menu, 0, CoreCommonGuiResources.Open, CoreCommonGuiResources.Open_ToolTip, CoreCommonGuiResources.OpenIcon, false);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 2, RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup, RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip, RingtoetsCommonFormsResources.AddFolderIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 3, PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation_Tooltip, PipingFormsResources.PipingIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 3, RingtoetsFormsResources.CalculationGroup_Add_Calculation, PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation_Tooltip, PipingFormsResources.PipingIcon);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 5, RingtoetsFormsResources.Validate_all, RingtoetsFormsResources.Validate_all_ToolTip, RingtoetsFormsResources.ValidateAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, 6, RingtoetsFormsResources.Calculate_all, RingtoetsFormsResources.Calculate_all_ToolTip, RingtoetsFormsResources.CalculateAllIcon);

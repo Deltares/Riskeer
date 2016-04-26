@@ -268,4 +268,7 @@
   <data name="FailureMechanism_Add_CalculationGroup_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe berekeningsmap toe aan dit faalmechanisme.</value>
   </data>
+  <data name="CalculationGroup_Add_Calculation" xml:space="preserve">
+    <value>&amp;Berekening toevoegen</value>
+  </data>
 </root>

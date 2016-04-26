@@ -349,9 +349,6 @@
   <data name="PipingInput_StochasticSoilProfile_DisplayName" xml:space="preserve">
     <value>Ondergrondschematisatie</value>
   </data>
-  <data name="PipingCalculationGroup_Add_PipingCalculation" xml:space="preserve">
-    <value>&amp;Berekening toevoegen</value>
-  </data>
   <data name="PipingFailureMechanism_Add_PipingCalculation_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe piping berekening toe aan dit faalmechanisme.</value>
   </data>

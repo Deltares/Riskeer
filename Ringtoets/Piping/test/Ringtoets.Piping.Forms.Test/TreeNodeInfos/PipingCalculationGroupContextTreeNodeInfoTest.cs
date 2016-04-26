@@ -47,7 +47,6 @@ using Ringtoets.Piping.Primitives;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
@@ -112,7 +111,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.GeneralFolderIcon, image);
         }
 
         [Test]
@@ -258,11 +257,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(17, menu.Items.Count);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex,
-                                                          RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
                                                           "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
-                                                          RingtoetsCommonFormsResources.AddFolderIcon);
+                                                          RingtoetsFormsResources.AddFolderIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndex,
-                                                          PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation,
                                                           "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                           PipingFormsResources.PipingIcon);
 
@@ -370,11 +369,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(16, menu.Items.Count);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex,
-                                                          RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
                                                           "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
-                                                          RingtoetsCommonFormsResources.AddFolderIcon);
+                                                          RingtoetsFormsResources.AddFolderIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndex,
-                                                          PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation,
                                                           "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                           PipingFormsResources.PipingIcon);
 
@@ -477,11 +476,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var mainCalculationGroupContextMenuItemOffset = 4;
             Assert.AreEqual(18, menu.Items.Count);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex + mainCalculationGroupContextMenuItemOffset,
-                                                          RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
                                                           "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
-                                                          RingtoetsCommonFormsResources.AddFolderIcon);
+                                                          RingtoetsFormsResources.AddFolderIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndex + mainCalculationGroupContextMenuItemOffset,
-                                                          PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation,
                                                           "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                           PipingFormsResources.PipingIcon);
 

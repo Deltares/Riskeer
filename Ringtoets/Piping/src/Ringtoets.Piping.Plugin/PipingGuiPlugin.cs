@@ -291,7 +291,7 @@ namespace Ringtoets.Piping.Plugin
                 );
 
             var addCalculationItem = new StrictContextMenuItem(
-                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
+                RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                 PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation_Tooltip,
                 PipingFormsResources.PipingIcon,
                 (s, e) => AddCalculation(pipingFailureMechanismContext.WrappedData)
@@ -615,7 +615,7 @@ namespace Ringtoets.Piping.Plugin
                 });
 
             var addCalculationItem = new StrictContextMenuItem(
-                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation,
+                RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation_ToolTip,
                 PipingFormsResources.PipingIcon, (o, args) =>
                 {
