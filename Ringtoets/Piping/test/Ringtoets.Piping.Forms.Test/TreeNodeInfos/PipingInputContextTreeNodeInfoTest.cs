@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var pipingInputContext = new PipingInputContext(
                 new PipingInput(new GeneralPipingInput()),
-                new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()),
+                new PipingCalculation(new GeneralPipingInput(), new NormProbabilityPipingInput()),
                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                 Enumerable.Empty<StochasticSoilModel>(),
                 new PipingFailureMechanism(),
@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             var pipingInputContext = new PipingInputContext(
                 new PipingInput(new GeneralPipingInput()), 
-                new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput()),  
+                new PipingCalculation(new GeneralPipingInput(), new NormProbabilityPipingInput()),  
                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(), 
                 Enumerable.Empty<StochasticSoilModel>(),
                 new PipingFailureMechanism(),

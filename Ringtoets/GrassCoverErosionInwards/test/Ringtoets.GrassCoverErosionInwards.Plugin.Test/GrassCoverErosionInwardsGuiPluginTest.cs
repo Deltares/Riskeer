@@ -28,6 +28,7 @@ using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
 {
@@ -58,7 +59,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(0, propertyInfos.Length);
+                Assert.AreEqual(1, propertyInfos.Length);
+                var failureMechanismContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(GrassCoverErosionInwardsFailureMechanismContext));
+                Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContextProperties), failureMechanismContextProperties.PropertyObjectType);
+                Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
+                Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(failureMechanismContextProperties.AfterCreate);
 
                 mocks.VerifyAll();
             }

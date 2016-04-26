@@ -101,8 +101,8 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
             Assert.AreEqual(Enumerable.Repeat(30000.0, 11), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
 
-            Assert.AreEqual(30000.0, section.PipingFailureMechanism.SemiProbabilisticInput.Norm);
-            Assert.AreEqual(double.NaN, section.PipingFailureMechanism.SemiProbabilisticInput.SectionLength);
+            Assert.AreEqual(30000.0, section.PipingFailureMechanism.NormProbabilityInput.Norm);
+            Assert.AreEqual(double.NaN, section.PipingFailureMechanism.NormProbabilityInput.SectionLength);
 
             Assert.AreEqual(100, section.FailureMechanismContribution.Distribution.Sum(d => d.Contribution));
         }
@@ -253,7 +253,7 @@ namespace Ringtoets.Integration.Data.Test
             assessmentSection.ReferenceLine = referenceLine;
 
             // Assert
-            Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.PipingFailureMechanism.SemiProbabilisticInput.SectionLength);
+            Assert.AreEqual(Math2D.Length(referenceLine.Points), assessmentSection.PipingFailureMechanism.NormProbabilityInput.SectionLength);
         }
 
         [Test]
@@ -266,7 +266,7 @@ namespace Ringtoets.Integration.Data.Test
             assessmentSection.ReferenceLine = null;
 
             // Assert
-            Assert.AreEqual(double.NaN, assessmentSection.PipingFailureMechanism.SemiProbabilisticInput.SectionLength);
+            Assert.AreEqual(double.NaN, assessmentSection.PipingFailureMechanism.NormProbabilityInput.SectionLength);
         }
 
         private void AssertExpectedContributions(AssessmentSectionComposition composition, AssessmentSection assessmentSection)

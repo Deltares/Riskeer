@@ -121,6 +121,12 @@
   <data name="CalculationIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\control_equalizer_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Categories_General" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="Categories_LengthEffect" xml:space="preserve">
+    <value>Lengte-effect parameters</value>
+  </data>
   <data name="GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null" xml:space="preserve">
     <value>{0} mag niet 'null' zijn.</value>
   </data>
@@ -132,5 +138,23 @@
   </data>
   <data name="GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe grasbekleding erosie kruin en binnentalud berekening toe aan dit faalmechanisme.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_Code_Description" xml:space="preserve">
+    <value>Het label van het toetsspoor.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_Code_DisplayName" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_Name_Description" xml:space="preserve">
+    <value>De naam van het toetsspoor.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_N_Description" xml:space="preserve">
+    <value>De parameter 'N' die gebruikt wordt voor het lengte effect in berekening.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_N_DisplayName" xml:space="preserve">
+    <value>N</value>
   </data>
 </root>

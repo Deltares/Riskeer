@@ -70,34 +70,34 @@ namespace Ringtoets.Piping.Service
         {
             ValidateOutputOnCalculation(calculation);
 
-            SemiProbabilisticPipingInput semiProbabilisticParameters = calculation.SemiProbabilisticParameters;
+            NormProbabilityPipingInput normProbabilityParameters = calculation.NormProbabilityParameters;
             PipingOutput pipingOutput = calculation.Output;
 
             var calculator = new PipingSemiProbabilisticCalculationService(
                 pipingOutput.UpliftFactorOfSafety,
                 pipingOutput.HeaveFactorOfSafety,
                 pipingOutput.SellmeijerFactorOfSafety,
-                semiProbabilisticParameters.Norm,
-                semiProbabilisticParameters.A,
-                semiProbabilisticParameters.B,
-                semiProbabilisticParameters.SectionLength,
-                semiProbabilisticParameters.Contribution/100);
+                normProbabilityParameters.Norm,
+                normProbabilityParameters.A,
+                normProbabilityParameters.B,
+                normProbabilityParameters.SectionLength,
+                normProbabilityParameters.Contribution/100);
 
             calculator.Calculate();
 
             calculation.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(
                 calculator.upliftFactorOfSafety,
                 calculator.upliftReliability,
-                1.0 / calculator.upliftProbability,
+                1.0/calculator.upliftProbability,
                 calculator.heaveFactorOfSafety,
                 calculator.heaveReliability,
-                1.0 / calculator.heaveProbability,
+                1.0/calculator.heaveProbability,
                 calculator.sellmeijerFactorOfSafety,
                 calculator.sellmeijerReliability,
-                1.0 / calculator.sellmeijerProbability,
-                1.0 / calculator.requiredProbability,
+                1.0/calculator.sellmeijerProbability,
+                1.0/calculator.requiredProbability,
                 calculator.requiredReliability,
-                1.0 / calculator.pipingProbability,
+                1.0/calculator.pipingProbability,
                 calculator.pipingReliability,
                 calculator.pipingFactorOfSafety
                 );

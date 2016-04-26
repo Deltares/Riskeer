@@ -18,7 +18,7 @@ namespace Ringtoets.Piping.Service.Test
         public void UpliftProbability_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
         {
             // Setup
-            var pipingInput = new SemiProbabilisticPipingInput
+            var pipingInput = new NormProbabilityPipingInput
             {
                 Norm = norm
             };
@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Service.Test
         public void HeaveProbability_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
         {
             // Setup
-            var pipingInput = new SemiProbabilisticPipingInput
+            var pipingInput = new NormProbabilityPipingInput
             {
                 Norm = norm
             };
@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.Service.Test
         public void SellmeijerProbability_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
         {
             // Setup
-            var pipingInput = new SemiProbabilisticPipingInput
+            var pipingInput = new NormProbabilityPipingInput
             {
                 Norm = norm
             };
@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
-            var pipingInput = new SemiProbabilisticPipingInput
+            var pipingInput = new NormProbabilityPipingInput
             {
                 Norm = norm
             };
@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            var pipingInput = new SemiProbabilisticPipingInput
+            var pipingInput = new NormProbabilityPipingInput
             {
                 Norm = norm,
                 SectionLength = assessmentSectionLength,
@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.Service.Test
             double expectedResult = 1.134713444;
 
             var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
-            var pipingInput = new SemiProbabilisticPipingInput
+            var pipingInput = new NormProbabilityPipingInput
             {
                 Norm = norm,
                 SectionLength = assessmentSectionLength,
@@ -181,7 +181,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
-            var pipingInput = new SemiProbabilisticPipingInput
+            var pipingInput = new NormProbabilityPipingInput
             {
                 Norm = norm,
                 SectionLength = assessmentSectionLength,
@@ -204,7 +204,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
 
-            var semiProbabilisticPipingInput = new SemiProbabilisticPipingInput
+            var semiProbabilisticPipingInput = new NormProbabilityPipingInput
             {
                 SectionLength = 6000,
                 Norm = 30000,
@@ -229,7 +229,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var generalInput = new GeneralPipingInput();
-            var pipingCalculation = new PipingCalculation(generalInput, new SemiProbabilisticPipingInput());
+            var pipingCalculation = new PipingCalculation(generalInput, new NormProbabilityPipingInput());
 
             // Call
             TestDelegate test = () => PipingSemiProbabilisticCalculationService.Calculate(pipingCalculation);
@@ -238,9 +238,9 @@ namespace Ringtoets.Piping.Service.Test
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Cannot perform a semi-probabilistic calculation without output form the piping kernel.");
         }
 
-        private PipingCalculation AsPipingCalculation(PipingOutput pipingOutput, SemiProbabilisticPipingInput semiProbabilisticPipingInput)
+        private PipingCalculation AsPipingCalculation(PipingOutput pipingOutput, NormProbabilityPipingInput normProbabilityPipingInput)
         {
-            return new PipingCalculation(new GeneralPipingInput(), semiProbabilisticPipingInput)
+            return new PipingCalculation(new GeneralPipingInput(), normProbabilityPipingInput)
             {
                 Output = pipingOutput
             };

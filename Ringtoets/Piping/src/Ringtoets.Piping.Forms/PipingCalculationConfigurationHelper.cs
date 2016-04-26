@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms
         ///     with.</param>
         /// <param name="soilModels">The soil models from which profiles are taken to configure <see cref="PipingCalculation"/> with.</param>
         /// <param name="generalInput">General input to assign to each generated piping calculation.</param>
-        /// <param name="semiProbabilisticInput">Semi probabilistic input to assign to each generated piping calculation.</param>
+        /// <param name="normProbabilityInput">Semi probabilistic input to assign to each generated piping calculation.</param>
         /// <returns>A structure or <see cref="ICalculationBase"/> matching combinations of <paramref name="surfaceLines"/> and
         /// profiles of intersecting <paramref name="soilModels"/>.</returns>
         /// <exception cref="ArgumentNullException">Throw when either:
@@ -57,9 +57,9 @@ namespace Ringtoets.Piping.Forms
         /// <item><paramref name="surfaceLines"/> is <c>null</c></item>
         /// <item><paramref name="soilModels"/> is <c>null</c></item>
         /// <item><paramref name="generalInput"/> is <c>null</c></item>
-        /// <item><paramref name="semiProbabilisticInput"/> is <c>null</c></item>
+        /// <item><paramref name="normProbabilityInput"/> is <c>null</c></item>
         /// </list></exception>
-        public static IEnumerable<ICalculationBase> GenerateCalculationItemsStructure(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
+        public static IEnumerable<ICalculationBase> GenerateCalculationItemsStructure(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, NormProbabilityPipingInput normProbabilityInput)
         {
             if (surfaceLines == null)
             {
@@ -73,15 +73,15 @@ namespace Ringtoets.Piping.Forms
             {
                 throw new ArgumentNullException("generalInput");
             }
-            if (semiProbabilisticInput == null)
+            if (normProbabilityInput == null)
             {
-                throw new ArgumentNullException("semiProbabilisticInput");
+                throw new ArgumentNullException("normProbabilityInput");
             }
 
             List<ICalculationBase> groups = new List<ICalculationBase>();
             foreach (var surfaceLine in surfaceLines)
             {
-                var group = CreateCalculationGroup(surfaceLine, soilModels, generalInput, semiProbabilisticInput);
+                var group = CreateCalculationGroup(surfaceLine, soilModels, generalInput, normProbabilityInput);
                 if (group.GetCalculations().Any())
                 {
                     groups.Add(group);
@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Forms
             return soilModelObjectsForCalculation;
         }
 
-        private static ICalculationBase CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
+        private static ICalculationBase CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, NormProbabilityPipingInput normProbabilityInput)
         {
             var pipingCalculationGroup = new CalculationGroup(surfaceLine.Name, true);
             var stochasticSoilModels = GetStochasticSoilModelsForSurfaceLine(surfaceLine, soilModels);
@@ -132,19 +132,19 @@ namespace Ringtoets.Piping.Forms
             {
                 foreach (var soilProfile in stochasticSoilModel.StochasticSoilProfiles)
                 {
-                    pipingCalculationGroup.Children.Add(CreatePipingCalculation(surfaceLine, stochasticSoilModel, soilProfile, pipingCalculationGroup.Children, generalInput, semiProbabilisticInput));
+                    pipingCalculationGroup.Children.Add(CreatePipingCalculation(surfaceLine, stochasticSoilModel, soilProfile, pipingCalculationGroup.Children, generalInput, normProbabilityInput));
                 }
             }
 
             return pipingCalculationGroup;
         }
 
-        private static ICalculationBase CreatePipingCalculation(RingtoetsPipingSurfaceLine surfaceLine, StochasticSoilModel stochasticSoilModel, StochasticSoilProfile stochasticSoilProfile, IEnumerable<ICalculationBase> calculations, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
+        private static ICalculationBase CreatePipingCalculation(RingtoetsPipingSurfaceLine surfaceLine, StochasticSoilModel stochasticSoilModel, StochasticSoilProfile stochasticSoilProfile, IEnumerable<ICalculationBase> calculations, GeneralPipingInput generalInput, NormProbabilityPipingInput normProbabilityInput)
         {
             var nameBase = string.Format("{0} {1}", surfaceLine.Name, stochasticSoilProfile);
             var name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
 
-            return new PipingCalculationScenario(generalInput, semiProbabilisticInput)
+            return new PipingCalculationScenario(generalInput, normProbabilityInput)
             {
                 Name = name,
                 InputParameters =

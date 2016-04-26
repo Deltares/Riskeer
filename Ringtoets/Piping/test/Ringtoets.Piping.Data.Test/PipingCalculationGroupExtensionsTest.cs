@@ -21,10 +21,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data.TestUtil;
@@ -69,7 +67,7 @@ namespace Ringtoets.Piping.Data.Test
                 failureMechanism.SurfaceLines,
                 failureMechanism.StochasticSoilModels,
                 failureMechanism.GeneralInput,
-                failureMechanism.SemiProbabilisticInput);
+                failureMechanism.NormProbabilityInput);
 
             foreach (var item in calculationsStructure)
             {
@@ -99,7 +97,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var failureMechanism = GetFailureMechanismWithSections();
             var stochasticSoilModel = failureMechanism.StochasticSoilModels.First();
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new NormProbabilityPipingInput())
             {
                 InputParameters =
                 {
@@ -137,7 +135,7 @@ namespace Ringtoets.Piping.Data.Test
                 failureMechanism.SurfaceLines,
                 failureMechanism.StochasticSoilModels,
                 failureMechanism.GeneralInput,
-                failureMechanism.SemiProbabilisticInput);
+                failureMechanism.NormProbabilityInput);
 
             foreach (var item in calculationsStructure)
             {
@@ -164,7 +162,7 @@ namespace Ringtoets.Piping.Data.Test
                 failureMechanism.SurfaceLines,
                 failureMechanism.StochasticSoilModels,
                 failureMechanism.GeneralInput,
-                failureMechanism.SemiProbabilisticInput);
+                failureMechanism.NormProbabilityInput);
 
             foreach (var item in calculationsStructure)
             {

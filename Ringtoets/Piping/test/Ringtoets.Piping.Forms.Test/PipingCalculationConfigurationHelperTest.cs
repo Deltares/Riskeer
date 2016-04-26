@@ -353,7 +353,7 @@ namespace Ringtoets.Piping.Forms.Test
                 null,
                 Enumerable.Empty<StochasticSoilModel>(),
                 new GeneralPipingInput(),
-                new SemiProbabilisticPipingInput());
+                new NormProbabilityPipingInput());
 
             // Assert
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -368,7 +368,7 @@ namespace Ringtoets.Piping.Forms.Test
                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                 null,
                 new GeneralPipingInput(),
-                new SemiProbabilisticPipingInput());
+                new NormProbabilityPipingInput());
 
             // Assert
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -383,7 +383,7 @@ namespace Ringtoets.Piping.Forms.Test
                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                 Enumerable.Empty<StochasticSoilModel>(),
                 null,
-                new SemiProbabilisticPipingInput());
+                new NormProbabilityPipingInput());
 
             // Assert
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -402,7 +402,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Assert
             var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("semiProbabilisticInput", parameter);
+            Assert.AreEqual("normProbabilityInput", parameter);
         }
 
         [Test]
@@ -442,7 +442,7 @@ namespace Ringtoets.Piping.Forms.Test
                     ringtoetsPipingSurfaceLines,
                     Enumerable.Empty<StochasticSoilModel>(),
                     new GeneralPipingInput(),
-                    new SemiProbabilisticPipingInput()).ToArray();
+                    new NormProbabilityPipingInput()).ToArray();
             };
 
             // Assert
@@ -515,7 +515,7 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLines,
                 availableSoilModels,
                 new GeneralPipingInput(),
-                new SemiProbabilisticPipingInput()).ToArray();
+                new NormProbabilityPipingInput()).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -580,7 +580,7 @@ namespace Ringtoets.Piping.Forms.Test
                 result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                     surfaceLines, availableSoilModels,
                     new GeneralPipingInput(),
-                    new SemiProbabilisticPipingInput()).ToArray();
+                    new NormProbabilityPipingInput()).ToArray();
             };
 
             // Assert
@@ -658,7 +658,7 @@ namespace Ringtoets.Piping.Forms.Test
                     surfaceLines,
                     availableSoilModels,
                     new GeneralPipingInput(),
-                    new SemiProbabilisticPipingInput()).ToArray();
+                    new NormProbabilityPipingInput()).ToArray();
             };
 
             // Assert
@@ -740,7 +740,7 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLines,
                 availableSoilModels,
                 new GeneralPipingInput(),
-                new SemiProbabilisticPipingInput()).ToArray();
+                new NormProbabilityPipingInput()).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Count());
@@ -849,7 +849,7 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLines,
                 availableSoilModels,
                 new GeneralPipingInput(),
-                new SemiProbabilisticPipingInput()).ToArray();
+                new NormProbabilityPipingInput()).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Count());
@@ -975,7 +975,7 @@ namespace Ringtoets.Piping.Forms.Test
                     surfaceLines,
                     availableSoilModels,
                     new GeneralPipingInput(),
-                    new SemiProbabilisticPipingInput()).ToArray();
+                    new NormProbabilityPipingInput()).ToArray();
             };
 
             // Assert
@@ -1061,14 +1061,14 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             GeneralPipingInput generalInput = new GeneralPipingInput();
-            SemiProbabilisticPipingInput semiProbabilisticInput = new SemiProbabilisticPipingInput();
+            NormProbabilityPipingInput normProbabilityInput = new NormProbabilityPipingInput();
 
             // Call
             IEnumerable<ICalculationBase> result = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                 surfaceLines,
                 availableSoilModels,
                 generalInput,
-                semiProbabilisticInput).ToArray();
+                normProbabilityInput).ToArray();
 
             // Assert
             var group = result.First(sl => sl.Name == surfaceLine.Name) as CalculationGroup;
@@ -1079,8 +1079,8 @@ namespace Ringtoets.Piping.Forms.Test
             Assert.AreEqual(string.Format("{0} {1}", surfaceLine.Name, soilProfile1.Name), calculationInput1.Name);
             Assert.AreEqual(string.Format("{0} {1}", surfaceLine.Name, soilProfile2.Name), calculationInput2.Name);
 
-            Assert.AreSame(semiProbabilisticInput, calculationInput1.SemiProbabilisticParameters);
-            Assert.AreSame(semiProbabilisticInput, calculationInput2.SemiProbabilisticParameters);
+            Assert.AreSame(normProbabilityInput, calculationInput1.NormProbabilityParameters);
+            Assert.AreSame(normProbabilityInput, calculationInput2.NormProbabilityParameters);
 
             CompareGeneralInputToInput(generalInput, calculationInput1);
             CompareGeneralInputToInput(generalInput, calculationInput2);
@@ -1157,7 +1157,7 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLines,
                 availableSoilModels,
                 new GeneralPipingInput(),
-                new SemiProbabilisticPipingInput()).ToArray();
+                new NormProbabilityPipingInput()).ToArray();
 
             // Assert
             var group = result.First(sl => sl.Name == surfaceLine.Name) as CalculationGroup;

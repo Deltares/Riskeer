@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Data
         public PipingFailureMechanism()
             : base(PipingDataResources.PipingFailureMechanism_DisplayName, PipingDataResources.PipingFailureMechanism_DisplayCode)
         {
-            SemiProbabilisticInput = new SemiProbabilisticPipingInput();
+            NormProbabilityInput = new NormProbabilityPipingInput();
             GeneralInput = new GeneralPipingInput();
             SurfaceLines = new List<RingtoetsPipingSurfaceLine>();
             StochasticSoilModels = new ObservableList<StochasticSoilModel>();
@@ -60,13 +60,18 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return SemiProbabilisticInput.Contribution;
+                return NormProbabilityInput.Contribution;
             }
             set
             {
-                SemiProbabilisticInput.Contribution = value;
+                NormProbabilityInput.Contribution = value;
             }
         }
+
+        /// <summary>
+        /// Gets all available piping calculation groups.
+        /// </summary>
+        public override ICalculationGroup CalculationsGroup { get; protected set; }
 
         /// <summary>
         /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.
@@ -79,11 +84,6 @@ namespace Ringtoets.Piping.Data
         public ObservableList<StochasticSoilModel> StochasticSoilModels { get; private set; }
 
         /// <summary>
-        /// Gets all available piping calculation groups.
-        /// </summary>
-        public override ICalculationGroup CalculationsGroup { get; protected set; }
-
-        /// <summary>
         /// Gets the general piping calculation input parameters that apply to each piping calculation.
         /// </summary>
         public GeneralPipingInput GeneralInput { get; private set; }
@@ -92,6 +92,6 @@ namespace Ringtoets.Piping.Data
         /// Gets the general semi-probabilistic calculation input parameters that apply to each calculation 
         /// in a semi-probabilistic assessment.
         /// </summary>
-        public SemiProbabilisticPipingInput SemiProbabilisticInput { get; set; }
+        public NormProbabilityPipingInput NormProbabilityInput { get; set; }
     }
 }

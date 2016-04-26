@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Service.Test
         public void SyncCalculationScenarioWithNewSurfaceLine_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var pipingCalculationScenario = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var pipingCalculationScenario = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
@@ -163,7 +163,7 @@ namespace Ringtoets.Piping.Service.Test
         public void RemoveCalculationScenarioFromSectionResult_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
 
             // Call
             TestDelegate call = () => PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(calculation, null);
@@ -179,7 +179,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var failureMechanism = GetFailureMechanism();
 
-            var calculationToRemove = new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculationToRemove = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
 
             var sectionResults = failureMechanism.SectionResults.ToArray();
             var sectionResultScenariosBeforeRemove = sectionResults[0].CalculationScenarios.ToList();
@@ -210,7 +210,7 @@ namespace Ringtoets.Piping.Service.Test
 
             // Call
             PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(calculationToRemove, failureMechanism);
-            
+
             // Assert
             CollectionAssert.DoesNotContain(sectionResults[0].CalculationScenarios, calculationToRemove);
         }
@@ -278,7 +278,7 @@ namespace Ringtoets.Piping.Service.Test
                 failureMechanism.SurfaceLines,
                 failureMechanism.StochasticSoilModels,
                 failureMechanism.GeneralInput,
-                failureMechanism.SemiProbabilisticInput);
+                failureMechanism.NormProbabilityInput);
 
             foreach (var item in calculationsStructure)
             {

@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            var calculation = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculation = new PipingCalculation(new GeneralPipingInput(), new NormProbabilityPipingInput());
             calculation.Name = name;
 
             // Call
@@ -174,7 +174,7 @@ namespace Ringtoets.Piping.Service.Test
 
         private void AssertSubCalculatorInputs(PipingInput input)
         {
-            var testFactory = (TestPipingSubCalculatorFactory)PipingSubCalculatorFactory.Instance;
+            var testFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
             var heaveCalculator = testFactory.LastCreatedHeaveCalculator;
             var upliftCalculator = testFactory.LastCreatedUpliftCalculator;
             var sellmeijerCalculator = testFactory.LastCreatedSellmeijerCalculator;

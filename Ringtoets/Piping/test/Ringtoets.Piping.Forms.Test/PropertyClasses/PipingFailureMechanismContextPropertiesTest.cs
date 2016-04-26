@@ -51,8 +51,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.GeneralInput.MeanDiameter70, properties.MeanDiameter70);
             Assert.AreEqual(failureMechanism.GeneralInput.SellmeijerReductionFactor, properties.SellmeijerReductionFactor);
 
-            Assert.AreEqual(failureMechanism.SemiProbabilisticInput.A, properties.A);
-            Assert.AreEqual(failureMechanism.SemiProbabilisticInput.B, properties.B);
+            Assert.AreEqual(failureMechanism.NormProbabilityInput.A, properties.A);
+            Assert.AreEqual(failureMechanism.NormProbabilityInput.B, properties.B);
         }
     }
 }

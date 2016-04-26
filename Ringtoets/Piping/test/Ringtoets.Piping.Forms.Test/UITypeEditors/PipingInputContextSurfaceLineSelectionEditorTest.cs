@@ -6,7 +6,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -29,7 +28,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
 
-            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new NormProbabilityPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
@@ -83,10 +82,10 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D(0.0, 0.0, 0.0), 
+                new Point3D(0.0, 0.0, 0.0),
                 new Point3D(1.0, 0.0, 1.0)
             });
-            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new NormProbabilityPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingInput = new PipingInput(new GeneralPipingInput())

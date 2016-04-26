@@ -24,11 +24,11 @@ using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Piping.Data
 {
-    public class SemiProbabilisticPipingInput
+    public class NormProbabilityPipingInput
     {
         private double contribution;
 
-        public SemiProbabilisticPipingInput()
+        public NormProbabilityPipingInput()
         {
             A = 1.0;
             B = 350.0;

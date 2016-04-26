@@ -412,7 +412,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void AddCalculation(PipingFailureMechanism failureMechanism)
         {
-            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput, failureMechanism.SemiProbabilisticInput)
+            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput)
             {
                 Name = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
             };
@@ -619,7 +619,7 @@ namespace Ringtoets.Piping.Plugin
                 PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation_ToolTip,
                 PipingFormsResources.PipingIcon, (o, args) =>
                 {
-                    var calculation = new PipingCalculationScenario(nodeData.PipingFailureMechanism.GeneralInput, nodeData.PipingFailureMechanism.SemiProbabilisticInput)
+                    var calculation = new PipingCalculationScenario(nodeData.PipingFailureMechanism.GeneralInput, nodeData.PipingFailureMechanism.NormProbabilityInput)
                     {
                         Name = NamingHelper.GetUniqueName(group.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
                     };
@@ -729,7 +729,7 @@ namespace Ringtoets.Piping.Plugin
             var view = new PipingSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailablePipingSurfaceLines);
             view.ShowDialog();
 
-            GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines, nodeData.AvailableStochasticSoilModels, nodeData.PipingFailureMechanism.GeneralInput, nodeData.PipingFailureMechanism.SemiProbabilisticInput);
+            GeneratePipingCalculations(nodeData.WrappedData, view.SelectedSurfaceLines, nodeData.AvailableStochasticSoilModels, nodeData.PipingFailureMechanism.GeneralInput, nodeData.PipingFailureMechanism.NormProbabilityInput);
 
             nodeData.NotifyObservers();
 
@@ -737,9 +737,9 @@ namespace Ringtoets.Piping.Plugin
             nodeData.PipingFailureMechanism.NotifyObservers();
         }
 
-        private void GeneratePipingCalculations(ICalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, SemiProbabilisticPipingInput semiProbabilisticInput)
+        private void GeneratePipingCalculations(ICalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, NormProbabilityPipingInput normProbabilityInput)
         {
-            foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput, semiProbabilisticInput))
+            foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput, normProbabilityInput))
             {
                 target.Children.Add(group);
             }
@@ -819,7 +819,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 group.WrappedData.Children.Remove(nodeData.WrappedData);
 
-                foreach (var calculation in nodeData.WrappedData.GetCalculations().Cast<PipingCalculationScenario>()) 
+                foreach (var calculation in nodeData.WrappedData.GetCalculations().Cast<PipingCalculationScenario>())
                 {
                     RemoveCalculation(calculation, nodeData.PipingFailureMechanism);
                 }

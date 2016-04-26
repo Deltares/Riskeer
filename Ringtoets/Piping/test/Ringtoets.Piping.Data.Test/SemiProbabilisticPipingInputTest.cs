@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_DefaultPropertiesSet()
         {
             // Call
-            var inputParameters = new SemiProbabilisticPipingInput();
+            var inputParameters = new NormProbabilityPipingInput();
 
             // Assert
             Assert.AreEqual(1.0, inputParameters.A);
@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Contribution_SetNewValidValue_GetNewValue(double newContributionValue)
         {
             // Setup
-            var inputParameters = new SemiProbabilisticPipingInput();
+            var inputParameters = new NormProbabilityPipingInput();
 
             // Call
             inputParameters.Contribution = newContributionValue;
@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Contribution_SetNewInvalidValue_ThrowArgumentOutOfRangeException(double newContributionValue)
         {
             // Setup
-            var inputParameters = new SemiProbabilisticPipingInput();
+            var inputParameters = new NormProbabilityPipingInput();
 
             // Call
             TestDelegate call = () => inputParameters.Contribution = newContributionValue;

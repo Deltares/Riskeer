@@ -36,30 +36,30 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="generalInputParameters">General piping calculation parameters that
         /// are the same across all piping calculations.</param>
-        /// <param name="semiProbabilisticInputParameters">General semi-probabilistic parameters that 
+        /// <param name="normProbabilityInputParameters">General semi-probabilistic parameters that 
         /// are used in a semi-probabilistic piping assessment.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> or 
-        /// <paramref name="semiProbabilisticInputParameters"/> is <c>null</c>.</exception>
-        public PipingCalculation(GeneralPipingInput generalInputParameters, SemiProbabilisticPipingInput semiProbabilisticInputParameters)
+        /// <paramref name="normProbabilityInputParameters"/> is <c>null</c>.</exception>
+        public PipingCalculation(GeneralPipingInput generalInputParameters, NormProbabilityPipingInput normProbabilityInputParameters)
         {
             if (generalInputParameters == null)
             {
                 throw new ArgumentNullException("generalInputParameters");
             }
-            if (semiProbabilisticInputParameters == null)
+            if (normProbabilityInputParameters == null)
             {
-                throw new ArgumentNullException("semiProbabilisticInputParameters");
+                throw new ArgumentNullException("normProbabilityInputParameters");
             }
             Name = Resources.PipingCalculation_DefaultName;
 
             InputParameters = new PipingInput(generalInputParameters);
-            SemiProbabilisticParameters = semiProbabilisticInputParameters;
+            NormProbabilityParameters = normProbabilityInputParameters;
         }
 
         /// <summary>
         /// Gets the parameters required to perform a semi-probabilistic assessment.
         /// </summary>
-        public SemiProbabilisticPipingInput SemiProbabilisticParameters { get; private set; }
+        public NormProbabilityPipingInput NormProbabilityParameters { get; private set; }
 
         /// <summary>
         /// Gets the input parameters to perform a piping calculation with.

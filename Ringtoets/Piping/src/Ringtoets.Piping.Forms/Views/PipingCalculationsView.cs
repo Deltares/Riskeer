@@ -418,8 +418,8 @@ namespace Ringtoets.Piping.Forms.Views
             PrefillComboBoxListItemsAtColumnLevel();
 
             dataGridView.DataSource = pipingCalculations.OfType<PipingCalculationScenario>()
-                .Select(pc => new PipingCalculationRow(pc))
-                .ToList();
+                                                        .Select(pc => new PipingCalculationRow(pc))
+                                                        .ToList();
 
             UpdateStochasticSoilModelColumn();
             UpdateStochasticSoilProfileColumn();
@@ -791,7 +791,7 @@ namespace Ringtoets.Piping.Forms.Views
                 dialog.SelectedSurfaceLines,
                 pipingFailureMechanism.StochasticSoilModels,
                 pipingFailureMechanism.GeneralInput,
-                pipingFailureMechanism.SemiProbabilisticInput);
+                pipingFailureMechanism.NormProbabilityInput);
             foreach (var item in calculationsStructure)
             {
                 pipingCalculationGroup.Children.Add(item);

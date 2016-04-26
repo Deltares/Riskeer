@@ -5,7 +5,6 @@ using System.Windows.Forms.Design;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
@@ -36,7 +35,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
-            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new NormProbabilityPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
@@ -89,7 +88,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                  .Repeat.AtLeastOnce();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new SemiProbabilisticPipingInput());
+            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new NormProbabilityPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingInput = new PipingInput(new GeneralPipingInput())
@@ -130,7 +129,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
 
         private class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
         {
-            public TestHydraulicBoundaryLocation() : base(0, string.Empty, 0, 0) { }
+            public TestHydraulicBoundaryLocation() : base(0, string.Empty, 0, 0) {}
         }
     }
 }

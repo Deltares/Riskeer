@@ -1022,7 +1022,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 Children =
                 {
-                    new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+                    new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
                     {
                         Name = "Calculation 1",
                         InputParameters =
@@ -1042,7 +1042,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                             ExitPointL = (RoundedDouble) 4.4444
                         }
                     },
-                    new PipingCalculationScenario(new GeneralPipingInput(), new SemiProbabilisticPipingInput())
+                    new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
                     {
                         Name = "Calculation 2",
                         InputParameters =
