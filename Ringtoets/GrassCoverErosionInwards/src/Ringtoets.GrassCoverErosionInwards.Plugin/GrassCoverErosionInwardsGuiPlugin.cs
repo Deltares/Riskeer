@@ -255,25 +255,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
+            var group = nodeData.WrappedData;
+
             var addCalculationGroupItem = new StrictContextMenuItem(
                RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
                RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
                RingtoetsCommonFormsResources.AddFolderIcon,
-               (o, args) => AddCalculationGroup(nodeData.GrassCoverErosionInwardsFailureMechanism)
-               )
-            {
-                Enabled = false
-            };
+               (o, args) =>
+               {
+                   var calculation = new CalculationGroup
+                   {
+                       Name = NamingHelper.GetUniqueName(group.Children, RingtoetsCommonDataResources.CalculationGroup_DefaultName, c => c.Name)
+                   };
+                   group.Children.Add(calculation);
+                   nodeData.WrappedData.NotifyObservers();
+               });
 
             var addCalculationItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                 GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip,
                 GrassCoverErosionInwardsFormsResources.CalculationIcon,
-                (s, e) => AddCalculation(nodeData.GrassCoverErosionInwardsFailureMechanism)
-                )
-            {
-                Enabled = false
-            };
+                (o, args) =>
+                {
+                    var calculation = new GrassCoverErosionInwardsCalculation
+                    {
+                        Name = NamingHelper.GetUniqueName(group.Children, GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsCalculation_DefaultName, c => c.Name)
+                    };
+
+                    group.Children.Add(calculation);
+                    nodeData.WrappedData.NotifyObservers();
+                });
 
             var builder = Gui.Get(nodeData, treeViewControl);
 

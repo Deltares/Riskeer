@@ -21,10 +21,12 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -43,14 +45,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationGroupContextTreeNodeInfoTest
     {
-        private MockRepository mocksRepository;
+        private MockRepository mocks;
         private GrassCoverErosionInwardsGuiPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocksRepository = new MockRepository();
+            mocks = new MockRepository();
             plugin = new GrassCoverErosionInwardsGuiPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationGroupContext));
         }
@@ -75,9 +77,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 Name = testname
             };
-            var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            mocksRepository.ReplayAll();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                    failureMechanismMock,
@@ -88,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(testname, text);
-            mocksRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -106,9 +108,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             // Setup
             var group = new CalculationGroup();
-            var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            mocksRepository.ReplayAll();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                    failureMechanismMock,
@@ -119,7 +121,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsTrue(result);
-            mocksRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -127,9 +129,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             // Setup
             var group = new CalculationGroup();
-            var pipingFailureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            mocksRepository.ReplayAll();
+            var pipingFailureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                  pipingFailureMechanismMock,
@@ -140,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.IsEmpty(children);
-            mocksRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -152,9 +154,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             group.Children.Add(childGroup);
 
-            var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            mocksRepository.ReplayAll();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                  failureMechanismMock,
@@ -173,21 +175,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void ContextmenuStrip_Always_ReturnContextWithItems()
         {
             // Setup
-            var gui = mocksRepository.StrictMock<IGui>();
+            var gui = mocks.StrictMock<IGui>();
             var group = new CalculationGroup();
 
-            var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
             var parentData = new object();
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                failureMechanismMock, 
                                                                                assessmentSectionMock);
 
-            var applicationFeatureCommandHandler = mocksRepository.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocksRepository.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocksRepository.StrictMock<IViewCommands>();
-            var treeViewControl = mocksRepository.StrictMock<TreeViewControl>();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
             gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
@@ -195,7 +197,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
             viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
 
-            mocksRepository.ReplayAll();
+            mocks.ReplayAll();
 
             plugin.Gui = gui;
 
@@ -212,13 +214,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             TestHelper.AssertContextMenuStripContainsItem(menu, 2,
                                                           RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
                                                           "Voeg een nieuwe berekeningsmap toe aan dit faalmechanisme.",
-                                                          RingtoetsFormsResources.AddFolderIcon,
-                                                          false);
+                                                          RingtoetsFormsResources.AddFolderIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, 3,
                                                           RingtoetsFormsResources.CalculationGroup_Add_Calculation,
                                                           "Voeg een nieuwe grasbekleding erosie kruin en binnentalud berekening toe aan dit faalmechanisme.",
-                                                          GrassCoverErosionInwardsFormResources.CalculationIcon,
-                                                          false);
+                                                          GrassCoverErosionInwardsFormResources.CalculationIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, 5,
                                                           CoreCommonGuiResources.Import,
                                                           CoreCommonGuiResources.Import_ToolTip,
@@ -254,7 +254,108 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 menu.Items[10]
             }, typeof(ToolStripSeparator));
 
-            mocksRepository.VerifyAll();
+            mocks.VerifyAll();
         }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnAddGroupItem_AddGroupToCalculationGroupAndNotifyObservers()
+        {
+            // Setup
+            var gui = mocks.StrictMock<IGui>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var group = new CalculationGroup();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                             failureMechanismMock,
+                                                             assessmentSectionMock);
+
+            var calculationItem = mocks.Stub<ICalculationBase>();
+            calculationItem.Name = "Nieuwe map";
+
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+
+            gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            group.Children.Add(calculationItem);
+
+            nodeData.Attach(observer);
+
+            ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+            // Precondition
+            Assert.AreEqual(1, group.Children.Count);
+
+            // Call
+            contextMenu.Items[contextMenuAddCalculationGroupIndex].PerformClick();
+
+            // Assert
+            Assert.AreEqual(2, group.Children.Count);
+            var newlyAddedItem = group.Children.Last();
+            Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
+            Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
+                            "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers()
+        {
+            // Setup
+            var gui = mocks.StrictMock<IGui>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var group = new CalculationGroup();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                             failureMechanismMock,
+                                                             assessmentSectionMock);
+
+            var calculationItem = mocks.Stub<ICalculationBase>();
+            calculationItem.Name = "Nieuwe berekening";
+
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+
+            gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            group.Children.Add(calculationItem);
+
+            nodeData.Attach(observer);
+
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+            // Precondition
+            Assert.AreEqual(1, group.Children.Count);
+
+            // Call
+            contextMenu.Items[contextMenuAddCalculationItemIndex].PerformClick();
+
+            // Assert
+            Assert.AreEqual(2, group.Children.Count);
+            var newlyAddedItem = group.Children.Last();
+            Assert.IsInstanceOf<GrassCoverErosionInwardsCalculation>(newlyAddedItem);
+            Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
+                            "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+
+            mocks.VerifyAll();
+        }
+
+        private const int contextMenuAddCalculationGroupIndex = 1;
+        private const int contextMenuAddCalculationItemIndex = 2;
     }
 }
