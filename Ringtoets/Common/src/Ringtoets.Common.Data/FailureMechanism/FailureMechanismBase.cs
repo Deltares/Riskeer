@@ -42,9 +42,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// Initializes a new instance of the <see cref="FailureMechanismBase"/> class.
         /// </summary>
         /// <param name="failureMechanismName">The name of the failure mechanism.</param>
-        protected FailureMechanismBase(string failureMechanismName)
+        /// <param name="failureMechanismCode">The code of the failure mechanism.</param>
+        protected FailureMechanismBase(string failureMechanismName, string failureMechanismCode)
         {
             Name = failureMechanismName;
+            Code = failureMechanismCode;
             sections = new List<FailureMechanismSection>();
             sectionResults = new List<FailureMechanismSectionResult>();
             IsRelevant = true;
@@ -80,6 +82,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
         }
 
         public string Name { get; private set; }
+
+        public string Code { get; private set; }
 
         public abstract IEnumerable<ICalculation> Calculations { get; }
 

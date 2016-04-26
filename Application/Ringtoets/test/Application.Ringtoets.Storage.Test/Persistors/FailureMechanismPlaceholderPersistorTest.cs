@@ -1,12 +1,29 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
 
+using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Persistors;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Integration.Data.Placeholders;
 
 namespace Application.Ringtoets.Storage.Test.Persistors
@@ -46,9 +63,9 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             var failureMechanism = new FailureMechanismPlaceholder("A");
             var entity = new FailureMechanismEntity
             {
-                FailureMechanismType = (short)type,
+                FailureMechanismType = (short) type,
                 FailureMechanismEntityId = id,
-                IsRelevant = isRelevant ? (byte)1 : (byte)0
+                IsRelevant = isRelevant ? (byte) 1 : (byte) 0
             };
 
             // Call
@@ -81,7 +98,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
 
             // Precondition
             Assert.AreEqual(0, failureMechanism.StorageId,
-                "StorageId should be 0 to denote the failure mechanism as unsaved.");
+                            "StorageId should be 0 to denote the failure mechanism as unsaved.");
 
             // Call
             persistor.UpdateModel(parentNavigationProperty, failureMechanism);
@@ -90,8 +107,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             Assert.AreEqual(1, parentNavigationProperty.Count);
 
             FailureMechanismEntity entity = parentNavigationProperty[0];
-            Assert.AreEqual((short)type, entity.FailureMechanismType);
-            var expectedIsRelevantValue = isRelevant ? (byte)1 : (byte)0;
+            Assert.AreEqual((short) type, entity.FailureMechanismType);
+            var expectedIsRelevantValue = isRelevant ? (byte) 1 : (byte) 0;
             Assert.AreEqual(expectedIsRelevantValue, entity.IsRelevant);
         }
 
@@ -110,7 +127,7 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             FailureMechanismEntity alreadyExistingEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = id,
-                FailureMechanismType = (short)type
+                FailureMechanismType = (short) type
             };
             var parentNavigationProperty = new List<FailureMechanismEntity>
             {
@@ -131,8 +148,8 @@ namespace Application.Ringtoets.Storage.Test.Persistors
             // Assert
             Assert.AreEqual(1, parentNavigationProperty.Count);
 
-            Assert.AreEqual((short)type, alreadyExistingEntity.FailureMechanismType);
-            var expectedIsRelevantValue = isRelevant ? (byte)1 : (byte)0;
+            Assert.AreEqual((short) type, alreadyExistingEntity.FailureMechanismType);
+            var expectedIsRelevantValue = isRelevant ? (byte) 1 : (byte) 0;
             Assert.AreEqual(expectedIsRelevantValue, alreadyExistingEntity.IsRelevant);
         }
 

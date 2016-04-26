@@ -45,6 +45,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
         string Name { get; }
 
         /// <summary>
+        /// Gets the code of the <see cref="IFailureMechanism"/>.
+        /// </summary>
+        string Code { get; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this failure mechanism is relevant.
         /// </summary>
         bool IsRelevant { get; set; }

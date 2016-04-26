@@ -126,4 +126,7 @@
   <data name="GrassCoverErosionInwardsFailureMechanism_Calculations_DisplayName" xml:space="preserve">
     <value>Berekeningen</value>
   </data>
+  <data name="GrassCoverErosionInwardsFailureMechanism_DisplayCode" xml:space="preserve">
+    <value>GEKB</value>
+  </data>
 </root>

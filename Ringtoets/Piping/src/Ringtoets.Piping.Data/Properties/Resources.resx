@@ -183,4 +183,7 @@
   <data name="PipingSoilProfile_GetTopAquiferLayerThicknessBelowLevel_Level_0_below_Bottom_1_" xml:space="preserve">
     <value>Level {0} is below the bottom of the soil profile {1}.</value>
   </data>
+  <data name="PipingFailureMechanism_DisplayCode" xml:space="preserve">
+    <value>STPH</value>
+  </data>
 </root>

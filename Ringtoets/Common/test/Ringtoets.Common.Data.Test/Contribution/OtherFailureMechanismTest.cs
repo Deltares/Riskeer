@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -37,6 +36,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             // Assert
             Assert.AreEqual("Overig", result.Name);
+            Assert.AreEqual("NWOoc", result.Code);
             Assert.IsInstanceOf<FailureMechanismBase>(result);
             CollectionAssert.IsEmpty(result.Calculations);
         }

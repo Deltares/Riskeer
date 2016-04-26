@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.Integration.Data.Placeholders;
 
 namespace Application.Ringtoets.Storage.Converters

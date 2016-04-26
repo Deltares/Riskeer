@@ -160,6 +160,15 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to STPH.
+        /// </summary>
+        public static string PipingFailureMechanism_DisplayCode {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanism_DisplayCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dijken - Piping.
         /// </summary>
         public static string PipingFailureMechanism_DisplayName {

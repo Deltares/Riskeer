@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test
@@ -43,11 +44,13 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // call
+            // Call
             var piping = new PipingFailureMechanism();
 
-            // assert
+            // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(piping);
+            Assert.AreEqual(Resources.PipingFailureMechanism_DisplayName, piping.Name);
+            Assert.AreEqual(Resources.PipingFailureMechanism_DisplayCode, piping.Code);
             Assert.IsInstanceOf<GeneralPipingInput>(piping.GeneralInput);
             CollectionAssert.IsEmpty(piping.Sections);
             CollectionAssert.IsEmpty(piping.SurfaceLines);
@@ -56,6 +59,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<ObservableList<StochasticSoilModel>>(piping.StochasticSoilModels);
             Assert.AreEqual("Berekeningen", piping.CalculationsGroup.Name);
             Assert.IsEmpty(piping.CalculationsGroup.Children);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -144,11 +148,13 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var observer = mockRepository.StrictMock<IObserver>();
+            mockRepository.ReplayAll();
 
             var pipingFailureMechanism = new PipingFailureMechanism();
 
             // Call & Assert
             pipingFailureMechanism.Detach(observer);
+            mockRepository.VerifyAll();
         }
 
         [Test]

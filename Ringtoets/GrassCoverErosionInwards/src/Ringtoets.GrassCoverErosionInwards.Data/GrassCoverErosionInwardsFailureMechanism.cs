@@ -35,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanism"/> class.
         /// </summary>
         public GrassCoverErosionInwardsFailureMechanism()
-            : base(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName)
+            : base(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode)
         {
             CalculationsGroup = new CalculationGroup(Resources.GrassCoverErosionInwardsFailureMechanism_Calculations_DisplayName, false);
         }

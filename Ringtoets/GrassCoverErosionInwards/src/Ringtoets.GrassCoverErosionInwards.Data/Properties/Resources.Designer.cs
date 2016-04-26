@@ -79,6 +79,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GEKB.
+        /// </summary>
+        public static string GrassCoverErosionInwardsFailureMechanism_DisplayCode {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsFailureMechanism_DisplayCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dijken - Grasbekleding erosie kruin en binnentalud.
         /// </summary>
         public static string GrassCoverErosionInwardsFailureMechanism_DisplayName {

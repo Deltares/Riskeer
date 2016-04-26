@@ -223,7 +223,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
         private class Simple : FailureMechanismBase
         {
-            public Simple() : base("simple failure mechanism") {}
+            public Simple() : base("simple failure mechanism", "simple code") {}
 
             public override IEnumerable<ICalculation> Calculations
             {

@@ -598,7 +598,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private class SimpleFailureMechanism : FailureMechanismBase
         {
-            public SimpleFailureMechanism() : base("Stubbed name") {}
+            public SimpleFailureMechanism() : base("Stubbed name", "Stubbed code") {}
 
             public override IEnumerable<ICalculation> Calculations
             {

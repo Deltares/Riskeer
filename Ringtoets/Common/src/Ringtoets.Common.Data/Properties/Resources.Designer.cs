@@ -198,6 +198,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NWOoc.
+        /// </summary>
+        public static string OtherFailureMechanism_DisplayCode {
+            get {
+                return ResourceManager.GetString("OtherFailureMechanism_DisplayCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Overig.
         /// </summary>
         public static string OtherFailureMechanism_DisplayName {
