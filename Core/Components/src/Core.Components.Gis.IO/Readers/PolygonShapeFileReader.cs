@@ -135,7 +135,7 @@ namespace Core.Components.Gis.IO.Readers
 
         private FeatureBasedMapData ConvertPolygonFeaturesToMapPointData(IEnumerable<IFeature> featureList, string name)
         {
-            var mapFeatures = featureList.Select(CreateMapFeatureForPolygonFeature);
+            MapFeature[] mapFeatures = featureList.Select(CreateMapFeatureForPolygonFeature).ToArray();
             return new MapPolygonData(mapFeatures, name);
         }
 
