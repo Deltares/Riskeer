@@ -5,21 +5,22 @@ using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.Integration.Data.Placeholders;
 
 namespace Application.Ringtoets.Storage.Test.Update
 {
     [TestFixture]
-    public class PipingSoilLayerUpdateExtensionsTest
+    public class FailureMechanismPlaceholderUpdateExtensionsTest
     {
+
         [Test]
         public void Update_WithoutContext_ArgumentNullException()
         {
             // Setup
-            var pipingSoilLayer = new PipingSoilLayer(0.5);
+            var failureMechanism = new FailureMechanismPlaceholder("name");
 
             // Call
-            TestDelegate test = () => pipingSoilLayer.Update(new UpdateConversionCollector(), null);
+            TestDelegate test = () => failureMechanism.Update(new UpdateConversionCollector(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -30,14 +31,14 @@ namespace Application.Ringtoets.Storage.Test.Update
         public void Update_WithoutCollector_ArgumentNullException()
         {
             // Setup
-            var pipingSoilLayer = new PipingSoilLayer(0.5);
+            var failureMechanism = new FailureMechanismPlaceholder("name");
 
             // Call
             TestDelegate test = () =>
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    pipingSoilLayer.Update(null, ringtoetsEntities);
+                    failureMechanism.Update(null, ringtoetsEntities);
                 }
             };
 
@@ -47,28 +48,28 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoPipingSoilLayer_EntityNotFoundException()
+        public void Update_ContextWithNoFailureMechanism_EntityNotFoundException()
         {
             // Setup
-            var pipingSoilLayer = new PipingSoilLayer(0.5);
+            var failureMechanism = new FailureMechanismPlaceholder("name");
 
             // Call
             TestDelegate test = () =>
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    pipingSoilLayer.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                    failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
                 }
             };
 
             // Assert
-            var expectedMessage = String.Format("Het object 'SoilLayerEntity' met id '{0}' is niet gevonden.", 0);
+            var expectedMessage = String.Format("Het object 'FailureMechanismEntity' met id '{0}' is niet gevonden.", 0);
             EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
-        public void Update_ContextWithNoPipingSoilLayerWithId_EntityNotFoundException()
+        public void Update_ContextWithNoFailureMechanismWithId_EntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -76,32 +77,30 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var random = new Random(21);
-            double newTop = random.NextDouble() * 10;
             var storageId = 1;
-            var pipingSoilLayer = new PipingSoilLayer(newTop)
+            var failureMechanism = new FailureMechanismPlaceholder("name")
             {
                 StorageId = storageId
             };
 
-            ringtoetsEntities.SoilLayerEntities.Add(new SoilLayerEntity
+            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity
             {
-                SoilLayerEntityId = 2
+                FailureMechanismEntityId = 2
             });
 
             // Call
-            TestDelegate test = () => pipingSoilLayer.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
 
             // Assert
-            var expectedMessage = String.Format("Het object 'SoilLayerEntity' met id '{0}' is niet gevonden.", storageId);
+            var expectedMessage = String.Format("Het object 'FailureMechanismEntity' met id '{0}' is niet gevonden.", storageId);
             EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
-            
+
             mocks.VerifyAll();
-        } 
+        }
 
         [Test]
-        public void Update_WithPipingSoilLayer_PropertiesUpdated()
+        public void Update_ContextWithFailureMechanism_PropertiesUpdated()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -109,29 +108,25 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var random = new Random(21);
-            double newTop = random.NextDouble() * 10;
-            var pipingSoilLayer = new PipingSoilLayer(newTop)
+            var failureMechanism = new FailureMechanismPlaceholder("name")
             {
                 StorageId = 1,
-                IsAquifer = true
+                IsRelevant = true
             };
 
-            var soilLayerEntity = new SoilLayerEntity
+            var failureMechanismEntity = new FailureMechanismEntity
             {
-                SoilLayerEntityId = 1,
-                Top = 0,
-                IsAquifer = Convert.ToByte(false)
+                FailureMechanismEntityId = 1,
+                IsRelevant = Convert.ToByte(false)
             };
 
-            ringtoetsEntities.SoilLayerEntities.Add(soilLayerEntity);
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
 
             // Call
-            pipingSoilLayer.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
 
             // Assert
-            Assert.AreEqual(Convert.ToDouble(newTop), Convert.ToDouble(soilLayerEntity.Top), 1e-6);
-            Assert.AreEqual(Convert.ToByte(true), soilLayerEntity.IsAquifer);
+            Assert.AreEqual(Convert.ToByte(true), failureMechanismEntity.IsRelevant);
 
             mocks.VerifyAll();
         } 

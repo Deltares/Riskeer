@@ -139,4 +139,7 @@
   <data name="Ringtoets_project_file_filter" xml:space="preserve">
     <value>Ringtoetsproject (*.rtd)|*.rtd</value>
   </data>
+  <data name="StorageSqLite_LoadProject_Invalid_Ringtoets_database_file" xml:space="preserve">
+    <value>Het bestand is geen geldig Ringtoets bestand.</value>
+  </data>
 </root>

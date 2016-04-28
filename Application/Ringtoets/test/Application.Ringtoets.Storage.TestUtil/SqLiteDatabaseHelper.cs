@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Data.Entity.Core.EntityClient;
 using System.Data.SQLite;
 using Core.Common.Base.Data;
+using Core.Common.Base.Properties;
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.TestUtil
@@ -96,6 +98,15 @@ namespace Application.Ringtoets.Storage.TestUtil
             return "DROP TABLE IF EXISTS 'VersionEntity'; " +
                    "CREATE TABLE VersionEntity (VersionId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                    " FromVersion VARCHAR (16), ToVersion VARCHAR (16),Timestamp NUMERIC); ";
+        }
+
+        /// <summary>
+        /// Returns a corrupt databaseschema that will pass validation.
+        /// </summary>
+        /// <returns>The corrupt databaseschema that will pass validation.</returns>
+        public static string GetCompleteSchema()
+        {
+            return Properties.Resources.DatabaseStructure;
         }
     }
 }

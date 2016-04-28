@@ -35,7 +35,13 @@ namespace Application.Ringtoets.Storage.Test.Update
             var soilProfile = new TestStochasticSoilProfile();
 
             // Call
-            TestDelegate test = () => soilProfile.Update(null, new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    soilProfile.Update(null, ringtoetsEntities);
+                }
+            };
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -49,14 +55,54 @@ namespace Application.Ringtoets.Storage.Test.Update
             var soilProfile = new TestStochasticSoilProfile();
 
             // Call
-            TestDelegate test = () => soilProfile.Update(new UpdateConversionCollector(), new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    soilProfile.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                }
+            };
 
             // Assert
-            Assert.Throws<EntityNotFoundException>(test);
+            var expectedMessage = String.Format("Het object 'StochasticSoilProfileEntity' met id '{0}' is niet gevonden.", 0);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
-        public void Update_WithNewSoilProfile_PropertiesUpdatedSoilProfileAdded()
+        public void Update_WithNoStochasticSoilProfileWithId_EntityNotFoundException()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+
+            mocks.ReplayAll();
+
+            var storageId = 1;
+            var soilProfile = new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, -1)
+            {
+                StorageId = storageId,
+                SoilProfile = new TestPipingSoilProfile()
+            };
+
+            ringtoetsEntities.StochasticSoilProfileEntities.Add(new StochasticSoilProfileEntity
+            {
+                StochasticSoilProfileEntityId = 2,
+            });
+
+            // Call
+            TestDelegate test = () => soilProfile.Update(new UpdateConversionCollector(), ringtoetsEntities);
+
+            // Assert
+            var expectedMessage = String.Format("Het object 'StochasticSoilProfileEntity' met id '{0}' is niet gevonden.", storageId);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_WithNewStochasticSoilProfile_PropertiesUpdatedSoilProfileAdded()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -90,7 +136,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_WithUpdatedSoilProfile_InstanceReferenceNotChanged()
+        public void Update_WithUpdatedStochasticSoilProfile_InstanceReferenceNotChanged()
         {
             // Setup
             MockRepository mocks = new MockRepository();

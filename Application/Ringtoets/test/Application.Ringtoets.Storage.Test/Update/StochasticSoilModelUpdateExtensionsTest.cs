@@ -36,7 +36,13 @@ namespace Application.Ringtoets.Storage.Test.Update
             var soilModel = new TestStochasticSoilModel();
 
             // Call
-            TestDelegate test = () => soilModel.Update(null, new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    soilModel.Update(null, ringtoetsEntities);
+                }
+            };
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,10 +56,51 @@ namespace Application.Ringtoets.Storage.Test.Update
             var soilModel = new TestStochasticSoilModel();
 
             // Call
-            TestDelegate test = () => soilModel.Update(new UpdateConversionCollector(), new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    soilModel.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                }
+            };
 
             // Assert
-            Assert.Throws<EntityNotFoundException>(test);
+            var expectedMessage = String.Format("Het object 'StochasticSoilModelEntity' met id '{0}' is niet gevonden.", 0);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void Update_ContextWithNoStochasticSoilModelWithId_EntityNotFoundException()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+
+            mocks.ReplayAll();
+
+            var storageId = 1;
+            var soilModel = new StochasticSoilModel(-storageId, "name", "segment name")
+            {
+                StorageId = storageId,
+            };
+
+            ringtoetsEntities.StochasticSoilModelEntities.Add(new StochasticSoilModelEntity
+            {
+                StochasticSoilModelEntityId = 2,
+                Name = string.Empty,
+                SegmentName = string.Empty
+            });
+
+            // Call
+            TestDelegate test = () => soilModel.Update(new UpdateConversionCollector(), ringtoetsEntities);
+
+            // Assert
+            var expectedMessage = String.Format("Het object 'StochasticSoilModelEntity' met id '{0}' is niet gevonden.", storageId);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+
+            mocks.VerifyAll();
         }
 
         [Test]

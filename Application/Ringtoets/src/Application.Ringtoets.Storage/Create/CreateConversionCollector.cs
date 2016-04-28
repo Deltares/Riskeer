@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
@@ -6,12 +7,16 @@ using Core.Common.Utils;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Create
 {
+    /// <summary>
+    /// This class can be used to keep track of create operations on a database. When all operations have been performed, then 
+    /// the collected information can be used, for example, to transfer the ids assigned to the created database instances
+    /// back to the data model.
+    /// </summary>
     public class CreateConversionCollector
     {
         private readonly Dictionary<ProjectEntity, Project> projects = new Dictionary<ProjectEntity, Project>(new ReferenceEqualityComparer<ProjectEntity>());
@@ -33,17 +38,12 @@ namespace Application.Ringtoets.Storage.Create
             Add(assessmentSections, entity, model);
         }
 
-        public void Add(HydraulicLocationEntity entity, HydraulicBoundaryLocation model)
+        internal void Add(HydraulicLocationEntity entity, HydraulicBoundaryLocation model)
         {
             Add(hydraulicLocations, entity, model);
         }
 
-        public void Add(FailureMechanismEntity entity, FailureMechanismPlaceholder model)
-        {
-            Add(failureMechanisms, entity, model);
-        }
-
-        internal void Add(FailureMechanismEntity entity, PipingFailureMechanism model)
+        internal void Add(FailureMechanismEntity entity, FailureMechanismBase model)
         {
             Add(failureMechanisms, entity, model);
         }
@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Create
 
         internal bool Contains(PipingSoilProfile model)
         {
-            return soilProfiles.ContainsValue(model);
+            return ContainsValue(soilProfiles, model);
         }
 
         internal SoilProfileEntity Get(PipingSoilProfile model)
@@ -121,13 +121,37 @@ namespace Application.Ringtoets.Storage.Create
             }
         }
 
+        private bool ContainsValue<T,U>(Dictionary<T, U> collection, U model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
+            return collection.ContainsValue(model);
+        }
+
         private void Add<T, U>(Dictionary<T, U> collection, T entity, U model)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
             collection[entity] = model;
         }
 
         private T Get<T, U>(Dictionary<T, U> collection, U model)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
             return collection.Keys.Single(k => ReferenceEquals(collection[k], model));
         }
     }

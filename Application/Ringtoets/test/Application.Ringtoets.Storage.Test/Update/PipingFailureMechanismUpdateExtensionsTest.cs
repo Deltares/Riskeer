@@ -33,7 +33,13 @@ namespace Application.Ringtoets.Storage.Test.Update
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.Update(null, new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    failureMechanism.Update(null, ringtoetsEntities);
+                }
+            };
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -41,20 +47,59 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoHydraulicBoundaryLocation_EntityNotFoundException()
+        public void Update_ContextWithNoPipingFailureMechanism_EntityNotFoundException()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.Update(new UpdateConversionCollector(), new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                }
+            };
 
             // Assert
-            Assert.Throws<EntityNotFoundException>(test);
+            var expectedMessage = String.Format("Het object 'FailureMechanismEntity' met id '{0}' is niet gevonden.", 0);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
-        public void Update_ContextWithHydraulicBoundaryLocation_PropertiesUpdated()
+        public void Update_ContextWithNoPipingFailureMechanismWithId_EntityNotFoundException()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+
+            mocks.ReplayAll();
+
+            var storageId = 1;
+            var failureMechanism = new PipingFailureMechanism
+            {
+                StorageId = storageId
+            };
+
+            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = 2
+            });
+
+            // Call
+            TestDelegate test = () => failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+
+            // Assert
+            var expectedMessage = String.Format("Het object 'FailureMechanismEntity' met id '{0}' is niet gevonden.", storageId);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ContextWithPipingFailureMechanism_PropertiesUpdated()
         {
             // Setup
             MockRepository mocks = new MockRepository();

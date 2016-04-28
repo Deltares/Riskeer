@@ -74,7 +74,8 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         public override IEnumerable<T> RemoveRange(IEnumerable<T> entities)
         {
-            foreach (var e in entities)
+            var list = entities.ToList();
+            foreach (var e in list)
             {
                 collection.Remove(e);
             }

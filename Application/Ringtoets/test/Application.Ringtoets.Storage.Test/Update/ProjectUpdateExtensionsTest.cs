@@ -38,7 +38,13 @@ namespace Application.Ringtoets.Storage.Test.Update
             var project = new Project();
 
             // Call
-            TestDelegate test = () => project.Update(null, new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    project.Update(null, ringtoetsEntities);
+                }
+            };
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -52,7 +58,13 @@ namespace Application.Ringtoets.Storage.Test.Update
             var project = new Project();
 
             // Call
-            TestDelegate test = () => project.Update(new UpdateConversionCollector(), new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    project.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                }
+            };
 
             // Assert
             Assert.Throws<EntityNotFoundException>(test);
@@ -67,9 +79,10 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
+            var storageId = 1;
             var project = new Project
             {
-                StorageId = 1
+                StorageId = storageId
             };
 
             ringtoetsEntities.ProjectEntities.Add(new ProjectEntity
@@ -81,7 +94,9 @@ namespace Application.Ringtoets.Storage.Test.Update
             TestDelegate test = () => project.Update(new UpdateConversionCollector(), ringtoetsEntities);
 
             // Assert
-            Assert.Throws<EntityNotFoundException>(test);
+            var expectedMessage = String.Format("Het object 'ProjectEntity' met id '{0}' is niet gevonden.", storageId);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
         }
@@ -95,25 +110,33 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
+            var storageId = 1;
             var project = new Project
             {
-                StorageId = 1
+                StorageId = storageId
             };
 
             ringtoetsEntities.ProjectEntities.Add(new ProjectEntity
             {
-                ProjectEntityId = 1
+                ProjectEntityId = storageId
             });
             ringtoetsEntities.ProjectEntities.Add(new ProjectEntity
             {
-                ProjectEntityId = 1
+                ProjectEntityId = storageId
             });
 
             // Call
             TestDelegate test = () => project.Update(new UpdateConversionCollector(), ringtoetsEntities);
 
             // Assert
-            Assert.Throws<EntityNotFoundException>(test);
+            var expectedMessage = String.Format("Het object 'ProjectEntity' met id '{0}' is niet gevonden.", storageId);
+            var expectedInnerMessage = "Sequence contains more than one matching element";
+
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+
+            Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
+            Assert.AreEqual(expectedInnerMessage, exception.InnerException.Message);
 
             mocks.VerifyAll();
         } 

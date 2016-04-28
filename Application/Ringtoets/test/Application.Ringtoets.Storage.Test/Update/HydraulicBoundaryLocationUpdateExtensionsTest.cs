@@ -3,7 +3,6 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.HydraRing.Data;
@@ -34,7 +33,13 @@ namespace Application.Ringtoets.Storage.Test.Update
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
-            TestDelegate test = () => hydraulicBoundaryLocation.Update(null, new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    hydraulicBoundaryLocation.Update(null, ringtoetsEntities);
+                }
+            };
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -48,10 +53,49 @@ namespace Application.Ringtoets.Storage.Test.Update
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
-            TestDelegate test = () => hydraulicBoundaryLocation.Update(new UpdateConversionCollector(), new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    hydraulicBoundaryLocation.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                }
+            };
 
             // Assert
-            Assert.Throws<EntityNotFoundException>(test);
+            var expectedMessage = String.Format("Het object 'HydraulicLocationEntity' met id '{0}' is niet gevonden.", 0);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void Update_ContextWithNoNoHydraulicBoundaryLocationWithId_EntityNotFoundException()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+
+            mocks.ReplayAll();
+
+            var storageId = 1;
+            var section = new TestHydraulicBoundaryLocation
+            {
+                StorageId = storageId
+            };
+
+            ringtoetsEntities.HydraulicLocationEntities.Add(new HydraulicLocationEntity
+            {
+                HydraulicLocationEntityId = 2
+            });
+
+            // Call
+            TestDelegate test = () => section.Update(new UpdateConversionCollector(), ringtoetsEntities);
+
+            // Assert
+            var expectedMessage = String.Format("Het object 'HydraulicLocationEntity' met id '{0}' is niet gevonden.", storageId);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+
+            mocks.VerifyAll();
         }
 
         [Test]

@@ -35,7 +35,13 @@ namespace Application.Ringtoets.Storage.Test.Update
             var soilProfile = new TestPipingSoilProfile();
 
             // Call
-            TestDelegate test = () => soilProfile.Update(null, new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    soilProfile.Update(null, ringtoetsEntities);
+                }
+            };
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -43,16 +49,61 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoStochasticSoilModel_EntityNotFoundException()
+        public void Update_ContextWithNoPipingSoilProfile_EntityNotFoundException()
         {
             // Setup
             var soilProfile = new TestPipingSoilProfile();
 
             // Call
-            TestDelegate test = () => soilProfile.Update(new UpdateConversionCollector(), new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    soilProfile.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                }
+            };
 
             // Assert
-            Assert.Throws<EntityNotFoundException>(test);
+            var expectedMessage = String.Format("Het object 'SoilProfileEntity' met id '{0}' is niet gevonden.", 0);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void Update_ContextWithNoPipingSoilProfileWithId_PropertiesUpdatedAndLayerAdded()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+
+            mocks.ReplayAll();
+
+            IEnumerable<PipingSoilLayer> newLayers = new[]
+            {
+                new PipingSoilLayer(5.0)
+            };
+            var storageId = 1;
+            var soilProfile = new PipingSoilProfile("new name", 0.5, newLayers, SoilProfileType.SoilProfile1D, -1)
+            {
+                StorageId = storageId
+            };
+
+            ringtoetsEntities.SoilProfileEntities.Add(new SoilProfileEntity
+            {
+                SoilProfileEntityId = 2,
+                Name = string.Empty,
+                Bottom = 0
+            });
+
+            // Call
+            TestDelegate test = () => soilProfile.Update(new UpdateConversionCollector(), ringtoetsEntities);
+
+            // Assert
+            var expectedMessage = String.Format("Het object 'SoilProfileEntity' met id '{0}' is niet gevonden.", storageId);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+
+            mocks.VerifyAll();
         }
 
         [Test]

@@ -80,20 +80,14 @@ namespace Application.Ringtoets.Storage
             SetConnectionToNewFile(databaseFilePath);
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
-                var projectEntityPersistor = new ProjectPersistor(dbContext);
                 try
                 {
-//                    projectEntityPersistor.InsertModel(project);
-
                     var collector = new CreateConversionCollector();
                     dbContext.ProjectEntities.Add(project.Create(collector));
                     var changes = dbContext.SaveChanges();
                     collector.TransferIds();
 
-//                    projectEntityPersistor.PerformPostSaveActions();
-
                     project.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
-
                     return changes;
                 }
                 catch (DataException exception)
@@ -138,23 +132,19 @@ namespace Application.Ringtoets.Storage
             SetConnectionToFile(databaseFilePath);
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
-                var projectEntityPersistor = new ProjectPersistor(dbContext);
                 try
                 {
-//                    projectEntityPersistor.UpdateModel(project);
-//                    projectEntityPersistor.RemoveUnModifiedEntries();
-
                     var updateCollector = new UpdateConversionCollector();
                     project.Update(updateCollector, dbContext);
                     updateCollector.RemoveUntouched(dbContext);
                     var changes = dbContext.SaveChanges();
                     updateCollector.TransferIds();
-//                    projectEntityPersistor.PerformPostSaveActions();
+
                     return changes;
                 }
-                catch (EntityNotFoundException)
+                catch (EntityNotFoundException e)
                 {
-                    throw CreateStorageWriterException(string.Format(Resources.Error_Entity_Not_Found_0_1, "project", project.StorageId));
+                    throw CreateStorageWriterException(e.Message, e);
                 }
                 catch (DataException exception)
                 {
@@ -195,7 +185,7 @@ namespace Application.Ringtoets.Storage
                     var projectEntity = GetSingleProject(dbContext);
                     if (projectEntity == null)
                     {
-                        throw CreateStorageReaderException("Het bestand is geen geldig Ringtoets bestand.");
+                        throw CreateStorageReaderException(Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file);
                     }
 
                     var project = projectEntity.Read();
@@ -235,12 +225,8 @@ namespace Application.Ringtoets.Storage
 
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
-//                var projectEntityPersistor = new ProjectPersistor(dbContext);
                 try
                 {
-//                    projectEntityPersistor.UpdateModel(project);
-//                    projectEntityPersistor.RemoveUnModifiedEntries();
-
                     var updateConversionCollector = new UpdateConversionCollector();
                     project.Update(updateConversionCollector, dbContext);
                     updateConversionCollector.RemoveUntouched(dbContext);

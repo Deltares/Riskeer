@@ -22,17 +22,17 @@ namespace Application.Ringtoets.Storage.Update
             projects.Add(entity);
         }
 
-        public void Update(AssessmentSectionEntity entity)
+        internal void Update(AssessmentSectionEntity entity)
         {
             assessmentSections.Add(entity);
         }
 
-        public void Update(FailureMechanismEntity entity)
+        internal void Update(FailureMechanismEntity entity)
         {
             failureMechanisms.Add(entity);
         }
 
-        public void Update(HydraulicLocationEntity entity)
+        internal void Update(HydraulicLocationEntity entity)
         {
             hydraulicLocations.Add(entity);
         }
@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Update
             soilLayers.Add(entity);
         }
 
-        public void RemoveUntouched(RingtoetsEntities dbContext)
+        public void RemoveUntouched(IRingtoetsEntities dbContext)
         {
             var projectEntities = dbContext.ProjectEntities;
             projectEntities.RemoveRange(projectEntities.Local.Except(projects));

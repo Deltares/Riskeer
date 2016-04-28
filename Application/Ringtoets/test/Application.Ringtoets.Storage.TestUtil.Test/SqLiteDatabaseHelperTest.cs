@@ -146,7 +146,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             MockRepository mockRepository = new MockRepository();
             var projectMock = mockRepository.StrictMock<Project>();
 
-            using (new FileDisposeHelper(validPath))
+            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(validPath);
+            try
             {
                 // Call
                 TestDelegate test = () => SqLiteDatabaseHelper.CreateValidRingtoetsDatabase(validPath, projectMock);
@@ -154,7 +155,11 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
                 // Assert
                 Assert.DoesNotThrow(test);
                 Assert.IsTrue(File.Exists(validPath));
+            } 
+            finally
+            {
                 CallGarbageCollector();
+                fileDisposeHelper.Dispose();
             }
         }
 

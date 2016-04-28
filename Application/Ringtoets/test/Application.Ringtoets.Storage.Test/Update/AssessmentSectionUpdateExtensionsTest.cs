@@ -37,7 +37,13 @@ namespace Application.Ringtoets.Storage.Test.Update
             var section = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            TestDelegate test = () => section.Update(null, new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    section.Update(null, ringtoetsEntities);
+                }
+            };
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -51,10 +57,18 @@ namespace Application.Ringtoets.Storage.Test.Update
             var section = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            TestDelegate test = () => section.Update(new UpdateConversionCollector(), new RingtoetsEntities());
+            TestDelegate test = () =>
+            {
+                using (var ringtoetsEntities = new RingtoetsEntities())
+                {
+                    section.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                }
+            };
 
             // Assert
-            Assert.Throws<EntityNotFoundException>(test);
+            var expectedMessage = String.Format("Het object 'AssessmentSectionEntity' met id '{0}' is niet gevonden.", 0);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]
@@ -66,9 +80,10 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
+            var storageId = 1;
             var section = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                StorageId = 1
+                StorageId = storageId
             };
 
             ringtoetsEntities.AssessmentSectionEntities.Add(new AssessmentSectionEntity
@@ -80,7 +95,9 @@ namespace Application.Ringtoets.Storage.Test.Update
             TestDelegate test = () => section.Update(new UpdateConversionCollector(), ringtoetsEntities);
 
             // Assert
-            Assert.Throws<EntityNotFoundException>(test);
+            var expectedMessage = String.Format("Het object 'AssessmentSectionEntity' met id '{0}' is niet gevonden.", storageId);
+            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
         }
