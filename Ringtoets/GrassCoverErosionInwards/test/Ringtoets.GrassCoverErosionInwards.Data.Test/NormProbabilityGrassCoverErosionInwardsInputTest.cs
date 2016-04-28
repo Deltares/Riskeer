@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -37,19 +40,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void N_Always_ReturnsExpectedValue()
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void N_ValueIntsideValidRegion_DoesNotThrow(int value)
         {
             // Setup
-            const int newNValue = 10;
+            var inputParameters = new NormProbabilityGrassCoverErosionInwardsInput();
 
             // Call
-            var inputParameters = new NormProbabilityGrassCoverErosionInwardsInput
-            {
-                N = newNValue
-            };
+            TestDelegate test = () => inputParameters.N = value;
 
             // Assert
-            Assert.AreEqual(newNValue, inputParameters.N);
+            Assert.DoesNotThrow(test);
+            Assert.AreEqual(value, inputParameters.N);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(21)]
+        public void N_ValueOutsideValidRegion_ThrowsArgumentException(int value)
+        {
+            // Setup
+            var inputParameters = new NormProbabilityGrassCoverErosionInwardsInput();
+
+            // Call
+            TestDelegate test = () => inputParameters.N = value;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.N_Value_should_be_in_interval_1_20);
         }
     }
 }
