@@ -542,7 +542,7 @@ namespace Ringtoets.Piping.Plugin
                 var succesfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(pipingCalculationContext.WrappedData);
                 if (succesfullyRemovedData)
                 {
-                    RemoveCalculation(pipingCalculationContext.WrappedData, pipingCalculationContext.PipingFailureMechanism);
+                    RemoveCalculationFromSectionResult(pipingCalculationContext.WrappedData, pipingCalculationContext.PipingFailureMechanism);
                     calculationGroupContext.NotifyObservers();
                 }
             }
@@ -804,12 +804,7 @@ namespace Ringtoets.Piping.Plugin
         private bool PipingCalculationGroupContextCanRemove(PipingCalculationGroupContext nodeData, object parentNodeData)
         {
             var group = parentNodeData as PipingCalculationGroupContext;
-            if (group != null)
-            {
-                return group.WrappedData.Children.Contains(nodeData.WrappedData);
-            }
-
-            return false;
+            return group != null && group.WrappedData.Children.Contains(nodeData.WrappedData);
         }
 
         private void PipingCalculationGroupContextOnNodeRemoved(PipingCalculationGroupContext nodeData, object parentNodeData)
@@ -821,14 +816,14 @@ namespace Ringtoets.Piping.Plugin
 
                 foreach (var calculation in nodeData.WrappedData.GetCalculations().Cast<PipingCalculationScenario>())
                 {
-                    RemoveCalculation(calculation, nodeData.PipingFailureMechanism);
+                    RemoveCalculationFromSectionResult(calculation, nodeData.PipingFailureMechanism);
                 }
 
                 group.NotifyObservers();
             }
         }
 
-        private void RemoveCalculation(PipingCalculationScenario calculation, PipingFailureMechanism pipingFailureMechanism)
+        private void RemoveCalculationFromSectionResult(PipingCalculationScenario calculation, PipingFailureMechanism pipingFailureMechanism)
         {
             PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(calculation, pipingFailureMechanism);
         }

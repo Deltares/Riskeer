@@ -129,12 +129,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         {
             // Setup
             var group = new CalculationGroup();
-            var pipingFailureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                 pipingFailureMechanismMock,
+                                                                 failureMechanismMock,
                                                                  assessmentSectionMock);
 
             // Call
@@ -182,7 +182,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextmenuStrip_Always_ReturnContextWithItems()
+        public void ContextmenuStrip_FailureMechanismContextParent_ReturnContextMenuWithoutRenameRemove()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
@@ -191,7 +191,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-            var parentData = new object();
+            var parentData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                failureMechanismMock, 
                                                                                assessmentSectionMock);
@@ -215,17 +215,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
 
             // Assert
+            var mainCalculationGroupContextItemOffset = 2;
             Assert.AreEqual(12, menu.Items.Count);
             TestHelper.AssertContextMenuStripContainsItem(menu, 0,
                                                           CoreCommonGuiResources.Open,
                                                           CoreCommonGuiResources.Open_ToolTip,
                                                           CoreCommonGuiResources.OpenIcon,
                                                           false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 2,
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex + mainCalculationGroupContextItemOffset,
                                                           RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
                                                           "Voeg een nieuwe berekeningsmap toe aan dit faalmechanisme.",
                                                           RingtoetsFormsResources.AddFolderIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 3,
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationItemIndex + mainCalculationGroupContextItemOffset,
                                                           RingtoetsFormsResources.CalculationGroup_Add_Calculation,
                                                           "Voeg een nieuwe grasbekleding erosie kruin en binnentalud berekening toe aan dit faalmechanisme.",
                                                           GrassCoverErosionInwardsFormResources.CalculationIcon);
@@ -262,6 +263,102 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 menu.Items[4],
                 menu.Items[7],
                 menu.Items[10]
+            }, typeof(ToolStripSeparator));
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextmenuStrip_ChildOfGroup_ReturnContextMenuWithAllItems()
+        {
+            // Setup
+            var gui = mocks.StrictMock<IGui>();
+            var parentGroup = new CalculationGroup();
+            var group = new CalculationGroup();
+
+            parentGroup.Children.Add(group);
+
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+            var parentData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
+                                                                               failureMechanismMock,
+                                                                               assessmentSectionMock);
+
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                               failureMechanismMock, 
+                                                                               assessmentSectionMock);
+
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
+            gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+            treeViewControl.Expect(tvc => tvc.CanRenameNodeForData(nodeData)).Return(true);
+            treeViewControl.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(true);
+            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            // Call
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+
+            // Assert
+            Assert.AreEqual(13, menu.Items.Count);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                          "Voeg een nieuwe berekeningsmap toe aan dit faalmechanisme.",
+                                                          RingtoetsFormsResources.AddFolderIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationItemIndex,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation,
+                                                          "Voeg een nieuwe grasbekleding erosie kruin en binnentalud berekening toe aan dit faalmechanisme.",
+                                                          GrassCoverErosionInwardsFormResources.CalculationIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 3,
+                                                          CoreCommonGuiResources.Rename,
+                                                          CoreCommonGuiResources.Rename_ToolTip,
+                                                          CoreCommonGuiResources.RenameIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 4,
+                                                          CoreCommonGuiResources.Delete,
+                                                          CoreCommonGuiResources.Delete_ToolTip,
+                                                          CoreCommonGuiResources.DeleteIcon);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 6,
+                                                          CoreCommonGuiResources.Import,
+                                                          CoreCommonGuiResources.Import_ToolTip,
+                                                          CoreCommonGuiResources.ImportIcon,
+                                                          false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 7,
+                                                          CoreCommonGuiResources.Export,
+                                                          CoreCommonGuiResources.Export_ToolTip,
+                                                          CoreCommonGuiResources.ExportIcon,
+                                                          false);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 9,
+                                                          CoreCommonGuiResources.Expand_all,
+                                                          CoreCommonGuiResources.Expand_all_ToolTip,
+                                                          CoreCommonGuiResources.ExpandAllIcon,
+                                                          false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 10,
+                                                          CoreCommonGuiResources.Collapse_all,
+                                                          CoreCommonGuiResources.Collapse_all_ToolTip,
+                                                          CoreCommonGuiResources.CollapseAllIcon,
+                                                          false);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 12,
+                                                          CoreCommonGuiResources.Properties,
+                                                          CoreCommonGuiResources.Properties_ToolTip,
+                                                          CoreCommonGuiResources.PropertiesHS,
+                                                          false);
+            CollectionAssert.AllItemsAreInstancesOfType(new[]
+            {
+                menu.Items[2],
+                menu.Items[5],
+                menu.Items[8],
+                menu.Items[11]
             }, typeof(ToolStripSeparator));
 
             mocks.VerifyAll();
@@ -366,7 +463,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRenameNode_ParentIsPipingFailureMechanismContext_ReturnFalse()
+        public void CanRenameNode_ParentIsGrassCoverErosionInwardsFailureMechanismContext_ReturnFalse()
         {
             // Setup
             var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
@@ -419,7 +516,161 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        private const int contextMenuAddCalculationGroupIndex = 1;
-        private const int contextMenuAddCalculationItemIndex = 2;
+        [Test]
+        public void CanRemove_ParentIsFailureMechanism_ReturnFalse()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                             failureMechanismMock,
+                                                             assessmentSectionMock);
+
+            var parentNodeData = new GrassCoverErosionInwardsFailureMechanism();
+            parentNodeData.CalculationsGroup.Children.Add(group);
+
+            mocks.ReplayAll();
+
+            // Call
+            bool isRemovalAllowed = info.CanRemove(nodeData, parentNodeData);
+
+            // Assert
+            Assert.IsFalse(isRemovalAllowed);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanRemove_ParentIsGrasCoverErosionInwardsCalculationGroupContainingGroup_ReturnTrue()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                             failureMechanismMock,
+                                                             assessmentSectionMock);
+
+            var parentGroup = new CalculationGroup();
+            parentGroup.Children.Add(group);
+            var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
+                                                                   failureMechanismMock,
+                                                                   assessmentSectionMock);
+
+            mocks.ReplayAll();
+
+            // Call
+            bool isRemovalAllowed = info.CanRemove(nodeData, parentNodeData);
+
+            // Assert
+            Assert.IsTrue(isRemovalAllowed);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanRemove_ParentIsGrasCoverErosionInwardsCalculationGroupNotContainingGroup_ReturnFalse()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                             failureMechanismMock,
+                                                             assessmentSectionMock);
+
+            var parentGroup = new CalculationGroup();
+            var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
+                                                                   failureMechanismMock,
+                                                                   assessmentSectionMock);
+
+            // Precondition
+            CollectionAssert.DoesNotContain(parentGroup.Children, group);
+
+            // Call
+            bool isRemovalAllowed = info.CanRemove(nodeData, parentNodeData);
+
+            // Assert
+            Assert.IsFalse(isRemovalAllowed);
+        }
+
+        [Test]
+        public void OnNodeRemoved_ParentIsPipingCalculationGroupContainingGroup_RemoveGroupAndNotifyObservers()
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var group = new CalculationGroup();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                             failureMechanismMock,
+                                                             assessmentSectionMock);
+
+            var parentGroup = new CalculationGroup();
+            parentGroup.Children.Add(group);
+            var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
+                                                                   failureMechanismMock,
+                                                                   assessmentSectionMock);
+            parentNodeData.Attach(observer);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentNodeData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(parentGroup.Children, group);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OnNodeRemoved_ParentIsPipingCalculationGroupContainingGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var group = new CalculationGroup();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            group.Children.Add(calculation);
+
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                             failureMechanismMock,
+                                                             assessmentSectionMock);
+
+            var parentGroup = new CalculationGroup();
+            parentGroup.Children.Add(group);
+            var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
+                                                                   failureMechanismMock,
+                                                                   assessmentSectionMock);
+            parentNodeData.Attach(observer);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentNodeData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(parentGroup.Children, group);
+            mocks.VerifyAll();
+        }
+
+        private const int contextMenuAddCalculationGroupIndex = 0;
+        private const int contextMenuAddCalculationItemIndex = 1;
     }
 }

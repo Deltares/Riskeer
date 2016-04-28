@@ -75,8 +75,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 EnsureVisibleOnCreate = grassCoverErosionInwardsCalculationGroupContext => true,
                 ChildNodeObjects = CalculationGroupContextChildNodeObjects,
                 ContextMenuStrip = CalculationGroupContextContextMenuStrip,
-                CanRename = CalculationGroupCanRename,
-                OnNodeRenamed = CalculationGroupOnNodeRenamed
+                CanRename = CalculationGroupContextCanRename,
+                OnNodeRenamed = CalculationGroupContextOnNodeRenamed,
+                CanRemove = CalculationGroupContextCanRemove,
+                OnNodeRemoved = CalculationGroupContextOnNodeRemoved
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsCalculationContext>
@@ -312,12 +314,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             var builder = Gui.Get(nodeData, treeViewControl);
 
-            return builder
-                .AddOpenItem()
-                .AddSeparator()
+            if (parentData is GrassCoverErosionInwardsFailureMechanismContext)
+            {
+                builder
+                    .AddOpenItem()
+                    .AddSeparator();
+            }
+
+            builder
                 .AddCustomItem(addCalculationGroupItem)
                 .AddCustomItem(addCalculationItem)
-                .AddSeparator()
+                .AddSeparator();
+
+            var isRenamable = CalculationGroupContextCanRename(nodeData, parentData);
+            var isRemovable = CalculationGroupContextCanRemove(nodeData, parentData);
+
+            if (isRenamable)
+            {
+                builder.AddRenameItem();
+            }
+            if (isRemovable)
+            {
+                builder.AddDeleteItem();
+            }
+
+            if (isRemovable || isRenamable)
+            {
+                builder.AddSeparator();
+            }
+
+            return builder
                 .AddImportItem()
                 .AddExportItem()
                 .AddSeparator()
@@ -328,15 +354,31 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 .Build();
         }
 
-        private bool CalculationGroupCanRename(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentData)
+        private bool CalculationGroupContextCanRename(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentData)
         {
             return !(parentData is GrassCoverErosionInwardsFailureMechanismContext);
         }
 
-        private void CalculationGroupOnNodeRenamed(GrassCoverErosionInwardsCalculationGroupContext nodeData, string newName)
+        private void CalculationGroupContextOnNodeRenamed(GrassCoverErosionInwardsCalculationGroupContext nodeData, string newName)
         {
             nodeData.WrappedData.Name = newName;
             nodeData.NotifyObservers();
+        }
+
+        private bool CalculationGroupContextCanRemove(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentNodeData)
+        {
+            var group = parentNodeData as GrassCoverErosionInwardsCalculationGroupContext;
+            return group != null && group.WrappedData.Children.Contains(nodeData.WrappedData);
+        }
+
+        private void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentNodeData)
+        {
+            var group = parentNodeData as GrassCoverErosionInwardsCalculationGroupContext;
+            if (group != null)
+            {
+                group.WrappedData.Children.Remove(nodeData.WrappedData);
+                group.NotifyObservers();
+            }
         }
 
         #endregion
