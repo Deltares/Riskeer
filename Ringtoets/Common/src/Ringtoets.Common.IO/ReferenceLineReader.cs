@@ -116,16 +116,7 @@ namespace Ringtoets.Common.IO
                 throw new CriticalFileReadException(message);
             }
 
-            try
-            {
-                return (MapLineData) lineShapeReader.ReadLine(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
-            }
-            catch (InvalidCastException exception)
-            {
-                string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_must_contain_1_polyline);
-                throw new CriticalFileReadException(message, exception);
-            }
+            return (MapLineData) lineShapeReader.ReadLine(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
         }
 
         private static ReferenceLine CreateReferenceLine(MapLineData lineMapData, string shapeFilePath)
