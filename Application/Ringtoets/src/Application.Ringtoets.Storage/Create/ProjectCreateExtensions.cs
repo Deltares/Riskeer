@@ -22,7 +22,7 @@ namespace Application.Ringtoets.Storage.DbContext
 
             CreateAssessmentSections(project, entity, collector);
 
-            collector.Add(entity, project);
+            collector.Create(entity, project);
             return entity;
         }
 

@@ -19,7 +19,7 @@ namespace Application.Ringtoets.Storage.Create
                 IsRelevant = Convert.ToByte(mechanism.IsRelevant)
             };
 
-            collector.Add(entity, mechanism);
+            collector.Create(entity, mechanism);
             return entity;
         }
     }

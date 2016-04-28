@@ -24,7 +24,7 @@ namespace Application.Ringtoets.Storage.DbContext
                 entity.StochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(collector));
             }
 
-            collector.Add(entity, model);
+            collector.Create(entity, model);
             return entity;
         }
     }

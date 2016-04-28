@@ -22,7 +22,7 @@ namespace Application.Ringtoets.Storage.DbContext
                 DesignWaterLevel = Double.IsNaN(location.DesignWaterLevel) ? (double?) null : Convert.ToDouble(location.DesignWaterLevel)
             };
 
-            collector.Add(entity, location);
+            collector.Create(entity, location);
             return entity;
         }
     }

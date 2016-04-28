@@ -110,6 +110,7 @@
     <Compile Include="Read\FailureMechanismEntityTest.cs" />
     <Compile Include="Read\HydraulicLocationEntityTest.cs" />
     <Compile Include="Read\ProjectEntityTest.cs" />
+    <Compile Include="Read\ReadConversionCollectorTest.cs" />
     <Compile Include="Read\ReferenceLinePointEntityTest.cs" />
     <Compile Include="Read\SoilLayerEntityTest.cs" />
     <Compile Include="Read\SoilProfileEntityTest.cs" />

@@ -14,7 +14,7 @@ namespace Application.Ringtoets.Storage.DbContext
                 SoilProfileEntity = profile.SoilProfile.Create(collector)
             };
 
-            collector.Add(entity, profile);
+            collector.Create(entity, profile);
             return entity;
         }
     }

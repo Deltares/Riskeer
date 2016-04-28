@@ -19,7 +19,7 @@ namespace Application.Ringtoets.Storage.DbContext
                 Top = Convert.ToDecimal(layer.Top)
             };
 
-            collector.Add(entity, layer);
+            collector.Create(entity, layer);
             return entity;
         }
     }

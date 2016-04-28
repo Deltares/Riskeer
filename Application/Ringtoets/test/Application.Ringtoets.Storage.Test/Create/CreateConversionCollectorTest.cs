@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var collector = new CreateConversionCollector();
             var profile = new TestPipingSoilProfile();
-            collector.Add(new SoilProfileEntity(), profile);
+            collector.Create(new SoilProfileEntity(), profile);
 
             // Call
             var result = collector.Contains(profile);
@@ -68,7 +68,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var collector = new CreateConversionCollector();
             var profile = new TestPipingSoilProfile();
-            collector.Add(new SoilProfileEntity(), new TestPipingSoilProfile());
+            collector.Create(new SoilProfileEntity(), new TestPipingSoilProfile());
 
             // Call
             var result = collector.Contains(profile);
@@ -98,7 +98,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var collector = new CreateConversionCollector();
             var profile = new TestPipingSoilProfile();
             var entity = new SoilProfileEntity();
-            collector.Add(entity, profile);
+            collector.Create(entity, profile);
 
             // Call
             var result = collector.Get(profile);
@@ -127,7 +127,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var collector = new CreateConversionCollector();
             var profile = new TestPipingSoilProfile();
-            collector.Add(new SoilProfileEntity(), new TestPipingSoilProfile());
+            collector.Create(new SoilProfileEntity(), new TestPipingSoilProfile());
 
             // Call
             TestDelegate test = () => collector.Get(profile);
@@ -136,16 +136,16 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.Throws<InvalidOperationException>(test);
         }
 
-        #region Add methods
+        #region Create methods
 
         [Test]
-        public void Add_WithNullProjectEntity_ThrowsArgumentNullException()
+        public void Create_WithNullProjectEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Add(null, new Project());
+            TestDelegate test = () => collector.Create(null, new Project());
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -153,13 +153,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullProject_ThrowsArgumentNullException()
+        public void Create_WithNullProject_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Add(new ProjectEntity(), null);
+            TestDelegate test = () => collector.Create(new ProjectEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -167,13 +167,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullAssessmentSectionEntity_ThrowsArgumentNullException()
+        public void Create_WithNullAssessmentSectionEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
             
             // Call
-            TestDelegate test = () => collector.Add(null, new AssessmentSection(AssessmentSectionComposition.Dike));
+            TestDelegate test = () => collector.Create(null, new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -181,13 +181,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullAssessmentSection_ThrowsArgumentNullException()
+        public void Create_WithNullAssessmentSection_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
             
             // Call
-            TestDelegate test = () => collector.Add(new AssessmentSectionEntity(), null);
+            TestDelegate test = () => collector.Create(new AssessmentSectionEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -195,7 +195,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullFailureMechanismEntity_ThrowsArgumentNullException()
+        public void Create_WithNullFailureMechanismEntity_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -203,7 +203,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var collector = new CreateConversionCollector();
             
             // Call
-            TestDelegate test = () => collector.Add(null, model);
+            TestDelegate test = () => collector.Create(null, model);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -211,13 +211,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullFailureMechanismBase_ThrowsArgumentNullException()
+        public void Create_WithNullFailureMechanismBase_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
             
             // Call
-            TestDelegate test = () => collector.Add(new FailureMechanismEntity(), null);
+            TestDelegate test = () => collector.Create(new FailureMechanismEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -225,13 +225,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullHydraulicLocationEntity_ThrowsArgumentNullException()
+        public void Create_WithNullHydraulicLocationEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Add(null, new HydraulicBoundaryLocation(-1, "name", 0, 0));
+            TestDelegate test = () => collector.Create(null, new HydraulicBoundaryLocation(-1, "name", 0, 0));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -239,13 +239,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullHydraulicBoundaryLocation_ThrowsArgumentNullException()
+        public void Create_WithNullHydraulicBoundaryLocation_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Add(new HydraulicLocationEntity(), null);
+            TestDelegate test = () => collector.Create(new HydraulicLocationEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -253,13 +253,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullStochasticSoilModelEntity_ThrowsArgumentNullException()
+        public void Create_WithNullStochasticSoilModelEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Add(null, new TestStochasticSoilModel());
+            TestDelegate test = () => collector.Create(null, new TestStochasticSoilModel());
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -267,13 +267,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullStochasticSoilModel_ThrowsArgumentNullException()
+        public void Create_WithNullStochasticSoilModel_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Add(new StochasticSoilModelEntity(), null);
+            TestDelegate test = () => collector.Create(new StochasticSoilModelEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -281,13 +281,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullStochasticSoilProfileEntity_ThrowsArgumentNullException()
+        public void Create_WithNullStochasticSoilProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Add(null, new StochasticSoilProfile(1, SoilProfileType.SoilProfile1D, -1));
+            TestDelegate test = () => collector.Create(null, new StochasticSoilProfile(1, SoilProfileType.SoilProfile1D, -1));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -295,13 +295,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullStochasticSoilProfile_ThrowsArgumentNullException()
+        public void Create_WithNullStochasticSoilProfile_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Add(new StochasticSoilProfileEntity(), null);
+            TestDelegate test = () => collector.Create(new StochasticSoilProfileEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -309,13 +309,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullSoilProfileEntity_ThrowsArgumentNullException()
+        public void Create_WithNullSoilProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Add(null, new PipingSoilProfile("name", 0, new [] { new PipingSoilLayer(1) }, SoilProfileType.SoilProfile1D, -1));
+            TestDelegate test = () => collector.Create(null, new PipingSoilProfile("name", 0, new [] { new PipingSoilLayer(1) }, SoilProfileType.SoilProfile1D, -1));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -323,13 +323,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullPipingSoilProfile_ThrowsArgumentNullException()
+        public void Create_WithNullPipingSoilProfile_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Add(new SoilProfileEntity(), null);
+            TestDelegate test = () => collector.Create(new SoilProfileEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -337,13 +337,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullSoilLayerEntity_ThrowsArgumentNullException()
+        public void Create_WithNullSoilLayerEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Add(null, new PipingSoilLayer(0));
+            TestDelegate test = () => collector.Create(null, new PipingSoilLayer(0));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -351,13 +351,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Add_WithNullPipingSoilLayer_ThrowsArgumentNullException()
+        public void Create_WithNullPipingSoilLayer_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new CreateConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Add(new SoilLayerEntity(), null);
+            TestDelegate test = () => collector.Create(new SoilLayerEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -380,7 +380,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 ProjectEntityId = storageId
             };
             var model = new Project();
-            collector.Add(entity, model);
+            collector.Create(entity, model);
 
             // Call
             collector.TransferIds();
@@ -401,7 +401,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 AssessmentSectionEntityId = storageId
             };
             var model = new AssessmentSection(AssessmentSectionComposition.Dike);
-            collector.Add(entity, model);
+            collector.Create(entity, model);
 
             // Call
             collector.TransferIds();
@@ -422,7 +422,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 FailureMechanismEntityId = storageId
             };
             var model = new PipingFailureMechanism();
-            collector.Add(entity, model);
+            collector.Create(entity, model);
 
             // Call
             collector.TransferIds();
@@ -443,7 +443,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 FailureMechanismEntityId = storageId
             };
             var model = new FailureMechanismPlaceholder("name");
-            collector.Add(entity, model);
+            collector.Create(entity, model);
 
             // Call
             collector.TransferIds();
@@ -464,7 +464,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 HydraulicLocationEntityId = storageId
             };
             var model = new HydraulicBoundaryLocation(-1, "name", 0, 0);
-            collector.Add(entity, model);
+            collector.Create(entity, model);
 
             // Call
             collector.TransferIds();
@@ -485,7 +485,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 StochasticSoilModelEntityId = storageId
             };
             var model = new StochasticSoilModel(-1, "name", "name");
-            collector.Add(entity, model);
+            collector.Create(entity, model);
 
             // Call
             collector.TransferIds();
@@ -506,7 +506,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 StochasticSoilProfileEntityId = storageId
             };
             var model = new StochasticSoilProfile(1, SoilProfileType.SoilProfile1D, -1);
-            collector.Add(entity, model);
+            collector.Create(entity, model);
 
             // Call
             collector.TransferIds();
@@ -527,7 +527,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 SoilProfileEntityId = storageId
             };
             var model = new PipingSoilProfile("name", 0, new [] { new PipingSoilLayer(1) }, SoilProfileType.SoilProfile1D, -1);
-            collector.Add(entity, model);
+            collector.Create(entity, model);
 
             // Call
             collector.TransferIds();
@@ -548,7 +548,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 SoilLayerEntityId = storageId
             };
             var model = new PipingSoilLayer(0);
-            collector.Add(entity, model);
+            collector.Create(entity, model);
 
             // Call
             collector.TransferIds();

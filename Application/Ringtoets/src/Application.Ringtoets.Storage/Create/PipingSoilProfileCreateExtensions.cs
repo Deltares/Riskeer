@@ -25,7 +25,7 @@ namespace Application.Ringtoets.Storage.DbContext
 
             CreatePipingSoilLayers(profile, collector, entity);
 
-            collector.Add(entity, profile);
+            collector.Create(entity, profile);
             return entity;
         }
 

@@ -23,7 +23,7 @@ namespace Application.Ringtoets.Storage.DbContext
             {
                 StorageId = SoilProfileEntityId
             };
-            collector.Add(this, pipingSoilProfile);
+            collector.Read(this, pipingSoilProfile);
             return pipingSoilProfile;
         }
     }

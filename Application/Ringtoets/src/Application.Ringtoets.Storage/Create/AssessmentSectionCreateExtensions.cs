@@ -24,7 +24,7 @@ namespace Application.Ringtoets.Storage.DbContext
             CreateReferenceLine(section, entity);
             CreateFailureMechanismPlaceHolders(section, entity, collector);
 
-            collector.Add(entity, section);
+            collector.Create(entity, section);
             return entity;
         }
 

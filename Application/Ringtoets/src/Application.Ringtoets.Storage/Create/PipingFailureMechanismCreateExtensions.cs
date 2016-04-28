@@ -21,7 +21,7 @@ namespace Application.Ringtoets.Storage.DbContext
 
             CreateStochasticSoilModels(mechanism, collector, entity);
 
-            collector.Add(entity, mechanism);
+            collector.Create(entity, mechanism);
             return entity;
         }
 
