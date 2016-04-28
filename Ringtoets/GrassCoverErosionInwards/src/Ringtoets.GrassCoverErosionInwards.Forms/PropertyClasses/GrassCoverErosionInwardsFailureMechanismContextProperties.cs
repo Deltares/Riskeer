@@ -47,6 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             set
             {
                 data.WrappedData.NormProbabilityInput.N = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 

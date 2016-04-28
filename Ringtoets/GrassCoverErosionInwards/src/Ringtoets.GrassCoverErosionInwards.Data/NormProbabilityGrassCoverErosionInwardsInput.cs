@@ -21,13 +21,22 @@
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
+    /// <summary>
+    /// Model for length effect parameters.
+    /// </summary>
     public class NormProbabilityGrassCoverErosionInwardsInput
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NormProbabilityGrassCoverErosionInwardsInput"/> class.
+        /// </summary>
         public NormProbabilityGrassCoverErosionInwardsInput()
         {
             N = 2;
         }
 
+        /// <summary>
+        /// Gets 'N' parameter used to factor in the 'length effect'.
+        /// </summary>
         public int N { get; set; }
     }
 }

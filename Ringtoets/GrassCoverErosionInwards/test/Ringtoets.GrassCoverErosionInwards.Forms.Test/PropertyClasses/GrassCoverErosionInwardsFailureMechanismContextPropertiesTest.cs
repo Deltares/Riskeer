@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -61,6 +62,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, properties.Name);
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, properties.Code);
             Assert.AreEqual(2, properties.LengthEffect);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
+            int numberProperties = 1;
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.Attach(observerMock);
+            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties
+            {
+                Data = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock)
+            };
+
+            // Call
+            const int newLengthEffect = 123456;
+            properties.LengthEffect = newLengthEffect;
+
+            // Assert
+            Assert.AreEqual(newLengthEffect, failureMechanism.NormProbabilityInput.N);
             mockRepository.VerifyAll();
         }
     }

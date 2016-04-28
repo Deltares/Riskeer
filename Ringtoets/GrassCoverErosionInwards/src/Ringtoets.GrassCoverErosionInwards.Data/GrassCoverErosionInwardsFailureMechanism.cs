@@ -51,6 +51,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
         public override ICalculationGroup CalculationsGroup { get; protected set; }
 
-        public NormProbabilityGrassCoverErosionInwardsInput NormProbabilityInput { get; set; }
+        /// <summary>
+        /// Length-effect parameters.
+        /// </summary>
+        public NormProbabilityGrassCoverErosionInwardsInput NormProbabilityInput { get; private set; }
     }
 }
