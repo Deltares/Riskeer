@@ -37,6 +37,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> instance wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsCalculationContext(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(calculation, assessmentSection)
         {
