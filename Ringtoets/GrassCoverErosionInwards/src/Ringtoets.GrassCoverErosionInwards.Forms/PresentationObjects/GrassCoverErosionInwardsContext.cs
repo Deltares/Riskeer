@@ -27,8 +27,18 @@ using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
 {
+    /// <summary>
+    /// Presentation object representing all required grass cover erosion inwards input knowledge to configure and create
+    /// related objects. It'll delegate observable behavior to the wrapped data object.
+    /// </summary>
     public class GrassCoverErosionInwardsContext<T> : WrappedObjectContextBase<T> where T : IObservable
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsContext{T}"/> class.
+        /// </summary>
+        /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
+        /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
+        /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
         protected GrassCoverErosionInwardsContext(
             T wrappedData, IAssessmentSection assessmentSection)
             : base(wrappedData)

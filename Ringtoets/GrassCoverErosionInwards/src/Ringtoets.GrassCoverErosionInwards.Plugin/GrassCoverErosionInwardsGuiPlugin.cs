@@ -22,6 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
@@ -89,8 +90,52 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 Text = context => context.WrappedData.Name,
                 Image = context => GrassCoverErosionInwardsFormsResources.CalculationIcon,
-                EnsureVisibleOnCreate = context => true
+                EnsureVisibleOnCreate = context => true,
+                ChildNodeObjects = CalculationContextChildNodeObjects
             };
+
+            yield return new TreeNodeInfo<GrassCoverErosionInwardsInputContext>
+            {
+                Text = pipingInputContext => GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsInputContext_NodeDisplayName,
+                Image = pipingInputContext => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddImportItem()
+                                                                                 .AddExportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<EmptyGrassCoverErosionInwardsOutput>
+            {
+                Text = emptyPipingOutput => GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsOutput_DisplayName,
+                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddExportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+        }
+
+        private static object[] CalculationContextChildNodeObjects(GrassCoverErosionInwardsCalculationContext calculationContext)
+        {
+            var childNodes = new List<object>
+            {
+                new CommentContext<ICommentable>(calculationContext.WrappedData),
+                new GrassCoverErosionInwardsInputContext(calculationContext.WrappedData.InputParameters,
+                                                         calculationContext.WrappedData,
+                                                         calculationContext.GrassCoverErosionInwardsFailureMechanism,
+                                                         calculationContext.AssessmentSection)
+            };
+
+            if (!calculationContext.WrappedData.HasOutput)
+            {
+                childNodes.Add(new EmptyGrassCoverErosionInwardsOutput());
+            }
+
+            return childNodes.ToArray();
         }
 
         private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
@@ -290,18 +335,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var group = nodeData.WrappedData;
 
             var addCalculationGroupItem = new StrictContextMenuItem(
-               RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-               RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
-               RingtoetsCommonFormsResources.AddFolderIcon,
-               (o, args) =>
-               {
-                   var calculation = new CalculationGroup
-                   {
-                       Name = NamingHelper.GetUniqueName(group.Children, RingtoetsCommonDataResources.CalculationGroup_DefaultName, c => c.Name)
-                   };
-                   group.Children.Add(calculation);
-                   nodeData.WrappedData.NotifyObservers();
-               });
+                RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
+                RingtoetsCommonFormsResources.AddFolderIcon,
+                (o, args) =>
+                {
+                    var calculation = new CalculationGroup
+                    {
+                        Name = NamingHelper.GetUniqueName(group.Children, RingtoetsCommonDataResources.CalculationGroup_DefaultName, c => c.Name)
+                    };
+                    group.Children.Add(calculation);
+                    nodeData.WrappedData.NotifyObservers();
+                });
 
             var addCalculationItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
@@ -446,9 +491,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private DroppingCalculationInContainerStrategy GetDragDropStrategy(bool isMoveWithinSameContainer, GrassCoverErosionInwardsCalculationGroupContext originalOwnerContext, GrassCoverErosionInwardsCalculationGroupContext target)
         {
-            return isMoveWithinSameContainer 
-                ? (DroppingCalculationInContainerStrategy) new DroppingCalculationWithinSameContainer(originalOwnerContext, target) 
-                : new DroppingCalculationToNewContainer(originalOwnerContext, target);
+            return isMoveWithinSameContainer
+                       ? (DroppingCalculationInContainerStrategy) new DroppingCalculationWithinSameContainer(originalOwnerContext, target)
+                       : new DroppingCalculationToNewContainer(originalOwnerContext, target);
         }
 
         #region Nested Types: DroppingPipingCalculationInContainerStrategy and implementations
@@ -517,7 +562,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             /// <param name="target">The calculation group context that is the target
             /// of the drag & drop operation.</param>
             public DroppingCalculationWithinSameContainer(GrassCoverErosionInwardsCalculationGroupContext originalOwnerContext, GrassCoverErosionInwardsCalculationGroupContext target) :
-                base(originalOwnerContext, target) { }
+                base(originalOwnerContext, target) {}
         }
 
         /// <summary>
@@ -534,7 +579,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             /// <param name="target">The calculation group context that is the target
             /// of the drag & drop operation.</param>
             public DroppingCalculationToNewContainer(GrassCoverErosionInwardsCalculationGroupContext originalOwnerContext, GrassCoverErosionInwardsCalculationGroupContext target) :
-                base(originalOwnerContext, target) { }
+                base(originalOwnerContext, target) {}
 
             public override void Execute(object draggedData, ICalculationBase calculationBase, int newPosition, TreeViewControl treeViewControl)
             {

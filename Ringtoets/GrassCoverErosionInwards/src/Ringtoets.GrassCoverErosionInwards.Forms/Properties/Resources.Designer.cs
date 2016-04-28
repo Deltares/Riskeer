@@ -180,5 +180,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
                 return ResourceManager.GetString("GrassCoverErosionInwardsInput_Name_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De berekening.
+        /// </summary>
+        public static string GrassCoverErosionInwardsInputContext_DataDescription_GrassCoverErosionInwardsInputCalculationItem {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsInputContext_DataDescription_GrassCoverErosionInwardsInpu" +
+                        "tCalculationItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoer.
+        /// </summary>
+        public static string GrassCoverErosionInwardsInputContext_NodeDisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsInputContext_NodeDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resultaat.
+        /// </summary>
+        public static string GrassCoverErosionInwardsOutput_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsOutput_DisplayName", resourceCulture);
+            }
+        }
     }
 }
