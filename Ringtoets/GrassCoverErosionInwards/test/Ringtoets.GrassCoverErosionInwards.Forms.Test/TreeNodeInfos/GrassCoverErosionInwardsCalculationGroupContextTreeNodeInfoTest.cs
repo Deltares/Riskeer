@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -600,7 +601,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_ParentIsPipingCalculationGroupContainingGroup_RemoveGroupAndNotifyObservers()
+        public void OnNodeRemoved_ParentIsGrassCoverErosionInwardsCalculationGroupContainingGroup_RemoveGroupAndNotifyObservers()
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -633,7 +634,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_ParentIsPipingCalculationGroupContainingGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
+        public void OnNodeRemoved_ParentIsGrassCoverErosionInwardsCalculationGroupContainingGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -670,7 +671,402 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void CanDrag_WithParentNodeDefaultBehavior_ReturnTrue()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                 failureMechanismMock,
+                                                                 assessmentSectionMock);
+
+            // Call
+            var canDrag = info.CanDrag(groupContext, null);
+
+            // Assert
+            Assert.IsTrue(canDrag);
+        }
+
+        [Test]
+        public void CanDrag_ParentIsGrassCoverErosionInwardsFailureMechanismContext_ReturnFalse()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var failureMechanismContextMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanismContext>(failureMechanismMock, assessmentSectionMock);
+
+            mocks.ReplayAll();
+
+            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                 failureMechanismMock,
+                                                                 assessmentSectionMock);
+
+            // Call
+            var canDrag = info.CanDrag(groupContext, failureMechanismContextMock);
+
+            // Assert
+            Assert.IsFalse(canDrag);
+        }
+
+        [Test]
+        [Combinatorial]
+        public void CanDropOrCanInsert_DraggingPipingCalculationItemContextOntoGroupNotContainingItem_ReturnTrue(
+            [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
+            [Values(CalculationType.Calculation, CalculationType.Group)] CalculationType draggedItemType)
+        {
+            // Setup
+            ICalculationBase draggedItem;
+            object draggedItemContext;
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+
+            mocks.ReplayAll();
+
+            CreateCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanism, assessmentSection);
+
+            CalculationGroup targetGroup;
+            GrassCoverErosionInwardsCalculationGroupContext targetGroupContext;
+            CreateCalculationGroupAndContext(out targetGroup, out targetGroupContext, failureMechanism, assessmentSection);
+
+            failureMechanism.CalculationsGroup.Children.Add(draggedItem);
+            failureMechanism.CalculationsGroup.Children.Add(targetGroup);
+
+            switch (methodToTest)
+            {
+                case DragDropTestMethod.CanDrop:
+                    // Call
+                    var canDrop = info.CanDrop(draggedItemContext, targetGroupContext);
+
+                    // Assert
+                    Assert.IsTrue(canDrop);
+                    break;
+                case DragDropTestMethod.CanInsert:
+                    // Call
+                    bool canInsert = info.CanInsert(draggedItemContext, targetGroupContext);
+
+                    // Assert
+                    Assert.IsTrue(canInsert);
+                    break;
+                default:
+                    Assert.Fail(methodToTest + " not supported.");
+                    break;
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void CanDropOrInsert_DraggingCalculationItemContextOntoGroupNotContainingItemOtherFailureMechanism_ReturnFalse(
+            [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
+            [Values(CalculationType.Calculation, CalculationType.Group)] CalculationType draggedItemType)
+        {
+            // Setup
+            ICalculationBase draggedItem;
+            object draggedItemContext;
+
+            var targetFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+
+            mocks.ReplayAll();
+
+            CreateCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, targetFailureMechanism, assessmentSection);
+
+            var sourceFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            sourceFailureMechanism.CalculationsGroup.Children.Add(draggedItem);
+
+            CalculationGroup targetGroup;
+            GrassCoverErosionInwardsCalculationGroupContext targetGroupContext;
+            CreateCalculationGroupAndContext(out targetGroup, out targetGroupContext, sourceFailureMechanism, assessmentSection);
+
+            targetFailureMechanism.CalculationsGroup.Children.Add(targetGroup);
+
+            switch (methodToTest)
+            {
+                case DragDropTestMethod.CanDrop:
+                    // Call
+                    var canDrop = info.CanDrop(draggedItemContext, targetGroupContext);
+
+                    // Assert
+                    Assert.IsFalse(canDrop);
+                    break;
+                case DragDropTestMethod.CanInsert:
+                    // Call
+                    bool canInsert = info.CanInsert(draggedItemContext, targetGroupContext);
+
+                    // Assert
+                    Assert.IsFalse(canInsert);
+                    break;
+                default:
+                    Assert.Fail(methodToTest + " not supported.");
+                    break;
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void OnDrop_DraggingPipingCalculationItemContextOntoGroupEnd_MoveCalculationItemInstanceToNewGroup(
+            [Values(CalculationType.Calculation, CalculationType.Group)] CalculationType draggedItemType)
+        {
+            // Setup
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var pipingFailureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+
+            ICalculationBase draggedItem;
+            object draggedItemContext;
+            CreateCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, assessmentSection);
+
+            CalculationGroup originalOwnerGroup;
+            GrassCoverErosionInwardsCalculationGroupContext originalOwnerGroupContext;
+            CreateCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
+            originalOwnerGroup.Children.Add(draggedItem);
+
+            CalculationGroup newOwnerGroup;
+            GrassCoverErosionInwardsCalculationGroupContext newOwnerGroupContext;
+            CreateCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
+
+            var originalOwnerObserver = mocks.StrictMock<IObserver>();
+            originalOwnerObserver.Expect(o => o.UpdateObserver());
+
+            var newOwnerObserver = mocks.StrictMock<IObserver>();
+            newOwnerObserver.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            originalOwnerGroup.Attach(originalOwnerObserver);
+            newOwnerGroup.Attach(newOwnerObserver);
+
+            // Precondition
+            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+            CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
+
+            // Call
+            info.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewControlMock);
+
+            // Assert
+            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
+            CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
+            Assert.AreSame(draggedItem, newOwnerGroup.Children.Last(),
+                           "Dragging node at the end of the target PipingCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void OnDrop_InsertingPipingCalculationItemContextAtDifferentLocationWithinSameGroup_ChangeItemIndexOfCalculationItem(
+            [Values(CalculationType.Calculation, CalculationType.Group)] CalculationType draggedItemType,
+            [Values(0, 2)] int newIndex)
+        {
+            // Setup
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var pipingFailureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+
+            const string name = "Very cool name";
+            ICalculationBase draggedItem;
+            object draggedItemContext;
+            CreateCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, assessmentSection, name);
+
+            var existingItemStub = mocks.Stub<ICalculationBase>();
+            existingItemStub.Name = "";
+
+            CalculationGroup originalOwnerGroup;
+            GrassCoverErosionInwardsCalculationGroupContext originalOwnerGroupContext;
+            CreateCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
+            originalOwnerGroup.Children.Add(existingItemStub);
+            originalOwnerGroup.Children.Add(draggedItem);
+            originalOwnerGroup.Children.Add(existingItemStub);
+
+            var originalOwnerObserver = mocks.StrictMock<IObserver>();
+            originalOwnerObserver.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            originalOwnerGroup.Attach(originalOwnerObserver);
+
+            // Precondition
+            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+
+            // Call
+            info.OnDrop(draggedItemContext, originalOwnerGroupContext, originalOwnerGroupContext, newIndex, treeViewControlMock);
+
+            // Assert
+            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+            Assert.AreNotSame(draggedItem, originalOwnerGroup.Children[1],
+                              "Should have removed 'draggedItem' from its original location in the collection.");
+            Assert.AreSame(draggedItem, originalOwnerGroup.Children[newIndex],
+                           "Dragging node to specific location within owning PipingCalculationGroup should put the dragged data at that index.");
+            Assert.AreEqual(name, draggedItem.Name,
+                            "No renaming should occur when dragging within the same PipingCalculationGroup.");
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void OnDrop_DraggingPipingCalculationItemContextOntoGroupWithSameNamedItem_MoveCalculationItemInstanceToNewGroupAndRename(
+            [Values(CalculationType.Calculation, CalculationType.Group)] CalculationType draggedItemType)
+        {
+            // Setup
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var pipingFailureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+
+            ICalculationBase draggedItem;
+            object draggedItemContext;
+            CreateCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, assessmentSection);
+
+            CalculationGroup originalOwnerGroup;
+            GrassCoverErosionInwardsCalculationGroupContext originalOwnerGroupContext;
+            CreateCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
+            originalOwnerGroup.Children.Add(draggedItem);
+
+            CalculationGroup newOwnerGroup;
+            GrassCoverErosionInwardsCalculationGroupContext newOwnerGroupContext;
+            CreateCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
+
+            var sameNamedItem = mocks.Stub<ICalculationBase>();
+            sameNamedItem.Name = draggedItem.Name;
+
+            var originalOwnerObserver = mocks.StrictMock<IObserver>();
+            originalOwnerObserver.Expect(o => o.UpdateObserver());
+
+            var newOwnerObserver = mocks.StrictMock<IObserver>();
+            newOwnerObserver.Expect(o => o.UpdateObserver());
+
+            treeViewControlMock.Expect(tvc => tvc.TryRenameNodeForData(draggedItemContext));
+
+            mocks.ReplayAll();
+
+            newOwnerGroup.Children.Add(sameNamedItem);
+
+            originalOwnerGroup.Attach(originalOwnerObserver);
+            newOwnerGroup.Attach(newOwnerObserver);
+
+            // Precondition
+            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+            CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
+            CollectionAssert.Contains(newOwnerGroup.Children.Select(c => c.Name), draggedItem.Name,
+                                      "Name of the dragged item should already exist in new owner.");
+
+            // Call
+            info.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewControlMock);
+
+            // Assert
+            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
+            CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
+            Assert.AreSame(draggedItem, newOwnerGroup.Children.First(),
+                           "Dragging to insert node at start of newOwnerGroup should place the node at the start of the list.");
+            switch (draggedItemType)
+            {
+                case CalculationType.Calculation:
+                    Assert.AreEqual("Nieuwe berekening", draggedItem.Name);
+                    break;
+                case CalculationType.Group:
+                    Assert.AreEqual("Nieuwe map", draggedItem.Name);
+                    break;
+            }
+
+            mocks.VerifyAll();
+        }
+
         private const int contextMenuAddCalculationGroupIndex = 0;
         private const int contextMenuAddCalculationItemIndex = 1;
+
+        /// <summary>
+        /// Creates an instance of <see cref="CalculationGroup"/> and the corresponding
+        /// <see cref="GrassCoverErosionInwardsCalculationGroupContext"/>.
+        /// </summary>
+        /// <param name="data">The created group without any children.</param>
+        /// <param name="dataContext">The context object for <paramref name="data"/>, without any other data.</param>
+        /// <param name="failureMechanism">The grass cover erosion inwards failure mechanism the item and context belong to.</param>
+        /// <param name="assessmentSection">The assessment section the item and context belong to.</param>
+        private void CreateCalculationGroupAndContext(out CalculationGroup data, out GrassCoverErosionInwardsCalculationGroupContext dataContext, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            data = new CalculationGroup();
+
+            dataContext = new GrassCoverErosionInwardsCalculationGroupContext(data,
+                                                            failureMechanism,
+                                                            assessmentSection);
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="ICalculationBase"/> and the corresponding context.
+        /// </summary>
+        /// <param name="type">Defines the implementation of <see cref="ICalculationBase"/> to be constructed.</param>
+        /// <param name="data">Output: The concrete create class based on <paramref name="type"/>.</param>
+        /// <param name="dataContext">Output: The <see cref="GrassCoverErosionInwardsContext{T}"/> corresponding with <paramref name="data"/>.</param>
+        /// <param name="failureMechanism">The grass cover erosion inwards  failure mechanism the item and context belong to.</param>
+        /// <param name="assessmentSection">The assessment section the item and context belong to.</param>
+        /// <param name="initialName">Optional: The name of <paramref name="data"/>.</param>
+        /// <exception cref="System.NotSupportedException"></exception>
+        private static void CreateCalculationAndContext(CalculationType type, out ICalculationBase data, out object dataContext, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection, string initialName = null)
+        {
+            switch (type)
+            {
+                case CalculationType.Calculation:
+                    var calculation = new GrassCoverErosionInwardsCalculation();
+                    if (initialName != null)
+                    {
+                        calculation.Name = initialName;
+                    }
+                    data = calculation;
+                    dataContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSection);
+                    break;
+                case CalculationType.Group:
+                    var group = new CalculationGroup();
+                    if (initialName != null)
+                    {
+                        group.Name = initialName;
+                    }
+                    data = group;
+                    dataContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                    failureMechanism,
+                                                                    assessmentSection);
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Type indicator for testing methods on <see cref="TreeNodeInfo"/>.
+        /// </summary>
+        public enum DragDropTestMethod
+        {
+            /// <summary>
+            /// Indicates <see cref="TreeNodeInfo.CanDrop"/>.
+            /// </summary>
+            CanDrop,
+
+            /// <summary>
+            /// Indicates <see cref="TreeNodeInfo.CanInsert"/>.
+            /// </summary>
+            CanInsert
+        }
+
+        /// <summary>
+        /// Type indicator for implementations of <see cref="ICalculationBase"/> to be created in a test.
+        /// </summary>
+        public enum CalculationType
+        {
+            /// <summary>
+            /// Indicates <see cref="GrassCoverErosionInwardsCalculation"/>.
+            /// </summary>
+            Calculation,
+
+            /// <summary>
+            /// Indicates <see cref="CalculationGroup"/>.
+            /// </summary>
+            Group
+        }
     }
 }

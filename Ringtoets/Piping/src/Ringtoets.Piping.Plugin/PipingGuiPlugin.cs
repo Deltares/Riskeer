@@ -830,12 +830,7 @@ namespace Ringtoets.Piping.Plugin
 
         private bool PipingCalculationGroupContextCanDrag(PipingCalculationGroupContext nodeData, object parentData)
         {
-            if (parentData is PipingFailureMechanismContext)
-            {
-                return false;
-            }
-
-            return true;
+            return !(parentData is PipingFailureMechanismContext);
         }
 
         private bool PipingCalculationGroupContextCanDropOrCanInsert(object draggedData, object targetData)
@@ -852,12 +847,7 @@ namespace Ringtoets.Piping.Plugin
             }
 
             var groupContext = item as PipingCalculationGroupContext;
-            if (groupContext != null)
-            {
-                return groupContext.WrappedData;
-            }
-
-            return null;
+            return groupContext != null ? groupContext.WrappedData : null;
         }
 
         private bool NodesHaveSameParentFailureMechanism(object draggedData, object targetData)
@@ -877,12 +867,7 @@ namespace Ringtoets.Piping.Plugin
             }
 
             var groupContext = data as PipingCalculationGroupContext;
-            if (groupContext != null)
-            {
-                return groupContext.PipingFailureMechanism;
-            }
-
-            return null;
+            return groupContext != null ? groupContext.PipingFailureMechanism : null;
         }
 
         private void PipingCalculationGroupContextOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)

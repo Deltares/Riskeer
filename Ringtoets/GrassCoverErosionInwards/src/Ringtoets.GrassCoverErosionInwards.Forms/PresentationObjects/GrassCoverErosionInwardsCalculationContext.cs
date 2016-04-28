@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -34,11 +35,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationContext"/>.
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> instance wrapped by this context object.</param>
+        /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
-        public GrassCoverErosionInwardsCalculationContext(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection)
+        public GrassCoverErosionInwardsCalculationContext(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(calculation, assessmentSection)
         {
-            
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+            GrassCoverErosionInwardsFailureMechanism = failureMechanism;
         }
+
+        /// <summary>
+        /// Gets the failure mechanism which the context belongs to.
+        /// </summary>
+        public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwardsFailureMechanism { get; private set; }
     }
 }

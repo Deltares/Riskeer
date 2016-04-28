@@ -71,10 +71,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 Name = testname
             };
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingCalculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, assessmentSectionMock);
+            var pipingCalculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
             
             // Call
             var text = info.Text(pipingCalculationContext);
@@ -101,10 +102,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation();
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingCalculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, assessmentSectionMock);
+            var pipingCalculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
             mocks.ReplayAll();
 
