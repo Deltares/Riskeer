@@ -84,7 +84,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            const int newLengthEffect = 123456;
+            const int newLengthEffect = 10;
             properties.LengthEffect = newLengthEffect;
 
             // Assert
