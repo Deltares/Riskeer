@@ -27,7 +27,6 @@ using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Persistors;
 using Application.Ringtoets.Storage.Properties;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Update;

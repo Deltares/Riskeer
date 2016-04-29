@@ -52,17 +52,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Converters\AssessmentSectionConverter.cs" />
-    <Compile Include="Converters\FailureMechanismConverterBase.cs" />
-    <Compile Include="Converters\FailureMechanismPlaceholderConverter.cs" />
-    <Compile Include="Converters\IFailureMechanismEntityConverter.cs" />
-    <Compile Include="Converters\PipingFailureMechanismConverter.cs" />
-    <Compile Include="Converters\HydraulicLocationConverter.cs" />
-    <Compile Include="Converters\StochasticSoilProfileConverter.cs" />
-    <Compile Include="Converters\ProjectConverter.cs" />
-    <Compile Include="Converters\IEntityConverter.cs" />
-    <Compile Include="Converters\ReferenceLineConverter.cs" />
-    <Compile Include="Converters\StochasticSoilModelConverter.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismPlaceholderCreateExtensions.cs" />
     <Compile Include="Create\PipingFailureMechanismCreateExtensions.cs" />
@@ -115,15 +104,6 @@
     </Compile>
     <Compile Include="Read\AssessmentSectionEntity.cs" />
     <Compile Include="Read\ProjectEntity.cs" />
-    <Compile Include="Persistors\AssessmentSectionPersistor.cs" />
-    <Compile Include="Persistors\FailureMechanismPersistorBase.cs" />
-    <Compile Include="Persistors\FailureMechanismPlaceholderPersistor.cs" />
-    <Compile Include="Persistors\HydraulicBoundaryLocationPersistor.cs" />
-    <Compile Include="Persistors\PipingFailureMechanismPersistor.cs" />
-    <Compile Include="Persistors\ProjectPersistor.cs" />
-    <Compile Include="Persistors\ReferenceLinePersistor.cs" />
-    <Compile Include="Persistors\StochasticSoilModelPersistor.cs" />
-    <Compile Include="Persistors\StochasticSoilProfilePersistor.cs" />
     <Compile Include="StorageSqliteCreator.cs" />
     <Compile Include="DbContext\PartialRingtoetsEntities.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
