@@ -516,7 +516,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             var orderedDictionaries = new List<OrderedDictionary>();
             foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
-                foreach (var breakWater in hydraRingCalculationInput.BreakWaters)
+                if (hydraRingCalculationInput.BreakWater != null)
                 {
                     orderedDictionaries.Add(new OrderedDictionary
                     {
@@ -524,10 +524,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
                             "SectionId", hydraRingCalculationInput.Section.SectionId
                         },
                         {
-                            "Type", breakWater.Type
+                            "Type", hydraRingCalculationInput.BreakWater.Type
                         },
                         {
-                            "Height", GetHydraRingValue(breakWater.Height)
+                            "Height", GetHydraRingValue(hydraRingCalculationInput.BreakWater.Height)
                         }
                     });
                 }

@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
@@ -76,11 +77,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             var hydraRingCalculationService = new HydraRingCalculationService();
             var incorrectStationId = 999;
             var hydraRingSection = new HydraRingSection(incorrectStationId, "999", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+
+            var mockRepository = new MockRepository();
+            var hydraRingBreakWaterMock = mockRepository.StrictMock<HydraRingBreakWater>(0, 1.1);
             var overtoppingCalculationInput = new OvertoppingCalculationInput(incorrectStationId, hydraRingSection,
                                                                               1, 2, 3,
                                                                               new List<HydraRingRoughnessProfilePoint>(),
                                                                               new List<HydraRingForelandPoint>(),
-                                                                              new List<HydraRingBreakWater>());
+                                                                              hydraRingBreakWaterMock);
             var outputFolder = Path.Combine(Path.GetTempPath(), "" + incorrectStationId);
             var outputFiles = new[]
             {

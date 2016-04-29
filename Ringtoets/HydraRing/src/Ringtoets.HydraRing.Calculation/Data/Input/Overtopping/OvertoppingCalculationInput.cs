@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         private readonly HydraRingSection section;
         private readonly IEnumerable<HydraRingProfilePoint> profilePoints;
         private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
-        private readonly IEnumerable<HydraRingBreakWater> breakWaters;
+        private readonly HydraRingBreakWater breakWater;
 
         private readonly double dikeHeight;
         private readonly double criticalOvertoppingMean;
@@ -47,13 +47,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         /// <param name="hydraRingCriticalOvertoppingStandardDeviation">The standard deviation of the critical overtopping to use during the calculation.</param>
         /// <param name="hydraRingProfilePoints">The profile points to use during the calculation.</param>
         /// <param name="hydraRingForelandPoints">The foreland points to use during the calculation.</param>
-        /// <param name="hydraRingBreakWaters">The break waters to use during the calculation.</param>
+        /// <param name="hydraRingBreakWater">The break water to use during the calculation.</param>
         public OvertoppingCalculationInput(int hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
                                            double hydraRingDikeHeight, double hydraRingCriticalOvertoppingMean,
                                            double hydraRingCriticalOvertoppingStandardDeviation,
                                            IEnumerable<HydraRingRoughnessProfilePoint> hydraRingProfilePoints,
                                            IEnumerable<HydraRingForelandPoint> hydraRingForelandPoints,
-                                           IEnumerable<HydraRingBreakWater> hydraRingBreakWaters)
+                                           HydraRingBreakWater hydraRingBreakWater)
             : base(hydraulicBoundaryLocationId)
         {
             section = hydraRingSection;
@@ -62,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
             criticalOvertoppingStandardDeviation = hydraRingCriticalOvertoppingStandardDeviation;
             profilePoints = hydraRingProfilePoints;
             forelandPoints = hydraRingForelandPoints;
-            breakWaters = hydraRingBreakWaters;
+            breakWater = hydraRingBreakWater;
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType
@@ -105,11 +105,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
             }
         }
 
-        public override IEnumerable<HydraRingBreakWater> BreakWaters
+        public override HydraRingBreakWater BreakWater
         {
             get
             {
-                return breakWaters;
+                return breakWater;
             }
         }
 

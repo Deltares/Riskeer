@@ -114,14 +114,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             {
                 new HydraRingForelandPoint(1.1, 2.2)
             };
-            var breakWaters = new List<HydraRingBreakWater>
-            {
-                new HydraRingBreakWater(1, 2.2)
-            };
+            var breakWater = new HydraRingBreakWater(1, 2.2);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new OvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingSection,
                                                                                                        dikeHeight, criticalOvertoppingMean, criticalOvertoppingStandardDeviation
-                                                                                                       , profilePoints, forelandPoints, breakWaters));
+                                                                                                       , profilePoints, forelandPoints, breakWater));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +

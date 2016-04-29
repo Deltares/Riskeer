@@ -106,11 +106,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         /// <summary>
         /// Gets the break waters to use during the calculation.
         /// </summary>
-        public virtual IEnumerable<HydraRingBreakWater> BreakWaters
+        public virtual HydraRingBreakWater BreakWater
         {
             get
             {
-                yield break;
+                return null;
             }
         }
 

@@ -96,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             properties.ForeshorePresent = false;
 
             // Assert
-            Assert.IsFalse(calculation.InputParameters.ForeshorePresent);
+            Assert.IsFalse(calculation.InputParameters.UseForeshore);
             mockRepository.VerifyAll();
         }
     }

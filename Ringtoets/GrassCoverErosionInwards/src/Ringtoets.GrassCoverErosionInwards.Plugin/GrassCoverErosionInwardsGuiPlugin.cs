@@ -160,16 +160,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 output => { ParseHydraRingOutput(inwardsOutput, output); });
         }
 
-        private static IEnumerable<HydraRingBreakWater> ParseBreakWater(GrassCoverErosionInwardsInput input)
+        private static HydraRingBreakWater ParseBreakWater(GrassCoverErosionInwardsInput input)
         {
-            return input.BreakWaterPresent ?
-                       input.BreakWater.Select(water => new HydraRingBreakWater((int) water.Type, water.Height)) :
-                       Enumerable.Empty<HydraRingBreakWater>();
+            return input.UseBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null;
         }
 
         private static IEnumerable<HydraRingForelandPoint> ParseForeshore(GrassCoverErosionInwardsInput input)
         {
-            if (!input.ForeshorePresent)
+            if (!input.UseForeshore)
             {
                 yield break;
             }

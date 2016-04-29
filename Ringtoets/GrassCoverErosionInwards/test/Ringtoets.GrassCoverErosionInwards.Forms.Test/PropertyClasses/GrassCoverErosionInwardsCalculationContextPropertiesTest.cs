@@ -118,11 +118,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 Data = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanismMock, assessmentSectionMock)
             };
 
-            const double newDikeHeight = 9;
+            var newDikeHeight = new RoundedDouble(2, 9);
             var newOrientation = new RoundedDouble(2, 5);
 
             // Call
-            properties.DikeHeight = newDikeHeight.ToString(CultureInfo.InvariantCulture);
+            properties.DikeHeight = newDikeHeight.ToString();
             properties.Orientation = newOrientation.Value.ToString(CultureInfo.InvariantCulture);
 
             // Assert

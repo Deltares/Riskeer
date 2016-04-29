@@ -32,19 +32,6 @@ namespace Ringtoets.Piping.Data.Test
     public class PipingCalculationScenarioExtensionsTest
     {
         [Test]
-        public void IsSurfaceLineIntersectionWithReferenceLineInSection_IPipingCalculationItemNotPipingCalculationScenario_ReturnsFalse()
-        {
-            // Setup
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
-
-            // Call
-            var intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
-
-            // Assert
-            Assert.IsFalse(intersects);
-        }
-
-        [Test]
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineNull_ReturnsFalse()
         {
             // Setup

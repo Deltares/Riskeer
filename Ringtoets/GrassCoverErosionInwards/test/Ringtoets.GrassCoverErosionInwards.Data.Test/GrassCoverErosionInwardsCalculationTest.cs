@@ -21,9 +21,8 @@
 
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HydraRing.Data;
 
@@ -32,14 +31,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
         public void Constructor_DefaultPropertyValuesAreSet()
         {
@@ -48,100 +39,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
-            Assert.IsInstanceOf<ICommentable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsInstanceOf<GrassCoverErosionInwardsInput>(calculation.InputParameters);
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments);
             Assert.IsNull(calculation.Output);
+            Assert.IsInstanceOf<Observable>(calculation);
             AssertDemoInput(calculation.InputParameters);
-        }
-
-        [Test]
-        public void Notify_SingleListenerAttached_ListenerIsNotified()
-        {
-            // Setup
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
-            calculation.Attach(observer);
-
-            // Call & Assert
-            calculation.NotifyObservers();
-        }
-
-        [Test]
-        public void Notify_SingleListenerAttachedAndDeattached_ListenerIsNotNotified()
-        {
-            // Setup
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Never();
-            mockRepository.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
-            calculation.Attach(observer);
-            calculation.Detach(observer);
-
-            // Call & Assert
-            calculation.NotifyObservers();
-        }
-
-        [Test]
-        public void Notify_TwoListenersAttached_BothAreNotified()
-        {
-            // Setup
-            var observerA = mockRepository.StrictMock<IObserver>();
-            observerA.Expect(o => o.UpdateObserver());
-
-            var observerB = mockRepository.StrictMock<IObserver>();
-            observerB.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
-            calculation.Attach(observerA);
-            calculation.Attach(observerB);
-
-            // Call & Assert
-            calculation.NotifyObservers();
-        }
-
-        [Test]
-        public void Notify_TwoListenersAttachedOneDetached_InvokedOnce()
-        {
-            // Setup
-            var observerA = mockRepository.StrictMock<IObserver>();
-            observerA.Expect(o => o.UpdateObserver()).Repeat.Never();
-
-            var observerB = mockRepository.StrictMock<IObserver>();
-            observerB.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
-            calculation.Attach(observerA);
-            calculation.Attach(observerB);
-            calculation.Detach(observerA);
-
-            // Call & Assert
-            calculation.NotifyObservers();
-        }
-
-        [Test]
-        public void Detach_DetachNonAttachedObserver_DoesNotThrowException()
-        {
-            // Setup
-            var observer = mockRepository.StrictMock<IObserver>();
-
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
-            // Call & Assert
-            calculation.Detach(observer);
         }
 
         [Test]
@@ -253,11 +158,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         private void AssertDemoInput(GrassCoverErosionInwardsInput inputParameters)
         {
             // BreakWater
-            var breakWater = inputParameters.BreakWater.FirstOrDefault();
-            Assert.IsNotNull(breakWater);
-            Assert.AreEqual(10, breakWater.Height);
-            Assert.AreEqual(BreakWaterType.Dam, breakWater.Type);
-            Assert.IsTrue(inputParameters.BreakWaterPresent);
+            Assert.IsNotNull(inputParameters.BreakWater);
+            Assert.AreEqual(10, inputParameters.BreakWater.Height);
+            Assert.AreEqual(BreakWaterType.Dam, inputParameters.BreakWater.Type);
+            Assert.IsTrue(inputParameters.UseBreakWater);
 
             // Orientation
             Assert.AreEqual(2, inputParameters.Orientation.NumberOfDecimalPlaces);
@@ -270,14 +174,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsTrue(inputParameters.ForeshoreGeometry.Any());
             Assert.IsTrue(inputParameters.DikeGeometry.Any());
             Assert.AreEqual(1, inputParameters.ForeshoreDikeGeometryPoints);
-            Assert.IsTrue(inputParameters.ForeshorePresent);
+            Assert.IsTrue(inputParameters.UseForeshore);
 
             // Hydraulic boundaries location
             Assert.AreEqual("Demo", inputParameters.HydraulicBoundaryLocation.Name);
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
 
             // Dike height
-            Assert.AreEqual(10, inputParameters.DikeHeight);
+            var expectedDikeHeight = new RoundedDouble(inputParameters.DikeHeight.NumberOfDecimalPlaces, 10);
+            Assert.AreEqual(expectedDikeHeight, inputParameters.DikeHeight);
         }
     }
 

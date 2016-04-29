@@ -38,11 +38,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.InputParameters.ForeshorePresent;
+                return data.WrappedData.InputParameters.UseForeshore;
             }
             set
             {
-                data.WrappedData.InputParameters.ForeshorePresent = value;
+                data.WrappedData.InputParameters.UseForeshore = value;
                 data.WrappedData.NotifyObservers();
             }
         }

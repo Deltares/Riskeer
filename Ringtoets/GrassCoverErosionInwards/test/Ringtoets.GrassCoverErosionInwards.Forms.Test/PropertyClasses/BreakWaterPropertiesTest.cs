@@ -103,9 +103,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             properties.BreakWaterPresent = false;
 
             // Assert
-            Assert.IsFalse(calculation.InputParameters.BreakWaterPresent);
-            Assert.AreEqual(newBreakWaterType, calculation.InputParameters.BreakWater[0].Type);
-            Assert.AreEqual(newBreakWaterHeight, calculation.InputParameters.BreakWater[0].Height);
+            Assert.IsFalse(calculation.InputParameters.UseBreakWater);
+            Assert.AreEqual(newBreakWaterType, calculation.InputParameters.BreakWater.Type);
+            Assert.AreEqual(newBreakWaterHeight, calculation.InputParameters.BreakWater.Height);
             mockRepository.VerifyAll();
         }
     }

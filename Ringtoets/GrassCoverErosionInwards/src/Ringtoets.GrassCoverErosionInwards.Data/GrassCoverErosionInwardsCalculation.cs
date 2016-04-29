@@ -84,8 +84,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         private void AddDemoInput()
         {
             // BreakWater
-            InputParameters.BreakWater.Add(new BreakWater(BreakWaterType.Dam, 10));
-            InputParameters.BreakWaterPresent = true;
+            InputParameters.BreakWater = new BreakWater(BreakWaterType.Dam, 10);
+            InputParameters.UseBreakWater = true;
 
             // Orientation
             InputParameters.Orientation = new RoundedDouble(RoundedDouble.MaximumNumberOfDecimalPlaces, 5.5);
@@ -100,13 +100,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 new RoughnessProfileSection(new Point2D(3.3, 4.4), new Point2D(5.5, 6.6), 2.2)
             };
             InputParameters.SetGeometry(sections, 1);
-            InputParameters.ForeshorePresent = true;
+            InputParameters.UseForeshore = true;
 
             // Hydraulic boundaries location
             InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "Demo", 0.0, 1.1);
 
             // Dike height
-            InputParameters.DikeHeight = 10;
+            InputParameters.DikeHeight = new RoundedDouble(InputParameters.DikeHeight.NumberOfDecimalPlaces, 10);
         }
     }
 }

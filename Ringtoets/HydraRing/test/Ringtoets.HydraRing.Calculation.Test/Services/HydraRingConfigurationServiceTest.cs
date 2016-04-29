@@ -114,8 +114,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Breakwaters];" + Environment.NewLine +
-                                         "INSERT INTO [Breakwaters] VALUES (1, 1, 99.9);" + Environment.NewLine +
-                                         "INSERT INTO [Breakwaters] VALUES (1, 3, 20.2);" + Environment.NewLine;
+                                         "INSERT INTO [Breakwaters] VALUES (1, 1, 99.9);" + Environment.NewLine;
 
             // Call
             var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
@@ -232,11 +231,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          Environment.NewLine +
                                          "DELETE FROM [Breakwaters];" + Environment.NewLine +
                                          "INSERT INTO [Breakwaters] VALUES (1, 1, 99.9);" + Environment.NewLine +
-                                         "INSERT INTO [Breakwaters] VALUES (1, 3, 20.2);" + Environment.NewLine +
                                          "INSERT INTO [Breakwaters] VALUES (2, 1, 99.9);" + Environment.NewLine +
-                                         "INSERT INTO [Breakwaters] VALUES (2, 3, 20.2);" + Environment.NewLine +
-                                         "INSERT INTO [Breakwaters] VALUES (3, 1, 99.9);" + Environment.NewLine +
-                                         "INSERT INTO [Breakwaters] VALUES (3, 3, 20.2);" + Environment.NewLine;
+                                         "INSERT INTO [Breakwaters] VALUES (3, 1, 99.9);" + Environment.NewLine;
 
             // Call
             var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
@@ -317,12 +313,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                 }
             }
 
-            public override IEnumerable<HydraRingBreakWater> BreakWaters
+            public override HydraRingBreakWater BreakWater
             {
                 get
                 {
-                    yield return new HydraRingBreakWater(1, 99.9);
-                    yield return new HydraRingBreakWater(3, 20.2);
+                    return new HydraRingBreakWater(1, 99.9);
                 }
             }
 

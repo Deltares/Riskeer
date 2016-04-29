@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void Constructor_BeginingPointNull_ThrowsArgumentNullException()
+        public void Constructor_StartingPointNull_ThrowsArgumentNullException()
         {
             // Setup & Call
             TestDelegate test = () => new RoughnessProfileSection(null, new Point2D(3.3, 4.4), 5.5);

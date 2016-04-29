@@ -43,7 +43,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             CollectionAssert.IsEmpty(hydraRingCalculationInput.Variables);
             CollectionAssert.IsEmpty(hydraRingCalculationInput.ProfilePoints);
             CollectionAssert.IsEmpty(hydraRingCalculationInput.ForelandsPoints);
-            CollectionAssert.IsEmpty(hydraRingCalculationInput.BreakWaters);
+            Assert.IsNull(hydraRingCalculationInput.BreakWater);
             Assert.IsNaN(hydraRingCalculationInput.Beta);
         }
 

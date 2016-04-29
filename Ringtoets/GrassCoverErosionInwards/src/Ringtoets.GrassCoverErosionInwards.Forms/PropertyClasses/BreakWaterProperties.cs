@@ -21,7 +21,6 @@
 
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -45,11 +44,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.InputParameters.BreakWaterPresent;
+                return data.WrappedData.InputParameters.UseBreakWater;
             }
             set
             {
-                data.WrappedData.InputParameters.BreakWaterPresent = value;
+                data.WrappedData.InputParameters.UseBreakWater = value;
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -61,17 +60,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                var breakWater = data.WrappedData.InputParameters.BreakWater.FirstOrDefault();
+                var breakWater = data.WrappedData.InputParameters.BreakWater;
                 return breakWater == null ? BreakWaterType.Caisson : breakWater.Type;
             }
             set
             {
-                var breakWater = data.WrappedData.InputParameters.BreakWater.FirstOrDefault();
+                var breakWater = data.WrappedData.InputParameters.BreakWater;
                 if (breakWater == null)
                 {
                     return;
                 }
-                data.WrappedData.InputParameters.BreakWater[0] = new BreakWater(value, breakWater.Height);
+                data.WrappedData.InputParameters.BreakWater = new BreakWater(value, breakWater.Height);
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -83,17 +82,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                var breakWater = data.WrappedData.InputParameters.BreakWater.FirstOrDefault();
+                var breakWater = data.WrappedData.InputParameters.BreakWater;
                 return breakWater == null ? string.Empty : new RoundedDouble(2, breakWater.Height).Value.ToString(CultureInfo.CurrentCulture);
             }
             set
             {
-                var breakWater = data.WrappedData.InputParameters.BreakWater.FirstOrDefault();
+                var breakWater = data.WrappedData.InputParameters.BreakWater;
                 if (breakWater == null)
                 {
                     return;
                 }
-                data.WrappedData.InputParameters.BreakWater[0] = new BreakWater(breakWater.Type, new RoundedDouble(2, double.Parse(value)).Value);
+                data.WrappedData.InputParameters.BreakWater = new BreakWater(breakWater.Type, new RoundedDouble(2, double.Parse(value)).Value);
                 data.WrappedData.NotifyObservers();
             }
         }

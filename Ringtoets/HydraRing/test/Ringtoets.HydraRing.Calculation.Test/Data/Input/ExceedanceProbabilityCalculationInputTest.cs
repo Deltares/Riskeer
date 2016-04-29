@@ -48,7 +48,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             CollectionAssert.IsEmpty(exceedanceProbabilityCalculationInputImplementation.Variables);
             CollectionAssert.IsEmpty(exceedanceProbabilityCalculationInputImplementation.ProfilePoints);
             CollectionAssert.IsEmpty(exceedanceProbabilityCalculationInputImplementation.ForelandsPoints);
-            CollectionAssert.IsEmpty(exceedanceProbabilityCalculationInputImplementation.BreakWaters);
+            Assert.IsNull(exceedanceProbabilityCalculationInputImplementation.BreakWater);
             Assert.IsNaN(exceedanceProbabilityCalculationInputImplementation.Beta);
         }
 

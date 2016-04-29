@@ -37,14 +37,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     {
         private IEnumerable<RoughnessProfileSection> geometry;
         private RoundedDouble orientation;
+        private readonly LognormalDistribution criticalFlowRate;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInput"/>.
         /// </summary>
         public GrassCoverErosionInwardsInput()
         {
-            BreakWater = new List<BreakWater>();
             orientation = new RoundedDouble(2);
+            DikeHeight = new RoundedDouble(2);
+            criticalFlowRate = new LognormalDistribution(2);
         }
 
         /// <summary>
@@ -87,18 +89,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets or sets the dike's critical flow rate.
         /// </summary>
-        public LognormalDistribution CriticalFlowRate { get; set; }
+        public LognormalDistribution CriticalFlowRate
+        {
+            get
+            {
+                return criticalFlowRate;
+            }
+            set
+            {
+                criticalFlowRate.Mean = value.Mean;
+                criticalFlowRate.StandardDeviation = value.StandardDeviation;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets if a foreshore is present.
+        /// Gets or sets if <see cref="ForeshoreDikeGeometryPoints"/> needs to be taken into account.
         /// </summary>
-        /// <remarks>Value of <see cref="ForeshoreDikeGeometryPoints"/> must not be reset when <see cref="ForeshorePresent"/> is set to <c>false</c>.</remarks>
-        public bool ForeshorePresent { get; set; }
+        /// <remarks>Value of <see cref="ForeshoreDikeGeometryPoints"/> must not be reset when <see cref="UseForeshore"/> is set to <c>false</c>.</remarks>
+        public bool UseForeshore { get; set; }
 
         /// <summary>
         /// Gets or sets the dike height.
         /// </summary>
-        public double DikeHeight { get; set; }
+        public RoundedDouble DikeHeight { get; set; }
 
         /// <summary>
         /// Gets the number of profile points of the dike geometry that form the foreshore geometry.
@@ -106,14 +119,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public int ForeshoreDikeGeometryPoints { get; private set; }
 
         /// <summary>
-        /// Defines if <see cref="BreakWater"/> needs to be taken into account.
+        /// Gets or sets if <see cref="BreakWater"/> needs to be taken into account.
         /// </summary>
-        public bool BreakWaterPresent { get; set; }
+        public bool UseBreakWater { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="BreakWater"/>.
         /// </summary>
-        public IList<BreakWater> BreakWater { get; set; }
+        public BreakWater BreakWater { get; set; }
 
         /// <summary>
         /// Gets or set the hydraulic boundary location from which to use the assessment level.
