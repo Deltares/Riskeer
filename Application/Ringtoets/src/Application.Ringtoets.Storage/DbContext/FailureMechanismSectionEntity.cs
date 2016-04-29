@@ -33,24 +33,20 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class FailureMechanismEntity
+    public partial class FailureMechanismSectionEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FailureMechanismEntity()
+        public FailureMechanismSectionEntity()
         {
-            this.FailureMechanismSectionEntities = new HashSet<FailureMechanismSectionEntity>();
-            this.StochasticSoilModelEntities = new HashSet<StochasticSoilModelEntity>();
+            this.FailureMechanismSectionPointEntities = new HashSet<FailureMechanismSectionPointEntity>();
         }
     
+        public long FailureMechanismSectionEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
-        public long AssessmentSectionEntityId { get; set; }
-        public short FailureMechanismType { get; set; }
-        public byte IsRelevant { get; set; }
+        public string Name { get; set; }
     
-        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
+        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StochasticSoilModelEntity> StochasticSoilModelEntities { get; set; }
+        public virtual ICollection<FailureMechanismSectionPointEntity> FailureMechanismSectionPointEntities { get; set; }
     }
 }

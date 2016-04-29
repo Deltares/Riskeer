@@ -27,6 +27,24 @@
           <Property Name="FailureMechanismType" Type="smallint" Nullable="false" />
           <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
         </EntityType>
+        <EntityType Name="FailureMechanismSectionEntity">
+          <Key>
+            <PropertyRef Name="FailureMechanismSectionEntityId" />
+          </Key>
+          <Property Name="FailureMechanismSectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FailureMechanismSectionPointEntity">
+          <Key>
+            <PropertyRef Name="FailureMechanismSectionPointEntityId" />
+          </Key>
+          <Property Name="FailureMechanismSectionPointEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="X" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="Y" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="Order" Type="integer" Nullable="false" />
+        </EntityType>
         <EntityType Name="HydraulicLocationEntity">
           <Key>
             <PropertyRef Name="HydraulicLocationEntityId" />
@@ -124,6 +142,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FailureMechanismSectionEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
+          <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="FailureMechanismSectionEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FailureMechanismSectionPointEntity_0_0">
+          <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
+          <End Role="FailureMechanismSectionPointEntity" Type="Self.FailureMechanismSectionPointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismSectionEntity">
+              <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Principal>
+            <Dependent Role="FailureMechanismSectionPointEntity">
+              <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HydraulicLocationEntity_0_0">
           <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
           <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
@@ -199,6 +241,8 @@
         <EntityContainer Name="RingtoetsEntitiesModelStoreContainer">
           <EntitySet Name="AssessmentSectionEntity" EntityType="Self.AssessmentSectionEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismEntity" EntityType="Self.FailureMechanismEntity" store:Type="Tables" />
+          <EntitySet Name="FailureMechanismSectionEntity" EntityType="Self.FailureMechanismSectionEntity" store:Type="Tables" />
+          <EntitySet Name="FailureMechanismSectionPointEntity" EntityType="Self.FailureMechanismSectionPointEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="ReferenceLinePointEntity" EntityType="Self.ReferenceLinePointEntity" store:Type="Tables" />
@@ -214,6 +258,14 @@
           <AssociationSet Name="FK_FailureMechanismEntity_0_0" Association="Self.FK_FailureMechanismEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FailureMechanismSectionEntity_0_0" Association="Self.FK_FailureMechanismSectionEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FailureMechanismSectionPointEntity_0_0" Association="Self.FK_FailureMechanismSectionPointEntity_0_0">
+            <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
+            <End Role="FailureMechanismSectionPointEntity" EntitySet="FailureMechanismSectionPointEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="Self.FK_HydraulicLocationEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
@@ -247,6 +299,8 @@
         <EntityContainer Name="RingtoetsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" />
           <EntitySet Name="FailureMechanismEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" />
+          <EntitySet Name="FailureMechanismSectionEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismSectionEntity" />
+          <EntitySet Name="FailureMechanismSectionPointEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismSectionPointEntity" />
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="ReferenceLinePointEntities" EntityType="RingtoetsEntitiesModel.ReferenceLinePointEntity" />
@@ -271,9 +325,17 @@
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="ReferenceLinePointEntity" EntitySet="ReferenceLinePointEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_FailureMechanismSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_StochasticSoilModelEntity_0_0" Association="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="StochasticSoilModelEntity" EntitySet="StochasticSoilModelEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FailureMechanismSectionPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_FailureMechanismSectionPointEntity_0_0">
+            <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
+            <End Role="FailureMechanismSectionPointEntity" EntitySet="FailureMechanismSectionPointEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_SoilLayerEntity_0_0" Association="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0">
             <End Role="SoilProfileEntity" EntitySet="SoilProfileEntities" />
@@ -314,7 +376,29 @@
           <Property Name="FailureMechanismType" Type="Int16" Nullable="false" />
           <Property Name="IsRelevant" Type="Byte" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="StochasticSoilModelEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StochasticSoilModelEntity" />
+        </EntityType>
+        <EntityType Name="FailureMechanismSectionEntity">
+          <Key>
+            <PropertyRef Name="FailureMechanismSectionEntityId" />
+          </Key>
+          <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="FailureMechanismSectionPointEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionPointEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="FailureMechanismSectionPointEntity" />
+        </EntityType>
+        <EntityType Name="FailureMechanismSectionPointEntity">
+          <Key>
+            <PropertyRef Name="FailureMechanismSectionPointEntityId" />
+          </Key>
+          <Property Name="FailureMechanismSectionPointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="X" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="Y" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="Order" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionPointEntity_0_0" FromRole="FailureMechanismSectionPointEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="HydraulicLocationEntity">
           <Key>
@@ -447,6 +531,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FailureMechanismSectionEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="FailureMechanismSectionEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StochasticSoilModelEntity_0_0">
           <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.StochasticSoilModelEntity" Role="StochasticSoilModelEntity" Multiplicity="*" />
@@ -456,6 +552,18 @@
             </Principal>
             <Dependent Role="StochasticSoilModelEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FailureMechanismSectionPointEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.FailureMechanismSectionPointEntity" Role="FailureMechanismSectionPointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismSectionEntity">
+              <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Principal>
+            <Dependent Role="FailureMechanismSectionPointEntity">
+              <PropertyRef Name="FailureMechanismSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -522,6 +630,26 @@
                 <ScalarProperty Name="FailureMechanismType" ColumnName="FailureMechanismType" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FailureMechanismSectionEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.FailureMechanismSectionEntity">
+              <MappingFragment StoreEntitySet="FailureMechanismSectionEntity">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FailureMechanismSectionPointEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.FailureMechanismSectionPointEntity">
+              <MappingFragment StoreEntitySet="FailureMechanismSectionPointEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
+                <ScalarProperty Name="FailureMechanismSectionPointEntityId" ColumnName="FailureMechanismSectionPointEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

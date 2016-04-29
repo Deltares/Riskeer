@@ -63,6 +63,12 @@
     <Compile Include="Create\PipingSoilProfileCreateExtensions.cs" />
     <Compile Include="Create\StochasticSoilModelCreateExtensions.cs" />
     <Compile Include="Create\StochasticSoilProfileCreateExtensions.cs" />
+    <Compile Include="DbContext\FailureMechanismSectionEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\FailureMechanismSectionPointEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Read\FailureMechanismEntity.cs" />
     <Compile Include="Read\HydraulicLocationEntity.cs" />
     <Compile Include="Read\ReadConversionCollector.cs" />
