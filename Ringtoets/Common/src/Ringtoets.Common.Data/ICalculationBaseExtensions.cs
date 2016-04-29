@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Data
     public static class ICalculationBaseExtensions
     {
         /// <summary>
-        /// Recursively enumerates across over the contents of the piping calculation item, 
+        /// Recursively enumerates across the contents of the piping calculation item, 
         /// yielding the piping calculations found within the calculation item.
         /// </summary>
         /// <param name="calculationItem">The calculation item to be evaluated.</param>

@@ -35,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     public class GrassCoverErosionInwardsCalculation : Observable, ICalculation
     {
         /// <summary>
-        /// Constructs a new instance of <see cref="GrassCoverErosionInwardsCalculation"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculation"/>.
         /// </summary>
         public GrassCoverErosionInwardsCalculation()
         {

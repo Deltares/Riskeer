@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// This class contains the results of a GrassCoverErosioninwards calculation.
+    /// This class contains the results of a grass cover erosion inwards calculation.
     /// </summary>
     public class GrassCoverErosionInwardsOutput
     {

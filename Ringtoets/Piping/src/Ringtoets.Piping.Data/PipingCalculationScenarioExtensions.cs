@@ -23,30 +23,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
-    /// Defines extension methods dealing with <see cref="ICalculationBase"/> instances.
+    /// Defines extension methods dealing with <see cref="PipingCalculationScenario"/> instances.
     /// </summary>
     public static class PipingCalculationScenarioExtensions
     {
         /// <summary>
-        /// Determines if the surfaceline of a calculation is intersecting with the section reference line.
+        /// Determines if the surface line of a calculation is intersecting with the section reference line.
         /// </summary>
-        /// <param name="pipingCalculation">The calculation containing the surface line.</param>
-        /// <param name="lineSegments">The line segments that defines the reference line.</param>
+        /// <param name="pipingCalculationScenario">The piping calculation scenario containing the surface line.</param>
+        /// <param name="lineSegments">The line segments that define the reference line.</param>
         /// <returns><c>true</c> when intersecting. <c>false</c> otherwise.</returns>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="lineSegments"/> contains no elements.</exception>
-        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this PipingCalculationScenario pipingCalculation, IEnumerable<Segment2D> lineSegments)
+        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this PipingCalculationScenario pipingCalculationScenario, IEnumerable<Segment2D> lineSegments)
         {
-            if (pipingCalculation == null)
+            if (pipingCalculationScenario == null)
             {
                 return false;
             }
 
-            var surfaceLine = pipingCalculation.InputParameters.SurfaceLine;
+            var surfaceLine = pipingCalculationScenario.InputParameters.SurfaceLine;
             if (surfaceLine == null)
             {
                 return false;

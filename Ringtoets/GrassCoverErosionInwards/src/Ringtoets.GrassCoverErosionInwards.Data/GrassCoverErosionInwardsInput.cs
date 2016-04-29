@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// The dike's geometry (without foreshore geometry).
+        /// Gets the dike's geometry (without foreshore geometry).
         /// </summary>
         public IEnumerable<RoughnessProfileSection> DikeGeometry
         {
@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// The dike's foreshore geometry.
+        /// Gets the dike's foreshore geometry.
         /// </summary>
         public IEnumerable<RoughnessProfileSection> ForeshoreGeometry
         {
@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public double DikeHeight { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of profile points of the dike geometry that form the foreshore geometry. 
+        /// Gets the number of profile points of the dike geometry that form the foreshore geometry.
         /// </summary>
         public int ForeshoreDikeGeometryPoints { get; private set; }
 

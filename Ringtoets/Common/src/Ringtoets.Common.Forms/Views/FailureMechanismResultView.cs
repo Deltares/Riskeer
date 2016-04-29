@@ -43,8 +43,8 @@ namespace Ringtoets.Common.Forms.Views
         private const double tolerance = 1e-6;
         private readonly Observer failureMechanismObserver;
         private readonly RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult> failureMechanismSectionResultObserver;
-        private readonly RecursiveObserver<ICalculationGroup, ICalculationInput> calculationInputObserver;
-        private readonly RecursiveObserver<ICalculationGroup, ICalculationBase> calculationGroupObserver; 
+        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
+        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
         private IEnumerable<FailureMechanismSectionResult> failureMechanismSectionResult;
         private IFailureMechanism failureMechanism;
@@ -63,8 +63,8 @@ namespace Ringtoets.Common.Forms.Views
             failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
             failureMechanismSectionResultObserver = new RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
             // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<ICalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableInput())));
-            calculationGroupObserver = new RecursiveObserver<ICalculationGroup, ICalculationBase>(UpdataDataGridViewDataSource, c => c.Children);
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableInput())));
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdataDataGridViewDataSource, c => c.Children);
             Load += OnLoad;
         }
 
@@ -250,7 +250,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             public FailureMechanismSectionResultRow(FailureMechanismSectionResult failureMechanismSectionResult)
             {
-                this.FailureMechanismSectionResult = failureMechanismSectionResult;
+                FailureMechanismSectionResult = failureMechanismSectionResult;
             }
 
             public string Name
@@ -286,8 +286,8 @@ namespace Ringtoets.Common.Forms.Views
                         return double.NaN.ToString(CultureInfo.CurrentCulture);
                     }
 
-                    if (!relevantScenarioAvailable 
-                        || FailureMechanismSectionResult.CalculationScenarioStatus == CalculationScenarioStatus.NotCalculated 
+                    if (!relevantScenarioAvailable
+                        || FailureMechanismSectionResult.CalculationScenarioStatus == CalculationScenarioStatus.NotCalculated
                         || FailureMechanismSectionResult.CalculationScenarioStatus == CalculationScenarioStatus.Failed)
                     {
                         return Resources.FailureMechanismSectionResultRow_AssessmentLayerTwoA_No_result_dash;

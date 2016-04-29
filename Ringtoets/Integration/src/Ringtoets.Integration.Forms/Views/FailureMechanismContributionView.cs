@@ -73,7 +73,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets and sets the assessment section this view belongs to.
+        /// Gets or sets the assessment section this view belongs to.
         /// </summary>
         public IAssessmentSection AssessmentSection
         {

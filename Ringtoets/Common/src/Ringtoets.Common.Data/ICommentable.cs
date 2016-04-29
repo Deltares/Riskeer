@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.Data
 {
     /// <summary>
-    /// Interface for a object for which people can leave comments about.
+    /// Interface for an object for which people can leave comments about.
     /// </summary>
     public interface ICommentable
     {

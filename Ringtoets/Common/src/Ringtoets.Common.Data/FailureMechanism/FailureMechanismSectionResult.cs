@@ -62,12 +62,12 @@ namespace Ringtoets.Common.Data.FailureMechanism
         }
 
         /// <summary>
-        /// Gets and sets the state of the assessment layer one.
+        /// Gets or sets the state of the assessment layer one.
         /// </summary>
         public bool AssessmentLayerOne { get; set; }
 
         /// <summary>
-        /// Gets and sets the value of assessment layer two a.
+        /// Gets the value of assessment layer two a.
         /// </summary>
         public RoundedDouble AssessmentLayerTwoA
         {
@@ -79,15 +79,18 @@ namespace Ringtoets.Common.Data.FailureMechanism
         }
 
         /// <summary>
-        /// Gets and sets the value of assessment layer two b.
+        /// Gets or sets the value of assessment layer two b.
         /// </summary>
         public RoundedDouble AssessmentLayerTwoB { get; set; }
 
         /// <summary>
-        /// Gets and sets the value of assessment layer three.
+        /// Gets or sets the value of assessment layer three.
         /// </summary>
         public RoundedDouble AssessmentLayerThree { get; set; }
 
+        /// <summary>
+        /// Gets the contribution of all relevant <see cref="CalculationScenarios"/> together.
+        /// </summary>
         public RoundedDouble TotalContribution
         {
             get
@@ -98,7 +101,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         }
 
         /// <summary>
-        /// Gets and sets a list of <see cref="ICalculationScenario"/>
+        /// Gets a list of <see cref="ICalculationScenario"/>.
         /// </summary>
         public List<ICalculationScenario> CalculationScenarios { get; private set; }
 

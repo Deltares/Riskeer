@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     public interface IFailureMechanism : ICommentable, IStorable, IObservable
     {
         /// <summary>
-        /// Gets the amount of contribution as a percentage [0-100] for the <see cref="IFailureMechanism"/>
+        /// Gets or sets the amount of contribution as a percentage [0-100] for the <see cref="IFailureMechanism"/>
         /// as part of the overall verdict.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> is not in interval [0-100].</exception>

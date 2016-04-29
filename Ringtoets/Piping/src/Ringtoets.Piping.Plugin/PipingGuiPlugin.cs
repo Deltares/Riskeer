@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Plugin
                 CloseForData = ClosePipingFailureMechanismViewForData
             };
 
-            yield return new ViewInfo<PipingCalculationGroupContext, ICalculationGroup, PipingCalculationsView>
+            yield return new ViewInfo<PipingCalculationGroupContext, CalculationGroup, PipingCalculationsView>
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, calculationGroup) => calculationGroup.Name,
@@ -737,7 +737,7 @@ namespace Ringtoets.Piping.Plugin
             nodeData.PipingFailureMechanism.NotifyObservers();
         }
 
-        private void GeneratePipingCalculations(ICalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, NormProbabilityPipingInput normProbabilityInput)
+        private void GeneratePipingCalculations(CalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, NormProbabilityPipingInput normProbabilityInput)
         {
             foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput, normProbabilityInput))
             {
@@ -745,7 +745,7 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private StrictContextMenuItem CreateCalculateAllItem(ICalculationGroup group)
+        private StrictContextMenuItem CreateCalculateAllItem(CalculationGroup group)
         {
             var menuItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
@@ -761,7 +761,7 @@ namespace Ringtoets.Piping.Plugin
             return menuItem;
         }
 
-        private static StrictContextMenuItem CreateValidateAllItem(ICalculationGroup group)
+        private static StrictContextMenuItem CreateValidateAllItem(CalculationGroup group)
         {
             var menuItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Validate_all,
@@ -777,12 +777,12 @@ namespace Ringtoets.Piping.Plugin
             return menuItem;
         }
 
-        private void CalculateAll(ICalculationGroup group)
+        private void CalculateAll(CalculationGroup group)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow, group.GetCalculations().OfType<PipingCalculationScenario>().Select(pc => new PipingCalculationActivity(pc)));
         }
 
-        private static void ValidateAll(ICalculationGroup group)
+        private static void ValidateAll(CalculationGroup group)
         {
             foreach (PipingCalculation calculation in group.GetCalculations().OfType<PipingCalculation>())
             {
@@ -898,7 +898,7 @@ namespace Ringtoets.Piping.Plugin
 
         /// <summary>
         /// Strategy pattern implementation for dealing with drag & dropping a <see cref="ICalculation"/>
-        /// onto <see cref="ICalculationGroup"/> data.
+        /// onto <see cref="CalculationGroup"/> data.
         /// </summary>
         private abstract class DroppingPipingCalculationInContainerStrategy
         {
@@ -948,7 +948,7 @@ namespace Ringtoets.Piping.Plugin
 
         /// <summary>
         /// Strategy implementation for rearranging the order of an <see cref="ICalculation"/>
-        /// within a <see cref="ICalculationGroup"/> through a drag & drop action.
+        /// within a <see cref="CalculationGroup"/> through a drag & drop action.
         /// </summary>
         private class DroppingPipingCalculationWithinSameContainer : DroppingPipingCalculationInContainerStrategy
         {
@@ -965,7 +965,7 @@ namespace Ringtoets.Piping.Plugin
 
         /// <summary>
         /// Strategy implementation for moving an <see cref="ICalculation"/> from
-        /// one <see cref="ICalculationGroup"/> to another using a drag & drop action.
+        /// one <see cref="CalculationGroup"/> to another using a drag & drop action.
         /// </summary>
         private class DroppingPipingCalculationToNewContainer : DroppingPipingCalculationInContainerStrategy
         {

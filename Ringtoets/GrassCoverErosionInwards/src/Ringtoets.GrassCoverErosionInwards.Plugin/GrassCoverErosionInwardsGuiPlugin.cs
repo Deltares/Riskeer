@@ -501,7 +501,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         /// <summary>
         /// Strategy pattern implementation for dealing with drag & dropping a <see cref="ICalculation"/>
-        /// onto <see cref="ICalculationGroup"/> data.
+        /// onto <see cref="CalculationGroup"/> data.
         /// </summary>
         private abstract class DroppingCalculationInContainerStrategy
         {
@@ -551,7 +551,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         /// <summary>
         /// Strategy implementation for rearranging the order of an <see cref="ICalculation"/>
-        /// within a <see cref="ICalculationGroup"/> through a drag & drop action.
+        /// within a <see cref="CalculationGroup"/> through a drag & drop action.
         /// </summary>
         private class DroppingCalculationWithinSameContainer : DroppingCalculationInContainerStrategy
         {
@@ -568,7 +568,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         /// <summary>
         /// Strategy implementation for moving an <see cref="ICalculation"/> from
-        /// one <see cref="ICalculationGroup"/> to another using a drag & drop action.
+        /// one <see cref="CalculationGroup"/> to another using a drag & drop action.
         /// </summary>
         private class DroppingCalculationToNewContainer : DroppingCalculationInContainerStrategy
         {

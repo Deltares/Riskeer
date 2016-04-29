@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="pipingCalculationGroup">The group containing the calculations.</param>
         /// <param name="pipingFailureMechanism">The failure mechanism containing the section results.</param>
-        public static void AddCalculationScenariosToFailureMechanismSectionResult(this ICalculationGroup pipingCalculationGroup, PipingFailureMechanism pipingFailureMechanism)
+        public static void AddCalculationScenariosToFailureMechanismSectionResult(this CalculationGroup pipingCalculationGroup, PipingFailureMechanism pipingFailureMechanism)
         {
             foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
             {

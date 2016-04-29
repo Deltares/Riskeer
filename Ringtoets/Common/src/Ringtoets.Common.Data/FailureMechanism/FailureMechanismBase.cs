@@ -30,7 +30,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
 {
     /// <summary>
     /// This class is the base implementation for a failure mechanism. Classes which want
-    /// to implement IFailureMechanism can and should most likely inherit from this class.
+    /// to implement <see cref="IFailureMechanism"/> can and should most likely inherit
+    /// from this class.
     /// </summary>
     public abstract class FailureMechanismBase : Observable, IFailureMechanism
     {
@@ -39,7 +40,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         private double contribution;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FailureMechanismBase"/> class.
+        /// Creates a new instance of the <see cref="FailureMechanismBase"/> class.
         /// </summary>
         /// <param name="failureMechanismName">The name of the failure mechanism.</param>
         /// <param name="failureMechanismCode">The code of the failure mechanism.</param>
@@ -60,11 +61,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
         }
 
-        /// <summary>
-        /// Gets the amount of contribution as a percentage (0-100) for the <see cref="IFailureMechanism"/>
-        /// as part of the overall verdict.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> is not in interval [0-100].</exception>
         public virtual double Contribution
         {
             get
@@ -128,8 +124,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
         /// <summary>
         /// Inserts the section to <see cref="Sections"/> while maintaining connectivity
-        /// order (Neighboring <see cref="FailureMechanismSection"/> have same start- and 
-        /// endpoints).
+        /// order (neighboring <see cref="FailureMechanismSection"/> have same start and 
+        /// end points).
         /// </summary>
         /// <param name="sectionToInsert">The new section.</param>
         /// <exception cref="ArgumentException">When <paramref name="sectionToInsert"/> cannot

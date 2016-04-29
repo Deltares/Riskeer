@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.Calculation
     public interface ICalculationBase : IObservable
     {
         /// <summary>
-        /// Gets the name of this calculation object.
+        /// Gets or sets the name of this calculation item.
         /// </summary>
         string Name { get; }
     }

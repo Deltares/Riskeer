@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.Calculation
     public interface ICalculation : ICalculationBase, ICommentable
     {
         /// <summary>
-        /// Gets a value indicating whether or not  this calculation item contains calculation outputs.
+        /// Gets a value indicating whether or not this calculation item contains calculation output.
         /// </summary>
         bool HasOutput { get; }
 
@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Data.Calculation
         void ClearOutput();
 
         /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> assessment level.
+        /// Clears the <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         void ClearHydraulicBoundaryLocation();
 

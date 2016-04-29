@@ -406,7 +406,7 @@ namespace Ringtoets.Piping.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationItemsStructure_WithSurfaceLinesWithEmptySoilModels_LogFourWanings()
+        public void GenerateCalculationItemsStructure_WithSurfaceLinesWithEmptySoilModels_LogFourWarnings()
         {
             // Setup
             const string testName1 = "group1";
@@ -1089,7 +1089,6 @@ namespace Ringtoets.Piping.Forms.Test
         [Test]
         public void GenerateCalculationItemsStructure_SoilProfileEqualNames_CalculationsGetUniqueName()
         {
-            // Setup
             // Setup
             var soilProfile1 = new PipingSoilProfile("Profile 1", -10.0, new[]
             {

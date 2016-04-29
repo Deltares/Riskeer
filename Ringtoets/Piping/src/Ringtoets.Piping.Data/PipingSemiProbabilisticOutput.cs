@@ -24,7 +24,7 @@ namespace Ringtoets.Piping.Data
         /// <param name="requiredReliability">The required (maximum allowed) reliabiality of the piping failure mechanism</param>
         /// <param name="pipingProbability">The calculated probability of failing due to piping.</param>
         /// <param name="pipingReliability">The calculated reliability of the piping failure mechanism.</param>
-        /// <param name="pipingFactorOfSafety">The factor of safety for the piping failure mechanims.</param>
+        /// <param name="pipingFactorOfSafety">The factor of safety for the piping failure mechanism.</param>
         public PipingSemiProbabilisticOutput(double upliftFactorOfSafety, double upliftReliability, double upliftProbability, double heaveFactorOfSafety, double heaveReliability, double heaveProbability, double sellmeijerFactorOfSafety, double sellmeijerReliability, double sellmeijerProbability, double requiredProbability, double requiredReliability, double pipingProbability, double pipingReliability, double pipingFactorOfSafety)
         {
             UpliftFactorOfSafety = new RoundedDouble(3, upliftFactorOfSafety);

@@ -29,21 +29,21 @@ namespace Ringtoets.Common.Data.Calculation
     /// <summary>
     /// Class to allow grouping one or multiple <see cref="ICalculation"/> instances.
     /// </summary>
-    public class CalculationGroup : Observable, ICalculationGroup
+    public class CalculationGroup : Observable, ICalculationBase
     {
         private string name;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CalculationGroup"/> class
+        /// Creates a new instance of the <see cref="CalculationGroup"/> class
         /// with an editable name.
         /// </summary>
         public CalculationGroup() : this(Resources.CalculationGroup_DefaultName, true) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CalculationGroup"/> class.
+        /// Creates a new instance of the <see cref="CalculationGroup"/> class.
         /// </summary>
         /// <param name="newName">The name of the group.</param>
-        /// <param name="canEditName">Determines if the name of the group is editable (true) or not.</param>
+        /// <param name="canEditName">Determines if the name of the group is editable (<c>true</c>) or not.</param>
         public CalculationGroup(string newName, bool canEditName)
         {
             name = newName;
@@ -52,15 +52,15 @@ namespace Ringtoets.Common.Data.Calculation
         }
 
         /// <summary>
-        /// Gets a value indicating whether or not <see cref="Name"/> is editable.
+        /// Gets a value indicating whether or not <see cref="ICalculationBase.Name"/> is editable.
         /// </summary>
         public bool IsNameEditable { get; private set; }
 
+        /// <summary>
+        /// Gets the children that define this group.
+        /// </summary>
         public IList<ICalculationBase> Children { get; private set; }
 
-        /// <summary>
-        /// Gets or sets the name of this calculation grouping object.
-        /// </summary>
         public string Name
         {
             get

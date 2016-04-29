@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms
         /// <param name="soilModels">The soil models from which profiles are taken to configure <see cref="PipingCalculation"/> with.</param>
         /// <param name="generalInput">General input to assign to each generated piping calculation.</param>
         /// <param name="normProbabilityInput">Semi probabilistic input to assign to each generated piping calculation.</param>
-        /// <returns>A structure or <see cref="ICalculationBase"/> matching combinations of <paramref name="surfaceLines"/> and
+        /// <returns>A structure of <see cref="ICalculationBase"/> matching combinations of <paramref name="surfaceLines"/> and
         /// profiles of intersecting <paramref name="soilModels"/>.</returns>
         /// <exception cref="ArgumentNullException">Throw when either:
         /// <list type="bullet">

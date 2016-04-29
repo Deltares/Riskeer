@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(PipingCalculationGroupContext), info.DataType);
-            Assert.AreEqual(typeof(ICalculationGroup), info.ViewDataType);
+            Assert.AreEqual(typeof(CalculationGroup), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, info.Image);
         }
 
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AdditionalDataCheck_PipingCalculationGroupContextWithPipingFailureMechanimsParent_ReturnsTrue()
+        public void AdditionalDataCheck_PipingCalculationGroupContextWithPipingFailureMechanismParent_ReturnsTrue()
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AdditionalDataCheck_PipingCalculationGroupContextWithoutPipingFailureMechanimsParent_ReturnsFalse()
+        public void AdditionalDataCheck_PipingCalculationGroupContextWithoutPipingFailureMechanismParent_ReturnsFalse()
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();

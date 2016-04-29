@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Data
     public class PipingCalculation : Observable, ICalculation
     {
         /// <summary>
-        /// Constructs a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.
+        /// Creates a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.
         /// </summary>
         /// <param name="generalInputParameters">General piping calculation parameters that
         /// are the same across all piping calculations.</param>
@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Data
         public PipingInput InputParameters { get; private set; }
 
         /// <summary>
-        /// Gets or sets <see cref="PipingOutput"/>, which contains the results of a Piping calculation.
+        /// Gets or sets <see cref="PipingOutput"/>, which contains the results of a piping calculation.
         /// </summary>
         public PipingOutput Output { get; set; }
 
@@ -76,14 +76,8 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public PipingSemiProbabilisticOutput SemiProbabilisticOutput { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of this calculation.
-        /// </summary>
         public string Name { get; set; }
 
-        /// <summary>
-        /// Gets a value indicating whether or not the <see cref="PipingCalculation"/> has <see cref="Output"/>.
-        /// </summary>
         public bool HasOutput
         {
             get
