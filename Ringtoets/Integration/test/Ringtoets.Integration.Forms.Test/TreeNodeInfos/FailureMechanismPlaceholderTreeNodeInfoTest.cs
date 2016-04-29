@@ -21,9 +21,12 @@
 
 using System.Drawing;
 using System.Linq;
+
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
@@ -45,6 +48,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
     public class FailureMechanismPlaceholderTreeNodeInfoTest
     {
         private MockRepository mocks;
+        private const int contextMenuRelevancyIndex = 0;
 
         [SetUp]
         public void SetUp()
@@ -205,6 +209,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
@@ -264,12 +270,12 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     // Call
                     var menu = info.ContextMenuStrip(context, assessmentSection, treeView);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 0,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 2,
                                                                   RingtoetsCommonFormsResources.Calculate_all,
                                                                   RingtoetsCommonFormsResources.Calculate_all_ToolTip,
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
                                                                   false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 1,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 3,
                                                                   RingtoetsCommonFormsResources.Clear_all_output,
                                                                   RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
                                                                   RingtoetsCommonFormsResources.ClearIcon,
@@ -279,6 +285,53 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 mocks.VerifyAll();
             }
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnIsRelevantItem_MakeFailureMechanismNotRelevant()
+        {
+            // Setup
+            var failureMechanismObserver = mocks.Stub<IObserver>();
+            failureMechanismObserver.Expect(o => o.UpdateObserver());
+
+            var failureMechanism = new FailureMechanismPlaceholder("A")
+            {
+                IsRelevant = true
+            };
+            failureMechanism.Attach(failureMechanismObserver);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismContext = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
+
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = mocks.StrictMock<IGui>();
+            gui.Stub(g => g.ViewCommands).Return(viewCommands);
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            gui.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            using (var guiPlugin = new RingtoetsGuiPlugin())
+            {
+                guiPlugin.Gui = gui;
+
+                var info = GetInfo(guiPlugin);
+
+                var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+
+                // Call
+                contextMenu.Items[contextMenuRelevancyIndex].PerformClick();
+
+                // Assert
+                Assert.IsFalse(failureMechanism.IsRelevant);
+            }
+            mocks.VerifyAll();
         }
 
         private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)

@@ -283,6 +283,18 @@ namespace Ringtoets.Piping.Plugin
 
         private ContextMenuStrip FailureMechanismContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
         {
+            var changeRelevancyItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
+                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                RingtoetsCommonFormsResources.Checkbox_ticked,
+                (sender, args) =>
+                {
+                    Gui.ViewCommands.RemoveAllViewsForItem(pipingFailureMechanismContext);
+                    pipingFailureMechanismContext.WrappedData.IsRelevant = false;
+                    pipingFailureMechanismContext.WrappedData.NotifyObservers();
+                }
+                );
+
             var addCalculationGroupItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
                 RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
@@ -316,6 +328,8 @@ namespace Ringtoets.Piping.Plugin
 
             return Gui.Get(pipingFailureMechanismContext, treeViewControl)
                       .AddOpenItem()
+                      .AddSeparator()
+                      .AddCustomItem(changeRelevancyItem)
                       .AddSeparator()
                       .AddCustomItem(addCalculationGroupItem)
                       .AddCustomItem(addCalculationItem)

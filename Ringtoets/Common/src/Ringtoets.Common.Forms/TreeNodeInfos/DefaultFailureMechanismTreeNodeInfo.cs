@@ -75,10 +75,25 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             {
                 return getEnabledFailureMechanismContextMenuStrip(context, parent, treeView);
             }
+
+            var changeRelevancyItem = new StrictContextMenuItem(
+                Resources.FailureMechanismContextMenuStrip_Is_relevant,
+                Resources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                Resources.Checkbox_empty,
+                (sender, args) =>
+                {
+                    context.WrappedData.IsRelevant = true;
+                    context.WrappedData.NotifyObservers();
+                }
+                );
+
             return contextMenuBuilderProvider.Get(context, treeView)
+                                             .AddCustomItem(changeRelevancyItem)
+                                             .AddSeparator()
                                              .AddExpandAllItem()
                                              .AddCollapseAllItem()
                                              .Build();
+
         }
 
         private object[] GetChildNodeObjects(TContext failureMechanismContext)

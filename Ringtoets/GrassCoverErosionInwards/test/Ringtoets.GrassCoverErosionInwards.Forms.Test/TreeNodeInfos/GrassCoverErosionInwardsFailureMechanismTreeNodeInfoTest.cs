@@ -20,9 +20,13 @@
 // All rights reserved.
 
 using System.Linq;
+
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -32,7 +36,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -44,6 +47,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         private MockRepository mocksRepository;
         private GrassCoverErosionInwardsGuiPlugin plugin;
         private TreeNodeInfo info;
+
+        private const int contextMenuRelevancyIndex = 1;
 
         [SetUp]
         public void SetUp()
@@ -160,6 +165,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
@@ -178,6 +185,46 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             info.ContextMenuStrip(failureMechanismContext, null, treeViewControlMock);
 
             // Assert
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnIsRelevantItem_MakeFailureMechanismNotRelevant()
+        {
+            // Setup
+            var failureMechanismObserver = mocksRepository.Stub<IObserver>();
+            failureMechanismObserver.Expect(o => o.UpdateObserver());
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                IsRelevant = true
+            };
+            failureMechanism.Attach(failureMechanismObserver);
+
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var viewCommands = mocksRepository.StrictMock<IViewCommands>();
+            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+
+            var treeViewControl = mocksRepository.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = mocksRepository.StrictMock<IGui>();
+            gui.Stub(g => g.ViewCommands).Return(viewCommands);
+            gui.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+
+            mocksRepository.ReplayAll();
+
+            plugin.Gui = gui;
+
+            var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+
+            // Call
+            contextMenu.Items[contextMenuRelevancyIndex].PerformClick();
+
+            // Assert
+            Assert.IsFalse(failureMechanism.IsRelevant);
             mocksRepository.VerifyAll();
         }
     }

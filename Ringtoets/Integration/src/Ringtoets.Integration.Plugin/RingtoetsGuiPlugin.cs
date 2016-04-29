@@ -489,6 +489,18 @@ namespace Ringtoets.Integration.Plugin
 
         private ContextMenuStrip FailureMechanismPlaceholderContextMenuStrip(FailureMechanismPlaceholderContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
+            var changeRelevancyItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
+                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                RingtoetsCommonFormsResources.Checkbox_ticked,
+                (sender, args) =>
+                {
+                    Gui.ViewCommands.RemoveAllViewsForItem(nodeData);
+                    nodeData.WrappedData.IsRelevant = false;
+                    nodeData.WrappedData.NotifyObservers();
+                }
+                );
+
             var calculateItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
                 RingtoetsCommonFormsResources.Calculate_all_ToolTip,
@@ -507,6 +519,8 @@ namespace Ringtoets.Integration.Plugin
             };
 
             return Gui.Get(nodeData, treeViewControl)
+                      .AddCustomItem(changeRelevancyItem)
+                      .AddSeparator()
                       .AddCustomItem(calculateItem)
                       .AddCustomItem(clearOutputItem)
                       .AddSeparator()

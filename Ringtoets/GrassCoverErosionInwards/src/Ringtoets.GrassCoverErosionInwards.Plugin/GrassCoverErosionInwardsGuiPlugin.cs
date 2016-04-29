@@ -243,6 +243,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip FailureMechanismContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
         {
+            var changeRelevancyItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
+                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                RingtoetsCommonFormsResources.Checkbox_ticked,
+                (sender, args) =>
+                {
+                    Gui.ViewCommands.RemoveAllViewsForItem(grassCoverErosionInwardsFailureMechanismContext);
+                    grassCoverErosionInwardsFailureMechanismContext.WrappedData.IsRelevant = false;
+                    grassCoverErosionInwardsFailureMechanismContext.WrappedData.NotifyObservers();
+                }
+                );
+
             var addCalculationGroupItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
                 RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
@@ -265,6 +277,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             return Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl)
                       .AddOpenItem()
+                      .AddSeparator()
+                      .AddCustomItem(changeRelevancyItem)
                       .AddSeparator()
                       .AddCustomItem(addCalculationGroupItem)
                       .AddCustomItem(addCalculationItem)

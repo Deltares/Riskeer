@@ -149,6 +149,8 @@
     <None Include="Resources\chart-pie-separate.png" />
     <None Include="Resources\control_equalizer_blue.png" />
     <None Include="Resources\folder_add.png" />
+    <None Include="Resources\Checkbox_empty.png" />
+    <None Include="Resources\Checkbox_ticked.png" />
     <Content Include="Resources\PlayHS.png" />
     <None Include="Resources\Sections.png" />
     <Content Include="Resources\tickAll.png" />
