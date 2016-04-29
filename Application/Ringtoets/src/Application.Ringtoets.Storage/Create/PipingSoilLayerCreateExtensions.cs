@@ -36,6 +36,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="layer">The layer to create a database entity for.</param>
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="SoilLayerEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         public static SoilLayerEntity Create(this PipingSoilLayer layer, CreateConversionCollector collector)
         {
             if (collector == null)

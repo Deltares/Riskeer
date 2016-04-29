@@ -38,6 +38,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="project">The project to create a database entity for.</param>
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="ProjectEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         public static ProjectEntity Create(this Project project, CreateConversionCollector collector)
         {
             if (collector == null)

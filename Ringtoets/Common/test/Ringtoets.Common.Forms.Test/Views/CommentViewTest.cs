@@ -113,7 +113,6 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        [Timeout(250)] // Temporary guard, as this test has timed out > 50minutes in the past.
         public void RichTextEditorOnTextChanged_Always_SetsComments()
         {
             // Setup
@@ -140,7 +139,6 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Call
                 richTextBoxControl.Rtf = validRtfString;
-                EventHelper.RaiseEvent(richTextBoxControl, "TextBoxValueChanged", EventArgs.Empty);
 
                 // Assert
                 Assert.AreEqual(validRtfString, data.Comments);

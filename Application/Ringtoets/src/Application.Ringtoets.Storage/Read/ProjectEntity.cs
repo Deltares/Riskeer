@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.Read;
 using Core.Common.Base.Data;
 
@@ -35,8 +36,13 @@ namespace Application.Ringtoets.Storage.DbContext
         /// </summary>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="Project"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         public Project Read(ReadConversionCollector collector)
         {
+            if (collector == null)
+            {
+                throw new ArgumentNullException("collector");
+            }
             var project = new Project
             {
                 StorageId = ProjectEntityId,

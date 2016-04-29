@@ -36,6 +36,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="profile">The profile to create a database entity for.</param>
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StochasticSoilProfileEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         public static StochasticSoilProfileEntity Create(this StochasticSoilProfile profile, CreateConversionCollector collector)
         {
             var entity = new StochasticSoilProfileEntity

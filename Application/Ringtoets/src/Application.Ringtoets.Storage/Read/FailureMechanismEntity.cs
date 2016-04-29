@@ -37,6 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// </summary>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="PipingFailureMechanism"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         public PipingFailureMechanism ReadAsPipingFailureMechanism(ReadConversionCollector collector)
         {
             if (collector == null)

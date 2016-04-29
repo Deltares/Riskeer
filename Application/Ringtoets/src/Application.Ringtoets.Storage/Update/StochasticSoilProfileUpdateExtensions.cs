@@ -40,6 +40,11 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="profile">The profile to update the database entity for.</param>
         /// <param name="collector">The object keeping track of update operations.</param>
         /// <param name="context">The context to obtain the existing entity from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="context"/> is <c>null</c></item>
+        /// </list></exception>
         public static void Update(this StochasticSoilProfile profile, UpdateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)

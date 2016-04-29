@@ -30,7 +30,21 @@ namespace Application.Ringtoets.Storage.Test.Read
     public class ProjectEntityTest
     {
         [Test]
-        public void Read_Always_ReturnsNewProjectWithPropertiesSet()
+        public void Read_WithoutCollector_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new ProjectEntity();
+
+            // Call
+            TestDelegate test = () => entity.Read(null);
+
+            // Assert
+            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("collector", parameter);
+        }
+
+        [Test]
+        public void Read_WithCollector_ReturnsNewProjectWithPropertiesSet()
         {
             // Setup
             var testDescription = "testName";

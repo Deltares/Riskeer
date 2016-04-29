@@ -37,6 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="SoilProfileEntity"/> or one from the <paramref name="collector"/> if it
         /// was created for the <see cref="profile"/> earlier.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         public static SoilProfileEntity Create(this PipingSoilProfile profile, CreateConversionCollector collector)
         {
             if (collector == null)

@@ -36,6 +36,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="location">The location to create a database entity for.</param>
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="HydraulicLocationEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         public static HydraulicLocationEntity Create(this HydraulicBoundaryLocation location, CreateConversionCollector collector)
         {
             if (collector == null)

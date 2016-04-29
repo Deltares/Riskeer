@@ -36,6 +36,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="mechanism">The failure mechanism to create a database entity for.</param>
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         public static FailureMechanismEntity Create(this PipingFailureMechanism mechanism, CreateConversionCollector collector)
         {
             if (collector == null)

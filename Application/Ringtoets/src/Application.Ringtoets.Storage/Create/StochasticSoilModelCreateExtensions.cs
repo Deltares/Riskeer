@@ -36,6 +36,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="model">The model to create a database entity for.</param>
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StochasticSoilModelEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         public static StochasticSoilModelEntity Create(this StochasticSoilModel model, CreateConversionCollector collector)
         {
             if (collector == null)

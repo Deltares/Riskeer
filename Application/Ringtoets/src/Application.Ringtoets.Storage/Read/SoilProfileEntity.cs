@@ -38,6 +38,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="PipingSoilProfile"/> or one from the <paramref name="collector"/> if the 
         /// <see cref="SoilProfileEntity"/> has been read before.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         public PipingSoilProfile Read(ReadConversionCollector collector)
         {
             if (collector == null)

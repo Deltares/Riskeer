@@ -37,6 +37,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="type">The type of the failure mechanism that is being created.</param>
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         public static FailureMechanismEntity Create(this FailureMechanismPlaceholder mechanism, FailureMechanismType type, CreateConversionCollector collector)
         {
             if (collector == null)
