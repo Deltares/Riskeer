@@ -606,6 +606,38 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenNoCalculationGroupDefined_ThenCalculationGroupNotUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var pipingCalculationsView = ShowPipingCalculationsView();
+            var pipingFailureMechanism = new PipingFailureMechanism
+            {
+                SurfaceLines =
+                {
+                    new RingtoetsPipingSurfaceLine(),
+                    new RingtoetsPipingSurfaceLine()
+                },
+                StochasticSoilModels =
+                {
+                    new TestStochasticSoilModel()
+                }
+            };
+            pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+            pipingFailureMechanism.CalculationsGroup.Attach(observer);
+            var button = new ButtonTester("buttonGenerateScenarios", testForm);
+
+            // When
+            button.Click();
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase("OkButton")]
         [TestCase("CustomCancelButton")]
         public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup(string buttonName)

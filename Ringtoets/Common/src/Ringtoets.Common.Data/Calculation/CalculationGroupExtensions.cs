@@ -37,11 +37,6 @@ namespace Ringtoets.Common.Data.Calculation
         /// <returns>Returns all contained calculations as an enumerable result.</returns>
         public static IEnumerable<ICalculationScenario> GetCalculations(this CalculationGroup calculationGroup)
         {
-            if (calculationGroup == null)
-            {
-                return Enumerable.Empty<ICalculationScenario>();
-            }
-
             var calculationScenarios = new List<ICalculationScenario>();
             foreach (ICalculationBase calculationItem in calculationGroup.Children)
             {

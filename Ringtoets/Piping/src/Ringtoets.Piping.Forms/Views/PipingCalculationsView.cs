@@ -30,7 +30,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Selection;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -402,7 +401,7 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             var failureMechanismSection = listBox.SelectedItem as FailureMechanismSection;
-            if (failureMechanismSection == null)
+            if (failureMechanismSection == null || calculationGroup == null)
             {
                 dataGridView.DataSource = null;
                 return;
@@ -785,6 +784,10 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void OnGenerateScenariosButtonClick(object sender, EventArgs e)
         {
+            if (calculationGroup == null)
+            {
+                return;
+            }
             var dialog = new PipingSurfaceLineSelectionDialog(Parent, pipingFailureMechanism.SurfaceLines);
             dialog.ShowDialog();
             var calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
