@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Linq;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Update;
@@ -8,8 +29,18 @@ using Resources = Application.Ringtoets.Storage.Properties.Resources;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
+    /// <summary>
+    /// Extension methods for <see cref="Project"/> related to updating a <see cref="ProjectEntity"/>.
+    /// </summary>
     public static class ProjectUpdateExtensions
     {
+        /// <summary>
+        /// Updates a <see cref="ProjectEntity"/> in the database based on the information of the 
+        /// <see cref="Project"/>.
+        /// </summary>
+        /// <param name="project">The project to update the database entity for.</param>
+        /// <param name="collector">The object keeping track of update operations.</param>
+        /// <param name="context">The context to obtain the existing entity from.</param>
         public static void Update(this Project project, UpdateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)

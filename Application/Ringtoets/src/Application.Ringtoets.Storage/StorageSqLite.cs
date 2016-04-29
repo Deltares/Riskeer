@@ -29,6 +29,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Persistors;
 using Application.Ringtoets.Storage.Properties;
+using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Update;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -188,7 +189,7 @@ namespace Application.Ringtoets.Storage
                         throw CreateStorageReaderException(Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file);
                     }
 
-                    var project = projectEntity.Read();
+                    var project = projectEntity.Read(new ReadConversionCollector());
 
                     project.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
                     return project;
