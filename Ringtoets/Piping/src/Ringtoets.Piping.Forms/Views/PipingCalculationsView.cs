@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly Observer pipingStochasticSoilModelsObserver;
         private IAssessmentSection assessmentSection;
         private DataGridViewComboBoxColumn hydraulicBoundaryLocationColumn;
-        private CalculationGroup pipingCalculationGroup;
+        private CalculationGroup calculationGroup;
         private PipingFailureMechanism pipingFailureMechanism;
         private DataGridViewComboBoxColumn stochasticSoilModelColumn;
         private DataGridViewComboBoxColumn stochasticSoilProfileColumn;
@@ -130,18 +130,18 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return pipingCalculationGroup;
+                return calculationGroup;
             }
             set
             {
-                pipingCalculationGroup = value as CalculationGroup;
+                calculationGroup = value as CalculationGroup;
 
-                if (pipingCalculationGroup != null)
+                if (calculationGroup != null)
                 {
                     UpdateDataGridViewDataSource();
-                    pipingInputObserver.Observable = pipingCalculationGroup;
-                    pipingCalculationObserver.Observable = pipingCalculationGroup;
-                    pipingCalculationGroupObserver.Observable = pipingCalculationGroup;
+                    pipingInputObserver.Observable = calculationGroup;
+                    pipingCalculationObserver.Observable = calculationGroup;
+                    pipingCalculationGroupObserver.Observable = calculationGroup;
                 }
                 else
                 {
@@ -409,7 +409,7 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             var lineSegments = Math2D.ConvertLinePointsToLineSegments(failureMechanismSection.Points);
-            var pipingCalculations = pipingCalculationGroup
+            var pipingCalculations = calculationGroup
                 .GetCalculations().OfType<PipingCalculationScenario>()
                 .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
@@ -794,12 +794,12 @@ namespace Ringtoets.Piping.Forms.Views
                 pipingFailureMechanism.NormProbabilityInput);
             foreach (var item in calculationsStructure)
             {
-                pipingCalculationGroup.Children.Add(item);
+                calculationGroup.Children.Add(item);
             }
 
-            pipingCalculationGroup.NotifyObservers();
+            calculationGroup.NotifyObservers();
 
-            pipingCalculationGroup.AddCalculationScenariosToFailureMechanismSectionResult(pipingFailureMechanism);
+            calculationGroup.AddCalculationScenariosToFailureMechanismSectionResult(pipingFailureMechanism);
             pipingFailureMechanism.NotifyObservers();
         }
 

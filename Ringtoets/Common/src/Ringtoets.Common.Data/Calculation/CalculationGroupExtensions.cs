@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ringtoets.Common.Data.Calculation
 {
@@ -29,13 +30,18 @@ namespace Ringtoets.Common.Data.Calculation
     public static class CalculationGroupExtensions
     {
         /// <summary>
-        /// Recursively enumerates across the contents of the piping calculation item, 
-        /// yielding the piping calculations found within the calculation item.
+        /// Recursively enumerates across the contents of the calculation item, 
+        /// yielding the calculations found within the calculation item.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to be evaluated.</param>
-        /// <returns>Returns all contained piping calculations as an enumerable result.</returns>
+        /// <returns>Returns all contained calculations as an enumerable result.</returns>
         public static IEnumerable<ICalculationScenario> GetCalculations(this CalculationGroup calculationGroup)
         {
+            if (calculationGroup == null)
+            {
+                return Enumerable.Empty<ICalculationScenario>();
+            }
+
             var calculationScenarios = new List<ICalculationScenario>();
             foreach (ICalculationBase calculationItem in calculationGroup.Children)
             {
