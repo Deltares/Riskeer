@@ -20,37 +20,38 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Linq;
-using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.Data
+namespace Ringtoets.Common.Data.Calculation
 {
     /// <summary>
-    /// Defines extension methods dealing with <see cref="ICalculationBase"/> instances.
+    /// Defines extension methods dealing with <see cref="CalculationGroup"/> instances.
     /// </summary>
-    public static class ICalculationBaseExtensions
+    public static class CalculationGroupExtensions
     {
         /// <summary>
         /// Recursively enumerates across the contents of the piping calculation item, 
         /// yielding the piping calculations found within the calculation item.
         /// </summary>
-        /// <param name="calculationItem">The calculation item to be evaluated.</param>
+        /// <param name="calculationGroup">The calculation group to be evaluated.</param>
         /// <returns>Returns all contained piping calculations as an enumerable result.</returns>
-        public static IEnumerable<ICalculationScenario> GetCalculations(this ICalculationBase calculationItem)
+        public static IEnumerable<ICalculationScenario> GetCalculations(this CalculationGroup calculationGroup)
         {
-            var calculationScenario = calculationItem as ICalculationScenario;
-            if (calculationScenario != null)
+            var calculationScenarios = new List<ICalculationScenario>();
+            foreach (ICalculationBase calculationItem in calculationGroup.Children)
             {
-                yield return calculationScenario;
-            }
-            var group = calculationItem as CalculationGroup;
-            if (group != null)
-            {
-                foreach (ICalculationScenario calculationInGroup in group.Children.SelectMany(g => g.GetCalculations()))
+                var calculationScenario = calculationItem as ICalculationScenario;
+                if (calculationScenario != null)
                 {
-                    yield return calculationInGroup;
+                    calculationScenarios.Add(calculationScenario);
+                }
+
+                var nestedCalculationGroup = calculationItem as CalculationGroup;
+                if (nestedCalculationGroup != null)
+                {
+                    calculationScenarios.AddRange(GetCalculations(nestedCalculationGroup));
                 }
             }
+            return calculationScenarios;
         }
     }
 }

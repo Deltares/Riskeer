@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using log4net;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
@@ -78,7 +77,7 @@ namespace Ringtoets.Piping.Forms
                 throw new ArgumentNullException("normProbabilityInput");
             }
 
-            List<ICalculationBase> groups = new List<ICalculationBase>();
+            List<CalculationGroup> groups = new List<CalculationGroup>();
             foreach (var surfaceLine in surfaceLines)
             {
                 var group = CreateCalculationGroup(surfaceLine, soilModels, generalInput, normProbabilityInput);
@@ -124,19 +123,19 @@ namespace Ringtoets.Piping.Forms
             return soilModelObjectsForCalculation;
         }
 
-        private static ICalculationBase CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, NormProbabilityPipingInput normProbabilityInput)
+        private static CalculationGroup CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput, NormProbabilityPipingInput normProbabilityInput)
         {
-            var pipingCalculationGroup = new CalculationGroup(surfaceLine.Name, true);
+            var calculationGroup = new CalculationGroup(surfaceLine.Name, true);
             var stochasticSoilModels = GetStochasticSoilModelsForSurfaceLine(surfaceLine, soilModels);
             foreach (var stochasticSoilModel in stochasticSoilModels)
             {
                 foreach (var soilProfile in stochasticSoilModel.StochasticSoilProfiles)
                 {
-                    pipingCalculationGroup.Children.Add(CreatePipingCalculation(surfaceLine, stochasticSoilModel, soilProfile, pipingCalculationGroup.Children, generalInput, normProbabilityInput));
+                    calculationGroup.Children.Add(CreatePipingCalculation(surfaceLine, stochasticSoilModel, soilProfile, calculationGroup.Children, generalInput, normProbabilityInput));
                 }
             }
 
-            return pipingCalculationGroup;
+            return calculationGroup;
         }
 
         private static ICalculationBase CreatePipingCalculation(RingtoetsPipingSurfaceLine surfaceLine, StochasticSoilModel stochasticSoilModel, StochasticSoilProfile stochasticSoilProfile, IEnumerable<ICalculationBase> calculations, GeneralPipingInput generalInput, NormProbabilityPipingInput normProbabilityInput)

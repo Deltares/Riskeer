@@ -65,7 +65,7 @@
     <Compile Include="FailureMechanism\FailureMechanismBaseTest.cs" />
     <Compile Include="FailureMechanism\FailureMechanismSectionResultTest.cs" />
     <Compile Include="FailureMechanism\FailureMechanismSectionTest.cs" />
-    <Compile Include="ICalculationBaseExtensionsTest.cs" />
+    <Compile Include="Calculation\CalculationGroupExtensionsTest.cs" />
     <Compile Include="Probabilistics\DesignVariableTest.cs" />
     <Compile Include="Probabilistics\LognormalDistributionDesignVariableTest.cs" />
     <Compile Include="Probabilistics\LognormalDistributionTest.cs" />

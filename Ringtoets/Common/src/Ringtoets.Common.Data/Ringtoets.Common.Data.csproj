@@ -55,7 +55,7 @@
     <Compile Include="Calculation\ICalculation.cs" />
     <Compile Include="Calculation\ICalculationScenario.cs" />
     <Compile Include="FailureMechanism\IFailureMechanism.cs" />
-    <Compile Include="ICalculationBaseExtensions.cs" />
+    <Compile Include="Calculation\CalculationGroupExtensions.cs" />
     <Compile Include="ICommentable.cs" />
     <Compile Include="Calculation\ICalculationBase.cs" />
     <Compile Include="Probabilistics\DesignVariable.cs" />

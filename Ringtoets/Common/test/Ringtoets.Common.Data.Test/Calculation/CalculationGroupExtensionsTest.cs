@@ -24,35 +24,16 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.Common.Data.Test
+namespace Ringtoets.Common.Data.Test.Calculation
 {
     [TestFixture]
-    public class ICalculationBaseExtensionsTest
+    public class CalculationGroupExtensionsTest
     {
         [Test]
-        public void GetPipingCalculations_FromPipingCalculation_ReturnThatCalculationInstance()
+        public void GetCalculations_FromCalculationGroupWithoutChildren_ReturnEmpty()
         {
             // Setup
-            var mocks = new MockRepository();
-            ICalculationBase calculationItem = mocks.StrictMock<ICalculationScenario>();
-            mocks.ReplayAll();
-
-            // Call
-            IEnumerable<ICalculationBase> result = calculationItem.GetCalculations();
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                calculationItem
-            }, result);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetPipingCalculations_FromCalculationGroupWithoutChildren_ReturnEmpty()
-        {
-            // Setup
-            ICalculationBase groupWithoutChildren = new CalculationGroup();
+            CalculationGroup groupWithoutChildren = new CalculationGroup();
 
             // Call
             IEnumerable<ICalculationScenario> result = groupWithoutChildren.GetCalculations();
@@ -62,7 +43,7 @@ namespace Ringtoets.Common.Data.Test
         }
 
         [Test]
-        public void GetPipingCalculations_FromCalculationGroupWithEmptyGroups_ReturnEmpty()
+        public void GetCalculations_FromCalculationGroupWithEmptyGroups_ReturnEmpty()
         {
             // Setup
             var rootGroup = new CalculationGroup();
@@ -70,7 +51,7 @@ namespace Ringtoets.Common.Data.Test
             rootGroup.Children.Add(new CalculationGroup());
             rootGroup.Children.Add(new CalculationGroup());
 
-            ICalculationBase groupsWithoutChildren = rootGroup;
+            CalculationGroup groupsWithoutChildren = rootGroup;
 
             // Call
             IEnumerable<ICalculationScenario> result = groupsWithoutChildren.GetCalculations();
@@ -80,7 +61,7 @@ namespace Ringtoets.Common.Data.Test
         }
 
         [Test]
-        public void GetPipingCalculations_FromCalculationGroupWithGroupsAndCalculations_ReturnAllCalculationsRecursiveslyInAnyOrder()
+        public void GetCalculations_FromCalculationGroupWithGroupsAndCalculations_ReturnAllCalculationsRecursiveslyInAnyOrder()
         {
             // Setup
             var mocks = new MockRepository();
@@ -105,7 +86,7 @@ namespace Ringtoets.Common.Data.Test
             rootGroup.Children.Add(calculation1);
             rootGroup.Children.Add(subgroup2);
 
-            ICalculationBase groupWithoutChildren = rootGroup;
+            CalculationGroup groupWithoutChildren = rootGroup;
 
             // Call
             IEnumerable<ICalculationScenario> result = groupWithoutChildren.GetCalculations();

@@ -9,7 +9,7 @@ using Core.Common.Gui;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
