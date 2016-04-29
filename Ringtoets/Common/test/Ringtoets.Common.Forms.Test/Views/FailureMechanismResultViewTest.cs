@@ -609,8 +609,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                     throw new NotImplementedException();
                 }
             }
-
-            public override CalculationGroup CalculationsGroup { get; protected set; }
         }
 
         private FailureMechanismResultView ShowFailureMechanismResultsView()

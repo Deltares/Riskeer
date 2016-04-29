@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class PipingFailureMechanism : FailureMechanismBase
+    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
@@ -68,10 +68,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        /// <summary>
-        /// Gets all available piping calculation groups.
-        /// </summary>
-        public override CalculationGroup CalculationsGroup { get; protected set; }
+        public CalculationGroup CalculationsGroup { get; private set; }
 
         /// <summary>
         /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.

@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Forms.Views
             failureMechanismObserver = new Observer(UpdataDataGridViewDataSource);
             failureMechanismSectionResultObserver = new RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
             // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<ICalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.Input)));
+            calculationInputObserver = new RecursiveObserver<ICalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableInput())));
             calculationGroupObserver = new RecursiveObserver<ICalculationGroup, ICalculationBase>(UpdataDataGridViewDataSource, c => c.Children);
             Load += OnLoad;
         }
@@ -83,8 +83,12 @@ namespace Ringtoets.Common.Forms.Views
 
                 failureMechanismObserver.Observable = failureMechanism;
                 failureMechanismSectionResultObserver.Observable = failureMechanism;
-                calculationInputObserver.Observable = failureMechanism != null ? failureMechanism.CalculationsGroup : null;
-                calculationGroupObserver.Observable = failureMechanism != null ? failureMechanism.CalculationsGroup : null;
+
+                var calculatableFailureMechanism = failureMechanism as ICalculatableFailureMechanism;
+                CalculationGroup observableGroup = calculatableFailureMechanism != null ? calculatableFailureMechanism.CalculationsGroup : null;
+
+                calculationInputObserver.Observable = observableGroup;
+                calculationGroupObserver.Observable = observableGroup;
             }
         }
 

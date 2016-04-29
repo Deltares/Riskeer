@@ -316,8 +316,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                     throw new NotImplementedException();
                 }
             }
-
-            public override CalculationGroup CalculationsGroup { get; protected set; }
         }
     }
 }

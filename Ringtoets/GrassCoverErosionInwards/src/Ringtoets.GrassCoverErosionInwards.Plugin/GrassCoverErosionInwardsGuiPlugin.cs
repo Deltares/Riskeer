@@ -277,7 +277,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                       .Build();
         }
 
-        private static void AddCalculationGroup(IFailureMechanism failureMechanism)
+        private static void AddCalculationGroup(ICalculatableFailureMechanism failureMechanism)
         {
             var calculation = new CalculationGroup
             {
@@ -287,7 +287,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             failureMechanism.CalculationsGroup.NotifyObservers();
         }
 
-        private static void AddCalculation(IFailureMechanism failureMechanism)
+        private static void AddCalculation(ICalculatableFailureMechanism failureMechanism)
         {
             var calculation = new GrassCoverErosionInwardsCalculation
             {

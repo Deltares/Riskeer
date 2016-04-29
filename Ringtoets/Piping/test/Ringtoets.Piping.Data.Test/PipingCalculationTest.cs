@@ -256,14 +256,14 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Input_Always_ReturnsInputParamaters()
+        public void GetObservableInput_Always_ReturnsInputParamaters()
         {
             // Setup
             var calculation = new PipingCalculation(new GeneralPipingInput(), new NormProbabilityPipingInput());
             var inputParameters = calculation.InputParameters;
 
             // Call
-            var input = calculation.Input;
+            ICalculationInput input = calculation.GetObservableInput();
 
             // Assert
             Assert.AreEqual(inputParameters, input);

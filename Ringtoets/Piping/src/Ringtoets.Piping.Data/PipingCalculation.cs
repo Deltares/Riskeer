@@ -76,14 +76,6 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public PipingSemiProbabilisticOutput SemiProbabilisticOutput { get; set; }
 
-        public ICalculationInput Input
-        {
-            get
-            {
-                return InputParameters;
-            }
-        }
-
         /// <summary>
         /// Gets or sets the name of this calculation.
         /// </summary>
@@ -110,6 +102,11 @@ namespace Ringtoets.Piping.Data
         public void ClearHydraulicBoundaryLocation()
         {
             InputParameters.HydraulicBoundaryLocation = null;
+        }
+
+        public ICalculationInput GetObservableInput()
+        {
+            return InputParameters;
         }
     }
 }

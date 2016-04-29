@@ -44,7 +44,5 @@ namespace Ringtoets.Common.Data.Contribution
                 yield break;
             }
         }
-
-        public override CalculationGroup CalculationsGroup { get; protected set; }
     }
 }

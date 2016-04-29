@@ -61,6 +61,8 @@ namespace Core.Common.Controls.TextEditor
             if (!string.IsNullOrEmpty(rtfToSetAfterLoad))
             {
                 richTextBox.Rtf = rtfToSetAfterLoad;
+
+                var r = richTextBox.ProductVersion;
             }
         }
 

@@ -54,14 +54,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public GrassCoverErosionInwardsOutput Output { get; set; }
 
-        public ICalculationInput Input
-        {
-            get
-            {
-                return InputParameters;
-            }
-        }
-
         public string Comments { get; set; }
 
         public string Name { get; set; }
@@ -82,6 +74,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public void ClearHydraulicBoundaryLocation()
         {
             InputParameters.HydraulicBoundaryLocation = null;
+        }
+
+        public ICalculationInput GetObservableInput()
+        {
+            return InputParameters;
         }
 
         private void AddDemoInput()

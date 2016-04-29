@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Calculation;
 namespace Ringtoets.Common.Data.Test.Calculation
 {
     [TestFixture]
-    public class PipingCalculationGroupTest
+    public class CalculationGroupTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -101,7 +101,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
         }
 
         [Test]
-        public void Children_AddPipingCalculation_CalculationAddedToCollection()
+        public void Children_AddCalculation_CalculationAddedToCollection()
         {
             // Setup
             var mockingRepository = new MockRepository();
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
         }
 
         [Test]
-        public void Children_RemovePipingCalculation_CalculationRemovedFromCollection()
+        public void Children_RemoveCalculation_CalculationRemovedFromCollection()
         {
             // Setup
             var mockingRepository = new MockRepository();
@@ -142,7 +142,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
         [Test]
         [TestCase(0)]
         [TestCase(1)]
-        public void Children_AddPipingCalculationAtIndex_CalculationAddedToCollectionAtIndex(int index)
+        public void Children_AddCalculationAtIndex_CalculationAddedToCollectionAtIndex(int index)
         {
             // Setup
             var mockingRepository = new MockRepository();
@@ -168,7 +168,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
         }
 
         [Test]
-        public void Children_AddPipingCalculationGroup_GroupAddedToCollection()
+        public void Children_AddCalculationGroup_GroupAddedToCollection()
         {
             // Setup
             var childGroup = new CalculationGroup();
@@ -183,7 +183,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
         }
 
         [Test]
-        public void Children_RemovePipingCalculationGroup_GroupRemovedFromCollection()
+        public void Children_RemoveCalculationGroup_GroupRemovedFromCollection()
         {
             // Setup
             var childGroup = new CalculationGroup();
@@ -201,7 +201,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
         [Test]
         [TestCase(0)]
         [TestCase(1)]
-        public void Children_RemovePipingCalculationGroup_CalculationRemovedFromCollection(int index)
+        public void Children_RemoveCalculationGroup_CalculationRemovedFromCollection(int index)
         {
             // Setup
             var existingGroup = new CalculationGroup();
@@ -221,7 +221,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
                 groupToInsert,
                 existingGroup
             }, group.Children,
-                                           "Already existing items should have remained in collection and new item should be added.");
+            "Already existing items should have remained in collection and new item should be added.");
         }
     }
 }

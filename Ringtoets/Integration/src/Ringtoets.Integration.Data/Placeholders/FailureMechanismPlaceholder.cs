@@ -52,8 +52,6 @@ namespace Ringtoets.Integration.Data.Placeholders
             }
         }
 
-        public override CalculationGroup CalculationsGroup { get; protected set; }
-
         /// <summary>
         /// Gets the locations relevant for evaluating this failure mechanism.
         /// </summary>
