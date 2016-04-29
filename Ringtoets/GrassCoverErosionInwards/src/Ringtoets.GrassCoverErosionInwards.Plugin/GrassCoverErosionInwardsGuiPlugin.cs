@@ -60,6 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismContextProperties>();
+            yield return new PropertyInfo<GrassCoverErosionInwardsCalculationContext, GrassCoverErosionInwardsCalculationContextProperties>();
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()

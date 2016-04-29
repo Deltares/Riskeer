@@ -19,50 +19,60 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismContextPropertiesTest
+    public class BreakWaterPropertiesTest
     {
+        private MockRepository mockRepository;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup & Call
-            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties();
+            var properties = new BreakWaterProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsFailureMechanismContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsCalculationContext>>(properties);
             Assert.IsNull(properties.Data);
+            Assert.AreEqual(Resources.BreakWaterProperties_DisplayName, properties.ToString());
         }
 
         [Test]
-        public void Data_SetNewFailureMechanismContextInstance_ReturnCorrectPropertyValues()
+        public void Data_SetNewCalculationContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties();
+            var properties = new BreakWaterProperties();
 
             // Call
-            properties.Data = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            properties.Data = new GrassCoverErosionInwardsCalculationContext(calculationMock, failureMechanismMock, assessmentSectionMock);
 
             // Assert
-            Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, properties.Name);
-            Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, properties.Code);
-            Assert.AreEqual(2, properties.LengthEffect);
+            Assert.IsTrue(properties.BreakWaterPresent);
+            Assert.AreEqual(BreakWaterType.Dam, properties.BreakWaterType);
+            Assert.AreEqual("10", properties.BreakWaterHeight);
             mockRepository.VerifyAll();
         }
 
@@ -70,26 +80,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
-            int numberProperties = 1;
+            const int numberProperties = 3;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.Attach(observerMock);
-            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            calculation.Attach(observerMock);
+            var properties = new BreakWaterProperties
             {
-                Data = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock)
+                Data = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanismMock, assessmentSectionMock)
             };
 
+            const double newBreakWaterHeight = 9;
+            const BreakWaterType newBreakWaterType = BreakWaterType.Wall;
+
             // Call
-            const int newLengthEffect = 10;
-            properties.LengthEffect = newLengthEffect;
+            properties.BreakWaterHeight = newBreakWaterHeight.ToString(CultureInfo.InvariantCulture);
+            properties.BreakWaterType = newBreakWaterType;
+            properties.BreakWaterPresent = false;
 
             // Assert
-            Assert.AreEqual(newLengthEffect, failureMechanism.NormProbabilityInput.N);
+            Assert.IsFalse(calculation.InputParameters.BreakWaterPresent);
+            Assert.AreEqual(newBreakWaterType, calculation.InputParameters.BreakWater[0].Type);
+            Assert.AreEqual(newBreakWaterHeight, calculation.InputParameters.BreakWater[0].Height);
             mockRepository.VerifyAll();
         }
     }

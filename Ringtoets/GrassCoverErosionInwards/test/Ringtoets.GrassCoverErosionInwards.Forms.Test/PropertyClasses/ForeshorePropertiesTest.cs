@@ -25,44 +25,52 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismContextPropertiesTest
+    public class ForeshorePropertiesTest
     {
+        private MockRepository mockRepository;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup & Call
-            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties();
+            var properties = new ForeshoreProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsFailureMechanismContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsCalculationContext>>(properties);
             Assert.IsNull(properties.Data);
+            Assert.AreEqual(Resources.ForeshoreProperties_DisplayName, properties.ToString());
         }
 
         [Test]
-        public void Data_SetNewFailureMechanismContextInstance_ReturnCorrectPropertyValues()
+        public void Data_SetNewCalculationContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties();
+            var properties = new ForeshoreProperties();
 
             // Call
-            properties.Data = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            properties.Data = new GrassCoverErosionInwardsCalculationContext(calculationMock, failureMechanismMock, assessmentSectionMock);
 
             // Assert
-            Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, properties.Name);
-            Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, properties.Code);
-            Assert.AreEqual(2, properties.LengthEffect);
+            Assert.IsTrue(properties.ForeshorePresent);
+            Assert.AreEqual(1, properties.NumberOfCoordinates);
             mockRepository.VerifyAll();
         }
 
@@ -70,26 +78,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
-            int numberProperties = 1;
+            const int numberProperties = 1;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.Attach(observerMock);
-            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            calculation.Attach(observerMock);
+            var properties = new ForeshoreProperties
             {
-                Data = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock)
+                Data = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanismMock, assessmentSectionMock)
             };
 
             // Call
-            const int newLengthEffect = 10;
-            properties.LengthEffect = newLengthEffect;
+            properties.ForeshorePresent = false;
 
             // Assert
-            Assert.AreEqual(newLengthEffect, failureMechanism.NormProbabilityInput.N);
+            Assert.IsFalse(calculation.InputParameters.ForeshorePresent);
             mockRepository.VerifyAll();
         }
     }

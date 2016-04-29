@@ -144,7 +144,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void NotifyObservers_ObserverAttachedToPipingCalculationGroup_NotificationCorrectlyPropagated()
+        public void NotifyObservers_ObserverAttachedToCalculationGroup_NotificationCorrectlyPropagated()
         {
             // Setup
             var assessmentSectionMock = new MockRepository().StrictMock<IAssessmentSection>();

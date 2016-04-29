@@ -61,12 +61,93 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is er een havendam aanwezig?.
+        /// </summary>
+        public static string BreakWater_BreakWaterPresent_Discription {
+            get {
+                return ResourceManager.GetString("BreakWater_BreakWaterPresent_Discription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aanwezig.
+        /// </summary>
+        public static string BreakWater_BreakWaterPresent_DisplayName {
+            get {
+                return ResourceManager.GetString("BreakWater_BreakWaterPresent_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De hoogte van de havendam [m+NAP]..
+        /// </summary>
+        public static string BreakWaterHeight_Description {
+            get {
+                return ResourceManager.GetString("BreakWaterHeight_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Havendam hoogte.
+        /// </summary>
+        public static string BreakWaterHeight_DisplayName {
+            get {
+                return ResourceManager.GetString("BreakWaterHeight_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beschrijving van een havendam..
+        /// </summary>
+        public static string BreakWaterProperties_Description {
+            get {
+                return ResourceManager.GetString("BreakWaterProperties_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Havendam.
+        /// </summary>
+        public static string BreakWaterProperties_DisplayName {
+            get {
+                return ResourceManager.GetString("BreakWaterProperties_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het type van de havendam..
+        /// </summary>
+        public static string BreakWaterType_Description {
+            get {
+                return ResourceManager.GetString("BreakWaterType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type havendam.
+        /// </summary>
+        public static string BreakWaterType_DisplayName {
+            get {
+                return ResourceManager.GetString("BreakWaterType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap CalculationIcon {
             get {
                 object obj = ResourceManager.GetObject("CalculationIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetseisen.
+        /// </summary>
+        public static string Categories_CriticalValues {
+            get {
+                return ResourceManager.GetString("Categories_CriticalValues", resourceCulture);
             }
         }
         
@@ -85,6 +166,150 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string Categories_LengthEffect {
             get {
                 return ResourceManager.GetString("Categories_LengthEffect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modelinstellingen.
+        /// </summary>
+        public static string Categories_ModelSettings {
+            get {
+                return ResourceManager.GetString("Categories_ModelSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schematisering.
+        /// </summary>
+        public static string Categories_Schematisation {
+            get {
+                return ResourceManager.GetString("Categories_Schematisation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijst met geometrie punten..
+        /// </summary>
+        public static string DikeGeometry_Coordinates_Description {
+            get {
+                return ResourceManager.GetString("DikeGeometry_Coordinates_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coordinaten [m].
+        /// </summary>
+        public static string DikeGeometry_Coordinates_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeGeometry_Coordinates_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijst met ruwheden per sectie..
+        /// </summary>
+        public static string DikeGeometry_Roughness_Description {
+            get {
+                return ResourceManager.GetString("DikeGeometry_Roughness_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ruwheden [-].
+        /// </summary>
+        public static string DikeGeometry_Roughness_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeGeometry_Roughness_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beschrijving van de dijkgeometrie..
+        /// </summary>
+        public static string DikeGeometryProperties_Description {
+            get {
+                return ResourceManager.GetString("DikeGeometryProperties_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dijkgeometrie.
+        /// </summary>
+        public static string DikeGeometryProperties_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeGeometryProperties_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De hoogte van de dijk [m+NAP]..
+        /// </summary>
+        public static string DikeHeight_Description {
+            get {
+                return ResourceManager.GetString("DikeHeight_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dijkhoogte.
+        /// </summary>
+        public static string DikeHeight_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeHeight_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is er een voorland aanwezig?.
+        /// </summary>
+        public static string Foreshore_ForeshorePresent_Discription {
+            get {
+                return ResourceManager.GetString("Foreshore_ForeshorePresent_Discription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aanwezig.
+        /// </summary>
+        public static string Foreshore_ForeshorePresent_DisplayName {
+            get {
+                return ResourceManager.GetString("Foreshore_ForeshorePresent_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal coordinaten tot de teen van de dijk..
+        /// </summary>
+        public static string Foreshore_NumberOfCoordinates_Discription {
+            get {
+                return ResourceManager.GetString("Foreshore_NumberOfCoordinates_Discription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal.
+        /// </summary>
+        public static string Foreshore_NumberOfCoordinates_DisplayName {
+            get {
+                return ResourceManager.GetString("Foreshore_NumberOfCoordinates_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beschrijving van het voorland..
+        /// </summary>
+        public static string ForeshoreProperties_Description {
+            get {
+                return ResourceManager.GetString("ForeshoreProperties_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voorland.
+        /// </summary>
+        public static string ForeshoreProperties_DisplayName {
+            get {
+                return ResourceManager.GetString("ForeshoreProperties_DisplayName", resourceCulture);
             }
         }
         
@@ -206,6 +431,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string GrassCoverErosionInwardsOutput_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsOutput_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oriëntatie van de dijk..
+        /// </summary>
+        public static string Orientation_Description {
+            get {
+                return ResourceManager.GetString("Orientation_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oriëntatie [º].
+        /// </summary>
+        public static string Orientation_DisplayName {
+            get {
+                return ResourceManager.GetString("Orientation_DisplayName", resourceCulture);
             }
         }
     }

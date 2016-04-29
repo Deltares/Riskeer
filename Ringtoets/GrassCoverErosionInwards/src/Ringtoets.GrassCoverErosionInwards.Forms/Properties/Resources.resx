@@ -166,4 +166,85 @@
   <data name="GrassCoverErosionInwardsInputContext_NodeDisplayName" xml:space="preserve">
     <value>Invoer</value>
   </data>
+  <data name="Categories_CriticalValues" xml:space="preserve">
+    <value>Toetseisen</value>
+  </data>
+  <data name="Categories_ModelSettings" xml:space="preserve">
+    <value>Modelinstellingen</value>
+  </data>
+  <data name="Categories_Schematisation" xml:space="preserve">
+    <value>Schematisering</value>
+  </data>
+  <data name="BreakWaterHeight_Description" xml:space="preserve">
+    <value>De hoogte van de havendam [m+NAP].</value>
+  </data>
+  <data name="BreakWaterHeight_DisplayName" xml:space="preserve">
+    <value>Havendam hoogte</value>
+  </data>
+  <data name="BreakWaterProperties_Description" xml:space="preserve">
+    <value>Beschrijving van een havendam.</value>
+  </data>
+  <data name="BreakWaterProperties_DisplayName" xml:space="preserve">
+    <value>Havendam</value>
+  </data>
+  <data name="BreakWaterType_Description" xml:space="preserve">
+    <value>Het type van de havendam.</value>
+  </data>
+  <data name="BreakWaterType_DisplayName" xml:space="preserve">
+    <value>Type havendam</value>
+  </data>
+  <data name="BreakWater_BreakWaterPresent_Discription" xml:space="preserve">
+    <value>Is er een havendam aanwezig?</value>
+  </data>
+  <data name="BreakWater_BreakWaterPresent_DisplayName" xml:space="preserve">
+    <value>Aanwezig</value>
+  </data>
+  <data name="DikeGeometryProperties_Description" xml:space="preserve">
+    <value>Beschrijving van de dijkgeometrie.</value>
+  </data>
+  <data name="DikeGeometryProperties_DisplayName" xml:space="preserve">
+    <value>Dijkgeometrie</value>
+  </data>
+  <data name="DikeGeometry_Coordinates_Description" xml:space="preserve">
+    <value>Lijst met geometrie punten.</value>
+  </data>
+  <data name="DikeGeometry_Coordinates_DisplayName" xml:space="preserve">
+    <value>Coordinaten [m]</value>
+  </data>
+  <data name="DikeGeometry_Roughness_Description" xml:space="preserve">
+    <value>Lijst met ruwheden per sectie.</value>
+  </data>
+  <data name="DikeGeometry_Roughness_DisplayName" xml:space="preserve">
+    <value>Ruwheden [-]</value>
+  </data>
+  <data name="DikeHeight_Description" xml:space="preserve">
+    <value>De hoogte van de dijk [m+NAP].</value>
+  </data>
+  <data name="DikeHeight_DisplayName" xml:space="preserve">
+    <value>Dijkhoogte</value>
+  </data>
+  <data name="ForeshoreProperties_Description" xml:space="preserve">
+    <value>Beschrijving van het voorland.</value>
+  </data>
+  <data name="ForeshoreProperties_DisplayName" xml:space="preserve">
+    <value>Voorland</value>
+  </data>
+  <data name="Foreshore_ForeshorePresent_Discription" xml:space="preserve">
+    <value>Is er een voorland aanwezig?</value>
+  </data>
+  <data name="Foreshore_ForeshorePresent_DisplayName" xml:space="preserve">
+    <value>Aanwezig</value>
+  </data>
+  <data name="Foreshore_NumberOfCoordinates_Discription" xml:space="preserve">
+    <value>Aantal coordinaten tot de teen van de dijk.</value>
+  </data>
+  <data name="Foreshore_NumberOfCoordinates_DisplayName" xml:space="preserve">
+    <value>Aantal</value>
+  </data>
+  <data name="Orientation_Description" xml:space="preserve">
+    <value>Oriëntatie van de dijk.</value>
+  </data>
+  <data name="Orientation_DisplayName" xml:space="preserve">
+    <value>Oriëntatie [º]</value>
+  </data>
 </root>
