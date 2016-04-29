@@ -3,7 +3,6 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -88,6 +87,30 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             // Call & Assert
             Assert.IsTrue(info.CloseForData(viewMock, assessmentSectionMock));
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismRelevant(bool isRelevant)
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
+
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+            // Call
+            bool result = info.AdditionalDataCheck(context);
+
+            // Assert
+            Assert.AreEqual(isRelevant, result);
+            mocks.VerifyAll();
         }
     }
 }
