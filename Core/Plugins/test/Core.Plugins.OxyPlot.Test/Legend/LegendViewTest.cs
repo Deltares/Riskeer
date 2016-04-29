@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
+using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
 using Core.Plugins.OxyPlot.Legend;
 using Core.Plugins.OxyPlot.Properties;
@@ -68,6 +70,26 @@ namespace Core.Plugins.OxyPlot.Test.Legend
                 // Assert
                 Assert.Throws<InvalidCastException>(test);
             }
+        }
+
+        [Test]
+        public void Dispose_Always_DataSetToNull()
+        {
+            // Setup
+            var legendView = new LegendView
+            {
+                Data = new ChartDataCollection(new List<ChartData>())
+            };
+
+            var treeViewControl = TypeUtils.GetField<TreeViewControl>(legendView, "treeViewControl");
+
+            // Call
+            legendView.Dispose();
+
+            // Assert
+            Assert.IsNull(legendView.Data);
+            Assert.IsNull(treeViewControl.Data);
+            Assert.IsTrue(treeViewControl.IsDisposed);
         }
     }
 }

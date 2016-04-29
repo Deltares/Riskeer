@@ -94,7 +94,7 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        public void Dispose_Always_DisposeTreeViewControlResetDataAndDesubscribe()
+        public void Dispose_Always_DataSetToNull()
         {
             // Setup
             var mocks = new MockRepository();
@@ -121,8 +121,9 @@ namespace Core.Plugins.ProjectExplorer.Test
             explorer.Dispose();
 
             // Assert
-            Assert.IsTrue(explorer.TreeViewControl.IsDisposed);
             Assert.IsNull(explorer.Data);
+            Assert.IsNull(explorer.TreeViewControl.Data);
+            Assert.IsTrue(explorer.TreeViewControl.IsDisposed);
             mocks.VerifyAll();
         }
 

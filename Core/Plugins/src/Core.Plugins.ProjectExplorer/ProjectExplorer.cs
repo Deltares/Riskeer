@@ -104,15 +104,11 @@ namespace Core.Plugins.ProjectExplorer
 
         protected override void Dispose(bool disposing)
         {
+            Data = null;
+
             if (disposing && (components != null))
             {
                 components.Dispose();
-            }
-
-            if (treeViewControl != null)
-            {
-                Data = null;
-                treeViewControl.Dispose();
             }
 
             base.Dispose(disposing);

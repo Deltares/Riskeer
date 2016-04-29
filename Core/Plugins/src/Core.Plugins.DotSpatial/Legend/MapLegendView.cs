@@ -100,6 +100,18 @@ namespace Core.Plugins.DotSpatial.Legend
             }
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            Data = null;
+
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         private void RegisterTreeNodeInfos()
         {
             treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo<MapPointData>
