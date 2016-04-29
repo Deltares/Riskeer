@@ -24,7 +24,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -52,8 +51,7 @@ namespace Ringtoets.Piping.Data.Test
             var calculation = new PipingCalculation(generalInputParameters, semiProbabilisticInputParameters);
 
             // Assert
-            Assert.IsInstanceOf<ICalculationBase>(calculation);
-            Assert.IsInstanceOf<ICommentable>(calculation);
+            Assert.IsInstanceOf<ICalculation>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
 

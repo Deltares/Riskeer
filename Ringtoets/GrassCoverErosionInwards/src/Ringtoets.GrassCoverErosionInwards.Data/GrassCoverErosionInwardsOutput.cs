@@ -90,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets the probability of failing..
+        /// Gets the probability of failing.
         /// </summary>
         public RoundedDouble Probability
         {

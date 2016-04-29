@@ -184,10 +184,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var expectedDikeHeight = new RoundedDouble(inputParameters.DikeHeight.NumberOfDecimalPlaces, 10);
             Assert.AreEqual(expectedDikeHeight, inputParameters.DikeHeight);
         }
-    }
 
-    public class TestGrassCoverErosionInwardsOutput : GrassCoverErosionInwardsOutput
-    {
-        public TestGrassCoverErosionInwardsOutput() : base(0, 0, 0, 0, 0) {}
+        private class TestGrassCoverErosionInwardsOutput : GrassCoverErosionInwardsOutput
+        {
+            public TestGrassCoverErosionInwardsOutput() : base(0, 0, 0, 0, 0) {}
+        }
     }
 }
