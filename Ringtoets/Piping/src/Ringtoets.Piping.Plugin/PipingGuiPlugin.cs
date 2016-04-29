@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Plugin
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<PipingFailureMechanismContext, PipingFailureMechanismContextProperties>();
-            yield return new PropertyInfo<PipingCalculationContext, PipingCalculationContextProperties>();
+            yield return new PropertyInfo<PipingCalculationScenarioContext, PipingCalculationContextProperties>();
             yield return new PropertyInfo<PipingCalculationGroupContext, PipingCalculationGroupContextProperties>();
             yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>();
             yield return new PropertyInfo<PipingSemiProbabilisticOutput, PipingSemiProbabilisticOutputProperties>();
@@ -107,7 +107,7 @@ namespace Ringtoets.Piping.Plugin
                 FailureMechanismContextMenuStrip,
                 Gui);
 
-            yield return new TreeNodeInfo<PipingCalculationContext>
+            yield return new TreeNodeInfo<PipingCalculationScenarioContext>
             {
                 Text = pipingCalculationContext => pipingCalculationContext.WrappedData.Name,
                 Image = pipingCalculationContext => PipingFormsResources.PipingIcon,
@@ -452,9 +452,9 @@ namespace Ringtoets.Piping.Plugin
 
         # endregion
 
-        # region PipingCalculationContext TreeNodeInfo
+        # region PipingCalculationScenarioContext TreeNodeInfo
 
-        private ContextMenuStrip PipingCalculationContextContextMenuStrip(PipingCalculationContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip PipingCalculationContextContextMenuStrip(PipingCalculationScenarioContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             PipingCalculation calculation = nodeData.WrappedData;
             var validateItem = new StrictContextMenuItem(RingtoetsCommonFormsResources.Validate,
@@ -495,22 +495,22 @@ namespace Ringtoets.Piping.Plugin
                       .Build();
         }
 
-        private static object[] PipingCalculationContextChildNodeObjects(PipingCalculationContext pipingCalculationContext)
+        private static object[] PipingCalculationContextChildNodeObjects(PipingCalculationScenarioContext pipingCalculationScenarioContext)
         {
             var childNodes = new List<object>
             {
-                new CommentContext<ICommentable>(pipingCalculationContext.WrappedData),
-                new PipingInputContext(pipingCalculationContext.WrappedData.InputParameters,
-                                       pipingCalculationContext.WrappedData,
-                                       pipingCalculationContext.AvailablePipingSurfaceLines,
-                                       pipingCalculationContext.AvailableStochasticSoilModels,
-                                       pipingCalculationContext.PipingFailureMechanism,
-                                       pipingCalculationContext.AssessmentSection)
+                new CommentContext<ICommentable>(pipingCalculationScenarioContext.WrappedData),
+                new PipingInputContext(pipingCalculationScenarioContext.WrappedData.InputParameters,
+                                       pipingCalculationScenarioContext.WrappedData,
+                                       pipingCalculationScenarioContext.AvailablePipingSurfaceLines,
+                                       pipingCalculationScenarioContext.AvailableStochasticSoilModels,
+                                       pipingCalculationScenarioContext.PipingFailureMechanism,
+                                       pipingCalculationScenarioContext.AssessmentSection)
             };
 
-            if (pipingCalculationContext.WrappedData.HasOutput)
+            if (pipingCalculationScenarioContext.WrappedData.HasOutput)
             {
-                childNodes.Add(pipingCalculationContext.WrappedData.SemiProbabilisticOutput);
+                childNodes.Add(pipingCalculationScenarioContext.WrappedData.SemiProbabilisticOutput);
                 childNodes.Add(new EmptyPipingCalculationReport());
             }
             else
@@ -522,27 +522,27 @@ namespace Ringtoets.Piping.Plugin
             return childNodes.ToArray();
         }
 
-        private static void PipingCalculationContextOnNodeRenamed(PipingCalculationContext pipingCalculationContext, string newName)
+        private static void PipingCalculationContextOnNodeRenamed(PipingCalculationScenarioContext pipingCalculationScenarioContext, string newName)
         {
-            pipingCalculationContext.WrappedData.Name = newName;
-            pipingCalculationContext.WrappedData.NotifyObservers();
+            pipingCalculationScenarioContext.WrappedData.Name = newName;
+            pipingCalculationScenarioContext.WrappedData.NotifyObservers();
         }
 
-        private bool PipingCalculationContextCanRemove(PipingCalculationContext pipingCalculationContext, object parentNodeData)
+        private bool PipingCalculationContextCanRemove(PipingCalculationScenarioContext pipingCalculationScenarioContext, object parentNodeData)
         {
             var calculationGroupContext = parentNodeData as PipingCalculationGroupContext;
-            return calculationGroupContext != null && calculationGroupContext.WrappedData.Children.Contains(pipingCalculationContext.WrappedData);
+            return calculationGroupContext != null && calculationGroupContext.WrappedData.Children.Contains(pipingCalculationScenarioContext.WrappedData);
         }
 
-        private void PipingCalculationContextOnNodeRemoved(PipingCalculationContext pipingCalculationContext, object parentNodeData)
+        private void PipingCalculationContextOnNodeRemoved(PipingCalculationScenarioContext pipingCalculationScenarioContext, object parentNodeData)
         {
             var calculationGroupContext = parentNodeData as PipingCalculationGroupContext;
             if (calculationGroupContext != null)
             {
-                var succesfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(pipingCalculationContext.WrappedData);
+                var succesfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(pipingCalculationScenarioContext.WrappedData);
                 if (succesfullyRemovedData)
                 {
-                    RemoveCalculationFromSectionResult(pipingCalculationContext.WrappedData, pipingCalculationContext.PipingFailureMechanism);
+                    RemoveCalculationFromSectionResult(pipingCalculationScenarioContext.WrappedData, pipingCalculationScenarioContext.PipingFailureMechanism);
                     calculationGroupContext.NotifyObservers();
                 }
             }
@@ -574,7 +574,7 @@ namespace Ringtoets.Piping.Plugin
 
                 if (calculation != null)
                 {
-                    childNodeObjects.Add(new PipingCalculationContext(calculation,
+                    childNodeObjects.Add(new PipingCalculationScenarioContext(calculation,
                                                                       nodeData.AvailablePipingSurfaceLines,
                                                                       nodeData.AvailableStochasticSoilModels,
                                                                       nodeData.PipingFailureMechanism,
@@ -840,7 +840,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static ICalculationBase GetAsICalculationItem(object item)
         {
-            var calculationContext = item as PipingCalculationContext;
+            var calculationContext = item as PipingCalculationScenarioContext;
             if (calculationContext != null)
             {
                 return calculationContext.WrappedData;
@@ -860,7 +860,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static PipingFailureMechanism GetParentFailureMechanism(object data)
         {
-            var calculationContext = data as PipingCalculationContext;
+            var calculationContext = data as PipingCalculationScenarioContext;
             if (calculationContext != null)
             {
                 return calculationContext.PipingFailureMechanism;

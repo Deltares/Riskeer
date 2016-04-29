@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Integration.Test
                 nestedPipingCalculationGroup.NotifyObservers();
                 assessmentSection.PipingFailureMechanism.CalculationsGroup.AddCalculationScenariosToFailureMechanismSectionResult(assessmentSection.PipingFailureMechanism);
                 Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak zijn opgeteld niet gelijk aan 100%", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak zijn opgeteld niet gelijk aan 100%.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Set the second calculation to not relevant and ensure the data grid view is updated
                 pipingCalculation2.IsRelevant = false;
@@ -106,13 +106,13 @@ namespace Ringtoets.Piping.Integration.Test
                 PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine(pipingCalculation3, assessmentSection.PipingFailureMechanism, null);
                 pipingCalculation3.InputParameters.NotifyObservers();
                 Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak zijn opgeteld niet gelijk aan 100%", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak zijn opgeteld niet gelijk aan 100%.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Change the contribution of the calculation and make sure the data grid view is updated
                 pipingCalculation3.Contribution = (RoundedDouble) 0.3;
                 pipingCalculation3.NotifyObservers();
                 Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak zijn opgeteld niet gelijk aan 100%", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
+                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak zijn opgeteld niet gelijk aan 100%.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 pipingCalculation1.Contribution = (RoundedDouble) 0.7;
                 pipingCalculation1.NotifyObservers();

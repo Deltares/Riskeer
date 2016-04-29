@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Gets all available piping calculations.
         /// </summary>
-        ICalculationGroup CalculationsGroup { get; }
+        CalculationGroup CalculationsGroup { get; }
 
         /// <summary>
         /// Adds a <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.

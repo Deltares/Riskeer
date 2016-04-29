@@ -241,7 +241,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation();
-            var inputParameters = calculation.InputParameters;
+            GrassCoverErosionInwardsInput inputParameters = calculation.InputParameters;
 
             // Call
             var input = calculation.Input;

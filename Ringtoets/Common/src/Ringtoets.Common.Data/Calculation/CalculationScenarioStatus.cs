@@ -19,18 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base;
-
 namespace Ringtoets.Common.Data.Calculation
 {
     /// <summary>
-    /// A calculation related item.
+    /// Status of a <see cref="ICalculationScenario"/>.
     /// </summary>
-    public interface ICalculationBase : IObservable
+    public enum CalculationScenarioStatus
     {
         /// <summary>
-        /// Gets the name of this calculation object.
+        /// Value which is returned when a calculation is failed.
         /// </summary>
-        string Name { get; }
+        Failed,
+
+        /// <summary>
+        /// Value which is returned when a calculation is succesfully done.
+        /// </summary>
+        Done,
+
+        /// <summary>
+        /// Value which is returned when a scenario is not calculated.
+        /// </summary>
+        NotCalculated
     }
 }

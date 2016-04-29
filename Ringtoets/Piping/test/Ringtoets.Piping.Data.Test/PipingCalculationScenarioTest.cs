@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -35,14 +37,14 @@ namespace Ringtoets.Piping.Data.Test
             var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
 
             // Call
-            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
+            PipingCalculationScenario scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
 
             // Assert
             Assert.IsInstanceOf<PipingCalculation>(scenario);
             Assert.AreSame(semiProbabilisticInputParameters, scenario.NormProbabilityParameters);
             Assert.IsTrue(scenario.IsRelevant);
             Assert.AreEqual((RoundedDouble) 1.0, scenario.Contribution);
-            Assert.IsNull(scenario.Probability);
+            Assert.AreEqual(CalculationScenarioStatus.NotCalculated, scenario.CalculationScenarioStatus);
         }
 
         [Test]
@@ -96,14 +98,14 @@ namespace Ringtoets.Piping.Data.Test
             scenario.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, expectedProbability, 0, 0);
             
             // Call
-            var probability = scenario.Probability;
+            RoundedDouble probability = scenario.Probability;
 
             // Assert
             Assert.AreEqual(expectedProbability, probability);
         }
 
         [Test]
-        public void Probability_PipingOutputNull_ReturnsNull()
+        public void Probability_ScenarioStatusNotDOne_ThrowsInvalidOperationException()
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
@@ -112,27 +114,65 @@ namespace Ringtoets.Piping.Data.Test
             var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
 
             // Call
-            var propability = scenario.Probability;
+            RoundedDouble probability;
+            TestDelegate call = () => probability = scenario.Probability;
 
             // Assert
-            Assert.IsNull(propability);
+            Assert.Throws<InvalidOperationException>(call);
         }
 
         [Test]
-        public void Probabilty_ScenarioInvalid_ReturnsNaN()
+        public void CalculationScenarioStatus_OutputNull_ReturnsStatusNotCalculated()
         {
             // Setup
             var generalInputParameters = new GeneralPipingInput();
             var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
 
             var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
-            scenario.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, double.NaN, 0, 0);
 
             // Call
-            var propability = scenario.Probability;
+            CalculationScenarioStatus status = scenario.CalculationScenarioStatus;
 
             // Assert
-            Assert.IsNaN(propability.Value);
+            Assert.AreEqual(CalculationScenarioStatus.NotCalculated, status);
+        }
+
+        [Test]
+        public void CalculationScenarioStatus_ScenarioInvalid_ReturnsStatusFailed()
+        {
+            // Setup
+            var generalInputParameters = new GeneralPipingInput();
+            var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
+
+            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters)
+            {
+                SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, double.NaN, 0, 0)
+            };
+
+            // Call
+            CalculationScenarioStatus status = scenario.CalculationScenarioStatus;
+
+            // Assert
+            Assert.AreEqual(CalculationScenarioStatus.Failed, status);
+        }
+
+        [Test]
+        public void CalculationScenarioStatus_PipingOutputSet_ReturnsStatusDone()
+        {
+            // Setup
+            RoundedDouble expectedProbability = new RoundedDouble(0, 49862180);
+
+            var generalInputParameters = new GeneralPipingInput();
+            var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
+
+            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
+            scenario.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, expectedProbability, 0, 0);
+
+            // Call
+            CalculationScenarioStatus status = scenario.CalculationScenarioStatus;
+
+            // Assert
+            Assert.AreEqual(CalculationScenarioStatus.Done, status);
         }
     }
 }

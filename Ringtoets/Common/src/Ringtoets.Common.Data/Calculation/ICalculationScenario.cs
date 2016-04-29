@@ -41,6 +41,11 @@ namespace Ringtoets.Common.Data.Calculation
         /// <summary>
         /// Gets the probability of the scenario.
         /// </summary>
-        RoundedDouble? Probability { get; }
+        RoundedDouble Probability { get; }
+
+        /// <summary>
+        /// Gets the status of the scenario.
+        /// </summary>
+        CalculationScenarioStatus CalculationScenarioStatus { get; }
     }
 }

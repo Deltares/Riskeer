@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #endregion
 
         /// <summary>
-        /// Gets the available surface lines on <see cref="PipingCalculationContext"/>.
+        /// Gets the available surface lines on <see cref="PipingCalculationScenarioContext"/>.
         /// </summary>
         public IEnumerable<RingtoetsPipingSurfaceLine> GetAvailableSurfaceLines()
         {
@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets the available stochastic soil models on <see cref="PipingCalculationContext"/>.
+        /// Gets the available stochastic soil models on <see cref="PipingCalculationScenarioContext"/>.
         /// </summary>
         public IEnumerable<StochasticSoilModel> GetAvailableStochasticSoilModels()
         {
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets the available stochastic soil profiles on <see cref="PipingCalculationContext"/>.
+        /// Gets the available stochastic soil profiles on <see cref="PipingCalculationScenarioContext"/>.
         /// </summary>
         public IEnumerable<StochasticSoilProfile> GetAvailableStochasticSoilProfiles()
         {
@@ -88,7 +88,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets the available hydraulic boundary locations on <see cref="PipingCalculationContext"/>.
+        /// Gets the available hydraulic boundary locations on <see cref="PipingCalculationScenarioContext"/>.
         /// </summary>
         public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
         {

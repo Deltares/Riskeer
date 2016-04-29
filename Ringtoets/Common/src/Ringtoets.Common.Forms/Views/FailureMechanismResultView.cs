@@ -244,18 +244,16 @@ namespace Ringtoets.Common.Forms.Views
 
         private class FailureMechanismSectionResultRow
         {
-            public readonly FailureMechanismSectionResult failureMechanismSectionResult;
-
             public FailureMechanismSectionResultRow(FailureMechanismSectionResult failureMechanismSectionResult)
             {
-                this.failureMechanismSectionResult = failureMechanismSectionResult;
+                this.FailureMechanismSectionResult = failureMechanismSectionResult;
             }
 
             public string Name
             {
                 get
                 {
-                    return failureMechanismSectionResult.Section.Name;
+                    return FailureMechanismSectionResult.Section.Name;
                 }
             }
 
@@ -263,12 +261,12 @@ namespace Ringtoets.Common.Forms.Views
             {
                 get
                 {
-                    return failureMechanismSectionResult.AssessmentLayerOne;
+                    return FailureMechanismSectionResult.AssessmentLayerOne;
                 }
                 set
                 {
-                    failureMechanismSectionResult.AssessmentLayerOne = value;
-                    failureMechanismSectionResult.NotifyObservers();
+                    FailureMechanismSectionResult.AssessmentLayerOne = value;
+                    FailureMechanismSectionResult.NotifyObservers();
                 }
             }
 
@@ -276,19 +274,22 @@ namespace Ringtoets.Common.Forms.Views
             {
                 get
                 {
-                    var relevantScenarios = failureMechanismSectionResult.CalculationScenarios.Where(cs => cs.IsRelevant).ToList();
+                    var relevantScenarios = FailureMechanismSectionResult.CalculationScenarios.Where(cs => cs.IsRelevant).ToArray();
+                    bool relevantScenarioAvailable = relevantScenarios.Length != 0;
 
-                    if (relevantScenarios.Any() && Math.Abs(failureMechanismSectionResult.TotalContribution - 1.0) > tolerance)
+                    if (relevantScenarioAvailable && Math.Abs(FailureMechanismSectionResult.TotalContribution - 1.0) > tolerance)
                     {
-                        return double.NaN.ToString(CultureInfo.InvariantCulture);
+                        return double.NaN.ToString(CultureInfo.CurrentCulture);
                     }
 
-                    var layerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
-
-                    if (!relevantScenarios.Any() || !layerTwoA.HasValue || double.IsNaN(layerTwoA.Value))
+                    if (!relevantScenarioAvailable 
+                        || FailureMechanismSectionResult.CalculationScenarioStatus == CalculationScenarioStatus.NotCalculated 
+                        || FailureMechanismSectionResult.CalculationScenarioStatus == CalculationScenarioStatus.Failed)
                     {
                         return Resources.FailureMechanismSectionResultRow_AssessmentLayerTwoA_No_result_dash;
                     }
+
+                    var layerTwoA = FailureMechanismSectionResult.AssessmentLayerTwoA;
 
                     return string.Format(CoreCommonResources.ProbabilityPerYearFormat, layerTwoA.Value);
                 }
@@ -298,11 +299,11 @@ namespace Ringtoets.Common.Forms.Views
             {
                 get
                 {
-                    return failureMechanismSectionResult.AssessmentLayerTwoB;
+                    return FailureMechanismSectionResult.AssessmentLayerTwoB;
                 }
                 set
                 {
-                    failureMechanismSectionResult.AssessmentLayerTwoB = value;
+                    FailureMechanismSectionResult.AssessmentLayerTwoB = value;
                 }
             }
 
@@ -310,13 +311,15 @@ namespace Ringtoets.Common.Forms.Views
             {
                 get
                 {
-                    return failureMechanismSectionResult.AssessmentLayerThree;
+                    return FailureMechanismSectionResult.AssessmentLayerThree;
                 }
                 set
                 {
-                    failureMechanismSectionResult.AssessmentLayerThree = value;
+                    FailureMechanismSectionResult.AssessmentLayerThree = value;
                 }
             }
+
+            public FailureMechanismSectionResult FailureMechanismSectionResult { get; private set; }
         }
 
         #endregion
@@ -357,43 +360,45 @@ namespace Ringtoets.Common.Forms.Views
 
         private void DataGridViewCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            FailureMechanismSectionResultRow resultRow = dataGridView.Rows[e.RowIndex].DataBoundItem as FailureMechanismSectionResultRow;
+            var currentDataGridViewRow = dataGridView.Rows[e.RowIndex];
+            var currentDataGridViewCell = currentDataGridViewRow.Cells[e.ColumnIndex];
+
+            FailureMechanismSectionResultRow resultRow = (FailureMechanismSectionResultRow) currentDataGridViewRow.DataBoundItem;
 
             if (resultRow != null && e.ColumnIndex == assessmentLayerTwoA.Index)
             {
-                FailureMechanismSectionResult rowObject = resultRow.failureMechanismSectionResult;
+                FailureMechanismSectionResult rowObject = resultRow.FailureMechanismSectionResult;
 
-                var relevantScenarios = rowObject.CalculationScenarios.Where(cs => cs.IsRelevant).ToList();
+                var relevantScenarios = rowObject.CalculationScenarios.Where(cs => cs.IsRelevant).ToArray();
+                bool relevantScenarioAvailable = relevantScenarios.Length != 0;
 
-                if (rowObject.AssessmentLayerOne || !relevantScenarios.Any())
+                if (rowObject.AssessmentLayerOne || !relevantScenarioAvailable)
                 {
-                    dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = string.Empty;
+                    currentDataGridViewCell.ErrorText = string.Empty;
                     return;
                 }
 
-                if (relevantScenarios.Any() && Math.Abs(rowObject.TotalContribution - 1.0) > tolerance)
+                if (Math.Abs(rowObject.TotalContribution - 1.0) > tolerance)
                 {
-                    dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
+                    currentDataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
                     return;
                 }
 
-                var layerTwoA = rowObject.AssessmentLayerTwoA;
+                var calculationScenarioStatus = rowObject.CalculationScenarioStatus;
 
-                if (!layerTwoA.HasValue)
+                if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
                 {
-                    // Calculation not done.
-                    dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed;
+                    currentDataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed;
                     return;
                 }
 
-                if (double.IsNaN(layerTwoA.Value))
+                if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
                 {
-                    // Calculation output not valid.
-                    dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output;
+                    currentDataGridViewCell.ErrorText = Resources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output;
                     return;
                 }
 
-                dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = string.Empty;
+                currentDataGridViewCell.ErrorText = string.Empty;
             }
         }
 

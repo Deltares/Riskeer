@@ -369,7 +369,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Assert
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak zijn opgeteld niet gelijk aan 100%", dataGridViewCell.ErrorText);
+                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak zijn opgeteld niet gelijk aan 100%.", dataGridViewCell.ErrorText);
                 Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), formattedValue);
                 mocks.VerifyAll();
             }
@@ -383,7 +383,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
             calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
             calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble?) 1000);
+            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble) 1000);
+            calculationScenarioMock.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.Done);
 
             mocks.ReplayAll();
 
@@ -417,7 +418,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
             calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
             calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Probability).Return(null);
+            calculationScenarioMock.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.NotCalculated);
 
             mocks.ReplayAll();
 
@@ -451,7 +452,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
             calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
             calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble?) double.NaN);
+            calculationScenarioMock.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.Failed);
 
             mocks.ReplayAll();
 
@@ -507,7 +508,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
             calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
             calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(false);
-            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble?) double.NaN);
+            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble) double.NaN);
 
             mocks.ReplayAll();
 
@@ -533,14 +534,15 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultView_AssessmentLayerTrueAndAssessmentLayerTwoAHasError_DoesNotShowError()
+        public void FailureMechanismResultView_AssessmentLayerOneTrueAndAssessmentLayerTwoAHasError_DoesNotShowError()
         {
             // Setup
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
             calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble) 1.0);
             calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble?) double.NaN);
+            calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble) double.NaN);
+            calculationScenarioMock.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.Failed);
 
             mocks.ReplayAll();
 
@@ -608,7 +610,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 }
             }
 
-            public override ICalculationGroup CalculationsGroup { get; protected set; }
+            public override CalculationGroup CalculationsGroup { get; protected set; }
         }
 
         private FailureMechanismResultView ShowFailureMechanismResultsView()

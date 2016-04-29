@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);
             Assert.AreSame(calculationItem, children[0]);
-            var returnedCalculationContext = (PipingCalculationContext) children[1];
+            var returnedCalculationContext = (PipingCalculationScenarioContext) children[1];
             Assert.AreSame(childCalculation, returnedCalculationContext.WrappedData);
             Assert.AreSame(pipingFailureMechanismMock, returnedCalculationContext.PipingFailureMechanism);
             var returnedCalculationGroupContext = (PipingCalculationGroupContext) children[2];
@@ -710,7 +710,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              assessmentSectionMock);
 
             var calculationItem = mocks.Stub<ICalculationBase>();
-            calculationItem.Name = "Nieuwe map";
+            calculationItem.Stub(ci => ci.Name).Return("Nieuwe map");
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -761,7 +761,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              assessmentSectionMock);
 
             var calculationItem = mocks.Stub<ICalculationBase>();
-            calculationItem.Name = "Nieuwe berekening";
+            calculationItem.Stub(ci => ci.Name).Return("Nieuwe berekening");
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -1736,7 +1736,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             CreatePipingCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, assessmentSection, name);
 
             var existingItemStub = mocks.Stub<ICalculationBase>();
-            existingItemStub.Name = "";
+            existingItemStub.Stub(ci => ci.Name).Return("");
 
             CalculationGroup originalOwnerGroup;
             PipingCalculationGroupContext originalOwnerGroupContext;
@@ -1794,7 +1794,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             CreatePipingCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
 
             var sameNamedItem = mocks.Stub<ICalculationBase>();
-            sameNamedItem.Name = draggedItem.Name;
+            sameNamedItem.Stub(sni => sni.Name).Return(draggedItem.Name);
 
             var originalOwnerObserver = mocks.StrictMock<IObserver>();
             originalOwnerObserver.Expect(o => o.UpdateObserver());
@@ -1885,7 +1885,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                         calculation.Name = initialName;
                     }
                     data = calculation;
-                    dataContext = new PipingCalculationContext(calculation,
+                    dataContext = new PipingCalculationScenarioContext(calculation,
                                                                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                Enumerable.Empty<StochasticSoilModel>(),
                                                                pipingFailureMechanism,

@@ -69,22 +69,12 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Gets and sets the value of assessment layer two a.
         /// </summary>
-        public RoundedDouble? AssessmentLayerTwoA
+        public RoundedDouble AssessmentLayerTwoA
         {
             get
             {
-                var totalProbablity = (RoundedDouble?) 0.0;
-                foreach (var scenario in CalculationScenarios.Where(cs => cs.IsRelevant))
-                {
-                    if (!scenario.Probability.HasValue)
-                    {
-                        return null;
-                    }
-
-                    totalProbablity += (scenario.Contribution*scenario.Probability.Value);
-                }
-
-                return totalProbablity;
+                return CalculationScenarios.Where(cs => cs.IsRelevant && cs.CalculationScenarioStatus == CalculationScenarioStatus.Done)
+                                           .Aggregate((RoundedDouble) 0.0, (current, scenario) => (current + scenario.Contribution * scenario.Probability));
             }
         }
 
@@ -102,7 +92,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
         {
             get
             {
-                return (RoundedDouble) CalculationScenarios.Where(cs => cs.IsRelevant).Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
+                return (RoundedDouble) CalculationScenarios.Where(cs => cs.IsRelevant)
+                                                           .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
             }
         }
 
@@ -110,5 +101,30 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// Gets and sets a list of <see cref="ICalculationScenario"/>
         /// </summary>
         public List<ICalculationScenario> CalculationScenarios { get; private set; }
+
+        /// <summary>
+        /// Gets the status of the section result depending on the calculation scenarios.
+        /// </summary>
+        public CalculationScenarioStatus CalculationScenarioStatus
+        {
+            get
+            {
+                foreach (var calculationScenario in CalculationScenarios.Where(cs => cs.IsRelevant))
+                {
+                    switch (calculationScenario.CalculationScenarioStatus) 
+                    {
+                        case CalculationScenarioStatus.Failed:
+                            return CalculationScenarioStatus.Failed;
+                        case CalculationScenarioStatus.NotCalculated:
+                            return CalculationScenarioStatus.NotCalculated;
+                        case CalculationScenarioStatus.Done:
+                            continue;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+                return CalculationScenarioStatus.Done;
+            }
+        }
     }
 }

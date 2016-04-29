@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
-        public override ICalculationGroup CalculationsGroup { get; protected set; }
+        public override CalculationGroup CalculationsGroup { get; protected set; }
 
         /// <summary>
         /// Length-effect parameters.

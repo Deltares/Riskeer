@@ -21,7 +21,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new PipingCalculationContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<PipingCalculationContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<PipingCalculationScenarioContext>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var properties = new PipingCalculationContextProperties
             {
-                Data = new PipingCalculationContext(calculation,
+                Data = new PipingCalculationScenarioContext(calculation,
                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                     Enumerable.Empty<StochasticSoilModel>(),
                                                     pipingFailureMechanismMock,
@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var properties = new PipingCalculationContextProperties
             {
-                Data = new PipingCalculationContext(calculation,
+                Data = new PipingCalculationScenarioContext(calculation,
                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                     Enumerable.Empty<StochasticSoilModel>(),
                                                     pipingFailureMechanismMock,
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var properties = new PipingCalculationContextProperties
             {
-                Data = new PipingCalculationContext(calculation,
+                Data = new PipingCalculationScenarioContext(calculation,
                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                     Enumerable.Empty<StochasticSoilModel>(),
                                                     pipingFailureMechanismMock,

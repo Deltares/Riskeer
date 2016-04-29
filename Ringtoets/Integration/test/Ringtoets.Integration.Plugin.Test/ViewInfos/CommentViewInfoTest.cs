@@ -343,7 +343,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewDataCalculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
-            var deletedCalculationContext = new PipingCalculationContext(viewDataCalculation,
+            var deletedCalculationContext = new PipingCalculationScenarioContext(viewDataCalculation,
                                                                          Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                          Enumerable.Empty<StochasticSoilModel>(),
                                                                          failureMechanism,
@@ -376,7 +376,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var deletedCalculationContext = new PipingCalculationContext(calculation,
+            var deletedCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                          Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                                          Enumerable.Empty<StochasticSoilModel>(),
                                                                          failureMechanism,

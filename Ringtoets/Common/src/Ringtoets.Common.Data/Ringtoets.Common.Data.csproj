@@ -42,6 +42,7 @@
     <Compile Include="AssessmentSection\AssessmentSectionComposition.cs" />
     <Compile Include="AssessmentSection\IAssessmentSection.cs" />
     <Compile Include="AssessmentSection\ReferenceLine.cs" />
+    <Compile Include="Calculation\CalculationScenarioStatus.cs" />
     <Compile Include="Calculation\ICalculationGroup.cs" />
     <Compile Include="Calculation\ICalculationInput.cs" />
     <Compile Include="Calculation\CalculationGroup.cs" />

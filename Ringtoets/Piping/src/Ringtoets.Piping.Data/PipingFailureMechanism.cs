@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets all available piping calculation groups.
         /// </summary>
-        public override ICalculationGroup CalculationsGroup { get; protected set; }
+        public override CalculationGroup CalculationsGroup { get; protected set; }
 
         /// <summary>
         /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.

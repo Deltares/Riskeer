@@ -11,8 +11,15 @@ using Ringtoets.Piping.Plugin.FileImporter;
 
 namespace Ringtoets.Piping.Integration.Test
 {
+    /// <summary>
+    /// Helper methods related to integration tests.
+    /// </summary>
     public static class IntegrationTestHelper
     {
+        /// <summary>
+        /// Imports the reference line on the <see cref="AssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import the reference line on.</param>
         public static void ImportReferenceLine(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,
@@ -31,6 +38,11 @@ namespace Ringtoets.Piping.Integration.Test
             }
         }
 
+        /// <summary>
+        /// Imports the failure mechanism sections.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to import on.</param>
         public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,
@@ -49,6 +61,10 @@ namespace Ringtoets.Piping.Integration.Test
             }
         }
 
+        /// <summary>
+        /// Imports the hydraulic boundary database.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
         public static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,
@@ -64,6 +80,10 @@ namespace Ringtoets.Piping.Integration.Test
             }
         }
 
+        /// <summary>
+        /// Imports the surface lines.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
         public static void ImportSurfaceLines(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,
@@ -80,6 +100,10 @@ namespace Ringtoets.Piping.Integration.Test
             }
         }
 
+        /// <summary>
+        /// Imports the soil profiles.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
         public static void ImportSoilProfiles(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,

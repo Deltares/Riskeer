@@ -45,6 +45,6 @@ namespace Ringtoets.Common.Data.Contribution
             }
         }
 
-        public override ICalculationGroup CalculationsGroup { get; protected set; }
+        public override CalculationGroup CalculationsGroup { get; protected set; }
     }
 }

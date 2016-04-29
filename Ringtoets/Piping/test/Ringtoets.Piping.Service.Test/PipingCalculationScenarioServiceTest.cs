@@ -82,8 +82,8 @@ namespace Ringtoets.Piping.Service.Test
 
             var sectionResults = failureMechanism.SectionResults.ToArray();
 
-            var sectionResultScenariosBeforeSync = sectionResults[0].CalculationScenarios.ToList();
-            var sectionResultScenariosBeforeSync2 = sectionResults[1].CalculationScenarios.ToList();
+            var sectionResultScenariosBeforeSync = sectionResults[0].CalculationScenarios.ToArray();
+            var sectionResultScenariosBeforeSync2 = sectionResults[1].CalculationScenarios.ToArray();
 
             // Call
             PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine(calculationToSync, failureMechanism, null);
@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.Service.Test
 
             var sectionResults = failureMechanism.SectionResults.ToArray();
 
-            var expectedSectionResultScenarios = sectionResults[0].CalculationScenarios.ToList();
+            var expectedSectionResultScenarios = sectionResults[0].CalculationScenarios.ToArray();
 
             // Call
             PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine(calculationToSync, failureMechanism, calculationToSync.InputParameters.SurfaceLine);
@@ -134,8 +134,8 @@ namespace Ringtoets.Piping.Service.Test
 
             var sectionResults = failureMechanism.SectionResults.ToArray();
 
-            var sectionResultScenariosBeforeSync = sectionResults[0].CalculationScenarios.ToList();
-            var sectionResultScenariosBeforeSync2 = sectionResults[1].CalculationScenarios.ToList();
+            var sectionResultScenariosBeforeSync = sectionResults[0].CalculationScenarios.ToArray();
+            var sectionResultScenariosBeforeSync2 = sectionResults[1].CalculationScenarios.ToArray();
 
             // Call
             PipingCalculationScenarioService.SyncCalculationScenarioWithNewSurfaceLine(calculationToSync, failureMechanism, oldSurfaceLine);
@@ -182,8 +182,8 @@ namespace Ringtoets.Piping.Service.Test
             var calculationToRemove = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
 
             var sectionResults = failureMechanism.SectionResults.ToArray();
-            var sectionResultScenariosBeforeRemove = sectionResults[0].CalculationScenarios.ToList();
-            var sectionResultScenariosBeforeRemove2 = sectionResults[1].CalculationScenarios.ToList();
+            var sectionResultScenariosBeforeRemove = sectionResults[0].CalculationScenarios.ToArray();
+            var sectionResultScenariosBeforeRemove2 = sectionResults[1].CalculationScenarios.ToArray();
 
             // Call
             PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(calculationToRemove, failureMechanism);

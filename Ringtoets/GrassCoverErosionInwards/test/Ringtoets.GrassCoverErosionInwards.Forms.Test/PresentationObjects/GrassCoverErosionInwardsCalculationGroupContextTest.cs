@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<IObservable>(groupContext);
-            Assert.IsInstanceOf<GrassCoverErosionInwardsContext<ICalculationGroup>>(groupContext);
+            Assert.IsInstanceOf<GrassCoverErosionInwardsContext<CalculationGroup>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
             Assert.AreSame(failureMechanismMock, groupContext.GrassCoverErosionInwardsFailureMechanism);
             Assert.AreSame(assessmentSectionMock, groupContext.AssessmentSection);

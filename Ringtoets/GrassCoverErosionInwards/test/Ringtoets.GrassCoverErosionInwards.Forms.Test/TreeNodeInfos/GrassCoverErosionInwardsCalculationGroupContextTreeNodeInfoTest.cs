@@ -379,7 +379,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                              assessmentSectionMock);
 
             var calculationItem = mocks.Stub<ICalculationBase>();
-            calculationItem.Name = "Nieuwe map";
+            calculationItem.Stub(ci => ci.Name).Return("Nieuwe map");
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -428,7 +428,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                              assessmentSectionMock);
 
             var calculationItem = mocks.Stub<ICalculationBase>();
-            calculationItem.Name = "Nieuwe berekening";
+            calculationItem.Stub(ci => ci.Name).Return("Nieuwe berekening");            
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -876,7 +876,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             CreateCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, pipingFailureMechanismMock, assessmentSection, name);
 
             var existingItemStub = mocks.Stub<ICalculationBase>();
-            existingItemStub.Name = "";
+            existingItemStub.Stub(ci => ci.Name).Return("");
 
             CalculationGroup originalOwnerGroup;
             GrassCoverErosionInwardsCalculationGroupContext originalOwnerGroupContext;
@@ -934,7 +934,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             CreateCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, pipingFailureMechanismMock, assessmentSection);
 
             var sameNamedItem = mocks.Stub<ICalculationBase>();
-            sameNamedItem.Name = draggedItem.Name;
+            sameNamedItem.Stub(sni => sni.Name).Return(draggedItem.Name);
 
             var originalOwnerObserver = mocks.StrictMock<IObserver>();
             originalOwnerObserver.Expect(o => o.UpdateObserver());

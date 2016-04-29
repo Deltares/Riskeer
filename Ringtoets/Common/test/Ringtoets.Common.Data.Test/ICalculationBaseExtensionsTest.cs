@@ -20,9 +20,8 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Base;
-using Core.Common.Base.Data;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Common.Data.Test
@@ -34,7 +33,9 @@ namespace Ringtoets.Common.Data.Test
         public void GetPipingCalculations_FromPipingCalculation_ReturnThatCalculationInstance()
         {
             // Setup
-            ICalculationBase calculationItem = new TestCalculationItem();
+            var mocks = new MockRepository();
+            ICalculationBase calculationItem = mocks.StrictMock<ICalculationScenario>();
+            mocks.ReplayAll();
 
             // Call
             IEnumerable<ICalculationBase> result = calculationItem.GetCalculations();
@@ -44,6 +45,7 @@ namespace Ringtoets.Common.Data.Test
             {
                 calculationItem
             }, result);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -81,10 +83,12 @@ namespace Ringtoets.Common.Data.Test
         public void GetPipingCalculations_FromCalculationGroupWithGroupsAndCalculations_ReturnAllCalculationsRecursiveslyInAnyOrder()
         {
             // Setup
-            var calculation1 = new TestCalculationItem();
-            var calculation2 = new TestCalculationItem();
-            var calculation3 = new TestCalculationItem();
-            var calculation4 = new TestCalculationItem();
+            var mocks = new MockRepository();
+            ICalculationBase calculation1 = mocks.StrictMock<ICalculationScenario>();
+            ICalculationBase calculation2 = mocks.StrictMock<ICalculationScenario>();
+            ICalculationBase calculation3 = mocks.StrictMock<ICalculationScenario>();
+            ICalculationBase calculation4 = mocks.StrictMock<ICalculationScenario>();
+            mocks.ReplayAll();
 
             var subsubGroup = new CalculationGroup();
             subsubGroup.Children.Add(calculation4);
@@ -116,46 +120,5 @@ namespace Ringtoets.Common.Data.Test
             };
             CollectionAssert.AreEquivalent(itemsThatShouldBeFound, result);
         }
-    }
-
-    public class TestCalculationItem : ICalculationScenario
-    {
-        public TestCalculationItem()
-        {
-
-        }
-
-        public void Attach(IObserver observer)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Detach(IObserver observer)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void NotifyObservers()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public string Name { get; set; }
-        public string Comments { get; set; }
-        public bool HasOutput { get; private set; }
-        public void ClearOutput()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ClearHydraulicBoundaryLocation()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public ICalculationInput Input { get; private set; }
-        public bool IsRelevant { get; set; }
-        public RoundedDouble Contribution { get; set; }
-        public RoundedDouble? Probability { get; private set; }
     }
 }

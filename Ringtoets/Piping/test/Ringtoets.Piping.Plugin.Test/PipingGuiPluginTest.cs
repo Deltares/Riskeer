@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsNull(pipingFailureMechanismContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingFailureMechanismContextProperties.AfterCreate);
 
-                var pipingCalculationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingCalculationContext));
+                var pipingCalculationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingCalculationScenarioContext));
                 Assert.AreEqual(typeof(PipingCalculationContextProperties), pipingCalculationContextProperties.PropertyObjectType);
                 Assert.IsNull(pipingCalculationContextProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingCalculationContextProperties.GetObjectPropertiesData);
@@ -150,7 +150,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModelContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilModel)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StochasticSoilProfile)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationScenarioContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingInputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailureMechanismContext)));

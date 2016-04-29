@@ -317,7 +317,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                 }
             }
 
-            public override ICalculationGroup CalculationsGroup { get; protected set; }
+            public override CalculationGroup CalculationsGroup { get; protected set; }
         }
     }
 }

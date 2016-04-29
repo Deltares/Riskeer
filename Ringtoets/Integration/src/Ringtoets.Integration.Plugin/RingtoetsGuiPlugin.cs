@@ -327,7 +327,7 @@ namespace Ringtoets.Integration.Plugin
 
         private static bool CloseCommentViewForData(CommentView commentView, object o)
         {
-            var calculationContext = o as PipingCalculationContext;
+            var calculationContext = o as PipingCalculationScenarioContext;
             if (calculationContext != null)
             {
                 return calculationContext.WrappedData == commentView.Data;

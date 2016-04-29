@@ -645,7 +645,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 }
             }
 
-            public override ICalculationGroup CalculationsGroup { get; protected set; }
+            public override CalculationGroup CalculationsGroup { get; protected set; }
         }
 
         private class ProgressNotification

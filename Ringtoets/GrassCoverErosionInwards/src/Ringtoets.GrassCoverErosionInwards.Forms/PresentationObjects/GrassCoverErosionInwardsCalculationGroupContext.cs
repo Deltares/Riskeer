@@ -31,15 +31,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
     /// in order be able to create configurable grass cover erosion inwards calculations.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationGroupContext : GrassCoverErosionInwardsContext<ICalculationGroup>
+    public class GrassCoverErosionInwardsCalculationGroupContext : GrassCoverErosionInwardsContext<CalculationGroup>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationGroupContext"/>.
         /// </summary>
-        /// <param name="calculationsGroup">The <see cref="ICalculationGroup"/> instance wrapped by this context object.</param>
+        /// <param name="calculationsGroup">The <see cref="CalculationGroup"/> instance wrapped by this context object.</param>
         /// <param name="grassCoverErosionInwardsFailureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        public GrassCoverErosionInwardsCalculationGroupContext(ICalculationGroup calculationsGroup, GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism, IAssessmentSection assessmentSection)
+        public GrassCoverErosionInwardsCalculationGroupContext(CalculationGroup calculationsGroup, GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism, IAssessmentSection assessmentSection)
             : base(calculationsGroup, assessmentSection)
         {
             if (grassCoverErosionInwardsFailureMechanism == null)

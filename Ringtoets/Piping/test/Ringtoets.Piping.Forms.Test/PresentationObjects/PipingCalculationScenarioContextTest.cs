@@ -13,7 +13,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class PipingCalculationContextTest
+    public class PipingCalculationScenarioContextTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            var presentationObject = new PipingCalculationContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
+            var presentationObject = new PipingCalculationScenarioContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(presentationObject);
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new PipingCalculationContext(calculation, surfacelines, soilModels, null, assessmentSection);
+            TestDelegate call = () => new PipingCalculationScenarioContext(calculation, surfacelines, soilModels, null, assessmentSection);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het piping faalmechanisme mag niet 'null' zijn.");
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new PipingCalculationContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, null);
+            TestDelegate call = () => new PipingCalculationScenarioContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             };
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
-            var context = new PipingCalculationContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
+            var context = new PipingCalculationScenarioContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
 
             // Call
             context.Attach(observer);
@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             };
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
-            var context = new PipingCalculationContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
+            var context = new PipingCalculationScenarioContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
 
             context.Attach(observer);
 
@@ -179,7 +179,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             };
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
-            var context = new PipingCalculationContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
+            var context = new PipingCalculationScenarioContext(calculation, surfacelines, soilModels, pipingFailureMechanismMock, assessmentSectionMock);
 
             calculation.Attach(observer); // Attach to wrapped object
 

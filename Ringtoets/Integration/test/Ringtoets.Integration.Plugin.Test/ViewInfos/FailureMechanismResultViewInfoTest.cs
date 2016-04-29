@@ -233,7 +233,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 }
             }
 
-            public override ICalculationGroup CalculationsGroup { get; protected set; }
+            public override CalculationGroup CalculationsGroup { get; protected set; }
         }
     }
 }
