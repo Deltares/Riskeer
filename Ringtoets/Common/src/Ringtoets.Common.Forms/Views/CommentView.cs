@@ -67,7 +67,10 @@ namespace Ringtoets.Common.Forms.Views
 
         private void OnTextBoxValueChanged(object sender, EventArgs eventArgs)
         {
-            data.Comments = richTextBoxControl.Rtf;
+            if (data != null)
+            {
+                data.Comments = richTextBoxControl.Rtf;
+            }
         }
     }
 }

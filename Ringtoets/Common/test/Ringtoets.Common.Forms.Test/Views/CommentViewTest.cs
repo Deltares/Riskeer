@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Windows.Forms;
 using Core.Common.Controls.TextEditor;
 using Core.Common.Controls.Views;
@@ -143,9 +142,34 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(validRtfString, data.Comments);
             }
-
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void RichTextEditorOnTextChanged_WithoutData_DoesNotChangeComment()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var view = new CommentView())
+            {
+                form.Controls.Add(view);
+                form.Show();
+
+                view.Data = null;
+
+                var expectedText = "<Some_text>";
+                var validRtfString = GetValidRtfString(expectedText);
+
+                var richTextBoxControl = (RichTextBoxControl)new ControlTester("richTextBoxControl").TheObject;
+
+                // Call
+                TestDelegate test = () => richTextBoxControl.Rtf = validRtfString;
+
+                // Assert
+                Assert.DoesNotThrow(test);
+            }
+        }
+
 
         private static string GetValidRtfString(string value)
         {
