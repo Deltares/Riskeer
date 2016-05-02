@@ -56,6 +56,7 @@ namespace Application.Ringtoets.Storage.DbContext
             };
 
             ReadPipingFailureMechanism(assessmentSection, collector);
+            ReadGrassCoverErosionInwardsFailureMechanism(assessmentSection);
             ReadHydraulicDatabase(assessmentSection);
             ReadReferenceLine(assessmentSection);
             ReadFailureMechanismPlaceholders(assessmentSection);
@@ -103,6 +104,23 @@ namespace Application.Ringtoets.Storage.DbContext
                 foreach (var failureMechanismSection in failureMechanism.Sections)
                 {
                     pipingFailureMechanism.AddSection(failureMechanismSection);
+                }
+            }
+        }
+
+        private void ReadGrassCoverErosionInwardsFailureMechanism(AssessmentSection assessmentSection)
+        {
+            var grassCoverErosionInwardsFailureMechanismEntity = FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.GrassRevetmentTopErosionAndInwards);
+            if (grassCoverErosionInwardsFailureMechanismEntity != null)
+            {
+                var failureMechanism = grassCoverErosionInwardsFailureMechanismEntity.ReadAsGrassCoverErosionInwardsFailureMechanism();
+
+                var grassCoverErosionInwards = assessmentSection.GrassCoverErosionInwards;
+                grassCoverErosionInwards.IsRelevant = failureMechanism.IsRelevant;
+                grassCoverErosionInwards.StorageId = failureMechanism.StorageId;
+                foreach (var failureMechanismSection in failureMechanism.Sections)
+                {
+                    grassCoverErosionInwards.AddSection(failureMechanismSection);
                 }
             }
         }

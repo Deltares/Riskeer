@@ -63,6 +63,7 @@ namespace Application.Ringtoets.Storage.DbContext
             entity.Composition = (short) section.Composition;
 
             UpdatePipingFailureMechanism(section, collector, context);
+            UpdateGrassCoverErosionInwardsFailureMechanism(section, collector, context);
             UpdateHydraulicDatabase(section, entity, collector, context);
             UpdateReferenceLine(section, entity, context);
             UpdateFailureMechanismPlaceHolders(section, collector, context);
@@ -96,6 +97,11 @@ namespace Application.Ringtoets.Storage.DbContext
         private static void UpdatePipingFailureMechanism(AssessmentSection section, UpdateConversionCollector collector, IRingtoetsEntities context)
         {
             section.PipingFailureMechanism.Update(collector, context);
+        }
+
+        private static void UpdateGrassCoverErosionInwardsFailureMechanism(AssessmentSection section, UpdateConversionCollector collector, IRingtoetsEntities context)
+        {
+            section.GrassCoverErosionInwards.Update(collector, context);
         }
 
         private static void UpdateReferenceLine(AssessmentSection section, AssessmentSectionEntity entity, IRingtoetsEntities context)

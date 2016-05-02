@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.Read;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Piping.Data;
 
@@ -56,6 +57,23 @@ namespace Application.Ringtoets.Storage.DbContext
             {
                 failureMechanism.StochasticSoilModels.Add(stochasticSoilModelEntity.Read(collector));
             }
+
+            ReadFailureMechanismSections(failureMechanism);
+
+            return failureMechanism;
+        }
+
+        /// <summary>
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
+        /// </summary>
+        /// <returns>A new <see cref="PipingFailureMechanism"/>.</returns>
+        public GrassCoverErosionInwardsFailureMechanism ReadAsGrassCoverErosionInwardsFailureMechanism()
+        {
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                StorageId = FailureMechanismEntityId,
+                IsRelevant = IsRelevant == 1
+            };
 
             ReadFailureMechanismSections(failureMechanism);
 

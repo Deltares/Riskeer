@@ -243,7 +243,47 @@ namespace Application.Ringtoets.Storage.Test.Update
                 {
                     new AssessmentSection(AssessmentSectionComposition.Dike)
                     {
-                        StorageId = 1
+                        StorageId = 1,
+                        PipingFailureMechanism =
+                        {
+                            StorageId = 1
+                        },
+                        GrassCoverErosionInwards =
+                        {
+                            StorageId = 1
+                        },
+                        MacrostabilityInwards =
+                        {
+                            StorageId = 1
+                        },
+                        Overtopping =
+                        {
+                            StorageId = 1
+                        },
+                        Closing =
+                        {
+                            StorageId = 1
+                        },
+                        FailingOfConstruction =
+                        {
+                            StorageId = 1
+                        },
+                        StoneRevetment =
+                        {
+                            StorageId = 1
+                        },
+                        AsphaltRevetment =
+                        {
+                            StorageId = 1
+                        },
+                        GrassRevetment =
+                        {
+                            StorageId = 1
+                        },
+                        DuneErosion =
+                        {
+                            StorageId = 1
+                        }
                     }
                 }
             };
@@ -263,7 +303,10 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             ringtoetsEntities.ProjectEntities.Add(projectEntity);
             ringtoetsEntities.AssessmentSectionEntities.Add(assessmentSectionEntity);
-            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity());
+            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = 1
+            });
 
             // Call
             project.Update(new UpdateConversionCollector(), ringtoetsEntities);

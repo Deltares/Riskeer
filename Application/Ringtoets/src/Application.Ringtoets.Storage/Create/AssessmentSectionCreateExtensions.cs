@@ -51,12 +51,18 @@ namespace Application.Ringtoets.Storage.DbContext
             };
 
             CreatePipingFailureMechanism(section, entity, collector);
+            CreateGrassCoverErosionInwardsFailureMechanism(section, entity, collector);
             CreateHydraulicDatabase(section, entity, collector);
             CreateReferenceLine(section, entity);
             CreateFailureMechanismPlaceHolders(section, entity, collector);
 
             collector.Create(entity, section);
             return entity;
+        }
+
+        private static void CreateGrassCoverErosionInwardsFailureMechanism(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
+        {
+            entity.FailureMechanismEntities.Add(section.GrassCoverErosionInwards.Create(collector));
         }
 
         private static void CreateFailureMechanismPlaceHolders(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)

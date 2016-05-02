@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingFailureMechanism_WithStochasticSoilModelsSet_ReturnsNewPipingFailureMechanismWithStochasticSoilModels()
+        public void ReadAsPipingFailureMechanism_WithStochasticSoilModelsSet_ReturnsNewPipingFailureMechanismWithStochasticSoilModelsSet()
         {
             // Setup
             var entity = new FailureMechanismEntity
@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsPipingFailureMechanismPlaceholder_WithSectionsSet_ReturnsNewFailureMechanismPlaceholderWithFailureMechanismSections()
+        public void ReadAsPipingFailureMechanism_WithSectionsSet_ReturnsNewPipingFailureMechanismWithFailureMechanismSectionsSet()
         {
             // Setup
             var entityId = new Random(21).Next(1, 502);
@@ -113,6 +113,59 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Call
             var failureMechanism = entity.ReadAsPipingFailureMechanism(collector);
+
+            // Assert
+            Assert.AreEqual(1, failureMechanism.Sections.Count());
+        }   
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithCollector_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithPropertiesSet(bool isRelevant)
+        {
+            // Setup
+            var entityId = new Random(21).Next(1, 502);
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                IsRelevant = Convert.ToByte(isRelevant),
+            };
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var failureMechanism = entity.ReadAsGrassCoverErosionInwardsFailureMechanism();
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(entityId, failureMechanism.StorageId);
+            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.IsEmpty(failureMechanism.Sections);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithSectionsSet_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithFailureMechanismSectionsAdded()
+        {
+            // Setup
+            var entityId = new Random(21).Next(1, 502);
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                FailureMechanismSectionEntities =
+                {
+                    new FailureMechanismSectionEntity
+                    {
+                        Name = "section",
+                        FailureMechanismSectionPointEntities =
+                        {
+                            new FailureMechanismSectionPointEntity()
+                        }
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var failureMechanism = entity.ReadAsGrassCoverErosionInwardsFailureMechanism();
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());

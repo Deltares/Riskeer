@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(ProjectEntity entity)
         {
-            Update(entity, projects);
+            Update(entity, entity.ProjectEntityId, projects);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(AssessmentSectionEntity entity)
         {
-            Update(entity, assessmentSections);
+            Update(entity, entity.AssessmentSectionEntityId, assessmentSections);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(FailureMechanismEntity entity)
         {
-            Update(entity, failureMechanisms);
+            Update(entity, entity.FailureMechanismEntityId, failureMechanisms);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         public void Update(FailureMechanismSectionEntity entity)
         {
-            Update(entity, failureMechanismSections);
+            Update(entity, entity.FailureMechanismSectionEntityId, failureMechanismSections);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(HydraulicLocationEntity entity)
         {
-            Update(entity, hydraulicLocations);
+            Update(entity, entity.HydraulicLocationEntityId, hydraulicLocations);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(StochasticSoilModelEntity entity)
         {
-            Update(entity, stochasticSoilModels);
+            Update(entity, entity.StochasticSoilModelEntityId, stochasticSoilModels);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(StochasticSoilProfileEntity entity)
         {
-            Update(entity, stochasticSoilProfiles);
+            Update(entity, entity.StochasticSoilProfileEntityId, stochasticSoilProfiles);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(SoilProfileEntity entity)
         {
-            Update(entity, soilProfiles);
+            Update(entity, entity.SoilProfileEntityId, soilProfiles);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(SoilLayerEntity entity)
         {
-            Update(entity, soilLayers);
+            Update(entity, entity.SoilLayerEntityId, soilLayers);
         }
 
         /// <summary>
@@ -205,11 +205,15 @@ namespace Application.Ringtoets.Storage.Update
             soilLayerEntities.RemoveRange(soilLayerEntitiesToRemove);
         }
 
-        private void Update<T>(T entity, HashSet<T> collection)
+        private void Update<T>(T entity, long entityId, HashSet<T> collection)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
+            }
+            if (entityId <= 0)
+            {
+                throw new ArgumentException("Entity cannot be new when added to the updated list.", "entity");
             }
             collection.Add(entity);
         }

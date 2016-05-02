@@ -20,27 +20,26 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
     [TestFixture]
-    public class FailureMechanismBaseCreateExtensionsTest
+    public class GrassCoverErosionInwardsFailureMechanismTest
     {
         [Test]
         public void CreateFailureMechanismSections_WithoutCollector_ArgumentNullException()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.CreateFailureMechanismSections(null, new FailureMechanismEntity());
+            TestDelegate test = () => failureMechanism.Create(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -48,61 +47,30 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateFailureMechanismSections_WithoutEntity_ArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new TestFailureMechanism();
-
-            // Call
-            TestDelegate test = () => failureMechanism.CreateFailureMechanismSections(new CreateConversionCollector(), null);
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("entity", paramName);
-        }
-
-        [Test]
         public void CreateFailureMechanismSections_WithoutSections_EmptyFailureMechanismSectionEntities()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
-            var failureMechanismEntity = new FailureMechanismEntity();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            failureMechanism.CreateFailureMechanismSections(new CreateConversionCollector(), failureMechanismEntity);
+            var entity = failureMechanism.Create(new CreateConversionCollector());
 
             // Assert
-            Assert.IsEmpty(failureMechanismEntity.FailureMechanismSectionEntities);
+            Assert.IsEmpty(entity.FailureMechanismSectionEntities);
         }
 
         [Test]
         public void CreateFailureMechanismSections_WithSections_FailureMechanismSectionEntitiesCreated()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("", new [] { new Point2D(0,0) }));
-            var failureMechanismEntity = new FailureMechanismEntity();
 
             // Call
-            failureMechanism.CreateFailureMechanismSections(new CreateConversionCollector(), failureMechanismEntity);
+            var entity = failureMechanism.Create(new CreateConversionCollector());
 
             // Assert
-            Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
-        }
-
-        private class TestFailureMechanism : FailureMechanismBase
-        {
-            public TestFailureMechanism()
-                : base("", "")
-            { }
-
-            public override IEnumerable<ICalculation> Calculations
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
+            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
         }
     }
 }

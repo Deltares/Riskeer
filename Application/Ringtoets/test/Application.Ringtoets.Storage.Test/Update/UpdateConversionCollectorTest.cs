@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
@@ -42,6 +43,124 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.IsInstanceOf<CreateConversionCollector>(collector);
         }
 
+        #region Update method
+
+        [Test]
+        public void Update_WithNewProject_ThrowArgumentException()
+        {
+            // Setup
+            var entity = new ProjectEntity();
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void Update_WithNewAssessmentSection_ThrowArgumentException()
+        {
+            // Setup
+            var entity = new AssessmentSectionEntity();
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void Update_WithNewFailureMechanismSection_ThrowArgumentException()
+        {
+            // Setup
+            var entity = new FailureMechanismSectionEntity();
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void Update_WithNewHydraulicLocation_ThrowArgumentException()
+        {
+            // Setup
+            var entity = new HydraulicLocationEntity();
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void Update_WithNewStochasticSoilModel_ThrowArgumentException()
+        {
+            // Setup
+            var entity = new StochasticSoilModelEntity();
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void Update_WithNewStochasticSoilProfile_ThrowArgumentException()
+        {
+            // Setup
+            var entity = new StochasticSoilProfileEntity();
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void Update_WithNewSoilProfile_ThrowArgumentException()
+        {
+            // Setup
+            var entity = new SoilProfileEntity();
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void Update_WithNewSoilLayer_ThrowArgumentException()
+        {
+            // Setup
+            var entity = new SoilLayerEntity();
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        #endregion
+
+        #region RemoveUntouched method
+
         [Test]
         public void RemoveUntouched_ProjectEntityInUpdatedList_ProjectEntityNotRemoved()
         {
@@ -50,7 +169,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
-            var projectEntity = new ProjectEntity();
+            var projectEntity = new ProjectEntity
+            {
+                ProjectEntityId = 1
+            };
             ringtoetsEntities.ProjectEntities.Add(projectEntity);
 
             var collector = new UpdateConversionCollector();
@@ -70,7 +192,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             MockRepository mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
-            ringtoetsEntities.ProjectEntities.Add(new ProjectEntity());
+            ringtoetsEntities.ProjectEntities.Add(new ProjectEntity
+            {
+                ProjectEntityId = 1
+            });
 
             var collector = new UpdateConversionCollector();
 
@@ -89,7 +214,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
-            var assessmentSectionEntity = new AssessmentSectionEntity();
+            var assessmentSectionEntity = new AssessmentSectionEntity
+            {
+                AssessmentSectionEntityId = 1
+            };
             ringtoetsEntities.AssessmentSectionEntities.Add(assessmentSectionEntity);
 
             var collector = new UpdateConversionCollector();
@@ -109,7 +237,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             MockRepository mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
-            ringtoetsEntities.AssessmentSectionEntities.Add(new AssessmentSectionEntity());
+            ringtoetsEntities.AssessmentSectionEntities.Add(new AssessmentSectionEntity
+            {
+                AssessmentSectionEntityId = 1
+            });
 
             var collector = new UpdateConversionCollector();
 
@@ -128,7 +259,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
-            var failureMechanismEntity = new FailureMechanismEntity();
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = 1
+            };
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
 
             var collector = new UpdateConversionCollector();
@@ -148,7 +282,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             MockRepository mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
-            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity());
+            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = 1
+            });
 
             var collector = new UpdateConversionCollector();
 
@@ -167,7 +304,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
-            var failureMechanismEntity = new FailureMechanismSectionEntity();
+            var failureMechanismEntity = new FailureMechanismSectionEntity
+            {
+                FailureMechanismSectionEntityId = 1
+            };
             ringtoetsEntities.FailureMechanismSectionEntities.Add(failureMechanismEntity);
 
             var collector = new UpdateConversionCollector();
@@ -187,7 +327,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             MockRepository mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
-            ringtoetsEntities.FailureMechanismSectionEntities.Add(new FailureMechanismSectionEntity());
+            ringtoetsEntities.FailureMechanismSectionEntities.Add(new FailureMechanismSectionEntity
+            {
+                FailureMechanismSectionEntityId = 1
+            });
 
             var collector = new UpdateConversionCollector();
 
@@ -206,7 +349,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
-            var hydraulicLocationEntity = new HydraulicLocationEntity();
+            var hydraulicLocationEntity = new HydraulicLocationEntity
+            {
+                HydraulicLocationEntityId = 1
+            };
             ringtoetsEntities.HydraulicLocationEntities.Add(hydraulicLocationEntity);
 
             var collector = new UpdateConversionCollector();
@@ -226,7 +372,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             MockRepository mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
-            ringtoetsEntities.HydraulicLocationEntities.Add(new HydraulicLocationEntity());
+            ringtoetsEntities.HydraulicLocationEntities.Add(new HydraulicLocationEntity
+            {
+                HydraulicLocationEntityId = 1
+            });
 
             var collector = new UpdateConversionCollector();
 
@@ -245,7 +394,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
-            var stochasticSoilModelEntity = new StochasticSoilModelEntity();
+            var stochasticSoilModelEntity = new StochasticSoilModelEntity
+            {
+                StochasticSoilModelEntityId = 1
+            };
             ringtoetsEntities.StochasticSoilModelEntities.Add(stochasticSoilModelEntity);
 
             var collector = new UpdateConversionCollector();
@@ -265,7 +417,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             MockRepository mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
-            ringtoetsEntities.StochasticSoilModelEntities.Add(new StochasticSoilModelEntity());
+            ringtoetsEntities.StochasticSoilModelEntities.Add(new StochasticSoilModelEntity
+            {
+                StochasticSoilModelEntityId = 1
+            });
 
             var collector = new UpdateConversionCollector();
 
@@ -284,7 +439,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
-            var stochasticSoilProfileEntity = new StochasticSoilProfileEntity();
+            var stochasticSoilProfileEntity = new StochasticSoilProfileEntity
+            {
+                StochasticSoilProfileEntityId = 1
+            };
             ringtoetsEntities.StochasticSoilProfileEntities.Add(stochasticSoilProfileEntity);
 
             var collector = new UpdateConversionCollector();
@@ -304,7 +462,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             MockRepository mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
-            ringtoetsEntities.StochasticSoilProfileEntities.Add(new StochasticSoilProfileEntity());
+            ringtoetsEntities.StochasticSoilProfileEntities.Add(new StochasticSoilProfileEntity
+            {
+                StochasticSoilProfileEntityId = 1
+            });
 
             var collector = new UpdateConversionCollector();
 
@@ -323,7 +484,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
-            var soilProfileEntity = new SoilProfileEntity();
+            var soilProfileEntity = new SoilProfileEntity
+            {
+                SoilProfileEntityId = 1
+            };
             ringtoetsEntities.SoilProfileEntities.Add(soilProfileEntity);
 
             var collector = new UpdateConversionCollector();
@@ -343,7 +507,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             MockRepository mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
-            ringtoetsEntities.SoilProfileEntities.Add(new SoilProfileEntity());
+            ringtoetsEntities.SoilProfileEntities.Add(new SoilProfileEntity
+            {
+                SoilProfileEntityId = 1
+            });
 
             var collector = new UpdateConversionCollector();
 
@@ -362,7 +529,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
 
-            var soilLayerEntity = new SoilLayerEntity();
+            var soilLayerEntity = new SoilLayerEntity
+            {
+                SoilLayerEntityId = 1
+            };
             ringtoetsEntities.SoilLayerEntities.Add(soilLayerEntity);
 
             var collector = new UpdateConversionCollector();
@@ -382,7 +552,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             MockRepository mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
             mocks.ReplayAll();
-            ringtoetsEntities.SoilLayerEntities.Add(new SoilLayerEntity());
+            ringtoetsEntities.SoilLayerEntities.Add(new SoilLayerEntity
+            {
+                SoilLayerEntityId = 1
+            });
 
             var collector = new UpdateConversionCollector();
 
@@ -392,5 +565,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             // Assert
             Assert.AreEqual(0, ringtoetsEntities.SoilLayerEntities.Count());
         }
+
+        #endregion
     }
 }

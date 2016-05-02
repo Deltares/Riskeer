@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Data.Entity;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -134,11 +135,8 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             var newName = "newName";
             var composition = AssessmentSectionComposition.Dune;
-            var section = new AssessmentSection(composition)
-            {
-                StorageId = 1,
-                Name = newName
-            };
+            var section = InitialzeCreatedDikeAssessmentSection(AssessmentSectionComposition.Dune);
+            section.Name = newName;
 
             var entity = new AssessmentSectionEntity
             {
@@ -147,7 +145,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 Composition = (short) AssessmentSectionComposition.Dike
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
-            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity()); // Dummy for failure mechanisms
+            FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
             // Call
             section.Update(new UpdateConversionCollector(), ringtoetsEntities);
@@ -177,18 +175,15 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 new Point2D(1, 2)
             });
-            var section = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                StorageId = 1,
-                ReferenceLine = referenceLine
-            };
+            var section = InitialzeCreatedDikeAssessmentSection();
+            section.ReferenceLine = referenceLine;
 
             var entity = new AssessmentSectionEntity
             {
                 AssessmentSectionEntityId = 1
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
-            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity()); // Dummy for failure mechanisms
+            FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
             // Call
             section.Update(new UpdateConversionCollector(), ringtoetsEntities);
@@ -213,11 +208,8 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 new Point2D(1, 2)
             });
-            var section = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                StorageId = 1,
-                ReferenceLine = referenceLine
-            };
+            var section = InitialzeCreatedDikeAssessmentSection();
+            section.ReferenceLine = referenceLine;
 
             var referenceLinePointEntity = new ReferenceLinePointEntity
             {
@@ -232,8 +224,8 @@ namespace Application.Ringtoets.Storage.Test.Update
                 }
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
-            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity()); // Dummy for failure mechanisms
             ringtoetsEntities.ReferenceLinePointEntities.Add(referenceLinePointEntity);
+            FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
             // Call
             section.Update(new UpdateConversionCollector(), ringtoetsEntities);
@@ -256,17 +248,14 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             var newVersion = "new version";
             var filePath = "new path";
-            var section = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var section = InitialzeCreatedDikeAssessmentSection();
+            section.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                StorageId = 1,
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                FilePath = filePath,
+                Version = newVersion,
+                Locations =
                 {
-                    FilePath = filePath,
-                    Version = newVersion,
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(-1, string.Empty, 0, 0)
-                    }
+                    new HydraulicBoundaryLocation(-1, string.Empty, 0, 0)
                 }
             };
 
@@ -275,7 +264,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 AssessmentSectionEntityId = 1
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
-            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity()); // Dummy for failure mechanisms
+            FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
             // Call
             section.Update(new UpdateConversionCollector(), ringtoetsEntities);
@@ -303,17 +292,14 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 StorageId = 1
             };
-            var section = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var section = InitialzeCreatedDikeAssessmentSection();
+            section.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                StorageId = 1,
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                FilePath = filePath,
+                Version = newVersion,
+                Locations =
                 {
-                    FilePath = filePath,
-                    Version = newVersion,
-                    Locations =
-                    {
-                        hydraulicBoundaryLocation
-                    }
+                    hydraulicBoundaryLocation
                 }
             };
 
@@ -332,7 +318,7 @@ namespace Application.Ringtoets.Storage.Test.Update
                 }
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
-            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity()); // Dummy for failure mechanisms
+            FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
             ringtoetsEntities.HydraulicLocationEntities.Add(hydraulicLocationEntity);
 
             // Call
@@ -358,16 +344,10 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var section = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                StorageId = 1,
-                PipingFailureMechanism =
-                {
-                    StorageId = 1,
-                    Contribution = 0.5,
-                    IsRelevant = true
-                }
-            };
+            var section = InitialzeCreatedDikeAssessmentSection();
+            section.PipingFailureMechanism.StorageId = 1;
+            section.PipingFailureMechanism.Contribution = 0.5;
+            section.PipingFailureMechanism.IsRelevant = true;
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -383,8 +363,50 @@ namespace Application.Ringtoets.Storage.Test.Update
                 }
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
-            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity()); // Dummy for all other failure mechanisms
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
+
+            // Call
+            section.Update(new UpdateConversionCollector(), ringtoetsEntities);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                failureMechanismEntity
+            }, entity.FailureMechanismEntities);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_AssessmentSectionWithUpdatedGrassCoverErosionInwardsFailureMechanism_PropertiesUpdated()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+
+            mocks.ReplayAll();
+
+            var section = InitialzeCreatedDikeAssessmentSection();
+            section.GrassCoverErosionInwards.Contribution = 0.5;
+            section.GrassCoverErosionInwards.IsRelevant = true;
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = 1,
+                IsRelevant = Convert.ToByte(false)
+            };
+            var entity = new AssessmentSectionEntity
+            {
+                AssessmentSectionEntityId = 1,
+                FailureMechanismEntities =
+                {
+                    failureMechanismEntity
+                }
+            };
+            ringtoetsEntities.AssessmentSectionEntities.Add(entity);
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
             // Call
             section.Update(new UpdateConversionCollector(), ringtoetsEntities);
@@ -407,58 +429,32 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var section = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                StorageId = 1,
-                MacrostabilityInwards =
-                {
-                    StorageId = 1,
-                    Contribution = 0.5,
-                    IsRelevant = true
-                },
-                Overtopping =
-                {
-                    StorageId = 2,
-                    Contribution = 0.5,
-                    IsRelevant = true
-                },
-                Closing =
-                {
-                    StorageId = 3,
-                    Contribution = 0.5,
-                    IsRelevant = true
-                },
-                FailingOfConstruction =
-                {
-                    StorageId = 4,
-                    Contribution = 0.5,
-                    IsRelevant = true
-                },
-                StoneRevetment =
-                {
-                    StorageId = 5,
-                    Contribution = 0.5,
-                    IsRelevant = true
-                },
-                AsphaltRevetment =
-                {
-                    StorageId = 6,
-                    Contribution = 0.5,
-                    IsRelevant = true
-                },
-                GrassRevetment =
-                {
-                    StorageId = 7,
-                    Contribution = 0.5,
-                    IsRelevant = true
-                },
-                DuneErosion =
-                {
-                    StorageId = 8,
-                    Contribution = 0.5,
-                    IsRelevant = true
-                }
-            };
+            var section = InitialzeCreatedDikeAssessmentSection();
+            section.StorageId = 1;
+            section.MacrostabilityInwards.StorageId = 1;
+            section.MacrostabilityInwards.Contribution = 0.5;
+            section.MacrostabilityInwards.IsRelevant = true;
+            section.Overtopping.StorageId = 2;
+            section.Overtopping.Contribution = 0.5;
+            section.Overtopping.IsRelevant = true;
+            section.Closing.StorageId = 3;
+            section.Closing.Contribution = 0.5;
+            section.Closing.IsRelevant = true;
+            section.FailingOfConstruction.StorageId = 4;
+            section.FailingOfConstruction.Contribution = 0.5;
+            section.FailingOfConstruction.IsRelevant = true;
+            section.StoneRevetment.StorageId = 5;
+            section.StoneRevetment.Contribution = 0.5;
+            section.StoneRevetment.IsRelevant = true;
+            section.AsphaltRevetment.StorageId = 6;
+            section.AsphaltRevetment.Contribution = 0.5;
+            section.AsphaltRevetment.IsRelevant = true;
+            section.GrassRevetment.StorageId = 7;
+            section.GrassRevetment.Contribution = 0.5;
+            section.GrassRevetment.IsRelevant = true;
+            section.DuneErosion.StorageId = 8;
+            section.DuneErosion.Contribution = 0.5;
+            section.DuneErosion.IsRelevant = true;
 
             var macrostabilityInwardsEntity = new FailureMechanismEntity
             {
@@ -516,7 +512,6 @@ namespace Application.Ringtoets.Storage.Test.Update
                 }
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
-            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity()); // Dummy for piping
             ringtoetsEntities.FailureMechanismEntities.Add(macrostabilityInwardsEntity);
             ringtoetsEntities.FailureMechanismEntities.Add(overtoppingEntity);
             ringtoetsEntities.FailureMechanismEntities.Add(closingEntity);
@@ -525,6 +520,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismEntities.Add(asphaltRevetmentEntity);
             ringtoetsEntities.FailureMechanismEntities.Add(grassRevetmentEntity);
             ringtoetsEntities.FailureMechanismEntities.Add(duneErosionEntity);
+            FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
             // Call
             section.Update(new UpdateConversionCollector(), ringtoetsEntities);
@@ -544,5 +540,73 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.VerifyAll();
         }
+
+        public AssessmentSection InitialzeCreatedDikeAssessmentSection(AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
+        {
+            return new AssessmentSection(composition)
+            {
+                StorageId = 1,
+                PipingFailureMechanism =
+                {
+                    StorageId = 1
+                },
+                GrassCoverErosionInwards =
+                {
+                    StorageId = 2
+                },
+                MacrostabilityInwards =
+                {
+                    StorageId = 3
+                },
+                Overtopping =
+                {
+                    StorageId = 4
+                },
+                Closing =
+                {
+                    StorageId = 5
+                },
+                FailingOfConstruction =
+                {
+                    StorageId = 6
+                },
+                StoneRevetment =
+                {
+                    StorageId = 7
+                },
+                AsphaltRevetment =
+                {
+                    StorageId = 8
+                },
+                GrassRevetment =
+                {
+                    StorageId = 9
+                },
+                DuneErosion =
+                {
+                    StorageId = 10
+                }
+            };
+        }
+
+        private void FillWithFailureMechanismEntities(DbSet<FailureMechanismEntity> failureMechanismEntities)
+        {
+            var failureMechanismEntity = failureMechanismEntities.LastOrDefault();
+            long startId = 0;
+            if (failureMechanismEntity != null)
+            {
+                startId = failureMechanismEntity.FailureMechanismEntityId;
+            }
+
+            var count = failureMechanismEntities.Count();
+            for (var i = 1; i <= 10 - count; i++)
+            {
+                failureMechanismEntities.Add(new FailureMechanismEntity
+                {
+                    FailureMechanismEntityId = startId + i
+                });
+            }
+        }
     }
+
 }

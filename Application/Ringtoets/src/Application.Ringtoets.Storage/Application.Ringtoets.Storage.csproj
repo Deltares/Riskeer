@@ -53,6 +53,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismBaseCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismPlaceholderCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismSectionCreateExtensions.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="SqLiteConnectionStringBuilder.cs" />
     <Compile Include="StorageSqLite.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensions.cs" />
+    <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\FailureMechanismBaseUpdateExtensions.cs" />
     <Compile Include="Update\FailureMechanismPlaceholderUpdateExtensions.cs" />
     <Compile Include="Update\FailureMechanismSectionUpdateExtensions.cs" />
@@ -171,6 +173,10 @@
     <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
       <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+      <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>

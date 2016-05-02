@@ -171,7 +171,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithFailureMechanismWithFailureMechanismSectionsSet_ReturnsNewAssessmentSectionWithFailureMechanismSectionsInPipingFailureMechanism()
+        public void Read_WithPipingFailureMechanismWithFailureMechanismSectionsSet_ReturnsNewAssessmentSectionWithFailureMechanismSectionsInPipingFailureMechanism()
         {
             // Setup
             var entity = new AssessmentSectionEntity();
@@ -192,6 +192,30 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, section.PipingFailureMechanism.Sections.Count());
+        }
+
+        [Test]
+        public void Read_WithGrassCoverErosionInwardsFailureMechanismWithFailureMechanismSectionsSet_ReturnsNewAssessmentSectionWithFailureMechanismSectionsInGrassCoverErosionInwardsFailureMechanism()
+        {
+            // Setup
+            var entity = new AssessmentSectionEntity();
+            var entityId = new Random(21).Next(1, 502);
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(2, section.GrassCoverErosionInwards.Sections.Count());
         }
 
         [Test]
