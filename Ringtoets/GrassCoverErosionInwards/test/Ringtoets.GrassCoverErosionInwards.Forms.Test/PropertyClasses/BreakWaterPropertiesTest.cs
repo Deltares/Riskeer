@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
@@ -106,6 +107,49 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsFalse(calculation.InputParameters.UseBreakWater);
             Assert.AreEqual(newBreakWaterType, calculation.InputParameters.BreakWater.Type);
             Assert.AreEqual(newBreakWaterHeight, calculation.InputParameters.BreakWater.Height);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void PropertyAttributes_ReturnExpectedValues()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
+            mockRepository.ReplayAll();
+
+            // Call
+            var properties = new BreakWaterProperties
+            {
+                Data = new GrassCoverErosionInwardsCalculationContext(calculationMock, failureMechanismMock, assessmentSectionMock)
+            };
+
+            // Assert
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
+
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
+            Assert.AreEqual(4, dynamicProperties.Count);
+
+            PropertyDescriptor breakWaterPresentProperty = dynamicProperties[0];
+            Assert.IsNotNull(breakWaterPresentProperty);
+            Assert.IsFalse(breakWaterPresentProperty.IsReadOnly);
+            Assert.AreEqual("Aanwezig", breakWaterPresentProperty.DisplayName);
+            Assert.AreEqual("Is er een havendam aanwezig?", breakWaterPresentProperty.Description);
+
+            PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
+            Assert.IsNotNull(breakWaterTypeProperty);
+            Assert.IsFalse(breakWaterTypeProperty.IsReadOnly);
+            Assert.AreEqual("Type havendam", breakWaterTypeProperty.DisplayName);
+            Assert.AreEqual("Het type van de havendam.", breakWaterTypeProperty.Description);
+
+            PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
+            Assert.IsNotNull(breakWaterHeightProperty);
+            Assert.IsFalse(breakWaterHeightProperty.IsReadOnly);
+            Assert.AreEqual("Havendam hoogte", breakWaterHeightProperty.DisplayName);
+            Assert.AreEqual("De hoogte van de havendam [m+NAP].", breakWaterHeightProperty.Description);
             mockRepository.VerifyAll();
         }
     }
