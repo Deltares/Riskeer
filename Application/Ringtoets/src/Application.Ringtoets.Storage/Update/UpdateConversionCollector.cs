@@ -38,6 +38,7 @@ namespace Application.Ringtoets.Storage.Update
         private readonly HashSet<ProjectEntity> projects = new HashSet<ProjectEntity>(new ReferenceEqualityComparer<ProjectEntity>());
         private readonly HashSet<AssessmentSectionEntity> assessmentSections = new HashSet<AssessmentSectionEntity>(new ReferenceEqualityComparer<AssessmentSectionEntity>());
         private readonly HashSet<FailureMechanismEntity> failureMechanisms = new HashSet<FailureMechanismEntity>(new ReferenceEqualityComparer<FailureMechanismEntity>());
+        private readonly HashSet<FailureMechanismSectionEntity> failureMechanismSections = new HashSet<FailureMechanismSectionEntity>(new ReferenceEqualityComparer<FailureMechanismSectionEntity>());
         private readonly HashSet<HydraulicLocationEntity> hydraulicLocations = new HashSet<HydraulicLocationEntity>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
         private readonly HashSet<StochasticSoilModelEntity> stochasticSoilModels = new HashSet<StochasticSoilModelEntity>(new ReferenceEqualityComparer<StochasticSoilModelEntity>());
         private readonly HashSet<StochasticSoilProfileEntity> stochasticSoilProfiles = new HashSet<StochasticSoilProfileEntity>(new ReferenceEqualityComparer<StochasticSoilProfileEntity>());
@@ -48,10 +49,7 @@ namespace Application.Ringtoets.Storage.Update
         /// Registers an update operation for <paramref name="entity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="ProjectEntity"/> that was updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(ProjectEntity entity)
         {
             Update(entity, projects);
@@ -61,10 +59,7 @@ namespace Application.Ringtoets.Storage.Update
         /// Registers an update operation for <paramref name="entity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="AssessmentSectionEntity"/> that was updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(AssessmentSectionEntity entity)
         {
             Update(entity, assessmentSections);
@@ -74,10 +69,7 @@ namespace Application.Ringtoets.Storage.Update
         /// Registers an update operation for <paramref name="entity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> that was updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(FailureMechanismEntity entity)
         {
             Update(entity, failureMechanisms);
@@ -86,24 +78,28 @@ namespace Application.Ringtoets.Storage.Update
         /// <summary>
         /// Registers an update operation for <paramref name="entity"/>.
         /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> that was updated.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
+        public void Update(FailureMechanismSectionEntity entity)
+        {
+            Update(entity, failureMechanismSections);
+        }
+
+        /// <summary>
+        /// Registers an update operation for <paramref name="entity"/>.
+        /// </summary>
         /// <param name="entity">The <see cref="HydraulicLocationEntity"/> that was updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(HydraulicLocationEntity entity)
         {
-            hydraulicLocations.Add(entity);
+            Update(entity, hydraulicLocations);
         }
 
         /// <summary>
         /// Registers an update operation for <paramref name="entity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> that was updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(StochasticSoilModelEntity entity)
         {
             Update(entity, stochasticSoilModels);
@@ -113,10 +109,7 @@ namespace Application.Ringtoets.Storage.Update
         /// Registers an update operation for <paramref name="entity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> that was updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(StochasticSoilProfileEntity entity)
         {
             Update(entity, stochasticSoilProfiles);
@@ -126,10 +119,7 @@ namespace Application.Ringtoets.Storage.Update
         /// Registers an update operation for <paramref name="entity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="SoilProfileEntity"/> that was updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(SoilProfileEntity entity)
         {
             Update(entity, soilProfiles);
@@ -139,10 +129,7 @@ namespace Application.Ringtoets.Storage.Update
         /// Registers an update operation for <paramref name="entity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="SoilLayerEntity"/> that was updated.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(SoilLayerEntity entity)
         {
             Update(entity, soilLayers);
@@ -155,28 +142,67 @@ namespace Application.Ringtoets.Storage.Update
         internal void RemoveUntouched(IRingtoetsEntities dbContext)
         {
             var projectEntities = dbContext.ProjectEntities;
-            projectEntities.RemoveRange(projectEntities.Local.Except(projects));
+            var projectEntitiesToRemove = projectEntities
+                .Local
+                .Where(entity => entity.ProjectEntityId > 0)
+                .Except(projects);
+            projectEntities.RemoveRange(projectEntitiesToRemove);
 
             var assessmentSectionEntities = dbContext.AssessmentSectionEntities;
-            assessmentSectionEntities.RemoveRange(assessmentSectionEntities.Local.Except(assessmentSections));
+            var assessmentSectionEntitiesToRemove = assessmentSectionEntities
+                .Local
+                .Where(entity => entity.AssessmentSectionEntityId > 0)
+                .Except(assessmentSections);
+            assessmentSectionEntities.RemoveRange(assessmentSectionEntitiesToRemove);
 
             var failureMechanismEntities = dbContext.FailureMechanismEntities;
-            failureMechanismEntities.RemoveRange(failureMechanismEntities.Local.Except(failureMechanisms));
+            var failureMechanismEntitiesToRemove = failureMechanismEntities
+                .Local
+                .Where(entity => entity.FailureMechanismEntityId > 0)
+                .Except(failureMechanisms);
+            failureMechanismEntities.RemoveRange(failureMechanismEntitiesToRemove);
+
+            var failureMechanismSectionEntities = dbContext.FailureMechanismSectionEntities;
+            var failureMechanismSectionEntitiesToRemove = failureMechanismSectionEntities
+                .Local
+                .Where(entity => entity.FailureMechanismSectionEntityId > 0)
+                .Except(failureMechanismSections);
+            failureMechanismSectionEntities.RemoveRange(failureMechanismSectionEntitiesToRemove);
 
             var hydraulicLocationEntities = dbContext.HydraulicLocationEntities;
-            hydraulicLocationEntities.RemoveRange(hydraulicLocationEntities.Local.Except(hydraulicLocations));
+            var hydraulicLocationEntitiesToRemove = hydraulicLocationEntities
+                .Local
+                .Where(entity => entity.HydraulicLocationEntityId > 0)
+                .Except(hydraulicLocations);
+            hydraulicLocationEntities.RemoveRange(hydraulicLocationEntitiesToRemove);
 
             var stochasticSoilModelEntities = dbContext.StochasticSoilModelEntities;
-            stochasticSoilModelEntities.RemoveRange(stochasticSoilModelEntities.Local.Except(stochasticSoilModels));
+            var stochasticSoilModelEntitiesToRemove = stochasticSoilModelEntities
+                .Local
+                .Where(entity => entity.StochasticSoilModelEntityId > 0)
+                .Except(stochasticSoilModels);
+            stochasticSoilModelEntities.RemoveRange(stochasticSoilModelEntitiesToRemove);
 
             var stochasticSoilProfileEntities = dbContext.StochasticSoilProfileEntities;
-            stochasticSoilProfileEntities.RemoveRange(stochasticSoilProfileEntities.Local.Except(stochasticSoilProfiles));
+            var stochasticSoilProfileEntitiesToRemove = stochasticSoilProfileEntities
+                .Local
+                .Where(entity => entity.StochasticSoilProfileEntityId > 0)
+                .Except(stochasticSoilProfiles);
+            stochasticSoilProfileEntities.RemoveRange(stochasticSoilProfileEntitiesToRemove);
 
             var soilProfileEntities = dbContext.SoilProfileEntities;
-            soilProfileEntities.RemoveRange(soilProfileEntities.Local.Except(soilProfiles));
+            var soilProfileEntitiesToRemove = soilProfileEntities
+                .Local
+                .Where(entity => entity.SoilProfileEntityId > 0)
+                .Except(soilProfiles);
+            soilProfileEntities.RemoveRange(soilProfileEntitiesToRemove);
 
             var soilLayerEntities = dbContext.SoilLayerEntities;
-            soilLayerEntities.RemoveRange(soilLayerEntities.Local.Except(soilLayers));
+            var soilLayerEntitiesToRemove = soilLayerEntities
+                .Local
+                .Where(entity => entity.SoilLayerEntityId > 0)
+                .Except(soilLayers);
+            soilLayerEntities.RemoveRange(soilLayerEntitiesToRemove);
         }
 
         private void Update<T>(T entity, HashSet<T> collection)

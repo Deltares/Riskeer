@@ -59,6 +59,14 @@ namespace Application.Ringtoets.Storage.DbContext
             var entity = GetSingleFailureMechanism(mechanism, context);
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
 
+            UpdateSoilModels(mechanism, collector, context, entity);
+            mechanism.UpdateFailureMechanismSections(collector, entity, context);
+
+            collector.Update(entity);
+        }
+
+        private static void UpdateSoilModels(PipingFailureMechanism mechanism, UpdateConversionCollector collector, IRingtoetsEntities context, FailureMechanismEntity entity)
+        {
             foreach (var stochasticSoilModel in mechanism.StochasticSoilModels)
             {
                 if (stochasticSoilModel.IsNew())
@@ -70,8 +78,6 @@ namespace Application.Ringtoets.Storage.DbContext
                     stochasticSoilModel.Update(collector, context);
                 }
             }
-
-            collector.Update(entity);
         }
 
         private static FailureMechanismEntity GetSingleFailureMechanism(PipingFailureMechanism mechanism, IRingtoetsEntities context)

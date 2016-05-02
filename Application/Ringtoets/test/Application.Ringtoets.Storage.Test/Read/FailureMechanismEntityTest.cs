@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
@@ -63,6 +64,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(entityId, failureMechanism.StorageId);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.IsEmpty(failureMechanism.StochasticSoilModels);
+            Assert.IsEmpty(failureMechanism.Sections);
         }
 
         [Test]
@@ -84,6 +87,86 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, failureMechanism.StochasticSoilModels.Count);
+        }
+
+        [Test]
+        public void ReadAsPipingFailureMechanismPlaceholder_WithSectionsSet_ReturnsNewFailureMechanismPlaceholderWithFailureMechanismSections()
+        {
+            // Setup
+            var entityId = new Random(21).Next(1, 502);
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                FailureMechanismSectionEntities =
+                {
+                    new FailureMechanismSectionEntity
+                    {
+                        Name = "section",
+                        FailureMechanismSectionPointEntities =
+                        {
+                            new FailureMechanismSectionPointEntity()
+                        }
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var failureMechanism = entity.ReadAsPipingFailureMechanism(collector);
+
+            // Assert
+            Assert.AreEqual(1, failureMechanism.Sections.Count());
+        }   
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ReadAsFailureMechanismPlaceholder_WithoutSectionsSet_ReturnsNewFailureMechanismPlaceholder(bool isRelevant)
+        {
+            // Setup
+            var entityId = new Random(21).Next(1, 502);
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                IsRelevant = Convert.ToByte(isRelevant),
+            };
+
+            // Call
+            var failureMechanism = entity.ReadAsFailureMechanismPlaceholder();
+
+            // Assert
+            Assert.IsEmpty(failureMechanism.Sections);
+            Assert.AreEqual(entityId, failureMechanism.StorageId);
+            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.IsEmpty(failureMechanism.Sections);
+        }   
+
+        [Test]
+        public void ReadAsFailureMechanismPlaceholder_WithSectionsSet_ReturnsNewFailureMechanismPlaceholderWithFailureMechanismSections()
+        {
+            // Setup
+            var entityId = new Random(21).Next(1, 502);
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                FailureMechanismSectionEntities =
+                {
+                    new FailureMechanismSectionEntity
+                    {
+                        Name = "section",
+                        FailureMechanismSectionPointEntities =
+                        {
+                            new FailureMechanismSectionPointEntity()
+                        }
+                    }
+                }
+            };
+
+            // Call
+            var failureMechanism = entity.ReadAsFailureMechanismPlaceholder();
+
+            // Assert
+            Assert.AreEqual(1, failureMechanism.Sections.Count());
         }   
     }
 }

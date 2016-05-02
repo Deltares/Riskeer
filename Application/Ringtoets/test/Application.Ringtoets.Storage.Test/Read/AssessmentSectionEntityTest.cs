@@ -57,8 +57,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new AssessmentSectionEntity
             {
                 AssessmentSectionEntityId = entityId,
-                Name =  testName,
-                Composition = (short)assessmentSectionComposition
+                Name = testName,
+                Composition = (short) assessmentSectionComposition
             };
             var collector = new ReadConversionCollector();
 
@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(assessmentSectionComposition, section.Composition);
             Assert.IsNull(section.HydraulicBoundaryDatabase);
             Assert.IsNull(section.ReferenceLine);
-        }   
+        }
 
         [Test]
         public void Read_WithReferenceLineEntities_ReturnsNewAssessmentSectionWithReferenceLineSet()
@@ -85,8 +85,14 @@ namespace Application.Ringtoets.Storage.Test.Read
             double firstY = random.NextDouble();
             double secondX = random.NextDouble();
             double secondY = random.NextDouble();
-            entity.ReferenceLinePointEntities.Add(new ReferenceLinePointEntity { Order = 2, X = Convert.ToDecimal(firstX), Y = Convert.ToDecimal(firstY) });
-            entity.ReferenceLinePointEntities.Add(new ReferenceLinePointEntity { Order = 1, X = Convert.ToDecimal(secondX), Y = Convert.ToDecimal(secondY) });
+            entity.ReferenceLinePointEntities.Add(new ReferenceLinePointEntity
+            {
+                Order = 2, X = Convert.ToDecimal(firstX), Y = Convert.ToDecimal(firstY)
+            });
+            entity.ReferenceLinePointEntities.Add(new ReferenceLinePointEntity
+            {
+                Order = 1, X = Convert.ToDecimal(secondX), Y = Convert.ToDecimal(secondY)
+            });
 
             var collector = new ReadConversionCollector();
 
@@ -99,7 +105,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(secondY, section.ReferenceLine.Points.ElementAt(0).Y, 1e-6);
             Assert.AreEqual(firstX, section.ReferenceLine.Points.ElementAt(1).X, 1e-6);
             Assert.AreEqual(firstY, section.ReferenceLine.Points.ElementAt(1).Y, 1e-6);
-        }  
+        }
 
         [Test]
         public void Read_WithHydraulicDatabaseLocationSet_ReturnsNewAssessmentSectionWithHydraulicDatabaseSet()
@@ -129,7 +135,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(2, section.HydraulicBoundaryDatabase.Locations.Count);
             Assert.AreEqual(testLocation, section.HydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(testVersion, section.HydraulicBoundaryDatabase.Version);
-        }   
+        }
 
         [Test]
         [TestCase(true)]
@@ -143,7 +149,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = entityId,
-                FailureMechanismType = (int)FailureMechanismType.Piping,
+                FailureMechanismType = (int) FailureMechanismType.Piping,
                 IsRelevant = Convert.ToByte(isRelevant),
                 StochasticSoilModelEntities =
                 {
@@ -157,11 +163,35 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Call
             var section = entity.Read(collector);
-            
+
             // Assert
             Assert.AreEqual(2, section.PipingFailureMechanism.StochasticSoilModels.Count);
             Assert.AreEqual(entityId, section.PipingFailureMechanism.StorageId);
             Assert.AreEqual(isRelevant, section.PipingFailureMechanism.IsRelevant);
+        }
+
+        [Test]
+        public void Read_WithFailureMechanismWithFailureMechanismSectionsSet_ReturnsNewAssessmentSectionWithFailureMechanismSectionsInPipingFailureMechanism()
+        {
+            // Setup
+            var entity = new AssessmentSectionEntity();
+            var entityId = new Random(21).Next(1, 502);
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                FailureMechanismType = (int) FailureMechanismType.Piping,
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(2, section.PipingFailureMechanism.Sections.Count());
         }
 
         [Test]
@@ -183,50 +213,58 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.FailureMechanismEntities.Add(new FailureMechanismEntity
             {
                 FailureMechanismEntityId = macrostabilityInwardsEntityId,
-                FailureMechanismType = (short)FailureMechanismType.MacrostabilityInwards,
-                IsRelevant = Convert.ToByte(isRelevant)
+                FailureMechanismType = (short) FailureMechanismType.MacrostabilityInwards,
+                IsRelevant = Convert.ToByte(isRelevant),
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
             });
             entity.FailureMechanismEntities.Add(new FailureMechanismEntity
             {
                 FailureMechanismEntityId = overtoppingEntityId,
-                FailureMechanismType = (short)FailureMechanismType.StructureHeight,
-                IsRelevant = Convert.ToByte(isRelevant)
+                FailureMechanismType = (short) FailureMechanismType.StructureHeight,
+                IsRelevant = Convert.ToByte(isRelevant),
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
             });
             entity.FailureMechanismEntities.Add(new FailureMechanismEntity
             {
                 FailureMechanismEntityId = closingEntityId,
-                FailureMechanismType = (short)FailureMechanismType.ReliabilityClosingOfStructure,
-                IsRelevant = Convert.ToByte(isRelevant)
+                FailureMechanismType = (short) FailureMechanismType.ReliabilityClosingOfStructure,
+                IsRelevant = Convert.ToByte(isRelevant),
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
             });
             entity.FailureMechanismEntities.Add(new FailureMechanismEntity
             {
                 FailureMechanismEntityId = failingOfConstructionEntityId,
-                FailureMechanismType = (short)FailureMechanismType.StrengthAndStabilityPointConstruction,
-                IsRelevant = Convert.ToByte(isRelevant)
+                FailureMechanismType = (short) FailureMechanismType.StrengthAndStabilityPointConstruction,
+                IsRelevant = Convert.ToByte(isRelevant),
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
             });
             entity.FailureMechanismEntities.Add(new FailureMechanismEntity
             {
                 FailureMechanismEntityId = stoneRevetmentEntityId,
-                FailureMechanismType = (short)FailureMechanismType.StabilityStoneRevetment,
-                IsRelevant = Convert.ToByte(isRelevant)
+                FailureMechanismType = (short) FailureMechanismType.StabilityStoneRevetment,
+                IsRelevant = Convert.ToByte(isRelevant),
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
             });
             entity.FailureMechanismEntities.Add(new FailureMechanismEntity
             {
                 FailureMechanismEntityId = asphaltRevetmentEntityId,
-                FailureMechanismType = (short)FailureMechanismType.WaveImpactOnAsphaltRevetment,
-                IsRelevant = Convert.ToByte(isRelevant)
+                FailureMechanismType = (short) FailureMechanismType.WaveImpactOnAsphaltRevetment,
+                IsRelevant = Convert.ToByte(isRelevant),
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
             });
             entity.FailureMechanismEntities.Add(new FailureMechanismEntity
             {
                 FailureMechanismEntityId = grassRevetmentEntityId,
-                FailureMechanismType = (short)FailureMechanismType.GrassRevetmentErosionOutwards,
-                IsRelevant = Convert.ToByte(isRelevant)
+                FailureMechanismType = (short) FailureMechanismType.GrassRevetmentErosionOutwards,
+                IsRelevant = Convert.ToByte(isRelevant),
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
             });
             entity.FailureMechanismEntities.Add(new FailureMechanismEntity
             {
                 FailureMechanismEntityId = duneErosionEntityId,
-                FailureMechanismType = (short)FailureMechanismType.DuneErosion,
-                IsRelevant = Convert.ToByte(isRelevant)
+                FailureMechanismType = (short) FailureMechanismType.DuneErosion,
+                IsRelevant = Convert.ToByte(isRelevant),
+                FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities()
             });
 
             var collector = new ReadConversionCollector();
@@ -237,27 +275,60 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.AreEqual(macrostabilityInwardsEntityId, section.MacrostabilityInwards.StorageId);
             Assert.AreEqual(isRelevant, section.MacrostabilityInwards.IsRelevant);
+            Assert.AreEqual(2, section.MacrostabilityInwards.Sections.Count());
 
             Assert.AreEqual(overtoppingEntityId, section.Overtopping.StorageId);
             Assert.AreEqual(isRelevant, section.Overtopping.IsRelevant);
+            Assert.AreEqual(2, section.Overtopping.Sections.Count());
 
             Assert.AreEqual(closingEntityId, section.Closing.StorageId);
             Assert.AreEqual(isRelevant, section.Closing.IsRelevant);
+            Assert.AreEqual(2, section.Closing.Sections.Count());
 
             Assert.AreEqual(failingOfConstructionEntityId, section.FailingOfConstruction.StorageId);
             Assert.AreEqual(isRelevant, section.FailingOfConstruction.IsRelevant);
+            Assert.AreEqual(2, section.FailingOfConstruction.Sections.Count());
 
             Assert.AreEqual(stoneRevetmentEntityId, section.StoneRevetment.StorageId);
             Assert.AreEqual(isRelevant, section.StoneRevetment.IsRelevant);
+            Assert.AreEqual(2, section.StoneRevetment.Sections.Count());
 
             Assert.AreEqual(asphaltRevetmentEntityId, section.AsphaltRevetment.StorageId);
             Assert.AreEqual(isRelevant, section.AsphaltRevetment.IsRelevant);
+            Assert.AreEqual(2, section.AsphaltRevetment.Sections.Count());
 
             Assert.AreEqual(grassRevetmentEntityId, section.GrassRevetment.StorageId);
             Assert.AreEqual(isRelevant, section.GrassRevetment.IsRelevant);
+            Assert.AreEqual(2, section.GrassRevetment.Sections.Count());
 
             Assert.AreEqual(duneErosionEntityId, section.DuneErosion.StorageId);
             Assert.AreEqual(isRelevant, section.DuneErosion.IsRelevant);
+            Assert.AreEqual(2, section.DuneErosion.Sections.Count());
+        }
+
+        private static FailureMechanismSectionEntity[] CreateFailureMechanismSectionEntities()
+        {
+            return new[]
+            {
+                new FailureMechanismSectionEntity
+                {
+                    FailureMechanismSectionEntityId = 1,
+                    Name = "",
+                    FailureMechanismSectionPointEntities =
+                    {
+                        new FailureMechanismSectionPointEntity()
+                    }
+                },
+                new FailureMechanismSectionEntity
+                {
+                    FailureMechanismSectionEntityId = 2,
+                    Name = "",
+                    FailureMechanismSectionPointEntities =
+                    {
+                        new FailureMechanismSectionPointEntity()
+                    }
+                }
+            };
         }
     }
 }

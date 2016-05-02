@@ -160,6 +160,45 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
+        public void RemoveUntouched_FailureMechanismSectionEntityInUpdatedList_FailureMechanismEntityNotRemoved()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+            mocks.ReplayAll();
+
+            var failureMechanismEntity = new FailureMechanismSectionEntity();
+            ringtoetsEntities.FailureMechanismSectionEntities.Add(failureMechanismEntity);
+
+            var collector = new UpdateConversionCollector();
+            collector.Update(failureMechanismEntity);
+
+            // Call
+            collector.RemoveUntouched(ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(1, ringtoetsEntities.FailureMechanismSectionEntities.Count());
+        }
+
+        [Test]
+        public void RemoveUntouched_FailureMechanismSectionEntityNotInUpdatedList_FailureMechanismEntityRemoved()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+            mocks.ReplayAll();
+            ringtoetsEntities.FailureMechanismSectionEntities.Add(new FailureMechanismSectionEntity());
+
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            collector.RemoveUntouched(ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(0, ringtoetsEntities.FailureMechanismSectionEntities.Count());
+        }
+
+        [Test]
         public void RemoveUntouched_HydraulicLocationEntityInUpdatedList_HydraulicLocationEntityNotRemoved()
         {
             // Setup

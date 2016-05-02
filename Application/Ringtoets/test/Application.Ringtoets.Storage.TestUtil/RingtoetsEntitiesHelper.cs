@@ -34,6 +34,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             var pSet = new TestDbSet<ProjectEntity>(new ObservableCollection<ProjectEntity>());
             var hlSet = new TestDbSet<HydraulicLocationEntity>(new ObservableCollection<HydraulicLocationEntity>());
             var fmSet = new TestDbSet<FailureMechanismEntity>(new ObservableCollection<FailureMechanismEntity>());
+            var fmsSet = new TestDbSet<FailureMechanismSectionEntity>(new ObservableCollection<FailureMechanismSectionEntity>());
+            var fmspSet = new TestDbSet<FailureMechanismSectionPointEntity>(new ObservableCollection<FailureMechanismSectionPointEntity>());
             var dasSet = new TestDbSet<AssessmentSectionEntity>(new ObservableCollection<AssessmentSectionEntity>());
             var rlpSet = new TestDbSet<ReferenceLinePointEntity>(new ObservableCollection<ReferenceLinePointEntity>());
             var ssmSet = new TestDbSet<StochasticSoilModelEntity>(new ObservableCollection<StochasticSoilModelEntity>());
@@ -43,6 +45,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.ProjectEntities).Return(pSet);
             ringtoetsEntities.Stub(r => r.HydraulicLocationEntities).Return(hlSet);
             ringtoetsEntities.Stub(r => r.FailureMechanismEntities).Return(fmSet);
+            ringtoetsEntities.Stub(r => r.FailureMechanismSectionEntities).Return(fmsSet);
+            ringtoetsEntities.Stub(r => r.FailureMechanismSectionPointEntities).Return(fmspSet);
             ringtoetsEntities.Stub(r => r.AssessmentSectionEntities).Return(dasSet);
             ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(rlpSet);
             ringtoetsEntities.Stub(r => r.StochasticSoilModelEntities).Return(ssmSet);

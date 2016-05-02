@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -239,6 +240,20 @@ namespace Application.Ringtoets.Storage.Test.Create
             
             // Call
             TestDelegate test = () => collector.Create(new FailureMechanismEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Create_WithNullFailureMechanismSection_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new CreateConversionCollector();
+            
+            // Call
+            TestDelegate test = () => collector.Create(new FailureMechanismSectionEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -464,6 +479,27 @@ namespace Application.Ringtoets.Storage.Test.Create
                 FailureMechanismEntityId = storageId
             };
             var model = new FailureMechanismPlaceholder("name");
+            collector.Create(entity, model);
+
+            // Call
+            collector.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferId_WithFailureMechanismSectionEntityAddedWithFailureMechanismSection_EqualFailureMechanismSectionEntityIdAndFailureMechanismSectionStorageId()
+        {
+            // Setup
+            var collector = new CreateConversionCollector();
+
+            long storageId = new Random(21).Next(1,4000);
+            var entity = new FailureMechanismSectionEntity
+            {
+                FailureMechanismSectionEntityId = storageId
+            };
+            var model = new FailureMechanismSection("name", new [] { new Point2D(0,0) });
             collector.Create(entity, model);
 
             // Call

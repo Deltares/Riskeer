@@ -51,6 +51,8 @@ namespace Application.Ringtoets.Storage.Create
                 IsRelevant = Convert.ToByte(mechanism.IsRelevant)
             };
 
+            mechanism.CreateFailureMechanismSections(collector, entity);
+
             collector.Create(entity, mechanism);
             return entity;
         }

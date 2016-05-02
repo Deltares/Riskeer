@@ -20,49 +20,47 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Piping.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="PipingFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="FailureMechanismSection"/> related to creating a <see cref="FailureMechanismSectionEntity"/>.
     /// </summary>
-    public static class PipingFailureMechanismCreateExtensions
+    public static class FailureMechanismSectionCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="PipingFailureMechanism"/>.
+        /// Creates a <see cref="FailureMechanismSectionEntity"/> based on the information of the <see cref="FailureMechanismSection"/>.
         /// </summary>
-        /// <param name="mechanism">The failure mechanism to create a database entity for.</param>
+        /// <param name="section">The section to create a database entity for.</param>
         /// <param name="collector">The object keeping track of create operations.</param>
-        /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
+        /// <returns>A new <see cref="FailureMechanismSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static FailureMechanismEntity Create(this PipingFailureMechanism mechanism, CreateConversionCollector collector)
+        public static FailureMechanismSectionEntity Create(this FailureMechanismSection section, CreateConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
-
-            var entity = new FailureMechanismEntity
+            var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
-                FailureMechanismType = (short) FailureMechanismType.Piping,
-                IsRelevant = Convert.ToByte(mechanism.IsRelevant)
+                Name = section.Name,
             };
 
-            CreateStochasticSoilModels(mechanism, collector, entity);
-            mechanism.CreateFailureMechanismSections(collector, entity);
+            CreateFailureMechanismSectionPoints(section, failureMechanismSectionEntity);
 
-            collector.Create(entity, mechanism);
-            return entity;
+            collector.Create(failureMechanismSectionEntity, section);
+
+            return failureMechanismSectionEntity;
         }
 
-        private static void CreateStochasticSoilModels(PipingFailureMechanism mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
+        private static void CreateFailureMechanismSectionPoints(FailureMechanismSection section, FailureMechanismSectionEntity failureMechanismSectionEntity)
         {
-            foreach (var stochasticSoilModel in mechanism.StochasticSoilModels)
+            var i = 0;
+            foreach (var point2D in section.Points)
             {
-                entity.StochasticSoilModelEntities.Add(stochasticSoilModel.Create(collector));
+                failureMechanismSectionEntity.FailureMechanismSectionPointEntities.Add(point2D.CreateFailureMechanismSectionPoint(i++));
             }
         }
     }

@@ -53,7 +53,9 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
+    <Compile Include="Create\FailureMechanismBaseCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismPlaceholderCreateExtensions.cs" />
+    <Compile Include="Create\FailureMechanismSectionCreateExtensions.cs" />
     <Compile Include="Create\PipingFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensions.cs" />
     <Compile Include="Create\CreateConversionCollector.cs" />
@@ -70,6 +72,8 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Read\FailureMechanismEntity.cs" />
+    <Compile Include="Read\FailureMechanismSectionEntity.cs" />
+    <Compile Include="Read\FailureMechanismSectionPointEntity.cs" />
     <Compile Include="Read\HydraulicLocationEntity.cs" />
     <Compile Include="Read\ReadConversionCollector.cs" />
     <Compile Include="Read\ReferenceLinePointEntity.cs" />
@@ -138,7 +142,9 @@
     <Compile Include="SqLiteConnectionStringBuilder.cs" />
     <Compile Include="StorageSqLite.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensions.cs" />
+    <Compile Include="Update\FailureMechanismBaseUpdateExtensions.cs" />
     <Compile Include="Update\FailureMechanismPlaceholderUpdateExtensions.cs" />
+    <Compile Include="Update\FailureMechanismSectionUpdateExtensions.cs" />
     <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensions.cs" />
     <Compile Include="Update\IStorableExtensions.cs" />
     <Compile Include="Update\UpdateConversionCollector.cs" />

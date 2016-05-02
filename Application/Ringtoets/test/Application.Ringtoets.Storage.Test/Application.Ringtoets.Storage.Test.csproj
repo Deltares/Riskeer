@@ -82,8 +82,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Create\CreateConversionCollectorTest.cs" />
+    <Compile Include="Create\FailureMechanismBaseCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismPlaceholderCreateExtensionsTest.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensionsTest.cs" />
+    <Compile Include="Create\FailureMechanismSectionCreateExtensionsTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensionsTest.cs" />
     <Compile Include="Create\PipingFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\PipingSoilLayerCreateExtensionsTest.cs" />
@@ -94,6 +96,8 @@
     <Compile Include="Create\StochasticSoilProfileCreateExtensionsTest.cs" />
     <Compile Include="Read\AssessmentSectionEntityTest.cs" />
     <Compile Include="Read\FailureMechanismEntityTest.cs" />
+    <Compile Include="Read\FailureMechanismSectionEntityTest.cs" />
+    <Compile Include="Read\FailureMechanismSectionPointEntityTest.cs" />
     <Compile Include="Read\HydraulicLocationEntityTest.cs" />
     <Compile Include="Read\ProjectEntityTest.cs" />
     <Compile Include="Read\ReadConversionCollectorTest.cs" />
@@ -109,7 +113,9 @@
     <Compile Include="SqLiteConnectionStringBuilderTest.cs" />
     <Compile Include="StorageSqLiteTest.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensionsTest.cs" />
+    <Compile Include="Update\FailureMechanismBaseUpdateExtensionsTest.cs" />
     <Compile Include="Update\FailureMechanismPlaceholderUpdateExtensionsTest.cs" />
+    <Compile Include="Update\FailureMechanismSectionUpdateExtensionsTest.cs" />
     <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensionsTest.cs" />
     <Compile Include="Update\IStorableExtensionsTest.cs" />
     <Compile Include="Update\PipingFailureMechanismUpdateExtensionsTest.cs" />

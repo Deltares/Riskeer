@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.Read;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Piping.Data;
 
@@ -56,6 +57,8 @@ namespace Application.Ringtoets.Storage.DbContext
                 failureMechanism.StochasticSoilModels.Add(stochasticSoilModelEntity.Read(collector));
             }
 
+            ReadFailureMechanismSections(failureMechanism);
+
             return failureMechanism;
         }
 
@@ -65,11 +68,23 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <returns>A new <see cref="FailureMechanismPlaceholder"/>.</returns>
         public FailureMechanismPlaceholder ReadAsFailureMechanismPlaceholder()
         {
-            return new FailureMechanismPlaceholder(string.Empty)
+            var failureMechanism = new FailureMechanismPlaceholder(string.Empty)
             {
                 StorageId = FailureMechanismEntityId,
                 IsRelevant = IsRelevant == 1
             };
+
+            ReadFailureMechanismSections(failureMechanism);
+
+            return failureMechanism;
+        }
+
+        private void ReadFailureMechanismSections(FailureMechanismBase failureMechanism)
+        {
+            foreach (var failureMechanismSectionEntity in FailureMechanismSectionEntities)
+            {
+                failureMechanism.AddSection(failureMechanismSectionEntity.Read());
+            }
         }
     }
 }

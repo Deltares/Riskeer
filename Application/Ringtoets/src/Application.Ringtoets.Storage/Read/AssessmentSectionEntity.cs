@@ -26,6 +26,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Placeholders;
+using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
@@ -95,9 +96,14 @@ namespace Application.Ringtoets.Storage.DbContext
             {
                 var failureMechanism = pipingFailureMechanismEntity.ReadAsPipingFailureMechanism(collector);
 
-                assessmentSection.PipingFailureMechanism.StochasticSoilModels.AddRange(failureMechanism.StochasticSoilModels);
-                assessmentSection.PipingFailureMechanism.IsRelevant = failureMechanism.IsRelevant;
-                assessmentSection.PipingFailureMechanism.StorageId = failureMechanism.StorageId;
+                var pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
+                pipingFailureMechanism.StochasticSoilModels.AddRange(failureMechanism.StochasticSoilModels);
+                pipingFailureMechanism.IsRelevant = failureMechanism.IsRelevant;
+                pipingFailureMechanism.StorageId = failureMechanism.StorageId;
+                foreach (var failureMechanismSection in failureMechanism.Sections)
+                {
+                    pipingFailureMechanism.AddSection(failureMechanismSection);
+                }
             }
         }
 
@@ -122,6 +128,10 @@ namespace Application.Ringtoets.Storage.DbContext
 
                 failureMechanismPlaceholder.StorageId = failureMechanism.StorageId;
                 failureMechanismPlaceholder.IsRelevant = failureMechanism.IsRelevant;
+                foreach (var failureMechanismSection in failureMechanism.Sections)
+                {
+                    failureMechanismPlaceholder.AddSection(failureMechanismSection);
+                }
             }
         }
     }

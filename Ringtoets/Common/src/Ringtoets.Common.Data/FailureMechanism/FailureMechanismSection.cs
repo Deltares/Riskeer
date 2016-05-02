@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Properties;
 
@@ -33,7 +34,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     /// characteristics can be found to allow for 1 calculation to determine a result that
     /// applies to the whole section.
     /// </summary>
-    public class FailureMechanismSection
+    public class FailureMechanismSection : IStorable
     {
         private readonly Point2D geometryStart;
         private readonly Point2D geometryEnd;
@@ -101,5 +102,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         {
             return geometryEnd;
         }
+
+        public long StorageId { get; set; }
     }
 }

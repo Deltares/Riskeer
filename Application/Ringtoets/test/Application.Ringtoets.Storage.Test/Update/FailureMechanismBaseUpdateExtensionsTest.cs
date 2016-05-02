@@ -20,49 +20,34 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.Placeholders;
 
 namespace Application.Ringtoets.Storage.Test.Update
 {
     [TestFixture]
-    public class FailureMechanismPlaceholderUpdateExtensionsTest
+    public class FailureMechanismBaseUpdateExtensionsTest
     {
-
         [Test]
-        public void Update_WithoutContext_ArgumentNullException()
+        public void CreateFailureMechanismSections_WithoutCollector_ArgumentNullException()
         {
             // Setup
-            var failureMechanism = new FailureMechanismPlaceholder("name");
-
-            // Call
-            TestDelegate test = () => failureMechanism.Update(new UpdateConversionCollector(), null);
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("context", paramName);
-        }
-
-        [Test]
-        public void Update_WithoutCollector_ArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new FailureMechanismPlaceholder("name");
+            var failureMechanism = new TestFailureMechanism();
 
             // Call
             TestDelegate test = () =>
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    failureMechanism.Update(null, ringtoetsEntities);
+                    failureMechanism.UpdateFailureMechanismSections(null, new FailureMechanismEntity(), ringtoetsEntities);
                 }
             };
 
@@ -72,87 +57,37 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoFailureMechanism_EntityNotFoundException()
+        public void CreateFailureMechanismSections_WithoutEntity_ArgumentNullException()
         {
             // Setup
-            var failureMechanism = new FailureMechanismPlaceholder("name");
+            var failureMechanism = new TestFailureMechanism();
 
             // Call
             TestDelegate test = () =>
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
                 {
-                    failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+                    failureMechanism.UpdateFailureMechanismSections(new UpdateConversionCollector(), null, ringtoetsEntities);
                 }
             };
 
             // Assert
-            var expectedMessage = String.Format("Het object 'FailureMechanismEntity' met id '{0}' is niet gevonden.", 0);
-            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
-            Assert.AreEqual(expectedMessage, exception.Message);
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
         }
 
         [Test]
-        public void Update_ContextWithNoFailureMechanismWithId_EntityNotFoundException()
+        public void CreateFailureMechanismSections_WithoutContext_ArgumentNullException()
         {
             // Setup
-            MockRepository mocks = new MockRepository();
-            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
-
-            mocks.ReplayAll();
-
-            var storageId = 1;
-            var failureMechanism = new FailureMechanismPlaceholder("name")
-            {
-                StorageId = storageId
-            };
-
-            ringtoetsEntities.FailureMechanismEntities.Add(new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = 2
-            });
+            var failureMechanism = new TestFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            TestDelegate test = () => failureMechanism.UpdateFailureMechanismSections(new UpdateConversionCollector(), new FailureMechanismEntity(), null);
 
             // Assert
-            var expectedMessage = String.Format("Het object 'FailureMechanismEntity' met id '{0}' is niet gevonden.", storageId);
-            EntityNotFoundException exception = Assert.Throws<EntityNotFoundException>(test);
-            Assert.AreEqual(expectedMessage, exception.Message);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Update_ContextWithFailureMechanism_PropertiesUpdated()
-        {
-            // Setup
-            MockRepository mocks = new MockRepository();
-            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
-
-            mocks.ReplayAll();
-
-            var failureMechanism = new FailureMechanismPlaceholder("name")
-            {
-                StorageId = 1,
-                IsRelevant = true
-            };
-
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = 1,
-                IsRelevant = Convert.ToByte(false)
-            };
-
-            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
-
-            // Call
-            failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
-
-            // Assert
-            Assert.AreEqual(Convert.ToByte(true), failureMechanismEntity.IsRelevant);
-
-            mocks.VerifyAll();
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("context", paramName);
         }
 
         [Test]
@@ -164,12 +99,12 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var failureMechanism = new FailureMechanismPlaceholder("name")
+            var failureMechanism = new TestFailureMechanism
             {
                 StorageId = 1
             };
-            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
-
+            failureMechanism.AddSection(new FailureMechanismSection("", new [] { new Point2D(0,0) }));
+            
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 1,
@@ -178,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
 
             // Call
-            failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            failureMechanism.UpdateFailureMechanismSections(new UpdateConversionCollector(), failureMechanismEntity, ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
@@ -195,7 +130,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var failureMechanism = new FailureMechanismPlaceholder("name")
+            var failureMechanism = new TestFailureMechanism
             {
                 StorageId = 1
             };
@@ -222,7 +157,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             ringtoetsEntities.FailureMechanismSectionEntities.Add(failureMechanismSectionEntity);
 
             // Call
-            failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+            failureMechanism.UpdateFailureMechanismSections(new UpdateConversionCollector(), failureMechanismEntity, ringtoetsEntities);
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
@@ -230,5 +165,20 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.VerifyAll();
         } 
+    }
+
+    public class TestFailureMechanism : FailureMechanismBase {
+        public TestFailureMechanism() : base("", "")
+        {}
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override ICalculationGroup CalculationsGroup { get; protected set; }
     }
 }

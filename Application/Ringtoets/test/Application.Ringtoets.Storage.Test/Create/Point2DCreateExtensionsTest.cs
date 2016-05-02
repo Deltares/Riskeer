@@ -40,10 +40,32 @@ namespace Application.Ringtoets.Storage.Test.Create
             var random = new Random(21);
             double x = random.NextDouble();
             double y = random.NextDouble();
-            var soilProfile = new Point2D(x, y);
+            var point = new Point2D(x, y);
 
             // Call
-            var entity = soilProfile.CreateReferenceLinePoint(order);
+            var entity = point.CreateReferenceLinePoint(order);
+
+            // Assert
+            Assert.AreEqual(Convert.ToDecimal(x), entity.X);
+            Assert.AreEqual(Convert.ToDecimal(y), entity.Y);
+            Assert.AreEqual(order, entity.Order);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(100)]
+        [TestCase(Int32.MaxValue)]
+        [TestCase(Int32.MinValue)]
+        public void CreateFailureMechanismSectionPoint_Always_NewFailureMechanismSectionPointEntityWithPropertiesSet(int order)
+        {
+            // Setup
+            var random = new Random(21);
+            double x = random.NextDouble();
+            double y = random.NextDouble();
+            var point = new Point2D(x, y);
+
+            // Call
+            var entity = point.CreateFailureMechanismSectionPoint(order);
 
             // Assert
             Assert.AreEqual(Convert.ToDecimal(x), entity.X);

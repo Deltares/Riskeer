@@ -20,12 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Update
@@ -229,6 +232,82 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.StochasticSoilModelEntities.Count);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ContextWithNewFailureMechanismSections_FailureMechanismSectionsAdded()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                StorageId = 1
+            };
+            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = 1,
+            };
+
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            // Call
+            failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_ContextWithUpdatedFailureMechanismSections_NoNewFailureMechanismSectionsAdded()
+        {
+            // Setup
+            MockRepository mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.Create(mocks);
+
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                StorageId = 1
+            };
+            var testName = "testName";
+            failureMechanism.AddSection(new FailureMechanismSection(testName, new[] { new Point2D(0, 0) })
+            {
+                StorageId = 1
+            });
+
+            var failureMechanismSectionEntity = new FailureMechanismSectionEntity
+            {
+                FailureMechanismSectionEntityId = 1,
+            };
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = 1,
+                FailureMechanismSectionEntities = 
+                {
+                    failureMechanismSectionEntity
+                }
+            };
+
+            ringtoetsEntities.FailureMechanismEntities.Add(failureMechanismEntity);
+            ringtoetsEntities.FailureMechanismSectionEntities.Add(failureMechanismSectionEntity);
+
+            // Call
+            failureMechanism.Update(new UpdateConversionCollector(), ringtoetsEntities);
+
+            // Assert
+            Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
+            Assert.AreEqual(testName, failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0).Name);
 
             mocks.VerifyAll();
         } 

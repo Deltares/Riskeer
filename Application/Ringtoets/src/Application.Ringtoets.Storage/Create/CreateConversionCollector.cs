@@ -43,6 +43,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<ProjectEntity, Project> projects = new Dictionary<ProjectEntity, Project>(new ReferenceEqualityComparer<ProjectEntity>());
         private readonly Dictionary<AssessmentSectionEntity, AssessmentSection> assessmentSections = new Dictionary<AssessmentSectionEntity, AssessmentSection>(new ReferenceEqualityComparer<AssessmentSectionEntity>());
         private readonly Dictionary<FailureMechanismEntity, FailureMechanismBase> failureMechanisms = new Dictionary<FailureMechanismEntity, FailureMechanismBase>(new ReferenceEqualityComparer<FailureMechanismEntity>());
+        private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = new Dictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
         private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels = new Dictionary<StochasticSoilModelEntity, StochasticSoilModel>(new ReferenceEqualityComparer<StochasticSoilModelEntity>());
         private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles = new Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile>(new ReferenceEqualityComparer<StochasticSoilProfileEntity>());
@@ -111,6 +112,22 @@ namespace Application.Ringtoets.Storage.Create
         internal void Create(FailureMechanismEntity entity, FailureMechanismBase model)
         {
             Create(failureMechanisms, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
+        /// was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> that was constructed.</param>
+        /// <param name="model">The new <see cref="FailureMechanismSection"/> which needed to be created.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Create(FailureMechanismSectionEntity entity, FailureMechanismSection model)
+        {
+            Create(failureMechanismSections, entity, model);
         }
 
         /// <summary>
@@ -216,6 +233,11 @@ namespace Application.Ringtoets.Storage.Create
             foreach (var entity in failureMechanisms.Keys)
             {
                 failureMechanisms[entity].StorageId = entity.FailureMechanismEntityId;
+            }
+
+            foreach (var entity in failureMechanismSections.Keys)
+            {
+                failureMechanismSections[entity].StorageId = entity.FailureMechanismSectionEntityId;
             }
 
             foreach (var entity in assessmentSections.Keys)

@@ -59,6 +59,8 @@ namespace Application.Ringtoets.Storage.Update
             var entity = GetSingleFailureMechanism(mechanism, context);
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
 
+            mechanism.UpdateFailureMechanismSections(collector, entity, context);
+
             collector.Update(entity);
         }
 

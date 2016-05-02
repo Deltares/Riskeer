@@ -22,7 +22,9 @@
 using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Placeholders;
 
 namespace Application.Ringtoets.Storage.Test.Create
@@ -65,6 +67,26 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual((short)failureMechanismType, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.IsEmpty(entity.StochasticSoilModelEntities);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Create_WithSections_ReturnsFailureMechanismEntityWithFailureMechanismSectionEntities(bool isRelevant)
+        {
+            // Setup
+            var failureMechanism = new FailureMechanismPlaceholder("");
+            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[] { new Point2D(0, 0) }));
+            var collector = new CreateConversionCollector();
+            var failureMechanismType = FailureMechanismType.DuneErosion;
+
+            // Call
+            var entity = failureMechanism.Create(failureMechanismType, collector);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(2, entity.FailureMechanismSectionEntities.Count);
         }
     }
 }

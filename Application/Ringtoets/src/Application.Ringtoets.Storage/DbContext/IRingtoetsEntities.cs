@@ -49,6 +49,18 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<FailureMechanismEntity> FailureMechanismEntities { get; }
 
         /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="FailureMechanismSectionEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; }
+
+        /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="FailureMechanismSectionPointEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<FailureMechanismSectionPointEntity> FailureMechanismSectionPointEntities { get; }
+
+        /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="HydraulicLocationEntity"/> containing
         /// every entity found in the database.
         /// </summary>
