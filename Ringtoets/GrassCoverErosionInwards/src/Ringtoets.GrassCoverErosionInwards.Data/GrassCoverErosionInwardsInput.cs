@@ -36,8 +36,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     public class GrassCoverErosionInwardsInput : Observable, ICalculationInput
     {
         private readonly LognormalDistribution criticalFlowRate;
-        private RoundedDouble orientation;
         private readonly GeneralGrassCoverErosionInwardsInput generalInputParameters;
+        private RoundedDouble orientation;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInput"/>.
@@ -155,6 +155,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         #region General input parameters
 
         /// <summary>
+        /// Gets the model factor critical overtopping.
+        /// </summary>
+        public double Mqc
+        {
+            get
+            {
+                return generalInputParameters.Mqc;
+            }
+        }
+
+        /// <summary>
         /// Gets the factor fb variable.
         /// </summary>
         public NormalDistribution Fb
@@ -177,13 +188,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets the factor fshallow variable.
+        /// Gets the model factor overtopping.
         /// </summary>
-        public NormalDistribution Fshallow
+        public double Mqo
         {
             get
             {
-                return generalInputParameters.Fshallow;
+                return generalInputParameters.Mqo;
             }
         }
 
@@ -199,24 +210,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets the model factor critical overtopping.
+        /// Gets the factor fshallow variable.
         /// </summary>
-        public double Mqc
+        public NormalDistribution Fshallow
         {
             get
             {
-                return generalInputParameters.Mqc;
-            }
-        }
-
-        /// <summary>
-        /// Gets the model factor overtopping.
-        /// </summary>
-        public double Mqo
-        {
-            get
-            {
-                return generalInputParameters.Mqo;
+                return generalInputParameters.Fshallow;
             }
         }
 

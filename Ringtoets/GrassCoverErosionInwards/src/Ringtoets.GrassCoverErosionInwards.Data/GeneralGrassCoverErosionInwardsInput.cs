@@ -34,6 +34,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public GeneralGrassCoverErosionInwardsInput()
         {
+            Mqc = 1.0;
             Fb = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, 4.75), StandardDeviation = new RoundedDouble(2, 0.5)
@@ -42,17 +43,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 Mean = new RoundedDouble(2, 2.6), StandardDeviation = new RoundedDouble(2, 0.35)
             };
+            Mqo = 1.0;
+            Mz2 = new NormalDistribution(2)
+            {
+                Mean = new RoundedDouble(2, 1),
+                StandardDeviation = new RoundedDouble(2, 0.07)
+            };
             Fshallow = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, 0.92), StandardDeviation = new RoundedDouble(2, 0.24)
             };
-            Mz2 = new NormalDistribution(2)
-            {
-                Mean = new RoundedDouble(2, 1), StandardDeviation = new RoundedDouble(2, 0.07)
-            };
-            Mqc = 1.0;
-            Mqo = 1.0;
         }
+
+        /// <summary>
+        /// Gets the model factor critical overtopping.
+        /// </summary>
+        public double Mqc { get; private set; }
 
         /// <summary>
         /// Gets the factor fb variable.
@@ -65,9 +71,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public NormalDistribution Fn { get; private set; }
 
         /// <summary>
-        /// Gets the factor fshallow variable.
+        /// Gets the model factor overtopping.
         /// </summary>
-        public NormalDistribution Fshallow { get; private set; }
+        public double Mqo { get; private set; }
 
         /// <summary>
         /// Gets the factor mz2 (or frunup) variable.
@@ -75,13 +81,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public NormalDistribution Mz2 { get; private set; }
 
         /// <summary>
-        /// Gets the model factor critical overtopping.
+        /// Gets the factor fshallow variable.
         /// </summary>
-        public double Mqc { get; private set; }
-
-        /// <summary>
-        /// Gets the model factor overtopping.
-        /// </summary>
-        public double Mqo { get; private set; }
+        public NormalDistribution Fshallow { get; private set; }
     }
 }

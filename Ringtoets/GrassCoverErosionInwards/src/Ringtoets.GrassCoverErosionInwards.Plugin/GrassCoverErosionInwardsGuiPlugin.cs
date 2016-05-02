@@ -154,8 +154,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 HydraRingTimeIntegrationSchemeType.FBC,
                 HydraRingUncertaintiesType.All,
                 new OvertoppingCalculationInput(hydraulicBoundaryLocationId, new HydraRingSection(hydraulicBoundaryLocationId, hydraulicBoundaryLocationId.ToString(), double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
-                                                inwardsInput.DikeHeight, inwardsInput.CriticalFlowRate.StandardDeviation, inwardsInput.CriticalFlowRate.Mean,
-                                                ParseProfilePoints(inwardsInput.DikeGeometry), ParseForeshore(inwardsInput), ParseBreakWater(inwardsInput)
+                                                inwardsInput.DikeHeight,
+                                                inwardsInput.Mqc,
+                                                inwardsInput.Fb.Mean, inwardsInput.Fb.StandardDeviation,
+                                                inwardsInput.Fn.Mean, inwardsInput.Fn.StandardDeviation,
+                                                inwardsInput.Mqo,
+                                                inwardsInput.CriticalFlowRate.StandardDeviation, inwardsInput.CriticalFlowRate.Mean,
+                                                inwardsInput.Mz2.Mean, inwardsInput.Mz2.StandardDeviation,
+                                                inwardsInput.Fshallow.Mean, inwardsInput.Fshallow.StandardDeviation,
+                                                ParseProfilePoints(inwardsInput.DikeGeometry),
+                                                ParseForeshore(inwardsInput),
+                                                ParseBreakWater(inwardsInput)
                     ),
                 output => { ParseHydraRingOutput(inwardsOutput, output); });
         }

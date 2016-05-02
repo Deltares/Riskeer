@@ -38,9 +38,20 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             const int expectedVariableId = 1;
             int hydraulicBoundaryLocationId = 1000;
             HydraRingSection expectedHydraRingSection = new HydraRingSection(expectedVariableId, "1000", double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            double dikeHeight = 11.11;
-            double criticalOvertoppingMean = 22.22;
-            double criticalOvertoppingStandardDeviation = 33.33;
+
+            const double dikeHeight = 11.11;
+            const double modelFactorCriticalOvertopping = 1;
+            const double factorFnMean = 4.75;
+            const double factorFnStandardDeviation = 0.5;
+            const double hydraRingFactorFnMean = 2.6;
+            const double hydraRingFactorFnStandardDeviation = 0.35;
+            const double hydraRingmodelFactorOvertopping = 1;
+            const double criticalOvertoppingMean = 22.22;
+            const double criticalOvertoppingStandardDeviation = 33.33;
+            const double hydraRingModelFactorFrunupMean = 1;
+            const double hydraRingModelFactorFrunupStandardDeviation = 0.07;
+            const double hydraRingExponentModelFactorShallowMean = 0.92;
+            const double hydraRingExponentModelFactorShallowStandardDeviation = 0.24;
             var expectedRingProfilePoints = new List<HydraRingRoughnessProfilePoint>
             {
                 new HydraRingRoughnessProfilePoint(1.1, 2.2, 3.3)
@@ -52,8 +63,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             var expectedRingBreakWater = new HydraRingBreakWater(2, 3.3);
 
             // Call
+
             OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(hydraulicBoundaryLocationId, expectedHydraRingSection, dikeHeight,
-                                                                                                      criticalOvertoppingMean, criticalOvertoppingStandardDeviation,
+                                                                                                      modelFactorCriticalOvertopping, factorFnMean, factorFnStandardDeviation, hydraRingFactorFnMean, hydraRingFactorFnStandardDeviation,
+                                                                                                      hydraRingmodelFactorOvertopping, criticalOvertoppingMean, criticalOvertoppingStandardDeviation, hydraRingModelFactorFrunupMean,
+                                                                                                      hydraRingModelFactorFrunupStandardDeviation, hydraRingExponentModelFactorShallowMean, hydraRingExponentModelFactorShallowStandardDeviation,
                                                                                                       expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater);
 
             // Assert
@@ -83,7 +97,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             HydraRingSection hydraRingSection = new HydraRingSection(1, "1000", double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
 
             // Call
-            OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(1, hydraRingSection, 2, 3, 4,
+            OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(1, hydraRingSection, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
                                                                                                       new List<HydraRingRoughnessProfilePoint>(),
                                                                                                       new List<HydraRingForelandPoint>(),
                                                                                                       new HydraRingBreakWater(0, 1.1));
@@ -97,13 +111,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             Assert.AreEqual(expected.Length, actual.Length);
             for (int i = 0; i < expected.Length; i++)
             {
-                Assert.AreEqual(expected[i].Value, actual[i].Value);
+                Assert.AreEqual(expected[i].Value, actual[i].Value, 1e-6);
                 Assert.AreEqual(expected[i].DeviationType, actual[i].DeviationType);
                 Assert.AreEqual(expected[i].DistributionType, actual[i].DistributionType);
-                Assert.AreEqual(expected[i].Mean, actual[i].Mean);
-                Assert.AreEqual(expected[i].Shift, actual[i].Shift);
-                Assert.AreEqual(expected[i].Variability, actual[i].Variability);
-                Assert.AreEqual(expected[i].VariableId, actual[i].VariableId);
+                Assert.AreEqual(expected[i].Mean, actual[i].Mean, 1e-6);
+                Assert.AreEqual(expected[i].Shift, actual[i].Shift, 1e-6);
+                Assert.AreEqual(expected[i].Variability, actual[i].Variability, 1e-6);
+                Assert.AreEqual(expected[i].VariableId, actual[i].VariableId, 1e-6);
             }
         }
 

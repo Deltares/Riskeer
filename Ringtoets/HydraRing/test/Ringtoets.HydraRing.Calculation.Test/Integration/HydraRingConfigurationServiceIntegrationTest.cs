@@ -35,6 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         [Test]
         public void GenerateDataBaseCreationScript_HydraRingConfigurationWithAssessmentLevelCalculation_ReturnsExpectedCreationScript()
         {
+            // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new AssessmentLevelCalculationInput(700004, 10000));
@@ -91,21 +92,35 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          Environment.NewLine +
                                          "DELETE FROM [Breakwaters];" + Environment.NewLine;
 
+            // Call
             var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
 
+            // Assert
             Assert.AreEqual(expectedCreationScript, creationScript);
         }
 
         [Test]
         public void GenerateDataBaseCreationScript_HydraRingConfigurationWithOvertoppingCalculation_ReturnsExpectedCreationScript()
         {
+            
+            // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All);
             int hydraulicBoundaryLocationId = 700004;
 
             var hydraRingSection = new HydraRingSection(hydraulicBoundaryLocationId, "700004", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
-            double dikeHeight = 11.11;
-            double criticalOvertoppingMean = 22.22;
-            double criticalOvertoppingStandardDeviation = 33.33;
+            const double dikeHeight = 11.11;
+            const double modelFactorCriticalOvertopping = 1;
+            const double factorFnMean = 4.75;
+            const double factorFnStandardDeviation = 0.5;
+            const double hydraRingFactorFnMean = 2.6;
+            const double hydraRingFactorFnStandardDeviation = 0.35;
+            const double hydraRingmodelFactorOvertopping = 1;
+            const double criticalOvertoppingMean = 22.22;
+            const double criticalOvertoppingStandardDeviation = 33.33;
+            const double hydraRingModelFactorFrunupMean = 1;
+            const double hydraRingModelFactorFrunupStandardDeviation = 0.07;
+            const double hydraRingExponentModelFactorShallowMean = 0.92;
+            const double hydraRingExponentModelFactorShallowStandardDeviation = 0.24;
             var profilePoints = new List<HydraRingRoughnessProfilePoint>
             {
                 new HydraRingRoughnessProfilePoint(1.1, 2.2, 3.3)
@@ -117,7 +132,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var breakWater = new HydraRingBreakWater(1, 2.2);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new OvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingSection,
-                                                                                                       dikeHeight, criticalOvertoppingMean, criticalOvertoppingStandardDeviation
+                                                                                                       dikeHeight,
+                                                                                                      modelFactorCriticalOvertopping, factorFnMean, factorFnStandardDeviation, hydraRingFactorFnMean, hydraRingFactorFnStandardDeviation,
+                                                                                                      hydraRingmodelFactorOvertopping, criticalOvertoppingMean, criticalOvertoppingStandardDeviation, hydraRingModelFactorFrunupMean,
+                                                                                                      hydraRingModelFactorFrunupStandardDeviation, hydraRingExponentModelFactorShallowMean, hydraRingExponentModelFactorShallowStandardDeviation
                                                                                                        , profilePoints, forelandPoints, breakWater));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -186,9 +204,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "DELETE FROM [Breakwaters];" + Environment.NewLine +
                                          "INSERT INTO [Breakwaters] VALUES (700004, 1, 2.2);" + Environment.NewLine;
 
+            // Call
             var creationScript = hydraRingConfigurationService.GenerateDataBaseCreationScript();
 
+            // Assert
             Assert.AreEqual(expectedCreationScript, creationScript);
+            
         }
     }
 }
