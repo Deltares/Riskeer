@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -32,10 +33,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     public class GrassCoverErosionInwardsCalculationTest
     {
         [Test]
-        public void Constructor_DefaultPropertyValuesAreSet()
+        public void Constructor_NullGeneralInput_ThrowsArgumentNullException()
         {
             // Setup & Call
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculation(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void Constructor_DefaultPropertyValuesAreSet()
+        {
+            // Setup
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+
+            // Call
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput);
 
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
@@ -56,7 +70,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Properties_Name_ReturnsExpectedValues(string name)
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput);
 
             // Call
             calculation.Name = name;
@@ -72,7 +87,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Property_Comments_ReturnsExpectedValues(string comments)
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput);
 
             // Call
             calculation.Comments = comments;
@@ -85,7 +101,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation()
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -101,7 +118,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void HasOutput_OutputNull_ReturnsFalse()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation()
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput)
             {
                 Output = null
             };
@@ -114,7 +132,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void HasOutput_OutputSet_ReturnsTrue()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation()
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -127,7 +146,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void ClearHydraulicBoundaryLocation_Always_SetHydraulicBoundaryLocationToNull()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput);
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1.0, 2.0);
             calculation.InputParameters.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
@@ -145,7 +165,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void GetObservableInput_Always_ReturnsInputParamaters()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(generalInput);
             var inputParameters = calculation.InputParameters;
 
             // Call

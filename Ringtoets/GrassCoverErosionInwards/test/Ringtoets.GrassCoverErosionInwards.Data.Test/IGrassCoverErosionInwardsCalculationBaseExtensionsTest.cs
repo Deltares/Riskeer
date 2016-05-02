@@ -34,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var calculation = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
+            var calculation = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new GeneralGrassCoverErosionInwardsInput());
             mockRepository.ReplayAll();
 
             // Call
@@ -84,10 +84,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var calculation1 = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
-            var calculation2 = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
-            var calculation3 = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
-            var calculation4 = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var calculation1 = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput);
+            var calculation2 = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput);
+            var calculation3 = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput);
+            var calculation4 = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput);
             mockRepository.ReplayAll();
 
             var subsubGroup = new CalculationGroup();

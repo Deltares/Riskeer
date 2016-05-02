@@ -33,7 +33,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
@@ -101,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.GeneralFolderIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.GeneralFolderIcon, image);
         }
 
         [Test]
@@ -135,8 +134,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                 failureMechanismMock,
-                                                                 assessmentSectionMock);
+                                                                                   failureMechanismMock,
+                                                                                   assessmentSectionMock);
 
             // Call
             var children = info.ChildNodeObjects(groupContext);
@@ -150,28 +149,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_GroupWithMixedContents_ReturnChildren()
         {
             // Setup
+            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
             var calculationItem = mocks.StrictMock<ICalculationBase>();
-            var childCalculation = new GrassCoverErosionInwardsCalculation();
+            var childCalculation = new GrassCoverErosionInwardsCalculation(failureMechanismMock.GeneralInput);
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItem);
             group.Children.Add(childCalculation);
 
-            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                 failureMechanismMock,
-                                                                 assessmentSectionMock);
+                                                                                   failureMechanismMock,
+                                                                                   assessmentSectionMock);
 
             // Call
             var children = info.ChildNodeObjects(groupContext).ToArray();
 
             // Assert
-            Assert.AreEqual(group.Children.Count, children.Length);            
+            Assert.AreEqual(group.Children.Count, children.Length);
             var calculationGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) children[0];
             Assert.AreSame(childGroup, calculationGroupContext.WrappedData);
             Assert.AreSame(failureMechanismMock, calculationGroupContext.GrassCoverErosionInwardsFailureMechanism);
@@ -194,7 +193,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var parentData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                               failureMechanismMock, 
+                                                                               failureMechanismMock,
                                                                                assessmentSectionMock);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
@@ -204,7 +203,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
             gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-            
+
             treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
             viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
 
@@ -283,11 +282,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
             var parentData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
-                                                                               failureMechanismMock,
-                                                                               assessmentSectionMock);
+                                                                                 failureMechanismMock,
+                                                                                 assessmentSectionMock);
 
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                               failureMechanismMock, 
+                                                                               failureMechanismMock,
                                                                                assessmentSectionMock);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
@@ -375,8 +374,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                             failureMechanismMock,
-                                                             assessmentSectionMock);
+                                                                               failureMechanismMock,
+                                                                               assessmentSectionMock);
 
             var calculationItem = mocks.Stub<ICalculationBase>();
             calculationItem.Stub(ci => ci.Name).Return("Nieuwe map");
@@ -424,11 +423,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                             failureMechanismMock,
-                                                             assessmentSectionMock);
+                                                                               failureMechanismMock,
+                                                                               assessmentSectionMock);
 
             var calculationItem = mocks.Stub<ICalculationBase>();
-            calculationItem.Stub(ci => ci.Name).Return("Nieuwe berekening");            
+            calculationItem.Stub(ci => ci.Name).Return("Nieuwe berekening");
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -504,8 +503,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                             failureMechanismMock,
-                                                             assessmentSectionMock);
+                                                                               failureMechanismMock,
+                                                                               assessmentSectionMock);
             nodeData.Attach(observer);
 
             // Call
@@ -527,8 +526,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                             failureMechanismMock,
-                                                             assessmentSectionMock);
+                                                                               failureMechanismMock,
+                                                                               assessmentSectionMock);
 
             var parentNodeData = new GrassCoverErosionInwardsFailureMechanism();
             parentNodeData.CalculationsGroup.Children.Add(group);
@@ -553,14 +552,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                             failureMechanismMock,
-                                                             assessmentSectionMock);
+                                                                               failureMechanismMock,
+                                                                               assessmentSectionMock);
 
             var parentGroup = new CalculationGroup();
             parentGroup.Children.Add(group);
             var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
-                                                                   failureMechanismMock,
-                                                                   assessmentSectionMock);
+                                                                                     failureMechanismMock,
+                                                                                     assessmentSectionMock);
 
             mocks.ReplayAll();
 
@@ -582,13 +581,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                             failureMechanismMock,
-                                                             assessmentSectionMock);
+                                                                               failureMechanismMock,
+                                                                               assessmentSectionMock);
 
             var parentGroup = new CalculationGroup();
             var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
-                                                                   failureMechanismMock,
-                                                                   assessmentSectionMock);
+                                                                                     failureMechanismMock,
+                                                                                     assessmentSectionMock);
 
             // Precondition
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
@@ -612,14 +611,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                             failureMechanismMock,
-                                                             assessmentSectionMock);
+                                                                               failureMechanismMock,
+                                                                               assessmentSectionMock);
 
             var parentGroup = new CalculationGroup();
             parentGroup.Children.Add(group);
             var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
-                                                                   failureMechanismMock,
-                                                                   assessmentSectionMock);
+                                                                                     failureMechanismMock,
+                                                                                     assessmentSectionMock);
             parentNodeData.Attach(observer);
 
             // Precondition
@@ -642,7 +641,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
 
             group.Children.Add(calculation);
 
@@ -650,14 +649,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                             failureMechanismMock,
-                                                             assessmentSectionMock);
+                                                                               failureMechanismMock,
+                                                                               assessmentSectionMock);
 
             var parentGroup = new CalculationGroup();
             parentGroup.Children.Add(group);
             var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
-                                                                   failureMechanismMock,
-                                                                   assessmentSectionMock);
+                                                                                     failureMechanismMock,
+                                                                                     assessmentSectionMock);
             parentNodeData.Attach(observer);
 
             // Precondition
@@ -681,8 +680,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                 failureMechanismMock,
-                                                                 assessmentSectionMock);
+                                                                                   failureMechanismMock,
+                                                                                   assessmentSectionMock);
 
             // Call
             var canDrag = info.CanDrag(groupContext, null);
@@ -703,8 +702,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                 failureMechanismMock,
-                                                                 assessmentSectionMock);
+                                                                                   failureMechanismMock,
+                                                                                   assessmentSectionMock);
 
             // Call
             var canDrag = info.CanDrag(groupContext, failureMechanismContextMock);
@@ -994,8 +993,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             data = new CalculationGroup();
 
             dataContext = new GrassCoverErosionInwardsCalculationGroupContext(data,
-                                                            failureMechanism,
-                                                            assessmentSection);
+                                                                              failureMechanism,
+                                                                              assessmentSection);
         }
 
         /// <summary>
@@ -1013,7 +1012,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             switch (type)
             {
                 case CalculationType.Calculation:
-                    var calculation = new GrassCoverErosionInwardsCalculation();
+                    var calculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput);
                     if (initialName != null)
                     {
                         calculation.Name = initialName;
@@ -1029,8 +1028,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                     }
                     data = group;
                     dataContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                    failureMechanism,
-                                                                    assessmentSection);
+                                                                                      failureMechanism,
+                                                                                      assessmentSection);
                     break;
                 default:
                     throw new NotSupportedException();

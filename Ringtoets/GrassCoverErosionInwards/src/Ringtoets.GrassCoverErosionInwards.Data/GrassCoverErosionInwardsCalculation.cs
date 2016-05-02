@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -37,10 +38,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculation"/>.
         /// </summary>
-        public GrassCoverErosionInwardsCalculation()
+        /// <param name="generalInputParameters">General grass cover erosion inwards calculation input parameters that apply to each calculation.</param>
+        /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsCalculation(GeneralGrassCoverErosionInwardsInput generalInputParameters)
         {
+            if (generalInputParameters == null)
+            {
+                throw new ArgumentNullException("generalInputParameters");
+            }
             Name = Resources.GrassCoverErosionInwardsCalculation_DefaultName;
-            InputParameters = new GrassCoverErosionInwardsInput();
+            InputParameters = new GrassCoverErosionInwardsInput(generalInputParameters);
             AddDemoInput();
         }
 

@@ -45,6 +45,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="BreakWater.cs" />
+    <Compile Include="GeneralGrassCoverErosionInwardsInput.cs" />
     <Compile Include="IGrassCoverErosionInwardsCalculationBaseExtensions.cs" />
     <Compile Include="NormProbabilityGrassCoverErosionInwardsInput.cs" />
     <Compile Include="RoughnessProfileSection.cs" />

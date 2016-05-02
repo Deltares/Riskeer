@@ -38,6 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             : base(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode)
         {
             CalculationsGroup = new CalculationGroup(Resources.GrassCoverErosionInwardsFailureMechanism_Calculations_DisplayName, false);
+            GeneralInput = new GeneralGrassCoverErosionInwardsInput();
             NormProbabilityInput = new NormProbabilityGrassCoverErosionInwardsInput();
         }
 
@@ -49,11 +50,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
         }
 
-        public CalculationGroup CalculationsGroup { get; private set; }
+        /// <summary>
+        /// Gets the general grass cover erosion inwards calculation input parameters that apply to each calculation.
+        /// </summary>
+        public GeneralGrassCoverErosionInwardsInput GeneralInput { get; private set; }
 
         /// <summary>
         /// Length-effect parameters.
         /// </summary>
         public NormProbabilityGrassCoverErosionInwardsInput NormProbabilityInput { get; private set; }
+
+        public CalculationGroup CalculationsGroup { get; private set; }
     }
 }

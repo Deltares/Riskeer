@@ -267,7 +267,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                 GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip,
                 GrassCoverErosionInwardsFormsResources.CalculationIcon,
-                (s, e) => AddCalculation(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
+                (s, e) => AddCalculation(grassCoverErosionInwardsFailureMechanismContext.WrappedData, grassCoverErosionInwardsFailureMechanismContext.WrappedData.CalculationsGroup)
                 )
             {
                 Enabled = false
@@ -299,14 +299,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             failureMechanism.CalculationsGroup.NotifyObservers();
         }
 
-        private static void AddCalculation(ICalculatableFailureMechanism failureMechanism)
+        private static void AddCalculation(GrassCoverErosionInwardsFailureMechanism failureMechanism, CalculationGroup calculationGroup)
         {
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput)
             {
-                Name = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsCalculation_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(calculationGroup.Children, GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsCalculation_DefaultName, c => c.Name)
             };
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.CalculationsGroup.NotifyObservers();
+            calculationGroup.Children.Add(calculation);
+            calculationGroup.NotifyObservers();
         }
 
         #endregion
@@ -365,16 +365,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                 GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip,
                 GrassCoverErosionInwardsFormsResources.CalculationIcon,
-                (o, args) =>
-                {
-                    var calculation = new GrassCoverErosionInwardsCalculation
-                    {
-                        Name = NamingHelper.GetUniqueName(group.Children, GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsCalculation_DefaultName, c => c.Name)
-                    };
-
-                    group.Children.Add(calculation);
-                    nodeData.WrappedData.NotifyObservers();
-                });
+                (o, args) => { AddCalculation(nodeData.GrassCoverErosionInwardsFailureMechanism, group); });
 
             var builder = Gui.Get(nodeData, treeViewControl);
 

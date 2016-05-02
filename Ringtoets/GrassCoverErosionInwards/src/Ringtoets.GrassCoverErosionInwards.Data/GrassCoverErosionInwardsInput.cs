@@ -37,12 +37,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     {
         private readonly LognormalDistribution criticalFlowRate;
         private RoundedDouble orientation;
+        private readonly GeneralGrassCoverErosionInwardsInput generalInputParameters;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInput"/>.
         /// </summary>
-        public GrassCoverErosionInwardsInput()
+        /// <param name="generalInputParameters">General grass cover erosion inwards calculation input parameters that apply to each calculation.</param>
+        /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsInput(GeneralGrassCoverErosionInwardsInput generalInputParameters)
         {
+            if (generalInputParameters == null)
+            {
+                throw new ArgumentNullException("generalInputParameters");
+            }
+            this.generalInputParameters = generalInputParameters;
+
             orientation = new RoundedDouble(2);
             DikeHeight = new RoundedDouble(2);
             criticalFlowRate = new LognormalDistribution(2);
@@ -142,5 +151,75 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
             ForeshoreGeometry = profileSections;
         }
+
+        #region General input parameters
+
+        /// <summary>
+        /// Gets the factor fb variable.
+        /// </summary>
+        public NormalDistribution Fb
+        {
+            get
+            {
+                return generalInputParameters.Fb;
+            }
+        }
+
+        /// <summary>
+        /// Gets the factor fn variable.
+        /// </summary>
+        public NormalDistribution Fn
+        {
+            get
+            {
+                return generalInputParameters.Fn;
+            }
+        }
+
+        /// <summary>
+        /// Gets the factor fshallow variable.
+        /// </summary>
+        public NormalDistribution Fshallow
+        {
+            get
+            {
+                return generalInputParameters.Fshallow;
+            }
+        }
+
+        /// <summary>
+        /// Gets the factor mz2 (or frunup) variable.
+        /// </summary>
+        public NormalDistribution Mz2
+        {
+            get
+            {
+                return generalInputParameters.Mz2;
+            }
+        }
+
+        /// <summary>
+        /// Gets the model factor critical overtopping.
+        /// </summary>
+        public double Mqc
+        {
+            get
+            {
+                return generalInputParameters.Mqc;
+            }
+        }
+
+        /// <summary>
+        /// Gets the model factor overtopping.
+        /// </summary>
+        public double Mqo
+        {
+            get
+            {
+                return generalInputParameters.Mqo;
+            }
+        }
+
+        #endregion
     }
 }

@@ -33,23 +33,44 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     public class GrassCoverErosionInwardsInputTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_NullGeneralInput_ThrowsArgumentNullException()
         {
             // Setup & Call
-            var input = new GrassCoverErosionInwardsInput();
+            TestDelegate test = () => new GrassCoverErosionInwardsInput(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+
+            // Call
+            var input = new GrassCoverErosionInwardsInput(generalInput);
 
             // Assert
             Assert.IsInstanceOf<Observable>(input);
             Assert.IsInstanceOf<ICalculationInput>(input);
             CollectionAssert.IsEmpty(input.DikeGeometry);
             Assert.IsNull(input.HydraulicBoundaryLocation);
+
+            Assert.AreEqual(generalInput.Fb, input.Fb);
+            Assert.AreEqual(generalInput.Fn, input.Fn);
+            Assert.AreEqual(generalInput.Fshallow, input.Fshallow);
+            Assert.AreEqual(generalInput.Mz2, input.Mz2);
+            Assert.AreEqual(generalInput.Mqc, input.Mqc);
+            Assert.AreEqual(generalInput.Mqo, input.Mqo);
         }
 
         [Test]
         public void Properties_ExpectedValues()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput();
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var input = new GrassCoverErosionInwardsInput(generalInput);
             var orientation = new RoundedDouble(2, 1.18);
             var logNormal = new LognormalDistribution(2);
             const bool foreshorePresent = true;
@@ -81,7 +102,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void SetDikeGeometry_NullRoughnessProfileSections_ThrowsArgumentNullException()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput();
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var input = new GrassCoverErosionInwardsInput(generalInput);
 
             // Call
             TestDelegate test = () => input.SetDikeGeometry(null);
@@ -94,7 +116,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void SetForeshoreGeometry_NullRoughnessProfileSections_ThrowsArgumentNullException()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput();
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var input = new GrassCoverErosionInwardsInput(generalInput);
 
             // Call
             TestDelegate test = () => input.SetForeshoreGeometry(null);
@@ -107,7 +130,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void SetDikeGeometry_ValidGeometry_ReturnsExpectedValues()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput();
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var input = new GrassCoverErosionInwardsInput(generalInput);
             var sections = new[]
             {
                 new RoughnessProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4), 1.1),
@@ -125,7 +149,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void SetForeshoreGeometry_ValidGeometry_ReturnsExpectedValues()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput();
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var input = new GrassCoverErosionInwardsInput(generalInput);
             var sections = new[]
             {
                 new RoughnessProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4), 1.1),
