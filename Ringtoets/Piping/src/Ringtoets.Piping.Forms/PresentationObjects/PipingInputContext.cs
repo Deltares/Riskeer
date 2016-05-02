@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
@@ -40,14 +39,14 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// Creates a new instance of <see cref="PipingInputContext"/>
         /// </summary>
         /// <param name="pipingInput">The piping input instance wrapped by this context object.</param>
-        /// <param name="calculation">The calculation item the <paramref name="pipingInput"/> belongs to.</param>
+        /// <param name="calculation">The calculation scenario the <paramref name="pipingInput"/> belongs to.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
         /// <param name="pipingFailureMechanism">The failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input parameter is null.</exception>
         public PipingInputContext(PipingInput pipingInput,
-                                  ICalculation calculation,
+                                  PipingCalculationScenario calculation,
                                   IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
                                   IEnumerable<StochasticSoilModel> stochasticSoilModels,
                                   PipingFailureMechanism pipingFailureMechanism,
@@ -74,9 +73,9 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the calculation item which the piping context belongs to.
+        /// Gets the calculation scenario which the piping context belongs to.
         /// </summary>
-        public ICalculation PipingCalculation { get; private set; }
+        public PipingCalculationScenario PipingCalculation { get; private set; }
 
         /// <summary>
         /// Gets the failure mechanism which the piping context belongs to.

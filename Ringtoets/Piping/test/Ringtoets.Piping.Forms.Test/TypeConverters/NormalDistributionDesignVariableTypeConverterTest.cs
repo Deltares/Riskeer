@@ -1,14 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Linq;
-
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.Data;
@@ -51,8 +47,8 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             // Setup
             var distribution = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble)1.1,
-                StandardDeviation = (RoundedDouble)2.2
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 2.2
             };
             var designVariable = new NormalDistributionDesignVariable(distribution);
             var converter = new NormalDistributionDesignVariableTypeConverter();
@@ -197,7 +193,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var calculationItem = new PipingCalculation(new GeneralPipingInput(), new NormProbabilityPipingInput());
+            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             var inputParameters = new PipingInput(new GeneralPipingInput());
@@ -229,7 +225,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             // Event
             const double newValue = 2.3;
-            properties[propertyIndexToChange].SetValue(phreaticLevelExit, (RoundedDouble)newValue);
+            properties[propertyIndexToChange].SetValue(phreaticLevelExit, (RoundedDouble) newValue);
 
             // Result
             switch (propertyIndexToChange)

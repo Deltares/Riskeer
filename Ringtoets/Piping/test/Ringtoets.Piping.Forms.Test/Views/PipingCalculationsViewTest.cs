@@ -340,7 +340,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingCalculationItem = ((PipingCalculation) ((CalculationGroup) pipingCalculationsView.Data).Children[1]);
+            var secondPipingCalculationItem = ((PipingCalculationScenario) ((CalculationGroup) pipingCalculationsView.Data).Children[1]);
             var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
             var mocks = new MockRepository();
@@ -373,7 +373,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingCalculationItem = ((PipingCalculation) ((CalculationGroup) pipingCalculationsView.Data).Children[1]);
+            var secondPipingCalculationItem = ((PipingCalculationScenario) ((CalculationGroup) pipingCalculationsView.Data).Children[1]);
             var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
             applicationSelectionMock.Stub(asm => asm.Selection)
@@ -405,7 +405,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingCalculationItem = ((PipingCalculation) ((CalculationGroup) pipingCalculationsView.Data).Children[1]);
+            var secondPipingCalculationItem = (PipingCalculationScenario) ((CalculationGroup) pipingCalculationsView.Data).Children[1];
             var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
             applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
