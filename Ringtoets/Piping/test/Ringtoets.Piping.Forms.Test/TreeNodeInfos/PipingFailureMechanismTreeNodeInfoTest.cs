@@ -57,6 +57,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         private PipingGuiPlugin plugin;
         private TreeNodeInfo info;
 
+        private const int contextMenuRelevancyIndex = 1;
+        private const int contextMenuAddFolderIndex = 3;
+        private const int contextMenuAddCalculationIndex = 4;
+        private const int contextMenuValidateAllIndex = 6;
+        private const int contextMenuCalculateAllIndex = 7;
+        private const int contextMenuClearIndex = 8;
+
         [SetUp]
         public void SetUp()
         {
@@ -682,12 +689,5 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.IsFalse(failureMechanism.IsRelevant);
             mocks.VerifyAll();
         }
-
-        private const int contextMenuRelevancyIndex = 1;
-        private const int contextMenuAddFolderIndex = 3;
-        private const int contextMenuAddCalculationIndex = 4;
-        private const int contextMenuValidateAllIndex = 6;
-        private const int contextMenuCalculateAllIndex = 7;
-        private const int contextMenuClearIndex = 8;
     }
 }

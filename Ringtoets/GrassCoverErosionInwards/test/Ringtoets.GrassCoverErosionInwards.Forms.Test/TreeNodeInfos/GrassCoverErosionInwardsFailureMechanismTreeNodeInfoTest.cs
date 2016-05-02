@@ -38,6 +38,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
@@ -186,6 +187,50 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_IsRelevantEnabledAddCalculationGroupAddCalculationItemItemDisabled()
+        {
+            // Setup
+            using (var treeView = new TreeViewControl())
+            {
+                var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+                var menuBuilderMock = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocksRepository.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilderMock);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                var menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndex,
+                                                                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
+                                                                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                                                                RingtoetsCommonFormsResources.Checkbox_ticked);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 3,
+                                                                RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                                RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
+                                                                RingtoetsCommonFormsResources.AddFolderIcon,
+                                                                false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 4,
+                                                                RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
+                                                                GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip,
+                                                                GrassCoverErosionInwardsFormsResources.CalculationIcon,
+                                                                false);
+
+                // Assert
+                mocksRepository.VerifyAll();
+            }
         }
 
         [Test]

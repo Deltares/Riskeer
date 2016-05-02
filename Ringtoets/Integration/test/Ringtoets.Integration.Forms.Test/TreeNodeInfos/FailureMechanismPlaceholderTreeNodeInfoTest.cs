@@ -243,7 +243,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CalculateAllAndClearAllItemDisabled()
+        public void ContextMenuStrip_Always_IsRelevantEnabledCalculateAllAndClearAllItemDisabled()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -270,6 +270,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     // Call
                     var menu = info.ContextMenuStrip(context, assessmentSection, treeView);
 
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndex,
+                                                                  RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
+                                                                  RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                                                                  RingtoetsCommonFormsResources.Checkbox_ticked);
                     TestHelper.AssertContextMenuStripContainsItem(menu, 2,
                                                                   RingtoetsCommonFormsResources.Calculate_all,
                                                                   RingtoetsCommonFormsResources.Calculate_all_ToolTip,
