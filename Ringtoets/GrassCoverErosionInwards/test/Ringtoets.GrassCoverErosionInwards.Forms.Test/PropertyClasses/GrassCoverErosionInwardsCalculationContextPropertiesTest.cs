@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -130,5 +131,63 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(newOrientation, calculation.InputParameters.Orientation);
             mockRepository.VerifyAll();
         }
+
+        [Test]
+        public void PropertyAttributes_ReturnExpectedValues()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
+
+            // Call
+            var properties = new GrassCoverErosionInwardsCalculationContextProperties
+            {
+                Data = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanismMock, assessmentSectionMock)
+            };
+
+            // Assert
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
+            Assert.AreEqual(6, dynamicProperties.Count);
+
+            PropertyDescriptor dikeGeometryProperty = dynamicProperties[dikeGeometryPropertyIndex];
+            Assert.IsNotNull(dikeGeometryProperty);
+            Assert.IsTrue(dikeGeometryProperty.IsReadOnly);
+            Assert.AreEqual("Dijkgeometrie", dikeGeometryProperty.DisplayName);
+            Assert.AreEqual("Eigenschappen van de dijkgeometrie.", dikeGeometryProperty.Description);
+
+            PropertyDescriptor dikeHeightProperty = dynamicProperties[dikeHeightPropertyIndex];
+            Assert.IsNotNull(dikeHeightProperty);
+            Assert.IsFalse(dikeHeightProperty.IsReadOnly);
+            Assert.AreEqual("Dijkhoogte [m+NAP]", dikeHeightProperty.DisplayName);
+            Assert.AreEqual("De hoogte van de dijk [m+NAP].", dikeHeightProperty.Description);
+
+            PropertyDescriptor foreshoreProperty = dynamicProperties[foreshorePropertyIndex];
+            Assert.IsNotNull(foreshoreProperty);
+            Assert.IsTrue(foreshoreProperty.IsReadOnly);
+            Assert.AreEqual("Voorland", foreshoreProperty.DisplayName);
+            Assert.AreEqual("Eigenschappen van het voorland.", foreshoreProperty.Description);
+
+            PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
+            Assert.IsNotNull(orientationProperty);
+            Assert.IsFalse(orientationProperty.IsReadOnly);
+            Assert.AreEqual("Oriëntatie [º]", orientationProperty.DisplayName);
+            Assert.AreEqual("Oriëntatie van de dijk.", orientationProperty.Description);
+
+            PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
+            Assert.IsNotNull(breakWaterProperty);
+            Assert.IsTrue(breakWaterProperty.IsReadOnly);
+            Assert.AreEqual("Havendam", breakWaterProperty.DisplayName);
+            Assert.AreEqual("Eigenschappen van de havendam.", breakWaterProperty.Description);
+        }
+
+        private const int dikeGeometryPropertyIndex = 0;
+        private const int dikeHeightPropertyIndex = 1;
+        private const int foreshorePropertyIndex = 2;
+        private const int orientationPropertyIndex = 3;
+        private const int breakWaterPropertyIndex = 4;
     }
 }

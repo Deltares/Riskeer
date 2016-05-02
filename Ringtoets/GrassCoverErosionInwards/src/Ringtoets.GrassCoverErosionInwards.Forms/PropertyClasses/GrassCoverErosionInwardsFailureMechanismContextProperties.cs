@@ -22,6 +22,7 @@
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
@@ -32,9 +33,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismContextProperties : ObjectProperties<GrassCoverErosionInwardsFailureMechanismContext>
     {
+        private const int namePropertyIndex = 1;
+        private const int codePropertyIndex = 2;
+        private const int lengthEffectPropertyIndex = 3;
+        private const int mz2PropertyIndex = 4;
+        private const int fbPropertyIndex = 5;
+        private const int fnPropertyIndex = 6;
+        private const int fshallowPropertyIndex = 7;
+
         #region Lengte effect parameters
 
-        [PropertyOrder(3)]
+        [PropertyOrder(lengthEffectPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_LengthEffect")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_N_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_N_Description")]
@@ -55,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         #region General
 
-        [PropertyOrder(1)]
+        [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_Name_Description")]
@@ -67,7 +76,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(2)]
+        [PropertyOrder(codePropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_Code_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_Code_Description")]
@@ -76,6 +85,58 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             get
             {
                 return data.WrappedData.Code;
+            }
+        }
+
+        #endregion
+
+        #region Model settings
+
+        [PropertyOrder(mz2PropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_Mz2_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_Mz2_Description")]
+        public NormalDistribution Mz2
+        {
+            get
+            {
+                return data.WrappedData.GeneralInput.Mz2;
+            }
+        }
+
+        [PropertyOrder(fbPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_Fb_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_Fb_Description")]
+        public NormalDistribution Fb
+        {
+            get
+            {
+                return data.WrappedData.GeneralInput.Fb;
+            }
+        }
+
+        [PropertyOrder(fnPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_Fn_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_Fn_Description")]
+        public NormalDistribution Fn
+        {
+            get
+            {
+                return data.WrappedData.GeneralInput.Fn;
+            }
+        }
+
+        [PropertyOrder(fshallowPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_Fshallow_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_Fshallow_Description")]
+        public NormalDistribution Fshallow
+        {
+            get
+            {
+                return data.WrappedData.GeneralInput.Fshallow;
             }
         }
 

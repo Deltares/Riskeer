@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -79,6 +80,46 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(roughness, properties.Roughness);
             mockRepository.VerifyAll();
         }
+
+        [Test]
+        public void PropertyAttributes_ReturnExpectedValues()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
+
+            // Call
+            var properties = new DikeGeometryProperties
+            {
+                Data = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanismMock, assessmentSectionMock)
+            };
+
+            // Assert
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
+
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
+            Assert.IsNotNull(coordinatesProperty);
+            Assert.IsTrue(coordinatesProperty.IsReadOnly);
+            Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
+            Assert.AreEqual("Lijst met geometrie punten.", coordinatesProperty.Description);
+
+            PropertyDescriptor numberOfCoordinatesDikeHeightProperty = dynamicProperties[numberOfCoordinatesDikeHeightPropertyIndex];
+            Assert.IsNotNull(numberOfCoordinatesDikeHeightProperty);
+            Assert.IsTrue(numberOfCoordinatesDikeHeightProperty.IsReadOnly);
+            Assert.AreEqual("Ruwheden [-]", numberOfCoordinatesDikeHeightProperty.DisplayName);
+            Assert.AreEqual("Lijst met ruwheden per sectie.", numberOfCoordinatesDikeHeightProperty.Description);
+        }
+
+        private const int coordinatesPropertyIndex = 0;
+        private const int numberOfCoordinatesDikeHeightPropertyIndex = 1;
 
         private static IEnumerable<string> GetRoughness(GrassCoverErosionInwardsCalculation calculation)
         {

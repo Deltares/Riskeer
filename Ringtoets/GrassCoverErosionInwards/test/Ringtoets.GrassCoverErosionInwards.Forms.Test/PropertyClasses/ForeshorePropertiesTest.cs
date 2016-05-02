@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -99,5 +100,45 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsFalse(calculation.InputParameters.UseForeshore);
             mockRepository.VerifyAll();
         }
+
+        [Test]
+        public void PropertyAttributes_ReturnExpectedValues()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
+
+            // Call
+            var properties = new ForeshoreProperties
+            {
+                Data = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanismMock, assessmentSectionMock)
+            };
+
+            // Assert
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
+
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            PropertyDescriptor foreshorePresentProperty = dynamicProperties[foreshorePresentPropertyIndex];
+            Assert.IsNotNull(foreshorePresentProperty);
+            Assert.IsFalse(foreshorePresentProperty.IsReadOnly);
+            Assert.AreEqual("Aanwezig", foreshorePresentProperty.DisplayName);
+            Assert.AreEqual("Is er een voorland aanwezig?", foreshorePresentProperty.Description);
+
+            PropertyDescriptor numberOfCoordinatesProperty = dynamicProperties[ForeshorePropertiesTest.numberOfCoordinatesDikeHeightProperty];
+            Assert.IsNotNull(numberOfCoordinatesProperty);
+            Assert.IsTrue(numberOfCoordinatesProperty.IsReadOnly);
+            Assert.AreEqual("Aantal", numberOfCoordinatesProperty.DisplayName);
+            Assert.AreEqual("Aantal coordinaten tot de teen van de dijk.", numberOfCoordinatesProperty.Description);
+        }
+
+        private const int foreshorePresentPropertyIndex = 0;
+        private const int numberOfCoordinatesDikeHeightProperty = 1;
     }
 }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -34,6 +35,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismContextPropertiesTest
     {
+        private MockRepository mockRepository;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -49,7 +58,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Data_SetNewFailureMechanismContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
 
@@ -70,7 +78,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
             int numberProperties = 1;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
@@ -92,5 +99,76 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(newLengthEffect, failureMechanism.NormProbabilityInput.N);
             mockRepository.VerifyAll();
         }
+
+        [Test]
+        public void PropertyAttributes_ReturnExpectedValues()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            // Call
+            var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties
+            {
+                Data = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock)
+            };
+
+            // Assert
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
+            Assert.AreEqual(8, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            Assert.IsNotNull(nameProperty);
+            Assert.IsTrue(nameProperty.IsReadOnly);
+            Assert.AreEqual("Naam", nameProperty.DisplayName);
+            Assert.AreEqual("De naam van het toetsspoor.", nameProperty.Description);
+
+            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
+            Assert.IsNotNull(codeProperty);
+            Assert.IsTrue(codeProperty.IsReadOnly);
+            Assert.AreEqual("Label", codeProperty.DisplayName);
+            Assert.AreEqual("Het label van het toetsspoor.", codeProperty.Description);
+
+            PropertyDescriptor lengthEffectProperty = dynamicProperties[lengthEffectPropertyIndex];
+            Assert.IsNotNull(lengthEffectProperty);
+            Assert.IsFalse(lengthEffectProperty.IsReadOnly);
+            Assert.AreEqual("N", lengthEffectProperty.DisplayName);
+            Assert.AreEqual("De parameter 'N' die gebruikt wordt voor het lengte effect in de berekening.", lengthEffectProperty.Description);
+
+            PropertyDescriptor mz2Property = dynamicProperties[mz2PropertyIndex];
+            Assert.IsNotNull(mz2Property);
+            Assert.IsTrue(mz2Property.IsReadOnly);
+            Assert.AreEqual("mz2 [-]", mz2Property.DisplayName);
+            Assert.AreEqual("De parameter 'mz2' die gebruikt wordt in de berekening.", mz2Property.Description);
+
+            PropertyDescriptor fbProperty = dynamicProperties[fbPropertyIndex];
+            Assert.IsNotNull(fbProperty);
+            Assert.IsTrue(fbProperty.IsReadOnly);
+            Assert.AreEqual("fb [-]", fbProperty.DisplayName);
+            Assert.AreEqual("De parameter 'fb' die gebruikt wordt in de berekening.", fbProperty.Description);
+
+            PropertyDescriptor fnProperty = dynamicProperties[fnPropertyIndex];
+            Assert.IsNotNull(fnProperty);
+            Assert.IsTrue(fnProperty.IsReadOnly);
+            Assert.AreEqual("fn [-]", fnProperty.DisplayName);
+            Assert.AreEqual("De parameter 'fn' die gebruikt wordt in de berekening.", fnProperty.Description);
+
+            PropertyDescriptor fshallowProperty = dynamicProperties[fshallowPropertyIndex];
+            Assert.IsNotNull(fshallowProperty);
+            Assert.IsTrue(fshallowProperty.IsReadOnly);
+            Assert.AreEqual("f ondiep [-]", fshallowProperty.DisplayName);
+            Assert.AreEqual("De parameter 'f ondiep' die gebruikt wordt in de berekening.", fshallowProperty.Description);
+        }
+
+        private const int namePropertyIndex = 0;
+        private const int codePropertyIndex = 1;
+        private const int lengthEffectPropertyIndex = 2;
+        private const int mz2PropertyIndex = 3;
+        private const int fbPropertyIndex = 4;
+        private const int fnPropertyIndex = 5;
+        private const int fshallowPropertyIndex = 6;
     }
 }

@@ -34,7 +34,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsCalculationContextProperties : ObjectProperties<GrassCoverErosionInwardsCalculationContext>
     {
-        [PropertyOrder(1)]
+        private const int dikeGeometryPropertyIndex = 1;
+        private const int dikeHeightPropertyIndex = 2;
+        private const int foreshorePropertyIndex = 3;
+        private const int orientationPropertyIndex = 4;
+        private const int breakWaterPropertyIndex = 5;
+
+        [PropertyOrder(dikeGeometryPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "DikeGeometryProperties_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeGeometryProperties_Description")]
@@ -49,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(2)]
+        [PropertyOrder(dikeHeightPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "DikeHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeHeight_Description")]
@@ -66,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(3)]
+        [PropertyOrder(foreshorePropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "ForeshoreProperties_DisplayName")]
         [ResourcesDescription(typeof(Resources), "ForeshoreProperties_Description")]
@@ -81,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(4)]
+        [PropertyOrder(orientationPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "Orientation_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Orientation_Description")]
@@ -98,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(5)]
+        [PropertyOrder(breakWaterPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "BreakWaterProperties_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BreakWaterProperties_Description")]

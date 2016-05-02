@@ -97,7 +97,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Beschrijving van een havendam..
+        ///   Looks up a localized string similar to Eigenschappen van de havendam..
         /// </summary>
         public static string BreakWaterProperties_Description {
             get {
@@ -197,7 +197,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Coordinaten [m].
+        ///   Looks up a localized string similar to Coördinaten [m].
         /// </summary>
         public static string DikeGeometry_Coordinates_DisplayName {
             get {
@@ -224,7 +224,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Beschrijving van de dijkgeometrie..
+        ///   Looks up a localized string similar to Eigenschappen van de dijkgeometrie..
         /// </summary>
         public static string DikeGeometryProperties_Description {
             get {
@@ -251,7 +251,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijkhoogte.
+        ///   Looks up a localized string similar to Dijkhoogte [m+NAP].
         /// </summary>
         public static string DikeHeight_DisplayName {
             get {
@@ -296,7 +296,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Beschrijving van het voorland..
+        ///   Looks up a localized string similar to Eigenschappen van het voorland..
         /// </summary>
         public static string ForeshoreProperties_Description {
             get {
@@ -371,7 +371,79 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt voor het lengte effect in berekening..
+        ///   Looks up a localized string similar to De parameter &apos;fb&apos; die gebruikt wordt in de berekening..
+        /// </summary>
+        public static string GrassCoverErosionInwardsInput_Fb_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Fb_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to fb [-].
+        /// </summary>
+        public static string GrassCoverErosionInwardsInput_Fb_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Fb_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;fn&apos; die gebruikt wordt in de berekening..
+        /// </summary>
+        public static string GrassCoverErosionInwardsInput_Fn_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Fn_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to fn [-].
+        /// </summary>
+        public static string GrassCoverErosionInwardsInput_Fn_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Fn_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;f ondiep&apos; die gebruikt wordt in de berekening..
+        /// </summary>
+        public static string GrassCoverErosionInwardsInput_Fshallow_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Fshallow_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to f ondiep [-].
+        /// </summary>
+        public static string GrassCoverErosionInwardsInput_Fshallow_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Fshallow_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;mz2&apos; die gebruikt wordt in de berekening..
+        /// </summary>
+        public static string GrassCoverErosionInwardsInput_Mz2_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Mz2_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mz2 [-].
+        /// </summary>
+        public static string GrassCoverErosionInwardsInput_Mz2_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Mz2_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt voor het lengte effect in de berekening..
         /// </summary>
         public static string GrassCoverErosionInwardsInput_N_Description {
             get {

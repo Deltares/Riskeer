@@ -152,7 +152,7 @@
     <value>Naam</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_N_Description" xml:space="preserve">
-    <value>De parameter 'N' die gebruikt wordt voor het lengte effect in berekening.</value>
+    <value>De parameter 'N' die gebruikt wordt voor het lengte effect in de berekening.</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_N_DisplayName" xml:space="preserve">
     <value>N</value>
@@ -182,7 +182,7 @@
     <value>Havendam hoogte</value>
   </data>
   <data name="BreakWaterProperties_Description" xml:space="preserve">
-    <value>Beschrijving van een havendam.</value>
+    <value>Eigenschappen van de havendam.</value>
   </data>
   <data name="BreakWaterProperties_DisplayName" xml:space="preserve">
     <value>Havendam</value>
@@ -200,7 +200,7 @@
     <value>Aanwezig</value>
   </data>
   <data name="DikeGeometryProperties_Description" xml:space="preserve">
-    <value>Beschrijving van de dijkgeometrie.</value>
+    <value>Eigenschappen van de dijkgeometrie.</value>
   </data>
   <data name="DikeGeometryProperties_DisplayName" xml:space="preserve">
     <value>Dijkgeometrie</value>
@@ -209,7 +209,7 @@
     <value>Lijst met geometrie punten.</value>
   </data>
   <data name="DikeGeometry_Coordinates_DisplayName" xml:space="preserve">
-    <value>Coordinaten [m]</value>
+    <value>Coördinaten [m]</value>
   </data>
   <data name="DikeGeometry_Roughness_Description" xml:space="preserve">
     <value>Lijst met ruwheden per sectie.</value>
@@ -221,10 +221,10 @@
     <value>De hoogte van de dijk [m+NAP].</value>
   </data>
   <data name="DikeHeight_DisplayName" xml:space="preserve">
-    <value>Dijkhoogte</value>
+    <value>Dijkhoogte [m+NAP]</value>
   </data>
   <data name="ForeshoreProperties_Description" xml:space="preserve">
-    <value>Beschrijving van het voorland.</value>
+    <value>Eigenschappen van het voorland.</value>
   </data>
   <data name="ForeshoreProperties_DisplayName" xml:space="preserve">
     <value>Voorland</value>
@@ -246,5 +246,29 @@
   </data>
   <data name="Orientation_DisplayName" xml:space="preserve">
     <value>Oriëntatie [º]</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_Fb_Description" xml:space="preserve">
+    <value>De parameter 'fb' die gebruikt wordt in de berekening.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_Fb_DisplayName" xml:space="preserve">
+    <value>fb [-]</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_Fn_Description" xml:space="preserve">
+    <value>De parameter 'fn' die gebruikt wordt in de berekening.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_Fn_DisplayName" xml:space="preserve">
+    <value>fn [-]</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_Fshallow_Description" xml:space="preserve">
+    <value>De parameter 'f ondiep' die gebruikt wordt in de berekening.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_Fshallow_DisplayName" xml:space="preserve">
+    <value>f ondiep [-]</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_Mz2_Description" xml:space="preserve">
+    <value>De parameter 'mz2' die gebruikt wordt in de berekening.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInput_Mz2_DisplayName" xml:space="preserve">
+    <value>mz2 [-]</value>
   </data>
 </root>
