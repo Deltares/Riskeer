@@ -173,7 +173,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Dike and Foreshore
             Assert.IsTrue(inputParameters.ForeshoreGeometry.Any());
             Assert.IsTrue(inputParameters.DikeGeometry.Any());
-            Assert.AreEqual(1, inputParameters.ForeshoreDikeGeometryPoints);
             Assert.IsTrue(inputParameters.UseForeshore);
 
             // Hydraulic boundaries location

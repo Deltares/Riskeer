@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -54,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.InputParameters.ForeshoreDikeGeometryPoints;
+                return data.WrappedData.InputParameters.ForeshoreGeometry.ToArray().Length;
             }
         }
 

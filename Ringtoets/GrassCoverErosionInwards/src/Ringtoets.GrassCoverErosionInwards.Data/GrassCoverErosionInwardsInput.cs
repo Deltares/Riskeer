@@ -35,9 +35,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsInput : Observable, ICalculationInput
     {
-        private IEnumerable<RoughnessProfileSection> geometry;
-        private RoundedDouble orientation;
         private readonly LognormalDistribution criticalFlowRate;
+        private RoundedDouble orientation;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInput"/>.
@@ -47,29 +46,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             orientation = new RoundedDouble(2);
             DikeHeight = new RoundedDouble(2);
             criticalFlowRate = new LognormalDistribution(2);
+            DikeGeometry = Enumerable.Empty<RoughnessProfileSection>();
+            ForeshoreGeometry = Enumerable.Empty<RoughnessProfileSection>();
         }
 
         /// <summary>
         /// Gets the dike's geometry (without foreshore geometry).
         /// </summary>
-        public IEnumerable<RoughnessProfileSection> DikeGeometry
-        {
-            get
-            {
-                return geometry == null ? Enumerable.Empty<RoughnessProfileSection>() : geometry.Skip(ForeshoreDikeGeometryPoints);
-            }
-        }
+        public IEnumerable<RoughnessProfileSection> DikeGeometry { get; private set; }
 
         /// <summary>
         /// Gets the dike's foreshore geometry.
         /// </summary>
-        public IEnumerable<RoughnessProfileSection> ForeshoreGeometry
-        {
-            get
-            {
-                return geometry == null ? Enumerable.Empty<RoughnessProfileSection>() : geometry.Take(ForeshoreDikeGeometryPoints);
-            }
-        }
+        public IEnumerable<RoughnessProfileSection> ForeshoreGeometry { get; private set; }
 
         /// <summary>
         /// Gets or sets the dike's orientation
@@ -103,20 +92,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets if <see cref="ForeshoreDikeGeometryPoints"/> needs to be taken into account.
+        /// Gets or sets if <see cref="ForeshoreGeometry"/> needs to be taken into account.
         /// </summary>
-        /// <remarks>Value of <see cref="ForeshoreDikeGeometryPoints"/> must not be reset when <see cref="UseForeshore"/> is set to <c>false</c>.</remarks>
+        /// <remarks>Value of <see cref="ForeshoreGeometry"/> must not be reset when <see cref="UseForeshore"/> is set to <c>false</c>.</remarks>
         public bool UseForeshore { get; set; }
 
         /// <summary>
         /// Gets or sets the dike height.
         /// </summary>
         public RoundedDouble DikeHeight { get; set; }
-
-        /// <summary>
-        /// Gets the number of profile points of the dike geometry that form the foreshore geometry.
-        /// </summary>
-        public int ForeshoreDikeGeometryPoints { get; private set; }
 
         /// <summary>
         /// Gets or sets if <see cref="BreakWater"/> needs to be taken into account.
@@ -134,19 +118,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
-        /// Sets the grass cover erosion inwards geometry.
+        /// Sets the grass cover erosion inwards dike geometry.
         /// </summary>
         /// <param name="profileSections">The grass cover erosion inwards geometry points.</param>
-        /// <param name="foreshoreGeometryPoints">Defines how many <see cref="RoughnessProfileSection"/> in 
-        /// <paramref name="profileSections"/> are foreshore.</param>
-        public void SetGeometry(IEnumerable<RoughnessProfileSection> profileSections, int foreshoreGeometryPoints)
+        public void SetDikeGeometry(IEnumerable<RoughnessProfileSection> profileSections)
         {
             if (profileSections == null)
             {
                 throw new ArgumentNullException("profileSections");
             }
-            geometry = profileSections;
-            ForeshoreDikeGeometryPoints = foreshoreGeometryPoints;
+            DikeGeometry = profileSections;
+        }
+
+        /// <summary>
+        /// Sets the grass cover erosion inwards foreshore geometry.
+        /// </summary>
+        /// <param name="profileSections">The grass cover erosion inwards geometry points.</param>
+        public void SetForeshoreGeometry(IEnumerable<RoughnessProfileSection> profileSections)
+        {
+            if (profileSections == null)
+            {
+                throw new ArgumentNullException("profileSections");
+            }
+            ForeshoreGeometry = profileSections;
         }
     }
 }

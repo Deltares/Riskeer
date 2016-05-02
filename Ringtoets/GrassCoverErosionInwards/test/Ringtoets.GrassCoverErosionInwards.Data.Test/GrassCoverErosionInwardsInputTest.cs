@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -74,26 +73,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(foreshorePresent, input.UseForeshore);
             Assert.AreEqual(breakWater, input.BreakWater);
             Assert.AreEqual(breakWaterPresent, input.UseBreakWater);
+            CollectionAssert.IsEmpty(input.DikeGeometry);
+            CollectionAssert.IsEmpty(input.ForeshoreGeometry);
         }
 
         [Test]
-        public void SetGeometry_NullRoughnessProfileSections_ThrowsArgumentNullException()
+        public void SetDikeGeometry_NullRoughnessProfileSections_ThrowsArgumentNullException()
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput();
 
             // Call
-            TestDelegate test = () => input.SetGeometry(null, 0);
+            TestDelegate test = () => input.SetDikeGeometry(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(test);
         }
 
         [Test]
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void SetGeometry_ValidRoughnessProfileSections_ReturnsExpectedValues(int foreshoreDikeGeometryPoints)
+        public void SetForeshoreGeometry_NullRoughnessProfileSections_ThrowsArgumentNullException()
+        {
+            // Setup
+            var input = new GrassCoverErosionInwardsInput();
+
+            // Call
+            TestDelegate test = () => input.SetForeshoreGeometry(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void SetDikeGeometry_ValidGeometry_ReturnsExpectedValues()
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput();
@@ -104,16 +115,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             };
 
             // Call
-            input.SetGeometry(sections, foreshoreDikeGeometryPoints);
+            input.SetDikeGeometry(sections);
 
             // Assert
-            Assert.AreEqual(foreshoreDikeGeometryPoints, input.ForeshoreDikeGeometryPoints);
+            Assert.AreEqual(sections, input.DikeGeometry);
+        }
 
-            var foreshoreSection = sections.Take(foreshoreDikeGeometryPoints);
-            Assert.AreEqual(foreshoreSection, input.ForeshoreGeometry);
+        [Test]
+        public void SetForeshoreGeometry_ValidGeometry_ReturnsExpectedValues()
+        {
+            // Setup
+            var input = new GrassCoverErosionInwardsInput();
+            var sections = new[]
+            {
+                new RoughnessProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4), 1.1),
+                new RoughnessProfileSection(new Point2D(3.3, 4.4), new Point2D(5.5, 6.6), 2.2)
+            };
 
-            var dikeSection = sections.Skip(foreshoreDikeGeometryPoints);
-            Assert.AreEqual(dikeSection, input.DikeGeometry);
+            // Call
+            input.SetForeshoreGeometry(sections);
+
+            // Assert
+            Assert.AreEqual(sections, input.ForeshoreGeometry);
         }
     }
 }

@@ -94,12 +94,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             InputParameters.CriticalFlowRate = new LognormalDistribution(3);
 
             // Dike and Foreshore
-            var sections = new[]
+            var dikeSections = new[]
             {
-                new RoughnessProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4), 1.1),
+                new RoughnessProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4), 1.1)
+            };
+            var foreshoreSections = new[]
+            {
                 new RoughnessProfileSection(new Point2D(3.3, 4.4), new Point2D(5.5, 6.6), 2.2)
             };
-            InputParameters.SetGeometry(sections, 1);
+            InputParameters.SetDikeGeometry(dikeSections);
+            InputParameters.SetForeshoreGeometry(foreshoreSections);
             InputParameters.UseForeshore = true;
 
             // Hydraulic boundaries location
