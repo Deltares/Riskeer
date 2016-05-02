@@ -102,7 +102,5 @@ namespace Application.Ringtoets.Storage.Test.Create
                 throw new NotImplementedException();
             }
         }
-
-        public override ICalculationGroup CalculationsGroup { get; protected set; }
     }
 }

@@ -178,7 +178,5 @@ namespace Application.Ringtoets.Storage.Test.Update
                 throw new NotImplementedException();
             }
         }
-
-        public override ICalculationGroup CalculationsGroup { get; protected set; }
     }
 }
