@@ -29,13 +29,12 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
-
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.TreeNodeInfos
 {
     /// <summary>
-    /// Factory for creating <see cref="TreeNodeInfo"/> objects.
+    /// Factory for creating calculation related <see cref="TreeNodeInfo"/> objects.
     /// </summary>
     public static class CalculationTreeNodeInfoFactory
     {
@@ -43,13 +42,12 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// Creates a <see cref="TreeNodeInfo"/> object for a calculation group context of the type <typeparamref name="TCalculationGroupContext"/>.
         /// </summary>
         /// <typeparam name="TCalculationGroupContext">The type of calculation group context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
-        /// <param name="childNodeObjects">The function for obtaining child node objects.</param>
+        /// <param name="childNodeObjects">The function for obtaining the child node objects.</param>
         /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
         /// <param name="onNodeRemoved">The action to perform on removing a node.</param>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TCalculationGroupContext> CreateCalculationGroupContextTreeNodeInfo<TCalculationGroupContext>(
-            Func<TCalculationGroupContext,
-            object[]> childNodeObjects,
+            Func<TCalculationGroupContext, object[]> childNodeObjects,
             Func<TCalculationGroupContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
             Action<TCalculationGroupContext, object> onNodeRemoved)
             where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
@@ -70,16 +68,16 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 CanRemove = (context, parentData) => IsNestedGroup(parentData),
                 OnNodeRemoved = onNodeRemoved,
                 CanDrag = (context, parentData) => IsNestedGroup(parentData),
-                CanInsert = CanDropOrInsert,
-                CanDrop = CanDropOrInsert,
-                OnDrop = OnDrop
+                CanInsert = CalculationGroupCanDropOrInsert,
+                CanDrop = CalculationGroupCanDropOrInsert,
+                OnDrop = CalculationGroupOnDrop
             };
         }
 
         /// <summary>
         /// This method adds a context menu item for creating new calculation groups.
         /// </summary>
-        /// <param name="builder">The builder to add the context menu item too.</param>
+        /// <param name="builder">The builder to add the context menu item to.</param>
         /// <param name="calculationGroup">The calculation group involved.</param>
         public static void AddCreateCalculationGroupItem(IContextMenuBuilder builder, CalculationGroup calculationGroup)
         {
@@ -103,7 +101,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <summary>
         /// This method adds a context menu item for creating new calculations.
         /// </summary>
-        /// <param name="builder">The builder to add the context menu item too.</param>
+        /// <param name="builder">The builder to add the context menu item to.</param>
         /// <param name="calculationGroupContext">The calculation group context involved.</param>
         /// <param name="addCalculation">The action for adding a calculation to the calculation group.</param>
         public static void AddCreateCalculationItem<TCalculationGroupContext>(IContextMenuBuilder builder, TCalculationGroupContext calculationGroupContext, Action<TCalculationGroupContext> addCalculation) where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
@@ -117,18 +115,20 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             builder.AddCustomItem(createCalculationItem);
         }
 
+        # region Helper methods for CreateCalculationGroupContextTreeNodeInfo
+
         private static bool IsNestedGroup(object parentData)
         {
             return parentData is ICalculationContext<CalculationGroup, IFailureMechanism>;
         }
 
-        private static bool CanDropOrInsert(object draggedData, object targetData)
+        private static bool CalculationGroupCanDropOrInsert(object draggedData, object targetData)
         {
             var calculationContext = draggedData as ICalculationContext<ICalculationBase, IFailureMechanism>;
-            return calculationContext != null && ReferenceEquals(calculationContext.FailureMechanism, ((ICalculationContext<CalculationGroup, IFailureMechanism>)targetData).FailureMechanism);
+            return calculationContext != null && ReferenceEquals(calculationContext.FailureMechanism, ((ICalculationContext<CalculationGroup, IFailureMechanism>) targetData).FailureMechanism);
         }
 
-        private static void OnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
+        private static void CalculationGroupOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
         {
             ICalculationBase calculationItem = ((ICalculationContext<ICalculationBase, IFailureMechanism>) droppedData).WrappedData;
             var originalOwnerContext = oldParentData as ICalculationContext<CalculationGroup, IFailureMechanism>;
@@ -149,20 +149,20 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         private static DroppingCalculationInContainerStrategy GetDragDropStrategy(bool isMoveWithinSameContainer, CalculationGroup sourceCalculationGroup, CalculationGroup targetCalculationGroup)
         {
             return isMoveWithinSameContainer
-                ? (DroppingCalculationInContainerStrategy)new DroppingCalculationWithinSameContainer(sourceCalculationGroup, targetCalculationGroup)
-                : new DroppingCalculationToNewContainer(sourceCalculationGroup, targetCalculationGroup);
+                       ? (DroppingCalculationInContainerStrategy) new DroppingCalculationWithinSameContainer(sourceCalculationGroup, targetCalculationGroup)
+                       : new DroppingCalculationToNewContainer(sourceCalculationGroup, targetCalculationGroup);
         }
 
-        #region Nested Types: DroppingPipingCalculationInContainerStrategy and implementations
+        # region Nested types: DroppingPipingCalculationInContainerStrategy and implementations
 
         /// <summary>
-        /// Strategy pattern implementation for dealing with drag & dropping a <see cref="ICalculation"/>
+        /// Strategy pattern implementation for dealing with drag and drop of a <see cref="ICalculation"/>
         /// onto <see cref="CalculationGroup"/> data.
         /// </summary>
         private abstract class DroppingCalculationInContainerStrategy
         {
-            private readonly CalculationGroup sourceCalculationGroup;
             protected readonly CalculationGroup targetCalculationGroup;
+            private readonly CalculationGroup sourceCalculationGroup;
 
             protected DroppingCalculationInContainerStrategy(CalculationGroup sourceCalculationGroup, CalculationGroup targetCalculationGroup)
             {
@@ -171,7 +171,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             }
 
             /// <summary>
-            /// Perform the drag & drop operation.
+            /// Performs the drag and drop operation.
             /// </summary>
             /// <param name="draggedData">The dragged data.</param>
             /// <param name="calculationBase">The calculation item wrapped by <see cref="draggedData"/>.</param>
@@ -207,22 +207,22 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
 
         /// <summary>
         /// Strategy implementation for rearranging the order of an <see cref="ICalculation"/>
-        /// within a <see cref="CalculationGroup"/> through a drag & drop action.
+        /// within a <see cref="CalculationGroup"/> through a drag and drop action.
         /// </summary>
         private class DroppingCalculationWithinSameContainer : DroppingCalculationInContainerStrategy
         {
             /// <summary>
             /// Initializes a new instance of the <see cref="DroppingCalculationWithinSameContainer"/> class.
             /// </summary>
-            /// <param name="sourceCalculationGroup">The calculation group that is the target of the drag & drop operation.</param>
+            /// <param name="sourceCalculationGroup">The calculation group that is the target of the drag and drop operation.</param>
             /// <param name="targetCalculationGroup">The calculation group that is the original owner of the dragged item.</param>
             public DroppingCalculationWithinSameContainer(CalculationGroup sourceCalculationGroup, CalculationGroup targetCalculationGroup) :
-                base(sourceCalculationGroup, targetCalculationGroup) { }
+                base(sourceCalculationGroup, targetCalculationGroup) {}
         }
 
         /// <summary>
         /// Strategy implementation for moving an <see cref="ICalculation"/> from
-        /// one <see cref="CalculationGroup"/> to another using a drag & drop action.
+        /// one <see cref="CalculationGroup"/> to another using a drag and drop action.
         /// </summary>
         private class DroppingCalculationToNewContainer : DroppingCalculationInContainerStrategy
         {
@@ -230,9 +230,9 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             /// Initializes a new instance of the <see cref="DroppingCalculationToNewContainer"/> class.
             /// </summary>
             /// <param name="sourceCalculationGroup">The calculation group that is the original owner of the dragged item.</param>
-            /// <param name="targetCalculationGroup">The calculation group that is the target of the drag & drop operation.</param>
+            /// <param name="targetCalculationGroup">The calculation group that is the target of the drag and drop operation.</param>
             public DroppingCalculationToNewContainer(CalculationGroup sourceCalculationGroup, CalculationGroup targetCalculationGroup) :
-                base(sourceCalculationGroup, targetCalculationGroup) { }
+                base(sourceCalculationGroup, targetCalculationGroup) {}
 
             public override void Execute(object draggedData, ICalculationBase calculationBase, int newPosition, TreeViewControl treeViewControl)
             {
@@ -257,6 +257,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             }
         }
 
-        #endregion
+        # endregion
+
+        # endregion
     }
 }

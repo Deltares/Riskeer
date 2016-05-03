@@ -38,6 +38,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class CalculationTreeNodeInfoFactoryTest
     {
+        # region CreateCalculationGroupContextTreeNodeInfo
+
         [Test]
         public void TextOfCalculationGroupContextTreeNodeInfo_Always_ReturnsWrappedDataName()
         {
@@ -637,6 +639,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             /// </summary>
             Group
         }
+
+        # endregion
 
         # endregion
     }
