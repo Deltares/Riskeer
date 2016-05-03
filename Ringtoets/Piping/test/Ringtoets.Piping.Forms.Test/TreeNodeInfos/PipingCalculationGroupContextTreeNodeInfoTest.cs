@@ -610,7 +610,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
-            var parentData = new PipingFailureMechanism();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
@@ -1358,102 +1357,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
         [Test]
         [Combinatorial]
-        public void CanDropOrCanInsert_DraggingPipingCalculationItemContextOntoGroupNotContainingItem_ReturnTrue(
-            [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
-            [Values(PipingCalculationType.Calculation, PipingCalculationType.Group)] PipingCalculationType draggedItemType)
-        {
-            // Setup
-            ICalculationBase draggedItem;
-            object draggedItemContext;
-
-            var failureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-
-            mocks.ReplayAll();
-
-            CreatePipingCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanism, assessmentSection);
-
-            CalculationGroup targetGroup;
-            PipingCalculationGroupContext targetGroupContext;
-            CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext, failureMechanism, assessmentSection);
-
-            failureMechanism.CalculationsGroup.Children.Add(draggedItem);
-            failureMechanism.CalculationsGroup.Children.Add(targetGroup);
-
-            switch (methodToTest)
-            {
-                case DragDropTestMethod.CanDrop:
-                    // Call
-                    var canDrop = info.CanDrop(draggedItemContext, targetGroupContext);
-
-                    // Assert
-                    Assert.IsTrue(canDrop);
-                    break;
-                case DragDropTestMethod.CanInsert:
-                    // Call
-                    bool canInsert = info.CanInsert(draggedItemContext, targetGroupContext);
-
-                    // Assert
-                    Assert.IsTrue(canInsert);
-                    break;
-                default:
-                    Assert.Fail(methodToTest + " not supported.");
-                    break;
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Combinatorial]
-        public void CanDropOrInsert_DraggingCalculationItemContextOntoGroupNotContainingItemOtherFailureMechanism_ReturnFalse(
-            [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
-            [Values(PipingCalculationType.Calculation, PipingCalculationType.Group)] PipingCalculationType draggedItemType)
-        {
-            // Setup
-            ICalculationBase draggedItem;
-            object draggedItemContext;
-
-            var targetFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-
-            mocks.ReplayAll();
-
-            CreatePipingCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, targetFailureMechanism, assessmentSection);
-
-            var sourceFailureMechanism = new PipingFailureMechanism();
-            sourceFailureMechanism.CalculationsGroup.Children.Add(draggedItem);
-
-            CalculationGroup targetGroup;
-            PipingCalculationGroupContext targetGroupContext;
-            CreatePipingCalculationGroupAndContext(out targetGroup, out targetGroupContext, sourceFailureMechanism, assessmentSection);
-
-            targetFailureMechanism.CalculationsGroup.Children.Add(targetGroup);
-
-            switch (methodToTest)
-            {
-                case DragDropTestMethod.CanDrop:
-                    // Call
-                    var canDrop = info.CanDrop(draggedItemContext, targetGroupContext);
-
-                    // Assert
-                    Assert.IsFalse(canDrop);
-                    break;
-                case DragDropTestMethod.CanInsert:
-                    // Call
-                    bool canInsert = info.CanInsert(draggedItemContext, targetGroupContext);
-
-                    // Assert
-                    Assert.IsFalse(canInsert);
-                    break;
-                default:
-                    Assert.Fail(methodToTest + " not supported.");
-                    break;
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Combinatorial]
         public void OnDrop_DraggingPipingCalculationItemContextOntoGroupEnd_MoveCalculationItemInstanceToNewGroup(
             [Values(PipingCalculationType.Calculation, PipingCalculationType.Group)] PipingCalculationType draggedItemType)
         {
@@ -1736,22 +1639,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             }));
 
             return failureMechanism;
-        }
-
-        /// <summary>
-        /// Type indicator for testing methods on <see cref="TreeNodeInfo"/>.
-        /// </summary>
-        public enum DragDropTestMethod
-        {
-            /// <summary>
-            /// Indicates <see cref="TreeNodeInfo.CanDrop"/>.
-            /// </summary>
-            CanDrop,
-
-            /// <summary>
-            /// Indicates <see cref="TreeNodeInfo.CanInsert"/>.
-            /// </summary>
-            CanInsert
         }
 
         /// <summary>

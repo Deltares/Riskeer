@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
+using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -87,7 +89,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRenameNodeOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnTrue()
+        public void CanRenameNodeOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -108,7 +110,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRenameNodeOfCalculationGroupContextTreeNodeInfo_WithoutParentNodeDefaultBehavior_ReturnFalse()
+        public void CanRenameNodeOfCalculationGroupContextTreeNodeInfo_WithoutParentNodeDefaultBehavior_ReturnsFalse()
         {
             // Setup
             var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
@@ -149,7 +151,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRemoveOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnTrue()
+        public void CanRemoveOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -169,7 +171,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRemoveOfCalculationGroupContextTreeNodeInfo_WithoutParentNodeDefaultBehavior_ReturnFalse()
+        public void CanRemoveOfCalculationGroupContextTreeNodeInfo_WithoutParentNodeDefaultBehavior_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -188,7 +190,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanDragOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnTrue()
+        public void CanDragOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -208,7 +210,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanDragOfCalculationGroupContextTreeNodeInfo_WithoutParentNodeDefaultBehavior_ReturnFalse()
+        public void CanDragOfCalculationGroupContextTreeNodeInfo_WithoutParentNodeDefaultBehavior_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -226,6 +228,97 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Assert.IsFalse(canDrag);
         }
 
+        [Test]
+        [Combinatorial]
+        public void CanDropOrCanInsertOfCalculationGroupContextTreeNodeInfo_DraggingPipingCalculationItemContextOntoGroupNotContainingItem_ReturnsTrue(
+            [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
+            [Values(CalculationType.Calculation, CalculationType.Group)] CalculationType draggedItemType)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            object draggedItemContext;
+            ICalculationBase draggedItem;
+            CreateCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanism);
+
+            CalculationGroup targetGroup;
+            TestCalculationGroupContext targetGroupContext;
+            CreateCalculationGroupAndContext(out targetGroup, out targetGroupContext, failureMechanism);
+
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+
+            switch (methodToTest)
+            {
+                case DragDropTestMethod.CanDrop:
+                    // Call
+                    var canDrop = treeNodeInfo.CanDrop(draggedItemContext, targetGroupContext);
+
+                    // Assert
+                    Assert.IsTrue(canDrop);
+                    break;
+                case DragDropTestMethod.CanInsert:
+                    // Call
+                    bool canInsert = treeNodeInfo.CanInsert(draggedItemContext, targetGroupContext);
+
+                    // Assert
+                    Assert.IsTrue(canInsert);
+                    break;
+                default:
+                    Assert.Fail(methodToTest + " not supported.");
+                    break;
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void CanDropOrInsertOfCalculationGroupContextTreeNodeInfo_DraggingCalculationItemContextOntoGroupNotContainingItemOtherFailureMechanism_ReturnsFalse(
+            [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
+            [Values(CalculationType.Calculation, CalculationType.Group)] CalculationType draggedItemType)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var sourceFailureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var targetFailureMechanism = mocks.StrictMock<IFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            object draggedItemContext;
+            ICalculationBase draggedItem;
+            CreateCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, targetFailureMechanism);
+
+            CalculationGroup targetGroup;
+            TestCalculationGroupContext targetGroupContext;
+            CreateCalculationGroupAndContext(out targetGroup, out targetGroupContext, sourceFailureMechanism);
+
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+
+            switch (methodToTest)
+            {
+                case DragDropTestMethod.CanDrop:
+                    // Call
+                    var canDrop = treeNodeInfo.CanDrop(draggedItemContext, targetGroupContext);
+
+                    // Assert
+                    Assert.IsFalse(canDrop);
+                    break;
+                case DragDropTestMethod.CanInsert:
+                    // Call
+                    bool canInsert = treeNodeInfo.CanInsert(draggedItemContext, targetGroupContext);
+
+                    // Assert
+                    Assert.IsFalse(canInsert);
+                    break;
+                default:
+                    Assert.Fail(methodToTest + " not supported.");
+                    break;
+            }
+            mocks.VerifyAll();
+        }
+
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             public TestCalculationGroupContext(CalculationGroup wrappedData, IFailureMechanism failureMechanism)
@@ -237,6 +330,129 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             public CalculationGroup WrappedData { get; private set; }
 
             public IFailureMechanism FailureMechanism { get; private set; }
+        }
+
+        private class TestCalculationContext : Observable, ICalculationContext<TestCalculation, IFailureMechanism>
+        {
+            public TestCalculationContext(TestCalculation wrappedData, IFailureMechanism failureMechanism)
+            {
+                WrappedData = wrappedData;
+                FailureMechanism = failureMechanism;
+            }
+
+            public TestCalculation WrappedData { get; private set; }
+
+            public IFailureMechanism FailureMechanism { get; private set; }
+        }
+
+        private class TestCalculation : Observable, ICalculation
+        {
+            public string Name { get; set; }
+
+            public string Comments { get; set; }
+
+            public bool HasOutput
+            {
+                get
+                {
+                    return false;
+                }
+            }
+
+            public void ClearOutput()
+            {
+
+            }
+
+            public void ClearHydraulicBoundaryLocation()
+            {
+
+            }
+
+            public ICalculationInput GetObservableInput()
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="CalculationGroup"/> and the corresponding <see cref="TestCalculationGroupContext"/>.
+        /// </summary>
+        /// <param name="data">The created group without any children.</param>
+        /// <param name="dataContext">The context object for <paramref name="data"/>, without any other data.</param>
+        /// <param name="failureMechanism">The failure mechanism the item and context it belong to.</param>
+        private void CreateCalculationGroupAndContext(out CalculationGroup data, out TestCalculationGroupContext dataContext, IFailureMechanism failureMechanism)
+        {
+            data = new CalculationGroup();
+            dataContext = new TestCalculationGroupContext(data, failureMechanism);
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="ICalculationBase"/> and the corresponding context.
+        /// </summary>
+        /// <param name="type">Defines the implementation of <see cref="ICalculationBase"/> to be constructed.</param>
+        /// <param name="data">Output: The concrete create class based on <paramref name="type"/>.</param>
+        /// <param name="dataContext">Output: The context corresponding with <paramref name="data"/>.</param>
+        /// <param name="failureMechanism">The failure mechanism the item and context belong to.</param>
+        /// <param name="initialName">Optional: The name of <paramref name="data"/>.</param>
+        /// <exception cref="System.NotSupportedException"></exception>
+        private static void CreateCalculationAndContext(CalculationType type, out ICalculationBase data, out object dataContext, IFailureMechanism failureMechanism, string initialName = null)
+        {
+            switch (type)
+            {
+                case CalculationType.Calculation:
+                    var calculation = new TestCalculation();
+                    if (initialName != null)
+                    {
+                        calculation.Name = initialName;
+                    }
+                    data = calculation;
+                    dataContext = new TestCalculationContext(calculation, failureMechanism);
+                    break;
+                case CalculationType.Group:
+                    var group = new CalculationGroup();
+                    if (initialName != null)
+                    {
+                        group.Name = initialName;
+                    }
+                    data = group;
+                    dataContext = new TestCalculationGroupContext(group, failureMechanism);
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Type indicator for testing methods on <see cref="TreeNodeInfo"/>.
+        /// </summary>
+        public enum DragDropTestMethod
+        {
+            /// <summary>
+            /// Indicates <see cref="TreeNodeInfo.CanDrop"/>.
+            /// </summary>
+            CanDrop,
+
+            /// <summary>
+            /// Indicates <see cref="TreeNodeInfo.CanInsert"/>.
+            /// </summary>
+            CanInsert
+        }
+
+        /// <summary>
+        /// Type indicator for implementations of <see cref="ICalculationBase"/> to be created in a test.
+        /// </summary>
+        public enum CalculationType
+        {
+            /// <summary>
+            /// Indicates <see cref="ICalculation"/>.
+            /// </summary>
+            Calculation,
+
+            /// <summary>
+            /// Indicates <see cref="CalculationGroup"/>.
+            /// </summary>
+            Group
         }
     }
 }

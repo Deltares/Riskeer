@@ -481,102 +481,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
         [Test]
         [Combinatorial]
-        public void CanDropOrCanInsert_DraggingPipingCalculationItemContextOntoGroupNotContainingItem_ReturnTrue(
-            [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
-            [Values(CalculationType.Calculation, CalculationType.Group)] CalculationType draggedItemType)
-        {
-            // Setup
-            ICalculationBase draggedItem;
-            object draggedItemContext;
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-
-            mocks.ReplayAll();
-
-            CreateCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanism, assessmentSection);
-
-            CalculationGroup targetGroup;
-            GrassCoverErosionInwardsCalculationGroupContext targetGroupContext;
-            CreateCalculationGroupAndContext(out targetGroup, out targetGroupContext, failureMechanism, assessmentSection);
-
-            failureMechanism.CalculationsGroup.Children.Add(draggedItem);
-            failureMechanism.CalculationsGroup.Children.Add(targetGroup);
-
-            switch (methodToTest)
-            {
-                case DragDropTestMethod.CanDrop:
-                    // Call
-                    var canDrop = info.CanDrop(draggedItemContext, targetGroupContext);
-
-                    // Assert
-                    Assert.IsTrue(canDrop);
-                    break;
-                case DragDropTestMethod.CanInsert:
-                    // Call
-                    bool canInsert = info.CanInsert(draggedItemContext, targetGroupContext);
-
-                    // Assert
-                    Assert.IsTrue(canInsert);
-                    break;
-                default:
-                    Assert.Fail(methodToTest + " not supported.");
-                    break;
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Combinatorial]
-        public void CanDropOrInsert_DraggingCalculationItemContextOntoGroupNotContainingItemOtherFailureMechanism_ReturnFalse(
-            [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
-            [Values(CalculationType.Calculation, CalculationType.Group)] CalculationType draggedItemType)
-        {
-            // Setup
-            ICalculationBase draggedItem;
-            object draggedItemContext;
-
-            var targetFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-
-            mocks.ReplayAll();
-
-            CreateCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, targetFailureMechanism, assessmentSection);
-
-            var sourceFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            sourceFailureMechanism.CalculationsGroup.Children.Add(draggedItem);
-
-            CalculationGroup targetGroup;
-            GrassCoverErosionInwardsCalculationGroupContext targetGroupContext;
-            CreateCalculationGroupAndContext(out targetGroup, out targetGroupContext, sourceFailureMechanism, assessmentSection);
-
-            targetFailureMechanism.CalculationsGroup.Children.Add(targetGroup);
-
-            switch (methodToTest)
-            {
-                case DragDropTestMethod.CanDrop:
-                    // Call
-                    var canDrop = info.CanDrop(draggedItemContext, targetGroupContext);
-
-                    // Assert
-                    Assert.IsFalse(canDrop);
-                    break;
-                case DragDropTestMethod.CanInsert:
-                    // Call
-                    bool canInsert = info.CanInsert(draggedItemContext, targetGroupContext);
-
-                    // Assert
-                    Assert.IsFalse(canInsert);
-                    break;
-                default:
-                    Assert.Fail(methodToTest + " not supported.");
-                    break;
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Combinatorial]
         public void OnDrop_DraggingPipingCalculationItemContextOntoGroupEnd_MoveCalculationItemInstanceToNewGroup(
             [Values(CalculationType.Calculation, CalculationType.Group)] CalculationType draggedItemType)
         {
@@ -801,22 +705,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 default:
                     throw new NotSupportedException();
             }
-        }
-
-        /// <summary>
-        /// Type indicator for testing methods on <see cref="TreeNodeInfo"/>.
-        /// </summary>
-        public enum DragDropTestMethod
-        {
-            /// <summary>
-            /// Indicates <see cref="TreeNodeInfo.CanDrop"/>.
-            /// </summary>
-            CanDrop,
-
-            /// <summary>
-            /// Indicates <see cref="TreeNodeInfo.CanInsert"/>.
-            /// </summary>
-            CanInsert
         }
 
         /// <summary>
