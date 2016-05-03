@@ -235,7 +235,7 @@ namespace Ringtoets.Piping.Plugin
 
         private TreeNodeInfo<PipingCalculationGroupContext> CreatePipingCalculationGroupContextTreeNodeInfo()
         {
-            var treeNodeInfo = TreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(PipingCalculationGroupContextChildNodeObjects, null, Gui);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(PipingCalculationGroupContextChildNodeObjects, null, Gui);
 
             treeNodeInfo.ContextMenuStrip = PipingCalculationGroupContextContextMenuStrip;
             treeNodeInfo.OnNodeRemoved = PipingCalculationGroupContextOnNodeRemoved;

@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
     /// <summary>
     /// Factory for creating <see cref="TreeNodeInfo"/> objects.
     /// </summary>
-    public static class TreeNodeInfoFactory
+    public static class CalculationTreeNodeInfoFactory
     {
         /// <summary>
         /// Creates a <see cref="TreeNodeInfo"/> object for a calculation group context of the type <typeparamref name="TCalculationGroupContext"/>.
@@ -82,6 +82,47 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             };
         }
 
+        /// <summary>
+        /// This method adds a context menu item for creating new calculation groups.
+        /// </summary>
+        /// <param name="builder">The builder to add the context menu item too.</param>
+        /// <param name="calculationGroup">The calculation group involved.</param>
+        public static void AddCreateCalculationGroupItem(IContextMenuBuilder builder, CalculationGroup calculationGroup)
+        {
+            var createCalculationGroupItem = new StrictContextMenuItem(
+                Resources.CalculationGroup_Add_CalculationGroup,
+                Resources.Add_calculation_group_to_calculation_group_tooltip,
+                Resources.AddFolderIcon,
+                (o, args) =>
+                {
+                    var calculation = new CalculationGroup
+                    {
+                        Name = NamingHelper.GetUniqueName(calculationGroup.Children, RingtoetsCommonDataResources.CalculationGroup_DefaultName, c => c.Name)
+                    };
+                    calculationGroup.Children.Add(calculation);
+                    calculationGroup.NotifyObservers();
+                });
+
+            builder.AddCustomItem(createCalculationGroupItem);
+        }
+
+        /// <summary>
+        /// This method adds a context menu item for creating new calculations.
+        /// </summary>
+        /// <param name="builder">The builder to add the context menu item too.</param>
+        /// <param name="calculationGroupContext">The calculation group context involved.</param>
+        /// <param name="addCalculation">The action for adding a calculation to the calculation group.</param>
+        public static void AddCreateCalculationItem<TCalculationGroupContext>(IContextMenuBuilder builder, TCalculationGroupContext calculationGroupContext, Action<TCalculationGroupContext> addCalculation) where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+        {
+            var createCalculationItem = new StrictContextMenuItem(
+                Resources.CalculationGroup_Add_Calculation,
+                Resources.Add_calculation_to_calculation_group_tooltip,
+                Resources.FailureMechanismIcon,
+                (o, args) => { addCalculation(calculationGroupContext); });
+
+            builder.AddCustomItem(createCalculationItem);
+        }
+
         private static bool IsNestedGroup(object parentData)
         {
             return parentData is ICalculationContext<CalculationGroup, IFailureMechanism>;
@@ -90,29 +131,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         private static ContextMenuStrip ContextMenuStrip<TCalculationGroupContext>(TCalculationGroupContext nodeData, object parentData, TreeViewControl treeViewControl, Action<TCalculationGroupContext> addCalculation, IGui gui) where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             var group = nodeData.WrappedData;
-
-            var addCalculationGroupItem = new StrictContextMenuItem(
-                Resources.CalculationGroup_Add_CalculationGroup,
-                Resources.Add_calculation_group_to_calculation_group_tooltip,
-                Resources.AddFolderIcon,
-                (o, args) =>
-                {
-                    var calculation = new CalculationGroup
-                    {
-                        Name = NamingHelper.GetUniqueName(group.Children, RingtoetsCommonDataResources.CalculationGroup_DefaultName, c => c.Name)
-                    };
-                    group.Children.Add(calculation);
-                    nodeData.WrappedData.NotifyObservers();
-                });
-
-            var addCalculationItem = new StrictContextMenuItem(
-                Resources.CalculationGroup_Add_Calculation,
-                Resources.Add_calculation_to_calculation_group_tooltip,
-                Resources.FailureMechanismIcon,
-                (o, args) => { addCalculation(nodeData); });
-
             var builder = gui.Get(nodeData, treeViewControl);
-
             var isNestedGroup = IsNestedGroup(parentData);
 
             if (!isNestedGroup)
@@ -122,10 +141,9 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                     .AddSeparator();
             }
 
-            builder
-                .AddCustomItem(addCalculationGroupItem)
-                .AddCustomItem(addCalculationItem)
-                .AddSeparator();
+            AddCreateCalculationGroupItem(builder, group);
+            AddCreateCalculationItem(builder, nodeData, addCalculation);
+            builder.AddSeparator();
 
             if (isNestedGroup)
             {

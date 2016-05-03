@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 FailureMechanismContextMenuStrip,
                 Gui);
 
-            yield return TreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>(CalculationGroupContextChildNodeObjects, context => AddCalculation(context.FailureMechanism, context.WrappedData), Gui);
+            yield return CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>(CalculationGroupContextChildNodeObjects, context => AddCalculation(context.FailureMechanism, context.WrappedData), Gui);
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsCalculationContext>
             {
