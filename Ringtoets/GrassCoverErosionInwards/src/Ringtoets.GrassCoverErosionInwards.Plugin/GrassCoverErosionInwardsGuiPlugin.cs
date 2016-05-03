@@ -70,7 +70,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 FailureMechanismContextMenuStrip,
                 Gui);
 
-            yield return CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>(CalculationGroupContextChildNodeObjects, CalculationGroupContextContextMenuStrip);
+            yield return CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>(
+                CalculationGroupContextChildNodeObjects,
+                CalculationGroupContextContextMenuStrip,
+                CalculationGroupContextOnNodeRemoved);
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsCalculationContext>
             {
@@ -370,6 +373,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();
+        }
+
+        private void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentNodeData)
+        {
+            var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
+
+            parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
+            parentGroupContext.NotifyObservers();
         }
 
         #endregion

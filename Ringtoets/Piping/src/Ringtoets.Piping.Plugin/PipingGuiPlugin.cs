@@ -122,7 +122,10 @@ namespace Ringtoets.Piping.Plugin
                 CanDrag = (pipingCalculationContext, parentData) => true
             };
 
-            yield return CreatePipingCalculationGroupContextTreeNodeInfo();
+            yield return CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(
+                PipingCalculationGroupContextChildNodeObjects,
+                PipingCalculationGroupContextContextMenuStrip,
+                PipingCalculationGroupContextOnNodeRemoved);
 
             yield return new TreeNodeInfo<PipingInputContext>
             {
@@ -231,15 +234,6 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
-        }
-
-        private TreeNodeInfo<PipingCalculationGroupContext> CreatePipingCalculationGroupContextTreeNodeInfo()
-        {
-            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(PipingCalculationGroupContextChildNodeObjects, PipingCalculationGroupContextContextMenuStrip);
-
-            treeNodeInfo.OnNodeRemoved = PipingCalculationGroupContextOnNodeRemoved;
-
-            return treeNodeInfo;
         }
 
         # region PipingCalculationsView ViewInfo
@@ -584,10 +578,10 @@ namespace Ringtoets.Piping.Plugin
                 if (calculation != null)
                 {
                     childNodeObjects.Add(new PipingCalculationScenarioContext(calculation,
-                                                                      nodeData.AvailablePipingSurfaceLines,
-                                                                      nodeData.AvailableStochasticSoilModels,
-                                                                      nodeData.FailureMechanism,
-                                                                      nodeData.AssessmentSection));
+                                                                              nodeData.AvailablePipingSurfaceLines,
+                                                                              nodeData.AvailableStochasticSoilModels,
+                                                                              nodeData.FailureMechanism,
+                                                                              nodeData.AssessmentSection));
                 }
                 else if (group != null)
                 {
@@ -794,18 +788,16 @@ namespace Ringtoets.Piping.Plugin
 
         private void PipingCalculationGroupContextOnNodeRemoved(PipingCalculationGroupContext nodeData, object parentNodeData)
         {
-            var group = parentNodeData as PipingCalculationGroupContext;
-            if (group != null)
+            var parentGroupContext = (PipingCalculationGroupContext) parentNodeData;
+
+            parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
+
+            foreach (var calculation in nodeData.WrappedData.GetCalculations().Cast<PipingCalculationScenario>())
             {
-                group.WrappedData.Children.Remove(nodeData.WrappedData);
-
-                foreach (var calculation in nodeData.WrappedData.GetCalculations().Cast<PipingCalculationScenario>())
-                {
-                    RemoveCalculationFromSectionResult(calculation, nodeData.FailureMechanism);
-                }
-
-                group.NotifyObservers();
+                RemoveCalculationFromSectionResult(calculation, nodeData.FailureMechanism);
             }
+
+            parentGroupContext.NotifyObservers();
         }
 
         private void RemoveCalculationFromSectionResult(PipingCalculationScenario calculation, PipingFailureMechanism pipingFailureMechanism)

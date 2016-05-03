@@ -45,10 +45,13 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <typeparam name="TCalculationGroupContext">The type of calculation group context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
         /// <param name="childNodeObjects">The function for obtaining child node objects.</param>
         /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
+        /// <param name="onNodeRemoved">The action to perform on removing a node.</param>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TCalculationGroupContext> CreateCalculationGroupContextTreeNodeInfo<TCalculationGroupContext>(
-            Func<TCalculationGroupContext, object[]> childNodeObjects,
-            Func<TCalculationGroupContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
+            Func<TCalculationGroupContext,
+            object[]> childNodeObjects,
+            Func<TCalculationGroupContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
+            Action<TCalculationGroupContext, object> onNodeRemoved)
             where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             return new TreeNodeInfo<TCalculationGroupContext>
@@ -65,13 +68,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                     context.NotifyObservers();
                 },
                 CanRemove = (context, parentData) => IsNestedGroup(parentData),
-                OnNodeRemoved = (context, parentData) =>
-                {
-                    var parentGroup = (ICalculationContext<CalculationGroup, IFailureMechanism>) parentData;
-
-                    parentGroup.WrappedData.Children.Remove(context.WrappedData);
-                    parentGroup.NotifyObservers();
-                },
+                OnNodeRemoved = onNodeRemoved,
                 CanDrag = (context, parentData) => IsNestedGroup(parentData),
                 CanInsert = CanDropOrInsert,
                 CanDrop = CanDropOrInsert,
