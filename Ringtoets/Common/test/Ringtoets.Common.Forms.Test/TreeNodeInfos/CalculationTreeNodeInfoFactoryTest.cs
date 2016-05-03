@@ -230,9 +230,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         [Test]
         [Combinatorial]
-        public void CanDropOrCanInsertOfCalculationGroupContextTreeNodeInfo_DraggingPipingCalculationItemContextOntoGroupNotContainingItem_ReturnsTrue(
+        public void CanDropOrCanInsertOfCalculationGroupContextTreeNodeInfo_DraggingCalculationItemContextOntoGroupNotContainingItem_ReturnsTrue(
             [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
-            [Values(CalculationType.Calculation, CalculationType.Group)] CalculationType draggedItemType)
+            [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType)
         {
             // Setup
             var mocks = new MockRepository();
@@ -242,7 +242,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             object draggedItemContext;
             ICalculationBase draggedItem;
-            CreateCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanism);
+            CreateCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanism);
 
             CalculationGroup targetGroup;
             TestCalculationGroupContext targetGroupContext;
@@ -277,7 +277,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         [Combinatorial]
         public void CanDropOrInsertOfCalculationGroupContextTreeNodeInfo_DraggingCalculationItemContextOntoGroupNotContainingItemOtherFailureMechanism_ReturnsFalse(
             [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
-            [Values(CalculationType.Calculation, CalculationType.Group)] CalculationType draggedItemType)
+            [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType)
         {
             // Setup
             var mocks = new MockRepository();
@@ -288,7 +288,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             object draggedItemContext;
             ICalculationBase draggedItem;
-            CreateCalculationAndContext(draggedItemType, out draggedItem, out draggedItemContext, targetFailureMechanism);
+            CreateCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, targetFailureMechanism);
 
             CalculationGroup targetGroup;
             TestCalculationGroupContext targetGroupContext;
@@ -318,6 +318,56 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             }
             mocks.VerifyAll();
         }
+
+        /// <summary>
+        /// Creates an instance of <see cref="CalculationGroup"/> and the corresponding <see cref="TestCalculationGroupContext"/>.
+        /// </summary>
+        /// <param name="data">The created group without any children.</param>
+        /// <param name="dataContext">The context object for <paramref name="data"/>, without any other data.</param>
+        /// <param name="failureMechanism">The failure mechanism the item and context it belong to.</param>
+        private void CreateCalculationGroupAndContext(out CalculationGroup data, out TestCalculationGroupContext dataContext, IFailureMechanism failureMechanism)
+        {
+            data = new CalculationGroup();
+            dataContext = new TestCalculationGroupContext(data, failureMechanism);
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="ICalculationBase"/> and the corresponding context.
+        /// </summary>
+        /// <param name="type">Defines the implementation of <see cref="ICalculationBase"/> to be constructed.</param>
+        /// <param name="data">Output: The concrete create class based on <paramref name="type"/>.</param>
+        /// <param name="dataContext">Output: The context corresponding with <paramref name="data"/>.</param>
+        /// <param name="failureMechanism">The failure mechanism the item and context belong to.</param>
+        /// <param name="initialName">Optional: The name of <paramref name="data"/>.</param>
+        /// <exception cref="System.NotSupportedException"></exception>
+        private static void CreateCalculationItemAndContext(CalculationItemType type, out ICalculationBase data, out object dataContext, IFailureMechanism failureMechanism, string initialName = null)
+        {
+            switch (type)
+            {
+                case CalculationItemType.Calculation:
+                    var calculation = new TestCalculation();
+                    if (initialName != null)
+                    {
+                        calculation.Name = initialName;
+                    }
+                    data = calculation;
+                    dataContext = new TestCalculationContext(calculation, failureMechanism);
+                    break;
+                case CalculationItemType.Group:
+                    var group = new CalculationGroup();
+                    if (initialName != null)
+                    {
+                        group.Name = initialName;
+                    }
+                    data = group;
+                    dataContext = new TestCalculationGroupContext(group, failureMechanism);
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        # region Nested types
 
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
         {
@@ -376,54 +426,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="CalculationGroup"/> and the corresponding <see cref="TestCalculationGroupContext"/>.
-        /// </summary>
-        /// <param name="data">The created group without any children.</param>
-        /// <param name="dataContext">The context object for <paramref name="data"/>, without any other data.</param>
-        /// <param name="failureMechanism">The failure mechanism the item and context it belong to.</param>
-        private void CreateCalculationGroupAndContext(out CalculationGroup data, out TestCalculationGroupContext dataContext, IFailureMechanism failureMechanism)
-        {
-            data = new CalculationGroup();
-            dataContext = new TestCalculationGroupContext(data, failureMechanism);
-        }
-
-        /// <summary>
-        /// Creates an instance of <see cref="ICalculationBase"/> and the corresponding context.
-        /// </summary>
-        /// <param name="type">Defines the implementation of <see cref="ICalculationBase"/> to be constructed.</param>
-        /// <param name="data">Output: The concrete create class based on <paramref name="type"/>.</param>
-        /// <param name="dataContext">Output: The context corresponding with <paramref name="data"/>.</param>
-        /// <param name="failureMechanism">The failure mechanism the item and context belong to.</param>
-        /// <param name="initialName">Optional: The name of <paramref name="data"/>.</param>
-        /// <exception cref="System.NotSupportedException"></exception>
-        private static void CreateCalculationAndContext(CalculationType type, out ICalculationBase data, out object dataContext, IFailureMechanism failureMechanism, string initialName = null)
-        {
-            switch (type)
-            {
-                case CalculationType.Calculation:
-                    var calculation = new TestCalculation();
-                    if (initialName != null)
-                    {
-                        calculation.Name = initialName;
-                    }
-                    data = calculation;
-                    dataContext = new TestCalculationContext(calculation, failureMechanism);
-                    break;
-                case CalculationType.Group:
-                    var group = new CalculationGroup();
-                    if (initialName != null)
-                    {
-                        group.Name = initialName;
-                    }
-                    data = group;
-                    dataContext = new TestCalculationGroupContext(group, failureMechanism);
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        /// <summary>
         /// Type indicator for testing methods on <see cref="TreeNodeInfo"/>.
         /// </summary>
         public enum DragDropTestMethod
@@ -442,7 +444,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         /// <summary>
         /// Type indicator for implementations of <see cref="ICalculationBase"/> to be created in a test.
         /// </summary>
-        public enum CalculationType
+        public enum CalculationItemType
         {
             /// <summary>
             /// Indicates <see cref="ICalculation"/>.
@@ -454,5 +456,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             /// </summary>
             Group
         }
+
+        # endregion
     }
 }
