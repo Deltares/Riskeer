@@ -122,22 +122,7 @@ namespace Ringtoets.Piping.Plugin
                 CanDrag = (pipingCalculationContext, parentData) => true
             };
 
-            yield return new TreeNodeInfo<PipingCalculationGroupContext>
-            {
-                Text = pipingCalculationGroupContext => pipingCalculationGroupContext.WrappedData.Name,
-                Image = pipingCalculationGroupContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                EnsureVisibleOnCreate = pipingCalculationGroupContext => true,
-                ChildNodeObjects = PipingCalculationGroupContextChildNodeObjects,
-                ContextMenuStrip = PipingCalculationGroupContextContextMenuStrip,
-                CanRename = PipingCalculationGroupContextCanRenameNode,
-                OnNodeRenamed = PipingCalculationGroupContextOnNodeRenamed,
-                CanRemove = PipingCalculationGroupContextCanRemove,
-                OnNodeRemoved = PipingCalculationGroupContextOnNodeRemoved,
-                CanDrag = PipingCalculationGroupContextCanDrag,
-                CanDrop = PipingCalculationGroupContextCanDropOrCanInsert,
-                CanInsert = PipingCalculationGroupContextCanDropOrCanInsert,
-                OnDrop = PipingCalculationGroupContextOnDrop
-            };
+            yield return CreatePipingCalculationGroupContextTreeNodeInfo();
 
             yield return new TreeNodeInfo<PipingInputContext>
             {
@@ -246,6 +231,24 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
+        }
+
+        private TreeNodeInfo<PipingCalculationGroupContext> CreatePipingCalculationGroupContextTreeNodeInfo()
+        {
+            var treeNodeInfo = TreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(null, null, Gui);
+
+            treeNodeInfo.ChildNodeObjects = PipingCalculationGroupContextChildNodeObjects;
+            treeNodeInfo.ContextMenuStrip = PipingCalculationGroupContextContextMenuStrip;
+            treeNodeInfo.CanRename = PipingCalculationGroupContextCanRenameNode;
+            treeNodeInfo.OnNodeRenamed = PipingCalculationGroupContextOnNodeRenamed;
+            treeNodeInfo.CanRemove = PipingCalculationGroupContextCanRemove;
+            treeNodeInfo.OnNodeRemoved = PipingCalculationGroupContextOnNodeRemoved;
+            treeNodeInfo.CanDrag = PipingCalculationGroupContextCanDrag;
+            treeNodeInfo.CanDrop = PipingCalculationGroupContextCanDropOrCanInsert;
+            treeNodeInfo.CanInsert = PipingCalculationGroupContextCanDropOrCanInsert;
+            treeNodeInfo.OnDrop = PipingCalculationGroupContextOnDrop;
+
+            return treeNodeInfo;
         }
 
         # region PipingCalculationsView ViewInfo
