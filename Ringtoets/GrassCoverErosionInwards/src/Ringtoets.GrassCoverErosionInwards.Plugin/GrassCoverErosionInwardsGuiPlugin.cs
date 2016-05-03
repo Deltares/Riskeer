@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 FailureMechanismContextMenuStrip,
                 Gui);
 
-            yield return CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>(CalculationGroupContextChildNodeObjects, context => AddCalculation(context.FailureMechanism, context.WrappedData), Gui);
+            yield return CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>(CalculationGroupContextChildNodeObjects, CalculationGroupContextContextMenuStrip);
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsCalculationContext>
             {
@@ -335,6 +335,41 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
 
             return childNodeObjects.ToArray();
+        }
+
+        private ContextMenuStrip CalculationGroupContextContextMenuStrip(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var group = nodeData.WrappedData;
+            var builder = Gui.Get(nodeData, treeViewControl);
+            var isNestedGroup = parentData is GrassCoverErosionInwardsCalculationGroupContext;
+
+            if (!isNestedGroup)
+            {
+                builder
+                    .AddOpenItem()
+                    .AddSeparator();
+            }
+
+            CalculationTreeNodeInfoFactory.AddCreateCalculationGroupItem(builder, group);
+            CalculationTreeNodeInfoFactory.AddCreateCalculationItem(builder, nodeData, context => AddCalculation(context.FailureMechanism, context.WrappedData));
+            builder.AddSeparator();
+
+            if (isNestedGroup)
+            {
+                builder.AddRenameItem();
+                builder.AddDeleteItem();
+                builder.AddSeparator();
+            }
+
+            return builder
+                .AddImportItem()
+                .AddExportItem()
+                .AddSeparator()
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
         }
 
         #endregion

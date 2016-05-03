@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -45,13 +44,11 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// </summary>
         /// <typeparam name="TCalculationGroupContext">The type of calculation group context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
         /// <param name="childNodeObjects">The function for obtaining child node objects.</param>
-        /// <param name="addCalculation">The action for adding a calculation to the calculation group.</param>
-        /// <param name="gui">The gui to use.</param>
+        /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TCalculationGroupContext> CreateCalculationGroupContextTreeNodeInfo<TCalculationGroupContext>(
             Func<TCalculationGroupContext, object[]> childNodeObjects,
-            Action<TCalculationGroupContext> addCalculation,
-            IGui gui)
+            Func<TCalculationGroupContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
             where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             return new TreeNodeInfo<TCalculationGroupContext>
@@ -60,7 +57,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Image = context => Resources.GeneralFolderIcon,
                 EnsureVisibleOnCreate = context => true,
                 ChildNodeObjects = childNodeObjects,
-                ContextMenuStrip = (context, parentData, treeViewControl) => ContextMenuStrip(context, parentData, treeViewControl, addCalculation, gui),
+                ContextMenuStrip = contextMenuStrip,
                 CanRename = (context, parentData) => IsNestedGroup(parentData),
                 OnNodeRenamed = (context, newName) =>
                 {
@@ -126,41 +123,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         private static bool IsNestedGroup(object parentData)
         {
             return parentData is ICalculationContext<CalculationGroup, IFailureMechanism>;
-        }
-
-        private static ContextMenuStrip ContextMenuStrip<TCalculationGroupContext>(TCalculationGroupContext nodeData, object parentData, TreeViewControl treeViewControl, Action<TCalculationGroupContext> addCalculation, IGui gui) where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
-        {
-            var group = nodeData.WrappedData;
-            var builder = gui.Get(nodeData, treeViewControl);
-            var isNestedGroup = IsNestedGroup(parentData);
-
-            if (!isNestedGroup)
-            {
-                builder
-                    .AddOpenItem()
-                    .AddSeparator();
-            }
-
-            AddCreateCalculationGroupItem(builder, group);
-            AddCreateCalculationItem(builder, nodeData, addCalculation);
-            builder.AddSeparator();
-
-            if (isNestedGroup)
-            {
-                builder.AddRenameItem();
-                builder.AddDeleteItem();
-                builder.AddSeparator();
-            }
-
-            return builder
-                .AddImportItem()
-                .AddExportItem()
-                .AddSeparator()
-                .AddExpandAllItem()
-                .AddCollapseAllItem()
-                .AddSeparator()
-                .AddPropertiesItem()
-                .Build();
         }
 
         private static bool CanDropOrInsert(object draggedData, object targetData)

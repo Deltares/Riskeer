@@ -235,9 +235,8 @@ namespace Ringtoets.Piping.Plugin
 
         private TreeNodeInfo<PipingCalculationGroupContext> CreatePipingCalculationGroupContextTreeNodeInfo()
         {
-            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(PipingCalculationGroupContextChildNodeObjects, null, Gui);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(PipingCalculationGroupContextChildNodeObjects, PipingCalculationGroupContextContextMenuStrip);
 
-            treeNodeInfo.ContextMenuStrip = PipingCalculationGroupContextContextMenuStrip;
             treeNodeInfo.OnNodeRemoved = PipingCalculationGroupContextOnNodeRemoved;
 
             return treeNodeInfo;
@@ -610,40 +609,10 @@ namespace Ringtoets.Piping.Plugin
         private ContextMenuStrip PipingCalculationGroupContextContextMenuStrip(PipingCalculationGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var group = nodeData.WrappedData;
-            var addCalculationGroupItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-                RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup_ToolTip,
-                RingtoetsCommonFormsResources.AddFolderIcon, (o, args) =>
-                {
-                    var newGroup = new CalculationGroup
-                    {
-                        Name = NamingHelper.GetUniqueName(group.Children, RingtoetsCommonDataResources.CalculationGroup_DefaultName, c => c.Name)
-                    };
-
-                    group.Children.Add(newGroup);
-                    nodeData.WrappedData.NotifyObservers();
-                });
-
-            var addCalculationItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                PipingFormsResources.PipingCalculationGroup_Add_PipingCalculation_ToolTip,
-                PipingFormsResources.PipingIcon, (o, args) =>
-                {
-                    var calculation = new PipingCalculationScenario(nodeData.FailureMechanism.GeneralInput, nodeData.FailureMechanism.NormProbabilityInput)
-                    {
-                        Name = NamingHelper.GetUniqueName(group.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
-                    };
-
-                    group.Children.Add(calculation);
-                    nodeData.WrappedData.NotifyObservers();
-                });
 
             var generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
-
             var validateAllItem = CreateValidateAllItem(group);
-
             var calculateAllItem = CreateCalculateAllItem(group);
-
             var clearAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Clear_all_output,
                 PipingFormsResources.PipingCalculationGroup_ClearOutput_ToolTip,
@@ -678,10 +647,11 @@ namespace Ringtoets.Piping.Plugin
                     .AddSeparator();
             }
 
+            CalculationTreeNodeInfoFactory.AddCreateCalculationGroupItem(builder, group);
+            CalculationTreeNodeInfoFactory.AddCreateCalculationItem(builder, nodeData, AddCalculationScenario);
+            builder.AddSeparator();
+
             builder
-                .AddCustomItem(addCalculationGroupItem)
-                .AddCustomItem(addCalculationItem)
-                .AddSeparator()
                 .AddCustomItem(validateAllItem)
                 .AddCustomItem(calculateAllItem)
                 .AddCustomItem(clearAllItem)
@@ -713,6 +683,17 @@ namespace Ringtoets.Piping.Plugin
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();
+        }
+
+        private static void AddCalculationScenario(PipingCalculationGroupContext nodeData)
+        {
+            var calculation = new PipingCalculationScenario(nodeData.FailureMechanism.GeneralInput, nodeData.FailureMechanism.NormProbabilityInput)
+            {
+                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
+            };
+
+            nodeData.WrappedData.Children.Add(calculation);
+            nodeData.WrappedData.NotifyObservers();
         }
 
         private StrictContextMenuItem CreateGeneratePipingCalculationsItem(PipingCalculationGroupContext nodeData)
