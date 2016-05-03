@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -30,7 +31,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="PipingCalculation"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class PipingCalculationScenarioContext : PipingContext<PipingCalculationScenario>
+    public class PipingCalculationScenarioContext : PipingContext<PipingCalculationScenario>, ICalculationContext<PipingCalculationScenario, PipingFailureMechanism>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationScenarioContext"/> class.

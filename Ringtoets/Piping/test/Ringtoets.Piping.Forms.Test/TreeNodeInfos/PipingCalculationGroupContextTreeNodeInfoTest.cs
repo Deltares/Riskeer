@@ -1500,7 +1500,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanDrag_WithParentNodeDefaultBehavior_ReturnTrue()
+        public void CanDrag_WithoutParentNodeDefaultBehavior_ReturnFalse()
         {
             // Setup
             var group = new CalculationGroup();
@@ -1518,17 +1518,17 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var canDrag = info.CanDrag(groupContext, null);
 
             // Assert
-            Assert.IsTrue(canDrag);
+            Assert.IsFalse(canDrag);
         }
 
         [Test]
-        public void CanDrag_ParentIsPipingFailureMechanismContext_ReturnFalse()
+        public void CanDrag_ParentIsPipingCalculationGroupContext_ReturnTrue()
         {
             // Setup
             var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismContextMock = mocks.StrictMock<PipingFailureMechanismContext>(pipingFailureMechanismMock, assessmentSectionMock);
 
             mocks.ReplayAll();
 
@@ -1538,11 +1538,17 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                  pipingFailureMechanismMock,
                                                                  assessmentSectionMock);
 
+            var parentGroupContext = new PipingCalculationGroupContext(parentGroup,
+                                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                       Enumerable.Empty<StochasticSoilModel>(),
+                                                                       pipingFailureMechanismMock,
+                                                                       assessmentSectionMock);
+
             // Call
-            var canDrag = info.CanDrag(groupContext, pipingFailureMechanismContextMock);
+            var canDrag = info.CanDrag(groupContext, parentGroupContext);
 
             // Assert
-            Assert.IsFalse(canDrag);
+            Assert.IsTrue(canDrag);
         }
 
         [Test]
