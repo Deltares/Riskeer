@@ -75,62 +75,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsWrappedDataName()
-        {
-            // Setup
-            var testname = "testName";
-            var group = new CalculationGroup
-            {
-                Name = testname
-            };
-            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                                   failureMechanismMock,
-                                                                                   assessmentSectionMock);
-
-            // Call
-            var text = info.Text(groupContext);
-
-            // Assert
-            Assert.AreEqual(testname, text);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Image_Always_FolderIcon()
-        {
-            // Call
-            var image = info.Image(null);
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.GeneralFolderIcon, image);
-        }
-
-        [Test]
-        public void EnsureVisibleOnCreate_Always_ReturnsTrue()
-        {
-            // Setup
-            var group = new CalculationGroup();
-            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                                   failureMechanismMock,
-                                                                                   assessmentSectionMock);
-
-            // Call
-            var result = info.EnsureVisibleOnCreate(groupContext);
-
-            // Assert
-            Assert.IsTrue(result);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void ChildNodeObjects_EmptyGroup_ReturnEmpty()
         {
             // Setup
