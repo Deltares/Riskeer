@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
@@ -39,6 +40,27 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
     public class CalculationTreeNodeInfoFactoryTest
     {
         # region CreateCalculationGroupContextTreeNodeInfo
+
+        [Test]
+        public void CreateCalculationGroupContextTreeNodeInfo_Always_ExpectedPropertiesSet()
+        {
+            // Setup & Call
+            Func<TestCalculationGroupContext, object[]> childNodeObjects = context => new object[0];
+            Func<TestCalculationGroupContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
+            Action<TestCalculationGroupContext, object> onNodeRemoved = (context, parent) => { };
+
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo(childNodeObjects, contextMenuStrip, onNodeRemoved);
+
+            // Assert
+            Assert.AreEqual(typeof(TestCalculationGroupContext), treeNodeInfo.TagType);
+            Assert.AreSame(childNodeObjects, treeNodeInfo.ChildNodeObjects);
+            Assert.AreSame(contextMenuStrip, treeNodeInfo.ContextMenuStrip);
+            Assert.AreSame(onNodeRemoved, treeNodeInfo.OnNodeRemoved);
+            Assert.IsNull(treeNodeInfo.ForeColor);
+            Assert.IsNull(treeNodeInfo.CanCheck);
+            Assert.IsNull(treeNodeInfo.IsChecked);
+            Assert.IsNull(treeNodeInfo.OnNodeChecked);
+        }
 
         [Test]
         public void TextOfCalculationGroupContextTreeNodeInfo_Always_ReturnsWrappedDataName()
