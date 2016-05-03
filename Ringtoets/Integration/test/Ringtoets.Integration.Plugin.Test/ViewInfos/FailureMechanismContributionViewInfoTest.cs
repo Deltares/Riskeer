@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -214,6 +216,44 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsFalse(closeForData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AfterCreate_WithGuiSet_SetsAssessmentSection()
+        {
+            // Setup
+            var contribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100.0, 789123);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms())
+                             .Return(Enumerable.Empty<IFailureMechanism>());
+            assessmentSection.Stub(section => section.Composition)
+                             .Return(AssessmentSectionComposition.Dike);
+            assessmentSection.Stub(section => section.FailureMechanismContribution)
+                             .Return(contribution);
+
+            IGui guiStub = mocks.Stub<IGui>();
+            guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+            mocks.ReplayAll();
+
+            var context = new FailureMechanismContributionContext(contribution, assessmentSection);
+            var view = new FailureMechanismContributionView();
+
+            using (var guiPlugin = new RingtoetsGuiPlugin())
+            {
+                info = guiPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismContributionView));
+                guiPlugin.Gui = guiStub;
+
+                // Call
+                info.AfterCreate(view, context);
+
+                // Assert
+                Assert.AreSame(view.AssessmentSection, assessmentSection);
+            }
             mocks.VerifyAll();
         }
     }

@@ -90,6 +90,49 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
+        {
+            // Setup
+            var view = new PipingFailureMechanismView();
+            var pipingFailureMechanismMock = new PipingFailureMechanism();
+            var otherPipingFailureMechanismMock = new PipingFailureMechanism();
+
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var pipingFailureMechanismContext = mocks.StrictMock<PipingFailureMechanismContext>(pipingFailureMechanismMock, assessmentSectionMock);
+
+            mocks.ReplayAll();
+
+            view.Data = pipingFailureMechanismContext;
+
+            // Call
+            var closeForData = info.CloseForData(view, otherPipingFailureMechanismMock);
+
+            // Assert
+            Assert.IsFalse(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        {
+            // Setup
+            var view = new PipingFailureMechanismView();
+            var pipingFailureMechanism = new PipingFailureMechanism();
+
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
+
+            mocks.ReplayAll();
+
+            view.Data = pipingFailureMechanismContext;
+
+            // Call
+            var closeForData = info.CloseForData(view, pipingFailureMechanism);
+
+            // Assert
+            Assert.IsTrue(closeForData);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismRelevant(bool isRelevant)

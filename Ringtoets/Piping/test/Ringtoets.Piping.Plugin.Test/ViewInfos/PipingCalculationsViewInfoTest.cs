@@ -163,6 +163,42 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
+        {
+            // Setup
+            var view = new PipingCalculationsView();
+            var failureMechanism = new PipingFailureMechanism();
+
+            view.Data = new CalculationGroup();
+
+            mocks.ReplayAll();
+
+            // Call
+            var closeForData = info.CloseForData(view, failureMechanism);
+
+            // Assert
+            Assert.IsFalse(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        {
+            // Setup
+            var view = new PipingCalculationsView();
+            var failureMechanism = new PipingFailureMechanism();
+
+            view.Data = failureMechanism.CalculationsGroup;
+
+            mocks.ReplayAll();
+
+            // Call
+            var closeForData = info.CloseForData(view, failureMechanism);
+
+            // Assert
+            Assert.IsTrue(closeForData);
+        }
+
+        [Test]
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup

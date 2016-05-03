@@ -241,11 +241,17 @@ namespace Ringtoets.Piping.Plugin
         private bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            var isAssessmentSectionRemoved = assessmentSection != null && ReferenceEquals(((PipingFailureMechanismContext) view.Data).Parent, assessmentSection);
+            var pipingFailureMechanism = o as PipingFailureMechanism;
 
-            var isPipingFailureMechanismRemoved = o is PipingFailureMechanism;
+            var viewPipingFailureMechanismContext = (PipingFailureMechanismContext)view.Data;
+            var viewPipingFailureMechanism = viewPipingFailureMechanismContext.WrappedData;
 
-            return isAssessmentSectionRemoved || isPipingFailureMechanismRemoved;
+            if (assessmentSection != null)
+            {
+                return ReferenceEquals(viewPipingFailureMechanismContext.Parent, assessmentSection);
+            }
+
+            return ReferenceEquals(viewPipingFailureMechanism, pipingFailureMechanism);
         }
 
         # endregion
@@ -255,19 +261,16 @@ namespace Ringtoets.Piping.Plugin
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
+            var pipingFailureMechanism = o as PipingFailureMechanism;
+
             if (assessmentSection != null)
             {
-                var pipingFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                              .OfType<PipingFailureMechanism>()
-                                                              .FirstOrDefault();
-
-                if (pipingFailureMechanism != null)
-                {
-                    return view.Data == pipingFailureMechanism.CalculationsGroup;
-                }
+                pipingFailureMechanism = assessmentSection.GetFailureMechanisms()
+                                                          .OfType<PipingFailureMechanism>()
+                                                          .FirstOrDefault();
             }
 
-            return false;
+            return pipingFailureMechanism != null && ReferenceEquals(view.Data, pipingFailureMechanism.CalculationsGroup);
         }
 
         #endregion endregion
