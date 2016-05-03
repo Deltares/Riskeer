@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
     public class CalculationTreeNodeInfoFactoryTest
     {
         [Test]
-        public void Text_CreatedCalculationGroupContextTreeNodeInfo_AlwaysReturnsWrappedDataName()
+        public void TextOfCalculationGroupContextTreeNodeInfo_Always_ReturnsWrappedDataName()
         {
             // Setup
             var mocks = new MockRepository();
@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_CreatedCalculationGroupContextTreeNodeInfo_AlwaysReturnsFolderIcon()
+        public void ImageOfCalculationGroupContextTreeNodeInfo_Always_ReturnsFolderIcon()
         {
             // Setup
             var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void EnsureVisibleOnCreate_CreatedCalculationGroupContextTreeNodeInfo_AlwaysReturnsTrue()
+        public void EnsureVisibleOnCreateOfCalculationGroupContextTreeNodeInfo_Always_ReturnsTrue()
         {
             // Setup
             var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
@@ -86,7 +86,111 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Assert.IsTrue(result);
         }
 
-        private class TestCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+        [Test]
+        public void CanRenameNodeOfCalculationGroupContextTreeNodeInfo_ParentIsCalculationGroupContext_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationGroupMock = mocks.StrictMock<CalculationGroup>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            var groupContext = new TestCalculationGroupContext(calculationGroupMock, failureMechanismMock);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+
+            // Call
+            bool isRenamingAllowed = treeNodeInfo.CanRename(null, groupContext);
+
+            // Assert
+            Assert.IsTrue(isRenamingAllowed);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanRenameNodeOfCalculationGroupContextTreeNodeInfo_EverythingElse_ReturnFalse()
+        {
+            // Setup
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+
+            // Call
+            bool isRenamingAllowed = treeNodeInfo.CanRename(null, null);
+
+            // Assert
+            Assert.IsFalse(isRenamingAllowed);
+        }
+
+        [Test]
+        public void OnNodeRenamedOfCalculationGroupContextTreeNodeInfo_WithData_RenameGroupAndNotifyObservers()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+
+            observer.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            const string newName = "new name";
+            var group = new CalculationGroup();
+            var nodeData = new TestCalculationGroupContext(group, failureMechanismMock);
+
+            nodeData.Attach(observer);
+
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+
+            // Call
+            treeNodeInfo.OnNodeRenamed(nodeData, newName);
+
+            // Assert
+            Assert.AreEqual(newName, group.Name);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanRemoveOfCalculationGroupContextTreeNodeInfo_CalculationGroupWithoutParent_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var group = new CalculationGroup();
+            var nodeData = new TestCalculationGroupContext(group, failureMechanismMock);
+
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+
+            // Call
+            bool isRemovalAllowed = treeNodeInfo.CanRemove(nodeData, null);
+
+            // Assert
+            Assert.IsFalse(isRemovalAllowed);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanRemoveOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var nodeData = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
+            var parentNodeData = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
+
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+
+            // Call
+            bool isRemovalAllowed = treeNodeInfo.CanRemove(nodeData, parentNodeData);
+
+            // Assert
+            Assert.IsTrue(isRemovalAllowed);
+            mocks.VerifyAll();
+        }
+
+        private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             public TestCalculationGroupContext(CalculationGroup wrappedData, IFailureMechanism failureMechanism)
             {
@@ -97,12 +201,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             public CalculationGroup WrappedData { get; private set; }
 
             public IFailureMechanism FailureMechanism { get; private set; }
-
-            public void Attach(IObserver observer) {}
-
-            public void Detach(IObserver observer) {}
-
-            public void NotifyObservers() {}
         }
     }
 }
