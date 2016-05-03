@@ -23,16 +23,14 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Common.Controls.Views;
+using Core.Common.Gui.Commands;
 using Core.Common.Utils.Reflection;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
-
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
@@ -46,13 +44,13 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class FailureMechanismContributionView : UserControl, IView, IObserver
     {
+        private readonly Observer isFailureMechanismRelevantObserver;
+        private readonly Observer closeViewsForIrrelevantFailureMechanismObserver;
         private DataGridViewColumn probabilityPerYearColumn;
         private FailureMechanismContribution data;
 
         private bool revertingComboBoxSelectedValue;
         private IAssessmentSection assessmentSection;
-
-        private readonly Observer isFailureMechanismRelevantObserver;
 
         private DataGridViewCheckBoxColumn isRelevantColumn;
 
@@ -69,6 +67,7 @@ namespace Ringtoets.Integration.Forms.Views
             SubscribeEvents();
 
             isFailureMechanismRelevantObserver = new Observer(SetRowStyling);
+            closeViewsForIrrelevantFailureMechanismObserver = new Observer(CloseViewsForIrrelevantFailureMechanism);
             Load += OnLoad;
         }
 
@@ -87,6 +86,8 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
+        public IViewCommands ViewCommands { private get; set; }
+
         public object Data
         {
             get
@@ -95,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
             set
             {
-                HandleNewDataSet((FailureMechanismContribution)value);
+                HandleNewDataSet((FailureMechanismContribution) value);
             }
         }
 
@@ -117,6 +118,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
             UnsubscribeEvents();
             DetachFromFailureMechanisms();
+            ViewCommands = null;
             base.Dispose(disposing);
         }
 
@@ -196,6 +198,7 @@ namespace Ringtoets.Integration.Forms.Views
                 foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
                 {
                     failureMechanism.Detach(isFailureMechanismRelevantObserver);
+                    failureMechanism.Detach(closeViewsForIrrelevantFailureMechanismObserver);
                 }
             }
         }
@@ -207,6 +210,21 @@ namespace Ringtoets.Integration.Forms.Views
                 foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
                 {
                     failureMechanism.Attach(isFailureMechanismRelevantObserver);
+                    failureMechanism.Attach(closeViewsForIrrelevantFailureMechanismObserver);
+                }
+            }
+        }
+
+        private void CloseViewsForIrrelevantFailureMechanism()
+        {
+            if (ViewCommands != null)
+            {
+                foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
+                {
+                    if (!failureMechanism.IsRelevant)
+                    {
+                        ViewCommands.RemoveAllViewsForItem(failureMechanism);
+                    }
                 }
             }
         }
@@ -374,7 +392,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                MessageBoxButtons.OKCancel);
             if (dialogResult == DialogResult.OK)
             {
-                assessmentSection.ChangeComposition((AssessmentSectionComposition)assessmentSectionCompositionComboBox.SelectedValue);
+                assessmentSection.ChangeComposition((AssessmentSectionComposition) assessmentSectionCompositionComboBox.SelectedValue);
                 SetGridDataSource();
 
                 ClearCalculationOutputForChangedContributions(originalFailureMechanismContributions);
@@ -409,11 +427,11 @@ namespace Ringtoets.Integration.Forms.Views
         {
             foreach (DataGridViewRow row in probabilityDistributionGrid.Rows)
             {
-                var isRelevantCell = (DataGridViewCheckBoxCell)row.Cells[isRelevantColumn.Index];
+                var isRelevantCell = (DataGridViewCheckBoxCell) row.Cells[isRelevantColumn.Index];
                 FailureMechanismContributionItem rowData = data.Distribution.ElementAt(row.Index);
                 isRelevantCell.ReadOnly = rowData.IsAlwaysRelevant;
 
-                var isFailureMechanismRelevant = (bool)isRelevantCell.Value;
+                var isFailureMechanismRelevant = (bool) isRelevantCell.Value;
                 SetRowStyle(isFailureMechanismRelevant, row);
             }
         }

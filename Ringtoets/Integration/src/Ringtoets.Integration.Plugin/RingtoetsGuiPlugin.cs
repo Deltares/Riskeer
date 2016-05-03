@@ -118,7 +118,11 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
                 CloseForData = CloseFailureMechanismContributionViewForData,
-                AfterCreate = (view, context) => view.AssessmentSection = context.Parent
+                AfterCreate = (view, context) =>
+                {
+                    view.AssessmentSection = context.Parent;
+                    view.ViewCommands = Gui.ViewCommands;
+                }
             };
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>

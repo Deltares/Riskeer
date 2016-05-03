@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -796,7 +797,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenView_IsRelevantPropertyChangeNotified_RowStylesUpdates(bool initialIsRelevant)
         {
             // Given
-            IObserver failureMechanismObserver = null;
+            List<IObserver> failureMechanismObservers = new List<IObserver>();
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return("A");
@@ -805,18 +806,18 @@ namespace Ringtoets.Integration.Forms.Test.Views
                             .IgnoreArguments()
                             .WhenCalled(invocation =>
                             {
-                                failureMechanismObserver = (IObserver)invocation.Arguments[0];
+                                failureMechanismObservers.Add((IObserver)invocation.Arguments[0]);
                             });
             failureMechanism.Stub(fm => fm.NotifyObservers())
                             .WhenCalled(invocation =>
                             {
-                                failureMechanismObserver.UpdateObserver();
+                                failureMechanismObservers[0].UpdateObserver();
                             });
             failureMechanism.Stub(fm => fm.Detach(null))
                             .IgnoreArguments()
                             .WhenCalled(invocation =>
                             {
-                                failureMechanismObserver = null;
+                                failureMechanismObservers.Remove((IObserver)invocation.Arguments[0]);
                             });
 
             var failureMechanisms = new[]
@@ -878,6 +879,91 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     }
                 }
             }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenViewWithViewCommands_IsRelevantPropertyChangeNotified_CloseViewsForIrrelevantFailureMechanisms(bool initialIsRelevant)
+        {
+            // Given
+            List<IObserver> failureMechanismObservers = new List<IObserver>();
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Name).Return("A");
+            failureMechanism.IsRelevant = initialIsRelevant;
+            failureMechanism.Stub(fm => fm.Attach(null))
+                            .IgnoreArguments()
+                            .WhenCalled(invocation =>
+                            {
+                                failureMechanismObservers.Add((IObserver) invocation.Arguments[0]);
+                            });
+            failureMechanism.Stub(fm => fm.NotifyObservers())
+                            .WhenCalled(invocation =>
+                            {
+                                failureMechanismObservers[1].UpdateObserver();
+                            });
+            failureMechanism.Stub(fm => fm.Detach(null))
+                            .IgnoreArguments()
+                            .WhenCalled(invocation =>
+                            {
+                                failureMechanismObservers.Remove((IObserver)invocation.Arguments[0]);
+                            });
+
+            var relevantFailureMechanism = mocks.Stub<IFailureMechanism>();
+            relevantFailureMechanism.Stub(fm => fm.Name).Return("B");
+            relevantFailureMechanism.IsRelevant = true;
+            relevantFailureMechanism.Stub(fm => fm.Attach(null))
+                            .IgnoreArguments();
+            relevantFailureMechanism.Stub(fm => fm.Detach(null))
+                            .IgnoreArguments();
+
+            var irrelevantFailureMechanism = mocks.Stub<IFailureMechanism>();
+            irrelevantFailureMechanism.Stub(fm => fm.Name).Return("C");
+            irrelevantFailureMechanism.IsRelevant = false;
+            irrelevantFailureMechanism.Stub(fm => fm.Attach(null))
+                            .IgnoreArguments();
+            irrelevantFailureMechanism.Stub(fm => fm.Detach(null))
+                            .IgnoreArguments();
+
+            var failureMechanisms = new[]
+                {
+                    failureMechanism,
+                    relevantFailureMechanism,
+                    irrelevantFailureMechanism
+                };
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(failureMechanisms);
+            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
+
+            IViewCommands viewCommandsStub = mocks.Stub<IViewCommands>();
+            if (initialIsRelevant)
+            {
+                viewCommandsStub.Expect(vc => vc.RemoveAllViewsForItem(failureMechanism));
+            }
+            viewCommandsStub.Expect(vc => vc.RemoveAllViewsForItem(relevantFailureMechanism)).Repeat.Never();
+            viewCommandsStub.Expect(vc => vc.RemoveAllViewsForItem(irrelevantFailureMechanism));
+            mocks.ReplayAll();
+
+            using (var view = new FailureMechanismContributionView
+            {
+                ViewCommands = viewCommandsStub
+            })
+            {
+                ShowFormWithView(view);
+
+                var contribution = new FailureMechanismContribution(failureMechanisms, 50.0, 30000);
+
+                view.Data = contribution;
+                view.AssessmentSection = assessmentSection;
+
+                // When
+                failureMechanism.IsRelevant = !initialIsRelevant;
+                failureMechanism.NotifyObservers();
+            }
+            // Then
             mocks.VerifyAll();
         }
 

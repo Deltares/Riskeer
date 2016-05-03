@@ -241,7 +241,11 @@ namespace Ringtoets.Piping.Plugin
         private bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            return assessmentSection != null && ReferenceEquals(((PipingFailureMechanismContext) view.Data).Parent, assessmentSection);
+            var isAssessmentSectionRemoved = assessmentSection != null && ReferenceEquals(((PipingFailureMechanismContext) view.Data).Parent, assessmentSection);
+
+            var isPipingFailureMechanismRemoved = o is PipingFailureMechanism;
+
+            return isAssessmentSectionRemoved || isPipingFailureMechanismRemoved;
         }
 
         # endregion
