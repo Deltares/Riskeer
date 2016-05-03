@@ -480,52 +480,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanDrag_WithoutParentNodeDefaultBehavior_ReturnFalse()
-        {
-            // Setup
-            var group = new CalculationGroup();
-            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                                   failureMechanismMock,
-                                                                                   assessmentSectionMock);
-
-            // Call
-            var canDrag = info.CanDrag(groupContext, null);
-
-            // Assert
-            Assert.IsFalse(canDrag);
-        }
-
-        [Test]
-        public void CanDrag_ParentIsGrassCoverErosionInwardsCalculationGroupContext_ReturnTrue()
-        {
-            // Setup
-            var group = new CalculationGroup();
-            var parentGroup = new CalculationGroup();
-            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
-            mocks.ReplayAll();
-
-            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                                   failureMechanismMock,
-                                                                                   assessmentSectionMock);
-
-            var parentGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
-                                                                                         failureMechanismMock,
-                                                                                         assessmentSectionMock);
-
-            // Call
-            var canDrag = info.CanDrag(groupContext, parentGroupContext);
-
-            // Assert
-            Assert.IsTrue(canDrag);
-        }
-
-        [Test]
         [Combinatorial]
         public void CanDropOrCanInsert_DraggingPipingCalculationItemContextOntoGroupNotContainingItem_ReturnTrue(
             [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,

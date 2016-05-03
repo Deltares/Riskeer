@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRenameNodeOfCalculationGroupContextTreeNodeInfo_ParentIsCalculationGroupContext_ReturnTrue()
+        public void CanRenameNodeOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRenameNodeOfCalculationGroupContextTreeNodeInfo_EverythingElse_ReturnFalse()
+        public void CanRenameNodeOfCalculationGroupContextTreeNodeInfo_WithoutParentNodeDefaultBehavior_ReturnFalse()
         {
             // Setup
             var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
@@ -149,16 +149,34 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRemoveOfCalculationGroupContextTreeNodeInfo_CalculationGroupWithoutParent_ReturnFalse()
+        public void CanRemoveOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var group = new CalculationGroup();
-            var nodeData = new TestCalculationGroupContext(group, failureMechanismMock);
+            var nodeData = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
+            var parentNodeData = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
+            // Call
+            bool isRemovalAllowed = treeNodeInfo.CanRemove(nodeData, parentNodeData);
+
+            // Assert
+            Assert.IsTrue(isRemovalAllowed);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanRemoveOfCalculationGroupContextTreeNodeInfo_WithoutParentNodeDefaultBehavior_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var nodeData = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
             var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
@@ -170,24 +188,42 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRemoveOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnTrue()
+        public void CanDragOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+
             mocks.ReplayAll();
 
-            var nodeData = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
-            var parentNodeData = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
-
+            var groupContext = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
+            var parentGroupContext = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
             var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
-            bool isRemovalAllowed = treeNodeInfo.CanRemove(nodeData, parentNodeData);
+            var canDrag = treeNodeInfo.CanDrag(groupContext, parentGroupContext);
 
             // Assert
-            Assert.IsTrue(isRemovalAllowed);
-            mocks.VerifyAll();
+            Assert.IsTrue(canDrag);
+        }
+
+        [Test]
+        public void CanDragOfCalculationGroupContextTreeNodeInfo_WithoutParentNodeDefaultBehavior_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            var groupContext = new TestCalculationGroupContext(new CalculationGroup(), failureMechanismMock);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+
+            // Call
+            var canDrag = treeNodeInfo.CanDrag(groupContext, null);
+
+            // Assert
+            Assert.IsFalse(canDrag);
         }
 
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
