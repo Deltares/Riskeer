@@ -545,7 +545,7 @@ namespace Ringtoets.Piping.Plugin
                 var succesfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(pipingCalculationScenarioContext.WrappedData);
                 if (succesfullyRemovedData)
                 {
-                    RemoveCalculationFromSectionResult(pipingCalculationScenarioContext.WrappedData, pipingCalculationScenarioContext.FailureMechanism);
+                    PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(pipingCalculationScenarioContext.WrappedData, pipingCalculationScenarioContext.FailureMechanism);
                     calculationGroupContext.NotifyObservers();
                 }
             }
@@ -603,6 +603,8 @@ namespace Ringtoets.Piping.Plugin
         private ContextMenuStrip PipingCalculationGroupContextContextMenuStrip(PipingCalculationGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var group = nodeData.WrappedData;
+            var builder = Gui.Get(nodeData, treeViewControl);
+            var isNestedGroup = parentData is PipingCalculationGroupContext;
 
             var generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
             var validateAllItem = CreateValidateAllItem(group);
@@ -630,9 +632,7 @@ namespace Ringtoets.Piping.Plugin
                 clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            var builder = Gui.Get(nodeData, treeViewControl);
-
-            if (parentData is PipingFailureMechanismContext)
+            if (!isNestedGroup)
             {
                 builder
                     .AddOpenItem()
@@ -651,20 +651,10 @@ namespace Ringtoets.Piping.Plugin
                 .AddCustomItem(clearAllItem)
                 .AddSeparator();
 
-            var isRenamable = PipingCalculationGroupContextCanRenameNode(nodeData, parentData);
-            var isRemovable = PipingCalculationGroupContextCanRemove(nodeData, parentData);
-
-            if (isRenamable)
+            if (isNestedGroup)
             {
                 builder.AddRenameItem();
-            }
-            if (isRemovable)
-            {
                 builder.AddDeleteItem();
-            }
-
-            if (isRemovable || isRenamable)
-            {
                 builder.AddSeparator();
             }
 
@@ -775,17 +765,6 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private bool PipingCalculationGroupContextCanRenameNode(PipingCalculationGroupContext pipingCalculationGroupContext, object parentData)
-        {
-            return !(parentData is PipingFailureMechanismContext);
-        }
-
-        private bool PipingCalculationGroupContextCanRemove(PipingCalculationGroupContext nodeData, object parentNodeData)
-        {
-            var group = parentNodeData as PipingCalculationGroupContext;
-            return group != null && group.WrappedData.Children.Contains(nodeData.WrappedData);
-        }
-
         private void PipingCalculationGroupContextOnNodeRemoved(PipingCalculationGroupContext nodeData, object parentNodeData)
         {
             var parentGroupContext = (PipingCalculationGroupContext) parentNodeData;
@@ -794,15 +773,10 @@ namespace Ringtoets.Piping.Plugin
 
             foreach (var calculation in nodeData.WrappedData.GetCalculations().Cast<PipingCalculationScenario>())
             {
-                RemoveCalculationFromSectionResult(calculation, nodeData.FailureMechanism);
+                PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(calculation, nodeData.FailureMechanism);
             }
 
             parentGroupContext.NotifyObservers();
-        }
-
-        private void RemoveCalculationFromSectionResult(PipingCalculationScenario calculation, PipingFailureMechanism pipingFailureMechanism)
-        {
-            PipingCalculationScenarioService.RemoveCalculationScenarioFromSectionResult(calculation, pipingFailureMechanism);
         }
 
         #endregion

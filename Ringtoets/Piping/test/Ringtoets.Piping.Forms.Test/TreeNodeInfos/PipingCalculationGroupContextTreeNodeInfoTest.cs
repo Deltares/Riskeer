@@ -327,11 +327,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NotValidDataWithCalculationOutput_ReturnContextWithItems()
+        public void ContextMenuStrip_NestedCalculationGroupWithCalculationOutput_ReturnContextWithItems()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
             var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
 
             group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
             {
@@ -341,12 +342,16 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-            var parentData = new object();
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              Enumerable.Empty<StochasticSoilModel>(),
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
+            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<StochasticSoilModel>(),
+                                                                   pipingFailureMechanismMock,
+                                                                   assessmentSectionMock);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
@@ -356,6 +361,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
             gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
+            treeViewControl.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(true);
             treeViewControl.Expect(tvc => tvc.CanRenameNodeForData(nodeData)).Return(true);
             treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
 
@@ -364,10 +370,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             plugin.Gui = gui;
 
             // Call
-            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
 
             // Assert
-            Assert.AreEqual(16, menu.Items.Count);
+            Assert.AreEqual(17, menu.Items.Count);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex,
                                                           RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
                                                           "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
@@ -394,47 +400,53 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                           CoreCommonGuiResources.Rename,
                                                           CoreCommonGuiResources.Rename_ToolTip,
                                                           CoreCommonGuiResources.RenameIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 9,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 8,
+                                                          CoreCommonGuiResources.Delete,
+                                                          CoreCommonGuiResources.Delete_ToolTip,
+                                                          CoreCommonGuiResources.DeleteIcon);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 10,
                                                           CoreCommonGuiResources.Import,
                                                           CoreCommonGuiResources.Import_ToolTip,
                                                           CoreCommonGuiResources.ImportIcon,
                                                           false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 10,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 11,
                                                           CoreCommonGuiResources.Export,
                                                           CoreCommonGuiResources.Export_ToolTip,
                                                           CoreCommonGuiResources.ExportIcon,
                                                           false);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 12,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 13,
                                                           CoreCommonGuiResources.Expand_all,
                                                           CoreCommonGuiResources.Expand_all_ToolTip,
                                                           CoreCommonGuiResources.ExpandAllIcon,
                                                           false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 13,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 14,
                                                           CoreCommonGuiResources.Collapse_all,
                                                           CoreCommonGuiResources.Collapse_all_ToolTip,
                                                           CoreCommonGuiResources.CollapseAllIcon,
                                                           false);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 15,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 16,
                                                           CoreCommonGuiResources.Properties,
                                                           CoreCommonGuiResources.Properties_ToolTip,
                                                           CoreCommonGuiResources.PropertiesHS,
                                                           false);
+
             CollectionAssert.AllItemsAreInstancesOfType(new[]
             {
                 menu.Items[2],
                 menu.Items[6],
-                menu.Items[8],
-                menu.Items[11],
-                menu.Items[14]
+                menu.Items[9],
+                menu.Items[12],
+                menu.Items[15]
             }, typeof(ToolStripSeparator));
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void ContextMenuStrip_WithFailureMechanismContextParent_ReturnContextMenuWithoutRenameRemove()
+        public void ContextMenuStrip_NoParent_ReturnContextMenuWithoutRenameRemove()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
@@ -448,7 +460,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-            var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              Enumerable.Empty<StochasticSoilModel>(),
@@ -470,7 +481,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             plugin.Gui = gui;
 
             // Call
-            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // Assert
             var mainCalculationGroupContextMenuItemOffset = 4;
@@ -538,7 +549,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismAsParentWithoutAvailableSurfaceLines_GenerateCalculationsDisabled()
+        public void ContextMenuStrip_NoParentAndWithoutAvailableSurfaceLines_GenerateCalculationsDisabled()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
@@ -548,7 +559,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-            var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
             var nodeData = new PipingCalculationGroupContext(group,
                                                              Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
                                                              new[]
@@ -566,7 +576,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             plugin.Gui = gui;
 
             // Call
-            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menu, 1,
@@ -577,7 +587,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismAsParentWithoutAvailableSoilModels_GenerateCalculationsDisabled()
+        public void ContextMenuStrip_NoParentAndWithoutAvailableSoilModels_GenerateCalculationsDisabled()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
@@ -587,7 +597,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-            var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
             var nodeData = new PipingCalculationGroupContext(group,
                                                              new[]
                                                              {
@@ -605,7 +614,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             plugin.Gui = gui;
 
             // Call
-            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menu, 1,
@@ -616,7 +625,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismAsParentWithAvailableSurfaceLinesAndSoilModels_GenerateCalculationsEnabled()
+        public void ContextMenuStrip_NoParentAndWithAvailableSurfaceLinesAndSoilModels_GenerateCalculationsEnabled()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
@@ -626,7 +635,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-            var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
             var nodeData = new PipingCalculationGroupContext(group,
                                                              new[]
                                                              {
@@ -647,7 +655,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             plugin.Gui = gui;
 
             // Call
-            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menu, 1,
@@ -657,7 +665,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_GroupWithNoCalculations_ValidateAndCalculateAllDisabled()
+        public void ContextMenuStrip_NestedCalculationGroupWithNoCalculations_ValidateAndCalculateAllDisabled()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
@@ -665,6 +673,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
             var parentData = new PipingFailureMechanism();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
@@ -673,6 +682,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              Enumerable.Empty<StochasticSoilModel>(),
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
+            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<StochasticSoilModel>(),
+                                                                   pipingFailureMechanismMock,
+                                                                   assessmentSectionMock);
 
             gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
@@ -681,7 +695,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             plugin.Gui = gui;
 
             // Call
-            ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+            ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
 
             // Assert
             ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndex];
@@ -701,6 +715,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
@@ -708,6 +723,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              Enumerable.Empty<StochasticSoilModel>(),
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
+            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                       Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                       Enumerable.Empty<StochasticSoilModel>(),
+                                                       pipingFailureMechanismMock,
+                                                       assessmentSectionMock);
 
             var calculationItem = mocks.Stub<ICalculationBase>();
             calculationItem.Stub(ci => ci.Name).Return("Nieuwe map");
@@ -727,7 +747,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             nodeData.Attach(observer);
 
-            ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+            ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
 
             // Precondition
             Assert.AreEqual(1, group.Children.Count);
@@ -752,6 +772,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var gui = mocks.StrictMock<IGui>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var nodeData = new PipingCalculationGroupContext(group,
@@ -759,6 +780,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              Enumerable.Empty<StochasticSoilModel>(),
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
+            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<StochasticSoilModel>(),
+                                                                   pipingFailureMechanismMock,
+                                                                   assessmentSectionMock);
 
             var calculationItem = mocks.Stub<ICalculationBase>();
             calculationItem.Stub(ci => ci.Name).Return("Nieuwe berekening");
@@ -778,7 +804,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             nodeData.Attach(observer);
 
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+            var contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
 
             // Precondition
             Assert.AreEqual(1, group.Children.Count);
@@ -813,8 +839,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             childGroup.Children.Add(validCalculation);
 
             var emptyChildGroup = new CalculationGroup();
-
             var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+
             group.Children.Add(childGroup);
             group.Children.Add(emptyChildGroup);
             group.Children.Add(invalidCalculation);
@@ -827,6 +854,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              Enumerable.Empty<StochasticSoilModel>(),
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
+            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<StochasticSoilModel>(),
+                                                                   pipingFailureMechanismMock,
+                                                                   assessmentSectionMock);
 
             gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
@@ -834,7 +866,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             plugin.Gui = gui;
 
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+            var contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
 
             // Call
             Action call = () => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
@@ -874,6 +906,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var emptyChildGroup = new CalculationGroup();
 
             var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+
             group.Children.Add(childGroup);
             group.Children.Add(emptyChildGroup);
             group.Children.Add(invalidCalculation);
@@ -886,6 +920,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              Enumerable.Empty<StochasticSoilModel>(),
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
+            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<StochasticSoilModel>(),
+                                                                   pipingFailureMechanismMock,
+                                                                   assessmentSectionMock);
 
             gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
             gui.Expect(g => g.MainWindow).Return(mainWindow);
@@ -894,7 +933,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             plugin.Gui = gui;
 
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+            var contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -940,8 +979,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             childGroup.Children.Add(calculation1);
 
             var emptyChildGroup = new CalculationGroup();
-
             var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+
             group.Children.Add(childGroup);
             group.Children.Add(emptyChildGroup);
             group.Children.Add(calculation2);
@@ -954,6 +994,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              Enumerable.Empty<StochasticSoilModel>(),
                                                              pipingFailureMechanismMock,
                                                              assessmentSectionMock);
+            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                   Enumerable.Empty<StochasticSoilModel>(),
+                                                                   pipingFailureMechanismMock,
+                                                                   assessmentSectionMock);
 
             gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
@@ -978,7 +1023,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     messageBox.ClickCancel();
                 }
             };
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+            var contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
 
             // Call
             contextMenu.Items[contextMenuClearOutputIndex].PerformClick();
@@ -1007,7 +1052,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             var mainWindow = mocks.Stub<IMainWindow>();
 
-            var parentData = new PipingFailureMechanismContext(pipingFailureMechanismMock, assessmentSectionMock);
             var surfaceLines = new[]
             {
                 new RingtoetsPipingSurfaceLine
@@ -1045,7 +1089,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 new ButtonTester("CustomCancelButton", selectionDialog).Click();
             };
 
-            var contextMenu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // Call
             contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
@@ -1072,7 +1116,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
             var mainWindow = mocks.Stub<IMainWindow>();
-            var parentData = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
 
             var surfaceLine1 = new RingtoetsPipingSurfaceLine
             {
@@ -1155,7 +1198,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 new ButtonTester("OkButton", selectionDialog).Click();
             };
 
-            var contextMenu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // When
             contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
@@ -1190,7 +1233,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
             var mainWindow = mocks.Stub<IMainWindow>();
-            var parentData = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
 
             var surfaceLine1 = new RingtoetsPipingSurfaceLine
             {
@@ -1273,7 +1315,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 new ButtonTester("CustomCancelButton", selectionDialog).Click();
             };
 
-            var contextMenu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // When
             contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
