@@ -1288,31 +1288,35 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRenameNode_ParentIsPipingFailureMechanismContext_ReturnFalse()
+        public void CanRenameNode_ParentIsPipingCalculationGroupContext_ReturnTrue()
         {
             // Setup
             var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismContextMock = mocks.StrictMock<PipingFailureMechanismContext>(pipingFailureMechanismMock, assessmentSectionMock);
+            var pipingCalculationGroupContextMock = mocks.StrictMock<PipingCalculationGroupContext>(new CalculationGroup(),
+                                                                                                    Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                                    Enumerable.Empty<StochasticSoilModel>(),
+                                                                                                    pipingFailureMechanismMock,
+                                                                                                    assessmentSectionMock);
 
             mocks.ReplayAll();
 
             // Call
-            bool isRenamingAllowed = info.CanRename(null, pipingFailureMechanismContextMock);
+            bool isRenamingAllowed = info.CanRename(null, pipingCalculationGroupContextMock);
 
             // Assert
-            Assert.IsFalse(isRenamingAllowed);
+            Assert.IsTrue(isRenamingAllowed);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CanRenameNode_EverythingElse_ReturnTrue()
+        public void CanRenameNode_EverythingElse_ReturnFalse()
         {
             // Call
             bool isRenamingAllowed = info.CanRename(null, null);
 
             // Assert
-            Assert.IsTrue(isRenamingAllowed);
+            Assert.IsFalse(isRenamingAllowed);
             mocks.VerifyAll();
         }
 
@@ -1402,38 +1406,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.IsTrue(isRemovalAllowed);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CanRemove_ParentIsPipingCalculationGroupNotContainingGroup_ReturnFalse()
-        {
-            // Setup
-            var group = new CalculationGroup();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var nodeData = new PipingCalculationGroupContext(group,
-                                                             Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                             Enumerable.Empty<StochasticSoilModel>(),
-                                                             pipingFailureMechanismMock,
-                                                             assessmentSectionMock);
-
-            var parentGroup = new CalculationGroup();
-            var parentNodeData = new PipingCalculationGroupContext(parentGroup,
-                                                                   Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                   Enumerable.Empty<StochasticSoilModel>(),
-                                                                   pipingFailureMechanismMock,
-                                                                   assessmentSectionMock);
-
-            // Precondition
-            CollectionAssert.DoesNotContain(parentGroup.Children, group);
-
-            // Call
-            bool isRemovalAllowed = info.CanRemove(nodeData, parentNodeData);
-
-            // Assert
-            Assert.IsFalse(isRemovalAllowed);
         }
 
         [Test]

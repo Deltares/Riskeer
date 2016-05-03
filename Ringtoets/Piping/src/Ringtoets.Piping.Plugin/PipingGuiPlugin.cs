@@ -235,13 +235,9 @@ namespace Ringtoets.Piping.Plugin
 
         private TreeNodeInfo<PipingCalculationGroupContext> CreatePipingCalculationGroupContextTreeNodeInfo()
         {
-            var treeNodeInfo = TreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(null, null, Gui);
+            var treeNodeInfo = TreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(PipingCalculationGroupContextChildNodeObjects, null, Gui);
 
-            treeNodeInfo.ChildNodeObjects = PipingCalculationGroupContextChildNodeObjects;
             treeNodeInfo.ContextMenuStrip = PipingCalculationGroupContextContextMenuStrip;
-            treeNodeInfo.CanRename = PipingCalculationGroupContextCanRenameNode;
-            treeNodeInfo.OnNodeRenamed = PipingCalculationGroupContextOnNodeRenamed;
-            treeNodeInfo.CanRemove = PipingCalculationGroupContextCanRemove;
             treeNodeInfo.OnNodeRemoved = PipingCalculationGroupContextOnNodeRemoved;
             treeNodeInfo.CanDrag = PipingCalculationGroupContextCanDrag;
             treeNodeInfo.CanDrop = PipingCalculationGroupContextCanDropOrCanInsert;
@@ -811,12 +807,6 @@ namespace Ringtoets.Piping.Plugin
         private bool PipingCalculationGroupContextCanRenameNode(PipingCalculationGroupContext pipingCalculationGroupContext, object parentData)
         {
             return !(parentData is PipingFailureMechanismContext);
-        }
-
-        private void PipingCalculationGroupContextOnNodeRenamed(PipingCalculationGroupContext nodeData, string newName)
-        {
-            nodeData.WrappedData.Name = newName;
-            nodeData.NotifyObservers();
         }
 
         private bool PipingCalculationGroupContextCanRemove(PipingCalculationGroupContext nodeData, object parentNodeData)
