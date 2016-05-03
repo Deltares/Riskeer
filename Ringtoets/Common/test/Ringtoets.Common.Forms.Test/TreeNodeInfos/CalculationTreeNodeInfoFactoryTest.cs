@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
@@ -319,6 +320,181 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
+        [Test]
+        [Combinatorial]
+        public void OnDropOfCalculationGroupContextTreeNodeInfo_DraggingCalculationItemContextOntoGroupEnd_MoveCalculationItemInstanceToNewGroup(
+            [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var originalOwnerObserver = mocks.StrictMock<IObserver>();
+            var newOwnerObserver = mocks.StrictMock<IObserver>();
+
+            originalOwnerObserver.Expect(o => o.UpdateObserver());
+            newOwnerObserver.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            ICalculationBase draggedItem;
+            object draggedItemContext;
+            CreateCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanismMock);
+
+            CalculationGroup originalOwnerGroup;
+            TestCalculationGroupContext originalOwnerGroupContext;
+            CreateCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, failureMechanismMock);
+            originalOwnerGroup.Children.Add(draggedItem);
+
+            CalculationGroup newOwnerGroup;
+            TestCalculationGroupContext newOwnerGroupContext;
+            CreateCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, failureMechanismMock);
+
+            originalOwnerGroup.Attach(originalOwnerObserver);
+            newOwnerGroup.Attach(newOwnerObserver);
+
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+
+            // Precondition
+            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+            CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
+
+            // Call
+            treeNodeInfo.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewControlMock);
+
+            // Assert
+            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
+            CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
+            Assert.AreSame(draggedItem, newOwnerGroup.Children.Last(),
+                           "Dragging node at the end of the target TestCalculationGroup should put the dragged data at the end of 'newOwnerGroup'.");
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void OnDropOfCalculationGroupContextTreeNodeInfo_InsertingCalculationItemContextAtDifferentLocationWithinSameGroup_ChangeItemIndexOfCalculationItem(
+            [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType,
+            [Values(0, 2)] int newIndex)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var existingItemStub = mocks.Stub<ICalculationBase>();
+            var originalOwnerObserver = mocks.StrictMock<IObserver>();
+
+            existingItemStub.Stub(ci => ci.Name).Return("");
+            originalOwnerObserver.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            const string name = "Very cool name";
+
+            object draggedItemContext;
+            ICalculationBase draggedItem;
+            CreateCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanismMock, name);
+
+            CalculationGroup originalOwnerGroup;
+            TestCalculationGroupContext originalOwnerGroupContext;
+            CreateCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, failureMechanismMock);
+
+            originalOwnerGroup.Children.Add(existingItemStub);
+            originalOwnerGroup.Children.Add(draggedItem);
+            originalOwnerGroup.Children.Add(existingItemStub);
+
+            originalOwnerGroup.Attach(originalOwnerObserver);
+
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+
+            // Precondition
+            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+
+            // Call
+            treeNodeInfo.OnDrop(draggedItemContext, originalOwnerGroupContext, originalOwnerGroupContext, newIndex, treeViewControlMock);
+
+            // Assert
+            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+            Assert.AreNotSame(draggedItem, originalOwnerGroup.Children[1],
+                              "Should have removed 'draggedItem' from its original location in the collection.");
+            Assert.AreSame(draggedItem, originalOwnerGroup.Children[newIndex],
+                           "Dragging node to specific location within owning TestCalculationGroup should put the dragged data at that index.");
+            Assert.AreEqual(name, draggedItem.Name,
+                            "No renaming should occur when dragging within the same TestCalculationGroup.");
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void OnDropOfCalculationGroupContextTreeNodeInfo_DraggingCalculationItemContextOntoGroupWithSameNamedItem_MoveCalculationItemInstanceToNewGroupAndRename(
+            [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+
+            ICalculationBase draggedItem;
+            object draggedItemContext;
+            CreateCalculationItemAndContext(draggedItemType, out draggedItem, out draggedItemContext, failureMechanismMock);
+
+            CalculationGroup originalOwnerGroup;
+            TestCalculationGroupContext originalOwnerGroupContext;
+            CreateCalculationGroupAndContext(out originalOwnerGroup, out originalOwnerGroupContext, failureMechanismMock);
+            originalOwnerGroup.Children.Add(draggedItem);
+
+            CalculationGroup newOwnerGroup;
+            TestCalculationGroupContext newOwnerGroupContext;
+            CreateCalculationGroupAndContext(out newOwnerGroup, out newOwnerGroupContext, failureMechanismMock);
+
+            var sameNamedItem = mocks.Stub<ICalculationBase>();
+            sameNamedItem.Stub(sni => sni.Name).Return(draggedItem.Name);
+
+            var originalOwnerObserver = mocks.StrictMock<IObserver>();
+            originalOwnerObserver.Expect(o => o.UpdateObserver());
+
+            var newOwnerObserver = mocks.StrictMock<IObserver>();
+            newOwnerObserver.Expect(o => o.UpdateObserver());
+
+            treeViewControlMock.Expect(tvc => tvc.TryRenameNodeForData(draggedItemContext));
+
+            mocks.ReplayAll();
+
+            newOwnerGroup.Children.Add(sameNamedItem);
+
+            originalOwnerGroup.Attach(originalOwnerObserver);
+            newOwnerGroup.Attach(newOwnerObserver);
+
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+
+            // Precondition
+            CollectionAssert.Contains(originalOwnerGroup.Children, draggedItem);
+            CollectionAssert.DoesNotContain(newOwnerGroup.Children, draggedItem);
+            CollectionAssert.Contains(newOwnerGroup.Children.Select(c => c.Name), draggedItem.Name,
+                                      "Name of the dragged item should already exist in new owner.");
+
+            // Call
+            treeNodeInfo.OnDrop(draggedItemContext, newOwnerGroupContext, originalOwnerGroupContext, 0, treeViewControlMock);
+
+            // Assert
+            CollectionAssert.DoesNotContain(originalOwnerGroup.Children, draggedItem);
+            CollectionAssert.Contains(newOwnerGroup.Children, draggedItem);
+            Assert.AreSame(draggedItem, newOwnerGroup.Children.First(),
+                           "Dragging to insert node at start of newOwnerGroup should place the node at the start of the list.");
+            switch (draggedItemType)
+            {
+                case CalculationItemType.Calculation:
+                    Assert.AreEqual("Nieuwe berekening", draggedItem.Name);
+                    break;
+                case CalculationItemType.Group:
+                    Assert.AreEqual("Nieuwe map", draggedItem.Name);
+                    break;
+            }
+
+            mocks.VerifyAll();
+        }
+
         /// <summary>
         /// Creates an instance of <see cref="CalculationGroup"/> and the corresponding <see cref="TestCalculationGroupContext"/>.
         /// </summary>
@@ -397,6 +573,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         private class TestCalculation : Observable, ICalculation
         {
+            public TestCalculation()
+            {
+                Name = "Nieuwe berekening";
+            }
+
             public string Name { get; set; }
 
             public string Comments { get; set; }
