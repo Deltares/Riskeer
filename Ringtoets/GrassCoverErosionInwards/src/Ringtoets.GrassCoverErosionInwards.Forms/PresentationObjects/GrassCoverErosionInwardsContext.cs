@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
@@ -37,12 +38,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsContext{T}"/> class.
         /// </summary>
         /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
+        /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
         protected GrassCoverErosionInwardsContext(
-            T wrappedData, IAssessmentSection assessmentSection)
+            T wrappedData,
+            GrassCoverErosionInwardsFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
+            if (failureMechanism == null)
+            {
+                var message = String.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                                            Resources.GrassCoverErosionInwardsContext_DataDescription_GrassCoverErosionInwardsFailureMechanism);
+
+                throw new ArgumentNullException("failureMechanism", message);
+            }
+
             if (assessmentSection == null)
             {
                 var message = String.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
@@ -50,8 +62,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
                 throw new ArgumentNullException("assessmentSection", message);
             }
 
+            FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
         }
+
+        /// <summary>
+        /// Gets the failure mechanism which the context belongs to.
+        /// </summary>
+        public GrassCoverErosionInwardsFailureMechanism FailureMechanism { get; private set; }
 
         /// <summary>
         /// Gets the assessment section which the failure mechanism context belongs to.

@@ -21,9 +21,11 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
@@ -44,17 +46,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
             var target = new ObservableObject();
 
             // Call
-            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, assessmentSectionMock);
+            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanismMock, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<IObservable>(context);
-
             Assert.AreSame(target, context.WrappedData);
+            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
+            Assert.AreSame(failureMechanismMock, context.FailureMechanism);
 
             mockRepository.VerifyAll();
         }
@@ -64,10 +68,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
             TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(null,
+                                                                                                  failureMechanismMock,
                                                                                                   assessmentSectionMock);
 
             // Assert
@@ -81,10 +87,45 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
+        public void ParameteredConstructor_FailureMechanismIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var observableObject = new ObservableObject();
+
+            // Call
+            TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, null, assessmentSectionMock);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het grasbekleding erosie kruin en binnentalud faalmechanisme mag niet 'null' zijn.");
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ParameteredConstructor_AssessmentSectionIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var observableObject = new ObservableObject();
+
+            // Call
+            TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, failureMechanismMock, null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Attach_Observer_ObserverAttachedToWrappedObject()
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
@@ -92,6 +133,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var observableObject = new ObservableObject();
 
             var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject,
+                                                                                      failureMechanismMock,
                                                                                       assessmentSectionMock);
 
             // Call
@@ -107,12 +149,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var observerMock = mockRepository.StrictMock<IObserver>();
             mockRepository.ReplayAll();
 
             var observableObject = new ObservableObject();
 
             var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject,
+                                                                                      failureMechanismMock,
                                                                                       assessmentSectionMock);
             // Precondition
             context.Attach(observerMock);
@@ -130,6 +174,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
@@ -137,6 +182,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var observableObject = new ObservableObject();
 
             var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject,
+                                                                                      failureMechanismMock,
                                                                                       assessmentSectionMock);
 
             // Precondition
@@ -154,10 +200,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
             var observableObject = new ObservableObject();
             var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject,
+                                                                                      failureMechanismMock,
                                                                                       assessmentSectionMock);
 
             // Call
@@ -173,10 +221,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
             var observableObject = new ObservableObject();
             var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject,
+                                                                                      failureMechanismMock,
                                                                                       assessmentSectionMock);
 
             // Call
@@ -192,13 +242,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
             var observableObject = new ObservableObject();
             var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject,
+                                                                                      failureMechanismMock,
                                                                                       assessmentSectionMock);
 
             var otherContext = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject,
+                                                                                           failureMechanismMock,
                                                                                            assessmentSectionMock);
 
             // Call
@@ -216,14 +269,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
             var observableObject = new ObservableObject();
             var otherObservableObject = new ObservableObject();
             var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject,
+                                                                                      failureMechanismMock,
                                                                                       assessmentSectionMock);
 
             var otherContext = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(otherObservableObject,
+                                                                                           failureMechanismMock,
                                                                                            assessmentSectionMock);
 
             // Call
@@ -241,14 +297,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var observableStub = mockRepository.Stub<IObservable>();
             mockRepository.ReplayAll();
 
             var observableObject = new ObservableObject();
             var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject,
+                                                                                      failureMechanismMock,
                                                                                       assessmentSectionMock);
 
             var otherContext = new SimpleGrassCoverErosionInwardsContext<IObservable>(observableStub,
+                                                                                      failureMechanismMock,
                                                                                       assessmentSectionMock);
 
             // Call
@@ -266,13 +325,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
             var observableObject = new ObservableObject();
             var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject,
+                                                                                      failureMechanismMock,
                                                                                       assessmentSectionMock);
 
             var otherContext = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject,
+                                                                                           failureMechanismMock,
                                                                                            assessmentSectionMock);
             // Precondition
             Assert.True(context.Equals(otherContext));
@@ -290,8 +352,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 
         private class SimpleGrassCoverErosionInwardsContext<T> : GrassCoverErosionInwardsContext<T> where T : IObservable
         {
-            public SimpleGrassCoverErosionInwardsContext(T target, IAssessmentSection assessmentSection)
-                : base(target, assessmentSection) {}
+            public SimpleGrassCoverErosionInwardsContext(T target, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+                : base(target, failureMechanism, assessmentSection) {}
         }
     }
 }

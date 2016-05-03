@@ -19,11 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
 {
@@ -31,30 +30,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
     /// in order be able to create configurable grass cover erosion inwards calculations.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationGroupContext : GrassCoverErosionInwardsContext<CalculationGroup>
+    public class GrassCoverErosionInwardsCalculationGroupContext : GrassCoverErosionInwardsContext<CalculationGroup>, ICalculationContext<CalculationGroup, GrassCoverErosionInwardsFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationGroupContext"/>.
         /// </summary>
         /// <param name="calculationsGroup">The <see cref="CalculationGroup"/> instance wrapped by this context object.</param>
-        /// <param name="grassCoverErosionInwardsFailureMechanism">The failure mechanism which the context belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        public GrassCoverErosionInwardsCalculationGroupContext(CalculationGroup calculationsGroup, GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism, IAssessmentSection assessmentSection)
-            : base(calculationsGroup, assessmentSection)
-        {
-            if (grassCoverErosionInwardsFailureMechanism == null)
-            {
-                var message = string.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.GrassCoverErosionInwardsContext_DataDescription_GrassCoverErosionInwardsFailureMechanism);
-                throw new ArgumentNullException("grassCoverErosionInwardsFailureMechanism", message);
-            }
-
-            GrassCoverErosionInwardsFailureMechanism = grassCoverErosionInwardsFailureMechanism;
-        }
-
-        /// <summary>
-        /// Gets the <see cref="GrassCoverErosionInwardsFailureMechanism"/> which the <see cref="GrassCoverErosionInwardsCalculationGroupContext"/> belongs to.
-        /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwardsFailureMechanism { get; private set; }
+        public GrassCoverErosionInwardsCalculationGroupContext(CalculationGroup calculationsGroup, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            : base(calculationsGroup, failureMechanism, assessmentSection) {}
     }
 }

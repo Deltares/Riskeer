@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 
             // Assert
             Assert.AreEqual(calculationMock, context.WrappedData);
-            Assert.AreEqual(failureMechanismMock, context.GrassCoverErosionInwardsFailureMechanism);
+            Assert.AreEqual(failureMechanismMock, context.FailureMechanism);
             Assert.AreEqual(assessmentSectionMock, context.AssessmentSection);
             mocksRepository.VerifyAll();
         }
@@ -72,40 +72,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("wrappedData", exception.ParamName);
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_NullFailureMechanism_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationMock = mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new GeneralGrassCoverErosionInwardsInput());
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsCalculationContext(calculationMock, null, assessmentSectionMock);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_NullAssessmentSection_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationMock = mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new GeneralGrassCoverErosionInwardsInput());
-            var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            mocksRepository.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsCalculationContext(calculationMock, failureMechanismMock, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
             mocksRepository.VerifyAll();
         }
     }

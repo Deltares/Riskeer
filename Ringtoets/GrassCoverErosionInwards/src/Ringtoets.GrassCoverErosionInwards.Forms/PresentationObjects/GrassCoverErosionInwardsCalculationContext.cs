@@ -21,6 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
@@ -29,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="GrassCoverErosionInwardsCalculation"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationContext : GrassCoverErosionInwardsContext<GrassCoverErosionInwardsCalculation>
+    public class GrassCoverErosionInwardsCalculationContext : GrassCoverErosionInwardsContext<GrassCoverErosionInwardsCalculation>, ICalculationContext<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationContext"/>.
@@ -39,18 +40,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsCalculationContext(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(calculation, assessmentSection)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException("failureMechanism");
-            }
-            GrassCoverErosionInwardsFailureMechanism = failureMechanism;
-        }
-
-        /// <summary>
-        /// Gets the failure mechanism which the context belongs to.
-        /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwardsFailureMechanism { get; private set; }
+            : base(calculation, failureMechanism, assessmentSection) {}
     }
 }

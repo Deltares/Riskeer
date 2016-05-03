@@ -283,4 +283,10 @@
   <data name="FailureMechanismContextMenuStrip_Is_relevant_Tooltip" xml:space="preserve">
     <value>Geeft aan of dit faalmechanisme relevant is of niet.</value>
   </data>
+  <data name="Add_calculation_to_calculation_group_tooltip" xml:space="preserve">
+    <value>Voeg een nieuwe berekening toe aan deze berekeningsmap.</value>
+  </data>
+  <data name="Add_calculation_group_to_calculation_group_tooltip" xml:space="preserve">
+    <value>Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.</value>
+  </data>
 </root>

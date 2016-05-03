@@ -45,15 +45,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationGroupContextTreeNodeInfoTest
     {
+        private IGui gui;
+        private TreeNodeInfo info;
         private MockRepository mocks;
         private GrassCoverErosionInwardsGuiPlugin plugin;
-        private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new GrassCoverErosionInwardsGuiPlugin();
+            gui = mocks.StrictMock<IGui>();
+            plugin = new GrassCoverErosionInwardsGuiPlugin
+            {
+                Gui = gui
+            };
+
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationGroupContext));
         }
 
@@ -173,7 +179,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreEqual(group.Children.Count, children.Length);
             var calculationGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) children[0];
             Assert.AreSame(childGroup, calculationGroupContext.WrappedData);
-            Assert.AreSame(failureMechanismMock, calculationGroupContext.GrassCoverErosionInwardsFailureMechanism);
+            Assert.AreSame(failureMechanismMock, calculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, calculationGroupContext.AssessmentSection);
             Assert.AreSame(calculationItem, children[1]);
             var calculationContext = (GrassCoverErosionInwardsCalculationContext) children[2];
@@ -185,7 +191,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void ContextmenuStrip_FailureMechanismContextParent_ReturnContextMenuWithoutRenameRemove()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
             var group = new CalculationGroup();
 
             var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
@@ -209,8 +214,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            plugin.Gui = gui;
-
             // Call
             ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
 
@@ -224,11 +227,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                           false);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex + mainCalculationGroupContextItemOffset,
                                                           RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                          "Voeg een nieuwe berekeningsmap toe aan dit faalmechanisme.",
+                                                          "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
                                                           RingtoetsFormsResources.AddFolderIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationItemIndex + mainCalculationGroupContextItemOffset,
                                                           RingtoetsFormsResources.CalculationGroup_Add_Calculation,
-                                                          "Voeg een nieuwe grasbekleding erosie kruin en binnentalud berekening toe aan dit faalmechanisme.",
+                                                          "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                           GrassCoverErosionInwardsFormResources.CalculationIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, 5,
                                                           CoreCommonGuiResources.Import,
@@ -272,7 +275,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void ContextmenuStrip_ChildOfGroup_ReturnContextMenuWithAllItems()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
             var parentGroup = new CalculationGroup();
             var group = new CalculationGroup();
 
@@ -303,8 +305,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            plugin.Gui = gui;
-
             // Call
             ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
 
@@ -312,11 +312,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreEqual(13, menu.Items.Count);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex,
                                                           RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                          "Voeg een nieuwe berekeningsmap toe aan dit faalmechanisme.",
+                                                          "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
                                                           RingtoetsFormsResources.AddFolderIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationItemIndex,
                                                           RingtoetsFormsResources.CalculationGroup_Add_Calculation,
-                                                          "Voeg een nieuwe grasbekleding erosie kruin en binnentalud berekening toe aan dit faalmechanisme.",
+                                                          "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                           GrassCoverErosionInwardsFormResources.CalculationIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, 3,
                                                           CoreCommonGuiResources.Rename,
@@ -368,14 +368,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnAddGroupItem_AddGroupToCalculationGroupAndNotifyObservers()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
             var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                failureMechanismMock,
                                                                                assessmentSectionMock);
+            var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
+                                                                                     failureMechanismMock,
+                                                                                     assessmentSectionMock);
 
             var calculationItem = mocks.Stub<ICalculationBase>();
             calculationItem.Stub(ci => ci.Name).Return("Nieuwe map");
@@ -389,13 +392,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            plugin.Gui = gui;
-
             group.Children.Add(calculationItem);
 
             nodeData.Attach(observer);
 
-            ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+            ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
 
             // Precondition
             Assert.AreEqual(1, group.Children.Count);
@@ -417,14 +418,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers()
         {
             // Setup
-            var gui = mocks.StrictMock<IGui>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
             var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                failureMechanismMock,
                                                                                assessmentSectionMock);
+            var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
+                                                                                     failureMechanismMock,
+                                                                                     assessmentSectionMock);
 
             var calculationItem = mocks.Stub<ICalculationBase>();
             calculationItem.Stub(ci => ci.Name).Return("Nieuwe berekening");
@@ -438,13 +442,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            plugin.Gui = gui;
-
             group.Children.Add(calculationItem);
 
             nodeData.Attach(observer);
 
-            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+            var contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
 
             // Precondition
             Assert.AreEqual(1, group.Children.Count);
@@ -463,31 +465,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRenameNode_ParentIsGrassCoverErosionInwardsFailureMechanismContext_ReturnFalse()
+        public void CanRenameNode_ParentIsGrassCoverErosionInwardsCalculationGroupContext_ReturnTrue()
         {
             // Setup
+            var calculationGroupMock = mocks.StrictMock<CalculationGroup>();
             var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanismContextMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanismContext>(failureMechanismMock, assessmentSectionMock);
+            var calculationGroupContextMock = mocks.StrictMock<GrassCoverErosionInwardsCalculationGroupContext>(calculationGroupMock, failureMechanismMock, assessmentSectionMock);
 
             mocks.ReplayAll();
 
             // Call
-            bool isRenamingAllowed = info.CanRename(null, failureMechanismContextMock);
+            bool isRenamingAllowed = info.CanRename(null, calculationGroupContextMock);
 
             // Assert
-            Assert.IsFalse(isRenamingAllowed);
+            Assert.IsTrue(isRenamingAllowed);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CanRenameNode_EverythingElse_ReturnTrue()
+        public void CanRenameNode_EverythingElse_ReturnFalse()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Call
             bool isRenamingAllowed = info.CanRename(null, null);
 
             // Assert
-            Assert.IsTrue(isRenamingAllowed);
+            Assert.IsFalse(isRenamingAllowed);
             mocks.VerifyAll();
         }
 
@@ -572,34 +578,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRemove_ParentIsGrasCoverErosionInwardsCalculationGroupNotContainingGroup_ReturnFalse()
-        {
-            // Setup
-            var group = new CalculationGroup();
-            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                               failureMechanismMock,
-                                                                               assessmentSectionMock);
-
-            var parentGroup = new CalculationGroup();
-            var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
-                                                                                     failureMechanismMock,
-                                                                                     assessmentSectionMock);
-
-            // Precondition
-            CollectionAssert.DoesNotContain(parentGroup.Children, group);
-
-            // Call
-            bool isRemovalAllowed = info.CanRemove(nodeData, parentNodeData);
-
-            // Assert
-            Assert.IsFalse(isRemovalAllowed);
-        }
-
-        [Test]
         public void OnNodeRemoved_ParentIsGrassCoverErosionInwardsCalculationGroupContainingGroup_RemoveGroupAndNotifyObservers()
         {
             // Setup
@@ -671,7 +649,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanDrag_WithParentNodeDefaultBehavior_ReturnTrue()
+        public void CanDrag_WithoutParentNodeDefaultBehavior_ReturnFalse()
         {
             // Setup
             var group = new CalculationGroup();
@@ -687,17 +665,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var canDrag = info.CanDrag(groupContext, null);
 
             // Assert
-            Assert.IsTrue(canDrag);
+            Assert.IsFalse(canDrag);
         }
 
         [Test]
-        public void CanDrag_ParentIsGrassCoverErosionInwardsFailureMechanismContext_ReturnFalse()
+        public void CanDrag_ParentIsGrassCoverErosionInwardsCalculationGroupContext_ReturnTrue()
         {
             // Setup
             var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
             var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanismContextMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanismContext>(failureMechanismMock, assessmentSectionMock);
 
             mocks.ReplayAll();
 
@@ -705,11 +683,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                                                    failureMechanismMock,
                                                                                    assessmentSectionMock);
 
+            var parentGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
+                                                                                         failureMechanismMock,
+                                                                                         assessmentSectionMock);
+
             // Call
-            var canDrag = info.CanDrag(groupContext, failureMechanismContextMock);
+            var canDrag = info.CanDrag(groupContext, parentGroupContext);
 
             // Assert
-            Assert.IsFalse(canDrag);
+            Assert.IsTrue(canDrag);
         }
 
         [Test]

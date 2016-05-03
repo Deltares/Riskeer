@@ -34,14 +34,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// </summary>
         /// <param name="input">The grass cover erosion inwards input instance wrapped by this context object.</param>
         /// <param name="calculation">The calculation item the <paramref name="input"/> belongs to.</param>
-        /// <param name="grassCoverErosionInwardsFailureMechanism">The failure mechanism which the context belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is null.</exception>
         public GrassCoverErosionInwardsInputContext(GrassCoverErosionInwardsInput input,
                                                     ICalculation calculation,
-                                                    GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism,
+                                                    GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection)
-            : base(input, assessmentSection)
+            : base(input, failureMechanism, assessmentSection)
         {
             if (calculation == null)
             {
@@ -50,27 +50,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
 
                 throw new ArgumentNullException("calculation", message);
             }
-            if (grassCoverErosionInwardsFailureMechanism == null)
-            {
-                var message = String.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.GrassCoverErosionInwardsContext_DataDescription_GrassCoverErosionInwardsFailureMechanism);
-
-                throw new ArgumentNullException("grassCoverErosionInwardsFailureMechanism", message);
-            }
 
             Calculation = calculation;
-
-            GrassCoverErosionInwardsFailureMechanism = grassCoverErosionInwardsFailureMechanism;
         }
 
         /// <summary>
         /// Gets the calculation item which the context belongs to.
         /// </summary>
         public ICalculation Calculation { get; private set; }
-
-        /// <summary>
-        /// Gets the failure mechanism which the context belongs to.
-        /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwardsFailureMechanism { get; private set; }
     }
 }

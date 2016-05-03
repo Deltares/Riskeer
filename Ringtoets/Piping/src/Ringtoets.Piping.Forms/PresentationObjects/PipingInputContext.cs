@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
                                   IEnumerable<StochasticSoilModel> stochasticSoilModels,
                                   PipingFailureMechanism pipingFailureMechanism,
                                   IAssessmentSection assessmentSection)
-            : base(pipingInput, surfaceLines, stochasticSoilModels, assessmentSection)
+            : base(pipingInput, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection)
         {
             if (calculation == null)
             {
@@ -60,26 +60,13 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
 
                 throw new ArgumentNullException("calculation", message);
             }
-            if (pipingFailureMechanism == null)
-            {
-                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.PipingContext_DataDescription_PipingFailureMechanism);
-
-                throw new ArgumentNullException("pipingFailureMechanism", message);
-            }
 
             PipingCalculation = calculation;
-            PipingFailureMechanism = pipingFailureMechanism;
         }
 
         /// <summary>
         /// Gets the calculation scenario which the piping context belongs to.
         /// </summary>
         public PipingCalculationScenario PipingCalculation { get; private set; }
-
-        /// <summary>
-        /// Gets the failure mechanism which the piping context belongs to.
-        /// </summary>
-        public PipingFailureMechanism PipingFailureMechanism { get; private set; }
     }
 }

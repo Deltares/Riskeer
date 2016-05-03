@@ -43,6 +43,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Helpers\NamingHelper.cs" />
+    <Compile Include="PresentationObjects\ICalculationContext.cs" />
     <Compile Include="PresentationObjects\CommentContext.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolder.cs" />
     <Compile Include="PresentationObjects\FailureMechanismContext.cs">
@@ -60,6 +61,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="TreeNodeInfos\DefaultFailureMechanismTreeNodeInfo.cs" />
+    <Compile Include="TreeNodeInfos\TreeNodeInfoFactory.cs" />
     <Compile Include="Views\CommentView.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -58,40 +56,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<IObservable>(groupContext);
             Assert.IsInstanceOf<GrassCoverErosionInwardsContext<CalculationGroup>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
-            Assert.AreSame(failureMechanismMock, groupContext.GrassCoverErosionInwardsFailureMechanism);
+            Assert.AreSame(failureMechanismMock, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, groupContext.AssessmentSection);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ParameteredConstructor_FailureMechanismIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var calculationGroup = new CalculationGroup();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup, null, assessmentSectionMock);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het grasbekleding erosie kruin en binnentalud faalmechanisme mag niet 'null' zijn.");
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ParameteredConstructor_AssessmentSectionIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var calculationGroup = new CalculationGroup();
-            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup, failureMechanismMock, null);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
             mockRepository.VerifyAll();
         }
 

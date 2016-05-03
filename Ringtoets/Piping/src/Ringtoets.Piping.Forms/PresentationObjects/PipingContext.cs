@@ -45,18 +45,21 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
+        /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
         protected PipingContext(
             T wrappedData,
             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines,
             IEnumerable<StochasticSoilModel> stochasticSoilModels,
+            PipingFailureMechanism pipingFailureMechanism,
             IAssessmentSection assessmentSection) : base(wrappedData)
         {
-            AssertInputsAreNotNull(surfaceLines, stochasticSoilModels, assessmentSection);
+            AssertInputsAreNotNull(surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection);
 
             AvailablePipingSurfaceLines = surfaceLines;
             AvailableStochasticSoilModels = stochasticSoilModels;
+            FailureMechanism = pipingFailureMechanism;
             AssessmentSection = assessmentSection;
         }
 
@@ -89,6 +92,11 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         }
 
         /// <summary>
+        /// Gets the piping failure mechanism which the piping context belongs to.
+        /// </summary>
+        public PipingFailureMechanism FailureMechanism { get; private set; }
+
+        /// <summary>
         /// Gets the assessment section which the piping context belongs to.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
@@ -98,9 +106,10 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// </summary>
         /// <param name="surfaceLines">The surface lines.</param>
         /// <param name="soilProfiles">The soil profiles.</param>
+        /// <param name="pipingFailureMechanism">The piping failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
-        private static void AssertInputsAreNotNull(object surfaceLines, object soilProfiles, object assessmentSection)
+        private static void AssertInputsAreNotNull(object surfaceLines, object soilProfiles, object pipingFailureMechanism, object assessmentSection)
         {
             if (surfaceLines == null)
             {
@@ -113,6 +122,12 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
                 var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.PipingContext_DataDescription_Soilprofiles);
                 throw new ArgumentNullException("soilProfiles", message);
+            }
+            if (pipingFailureMechanism == null)
+            {
+                var message = string.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                                            Resources.PipingContext_DataDescription_PipingFailureMechanism);
+                throw new ArgumentNullException("pipingFailureMechanism", message);
             }
             if (assessmentSection == null)
             {

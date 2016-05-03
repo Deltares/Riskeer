@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             // Assert
             Assert.AreEqual(inputMock, context.WrappedData);
             Assert.AreEqual(calculationMock, context.Calculation);
-            Assert.AreEqual(failureMechanismMock, context.GrassCoverErosionInwardsFailureMechanism);
+            Assert.AreEqual(failureMechanismMock, context.FailureMechanism);
             Assert.AreEqual(assessmentSectionMock, context.AssessmentSection);
             mocksRepository.VerifyAll();
         }
@@ -99,45 +99,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var message = String.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                         Resources.GrassCoverErosionInwardsInputContext_DataDescription_GrassCoverErosionInwardsInputCalculationItem);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, message);
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_NullFailureMechanism_ThrowsArgumentNullException()
-        {
-            // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var inputMock = mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(generalInput);
-            var calculationMock = mocksRepository.StrictMock<ICalculation>();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsInputContext(inputMock, calculationMock, null, assessmentSectionMock);
-
-            // Assert
-            var message = String.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                        Resources.GrassCoverErosionInwardsContext_DataDescription_GrassCoverErosionInwardsFailureMechanism);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, message);
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_NullAssessmentSection_ThrowsArgumentNullException()
-        {
-            // Setup
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
-            var inputMock = mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(generalInput);
-            var calculationMock = mocksRepository.StrictMock<ICalculation>();
-            var failureMechanismMock = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            mocksRepository.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsInputContext(inputMock, calculationMock, failureMechanismMock, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
             mocksRepository.VerifyAll();
         }
     }

@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
@@ -43,21 +41,6 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         public PipingCalculationScenarioContext(PipingCalculationScenario calculation, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection)
-            : base(calculation, surfaceLines, stochasticSoilModels, assessmentSection)
-        {
-            if (pipingFailureMechanism == null)
-            {
-                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.PipingContext_DataDescription_PipingFailureMechanism);
-                throw new ArgumentNullException("pipingFailureMechanism", message);
-            }
-
-            PipingFailureMechanism = pipingFailureMechanism;
-        }
-
-        /// <summary>
-        /// Gets the PipingFailureMechanism failure mechanism which the PipingFailureMechanism context belongs to.
-        /// </summary>
-        public PipingFailureMechanism PipingFailureMechanism { get; private set; }
+            : base(calculation, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection) {}
     }
 }

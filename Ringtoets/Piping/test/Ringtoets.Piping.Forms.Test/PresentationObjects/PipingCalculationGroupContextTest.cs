@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Core.Common.Base;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -44,62 +42,8 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
             Assert.AreSame(surfaceLines, groupContext.AvailablePipingSurfaceLines);
             Assert.AreSame(soilModels, groupContext.AvailableStochasticSoilModels);
-            Assert.AreSame(pipingFailureMechanismMock, groupContext.PipingFailureMechanism);
+            Assert.AreSame(pipingFailureMechanismMock, groupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, groupContext.AssessmentSection);
-        }
-
-        [Test]
-        public void ParameteredConstructor_PipingFailureMechanismIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var group = new CalculationGroup();
-            var surfaceLines = new[]
-            {
-                new RingtoetsPipingSurfaceLine()
-            };
-            var soilModels = new[]
-            {
-                new TestStochasticSoilModel()
-            };
-
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new PipingCalculationGroupContext(group, surfaceLines, soilModels, null, assessmentSectionMock);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het piping faalmechanisme mag niet 'null' zijn.");
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ParameteredConstructor_AssessmentSectionIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var group = new CalculationGroup();
-            var surfaceLines = new[]
-            {
-                new RingtoetsPipingSurfaceLine()
-            };
-            var soilModels = new[]
-            {
-                new TestStochasticSoilModel()
-            };
-
-            var mocks = new MockRepository();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new PipingCalculationGroupContext(group, surfaceLines, soilModels, pipingFailureMechanismMock, null);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
-
-            mocks.VerifyAll();
         }
 
         [Test]

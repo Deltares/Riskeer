@@ -19,12 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
@@ -33,7 +32,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
     /// in order be able to create configurable piping calculations.
     /// </summary>
-    public class PipingCalculationGroupContext : PipingContext<CalculationGroup>
+    public class PipingCalculationGroupContext : PipingContext<CalculationGroup>, ICalculationContext<CalculationGroup, PipingFailureMechanism>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationGroupContext"/> class.
@@ -44,21 +43,6 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         public PipingCalculationGroupContext(CalculationGroup calculationGroup, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> stochasticSoilModels, PipingFailureMechanism pipingFailureMechanism, IAssessmentSection assessmentSection)
-            : base(calculationGroup, surfaceLines, stochasticSoilModels, assessmentSection)
-        {
-            if (pipingFailureMechanism == null)
-            {
-                var message = string.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.PipingContext_DataDescription_PipingFailureMechanism);
-                throw new ArgumentNullException("pipingFailureMechanism", message);
-            }
-
-            PipingFailureMechanism = pipingFailureMechanism;
-        }
-
-        /// <summary>
-        /// Gets the PipingFailureMechanism failure mechanism which the PipingFailureMechanism context belongs to.
-        /// </summary>
-        public PipingFailureMechanism PipingFailureMechanism { get; private set; }
+            : base(calculationGroup, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection) {}
     }
 }
