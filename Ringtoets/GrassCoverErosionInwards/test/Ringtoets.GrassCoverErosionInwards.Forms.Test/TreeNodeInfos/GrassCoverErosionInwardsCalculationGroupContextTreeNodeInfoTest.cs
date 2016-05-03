@@ -131,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextmenuStrip_FailureMechanismContextParent_ReturnContextMenuWithoutRenameRemove()
+        public void ContextmenuStrip_WithoutParentNodeDefaultBehavior_ReturnContextMenuWithoutOpenRenameAndRemove()
         {
             // Setup
             var group = new CalculationGroup();
@@ -139,7 +139,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
-            var parentData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                failureMechanismMock,
                                                                                assessmentSectionMock);
@@ -158,7 +157,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // Assert
             var mainCalculationGroupContextItemOffset = 2;
@@ -215,7 +214,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextmenuStrip_ChildOfGroup_ReturnContextMenuWithAllItems()
+        public void ContextmenuStrip_NestedCalculationGroup_ReturnContextMenuWithAllItems()
         {
             // Setup
             var parentGroup = new CalculationGroup();
