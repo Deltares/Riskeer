@@ -139,6 +139,12 @@
   <data name="Calculate_all" xml:space="preserve">
     <value>Alles be&amp;rekenen</value>
   </data>
+  <data name="CalculationGroup_CalculateAll_ToolTip" xml:space="preserve">
+    <value>Voer alle berekeningen binnen deze berekeningsmap uit.</value>
+  </data>
+  <data name="CalculationGroup_CalculateAll_No_calculations_to_run" xml:space="preserve">
+    <value>Er zijn geen berekeningen om uit te voeren.</value>
+  </data>
   <data name="Clear_all_output" xml:space="preserve">
     <value>&amp;Wis alle uitvoer...</value>
   </data>

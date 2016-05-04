@@ -172,6 +172,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen om uit te voeren..
+        /// </summary>
+        public static string CalculationGroup_CalculateAll_No_calculations_to_run {
+            get {
+                return ResourceManager.GetString("CalculationGroup_CalculateAll_No_calculations_to_run", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valideer en voer alle berekeningen binnen deze berekeningsmap uit..
+        /// </summary>
+        public static string CalculationGroup_CalculateAll_ToolTip {
+            get {
+                return ResourceManager.GetString("CalculationGroup_CalculateAll_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Weet u zeker dat u alle uitvoer wilt wissen?.
         /// </summary>
         public static string CalculationGroup_ClearOutput_Are_you_sure_clear_all_output {

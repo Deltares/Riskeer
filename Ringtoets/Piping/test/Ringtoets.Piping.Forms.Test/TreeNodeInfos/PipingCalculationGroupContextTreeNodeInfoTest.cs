@@ -204,7 +204,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                           RingtoetsFormsResources.ValidateAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                           RingtoetsFormsResources.Calculate_all,
-                                                          "Valideer en voer alle berekeningen binnen deze berekeningsmap uit.",
+                                                          "Voer alle berekeningen binnen deze berekeningsmap uit.",
                                                           RingtoetsFormsResources.CalculateAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndex,
                                                           "&Wis alle uitvoer...",
@@ -316,7 +316,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                           RingtoetsFormsResources.ValidateAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex + mainCalculationGroupContextMenuItemOffset,
                                                           RingtoetsFormsResources.Calculate_all,
-                                                          "Valideer en voer alle berekeningen binnen deze berekeningsmap uit.",
+                                                          "Voer alle berekeningen binnen deze berekeningsmap uit.",
                                                           RingtoetsFormsResources.CalculateAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndex + mainCalculationGroupContextMenuItemOffset,
                                                           "&Wis alle uitvoer...",

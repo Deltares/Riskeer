@@ -149,6 +149,28 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             builder.AddCustomItem(clearAllItem);
         }
 
+        /// <summary>
+        /// This method adds a context menu item for performing all calculations in the calculation group.
+        /// </summary>
+        /// <param name="builder">The builder to add the context menu item to.</param>
+        /// <param name="calculationGroup">The calculation group involved.</param>
+        /// <param name="calculateAll">The action that performs all calculations.</param>
+        public static void AddPerformAllCalculationsInGroupItem(IContextMenuBuilder builder, CalculationGroup calculationGroup, Action<CalculationGroup> calculateAll)
+        {
+            var performAllItem = new StrictContextMenuItem(
+                Resources.Calculate_all,
+                Resources.CalculationGroup_CalculateAll_ToolTip,
+                Resources.CalculateAllIcon, (o, args) => { calculateAll(calculationGroup); });
+
+            if (!calculationGroup.GetCalculations().Any())
+            {
+                performAllItem.Enabled = false;
+                performAllItem.ToolTipText = Resources.CalculationGroup_CalculateAll_No_calculations_to_run;
+            }
+
+            builder.AddCustomItem(performAllItem);
+        }
+
         # region Helper methods for CreateCalculationGroupContextTreeNodeInfo
 
         private static bool IsNestedGroup(object parentData)

@@ -620,7 +620,6 @@ namespace Ringtoets.Piping.Plugin
 
             var generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
             var validateAllItem = CreateValidateAllItem(group);
-            var calculateAllItem = CreateCalculateAllItem(group);
 
             if (!isNestedGroup)
             {
@@ -636,8 +635,8 @@ namespace Ringtoets.Piping.Plugin
             builder.AddSeparator();
 
             builder
-                .AddCustomItem(validateAllItem)
-                .AddCustomItem(calculateAllItem);
+                .AddCustomItem(validateAllItem);
+            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(builder, group, CalculateAll);
             CalculationTreeNodeInfoFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
             builder.AddSeparator();
 
@@ -708,22 +707,6 @@ namespace Ringtoets.Piping.Plugin
             {
                 target.Children.Add(group);
             }
-        }
-
-        private StrictContextMenuItem CreateCalculateAllItem(CalculationGroup group)
-        {
-            var menuItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_all,
-                PipingFormsResources.PipingCalculationGroup_CalculateAll_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon, (o, args) => { CalculateAll(group); });
-
-            if (!group.GetCalculations().Any())
-            {
-                menuItem.Enabled = false;
-                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run;
-            }
-
-            return menuItem;
         }
 
         private static StrictContextMenuItem CreateValidateAllItem(CalculationGroup group)
