@@ -616,28 +616,6 @@ namespace Ringtoets.Piping.Plugin
             var generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
             var validateAllItem = CreateValidateAllItem(group);
             var calculateAllItem = CreateCalculateAllItem(group);
-            var clearAllItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Clear_all_output,
-                PipingFormsResources.PipingCalculationGroup_ClearOutput_ToolTip,
-                RingtoetsCommonFormsResources.ClearIcon, (o, args) =>
-                {
-                    if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContext_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
-                    {
-                        return;
-                    }
-
-                    foreach (PipingCalculation calc in group.GetCalculations().Where(c => c.HasOutput))
-                    {
-                        calc.ClearOutput();
-                        calc.NotifyObservers();
-                    }
-                });
-
-            if (!nodeData.WrappedData.GetCalculations().Any(c => c.HasOutput))
-            {
-                clearAllItem.Enabled = false;
-                clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
-            }
 
             if (!isNestedGroup)
             {
@@ -654,9 +632,9 @@ namespace Ringtoets.Piping.Plugin
 
             builder
                 .AddCustomItem(validateAllItem)
-                .AddCustomItem(calculateAllItem)
-                .AddCustomItem(clearAllItem)
-                .AddSeparator();
+                .AddCustomItem(calculateAllItem);
+            CalculationTreeNodeInfoFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
+            builder.AddSeparator();
 
             if (isNestedGroup)
             {

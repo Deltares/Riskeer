@@ -142,6 +142,15 @@
   <data name="Clear_all_output" xml:space="preserve">
     <value>&amp;Wis alle uitvoer...</value>
   </data>
+  <data name="CalculationGroup_ClearOutput_ToolTip" xml:space="preserve">
+    <value>Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.</value>
+  </data>
+  <data name="CalculationGroup_ClearOutput_Are_you_sure_clear_all_output" xml:space="preserve">
+    <value>Weet u zeker dat u alle uitvoer wilt wissen?</value>
+  </data>
+  <data name="CalculationGroup_ClearOutput_No_calculation_with_output_to_clear" xml:space="preserve">
+    <value>Er zijn geen berekeningen met uitvoer om te wissen.</value>
+  </data>
   <data name="FailureMechanism_InputsOutputs_Erase" xml:space="preserve">
     <value>&amp;Wissen</value>
   </data>

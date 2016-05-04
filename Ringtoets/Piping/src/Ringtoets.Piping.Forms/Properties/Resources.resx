@@ -463,9 +463,6 @@
   <data name="PipingCalculationGroup_CalculateAll_ToolTip" xml:space="preserve">
     <value>Valideer en voer alle berekeningen binnen deze berekeningsmap uit.</value>
   </data>
-  <data name="PipingCalculationGroup_ClearOutput_ToolTip" xml:space="preserve">
-    <value>Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.</value>
-  </data>
   <data name="PipingCalculationGroupContext_ContextMenuStrip_Are_you_sure_clear_all_output" xml:space="preserve">
     <value>Weet u zeker dat u alle uitvoer wilt wissen?</value>
   </data>

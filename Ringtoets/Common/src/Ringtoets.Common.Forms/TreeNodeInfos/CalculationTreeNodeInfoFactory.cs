@@ -30,6 +30,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.TreeNodeInfos
 {
@@ -113,6 +114,39 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 (o, args) => { addCalculation(calculationGroupContext); });
 
             builder.AddCustomItem(createCalculationItem);
+        }
+
+        /// <summary>
+        /// This method adds a context menu item for clearing the output of all calculations in the calculation group.
+        /// </summary>
+        /// <param name="builder">The builder to add the context menu item to.</param>
+        /// <param name="calculationGroup">The calculation group involved.</param>
+        public static void AddClearAllCalculationOutputInGroupItem(IContextMenuBuilder builder, CalculationGroup calculationGroup)
+        {
+            var clearAllItem = new StrictContextMenuItem(
+                Resources.Clear_all_output,
+                Resources.CalculationGroup_ClearOutput_ToolTip,
+                Resources.ClearIcon, (o, args) =>
+                {
+                    if (MessageBox.Show(Resources.CalculationGroup_ClearOutput_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+                    {
+                        return;
+                    }
+
+                    foreach (var calc in calculationGroup.GetCalculations().Where(c => c.HasOutput))
+                    {
+                        calc.ClearOutput();
+                        calc.NotifyObservers();
+                    }
+                });
+
+            if (!calculationGroup.GetCalculations().Any(c => c.HasOutput))
+            {
+                clearAllItem.Enabled = false;
+                clearAllItem.ToolTipText = Resources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
+            }
+
+            builder.AddCustomItem(clearAllItem);
         }
 
         # region Helper methods for CreateCalculationGroupContextTreeNodeInfo

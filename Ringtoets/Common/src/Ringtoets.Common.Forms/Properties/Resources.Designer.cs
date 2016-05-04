@@ -172,6 +172,33 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weet u zeker dat u alle uitvoer wilt wissen?.
+        /// </summary>
+        public static string CalculationGroup_ClearOutput_Are_you_sure_clear_all_output {
+            get {
+                return ResourceManager.GetString("CalculationGroup_ClearOutput_Are_you_sure_clear_all_output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen met uitvoer om te wissen..
+        /// </summary>
+        public static string CalculationGroup_ClearOutput_No_calculation_with_output_to_clear {
+            get {
+                return ResourceManager.GetString("CalculationGroup_ClearOutput_No_calculation_with_output_to_clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wis de uitvoer van alle berekeningen binnen deze berekeningsmap..
+        /// </summary>
+        public static string CalculationGroup_ClearOutput_ToolTip {
+            get {
+                return ResourceManager.GetString("CalculationGroup_ClearOutput_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Checkbox_empty {
