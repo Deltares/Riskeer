@@ -112,7 +112,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 Text = pipingCalculationContext => pipingCalculationContext.WrappedData.Name,
                 Image = pipingCalculationContext => PipingFormsResources.PipingIcon,
-                EnsureVisibleOnCreate = pipingCalculationContext => true,
+                EnsureVisibleOnCreate = (pipingCalculationContext, parent) => true,
                 ContextMenuStrip = PipingCalculationContextContextMenuStrip,
                 ChildNodeObjects = PipingCalculationContextChildNodeObjects,
                 CanRename = (pipingCalculationContext, parentData) => true,

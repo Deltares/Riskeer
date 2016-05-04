@@ -123,21 +123,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void EnsureVisibleOnCreate_Always_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-
-            mocks.ReplayAll();
-
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
 
                 // Call
-                var result = info.EnsureVisibleOnCreate(assessmentSection);
+                var result = info.EnsureVisibleOnCreate(null, null);
 
                 // Assert
                 Assert.IsTrue(result);
             }
-            mocks.VerifyAll();
         }
 
         [Test]

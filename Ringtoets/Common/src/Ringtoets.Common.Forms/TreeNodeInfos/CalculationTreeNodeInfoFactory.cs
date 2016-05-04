@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             {
                 Text = context => context.WrappedData.Name,
                 Image = context => Resources.GeneralFolderIcon,
-                EnsureVisibleOnCreate = context => true,
+                EnsureVisibleOnCreate = (context, parent) => !(parent is IFailureMechanismContext<IFailureMechanism>),
                 ChildNodeObjects = childNodeObjects,
                 ContextMenuStrip = contextMenuStrip,
                 CanRename = (context, parentData) => IsNestedGroup(parentData),

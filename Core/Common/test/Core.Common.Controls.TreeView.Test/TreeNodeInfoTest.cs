@@ -46,7 +46,7 @@ namespace Core.Common.Controls.TreeView.Test
             Func<object, Color> foreColor = o => Color.Azure;
             Func<object, Image> image = o => new Bitmap(16, 16);
             Func<object, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (o1, o2, tvc) => new ContextMenuStrip();
-            Func<object, bool> ensureVisibleOnCreate = o => true;
+            Func<object, object, bool> ensureVisibleOnCreate = (o, p) => true;
             Func<object, object[]> childNodeObjects = o => new object[0];
             Func<object, object, bool> canRename = (o1, o2) => true;
             Action<object, string> onNodeRenamed = (o, newName) => { };
@@ -137,7 +137,7 @@ namespace Core.Common.Controls.TreeView.Test
             Func<int, Color> foreColor = o => Color.Azure;
             Func<int, Image> image = o => new Bitmap(16, 16);
             Func<int, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (o1, o2, tvc) => new ContextMenuStrip();
-            Func<int, bool> ensureVisibleOnCreate = o => true;
+            Func<int, object, bool> ensureVisibleOnCreate = (o, p) => true;
             Func<int, object[]> childNodeObjects = o => new object[0];
             Func<int, object, bool> canRename = (o1, o2) => true;
             Action<int, string> onNodeRenamed = (o, newName) => { };
@@ -249,7 +249,7 @@ namespace Core.Common.Controls.TreeView.Test
                         new ToolStripButton()
                     }
                 },
-                EnsureVisibleOnCreate = o => true,
+                EnsureVisibleOnCreate = (o, p) => true,
                 ChildNodeObjects = o => new[]
                 {
                     new object()
@@ -279,7 +279,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.AreEqual(Color.Azure, treeNodeInfo.ForeColor(0));
             Assert.AreEqual(16, treeNodeInfo.Image(0).Height);
             Assert.AreEqual(1, treeNodeInfo.ContextMenuStrip(0, 1, treeViewControl).Items.Count);
-            Assert.IsTrue(treeNodeInfo.EnsureVisibleOnCreate(0));
+            Assert.IsTrue(treeNodeInfo.EnsureVisibleOnCreate(0, 1));
             Assert.AreEqual(1, treeNodeInfo.ChildNodeObjects(0).Length);
             Assert.IsTrue(treeNodeInfo.CanRename(0, 1));
             Assert.IsTrue(treeNodeInfo.CanRemove(0, 1));

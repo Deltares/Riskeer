@@ -64,8 +64,9 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// Gets or sets a function for determining whether or not the tree node should become visible and selected on creation.
         /// The <c>object</c> parameter represents the data of the tree node.
+        /// The second <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
-        public Func<object, bool> EnsureVisibleOnCreate { get; set; }
+        public Func<object, object, bool> EnsureVisibleOnCreate { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining child node objects.
@@ -201,8 +202,9 @@ namespace Core.Common.Controls.TreeView
         /// <summary>
         /// Gets or sets a function for determining whether or not the tree node should become visible and selected on creation.
         /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
+        /// The <c>object</c> parameter represents the data of the parent tree node.
         /// </summary>
-        public Func<TData, bool> EnsureVisibleOnCreate { get; set; }
+        public Func<TData, object, bool> EnsureVisibleOnCreate { get; set; }
 
         /// <summary>
         /// Gets or sets a function for obtaining child node objects.
@@ -314,8 +316,8 @@ namespace Core.Common.Controls.TreeView
                                        ? (tag, parentTag, treeViewControl) => treeNodeInfo.ContextMenuStrip((TData) tag, parentTag, treeViewControl)
                                        : (Func<object, object, TreeViewControl, ContextMenuStrip>) null,
                 EnsureVisibleOnCreate = treeNodeInfo.EnsureVisibleOnCreate != null
-                                            ? tag => treeNodeInfo.EnsureVisibleOnCreate((TData) tag)
-                                            : (Func<object, bool>) null,
+                                            ? (tag, parentTag) => treeNodeInfo.EnsureVisibleOnCreate((TData) tag, parentTag)
+                                            : (Func<object, object, bool>) null,
                 ChildNodeObjects = treeNodeInfo.ChildNodeObjects != null
                                        ? tag => treeNodeInfo.ChildNodeObjects((TData) tag)
                                        : (Func<object, object[]>) null,

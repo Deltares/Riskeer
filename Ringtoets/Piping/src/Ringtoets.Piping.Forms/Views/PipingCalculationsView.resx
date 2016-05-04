@@ -376,7 +376,7 @@
     <value>0</value>
   </data>
   <data name="buttonGenerateScenarios.Text" xml:space="preserve">
-    <value>Genereer scenario's...</value>
+    <value>Genereer &amp;scenario's...</value>
   </data>
   <data name="&gt;&gt;buttonGenerateScenarios.Name" xml:space="preserve">
     <value>buttonGenerateScenarios</value>
@@ -483,9 +483,9 @@
   <data name="tableLayoutPanelUserControl.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="splitContainer" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel1" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,100,Absolute,32" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>

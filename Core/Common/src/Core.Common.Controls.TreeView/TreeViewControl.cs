@@ -547,7 +547,7 @@ namespace Core.Common.Controls.TreeView
                 var dataObject = node.Tag;
                 var info = TryGetTreeNodeInfoForData(dataObject);
 
-                return info.EnsureVisibleOnCreate != null && info.EnsureVisibleOnCreate(dataObject);
+                return info.EnsureVisibleOnCreate != null && info.EnsureVisibleOnCreate(dataObject, node.Parent.Tag);
             });
 
             if (lastAddedNodeToSetSelectionTo != null)

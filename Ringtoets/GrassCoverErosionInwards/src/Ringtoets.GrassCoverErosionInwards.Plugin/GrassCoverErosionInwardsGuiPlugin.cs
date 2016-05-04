@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             {
                 Text = context => context.WrappedData.Name,
                 Image = context => GrassCoverErosionInwardsFormsResources.CalculationIcon,
-                EnsureVisibleOnCreate = context => true,
+                EnsureVisibleOnCreate = (context, parent) => true,
                 ChildNodeObjects = CalculationContextChildNodeObjects
             };
 

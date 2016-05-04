@@ -101,24 +101,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         [Test]
         public void EnsureVisibleOnCreate_Always_ReturnsTrue()
         {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
-            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
-
-            mocksRepository.ReplayAll();
-
             // Call
-            var result = info.EnsureVisibleOnCreate(calculationContext);
+            var result = info.EnsureVisibleOnCreate(null, null);
 
             // Assert
             Assert.IsTrue(result);
-
-            mocksRepository.VerifyAll();
         }
 
         [Test]

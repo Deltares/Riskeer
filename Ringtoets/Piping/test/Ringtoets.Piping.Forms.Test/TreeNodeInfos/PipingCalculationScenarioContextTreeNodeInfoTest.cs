@@ -104,32 +104,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         [Test]
         public void EnsureVisibleOnCreate_Always_ReturnsTrue()
         {
-            // Setup
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
-            {
-                Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-            };
-
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
-                                                                        new[]
-                                                                        {
-                                                                            new RingtoetsPipingSurfaceLine()
-                                                                        },
-                                                                        new[]
-                                                                        {
-                                                                            new TestStochasticSoilModel()
-                                                                        },
-                                                                        pipingFailureMechanismMock,
-                                                                        assessmentSectionMock);
-
-            mocks.ReplayAll();
-
             // Call
-            var result = info.EnsureVisibleOnCreate(pipingCalculationContext);
+            var result = info.EnsureVisibleOnCreate(null, null);
 
             // Assert
             Assert.IsTrue(result);

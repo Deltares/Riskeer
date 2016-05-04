@@ -490,13 +490,30 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void EnsureVisibleOnCreateOfCalculationGroupContextTreeNodeInfo_Always_ReturnsTrue()
+        public void EnsureVisibleOnCreateOfCalculationGroupContextTreeNodeInfo_ForFailureMechanismCalculationGroup_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
+            // Call
+            var result = treeNodeInfo.EnsureVisibleOnCreate(null, failureMechanismMock);
+
+            // Assert
+            Assert.IsFalse(result);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void EnsureVisibleOnCreateOfCalculationGroupContextTreeNodeInfo_AnyOtherObject_ReturnsTrue()
         {
             // Setup
             var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
-            var result = treeNodeInfo.EnsureVisibleOnCreate(null);
+            var result = treeNodeInfo.EnsureVisibleOnCreate(null, null);
 
             // Assert
             Assert.IsTrue(result);
