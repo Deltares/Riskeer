@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Globalization;
-using Core.Common.Base.Data;
-using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -34,88 +31,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsCalculationContextProperties : ObjectProperties<GrassCoverErosionInwardsCalculationContext>
     {
-        private const int dikeGeometryPropertyIndex = 1;
-        private const int dikeHeightPropertyIndex = 2;
-        private const int foreshorePropertyIndex = 3;
-        private const int orientationPropertyIndex = 4;
-        private const int breakWaterPropertyIndex = 5;
-
-        [PropertyOrder(dikeGeometryPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "DikeGeometryProperties_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DikeGeometryProperties_Description")]
-        public DikeGeometryProperties DikeGeometry
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInputCalculation_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInputCalculation_Name_Description")]
+        public string Name
         {
             get
             {
-                return new DikeGeometryProperties
-                {
-                    Data = data
-                };
-            }
-        }
-
-        [PropertyOrder(dikeHeightPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "DikeHeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DikeHeight_Description")]
-        public string DikeHeight
-        {
-            get
-            {
-                return new RoundedDouble(2, data.WrappedData.InputParameters.DikeHeight).Value.ToString(CultureInfo.InvariantCulture);
+                return data.WrappedData.Name;
             }
             set
             {
-                data.WrappedData.InputParameters.DikeHeight = new RoundedDouble(2, double.Parse(value));
+                data.WrappedData.Name = value;
                 data.WrappedData.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(foreshorePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "ForeshoreProperties_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ForeshoreProperties_Description")]
-        public ForeshoreProperties Foreshore
-        {
-            get
-            {
-                return new ForeshoreProperties
-                {
-                    Data = data
-                };
-            }
-        }
-
-        [PropertyOrder(orientationPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "Orientation_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Orientation_Description")]
-        public string Orientation
-        {
-            get
-            {
-                return new RoundedDouble(2, data.WrappedData.InputParameters.Orientation).Value.ToString(CultureInfo.InvariantCulture);
-            }
-            set
-            {
-                data.WrappedData.InputParameters.Orientation = new RoundedDouble(2, double.Parse(value));
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(breakWaterPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "BreakWaterProperties_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "BreakWaterProperties_Description")]
-        public BreakWaterProperties BreakWater
-        {
-            get
-            {
-                return new BreakWaterProperties
-                {
-                    Data = data
-                };
             }
         }
     }

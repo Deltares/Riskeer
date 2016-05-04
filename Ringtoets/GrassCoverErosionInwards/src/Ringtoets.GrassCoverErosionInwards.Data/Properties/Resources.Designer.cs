@@ -61,6 +61,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Caisson.
+        /// </summary>
+        public static string BreakWaterType_Caisson_DisplayName {
+            get {
+                return ResourceManager.GetString("BreakWaterType_Caisson_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dam.
+        /// </summary>
+        public static string BreakWaterType_Dam_DisplayName {
+            get {
+                return ResourceManager.GetString("BreakWaterType_Dam_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Muur.
+        /// </summary>
+        public static string BreakWaterType_Wall_DisplayName {
+            get {
+                return ResourceManager.GetString("BreakWaterType_Wall_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieuwe berekening.
         /// </summary>
         public static string GrassCoverErosionInwardsCalculation_DefaultName {

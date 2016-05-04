@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// ViewModel of <see cref="GrassCoverErosionInwardsInput.DikeGeometry"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class DikeGeometryProperties : ObjectProperties<GrassCoverErosionInwardsCalculationContext>
+    public class DikeGeometryProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {
         [PropertyOrder(1)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                var startingPoint = data.WrappedData.InputParameters.DikeGeometry.FirstOrDefault();
+                var startingPoint = data.WrappedData.DikeGeometry.FirstOrDefault();
                 if (startingPoint == null)
                 {
                     return new string[0];
@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 {
                     new RoundedDouble(2, startingPoint.StartingPoint.X).Value.ToString(CultureInfo.InvariantCulture)
                 };
-                coordinates.AddRange(data.WrappedData.InputParameters.DikeGeometry.Select(d => new RoundedDouble(2, d.EndingPoint.X).Value.ToString(CultureInfo.InvariantCulture)));
+                coordinates.AddRange(data.WrappedData.DikeGeometry.Select(d => new RoundedDouble(2, d.EndingPoint.X).Value.ToString(CultureInfo.InvariantCulture)));
                 return coordinates.ToArray();
             }
         }
@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                var roughnesses = data.WrappedData.InputParameters.DikeGeometry.Select(d => d.Roughness);
+                var roughnesses = data.WrappedData.DikeGeometry.Select(d => d.Roughness);
                 return roughnesses.Select(roughness => new RoundedDouble(2, roughness).Value.ToString(CultureInfo.InvariantCulture)).ToArray();
             }
         }

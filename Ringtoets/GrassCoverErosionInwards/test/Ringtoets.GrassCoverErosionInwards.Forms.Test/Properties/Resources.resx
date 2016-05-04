@@ -117,28 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GrassCoverErosionInwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken - Grasbekleding erosie kruin en binnentalud</value>
+  <data name="SimpleEnum_FirstValue_DisplayName" xml:space="preserve">
+    <value>&lt;first&gt;</value>
   </data>
-  <data name="GrassCoverErosionInwardsCalculation_DefaultName" xml:space="preserve">
-    <value>Nieuwe berekening</value>
-  </data>
-  <data name="GrassCoverErosionInwardsFailureMechanism_Calculations_DisplayName" xml:space="preserve">
-    <value>Berekeningen</value>
-  </data>
-  <data name="GrassCoverErosionInwardsFailureMechanism_DisplayCode" xml:space="preserve">
-    <value>GEKB</value>
-  </data>
-  <data name="N_Value_should_be_in_interval_1_20" xml:space="preserve">
-    <value>De waarde voor 'N' moet in interval [1,20] liggen.</value>
-  </data>
-  <data name="BreakWaterType_Wall_DisplayName" xml:space="preserve">
-    <value>Muur</value>
-  </data>
-  <data name="BreakWaterType_Caisson_DisplayName" xml:space="preserve">
-    <value>Caisson</value>
-  </data>
-  <data name="BreakWaterType_Dam_DisplayName" xml:space="preserve">
-    <value>Dam</value>
+  <data name="SimpleEnum_SecondValue_DisplayName" xml:space="preserve">
+    <value>&lt;second&gt;</value>
   </data>
 </root>

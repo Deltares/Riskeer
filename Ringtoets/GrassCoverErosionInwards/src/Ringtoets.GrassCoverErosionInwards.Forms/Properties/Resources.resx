@@ -170,10 +170,10 @@
     <value>Toetseisen</value>
   </data>
   <data name="Categories_ModelSettings" xml:space="preserve">
-    <value>Modelinstellingen</value>
+    <value>Modelfactoren</value>
   </data>
   <data name="Categories_Schematisation" xml:space="preserve">
-    <value>Schematisering</value>
+    <value>Schematisatie</value>
   </data>
   <data name="BreakWaterHeight_Description" xml:space="preserve">
     <value>De hoogte van de havendam [m+NAP].</value>
@@ -270,5 +270,11 @@
   </data>
   <data name="GrassCoverErosionInwardsInput_Mz2_DisplayName" xml:space="preserve">
     <value>mz2 [-]</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInputCalculation_Name_Description" xml:space="preserve">
+    <value>Naam van de grasbekleding erosie kruin en binnentalud berekening</value>
+  </data>
+  <data name="GrassCoverErosionInwardsInputCalculation_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
   </data>
 </root>

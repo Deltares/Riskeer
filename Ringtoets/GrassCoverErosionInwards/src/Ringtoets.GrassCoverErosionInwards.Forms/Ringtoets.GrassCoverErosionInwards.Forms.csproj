@@ -59,9 +59,11 @@
     </Compile>
     <Compile Include="PropertyClasses\BreakWaterProperties.cs" />
     <Compile Include="PropertyClasses\DikeGeometryProperties.cs" />
+    <Compile Include="TypeConverters\EnumTypeConverter.cs" />
     <Compile Include="PropertyClasses\ForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsCalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextProperties.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

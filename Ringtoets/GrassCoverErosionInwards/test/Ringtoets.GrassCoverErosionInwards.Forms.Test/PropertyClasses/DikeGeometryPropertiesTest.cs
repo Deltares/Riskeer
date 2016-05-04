@@ -19,11 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -53,31 +49,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new DikeGeometryProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsCalculationContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsInputContext>>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual(Resources.DikeGeometryProperties_DisplayName, properties.ToString());
         }
 
         [Test]
-        public void Data_SetNewCalculationContextInstance_ReturnCorrectPropertyValues()
+        public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
+            var input = new GrassCoverErosionInwardsInput(generalInput);
             var properties = new DikeGeometryProperties();
 
             // Call
-            properties.Data = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanismMock, assessmentSectionMock);
+            properties.Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock);
 
             // Assert
-            var coordinates = GetCoordinates(calculation);
-            Assert.AreEqual(coordinates, properties.Coordinates);
-
-            var roughness = GetRoughness(calculation);
-            Assert.AreEqual(roughness, properties.Roughness);
+            CollectionAssert.IsEmpty(properties.Coordinates);
+            CollectionAssert.IsEmpty(properties.Roughness);
             mockRepository.VerifyAll();
         }
 
@@ -87,14 +82,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
+            var input = new GrassCoverErosionInwardsInput(generalInput);
 
             // Call
             var properties = new DikeGeometryProperties
             {
-                Data = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanismMock, assessmentSectionMock)
+                Data = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock)
             };
 
             // Assert
@@ -116,28 +113,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(numberOfCoordinatesDikeHeightProperty.IsReadOnly);
             Assert.AreEqual("Ruwheden [-]", numberOfCoordinatesDikeHeightProperty.DisplayName);
             Assert.AreEqual("Lijst met ruwheden per sectie.", numberOfCoordinatesDikeHeightProperty.Description);
+            mockRepository.VerifyAll();
         }
 
         private const int coordinatesPropertyIndex = 0;
         private const int numberOfCoordinatesDikeHeightPropertyIndex = 1;
-
-        private static IEnumerable<string> GetRoughness(GrassCoverErosionInwardsCalculation calculation)
-        {
-            var roughnesses = calculation.InputParameters.DikeGeometry.Select(d => d.Roughness);
-            var i = roughnesses.Select(roughness => new RoundedDouble(2, roughness).Value.ToString(CultureInfo.InvariantCulture));
-            return i;
-        }
-
-        private static IEnumerable<string> GetCoordinates(GrassCoverErosionInwardsCalculation calculation)
-        {
-            var startingPoint = calculation.InputParameters.DikeGeometry.FirstOrDefault();
-            Assert.IsNotNull(startingPoint);
-            var coordinates = new List<string>
-            {
-                new RoundedDouble(2, startingPoint.StartingPoint.X).Value.ToString(CultureInfo.InvariantCulture)
-            };
-            coordinates.AddRange(calculation.InputParameters.DikeGeometry.Select(d => new RoundedDouble(2, d.EndingPoint.X).Value.ToString(CultureInfo.InvariantCulture)));
-            return coordinates.ToArray();
-        }
     }
 }

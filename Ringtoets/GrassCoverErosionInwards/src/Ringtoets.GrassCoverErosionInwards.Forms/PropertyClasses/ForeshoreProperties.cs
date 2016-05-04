@@ -30,7 +30,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class ForeshoreProperties : ObjectProperties<GrassCoverErosionInwardsCalculationContext>
+    public class ForeshoreProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {
         private const int foreshorePresentPropertyIndex = 1;
         private const int numberOfCoordinatesPropertyIndex = 2;
@@ -42,11 +42,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.InputParameters.UseForeshore;
+                return data.WrappedData.UseForeshore;
             }
             set
             {
-                data.WrappedData.InputParameters.UseForeshore = value;
+                data.WrappedData.UseForeshore = value;
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -58,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.InputParameters.ForeshoreGeometry.ToArray().Length;
+                return data.WrappedData.ForeshoreGeometry.ToArray().Length;
             }
         }
 

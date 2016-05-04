@@ -28,6 +28,7 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using Ringtoets.GrassCoverErosionInwards.Forms.TypeConverters;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
@@ -35,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// ViewModel of <see cref="GrassCoverErosionInwardsInput.BreakWater"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class BreakWaterProperties : ObjectProperties<GrassCoverErosionInwardsCalculationContext>
+    public class BreakWaterProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {
         [PropertyOrder(1)]
         [ResourcesDisplayName(typeof(Resources), "BreakWater_BreakWaterPresent_DisplayName")]
@@ -44,11 +45,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.InputParameters.UseBreakWater;
+                return data.WrappedData.UseBreakWater;
             }
             set
             {
-                data.WrappedData.InputParameters.UseBreakWater = value;
+                data.WrappedData.UseBreakWater = value;
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -56,21 +57,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [PropertyOrder(2)]
         [ResourcesDisplayName(typeof(Resources), "BreakWaterType_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BreakWaterType_Description")]
+        [TypeConverter(typeof(EnumTypeConverter))]
         public BreakWaterType BreakWaterType
         {
             get
             {
-                var breakWater = data.WrappedData.InputParameters.BreakWater;
+                var breakWater = data.WrappedData.BreakWater;
                 return breakWater == null ? BreakWaterType.Caisson : breakWater.Type;
             }
             set
             {
-                var breakWater = data.WrappedData.InputParameters.BreakWater;
+                var breakWater = data.WrappedData.BreakWater;
                 if (breakWater == null)
                 {
                     return;
                 }
-                data.WrappedData.InputParameters.BreakWater = new BreakWater(value, breakWater.Height);
+                data.WrappedData.BreakWater = new BreakWater(value, breakWater.Height);
                 data.WrappedData.NotifyObservers();
             }
         }
@@ -82,17 +84,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                var breakWater = data.WrappedData.InputParameters.BreakWater;
+                var breakWater = data.WrappedData.BreakWater;
                 return breakWater == null ? string.Empty : new RoundedDouble(2, breakWater.Height).Value.ToString(CultureInfo.CurrentCulture);
             }
             set
             {
-                var breakWater = data.WrappedData.InputParameters.BreakWater;
+                var breakWater = data.WrappedData.BreakWater;
                 if (breakWater == null)
                 {
                     return;
                 }
-                data.WrappedData.InputParameters.BreakWater = new BreakWater(breakWater.Type, new RoundedDouble(2, double.Parse(value)).Value);
+                data.WrappedData.BreakWater = new BreakWater(breakWater.Type, new RoundedDouble(2, double.Parse(value)).Value);
                 data.WrappedData.NotifyObservers();
             }
         }

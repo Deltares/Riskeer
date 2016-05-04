@@ -170,7 +170,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modelinstellingen.
+        ///   Looks up a localized string similar to Modelfactoren.
         /// </summary>
         public static string Categories_ModelSettings {
             get {
@@ -179,7 +179,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schematisering.
+        ///   Looks up a localized string similar to Schematisatie.
         /// </summary>
         public static string Categories_Schematisation {
             get {
@@ -475,6 +475,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string GrassCoverErosionInwardsInput_Name_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsInput_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van de grasbekleding erosie kruin en binnentalud berekening.
+        /// </summary>
+        public static string GrassCoverErosionInwardsInputCalculation_Name_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsInputCalculation_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string GrassCoverErosionInwardsInputCalculation_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsInputCalculation_Name_DisplayName", resourceCulture);
             }
         }
         
