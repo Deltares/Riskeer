@@ -191,9 +191,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
 
-            calculationWithOutput.Expect(c => c.HasOutput).Return(false);
+            calculationWithoutOutput.Expect(c => c.HasOutput).Return(false);
 
             mocks.ReplayAll();
 
@@ -201,7 +201,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    calculationWithOutput
+                    calculationWithoutOutput
                 }
             };
 
@@ -333,6 +333,99 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             contextMenuItem.PerformClick();
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddPerformAllCalculationsInGroupItem_GroupWithCalculations_CreatesDecoratedAndEnabledPerformItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var calculation = mocks.StrictMock<ICalculation>();
+
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
+
+            // Call
+            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(menuBuilder, calculationGroup, null);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip,
+                                                          RingtoetsFormsResources.CalculateAllIcon);
+        }
+
+        [Test]
+        public void AddPerformAllCalculationsInGroupItem_GroupWithoutCalculations_CreatesDecoratedAndDisabledPerformItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
+
+            // Call
+            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(menuBuilder, calculationGroup, null);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                                                          RingtoetsFormsResources.CalculateAllIcon,
+                                                          false);
+        }
+
+        [Test]
+        public void AddPerformAllCalculationsInGroupItem_PerformClickOnCreatedItem_PerformAllCalculationMethodPerformed()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var calculation = mocks.StrictMock<ICalculation>();
+
+            mocks.ReplayAll();
+
+            var counter = 0;
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
+
+            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(menuBuilder, calculationGroup, context => counter++);
+            var contextMenuItem = menuBuilder.Build().Items[0];
+
+            // Call
+            contextMenuItem.PerformClick();
+
+            // Assert
+            Assert.AreEqual(1, counter);
         }
 
         # region CreateCalculationGroupContextTreeNodeInfo
