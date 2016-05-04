@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Ringtoets.Common.Data.Calculation
 {
@@ -35,24 +34,24 @@ namespace Ringtoets.Common.Data.Calculation
         /// </summary>
         /// <param name="calculationGroup">The calculation group to be evaluated.</param>
         /// <returns>Returns all contained calculations as an enumerable result.</returns>
-        public static IEnumerable<ICalculationScenario> GetCalculations(this CalculationGroup calculationGroup)
+        public static IEnumerable<ICalculation> GetCalculations(this CalculationGroup calculationGroup)
         {
-            var calculationScenarios = new List<ICalculationScenario>();
+            var calculations = new List<ICalculation>();
             foreach (ICalculationBase calculationItem in calculationGroup.Children)
             {
-                var calculationScenario = calculationItem as ICalculationScenario;
-                if (calculationScenario != null)
+                var calculation = calculationItem as ICalculation;
+                if (calculation != null)
                 {
-                    calculationScenarios.Add(calculationScenario);
+                    calculations.Add(calculation);
                 }
 
                 var nestedCalculationGroup = calculationItem as CalculationGroup;
                 if (nestedCalculationGroup != null)
                 {
-                    calculationScenarios.AddRange(GetCalculations(nestedCalculationGroup));
+                    calculations.AddRange(GetCalculations(nestedCalculationGroup));
                 }
             }
-            return calculationScenarios;
+            return calculations;
         }
     }
 }

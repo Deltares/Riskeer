@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
             CalculationGroup groupWithoutChildren = new CalculationGroup();
 
             // Call
-            IEnumerable<ICalculationScenario> result = groupWithoutChildren.GetCalculations();
+            IEnumerable<ICalculation> result = groupWithoutChildren.GetCalculations();
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
             CalculationGroup groupsWithoutChildren = rootGroup;
 
             // Call
-            IEnumerable<ICalculationScenario> result = groupsWithoutChildren.GetCalculations();
+            IEnumerable<ICalculation> result = groupsWithoutChildren.GetCalculations();
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -65,10 +65,10 @@ namespace Ringtoets.Common.Data.Test.Calculation
         {
             // Setup
             var mocks = new MockRepository();
-            ICalculationBase calculation1 = mocks.StrictMock<ICalculationScenario>();
-            ICalculationBase calculation2 = mocks.StrictMock<ICalculationScenario>();
-            ICalculationBase calculation3 = mocks.StrictMock<ICalculationScenario>();
-            ICalculationBase calculation4 = mocks.StrictMock<ICalculationScenario>();
+            ICalculationBase calculation1 = mocks.StrictMock<ICalculation>();
+            ICalculationBase calculation2 = mocks.StrictMock<ICalculation>();
+            ICalculationBase calculation3 = mocks.StrictMock<ICalculation>();
+            ICalculationBase calculation4 = mocks.StrictMock<ICalculation>();
             mocks.ReplayAll();
 
             var subsubGroup = new CalculationGroup();
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
             CalculationGroup groupWithoutChildren = rootGroup;
 
             // Call
-            IEnumerable<ICalculationScenario> result = groupWithoutChildren.GetCalculations();
+            IEnumerable<ICalculation> result = groupWithoutChildren.GetCalculations();
 
             // Assert
             var itemsThatShouldBeFound = new[]
