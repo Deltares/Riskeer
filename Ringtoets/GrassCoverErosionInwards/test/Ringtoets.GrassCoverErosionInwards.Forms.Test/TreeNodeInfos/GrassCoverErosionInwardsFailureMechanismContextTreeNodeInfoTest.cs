@@ -43,7 +43,7 @@ using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInward
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismTreeNodeInfoTest : NUnitFormTest
+    public class GrassCoverErosionInwardsFailureMechanismContextTreeNodeInfoTest : NUnitFormTest
     {
         private MockRepository mocksRepository;
         private GrassCoverErosionInwardsGuiPlugin plugin;
@@ -190,7 +190,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_IsRelevantEnabledAddCalculationGroupAddCalculationItemItemDisabled()
+        public void ContextMenuStrip_Always_IsRelevantEnabledAddCalculationGroupAddCalculationItemDisabled()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -213,22 +213,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Call
                 var menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndex,
-                                                                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
-                                                                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
-                                                                RingtoetsCommonFormsResources.Checkbox_ticked);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 3,
-                                                                RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                                RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
-                                                                RingtoetsCommonFormsResources.AddFolderIcon,
-                                                                false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 4,
-                                                                RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                                                                GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip,
-                                                                GrassCoverErosionInwardsFormsResources.CalculationIcon,
-                                                                false);
-
                 // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndex,
+                                                              RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
+                                                              RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                                                              RingtoetsCommonFormsResources.Checkbox_ticked);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 3,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                              RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
+                                                              RingtoetsCommonFormsResources.AddFolderIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 4,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
+                                                              GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip,
+                                                              GrassCoverErosionInwardsFormsResources.CalculationIcon,
+                                                              false);
+
                 mocksRepository.VerifyAll();
             }
         }
