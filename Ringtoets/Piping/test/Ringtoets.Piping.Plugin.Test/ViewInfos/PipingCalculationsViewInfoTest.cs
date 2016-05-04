@@ -199,6 +199,48 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+            var view = new PipingCalculationsView();
+            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSectionMock);
+
+            view.Data = failureMechanism.CalculationsGroup;
+
+            mocks.ReplayAll();
+
+            // Call
+            var closeForData = info.CloseForData(view, failureMechanismContext);
+
+            // Assert
+            Assert.IsFalse(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        {
+            // Setup
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+            var view = new PipingCalculationsView();
+            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            view.Data = failureMechanism.CalculationsGroup;
+
+            mocks.ReplayAll();
+
+            // Call
+            var closeForData = info.CloseForData(view, failureMechanismContext);
+
+            // Assert
+            Assert.IsTrue(closeForData);
+        }
+
+        [Test]
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup

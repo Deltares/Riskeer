@@ -52,6 +52,7 @@
     <Compile Include="PresentationObjects\FailureMechanismContributionContext.cs" />
     <Compile Include="PresentationObjects\FailureMechanismSectionResultContext.cs" />
     <Compile Include="PresentationObjects\FailureMechanismSectionsContext.cs" />
+    <Compile Include="PresentationObjects\IFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContext.cs" />
     <Compile Include="PresentationObjects\TreeFolderCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

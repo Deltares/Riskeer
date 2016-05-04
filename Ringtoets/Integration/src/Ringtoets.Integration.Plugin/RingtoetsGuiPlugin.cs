@@ -311,7 +311,17 @@ namespace Ringtoets.Integration.Plugin
         private static bool CloseFailureMechanismResultViewForData(FailureMechanismResultView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
-            return assessmentSection != null && assessmentSection.GetFailureMechanisms().Any(failureMechanism => ReferenceEquals(view.Data, failureMechanism.SectionResults));
+            var failureMechanism = o as IFailureMechanism;
+            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            if (assessmentSection != null)
+            {
+                return assessmentSection.GetFailureMechanisms().Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+            }
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
         #endregion

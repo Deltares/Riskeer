@@ -203,6 +203,78 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<FailureMechanismResultView>();
+            var failureMechanism = new Simple();
+            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
+
+            mocks.ReplayAll();
+
+            // Call
+            var closeForData = info.CloseForData(viewMock, failureMechanism);
+
+            // Assert
+            Assert.IsTrue(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<FailureMechanismResultView>();
+            var failureMechanism = new Simple();
+            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
+
+            mocks.ReplayAll();
+
+            // Call
+            var closeForData = info.CloseForData(viewMock, new Simple());
+
+            // Assert
+            Assert.IsFalse(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<FailureMechanismResultView>();
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            var failureMechanism = new Simple();
+            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
+            failureMechanismContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
+
+            mocks.ReplayAll();
+
+            // Call
+            var closeForData = info.CloseForData(viewMock, failureMechanismContext);
+
+            // Assert
+            Assert.IsTrue(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<FailureMechanismResultView>();
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            var failureMechanism = new Simple();
+            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
+            failureMechanismContext.Expect(fm => fm.WrappedData).Return(new Simple());
+
+            mocks.ReplayAll();
+
+            // Call
+            var closeForData = info.CloseForData(viewMock, failureMechanismContext);
+
+            // Assert
+            Assert.IsFalse(closeForData);
+        }
+
+        [Test]
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup

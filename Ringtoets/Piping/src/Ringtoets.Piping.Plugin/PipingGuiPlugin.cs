@@ -262,7 +262,12 @@ namespace Ringtoets.Piping.Plugin
         {
             var assessmentSection = o as IAssessmentSection;
             var pipingFailureMechanism = o as PipingFailureMechanism;
+            var pipingFailureMechanismContext = o as PipingFailureMechanismContext;
 
+            if (pipingFailureMechanismContext != null)
+            {
+                pipingFailureMechanism = pipingFailureMechanismContext.WrappedData;
+            }
             if (assessmentSection != null)
             {
                 pipingFailureMechanism = assessmentSection.GetFailureMechanisms()

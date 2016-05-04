@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for a <see cref="IFailureMechanism"/> instance.
     /// </summary>
-    public abstract class FailureMechanismContext<T> : WrappedObjectContextBase<T> where T : IFailureMechanism
+    public abstract class FailureMechanismContext<T> : WrappedObjectContextBase<T>, IFailureMechanismContext<T> where T : IFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismContext{T}"/> class.
