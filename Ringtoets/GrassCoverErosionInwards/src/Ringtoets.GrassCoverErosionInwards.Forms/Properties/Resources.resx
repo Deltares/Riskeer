@@ -136,9 +136,6 @@
   <data name="GrassCoverErosionInwardsContext_DataDescription_GrassCoverErosionInwardsFailureMechanism" xml:space="preserve">
     <value>Het grasbekleding erosie kruin en binnentalud faalmechanisme</value>
   </data>
-  <data name="GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip" xml:space="preserve">
-    <value>Voeg een nieuwe grasbekleding erosie kruin en binnentalud berekening toe aan dit faalmechanisme.</value>
-  </data>
   <data name="GrassCoverErosionInwardsInput_Code_Description" xml:space="preserve">
     <value>Het label van het toetsspoor.</value>
   </data>

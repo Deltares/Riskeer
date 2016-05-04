@@ -296,20 +296,6 @@ namespace Ringtoets.Piping.Plugin
                 }
                 );
 
-            var addCalculationGroupItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-                RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
-                RingtoetsCommonFormsResources.AddFolderIcon,
-                (o, args) => AddCalculationGroup(pipingFailureMechanismContext.WrappedData)
-                );
-
-            var addCalculationItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                PipingFormsResources.PipingFailureMechanism_Add_PipingCalculation_Tooltip,
-                PipingFormsResources.PipingIcon,
-                (s, e) => AddCalculation(pipingFailureMechanismContext.WrappedData)
-                );
-
             var validateAllItem = CreateValidateAllItem(pipingFailureMechanismContext.WrappedData);
 
             var calculateAllItem = CreateCalculateAllItem(pipingFailureMechanismContext.WrappedData);
@@ -331,9 +317,6 @@ namespace Ringtoets.Piping.Plugin
                       .AddOpenItem()
                       .AddSeparator()
                       .AddCustomItem(changeRelevancyItem)
-                      .AddSeparator()
-                      .AddCustomItem(addCalculationGroupItem)
-                      .AddCustomItem(addCalculationItem)
                       .AddSeparator()
                       .AddCustomItem(validateAllItem)
                       .AddCustomItem(calculateAllItem)
@@ -413,26 +396,6 @@ namespace Ringtoets.Piping.Plugin
         private void CalculateAll(PipingFailureMechanism failureMechanism)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow, GetAllPipingCalculations(failureMechanism).Select(calc => new PipingCalculationActivity(calc)));
-        }
-
-        private void AddCalculationGroup(PipingFailureMechanism failureMechanism)
-        {
-            var calculation = new CalculationGroup
-            {
-                Name = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, RingtoetsCommonDataResources.CalculationGroup_DefaultName, c => c.Name)
-            };
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.CalculationsGroup.NotifyObservers();
-        }
-
-        private void AddCalculation(PipingFailureMechanism failureMechanism)
-        {
-            var calculation = new PipingCalculationScenario(failureMechanism.GeneralInput, failureMechanism.NormProbabilityInput)
-            {
-                Name = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
-            };
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.CalculationsGroup.NotifyObservers();
         }
 
         private object[] FailureMechanismChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)

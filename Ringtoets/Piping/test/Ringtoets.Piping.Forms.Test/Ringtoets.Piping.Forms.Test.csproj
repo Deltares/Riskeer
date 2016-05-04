@@ -78,7 +78,7 @@
     <Compile Include="TreeNodeInfos\StochasticSoilModelContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingCalculationScenarioContextTreeNodeInfoTest.cs" />
     <Compile Include="Helper\PipingOutputCreator.cs" />
-    <Compile Include="TreeNodeInfos\PipingFailureMechanismTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\PipingFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingSemiProbabilisticOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StochasticSoilProfileTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsPipingSurfaceLineCollectionTreeNodeInfoTest.cs" />

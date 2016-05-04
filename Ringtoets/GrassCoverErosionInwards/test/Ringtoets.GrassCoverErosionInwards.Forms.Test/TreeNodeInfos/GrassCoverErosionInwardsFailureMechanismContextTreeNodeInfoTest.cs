@@ -167,9 +167,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -218,16 +215,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
                                                               RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
                                                               RingtoetsCommonFormsResources.Checkbox_ticked);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 3,
-                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                              RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
-                                                              RingtoetsCommonFormsResources.AddFolderIcon,
-                                                              false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 4,
-                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                                                              GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip,
-                                                              GrassCoverErosionInwardsFormsResources.CalculationIcon,
-                                                              false);
 
                 mocksRepository.VerifyAll();
             }

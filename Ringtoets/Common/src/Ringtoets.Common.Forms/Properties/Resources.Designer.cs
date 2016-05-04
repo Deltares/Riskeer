@@ -181,7 +181,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideer en voer alle berekeningen binnen deze berekeningsmap uit..
+        ///   Looks up a localized string similar to Voer alle berekeningen binnen deze berekeningsmap uit..
         /// </summary>
         public static string CalculationGroup_CalculateAll_ToolTip {
             get {
@@ -300,15 +300,6 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("EditDocumentIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe berekeningsmap toe aan dit faalmechanisme..
-        /// </summary>
-        public static string FailureMechanism_Add_CalculationGroup_Tooltip {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Add_CalculationGroup_Tooltip", resourceCulture);
             }
         }
         

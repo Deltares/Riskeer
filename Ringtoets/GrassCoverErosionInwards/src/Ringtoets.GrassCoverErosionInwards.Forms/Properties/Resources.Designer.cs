@@ -343,16 +343,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe grasbekleding erosie kruin en binnentalud berekening toe aan dit faalmechanisme..
-        /// </summary>
-        public static string GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_" +
-                        "Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het label van het toetsspoor..
         /// </summary>
         public static string GrassCoverErosionInwardsInput_Code_Description {

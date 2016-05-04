@@ -32,7 +32,6 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -251,33 +250,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 }
                 );
 
-            var addCalculationGroupItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-                RingtoetsCommonFormsResources.FailureMechanism_Add_CalculationGroup_Tooltip,
-                RingtoetsCommonFormsResources.AddFolderIcon,
-                (o, args) => AddCalculationGroup(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
-                )
-            {
-                Enabled = false
-            };
-
-            var addCalculationItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsFailureMechanism_Add_GrassCoverErosionInwardsCalculation_Tooltip,
-                GrassCoverErosionInwardsFormsResources.CalculationIcon,
-                (s, e) => AddCalculation(grassCoverErosionInwardsFailureMechanismContext.WrappedData, grassCoverErosionInwardsFailureMechanismContext.WrappedData.CalculationsGroup)
-                )
-            {
-                Enabled = false
-            };
-
             return Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl)
                       .AddOpenItem()
                       .AddSeparator()
                       .AddCustomItem(changeRelevancyItem)
-                      .AddSeparator()
-                      .AddCustomItem(addCalculationGroupItem)
-                      .AddCustomItem(addCalculationItem)
                       .AddSeparator()
                       .AddImportItem()
                       .AddExportItem()
@@ -287,24 +263,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                       .Build();
         }
 
-        private static void AddCalculationGroup(ICalculatableFailureMechanism failureMechanism)
+        private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            var calculation = new CalculationGroup
+            var calculation = new GrassCoverErosionInwardsCalculation(context.FailureMechanism.GeneralInput)
             {
-                Name = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, RingtoetsCommonDataResources.CalculationGroup_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsCalculation_DefaultName, c => c.Name)
             };
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.CalculationsGroup.NotifyObservers();
-        }
-
-        private static void AddCalculation(GrassCoverErosionInwardsFailureMechanism failureMechanism, CalculationGroup calculationGroup)
-        {
-            var calculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput)
-            {
-                Name = NamingHelper.GetUniqueName(calculationGroup.Children, GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsCalculation_DefaultName, c => c.Name)
-            };
-            calculationGroup.Children.Add(calculation);
-            calculationGroup.NotifyObservers();
+            context.WrappedData.Children.Add(calculation);
+            context.WrappedData.NotifyObservers();
         }
 
         #endregion
@@ -355,7 +321,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
 
             CalculationTreeNodeInfoFactory.AddCreateCalculationGroupItem(builder, group);
-            CalculationTreeNodeInfoFactory.AddCreateCalculationItem(builder, nodeData, context => AddCalculation(context.FailureMechanism, context.WrappedData));
+            CalculationTreeNodeInfoFactory.AddCreateCalculationItem(builder, nodeData, AddCalculation);
             builder.AddSeparator();
 
             if (isNestedGroup)

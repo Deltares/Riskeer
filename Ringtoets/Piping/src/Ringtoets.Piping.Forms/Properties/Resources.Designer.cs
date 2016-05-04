@@ -796,15 +796,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe piping berekening toe aan dit faalmechanisme..
-        /// </summary>
-        public static string PipingFailureMechanism_Add_PipingCalculation_Tooltip {
-            get {
-                return ResourceManager.GetString("PipingFailureMechanism_Add_PipingCalculation_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen berekeningen om uit te voeren..
         /// </summary>
         public static string PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run {
