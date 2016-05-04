@@ -24,6 +24,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.Commands;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -567,6 +569,113 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             }
         }
 
+        # endregion
+
+        [Test]
+        public void AddCreateCalculationGroupItem_Always_CreatesDecoratedCalculationGroupItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
+
+            // Call
+            CalculationTreeNodeInfoFactory.AddCreateCalculationGroupItem(menuBuilder, calculationGroup);
+
+            // Assert
+            var contextMenuItem = menuBuilder.Build().Items[0];
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup, contextMenuItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.Add_calculation_group_to_calculation_group_tooltip, contextMenuItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AddFolderIcon, contextMenuItem.Image);
+        }
+
+        [Test]
+        public void AddCreateCalculationGroupItem_PerformClickOnCreatedItem_CalculationGroupAdded()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
+            CalculationTreeNodeInfoFactory.AddCreateCalculationGroupItem(menuBuilder, calculationGroup);
+            var contextMenuItem = menuBuilder.Build().Items[0];
+
+            // Call
+            contextMenuItem.PerformClick();
+
+            // Assert
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            Assert.IsTrue(calculationGroup.Children[0] is CalculationGroup);
+        }
+
+        [Test]
+        public void AddCreateCalculationItem_Always_CreatesDecoratedCalculationItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
+
+            // Call
+            CalculationTreeNodeInfoFactory.AddCreateCalculationItem(menuBuilder, calculationGroupContext, null);
+
+            // Assert
+            var contextMenuItem = menuBuilder.Build().Items[0];
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Add_Calculation, contextMenuItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.Add_calculation_to_calculation_group_tooltip, contextMenuItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.FailureMechanismIcon, contextMenuItem.Image);
+        }
+
+        [Test]
+        public void AddCreateCalculationItem_PerformClickOnCreatedItem_AddCalculationMethodPerformed()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+
+            mocks.ReplayAll();
+
+            var counter = 0;
+            var calculationGroup = new CalculationGroup();
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
+
+            CalculationTreeNodeInfoFactory.AddCreateCalculationItem(menuBuilder, calculationGroupContext, context => counter++);
+            var contextMenuItem = menuBuilder.Build().Items[0];
+
+            // Call
+            contextMenuItem.PerformClick();
+
+            // Assert
+            Assert.AreEqual(1, counter);
+        }
+
         # region Nested types
 
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
@@ -661,8 +770,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             /// </summary>
             Group
         }
-
-        # endregion
 
         # endregion
     }
