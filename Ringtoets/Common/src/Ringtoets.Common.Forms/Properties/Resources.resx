@@ -277,9 +277,6 @@
   <data name="CalculationGroup_Add_CalculationGroup" xml:space="preserve">
     <value>&amp;Map toevoegen</value>
   </data>
-  <data name="CalculationGroup_Add_CalculationGroup_ToolTip" xml:space="preserve">
-    <value>Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.</value>
-  </data>
   <data name="CalculationGroup_Add_Calculation" xml:space="preserve">
     <value>&amp;Berekening toevoegen</value>
   </data>
@@ -295,10 +292,10 @@
   <data name="FailureMechanismContextMenuStrip_Is_relevant_Tooltip" xml:space="preserve">
     <value>Geeft aan of dit faalmechanisme relevant is of niet.</value>
   </data>
-  <data name="Add_calculation_to_calculation_group_tooltip" xml:space="preserve">
+  <data name="CalculationGroup_Add_Calculation_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe berekening toe aan deze berekeningsmap.</value>
   </data>
-  <data name="Add_calculation_group_to_calculation_group_tooltip" xml:space="preserve">
+  <data name="CalculationGroup_Add_CalculationGroup_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.</value>
   </data>
 </root>

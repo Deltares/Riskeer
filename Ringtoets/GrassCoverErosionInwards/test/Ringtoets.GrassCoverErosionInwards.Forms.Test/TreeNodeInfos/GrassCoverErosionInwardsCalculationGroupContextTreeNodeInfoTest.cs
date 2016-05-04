@@ -160,54 +160,69 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
             // Assert
-            var mainCalculationGroupContextItemOffset = 2;
-            Assert.AreEqual(12, menu.Items.Count);
+            Assert.AreEqual(15, menu.Items.Count);
+
             TestHelper.AssertContextMenuStripContainsItem(menu, 0,
                                                           CoreCommonGuiResources.Open,
                                                           CoreCommonGuiResources.Open_ToolTip,
                                                           CoreCommonGuiResources.OpenIcon,
                                                           false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex + mainCalculationGroupContextItemOffset,
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 2,
                                                           RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                          "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
                                                           RingtoetsFormsResources.AddFolderIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationItemIndex + mainCalculationGroupContextItemOffset,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 3,
                                                           RingtoetsFormsResources.CalculationGroup_Add_Calculation,
-                                                          "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                                                          GrassCoverErosionInwardsFormResources.CalculationIcon);
+                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip,
+                                                          RingtoetsFormsResources.FailureMechanismIcon);
+
             TestHelper.AssertContextMenuStripContainsItem(menu, 5,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                                                          RingtoetsFormsResources.CalculateIcon,
+                                                          false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 6,
+                                                          RingtoetsFormsResources.Clear_all_output,
+                                                          RingtoetsFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                                                          RingtoetsFormsResources.ClearIcon,
+                                                          false);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 8,
                                                           CoreCommonGuiResources.Import,
                                                           CoreCommonGuiResources.Import_ToolTip,
                                                           CoreCommonGuiResources.ImportIcon,
                                                           false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 6,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 9,
                                                           CoreCommonGuiResources.Export,
                                                           CoreCommonGuiResources.Export_ToolTip,
                                                           CoreCommonGuiResources.ExportIcon,
                                                           false);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 8,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 11,
                                                           CoreCommonGuiResources.Expand_all,
                                                           CoreCommonGuiResources.Expand_all_ToolTip,
                                                           CoreCommonGuiResources.ExpandAllIcon,
                                                           false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 9,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 12,
                                                           CoreCommonGuiResources.Collapse_all,
                                                           CoreCommonGuiResources.Collapse_all_ToolTip,
                                                           CoreCommonGuiResources.CollapseAllIcon,
                                                           false);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 11,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 14,
                                                           CoreCommonGuiResources.Properties,
                                                           CoreCommonGuiResources.Properties_ToolTip,
                                                           CoreCommonGuiResources.PropertiesHS,
                                                           false);
+
             CollectionAssert.AllItemsAreInstancesOfType(new[]
             {
                 menu.Items[1],
                 menu.Items[4],
                 menu.Items[7],
-                menu.Items[10]
+                menu.Items[10],
+                menu.Items[13]
             }, typeof(ToolStripSeparator));
 
             mocks.VerifyAll();
@@ -251,56 +266,72 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentData, treeViewControl);
 
             // Assert
-            Assert.AreEqual(13, menu.Items.Count);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex,
+            Assert.AreEqual(16, menu.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 0,
                                                           RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                          "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
                                                           RingtoetsFormsResources.AddFolderIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationItemIndex,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 1,
                                                           RingtoetsFormsResources.CalculationGroup_Add_Calculation,
-                                                          "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                                                          GrassCoverErosionInwardsFormResources.CalculationIcon);
+                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip,
+                                                          RingtoetsFormsResources.FailureMechanismIcon);
+
             TestHelper.AssertContextMenuStripContainsItem(menu, 3,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                                                          RingtoetsFormsResources.CalculateIcon,
+                                                          false);
+            TestHelper.AssertContextMenuStripContainsItem(menu, 4,
+                                                          RingtoetsFormsResources.Clear_all_output,
+                                                          RingtoetsFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                                                          RingtoetsFormsResources.ClearIcon,
+                                                          false);
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 6,
                                                           CoreCommonGuiResources.Rename,
                                                           CoreCommonGuiResources.Rename_ToolTip,
                                                           CoreCommonGuiResources.RenameIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 4,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 7,
                                                           CoreCommonGuiResources.Delete,
                                                           CoreCommonGuiResources.Delete_ToolTip,
                                                           CoreCommonGuiResources.DeleteIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 6,
+
+            TestHelper.AssertContextMenuStripContainsItem(menu, 9,
                                                           CoreCommonGuiResources.Import,
                                                           CoreCommonGuiResources.Import_ToolTip,
                                                           CoreCommonGuiResources.ImportIcon,
                                                           false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 7,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 10,
                                                           CoreCommonGuiResources.Export,
                                                           CoreCommonGuiResources.Export_ToolTip,
                                                           CoreCommonGuiResources.ExportIcon,
                                                           false);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 9,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 12,
                                                           CoreCommonGuiResources.Expand_all,
                                                           CoreCommonGuiResources.Expand_all_ToolTip,
                                                           CoreCommonGuiResources.ExpandAllIcon,
                                                           false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 10,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 13,
                                                           CoreCommonGuiResources.Collapse_all,
                                                           CoreCommonGuiResources.Collapse_all_ToolTip,
                                                           CoreCommonGuiResources.CollapseAllIcon,
                                                           false);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, 12,
+            TestHelper.AssertContextMenuStripContainsItem(menu, 15,
                                                           CoreCommonGuiResources.Properties,
                                                           CoreCommonGuiResources.Properties_ToolTip,
                                                           CoreCommonGuiResources.PropertiesHS,
                                                           false);
+
             CollectionAssert.AllItemsAreInstancesOfType(new[]
             {
                 menu.Items[2],
                 menu.Items[5],
                 menu.Items[8],
-                menu.Items[11]
+                menu.Items[11],
+                menu.Items[14]
             }, typeof(ToolStripSeparator));
 
             mocks.VerifyAll();

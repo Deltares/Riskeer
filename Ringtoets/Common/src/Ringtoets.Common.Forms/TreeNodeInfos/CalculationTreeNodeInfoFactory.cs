@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         {
             var createCalculationGroupItem = new StrictContextMenuItem(
                 Resources.CalculationGroup_Add_CalculationGroup,
-                Resources.Add_calculation_group_to_calculation_group_tooltip,
+                Resources.CalculationGroup_Add_CalculationGroup_Tooltip,
                 Resources.AddFolderIcon,
                 (o, args) =>
                 {
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         {
             var createCalculationItem = new StrictContextMenuItem(
                 Resources.CalculationGroup_Add_Calculation,
-                Resources.Add_calculation_to_calculation_group_tooltip,
+                Resources.CalculationGroup_Add_Calculation_Tooltip,
                 Resources.FailureMechanismIcon,
                 (o, args) => { addCalculation(calculationGroupContext); });
 

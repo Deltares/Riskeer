@@ -61,24 +61,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap..
-        /// </summary>
-        public static string Add_calculation_group_to_calculation_group_tooltip {
-            get {
-                return ResourceManager.GetString("Add_calculation_group_to_calculation_group_tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe berekening toe aan deze berekeningsmap..
-        /// </summary>
-        public static string Add_calculation_to_calculation_group_tooltip {
-            get {
-                return ResourceManager.GetString("Add_calculation_to_calculation_group_tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap AddFolderIcon {
@@ -154,6 +136,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuwe berekening toe aan deze berekeningsmap..
+        /// </summary>
+        public static string CalculationGroup_Add_Calculation_Tooltip {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Add_Calculation_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Map toevoegen.
         /// </summary>
         public static string CalculationGroup_Add_CalculationGroup {
@@ -165,9 +156,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap..
         /// </summary>
-        public static string CalculationGroup_Add_CalculationGroup_ToolTip {
+        public static string CalculationGroup_Add_CalculationGroup_Tooltip {
             get {
-                return ResourceManager.GetString("CalculationGroup_Add_CalculationGroup_ToolTip", resourceCulture);
+                return ResourceManager.GetString("CalculationGroup_Add_CalculationGroup_Tooltip", resourceCulture);
             }
         }
         

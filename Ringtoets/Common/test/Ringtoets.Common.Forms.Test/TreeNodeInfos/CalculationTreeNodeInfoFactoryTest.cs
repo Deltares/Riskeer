@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
                                                           RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                          RingtoetsFormsResources.Add_calculation_group_to_calculation_group_tooltip,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
                                                           RingtoetsFormsResources.AddFolderIcon);
         }
 
@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
                                                           RingtoetsFormsResources.CalculationGroup_Add_Calculation,
-                                                          RingtoetsFormsResources.Add_calculation_to_calculation_group_tooltip,
+                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip,
                                                           RingtoetsFormsResources.FailureMechanismIcon);
         }
 

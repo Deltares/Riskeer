@@ -324,6 +324,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             CalculationTreeNodeInfoFactory.AddCreateCalculationItem(builder, nodeData, AddCalculation);
             builder.AddSeparator();
 
+            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(builder, group, context => { }); // TODO: Actualy connect the calculation
+            CalculationTreeNodeInfoFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
+            builder.AddSeparator();
+
             if (isNestedGroup)
             {
                 builder.AddRenameItem();
