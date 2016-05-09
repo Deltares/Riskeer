@@ -105,10 +105,10 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                            new object[0];
             }
 
-            return GetDisbledFailureMechanismChildNodeObjects(failureMechanismContext);
+            return GetDisabledFailureMechanismChildNodeObjects(failureMechanismContext);
         }
 
-        private static object[] GetDisbledFailureMechanismChildNodeObjects(TContext failureMechanismContext)
+        private static object[] GetDisabledFailureMechanismChildNodeObjects(TContext failureMechanismContext)
         {
             return new object[]
             {

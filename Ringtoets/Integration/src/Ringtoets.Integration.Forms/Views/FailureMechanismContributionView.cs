@@ -157,7 +157,7 @@ namespace Ringtoets.Integration.Forms.Views
             if (e.ColumnIndex == probabilityPerYearColumn.Index)
             {
                 var contributionItem = data.Distribution.ElementAt(e.RowIndex);
-                if (contributionItem.Contribution == 0.0)
+                if (Math.Abs(contributionItem.Contribution) < 1e-6)
                 {
                     e.Value = RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ProbabilityPerYear_Not_applicable;
                     e.FormattingApplied = true;
@@ -219,12 +219,11 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (ViewCommands != null)
             {
-                foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
+                var irrelevantFailureMechanisms = assessmentSection.GetFailureMechanisms().Where(failureMechanism => !failureMechanism.IsRelevant);
+
+                foreach (var failureMechanism in irrelevantFailureMechanisms)
                 {
-                    if (!failureMechanism.IsRelevant)
-                    {
-                        ViewCommands.RemoveAllViewsForItem(failureMechanism);
-                    }
+                    ViewCommands.RemoveAllViewsForItem(failureMechanism);
                 }
             }
         }

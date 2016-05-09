@@ -243,15 +243,12 @@ namespace Ringtoets.Piping.Plugin
             var assessmentSection = o as IAssessmentSection;
             var pipingFailureMechanism = o as PipingFailureMechanism;
 
-            var viewPipingFailureMechanismContext = (PipingFailureMechanismContext)view.Data;
+            var viewPipingFailureMechanismContext = (PipingFailureMechanismContext) view.Data;
             var viewPipingFailureMechanism = viewPipingFailureMechanismContext.WrappedData;
 
-            if (assessmentSection != null)
-            {
-                return ReferenceEquals(viewPipingFailureMechanismContext.Parent, assessmentSection);
-            }
-
-            return ReferenceEquals(viewPipingFailureMechanism, pipingFailureMechanism);
+            return assessmentSection != null
+                       ? ReferenceEquals(viewPipingFailureMechanismContext.Parent, assessmentSection)
+                       : ReferenceEquals(viewPipingFailureMechanism, pipingFailureMechanism);
         }
 
         # endregion

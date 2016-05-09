@@ -37,7 +37,7 @@ namespace Core.Common.Controls.PresentationObjects
         /// Initializes a new instance of the <see cref="WrappedObjectContextBase{T}"/> class.
         /// </summary>
         /// <param name="wrappedData">The wrapped data.</param>
-        /// <exception cref="System.ArgumentNullException">When <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">When <paramref name="wrappedData"/> is <c>null</c>.</exception>
         protected WrappedObjectContextBase(T wrappedData)
         {
             if (wrappedData == null)
