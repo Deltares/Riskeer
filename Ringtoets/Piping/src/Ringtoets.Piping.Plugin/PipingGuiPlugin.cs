@@ -121,7 +121,8 @@ namespace Ringtoets.Piping.Plugin
 
             yield return CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<PipingCalculationScenarioContext>(
                 PipingFormsResources.PipingIcon,
-                PipingCalculationContextChildNodeObjects);
+                PipingCalculationContextChildNodeObjects,
+                PipingCalculationContextContextMenuStrip);
 
             yield return CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(
                 PipingCalculationGroupContextChildNodeObjects,

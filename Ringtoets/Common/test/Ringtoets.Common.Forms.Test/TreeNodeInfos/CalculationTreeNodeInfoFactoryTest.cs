@@ -984,14 +984,16 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Setup
             var icon = RingtoetsFormsResources.CalculateIcon;
             Func<TestCalculationContext, object[]> childNodeObjects = context => new object[0];
+            Func<TestCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
 
             // Call
-            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(icon, childNodeObjects);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo(icon, childNodeObjects, contextMenuStrip);
 
             // Assert
             Assert.AreEqual(typeof(TestCalculationContext), treeNodeInfo.TagType);
             TestHelper.AssertImagesAreEqual(icon, treeNodeInfo.Image(null));
             Assert.AreSame(childNodeObjects, treeNodeInfo.ChildNodeObjects);
+            Assert.AreSame(contextMenuStrip, treeNodeInfo.ContextMenuStrip);
             Assert.IsNull(treeNodeInfo.ForeColor);
             Assert.IsNull(treeNodeInfo.CanCheck);
             Assert.IsNull(treeNodeInfo.IsChecked);
@@ -1014,7 +1016,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             };
 
             var context = new TestCalculationContext(calculation, failureMechanismMock);
-            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
             // Call
             var text = treeNodeInfo.Text(context);
@@ -1028,7 +1030,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         public void EnsureVisibleOnCreateOfCalculationContextTreeNodeInfo_Always_ReturnsTrue()
         {
             // Setup
-            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
 
             // Call
             var result = treeNodeInfo.EnsureVisibleOnCreate(null, null);

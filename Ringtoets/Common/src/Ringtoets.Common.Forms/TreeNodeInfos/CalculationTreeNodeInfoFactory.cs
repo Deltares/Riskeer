@@ -85,7 +85,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TCalculationContext> CreateCalculationContextTreeNodeInfo<TCalculationContext>(
             Bitmap icon,
-            Func<TCalculationContext, object[]> childeNodeObjects) 
+            Func<TCalculationContext, object[]> childeNodeObjects,
+            Func<TCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
             where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
             return new TreeNodeInfo<TCalculationContext>
@@ -93,7 +94,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Text = context => context.WrappedData.Name,
                 Image = context => icon,
                 EnsureVisibleOnCreate = (context, parent) => true,
-                ChildNodeObjects = childeNodeObjects
+                ChildNodeObjects = childeNodeObjects,
+                ContextMenuStrip = contextMenuStrip
             };
         }
 
