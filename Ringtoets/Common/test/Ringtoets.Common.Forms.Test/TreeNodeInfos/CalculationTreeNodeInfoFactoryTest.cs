@@ -433,11 +433,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         [Test]
         public void CreateCalculationGroupContextTreeNodeInfo_Always_ExpectedPropertiesSet()
         {
-            // Setup & Call
+            // Setup
             Func<TestCalculationGroupContext, object[]> childNodeObjects = context => new object[0];
             Func<TestCalculationGroupContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
             Action<TestCalculationGroupContext, object> onNodeRemoved = (context, parent) => { };
 
+            // Call
             var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo(childNodeObjects, contextMenuStrip, onNodeRemoved);
 
             // Assert
@@ -973,7 +974,78 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             }
         }
 
-        # endregion
+        #endregion
+
+        #region CreateCalculationContextTreeNodeInfo
+
+        [Test]
+        public void CreateCalculationContextTreeNodeInfo_Always_ExpectedPropertiesSet()
+        {
+            // Call
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null);
+
+            // Assert
+            Assert.AreEqual(typeof(TestCalculationContext), treeNodeInfo.TagType);
+            Assert.IsNull(treeNodeInfo.ForeColor);
+            Assert.IsNull(treeNodeInfo.CanCheck);
+            Assert.IsNull(treeNodeInfo.IsChecked);
+            Assert.IsNull(treeNodeInfo.OnNodeChecked);
+        }
+
+        [Test]
+        public void TextOfCalculationContextTreeNodeInfo_Always_ReturnsWrappedDataName()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            var calculationName = "calculationName";
+            var calculation = new TestCalculation
+            {
+                Name = calculationName
+            };
+
+            var context = new TestCalculationContext(calculation, failureMechanismMock);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null);
+
+            // Call
+            var text = treeNodeInfo.Text(context);
+
+            // Assert
+            Assert.AreEqual(calculationName, text);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ImageOfCalculationContextTreeNodeInfo_Always_ReturnsIcon()
+        {
+            // Setup
+            var icon = RingtoetsFormsResources.CalculateIcon;
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(icon);
+
+            // Call
+            var image = treeNodeInfo.Image(null);
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(icon, image);
+        }
+
+        [Test]
+        public void EnsureVisibleOnCreateOfCalculationContextTreeNodeInfo_Always_ReturnsTrue()
+        {
+            // Setup
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null);
+
+            // Call
+            var result = treeNodeInfo.EnsureVisibleOnCreate(null, null);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        #endregion
 
         # region Nested types
 

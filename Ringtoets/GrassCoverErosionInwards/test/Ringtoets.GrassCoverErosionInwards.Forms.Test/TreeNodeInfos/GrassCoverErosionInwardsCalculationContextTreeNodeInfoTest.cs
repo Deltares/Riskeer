@@ -64,31 +64,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsWrappedDataName()
-        {
-            // Setup
-            var testname = "testName";
-            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput())
-            {
-                Name = testname
-            };
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
-            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
-
-            // Call
-            var text = info.Text(calculationContext);
-
-            // Assert
-            Assert.AreEqual(testname, text);
-
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
         public void Image_Always_ReturnsPlaceHolderIcon()
         {
             // Call
@@ -98,40 +73,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             TestHelper.AssertImagesAreEqual(GrassCoverErosionInwardsFormsResources.CalculationIcon, image);
         }
 
-        [Test]
-        public void EnsureVisibleOnCreate_Always_ReturnsTrue()
-        {
-            // Call
-            var result = info.EnsureVisibleOnCreate(null, null);
-
-            // Assert
-            Assert.IsTrue(result);
-        }
-
-        [Test]
-        public void ChildNodeObjects_WithOutputData_ReturnOutputChildNode()
-        {
-            var calculation = mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new GeneralGrassCoverErosionInwardsInput());
-            var failureMechanism = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
-            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
-
-            // Call
-            var children = info.ChildNodeObjects(calculationContext).ToArray();
-
-            // Assert
-            Assert.AreEqual(3, children.Length);
-            var commentContext = children[0] as CommentContext<ICommentable>;
-            Assert.IsNotNull(commentContext);
-            Assert.AreSame(calculationContext.WrappedData, commentContext.CommentContainer);
-
-            var grassCoverErosionInwardsCalculationContext = (GrassCoverErosionInwardsInputContext) children[1];
-            Assert.AreSame(calculationContext.WrappedData.InputParameters, grassCoverErosionInwardsCalculationContext.WrappedData);
-
-            var emptyOutput = (EmptyGrassCoverErosionInwardsOutput) children[2];
-            Assert.IsNotNull(emptyOutput);
-        }
+//        [Test]
+//        public void ChildNodeObjects_WithOutputData_ReturnOutputChildNode()
+//        {
+//            var calculation = mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new GeneralGrassCoverErosionInwardsInput());
+//            var failureMechanism = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+//            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+//            mocksRepository.ReplayAll();
+//
+//            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+//
+//            // Call
+//            var children = info.ChildNodeObjects(calculationContext).ToArray();
+//
+//            // Assert
+//            Assert.AreEqual(3, children.Length);
+//            var commentContext = children[0] as CommentContext<ICommentable>;
+//            Assert.IsNotNull(commentContext);
+//            Assert.AreSame(calculationContext.WrappedData, commentContext.CommentContainer);
+//
+//            var grassCoverErosionInwardsCalculationContext = (GrassCoverErosionInwardsInputContext) children[1];
+//            Assert.AreSame(calculationContext.WrappedData.InputParameters, grassCoverErosionInwardsCalculationContext.WrappedData);
+//
+//            var emptyOutput = (EmptyGrassCoverErosionInwardsOutput) children[2];
+//            Assert.IsNotNull(emptyOutput);
+//        }
     }
 }

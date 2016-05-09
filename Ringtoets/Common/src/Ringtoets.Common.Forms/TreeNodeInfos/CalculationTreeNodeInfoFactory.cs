@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
@@ -72,6 +73,23 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 CanInsert = CalculationGroupCanDropOrInsert,
                 CanDrop = CalculationGroupCanDropOrInsert,
                 OnDrop = CalculationGroupOnDrop
+            };
+        }
+
+        /// <summary>
+        /// Creates a <see cref="TreeNodeInfo"/> object for a calculation context of the type <typeparamref name="TCalculationContext"/>. 
+        /// </summary>
+        /// <param name="icon">The icon of the <see cref="TreeNodeInfo"/>.</param>
+        /// <typeparam name="TCalculationContext">The type of calculation context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
+        /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
+        public static TreeNodeInfo<TCalculationContext> CreateCalculationContextTreeNodeInfo<TCalculationContext>(Bitmap icon) 
+            where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
+        {
+            return new TreeNodeInfo<TCalculationContext>
+            {
+                Text = context => context.WrappedData.Name,
+                Image = context => icon,
+                EnsureVisibleOnCreate = (context, parent) => true
             };
         }
 

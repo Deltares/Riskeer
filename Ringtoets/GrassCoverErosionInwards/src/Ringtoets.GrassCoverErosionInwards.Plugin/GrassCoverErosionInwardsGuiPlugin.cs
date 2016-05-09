@@ -75,13 +75,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<GrassCoverErosionInwardsCalculationContext>
-            {
-                Text = context => context.WrappedData.Name,
-                Image = context => GrassCoverErosionInwardsFormsResources.CalculationIcon,
-                EnsureVisibleOnCreate = (context, parent) => true,
-                ChildNodeObjects = CalculationContextChildNodeObjects
-            };
+            yield return CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionInwardsCalculationContext>(
+                GrassCoverErosionInwardsFormsResources.CalculationIcon);
+
+//            yield return new TreeNodeInfo<GrassCoverErosionInwardsCalculationContext>
+//            {
+//                Text = context => context.WrappedData.Name,
+//                Image = context => GrassCoverErosionInwardsFormsResources.CalculationIcon,
+//                EnsureVisibleOnCreate = (context, parent) => true,
+//                ChildNodeObjects = CalculationContextChildNodeObjects
+//            };
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsInputContext>
             {

@@ -108,19 +108,22 @@ namespace Ringtoets.Piping.Plugin
                 FailureMechanismContextMenuStrip,
                 Gui);
 
-            yield return new TreeNodeInfo<PipingCalculationScenarioContext>
-            {
-                Text = pipingCalculationContext => pipingCalculationContext.WrappedData.Name,
-                Image = pipingCalculationContext => PipingFormsResources.PipingIcon,
-                EnsureVisibleOnCreate = (pipingCalculationContext, parent) => true,
-                ContextMenuStrip = PipingCalculationContextContextMenuStrip,
-                ChildNodeObjects = PipingCalculationContextChildNodeObjects,
-                CanRename = (pipingCalculationContext, parentData) => true,
-                OnNodeRenamed = PipingCalculationContextOnNodeRenamed,
-                CanRemove = PipingCalculationContextCanRemove,
-                OnNodeRemoved = PipingCalculationContextOnNodeRemoved,
-                CanDrag = (pipingCalculationContext, parentData) => true
-            };
+//            yield return new TreeNodeInfo<PipingCalculationScenarioContext>
+//            {
+//                Text = pipingCalculationContext => pipingCalculationContext.WrappedData.Name,
+//                Image = pipingCalculationContext => PipingFormsResources.PipingIcon,
+//                EnsureVisibleOnCreate = (pipingCalculationContext, parent) => true,
+//                ContextMenuStrip = PipingCalculationContextContextMenuStrip,
+//                ChildNodeObjects = PipingCalculationContextChildNodeObjects,
+//                CanRename = (pipingCalculationContext, parentData) => true,
+//                OnNodeRenamed = PipingCalculationContextOnNodeRenamed,
+//                CanRemove = PipingCalculationContextCanRemove,
+//                OnNodeRemoved = PipingCalculationContextOnNodeRemoved,
+//                CanDrag = (pipingCalculationContext, parentData) => true
+//            };
+
+            yield return CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<PipingCalculationScenarioContext>(
+                PipingFormsResources.PipingIcon);
 
             yield return CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(
                 PipingCalculationGroupContextChildNodeObjects,
