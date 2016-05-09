@@ -110,9 +110,6 @@ namespace Ringtoets.Piping.Plugin
 
 //            yield return new TreeNodeInfo<PipingCalculationScenarioContext>
 //            {
-//                Text = pipingCalculationContext => pipingCalculationContext.WrappedData.Name,
-//                Image = pipingCalculationContext => PipingFormsResources.PipingIcon,
-//                EnsureVisibleOnCreate = (pipingCalculationContext, parent) => true,
 //                ContextMenuStrip = PipingCalculationContextContextMenuStrip,
 //                ChildNodeObjects = PipingCalculationContextChildNodeObjects,
 //                CanRename = (pipingCalculationContext, parentData) => true,
@@ -123,7 +120,8 @@ namespace Ringtoets.Piping.Plugin
 //            };
 
             yield return CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<PipingCalculationScenarioContext>(
-                PipingFormsResources.PipingIcon);
+                PipingFormsResources.PipingIcon,
+                PipingCalculationContextChildNodeObjects);
 
             yield return CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(
                 PipingCalculationGroupContextChildNodeObjects,
@@ -203,7 +201,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new TreeNodeInfo<PipingSemiProbabilisticOutput>
             {
-                Text = pipingOutput => PipingFormsResources.PipingOutput_DisplayName,
+                Text = pipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = pipingOutput => PipingFormsResources.PipingOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddExportItem()
@@ -214,7 +212,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new TreeNodeInfo<EmptyPipingOutput>
             {
-                Text = emptyPipingOutput => PipingFormsResources.PipingOutput_DisplayName,
+                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = emptyPipingOutput => PipingFormsResources.PipingOutputIcon,
                 ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)

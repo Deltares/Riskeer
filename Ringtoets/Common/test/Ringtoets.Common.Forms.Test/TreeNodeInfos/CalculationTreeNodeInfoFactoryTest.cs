@@ -981,11 +981,17 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         [Test]
         public void CreateCalculationContextTreeNodeInfo_Always_ExpectedPropertiesSet()
         {
+            // Setup
+            var icon = RingtoetsFormsResources.CalculateIcon;
+            Func<TestCalculationContext, object[]> childNodeObjects = context => new object[0];
+
             // Call
-            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(icon, childNodeObjects);
 
             // Assert
             Assert.AreEqual(typeof(TestCalculationContext), treeNodeInfo.TagType);
+            TestHelper.AssertImagesAreEqual(icon, treeNodeInfo.Image(null));
+            Assert.AreSame(childNodeObjects, treeNodeInfo.ChildNodeObjects);
             Assert.IsNull(treeNodeInfo.ForeColor);
             Assert.IsNull(treeNodeInfo.CanCheck);
             Assert.IsNull(treeNodeInfo.IsChecked);
@@ -1008,7 +1014,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             };
 
             var context = new TestCalculationContext(calculation, failureMechanismMock);
-            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null);
 
             // Call
             var text = treeNodeInfo.Text(context);
@@ -1019,24 +1025,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ImageOfCalculationContextTreeNodeInfo_Always_ReturnsIcon()
-        {
-            // Setup
-            var icon = RingtoetsFormsResources.CalculateIcon;
-            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(icon);
-
-            // Call
-            var image = treeNodeInfo.Image(null);
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(icon, image);
-        }
-
-        [Test]
         public void EnsureVisibleOnCreateOfCalculationContextTreeNodeInfo_Always_ReturnsTrue()
         {
             // Setup
-            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null);
 
             // Call
             var result = treeNodeInfo.EnsureVisibleOnCreate(null, null);

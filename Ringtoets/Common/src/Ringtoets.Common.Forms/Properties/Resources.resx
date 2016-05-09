@@ -298,4 +298,7 @@
   <data name="CalculationGroup_Add_CalculationGroup_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.</value>
   </data>
+  <data name="CalculationOutput_DisplayName" xml:space="preserve">
+    <value>Resultaat</value>
+  </data>
 </root>

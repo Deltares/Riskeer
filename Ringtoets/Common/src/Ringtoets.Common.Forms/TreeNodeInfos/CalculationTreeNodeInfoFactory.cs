@@ -80,16 +80,20 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// Creates a <see cref="TreeNodeInfo"/> object for a calculation context of the type <typeparamref name="TCalculationContext"/>. 
         /// </summary>
         /// <param name="icon">The icon of the <see cref="TreeNodeInfo"/>.</param>
+        /// <param name="childeNodeObjects">The function for obtaining the child node objects.</param>
         /// <typeparam name="TCalculationContext">The type of calculation context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
-        public static TreeNodeInfo<TCalculationContext> CreateCalculationContextTreeNodeInfo<TCalculationContext>(Bitmap icon) 
+        public static TreeNodeInfo<TCalculationContext> CreateCalculationContextTreeNodeInfo<TCalculationContext>(
+            Bitmap icon,
+            Func<TCalculationContext, object[]> childeNodeObjects) 
             where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
             return new TreeNodeInfo<TCalculationContext>
             {
                 Text = context => context.WrappedData.Name,
                 Image = context => icon,
-                EnsureVisibleOnCreate = (context, parent) => true
+                EnsureVisibleOnCreate = (context, parent) => true,
+                ChildNodeObjects = childeNodeObjects
             };
         }
 

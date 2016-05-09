@@ -76,7 +76,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var text = info.Text(null);
 
             // Assert
-            Assert.AreEqual(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsOutput_DisplayName, text);
+            Assert.AreEqual(RingtoetsCommonFormsResources.CalculationOutput_DisplayName, text);
         }
 
         [Test]

@@ -76,7 +76,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 CalculationGroupContextOnNodeRemoved);
 
             yield return CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionInwardsCalculationContext>(
-                GrassCoverErosionInwardsFormsResources.CalculationIcon);
+                GrassCoverErosionInwardsFormsResources.CalculationIcon,
+                CalculationContextChildNodeObjects);
 
 //            yield return new TreeNodeInfo<GrassCoverErosionInwardsCalculationContext>
 //            {
@@ -100,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<EmptyGrassCoverErosionInwardsOutput>
             {
-                Text = emptyPipingOutput => GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsOutput_DisplayName,
+                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = emptyPipingOutput => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)

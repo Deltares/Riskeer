@@ -67,83 +67,83 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingIcon, image);
         }
 
-//        [Test]
-//        public void ChildNodeObjects_WithOutputData_ReturnOutputChildNode()
-//        {
-//            // Setup
-//            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
-//            {
-//                Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-//            };
-//
-//            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-//            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-//            mocks.ReplayAll();
-//
-//            var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
-//                                                                        new[]
-//                                                                        {
-//                                                                            new RingtoetsPipingSurfaceLine()
-//                                                                        },
-//                                                                        new[]
-//                                                                        {
-//                                                                            new TestStochasticSoilModel()
-//                                                                        },
-//                                                                        pipingFailureMechanismMock,
-//                                                                        assessmentSectionMock);
-//
-//            // Call
-//            var children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
-//
-//            // Assert
-//            Assert.AreEqual(4, children.Length);
-//            var commentContext = children[0] as CommentContext<ICommentable>;
-//            Assert.IsNotNull(commentContext);
-//            Assert.AreSame(pipingCalculationContext.WrappedData, commentContext.CommentContainer);
-//
-//            var pipingInputContext = (PipingInputContext) children[1];
-//            Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
-//            CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
-//            CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
-//            Assert.AreSame(pipingCalculationContext.WrappedData.SemiProbabilisticOutput, children[2]);
-//            Assert.IsInstanceOf<EmptyPipingCalculationReport>(children[3]);
-//        }
-//
-//        [Test]
-//        public void ChildNodeObjects_WithoutOutput_ReturnNoChildNodes()
-//        {
-//            // Setup
-//            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-//            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-//            mocks.ReplayAll();
-//
-//            var pipingCalculationContext = new PipingCalculationScenarioContext(new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput()),
-//                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-//                                                                        Enumerable.Empty<StochasticSoilModel>(),
-//                                                                        pipingFailureMechanismMock,
-//                                                                        assessmentSectionMock);
-//
-//            // Precondition
-//            Assert.IsFalse(pipingCalculationContext.WrappedData.HasOutput);
-//
-//            // Call
-//            var children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
-//
-//            // Assert
-//            Assert.AreEqual(4, children.Length);
-//            var commentContext = children[0] as CommentContext<ICommentable>;
-//            Assert.IsNotNull(commentContext);
-//            Assert.AreSame(pipingCalculationContext.WrappedData, commentContext.CommentContainer);
-//
-//            var pipingInputContext = (PipingInputContext) children[1];
-//            Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
-//            CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
-//            CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
-//
-//            Assert.IsInstanceOf<EmptyPipingOutput>(children[2]);
-//            Assert.IsInstanceOf<EmptyPipingCalculationReport>(children[3]);
-//        }
-//
+        [Test]
+        public void ChildNodeObjects_WithOutputData_ReturnOutputChildNode()
+        {
+            // Setup
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
+            {
+                Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+            };
+
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
+                                                                        new[]
+                                                                        {
+                                                                            new RingtoetsPipingSurfaceLine()
+                                                                        },
+                                                                        new[]
+                                                                        {
+                                                                            new TestStochasticSoilModel()
+                                                                        },
+                                                                        pipingFailureMechanismMock,
+                                                                        assessmentSectionMock);
+
+            // Call
+            var children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
+
+            // Assert
+            Assert.AreEqual(4, children.Length);
+            var commentContext = children[0] as CommentContext<ICommentable>;
+            Assert.IsNotNull(commentContext);
+            Assert.AreSame(pipingCalculationContext.WrappedData, commentContext.CommentContainer);
+
+            var pipingInputContext = (PipingInputContext) children[1];
+            Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
+            CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
+            CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
+            Assert.AreSame(pipingCalculationContext.WrappedData.SemiProbabilisticOutput, children[2]);
+            Assert.IsInstanceOf<EmptyPipingCalculationReport>(children[3]);
+        }
+
+        [Test]
+        public void ChildNodeObjects_WithoutOutput_ReturnNoChildNodes()
+        {
+            // Setup
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var pipingCalculationContext = new PipingCalculationScenarioContext(new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput()),
+                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                        Enumerable.Empty<StochasticSoilModel>(),
+                                                                        pipingFailureMechanismMock,
+                                                                        assessmentSectionMock);
+
+            // Precondition
+            Assert.IsFalse(pipingCalculationContext.WrappedData.HasOutput);
+
+            // Call
+            var children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
+
+            // Assert
+            Assert.AreEqual(4, children.Length);
+            var commentContext = children[0] as CommentContext<ICommentable>;
+            Assert.IsNotNull(commentContext);
+            Assert.AreSame(pipingCalculationContext.WrappedData, commentContext.CommentContainer);
+
+            var pipingInputContext = (PipingInputContext) children[1];
+            Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
+            CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
+            CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
+
+            Assert.IsInstanceOf<EmptyPipingOutput>(children[2]);
+            Assert.IsInstanceOf<EmptyPipingCalculationReport>(children[3]);
+        }
+
 //        [Test]
 //        public void CanRenameNode_Always_ReturnTrue()
 //        {

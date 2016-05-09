@@ -9,6 +9,8 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Plugin;
 
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
@@ -59,7 +61,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var text = info.Text(pipingOutput);
 
             // Assert
-            Assert.AreEqual(Resources.PipingOutput_DisplayName, text);
+            Assert.AreEqual(RingtoetsCommonFormsResources.CalculationOutput_DisplayName, text);
 
             mocks.VerifyAll();
         }

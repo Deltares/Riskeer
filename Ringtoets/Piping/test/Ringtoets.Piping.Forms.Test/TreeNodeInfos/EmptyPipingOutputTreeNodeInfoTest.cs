@@ -9,6 +9,7 @@ using Rhino.Mocks;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 {
@@ -54,7 +55,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var text = info.Text(null);
 
             // Assert
-            Assert.AreEqual(PipingFormsResources.PipingOutput_DisplayName, text);
+            Assert.AreEqual(RingtoetsCommonFormsResources.CalculationOutput_DisplayName, text);
         }
 
         [Test]
