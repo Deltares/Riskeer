@@ -101,6 +101,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(breakWaterProperties.BreakWaterPresent, properties.BreakWater.BreakWaterPresent);
             Assert.AreEqual(breakWaterProperties.BreakWaterHeight, properties.BreakWater.BreakWaterHeight);
             Assert.AreEqual(breakWaterProperties.BreakWaterType, properties.BreakWater.BreakWaterType);
+            VerifyRoundedDoubleString(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
+            VerifyRoundedDoubleString(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
             mockRepository.VerifyAll();
         }
 
@@ -157,7 +159,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
 
             PropertyDescriptor dikeGeometryProperty = dynamicProperties[dikeGeometryPropertyIndex];
             Assert.IsNotNull(dikeGeometryProperty);
@@ -188,7 +190,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(breakWaterProperty.IsReadOnly);
             Assert.AreEqual("Havendam", breakWaterProperty.DisplayName);
             Assert.AreEqual("Eigenschappen van de havendam.", breakWaterProperty.Description);
+
+            PropertyDescriptor criticalFlowRateProperty = dynamicProperties[criticalFlowRatePropertyIndex];
+            Assert.IsNotNull(criticalFlowRateProperty);
+            Assert.IsTrue(criticalFlowRateProperty.IsReadOnly);
+            Assert.AreEqual("Kritisch overslagdebiet [m3/m/s]", criticalFlowRateProperty.DisplayName);
+            Assert.AreEqual("Het kritische overslagdebiet.", criticalFlowRateProperty.Description);
             mockRepository.VerifyAll();
+        }
+
+        private static void VerifyRoundedDoubleString(RoundedDouble roundedDouble, string expectedString)
+        {
+            var stringValue = new RoundedDouble(2, roundedDouble).Value.ToString(CultureInfo.InvariantCulture);
+            Assert.AreEqual(expectedString, stringValue);
         }
 
         private const int dikeGeometryPropertyIndex = 0;
@@ -196,5 +210,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int foreshorePropertyIndex = 2;
         private const int orientationPropertyIndex = 3;
         private const int breakWaterPropertyIndex = 4;
+        private const int criticalFlowRatePropertyIndex = 5;
     }
 }

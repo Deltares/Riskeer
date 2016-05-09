@@ -188,6 +188,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het kritische overslagdebiet..
+        /// </summary>
+        public static string CriticalFlowRate_Description {
+            get {
+                return ResourceManager.GetString("CriticalFlowRate_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritisch overslagdebiet [m3/m/s].
+        /// </summary>
+        public static string CriticalFlowRate_DisplayName {
+            get {
+                return ResourceManager.GetString("CriticalFlowRate_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lijst met geometrie punten..
         /// </summary>
         public static string DikeGeometry_Coordinates_Description {
@@ -361,74 +379,74 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;fb&apos; die gebruikt wordt in de berekening..
+        ///   Looks up a localized string similar to De parameter &apos;Fb factor&apos; die gebruikt wordt in de berekening..
         /// </summary>
-        public static string GrassCoverErosionInwardsInput_Fb_Description {
+        public static string GrassCoverErosionInwardsInput_FbFactor_Description {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Fb_Description", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_FbFactor_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to fb [-].
+        ///   Looks up a localized string similar to Fb factor [-].
         /// </summary>
-        public static string GrassCoverErosionInwardsInput_Fb_DisplayName {
+        public static string GrassCoverErosionInwardsInput_FbFactor_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Fb_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_FbFactor_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;fn&apos; die gebruikt wordt in de berekening..
+        ///   Looks up a localized string similar to De parameter &apos;Fn factor&apos; die gebruikt wordt in de berekening..
         /// </summary>
-        public static string GrassCoverErosionInwardsInput_Fn_Description {
+        public static string GrassCoverErosionInwardsInput_FnFactor_Description {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Fn_Description", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_FnFactor_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to fn [-].
+        ///   Looks up a localized string similar to Fn factor [-].
         /// </summary>
-        public static string GrassCoverErosionInwardsInput_Fn_DisplayName {
+        public static string GrassCoverErosionInwardsInput_FnFactor_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Fn_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_FnFactor_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;f ondiep&apos; die gebruikt wordt in de berekening..
+        ///   Looks up a localized string similar to De parameter &apos;Frunup model factor&apos; die gebruikt wordt in de berekening..
         /// </summary>
-        public static string GrassCoverErosionInwardsInput_Fshallow_Description {
+        public static string GrassCoverErosionInwardsInput_FrunupModelFactor_Description {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Fshallow_Description", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_FrunupModelFactor_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to f ondiep [-].
+        ///   Looks up a localized string similar to Frunup model factor [-].
         /// </summary>
-        public static string GrassCoverErosionInwardsInput_Fshallow_DisplayName {
+        public static string GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Fshallow_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;mz2&apos; die gebruikt wordt in de berekening..
+        ///   Looks up a localized string similar to De parameter &apos;F ondiep model factor&apos; die gebruikt wordt in de berekening..
         /// </summary>
-        public static string GrassCoverErosionInwardsInput_Mz2_Description {
+        public static string GrassCoverErosionInwardsInput_FshallowModelFactor_Description {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Mz2_Description", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_FshallowModelFactor_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to mz2 [-].
+        ///   Looks up a localized string similar to F ondiep model factor [-].
         /// </summary>
-        public static string GrassCoverErosionInwardsInput_Mz2_DisplayName {
+        public static string GrassCoverErosionInwardsInput_FshallowModelFactor_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Mz2_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsInput_FshallowModelFactor_DisplayName", resourceCulture);
             }
         }
         
@@ -511,6 +529,60 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string GrassCoverErosionInwardsOutput_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsOutput_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het soort kansverdeling waarin deze parameter gedefinieerd wordt..
+        /// </summary>
+        public static string NormalDistribution_DestributionType_Description {
+            get {
+                return ResourceManager.GetString("NormalDistribution_DestributionType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type verdeling.
+        /// </summary>
+        public static string NormalDistribution_DestributionType_DisplayName {
+            get {
+                return ResourceManager.GetString("NormalDistribution_DestributionType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De gemiddelde waarde van de normale verdeling..
+        /// </summary>
+        public static string NormalDistribution_Mean_Description {
+            get {
+                return ResourceManager.GetString("NormalDistribution_Mean_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verwachtingswaarde.
+        /// </summary>
+        public static string NormalDistribution_Mean_DisplayName {
+            get {
+                return ResourceManager.GetString("NormalDistribution_Mean_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De standaardafwijking van de normale verdeling..
+        /// </summary>
+        public static string NormalDistribution_StandardDeviation_Description {
+            get {
+                return ResourceManager.GetString("NormalDistribution_StandardDeviation_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standaardafwijking.
+        /// </summary>
+        public static string NormalDistribution_StandardDeviation_DisplayName {
+            get {
+                return ResourceManager.GetString("NormalDistribution_StandardDeviation_DisplayName", resourceCulture);
             }
         }
         

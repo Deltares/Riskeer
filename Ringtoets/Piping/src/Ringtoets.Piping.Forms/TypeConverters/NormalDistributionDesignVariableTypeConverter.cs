@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
     /// A <see cref="TypeConverter"/> implementation for <see cref="NormalDistribution"/>
     /// properties.
     /// </summary>
-    /// <remarks>This class has been designed to be used in <see cref="PipingCalculationContextProperties"/>.
+    /// <remarks>This class has been designed to be used in <see cref="PipingInputContextProperties"/>.
     /// If its reused somewhere else, change notification might not work properly.</remarks>
     public sealed class NormalDistributionDesignVariableTypeConverter : DesignVariableTypeConverter<NormalDistribution>
     {
@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             {
                 new ParameterDefinition<NormalDistribution>(d => d.Mean)
                 {
-                    Symbol = Resources.Probabilistics_Mean_Symbol, 
+                    Symbol = Resources.Probabilistics_Mean_Symbol,
                     Description = String.Format(Resources.Probabilistics_Mean_description_for_Distribution_0_,
                                                 lowerCaseDistributionName)
                 },

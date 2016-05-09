@@ -157,66 +157,66 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the model factor critical overtopping.
         /// </summary>
-        public double Mqc
+        public double CriticalOvertoppingModelFactor
         {
             get
             {
-                return generalInputParameters.Mqc;
+                return generalInputParameters.CriticalOvertoppingModelFactor;
             }
         }
 
         /// <summary>
         /// Gets the factor fb variable.
         /// </summary>
-        public NormalDistribution Fb
+        public NormalDistribution FbFactor
         {
             get
             {
-                return generalInputParameters.Fb;
+                return generalInputParameters.FbFactor;
             }
         }
 
         /// <summary>
         /// Gets the factor fn variable.
         /// </summary>
-        public NormalDistribution Fn
+        public NormalDistribution FnFactor
         {
             get
             {
-                return generalInputParameters.Fn;
+                return generalInputParameters.FnFactor;
             }
         }
 
         /// <summary>
         /// Gets the model factor overtopping.
         /// </summary>
-        public double Mqo
+        public double OvertoppingModelFactor
         {
             get
             {
-                return generalInputParameters.Mqo;
+                return generalInputParameters.OvertoppingModelFactor;
             }
         }
 
         /// <summary>
         /// Gets the factor mz2 (or frunup) variable.
         /// </summary>
-        public NormalDistribution Mz2
+        public NormalDistribution FrunupModelFactor
         {
             get
             {
-                return generalInputParameters.Mz2;
+                return generalInputParameters.FrunupModelFactor;
             }
         }
 
         /// <summary>
         /// Gets the factor fshallow variable.
         /// </summary>
-        public NormalDistribution Fshallow
+        public NormalDistribution FshallowModelFactor
         {
             get
             {
-                return generalInputParameters.Fshallow;
+                return generalInputParameters.FshallowModelFactor;
             }
         }
 

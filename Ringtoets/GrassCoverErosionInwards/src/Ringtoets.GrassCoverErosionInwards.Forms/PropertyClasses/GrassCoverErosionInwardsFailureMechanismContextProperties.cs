@@ -22,7 +22,6 @@
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
@@ -36,10 +35,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int lengthEffectPropertyIndex = 3;
-        private const int mz2PropertyIndex = 4;
-        private const int fbPropertyIndex = 5;
-        private const int fnPropertyIndex = 6;
-        private const int fshallowPropertyIndex = 7;
+        private const int frunupModelFactorPropertyIndex = 4;
+        private const int fbFactorPropertyIndex = 5;
+        private const int fnFactorPropertyIndex = 6;
+        private const int fshallowModelFactorPropertyIndex = 7;
 
         #region Lengte effect parameters
 
@@ -92,51 +91,63 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         #region Model settings
 
-        [PropertyOrder(mz2PropertyIndex)]
+        [PropertyOrder(frunupModelFactorPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_Mz2_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_Mz2_Description")]
-        public NormalDistribution Mz2
+        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FrunupModelFactor_Description")]
+        public ReadOnlyNormalDistributionProperties FrunupModelFactor
         {
             get
             {
-                return data.WrappedData.GeneralInput.Mz2;
+                return new ReadOnlyNormalDistributionProperties
+                {
+                    Data = data.WrappedData.GeneralInput.FrunupModelFactor
+                };
             }
         }
 
-        [PropertyOrder(fbPropertyIndex)]
+        [PropertyOrder(fbFactorPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_Fb_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_Fb_Description")]
-        public NormalDistribution Fb
+        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FbFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FbFactor_Description")]
+        public ReadOnlyNormalDistributionProperties FbFactor
         {
             get
             {
-                return data.WrappedData.GeneralInput.Fb;
+                return new ReadOnlyNormalDistributionProperties
+                {
+                    Data = data.WrappedData.GeneralInput.FbFactor
+                };
             }
         }
 
-        [PropertyOrder(fnPropertyIndex)]
+        [PropertyOrder(fnFactorPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_Fn_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_Fn_Description")]
-        public NormalDistribution Fn
+        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FnFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FnFactor_Description")]
+        public ReadOnlyNormalDistributionProperties FnFactor
         {
             get
             {
-                return data.WrappedData.GeneralInput.Fn;
+                return new ReadOnlyNormalDistributionProperties
+                {
+                    Data = data.WrappedData.GeneralInput.FnFactor
+                };
             }
         }
 
-        [PropertyOrder(fshallowPropertyIndex)]
+        [PropertyOrder(fshallowModelFactorPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_Fshallow_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_Fshallow_Description")]
-        public NormalDistribution Fshallow
+        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FshallowModelFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FshallowModelFactor_Description")]
+        public ReadOnlyNormalDistributionProperties FshallowModelFactor
         {
             get
             {
-                return data.WrappedData.GeneralInput.Fshallow;
+                return new ReadOnlyNormalDistributionProperties
+                {
+                    Data = data.WrappedData.GeneralInput.FshallowModelFactor
+                };
             }
         }
 

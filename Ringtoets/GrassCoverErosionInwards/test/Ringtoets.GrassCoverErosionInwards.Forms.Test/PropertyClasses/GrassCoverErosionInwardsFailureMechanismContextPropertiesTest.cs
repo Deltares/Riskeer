@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using System.Globalization;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -71,6 +73,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, properties.Name);
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, properties.Code);
             Assert.AreEqual(2, properties.LengthEffect);
+            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+
+            VerifyRoundedDoubleString(generalInput.FbFactor.Mean, properties.FbFactor.Mean);
+            VerifyRoundedDoubleString(generalInput.FbFactor.StandardDeviation, properties.FbFactor.StandardDeviation);
+
+            VerifyRoundedDoubleString(generalInput.FnFactor.Mean, properties.FnFactor.Mean);
+            VerifyRoundedDoubleString(generalInput.FnFactor.StandardDeviation, properties.FnFactor.StandardDeviation);
+
+            VerifyRoundedDoubleString(generalInput.FrunupModelFactor.Mean, properties.FrunupModelFactor.Mean);
+            VerifyRoundedDoubleString(generalInput.FrunupModelFactor.StandardDeviation, properties.FrunupModelFactor.StandardDeviation);
+
+            VerifyRoundedDoubleString(generalInput.FshallowModelFactor.Mean, properties.FshallowModelFactor.Mean);
+            VerifyRoundedDoubleString(generalInput.FshallowModelFactor.StandardDeviation, properties.FshallowModelFactor.StandardDeviation);
             mockRepository.VerifyAll();
         }
 
@@ -138,37 +153,43 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("N", lengthEffectProperty.DisplayName);
             Assert.AreEqual("De parameter 'N' die gebruikt wordt voor het lengte effect in de berekening.", lengthEffectProperty.Description);
 
-            PropertyDescriptor mz2Property = dynamicProperties[mz2PropertyIndex];
-            Assert.IsNotNull(mz2Property);
-            Assert.IsTrue(mz2Property.IsReadOnly);
-            Assert.AreEqual("mz2 [-]", mz2Property.DisplayName);
-            Assert.AreEqual("De parameter 'mz2' die gebruikt wordt in de berekening.", mz2Property.Description);
+            PropertyDescriptor frunupModelFactorProperty = dynamicProperties[frunupModelFactorPropertyIndex];
+            Assert.IsNotNull(frunupModelFactorProperty);
+            Assert.IsTrue(frunupModelFactorProperty.IsReadOnly);
+            Assert.AreEqual("Frunup model factor [-]", frunupModelFactorProperty.DisplayName);
+            Assert.AreEqual("De parameter 'Frunup model factor' die gebruikt wordt in de berekening.", frunupModelFactorProperty.Description);
 
-            PropertyDescriptor fbProperty = dynamicProperties[fbPropertyIndex];
-            Assert.IsNotNull(fbProperty);
-            Assert.IsTrue(fbProperty.IsReadOnly);
-            Assert.AreEqual("fb [-]", fbProperty.DisplayName);
-            Assert.AreEqual("De parameter 'fb' die gebruikt wordt in de berekening.", fbProperty.Description);
+            PropertyDescriptor fbModelProperty = dynamicProperties[fbFactorPropertyIndex];
+            Assert.IsNotNull(fbModelProperty);
+            Assert.IsTrue(fbModelProperty.IsReadOnly);
+            Assert.AreEqual("Fb factor [-]", fbModelProperty.DisplayName);
+            Assert.AreEqual("De parameter 'Fb factor' die gebruikt wordt in de berekening.", fbModelProperty.Description);
 
-            PropertyDescriptor fnProperty = dynamicProperties[fnPropertyIndex];
-            Assert.IsNotNull(fnProperty);
-            Assert.IsTrue(fnProperty.IsReadOnly);
-            Assert.AreEqual("fn [-]", fnProperty.DisplayName);
-            Assert.AreEqual("De parameter 'fn' die gebruikt wordt in de berekening.", fnProperty.Description);
+            PropertyDescriptor fnFactorProperty = dynamicProperties[fnFactorPropertyIndex];
+            Assert.IsNotNull(fnFactorProperty);
+            Assert.IsTrue(fnFactorProperty.IsReadOnly);
+            Assert.AreEqual("Fn factor [-]", fnFactorProperty.DisplayName);
+            Assert.AreEqual("De parameter 'Fn factor' die gebruikt wordt in de berekening.", fnFactorProperty.Description);
 
-            PropertyDescriptor fshallowProperty = dynamicProperties[fshallowPropertyIndex];
+            PropertyDescriptor fshallowProperty = dynamicProperties[fshallowModelFactorPropertyIndex];
             Assert.IsNotNull(fshallowProperty);
             Assert.IsTrue(fshallowProperty.IsReadOnly);
-            Assert.AreEqual("f ondiep [-]", fshallowProperty.DisplayName);
-            Assert.AreEqual("De parameter 'f ondiep' die gebruikt wordt in de berekening.", fshallowProperty.Description);
+            Assert.AreEqual("F ondiep model factor [-]", fshallowProperty.DisplayName);
+            Assert.AreEqual("De parameter 'F ondiep model factor' die gebruikt wordt in de berekening.", fshallowProperty.Description);
+        }
+
+        private static void VerifyRoundedDoubleString(RoundedDouble roundedDouble, string expectedString)
+        {
+            var stringValue = new RoundedDouble(2, roundedDouble).Value.ToString(CultureInfo.InvariantCulture);
+            Assert.AreEqual(expectedString, stringValue);
         }
 
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int lengthEffectPropertyIndex = 2;
-        private const int mz2PropertyIndex = 3;
-        private const int fbPropertyIndex = 4;
-        private const int fnPropertyIndex = 5;
-        private const int fshallowPropertyIndex = 6;
+        private const int frunupModelFactorPropertyIndex = 3;
+        private const int fbFactorPropertyIndex = 4;
+        private const int fnFactorPropertyIndex = 5;
+        private const int fshallowModelFactorPropertyIndex = 6;
     }
 }

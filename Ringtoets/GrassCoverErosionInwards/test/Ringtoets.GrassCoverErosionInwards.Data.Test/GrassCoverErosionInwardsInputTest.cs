@@ -57,12 +57,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             CollectionAssert.IsEmpty(input.DikeGeometry);
             Assert.IsNull(input.HydraulicBoundaryLocation);
 
-            Assert.AreEqual(generalInput.Fb, input.Fb);
-            Assert.AreEqual(generalInput.Fn, input.Fn);
-            Assert.AreEqual(generalInput.Fshallow, input.Fshallow);
-            Assert.AreEqual(generalInput.Mz2, input.Mz2);
-            Assert.AreEqual(generalInput.Mqc, input.Mqc);
-            Assert.AreEqual(generalInput.Mqo, input.Mqo);
+            Assert.AreEqual(generalInput.FbFactor, input.FbFactor);
+            Assert.AreEqual(generalInput.FnFactor, input.FnFactor);
+            Assert.AreEqual(generalInput.FshallowModelFactor, input.FshallowModelFactor);
+            Assert.AreEqual(generalInput.FrunupModelFactor, input.FrunupModelFactor);
+            Assert.AreEqual(generalInput.CriticalOvertoppingModelFactor, input.CriticalOvertoppingModelFactor);
+            Assert.AreEqual(generalInput.OvertoppingModelFactor, input.OvertoppingModelFactor);
         }
 
         [Test]

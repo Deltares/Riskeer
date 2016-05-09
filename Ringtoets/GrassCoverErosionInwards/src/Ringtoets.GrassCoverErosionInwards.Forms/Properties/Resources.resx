@@ -244,34 +244,58 @@
   <data name="Orientation_DisplayName" xml:space="preserve">
     <value>Oriëntatie [º]</value>
   </data>
-  <data name="GrassCoverErosionInwardsInput_Fb_Description" xml:space="preserve">
-    <value>De parameter 'fb' die gebruikt wordt in de berekening.</value>
+  <data name="GrassCoverErosionInwardsInput_FbFactor_Description" xml:space="preserve">
+    <value>De parameter 'Fb factor' die gebruikt wordt in de berekening.</value>
   </data>
-  <data name="GrassCoverErosionInwardsInput_Fb_DisplayName" xml:space="preserve">
-    <value>fb [-]</value>
+  <data name="GrassCoverErosionInwardsInput_FbFactor_DisplayName" xml:space="preserve">
+    <value>Fb factor [-]</value>
   </data>
-  <data name="GrassCoverErosionInwardsInput_Fn_Description" xml:space="preserve">
-    <value>De parameter 'fn' die gebruikt wordt in de berekening.</value>
+  <data name="GrassCoverErosionInwardsInput_FnFactor_Description" xml:space="preserve">
+    <value>De parameter 'Fn factor' die gebruikt wordt in de berekening.</value>
   </data>
-  <data name="GrassCoverErosionInwardsInput_Fn_DisplayName" xml:space="preserve">
-    <value>fn [-]</value>
+  <data name="GrassCoverErosionInwardsInput_FnFactor_DisplayName" xml:space="preserve">
+    <value>Fn factor [-]</value>
   </data>
-  <data name="GrassCoverErosionInwardsInput_Fshallow_Description" xml:space="preserve">
-    <value>De parameter 'f ondiep' die gebruikt wordt in de berekening.</value>
+  <data name="GrassCoverErosionInwardsInput_FshallowModelFactor_Description" xml:space="preserve">
+    <value>De parameter 'F ondiep model factor' die gebruikt wordt in de berekening.</value>
   </data>
-  <data name="GrassCoverErosionInwardsInput_Fshallow_DisplayName" xml:space="preserve">
-    <value>f ondiep [-]</value>
+  <data name="GrassCoverErosionInwardsInput_FshallowModelFactor_DisplayName" xml:space="preserve">
+    <value>F ondiep model factor [-]</value>
   </data>
-  <data name="GrassCoverErosionInwardsInput_Mz2_Description" xml:space="preserve">
-    <value>De parameter 'mz2' die gebruikt wordt in de berekening.</value>
+  <data name="GrassCoverErosionInwardsInput_FrunupModelFactor_Description" xml:space="preserve">
+    <value>De parameter 'Frunup model factor' die gebruikt wordt in de berekening.</value>
   </data>
-  <data name="GrassCoverErosionInwardsInput_Mz2_DisplayName" xml:space="preserve">
-    <value>mz2 [-]</value>
+  <data name="GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName" xml:space="preserve">
+    <value>Frunup model factor [-]</value>
   </data>
   <data name="GrassCoverErosionInwardsInputCalculation_Name_Description" xml:space="preserve">
     <value>Naam van de grasbekleding erosie kruin en binnentalud berekening</value>
   </data>
   <data name="GrassCoverErosionInwardsInputCalculation_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
+  </data>
+  <data name="NormalDistribution_DestributionType_Description" xml:space="preserve">
+    <value>Het soort kansverdeling waarin deze parameter gedefinieerd wordt.</value>
+  </data>
+  <data name="NormalDistribution_DestributionType_DisplayName" xml:space="preserve">
+    <value>Type verdeling</value>
+  </data>
+  <data name="NormalDistribution_Mean_Description" xml:space="preserve">
+    <value>De gemiddelde waarde van de normale verdeling.</value>
+  </data>
+  <data name="NormalDistribution_Mean_DisplayName" xml:space="preserve">
+    <value>Verwachtingswaarde</value>
+  </data>
+  <data name="NormalDistribution_StandardDeviation_Description" xml:space="preserve">
+    <value>De standaardafwijking van de normale verdeling.</value>
+  </data>
+  <data name="NormalDistribution_StandardDeviation_DisplayName" xml:space="preserve">
+    <value>Standaardafwijking</value>
+  </data>
+  <data name="CriticalFlowRate_Description" xml:space="preserve">
+    <value>Het kritische overslagdebiet.</value>
+  </data>
+  <data name="CriticalFlowRate_DisplayName" xml:space="preserve">
+    <value>Kritisch overslagdebiet [m3/m/s]</value>
   </data>
 </root>
