@@ -175,6 +175,7 @@ namespace Ringtoets.Piping.Forms.Views
         private void InitializeDataGridView()
         {
             dataGridView.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
+            dataGridView.GotFocus += DataGridViewGotFocus;
             dataGridView.CellClick += DataGridViewOnCellClick;
             dataGridView.CellValidating += DataGridViewCellValidating;
             dataGridView.DataError += DataGridViewDataError;
@@ -736,6 +737,11 @@ namespace Ringtoets.Piping.Forms.Views
                 dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
                 dataGridView.EndEdit();
             }
+        }
+
+        private void DataGridViewGotFocus(object sender, EventArgs eventArgs)
+        {
+            dataGridView.BeginEdit(true); // Always start editing after setting the focus (otherwise data grid view cell dirty events are no longer fired when using the keyboard...)
         }
 
         private void DataGridViewOnCellClick(object sender, DataGridViewCellEventArgs e)

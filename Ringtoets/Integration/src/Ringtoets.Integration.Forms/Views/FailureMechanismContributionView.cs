@@ -317,6 +317,7 @@ namespace Ringtoets.Integration.Forms.Views
         private void InitializeGridColumns()
         {
             probabilityDistributionGrid.CurrentCellDirtyStateChanged += DataGridViewCurrentCellDirtyStateChanged;
+            probabilityDistributionGrid.GotFocus += DataGridViewGotFocus;
 
             var columnNameFormat = "column_{0}";
 
@@ -375,6 +376,11 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 probabilityDistributionGrid.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
+        }
+
+        private void DataGridViewGotFocus(object sender, EventArgs eventArgs)
+        {
+            probabilityDistributionGrid.BeginEdit(true); // Always start editing after setting the focus (otherwise data grid view cell dirty events are no longer fired when using the keyboard...)
         }
 
         private void AssessmentSectionCompositionComboBoxSelectedIndexChanged(object sender, EventArgs e)
