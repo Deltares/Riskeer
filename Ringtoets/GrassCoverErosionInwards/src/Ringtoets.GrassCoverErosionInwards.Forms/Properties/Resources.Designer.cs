@@ -63,18 +63,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Is er een havendam aanwezig?.
         /// </summary>
-        public static string BreakWater_BreakWaterPresent_Discription {
+        public static string BreakWater_UseBreakWater_Discription {
             get {
-                return ResourceManager.GetString("BreakWater_BreakWaterPresent_Discription", resourceCulture);
+                return ResourceManager.GetString("BreakWater_UseBreakWater_Discription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Aanwezig.
         /// </summary>
-        public static string BreakWater_BreakWaterPresent_DisplayName {
+        public static string BreakWater_UseBreakWater_DisplayName {
             get {
-                return ResourceManager.GetString("BreakWater_BreakWaterPresent_DisplayName", resourceCulture);
+                return ResourceManager.GetString("BreakWater_UseBreakWater_DisplayName", resourceCulture);
             }
         }
         
@@ -278,24 +278,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is er een voorland aanwezig?.
-        /// </summary>
-        public static string Foreshore_ForeshorePresent_Discription {
-            get {
-                return ResourceManager.GetString("Foreshore_ForeshorePresent_Discription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aanwezig.
-        /// </summary>
-        public static string Foreshore_ForeshorePresent_DisplayName {
-            get {
-                return ResourceManager.GetString("Foreshore_ForeshorePresent_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Aantal coordinaten tot de teen van de dijk..
         /// </summary>
         public static string Foreshore_NumberOfCoordinates_Discription {
@@ -310,6 +292,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string Foreshore_NumberOfCoordinates_DisplayName {
             get {
                 return ResourceManager.GetString("Foreshore_NumberOfCoordinates_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is er een voorland aanwezig?.
+        /// </summary>
+        public static string Foreshore_UseForeshore_Discription {
+            get {
+                return ResourceManager.GetString("Foreshore_UseForeshore_Discription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aanwezig.
+        /// </summary>
+        public static string Foreshore_UseForeshore_DisplayName {
+            get {
+                return ResourceManager.GetString("Foreshore_UseForeshore_DisplayName", resourceCulture);
             }
         }
         

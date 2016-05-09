@@ -40,5 +40,37 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(type, breakWater.Type);
             Assert.AreEqual(height, breakWater.Height);
         }
+
+        [Test]
+        [TestCase(BreakWaterType.Dam)]
+        [TestCase(BreakWaterType.Wall)]
+        public void Properties_Type_ReturnsExpectedValue(BreakWaterType newType)
+        {
+            // Setup
+            BreakWaterType type = BreakWaterType.Caisson;
+            double height = 100.1;
+            BreakWater breakWater = new BreakWater(type, height);
+
+            // Call
+            breakWater.Type = newType;
+
+            // Assert
+            Assert.AreEqual(newType, breakWater.Type);
+        }
+
+        [Test]
+        public void Properties_Height_ReturnsExpectedValue()
+        {
+            // Setup
+            BreakWaterType type = BreakWaterType.Caisson;
+            double height = 100.1;
+            BreakWater breakWater = new BreakWater(type, height);
+
+            // Call
+            breakWater.Height = 10;
+
+            // Assert
+            Assert.AreEqual(10, breakWater.Height);
+        }
     }
 }

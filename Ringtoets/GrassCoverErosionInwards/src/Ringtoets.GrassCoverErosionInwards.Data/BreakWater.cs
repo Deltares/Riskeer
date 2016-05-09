@@ -38,13 +38,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets the type.
+        /// Gets or sets the type.
         /// </summary>
-        public BreakWaterType Type { get; private set; }
+        public BreakWaterType Type { get; set; }
 
         /// <summary>
-        /// Gets the height.
+        /// Gets or sets the height.
         /// </summary>
-        public double Height { get; private set; }
+        public double Height { get; set; }
     }
 }

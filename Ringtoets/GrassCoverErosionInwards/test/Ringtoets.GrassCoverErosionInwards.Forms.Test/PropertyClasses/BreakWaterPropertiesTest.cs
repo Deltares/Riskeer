@@ -73,9 +73,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             properties.Data = new GrassCoverErosionInwardsInputContext(inputMock, calculationMock, failureMechanismMock, assessmentSectionMock);
 
             // Assert
-            Assert.IsFalse(properties.BreakWaterPresent);
+            Assert.IsFalse(properties.UseBreakWater);
             Assert.AreEqual(BreakWaterType.Caisson, properties.BreakWaterType);
-            Assert.AreEqual(string.Empty, properties.BreakWaterHeight);
+            Assert.AreEqual("0", properties.BreakWaterHeight);
             mockRepository.VerifyAll();
         }
 
@@ -92,10 +92,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput);
             mockRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput(generalInput)
-            {
-                BreakWater = new BreakWater(BreakWaterType.Caisson, 1.1)
-            };
+            var input = new GrassCoverErosionInwardsInput(generalInput);
             input.Attach(observerMock);
             var properties = new BreakWaterProperties
             {
@@ -108,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Call
             properties.BreakWaterHeight = newBreakWaterHeight.ToString(CultureInfo.InvariantCulture);
             properties.BreakWaterType = newBreakWaterType;
-            properties.BreakWaterPresent = false;
+            properties.UseBreakWater = false;
 
             // Assert
             Assert.IsFalse(input.UseBreakWater);
@@ -142,11 +139,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             Assert.AreEqual(4, dynamicProperties.Count);
 
-            PropertyDescriptor breakWaterPresentProperty = dynamicProperties[0];
-            Assert.IsNotNull(breakWaterPresentProperty);
-            Assert.IsFalse(breakWaterPresentProperty.IsReadOnly);
-            Assert.AreEqual("Aanwezig", breakWaterPresentProperty.DisplayName);
-            Assert.AreEqual("Is er een havendam aanwezig?", breakWaterPresentProperty.Description);
+            PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
+            Assert.IsNotNull(useBreakWaterProperty);
+            Assert.IsFalse(useBreakWaterProperty.IsReadOnly);
+            Assert.AreEqual("Aanwezig", useBreakWaterProperty.DisplayName);
+            Assert.AreEqual("Is er een havendam aanwezig?", useBreakWaterProperty.Description);
 
             PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
             Assert.IsNotNull(breakWaterTypeProperty);

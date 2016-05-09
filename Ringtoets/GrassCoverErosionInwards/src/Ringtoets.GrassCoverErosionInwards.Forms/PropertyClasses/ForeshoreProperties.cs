@@ -32,13 +32,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class ForeshoreProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {
-        private const int foreshorePresentPropertyIndex = 1;
+        private const int useForeshorePropertyIndex = 1;
         private const int numberOfCoordinatesPropertyIndex = 2;
 
-        [PropertyOrder(foreshorePresentPropertyIndex)]
-        [ResourcesDisplayName(typeof(Resources), "Foreshore_ForeshorePresent_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Foreshore_ForeshorePresent_Discription")]
-        public bool ForeshorePresent
+        [PropertyOrder(useForeshorePropertyIndex)]
+        [ResourcesDisplayName(typeof(Resources), "Foreshore_UseForeshore_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Foreshore_UseForeshore_Discription")]
+        public bool UseForeshore
         {
             get
             {

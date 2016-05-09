@@ -73,27 +73,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var input = new GrassCoverErosionInwardsInput(generalInput);
             var orientation = new RoundedDouble(2, 1.18);
             var logNormal = new LognormalDistribution(2);
-            const bool foreshorePresent = true;
+            const bool useForeshore = true;
             var breakWater = new BreakWater(BreakWaterType.Caisson, 2.2);
-            const bool breakWaterPresent = true;
+            const bool useBreakWater = true;
             RoundedDouble dikeHeight = new RoundedDouble(input.DikeHeight.NumberOfDecimalPlaces, 1.1);
 
             // Call
             input.Orientation = orientation;
             input.CriticalFlowRate = logNormal;
             input.DikeHeight = dikeHeight;
-            input.UseForeshore = foreshorePresent;
-            input.BreakWater = breakWater;
-            input.UseBreakWater = breakWaterPresent;
+            input.UseForeshore = useForeshore;
+            input.BreakWater.Type = breakWater.Type;
+            input.BreakWater.Height = breakWater.Height;
+            input.UseBreakWater = useBreakWater;
 
             // Assert
             Assert.AreEqual(dikeHeight, input.DikeHeight);
             Assert.AreEqual(orientation, input.Orientation);
             Assert.AreEqual(logNormal.Mean, input.CriticalFlowRate.Mean);
             Assert.AreEqual(logNormal.StandardDeviation, input.CriticalFlowRate.StandardDeviation);
-            Assert.AreEqual(foreshorePresent, input.UseForeshore);
-            Assert.AreEqual(breakWater, input.BreakWater);
-            Assert.AreEqual(breakWaterPresent, input.UseBreakWater);
+            Assert.AreEqual(useForeshore, input.UseForeshore);
+            Assert.AreEqual(breakWater.Type, input.BreakWater.Type);
+            Assert.AreEqual(breakWater.Height, input.BreakWater.Height);
+            Assert.AreEqual(useBreakWater, input.UseBreakWater);
             CollectionAssert.IsEmpty(input.DikeGeometry);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
         }

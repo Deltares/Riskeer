@@ -38,6 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         private readonly LognormalDistribution criticalFlowRate;
         private readonly GeneralGrassCoverErosionInwardsInput generalInputParameters;
         private RoundedDouble orientation;
+        private RoundedDouble dikeHeight;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInput"/>.
@@ -53,7 +54,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             this.generalInputParameters = generalInputParameters;
 
             orientation = new RoundedDouble(2);
-            DikeHeight = new RoundedDouble(2);
+            dikeHeight = new RoundedDouble(2);
+            BreakWater = new BreakWater(BreakWaterType.Caisson, 0);
             criticalFlowRate = new LognormalDistribution(2);
             DikeGeometry = Enumerable.Empty<RoughnessProfileSection>();
             ForeshoreGeometry = Enumerable.Empty<RoughnessProfileSection>();
@@ -109,7 +111,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets or sets the dike height.
         /// </summary>
-        public RoundedDouble DikeHeight { get; set; }
+        public RoundedDouble DikeHeight
+        {
+            get
+            {
+                return dikeHeight;
+            }
+            set
+            {
+                dikeHeight = value.ToPrecision(dikeHeight.NumberOfDecimalPlaces);
+            }
+        }
 
         /// <summary>
         /// Gets or sets if <see cref="BreakWater"/> needs to be taken into account.
@@ -117,9 +129,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public bool UseBreakWater { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="BreakWater"/>.
+        /// Gets the <see cref="BreakWater"/>.
         /// </summary>
-        public BreakWater BreakWater { get; set; }
+        public BreakWater BreakWater { get; private set; }
 
         /// <summary>
         /// Gets or set the hydraulic boundary location from which to use the assessment level.

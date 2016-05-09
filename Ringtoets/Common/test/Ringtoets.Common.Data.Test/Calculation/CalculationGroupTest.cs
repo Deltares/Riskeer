@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
             var group = new CalculationGroup();
 
             // Assert
-            Assert.IsInstanceOf<CalculationGroup>(group);
+            Assert.IsInstanceOf<ICalculationBase>(group);
             Assert.IsInstanceOf<Observable>(group);
             Assert.IsTrue(group.IsNameEditable);
             Assert.AreEqual("Nieuwe map", group.Name);
@@ -56,8 +56,6 @@ namespace Ringtoets.Common.Data.Test.Calculation
             var group = new CalculationGroup(newName, isNameEditable);
 
             // Assert
-            Assert.IsInstanceOf<CalculationGroup>(group);
-            Assert.IsInstanceOf<Observable>(group);
             Assert.AreEqual(isNameEditable, group.IsNameEditable);
             Assert.AreEqual(newName, group.Name);
             CollectionAssert.IsEmpty(group.Children);

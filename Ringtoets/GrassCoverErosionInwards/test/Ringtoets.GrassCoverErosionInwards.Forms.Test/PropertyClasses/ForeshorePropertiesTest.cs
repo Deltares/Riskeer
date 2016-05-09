@@ -72,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             properties.Data = new GrassCoverErosionInwardsInputContext(inputMock, calculationMock, failureMechanismMock, assessmentSectionMock);
 
             // Assert
-            Assert.IsFalse(properties.ForeshorePresent);
+            Assert.IsFalse(properties.UseForeshore);
             Assert.AreEqual(0, properties.NumberOfCoordinates);
             mockRepository.VerifyAll();
         }
@@ -98,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            properties.ForeshorePresent = false;
+            properties.UseForeshore = false;
 
             // Assert
             Assert.IsFalse(input.UseForeshore);
@@ -131,11 +131,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             Assert.AreEqual(3, dynamicProperties.Count);
 
-            PropertyDescriptor foreshorePresentProperty = dynamicProperties[foreshorePresentPropertyIndex];
-            Assert.IsNotNull(foreshorePresentProperty);
-            Assert.IsFalse(foreshorePresentProperty.IsReadOnly);
-            Assert.AreEqual("Aanwezig", foreshorePresentProperty.DisplayName);
-            Assert.AreEqual("Is er een voorland aanwezig?", foreshorePresentProperty.Description);
+            PropertyDescriptor useForeshoreProperty = dynamicProperties[useForeshorePropertyIndex];
+            Assert.IsNotNull(useForeshoreProperty);
+            Assert.IsFalse(useForeshoreProperty.IsReadOnly);
+            Assert.AreEqual("Aanwezig", useForeshoreProperty.DisplayName);
+            Assert.AreEqual("Is er een voorland aanwezig?", useForeshoreProperty.Description);
 
             PropertyDescriptor numberOfCoordinatesProperty = dynamicProperties[numberOfCoordinatesDikeHeightProperty];
             Assert.IsNotNull(numberOfCoordinatesProperty);
@@ -145,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        private const int foreshorePresentPropertyIndex = 0;
+        private const int useForeshorePropertyIndex = 0;
         private const int numberOfCoordinatesDikeHeightProperty = 1;
     }
 }

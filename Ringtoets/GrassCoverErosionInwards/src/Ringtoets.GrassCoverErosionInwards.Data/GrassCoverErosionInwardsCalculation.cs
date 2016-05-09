@@ -91,7 +91,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         private void AddDemoInput()
         {
             // BreakWater
-            InputParameters.BreakWater = new BreakWater(BreakWaterType.Dam, 10);
+            InputParameters.BreakWater.Type = BreakWaterType.Dam;
+            InputParameters.BreakWater.Height = 10;
             InputParameters.UseBreakWater = true;
 
             // Orientation

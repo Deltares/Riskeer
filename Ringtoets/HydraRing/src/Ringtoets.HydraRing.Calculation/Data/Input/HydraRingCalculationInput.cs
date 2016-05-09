@@ -104,7 +104,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         }
 
         /// <summary>
-        /// Gets the break waters to use during the calculation.
+        /// Gets the break water to use during the calculation.
         /// </summary>
         public virtual HydraRingBreakWater BreakWater
         {

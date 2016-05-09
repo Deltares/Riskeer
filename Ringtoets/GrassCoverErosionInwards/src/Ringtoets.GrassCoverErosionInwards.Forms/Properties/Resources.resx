@@ -187,10 +187,10 @@
   <data name="BreakWaterType_DisplayName" xml:space="preserve">
     <value>Type havendam</value>
   </data>
-  <data name="BreakWater_BreakWaterPresent_Discription" xml:space="preserve">
+  <data name="BreakWater_UseBreakWater_Discription" xml:space="preserve">
     <value>Is er een havendam aanwezig?</value>
   </data>
-  <data name="BreakWater_BreakWaterPresent_DisplayName" xml:space="preserve">
+  <data name="BreakWater_UseBreakWater_DisplayName" xml:space="preserve">
     <value>Aanwezig</value>
   </data>
   <data name="DikeGeometryProperties_Description" xml:space="preserve">
@@ -223,10 +223,10 @@
   <data name="ForeshoreProperties_DisplayName" xml:space="preserve">
     <value>Voorland</value>
   </data>
-  <data name="Foreshore_ForeshorePresent_Discription" xml:space="preserve">
+  <data name="Foreshore_UseForeshore_Discription" xml:space="preserve">
     <value>Is er een voorland aanwezig?</value>
   </data>
-  <data name="Foreshore_ForeshorePresent_DisplayName" xml:space="preserve">
+  <data name="Foreshore_UseForeshore_DisplayName" xml:space="preserve">
     <value>Aanwezig</value>
   </data>
   <data name="Foreshore_NumberOfCoordinates_Discription" xml:space="preserve">

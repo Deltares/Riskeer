@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 Data = inputContext
             };
-            Assert.AreEqual(foreshoreProperties.ForeshorePresent, properties.Foreshore.ForeshorePresent);
+            Assert.AreEqual(foreshoreProperties.UseForeshore, properties.Foreshore.UseForeshore);
             Assert.AreEqual(foreshoreProperties.NumberOfCoordinates, properties.Foreshore.NumberOfCoordinates);
 
             var orientation = new RoundedDouble(2).Value.ToString(CultureInfo.InvariantCulture);
@@ -98,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 Data = inputContext
             };
-            Assert.AreEqual(breakWaterProperties.BreakWaterPresent, properties.BreakWater.BreakWaterPresent);
+            Assert.AreEqual(breakWaterProperties.UseBreakWater, properties.BreakWater.UseBreakWater);
             Assert.AreEqual(breakWaterProperties.BreakWaterHeight, properties.BreakWater.BreakWaterHeight);
             Assert.AreEqual(breakWaterProperties.BreakWaterType, properties.BreakWater.BreakWaterType);
             VerifyRoundedDoubleString(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
