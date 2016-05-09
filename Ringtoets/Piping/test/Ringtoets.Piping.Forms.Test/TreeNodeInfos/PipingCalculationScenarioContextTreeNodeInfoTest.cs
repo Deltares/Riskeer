@@ -144,58 +144,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.IsInstanceOf<EmptyPipingCalculationReport>(children[3]);
         }
 
-//        [Test]
-//        public void CanRenameNode_Always_ReturnTrue()
-//        {
-//            // Call
-//            var renameAllowed = info.CanRename(null, null);
-//
-//            // Assert
-//            Assert.IsTrue(renameAllowed);
-//        }
-//
-//        [Test]
-//        public void OnNodeRenamed_Always_SetNewNameToPipingCalculationScenario()
-//        {
-//            // Setup
-//            var observerMock = mocks.StrictMock<IObserver>();
-//            observerMock.Expect(o => o.UpdateObserver());
-//
-//            var calculation = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
-//            {
-//                Name = "<Original name>"
-//            };
-//
-//            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-//            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-//            mocks.ReplayAll();
-//
-//            var pipingCalculationsInputs = new PipingCalculationScenarioContext(calculation,
-//                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-//                                                                        Enumerable.Empty<StochasticSoilModel>(),
-//                                                                        pipingFailureMechanismMock,
-//                                                                        assessmentSectionMock);
-//            pipingCalculationsInputs.Attach(observerMock);
-//
-//            // Call
-//            const string newName = "<Insert New Name Here>";
-//            info.OnNodeRenamed(pipingCalculationsInputs, newName);
-//
-//            // Assert
-//            Assert.AreEqual(newName, calculation.Name);
-//            mocks.VerifyAll();
-//        }
-//
-//        [Test]
-//        public void CanDrag_Always_ReturnTrue()
-//        {
-//            // Call
-//            var canDrag = info.CanDrag(null, null);
-//
-//            // Assert
-//            Assert.IsTrue(canDrag);
-//        }
-//
         [Test]
         public void ContextMenuStrip_PipingCalculationWithoutOutput_ContextMenuItemClearOutputDisabled()
         {
@@ -306,195 +254,109 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
-//        [Test]
-//        [TestCase(true)]
-//        [TestCase(false)]
-//        public void CanRemove_ParentIsCalculationGroupWithCalculation_ReturnTrue(bool groupNameEditable)
-//        {
-//            // Setup
-//            var calculationToBeRemoved = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
-//            var group = new CalculationGroup("", groupNameEditable);
-//            group.Children.Add(calculationToBeRemoved);
-//
-//            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-//            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-//            mocks.ReplayAll();
-//
-//            var calculationContext = new PipingCalculationScenarioContext(calculationToBeRemoved,
-//                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-//                                                                  Enumerable.Empty<StochasticSoilModel>(),
-//                                                                  pipingFailureMechanismMock,
-//                                                                  assessmentSectionMock);
-//            var groupContext = new PipingCalculationGroupContext(group,
-//                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-//                                                                 Enumerable.Empty<StochasticSoilModel>(),
-//                                                                 pipingFailureMechanismMock,
-//                                                                 assessmentSectionMock);
-//
-//            // Call
-//            bool removalAllowed = info.CanRemove(calculationContext, groupContext);
-//
-//            // Assert
-//            Assert.IsTrue(removalAllowed);
-//        }
-//
-//        [Test]
-//        [TestCase(true)]
-//        [TestCase(false)]
-//        public void CanRemove_ParentIsCalculationGroupWithoutCalculation_ReturnFalse(bool groupNameEditable)
-//        {
-//            // Setup
-//            var calculationToBeRemoved = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
-//            var group = new CalculationGroup("", groupNameEditable);
-//
-//            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-//            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-//            mocks.ReplayAll();
-//
-//            var calculationContext = new PipingCalculationScenarioContext(calculationToBeRemoved,
-//                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-//                                                                  Enumerable.Empty<StochasticSoilModel>(),
-//                                                                  pipingFailureMechanismMock,
-//                                                                  assessmentSectionMock);
-//            var groupContext = new PipingCalculationGroupContext(group,
-//                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-//                                                                 Enumerable.Empty<StochasticSoilModel>(),
-//                                                                 pipingFailureMechanismMock,
-//                                                                 assessmentSectionMock);
-//
-//            // Call
-//            bool removalAllowed = info.CanRemove(calculationContext, groupContext);
-//
-//            // Assert
-//            Assert.IsFalse(removalAllowed);
-//        }
-//
-//        [Test]
-//        public void CanRemove_EverythingElse_ReturnFalse()
-//        {
-//            // Setup
-//            var dataMock = mocks.StrictMock<object>();
-//            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-//            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-//            mocks.ReplayAll();
-//
-//            var nodeMock = new PipingCalculationScenarioContext(new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput()),
-//                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-//                                                        Enumerable.Empty<StochasticSoilModel>(),
-//                                                        pipingFailureMechanismMock,
-//                                                        assessmentSectionMock);
-//
-//            // Call
-//            bool removalAllowed = info.CanRemove(nodeMock, dataMock);
-//
-//            // Assert
-//            Assert.IsFalse(removalAllowed);
-//            mocks.VerifyAll(); // Expect no calls on arguments
-//        }
-//
-//        [Test]
-//        [TestCase(true)]
-//        [TestCase(false)]
-//        public void OnNodeRemoved_ParentIsPipingCalculationGroupContext_RemoveCalculationFromGroup(bool groupNameEditable)
-//        {
-//            // Setup
-//            var observer = mocks.StrictMock<IObserver>();
-//            observer.Expect(o => o.UpdateObserver());
-//
-//            var elementToBeRemoved = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
-//
-//            var group = new CalculationGroup("", groupNameEditable);
-//            group.Children.Add(elementToBeRemoved);
-//            group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput()));
-//            group.Attach(observer);
-//
-//            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-//            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-//            mocks.ReplayAll();
-//
-//            var calculationContext = new PipingCalculationScenarioContext(elementToBeRemoved,
-//                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-//                                                                  Enumerable.Empty<StochasticSoilModel>(),
-//                                                                  pipingFailureMechanismMock,
-//                                                                  assessmentSectionMock);
-//            var groupContext = new PipingCalculationGroupContext(group,
-//                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-//                                                                 Enumerable.Empty<StochasticSoilModel>(),
-//                                                                 pipingFailureMechanismMock,
-//                                                                 assessmentSectionMock);
-//
-//            // Precondition
-//            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
-//            Assert.AreEqual(2, group.Children.Count);
-//
-//            // Call
-//            info.OnNodeRemoved(calculationContext, groupContext);
-//
-//            // Assert
-//            Assert.AreEqual(1, group.Children.Count);
-//            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
-//
-//            mocks.VerifyAll();
-//        }
-//
-//        [Test]
-//        [TestCase(true)]
-//        [TestCase(false)]
-//        public void OnNodeRemoved_ParentIsPipingCalculationGroupContext_RemoveCalculationFromSectionResult(bool groupNameEditable)
-//        {
-//            // Setup
-//            var observer = mocks.StrictMock<IObserver>();
-//            observer.Expect(o => o.UpdateObserver());
-//
-//            var pipingFailureMechanism = GetFailureMechanism();
-//            var surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
-//
-//            var elementToBeRemoved = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
-//            {
-//                InputParameters =
-//                {
-//                    SurfaceLine = surfaceLines[0]
-//                }
-//            };
-//
-//            var group = new CalculationGroup("", groupNameEditable);
-//            group.Children.Add(elementToBeRemoved);
-//            group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput()));
-//            group.Attach(observer);
-//
-//            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-//            mocks.ReplayAll();
-//
-//            var calculationContext = new PipingCalculationScenarioContext(elementToBeRemoved,
-//                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-//                                                                  Enumerable.Empty<StochasticSoilModel>(),
-//                                                                  pipingFailureMechanism,
-//                                                                  assessmentSectionMock);
-//            var groupContext = new PipingCalculationGroupContext(group,
-//                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-//                                                                 Enumerable.Empty<StochasticSoilModel>(),
-//                                                                 pipingFailureMechanism,
-//                                                                 assessmentSectionMock);
-//
-//            group.AddCalculationScenariosToFailureMechanismSectionResult(pipingFailureMechanism);
-//
-//            // Precondition
-//            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
-//            Assert.AreEqual(2, group.Children.Count);
-//            var sectionResults = pipingFailureMechanism.SectionResults.ToArray();
-//            CollectionAssert.Contains(sectionResults[0].CalculationScenarios, elementToBeRemoved);
-//
-//            // Call
-//            info.OnNodeRemoved(calculationContext, groupContext);
-//
-//            // Assert
-//            Assert.AreEqual(1, group.Children.Count);
-//            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
-//            CollectionAssert.DoesNotContain(sectionResults[0].CalculationScenarios, elementToBeRemoved);
-//
-//            mocks.VerifyAll();
-//        }
-//
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnNodeRemoved_ParentIsPipingCalculationGroupContext_RemoveCalculationFromGroup(bool groupNameEditable)
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var elementToBeRemoved = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput());
+
+            var group = new CalculationGroup("", groupNameEditable);
+            group.Children.Add(elementToBeRemoved);
+            group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput()));
+            group.Attach(observer);
+
+            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationContext = new PipingCalculationScenarioContext(elementToBeRemoved,
+                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                  Enumerable.Empty<StochasticSoilModel>(),
+                                                                  pipingFailureMechanismMock,
+                                                                  assessmentSectionMock);
+            var groupContext = new PipingCalculationGroupContext(group,
+                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<StochasticSoilModel>(),
+                                                                 pipingFailureMechanismMock,
+                                                                 assessmentSectionMock);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
+            Assert.AreEqual(2, group.Children.Count);
+
+            // Call
+            info.OnNodeRemoved(calculationContext, groupContext);
+
+            // Assert
+            Assert.AreEqual(1, group.Children.Count);
+            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnNodeRemoved_ParentIsPipingCalculationGroupContext_RemoveCalculationFromSectionResult(bool groupNameEditable)
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var pipingFailureMechanism = GetFailureMechanism();
+            var surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
+
+            var elementToBeRemoved = new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput())
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLines[0]
+                }
+            };
+
+            var group = new CalculationGroup("", groupNameEditable);
+            group.Children.Add(elementToBeRemoved);
+            group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput(), new NormProbabilityPipingInput()));
+            group.Attach(observer);
+
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationContext = new PipingCalculationScenarioContext(elementToBeRemoved,
+                                                                  Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                  Enumerable.Empty<StochasticSoilModel>(),
+                                                                  pipingFailureMechanism,
+                                                                  assessmentSectionMock);
+            var groupContext = new PipingCalculationGroupContext(group,
+                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<StochasticSoilModel>(),
+                                                                 pipingFailureMechanism,
+                                                                 assessmentSectionMock);
+
+            group.AddCalculationScenariosToFailureMechanismSectionResult(pipingFailureMechanism);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
+            Assert.AreEqual(2, group.Children.Count);
+            var sectionResults = pipingFailureMechanism.SectionResults.ToArray();
+            CollectionAssert.Contains(sectionResults[0].CalculationScenarios, elementToBeRemoved);
+
+            // Call
+            info.OnNodeRemoved(calculationContext, groupContext);
+
+            // Assert
+            Assert.AreEqual(1, group.Children.Count);
+            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
+            CollectionAssert.DoesNotContain(sectionResults[0].CalculationScenarios, elementToBeRemoved);
+
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void GivenInvalidPipingCalculation_WhenCalculatingFromContextMenu_ThenPipingCalculationNotifiesObserversAndLogMessageAdded()
         {

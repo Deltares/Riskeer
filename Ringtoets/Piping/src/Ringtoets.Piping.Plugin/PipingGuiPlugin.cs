@@ -108,21 +108,11 @@ namespace Ringtoets.Piping.Plugin
                 FailureMechanismContextMenuStrip,
                 Gui);
 
-//            yield return new TreeNodeInfo<PipingCalculationScenarioContext>
-//            {
-//                ContextMenuStrip = PipingCalculationContextContextMenuStrip,
-//                ChildNodeObjects = PipingCalculationContextChildNodeObjects,
-//                CanRename = (pipingCalculationContext, parentData) => true,
-//                OnNodeRenamed = PipingCalculationContextOnNodeRenamed,
-//                CanRemove = PipingCalculationContextCanRemove,
-//                OnNodeRemoved = PipingCalculationContextOnNodeRemoved,
-//                CanDrag = (pipingCalculationContext, parentData) => true
-//            };
-
             yield return CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<PipingCalculationScenarioContext>(
                 PipingFormsResources.PipingIcon,
                 PipingCalculationContextChildNodeObjects,
-                PipingCalculationContextContextMenuStrip);
+                PipingCalculationContextContextMenuStrip,
+                PipingCalculationContextOnNodeRemoved);
 
             yield return CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(
                 PipingCalculationGroupContextChildNodeObjects,
@@ -497,18 +487,6 @@ namespace Ringtoets.Piping.Plugin
             }
 
             return childNodes.ToArray();
-        }
-
-        private static void PipingCalculationContextOnNodeRenamed(PipingCalculationScenarioContext pipingCalculationScenarioContext, string newName)
-        {
-            pipingCalculationScenarioContext.WrappedData.Name = newName;
-            pipingCalculationScenarioContext.WrappedData.NotifyObservers();
-        }
-
-        private bool PipingCalculationContextCanRemove(PipingCalculationScenarioContext pipingCalculationScenarioContext, object parentNodeData)
-        {
-            var calculationGroupContext = parentNodeData as PipingCalculationGroupContext;
-            return calculationGroupContext != null && calculationGroupContext.WrappedData.Children.Contains(pipingCalculationScenarioContext.WrappedData);
         }
 
         private void PipingCalculationContextOnNodeRemoved(PipingCalculationScenarioContext pipingCalculationScenarioContext, object parentNodeData)

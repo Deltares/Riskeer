@@ -985,15 +985,17 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var icon = RingtoetsFormsResources.CalculateIcon;
             Func<TestCalculationContext, object[]> childNodeObjects = context => new object[0];
             Func<TestCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
+            Action<TestCalculationContext, object> onNodeRemoved = (context, parent) => { };
 
             // Call
-            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo(icon, childNodeObjects, contextMenuStrip);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo(icon, childNodeObjects, contextMenuStrip, onNodeRemoved);
 
             // Assert
             Assert.AreEqual(typeof(TestCalculationContext), treeNodeInfo.TagType);
             TestHelper.AssertImagesAreEqual(icon, treeNodeInfo.Image(null));
             Assert.AreSame(childNodeObjects, treeNodeInfo.ChildNodeObjects);
             Assert.AreSame(contextMenuStrip, treeNodeInfo.ContextMenuStrip);
+            Assert.AreSame(onNodeRemoved, treeNodeInfo.OnNodeRemoved);
             Assert.IsNull(treeNodeInfo.ForeColor);
             Assert.IsNull(treeNodeInfo.CanCheck);
             Assert.IsNull(treeNodeInfo.IsChecked);
@@ -1016,7 +1018,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             };
 
             var context = new TestCalculationContext(calculation, failureMechanismMock);
-            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, null);
 
             // Call
             var text = treeNodeInfo.Text(context);
@@ -1030,13 +1032,140 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         public void EnsureVisibleOnCreateOfCalculationContextTreeNodeInfo_Always_ReturnsTrue()
         {
             // Setup
-            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, null);
 
             // Call
             var result = treeNodeInfo.EnsureVisibleOnCreate(null, null);
 
             // Assert
             Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void CanRenameCalculationContextTreeNodeInfo_Always_ReturnTrue()
+        {
+            // Setup
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, null);
+
+            // Call
+            var renameAllowed = treeNodeInfo.CanRename(null, null);
+        
+            // Assert
+            Assert.IsTrue(renameAllowed);
+        }
+
+        [Test]
+        public void OnNodeRenamedOfCalculationContextTreeNodeInfo_Always_SetNewNameToPipingCalculationScenarioAndNotifyObserver()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var calculation = new TestCalculation
+            {
+                Name = "<Original name>"
+            };            
+
+            var context = new TestCalculationContext(calculation, failureMechanismMock);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, null);
+
+            context.WrappedData.Attach(observerMock);
+        
+            // Call
+            const string newName = "<Insert New Name Here>";
+            treeNodeInfo.OnNodeRenamed(context, newName);
+        
+            // Assert
+            Assert.AreEqual(newName, calculation.Name);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CanRemoveCalculationContextTreeNodeInfo_ParentIsCalculationGroupWithCalculation_ReturnTrue(bool groupNameEditable)
+        {
+            // Setup
+            var calculationToBeRemoved = new TestCalculation();
+            var group = new CalculationGroup("", groupNameEditable);
+            group.Children.Add(calculationToBeRemoved);
+            
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var context = new TestCalculationContext(calculationToBeRemoved, failureMechanismMock);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, null);
+
+            var groupContext = new TestCalculationGroupContext(group, failureMechanismMock);
+        
+            // Call
+            bool removalAllowed = treeNodeInfo.CanRemove(context, groupContext);
+        
+            // Assert
+            Assert.IsTrue(removalAllowed);
+        }
+        
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CanRemoveCalculationContextTreeNodeInfo_ParentIsCalculationGroupWithoutCalculation_ReturnFalse(bool groupNameEditable)
+        {
+            // Setup
+            var calculationToBeRemoved = new TestCalculation();
+            var group = new CalculationGroup("", groupNameEditable);
+
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var context = new TestCalculationContext(calculationToBeRemoved, failureMechanismMock);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, null);
+
+            var groupContext = new TestCalculationGroupContext(group, failureMechanismMock);
+        
+            // Call
+            bool removalAllowed = treeNodeInfo.CanRemove(context, groupContext);
+        
+            // Assert
+            Assert.IsFalse(removalAllowed);
+        }
+        
+        [Test]
+        public void CanRemoveCalculationContextTreeNodeInfo_EverythingElse_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dataMock = mocks.StrictMock<object>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var nodeMock = new TestCalculationContext(new TestCalculation(), failureMechanismMock);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, null);
+        
+            // Call
+            bool removalAllowed = treeNodeInfo.CanRemove(nodeMock, dataMock);
+        
+            // Assert
+            Assert.IsFalse(removalAllowed);
+            mocks.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void CanDragCalculationContextTreeNodeInfo_Always_ReturnTrue()
+        {
+            // Setup
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, null);
+
+            // Call
+            var canDrag = treeNodeInfo.CanDrag(null, null);
+        
+            // Assert
+            Assert.IsTrue(canDrag);
         }
 
         #endregion

@@ -81,12 +81,15 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// </summary>
         /// <param name="icon">The icon of the <see cref="TreeNodeInfo"/>.</param>
         /// <param name="childeNodeObjects">The function for obtaining the child node objects.</param>
+        /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
+        /// <param name="onNodeRemoved">The action to perform on removing a node.</param>
         /// <typeparam name="TCalculationContext">The type of calculation context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TCalculationContext> CreateCalculationContextTreeNodeInfo<TCalculationContext>(
             Bitmap icon,
             Func<TCalculationContext, object[]> childeNodeObjects,
-            Func<TCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
+            Func<TCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
+            Action<TCalculationContext, object> onNodeRemoved)
             where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
             return new TreeNodeInfo<TCalculationContext>
@@ -95,7 +98,16 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Image = context => icon,
                 EnsureVisibleOnCreate = (context, parent) => true,
                 ChildNodeObjects = childeNodeObjects,
-                ContextMenuStrip = contextMenuStrip
+                ContextMenuStrip = contextMenuStrip,
+                CanRename = (context, parent) => true,
+                OnNodeRenamed = (context, newName) =>
+                {
+                    context.WrappedData.Name = newName;
+                    context.WrappedData.NotifyObservers();
+                },
+                CanRemove = (context, parentData) => CalculationContextCanRemove(context, parentData),
+                OnNodeRemoved = onNodeRemoved,
+                CanDrag = (context, parentData) => true
             };
         }
 
@@ -340,5 +352,15 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         # endregion
 
         # endregion
+
+        #region Helper methods for CreateCalculationContextTreeNodeInfo
+
+        private static bool CalculationContextCanRemove(ICalculationContext<ICalculation, IFailureMechanism> calculationContext, object parentNodeData)
+        {
+            var calculationGroupContext = parentNodeData as ICalculationContext<CalculationGroup, IFailureMechanism>;
+            return calculationGroupContext != null && calculationGroupContext.WrappedData.Children.Contains(calculationContext.WrappedData);
+        }
+
+        #endregion
     }
 }

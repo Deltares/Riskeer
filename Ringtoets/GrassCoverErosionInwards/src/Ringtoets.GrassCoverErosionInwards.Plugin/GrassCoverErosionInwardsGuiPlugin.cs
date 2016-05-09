@@ -78,6 +78,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionInwardsCalculationContext>(
                 GrassCoverErosionInwardsFormsResources.CalculationIcon,
                 CalculationContextChildNodeObjects,
+                null,
                 null);
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsInputContext>
