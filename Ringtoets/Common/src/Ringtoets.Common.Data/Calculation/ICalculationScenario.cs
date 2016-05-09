@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.Calculation
@@ -41,6 +42,8 @@ namespace Ringtoets.Common.Data.Calculation
         /// <summary>
         /// Gets the probability of the scenario.
         /// </summary>
+        /// <remarks>Implementers should throw <see cref="InvalidOperationException"/>
+        /// when the getter is called while the <see cref="CalculationScenarioStatus"/> does not return Done.</remarks>
         RoundedDouble Probability { get; }
 
         /// <summary>

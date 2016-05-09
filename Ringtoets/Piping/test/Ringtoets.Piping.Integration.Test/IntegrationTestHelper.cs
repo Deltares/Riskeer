@@ -1,4 +1,25 @@
-﻿using System.IO;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System.IO;
 using Core.Common.Base.Service;
 using Core.Common.Utils.IO;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -43,6 +64,7 @@ namespace Ringtoets.Piping.Integration.Test
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to import on.</param>
+        /// <remarks>This will import 283 failure mechanism sections.</remarks>
         public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,
@@ -65,6 +87,7 @@ namespace Ringtoets.Piping.Integration.Test
         /// Imports the hydraulic boundary database.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
+        /// <remarks>This will import 19 Hydraulic boundary locations.</remarks>
         public static void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,
@@ -84,6 +107,7 @@ namespace Ringtoets.Piping.Integration.Test
         /// Imports the surface lines.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
+        /// <remarks>This will import 4 surface lines.</remarks>
         public static void ImportSurfaceLines(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,
@@ -104,6 +128,7 @@ namespace Ringtoets.Piping.Integration.Test
         /// Imports the soil profiles.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
+        /// <remarks>This will import 4 soil models with one profile each.</remarks>
         public static void ImportSoilProfiles(AssessmentSection assessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,

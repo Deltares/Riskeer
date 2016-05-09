@@ -287,8 +287,7 @@ namespace Ringtoets.Common.Forms.Views
                     }
 
                     if (!relevantScenarioAvailable
-                        || FailureMechanismSectionResult.CalculationScenarioStatus == CalculationScenarioStatus.NotCalculated
-                        || FailureMechanismSectionResult.CalculationScenarioStatus == CalculationScenarioStatus.Failed)
+                        || FailureMechanismSectionResult.CalculationScenarioStatus != CalculationScenarioStatus.Done)
                     {
                         return Resources.FailureMechanismSectionResultRow_AssessmentLayerTwoA_No_result_dash;
                     }

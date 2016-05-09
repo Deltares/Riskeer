@@ -188,7 +188,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock2);
 
             // Call
-            RoundedDouble? assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
+            RoundedDouble assessmentLayerTwoA = failureMechanismSectionResult.AssessmentLayerTwoA;
 
             // Assert
             Assert.AreEqual((RoundedDouble)0.0, assessmentLayerTwoA);
@@ -327,6 +327,37 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             mocks.ReplayAll();
 
             failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
+
+            // Call
+            CalculationScenarioStatus status = failureMechanismSectionResult.CalculationScenarioStatus;
+
+            // Assert
+            Assert.AreEqual(CalculationScenarioStatus.Failed, status);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CalculationScenarioStatus_ScenarioInvalidOutputAndNotCalculated_ReturnsStatusFailed()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+            var failureMechanismSectionResult = new FailureMechanismSectionResult(section);
+
+            var mocks = new MockRepository();
+            var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
+            calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
+            calculationScenarioMock.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.NotCalculated);
+            
+            var calculationScenarioMock2 = mocks.StrictMock<ICalculationScenario>();
+            calculationScenarioMock2.Stub(cs => cs.IsRelevant).Return(true);
+            calculationScenarioMock2.Stub(cs => cs.Probability).Return((RoundedDouble)double.NaN);
+            calculationScenarioMock2.Stub(cs => cs.Contribution).Return((RoundedDouble)1.0);
+            calculationScenarioMock2.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.Failed);
+
+            mocks.ReplayAll();
+
+            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock);
+            failureMechanismSectionResult.CalculationScenarios.Add(calculationScenarioMock2);
 
             // Call
             CalculationScenarioStatus status = failureMechanismSectionResult.CalculationScenarioStatus;

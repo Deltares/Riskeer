@@ -112,22 +112,42 @@ namespace Ringtoets.Common.Data.FailureMechanism
         {
             get
             {
-                foreach (var calculationScenario in CalculationScenarios.Where(cs => cs.IsRelevant))
-                {
-                    switch (calculationScenario.CalculationScenarioStatus) 
-                    {
-                        case CalculationScenarioStatus.Failed:
-                            return CalculationScenarioStatus.Failed;
-                        case CalculationScenarioStatus.NotCalculated:
-                            return CalculationScenarioStatus.NotCalculated;
-                        case CalculationScenarioStatus.Done:
-                            continue;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }
-                return CalculationScenarioStatus.Done;
+                return GetCalculationStatus();
             }
+        }
+
+        private CalculationScenarioStatus GetCalculationStatus()
+        {
+            bool failed = false;
+            bool notCalculated = false;
+            foreach (var calculationScenario in CalculationScenarios.Where(cs => cs.IsRelevant))
+            {
+                switch (calculationScenario.CalculationScenarioStatus) 
+                {
+                    case CalculationScenarioStatus.Failed:
+                        failed = true;
+                        break;
+                    case CalculationScenarioStatus.NotCalculated:
+                        notCalculated = true;
+                        break;
+                    case CalculationScenarioStatus.Done:
+                        continue;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            if (failed)
+            {
+                return CalculationScenarioStatus.Failed;
+            }
+
+            if (notCalculated)
+            {
+                return CalculationScenarioStatus.NotCalculated;
+            }
+
+            return CalculationScenarioStatus.Done;
         }
     }
 }
