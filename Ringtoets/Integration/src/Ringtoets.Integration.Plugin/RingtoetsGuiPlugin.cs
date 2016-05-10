@@ -192,10 +192,11 @@ namespace Ringtoets.Integration.Plugin
                                    Gui.Get(nodeData, treeViewControl).AddImportItem().Build()
             };
 
-            yield return new DefaultFailureMechanismTreeNodeInfo<FailureMechanismPlaceholderContext, FailureMechanismPlaceholder>(
-                FailureMechanismPlaceholderChildNodeObjects,
-                FailureMechanismPlaceholderContextMenuStrip,
-                Gui);
+            yield return CalculationTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismPlaceholderContext>(
+                FailureMechanismPlaceholderEnabledChildNodeObjects,
+                FailureMechanismPlaceholderDisabledChildNodeObjects,
+                FailureMechanismPlaceholderEnabledContextMenuStrip,
+                FailureMechanismPlaceholderDisabledContextMenuStrip);
 
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
             {
@@ -469,7 +470,7 @@ namespace Ringtoets.Integration.Plugin
 
         # region FailureMechanismPlaceHolderContext
 
-        private object[] FailureMechanismPlaceholderChildNodeObjects(FailureMechanismPlaceholderContext nodeData)
+        private object[] FailureMechanismPlaceholderEnabledChildNodeObjects(FailureMechanismPlaceholderContext nodeData)
         {
             return new object[]
             {
@@ -479,6 +480,14 @@ namespace Ringtoets.Integration.Plugin
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
+            };
+        }
+
+        private object[] FailureMechanismPlaceholderDisabledChildNodeObjects(FailureMechanismPlaceholderContext nodeData)
+        {
+            return new object[]
+            {
+                new CommentContext<ICommentable>(nodeData.WrappedData)
             };
         }
 
@@ -501,7 +510,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismPlaceholderContextMenuStrip(FailureMechanismPlaceholderContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismPlaceholderEnabledContextMenuStrip(FailureMechanismPlaceholderContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var changeRelevancyItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
@@ -546,6 +555,18 @@ namespace Ringtoets.Integration.Plugin
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
+        }
+
+        private ContextMenuStrip FailureMechanismPlaceholderDisabledContextMenuStrip(FailureMechanismPlaceholderContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = Gui.Get(nodeData, treeViewControl);
+
+            CalculationTreeNodeInfoFactory.AddDisabledChangeRelevancyItem(builder, nodeData);
+
+            return builder.AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .Build();
         }
 
         # endregion
