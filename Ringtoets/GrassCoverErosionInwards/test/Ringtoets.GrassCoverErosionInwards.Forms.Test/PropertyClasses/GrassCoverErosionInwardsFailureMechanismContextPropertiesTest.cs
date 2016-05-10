@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup & Call
+            // Call
             var properties = new GrassCoverErosionInwardsFailureMechanismContextProperties();
 
             // Assert
@@ -105,9 +105,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 Data = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock)
             };
+            const int newLengthEffect = 10;
 
             // Call
-            const int newLengthEffect = 10;
             properties.LengthEffect = newLengthEffect;
 
             // Assert

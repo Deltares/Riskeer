@@ -40,27 +40,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int fnFactorPropertyIndex = 6;
         private const int fshallowModelFactorPropertyIndex = 7;
 
-        #region Lengte effect parameters
-
-        [PropertyOrder(lengthEffectPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_N_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_N_Description")]
-        public int LengthEffect
-        {
-            get
-            {
-                return data.WrappedData.NormProbabilityInput.N;
-            }
-            set
-            {
-                data.WrappedData.NormProbabilityInput.N = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        #endregion
-
         #region General
 
         [PropertyOrder(namePropertyIndex)]
@@ -84,6 +63,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             get
             {
                 return data.WrappedData.Code;
+            }
+        }
+
+        #endregion
+
+        #region Length effect parameters
+
+        [PropertyOrder(lengthEffectPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_LengthEffect")]
+        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_N_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_N_Description")]
+        public int LengthEffect
+        {
+            get
+            {
+                return data.WrappedData.NormProbabilityInput.N;
+            }
+            set
+            {
+                data.WrappedData.NormProbabilityInput.N = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 

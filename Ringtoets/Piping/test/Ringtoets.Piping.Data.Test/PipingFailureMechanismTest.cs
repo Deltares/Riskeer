@@ -60,7 +60,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<ObservableList<StochasticSoilModel>>(piping.StochasticSoilModels);
             Assert.AreEqual("Berekeningen", piping.CalculationsGroup.Name);
             Assert.IsEmpty(piping.CalculationsGroup.Children);
-            mockRepository.VerifyAll();
         }
 
         [Test]

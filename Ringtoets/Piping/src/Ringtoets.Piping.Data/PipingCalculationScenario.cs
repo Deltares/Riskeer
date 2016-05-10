@@ -35,8 +35,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="generalInputParameters">General piping calculation parameters that
         /// are the same across all piping calculations.</param>
-        /// <param name="normProbabilityInputParameters">General semi-probabilistic parameters that 
-        /// are used in a semi-probabilistic piping assessment.</param>
+        /// <param name="normProbabilityInputParameters">Parameters which influence the probability estimate for a piping assessment.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="generalInputParameters"/> or 
         /// <paramref name="normProbabilityInputParameters"/> is <c>null</c>.</exception>
         public PipingCalculationScenario(GeneralPipingInput generalInputParameters, NormProbabilityPipingInput normProbabilityInputParameters)
@@ -63,7 +62,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        public CalculationScenarioStatus CalculationScenarioStatus 
+        public CalculationScenarioStatus CalculationScenarioStatus
         {
             get
             {

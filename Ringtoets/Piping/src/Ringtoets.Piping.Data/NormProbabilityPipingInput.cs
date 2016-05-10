@@ -24,10 +24,16 @@ using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Piping.Data
 {
+    /// <summary>
+    /// This class holds parameters which influence the probability estimate for a piping assessment.
+    /// </summary>
     public class NormProbabilityPipingInput
     {
         private double contribution;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="NormProbabilityPipingInput"/>.
+        /// </summary>
         public NormProbabilityPipingInput()
         {
             A = 1.0;
