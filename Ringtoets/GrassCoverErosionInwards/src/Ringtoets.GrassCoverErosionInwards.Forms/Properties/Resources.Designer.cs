@@ -278,7 +278,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aantal coordinaten tot de teen van de dijk..
+        ///   Looks up a localized string similar to Aantal coördinaten tot de teen van de dijk..
         /// </summary>
         public static string Foreshore_NumberOfCoordinates_Discription {
             get {

@@ -230,7 +230,7 @@
     <value>Aanwezig</value>
   </data>
   <data name="Foreshore_NumberOfCoordinates_Discription" xml:space="preserve">
-    <value>Aantal coordinaten tot de teen van de dijk.</value>
+    <value>Aantal coördinaten tot de teen van de dijk.</value>
   </data>
   <data name="Foreshore_NumberOfCoordinates_DisplayName" xml:space="preserve">
     <value>Aantal</value>

@@ -141,7 +141,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(numberOfCoordinatesProperty);
             Assert.IsTrue(numberOfCoordinatesProperty.IsReadOnly);
             Assert.AreEqual("Aantal", numberOfCoordinatesProperty.DisplayName);
-            Assert.AreEqual("Aantal coordinaten tot de teen van de dijk.", numberOfCoordinatesProperty.Description);
+            Assert.AreEqual("Aantal coördinaten tot de teen van de dijk.", numberOfCoordinatesProperty.Description);
             mockRepository.VerifyAll();
         }
 
