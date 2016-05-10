@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     public interface ICalculatableFailureMechanism 
     {
         /// <summary>
-        /// Gets all available piping calculation groups.
+        /// Gets all available calculation groups.
         /// </summary>
         CalculationGroup CalculationsGroup { get; }
     }

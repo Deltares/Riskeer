@@ -1055,7 +1055,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRenamedOfCalculationContextTreeNodeInfo_Always_SetNewNameToPipingCalculationScenarioAndNotifyObserver()
+        public void OnNodeRenamedOfCalculationContextTreeNodeInfo_Always_SetNewNameToCalculationItemAndNotifyObserver()
         {
             // Setup
             var mocks = new MockRepository();
@@ -1074,11 +1074,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, null);
 
             context.WrappedData.Attach(observerMock);
-        
+
             // Call
             const string newName = "<Insert New Name Here>";
             treeNodeInfo.OnNodeRenamed(context, newName);
-        
+
             // Assert
             Assert.AreEqual(newName, calculation.Name);
             mocks.VerifyAll();

@@ -245,7 +245,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                        : new DroppingCalculationToNewContainer(sourceCalculationGroup, targetCalculationGroup);
         }
 
-        # region Nested types: DroppingPipingCalculationInContainerStrategy and implementations
+        # region Nested types: DroppingCalculationInContainerStrategy and implementations
 
         /// <summary>
         /// Strategy pattern implementation for dealing with drag and drop of a <see cref="ICalculation"/>

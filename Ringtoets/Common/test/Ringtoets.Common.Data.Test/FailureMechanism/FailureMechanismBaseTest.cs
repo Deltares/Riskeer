@@ -254,7 +254,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void PipingFailureMechanismSectionResults_Always_ReturnsPipingFailureMechanismSectionResults()
+        public void SectionResults_Always_ReturnsExpectedSectionResultsAfterAddingSections()
         {
             // Setup
             var failureMechanism = new SimpleFailureMechanismBase(string.Empty, string.Empty);
