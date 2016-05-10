@@ -437,14 +437,15 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
-            var calculation = mocks.StrictMock<ICalculation>();
 
             mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
 
             var menubuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculation, treeViewControl);
 
             // Call
-            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(menubuilder, calculation, null);
+            CalculationTreeNodeInfoFactory.AddPerformCalculationItem<TestCalculation, TestCalculationContext>(menubuilder, calculation, null, null);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menubuilder.Build(), 0,
@@ -463,16 +464,18 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
-            var calculation = mocks.StrictMock<ICalculation>();
 
             mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
+            var testCalculationContext = new TestCalculationContext(calculation, failureMechanisMock);
 
             var counter = 0;
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculation, treeViewControl);
-
-            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(menuBuilder, calculation, context => counter++);
+            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(menuBuilder, calculation, testCalculationContext, (calc, context) => counter++);
             var contextMenuItem = menuBuilder.Build().Items[0];
 
             // Call

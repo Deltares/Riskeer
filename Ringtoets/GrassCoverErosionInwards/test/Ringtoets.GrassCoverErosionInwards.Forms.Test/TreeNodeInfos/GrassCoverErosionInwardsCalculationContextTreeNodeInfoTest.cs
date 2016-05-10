@@ -19,27 +19,35 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
+using Ringtoets.HydraRing.Data;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest
+    public class GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
         private MockRepository mocks;
         private GrassCoverErosionInwardsGuiPlugin plugin;
@@ -148,7 +156,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_PipingCalculationWithoutOutput_ContextMenuItemClearOutputDisabled()
+        public void ContextMenuStrip_CalculationWithoutOutput_ContextMenuItemClearOutputDisabled()
         {
             // Setup
             var gui = mocks.StrictMock<IGui>();
@@ -177,7 +185,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_PipingCalculationWithOutput_ContextMenuItemClearOutputEnabled()
+        public void ContextMenuStrip_CalculationWithOutput_ContextMenuItemClearOutputEnabled()
         {
             var gui = mocks.StrictMock<IGui>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
@@ -205,6 +213,65 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
             TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, RingtoetsCommonFormsResources.Clear_output, RingtoetsCommonFormsResources.Clear_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenCalculationWithOutput_WhenClearingOutputFromContextMenu_ThenCalculationOutputClearedAndNotified(bool confirm)
+        {
+            // Given
+            var gui = mocks.DynamicMock<IGui>();
+            var observer = mocks.StrictMock<IObserver>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
+
+            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+
+            gui.Expect(cmp => cmp.Get(calculationContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+            int clearOutputItemPosition = 1;
+            if (confirm)
+            {
+                observer.Expect(o => o.UpdateObserver());
+            }
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            calculation.Output = new GrassCoverErosionInwardsOutput(0, 0, 0, 0, 0);
+            calculation.Attach(observer);
+
+            var contextMenuAdapter = info.ContextMenuStrip(calculationContext, null, treeViewControlMock);
+
+            string messageBoxText = null, messageBoxTitle = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                messageBoxText = messageBox.Text;
+                messageBoxTitle = messageBox.Title;
+                if (confirm)
+                {
+                    messageBox.ClickOk();
+                }
+                else
+                {
+                    messageBox.ClickCancel();
+                }
+            };
+
+            // When
+            contextMenuAdapter.Items[clearOutputItemPosition].PerformClick();
+
+            // Then
+            Assert.AreNotEqual(confirm, calculation.HasOutput);
+            Assert.AreEqual("Bevestigen", messageBoxTitle);
+            Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
+            mocks.VerifyAll();
         }
     }
 }

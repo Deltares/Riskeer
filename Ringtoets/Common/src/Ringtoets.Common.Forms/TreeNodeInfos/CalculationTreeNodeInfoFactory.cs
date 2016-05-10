@@ -173,7 +173,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <param name="builder">The builder to add the context menu item to.</param>
         /// <param name="calculationGroupContext">The calculation group context involved.</param>
         /// <param name="addCalculation">The action for adding a calculation to the calculation group.</param>
-        public static void AddCreateCalculationItem<TCalculationGroupContext>(IContextMenuBuilder builder, TCalculationGroupContext calculationGroupContext, Action<TCalculationGroupContext> addCalculation) where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+        public static void AddCreateCalculationItem<TCalculationGroupContext>(IContextMenuBuilder builder, TCalculationGroupContext calculationGroupContext, Action<TCalculationGroupContext> addCalculation) 
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             var createCalculationItem = new StrictContextMenuItem(
                 Resources.CalculationGroup_Add_Calculation,
@@ -245,13 +246,18 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <param name="builder">The builder to add the context menu item to.</param>
         /// <param name="calculation">The calculation involved.</param>
         /// <param name="calculate">The action that performs the calculation.</param>
-        public static void AddPerformCalculationItem(IContextMenuBuilder builder, ICalculation calculation, Action<ICalculation> calculate)
+        public static void AddPerformCalculationItem<TCalculation, TCalculationContext>(
+            IContextMenuBuilder builder,
+            TCalculation calculation,
+            TCalculationContext context,
+            Action<TCalculation, TCalculationContext> calculate)
+            where TCalculation : ICalculation where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
             var calculateItem = new StrictContextMenuItem(
                 Resources.Calculate,
                 Resources.Calculate_ToolTip,
                 Resources.CalculateIcon,
-                (o, args) => { calculate(calculation); });
+                (o, args) => { calculate(calculation, context); });
 
             builder.AddCustomItem(calculateItem);
         }

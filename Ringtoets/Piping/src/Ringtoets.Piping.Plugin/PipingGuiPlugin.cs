@@ -32,6 +32,7 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -432,7 +433,7 @@ namespace Ringtoets.Piping.Plugin
                                                          (o, args) => { PipingCalculationService.Validate(calculation); });
 
             builder.AddCustomItem(validateItem);
-            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(builder, calculation, PerformCalculation);
+            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(builder, calculation, nodeData, PerformCalculation);
             CalculationTreeNodeInfoFactory.AddClearCalculationOutputItem(builder, calculation);
             builder.AddSeparator();
 
@@ -491,9 +492,9 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private void PerformCalculation(ICalculation calculation)
+        private void PerformCalculation(PipingCalculation calculation, PipingCalculationScenarioContext context)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, new PipingCalculationActivity((PipingCalculation)calculation));
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, new PipingCalculationActivity(calculation));
         }
 
         # endregion

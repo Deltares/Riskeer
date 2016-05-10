@@ -28,6 +28,7 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -387,7 +388,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             GrassCoverErosionInwardsCalculation calculation = nodeData.WrappedData;
 
-            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(builder, calculation, null); //TODO: Actualy connect the calculation
+            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(
+                builder,
+                calculation,
+                nodeData,
+                PerformCalculation);
             CalculationTreeNodeInfoFactory.AddClearCalculationOutputItem(builder, calculation);
             builder.AddSeparator();
 
@@ -403,6 +408,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();
+        }
+
+        private void PerformCalculation(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)
+        {
+            var activity = CreateHydraRingTargetProbabilityCalculationActivity(
+                context.FailureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
+                calculation.InputParameters.HydraulicBoundaryLocation,
+                context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                calculation);
+
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
         }
 
         #endregion
