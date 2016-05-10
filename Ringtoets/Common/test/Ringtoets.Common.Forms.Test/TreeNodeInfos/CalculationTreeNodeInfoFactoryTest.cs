@@ -453,7 +453,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void TextOfCalculationGroupContextTreeNodeInfo_Always_ReturnsWrappedDataName()
+        public void Text_CalculationGroup_Always_ReturnsWrappedDataName()
         {
             // Setup
             var mocks = new MockRepository();
@@ -478,7 +478,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ImageOfCalculationGroupContextTreeNodeInfo_Always_ReturnsFolderIcon()
+        public void Image_CalculationGroup_Always_ReturnsFolderIcon()
         {
             // Setup
             var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
@@ -491,7 +491,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void EnsureVisibleOnCreateOfCalculationGroupContextTreeNodeInfo_ForFailureMechanismCalculationGroup_ReturnsFalse()
+        public void EnsureVisibleOnCreate_CalculationGroup_ForFailureMechanismCalculationGroup_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -508,7 +508,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void EnsureVisibleOnCreateOfCalculationGroupContextTreeNodeInfo_AnyOtherObject_ReturnsTrue()
+        public void EnsureVisibleOnCreate_CalculationGroup_AnyOtherObject_ReturnsTrue()
         {
             // Setup
             var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
@@ -521,7 +521,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRenameNodeOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnsTrue()
+        public void CanRenameNode_CalculationGroup_NestedCalculationGroup_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -542,7 +542,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRenameNodeOfCalculationGroupContextTreeNodeInfo_WithoutParentNodeDefaultBehavior_ReturnsFalse()
+        public void CanRenameNode_CalculationGroup_WithoutParentNodeDefaultBehavior_ReturnsFalse()
         {
             // Setup
             var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
@@ -555,7 +555,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRenamedOfCalculationGroupContextTreeNodeInfo_WithData_RenameGroupAndNotifyObservers()
+        public void OnNodeRenamed_CalculationGroup_WithData_RenameGroupAndNotifyObservers()
         {
             // Setup
             var mocks = new MockRepository();
@@ -583,7 +583,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRemoveOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnsTrue()
+        public void CanRemove_CalculationGroup_NestedCalculationGroup_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -603,7 +603,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRemoveOfCalculationGroupContextTreeNodeInfo_WithoutParentNodeDefaultBehavior_ReturnsFalse()
+        public void CanRemove_CalculationGroup_WithoutParentNodeDefaultBehavior_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -622,7 +622,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanDragOfCalculationGroupContextTreeNodeInfo_NestedCalculationGroup_ReturnsTrue()
+        public void CanDrag_CalculationGroup_NestedCalculationGroup_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -642,7 +642,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanDragOfCalculationGroupContextTreeNodeInfo_WithoutParentNodeDefaultBehavior_ReturnsFalse()
+        public void CanDrag_CalculationGroup_WithoutParentNodeDefaultBehavior_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -662,7 +662,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         [Test]
         [Combinatorial]
-        public void CanDropOrCanInsertOfCalculationGroupContextTreeNodeInfo_DraggingCalculationItemContextOntoGroupNotContainingItem_ReturnsTrue(
+        public void CanDropOrCanInsert_CalculationGroup_DragCalculationItemOntoGroupNotContainingItem_ReturnsTrue(
             [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
             [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType)
         {
@@ -707,7 +707,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         [Test]
         [Combinatorial]
-        public void CanDropOrInsertOfCalculationGroupContextTreeNodeInfo_DraggingCalculationItemContextOntoGroupNotContainingItemOtherFailureMechanism_ReturnsFalse(
+        public void CanDropOrInsert_CalculationGroup_DragCalculationItemOntoGroupNotContainingItemOtherFailureMechanism_ReturnsFalse(
             [Values(DragDropTestMethod.CanDrop, DragDropTestMethod.CanInsert)] DragDropTestMethod methodToTest,
             [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType)
         {
@@ -753,7 +753,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         [Test]
         [Combinatorial]
-        public void OnDropOfCalculationGroupContextTreeNodeInfo_DraggingCalculationItemContextOntoGroupEnd_MoveCalculationItemInstanceToNewGroup(
+        public void OnDrop_CalculationGroup_DragCalculationItemOntoGroupEnd_MoveCalculationItemToNewGroup(
             [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType)
         {
             // Setup
@@ -804,7 +804,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         [Test]
         [Combinatorial]
-        public void OnDropOfCalculationGroupContextTreeNodeInfo_InsertingCalculationItemContextAtDifferentLocationWithinSameGroup_ChangeItemIndexOfCalculationItem(
+        public void OnDrop_CalculationGroup_InsertCalculationItemAtDifferentLocationWithinSameGroup_ChangeItemIndexOfCalculationItem(
             [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType,
             [Values(0, 2)] int newIndex)
         {
@@ -858,7 +858,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         [Test]
         [Combinatorial]
-        public void OnDropOfCalculationGroupContextTreeNodeInfo_DraggingCalculationItemContextOntoGroupWithSameNamedItem_MoveCalculationItemInstanceToNewGroupAndRename(
+        public void OnDrop_CalculationGroup_DragCalculationItemOntoGroupWithSameNamedItem_MoveCalculationItemToNewGroupAndRename(
             [Values(CalculationItemType.Calculation, CalculationItemType.Group)] CalculationItemType draggedItemType)
         {
             // Setup
