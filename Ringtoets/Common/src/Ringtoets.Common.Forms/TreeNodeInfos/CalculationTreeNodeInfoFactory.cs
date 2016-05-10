@@ -224,6 +224,37 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             builder.AddCustomItem(calculateItem);
         }
 
+        /// <summary>
+        /// This method adds a context menu item for clearing the output of a calculation.
+        /// </summary>
+        /// <param name="builder">The builder to add the context menu item to.</param>
+        /// <param name="calculation">The calculation involved.</param>
+        public static void AddClearCalculationOutputItem(IContextMenuBuilder builder, ICalculation calculation)
+        {
+            var clearOutputItem = new StrictContextMenuItem(
+                Resources.Clear_output,
+                Resources.Clear_output_ToolTip,
+                Resources.ClearIcon,
+                (o, args) =>
+                {
+                    if (MessageBox.Show(Resources.Calculation_ContextMenuStrip_Are_you_sure_clear_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+                    {
+                        return;
+                    }
+
+                    calculation.ClearOutput();
+                    calculation.NotifyObservers();
+                });
+
+            if (!calculation.HasOutput)
+            {
+                clearOutputItem.Enabled = false;
+                clearOutputItem.ToolTipText = Resources.ClearOutput_No_output_to_clear;
+            }
+
+            builder.AddCustomItem(clearOutputItem);
+        }
+
         # region Helper methods for CreateCalculationGroupContextTreeNodeInfo
 
         private static bool IsNestedGroup(object parentData)

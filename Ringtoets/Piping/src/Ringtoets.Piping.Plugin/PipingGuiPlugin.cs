@@ -433,21 +433,8 @@ namespace Ringtoets.Piping.Plugin
 
             builder.AddCustomItem(validateItem);
             CalculationTreeNodeInfoFactory.AddPerformCalculationItem(builder, calculation, PerformCalculation);
-
-            var clearOutputItem = new StrictContextMenuItem(PipingFormsResources.Clear_output,
-                                                            PipingFormsResources.Clear_output_ToolTip,
-                                                            RingtoetsCommonFormsResources.ClearIcon,
-                                                            (o, args) => ClearOutput(calculation));
-
-            if (!calculation.HasOutput)
-            {
-                clearOutputItem.Enabled = false;
-                clearOutputItem.ToolTipText = PipingFormsResources.ClearOutput_No_output_to_clear;
-            }
-
-            builder
-                .AddCustomItem(clearOutputItem)
-                .AddSeparator();
+            CalculationTreeNodeInfoFactory.AddClearCalculationOutputItem(builder, calculation);
+            builder.AddSeparator();
 
             return builder
                       .AddRenameItem()
@@ -502,17 +489,6 @@ namespace Ringtoets.Piping.Plugin
                     calculationGroupContext.NotifyObservers();
                 }
             }
-        }
-
-        private static void ClearOutput(PipingCalculation calculation)
-        {
-            if (MessageBox.Show(PipingFormsResources.PipingCalculationContext_ContextMenuStrip_Are_you_sure_clear_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
-            {
-                return;
-            }
-
-            calculation.ClearOutput();
-            calculation.NotifyObservers();
         }
 
         private void PerformCalculation(ICalculation calculation)

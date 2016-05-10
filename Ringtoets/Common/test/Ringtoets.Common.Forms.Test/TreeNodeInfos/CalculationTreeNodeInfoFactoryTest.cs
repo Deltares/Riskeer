@@ -480,6 +480,139 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, counter);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddClearCalculationOutputItem_CalculationWithOutput_CreatesDecoratedAndEnabledClearItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+
+            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
+
+            mocks.ReplayAll();
+
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationWithOutput, treeViewControl);
+
+            // Call
+            CalculationTreeNodeInfoFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
+                                                          RingtoetsFormsResources.Clear_output,
+                                                          RingtoetsFormsResources.Clear_output_ToolTip,
+                                                          RingtoetsFormsResources.ClearIcon);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddClearCalculationOutputItem_CalculationWithoutOutput_CreatesDecoratedAndDisabledClearItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+
+            calculationWithOutput.Expect(c => c.HasOutput).Return(false);
+
+            mocks.ReplayAll();
+
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationWithOutput, treeViewControl);
+
+            // Call
+            CalculationTreeNodeInfoFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
+                                                          RingtoetsFormsResources.Clear_output,
+                                                          RingtoetsFormsResources.ClearOutput_No_output_to_clear,
+                                                          RingtoetsFormsResources.ClearIcon,
+                                                          false);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddClearCalculationOutputItem_PerformClickOnCreatedItemAndConfirmChange_CalculationOutputClearedAndObserversNotified()
+        {
+            var messageBoxText = "";
+            var messageBoxTitle = "";
+            var mocks = new MockRepository();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+
+            calculationWithOutput.Stub(c => c.HasOutput).Return(true);
+
+            calculationWithOutput.Expect(c => c.ClearOutput());
+            calculationWithOutput.Expect(c => c.NotifyObservers());
+
+            mocks.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                messageBoxText = messageBox.Text;
+                messageBoxTitle = messageBox.Title;
+
+                messageBox.ClickOk();
+            };
+
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationWithOutput, treeViewControl);
+
+            CalculationTreeNodeInfoFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
+            var contextMenuItem = menuBuilder.Build().Items[0];
+
+            // Call
+            contextMenuItem.PerformClick();
+
+            // Assert
+            Assert.AreEqual(BaseResources.Confirm, messageBoxTitle);
+            Assert.AreEqual(RingtoetsFormsResources.Calculation_ContextMenuStrip_Are_you_sure_clear_output, messageBoxText);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddClearCalculationOutputItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
+        {
+            var mocks = new MockRepository();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+
+            calculationWithOutput.Stub(c => c.HasOutput).Return(true);
+
+            mocks.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+
+                messageBox.ClickCancel();
+            };
+
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationWithOutput, treeViewControl);
+
+            CalculationTreeNodeInfoFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
+            var contextMenuItem = menuBuilder.Build().Items[0];
+
+            // Call
+            contextMenuItem.PerformClick();
+
+            mocks.VerifyAll();
         }
 
         # region CreateCalculationGroupContextTreeNodeInfo

@@ -301,4 +301,16 @@
   <data name="CalculationOutput_DisplayName" xml:space="preserve">
     <value>Resultaat</value>
   </data>
+  <data name="ClearOutput_No_output_to_clear" xml:space="preserve">
+    <value>Deze berekening heeft geen uitvoer om te wissen.</value>
+  </data>
+  <data name="Clear_output" xml:space="preserve">
+    <value>&amp;Wis uitvoer...</value>
+  </data>
+  <data name="Clear_output_ToolTip" xml:space="preserve">
+    <value>Wis de uitvoer van deze berekening.</value>
+  </data>
+  <data name="Calculation_ContextMenuStrip_Are_you_sure_clear_output" xml:space="preserve">
+    <value>Weet u zeker dat u de uitvoer van deze berekening wilt wissen?</value>
+  </data>
 </root>

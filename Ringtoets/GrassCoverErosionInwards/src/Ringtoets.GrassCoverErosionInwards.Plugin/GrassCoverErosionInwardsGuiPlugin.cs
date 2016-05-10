@@ -362,21 +362,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             GrassCoverErosionInwardsCalculation calculation = nodeData.WrappedData;
 
-            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(builder, calculation, null);
+            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(builder, calculation, null); //TODO: Actualy connect the calculation
+            CalculationTreeNodeInfoFactory.AddClearCalculationOutputItem(builder, calculation);
             builder.AddSeparator();
-//            var clearOutputItem = new StrictContextMenuItem(PipingFormsResources.Clear_output,
-//                                                            PipingFormsResources.Clear_output_ToolTip,
-//                                                            RingtoetsCommonFormsResources.ClearIcon,
-//                                                            (o, args) => ClearOutput(calculation));
-//
-//            if (!calculation.HasOutput)
-//            {
-//                clearOutputItem.Enabled = false;
-//                clearOutputItem.ToolTipText = PipingFormsResources.ClearOutput_No_output_to_clear;
-//            }
 
             return builder
-//                      .AddCustomItem(clearOutputItem)
                       .AddRenameItem()
                       .AddDeleteItem()
                       .AddSeparator()

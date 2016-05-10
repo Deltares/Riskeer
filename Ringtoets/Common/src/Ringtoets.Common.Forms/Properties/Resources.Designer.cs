@@ -127,6 +127,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weet u zeker dat u de uitvoer van deze berekening wilt wissen?.
+        /// </summary>
+        public static string Calculation_ContextMenuStrip_Are_you_sure_clear_output {
+            get {
+                return ResourceManager.GetString("Calculation_ContextMenuStrip_Are_you_sure_clear_output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Berekening toevoegen.
         /// </summary>
         public static string CalculationGroup_Add_Calculation {
@@ -255,12 +264,39 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Wis uitvoer....
+        /// </summary>
+        public static string Clear_output {
+            get {
+                return ResourceManager.GetString("Clear_output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wis de uitvoer van deze berekening..
+        /// </summary>
+        public static string Clear_output_ToolTip {
+            get {
+                return ResourceManager.GetString("Clear_output_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ClearIcon {
             get {
                 object obj = ResourceManager.GetObject("ClearIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deze berekening heeft geen uitvoer om te wissen..
+        /// </summary>
+        public static string ClearOutput_No_output_to_clear {
+            get {
+                return ResourceManager.GetString("ClearOutput_No_output_to_clear", resourceCulture);
             }
         }
         

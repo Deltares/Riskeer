@@ -160,33 +160,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Wis uitvoer....
-        /// </summary>
-        public static string Clear_output {
-            get {
-                return ResourceManager.GetString("Clear_output", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wis de uitvoer van deze berekening..
-        /// </summary>
-        public static string Clear_output_ToolTip {
-            get {
-                return ResourceManager.GetString("Clear_output_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deze berekening heeft geen uitvoer om te wissen..
-        /// </summary>
-        public static string ClearOutput_No_output_to_clear {
-            get {
-                return ResourceManager.GetString("ClearOutput_No_output_to_clear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De representatieve waarde die gebruikt wordt door de berekening..
         /// </summary>
         public static string DesignVariableTypeConverter_DesignValue_Description {
@@ -573,15 +546,6 @@ namespace Ringtoets.Piping.Forms.Properties {
             get {
                 return ResourceManager.GetString("PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilP" +
                         "rofile_found_for_RingtoetsPipingSurfaceLine_0_skipped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Weet u zeker dat u de uitvoer van deze berekening wilt wissen?.
-        /// </summary>
-        public static string PipingCalculationContext_ContextMenuStrip_Are_you_sure_clear_output {
-            get {
-                return ResourceManager.GetString("PipingCalculationContext_ContextMenuStrip_Are_you_sure_clear_output", resourceCulture);
             }
         }
         
