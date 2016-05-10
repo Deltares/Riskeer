@@ -104,10 +104,11 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return new DefaultFailureMechanismTreeNodeInfo<PipingFailureMechanismContext, PipingFailureMechanism>(
-                FailureMechanismChildNodeObjects,
-                FailureMechanismContextMenuStrip,
-                Gui);
+            yield return CalculationTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<PipingFailureMechanismContext>(
+                FailureMechanismEnabledChildNodeObjects,
+                FailureMechanismDisabledChildNodeObjects,
+                FailureMechanismEnabledContextMenuStrip,
+                FailureMechanismDisabledContextMenuStrip);
 
             yield return CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<PipingCalculationScenarioContext>(
                 PipingFormsResources.PipingIcon,
@@ -272,7 +273,7 @@ namespace Ringtoets.Piping.Plugin
 
         # region Piping TreeNodeInfo
 
-        private ContextMenuStrip FailureMechanismContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
         {
             var changeRelevancyItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
@@ -318,6 +319,18 @@ namespace Ringtoets.Piping.Plugin
                       .AddExpandAllItem()
                       .AddCollapseAllItem()
                       .Build();
+        }
+
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = Gui.Get(pipingFailureMechanismContext, treeViewControl);
+
+            CalculationTreeNodeInfoFactory.AddDisabledChangeRelevancyItem(builder, pipingFailureMechanismContext);
+
+            return builder.AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .Build();
         }
 
         private static IEnumerable<PipingCalculation> GetAllPipingCalculations(PipingFailureMechanism failureMechanism)
@@ -388,7 +401,7 @@ namespace Ringtoets.Piping.Plugin
             ActivityProgressDialogRunner.Run(Gui.MainWindow, GetAllPipingCalculations(failureMechanism).Select(calc => new PipingCalculationActivity(calc)));
         }
 
-        private object[] FailureMechanismChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)
+        private object[] FailureMechanismEnabledChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)
         {
             PipingFailureMechanism wrappedData = pipingFailureMechanismContext.WrappedData;
             return new object[]
@@ -396,6 +409,14 @@ namespace Ringtoets.Piping.Plugin
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, pipingFailureMechanismContext.Parent), TreeFolderCategory.Input),
                 new PipingCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, pipingFailureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+            };
+        }
+
+        private object[] FailureMechanismDisabledChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)
+        {
+            return new object[]
+            {
+                new CommentContext<ICommentable>(pipingFailureMechanismContext.WrappedData)
             };
         }
 
