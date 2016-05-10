@@ -112,6 +112,37 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
+        /// Creates a <see cref="TreeNodeInfo"/> object for a failure mechanism context of the type <typeparamref name="TFailureMechanismContext"/>. 
+        /// </summary>
+        /// <param name="enabledChildeNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.IsRelevant"/> is <c>true</c>.</param>
+        /// <param name="disabledChildeNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.IsRelevant"/> is <c>false</c>.</param>
+        /// <param name="enabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailureMechanism.IsRelevant"/> is <c>true</c>.</param>
+        /// <param name="disabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailureMechanism.IsRelevant"/> is <c>false</c>.</param>
+        /// <typeparam name="TFailureMechanismContext">The type of failure mechanism context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
+        /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
+        public static TreeNodeInfo<TFailureMechanismContext> CreateFailureMechanismContextTreeNodeInfo<TFailureMechanismContext>(
+            Func<TFailureMechanismContext, object[]> enabledChildeNodeObjects,
+            Func<TFailureMechanismContext, object[]> disabledChildeNodeObjects,
+            Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> enabledContextMenuStrip,
+            Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> disabledContextMenuStrip
+            )
+            where TFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
+        {
+            return new TreeNodeInfo<TFailureMechanismContext>
+            {
+                Text = GetFailureMechanismContextText,
+                ForeColor = GetFailureMechanismContextForeColor,
+                Image = GetFailureMechanismContextImage,
+                ChildNodeObjects = context => context.WrappedData.IsRelevant
+                                                  ? enabledChildeNodeObjects(context)
+                                                  : disabledChildeNodeObjects(context),
+                ContextMenuStrip = (context, parentData, treeViewControl) => context.WrappedData.IsRelevant
+                                                                                 ? enabledContextMenuStrip(context, parentData, treeViewControl)
+                                                                                 : disabledContextMenuStrip(context, parentData, treeViewControl)
+            };
+        }
+
+        /// <summary>
         /// This method adds a context menu item for creating new calculation groups.
         /// </summary>
         /// <param name="builder">The builder to add the context menu item to.</param>
@@ -410,5 +441,26 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         #endregion
+
+        # region Helper methods for CreateFailureMechanismContextTreeNodeInfo
+
+        private static string GetFailureMechanismContextText(FailureMechanismContext<IFailureMechanism> failureMechanismContext)
+        {
+            return failureMechanismContext.WrappedData.Name;
+        }
+
+        private static Image GetFailureMechanismContextImage(FailureMechanismContext<IFailureMechanism> failureMechanismContext)
+        {
+            return Resources.FailureMechanismIcon;
+        }
+
+        private static Color GetFailureMechanismContextForeColor(FailureMechanismContext<IFailureMechanism> failureMechanismContext)
+        {
+            return failureMechanismContext.WrappedData.IsRelevant
+                ? Color.FromKnownColor(KnownColor.ControlText)
+                : Color.FromKnownColor(KnownColor.GrayText);
+        }
+
+        # endregion
     }
 }
