@@ -229,7 +229,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -276,7 +276,49 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_IsRelevantEnabledCalculateAllAndClearAllItemDisabled()
+        public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            using (var treeView = new TreeViewControl())
+            {
+                var failureMechanism = new FailureMechanismPlaceholder("A")
+                {
+                    IsRelevant = false
+                };
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var context = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
+
+                var gui = mocks.StrictMock<IGui>();
+                var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+
+                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+                gui.Expect(cmp => cmp.Get(context, treeView)).Return(menuBuilderMock);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+
+                mocks.ReplayAll();
+
+                using (var plugin = new RingtoetsGuiPlugin())
+                {
+                    var info = GetInfo(plugin);
+
+                    plugin.Gui = gui;
+
+                    // Call
+                    info.ContextMenuStrip(context, assessmentSection, treeView);
+                }
+                // Assert
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsRelevant_IsRelevantEnabledCalculateAllAndClearAllItemDisabled()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -325,7 +367,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_ClickOnIsRelevantItem_MakeFailureMechanismNotRelevant()
+        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevant()
         {
             // Setup
             var failureMechanismObserver = mocks.Stub<IObserver>();

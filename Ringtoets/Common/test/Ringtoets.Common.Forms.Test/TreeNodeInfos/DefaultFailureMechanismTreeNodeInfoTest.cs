@@ -28,44 +28,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         private const int contextMenuRelevancyIndex = 0;
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_ReturnStripWithOnlyRelevancyExpandAndCollapseAllNodes()
-        {
-            // Setup
-            using (var treeView = new TreeViewControl())
-            using (var contextMenuStrip = new ContextMenuStrip())
-            {
-                var mocks = new MockRepository();
-                var failureMechanism = mocks.Stub<IFailureMechanism>();
-                failureMechanism.IsRelevant = false;
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-                var context = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var builder = mocks.Stub<IContextMenuBuilder>();
-                builder.Expect(b => b.AddCustomItem(null)).IgnoreArguments().Return(builder);
-                builder.Expect(b => b.AddSeparator()).Return(builder);
-                builder.Expect(b => b.AddExpandAllItem()).Return(builder);
-                builder.Expect(b => b.AddCollapseAllItem()).Return(builder);
-                builder.Expect(b => b.Build()).Return(contextMenuStrip);
-
-                var provider = mocks.Stub<IContextMenuBuilderProvider>();
-                provider.Expect(p => p.Get(context, treeView)).Return(builder);
-                mocks.ReplayAll();
-
-                var treeNodeInfo = new DefaultFailureMechanismTreeNodeInfo<SimpleFailureMechanismContext, IFailureMechanism>(
-                    null, null, provider);
-
-                // Call
-                ContextMenuStrip result = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeView);
-
-                // Assert
-                Assert.AreSame(contextMenuStrip, result);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_ClickOnIsRelevantItem_MakeFailureMechanismRelevant()
         {
             // Setup

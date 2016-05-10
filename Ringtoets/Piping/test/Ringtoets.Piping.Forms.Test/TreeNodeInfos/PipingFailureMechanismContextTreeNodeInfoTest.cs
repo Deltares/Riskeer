@@ -447,7 +447,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -468,6 +468,40 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.Build()).Return(null);
+
+            gui.Expect(cmp => cmp.Get(pipingFailureMechanismContext, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            // Call
+            info.ContextMenuStrip(pipingFailureMechanismContext, null, treeViewControl);
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var pipingFailureMechanism = new PipingFailureMechanism
+            {
+                IsRelevant = false
+            };
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
+
+            var gui = mocks.StrictMock<IGui>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+
+            menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
             menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
@@ -579,7 +613,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_ClickOnIsRelevantItem_MakeFailureMechanismNotRelevant()
+        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevant()
         {
             // Setup
             var failureMechanismObserver = mocks.Stub<IObserver>();
