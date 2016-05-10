@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
@@ -148,6 +148,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext) outputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismComments()
+        {
+            // Setup
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                IsRelevant = false
+            };
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            // Call
+            var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, children.Length);
+            var commentContext = (CommentContext<ICommentable>)children[0];
+            Assert.AreSame(failureMechanism, commentContext.CommentContainer);
+
             mocksRepository.VerifyAll();
         }
 

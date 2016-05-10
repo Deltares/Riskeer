@@ -28,32 +28,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         private const int contextMenuRelevancyIndex = 0;
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismComments()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.IsRelevant = false;
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var context = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
-
-            var treeNodeInfo = new DefaultFailureMechanismTreeNodeInfo<SimpleFailureMechanismContext, IFailureMechanism>(null, null, null);
-
-            // Call
-            object[] children = treeNodeInfo.ChildNodeObjects(context);
-
-            // Assert
-            Assert.AreEqual(1, children.Length);
-            var commentContext = (CommentContext<ICommentable>)children[0];
-            Assert.AreSame(failureMechanism, commentContext.CommentContainer);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void ContextMenuStrip_FailureMechanismIsNotRelevant_ReturnStripWithOnlyRelevancyExpandAndCollapseAllNodes()
         {
             // Setup

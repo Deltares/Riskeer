@@ -145,7 +145,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnFoldersWithInputAndOutput()
+        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnFoldersWithInputAndOutput()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -191,6 +191,39 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var failureMechanismResultsContext = (FailureMechanismSectionResultContext) outputFolder.Contents[0];
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismComments()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var plugin = new RingtoetsGuiPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                var failureMechanism = new FailureMechanismPlaceholder("test")
+                {
+                    IsRelevant = false
+                };
+                failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+                {
+                    new Point2D(1, 2),
+                    new Point2D(5, 6)
+                }));
+                var failureMechanismContext = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
+
+                // Call
+                object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+
+                // Assert
+                Assert.AreEqual(1, children.Length);
+                var commentContext = (CommentContext<ICommentable>)children[0];
+                Assert.AreSame(failureMechanism, commentContext.CommentContainer);
             }
             mocks.VerifyAll();
         }

@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -173,6 +173,34 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext) outputsFolder.Contents[0];
             Assert.AreSame(pipingFailureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismComments()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var pipingFailureMechanism = new PipingFailureMechanism
+            {
+                IsRelevant = false
+            };
+            var generalInputParameters = new GeneralPipingInput();
+            var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
+            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters));
+            pipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters));
+
+            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
+
+            // Call
+            var children = info.ChildNodeObjects(pipingFailureMechanismContext).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, children.Length);
+            var commentContext = (CommentContext<ICommentable>)children[0];
+            Assert.AreSame(pipingFailureMechanism, commentContext.CommentContainer);
             mocks.VerifyAll();
         }
 
