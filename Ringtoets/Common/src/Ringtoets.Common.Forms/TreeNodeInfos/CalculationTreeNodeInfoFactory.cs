@@ -223,13 +223,16 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// </summary>
         /// <param name="builder">The builder to add the context menu item to.</param>
         /// <param name="calculationGroup">The calculation group involved.</param>
+        /// <param name="context">The calculation group context belonging to the calculation group.</param>
         /// <param name="calculateAll">The action that performs all calculations.</param>
-        public static void AddPerformAllCalculationsInGroupItem(IContextMenuBuilder builder, CalculationGroup calculationGroup, Action<CalculationGroup> calculateAll)
+        public static void AddPerformAllCalculationsInGroupItem<TCalculationGroupContext>
+            (IContextMenuBuilder builder, CalculationGroup calculationGroup, TCalculationGroupContext context, Action<CalculationGroup, TCalculationGroupContext> calculateAll)
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             var performAllItem = new StrictContextMenuItem(
                 Resources.Calculate_all,
                 Resources.CalculationGroup_CalculateAll_ToolTip,
-                Resources.CalculateAllIcon, (o, args) => { calculateAll(calculationGroup); });
+                Resources.CalculateAllIcon, (o, args) => { calculateAll(calculationGroup, context); });
 
             if (!calculationGroup.GetCalculations().Any())
             {
@@ -245,12 +248,10 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// </summary>
         /// <param name="builder">The builder to add the context menu item to.</param>
         /// <param name="calculation">The calculation involved.</param>
+        /// <param name="context">The calculation context belonging to the calculation.</param>
         /// <param name="calculate">The action that performs the calculation.</param>
         public static void AddPerformCalculationItem<TCalculation, TCalculationContext>(
-            IContextMenuBuilder builder,
-            TCalculation calculation,
-            TCalculationContext context,
-            Action<TCalculation, TCalculationContext> calculate)
+            IContextMenuBuilder builder, TCalculation calculation, TCalculationContext context, Action<TCalculation, TCalculationContext> calculate)
             where TCalculation : ICalculation where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
             var calculateItem = new StrictContextMenuItem(

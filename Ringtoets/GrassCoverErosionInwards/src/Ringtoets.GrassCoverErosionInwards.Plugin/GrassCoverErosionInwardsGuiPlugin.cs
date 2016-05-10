@@ -329,7 +329,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             CalculationTreeNodeInfoFactory.AddCreateCalculationItem(builder, nodeData, AddCalculation);
             builder.AddSeparator();
 
-            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(builder, group, context => { }); // TODO: Actualy connect the calculation
+            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(builder, group, nodeData, CalculateAll);
             CalculationTreeNodeInfoFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
             builder.AddSeparator();
 
@@ -357,6 +357,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
             parentGroupContext.NotifyObservers();
+        }
+
+        private void CalculateAll(CalculationGroup group, GrassCoverErosionInwardsCalculationGroupContext context)
+        {
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, group.GetCalculations()
+                .OfType<GrassCoverErosionInwardsCalculation>()
+                .Select(calc =>
+                    CreateHydraRingTargetProbabilityCalculationActivity(
+                        context.FailureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
+                        calc.InputParameters.HydraulicBoundaryLocation,
+                        context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                        calc)));
         }
 
         #endregion

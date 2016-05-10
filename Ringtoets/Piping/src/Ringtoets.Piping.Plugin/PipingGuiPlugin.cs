@@ -580,7 +580,7 @@ namespace Ringtoets.Piping.Plugin
 
             builder
                 .AddCustomItem(validateAllItem);
-            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(builder, group, CalculateAll);
+            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(builder, group, nodeData, CalculateAll);
             CalculationTreeNodeInfoFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
             builder.AddSeparator();
 
@@ -669,7 +669,7 @@ namespace Ringtoets.Piping.Plugin
             return menuItem;
         }
 
-        private void CalculateAll(CalculationGroup group)
+        private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow, group.GetCalculations().OfType<PipingCalculationScenario>().Select(pc => new PipingCalculationActivity(pc)));
         }

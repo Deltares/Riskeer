@@ -359,7 +359,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
             // Call
-            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(menuBuilder, calculationGroup, null);
+            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem<TestCalculationGroupContext>(menuBuilder, calculationGroup, null, null);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
@@ -384,7 +384,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
             // Call
-            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(menuBuilder, calculationGroup, null);
+            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem<TestCalculationGroupContext>(menuBuilder, calculationGroup, null, null);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
@@ -404,6 +404,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var calculation = mocks.StrictMock<ICalculation>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
@@ -416,9 +417,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 }
             };
 
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
-            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(menuBuilder, calculationGroup, context => counter++);
+            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(menuBuilder, calculationGroup, calculationGroupContext, (group, context) => counter++);
             var contextMenuItem = menuBuilder.Build().Items[0];
 
             // Call
