@@ -143,6 +143,7 @@ namespace Ringtoets.Common.Forms.Views
             dataGridView.CellValidating += DataGridViewCellValidating;
             dataGridView.DataError += DataGridViewDataError;
             dataGridView.CellFormatting += DataGridViewCellFormatting;
+            dataGridView.GotFocus += DataGridViewGotFocus;
 
             var sectionName = new DataGridViewTextBoxColumn
             {
@@ -242,6 +243,11 @@ namespace Ringtoets.Common.Forms.Views
         {
             cell.Style.BackColor = backgroundColor;
             cell.Style.ForeColor = textColor;
+        }
+
+        private void DataGridViewGotFocus(object sender, EventArgs eventArgs)
+        {
+            dataGridView.BeginEdit(true); // Always start editing after setting the focus (otherwise data grid view cell dirty events are no longer fired when using the keyboard...)
         }
 
         #region Nested types
