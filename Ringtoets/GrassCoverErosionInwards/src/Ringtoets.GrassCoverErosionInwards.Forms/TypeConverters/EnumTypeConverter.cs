@@ -35,14 +35,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.TypeConverters
         /// <summary>
         /// Initializes a new instance of the <see cref="EnumTypeConverter"/> class for the given Enum <paramref name="type"/>.
         /// </summary>
-        /// <remarks>This class is designed such that it looks for <see cref="ResourcesEnumDisplayNameAttribute"/> on each Enum value.</remarks>
+        /// <remarks>This class is designed such that it looks for <see cref="ResourcesDisplayNameAttribute"/> on each Enum value.</remarks>
         /// <param name="type">A <see cref="Type"/> that represents the type of enumeration to associate with this enumeration converter.</param>
         public EnumTypeConverter(Type type) : base(type) {}
 
         private static string GetDisplayName(MemberInfo memberInfo)
         {
-            var resourcesEnumDisplayNameAttribute = (ResourcesEnumDisplayNameAttribute) Attribute.GetCustomAttribute(memberInfo, typeof(ResourcesEnumDisplayNameAttribute));
-            return (resourcesEnumDisplayNameAttribute != null) ? resourcesEnumDisplayNameAttribute.DisplayName : null;
+            var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute) Attribute.GetCustomAttribute(memberInfo, typeof(ResourcesDisplayNameAttribute));
+            return (resourcesDisplayNameAttribute != null) ? resourcesDisplayNameAttribute.DisplayName : null;
         }
 
         #region Convert from

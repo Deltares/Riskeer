@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
@@ -46,7 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup & Call
+            // Call
             var properties = new SimpleDistributionProperties();
 
             // Assert
@@ -72,10 +71,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             properties.Data = distribution;
 
             // Assert
-            var expectedMean = new RoundedDouble(2, distribution.Mean).Value.ToString(CultureInfo.InvariantCulture);
-            Assert.AreEqual(expectedMean, properties.Mean);
-            var expectedStandardDeviation = new RoundedDouble(2, distribution.StandardDeviation).Value.ToString(CultureInfo.InvariantCulture);
-            Assert.AreEqual(expectedStandardDeviation, properties.StandardDeviation);
+            Assert.AreEqual(distribution.Mean, properties.Mean);
+            Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
         }
 
         [Test]
@@ -88,7 +85,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            TestDelegate test = () => properties.Mean = "20";
+            TestDelegate test = () => properties.Mean = new RoundedDouble(2, 20);
 
             // Assert
             Assert.Throws<ArgumentException>(test);
@@ -104,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            TestDelegate test = () => properties.StandardDeviation = "20";
+            TestDelegate test = () => properties.StandardDeviation = new RoundedDouble(2, 20);
 
             // Assert
             Assert.Throws<ArgumentException>(test);
@@ -121,7 +118,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 Data = new SimpleDistribution(),
             };
             mockRepository.ReplayAll();
-            const string newMeanValue = "20";
+            RoundedDouble newMeanValue = new RoundedDouble(3, 20);
 
             // Call
             properties.Mean = newMeanValue;
@@ -142,7 +139,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 Data = new SimpleDistribution(),
             };
             mockRepository.ReplayAll();
-            const string newStandardDeviationValue = "20";
+            RoundedDouble newStandardDeviationValue = new RoundedDouble(3, 20);
 
             // Call
             properties.StandardDeviation = newStandardDeviationValue;

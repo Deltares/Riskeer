@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
@@ -44,20 +43,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesDisplayName(typeof(Resources), "DikeGeometry_Coordinates_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeGeometry_Coordinates_Description")]
-        public string[] Coordinates
+        public RoundedDouble[] Coordinates
         {
             get
             {
                 var startingPoint = data.WrappedData.DikeGeometry.FirstOrDefault();
                 if (startingPoint == null)
                 {
-                    return new string[0];
+                    return new RoundedDouble[0];
                 }
-                var coordinates = new List<string>
+                var coordinates = new List<RoundedDouble>
                 {
-                    new RoundedDouble(2, startingPoint.StartingPoint.X).Value.ToString(CultureInfo.InvariantCulture)
+                    new RoundedDouble(2, startingPoint.StartingPoint.X)
                 };
-                coordinates.AddRange(data.WrappedData.DikeGeometry.Select(d => new RoundedDouble(2, d.EndingPoint.X).Value.ToString(CultureInfo.InvariantCulture)));
+                coordinates.AddRange(data.WrappedData.DikeGeometry.Select(d => new RoundedDouble(2, d.EndingPoint.X)));
                 return coordinates.ToArray();
             }
         }
@@ -66,12 +65,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesDisplayName(typeof(Resources), "DikeGeometry_Roughness_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeGeometry_Roughness_Description")]
-        public string[] Roughness
+        public RoundedDouble[] Roughness
         {
             get
             {
                 var roughnesses = data.WrappedData.DikeGeometry.Select(d => d.Roughness);
-                return roughnesses.Select(roughness => new RoundedDouble(2, roughness).Value.ToString(CultureInfo.InvariantCulture)).ToArray();
+                return roughnesses.Select(roughness => new RoundedDouble(2, roughness)).ToArray();
             }
         }
 

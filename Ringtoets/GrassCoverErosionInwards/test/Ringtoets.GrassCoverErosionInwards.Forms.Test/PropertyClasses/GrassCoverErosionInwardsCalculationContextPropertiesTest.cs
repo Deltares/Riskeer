@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup & Call
+            // Call
             var properties = new GrassCoverErosionInwardsCalculationContextProperties();
 
             // Assert

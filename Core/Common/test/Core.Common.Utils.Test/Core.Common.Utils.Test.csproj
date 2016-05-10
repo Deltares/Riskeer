@@ -73,7 +73,6 @@
     <Compile Include="Attributes\ResourcesDisplayNameAttributeTest.cs" />
     <Compile Include="Attributes\ResourcesDescriptionAttributeTest.cs" />
     <Compile Include="Attributes\ResourcesCategoryAttributeTest.cs" />
-    <Compile Include="Attributes\ResourcesEnumDisplayNameAttributeTest.cs" />
     <Compile Include="Builders\FileWriterErrorMessageBuilderTest.cs" />
     <Compile Include="Builders\FileReaderErrorMessageBuilderTest.cs" />
     <Compile Include="Drawing\GraphicsExtensionsTest.cs" />

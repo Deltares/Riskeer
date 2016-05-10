@@ -32,19 +32,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// A wall.
         /// </summary>
-        [ResourcesEnumDisplayName(typeof(Resources), "BreakWaterType_Wall_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), "BreakWaterType_Wall_DisplayName")]
         Wall = 1,
 
         /// <summary>
         /// A watertight retaining structure.
         /// </summary>
-        [ResourcesEnumDisplayName(typeof(Resources), "BreakWaterType_Caisson_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), "BreakWaterType_Caisson_DisplayName")]
         Caisson = 2,
 
         /// <summary>
         /// A barrier that impounds water or underground streams.
         /// </summary>
-        [ResourcesEnumDisplayName(typeof(Resources), "BreakWaterType_Dam_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), "BreakWaterType_Dam_DisplayName")]
         Dam = 3
     }
 }

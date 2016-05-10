@@ -128,10 +128,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TypeConverters
 
         private enum SimpleEnum
         {
-            [ResourcesEnumDisplayName(typeof(Resources), "SimpleEnum_FirstValue_DisplayName")]
+            [ResourcesDisplayName(typeof(Resources), "SimpleEnum_FirstValue_DisplayName")]
             FirstValue,
 
-            [ResourcesEnumDisplayName(typeof(Resources), "SimpleEnum_SecondValue_DisplayName")]
+            [ResourcesDisplayName(typeof(Resources), "SimpleEnum_SecondValue_DisplayName")]
             SecondValue
         }
     }

@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
@@ -45,11 +44,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [ResourcesDisplayName(typeof(Resources), "NormalDistribution_Mean_DisplayName")]
         [ResourcesDescription(typeof(Resources), "NormalDistribution_Mean_Description")]
-        public virtual string Mean
+        public virtual RoundedDouble Mean
         {
             get
             {
-                return new RoundedDouble(2, data.Mean).Value.ToString(CultureInfo.InvariantCulture);
+                return data.Mean;
             }
             set
             {
@@ -57,18 +56,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 {
                     throw new ArgumentException();
                 }
-                data.Mean = new RoundedDouble(data.StandardDeviation.NumberOfDecimalPlaces, double.Parse(value, CultureInfo.InvariantCulture));
+                data.Mean = new RoundedDouble(data.StandardDeviation.NumberOfDecimalPlaces, value);
                 Observerable.NotifyObservers();
             }
         }
 
         [ResourcesDisplayName(typeof(Resources), "NormalDistribution_StandardDeviation_DisplayName")]
         [ResourcesDescription(typeof(Resources), "NormalDistribution_StandardDeviation_Description")]
-        public virtual string StandardDeviation
+        public virtual RoundedDouble StandardDeviation
         {
             get
             {
-                return new RoundedDouble(2, data.StandardDeviation).Value.ToString(CultureInfo.InvariantCulture);
+                return data.StandardDeviation;
             }
             set
             {
@@ -76,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 {
                     throw new ArgumentException();
                 }
-                data.StandardDeviation = new RoundedDouble(data.StandardDeviation.NumberOfDecimalPlaces, double.Parse(value, CultureInfo.InvariantCulture));
+                data.StandardDeviation = new RoundedDouble(data.StandardDeviation.NumberOfDecimalPlaces, value);
                 Observerable.NotifyObservers();
             }
         }

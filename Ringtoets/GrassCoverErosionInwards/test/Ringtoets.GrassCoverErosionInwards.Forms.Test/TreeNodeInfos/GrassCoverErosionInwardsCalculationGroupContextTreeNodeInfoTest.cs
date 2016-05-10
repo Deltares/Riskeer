@@ -98,21 +98,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_GroupWithMixedContents_ReturnChildren()
         {
             // Setup
-            var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var calculationItem = mocks.StrictMock<ICalculationBase>();
             mocks.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
-            var calculationItem = mocks.StrictMock<ICalculationBase>();
-            var childCalculation = new GrassCoverErosionInwardsCalculation(failureMechanismMock.GeneralInput);
+            var childCalculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput);
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItem);
             group.Children.Add(childCalculation);
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                                   failureMechanismMock,
+                                                                                   failureMechanism,
                                                                                    assessmentSectionMock);
 
             // Call
@@ -122,12 +122,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreEqual(group.Children.Count, children.Length);
             var calculationGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) children[0];
             Assert.AreSame(childGroup, calculationGroupContext.WrappedData);
-            Assert.AreSame(failureMechanismMock, calculationGroupContext.FailureMechanism);
+            Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, calculationGroupContext.AssessmentSection);
             Assert.AreSame(calculationItem, children[1]);
             var calculationContext = (GrassCoverErosionInwardsCalculationContext) children[2];
             Assert.AreSame(childCalculation, calculationContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, calculationContext.AssessmentSection);
+            mocks.VerifyAll();
         }
 
         [Test]

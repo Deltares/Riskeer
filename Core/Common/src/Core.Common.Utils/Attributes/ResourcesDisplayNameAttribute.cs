@@ -28,6 +28,7 @@ namespace Core.Common.Utils.Attributes
     /// Variation on <see cref="DisplayNameAttribute"/>, enables the display name to be fetched from resources.
     /// </summary>
     /// <remarks>Do not combine this with <see cref="DisplayNameAttribute"/> on the same item</remarks>
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Event | AttributeTargets.Enum | AttributeTargets.Field)]
     public sealed class ResourcesDisplayNameAttribute : DisplayNameAttribute
     {
         /// <summary>

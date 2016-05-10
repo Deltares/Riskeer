@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using System.Globalization;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -75,17 +73,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.LengthEffect);
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
 
-            VerifyRoundedDoubleString(generalInput.FbFactor.Mean, properties.FbFactor.Mean);
-            VerifyRoundedDoubleString(generalInput.FbFactor.StandardDeviation, properties.FbFactor.StandardDeviation);
+            Assert.AreEqual(generalInput.FbFactor.Mean, properties.FbFactor.Mean);
+            Assert.AreEqual(generalInput.FbFactor.StandardDeviation, properties.FbFactor.StandardDeviation);
 
-            VerifyRoundedDoubleString(generalInput.FnFactor.Mean, properties.FnFactor.Mean);
-            VerifyRoundedDoubleString(generalInput.FnFactor.StandardDeviation, properties.FnFactor.StandardDeviation);
+            Assert.AreEqual(generalInput.FnFactor.Mean, properties.FnFactor.Mean);
+            Assert.AreEqual(generalInput.FnFactor.StandardDeviation, properties.FnFactor.StandardDeviation);
 
-            VerifyRoundedDoubleString(generalInput.FrunupModelFactor.Mean, properties.FrunupModelFactor.Mean);
-            VerifyRoundedDoubleString(generalInput.FrunupModelFactor.StandardDeviation, properties.FrunupModelFactor.StandardDeviation);
+            Assert.AreEqual(generalInput.FrunupModelFactor.Mean, properties.FrunupModelFactor.Mean);
+            Assert.AreEqual(generalInput.FrunupModelFactor.StandardDeviation, properties.FrunupModelFactor.StandardDeviation);
 
-            VerifyRoundedDoubleString(generalInput.FshallowModelFactor.Mean, properties.FshallowModelFactor.Mean);
-            VerifyRoundedDoubleString(generalInput.FshallowModelFactor.StandardDeviation, properties.FshallowModelFactor.StandardDeviation);
+            Assert.AreEqual(generalInput.FshallowModelFactor.Mean, properties.FshallowModelFactor.Mean);
+            Assert.AreEqual(generalInput.FshallowModelFactor.StandardDeviation, properties.FshallowModelFactor.StandardDeviation);
             mockRepository.VerifyAll();
         }
 
@@ -176,12 +174,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(fshallowProperty.IsReadOnly);
             Assert.AreEqual("F ondiep model factor [-]", fshallowProperty.DisplayName);
             Assert.AreEqual("De parameter 'F ondiep model factor' die gebruikt wordt in de berekening.", fshallowProperty.Description);
-        }
-
-        private static void VerifyRoundedDoubleString(RoundedDouble roundedDouble, string expectedString)
-        {
-            var stringValue = new RoundedDouble(2, roundedDouble).Value.ToString(CultureInfo.InvariantCulture);
-            Assert.AreEqual(expectedString, stringValue);
         }
 
         private const int namePropertyIndex = 0;

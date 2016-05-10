@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Ringtoets.Common.Data.Probabilistics;
 
@@ -41,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [ReadOnly(true)]
-        public override string Mean
+        public override RoundedDouble Mean
         {
             get
             {
@@ -50,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [ReadOnly(true)]
-        public override string StandardDeviation
+        public override RoundedDouble StandardDeviation
         {
             get
             {

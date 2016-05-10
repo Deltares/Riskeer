@@ -101,8 +101,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(breakWaterProperties.UseBreakWater, properties.BreakWater.UseBreakWater);
             Assert.AreEqual(breakWaterProperties.BreakWaterHeight, properties.BreakWater.BreakWaterHeight);
             Assert.AreEqual(breakWaterProperties.BreakWaterType, properties.BreakWater.BreakWaterType);
-            VerifyRoundedDoubleString(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
-            VerifyRoundedDoubleString(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
+            Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
+            Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
             mockRepository.VerifyAll();
         }
 
@@ -197,12 +197,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Kritisch overslagdebiet [m3/m/s]", criticalFlowRateProperty.DisplayName);
             Assert.AreEqual("Het kritische overslagdebiet.", criticalFlowRateProperty.Description);
             mockRepository.VerifyAll();
-        }
-
-        private static void VerifyRoundedDoubleString(RoundedDouble roundedDouble, string expectedString)
-        {
-            var stringValue = new RoundedDouble(2, roundedDouble).Value.ToString(CultureInfo.InvariantCulture);
-            Assert.AreEqual(expectedString, stringValue);
         }
 
         private const int dikeGeometryPropertyIndex = 0;

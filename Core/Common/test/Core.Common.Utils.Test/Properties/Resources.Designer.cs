@@ -91,6 +91,15 @@ namespace Core.Common.Utils.Test.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Awesome class value.
+        /// </summary>
+        internal static string ClassStringResource {
+            get {
+                return ResourceManager.GetString("ClassStringResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         internal static string EmbeddedResource1 {
@@ -105,6 +114,24 @@ namespace Core.Common.Utils.Test.Properties {
         internal static string EmbeddedResource2 {
             get {
                 return ResourceManager.GetString("EmbeddedResource2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Awesome enum value.
+        /// </summary>
+        internal static string EnumStringResource {
+            get {
+                return ResourceManager.GetString("EnumStringResource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Awesome method value.
+        /// </summary>
+        internal static string MethodStringResource {
+            get {
+                return ResourceManager.GetString("MethodStringResource", resourceCulture);
             }
         }
         

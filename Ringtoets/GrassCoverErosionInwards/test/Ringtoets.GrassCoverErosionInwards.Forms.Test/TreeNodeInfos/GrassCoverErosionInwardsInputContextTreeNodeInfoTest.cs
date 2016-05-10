@@ -80,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var grassCoverErosionInwardsInputContext = new GrassCoverErosionInwardsInputContext(
                 mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(generalInput),
                 mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput),
-                mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>(),
+                new GrassCoverErosionInwardsFailureMechanism(),
                 assessmentSection);
             mocksRepository.ReplayAll();
 
@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var grassCoverErosionInwardsInputContext = new GrassCoverErosionInwardsInputContext(
                 mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(generalInput),
                 mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput),
-                mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>(),
+                new GrassCoverErosionInwardsFailureMechanism(),
                 assessmentSection);
             mocksRepository.ReplayAll();
 

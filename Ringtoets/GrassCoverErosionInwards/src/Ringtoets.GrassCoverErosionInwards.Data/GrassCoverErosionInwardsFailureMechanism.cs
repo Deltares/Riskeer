@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public GeneralGrassCoverErosionInwardsInput GeneralInput { get; private set; }
 
         /// <summary>
-        /// Length-effect parameters.
+        /// Gets the length-effect parameters.
         /// </summary>
         public NormProbabilityGrassCoverErosionInwardsInput NormProbabilityInput { get; private set; }
 

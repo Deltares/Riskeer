@@ -34,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup & Call
+            // Call
             var properties = new ReadOnlyNormalDistributionProperties();
 
             // Assert
@@ -65,13 +65,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             Assert.AreEqual(4, dynamicProperties.Count);
 
-            PropertyDescriptor meanProperty = dynamicProperties[1];
+            PropertyDescriptor meanProperty = dynamicProperties.Find("Mean", false);
             Assert.IsNotNull(meanProperty);
             Assert.IsTrue(meanProperty.IsReadOnly);
 
-            PropertyDescriptor standardDeviation = dynamicProperties[2];
-            Assert.IsNotNull(standardDeviation);
-            Assert.IsTrue(meanProperty.IsReadOnly);
+            PropertyDescriptor standardDeviationProperty = dynamicProperties.Find("StandardDeviation", false);
+            Assert.IsNotNull(standardDeviationProperty);
+            Assert.IsTrue(standardDeviationProperty.IsReadOnly);
             mockRepository.VerifyAll();
         }
     }

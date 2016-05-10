@@ -266,7 +266,7 @@
     <value>Frunup model factor [-]</value>
   </data>
   <data name="GrassCoverErosionInwardsInputCalculation_Name_Description" xml:space="preserve">
-    <value>Naam van de grasbekleding erosie kruin en binnentalud berekening</value>
+    <value>De naam van de berekening voor grasbekleding erosie kruin en binnentalud.</value>
   </data>
   <data name="GrassCoverErosionInwardsInputCalculation_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
