@@ -128,12 +128,14 @@ namespace Application.Ringtoets.Storage.DbContext
         private void ReadFailureMechanismPlaceholders(AssessmentSection assessmentSection)
         {
             ReadFailureMechanismPlaceholder(FailureMechanismType.MacrostabilityInwards, assessmentSection.MacrostabilityInwards);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.StructureHeight, assessmentSection.Overtopping);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.ReliabilityClosingOfStructure, assessmentSection.Closing);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.StrengthAndStabilityPointConstruction, assessmentSection.FailingOfConstruction);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.StabilityStoneRevetment, assessmentSection.StoneRevetment);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.WaveImpactOnAsphaltRevetment, assessmentSection.AsphaltRevetment);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.GrassRevetmentErosionOutwards, assessmentSection.GrassRevetment);
+            ReadFailureMechanismPlaceholder(FailureMechanismType.StabilityStoneRevetment, assessmentSection.StabilityStoneCover);
+            ReadFailureMechanismPlaceholder(FailureMechanismType.WaveImpactOnAsphaltRevetment, assessmentSection.WaveImpactAsphaltCover);
+            ReadFailureMechanismPlaceholder(FailureMechanismType.GrassRevetmentErosionOutwards, assessmentSection.GrassCoverErosionOutside);
+            ReadFailureMechanismPlaceholder(FailureMechanismType.GrassRevetmentSlidingOutwards, assessmentSection.GrassCoverSlipOffOutside);
+            ReadFailureMechanismPlaceholder(FailureMechanismType.StructureHeight, assessmentSection.HeightStructure);
+            ReadFailureMechanismPlaceholder(FailureMechanismType.ReliabilityClosingOfStructure, assessmentSection.ClosingStructure);
+            ReadFailureMechanismPlaceholder(FailureMechanismType.PipingAtStructure, assessmentSection.PipingStructure);
+            ReadFailureMechanismPlaceholder(FailureMechanismType.StrengthAndStabilityPointConstruction, assessmentSection.StrengthStabilityPointConstruction);
             ReadFailureMechanismPlaceholder(FailureMechanismType.DuneErosion, assessmentSection.DuneErosion);
         }
 

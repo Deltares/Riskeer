@@ -104,7 +104,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var text = info.Text(mechanismContext);
 
             // Assert
-            Assert.AreEqual("Dijken - Piping", text);
+            Assert.AreEqual("Dijken en dammen - Piping", text);
             mocks.VerifyAll();
         }
 

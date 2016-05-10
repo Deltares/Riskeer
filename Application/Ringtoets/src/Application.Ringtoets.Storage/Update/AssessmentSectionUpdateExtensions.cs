@@ -74,12 +74,14 @@ namespace Application.Ringtoets.Storage.DbContext
         private static void UpdateFailureMechanismPlaceHolders(AssessmentSection section, UpdateConversionCollector collector, IRingtoetsEntities context)
         {
             section.MacrostabilityInwards.Update(collector, context);
-            section.Overtopping.Update(collector, context);
-            section.Closing.Update(collector, context);
-            section.FailingOfConstruction.Update(collector, context);
-            section.StoneRevetment.Update(collector, context);
-            section.AsphaltRevetment.Update(collector, context);
-            section.GrassRevetment.Update(collector, context);
+            section.StabilityStoneCover.Update(collector, context);
+            section.WaveImpactAsphaltCover.Update(collector, context);
+            section.GrassCoverErosionOutside.Update(collector, context);
+            section.GrassCoverSlipOffOutside.Update(collector, context);
+            section.HeightStructure.Update(collector, context);
+            section.ClosingStructure.Update(collector, context);
+            section.PipingStructure.Update(collector, context);
+            section.StrengthStabilityPointConstruction.Update(collector, context);
             section.DuneErosion.Update(collector, context);
         }
 

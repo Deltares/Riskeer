@@ -434,24 +434,24 @@ namespace Application.Ringtoets.Storage.Test.Update
             section.MacrostabilityInwards.StorageId = 1;
             section.MacrostabilityInwards.Contribution = 0.5;
             section.MacrostabilityInwards.IsRelevant = true;
-            section.Overtopping.StorageId = 2;
-            section.Overtopping.Contribution = 0.5;
-            section.Overtopping.IsRelevant = true;
-            section.Closing.StorageId = 3;
-            section.Closing.Contribution = 0.5;
-            section.Closing.IsRelevant = true;
-            section.FailingOfConstruction.StorageId = 4;
-            section.FailingOfConstruction.Contribution = 0.5;
-            section.FailingOfConstruction.IsRelevant = true;
-            section.StoneRevetment.StorageId = 5;
-            section.StoneRevetment.Contribution = 0.5;
-            section.StoneRevetment.IsRelevant = true;
-            section.AsphaltRevetment.StorageId = 6;
-            section.AsphaltRevetment.Contribution = 0.5;
-            section.AsphaltRevetment.IsRelevant = true;
-            section.GrassRevetment.StorageId = 7;
-            section.GrassRevetment.Contribution = 0.5;
-            section.GrassRevetment.IsRelevant = true;
+            section.HeightStructure.StorageId = 2;
+            section.HeightStructure.Contribution = 0.5;
+            section.HeightStructure.IsRelevant = true;
+            section.ClosingStructure.StorageId = 3;
+            section.ClosingStructure.Contribution = 0.5;
+            section.ClosingStructure.IsRelevant = true;
+            section.StrengthStabilityPointConstruction.StorageId = 4;
+            section.StrengthStabilityPointConstruction.Contribution = 0.5;
+            section.StrengthStabilityPointConstruction.IsRelevant = true;
+            section.StabilityStoneCover.StorageId = 5;
+            section.StabilityStoneCover.Contribution = 0.5;
+            section.StabilityStoneCover.IsRelevant = true;
+            section.WaveImpactAsphaltCover.StorageId = 6;
+            section.WaveImpactAsphaltCover.Contribution = 0.5;
+            section.WaveImpactAsphaltCover.IsRelevant = true;
+            section.GrassCoverErosionOutside.StorageId = 7;
+            section.GrassCoverErosionOutside.Contribution = 0.5;
+            section.GrassCoverErosionOutside.IsRelevant = true;
             section.DuneErosion.StorageId = 8;
             section.DuneErosion.Contribution = 0.5;
             section.DuneErosion.IsRelevant = true;
@@ -558,33 +558,41 @@ namespace Application.Ringtoets.Storage.Test.Update
                 {
                     StorageId = 3
                 },
-                Overtopping =
+                HeightStructure =
                 {
                     StorageId = 4
                 },
-                Closing =
+                ClosingStructure =
                 {
                     StorageId = 5
                 },
-                FailingOfConstruction =
+                StrengthStabilityPointConstruction =
                 {
                     StorageId = 6
                 },
-                StoneRevetment =
+                StabilityStoneCover =
                 {
                     StorageId = 7
                 },
-                AsphaltRevetment =
+                WaveImpactAsphaltCover =
                 {
                     StorageId = 8
                 },
-                GrassRevetment =
+                GrassCoverErosionOutside =
                 {
                     StorageId = 9
                 },
-                DuneErosion =
+                GrassCoverSlipOffOutside = 
                 {
                     StorageId = 10
+                },
+                PipingStructure = 
+                {
+                    StorageId = 11
+                },
+                DuneErosion =
+                {
+                    StorageId = 12
                 }
             };
         }
@@ -599,7 +607,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             }
 
             var count = failureMechanismEntities.Count();
-            for (var i = 1; i <= 10 - count; i++)
+            for (var i = 1; i <= 12 - count; i++)
             {
                 failureMechanismEntities.Add(new FailureMechanismEntity
                 {

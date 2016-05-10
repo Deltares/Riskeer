@@ -93,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var text = info.Text(mechanismContext);
 
             // Assert
-            const string expectedName = "Dijken - Grasbekleding erosie kruin en binnentalud";
+            const string expectedName = "Dijken en dammen - Grasbekleding erosie kruin en binnentalud";
             Assert.AreEqual(expectedName, text);
             mocksRepository.VerifyAll();
         }

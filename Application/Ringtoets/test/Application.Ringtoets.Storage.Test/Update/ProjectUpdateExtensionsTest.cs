@@ -256,27 +256,35 @@ namespace Application.Ringtoets.Storage.Test.Update
                         {
                             StorageId = 1
                         },
-                        Overtopping =
+                        HeightStructure =
                         {
                             StorageId = 1
                         },
-                        Closing =
+                        ClosingStructure =
                         {
                             StorageId = 1
                         },
-                        FailingOfConstruction =
+                        StrengthStabilityPointConstruction =
                         {
                             StorageId = 1
                         },
-                        StoneRevetment =
+                        StabilityStoneCover =
                         {
                             StorageId = 1
                         },
-                        AsphaltRevetment =
+                        WaveImpactAsphaltCover =
                         {
                             StorageId = 1
                         },
-                        GrassRevetment =
+                        GrassCoverErosionOutside =
+                        {
+                            StorageId = 1
+                        },
+                        GrassCoverSlipOffOutside = 
+                        {
+                            StorageId = 1
+                        },
+                        PipingStructure = 
                         {
                             StorageId = 1
                         },

@@ -301,29 +301,29 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(isRelevant, section.MacrostabilityInwards.IsRelevant);
             Assert.AreEqual(2, section.MacrostabilityInwards.Sections.Count());
 
-            Assert.AreEqual(overtoppingEntityId, section.Overtopping.StorageId);
-            Assert.AreEqual(isRelevant, section.Overtopping.IsRelevant);
-            Assert.AreEqual(2, section.Overtopping.Sections.Count());
+            Assert.AreEqual(overtoppingEntityId, section.HeightStructure.StorageId);
+            Assert.AreEqual(isRelevant, section.HeightStructure.IsRelevant);
+            Assert.AreEqual(2, section.HeightStructure.Sections.Count());
 
-            Assert.AreEqual(closingEntityId, section.Closing.StorageId);
-            Assert.AreEqual(isRelevant, section.Closing.IsRelevant);
-            Assert.AreEqual(2, section.Closing.Sections.Count());
+            Assert.AreEqual(closingEntityId, section.ClosingStructure.StorageId);
+            Assert.AreEqual(isRelevant, section.ClosingStructure.IsRelevant);
+            Assert.AreEqual(2, section.ClosingStructure.Sections.Count());
 
-            Assert.AreEqual(failingOfConstructionEntityId, section.FailingOfConstruction.StorageId);
-            Assert.AreEqual(isRelevant, section.FailingOfConstruction.IsRelevant);
-            Assert.AreEqual(2, section.FailingOfConstruction.Sections.Count());
+            Assert.AreEqual(failingOfConstructionEntityId, section.StrengthStabilityPointConstruction.StorageId);
+            Assert.AreEqual(isRelevant, section.StrengthStabilityPointConstruction.IsRelevant);
+            Assert.AreEqual(2, section.StrengthStabilityPointConstruction.Sections.Count());
 
-            Assert.AreEqual(stoneRevetmentEntityId, section.StoneRevetment.StorageId);
-            Assert.AreEqual(isRelevant, section.StoneRevetment.IsRelevant);
-            Assert.AreEqual(2, section.StoneRevetment.Sections.Count());
+            Assert.AreEqual(stoneRevetmentEntityId, section.StabilityStoneCover.StorageId);
+            Assert.AreEqual(isRelevant, section.StabilityStoneCover.IsRelevant);
+            Assert.AreEqual(2, section.StabilityStoneCover.Sections.Count());
 
-            Assert.AreEqual(asphaltRevetmentEntityId, section.AsphaltRevetment.StorageId);
-            Assert.AreEqual(isRelevant, section.AsphaltRevetment.IsRelevant);
-            Assert.AreEqual(2, section.AsphaltRevetment.Sections.Count());
+            Assert.AreEqual(asphaltRevetmentEntityId, section.WaveImpactAsphaltCover.StorageId);
+            Assert.AreEqual(isRelevant, section.WaveImpactAsphaltCover.IsRelevant);
+            Assert.AreEqual(2, section.WaveImpactAsphaltCover.Sections.Count());
 
-            Assert.AreEqual(grassRevetmentEntityId, section.GrassRevetment.StorageId);
-            Assert.AreEqual(isRelevant, section.GrassRevetment.IsRelevant);
-            Assert.AreEqual(2, section.GrassRevetment.Sections.Count());
+            Assert.AreEqual(grassRevetmentEntityId, section.GrassCoverErosionOutside.StorageId);
+            Assert.AreEqual(isRelevant, section.GrassCoverErosionOutside.IsRelevant);
+            Assert.AreEqual(2, section.GrassCoverErosionOutside.Sections.Count());
 
             Assert.AreEqual(duneErosionEntityId, section.DuneErosion.StorageId);
             Assert.AreEqual(isRelevant, section.DuneErosion.IsRelevant);

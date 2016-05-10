@@ -54,66 +54,79 @@ namespace Ringtoets.Integration.Data
 
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
-            MacrostabilityInwards = new FailureMechanismPlaceholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName);
-            Overtopping = new FailureMechanismPlaceholder(Resources.OvertoppingFailureMechanism_DisplayName);
-            Closing = new FailureMechanismPlaceholder(Resources.ClosingFailureMechanism_DisplayName);
-            FailingOfConstruction = new FailureMechanismPlaceholder(Resources.FailingOfConstructionFailureMechanism_DisplayName);
-            StoneRevetment = new FailureMechanismPlaceholder(Resources.StoneRevetmentFailureMechanism_DisplayName);
-            AsphaltRevetment = new FailureMechanismPlaceholder(Resources.AsphaltRevetmentFailureMechanism_DisplayName);
-            GrassRevetment = new FailureMechanismPlaceholder(Resources.GrassRevetmentFailureMechanism_DisplayName);
-            DuneErosion = new FailureMechanismPlaceholder(Resources.ErosionFailureMechanism_DisplayName);
 
+            MacrostabilityInwards = new FailureMechanismPlaceholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName);
+            StabilityStoneCover = new FailureMechanismPlaceholder(Resources.StabilityStoneCoverFailureMechanism_DisplayName);
+            WaveImpactAsphaltCover = new FailureMechanismPlaceholder(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName);
+            GrassCoverErosionOutside = new FailureMechanismPlaceholder(Resources.GrassCoverErosionOutsideFailureMechanism_DisplayName);
+            GrassCoverSlipOffOutside = new FailureMechanismPlaceholder(Resources.GrassCoverSlipOffOutsideFailureMechanism_DisplayName);
+            HeightStructure = new FailureMechanismPlaceholder(Resources.HeightStructureFailureMechanism_DisplayName);
+            ClosingStructure = new FailureMechanismPlaceholder(Resources.ClosingStructureFailureMechanism_DisplayName);
+            StrengthStabilityPointConstruction = new FailureMechanismPlaceholder(Resources.StrengthStabilityPointConstructionFailureMechanism_DisplayName);
+            PipingStructure = new FailureMechanismPlaceholder(Resources.PipingStructureFailureMechanism_DisplayName);
+            DuneErosion = new FailureMechanismPlaceholder(Resources.DuneErosionFailureMechanism_DisplayName);
+            
             FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
             ChangeComposition(composition);
         }
-
+        
         /// <summary>
-        /// Gets the "Dijken - Piping" failure mechanism.
+        /// Gets the "Dijken en dammen - Piping" failure mechanism.
         /// </summary>
         public PipingFailureMechanism PipingFailureMechanism { get; private set; }
 
         /// <summary>
-        /// Gets the "Dijken - Grasbekleding erosie kruin en binnentalud" failure mechanism.
+        /// Gets the "Dijken en dammen - Grasbekleding erosie kruin en binnentalud" failure mechanism.
         /// </summary>
         public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwards { get; private set; }
 
         /// <summary>
-        /// Gets the "Dijken - Macrostabiliteit binnenwaarts" failure mechanism.
+        /// Gets the "Dijken en dammen - Macrostabiliteit binnenwaarts" failure mechanism.
         /// </summary>
         public FailureMechanismPlaceholder MacrostabilityInwards { get; private set; }
 
         /// <summary>
-        /// Gets the "Overslag en overloop" failure mechanism.
+        /// Gets the "Dijken en dammen - Stabiliteit steenzetting" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder Overtopping { get; private set; }
+        public FailureMechanismPlaceholder StabilityStoneCover { get; private set; }
 
         /// <summary>
-        /// Gets the "Niet sluiten" failure mechanism.
+        /// Gets the "Dijken en dammen - Golfklappen op asfaltbekledingen" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder Closing { get; private set; }
+        public FailureMechanismPlaceholder WaveImpactAsphaltCover { get; private set; }
 
         /// <summary>
-        /// Gets the "Constructief falen" failure mechanism.
+        /// Gets the "Dijken en dammen - Grasbekleding erosie buitentalud" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder FailingOfConstruction { get; private set; }
+        public FailureMechanismPlaceholder GrassCoverErosionOutside { get; private set; }
 
         /// <summary>
-        /// Gets the "Steenbekledingen" failure mechanism.
+        /// Gets the "Dijken en dammen - Grasbekleding afschuiven buitentalud" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder StoneRevetment { get; private set; }
+        public FailureMechanismPlaceholder GrassCoverSlipOffOutside { get; set; }
 
         /// <summary>
-        /// Gets the "Asfaltbekledingen" failure mechanism.
+        /// Gets the "Kunstwerken - Hoogte kunstwerk" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder AsphaltRevetment { get; private set; }
+        public FailureMechanismPlaceholder HeightStructure { get; private set; }
 
         /// <summary>
-        /// Gets the "Grasbekledingen" failure mechanism.
+        /// Gets the "Kunstwerken - Betrouwbaarheid sluiting kunstwerk" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder GrassRevetment { get; private set; }
+        public FailureMechanismPlaceholder ClosingStructure { get; private set; }
 
         /// <summary>
-        /// Gets the "Duinerosie" failure mechanism.
+        /// Gets the "Kunstwerken - Piping bij kunstwerk" failure mechanism.
+        /// </summary>
+        public FailureMechanismPlaceholder PipingStructure { get; set; }
+
+        /// <summary>
+        /// Gets the "Kunstwerken - Sterkte en stabiliteit puntconstructies" failure mechanism.
+        /// </summary>
+        public FailureMechanismPlaceholder StrengthStabilityPointConstruction { get; private set; }
+
+        /// <summary>
+        /// Gets the "Duinwaterkering - Duinafslag" failure mechanism.
         /// </summary>
         public FailureMechanismPlaceholder DuneErosion { get; private set; }
 
@@ -158,12 +171,14 @@ namespace Ringtoets.Integration.Data
             yield return PipingFailureMechanism;
             yield return GrassCoverErosionInwards;
             yield return MacrostabilityInwards;
-            yield return Overtopping;
-            yield return Closing;
-            yield return FailingOfConstruction;
-            yield return StoneRevetment;
-            yield return AsphaltRevetment;
-            yield return GrassRevetment;
+            yield return StabilityStoneCover;
+            yield return WaveImpactAsphaltCover;
+            yield return GrassCoverErosionOutside;
+            yield return GrassCoverSlipOffOutside;
+            yield return HeightStructure;
+            yield return ClosingStructure;
+            yield return PipingStructure;
+            yield return StrengthStabilityPointConstruction;
             yield return DuneErosion;
         }
 
@@ -175,12 +190,14 @@ namespace Ringtoets.Integration.Data
                     PipingFailureMechanism.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
                     MacrostabilityInwards.Contribution = 4;
-                    Overtopping.Contribution = 2;
-                    Closing.Contribution = 4;
-                    FailingOfConstruction.Contribution = 2;
-                    StoneRevetment.Contribution = 4;
-                    AsphaltRevetment.Contribution = 3;
-                    GrassRevetment.Contribution = 3;
+                    StabilityStoneCover.Contribution = 3;
+                    WaveImpactAsphaltCover.Contribution = 1;
+                    GrassCoverErosionOutside.Contribution = 5;
+                    GrassCoverSlipOffOutside.Contribution = 1;
+                    HeightStructure.Contribution = 24;
+                    ClosingStructure.Contribution = 4;
+                    PipingStructure.Contribution = 2;
+                    StrengthStabilityPointConstruction.Contribution = 2;
                     DuneErosion.Contribution = 0;
                     FailureMechanismContribution.UpdateContributions(GetFailureMechanisms(), 30);
                     break;
@@ -188,12 +205,14 @@ namespace Ringtoets.Integration.Data
                     PipingFailureMechanism.Contribution = 0;
                     GrassCoverErosionInwards.Contribution = 0;
                     MacrostabilityInwards.Contribution = 0;
-                    Overtopping.Contribution = 0;
-                    Closing.Contribution = 0;
-                    FailingOfConstruction.Contribution = 0;
-                    StoneRevetment.Contribution = 0;
-                    AsphaltRevetment.Contribution = 0;
-                    GrassRevetment.Contribution = 0;
+                    StabilityStoneCover.Contribution = 0;
+                    WaveImpactAsphaltCover.Contribution = 0;
+                    GrassCoverErosionOutside.Contribution = 0;
+                    GrassCoverSlipOffOutside.Contribution = 0;
+                    HeightStructure.Contribution = 0;
+                    ClosingStructure.Contribution = 0;
+                    PipingStructure.Contribution = 0;
+                    StrengthStabilityPointConstruction.Contribution = 0;
                     DuneErosion.Contribution = 70;
                     FailureMechanismContribution.UpdateContributions(GetFailureMechanisms(), 30);
                     break;
@@ -201,12 +220,14 @@ namespace Ringtoets.Integration.Data
                     PipingFailureMechanism.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
                     MacrostabilityInwards.Contribution = 4;
-                    Overtopping.Contribution = 2;
-                    Closing.Contribution = 4;
-                    FailingOfConstruction.Contribution = 2;
-                    StoneRevetment.Contribution = 4;
-                    AsphaltRevetment.Contribution = 3;
-                    GrassRevetment.Contribution = 3;
+                    StabilityStoneCover.Contribution = 3;
+                    WaveImpactAsphaltCover.Contribution = 1;
+                    GrassCoverErosionOutside.Contribution = 5;
+                    GrassCoverSlipOffOutside.Contribution = 1;
+                    HeightStructure.Contribution = 24;
+                    ClosingStructure.Contribution = 4;
+                    PipingStructure.Contribution = 2;
+                    StrengthStabilityPointConstruction.Contribution = 2;
                     DuneErosion.Contribution = 10;
                     FailureMechanismContribution.UpdateContributions(GetFailureMechanisms(), 20);
                     break;
