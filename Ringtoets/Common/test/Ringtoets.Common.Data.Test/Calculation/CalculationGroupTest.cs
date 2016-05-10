@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ParameterdConstructor_ExpectedValues(bool isNameEditable)
+        public void ParameteredConstructor_ExpectedValues(bool isNameEditable)
         {
             // Setup
             const string newName = "new Name";

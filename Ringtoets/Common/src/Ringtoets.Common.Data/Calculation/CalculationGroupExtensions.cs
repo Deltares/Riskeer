@@ -29,8 +29,8 @@ namespace Ringtoets.Common.Data.Calculation
     public static class CalculationGroupExtensions
     {
         /// <summary>
-        /// Recursively enumerates across the contents of the calculation item, 
-        /// yielding the calculations found within the calculation item.
+        /// Recursively enumerates across the contents of the calculation group, 
+        /// yielding the calculations found within the calculation group.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to be evaluated.</param>
         /// <returns>Returns all contained calculations as an enumerable result.</returns>

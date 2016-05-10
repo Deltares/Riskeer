@@ -37,7 +37,7 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             PropertyDescriptor getSetProperty = properties[0];
 
-            // Precondtion:
+            // Precondition:
             Assert.IsFalse(getSetProperty.IsReadOnly);
 
             // Call
