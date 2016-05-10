@@ -247,7 +247,10 @@ namespace Ringtoets.Common.Forms.Views
 
         private void DataGridViewGotFocus(object sender, EventArgs eventArgs)
         {
-            dataGridView.BeginEdit(true); // Always start editing after setting the focus (otherwise data grid view cell dirty events are no longer fired when using the keyboard...)
+            if (dataGridView.CurrentCell != null)
+            {
+                dataGridView.BeginEdit(true); // Always start editing after setting the focus (otherwise data grid view cell dirty events are no longer fired when using the keyboard...)
+            }
         }
 
         #region Nested types
