@@ -124,15 +124,16 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             Func<TFailureMechanismContext, object[]> enabledChildeNodeObjects,
             Func<TFailureMechanismContext, object[]> disabledChildeNodeObjects,
             Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> enabledContextMenuStrip,
-            Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> disabledContextMenuStrip
-            )
-            where TFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
+            Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> disabledContextMenuStrip)
+            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
             return new TreeNodeInfo<TFailureMechanismContext>
             {
-                Text = GetFailureMechanismContextText,
-                ForeColor = GetFailureMechanismContextForeColor,
-                Image = GetFailureMechanismContextImage,
+                Text = context => context.WrappedData.Name,
+                ForeColor = context => context.WrappedData.IsRelevant
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
+                Image = context => Resources.FailureMechanismIcon,
                 ChildNodeObjects = context => context.WrappedData.IsRelevant
                                                   ? enabledChildeNodeObjects(context)
                                                   : disabledChildeNodeObjects(context),
@@ -284,6 +285,27 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             }
 
             builder.AddCustomItem(clearOutputItem);
+        }
+
+        /// <summary>
+        /// This method adds a context menu item for changing the relevancy state of a disabled failure mechanism.
+        /// </summary>
+        /// <param name="builder">The builder to add the context menu item to.</param>
+        /// <param name="failureMechanismContext">The failure mechanism context involved.</param>
+        public static void AddDisabledChangeRelevancyItem<TFailureMechanismContext>(IContextMenuBuilder builder, TFailureMechanismContext failureMechanismContext)
+            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+        {
+            var changeRelevancyItem = new StrictContextMenuItem(
+                Resources.FailureMechanismContextMenuStrip_Is_relevant,
+                Resources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                Resources.Checkbox_empty,
+                (sender, args) =>
+                {
+                    failureMechanismContext.WrappedData.IsRelevant = true;
+                    failureMechanismContext.WrappedData.NotifyObservers();
+                });
+
+            builder.AddCustomItem(changeRelevancyItem);
         }
 
         # region Helper methods for CreateCalculationGroupContextTreeNodeInfo
@@ -441,26 +463,5 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         #endregion
-
-        # region Helper methods for CreateFailureMechanismContextTreeNodeInfo
-
-        private static string GetFailureMechanismContextText(FailureMechanismContext<IFailureMechanism> failureMechanismContext)
-        {
-            return failureMechanismContext.WrappedData.Name;
-        }
-
-        private static Image GetFailureMechanismContextImage(FailureMechanismContext<IFailureMechanism> failureMechanismContext)
-        {
-            return Resources.FailureMechanismIcon;
-        }
-
-        private static Color GetFailureMechanismContextForeColor(FailureMechanismContext<IFailureMechanism> failureMechanismContext)
-        {
-            return failureMechanismContext.WrappedData.IsRelevant
-                ? Color.FromKnownColor(KnownColor.ControlText)
-                : Color.FromKnownColor(KnownColor.GrayText);
-        }
-
-        # endregion
     }
 }

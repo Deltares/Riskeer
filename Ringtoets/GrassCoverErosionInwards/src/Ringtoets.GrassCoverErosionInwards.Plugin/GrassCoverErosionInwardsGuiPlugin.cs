@@ -66,10 +66,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return new DefaultFailureMechanismTreeNodeInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanism>(
-                FailureMechanismChildNodeObjects,
-                FailureMechanismContextMenuStrip,
-                Gui);
+            yield return CalculationTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverErosionInwardsFailureMechanismContext>(
+                FailureMechanismEnabledChildNodeObjects,
+                FailureMechanismDisabledChildNodeObjects,
+                FailureMechanismEnabledContextMenuStrip,
+                FailureMechanismDisabledContextMenuStrip);
 
             yield return CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,
@@ -110,8 +111,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(FailureMechanismSection failureMechanismSection,
                                                                                                                     HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                                                                     string hlcdDirectory,
-                                                                                                                    GrassCoverErosionInwardsCalculation calculation
-            )
+                                                                                                                    GrassCoverErosionInwardsCalculation calculation)
         {
             var hydraulicBoundaryLocationId = (int) hydraulicBoundaryLocation.Id;
             var sectionLength = failureMechanismSection.GetSectionLength();
@@ -192,7 +192,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #region GrassCoverErosionInwards TreeNodeInfo
 
-        private object[] FailureMechanismChildNodeObjects(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext)
+        private object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext)
         {
             GrassCoverErosionInwardsFailureMechanism wrappedData = grassCoverErosionInwardsFailureMechanismContext.WrappedData;
             return new object[]
@@ -200,6 +200,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, grassCoverErosionInwardsFailureMechanismContext.Parent), TreeFolderCategory.Input),
                 new GrassCoverErosionInwardsCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData, grassCoverErosionInwardsFailureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+            };
+        }
+
+        private object[] FailureMechanismDisabledChildNodeObjects(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext)
+        {
+            return new object[]
+            {
+                new CommentContext<ICommentable>(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
             };
         }
 
@@ -220,7 +228,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
         {
             var changeRelevancyItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
@@ -245,6 +253,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                       .AddExpandAllItem()
                       .AddCollapseAllItem()
                       .Build();
+        }
+
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl);
+
+            CalculationTreeNodeInfoFactory.AddDisabledChangeRelevancyItem(builder, grassCoverErosionInwardsFailureMechanismContext);
+
+            return builder.AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .Build();
         }
 
         private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
@@ -372,17 +392,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             builder.AddSeparator();
 
             return builder
-                      .AddRenameItem()
-                      .AddDeleteItem()
-                      .AddSeparator()
-                      .AddImportItem()
-                      .AddExportItem()
-                      .AddSeparator()
-                      .AddExpandAllItem()
-                      .AddCollapseAllItem()
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
+                .AddRenameItem()
+                .AddDeleteItem()
+                .AddSeparator()
+                .AddImportItem()
+                .AddExportItem()
+                .AddSeparator()
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
         }
 
         #endregion
