@@ -207,6 +207,23 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             builder.AddCustomItem(performAllItem);
         }
 
+        /// <summary>
+        /// This method adds a context menu item for performing a calculation.
+        /// </summary>
+        /// <param name="builder">The builder to add the context menu item to.</param>
+        /// <param name="calculation">The calculation involved.</param>
+        /// <param name="calculate">The action that performs the calculation.</param>
+        public static void AddPerformCalculationItem(IContextMenuBuilder builder, ICalculation calculation, Action<ICalculation> calculate)
+        {
+            var calculateItem = new StrictContextMenuItem(
+                Resources.Calculate,
+                Resources.Calculate_ToolTip,
+                Resources.CalculateIcon,
+                (o, args) => { calculate(calculation); });
+
+            builder.AddCustomItem(calculateItem);
+        }
+
         # region Helper methods for CreateCalculationGroupContextTreeNodeInfo
 
         private static bool IsNestedGroup(object parentData)

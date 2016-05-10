@@ -78,7 +78,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionInwardsCalculationContext>(
                 GrassCoverErosionInwardsFormsResources.CalculationIcon,
                 CalculationContextChildNodeObjects,
-                null,
+                CalculationContextContextmenuStrip,
                 null);
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsInputContext>
@@ -104,25 +104,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
-        }
-
-        private static object[] CalculationContextChildNodeObjects(GrassCoverErosionInwardsCalculationContext calculationContext)
-        {
-            var childNodes = new List<object>
-            {
-                new CommentContext<ICommentable>(calculationContext.WrappedData),
-                new GrassCoverErosionInwardsInputContext(calculationContext.WrappedData.InputParameters,
-                                                         calculationContext.WrappedData,
-                                                         calculationContext.FailureMechanism,
-                                                         calculationContext.AssessmentSection)
-            };
-
-            if (!calculationContext.WrappedData.HasOutput)
-            {
-                childNodes.Add(new EmptyGrassCoverErosionInwardsOutput());
-            }
-
-            return childNodes.ToArray();
         }
 
         private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
@@ -350,6 +331,63 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
             parentGroupContext.NotifyObservers();
+        }
+
+        #endregion
+
+        #region CalculationContext TreeNodeInfo
+
+        private static object[] CalculationContextChildNodeObjects(GrassCoverErosionInwardsCalculationContext calculationContext)
+        {
+            var childNodes = new List<object>
+            {
+                new CommentContext<ICommentable>(calculationContext.WrappedData),
+                new GrassCoverErosionInwardsInputContext(calculationContext.WrappedData.InputParameters,
+                                                         calculationContext.WrappedData,
+                                                         calculationContext.FailureMechanism,
+                                                         calculationContext.AssessmentSection)
+            };
+
+            if (!calculationContext.WrappedData.HasOutput)
+            {
+                childNodes.Add(new EmptyGrassCoverErosionInwardsOutput());
+            }
+
+            return childNodes.ToArray();
+        }
+
+        private ContextMenuStrip CalculationContextContextmenuStrip(GrassCoverErosionInwardsCalculationContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = Gui.Get(nodeData, treeViewControl);
+
+            GrassCoverErosionInwardsCalculation calculation = nodeData.WrappedData;
+
+            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(builder, calculation, null);
+            builder.AddSeparator();
+//            var clearOutputItem = new StrictContextMenuItem(PipingFormsResources.Clear_output,
+//                                                            PipingFormsResources.Clear_output_ToolTip,
+//                                                            RingtoetsCommonFormsResources.ClearIcon,
+//                                                            (o, args) => ClearOutput(calculation));
+//
+//            if (!calculation.HasOutput)
+//            {
+//                clearOutputItem.Enabled = false;
+//                clearOutputItem.ToolTipText = PipingFormsResources.ClearOutput_No_output_to_clear;
+//            }
+
+            return builder
+//                      .AddCustomItem(clearOutputItem)
+                      .AddRenameItem()
+                      .AddDeleteItem()
+                      .AddSeparator()
+                      .AddImportItem()
+                      .AddExportItem()
+                      .AddSeparator()
+                      .AddExpandAllItem()
+                      .AddCollapseAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
         }
 
         #endregion

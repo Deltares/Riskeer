@@ -428,6 +428,60 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual(1, counter);
         }
 
+        [Test]
+        public void AddPerformCalculationItem_Always_CreatesPerformItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var calculation = mocks.StrictMock<ICalculation>();
+
+            mocks.ReplayAll();
+
+            var menubuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculation, treeViewControl);
+
+            // Call
+            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(menubuilder, calculation, null);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(menubuilder.Build(), 0,
+                                                          RingtoetsFormsResources.Calculate,
+                                                          RingtoetsFormsResources.Calculate_ToolTip,
+                                                          RingtoetsFormsResources.CalculateIcon);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddPerformCalculationItem_PerformClickOnCreatedItem_PerformCalculationMethod()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var calculation = mocks.StrictMock<ICalculation>();
+
+            mocks.ReplayAll();
+
+            var counter = 0;
+
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculation, treeViewControl);
+
+            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(menuBuilder, calculation, context => counter++);
+            var contextMenuItem = menuBuilder.Build().Items[0];
+
+            // Call
+            contextMenuItem.PerformClick();
+
+            // Assert
+            Assert.AreEqual(1, counter);
+        }
+
         # region CreateCalculationGroupContextTreeNodeInfo
 
         [Test]

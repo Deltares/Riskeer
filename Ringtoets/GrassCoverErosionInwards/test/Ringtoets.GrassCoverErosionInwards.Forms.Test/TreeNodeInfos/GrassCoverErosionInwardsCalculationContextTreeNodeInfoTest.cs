@@ -21,6 +21,8 @@
 
 using System.Linq;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -37,14 +39,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest
     {
-        private MockRepository mocksRepository;
+        private MockRepository mocks;
         private GrassCoverErosionInwardsGuiPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocksRepository = new MockRepository();
+            mocks = new MockRepository();
             plugin = new GrassCoverErosionInwardsGuiPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationContext));
         }
@@ -76,11 +78,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         [Test]
         public void ChildNodeObjects_WithOutputData_ReturnOutputChildNode()
         {
-            var calculation = mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new GeneralGrassCoverErosionInwardsInput());
-            var failureMechanism = mocksRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            mocksRepository.ReplayAll();
+            var calculation = mocks.StrictMock<GrassCoverErosionInwardsCalculation>(new GeneralGrassCoverErosionInwardsInput());            
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
             // Call
@@ -97,6 +99,47 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var emptyOutput = (EmptyGrassCoverErosionInwardsOutput) children[2];
             Assert.IsNotNull(emptyOutput);
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var gui = mocks.StrictMock<IGui>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            
+            var menuBuilderMock = mocks.Stub<IContextMenuBuilder>();
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var calculation = mocks.StrictMock<GrassCoverErosionInwardsCalculation>(new GeneralGrassCoverErosionInwardsInput());            
+            
+            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+
+            gui.Expect(cmp => cmp.Get(nodeData, treeViewControlMock)).Return(menuBuilderMock);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            // Call
+            info.ContextMenuStrip(nodeData, null, treeViewControlMock);
+
+            // Assert
+            mocks.VerifyAll(); // Expect no calls on arguments
         }
     }
 }

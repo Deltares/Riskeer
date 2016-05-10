@@ -423,15 +423,16 @@ namespace Ringtoets.Piping.Plugin
 
         private ContextMenuStrip PipingCalculationContextContextMenuStrip(PipingCalculationScenarioContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
+            var builder = Gui.Get(nodeData, treeViewControl);
+
             PipingCalculation calculation = nodeData.WrappedData;
             var validateItem = new StrictContextMenuItem(RingtoetsCommonFormsResources.Validate,
                                                          RingtoetsCommonFormsResources.Validate_ToolTip,
                                                          RingtoetsCommonFormsResources.ValidateIcon,
                                                          (o, args) => { PipingCalculationService.Validate(calculation); });
-            var calculateItem = new StrictContextMenuItem(RingtoetsCommonFormsResources.Calculate,
-                                                          RingtoetsCommonFormsResources.Calculate_ToolTip,
-                                                          RingtoetsCommonFormsResources.CalculateIcon,
-                                                          (o, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, new PipingCalculationActivity(calculation)); });
+
+            builder.AddCustomItem(validateItem);
+            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(builder, calculation, PerformCalculation);
 
             var clearOutputItem = new StrictContextMenuItem(PipingFormsResources.Clear_output,
                                                             PipingFormsResources.Clear_output_ToolTip,
@@ -444,11 +445,11 @@ namespace Ringtoets.Piping.Plugin
                 clearOutputItem.ToolTipText = PipingFormsResources.ClearOutput_No_output_to_clear;
             }
 
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddCustomItem(validateItem)
-                      .AddCustomItem(calculateItem)
-                      .AddCustomItem(clearOutputItem)
-                      .AddSeparator()
+            builder
+                .AddCustomItem(clearOutputItem)
+                .AddSeparator();
+
+            return builder
                       .AddRenameItem()
                       .AddDeleteItem()
                       .AddSeparator()
@@ -512,6 +513,11 @@ namespace Ringtoets.Piping.Plugin
 
             calculation.ClearOutput();
             calculation.NotifyObservers();
+        }
+
+        private void PerformCalculation(ICalculation calculation)
+        {
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, new PipingCalculationActivity((PipingCalculation)calculation));
         }
 
         # endregion
