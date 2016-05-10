@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 GrassCoverErosionInwardsFormsResources.CalculationIcon,
                 CalculationContextChildNodeObjects,
                 CalculationContextContextmenuStrip,
-                null);
+                CalculationContextOnNodeRemoved);
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsInputContext>
             {
@@ -431,6 +431,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 calculation);
 
             ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);
+        }
+
+        private void CalculationContextOnNodeRemoved(GrassCoverErosionInwardsCalculationContext calculationScenarioContext, object parentNodeData)
+        {
+            var calculationGroupContext = parentNodeData as GrassCoverErosionInwardsCalculationGroupContext;
+            if (calculationGroupContext != null)
+            {
+                calculationGroupContext.WrappedData.Children.Remove(calculationScenarioContext.WrappedData);
+                calculationGroupContext.NotifyObservers();
+            }
         }
 
         #endregion

@@ -35,6 +35,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -349,5 +350,46 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 //
 //            mocks.VerifyAll();
 //        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup(bool groupNameEditable)
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var elementToBeRemoved = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
+
+            var group = new CalculationGroup("", groupNameEditable);
+            group.Children.Add(elementToBeRemoved);
+            group.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput()));
+            group.Attach(observer);
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationContext = new GrassCoverErosionInwardsCalculationContext(elementToBeRemoved,
+                                                                  failureMechanism,
+                                                                  assessmentSectionMock);
+            var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                 failureMechanism,
+                                                                 assessmentSectionMock);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
+            Assert.AreEqual(2, group.Children.Count);
+
+            // Call
+            info.OnNodeRemoved(calculationContext, groupContext);
+
+            // Assert
+            Assert.AreEqual(1, group.Children.Count);
+            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
+
+            mocks.VerifyAll();
+        }
     }
 }
