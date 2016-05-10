@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -30,6 +31,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -1363,6 +1365,119 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
+        # region CreateFailureMechanismContextTreeNodeInfo
+
+        [Test]
+        public void CreateFailureMechanismContextTreeNodeInfo_Always_ExpectedPropertiesSet()
+        {
+            // Call
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(null, null, null, null);
+
+            // Assert
+            Assert.AreEqual(typeof(FailureMechanismContext<IFailureMechanism>), treeNodeInfo.TagType);
+            Assert.IsNotNull(treeNodeInfo.Text);
+            Assert.IsNotNull(treeNodeInfo.Image);
+            Assert.IsNotNull(treeNodeInfo.ForeColor);
+            Assert.IsNotNull(treeNodeInfo.ChildNodeObjects);
+            Assert.IsNotNull(treeNodeInfo.ContextMenuStrip);
+            Assert.IsNull(treeNodeInfo.EnsureVisibleOnCreate);
+            Assert.IsNull(treeNodeInfo.CanRename);
+            Assert.IsNull(treeNodeInfo.OnNodeRenamed);
+            Assert.IsNull(treeNodeInfo.CanRemove);
+            Assert.IsNull(treeNodeInfo.OnNodeRemoved);
+            Assert.IsNull(treeNodeInfo.CanCheck);
+            Assert.IsNull(treeNodeInfo.IsChecked);
+            Assert.IsNull(treeNodeInfo.OnNodeChecked);
+            Assert.IsNull(treeNodeInfo.CanDrag);
+            Assert.IsNull(treeNodeInfo.CanDrop);
+            Assert.IsNull(treeNodeInfo.CanInsert);
+            Assert.IsNull(treeNodeInfo.OnDrop);
+        }
+
+        [Test]
+        public void Text_FailureMechanism_Always_ReturnsWrappedDataName()
+        {
+            // Setup
+            const string name = "A";
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            failureMechanism.Stub(fm => fm.Name).Return(name);
+
+            mocks.ReplayAll();
+
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
+
+            // Call
+            string text = treeNodeInfo.Text(context);
+
+            // Assert
+            Assert.AreEqual(name, text);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Image_FailureMechanism_Always_ReturnsFailureMechanismIcon()
+        {
+            // Setup
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(null, null, null, null);
+
+            // Call
+            Image image = treeNodeInfo.Image(null);
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.FailureMechanismIcon, image);
+        }
+
+        [Test]
+        public void ForeColor_FailureMechanismIsRelevant_ReturnsControlText()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            failureMechanism.IsRelevant = true;
+
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
+
+            // Call
+            Color color = treeNodeInfo.ForeColor(context);
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ForeColor_FailureMechanismIsNotRelevant_ReturnsGrayText()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            failureMechanism.IsRelevant = false;
+
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var treeNodeInfo = CalculationTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
+
+            // Call
+            Color color = treeNodeInfo.ForeColor(context);
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+            mocks.VerifyAll();
+        }
+
+        # endregion
+
         # region Nested types
 
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
@@ -1418,6 +1533,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 return null;
             }
+        }
+
+        private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
+        {
+            public TestFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) : base(wrappedFailureMechanism, parent) { }
         }
 
         /// <summary>
