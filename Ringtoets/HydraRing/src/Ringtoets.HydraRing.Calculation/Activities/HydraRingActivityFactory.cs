@@ -44,7 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="targetProbabilityCalculationInput">The input of the calculation to perform.</param>
-        /// <param name="handleCalculationOutputAction">The action to perform after the calculation is performed.</param>
+        /// <param name="action">The action to perform after the calculation is performed.</param>
         /// <exception cref="ArgumentException">Thrown when one of the <c>string</c> arguments is null or empty.</exception>
         /// <exception cref="ArgumentNullException">Thrown when one of the other arguments is <c>null</c>.</exception>
         public static TargetProbabilityCalculationActivity Create(string name,
@@ -53,34 +53,11 @@ namespace Ringtoets.HydraRing.Calculation.Activities
                                                                   HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
                                                                   HydraRingUncertaintiesType uncertaintiesType,
                                                                   TargetProbabilityCalculationInput targetProbabilityCalculationInput,
-                                                                  Action<TargetProbabilityCalculationOutput> handleCalculationOutputAction)
+                                                                  Action<TargetProbabilityCalculationOutput> action)
         {
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new ArgumentException("Name should be set.", "name");
-            }
+            VerifyCalculationActivityInput(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, action);
 
-            if (string.IsNullOrEmpty(hlcdDirectory))
-            {
-                throw new ArgumentException("HLCD directory should be set.", "hlcdDirectory");
-            }
-
-            if (string.IsNullOrEmpty(ringId))
-            {
-                throw new ArgumentException("Ring id should be set.", "ringId");
-            }
-
-            if (targetProbabilityCalculationInput == null)
-            {
-                throw new ArgumentNullException("targetProbabilityCalculationInput", "Calculation input should be set.");
-            }
-
-            if (handleCalculationOutputAction == null)
-            {
-                throw new ArgumentNullException("handleCalculationOutputAction", "Handle calculation output action should be set.");
-            }
-
-            return new TargetProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, handleCalculationOutputAction, hydraRingCalculationService);
+            return new TargetProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, action, hydraRingCalculationService);
         }
 
         /// <summary>
@@ -92,7 +69,7 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="exceedanceProbabilityCalculationInput">The input of the calculation to perform.</param>
-        /// <param name="handleCalculationOutputAction">The action to perform after the calculation is performed.</param>
+        /// <param name="action">The action to perform after the calculation is performed.</param>
         /// <exception cref="ArgumentException">Thrown when one of the <c>string</c> arguments is null or empty.</exception>
         /// <exception cref="ArgumentNullException">Thrown when one of the other arguments is <c>null</c>.</exception>
         public static ExceedanceProbabilityCalculationActivity Create(string name,
@@ -101,34 +78,41 @@ namespace Ringtoets.HydraRing.Calculation.Activities
                                                                       HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
                                                                       HydraRingUncertaintiesType uncertaintiesType,
                                                                       ExceedanceProbabilityCalculationInput exceedanceProbabilityCalculationInput,
-                                                                      Action<ExceedanceProbabilityCalculationOutput> handleCalculationOutputAction)
+                                                                      Action<ExceedanceProbabilityCalculationOutput> action)
+        {
+            VerifyCalculationActivityInput(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, exceedanceProbabilityCalculationInput, action);
+
+            return new ExceedanceProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, exceedanceProbabilityCalculationInput, action, hydraRingCalculationService);
+        }
+
+        private static void VerifyCalculationActivityInput(string name, string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
+                                                           HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculationInput hydraRingCalculationInput,
+                                                           object action)
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new ArgumentException("Name should be set.", "name");
+                throw new ArgumentException(@"Name should be set.", "name");
             }
 
             if (string.IsNullOrEmpty(hlcdDirectory))
             {
-                throw new ArgumentException("HLCD directory should be set.", "hlcdDirectory");
+                throw new ArgumentException(@"HLCD directory should be set.", "hlcdDirectory");
             }
 
             if (string.IsNullOrEmpty(ringId))
             {
-                throw new ArgumentException("Ring id should be set.", "ringId");
+                throw new ArgumentException(@"Ring id should be set.", "ringId");
             }
 
-            if (exceedanceProbabilityCalculationInput == null)
+            if (hydraRingCalculationInput == null)
             {
-                throw new ArgumentNullException("exceedanceProbabilityCalculationInput", "Calculation input should be set.");
+                throw new ArgumentNullException("hydraRingCalculationInput", @"Calculation input should be set.");
             }
 
-            if (handleCalculationOutputAction == null)
+            if (action == null)
             {
-                throw new ArgumentNullException("handleCalculationOutputAction", "Handle calculation output action should be set.");
+                throw new ArgumentNullException("action", @"Handle calculation output action should be set.");
             }
-
-            return new ExceedanceProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, exceedanceProbabilityCalculationInput, handleCalculationOutputAction, hydraRingCalculationService);
         }
     }
 }

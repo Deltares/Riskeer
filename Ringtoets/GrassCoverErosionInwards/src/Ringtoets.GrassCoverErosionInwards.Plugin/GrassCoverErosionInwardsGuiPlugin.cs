@@ -32,6 +32,7 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -106,27 +107,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+        private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(FailureMechanismSection failureMechanismSection,
+                                                                                                                    HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                                                                     string hlcdDirectory,
-                                                                                                                    GrassCoverErosionInwardsInput inwardsInput,
-                                                                                                                    GrassCoverErosionInwardsOutput inwardsOutput
+                                                                                                                    GrassCoverErosionInwardsCalculation calculation
             )
         {
             var hydraulicBoundaryLocationId = (int) hydraulicBoundaryLocation.Id;
+            var sectionLength = failureMechanismSection.GetSectionLength();
+            var inwardsInput = calculation.InputParameters;
+            var inwardsOutput = calculation.Output;
 
             return HydraRingActivityFactory.Create(
-                string.Format(Resources.GrassCoverErosionInwardsGuiPlugin_Calculate_overtopping_for_location_0_, hydraulicBoundaryLocationId),
+                calculation.Name,
                 hlcdDirectory,
-                hydraulicBoundaryLocationId.ToString(),
+                failureMechanismSection.Name, // TODO: Provide name of reference line instead
                 HydraRingTimeIntegrationSchemeType.FBC,
                 HydraRingUncertaintiesType.All,
-                new OvertoppingCalculationInput(hydraulicBoundaryLocationId, new HydraRingSection(hydraulicBoundaryLocationId, hydraulicBoundaryLocationId.ToString(), double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
+                new OvertoppingCalculationInput(hydraulicBoundaryLocationId, new HydraRingSection(hydraulicBoundaryLocationId, failureMechanismSection.Name, sectionLength, inwardsInput.Orientation),
                                                 inwardsInput.DikeHeight,
                                                 inwardsInput.CriticalOvertoppingModelFactor,
                                                 inwardsInput.FbFactor.Mean, inwardsInput.FbFactor.StandardDeviation,
                                                 inwardsInput.FnFactor.Mean, inwardsInput.FnFactor.StandardDeviation,
                                                 inwardsInput.OvertoppingModelFactor,
-                                                inwardsInput.CriticalFlowRate.StandardDeviation, inwardsInput.CriticalFlowRate.Mean,
+                                                inwardsInput.CriticalFlowRate.Mean, inwardsInput.CriticalFlowRate.StandardDeviation,
                                                 inwardsInput.FrunupModelFactor.Mean, inwardsInput.FrunupModelFactor.StandardDeviation,
                                                 inwardsInput.FshallowModelFactor.Mean, inwardsInput.FshallowModelFactor.StandardDeviation,
                                                 ParseProfilePoints(inwardsInput.DikeGeometry),
@@ -143,15 +147,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static IEnumerable<HydraRingForelandPoint> ParseForeshore(GrassCoverErosionInwardsInput input)
         {
-            if (!input.UseForeshore)
+            var firstProfileSection = input.ForeshoreGeometry.FirstOrDefault();
+            if (!input.UseForeshore || firstProfileSection == null)
             {
                 yield break;
             }
-            if (input.ForeshoreGeometry.Any())
-            {
-                var first = input.ForeshoreGeometry.First();
-                yield return new HydraRingForelandPoint(first.StartingPoint.X, first.StartingPoint.Y);
-            }
+
+            yield return new HydraRingForelandPoint(firstProfileSection.StartingPoint.X, firstProfileSection.StartingPoint.Y);
 
             foreach (var foreshore in input.ForeshoreGeometry)
             {
@@ -161,11 +163,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(IEnumerable<RoughnessProfileSection> profileSections)
         {
-            if (profileSections.Any())
+            var firstProfileSection = profileSections.FirstOrDefault();
+            if (firstProfileSection == null)
             {
-                var first = profileSections.First();
-                yield return new HydraRingRoughnessProfilePoint(first.StartingPoint.X, first.StartingPoint.Y, 0);
+                yield break;
             }
+
+            // By default, the roughness is 1.0 (no reduction due to bed friction).
+            yield return new HydraRingRoughnessProfilePoint(firstProfileSection.StartingPoint.X, firstProfileSection.StartingPoint.Y, 1);
 
             foreach (var profileSection in profileSections)
             {

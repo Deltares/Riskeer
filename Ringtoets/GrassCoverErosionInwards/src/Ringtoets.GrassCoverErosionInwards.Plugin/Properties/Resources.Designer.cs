@@ -61,15 +61,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans berekenen voor locatie &apos;{0}&apos;.
-        /// </summary>
-        internal static string GrassCoverErosionInwardsGuiPlugin_Calculate_overtopping_for_location_0_ {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsGuiPlugin_Calculate_overtopping_for_location_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de berekening..
         /// </summary>
         internal static string GrassCoverErosionInwardsGuiPlugin_Error_during_overtopping_calculation {

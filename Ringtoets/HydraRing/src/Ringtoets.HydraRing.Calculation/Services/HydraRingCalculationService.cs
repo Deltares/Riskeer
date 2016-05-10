@@ -46,7 +46,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="targetProbabilityCalculationInput">The input of the calculation to perform.</param>
         /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        public virtual TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, TargetProbabilityCalculationInput targetProbabilityCalculationInput)
+        public virtual TargetProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId,
+                                                                             HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
+                                                                             HydraRingUncertaintiesType uncertaintiesType,
+                                                                             TargetProbabilityCalculationInput targetProbabilityCalculationInput)
         {
             return PerformCalculation(hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType,
                                       targetProbabilityCalculationInput, (outputFilePath, outputDatabasePath) =>
@@ -64,7 +67,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="exceedanceProbabilityCalculationInput">The input of the calculation to perform.</param>
         /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        public virtual ExceedanceProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
+        public virtual ExceedanceProbabilityCalculationOutput PerformCalculation(string hlcdDirectory, string ringId,
+                                                                                 HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
                                                                                  HydraRingUncertaintiesType uncertaintiesType,
                                                                                  ExceedanceProbabilityCalculationInput exceedanceProbabilityCalculationInput)
         {
@@ -85,7 +89,9 @@ namespace Ringtoets.HydraRing.Calculation.Services
             }
         }
 
-        private static T PerformCalculation<T>(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculationInput hydraRingCalculationInput, Func<string, string, T> parseFunction)
+        private static T PerformCalculation<T>(string hlcdDirectory, string ringId,
+                                               HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType,
+                                               HydraRingCalculationInput hydraRingCalculationInput, Func<string, string, T> parseFunction)
         {
             var sectionId = hydraRingCalculationInput.Section.SectionId;
 

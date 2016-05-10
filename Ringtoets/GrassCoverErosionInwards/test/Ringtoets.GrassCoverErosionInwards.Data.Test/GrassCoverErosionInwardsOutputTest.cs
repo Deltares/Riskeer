@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void FactorOfSafety_VariousValues_ReturnsExpectedValues()
+        public void FactorOfSafety_BigRoundedDouble_ReturnsExpectedValues()
         {
             // Setup
             var bigRoundedDouble = new RoundedDouble(15, 9.12345678901234567);
@@ -67,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void Reliability_VariousValues_ReturnsExpectedValues()
+        public void Reliability_BigRoundedDouble_ReturnsExpectedValues()
         {
             // Setup
             var bigRoundedDouble = new RoundedDouble(15, 9.12345678901234567);
@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void Probability_VariousValues_ReturnsExpectedValues()
+        public void Probability_BigRoundedDouble_ReturnsExpectedValues()
         {
             // Setup
             var bigRoundedDouble = new RoundedDouble(15, 9.12345678901234567);

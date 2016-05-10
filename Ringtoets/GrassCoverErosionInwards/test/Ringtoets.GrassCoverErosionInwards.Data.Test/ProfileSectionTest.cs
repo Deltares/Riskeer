@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class RoughnessProfileSectionTest
+    public class ProfileSectionTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -34,23 +34,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             var begin = new Point2D(1.1, 2.2);
             var end = new Point2D(3.3, 4.4);
-            const double roughness = 5.5;
 
             // Call
-            RoughnessProfileSection roughnessProfileSection = new RoughnessProfileSection(begin, end, roughness);
+            ProfileSection profileSection = new ProfileSection(begin, end);
 
             // Assert
-            Assert.IsInstanceOf<ProfileSection>(roughnessProfileSection);
-            Assert.AreEqual(begin, roughnessProfileSection.StartingPoint);
-            Assert.AreEqual(end, roughnessProfileSection.EndingPoint);
-            Assert.AreEqual(roughness, roughnessProfileSection.Roughness);
+            Assert.IsNotNull(profileSection);
+            Assert.AreEqual(begin, profileSection.StartingPoint);
+            Assert.AreEqual(end, profileSection.EndingPoint);
         }
 
         [Test]
         public void Constructor_StartingPointNull_ThrowsArgumentNullException()
         {
             // Setup & Call
-            TestDelegate test = () => new RoughnessProfileSection(null, new Point2D(3.3, 4.4), 5.5);
+            TestDelegate test = () => new ProfileSection(null, new Point2D(3.3, 4.4));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -61,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Constructor_EndingPointNull_ThrowsArgumentNullException()
         {
             // Setup & Call
-            TestDelegate test = () => new RoughnessProfileSection(new Point2D(3.3, 4.4), null, 5.5);
+            TestDelegate test = () => new ProfileSection(new Point2D(3.3, 4.4), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

@@ -76,7 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             var hlcdDirectory = "Invalid HLCD directory";
             var hydraRingCalculationService = new HydraRingCalculationService();
             var incorrectStationId = 999;
-            var hydraRingSection = new HydraRingSection(incorrectStationId, "999", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+            var hydraRingSection = new HydraRingSection(incorrectStationId, "999", 0.0, 0.0);
 
             var mockRepository = new MockRepository();
             var hydraRingBreakWaterMock = mockRepository.StrictMock<HydraRingBreakWater>(0, 1.1);

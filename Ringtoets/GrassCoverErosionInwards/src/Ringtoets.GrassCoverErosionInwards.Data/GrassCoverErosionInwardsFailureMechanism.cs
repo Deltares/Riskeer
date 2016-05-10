@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
@@ -46,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             get
             {
-                return CalculationsGroup.GetGrassCoverErosionInwardsCalculations();
+                return CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
             }
         }
 

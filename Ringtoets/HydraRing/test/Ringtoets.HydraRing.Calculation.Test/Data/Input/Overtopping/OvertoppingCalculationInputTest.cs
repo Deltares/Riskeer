@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             const int expectedCalculationTypeId = 1;
             const int expectedVariableId = 1;
             int hydraulicBoundaryLocationId = 1000;
-            HydraRingSection expectedHydraRingSection = new HydraRingSection(expectedVariableId, "1000", double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            HydraRingSection expectedHydraRingSection = new HydraRingSection(expectedVariableId, "1000", double.NaN, double.NaN);
 
             const double dikeHeight = 11.11;
             const double modelFactorCriticalOvertopping = 1;
@@ -94,7 +94,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
         public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
         {
             // Setup 
-            HydraRingSection hydraRingSection = new HydraRingSection(1, "1000", double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            HydraRingSection hydraRingSection = new HydraRingSection(1, "1000", double.NaN, double.NaN);
 
             // Call
             OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(1, hydraRingSection, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,

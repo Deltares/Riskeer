@@ -74,7 +74,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             {
                 get
                 {
-                    return new HydraRingSection(1, "Name", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
+                    return new HydraRingSection(1, "Name", 2.2, 3.3);
                 }
             }
         }

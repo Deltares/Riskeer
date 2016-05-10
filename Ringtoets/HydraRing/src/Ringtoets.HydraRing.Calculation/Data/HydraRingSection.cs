@@ -28,11 +28,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
     {
         private readonly int sectionId;
         private readonly string sectionName;
-        private readonly double sectionBeginCoordinate;
-        private readonly double sectionEndCoordinate;
         private readonly double sectionLength;
-        private readonly double crossSectionXCoordinate;
-        private readonly double crossSectionYCoordinate;
         private readonly double crossSectionNormal;
 
         /// <summary>
@@ -40,21 +36,13 @@ namespace Ringtoets.HydraRing.Calculation.Data
         /// </summary>
         /// <param name="sectionId">The id of the section.</param>
         /// <param name="sectionName">The name of the section.</param>
-        /// <param name="sectionBeginCoordinate">The begin coordinate of the section.</param>
-        /// <param name="sectionEndCoordinate">The end coordinate of the section.</param>
         /// <param name="sectionLength">The length of the section.</param>
-        /// <param name="crossSectionXCoordinate">The x coordinate of the cross section.</param>
-        /// <param name="crossSectionYCoordinate">the y coordinate of the cross section.</param>
         /// <param name="crossSectionNormal">The normal of the cross section.</param>
-        public HydraRingSection(int sectionId, string sectionName, double sectionBeginCoordinate, double sectionEndCoordinate, double sectionLength, double crossSectionXCoordinate, double crossSectionYCoordinate, double crossSectionNormal)
+        public HydraRingSection(int sectionId, string sectionName, double sectionLength, double crossSectionNormal)
         {
             this.sectionId = sectionId;
             this.sectionName = sectionName;
-            this.sectionBeginCoordinate = sectionBeginCoordinate;
-            this.sectionEndCoordinate = sectionEndCoordinate;
             this.sectionLength = sectionLength;
-            this.crossSectionXCoordinate = crossSectionXCoordinate;
-            this.crossSectionYCoordinate = crossSectionYCoordinate;
             this.crossSectionNormal = crossSectionNormal;
         }
 
@@ -84,34 +72,6 @@ namespace Ringtoets.HydraRing.Calculation.Data
         }
 
         /// <summary>
-        /// Gets the begin coordinate of the section.
-        /// </summary>
-        /// <remarks>
-        /// If only a cross section is considered, this property should be set equal to <see cref="CrossSectionXCoordinate"/>.
-        /// </remarks>
-        public double SectionBeginCoordinate
-        {
-            get
-            {
-                return sectionBeginCoordinate;
-            }
-        }
-
-        /// <summary>
-        /// Gets the end coordinate of the section.
-        /// </summary>
-        /// <remarks>
-        /// If only a cross section is considered, this property should be set equal to <see cref="CrossSectionYCoordinate"/>.
-        /// </remarks>
-        public double SectionEndCoordinate
-        {
-            get
-            {
-                return sectionEndCoordinate;
-            }
-        }
-
-        /// <summary>
         /// Gets the length of the section.
         /// </summary>
         public double SectionLength
@@ -119,28 +79,6 @@ namespace Ringtoets.HydraRing.Calculation.Data
             get
             {
                 return sectionLength;
-            }
-        }
-
-        /// <summary>
-        /// Gets the x coordinate of the cross section.
-        /// </summary>
-        public double CrossSectionXCoordinate
-        {
-            get
-            {
-                return crossSectionXCoordinate;
-            }
-        }
-
-        /// <summary>
-        /// Gets the y coordinate of the cross section.
-        /// </summary>
-        public double CrossSectionYCoordinate
-        {
-            get
-            {
-                return crossSectionYCoordinate;
             }
         }
 

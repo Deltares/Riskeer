@@ -120,7 +120,4 @@
   <data name="GrassCoverErosionInwardsGuiPlugin_Error_during_overtopping_calculation" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens de berekening.</value>
   </data>
-  <data name="GrassCoverErosionInwardsGuiPlugin_Calculate_overtopping_for_location_0_" xml:space="preserve">
-    <value>Faalkans berekenen voor locatie '{0}'</value>
-  </data>
 </root>

@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void SetForeshoreGeometry_NullRoughnessProfileSections_ThrowsArgumentNullException()
+        public void SetForeshoreGeometry_NullProfileSections_ThrowsArgumentNullException()
         {
             // Setup
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
@@ -155,8 +155,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var input = new GrassCoverErosionInwardsInput(generalInput);
             var sections = new[]
             {
-                new RoughnessProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4), 1.1),
-                new RoughnessProfileSection(new Point2D(3.3, 4.4), new Point2D(5.5, 6.6), 2.2)
+                new ProfileSection(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4)),
+                new ProfileSection(new Point2D(3.3, 4.4), new Point2D(5.5, 6.6))
             };
 
             // Call

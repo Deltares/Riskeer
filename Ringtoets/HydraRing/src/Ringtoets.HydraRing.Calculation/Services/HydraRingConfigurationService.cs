@@ -204,16 +204,16 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "Description", hydraRingSection.SectionName // Just use the section name
                     },
                     {
-                        "RingCoordinateBegin", GetHydraRingValue(hydraRingSection.SectionBeginCoordinate)
+                        "RingCoordinateBegin", defaultHydraRingValue // No support for coordinates
                     },
                     {
-                        "RingCoordinateEnd", GetHydraRingValue(hydraRingSection.SectionEndCoordinate)
+                        "RingCoordinateEnd", defaultHydraRingValue // No support for coordinates
                     },
                     {
-                        "XCoordinate", GetHydraRingValue(hydraRingSection.CrossSectionXCoordinate)
+                        "XCoordinate", defaultHydraRingValue // No support for coordinates
                     },
                     {
-                        "YCoordinate", GetHydraRingValue(hydraRingSection.CrossSectionYCoordinate)
+                        "YCoordinate", defaultHydraRingValue // No support for coordinates
                     },
                     {
                         "StationId1", hydraRingCalculationInput.HydraulicBoundaryLocationId

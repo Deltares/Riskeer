@@ -31,17 +31,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
         public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraRingSection = new HydraRingSection(1, "Name", 2.2, 3.3, 4.4, 5.5, 6.6, 7.7);
+            var hydraRingSection = new HydraRingSection(1, "Name", 2.2, 3.3);
 
             // Assert
             Assert.AreEqual(1, hydraRingSection.SectionId);
             Assert.AreEqual("Name", hydraRingSection.SectionName);
-            Assert.AreEqual(2.2, hydraRingSection.SectionBeginCoordinate);
-            Assert.AreEqual(3.3, hydraRingSection.SectionEndCoordinate);
-            Assert.AreEqual(4.4, hydraRingSection.SectionLength);
-            Assert.AreEqual(5.5, hydraRingSection.CrossSectionXCoordinate);
-            Assert.AreEqual(6.6, hydraRingSection.CrossSectionYCoordinate);
-            Assert.AreEqual(7.7, hydraRingSection.CrossSectionNormal);
+            Assert.AreEqual(2.2, hydraRingSection.SectionLength);
+            Assert.AreEqual(3.3, hydraRingSection.CrossSectionNormal);
         }
     }
 }

@@ -87,6 +87,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// </summary>
         public IEnumerable<Point2D> Points { get; private set; }
 
+        public long StorageId { get; set; }
+
         /// <summary>
         /// Gets the geometric start of the section.
         /// </summary>
@@ -103,6 +105,12 @@ namespace Ringtoets.Common.Data.FailureMechanism
             return geometryEnd;
         }
 
-        public long StorageId { get; set; }
+        /// <summary>
+        /// Gets the length of the section.
+        /// </summary>
+        public double GetSectionLength()
+        {
+            return Math2D.ConvertLinePointsToLineSegments(Points).Sum(segment => segment.Length);
+        }
     }
 }

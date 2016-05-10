@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// <param name="norm">The norm to use during the calculation.</param>
         public AssessmentLevelCalculationInput(int hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId, norm)
         {
-            section = new HydraRingSection(HydraulicBoundaryLocationId, HydraulicBoundaryLocationId.ToString(), double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            section = new HydraRingSection(HydraulicBoundaryLocationId, HydraulicBoundaryLocationId.ToString(), double.NaN, double.NaN);
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType

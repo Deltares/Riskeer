@@ -25,28 +25,41 @@ using Core.Common.Base.Geometry;
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// This class represents a sub-section of a line and the characteristic properties of that line with a roughness.
+    /// This class represents a sub-section of a line and the characteristic properties of that line.
     /// </summary>
-    public class RoughnessProfileSection : ProfileSection
+    public class ProfileSection
     {
         /// <summary>
-        /// Creates a new instance of the <see cref="RoughnessProfileSection"/> class.
+        /// Creates a new instance of the <see cref="ProfileSection"/> class.
         /// </summary>
         /// <param name="startingPoint">Starting point of the section.</param>
         /// <param name="endingPoint">Ending point of the section.</param>
-        /// <param name="roughness">The roughness of the section between <paramref name="startingPoint"/> and <paramref name="endingPoint"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when:<list type="bullet">
         /// <item><paramref name="startingPoint"/> is <c>null</c>.</item>
         /// <item><paramref name="endingPoint"/> is <c>null</c>.</item>
         /// </list></exception>
-        public RoughnessProfileSection(Point2D startingPoint, Point2D endingPoint, double roughness) : base(startingPoint, endingPoint)
+        public ProfileSection(Point2D startingPoint, Point2D endingPoint)
         {
-            Roughness = roughness;
+            if (startingPoint == null)
+            {
+                throw new ArgumentNullException("startingPoint");
+            }
+            if (endingPoint == null)
+            {
+                throw new ArgumentNullException("endingPoint");
+            }
+            StartingPoint = startingPoint;
+            EndingPoint = endingPoint;
         }
 
         /// <summary>
-        /// Gets the roughness of the <see cref="RoughnessProfileSection"/>.
+        /// Gets the starting 2D geometry point of the <see cref="ProfileSection"/>.
         /// </summary>
-        public double Roughness { get; private set; }
+        public Point2D StartingPoint { get; private set; }
+
+        /// <summary>
+        /// Gets the ending 2D geometry point of the <see cref="ProfileSection"/>.
+        /// </summary>
+        public Point2D EndingPoint { get; private set; }
     }
 }

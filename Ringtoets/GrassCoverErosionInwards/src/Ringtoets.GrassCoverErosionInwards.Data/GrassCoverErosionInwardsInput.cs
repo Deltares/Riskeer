@@ -58,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             BreakWater = new BreakWater(BreakWaterType.Caisson, 0);
             criticalFlowRate = new LognormalDistribution(2);
             DikeGeometry = Enumerable.Empty<RoughnessProfileSection>();
-            ForeshoreGeometry = Enumerable.Empty<RoughnessProfileSection>();
+            ForeshoreGeometry = Enumerable.Empty<ProfileSection>();
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets the dike's foreshore geometry.
         /// </summary>
-        public IEnumerable<RoughnessProfileSection> ForeshoreGeometry { get; private set; }
+        public IEnumerable<ProfileSection> ForeshoreGeometry { get; private set; }
 
         /// <summary>
         /// Gets or sets the dike's orientation
@@ -155,7 +155,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Sets the grass cover erosion inwards foreshore geometry.
         /// </summary>
         /// <param name="profileSections">The grass cover erosion inwards geometry points.</param>
-        public void SetForeshoreGeometry(IEnumerable<RoughnessProfileSection> profileSections)
+        public void SetForeshoreGeometry(IEnumerable<ProfileSection> profileSections)
         {
             if (profileSections == null)
             {

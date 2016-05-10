@@ -135,5 +135,23 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Assert
             Assert.AreEqual(geometryPoints[1], endingPoint);
         }
+
+        [Test]
+        public void GetSectionLength_SectionWithPoints_ReturnLength()
+        {
+            // Setup
+            var geometryPoints = new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            };
+            var section = new FailureMechanismSection("A", geometryPoints);
+
+            // Call
+            double sectionLength = section.GetSectionLength();
+
+            // Assert
+            Assert.AreEqual(2.828427, sectionLength, 1e-6);
+        }
     }
 }
