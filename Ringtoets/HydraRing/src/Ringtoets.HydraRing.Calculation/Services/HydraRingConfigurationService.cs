@@ -144,7 +144,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             configurationDictionary["Fetches"] = new List<OrderedDictionary>();
             configurationDictionary["AreaPoints"] = new List<OrderedDictionary>();
             configurationDictionary["PresentationSections"] = new List<OrderedDictionary>();
-            configurationDictionary["Profiles"] = GetCalculationProfilesConfiguration();
+            configurationDictionary["Profiles"] = GetProfilesConfiguration();
             configurationDictionary["ForelandModels"] = new List<OrderedDictionary>();
             configurationDictionary["Forelands"] = GetForelandsConfiguration();
             configurationDictionary["ProbabilityAlternatives"] = new List<OrderedDictionary>();
@@ -448,6 +448,37 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderDictionaries;
         }
 
+        private IList<OrderedDictionary> GetProfilesConfiguration()
+        {
+            var orderDictionaries = new List<OrderedDictionary>();
+
+            foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
+            {
+                for (var i = 0; i < hydraRingCalculationInput.ProfilePoints.Count(); i++)
+                {
+                    var hydraRingProfilePoint = hydraRingCalculationInput.ProfilePoints.ElementAt(i);
+
+                    orderDictionaries.Add(new OrderedDictionary
+                    {
+                        {
+                            "SectionId", hydraRingCalculationInput.Section.SectionId
+                        },
+                        {
+                            "SequenceNumber", i + 1
+                        },
+                        {
+                            "XCoordinate", GetHydraRingValue(hydraRingProfilePoint.X)
+                        },
+                        {
+                            "ZCoordinate", GetHydraRingValue(hydraRingProfilePoint.Z)
+                        }
+                    });
+                }
+            }
+
+            return orderDictionaries;
+        }
+
         private IList<OrderedDictionary> GetCalculationProfilesConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
@@ -585,9 +616,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         {
                             {
                                 "SectionId", hydraRingCalculationInput.Section.SectionId
-                            },
-                            {
-                                "MechanismId", failureMechanismDefaults.MechanismId
                             },
                             {
                                 "LayerId", defaultLayerId // Fixed: no support for revetments

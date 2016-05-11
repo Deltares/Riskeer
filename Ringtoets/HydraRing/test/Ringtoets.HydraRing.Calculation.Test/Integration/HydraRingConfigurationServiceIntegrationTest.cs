@@ -167,8 +167,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "INSERT INTO [SectionFaultTreeModels] VALUES (700004, 101, 1, 1, 1017);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
-                                         "INSERT INTO [SectionSubMechanismModels] VALUES (700004, 101, 1, 1, 102, 94);" + Environment.NewLine +
-                                         "INSERT INTO [SectionSubMechanismModels] VALUES (700004, 101, 1, 1, 103, 95);" + Environment.NewLine +
+                                         "INSERT INTO [SectionSubMechanismModels] VALUES (700004, 1, 1, 102, 94);" + Environment.NewLine +
+                                         "INSERT INTO [SectionSubMechanismModels] VALUES (700004, 1, 1, 103, 95);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Fetches];" + Environment.NewLine +
                                          Environment.NewLine +
@@ -177,7 +177,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "DELETE FROM [PresentationSections];" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Profiles];" + Environment.NewLine +
-                                         "INSERT INTO [Profiles] VALUES (700004, 1, 1.1, 2.2, 3.3);" + Environment.NewLine +
+                                         "INSERT INTO [Profiles] VALUES (700004, 1, 1.1, 2.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [ForelandModels];" + Environment.NewLine +
                                          Environment.NewLine +

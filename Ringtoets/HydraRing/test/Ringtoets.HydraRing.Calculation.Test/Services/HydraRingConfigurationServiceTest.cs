@@ -79,7 +79,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [SectionFaultTreeModels] VALUES (1, 1, 1, 1, 1);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
-                                         "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 1, 1, 1234);" + Environment.NewLine +
+                                         "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 1, 1234);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Fetches];" + Environment.NewLine +
                                          Environment.NewLine +
@@ -88,8 +88,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "DELETE FROM [PresentationSections];" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Profiles];" + Environment.NewLine +
-                                         "INSERT INTO [Profiles] VALUES (1, 1, 1.1, 2.2, 3.3);" + Environment.NewLine +
-                                         "INSERT INTO [Profiles] VALUES (1, 2, 11.1, 22.2, 33.3);" + Environment.NewLine +
+                                         "INSERT INTO [Profiles] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Profiles] VALUES (1, 2, 11.1, 22.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [ForelandModels];" + Environment.NewLine +
                                          Environment.NewLine +
@@ -185,9 +185,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [SectionFaultTreeModels] VALUES (3, 1, 1, 1, 1);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [SectionSubMechanismModels];" + Environment.NewLine +
-                                         "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 1, 1, 1234);" + Environment.NewLine +
-                                         "INSERT INTO [SectionSubMechanismModels] VALUES (2, 1, 1, 1, 1, 1234);" + Environment.NewLine +
-                                         "INSERT INTO [SectionSubMechanismModels] VALUES (3, 1, 1, 1, 1, 1234);" + Environment.NewLine +
+                                         "INSERT INTO [SectionSubMechanismModels] VALUES (1, 1, 1, 1, 1234);" + Environment.NewLine +
+                                         "INSERT INTO [SectionSubMechanismModels] VALUES (2, 1, 1, 1, 1234);" + Environment.NewLine +
+                                         "INSERT INTO [SectionSubMechanismModels] VALUES (3, 1, 1, 1, 1234);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Fetches];" + Environment.NewLine +
                                          Environment.NewLine +
@@ -196,12 +196,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "DELETE FROM [PresentationSections];" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Profiles];" + Environment.NewLine +
-                                         "INSERT INTO [Profiles] VALUES (1, 1, 1.1, 2.2, 3.3);" + Environment.NewLine +
-                                         "INSERT INTO [Profiles] VALUES (1, 2, 11.1, 22.2, 33.3);" + Environment.NewLine +
-                                         "INSERT INTO [Profiles] VALUES (2, 1, 1.1, 2.2, 3.3);" + Environment.NewLine +
-                                         "INSERT INTO [Profiles] VALUES (2, 2, 11.1, 22.2, 33.3);" + Environment.NewLine +
-                                         "INSERT INTO [Profiles] VALUES (3, 1, 1.1, 2.2, 3.3);" + Environment.NewLine +
-                                         "INSERT INTO [Profiles] VALUES (3, 2, 11.1, 22.2, 33.3);" + Environment.NewLine +
+                                         "INSERT INTO [Profiles] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Profiles] VALUES (1, 2, 11.1, 22.2);" + Environment.NewLine +
+                                         "INSERT INTO [Profiles] VALUES (2, 1, 1.1, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Profiles] VALUES (2, 2, 11.1, 22.2);" + Environment.NewLine +
+                                         "INSERT INTO [Profiles] VALUES (3, 1, 1.1, 2.2);" + Environment.NewLine +
+                                         "INSERT INTO [Profiles] VALUES (3, 2, 11.1, 22.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [ForelandModels];" + Environment.NewLine +
                                          Environment.NewLine +
