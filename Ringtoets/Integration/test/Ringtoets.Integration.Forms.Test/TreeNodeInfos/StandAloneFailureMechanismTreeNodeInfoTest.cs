@@ -177,10 +177,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, failureMechanismSectionsContext.ParentFailureMechanism);
                 Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-                Assert.AreSame(failureMechanism.Locations, inputFolder.Contents[1]);
-                Assert.AreSame(failureMechanism.BoundaryConditions, inputFolder.Contents[2]);
-
-                var commentContext = (CommentContext<ICommentable>) inputFolder.Contents[3];
+                var commentContext = (CommentContext<ICommentable>) inputFolder.Contents[1];
                 Assert.IsNotNull(commentContext);
                 Assert.AreSame(failureMechanism, commentContext.CommentContainer);
 

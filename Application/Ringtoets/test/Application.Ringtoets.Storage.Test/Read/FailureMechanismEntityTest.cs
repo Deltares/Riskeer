@@ -174,7 +174,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ReadAsFailureMechanismPlaceholder_WithoutSectionsSet_ReturnsNewFailureMechanismPlaceholder(bool isRelevant)
+        public void ReadAsStandAloneFailureMechanism_WithoutSectionsSet_ReturnsNewStandAloneFailureMechanism(bool isRelevant)
         {
             // Setup
             var entityId = new Random(21).Next(1, 502);
@@ -185,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            var failureMechanism = entity.ReadAsFailureMechanismPlaceholder();
+            var failureMechanism = entity.ReadAsStandAloneFailureMechanism();
 
             // Assert
             Assert.IsEmpty(failureMechanism.Sections);
@@ -195,7 +195,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }   
 
         [Test]
-        public void ReadAsFailureMechanismPlaceholder_WithSectionsSet_ReturnsNewFailureMechanismPlaceholderWithFailureMechanismSections()
+        public void ReadAsStandAloneFailureMechanism_WithSectionsSet_ReturnsNewStandAloneFailureMechanismWithFailureMechanismSections()
         {
             // Setup
             var entityId = new Random(21).Next(1, 502);
@@ -216,7 +216,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            var failureMechanism = entity.ReadAsFailureMechanismPlaceholder();
+            var failureMechanism = entity.ReadAsStandAloneFailureMechanism();
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());

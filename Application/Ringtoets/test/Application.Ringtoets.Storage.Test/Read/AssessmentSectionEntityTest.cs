@@ -221,7 +221,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithFailureMechanismPlaceholdersSet_ReturnsNewAssessmentSectionWithFailureMechanismsSet(bool isRelevant)
+        public void Read_WithStandAloneFailureMechanismsSet_ReturnsNewAssessmentSectionWithFailureMechanismsSet(bool isRelevant)
         {
             // Setup
             var entity = new AssessmentSectionEntity();

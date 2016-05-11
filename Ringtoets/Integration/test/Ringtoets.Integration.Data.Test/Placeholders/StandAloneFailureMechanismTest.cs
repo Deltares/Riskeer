@@ -70,8 +70,6 @@ namespace Ringtoets.Integration.Data.Test.Placeholders
             Assert.AreEqual(expectedName, failureMechanism.Name);
             Assert.AreEqual(expectedCode, failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            Assert.AreEqual("Locaties", failureMechanism.Locations.Name);
-            Assert.AreEqual("Randvoorwaarden", failureMechanism.BoundaryConditions.Name);
             Assert.AreEqual("Oordeel", failureMechanism.AssessmentResult.Name);
         }
     }

@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="StandAloneFailureMechanism"/>.
         /// </summary>
         /// <returns>A new <see cref="StandAloneFailureMechanism"/>.</returns>
-        public StandAloneFailureMechanism ReadAsFailureMechanismPlaceholder()
+        public StandAloneFailureMechanism ReadAsStandAloneFailureMechanism()
         {
             var failureMechanism = new StandAloneFailureMechanism("temporaryName", "temporaryCode")
             {

@@ -29,15 +29,15 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Integration.Data.Placeholders
 {
     /// <summary>
-    /// Defines a placeholder for unimplemented failure mechanisms objects
+    /// Defines a placeholder for stand alone failure mechanisms objects
     /// </summary>
     public class StandAloneFailureMechanism : FailureMechanismBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StandAloneFailureMechanism"/> class.
         /// </summary>
-        /// <param name="name">The name for the placeholder.</param>
-        /// <param name="code">The code for the placeholder.</param>
+        /// <param name="name">The name for the <see cref="StandAloneFailureMechanism"/>.</param>
+        /// <param name="code">The code for the <see cref="StandAloneFailureMechanism"/>.</param>
         /// <exception cref="ArgumentException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="name"/> is <c>null</c> or empty.</item>
@@ -47,8 +47,6 @@ namespace Ringtoets.Integration.Data.Placeholders
         public StandAloneFailureMechanism(string name, string code)
             : base(name, code)
         {
-            Locations = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_Locations_DisplayName);
-            BoundaryConditions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_BoundaryConditions_DisplayName);
             AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
         }
 
@@ -59,16 +57,6 @@ namespace Ringtoets.Integration.Data.Placeholders
                 yield break;
             }
         }
-
-        /// <summary>
-        /// Gets the locations relevant for evaluating this failure mechanism.
-        /// </summary>
-        public InputPlaceholder Locations { get; private set; }
-
-        /// <summary>
-        /// Gets the boundary conditions applying to this failure mechanism.
-        /// </summary>
-        public InputPlaceholder BoundaryConditions { get; private set; }
 
         /// <summary>
         /// Gets the calculation results for this failure mechanism.

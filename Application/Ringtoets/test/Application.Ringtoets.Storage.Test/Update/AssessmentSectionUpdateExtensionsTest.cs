@@ -421,7 +421,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_AssessmentSectionWithUpdatedFailureMechanismPlaceholders_PropertiesUpdated()
+        public void Update_AssessmentSectionWithUpdatedStandAloneFailureMechanisms_PropertiesUpdated()
         {
             // Setup
             MockRepository mocks = new MockRepository();

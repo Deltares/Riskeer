@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.DbContext
             ReadGrassCoverErosionInwardsFailureMechanism(assessmentSection);
             ReadHydraulicDatabase(assessmentSection);
             ReadReferenceLine(assessmentSection);
-            ReadFailureMechanismPlaceholders(assessmentSection);
+            ReadStandAloneFailureMechanisms(assessmentSection);
 
             return assessmentSection;
         }
@@ -125,26 +125,26 @@ namespace Application.Ringtoets.Storage.DbContext
             }
         }
 
-        private void ReadFailureMechanismPlaceholders(AssessmentSection assessmentSection)
+        private void ReadStandAloneFailureMechanisms(AssessmentSection assessmentSection)
         {
-            ReadFailureMechanismPlaceholder(FailureMechanismType.MacrostabilityInwards, assessmentSection.MacrostabilityInwards);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.StabilityStoneRevetment, assessmentSection.StabilityStoneCover);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.WaveImpactOnAsphaltRevetment, assessmentSection.WaveImpactAsphaltCover);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.GrassRevetmentErosionOutwards, assessmentSection.GrassCoverErosionOutside);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.GrassRevetmentSlidingOutwards, assessmentSection.GrassCoverSlipOffOutside);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.StructureHeight, assessmentSection.HeightStructure);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.ReliabilityClosingOfStructure, assessmentSection.ClosingStructure);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.PipingAtStructure, assessmentSection.PipingStructure);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.StrengthAndStabilityPointConstruction, assessmentSection.StrengthStabilityPointConstruction);
-            ReadFailureMechanismPlaceholder(FailureMechanismType.DuneErosion, assessmentSection.DuneErosion);
+            ReadStandAloneFailureMechanism(FailureMechanismType.MacrostabilityInwards, assessmentSection.MacrostabilityInwards);
+            ReadStandAloneFailureMechanism(FailureMechanismType.StabilityStoneRevetment, assessmentSection.StabilityStoneCover);
+            ReadStandAloneFailureMechanism(FailureMechanismType.WaveImpactOnAsphaltRevetment, assessmentSection.WaveImpactAsphaltCover);
+            ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentErosionOutwards, assessmentSection.GrassCoverErosionOutside);
+            ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentSlidingOutwards, assessmentSection.GrassCoverSlipOffOutside);
+            ReadStandAloneFailureMechanism(FailureMechanismType.StructureHeight, assessmentSection.HeightStructure);
+            ReadStandAloneFailureMechanism(FailureMechanismType.ReliabilityClosingOfStructure, assessmentSection.ClosingStructure);
+            ReadStandAloneFailureMechanism(FailureMechanismType.PipingAtStructure, assessmentSection.PipingStructure);
+            ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityPointConstruction, assessmentSection.StrengthStabilityPointConstruction);
+            ReadStandAloneFailureMechanism(FailureMechanismType.DuneErosion, assessmentSection.DuneErosion);
         }
 
-        private void ReadFailureMechanismPlaceholder(FailureMechanismType failureMechanismType, StandAloneFailureMechanism standAloneFailureMechanism)
+        private void ReadStandAloneFailureMechanism(FailureMechanismType failureMechanismType, StandAloneFailureMechanism standAloneFailureMechanism)
         {
             var failureMechanismEntity = FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) failureMechanismType);
             if (failureMechanismEntity != null)
             {
-                var failureMechanism = failureMechanismEntity.ReadAsFailureMechanismPlaceholder();
+                var failureMechanism = failureMechanismEntity.ReadAsStandAloneFailureMechanism();
 
                 standAloneFailureMechanism.StorageId = failureMechanism.StorageId;
                 standAloneFailureMechanism.IsRelevant = failureMechanism.IsRelevant;

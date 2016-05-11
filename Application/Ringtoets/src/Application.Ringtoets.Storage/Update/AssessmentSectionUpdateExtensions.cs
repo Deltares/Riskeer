@@ -66,12 +66,12 @@ namespace Application.Ringtoets.Storage.DbContext
             UpdateGrassCoverErosionInwardsFailureMechanism(section, collector, context);
             UpdateHydraulicDatabase(section, entity, collector, context);
             UpdateReferenceLine(section, entity, context);
-            UpdateFailureMechanismPlaceHolders(section, collector, context);
+            UpdateStandAloneFailureMechanisms(section, collector, context);
 
             collector.Update(entity);
         }
 
-        private static void UpdateFailureMechanismPlaceHolders(AssessmentSection section, UpdateConversionCollector collector, IRingtoetsEntities context)
+        private static void UpdateStandAloneFailureMechanisms(AssessmentSection section, UpdateConversionCollector collector, IRingtoetsEntities context)
         {
             section.MacrostabilityInwards.Update(collector, context);
             section.StabilityStoneCover.Update(collector, context);

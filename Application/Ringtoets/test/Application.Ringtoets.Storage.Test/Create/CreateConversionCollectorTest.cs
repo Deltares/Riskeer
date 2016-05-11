@@ -468,7 +468,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void TransferId_WithFailureMechanismEntityAddedWithFailureMechanismPlaceholder_EqualFailureMechanismEntityIdAndFailureMechanismPlaceholderStorageId()
+        public void TransferId_WithFailureMechanismEntityAddedWithStandAloneFailureMechanism_EqualFailureMechanismEntityIdAndStandAloneFailureMechanismStorageId()
         {
             // Setup
             var collector = new CreateConversionCollector();

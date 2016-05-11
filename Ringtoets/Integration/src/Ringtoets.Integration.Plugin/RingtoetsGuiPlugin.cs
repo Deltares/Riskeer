@@ -194,10 +194,10 @@ namespace Ringtoets.Integration.Plugin
             };
 
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StandAloneFailureMechanismContext>(
-                FailureMechanismPlaceholderEnabledChildNodeObjects,
-                FailureMechanismPlaceholderDisabledChildNodeObjects,
-                FailureMechanismPlaceholderEnabledContextMenuStrip,
-                FailureMechanismPlaceholderDisabledContextMenuStrip);
+                StandAloneFailureMechanismEnabledChildNodeObjects,
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
 
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
             {
@@ -469,9 +469,9 @@ namespace Ringtoets.Integration.Plugin
 
         # endregion
 
-        # region FailureMechanismPlaceHolderContext
+        # region StandAloneFailureMechanismContext
 
-        private object[] FailureMechanismPlaceholderEnabledChildNodeObjects(StandAloneFailureMechanismContext nodeData)
+        private object[] StandAloneFailureMechanismEnabledChildNodeObjects(StandAloneFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -484,7 +484,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private object[] FailureMechanismPlaceholderDisabledChildNodeObjects(StandAloneFailureMechanismContext nodeData)
+        private object[] StandAloneFailureMechanismDisabledChildNodeObjects(StandAloneFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -497,8 +497,6 @@ namespace Ringtoets.Integration.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.Locations,
-                nodeData.BoundaryConditions,
                 new CommentContext<ICommentable>(nodeData)
             };
         }
@@ -511,7 +509,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismPlaceholderEnabledContextMenuStrip(StandAloneFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StandAloneFailureMechanismEnabledContextMenuStrip(StandAloneFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var changeRelevancyItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
@@ -558,7 +556,7 @@ namespace Ringtoets.Integration.Plugin
                       .Build();
         }
 
-        private ContextMenuStrip FailureMechanismPlaceholderDisabledContextMenuStrip(StandAloneFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StandAloneFailureMechanismDisabledContextMenuStrip(StandAloneFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = Gui.Get(nodeData, treeViewControl);
 

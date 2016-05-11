@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.DbContext
             CreateGrassCoverErosionInwardsFailureMechanism(section, entity, collector);
             CreateHydraulicDatabase(section, entity, collector);
             CreateReferenceLine(section, entity);
-            CreateFailureMechanismPlaceHolders(section, entity, collector);
+            CreateStandAloneFailureMechanisms(section, entity, collector);
 
             collector.Create(entity, section);
             return entity;
@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.DbContext
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionInwards.Create(collector));
         }
 
-        private static void CreateFailureMechanismPlaceHolders(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
+        private static void CreateStandAloneFailureMechanisms(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
         {
             entity.FailureMechanismEntities.Add(section.MacrostabilityInwards.Create(FailureMechanismType.MacrostabilityInwards, collector));
             entity.FailureMechanismEntities.Add(section.StabilityStoneCover.Create(FailureMechanismType.StabilityStoneRevetment, collector));
