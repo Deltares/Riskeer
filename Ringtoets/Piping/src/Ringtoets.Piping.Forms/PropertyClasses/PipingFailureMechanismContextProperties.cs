@@ -2,14 +2,13 @@
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="GeneralPipingInput"/> for properties panel.
+    /// ViewModel of <see cref="PipingFailureMechanismContext"/> properties panel.
     /// </summary>
     public class PipingFailureMechanismContextProperties : ObjectProperties<PipingFailureMechanismContext>
     {

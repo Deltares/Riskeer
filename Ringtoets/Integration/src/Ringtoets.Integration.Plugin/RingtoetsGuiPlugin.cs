@@ -105,6 +105,7 @@ namespace Ringtoets.Integration.Plugin
         {
             yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
+            yield return new PropertyInfo<FailureMechanismPlaceholderContext, FailureMechanismPlaceholderContextProperties>();
         }
 
         /// <summary>

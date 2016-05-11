@@ -181,7 +181,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, propertyInfos.Length);
+                Assert.AreEqual(3, propertyInfos.Length);
 
                 var assessmentSectionProperties = propertyInfos.Single(pi => pi.DataType == typeof(IAssessmentSection));
                 Assert.AreEqual(typeof(AssessmentSectionProperties), assessmentSectionProperties.PropertyObjectType);
@@ -189,11 +189,17 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(assessmentSectionProperties.GetObjectPropertiesData);
                 Assert.IsNull(assessmentSectionProperties.AfterCreate);
 
-                var hydraulicBoundaryDatabase = propertyInfos.Single(pi => pi.DataType == typeof(HydraulicBoundaryDatabaseContext));
-                Assert.AreEqual(typeof(HydraulicBoundaryDatabaseProperties), hydraulicBoundaryDatabase.PropertyObjectType);
-                Assert.IsNull(hydraulicBoundaryDatabase.AdditionalDataCheck);
-                Assert.IsNull(hydraulicBoundaryDatabase.GetObjectPropertiesData);
-                Assert.IsNull(hydraulicBoundaryDatabase.AfterCreate);
+                var hydraulicBoundaryDatabaseProperties = propertyInfos.Single(pi => pi.DataType == typeof(HydraulicBoundaryDatabaseContext));
+                Assert.AreEqual(typeof(HydraulicBoundaryDatabaseProperties), hydraulicBoundaryDatabaseProperties.PropertyObjectType);
+                Assert.IsNull(hydraulicBoundaryDatabaseProperties.AdditionalDataCheck);
+                Assert.IsNull(hydraulicBoundaryDatabaseProperties.GetObjectPropertiesData);
+                Assert.IsNull(hydraulicBoundaryDatabaseProperties.AfterCreate);
+
+                var failureMechanismPlaceholderProperties = propertyInfos.Single(pi => pi.DataType == typeof(FailureMechanismPlaceholderContext));
+                Assert.AreEqual(typeof(FailureMechanismPlaceholderContextProperties), failureMechanismPlaceholderProperties.PropertyObjectType);
+                Assert.IsNull(failureMechanismPlaceholderProperties.AdditionalDataCheck);
+                Assert.IsNull(failureMechanismPlaceholderProperties.GetObjectPropertiesData);
+                Assert.IsNull(failureMechanismPlaceholderProperties.AfterCreate);
             }
         }
 
