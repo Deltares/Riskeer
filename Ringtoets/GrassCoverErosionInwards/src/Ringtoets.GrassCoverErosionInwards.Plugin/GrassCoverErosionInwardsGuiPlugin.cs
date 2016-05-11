@@ -367,7 +367,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     CreateHydraRingTargetProbabilityCalculationActivity(
                         context.FailureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
                         Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
-                        calc)));
+                        calc)).ToList());
         }
 
         #endregion

@@ -397,7 +397,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void CalculateAll(PipingFailureMechanism failureMechanism)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, GetAllPipingCalculations(failureMechanism).Select(calc => new PipingCalculationActivity(calc)));
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, GetAllPipingCalculations(failureMechanism).Select(calc => new PipingCalculationActivity(calc)).ToList());
         }
 
         private object[] FailureMechanismEnabledChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)
@@ -665,7 +665,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, group.GetCalculations().OfType<PipingCalculationScenario>().Select(pc => new PipingCalculationActivity(pc)));
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, group.GetCalculations().OfType<PipingCalculationScenario>().Select(pc => new PipingCalculationActivity(pc)).ToList());
         }
 
         private static void ValidateAll(CalculationGroup group)
