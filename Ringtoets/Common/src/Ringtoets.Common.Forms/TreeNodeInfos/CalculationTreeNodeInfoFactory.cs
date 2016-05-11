@@ -78,14 +78,14 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// Creates a <see cref="TreeNodeInfo"/> object for a calculation context of the type <typeparamref name="TCalculationContext"/>. 
         /// </summary>
         /// <param name="icon">The icon of the <see cref="TreeNodeInfo"/>.</param>
-        /// <param name="childeNodeObjects">The function for obtaining the child node objects.</param>
+        /// <param name="childNodeObjects">The function for obtaining the child node objects.</param>
         /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
         /// <param name="onNodeRemoved">The action to perform on removing a node.</param>
         /// <typeparam name="TCalculationContext">The type of calculation context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TCalculationContext> CreateCalculationContextTreeNodeInfo<TCalculationContext>(
             Bitmap icon,
-            Func<TCalculationContext, object[]> childeNodeObjects,
+            Func<TCalculationContext, object[]> childNodeObjects,
             Func<TCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
             Action<TCalculationContext, object> onNodeRemoved)
             where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
@@ -95,7 +95,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Text = context => context.WrappedData.Name,
                 Image = context => icon,
                 EnsureVisibleOnCreate = (context, parent) => true,
-                ChildNodeObjects = childeNodeObjects,
+                ChildNodeObjects = childNodeObjects,
                 ContextMenuStrip = contextMenuStrip,
                 CanRename = (context, parent) => true,
                 OnNodeRenamed = (context, newName) =>
@@ -112,15 +112,15 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Creates a <see cref="TreeNodeInfo"/> object for a failure mechanism context of the type <typeparamref name="TFailureMechanismContext"/>. 
         /// </summary>
-        /// <param name="enabledChildeNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.IsRelevant"/> is <c>true</c>.</param>
-        /// <param name="disabledChildeNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.IsRelevant"/> is <c>false</c>.</param>
+        /// <param name="enabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.IsRelevant"/> is <c>true</c>.</param>
+        /// <param name="disabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.IsRelevant"/> is <c>false</c>.</param>
         /// <param name="enabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailureMechanism.IsRelevant"/> is <c>true</c>.</param>
         /// <param name="disabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailureMechanism.IsRelevant"/> is <c>false</c>.</param>
         /// <typeparam name="TFailureMechanismContext">The type of failure mechanism context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TFailureMechanismContext> CreateFailureMechanismContextTreeNodeInfo<TFailureMechanismContext>(
-            Func<TFailureMechanismContext, object[]> enabledChildeNodeObjects,
-            Func<TFailureMechanismContext, object[]> disabledChildeNodeObjects,
+            Func<TFailureMechanismContext, object[]> enabledChildNodeObjects,
+            Func<TFailureMechanismContext, object[]> disabledChildNodeObjects,
             Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> enabledContextMenuStrip,
             Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> disabledContextMenuStrip)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
@@ -133,8 +133,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 Image = context => Resources.FailureMechanismIcon,
                 ChildNodeObjects = context => context.WrappedData.IsRelevant
-                                                  ? enabledChildeNodeObjects(context)
-                                                  : disabledChildeNodeObjects(context),
+                                                  ? enabledChildNodeObjects(context)
+                                                  : disabledChildNodeObjects(context),
                 ContextMenuStrip = (context, parentData, treeViewControl) => context.WrappedData.IsRelevant
                                                                                  ? enabledContextMenuStrip(context, parentData, treeViewControl)
                                                                                  : disabledContextMenuStrip(context, parentData, treeViewControl)
