@@ -61,8 +61,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TreeNodeInfos\CalculationTreeNodeInfoFactory.cs" />
-    <Compile Include="TreeNodeInfos\ContextMenuItemFactory.cs" />
+    <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactory.cs" />
+    <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactory.cs" />
     <Compile Include="Views\CommentView.cs">
       <SubType>UserControl</SubType>
     </Compile>

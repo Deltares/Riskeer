@@ -192,7 +192,7 @@ namespace Ringtoets.Integration.Plugin
                                    Gui.Get(nodeData, treeViewControl).AddImportItem().Build()
             };
 
-            yield return CalculationTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismPlaceholderContext>(
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismPlaceholderContext>(
                 FailureMechanismPlaceholderEnabledChildNodeObjects,
                 FailureMechanismPlaceholderDisabledChildNodeObjects,
                 FailureMechanismPlaceholderEnabledContextMenuStrip,
@@ -561,7 +561,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var builder = Gui.Get(nodeData, treeViewControl);
 
-            ContextMenuItemFactory.AddDisabledChangeRelevancyItem(builder, nodeData);
+            RingtoetsContextMenuItemFactory.AddDisabledChangeRelevancyItem(builder, nodeData);
 
             return builder.AddSeparator()
                           .AddExpandAllItem()

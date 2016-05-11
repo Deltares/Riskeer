@@ -68,18 +68,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return CalculationTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverErosionInwardsFailureMechanismContext>(
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverErosionInwardsFailureMechanismContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
-            yield return CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>(
+            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionInwardsCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionInwardsCalculationContext>(
+            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionInwardsCalculationContext>(
                 GrassCoverErosionInwardsFormsResources.CalculationIcon,
                 CalculationContextChildNodeObjects,
                 CalculationContextContextmenuStrip,
@@ -263,7 +263,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             var builder = Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl);
 
-            ContextMenuItemFactory.AddDisabledChangeRelevancyItem(builder, grassCoverErosionInwardsFailureMechanismContext);
+            RingtoetsContextMenuItemFactory.AddDisabledChangeRelevancyItem(builder, grassCoverErosionInwardsFailureMechanismContext);
 
             return builder.AddSeparator()
                           .AddExpandAllItem()
@@ -327,11 +327,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                        .AddSeparator();
             }
 
-            ContextMenuItemFactory.AddCreateCalculationGroupItem(builder, group);
-            ContextMenuItemFactory.AddCreateCalculationItem(builder, nodeData, AddCalculation);
+            RingtoetsContextMenuItemFactory.AddCreateCalculationGroupItem(builder, group);
+            RingtoetsContextMenuItemFactory.AddCreateCalculationItem(builder, nodeData, AddCalculation);
             builder.AddSeparator();
-            ContextMenuItemFactory.AddPerformAllCalculationsInGroupItem(builder, group, nodeData, CalculateAll);
-            ContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
+            RingtoetsContextMenuItemFactory.AddPerformAllCalculationsInGroupItem(builder, group, nodeData, CalculateAll);
+            RingtoetsContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
             builder.AddSeparator();
 
             if (isNestedGroup)
@@ -399,12 +399,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             GrassCoverErosionInwardsCalculation calculation = nodeData.WrappedData;
 
-            ContextMenuItemFactory.AddPerformCalculationItem(
+            RingtoetsContextMenuItemFactory.AddPerformCalculationItem(
                 builder,
                 calculation,
                 nodeData,
                 PerformCalculation);
-            ContextMenuItemFactory.AddClearCalculationOutputItem(builder, calculation);
+            RingtoetsContextMenuItemFactory.AddClearCalculationOutputItem(builder, calculation);
             builder.AddSeparator();
 
             return builder

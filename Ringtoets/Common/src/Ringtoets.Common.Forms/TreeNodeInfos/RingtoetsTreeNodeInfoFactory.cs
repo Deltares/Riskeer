@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
     /// <summary>
     /// Factory for creating calculation related <see cref="TreeNodeInfo"/> objects.
     /// </summary>
-    public static class CalculationTreeNodeInfoFactory
+    public static class RingtoetsTreeNodeInfoFactory
     {
         /// <summary>
         /// Creates a <see cref="TreeNodeInfo"/> object for a calculation group context of the type <typeparamref name="TCalculationGroupContext"/>.

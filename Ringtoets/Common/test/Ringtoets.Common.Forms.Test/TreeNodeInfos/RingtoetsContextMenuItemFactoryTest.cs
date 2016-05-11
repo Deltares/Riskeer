@@ -37,7 +37,7 @@ using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ContextMenuItemFactoryTest : NUnitFormTest
+    public class RingtoetsContextMenuItemFactoryTest : NUnitFormTest
     {
         [Test]
         public void AddCreateCalculationGroupItem_Always_CreatesDecoratedCalculationGroupItem()
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
             // Call
-            ContextMenuItemFactory.AddCreateCalculationGroupItem(menuBuilder, calculationGroup);
+            RingtoetsContextMenuItemFactory.AddCreateCalculationGroupItem(menuBuilder, calculationGroup);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var calculationGroup = new CalculationGroup();
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
-            ContextMenuItemFactory.AddCreateCalculationGroupItem(menuBuilder, calculationGroup);
+            RingtoetsContextMenuItemFactory.AddCreateCalculationGroupItem(menuBuilder, calculationGroup);
             var contextMenuItem = menuBuilder.Build().Items[0];
 
             // Call
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
             // Call
-            ContextMenuItemFactory.AddCreateCalculationItem(menuBuilder, calculationGroupContext, null);
+            RingtoetsContextMenuItemFactory.AddCreateCalculationItem(menuBuilder, calculationGroupContext, null);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
@@ -134,7 +134,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
-            ContextMenuItemFactory.AddCreateCalculationItem(menuBuilder, calculationGroupContext, context => counter++);
+            RingtoetsContextMenuItemFactory.AddCreateCalculationItem(menuBuilder, calculationGroupContext, context => counter++);
             var contextMenuItem = menuBuilder.Build().Items[0];
 
             // Call
@@ -170,7 +170,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
             // Call
-            ContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(menuBuilder, calculationGroup);
+            RingtoetsContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(menuBuilder, calculationGroup);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
@@ -205,7 +205,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
             // Call
-            ContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(menuBuilder, calculationGroup);
+            RingtoetsContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(menuBuilder, calculationGroup);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
@@ -267,7 +267,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
-            ContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(menuBuilder, calculationGroup);
+            RingtoetsContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(menuBuilder, calculationGroup);
             var contextMenuItem = menuBuilder.Build().Items[0];
 
             // Call
@@ -323,7 +323,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
-            ContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(menuBuilder, calculationGroup);
+            RingtoetsContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(menuBuilder, calculationGroup);
             var contextMenuItem = menuBuilder.Build().Items[0];
 
             // Call
@@ -356,7 +356,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
             // Call
-            ContextMenuItemFactory.AddPerformAllCalculationsInGroupItem<TestCalculationGroupContext>(menuBuilder, calculationGroup, null, null);
+            RingtoetsContextMenuItemFactory.AddPerformAllCalculationsInGroupItem<TestCalculationGroupContext>(menuBuilder, calculationGroup, null, null);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
@@ -381,7 +381,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
             // Call
-            ContextMenuItemFactory.AddPerformAllCalculationsInGroupItem<TestCalculationGroupContext>(menuBuilder, calculationGroup, null, null);
+            RingtoetsContextMenuItemFactory.AddPerformAllCalculationsInGroupItem<TestCalculationGroupContext>(menuBuilder, calculationGroup, null, null);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
@@ -418,7 +418,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
-            ContextMenuItemFactory.AddPerformAllCalculationsInGroupItem(menuBuilder, calculationGroup, calculationGroupContext, (group, context) => counter++);
+            RingtoetsContextMenuItemFactory.AddPerformAllCalculationsInGroupItem(menuBuilder, calculationGroup, calculationGroupContext, (group, context) => counter++);
             var contextMenuItem = menuBuilder.Build().Items[0];
 
             // Call
@@ -445,7 +445,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var menubuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculation, treeViewControl);
 
             // Call
-            ContextMenuItemFactory.AddPerformCalculationItem<TestCalculation, TestCalculationContext>(menubuilder, calculation, null, null);
+            RingtoetsContextMenuItemFactory.AddPerformCalculationItem<TestCalculation, TestCalculationContext>(menubuilder, calculation, null, null);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menubuilder.Build(), 0,
@@ -475,7 +475,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var counter = 0;
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculation, treeViewControl);
-            ContextMenuItemFactory.AddPerformCalculationItem(menuBuilder, calculation, testCalculationContext, (calc, context) => counter++);
+            RingtoetsContextMenuItemFactory.AddPerformCalculationItem(menuBuilder, calculation, testCalculationContext, (calc, context) => counter++);
             var contextMenuItem = menuBuilder.Build().Items[0];
 
             // Call
@@ -504,7 +504,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationWithOutput, treeViewControl);
 
             // Call
-            ContextMenuItemFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
+            RingtoetsContextMenuItemFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
@@ -532,7 +532,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationWithOutput, treeViewControl);
 
             // Call
-            ContextMenuItemFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
+            RingtoetsContextMenuItemFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
 
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
@@ -573,7 +573,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationWithOutput, treeViewControl);
 
-            ContextMenuItemFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
+            RingtoetsContextMenuItemFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
             var contextMenuItem = menuBuilder.Build().Items[0];
 
             // Call
@@ -609,7 +609,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationWithOutput, treeViewControl);
 
-            ContextMenuItemFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
+            RingtoetsContextMenuItemFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
             var contextMenuItem = menuBuilder.Build().Items[0];
 
             // Call

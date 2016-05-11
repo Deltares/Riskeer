@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
     /// <summary>
     /// This class represents a factory for creating <see cref="ToolStripItem"/>.
     /// </summary>
-    public static class ContextMenuItemFactory
+    public static class RingtoetsContextMenuItemFactory
     {
         /// <summary>
         /// This method adds a context menu item for creating new calculation groups.

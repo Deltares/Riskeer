@@ -104,19 +104,19 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return CalculationTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<PipingFailureMechanismContext>(
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<PipingFailureMechanismContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
-            yield return CalculationTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<PipingCalculationScenarioContext>(
+            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<PipingCalculationScenarioContext>(
                 PipingFormsResources.PipingIcon,
                 PipingCalculationContextChildNodeObjects,
                 PipingCalculationContextContextMenuStrip,
                 PipingCalculationContextOnNodeRemoved);
 
-            yield return CalculationTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(
+            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(
                 PipingCalculationGroupContextChildNodeObjects,
                 PipingCalculationGroupContextContextMenuStrip,
                 PipingCalculationGroupContextOnNodeRemoved);
@@ -324,7 +324,7 @@ namespace Ringtoets.Piping.Plugin
         {
             var builder = Gui.Get(pipingFailureMechanismContext, treeViewControl);
 
-            ContextMenuItemFactory.AddDisabledChangeRelevancyItem(builder, pipingFailureMechanismContext);
+            RingtoetsContextMenuItemFactory.AddDisabledChangeRelevancyItem(builder, pipingFailureMechanismContext);
 
             return builder.AddSeparator()
                           .AddExpandAllItem()
@@ -453,8 +453,8 @@ namespace Ringtoets.Piping.Plugin
                                                          (o, args) => { PipingCalculationService.Validate(calculation); });
 
             builder.AddCustomItem(validateItem);
-            ContextMenuItemFactory.AddPerformCalculationItem(builder, calculation, nodeData, PerformCalculation);
-            ContextMenuItemFactory.AddClearCalculationOutputItem(builder, calculation);
+            RingtoetsContextMenuItemFactory.AddPerformCalculationItem(builder, calculation, nodeData, PerformCalculation);
+            RingtoetsContextMenuItemFactory.AddClearCalculationOutputItem(builder, calculation);
             builder.AddSeparator();
 
             return builder.AddRenameItem()
@@ -571,12 +571,12 @@ namespace Ringtoets.Piping.Plugin
                        .AddSeparator();
             }
 
-            ContextMenuItemFactory.AddCreateCalculationGroupItem(builder, group);
-            ContextMenuItemFactory.AddCreateCalculationItem(builder, nodeData, AddCalculationScenario);
+            RingtoetsContextMenuItemFactory.AddCreateCalculationGroupItem(builder, group);
+            RingtoetsContextMenuItemFactory.AddCreateCalculationItem(builder, nodeData, AddCalculationScenario);
             builder.AddSeparator();
             builder.AddCustomItem(validateAllItem);
-            ContextMenuItemFactory.AddPerformAllCalculationsInGroupItem(builder, group, nodeData, CalculateAll);
-            ContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
+            RingtoetsContextMenuItemFactory.AddPerformAllCalculationsInGroupItem(builder, group, nodeData, CalculateAll);
+            RingtoetsContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
             builder.AddSeparator();
 
             if (isNestedGroup)
