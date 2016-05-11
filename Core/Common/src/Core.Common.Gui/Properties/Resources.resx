@@ -691,4 +691,7 @@
   <data name="FailureMechanismContributionView_GridColumn_RelevancyFilter" xml:space="preserve">
     <value>Algemeen filter</value>
   </data>
+  <data name="FailureMechanismContributionView_GridColumn_AssessmentCode" xml:space="preserve">
+    <value>Label</value>
+  </data>
 </root>

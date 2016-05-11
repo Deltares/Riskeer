@@ -70,11 +70,29 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BSKW.
+        /// </summary>
+        public static string ClosingStructureFailureMechanism_Code {
+            get {
+                return ResourceManager.GetString("ClosingStructureFailureMechanism_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kunstwerken - Betrouwbaarheid sluiting kunstwerk.
         /// </summary>
         public static string ClosingStructureFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("ClosingStructureFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DA.
+        /// </summary>
+        public static string DuneErosionFailureMechanism_Code {
+            get {
+                return ResourceManager.GetString("DuneErosionFailureMechanism_Code", resourceCulture);
             }
         }
         
@@ -97,6 +115,15 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GEBU.
+        /// </summary>
+        public static string GrassCoverErosionOutsideFailureMechanism_Code {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutsideFailureMechanism_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dijken en dammen - Grasbekleding erosie buitentalud.
         /// </summary>
         public static string GrassCoverErosionOutsideFailureMechanism_DisplayName {
@@ -106,11 +133,29 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GABU.
+        /// </summary>
+        public static string GrassCoverSlipOffOutsideFailureMechanism_Code {
+            get {
+                return ResourceManager.GetString("GrassCoverSlipOffOutsideFailureMechanism_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dijken en dammen - Grasbekleding afschuiven buitentalud.
         /// </summary>
         public static string GrassCoverSlipOffOutsideFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverSlipOffOutsideFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HTKW.
+        /// </summary>
+        public static string HeightStructureFailureMechanism_Code {
+            get {
+                return ResourceManager.GetString("HeightStructureFailureMechanism_Code", resourceCulture);
             }
         }
         
@@ -133,11 +178,29 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to STBI.
+        /// </summary>
+        public static string MacrostabilityInwardFailureMechanism_Code {
+            get {
+                return ResourceManager.GetString("MacrostabilityInwardFailureMechanism_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dijken en dammen - Macrostabiliteit binnenwaarts.
         /// </summary>
         public static string MacrostabilityInwardFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("MacrostabilityInwardFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PKW.
+        /// </summary>
+        public static string PipingStructureFailureMechanism_Code {
+            get {
+                return ResourceManager.GetString("PipingStructureFailureMechanism_Code", resourceCulture);
             }
         }
         
@@ -151,6 +214,15 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ZST.
+        /// </summary>
+        public static string StabilityStoneCoverFailureMechanism_Code {
+            get {
+                return ResourceManager.GetString("StabilityStoneCoverFailureMechanism_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dijken en dammen - Stabiliteit steenzetting.
         /// </summary>
         public static string StabilityStoneCoverFailureMechanism_DisplayName {
@@ -160,11 +232,29 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to STKWp.
+        /// </summary>
+        public static string StrengthStabilityPointConstructionFailureMechanism_Code {
+            get {
+                return ResourceManager.GetString("StrengthStabilityPointConstructionFailureMechanism_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kunstwerken - Sterkte en stabiliteit puntconstructies.
         /// </summary>
         public static string StrengthStabilityPointConstructionFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("StrengthStabilityPointConstructionFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AGK.
+        /// </summary>
+        public static string WaveImpactAsphaltCoverFailureMechanism_Code {
+            get {
+                return ResourceManager.GetString("WaveImpactAsphaltCoverFailureMechanism_Code", resourceCulture);
             }
         }
         

@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var testName = "ttt";
-            var placeholder = new FailureMechanismPlaceholder(testName);
+            var placeholder = new FailureMechanismPlaceholder(testName, "C");
             var placeholderContext = new FailureMechanismPlaceholderContext(placeholder, assessmentSection);
 
             using (var plugin = new RingtoetsGuiPlugin())
@@ -131,7 +131,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 mocks.ReplayAll();
 
-                var failureMechanism = new FailureMechanismPlaceholder("C");
+                var failureMechanism = new FailureMechanismPlaceholder("C", "C");
                 var context = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
 
                 // Call
@@ -155,7 +155,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var info = GetInfo(plugin);
 
-                var failureMechanism = new FailureMechanismPlaceholder("test");
+                var failureMechanism = new FailureMechanismPlaceholder("test", "C");
                 failureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(1, 2),
@@ -206,7 +206,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var info = GetInfo(plugin);
 
-                var failureMechanism = new FailureMechanismPlaceholder("test")
+                var failureMechanism = new FailureMechanismPlaceholder("test", "C")
                 {
                     IsRelevant = false
                 };
@@ -234,7 +234,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var failureMechanism = new FailureMechanismPlaceholder("A");
+                var failureMechanism = new FailureMechanismPlaceholder("A", "C");
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var context = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
 
@@ -281,7 +281,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var failureMechanism = new FailureMechanismPlaceholder("A")
+                var failureMechanism = new FailureMechanismPlaceholder("A", "C")
                 {
                     IsRelevant = false
                 };
@@ -324,7 +324,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             using (var treeView = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = new FailureMechanismPlaceholder("A");
+                var failureMechanism = new FailureMechanismPlaceholder("A", "C");
                 var context = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
 
                 var menuBuilderMock = new CustomItemsOnlyContextMenuBuilder();
@@ -373,7 +373,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var failureMechanismObserver = mocks.Stub<IObserver>();
             failureMechanismObserver.Expect(o => o.UpdateObserver());
 
-            var failureMechanism = new FailureMechanismPlaceholder("A")
+            var failureMechanism = new FailureMechanismPlaceholder("A", "C")
             {
                 IsRelevant = true
             };
@@ -420,7 +420,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var failureMechanismObserver = mocks.Stub<IObserver>();
             failureMechanismObserver.Expect(o => o.UpdateObserver());
 
-            var failureMechanism = new FailureMechanismPlaceholder("A")
+            var failureMechanism = new FailureMechanismPlaceholder("A", "C")
             {
                 IsRelevant = false
             };

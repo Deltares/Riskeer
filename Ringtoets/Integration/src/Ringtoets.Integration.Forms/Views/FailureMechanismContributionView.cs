@@ -340,6 +340,16 @@ namespace Ringtoets.Integration.Forms.Views
                 ReadOnly = true
             };
 
+            var assessmentCode = TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Code);
+            var assessmentCodeColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = assessmentCode,
+                HeaderText = CommonGuiResources.FailureMechanismContributionView_GridColumn_AssessmentCode,
+                Name = string.Format(columnNameFormat, assessmentCode),
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader,
+                ReadOnly = true
+            };
+
             var contributionName = TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Contribution);
             var probabilityColumn = new DataGridViewTextBoxColumn
             {
@@ -365,7 +375,7 @@ namespace Ringtoets.Integration.Forms.Views
                 ReadOnly = true
             };
             probabilityDistributionGrid.AutoGenerateColumns = false;
-            probabilityDistributionGrid.Columns.AddRange(isRelevantColumn, assessmentColumn, probabilityColumn, probabilityPerYearColumn);
+            probabilityDistributionGrid.Columns.AddRange(isRelevantColumn, assessmentColumn, assessmentCodeColumn, probabilityColumn, probabilityPerYearColumn);
         }
 
         private void DataGridViewCurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -482,6 +492,14 @@ namespace Ringtoets.Integration.Forms.Views
                 get
                 {
                     return item.Assessment;
+                }
+            }
+
+            public string Code
+            {
+                get
+                {
+                    return item.AssessmentCode;
                 }
             }
 

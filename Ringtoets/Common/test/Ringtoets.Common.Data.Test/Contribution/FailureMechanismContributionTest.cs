@@ -160,7 +160,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
                 var contribution = random.Next(1, 100);
                 var failureMechanism = mockRepository.StrictMock<IFailureMechanism>();
                 failureMechanism.Expect(fm => fm.Name).Return(name);
-                failureMechanism.Expect(fm => fm.Contribution).Return(contribution);
+                failureMechanism.Expect(fm => fm.Contribution).Return(contribution).Repeat.Twice();
 
                 failureMechanisms.Add(failureMechanism);
                 failureMechanismNames.Add(name);

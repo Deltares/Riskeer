@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -35,9 +36,16 @@ namespace Ringtoets.Integration.Data.Placeholders
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismPlaceholder"/> class.
         /// </summary>
-        /// <param name="name">The placeholder's name.</param>
-        public FailureMechanismPlaceholder(string name)
-            : base(name, string.Empty)
+        /// <param name="name">The name for the placeholder.</param>
+        /// <param name="code">The code for the placeholder.</param>
+        /// <exception cref="ArgumentException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="name"/> is <c>null</c> or empty.</item>
+        /// <item><paramref name="code"/> is <c>null</c> or empty.</item>
+        /// </list>
+        /// </exception>
+        public FailureMechanismPlaceholder(string name, string code)
+            : base(name, code)
         {
             Locations = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_Locations_DisplayName);
             BoundaryConditions = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_BoundaryConditions_DisplayName);

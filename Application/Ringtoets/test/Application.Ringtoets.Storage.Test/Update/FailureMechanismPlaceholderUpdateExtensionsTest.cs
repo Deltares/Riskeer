@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         public void Update_WithoutContext_ArgumentNullException()
         {
             // Setup
-            var failureMechanism = new FailureMechanismPlaceholder("name");
+            var failureMechanism = new FailureMechanismPlaceholder("name", "code");
 
             // Call
             TestDelegate test = () => failureMechanism.Update(new UpdateConversionCollector(), null);
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         public void Update_WithoutCollector_ArgumentNullException()
         {
             // Setup
-            var failureMechanism = new FailureMechanismPlaceholder("name");
+            var failureMechanism = new FailureMechanismPlaceholder("name", "code");
 
             // Call
             TestDelegate test = () =>
@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         public void Update_ContextWithNoFailureMechanism_EntityNotFoundException()
         {
             // Setup
-            var failureMechanism = new FailureMechanismPlaceholder("name");
+            var failureMechanism = new FailureMechanismPlaceholder("name", "code");
 
             // Call
             TestDelegate test = () =>
@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             mocks.ReplayAll();
 
             var storageId = 1;
-            var failureMechanism = new FailureMechanismPlaceholder("name")
+            var failureMechanism = new FailureMechanismPlaceholder("name", "code")
             {
                 StorageId = storageId
             };
@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var failureMechanism = new FailureMechanismPlaceholder("name")
+            var failureMechanism = new FailureMechanismPlaceholder("name", "code")
             {
                 StorageId = 1,
                 IsRelevant = true
@@ -164,7 +164,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var failureMechanism = new FailureMechanismPlaceholder("name")
+            var failureMechanism = new FailureMechanismPlaceholder("name", "code")
             {
                 StorageId = 1
             };
@@ -195,7 +195,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var failureMechanism = new FailureMechanismPlaceholder("name")
+            var failureMechanism = new FailureMechanismPlaceholder("name", "code")
             {
                 StorageId = 1
             };

@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -42,6 +43,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
     public class FailureMechanismContributionViewTest : NUnitFormTest
     {
         private Form testForm;
+
+        private const string normInputTextBoxName = "normInput";
+        private const string dataGridViewControlName = "probabilityDistributionGrid";
+        private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
+        private const int isRelevantColumnIndex = 0;
+        private const int nameColumnIndex = 1;
+        private const int codeColumnIndex = 2;
+        private const int contributionColumnIndex = 3;
+        private const int probabilitySpaceColumnIndex = 4;
 
         [SetUp]
         public override void Setup()
@@ -141,6 +151,93 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(200, distribution.Norm);
             }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Data_Always_CorrectHeaders()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+
+            mockRepository.ReplayAll();
+
+            using (var distributionView = new FailureMechanismContributionView())
+            {
+                // Call
+                ShowFormWithView(distributionView);
+
+                // Assert
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+
+                string isRelevantColumnHeaderText = dataGridView.Columns[isRelevantColumnIndex].HeaderText;
+                Assert.AreEqual("Algemeen filter", isRelevantColumnHeaderText);
+
+                string nameColumnHeaderText = dataGridView.Columns[nameColumnIndex].HeaderText;
+                Assert.AreEqual("Toetsspoor", nameColumnHeaderText);
+
+                string codeColumnHeaderText = dataGridView.Columns[codeColumnIndex].HeaderText;
+                Assert.AreEqual("Label", codeColumnHeaderText);
+
+                string contributionColumnHeaderText = dataGridView.Columns[contributionColumnIndex].HeaderText;
+                Assert.AreEqual("Toegestane bijdrage aan faalkans [%]", contributionColumnHeaderText);
+
+                string probabilitySpaceColumnHeaderText = dataGridView.Columns[probabilitySpaceColumnIndex].HeaderText;
+                Assert.AreEqual("Faalkansruimte [1/jaar]", probabilitySpaceColumnHeaderText);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Data_SetToSomeContribution_ShowsColumnsWithData()
+        {
+            // Setup
+            var random = new Random(21);
+            var otherContribution = random.Next(0, 100);
+            var mockRepository = new MockRepository();
+
+            var testName = "testName";
+            var testCode = "testCode";
+
+            var someMechanism = new FailureMechanismPlaceholder(testName, testCode);
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms())
+                              .Return(Enumerable.Empty<IFailureMechanism>());
+            assessmentSection.Stub(section => section.Composition)
+                              .Return(AssessmentSectionComposition.Dike);
+
+            mockRepository.ReplayAll();
+
+            var initialContribution = new FailureMechanismContribution(new[]
+            {
+                someMechanism
+            }, otherContribution, 100);
+
+            using (var distributionView = new FailureMechanismContributionView
+            {
+                AssessmentSection = assessmentSection
+            })
+            {
+                ShowFormWithView(distributionView);
+
+                // Call
+                distributionView.Data = initialContribution;
+
+                // Assert
+                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+
+                DataGridViewRow row = dataGridView.Rows[0];
+                var nameCell = (DataGridViewTextBoxCell)row.Cells[nameColumnIndex];
+                Assert.AreEqual(testName, nameCell.Value);
+
+                var codeCell = (DataGridViewTextBoxCell)row.Cells[codeColumnIndex];
+                Assert.AreEqual(testCode, codeCell.Value);
+
+                var contributionCell = (DataGridViewTextBoxCell)row.Cells[contributionColumnIndex];
+                Assert.AreEqual(testCode, codeCell.Value);
+            }
+
             mockRepository.VerifyAll();
         }
 
@@ -263,6 +360,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             failureMechanismStub.Stub(fm => fm.Name).Return("A");
+            failureMechanismStub.Stub(fm => fm.Code).Return("C");
             failureMechanismStub.Contribution = 100;
             failureMechanismStub.IsRelevant = isFailureMechanismRelevant;
             mockRepository.ReplayAll();
@@ -302,6 +400,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             failureMechanismStub.Stub(fm => fm.Name).Return("A");
+            failureMechanismStub.Stub(fm => fm.Code).Return("C");
             failureMechanismStub.Contribution = 0;
             mockRepository.ReplayAll();
 
@@ -343,6 +442,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             failureMechanismStub.Stub(fm => fm.Name).Return("A");
+            failureMechanismStub.Stub(fm => fm.Code).Return("C");
             failureMechanismStub.Contribution = contribution;
             mockRepository.ReplayAll();
 
@@ -563,6 +663,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 });
             failureMechanism1.Contribution = contributionBeforeChange;
             failureMechanism1.Stub(fm => fm.Name).Return("A");
+            failureMechanism1.Stub(fm => fm.Code).Return("C");
             failureMechanism1.Stub(fm => fm.Attach(null)).IgnoreArguments();
             failureMechanism1.Stub(fm => fm.Detach(null)).IgnoreArguments();
 
@@ -572,6 +673,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     calculationItem2
                 });
             failureMechanism2.Stub(fm => fm.Name).Return("B");
+            failureMechanism2.Stub(fm => fm.Code).Return("C");
             failureMechanism2.Stub(fm => fm.Attach(null)).IgnoreArguments();
             failureMechanism2.Stub(fm => fm.Detach(null)).IgnoreArguments();
 
@@ -656,6 +758,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     calculationItem2
                 });
             failureMechanism.Stub(fm => fm.Name).Return("A");
+            failureMechanism.Stub(fm => fm.Code).Return("C");
             failureMechanism.Stub(fm => fm.Attach(null)).IgnoreArguments();
             failureMechanism.Stub(fm => fm.Detach(null)).IgnoreArguments();
 
@@ -801,6 +904,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return("A");
+            failureMechanism.Stub(fm => fm.Code).Return("C");
             failureMechanism.IsRelevant = initialIsRelevant;
             failureMechanism.Stub(fm => fm.Attach(null))
                             .IgnoreArguments()
@@ -892,6 +996,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return("A");
+            failureMechanism.Stub(fm => fm.Code).Return("C");
             failureMechanism.IsRelevant = initialIsRelevant;
             failureMechanism.Stub(fm => fm.Attach(null))
                             .IgnoreArguments()
@@ -913,6 +1018,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var relevantFailureMechanism = mocks.Stub<IFailureMechanism>();
             relevantFailureMechanism.Stub(fm => fm.Name).Return("B");
+            relevantFailureMechanism.Stub(fm => fm.Code).Return("C");
             relevantFailureMechanism.IsRelevant = true;
             relevantFailureMechanism.Stub(fm => fm.Attach(null))
                             .IgnoreArguments();
@@ -921,6 +1027,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var irrelevantFailureMechanism = mocks.Stub<IFailureMechanism>();
             irrelevantFailureMechanism.Stub(fm => fm.Name).Return("C");
+            irrelevantFailureMechanism.Stub(fm => fm.Code).Return("C");
             irrelevantFailureMechanism.IsRelevant = false;
             irrelevantFailureMechanism.Stub(fm => fm.Attach(null))
                             .IgnoreArguments();
@@ -1004,18 +1111,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 FailureMechanismContributionItem expectedElement = itemArray[i];
                 DataGridViewRow row = dataGridView.Rows[i];
-                Assert.AreEqual(expectedElement.IsRelevant, row.Cells[0].Value);
-                Assert.AreEqual(expectedElement.Assessment, row.Cells[1].Value);
-                Assert.AreEqual(expectedElement.Contribution, row.Cells[2].Value);
-                Assert.AreEqual(expectedElement.ProbabilitySpace, row.Cells[3].Value);
+                Assert.AreEqual(expectedElement.IsRelevant, row.Cells[isRelevantColumnIndex].Value);
+                Assert.AreEqual(expectedElement.Assessment, row.Cells[nameColumnIndex].Value);
+                Assert.AreEqual(expectedElement.AssessmentCode, row.Cells[codeColumnIndex].Value);
+                Assert.AreEqual(expectedElement.Contribution, row.Cells[contributionColumnIndex].Value);
+                Assert.AreEqual(expectedElement.ProbabilitySpace, row.Cells[probabilitySpaceColumnIndex].Value);
             }
         }
-
-        private const string normInputTextBoxName = "normInput";
-        private const string dataGridViewControlName = "probabilityDistributionGrid";
-        private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
-        private const int isRelevantColumnIndex = 0;
-        private const int probabilitySpaceColumnIndex = 3;
 
         private void ShowFormWithView(FailureMechanismContributionView distributionView)
         {

@@ -36,6 +36,32 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
     public class FailureMechanismBaseTest
     {
         [Test]
+        [TestCase("")]
+        [TestCase(null)]
+        public void Constructor_NullOrEmptyName_ThrowsArgumentException(string name)
+        {
+            // Call
+            TestDelegate test = () => new SimpleFailureMechanismBase(name, "testCode");
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentException>(test).ParamName;
+            Assert.AreEqual("failureMechanismName", paramName);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase(null)]
+        public void Constructor_NullOrEmptyCode_ThrowsArgumentException(string code)
+        {
+            // Call
+            TestDelegate test = () => new SimpleFailureMechanismBase("testName", code);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentException>(test).ParamName;
+            Assert.AreEqual("failureMechanismCode", paramName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -63,7 +89,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void IsRelevant_SetNewValue_GetNewlySetValue(bool relevant)
         {
             // Setup
-            var failureMechanism = new SimpleFailureMechanismBase("A", string.Empty);
+            var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call
             failureMechanism.IsRelevant = relevant;
@@ -80,7 +106,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void Contribution_ValueOutsideValidRegion_ThrowsArgumentException(double value)
         {
             // Setup
-            var failureMechanism = new SimpleFailureMechanismBase(string.Empty, string.Empty);
+            var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call
             TestDelegate test = () => failureMechanism.Contribution = value;
@@ -96,7 +122,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void Contribution_ValueIntsideValidRegion_DoesNotThrow(double value)
         {
             // Setup
-            var failureMechanism = new SimpleFailureMechanismBase(string.Empty, string.Empty);
+            var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call
             TestDelegate test = () => failureMechanism.Contribution = value;
@@ -109,7 +135,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void AddSection_SectionIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var failureMechanism = new SimpleFailureMechanismBase(string.Empty, string.Empty);
+            var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call
             TestDelegate call = () => failureMechanism.AddSection(null);
@@ -122,7 +148,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void AddSection_FirstSectionAdded_SectionAddedToSections()
         {
             // Setup
-            var failureMechanism = new SimpleFailureMechanismBase(string.Empty, string.Empty);
+            var failureMechanism = new SimpleFailureMechanismBase();
 
             var section = new FailureMechanismSection("A", new[]
             {
@@ -144,7 +170,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void AddSection_SecondSectionEndConnectingToStartOfFirst_Section2InsertedBeforeSection1()
         {
             // Setup
-            var failureMechanism = new SimpleFailureMechanismBase(string.Empty, string.Empty);
+            var failureMechanism = new SimpleFailureMechanismBase();
 
             const int matchingX = 1;
             const int matchingY = 2;
@@ -176,7 +202,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void AddSection_SecondSectionStartConnectingToEndOfFirst_Section2AddedAfterSection1()
         {
             // Setup
-            var failureMechanism = new SimpleFailureMechanismBase(string.Empty, string.Empty);
+            var failureMechanism = new SimpleFailureMechanismBase();
 
             const int matchingX = 1;
             const int matchingY = 2;
@@ -208,7 +234,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void AddSection_SecondSectionDoesNotConnectToFirst_ThrowArgumentException()
         {
             // Setup
-            var failureMechanism = new SimpleFailureMechanismBase(string.Empty, string.Empty);
+            var failureMechanism = new SimpleFailureMechanismBase();
 
             var section1 = new FailureMechanismSection("A", new[]
             {
@@ -235,7 +261,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void AddSection_SectionValid_SectionAddedSectionResults()
         {
             // Setup
-            var failureMechanism = new SimpleFailureMechanismBase(string.Empty, string.Empty);
+            var failureMechanism = new SimpleFailureMechanismBase();
 
             var section = new FailureMechanismSection("A", new[]
             {
@@ -257,7 +283,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void SectionResults_Always_ReturnsExpectedSectionResultsAfterAddingSections()
         {
             // Setup
-            var failureMechanism = new SimpleFailureMechanismBase(string.Empty, string.Empty);
+            var failureMechanism = new SimpleFailureMechanismBase();
 
             var section = new FailureMechanismSection("A", new[]
             {
@@ -295,7 +321,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                 new Point2D(3.3, 4.4)
             });
 
-            var failureMechanism = new SimpleFailureMechanismBase("A", string.Empty);
+            var failureMechanism = new SimpleFailureMechanismBase();
             failureMechanism.AddSection(section);
 
             // Call
@@ -307,7 +333,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
         private class SimpleFailureMechanismBase : FailureMechanismBase
         {
-            public SimpleFailureMechanismBase(string failureMechanismName, string failureMechanismCode) : base(failureMechanismName, failureMechanismCode) {}
+            public SimpleFailureMechanismBase(string failureMechanismName = "SomeName", string failureMechanismCode = "SomeCode") : base(failureMechanismName, failureMechanismCode) {}
 
             public override IEnumerable<ICalculation> Calculations
             {

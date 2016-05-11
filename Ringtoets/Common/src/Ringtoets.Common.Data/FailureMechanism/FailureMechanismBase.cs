@@ -44,8 +44,16 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// </summary>
         /// <param name="failureMechanismName">The name of the failure mechanism.</param>
         /// <param name="failureMechanismCode">The code of the failure mechanism.</param>
+        /// <exception cref="ArgumentException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="failureMechanismName"/> is <c>null</c> or empty.</item>
+        /// <item><paramref name="failureMechanismCode"/> is <c>null</c> or empty.</item>
+        /// </list>
+        /// </exception>
         protected FailureMechanismBase(string failureMechanismName, string failureMechanismCode)
         {
+            ValidateParameters(failureMechanismName, failureMechanismCode);
+
             Name = failureMechanismName;
             Code = failureMechanismCode;
             sections = new List<FailureMechanismSection>();
@@ -120,6 +128,19 @@ namespace Ringtoets.Common.Data.FailureMechanism
         {
             sections.Clear();
             sectionResults.Clear();
+        }
+
+        private static void ValidateParameters(string failureMechanismName, string failureMechanismCode)
+        {
+            var parameterIsRequired = "Parameter is required.";
+            if (string.IsNullOrEmpty(failureMechanismName))
+            {
+                throw new ArgumentException(parameterIsRequired, "failureMechanismName");
+            }
+            if (string.IsNullOrEmpty(failureMechanismCode))
+            {
+                throw new ArgumentException(parameterIsRequired, "failureMechanismCode");
+            }
         }
 
         /// <summary>

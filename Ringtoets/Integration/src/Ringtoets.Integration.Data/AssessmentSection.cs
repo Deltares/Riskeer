@@ -55,16 +55,16 @@ namespace Ringtoets.Integration.Data
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
 
-            MacrostabilityInwards = new FailureMechanismPlaceholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName);
-            StabilityStoneCover = new FailureMechanismPlaceholder(Resources.StabilityStoneCoverFailureMechanism_DisplayName);
-            WaveImpactAsphaltCover = new FailureMechanismPlaceholder(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName);
-            GrassCoverErosionOutside = new FailureMechanismPlaceholder(Resources.GrassCoverErosionOutsideFailureMechanism_DisplayName);
-            GrassCoverSlipOffOutside = new FailureMechanismPlaceholder(Resources.GrassCoverSlipOffOutsideFailureMechanism_DisplayName);
-            HeightStructure = new FailureMechanismPlaceholder(Resources.HeightStructureFailureMechanism_DisplayName);
-            ClosingStructure = new FailureMechanismPlaceholder(Resources.ClosingStructureFailureMechanism_DisplayName);
-            StrengthStabilityPointConstruction = new FailureMechanismPlaceholder(Resources.StrengthStabilityPointConstructionFailureMechanism_DisplayName);
-            PipingStructure = new FailureMechanismPlaceholder(Resources.PipingStructureFailureMechanism_DisplayName);
-            DuneErosion = new FailureMechanismPlaceholder(Resources.DuneErosionFailureMechanism_DisplayName);
+            MacrostabilityInwards = new FailureMechanismPlaceholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName, Resources.MacrostabilityInwardFailureMechanism_Code);
+            StabilityStoneCover = new FailureMechanismPlaceholder(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code);
+            WaveImpactAsphaltCover = new FailureMechanismPlaceholder(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code);
+            GrassCoverErosionOutside = new FailureMechanismPlaceholder(Resources.GrassCoverErosionOutsideFailureMechanism_DisplayName, Resources.GrassCoverErosionOutsideFailureMechanism_Code);
+            GrassCoverSlipOffOutside = new FailureMechanismPlaceholder(Resources.GrassCoverSlipOffOutsideFailureMechanism_DisplayName, Resources.GrassCoverSlipOffOutsideFailureMechanism_Code);
+            HeightStructure = new FailureMechanismPlaceholder(Resources.HeightStructureFailureMechanism_DisplayName, Resources.HeightStructureFailureMechanism_Code);
+            ClosingStructure = new FailureMechanismPlaceholder(Resources.ClosingStructureFailureMechanism_DisplayName, Resources.ClosingStructureFailureMechanism_Code);
+            StrengthStabilityPointConstruction = new FailureMechanismPlaceholder(Resources.StrengthStabilityPointConstructionFailureMechanism_DisplayName, Resources.StrengthStabilityPointConstructionFailureMechanism_Code);
+            PipingStructure = new FailureMechanismPlaceholder(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code);
+            DuneErosion = new FailureMechanismPlaceholder(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code);
             
             FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
             ChangeComposition(composition);

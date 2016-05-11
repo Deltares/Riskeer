@@ -92,8 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
         private class TestFailureMechanism : FailureMechanismBase
         {
-            public TestFailureMechanism()
-                : base("", "")
+            public TestFailureMechanism() : base("name", "code")
             { }
 
             public override IEnumerable<ICalculation> Calculations

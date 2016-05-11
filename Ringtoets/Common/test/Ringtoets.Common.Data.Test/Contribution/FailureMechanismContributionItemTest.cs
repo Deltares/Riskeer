@@ -65,6 +65,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         {
             // Setup
             string name = "SomeName";
+            string code = "SN";
             var random = new Random(21);
             double contribution = random.Next(1, 100);
             var norm = random.Next(1, int.MaxValue);
@@ -73,6 +74,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var failureMechanism = mockRepository.StrictMock<IFailureMechanism>();
 
             failureMechanism.Expect(fm => fm.Name).Return(name);
+            failureMechanism.Expect(fm => fm.Code).Return(code);
             failureMechanism.Expect(fm => fm.Contribution).Return(contribution);
             failureMechanism.Expect(fm => fm.IsRelevant).Return(isRelevant);
 
@@ -84,6 +86,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             // Assert
             Assert.AreEqual(name, result.Assessment);
             Assert.AreEqual(contribution, result.Contribution);
+            Assert.AreEqual(code, result.AssessmentCode);
             Assert.AreEqual(norm, result.Norm);
             Assert.IsFalse(result.IsAlwaysRelevant);
             Assert.AreEqual(isRelevant, result.IsRelevant);
@@ -96,6 +99,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
         {
             // Setup
             string name = "SomeName";
+            string code = "SN";
             var random = new Random(21);
             double contribution = random.Next(1, 100);
             var norm = random.Next(1, int.MaxValue);
@@ -103,6 +107,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             var failureMechanism = mockRepository.StrictMock<IFailureMechanism>();
             failureMechanism.Expect(fm => fm.Name).Return(name);
+            failureMechanism.Expect(fm => fm.Code).Return(code);
             failureMechanism.Expect(fm => fm.Contribution).Return(contribution);
             failureMechanism.Stub(fm => fm.IsRelevant).Return(isRelevant);
 
@@ -114,6 +119,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             // Assert
             Assert.AreEqual(name, result.Assessment);
             Assert.AreEqual(contribution, result.Contribution);
+            Assert.AreEqual(code, result.AssessmentCode);
             Assert.AreEqual(norm, result.Norm);
             Assert.IsTrue(result.IsAlwaysRelevant);
             Assert.IsTrue(result.IsRelevant);
@@ -132,7 +138,6 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             var failureMechanism = mockRepository.StrictMock<IFailureMechanism>();
 
-            failureMechanism.Expect(fm => fm.Name).Return(name);
             failureMechanism.Expect(fm => fm.Contribution).Return(contribution);
 
             mockRepository.ReplayAll();

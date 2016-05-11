@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Data.Test
             var grassErosionInsideName = "Dijken en dammen - Grasbekleding erosie kruin en binnentalud";
             var macrostabilityInwardName = "Dijken en dammen - Macrostabiliteit binnenwaarts";
             var stoneRevetmentName = "Dijken en dammen - Stabiliteit steenzetting";
-            var waveImpactAsphalt = "Dijken en dammen - Golfklappen op asfaltbekledingen";
+            var waveImpactAsphaltName = "Dijken en dammen - Golfklappen op asfaltbekledingen";
             var grassCoverErosionOutwardsName = "Dijken en dammen - Grasbekleding erosie buitentalud";
             var grassCoverSlipOffOutsideName = "Dijken en dammen - Grasbekleding afschuiven buitentalud";
             var heightStructureName = "Kunstwerken - Hoogte kunstwerk";
@@ -57,6 +57,21 @@ namespace Ringtoets.Integration.Data.Test
             var pipingStructureName = "Kunstwerken - Piping bij kunstwerk";
             var strengthStabilityPointConstructionName = "Kunstwerken - Sterkte en stabiliteit puntconstructies";
             var duneErosionName = "Duinwaterkering - Duinafslag";
+            var otherName = "Overig";
+
+            var pipingCode = "STPH";
+            var grassErosionInsideCode = "GEKB";
+            var macrostabilityInwardCode = "STBI";
+            var stoneRevetmentCode = "ZST";
+            var waveImpactAsphaltCode = "AGK";
+            var grassCoverErosionOutwardsCode = "GEBU";
+            var grassCoverSlipOffOutsideCode = "GABU";
+            var heightStructureCode = "HTKW";
+            var closingStructureCode = "BSKW";
+            var pipingStructureCode = "PKW";
+            var strengthStabilityPointConstructionCode = "STKWp";
+            var duneErosionCode = "DA";
+            var otherCode = "NWOoc";
 
             var names = new[]
             {
@@ -64,7 +79,7 @@ namespace Ringtoets.Integration.Data.Test
                 grassErosionInsideName,
                 macrostabilityInwardName,
                 stoneRevetmentName,
-                waveImpactAsphalt,
+                waveImpactAsphaltName,
                 grassCoverErosionOutwardsName,
                 grassCoverSlipOffOutsideName,
                 heightStructureName,
@@ -72,7 +87,24 @@ namespace Ringtoets.Integration.Data.Test
                 pipingStructureName,
                 strengthStabilityPointConstructionName,
                 duneErosionName,
-                "Overig"
+                otherName
+            };
+            
+            var codes = new[]
+            {
+                pipingCode,
+                grassErosionInsideCode,
+                macrostabilityInwardCode,
+                stoneRevetmentCode,
+                waveImpactAsphaltCode,
+                grassCoverErosionOutwardsCode,
+                grassCoverSlipOffOutsideCode,
+                heightStructureCode,
+                closingStructureCode,
+                pipingStructureCode,
+                strengthStabilityPointConstructionCode,
+                duneErosionCode,
+                otherCode
             };
 
             // Assert
@@ -93,7 +125,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanism>(section.GrassCoverErosionInwards);
             Assert.AreEqual(macrostabilityInwardName, section.MacrostabilityInwards.Name);
             Assert.AreEqual(stoneRevetmentName, section.StabilityStoneCover.Name);
-            Assert.AreEqual(waveImpactAsphalt, section.WaveImpactAsphaltCover.Name);
+            Assert.AreEqual(waveImpactAsphaltName, section.WaveImpactAsphaltCover.Name);
             Assert.AreEqual(grassCoverErosionOutwardsName, section.GrassCoverErosionOutside.Name);
             Assert.AreEqual(grassCoverSlipOffOutsideName, section.GrassCoverSlipOffOutside.Name);
             Assert.AreEqual(heightStructureName, section.HeightStructure.Name);
@@ -105,6 +137,7 @@ namespace Ringtoets.Integration.Data.Test
             AssertExpectedContributions(composition, section);
 
             Assert.AreEqual(names, section.FailureMechanismContribution.Distribution.Select(d => d.Assessment));
+            Assert.AreEqual(codes, section.FailureMechanismContribution.Distribution.Select(d => d.AssessmentCode));
             Assert.AreEqual(Enumerable.Repeat(30000.0, 13), section.FailureMechanismContribution.Distribution.Select(d => d.Norm));
 
             Assert.AreEqual(30000.0, section.PipingFailureMechanism.NormProbabilityInput.Norm);

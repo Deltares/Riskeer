@@ -156,4 +156,34 @@
   <data name="StabilityStoneCoverFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Stabiliteit steenzetting</value>
   </data>
+  <data name="MacrostabilityInwardFailureMechanism_Code" xml:space="preserve">
+    <value>STBI</value>
+  </data>
+  <data name="StabilityStoneCoverFailureMechanism_Code" xml:space="preserve">
+    <value>ZST</value>
+  </data>
+  <data name="WaveImpactAsphaltCoverFailureMechanism_Code" xml:space="preserve">
+    <value>AGK</value>
+  </data>
+  <data name="GrassCoverErosionOutsideFailureMechanism_Code" xml:space="preserve">
+    <value>GEBU</value>
+  </data>
+  <data name="GrassCoverSlipOffOutsideFailureMechanism_Code" xml:space="preserve">
+    <value>GABU</value>
+  </data>
+  <data name="HeightStructureFailureMechanism_Code" xml:space="preserve">
+    <value>HTKW</value>
+  </data>
+  <data name="ClosingStructureFailureMechanism_Code" xml:space="preserve">
+    <value>BSKW</value>
+  </data>
+  <data name="StrengthStabilityPointConstructionFailureMechanism_Code" xml:space="preserve">
+    <value>STKWp</value>
+  </data>
+  <data name="PipingStructureFailureMechanism_Code" xml:space="preserve">
+    <value>PKW</value>
+  </data>
+  <data name="DuneErosionFailureMechanism_Code" xml:space="preserve">
+    <value>DA</value>
+  </data>
 </root>

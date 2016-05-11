@@ -86,7 +86,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <returns>A new <see cref="FailureMechanismPlaceholder"/>.</returns>
         public FailureMechanismPlaceholder ReadAsFailureMechanismPlaceholder()
         {
-            var failureMechanism = new FailureMechanismPlaceholder(string.Empty)
+            var failureMechanism = new FailureMechanismPlaceholder("temporaryName", "temporaryCode")
             {
                 StorageId = FailureMechanismEntityId,
                 IsRelevant = IsRelevant == 1

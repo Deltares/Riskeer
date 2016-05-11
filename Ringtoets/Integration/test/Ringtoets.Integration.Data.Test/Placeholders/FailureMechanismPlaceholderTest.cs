@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Placeholders;
@@ -29,17 +30,45 @@ namespace Ringtoets.Integration.Data.Test.Placeholders
     public class FailureMechanismPlaceholderTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        [TestCase("")]
+        [TestCase(null)]
+        public void Constructor_NullOrEmptyName_ThrowsArgumentException(string name)
+        {
+            // Call
+            TestDelegate test = () => new FailureMechanismPlaceholder(name, "testCode");
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentException>(test).ParamName;
+            Assert.AreEqual("failureMechanismName", paramName);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase(null)]
+        public void Constructor_NullOrEmptyCode_ThrowsArgumentException(string code)
+        {
+            // Call
+            TestDelegate test = () => new FailureMechanismPlaceholder("testName", code);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentException>(test).ParamName;
+            Assert.AreEqual("failureMechanismCode", paramName);
+        }
+
+        [Test]
+        public void Constructor_WithNameAndCode_PropertiesSet()
         {
             // Setup
             const string expectedName = "testName";
+            const string expectedCode = "testCode";
 
             // Call
-            var failureMechanism = new FailureMechanismPlaceholder(expectedName);
+            var failureMechanism = new FailureMechanismPlaceholder(expectedName, expectedCode);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.AreEqual(expectedName, failureMechanism.Name);
+            Assert.AreEqual(expectedCode, failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.AreEqual("Locaties", failureMechanism.Locations.Name);
             Assert.AreEqual("Randvoorwaarden", failureMechanism.BoundaryConditions.Name);

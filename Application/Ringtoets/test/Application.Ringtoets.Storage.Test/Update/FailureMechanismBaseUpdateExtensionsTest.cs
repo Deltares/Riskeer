@@ -168,7 +168,7 @@ namespace Application.Ringtoets.Storage.Test.Update
     }
 
     public class TestFailureMechanism : FailureMechanismBase {
-        public TestFailureMechanism() : base("", "")
+        public TestFailureMechanism() : base("name", "code")
         {}
 
         public override IEnumerable<ICalculation> Calculations

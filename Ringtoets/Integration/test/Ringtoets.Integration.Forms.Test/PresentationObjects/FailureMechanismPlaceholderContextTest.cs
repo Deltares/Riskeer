@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new FailureMechanismPlaceholder("A");
+            var failureMechanism = new FailureMechanismPlaceholder("A", "C");
 
             // Call
             var context = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);

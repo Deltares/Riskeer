@@ -52,8 +52,7 @@ namespace Ringtoets.Common.Data.Contribution
                 throw new ArgumentNullException("failureMechanism", CommonResources.FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism);
             }
             this.failureMechanism = failureMechanism;
-            Assessment = failureMechanism.Name;
-            Contribution = failureMechanism.Contribution;
+
             Norm = norm;
             IsAlwaysRelevant = isFailureMechanismAlwaysRelevant;
         }
@@ -61,12 +60,35 @@ namespace Ringtoets.Common.Data.Contribution
         /// <summary>
         /// Gets the name of the assessment for which to configure the <see cref="FailureMechanismContribution"/>.
         /// </summary>
-        public string Assessment { get; private set; }
+        public string Assessment
+        {
+            get
+            {
+                return failureMechanism.Name;
+            }
+        }
+
+        /// <summary>
+        /// Returns the code of the assessment for which to configure the <see cref="FailureMechanismContribution"/>
+        /// </summary>
+        public string AssessmentCode
+        {
+            get
+            {
+                return failureMechanism.Code;
+            }
+        }
 
         /// <summary>
         /// Gets the amount of contribution as a percentage.
         /// </summary>
-        public double Contribution { get; private set; }
+        public double Contribution
+        {
+            get
+            {
+                return failureMechanism.Contribution;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the norm of the complete assessment section.
@@ -108,7 +130,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// relevant. When <c>true</c>, then <see cref="IsRelevant"/> cannot be set to <c>false</c>.
         /// </summary>
         public bool IsAlwaysRelevant { get; private set; }
-
+        
         /// <summary>
         /// Notifies the observers for the wrapped <see cref="IFailureMechanism"/>.
         /// </summary>
