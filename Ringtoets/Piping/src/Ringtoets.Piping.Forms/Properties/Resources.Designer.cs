@@ -70,15 +70,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Algemeen.
-        /// </summary>
-        public static string Categories_General {
-            get {
-                return ResourceManager.GetString("Categories_General", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Heave.
         /// </summary>
         public static string Categories_Heave {

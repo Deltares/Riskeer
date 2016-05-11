@@ -88,6 +88,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Algemeen.
+        /// </summary>
+        public static string Categories_General {
+            get {
+                return ResourceManager.GetString("Categories_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor de toegestane bijdrage aan faalkans moet in interval [0,100] liggen..
         /// </summary>
         public static string Contribution_Value_should_be_in_interval_0_100 {
@@ -133,11 +142,47 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het label van het toetsspoor..
+        /// </summary>
+        public static string FailureMechanism_Code_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Code_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Label.
+        /// </summary>
+        public static string FailureMechanism_Code_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Code_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Locaties.
         /// </summary>
         public static string FailureMechanism_Locations_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_Locations_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De naam van het toetsspoor..
+        /// </summary>
+        public static string FailureMechanism_Name_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string FailureMechanism_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Name_DisplayName", resourceCulture);
             }
         }
         

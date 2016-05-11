@@ -36,6 +36,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
 
             // Assert
+            Assert.AreEqual(failureMechanism.Name, properties.Name);
+            Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.GeneralInput.UpliftModelFactor, properties.UpliftModelFactor);
             Assert.AreEqual(failureMechanism.GeneralInput.SellmeijerModelFactor, properties.SellmeijerModelFactor);
 

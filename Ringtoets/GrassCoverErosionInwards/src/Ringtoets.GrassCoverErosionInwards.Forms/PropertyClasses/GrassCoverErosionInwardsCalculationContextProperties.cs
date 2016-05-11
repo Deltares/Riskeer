@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsCalculationContextProperties : ObjectProperties<GrassCoverErosionInwardsCalculationContext>
     {
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInputCalculation_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInputCalculation_Name_Description")]
         public string Name

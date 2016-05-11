@@ -21,7 +21,6 @@
 
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Properties;
@@ -33,7 +32,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class AssessmentSectionProperties : ObjectProperties<IAssessmentSection>
     {
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "AssessmentSection_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "AssessmentSection_Name_Description")]
         public string Name

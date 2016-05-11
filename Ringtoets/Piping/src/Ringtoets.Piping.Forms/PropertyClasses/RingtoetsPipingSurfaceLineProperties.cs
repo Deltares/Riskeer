@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_DisplayName")]
     public class RingtoetsPipingSurfaceLineProperties : ObjectProperties<RingtoetsPipingSurfaceLine>
     {
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_Name_Description")]
         public string Name
@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_Points_DisplayName")]
         [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_Points_Description")]
         public Point3D[] Points

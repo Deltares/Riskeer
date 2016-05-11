@@ -43,9 +43,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         #region General
 
         [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_Name_Description")]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Common.Data.Properties.Resources), "FailureMechanism_Name_DisplayName")]
+        [ResourcesDescription(typeof(Common.Data.Properties.Resources), "FailureMechanism_Name_Description")]
         public string Name
         {
             get
@@ -55,9 +55,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(codePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_Code_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_Code_Description")]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Common.Data.Properties.Resources), "FailureMechanism_Code_DisplayName")]
+        [ResourcesDescription(typeof(Common.Data.Properties.Resources), "FailureMechanism_Code_Description")]
         public string Code
         {
             get

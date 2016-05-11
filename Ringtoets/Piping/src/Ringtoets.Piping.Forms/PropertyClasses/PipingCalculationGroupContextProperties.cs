@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     public class PipingCalculationGroupContextProperties : ObjectProperties<PipingCalculationGroupContext>
     {
         [DynamicReadOnly]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingCalculationGroup_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingCalculationGroup_Name_Description")]
         public string Name

@@ -152,15 +152,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Algemeen.
-        /// </summary>
-        public static string Categories_General {
-            get {
-                return ResourceManager.GetString("Categories_General", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Lengte-effect parameters.
         /// </summary>
         public static string Categories_LengthEffect {
@@ -361,24 +352,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het label van het toetsspoor..
-        /// </summary>
-        public static string GrassCoverErosionInwardsInput_Code_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Code_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Label.
-        /// </summary>
-        public static string GrassCoverErosionInwardsInput_Code_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Code_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De parameter &apos;Fb factor&apos; die gebruikt wordt in de berekening..
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FbFactor_Description {
@@ -465,24 +438,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string GrassCoverErosionInwardsInput_N_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsInput_N_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De naam van het toetsspoor..
-        /// </summary>
-        public static string GrassCoverErosionInwardsInput_Name_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string GrassCoverErosionInwardsInput_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsInput_Name_DisplayName", resourceCulture);
             }
         }
         

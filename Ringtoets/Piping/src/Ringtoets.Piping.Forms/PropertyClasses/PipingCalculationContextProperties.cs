@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     [ResourcesDisplayName(typeof(Resources), "PipingCalculationContextProperties_DisplayName")]
     public class PipingCalculationContextProperties : ObjectProperties<PipingCalculationScenarioContext>
     {
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingCalculation_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingCalculation_Name_Description")]
         public string Name
