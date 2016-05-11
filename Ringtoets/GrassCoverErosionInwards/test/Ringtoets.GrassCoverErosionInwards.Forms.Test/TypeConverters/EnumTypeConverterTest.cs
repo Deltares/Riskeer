@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Utils.Attributes;
 using NUnit.Framework;
@@ -41,7 +42,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TypeConverters
         }
 
         [Test]
-        public void CanConvertTo_DestinationTypeIsString_ReturnTrue()
+        public void CanConvertTo_DestinationTypeIsInvalid_ReturnsFalse()
+        {
+            // Setup
+            var converter = new EnumTypeConverter(typeof(object));
+
+            // Call
+            var canConvert = converter.CanConvertTo(typeof(NotSupportedType));
+
+            // Assert
+            Assert.IsFalse(canConvert);
+        }
+
+        [Test]
+        public void CanConvertTo_DestinationTypeIsString_ReturnsTrue()
         {
             // Setup
             var converter = new EnumTypeConverter(typeof(object));
@@ -51,6 +65,63 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TypeConverters
 
             // Assert
             Assert.IsTrue(canConvert);
+        }
+
+        [Test]
+        public void ConvertTo_ValueIsOfInvalidType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var notSupportedValue = new NotSupportedType();
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+
+            // Call
+            TestDelegate test = () => converter.ConvertTo(notSupportedValue, typeof(SimpleEnum));
+
+            // Assert
+            Assert.Throws<NotSupportedException>(test);
+        }
+
+        [Test]
+        public void ConvertTo_ValueIsNull_DoesNotThrowException()
+        {
+            // Setup
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+
+            // Call
+            object result = new object();
+            TestDelegate test = () => result = converter.ConvertTo(null, typeof(string));
+
+            // Assert
+            Assert.DoesNotThrow(test);
+            Assert.AreEqual(string.Empty, result);
+        }
+
+        [Test]
+        public void ConvertTo_DestinationTypeIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            const SimpleEnum enumValue = SimpleEnum.FirstValue;
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+
+            // Call
+            TestDelegate test = () => converter.ConvertTo(enumValue, null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(test);
+        }
+
+        [Test]
+        public void ConvertTo_DestinationTypeIsInvalid_ThrowsNotSupportedException()
+        {
+            // Setup
+            const SimpleEnum enumValue = SimpleEnum.FirstValue;
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+
+            // Call
+            TestDelegate test = () => converter.ConvertTo(enumValue, typeof(NotSupportedType));
+
+            // Assert
+            Assert.Throws<NotSupportedException>(test);
         }
 
         [Test]
@@ -69,22 +140,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TypeConverters
         }
 
         [Test]
-        public void ConvertTo_NullValue_DoesNotThrowException()
+        public void CanConvertFrom_SourceTypeIsInvalid_ReturnsFalse()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+            var converter = new EnumTypeConverter(typeof(object));
 
             // Call
-            object result = new object();
-            TestDelegate test = () => result = converter.ConvertTo(null, typeof(string));
+            var canConvert = converter.CanConvertFrom(typeof(NotSupportedType));
 
             // Assert
-            Assert.DoesNotThrow(test);
-            Assert.AreEqual(string.Empty, result);
+            Assert.IsFalse(canConvert);
         }
 
         [Test]
-        public void CanConvertFrom_SourceTypeIsString_ReturnTrue()
+        public void CanConvertFrom_SourceTypeIsString_ReturnsTrue()
         {
             // Setup
             var converter = new EnumTypeConverter(typeof(object));
@@ -97,22 +166,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TypeConverters
         }
 
         [Test]
-        public void ConvertFrom_NullValue_DoesNotThrowException()
+        public void ConvertFrom_ValueIsOfInvalidType_ThrowsNotSupportedException()
         {
             // Setup
             var converter = new EnumTypeConverter(typeof(SimpleEnum));
 
             // Call
-            object result = new object();
-            TestDelegate test = () => result = converter.ConvertFrom(null);
+            TestDelegate test = () => converter.ConvertFrom(typeof(NotSupportedType));
 
             // Assert
-            Assert.DoesNotThrow(test);
-            Assert.IsNull(result);
+            Assert.Throws<NotSupportedException>(test);
         }
 
         [Test]
-        public void ConvertFrom_SourceTypeIsString_ReturnsExpectedEnum()
+        public void ConvertFrom_ValueIsNull_ThrowsNotSupportedException()
+        {
+            // Setup
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+
+            // Call
+            TestDelegate test = () => converter.ConvertFrom(null);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(test);
+        }
+
+        [Test]
+        public void ConvertFrom_ValueIsString_ReturnsExpectedEnum()
         {
             // Setup
             const string second = "<second>";
@@ -134,5 +214,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TypeConverters
             [ResourcesDisplayName(typeof(Resources), "SimpleEnum_SecondValue_DisplayName")]
             SecondValue
         }
+
+        private class NotSupportedType {}
     }
 }

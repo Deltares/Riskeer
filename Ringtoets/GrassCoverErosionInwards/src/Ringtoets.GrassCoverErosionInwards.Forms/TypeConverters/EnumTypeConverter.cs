@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using Core.Common.Utils.Attributes;
 
@@ -39,44 +40,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.TypeConverters
         /// <param name="type">A <see cref="Type"/> that represents the type of enumeration to associate with this enumeration converter.</param>
         public EnumTypeConverter(Type type) : base(type) {}
 
-        private static string GetDisplayName(MemberInfo memberInfo)
-        {
-            var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute) Attribute.GetCustomAttribute(memberInfo, typeof(ResourcesDisplayNameAttribute));
-            return (resourcesDisplayNameAttribute != null) ? resourcesDisplayNameAttribute.DisplayName : null;
-        }
-
-        #region Convert from
-
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
-        }
-
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value == null)
+            var valueString = value as string;
+            if (valueString != null)
             {
-                return null;
-            }
-            var valueString = value.ToString();
-            foreach (var fieldInfo in EnumType.GetFields())
-            {
-                var displayName = GetDisplayName(fieldInfo);
-                if (valueString == displayName)
+                foreach (var fieldInfo in EnumType.GetFields().Where(fieldInfo => valueString == GetDisplayName(fieldInfo)))
                 {
                     return Enum.Parse(EnumType, fieldInfo.Name);
                 }
             }
-            return Enum.Parse(EnumType, valueString);
-        }
-
-        #endregion
-
-        #region Convert to
-
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-        {
-            return destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
+            return base.ConvertFrom(context, culture, value);
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
@@ -89,6 +63,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.TypeConverters
             return GetDisplayName(fieldInfo);
         }
 
-        #endregion
+        private static string GetDisplayName(MemberInfo memberInfo)
+        {
+            var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute) Attribute.GetCustomAttribute(memberInfo, typeof(ResourcesDisplayNameAttribute));
+            return (resourcesDisplayNameAttribute != null) ? resourcesDisplayNameAttribute.DisplayName : null;
+        }
     }
 }
