@@ -23,6 +23,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
@@ -363,7 +364,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     CreateHydraRingTargetProbabilityCalculationActivity(
                         context.FailureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
                         calc.InputParameters.HydraulicBoundaryLocation,
-                        context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                        Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
                         calc)));
         }
 
@@ -423,7 +424,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var activity = CreateHydraRingTargetProbabilityCalculationActivity(
                 context.FailureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
                 calculation.InputParameters.HydraulicBoundaryLocation,
-                context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
                 calculation);
 
             ActivityProgressDialogRunner.Run(Gui.MainWindow, activity);

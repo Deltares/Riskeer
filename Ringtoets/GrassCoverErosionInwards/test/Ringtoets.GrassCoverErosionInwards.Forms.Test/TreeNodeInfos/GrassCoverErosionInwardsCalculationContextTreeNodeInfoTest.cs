@@ -275,81 +275,79 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-//        [Test]
-//        public void GivenCalculation_WhenCalculatingFromContextMenu_ThenCalculationNotifiesObservers()
-//        {
-//            // Given
-//            var gui = mocks.DynamicMock<IGui>();
-//            var mainWindow = mocks.DynamicMock<IMainWindow>();
-//            var observer = mocks.StrictMock<IObserver>();
-//            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-//            var calculateContextMenuItemIndex = 0;
-//
-//            var section = new FailureMechanismSection("A", new[]
-//            {
-//                new Point2D(1, 2),
-//                new Point2D(3, 4)
-//            });
-//
-//            var failureMechanism = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-//            failureMechanism.AddSection(section);
-//            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
-//            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)
-//            {
-//                DesignWaterLevel = 4.2
-//            };
-//
-//            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-//            {
-//                Locations =
-//                {
-//                    hydraulicBoundaryLocation1,
-//                    hydraulicBoundaryLocation2
-//                },
-//                FilePath = "D:/nonExistingDirectory/nonExistingFile",
-//                Version = "random"
-//            };
-//
-//            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-//            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-//            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
-//
-//            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
-//
-//            gui.Expect(g => g.Get(calculationContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
-//            gui.Expect(g => g.MainWindow).Return(mainWindow);
-//
-//            observer.Expect(o => o.UpdateObserver());
-//
-//            mocks.ReplayAll();
-//
-//            plugin.Gui = gui;
-//
-//            calculation.Attach(observer);
-//
-//            var contextMenuAdapter = info.ContextMenuStrip(calculationContext, null, treeViewControlMock);
-//
-//            DialogBoxHandler = (name, wnd) =>
-//            {
-//                // Don't care about dialogs in this test.
-//            };
-//
-//            // When
-//            Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
-//
-//            // Then
-//            TestHelper.AssertLogMessages(action, messages =>
-//            {
-//                var msgs = messages.GetEnumerator();
-//                Assert.IsTrue(msgs.MoveNext());
-//                StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", msgs.Current);
-//                Assert.IsTrue(msgs.MoveNext());
-//                StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", msgs.Current);
-//            });
-//            Assert.IsNotNull(calculation.Output);
-//
-//            mocks.VerifyAll();
-//        }
+        [Test]
+        public void GivenCalculationWithNonExistingFilePath_WhenCalculatingFromContextMenu_ThenLogMessagesAddedOutputNotSetObserversNotNotified()
+        {
+            // Given
+            var gui = mocks.DynamicMock<IGui>();
+            var mainWindow = mocks.DynamicMock<IMainWindow>();
+            var observer = mocks.StrictMock<IObserver>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var calculateContextMenuItemIndex = 0;
+
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            });
+
+            var failureMechanism = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            failureMechanism.AddSection(section);
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)
+            {
+                DesignWaterLevel = 4.2
+            };
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation1,
+                    hydraulicBoundaryLocation2
+                },
+                FilePath = "D:/nonExistingDirectory/nonExistingFile",
+                Version = "random"
+            };
+
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
+
+            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+
+            gui.Expect(g => g.Get(calculationContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+            gui.Expect(g => g.MainWindow).Return(mainWindow);
+
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            calculation.Attach(observer);
+
+            var contextMenuAdapter = info.ContextMenuStrip(calculationContext, null, treeViewControlMock);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Don't care about dialogs in this test.
+            };
+
+            // When
+            Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
+
+            // Then
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.GetEnumerator();
+                Assert.IsTrue(msgs.MoveNext());
+                StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening.", msgs.Current);
+            });
+
+            Assert.IsNull(calculation.Output);
+
+            mocks.VerifyAll();
+        }
 
         [Test]
         [TestCase(true)]
