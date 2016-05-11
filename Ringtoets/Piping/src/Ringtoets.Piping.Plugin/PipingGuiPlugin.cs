@@ -284,8 +284,7 @@ namespace Ringtoets.Piping.Plugin
                     Gui.ViewCommands.RemoveAllViewsForItem(pipingFailureMechanismContext);
                     pipingFailureMechanismContext.WrappedData.IsRelevant = false;
                     pipingFailureMechanismContext.WrappedData.NotifyObservers();
-                }
-                );
+                });
 
             var validateAllItem = CreateValidateAllItem(pipingFailureMechanismContext.WrappedData);
 
@@ -325,7 +324,7 @@ namespace Ringtoets.Piping.Plugin
         {
             var builder = Gui.Get(pipingFailureMechanismContext, treeViewControl);
 
-            CalculationTreeNodeInfoFactory.AddDisabledChangeRelevancyItem(builder, pipingFailureMechanismContext);
+            ContextMenuItemFactory.AddDisabledChangeRelevancyItem(builder, pipingFailureMechanismContext);
 
             return builder.AddSeparator()
                           .AddExpandAllItem()
@@ -454,22 +453,21 @@ namespace Ringtoets.Piping.Plugin
                                                          (o, args) => { PipingCalculationService.Validate(calculation); });
 
             builder.AddCustomItem(validateItem);
-            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(builder, calculation, nodeData, PerformCalculation);
-            CalculationTreeNodeInfoFactory.AddClearCalculationOutputItem(builder, calculation);
+            ContextMenuItemFactory.AddPerformCalculationItem(builder, calculation, nodeData, PerformCalculation);
+            ContextMenuItemFactory.AddClearCalculationOutputItem(builder, calculation);
             builder.AddSeparator();
 
-            return builder
-                      .AddRenameItem()
-                      .AddDeleteItem()
-                      .AddSeparator()
-                      .AddImportItem()
-                      .AddExportItem()
-                      .AddSeparator()
-                      .AddExpandAllItem()
-                      .AddCollapseAllItem()
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
+            return builder.AddRenameItem()
+                          .AddDeleteItem()
+                          .AddSeparator()
+                          .AddImportItem()
+                          .AddExportItem()
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         private static object[] PipingCalculationContextChildNodeObjects(PipingCalculationScenarioContext pipingCalculationScenarioContext)
@@ -567,21 +565,18 @@ namespace Ringtoets.Piping.Plugin
 
             if (!isNestedGroup)
             {
-                builder
-                    .AddOpenItem()
-                    .AddSeparator()
-                    .AddCustomItem(generateCalculationsItem)
-                    .AddSeparator();
+                builder.AddOpenItem()
+                       .AddSeparator()
+                       .AddCustomItem(generateCalculationsItem)
+                       .AddSeparator();
             }
 
-            CalculationTreeNodeInfoFactory.AddCreateCalculationGroupItem(builder, group);
-            CalculationTreeNodeInfoFactory.AddCreateCalculationItem(builder, nodeData, AddCalculationScenario);
+            ContextMenuItemFactory.AddCreateCalculationGroupItem(builder, group);
+            ContextMenuItemFactory.AddCreateCalculationItem(builder, nodeData, AddCalculationScenario);
             builder.AddSeparator();
-
-            builder
-                .AddCustomItem(validateAllItem);
-            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(builder, group, nodeData, CalculateAll);
-            CalculationTreeNodeInfoFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
+            builder.AddCustomItem(validateAllItem);
+            ContextMenuItemFactory.AddPerformAllCalculationsInGroupItem(builder, group, nodeData, CalculateAll);
+            ContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
             builder.AddSeparator();
 
             if (isNestedGroup)
@@ -591,15 +586,14 @@ namespace Ringtoets.Piping.Plugin
                 builder.AddSeparator();
             }
 
-            return builder
-                .AddImportItem()
-                .AddExportItem()
-                .AddSeparator()
-                .AddExpandAllItem()
-                .AddCollapseAllItem()
-                .AddSeparator()
-                .AddPropertiesItem()
-                .Build();
+            return builder.AddImportItem()
+                          .AddExportItem()
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         private static void AddCalculationScenario(PipingCalculationGroupContext nodeData)

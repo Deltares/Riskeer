@@ -561,7 +561,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var builder = Gui.Get(nodeData, treeViewControl);
 
-            CalculationTreeNodeInfoFactory.AddDisabledChangeRelevancyItem(builder, nodeData);
+            ContextMenuItemFactory.AddDisabledChangeRelevancyItem(builder, nodeData);
 
             return builder.AddSeparator()
                           .AddExpandAllItem()

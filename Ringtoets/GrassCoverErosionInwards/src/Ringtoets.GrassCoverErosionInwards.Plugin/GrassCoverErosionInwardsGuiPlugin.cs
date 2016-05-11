@@ -240,8 +240,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     Gui.ViewCommands.RemoveAllViewsForItem(grassCoverErosionInwardsFailureMechanismContext);
                     grassCoverErosionInwardsFailureMechanismContext.WrappedData.IsRelevant = false;
                     grassCoverErosionInwardsFailureMechanismContext.WrappedData.NotifyObservers();
-                }
-                );
+                });
 
             return Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl)
                       .AddOpenItem()
@@ -260,7 +259,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             var builder = Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl);
 
-            CalculationTreeNodeInfoFactory.AddDisabledChangeRelevancyItem(builder, grassCoverErosionInwardsFailureMechanismContext);
+            ContextMenuItemFactory.AddDisabledChangeRelevancyItem(builder, grassCoverErosionInwardsFailureMechanismContext);
 
             return builder.AddSeparator()
                           .AddExpandAllItem()
@@ -320,17 +319,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             if (!isNestedGroup)
             {
-                builder
-                    .AddOpenItem()
-                    .AddSeparator();
+                builder.AddOpenItem()
+                       .AddSeparator();
             }
 
-            CalculationTreeNodeInfoFactory.AddCreateCalculationGroupItem(builder, group);
-            CalculationTreeNodeInfoFactory.AddCreateCalculationItem(builder, nodeData, AddCalculation);
+            ContextMenuItemFactory.AddCreateCalculationGroupItem(builder, group);
+            ContextMenuItemFactory.AddCreateCalculationItem(builder, nodeData, AddCalculation);
             builder.AddSeparator();
-
-            CalculationTreeNodeInfoFactory.AddPerformAllCalculationsInGroupItem(builder, group, nodeData, CalculateAll);
-            CalculationTreeNodeInfoFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
+            ContextMenuItemFactory.AddPerformAllCalculationsInGroupItem(builder, group, nodeData, CalculateAll);
+            ContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
             builder.AddSeparator();
 
             if (isNestedGroup)
@@ -340,15 +337,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 builder.AddSeparator();
             }
 
-            return builder
-                .AddImportItem()
-                .AddExportItem()
-                .AddSeparator()
-                .AddExpandAllItem()
-                .AddCollapseAllItem()
-                .AddSeparator()
-                .AddPropertiesItem()
-                .Build();
+            return builder.AddImportItem()
+                          .AddExportItem()
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         private void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentNodeData)
@@ -400,12 +396,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             GrassCoverErosionInwardsCalculation calculation = nodeData.WrappedData;
 
-            CalculationTreeNodeInfoFactory.AddPerformCalculationItem(
+            ContextMenuItemFactory.AddPerformCalculationItem(
                 builder,
                 calculation,
                 nodeData,
                 PerformCalculation);
-            CalculationTreeNodeInfoFactory.AddClearCalculationOutputItem(builder, calculation);
+            ContextMenuItemFactory.AddClearCalculationOutputItem(builder, calculation);
             builder.AddSeparator();
 
             return builder

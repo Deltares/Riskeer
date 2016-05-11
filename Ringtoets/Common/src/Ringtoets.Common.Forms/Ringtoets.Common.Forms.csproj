@@ -62,6 +62,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="TreeNodeInfos\CalculationTreeNodeInfoFactory.cs" />
+    <Compile Include="TreeNodeInfos\ContextMenuItemFactory.cs" />
     <Compile Include="Views\CommentView.cs">
       <SubType>UserControl</SubType>
     </Compile>
