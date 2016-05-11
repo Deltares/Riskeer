@@ -276,7 +276,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithNonExistingFilePath_WhenCalculatingFromContextMenu_ThenLogMessagesAddedOutputNotSetObserversNotNotified()
+        public void GivenCalculationWithNonExistingFilePath_WhenCalculatingFromContextMenu_ThenLogMessagesAddedOutputNotChangedObserversNotNotified()
         {
             // Given
             var gui = mocks.DynamicMock<IGui>();
@@ -312,7 +312,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput());
+            var calculationOutput = new GrassCoverErosionInwardsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput())
+            {
+                Output = calculationOutput
+            };
 
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
@@ -344,7 +348,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening.", msgs.Current);
             });
 
-            Assert.IsNull(calculation.Output);
+            Assert.AreSame(calculationOutput, calculation.Output);
 
             mocks.VerifyAll();
         }

@@ -111,14 +111,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         }
 
         private static ExceedanceProbabilityCalculationActivity CreateHydraRingTargetProbabilityCalculationActivity(FailureMechanismSection failureMechanismSection,
-                                                                                                                    HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                                                                     string hlcdDirectory,
                                                                                                                     GrassCoverErosionInwardsCalculation calculation)
         {
-            var hydraulicBoundaryLocationId = (int) hydraulicBoundaryLocation.Id;
+            var hydraulicBoundaryLocationId = (int) calculation.InputParameters.HydraulicBoundaryLocation.Id;
             var sectionLength = failureMechanismSection.GetSectionLength();
             var inwardsInput = calculation.InputParameters;
-            var inwardsOutput = calculation.Output;
+
+            if (calculation.Output == null)
+            {
+                calculation.Output = new GrassCoverErosionInwardsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
+            }
 
             return HydraRingActivityFactory.Create(
                 calculation.Name,
@@ -139,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                 ParseForeshore(inwardsInput),
                                                 ParseBreakWater(inwardsInput)
                     ),
-                output => { ParseHydraRingOutput(inwardsOutput, output); });
+                output => { ParseHydraRingOutput(calculation.Output, output); });
         }
 
         private static HydraRingBreakWater ParseBreakWater(GrassCoverErosionInwardsInput input)
@@ -363,7 +366,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 .Select(calc =>
                     CreateHydraRingTargetProbabilityCalculationActivity(
                         context.FailureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
-                        calc.InputParameters.HydraulicBoundaryLocation,
                         Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
                         calc)));
         }
@@ -423,7 +425,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             var activity = CreateHydraRingTargetProbabilityCalculationActivity(
                 context.FailureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
-                calculation.InputParameters.HydraulicBoundaryLocation,
                 Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
                 calculation);
 
