@@ -19,10 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils.Attributes;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 
@@ -46,15 +49,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         [Test]
         public void PropertyAttributes_ReturnExpectedValues()
         {
-            // Setup
-            var mockRepository = new MockRepository();
-            var distributionMock = mockRepository.StrictMock<IDistribution>();
-            mockRepository.ReplayAll();
-
             // Call
             var properties = new ReadOnlyNormalDistributionProperties
             {
-                Data = distributionMock
+                Data = new NormalDistribution(1)
             };
 
             // Assert
@@ -65,14 +63,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             Assert.AreEqual(4, dynamicProperties.Count);
 
-            PropertyDescriptor meanProperty = dynamicProperties.Find("Mean", false);
-            Assert.IsNotNull(meanProperty);
-            Assert.IsTrue(meanProperty.IsReadOnly);
+            var meanAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty("Mean"));
+            Assert.IsNotNull(meanAttributes);
+            AssertAttributesOfType<ReadOnlyAttribute, bool>(meanAttributes, true, attribute => attribute.IsReadOnly);
+            AssertAttributesOfType<ResourcesDisplayNameAttribute, string>(meanAttributes, "Verwachtingswaarde",
+                                                                          attribute => attribute.DisplayName);
+            AssertAttributesOfType<ResourcesDescriptionAttribute, string>(meanAttributes,
+                                                                          "De gemiddelde waarde van de normale verdeling.",
+                                                                          attribute => attribute.Description);
 
-            PropertyDescriptor standardDeviationProperty = dynamicProperties.Find("StandardDeviation", false);
-            Assert.IsNotNull(standardDeviationProperty);
-            Assert.IsTrue(standardDeviationProperty.IsReadOnly);
-            mockRepository.VerifyAll();
+            var standardAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty("StandardDeviation"));
+            Assert.IsNotNull(standardAttributes);
+            AssertAttributesOfType<ReadOnlyAttribute, bool>(standardAttributes, true, attribute => attribute.IsReadOnly);
+            AssertAttributesOfType<ResourcesDisplayNameAttribute, string>(standardAttributes, "Standaardafwijking",
+                                                                          attribute => attribute.DisplayName);
+            AssertAttributesOfType<ResourcesDescriptionAttribute, string>(standardAttributes,
+                                                                          "De standaardafwijking van de normale verdeling.",
+                                                                          attribute => attribute.Description);
+        }
+
+        private static void AssertAttributesOfType<T, TR>(IEnumerable<Attribute> attributes, TR expectedValue,
+                                                          Func<T, TR> action)
+        {
+            var meanDisplayNameAttribute = attributes.OfType<T>();
+            Assert.IsNotNull(meanDisplayNameAttribute);
+            var e = meanDisplayNameAttribute.FirstOrDefault();
+            Assert.IsNotNull(e);
+            Assert.AreEqual(expectedValue, action(e));
         }
     }
 }
