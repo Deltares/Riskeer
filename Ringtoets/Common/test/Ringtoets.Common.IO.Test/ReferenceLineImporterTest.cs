@@ -343,7 +343,7 @@ namespace Ringtoets.Common.IO.Test
                 },
                 new ExpectedProgressNotification
                 {
-                    Text = "Wissen rekenresultaten en vakindelingen van faalmechanismen.", CurrentStep = 3, MaxNrOfSteps = 4
+                    Text = "Wissen rekenresultaten en vakindelingen van toetsspoor.", CurrentStep = 3, MaxNrOfSteps = 4
                 },
                 new ExpectedProgressNotification
                 {

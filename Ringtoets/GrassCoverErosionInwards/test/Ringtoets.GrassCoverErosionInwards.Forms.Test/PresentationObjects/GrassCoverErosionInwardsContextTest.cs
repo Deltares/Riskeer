@@ -99,7 +99,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, null, assessmentSectionMock);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het grasbekleding erosie kruin en binnentalud faalmechanisme mag niet 'null' zijn.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het grasbekleding erosie kruin en binnentalud toetsspoor mag niet 'null' zijn.");
             mockRepository.VerifyAll();
         }
 

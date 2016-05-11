@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             TestDelegate test = () => { new FailureMechanismContribution(null, contribution, norm); };
 
             // Assert
-            const string expectedMessage = "Kan geen bijdrageoverzicht maken zonder faalmechanismen.";
+            const string expectedMessage = "Kan geen bijdrageoverzicht maken zonder toetsspoor.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             }, contribution, norm);
 
             // Assert
-            const string expectedMessage = "Kan geen bijdrage element maken zonder een faalmechanisme.";
+            const string expectedMessage = "Kan geen bijdrage element maken zonder een toetsspoor.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 

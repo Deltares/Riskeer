@@ -151,7 +151,7 @@ Er is geen referentielijn geïmporteerd.</value>
     <value>Inlezen referentielijn.</value>
   </data>
   <data name="ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections" xml:space="preserve">
-    <value>Wissen rekenresultaten en vakindelingen van faalmechanismen.</value>
+    <value>Wissen rekenresultaten en vakindelingen van toetsspoor.</value>
   </data>
   <data name="ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output" xml:space="preserve">
     <value>Verwijderen uitvoer van hydraulische randvoorwaarden.</value>

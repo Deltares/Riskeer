@@ -124,7 +124,7 @@
     <value>DSoilModel bestand</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model" xml:space="preserve">
-    <value>Geïmporteerde data toevoegen aan faalmechanisme</value>
+    <value>Geïmporteerde data toevoegen aan toetsspoor.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Import_Import_cancelled" xml:space="preserve">
     <value>Profielschematisaties importeren afgebroken. Geen data ingelezen.</value>
@@ -141,7 +141,7 @@ Het bestand wordt overgeslagen.</value>
 Deze profielschematisatie wordt overgeslagen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_Adding_imported_data_to_model" xml:space="preserve">
-    <value>Geïmporteerde data toevoegen aan faalmechanisme.</value>
+    <value>Geïmporteerde data toevoegen aan toetsspoor.</value>
   </data>
   <data name="PipingSoilProfilesImporter_Import_Import_cancelled" xml:space="preserve">
     <value>Ondergrondschematisaties importeren afgebroken. Geen data ingelezen.</value>
@@ -213,7 +213,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>Inlezen van het profielschematisatiesbestand.</value>
   </data>
   <data name="PipingSoilProfilesImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists" xml:space="preserve">
-    <value>Het stochastische ondergrondmodel '{0}' bestaat al in het faalmechanisme.</value>
+    <value>Het stochastische ondergrondmodel '{0}' bestaat al in het toetsspoor.</value>
   </data>
   <data name="PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in_any_stochastic_soil_model" xml:space="preserve">
     <value>De uitgelezen ondergrondschematisatie '{0}' wordt niet gebruikt in een van de stochastische ondergrondmodellen.</value>
@@ -237,10 +237,10 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>Controleren van ondergrondschematisaties.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Finished_adding_surface_lines" xml:space="preserve">
-    <value>Klaar met plaatsen van profielschematisaties in het faalmechanisme.</value>
+    <value>Klaar met plaatsen van profielschematisaties in het toetsspoor.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_AddImportedDataToModel_Start_adding_surface_lines" xml:space="preserve">
-    <value>Begonnen met plaatsen van profielschematisaties in het faalmechanisme.</value>
+    <value>Begonnen met plaatsen van profielschematisaties in het toetsspoor.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_" xml:space="preserve">
     <value>Begonnen met het inlezen van profielschematisaties uit bestand '{0}'.</value>

@@ -173,7 +173,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 Environment.NewLine
             }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Het piping faalmechanisme mag niet 'null' zijn.", customMessage);
+            Assert.AreEqual("Het piping toetsspoor mag niet 'null' zijn.", customMessage);
             mocks.VerifyAll();
         }
 

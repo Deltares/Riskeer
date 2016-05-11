@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             };
 
             // Assert
-            const string expectedMessage = "Kan geen bijdrage element maken zonder een faalmechanisme.";
+            const string expectedMessage = "Kan geen bijdrage element maken zonder een toetsspoor.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 

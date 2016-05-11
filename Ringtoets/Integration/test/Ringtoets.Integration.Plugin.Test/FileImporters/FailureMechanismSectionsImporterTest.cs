@@ -236,7 +236,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             {
                 new ProgressNotification("Inlezen vakindeling.", 1, 3),
                 new ProgressNotification("Valideren ingelezen vakindeling.", 2, 3),
-                new ProgressNotification("Geïmporteerde data toevoegen aan het faalmechanisme.", 3, 3),
+                new ProgressNotification("Geïmporteerde data toevoegen aan het toetsspoor.", 3, 3),
             };
             Assert.AreEqual(expectedProgressMessages.Length, progressChangeNotifications.Count);
             for (int i = 0; i < expectedProgressMessages.Length; i++)

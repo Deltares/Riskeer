@@ -136,19 +136,19 @@
     <value>Een punt in de geometrie voor de referentielijn heeft geen waarde.</value>
   </data>
   <data name="BaseFailureMechanism_AddSection_Section_0_must_connect_to_existing_sections" xml:space="preserve">
-    <value>Vak '{0}' sluit niet aan op de al gedefinieerde vakken van het faalmechanisme.</value>
+    <value>Vak '{0}' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.</value>
   </data>
   <data name="FailureMechanismSection_Section_must_have_at_least_1_geometry_point" xml:space="preserve">
     <value>Vak moet minstens uit 1 punt bestaan.</value>
   </data>
   <data name="FailureMechanismContributionItem_Can_not_create_contribution_item_without_failure_mechanism" xml:space="preserve">
-    <value>Kan geen bijdrage element maken zonder een faalmechanisme.</value>
+    <value>Kan geen bijdrage element maken zonder een toetsspoor.</value>
   </data>
   <data name="FailureMechanismContributionItem_Norm_must_be_larger_than_zero" xml:space="preserve">
     <value>De faalkansbijdrage kan alleen bepaald worden als de norm van het traject groter is dan 0.</value>
   </data>
   <data name="FailureMechanismContribution_UpdateContributions_Can_not_create_FailureMechanismContribution_without_FailureMechanism_collection" xml:space="preserve">
-    <value>Kan geen bijdrageoverzicht maken zonder faalmechanismen.</value>
+    <value>Kan geen bijdrageoverzicht maken zonder toetsspoor.</value>
   </data>
   <data name="OtherFailureMechanism_DisplayName" xml:space="preserve">
     <value>Overig</value>

@@ -253,7 +253,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             TestDelegate call = () => failureMechanism.AddSection(section2);
 
             // Assert
-            string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het faalmechanisme.";
+            string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

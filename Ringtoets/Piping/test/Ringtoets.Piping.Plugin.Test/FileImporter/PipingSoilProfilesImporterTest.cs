@@ -265,7 +265,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             expectedProgressMessages.Add(new ProgressNotification("Controleren van ondergrondschematisaties.", 1, 1));
             for (var i = 1; i <= expectedModels; i++)
             {
-                expectedProgressMessages.Add(new ProgressNotification("Geïmporteerde data toevoegen aan faalmechanisme.", i, expectedModels));
+                expectedProgressMessages.Add(new ProgressNotification("Geïmporteerde data toevoegen aan toetsspoor.", i, expectedModels));
             }
             Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
             for (var i = 0; i < expectedProgressMessages.Count; i++)
@@ -309,7 +309,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(context, validFilePath);
 
             // Assert
-            var expectedLogMessages = alreadyImportedSoilModelNames.Select(name => string.Format("Het stochastische ondergrondmodel '{0}' bestaat al in het faalmechanisme.", name)).ToArray();
+            var expectedLogMessages = alreadyImportedSoilModelNames.Select(name => string.Format("Het stochastische ondergrondmodel '{0}' bestaat al in het toetsspoor.", name)).ToArray();
             TestHelper.AssertLogMessagesAreGenerated(call, expectedLogMessages, expectedLogMessages.Length);
 
             Assert.IsTrue(importResult);

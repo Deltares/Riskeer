@@ -134,7 +134,7 @@
     <value>Het traject</value>
   </data>
   <data name="GrassCoverErosionInwardsContext_DataDescription_GrassCoverErosionInwardsFailureMechanism" xml:space="preserve">
-    <value>Het grasbekleding erosie kruin en binnentalud faalmechanisme</value>
+    <value>Het grasbekleding erosie kruin en binnentalud toetsspoor</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_Code_Description" xml:space="preserve">
     <value>Het label van het toetsspoor.</value>
