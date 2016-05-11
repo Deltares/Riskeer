@@ -174,9 +174,12 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
 
         private static DroppingCalculationInContainerStrategy GetDragDropStrategy(bool isMoveWithinSameContainer, CalculationGroup sourceCalculationGroup, CalculationGroup targetCalculationGroup)
         {
-            return isMoveWithinSameContainer
-                       ? (DroppingCalculationInContainerStrategy) new DroppingCalculationWithinSameContainer(sourceCalculationGroup, targetCalculationGroup)
-                       : new DroppingCalculationToNewContainer(sourceCalculationGroup, targetCalculationGroup);
+            if (isMoveWithinSameContainer)
+            {
+                return new DroppingCalculationWithinSameContainer(sourceCalculationGroup, targetCalculationGroup);
+            }
+
+            return new DroppingCalculationToNewContainer(sourceCalculationGroup, targetCalculationGroup);
         }
 
         # region Nested types: DroppingCalculationInContainerStrategy and implementations
@@ -202,7 +205,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             /// <param name="draggedData">The dragged data.</param>
             /// <param name="calculationBase">The calculation item wrapped by <see cref="draggedData"/>.</param>
             /// <param name="newPosition">The index of the new position within the new owner's collection.</param>
-            /// <param name="treeViewControl">The tree view control which is at stake.</param>
+            /// <param name="treeViewControl">The tree view control in which the drag and drop operation is performed.</param>
             public virtual void Execute(object draggedData, ICalculationBase calculationBase, int newPosition, TreeViewControl treeViewControl)
             {
                 MoveCalculationItemToNewOwner(calculationBase, newPosition);

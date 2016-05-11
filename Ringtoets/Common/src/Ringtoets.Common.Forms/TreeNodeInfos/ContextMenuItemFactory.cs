@@ -49,15 +49,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Resources.CalculationGroup_Add_CalculationGroup,
                 Resources.CalculationGroup_Add_CalculationGroup_Tooltip,
                 Resources.AddFolderIcon,
-                (o, args) =>
-                {
-                    var calculation = new CalculationGroup
-                    {
-                        Name = NamingHelper.GetUniqueName(calculationGroup.Children, RingtoetsCommonDataResources.CalculationGroup_DefaultName, c => c.Name)
-                    };
-                    calculationGroup.Children.Add(calculation);
-                    calculationGroup.NotifyObservers();
-                });
+                (o, args) => CreateCalculationGroup(calculationGroup));
 
             builder.AddCustomItem(createCalculationGroupItem);
         }
@@ -75,7 +67,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Resources.CalculationGroup_Add_Calculation,
                 Resources.CalculationGroup_Add_Calculation_Tooltip,
                 Resources.FailureMechanismIcon,
-                (o, args) => { addCalculation(calculationGroupContext); });
+                (o, args) => addCalculation(calculationGroupContext));
 
             builder.AddCustomItem(createCalculationItem);
         }
@@ -90,21 +82,10 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             var clearAllItem = new StrictContextMenuItem(
                 Resources.Clear_all_output,
                 Resources.CalculationGroup_ClearOutput_ToolTip,
-                Resources.ClearIcon, (o, args) =>
-                {
-                    if (MessageBox.Show(Resources.CalculationGroup_ClearOutput_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
-                    {
-                        return;
-                    }
+                Resources.ClearIcon,
+                (o, args) => ClearAllCalculationOutputInGroup(calculationGroup));
 
-                    foreach (var calc in calculationGroup.GetCalculations().Where(c => c.HasOutput))
-                    {
-                        calc.ClearOutput();
-                        calc.NotifyObservers();
-                    }
-                });
-
-            if (!calculationGroup.GetCalculations().Any(c => c.HasOutput))
+            if (!calculationGroup.HasOutput())
             {
                 clearAllItem.Enabled = false;
                 clearAllItem.ToolTipText = Resources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
@@ -127,7 +108,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             var performAllItem = new StrictContextMenuItem(
                 Resources.Calculate_all,
                 Resources.CalculationGroup_CalculateAll_ToolTip,
-                Resources.CalculateAllIcon, (o, args) => { calculateAll(calculationGroup, context); });
+                Resources.CalculateAllIcon,
+                (o, args) => calculateAll(calculationGroup, context));
 
             if (!calculationGroup.GetCalculations().Any())
             {
@@ -154,7 +136,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Resources.Calculate,
                 Resources.Calculate_ToolTip,
                 Resources.CalculateIcon,
-                (o, args) => { calculate(calculation, context); });
+                (o, args) => calculate(calculation, context));
 
             builder.AddCustomItem(calculateItem);
         }
@@ -170,16 +152,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Resources.Clear_output,
                 Resources.Clear_output_ToolTip,
                 Resources.ClearIcon,
-                (o, args) =>
-                {
-                    if (MessageBox.Show(Resources.Calculation_ContextMenuStrip_Are_you_sure_clear_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
-                    {
-                        return;
-                    }
-
-                    calculation.ClearOutput();
-                    calculation.NotifyObservers();
-                });
+                (o, args) => ClearCalculationOutput(calculation));
 
             if (!calculation.HasOutput)
             {
@@ -202,13 +175,44 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Resources.FailureMechanismContextMenuStrip_Is_relevant,
                 Resources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
                 Resources.Checkbox_empty,
-                (sender, args) =>
+                (o, args) =>
                 {
                     failureMechanismContext.WrappedData.IsRelevant = true;
                     failureMechanismContext.WrappedData.NotifyObservers();
                 });
 
             builder.AddCustomItem(changeRelevancyItem);
+        }
+
+        private static void CreateCalculationGroup(CalculationGroup calculationGroup)
+        {
+            calculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = NamingHelper.GetUniqueName(calculationGroup.Children, RingtoetsCommonDataResources.CalculationGroup_DefaultName, c => c.Name)
+            });
+
+            calculationGroup.NotifyObservers();
+        }
+
+        private static void ClearAllCalculationOutputInGroup(CalculationGroup calculationGroup)
+        {
+            if (MessageBox.Show(Resources.CalculationGroup_ClearOutput_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            {
+                return;
+            }
+
+            calculationGroup.ClearCalculationOutput();
+        }
+
+        private static void ClearCalculationOutput(ICalculation calculation)
+        {
+            if (MessageBox.Show(Resources.Calculation_ContextMenuStrip_Are_you_sure_clear_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            {
+                return;
+            }
+
+            calculation.ClearOutput();
+            calculation.NotifyObservers();
         }
     }
 }

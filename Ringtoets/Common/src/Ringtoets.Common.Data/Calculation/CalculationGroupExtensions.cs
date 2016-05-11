@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ringtoets.Common.Data.Calculation
 {
@@ -29,8 +30,8 @@ namespace Ringtoets.Common.Data.Calculation
     public static class CalculationGroupExtensions
     {
         /// <summary>
-        /// Recursively enumerates across the contents of the calculation group, 
-        /// yielding the calculations found within the calculation group.
+        /// Recursively enumerates across the contents of a calculation group,
+        /// yielding all calculations found.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to be evaluated.</param>
         /// <returns>Returns all contained calculations as an enumerable result.</returns>
@@ -52,6 +53,31 @@ namespace Ringtoets.Common.Data.Calculation
                 }
             }
             return calculations;
+        }
+
+        /// <summary>
+        /// Clears the output of all calculations with output in a calculation group.
+        /// </summary>
+        /// <param name="calculationGroup">The calculation group to clear the output for.</param>
+        /// <remarks>The calculation group is enumerated recursively, also taking into account nested calculations.</remarks>
+        public static void ClearCalculationOutput(this CalculationGroup calculationGroup)
+        {
+            foreach (var calc in calculationGroup.GetCalculations().Where(c => c.HasOutput))
+            {
+                calc.ClearOutput();
+                calc.NotifyObservers();
+            }
+        }
+
+        /// <summary>
+        /// Method for determining if one or more calculations in a calculation group have output.
+        /// </summary>
+        /// <param name="calculationGroup">The calculation group to check the output for.</param>
+        /// <returns><c>true</c> if one or more calculations in the calculation group have output, <c>false</c> otherwise.</returns>
+        /// <remarks>The calculation group is enumerated recursively, also taking into account nested calculations.</remarks>
+        public static bool HasOutput(this CalculationGroup calculationGroup)
+        {
+            return calculationGroup.GetCalculations().Any(c => c.HasOutput);
         }
     }
 }
