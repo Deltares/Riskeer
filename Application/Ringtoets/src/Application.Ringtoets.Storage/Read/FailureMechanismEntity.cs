@@ -81,12 +81,12 @@ namespace Application.Ringtoets.Storage.DbContext
         }
 
         /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="FailureMechanismPlaceholder"/>.
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="StandAloneFailureMechanism"/>.
         /// </summary>
-        /// <returns>A new <see cref="FailureMechanismPlaceholder"/>.</returns>
-        public FailureMechanismPlaceholder ReadAsFailureMechanismPlaceholder()
+        /// <returns>A new <see cref="StandAloneFailureMechanism"/>.</returns>
+        public StandAloneFailureMechanism ReadAsFailureMechanismPlaceholder()
         {
-            var failureMechanism = new FailureMechanismPlaceholder("temporaryName", "temporaryCode")
+            var failureMechanism = new StandAloneFailureMechanism("temporaryName", "temporaryCode")
             {
                 StorageId = FailureMechanismEntityId,
                 IsRelevant = IsRelevant == 1

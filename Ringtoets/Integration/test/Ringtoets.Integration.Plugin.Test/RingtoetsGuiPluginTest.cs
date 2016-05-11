@@ -195,8 +195,8 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.GetObjectPropertiesData);
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.AfterCreate);
 
-                var failureMechanismPlaceholderProperties = propertyInfos.Single(pi => pi.DataType == typeof(FailureMechanismPlaceholderContext));
-                Assert.AreEqual(typeof(FailureMechanismPlaceholderContextProperties), failureMechanismPlaceholderProperties.PropertyObjectType);
+                var failureMechanismPlaceholderProperties = propertyInfos.Single(pi => pi.DataType == typeof(StandAloneFailureMechanismContext));
+                Assert.AreEqual(typeof(StandAloneFailureMechanismContextProperties), failureMechanismPlaceholderProperties.PropertyObjectType);
                 Assert.IsNull(failureMechanismPlaceholderProperties.AdditionalDataCheck);
                 Assert.IsNull(failureMechanismPlaceholderProperties.GetObjectPropertiesData);
                 Assert.IsNull(failureMechanismPlaceholderProperties.AfterCreate);
@@ -260,7 +260,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(IAssessmentSection)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PlaceholderWithReadonlyName)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismPlaceholderContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StandAloneFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CategoryTreeFolder)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContributionContext)));

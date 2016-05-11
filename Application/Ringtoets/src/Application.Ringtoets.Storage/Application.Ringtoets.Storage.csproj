@@ -55,7 +55,7 @@
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismBaseCreateExtensions.cs" />
-    <Compile Include="Create\FailureMechanismPlaceholderCreateExtensions.cs" />
+    <Compile Include="Create\StandAloneFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismSectionCreateExtensions.cs" />
     <Compile Include="Create\PipingFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensions.cs" />
@@ -145,7 +145,7 @@
     <Compile Include="Update\AssessmentSectionUpdateExtensions.cs" />
     <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\FailureMechanismBaseUpdateExtensions.cs" />
-    <Compile Include="Update\FailureMechanismPlaceholderUpdateExtensions.cs" />
+    <Compile Include="Update\StandAloneFailureMechanismUpdateExtensions.cs" />
     <Compile Include="Update\FailureMechanismSectionUpdateExtensions.cs" />
     <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensions.cs" />
     <Compile Include="Update\IStorableExtensions.cs" />

@@ -29,7 +29,7 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class FailureMechanismPlaceholderContextTest
+    public class StandAloneFailureMechanismContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -39,13 +39,13 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new FailureMechanismPlaceholder("A", "C");
+            var failureMechanism = new StandAloneFailureMechanism("A", "C");
 
             // Call
-            var context = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
+            var context = new StandAloneFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismContext<FailureMechanismPlaceholder>>(context);
+            Assert.IsInstanceOf<FailureMechanismContext<StandAloneFailureMechanism>>(context);
             Assert.AreSame(failureMechanism, context.WrappedData);
             Assert.AreSame(assessmentSection, context.Parent);
             mocks.VerifyAll();

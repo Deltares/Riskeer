@@ -478,7 +478,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 FailureMechanismEntityId = storageId
             };
-            var model = new FailureMechanismPlaceholder("name", "code");
+            var model = new StandAloneFailureMechanism("name", "code");
             collector.Create(entity, model);
 
             // Call

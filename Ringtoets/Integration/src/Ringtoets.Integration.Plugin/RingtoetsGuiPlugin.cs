@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Plugin
         {
             yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
-            yield return new PropertyInfo<FailureMechanismPlaceholderContext, FailureMechanismPlaceholderContextProperties>();
+            yield return new PropertyInfo<StandAloneFailureMechanismContext, StandAloneFailureMechanismContextProperties>();
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace Ringtoets.Integration.Plugin
                                    Gui.Get(nodeData, treeViewControl).AddImportItem().Build()
             };
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismPlaceholderContext>(
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StandAloneFailureMechanismContext>(
                 FailureMechanismPlaceholderEnabledChildNodeObjects,
                 FailureMechanismPlaceholderDisabledChildNodeObjects,
                 FailureMechanismPlaceholderEnabledContextMenuStrip,
@@ -413,12 +413,12 @@ namespace Ringtoets.Integration.Plugin
         {
             foreach (IFailureMechanism failureMechanism in nodeData.GetFailureMechanisms())
             {
-                var placeHolder = failureMechanism as FailureMechanismPlaceholder;
+                var placeHolder = failureMechanism as StandAloneFailureMechanism;
                 var piping = failureMechanism as PipingFailureMechanism;
                 var grassCoverErosionInwards = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
                 if (placeHolder != null)
                 {
-                    yield return new FailureMechanismPlaceholderContext(placeHolder, nodeData);
+                    yield return new StandAloneFailureMechanismContext(placeHolder, nodeData);
                 }
                 else if (piping != null)
                 {
@@ -471,7 +471,7 @@ namespace Ringtoets.Integration.Plugin
 
         # region FailureMechanismPlaceHolderContext
 
-        private object[] FailureMechanismPlaceholderEnabledChildNodeObjects(FailureMechanismPlaceholderContext nodeData)
+        private object[] FailureMechanismPlaceholderEnabledChildNodeObjects(StandAloneFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -484,7 +484,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private object[] FailureMechanismPlaceholderDisabledChildNodeObjects(FailureMechanismPlaceholderContext nodeData)
+        private object[] FailureMechanismPlaceholderDisabledChildNodeObjects(StandAloneFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -492,7 +492,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private IList GetInputs(FailureMechanismPlaceholder nodeData, IAssessmentSection assessmentSection)
+        private IList GetInputs(StandAloneFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -503,7 +503,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private IList GetOutputs(FailureMechanismPlaceholder nodeData)
+        private IList GetOutputs(StandAloneFailureMechanism nodeData)
         {
             return new ArrayList
             {
@@ -511,7 +511,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismPlaceholderEnabledContextMenuStrip(FailureMechanismPlaceholderContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismPlaceholderEnabledContextMenuStrip(StandAloneFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var changeRelevancyItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
@@ -558,7 +558,7 @@ namespace Ringtoets.Integration.Plugin
                       .Build();
         }
 
-        private ContextMenuStrip FailureMechanismPlaceholderDisabledContextMenuStrip(FailureMechanismPlaceholderContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismPlaceholderDisabledContextMenuStrip(StandAloneFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = Gui.Get(nodeData, treeViewControl);
 

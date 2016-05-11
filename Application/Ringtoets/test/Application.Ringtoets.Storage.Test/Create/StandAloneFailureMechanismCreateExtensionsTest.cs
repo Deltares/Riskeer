@@ -30,13 +30,13 @@ using Ringtoets.Integration.Data.Placeholders;
 namespace Application.Ringtoets.Storage.Test.Create
 {
     [TestFixture]
-    public class FailureMechanismPlaceholderCreateExtensionsTest
+    public class StandAloneFailureMechanismCreateExtensionsTest
     {
         [Test]
         public void Create_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new FailureMechanismPlaceholder("name", "code");
+            var failureMechanism = new StandAloneFailureMechanism("name", "code");
 
             // Call
             TestDelegate test = () => failureMechanism.Create(FailureMechanismType.DuneErosion, null);
@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithCollector_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
         {
             // Setup
-            var failureMechanism = new FailureMechanismPlaceholder("name", "code")
+            var failureMechanism = new StandAloneFailureMechanism("name", "code")
             {
                 IsRelevant = isRelevant
             };
@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithSections_ReturnsFailureMechanismEntityWithFailureMechanismSectionEntities(bool isRelevant)
         {
             // Setup
-            var failureMechanism = new FailureMechanismPlaceholder("name", "code");
+            var failureMechanism = new StandAloneFailureMechanism("name", "code");
             failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[] { new Point2D(0, 0) }));
             failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[] { new Point2D(0, 0) }));
             var collector = new CreateConversionCollector();

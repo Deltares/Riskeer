@@ -29,13 +29,13 @@ using Ringtoets.Integration.Data.Placeholders;
 namespace Application.Ringtoets.Storage.Update
 {
     /// <summary>
-    /// Extension methods for <see cref="FailureMechanismPlaceholder"/> related to updating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="StandAloneFailureMechanism"/> related to updating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    public static class FailureMechanismPlaceholderUpdateExtensions
+    public static class StandAloneFailureMechanismUpdateExtensions
     {
         /// <summary>
         /// Updates a <see cref="FailureMechanismEntity"/> in the database based on the information of the 
-        /// <see cref="FailureMechanismPlaceholder"/>.
+        /// <see cref="StandAloneFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The mechanism to update the database entity for.</param>
         /// <param name="collector">The object keeping track of update operations.</param>
@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        public static void Update(this FailureMechanismPlaceholder mechanism, UpdateConversionCollector collector, IRingtoetsEntities context)
+        public static void Update(this StandAloneFailureMechanism mechanism, UpdateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Update
             collector.Update(entity);
         }
 
-        private static FailureMechanismEntity GetSingleFailureMechanism(FailureMechanismPlaceholder mechanism, IRingtoetsEntities context)
+        private static FailureMechanismEntity GetSingleFailureMechanism(StandAloneFailureMechanism mechanism, IRingtoetsEntities context)
         {
             try
             {

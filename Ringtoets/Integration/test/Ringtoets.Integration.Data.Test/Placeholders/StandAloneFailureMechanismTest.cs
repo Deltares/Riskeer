@@ -27,7 +27,7 @@ using Ringtoets.Integration.Data.Placeholders;
 namespace Ringtoets.Integration.Data.Test.Placeholders
 {
     [TestFixture]
-    public class FailureMechanismPlaceholderTest
+    public class StandAloneFailureMechanismTest
     {
         [Test]
         [TestCase("")]
@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.Data.Test.Placeholders
         public void Constructor_NullOrEmptyName_ThrowsArgumentException(string name)
         {
             // Call
-            TestDelegate test = () => new FailureMechanismPlaceholder(name, "testCode");
+            TestDelegate test = () => new StandAloneFailureMechanism(name, "testCode");
 
             // Assert
             var paramName = Assert.Throws<ArgumentException>(test).ParamName;
@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Data.Test.Placeholders
         public void Constructor_NullOrEmptyCode_ThrowsArgumentException(string code)
         {
             // Call
-            TestDelegate test = () => new FailureMechanismPlaceholder("testName", code);
+            TestDelegate test = () => new StandAloneFailureMechanism("testName", code);
 
             // Assert
             var paramName = Assert.Throws<ArgumentException>(test).ParamName;
@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Data.Test.Placeholders
             const string expectedCode = "testCode";
 
             // Call
-            var failureMechanism = new FailureMechanismPlaceholder(expectedName, expectedCode);
+            var failureMechanism = new StandAloneFailureMechanism(expectedName, expectedCode);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);

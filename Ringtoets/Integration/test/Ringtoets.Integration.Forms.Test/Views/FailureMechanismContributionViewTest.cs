@@ -200,7 +200,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var testName = "testName";
             var testCode = "testCode";
 
-            var someMechanism = new FailureMechanismPlaceholder(testName, testCode);
+            var someMechanism = new StandAloneFailureMechanism(testName, testCode);
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms())
                               .Return(Enumerable.Empty<IFailureMechanism>());

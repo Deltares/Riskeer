@@ -55,16 +55,16 @@ namespace Ringtoets.Integration.Data
             PipingFailureMechanism = new PipingFailureMechanism();
             GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
 
-            MacrostabilityInwards = new FailureMechanismPlaceholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName, Resources.MacrostabilityInwardFailureMechanism_Code);
-            StabilityStoneCover = new FailureMechanismPlaceholder(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code);
-            WaveImpactAsphaltCover = new FailureMechanismPlaceholder(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code);
-            GrassCoverErosionOutside = new FailureMechanismPlaceholder(Resources.GrassCoverErosionOutsideFailureMechanism_DisplayName, Resources.GrassCoverErosionOutsideFailureMechanism_Code);
-            GrassCoverSlipOffOutside = new FailureMechanismPlaceholder(Resources.GrassCoverSlipOffOutsideFailureMechanism_DisplayName, Resources.GrassCoverSlipOffOutsideFailureMechanism_Code);
-            HeightStructure = new FailureMechanismPlaceholder(Resources.HeightStructureFailureMechanism_DisplayName, Resources.HeightStructureFailureMechanism_Code);
-            ClosingStructure = new FailureMechanismPlaceholder(Resources.ClosingStructureFailureMechanism_DisplayName, Resources.ClosingStructureFailureMechanism_Code);
-            StrengthStabilityPointConstruction = new FailureMechanismPlaceholder(Resources.StrengthStabilityPointConstructionFailureMechanism_DisplayName, Resources.StrengthStabilityPointConstructionFailureMechanism_Code);
-            PipingStructure = new FailureMechanismPlaceholder(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code);
-            DuneErosion = new FailureMechanismPlaceholder(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code);
+            MacrostabilityInwards = new StandAloneFailureMechanism(Resources.MacrostabilityInwardFailureMechanism_DisplayName, Resources.MacrostabilityInwardFailureMechanism_Code);
+            StabilityStoneCover = new StandAloneFailureMechanism(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code);
+            WaveImpactAsphaltCover = new StandAloneFailureMechanism(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code);
+            GrassCoverErosionOutside = new StandAloneFailureMechanism(Resources.GrassCoverErosionOutsideFailureMechanism_DisplayName, Resources.GrassCoverErosionOutsideFailureMechanism_Code);
+            GrassCoverSlipOffOutside = new StandAloneFailureMechanism(Resources.GrassCoverSlipOffOutsideFailureMechanism_DisplayName, Resources.GrassCoverSlipOffOutsideFailureMechanism_Code);
+            HeightStructure = new StandAloneFailureMechanism(Resources.HeightStructureFailureMechanism_DisplayName, Resources.HeightStructureFailureMechanism_Code);
+            ClosingStructure = new StandAloneFailureMechanism(Resources.ClosingStructureFailureMechanism_DisplayName, Resources.ClosingStructureFailureMechanism_Code);
+            StrengthStabilityPointConstruction = new StandAloneFailureMechanism(Resources.StrengthStabilityPointConstructionFailureMechanism_DisplayName, Resources.StrengthStabilityPointConstructionFailureMechanism_Code);
+            PipingStructure = new StandAloneFailureMechanism(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code);
+            DuneErosion = new StandAloneFailureMechanism(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code);
             
             FailureMechanismContribution = new FailureMechanismContribution(GetFailureMechanisms(), 30, 30000);
             ChangeComposition(composition);
@@ -83,52 +83,52 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets the "Dijken en dammen - Macrostabiliteit binnenwaarts" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder MacrostabilityInwards { get; private set; }
+        public StandAloneFailureMechanism MacrostabilityInwards { get; private set; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Stabiliteit steenzetting" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder StabilityStoneCover { get; private set; }
+        public StandAloneFailureMechanism StabilityStoneCover { get; private set; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Golfklappen op asfaltbekledingen" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder WaveImpactAsphaltCover { get; private set; }
+        public StandAloneFailureMechanism WaveImpactAsphaltCover { get; private set; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Grasbekleding erosie buitentalud" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder GrassCoverErosionOutside { get; private set; }
+        public StandAloneFailureMechanism GrassCoverErosionOutside { get; private set; }
 
         /// <summary>
         /// Gets the "Dijken en dammen - Grasbekleding afschuiven buitentalud" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder GrassCoverSlipOffOutside { get; set; }
+        public StandAloneFailureMechanism GrassCoverSlipOffOutside { get; set; }
 
         /// <summary>
         /// Gets the "Kunstwerken - Hoogte kunstwerk" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder HeightStructure { get; private set; }
+        public StandAloneFailureMechanism HeightStructure { get; private set; }
 
         /// <summary>
         /// Gets the "Kunstwerken - Betrouwbaarheid sluiting kunstwerk" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder ClosingStructure { get; private set; }
+        public StandAloneFailureMechanism ClosingStructure { get; private set; }
 
         /// <summary>
         /// Gets the "Kunstwerken - Piping bij kunstwerk" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder PipingStructure { get; set; }
+        public StandAloneFailureMechanism PipingStructure { get; set; }
 
         /// <summary>
         /// Gets the "Kunstwerken - Sterkte en stabiliteit puntconstructies" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder StrengthStabilityPointConstruction { get; private set; }
+        public StandAloneFailureMechanism StrengthStabilityPointConstruction { get; private set; }
 
         /// <summary>
         /// Gets the "Duinwaterkering - Duinafslag" failure mechanism.
         /// </summary>
-        public FailureMechanismPlaceholder DuneErosion { get; private set; }
+        public StandAloneFailureMechanism DuneErosion { get; private set; }
 
         public string Name { get; set; }
 

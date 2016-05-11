@@ -9,7 +9,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class FailureMechanismPlaceholderContextPropertiesTest
+    public class StandAloneFailureMechanismContextPropertiesTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -17,21 +17,21 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
 
             // Call
-            var properties = new FailureMechanismPlaceholderContextProperties();
+            var properties = new StandAloneFailureMechanismContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<FailureMechanismPlaceholderContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<StandAloneFailureMechanismContext>>(properties);
         }
 
         [Test]
         public void Data_SetNewPipingFailureMechanismContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var failureMechanism = new FailureMechanismPlaceholder("testName", "testCode");
-            var properties = new FailureMechanismPlaceholderContextProperties();
+            var failureMechanism = new StandAloneFailureMechanism("testName", "testCode");
+            var properties = new StandAloneFailureMechanismContextProperties();
 
             // Call
-            properties.Data = new FailureMechanismPlaceholderContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
+            properties.Data = new StandAloneFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);

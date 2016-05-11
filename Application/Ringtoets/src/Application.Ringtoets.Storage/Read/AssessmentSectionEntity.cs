@@ -139,18 +139,18 @@ namespace Application.Ringtoets.Storage.DbContext
             ReadFailureMechanismPlaceholder(FailureMechanismType.DuneErosion, assessmentSection.DuneErosion);
         }
 
-        private void ReadFailureMechanismPlaceholder(FailureMechanismType failureMechanismType, FailureMechanismPlaceholder failureMechanismPlaceholder)
+        private void ReadFailureMechanismPlaceholder(FailureMechanismType failureMechanismType, StandAloneFailureMechanism standAloneFailureMechanism)
         {
             var failureMechanismEntity = FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) failureMechanismType);
             if (failureMechanismEntity != null)
             {
                 var failureMechanism = failureMechanismEntity.ReadAsFailureMechanismPlaceholder();
 
-                failureMechanismPlaceholder.StorageId = failureMechanism.StorageId;
-                failureMechanismPlaceholder.IsRelevant = failureMechanism.IsRelevant;
+                standAloneFailureMechanism.StorageId = failureMechanism.StorageId;
+                standAloneFailureMechanism.IsRelevant = failureMechanism.IsRelevant;
                 foreach (var failureMechanismSection in failureMechanism.Sections)
                 {
-                    failureMechanismPlaceholder.AddSection(failureMechanismSection);
+                    standAloneFailureMechanism.AddSection(failureMechanismSection);
                 }
             }
         }

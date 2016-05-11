@@ -31,10 +31,10 @@ namespace Ringtoets.Integration.Data.Placeholders
     /// <summary>
     /// Defines a placeholder for unimplemented failure mechanisms objects
     /// </summary>
-    public class FailureMechanismPlaceholder : FailureMechanismBase
+    public class StandAloneFailureMechanism : FailureMechanismBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FailureMechanismPlaceholder"/> class.
+        /// Initializes a new instance of the <see cref="StandAloneFailureMechanism"/> class.
         /// </summary>
         /// <param name="name">The name for the placeholder.</param>
         /// <param name="code">The code for the placeholder.</param>
@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Data.Placeholders
         /// <item><paramref name="code"/> is <c>null</c> or empty.</item>
         /// </list>
         /// </exception>
-        public FailureMechanismPlaceholder(string name, string code)
+        public StandAloneFailureMechanism(string name, string code)
             : base(name, code)
         {
             Locations = new InputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_Locations_DisplayName);

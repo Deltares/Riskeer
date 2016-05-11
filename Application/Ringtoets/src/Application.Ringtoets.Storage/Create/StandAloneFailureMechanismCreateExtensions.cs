@@ -26,19 +26,19 @@ using Ringtoets.Integration.Data.Placeholders;
 namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="FailureMechanismPlaceholder"/> related to creating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="StandAloneFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    public static class FailureMechanismPlaceholderCreateExtensions
+    public static class StandAloneFailureMechanismCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="FailureMechanismPlaceholder"/>.
+        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="StandAloneFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The failure mechanism to create a database entity for.</param>
         /// <param name="type">The type of the failure mechanism that is being created.</param>
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static FailureMechanismEntity Create(this FailureMechanismPlaceholder mechanism, FailureMechanismType type, CreateConversionCollector collector)
+        public static FailureMechanismEntity Create(this StandAloneFailureMechanism mechanism, FailureMechanismType type, CreateConversionCollector collector)
         {
             if (collector == null)
             {
