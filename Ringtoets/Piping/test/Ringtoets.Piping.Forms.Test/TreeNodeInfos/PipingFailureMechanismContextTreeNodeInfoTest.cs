@@ -57,7 +57,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         private PipingGuiPlugin plugin;
         private TreeNodeInfo info;
 
-        private const int contextMenuRelevancyIndex = 1;
+        private const int contextMenuRelevancyIndexWhenRelevant = 1;
+        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
         private const int contextMenuValidateAllIndex = 3;
         private const int contextMenuCalculateAllIndex = 4;
         private const int contextMenuClearIndex = 5;
@@ -645,10 +646,46 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
 
             // Call
-            contextMenu.Items[contextMenuRelevancyIndex].PerformClick();
+            contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
 
             // Assert
             Assert.IsFalse(failureMechanism.IsRelevant);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevant()
+        {
+            // Setup
+            var failureMechanismObserver = mocks.Stub<IObserver>();
+            failureMechanismObserver.Expect(o => o.UpdateObserver());
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                IsRelevant = false
+            };
+            failureMechanism.Attach(failureMechanismObserver);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = mocks.StrictMock<IGui>();
+            gui.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            plugin.Gui = gui;
+
+            var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+
+            // Call
+            contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
+
+            // Assert
+            Assert.IsTrue(failureMechanism.IsRelevant);
             mocks.VerifyAll();
         }
     }

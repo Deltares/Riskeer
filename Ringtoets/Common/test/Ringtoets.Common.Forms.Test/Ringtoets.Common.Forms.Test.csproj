@@ -67,7 +67,6 @@
     <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TreeNodeInfos\CalculationTreeNodeInfoFactoryTest.cs" />
-    <Compile Include="TreeNodeInfos\DefaultFailureMechanismTreeNodeInfoTest.cs" />
     <Compile Include="Views\CommentViewTest.cs" />
     <Compile Include="Views\FailureMechanismResultViewTest.cs" />
   </ItemGroup>

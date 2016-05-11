@@ -61,7 +61,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TreeNodeInfos\DefaultFailureMechanismTreeNodeInfo.cs" />
     <Compile Include="TreeNodeInfos\CalculationTreeNodeInfoFactory.cs" />
     <Compile Include="Views\CommentView.cs">
       <SubType>UserControl</SubType>

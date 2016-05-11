@@ -413,6 +413,49 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevant()
+        {
+            // Setup
+            var failureMechanismObserver = mocks.Stub<IObserver>();
+            failureMechanismObserver.Expect(o => o.UpdateObserver());
+
+            var failureMechanism = new FailureMechanismPlaceholder("A")
+            {
+                IsRelevant = false
+            };
+            failureMechanism.Attach(failureMechanismObserver);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismContext = new FailureMechanismPlaceholderContext(failureMechanism, assessmentSection);
+
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = mocks.StrictMock<IGui>();
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            gui.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+
+            mocks.ReplayAll();
+
+            using (var guiPlugin = new RingtoetsGuiPlugin())
+            {
+                guiPlugin.Gui = gui;
+
+                var info = GetInfo(guiPlugin);
+
+                var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+
+                // Call
+                contextMenu.Items[contextMenuRelevancyIndex].PerformClick();
+
+                // Assert
+                Assert.IsTrue(failureMechanism.IsRelevant);
+            }
+            mocks.VerifyAll();
+        }
+
         private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)
         {
             return guiPlugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismPlaceholderContext));

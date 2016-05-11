@@ -49,7 +49,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         private GrassCoverErosionInwardsGuiPlugin plugin;
         private TreeNodeInfo info;
 
-        private const int contextMenuRelevancyIndex = 1;
+        private const int contextMenuRelevancyIndexWhenRelevant = 1;
+        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
 
         [SetUp]
         public void SetUp()
@@ -268,7 +269,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 var menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView);
 
                 // Assert
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndex,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                               RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
                                                               RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
                                                               RingtoetsCommonFormsResources.Checkbox_ticked);
@@ -310,10 +311,46 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
 
             // Call
-            contextMenu.Items[contextMenuRelevancyIndex].PerformClick();
+            contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
 
             // Assert
             Assert.IsFalse(failureMechanism.IsRelevant);
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevant()
+        {
+            // Setup
+            var failureMechanismObserver = mocksRepository.Stub<IObserver>();
+            failureMechanismObserver.Expect(o => o.UpdateObserver());
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                IsRelevant = false
+            };
+            failureMechanism.Attach(failureMechanismObserver);
+
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var treeViewControl = mocksRepository.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var gui = mocksRepository.StrictMock<IGui>();
+            gui.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+
+            mocksRepository.ReplayAll();
+
+            plugin.Gui = gui;
+
+            var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+
+            // Call
+            contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
+
+            // Assert
+            Assert.IsTrue(failureMechanism.IsRelevant);
             mocksRepository.VerifyAll();
         }
     }
