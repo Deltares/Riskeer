@@ -34,11 +34,11 @@ using Ringtoets.Piping.Primitives;
 namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    /// This class can be used to keep track of create operations on a database. This information can used to reuse previously created
+    /// This class can be used to keep track of create operations on a database. This information can be used to reuse previously created
     /// objects. When all operations have been performed, then the collected information can be used to transfer the ids assigned to 
     /// the created database instances back to the data model.
     /// </summary>
-    public class CreateConversionCollector
+    internal class CreateConversionCollector
     {
         private readonly Dictionary<ProjectEntity, Project> projects = new Dictionary<ProjectEntity, Project>(new ReferenceEqualityComparer<ProjectEntity>());
         private readonly Dictionary<AssessmentSectionEntity, AssessmentSection> assessmentSections = new Dictionary<AssessmentSectionEntity, AssessmentSection>(new ReferenceEqualityComparer<AssessmentSectionEntity>());

@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Update
     /// operation. Can be used to reuse objects when assigning an already created domain model object or to remove entities
     /// from the database which were not potentialy modified.
     /// </summary>
-    public class UpdateConversionCollector : CreateConversionCollector
+    internal class UpdateConversionCollector : CreateConversionCollector
     {
         private readonly HashSet<ProjectEntity> projects = new HashSet<ProjectEntity>(new ReferenceEqualityComparer<ProjectEntity>());
         private readonly HashSet<AssessmentSectionEntity> assessmentSections = new HashSet<AssessmentSectionEntity>(new ReferenceEqualityComparer<AssessmentSectionEntity>());
@@ -52,6 +52,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(ProjectEntity entity)
         {
+            NotNull(entity);
             Update(entity, entity.ProjectEntityId, projects);
         }
 
@@ -62,6 +63,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(AssessmentSectionEntity entity)
         {
+            NotNull(entity);
             Update(entity, entity.AssessmentSectionEntityId, assessmentSections);
         }
 
@@ -72,6 +74,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(FailureMechanismEntity entity)
         {
+            NotNull(entity);
             Update(entity, entity.FailureMechanismEntityId, failureMechanisms);
         }
 
@@ -80,8 +83,9 @@ namespace Application.Ringtoets.Storage.Update
         /// </summary>
         /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> that was updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
-        public void Update(FailureMechanismSectionEntity entity)
+        internal void Update(FailureMechanismSectionEntity entity)
         {
+            NotNull(entity);
             Update(entity, entity.FailureMechanismSectionEntityId, failureMechanismSections);
         }
 
@@ -92,6 +96,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(HydraulicLocationEntity entity)
         {
+            NotNull(entity);
             Update(entity, entity.HydraulicLocationEntityId, hydraulicLocations);
         }
 
@@ -102,6 +107,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(StochasticSoilModelEntity entity)
         {
+            NotNull(entity);
             Update(entity, entity.StochasticSoilModelEntityId, stochasticSoilModels);
         }
 
@@ -112,6 +118,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(StochasticSoilProfileEntity entity)
         {
+            NotNull(entity);
             Update(entity, entity.StochasticSoilProfileEntityId, stochasticSoilProfiles);
         }
 
@@ -122,6 +129,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(SoilProfileEntity entity)
         {
+            NotNull(entity);
             Update(entity, entity.SoilProfileEntityId, soilProfiles);
         }
 
@@ -132,6 +140,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c></exception>
         internal void Update(SoilLayerEntity entity)
         {
+            NotNull(entity);
             Update(entity, entity.SoilLayerEntityId, soilLayers);
         }
 
@@ -205,12 +214,16 @@ namespace Application.Ringtoets.Storage.Update
             soilLayerEntities.RemoveRange(soilLayerEntitiesToRemove);
         }
 
-        private void Update<T>(T entity, long entityId, HashSet<T> collection)
+        private static void NotNull<T>(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
+        }
+
+        private void Update<T>(T entity, long entityId, HashSet<T> collection)
+        {
             if (entityId <= 0)
             {
                 throw new ArgumentException("Entity cannot be new when added to the updated list.", "entity");

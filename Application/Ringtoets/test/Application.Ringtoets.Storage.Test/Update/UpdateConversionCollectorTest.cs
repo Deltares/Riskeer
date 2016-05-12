@@ -157,6 +157,126 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.Throws<ArgumentException>(test);
         }
 
+        [Test]
+        public void Update_WithNullProject_ThrowArgumentException()
+        {
+            // Setup
+            ProjectEntity entity = null;
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Update_WithNullAssessmentSection_ThrowArgumentException()
+        {
+            // Setup
+            AssessmentSectionEntity entity = null;
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Update_WithNullFailureMechanismSection_ThrowArgumentException()
+        {
+            // Setup
+            FailureMechanismSectionEntity entity = null;
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Update_WithNullHydraulicLocation_ThrowArgumentException()
+        {
+            // Setup
+            HydraulicLocationEntity entity = null;
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Update_WithNullStochasticSoilModel_ThrowArgumentException()
+        {
+            // Setup
+            StochasticSoilModelEntity entity = null;
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Update_WithNullStochasticSoilProfile_ThrowArgumentException()
+        {
+            // Setup
+            StochasticSoilProfileEntity entity = null;
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Update_WithNullSoilProfile_ThrowArgumentException()
+        {
+            // Setup
+            SoilProfileEntity entity = null;
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Update_WithNullSoilLayer_ThrowArgumentException()
+        {
+            // Setup
+            SoilLayerEntity entity = null;
+            var collector = new UpdateConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Update(entity);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
         #endregion
 
         #region RemoveUntouched method

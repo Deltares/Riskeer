@@ -26,9 +26,9 @@ using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Update
 {
-    public static class FailureMechanismBaseUpdateExtensions
+    internal static class FailureMechanismBaseUpdateExtensions
     {
-        public static void UpdateFailureMechanismSections(this FailureMechanismBase<FailureMechanismSectionResult> mechanism, UpdateConversionCollector collector, FailureMechanismEntity entity, IRingtoetsEntities context)
+        internal static void UpdateFailureMechanismSections(this FailureMechanismBase<FailureMechanismSectionResult> mechanism, UpdateConversionCollector collector, FailureMechanismEntity entity, IRingtoetsEntities context)
         {
             if (collector == null)
             {

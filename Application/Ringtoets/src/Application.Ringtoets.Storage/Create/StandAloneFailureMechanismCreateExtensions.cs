@@ -28,7 +28,7 @@ namespace Application.Ringtoets.Storage.Create
     /// <summary>
     /// Extension methods for <see cref="StandAloneFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    public static class StandAloneFailureMechanismCreateExtensions
+    internal static class StandAloneFailureMechanismCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="StandAloneFailureMechanism"/>.
@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static FailureMechanismEntity Create(this StandAloneFailureMechanism mechanism, FailureMechanismType type, CreateConversionCollector collector)
+        internal static FailureMechanismEntity Create(this StandAloneFailureMechanism mechanism, FailureMechanismType type, CreateConversionCollector collector)
         {
             if (collector == null)
             {

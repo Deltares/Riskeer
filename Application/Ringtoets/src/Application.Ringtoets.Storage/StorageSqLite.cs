@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage
         /// <param name="project"><see cref="Project"/> to save.</param>
         /// <returns>Returns the number of changes that were saved in <see cref="RingtoetsEntities"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
-        /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
         /// <item>The database does not contain the table <c>version</c></item>
@@ -112,7 +112,7 @@ namespace Application.Ringtoets.Storage
         /// <param name="project"><see cref="Project"/> to save.</param>
         /// <returns>Returns the number of changes that were saved in <see cref="RingtoetsEntities"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
-        /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
         /// <item><paramref name="databaseFilePath"/> does not exist.</item>
@@ -166,7 +166,7 @@ namespace Application.Ringtoets.Storage
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
         /// <returns>Returns a new instance of <see cref="Project"/> with the data from the database or <c>null</c> when not found.</returns>
-        /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
         /// <item><paramref name="databaseFilePath"/> does not exist.</item>
@@ -267,7 +267,7 @@ namespace Application.Ringtoets.Storage
         /// Attempts to set the connection to an existing storage file <paramref name="databaseFilePath"/>.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
-        /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
         /// <exception cref="StorageException">Thrown when:<list type="bullet">
         /// <item><paramref name="databaseFilePath"/> does not exist</item>
         /// <item>the database does not contain the table <c>version</c>.</item>
@@ -292,7 +292,7 @@ namespace Application.Ringtoets.Storage
         /// Sets the connection to a newly created (empty) Ringtoets database file.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
-        /// <exception cref="System.ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
         /// <exception cref="StorageException">Thrown when:<list type="bullet">
         /// <item><paramref name="databaseFilePath"/> was not created</item>
         /// <item>executing <c>DatabaseStructure</c> script failed</item>

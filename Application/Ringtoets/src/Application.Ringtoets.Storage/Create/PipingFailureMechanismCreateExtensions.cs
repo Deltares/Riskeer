@@ -20,16 +20,15 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
-using Ringtoets.Common.Data.FailureMechanism;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extension methods for <see cref="PipingFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    public static class PipingFailureMechanismCreateExtensions
+    internal static class PipingFailureMechanismCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="PipingFailureMechanism"/>.
@@ -38,7 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static FailureMechanismEntity Create(this PipingFailureMechanism mechanism, CreateConversionCollector collector)
+        internal static FailureMechanismEntity Create(this PipingFailureMechanism mechanism, CreateConversionCollector collector)
         {
             if (collector == null)
             {
@@ -51,14 +50,14 @@ namespace Application.Ringtoets.Storage.DbContext
                 IsRelevant = Convert.ToByte(mechanism.IsRelevant)
             };
 
-            CreateStochasticSoilModels(mechanism, collector, entity);
+            AddEntitiesForStochasticSoilModels(mechanism, collector, entity);
             mechanism.CreateFailureMechanismSections(collector, entity);
 
             collector.Create(entity, mechanism);
             return entity;
         }
 
-        private static void CreateStochasticSoilModels(PipingFailureMechanism mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
+        private static void AddEntitiesForStochasticSoilModels(PipingFailureMechanism mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
         {
             foreach (var stochasticSoilModel in mechanism.StochasticSoilModels)
             {

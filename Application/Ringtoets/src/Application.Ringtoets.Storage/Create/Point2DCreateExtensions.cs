@@ -20,14 +20,15 @@
 // All rights reserved.
 
 using System;
+using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extension methods for <see cref="Point2D"/> related to creating database entities.
     /// </summary>
-    public static class Point2DCreateExtensions
+    internal static class Point2DCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="ReferenceLinePointEntity"/> based on the information of the <see cref="Point2D"/>.
@@ -35,7 +36,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="point">The point to create a database entity for.</param>
         /// <param name="order">A value representing the position of the point in an ordered collection.</param>
         /// <returns>A new <see cref="ReferenceLinePointEntity"/>.</returns>
-        public static ReferenceLinePointEntity CreateReferenceLinePoint(this Point2D point, int order)
+        internal static ReferenceLinePointEntity CreateReferenceLinePointEntity(this Point2D point, int order)
         {
             var entity = new ReferenceLinePointEntity
             {
@@ -53,7 +54,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="point">The point to create a database entity for.</param>
         /// <param name="order">A value representing the position of the point in an ordered collection.</param>
         /// <returns>A new <see cref="FailureMechanismSectionPointEntity"/>.</returns>
-        public static FailureMechanismSectionPointEntity CreateFailureMechanismSectionPoint(this Point2D point, int order)
+        internal static FailureMechanismSectionPointEntity CreateFailureMechanismSectionPointEntity(this Point2D point, int order)
         {
             var entity = new FailureMechanismSectionPointEntity
             {

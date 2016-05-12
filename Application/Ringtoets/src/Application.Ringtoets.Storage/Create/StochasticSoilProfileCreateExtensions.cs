@@ -20,15 +20,15 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extension methods for <see cref="StochasticSoilProfile"/> related to creating database entities.
     /// </summary>
-    public static class StochasticSoilProfileCreateExtensions
+    internal static class StochasticSoilProfileCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="StochasticSoilProfileEntity"/> based on the information of the <see cref="StochasticSoilProfile"/>.
@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StochasticSoilProfileEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static StochasticSoilProfileEntity Create(this StochasticSoilProfile profile, CreateConversionCollector collector)
+        internal static StochasticSoilProfileEntity Create(this StochasticSoilProfile profile, CreateConversionCollector collector)
         {
             var entity = new StochasticSoilProfileEntity
             {

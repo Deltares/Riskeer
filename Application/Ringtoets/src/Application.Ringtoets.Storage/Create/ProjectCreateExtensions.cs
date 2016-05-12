@@ -21,16 +21,16 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Integration.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extension methods for <see cref="Project"/> related to creating database entities.
     /// </summary>
-    public static class ProjectCreateExtensions
+    internal static class ProjectCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="ProjectEntity"/> based on the information of the <see cref="Project"/>.
@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="ProjectEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static ProjectEntity Create(this Project project, CreateConversionCollector collector)
+        internal static ProjectEntity Create(this Project project, CreateConversionCollector collector)
         {
             if (collector == null)
             {
@@ -51,13 +51,13 @@ namespace Application.Ringtoets.Storage.DbContext
                 Description = project.Description
             };
 
-            CreateAssessmentSections(project, entity, collector);
+            AddEntitiesForAssessmentSections(project, entity, collector);
 
             collector.Create(entity, project);
             return entity;
         }
 
-        private static void CreateAssessmentSections(Project project, ProjectEntity entity, CreateConversionCollector collector)
+        private static void AddEntitiesForAssessmentSections(Project project, ProjectEntity entity, CreateConversionCollector collector)
         {
             foreach (var result in project.Items.OfType<AssessmentSection>())
             {

@@ -21,17 +21,17 @@
 
 using System;
 using System.Linq;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
-using Application.Ringtoets.Storage.Update;
 using Ringtoets.Piping.Primitives;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Update
 {
     /// <summary>
     /// Extension methods for <see cref="PipingSoilLayer"/> related to updating a <see cref="SoilLayerEntity"/>.
     /// </summary>
-    public static class SoilLayerUpdateExtensions
+    internal static class PipingSoilLayerUpdateExtensions
     {
         /// <summary>
         /// Updates a <see cref="SoilLayerEntity"/> in the database based on the information of the 
@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        public static void Update(this PipingSoilLayer layer, UpdateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this PipingSoilLayer layer, UpdateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)
             {

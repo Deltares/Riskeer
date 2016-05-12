@@ -20,15 +20,15 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extension methods for <see cref="StochasticSoilModel"/> related to creating database entities.
     /// </summary>
-    public static class StochasticSoilModelCreateExtensions
+    internal static class StochasticSoilModelCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="StochasticSoilModelEntity"/> based on the information of the <see cref="StochasticSoilModel"/>.
@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StochasticSoilModelEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static StochasticSoilModelEntity Create(this StochasticSoilModel model, CreateConversionCollector collector)
+        internal static StochasticSoilModelEntity Create(this StochasticSoilModel model, CreateConversionCollector collector)
         {
             if (collector == null)
             {
@@ -50,13 +50,18 @@ namespace Application.Ringtoets.Storage.DbContext
                 SegmentName = model.SegmentName
             };
 
+            AddEntitiesForStochasticSoilProfiles(model, collector, entity);
+
+            collector.Create(entity, model);
+            return entity;
+        }
+
+        private static void AddEntitiesForStochasticSoilProfiles(StochasticSoilModel model, CreateConversionCollector collector, StochasticSoilModelEntity entity)
+        {
             foreach (var stochasticSoilProfile in model.StochasticSoilProfiles)
             {
                 entity.StochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(collector));
             }
-
-            collector.Create(entity, model);
-            return entity;
         }
     }
 }

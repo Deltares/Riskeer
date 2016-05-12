@@ -20,15 +20,15 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Primitives;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extension methods for <see cref="PipingSoilLayer"/> related to creating a <see cref="SoilLayerEntity"/>.
     /// </summary>
-    public static class SoilLayerCreateExtensions
+    internal static class PipingSoilLayerCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="SoilLayerEntity"/> based on the information of the <see cref="PipingSoilLayer"/>.
@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="SoilLayerEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static SoilLayerEntity Create(this PipingSoilLayer layer, CreateConversionCollector collector)
+        internal static SoilLayerEntity Create(this PipingSoilLayer layer, CreateConversionCollector collector)
         {
             if (collector == null)
             {

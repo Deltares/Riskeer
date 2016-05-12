@@ -22,18 +22,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
-using Application.Ringtoets.Storage.Update;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Update
 {
     /// <summary>
     /// Extension methods for <see cref="AssessmentSection"/> related to updating an <see cref="AssessmentSectionEntity"/>.
     /// </summary>
-    public static class AssessmentSectionUpdateExtensions
+    internal static class AssessmentSectionUpdateExtensions
     {
         /// <summary>
         /// Updates a <see cref="AssessmentSectionEntity"/> in the database based on the information of the 
@@ -47,7 +49,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        public static void Update(this AssessmentSection section, UpdateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this AssessmentSection section, UpdateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -87,7 +89,8 @@ namespace Application.Ringtoets.Storage.DbContext
 
         private static AssessmentSectionEntity GetSingleAssessmentSection(AssessmentSection section, IRingtoetsEntities context)
         {
-            try {
+            try 
+            {
                 return context.AssessmentSectionEntities.Single(ase => ase.AssessmentSectionEntityId == section.StorageId);
             }
             catch (InvalidOperationException exception)
@@ -122,7 +125,7 @@ namespace Application.Ringtoets.Storage.DbContext
                 var i = 0;
                 foreach (var point2D in section.ReferenceLine.Points)
                 {
-                    entity.ReferenceLinePointEntities.Add(point2D.CreateReferenceLinePoint(i++));
+                    entity.ReferenceLinePointEntities.Add(point2D.CreateReferenceLinePointEntity(i++));
                 }
             }
         }
@@ -165,11 +168,11 @@ namespace Application.Ringtoets.Storage.DbContext
             {
                 return true;
             }
-            for (int i = 0; i < existingPointEntities.Length; i++)
+            for (var i = 0; i < existingPointEntities.Length; i++)
             {
-                var isXAlmostEqual = Math.Abs(Convert.ToDouble(existingPointEntities[i].X) - otherPointsArray[i].X) < 1e-6;
-                var isYAlmostEqual = Math.Abs(Convert.ToDouble(existingPointEntities[i].Y) - otherPointsArray[i].Y) < 1e-6;
-                if (!isXAlmostEqual || !isYAlmostEqual)
+                var existingPoint = new Point2D(Convert.ToDouble(existingPointEntities[i].X), Convert.ToDouble(existingPointEntities[i].Y));
+
+                if (!Math2D.AreEqualPoints(existingPoint, otherPointsArray[i]))
                 {
                     return true;
                 }

@@ -20,16 +20,16 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Piping.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extension methods for <see cref="PipingFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    public static class GrassCoverErosionInwardsFailureMechanismCreateExtensions
+    internal static class GrassCoverErosionInwardsFailureMechanismCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="PipingFailureMechanism"/>.
@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static FailureMechanismEntity Create(this GrassCoverErosionInwardsFailureMechanism mechanism, CreateConversionCollector collector)
+        internal static FailureMechanismEntity Create(this GrassCoverErosionInwardsFailureMechanism mechanism, CreateConversionCollector collector)
         {
             if (collector == null)
             {

@@ -20,15 +20,15 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extension methods for <see cref="AssessmentSection"/> related to creating an <see cref="AssessmentSectionEntity"/>.
     /// </summary>
-    public static class AssessmentSectionCreateExtensions
+    internal static class AssessmentSectionCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="AssessmentSectionEntity"/> based on the information of the <see cref="AssessmentSection"/>.
@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="AssessmentSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static AssessmentSectionEntity Create(this AssessmentSection section, CreateConversionCollector collector)
+        internal static AssessmentSectionEntity Create(this AssessmentSection section, CreateConversionCollector collector)
         {
             if (collector == null)
             {
@@ -50,22 +50,22 @@ namespace Application.Ringtoets.Storage.DbContext
                 Composition = (short) section.Composition
             };
 
-            CreatePipingFailureMechanism(section, entity, collector);
-            CreateGrassCoverErosionInwardsFailureMechanism(section, entity, collector);
-            CreateHydraulicDatabase(section, entity, collector);
-            CreateReferenceLine(section, entity);
-            CreateStandAloneFailureMechanisms(section, entity, collector);
+            AddEntityForPipingFailureMechanism(section, entity, collector);
+            AddEntityForGrassCoverErosionInwardsFailureMechanism(section, entity, collector);
+            AddEntityForHydraulicDatabase(section, entity, collector);
+            AddEntityForReferenceLine(section, entity);
+            AddEntitiesForAddStandAloneFailureMechanisms(section, entity, collector);
 
             collector.Create(entity, section);
             return entity;
         }
 
-        private static void CreateGrassCoverErosionInwardsFailureMechanism(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
+        private static void AddEntityForGrassCoverErosionInwardsFailureMechanism(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
         {
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionInwards.Create(collector));
         }
 
-        private static void CreateStandAloneFailureMechanisms(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
+        private static void AddEntitiesForAddStandAloneFailureMechanisms(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
         {
             entity.FailureMechanismEntities.Add(section.MacrostabilityInwards.Create(FailureMechanismType.MacrostabilityInwards, collector));
             entity.FailureMechanismEntities.Add(section.StabilityStoneCover.Create(FailureMechanismType.StabilityStoneRevetment, collector));
@@ -79,24 +79,24 @@ namespace Application.Ringtoets.Storage.DbContext
             entity.FailureMechanismEntities.Add(section.DuneErosion.Create(FailureMechanismType.DuneErosion, collector));
         }
 
-        private static void CreatePipingFailureMechanism(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
+        private static void AddEntityForPipingFailureMechanism(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
         {
             entity.FailureMechanismEntities.Add(section.PipingFailureMechanism.Create(collector));
         }
 
-        private static void CreateReferenceLine(AssessmentSection section, AssessmentSectionEntity entity)
+        private static void AddEntityForReferenceLine(AssessmentSection section, AssessmentSectionEntity entity)
         {
             if (section.ReferenceLine != null)
             {
                 var i = 0;
                 foreach (var point2D in section.ReferenceLine.Points)
                 {
-                    entity.ReferenceLinePointEntities.Add(point2D.CreateReferenceLinePoint(i++));
+                    entity.ReferenceLinePointEntities.Add(point2D.CreateReferenceLinePointEntity(i++));
                 }
             }
         }
 
-        private static void CreateHydraulicDatabase(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
+        private static void AddEntityForHydraulicDatabase(AssessmentSection section, AssessmentSectionEntity entity, CreateConversionCollector collector)
         {
             if (section.HydraulicBoundaryDatabase != null)
             {

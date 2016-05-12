@@ -21,18 +21,19 @@
 
 using System;
 using System.Linq;
+using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Update;
 using Core.Common.Base.Data;
 using Ringtoets.Integration.Data;
 using Resources = Application.Ringtoets.Storage.Properties.Resources;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Update
 {
     /// <summary>
     /// Extension methods for <see cref="Project"/> related to updating a <see cref="ProjectEntity"/>.
     /// </summary>
-    public static class ProjectUpdateExtensions
+    internal static class ProjectUpdateExtensions
     {
         /// <summary>
         /// Updates a <see cref="ProjectEntity"/> in the database based on the information of the 
@@ -46,7 +47,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        public static void Update(this Project project, UpdateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this Project project, UpdateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)
             {

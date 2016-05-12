@@ -20,15 +20,15 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Primitives;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extension methods for <see cref="PipingSoilProfile"/> related to creating a <see cref="SoilProfileEntity"/>.
     /// </summary>
-    public static class SoilProfileCreateExtensions
+    internal static class PipingSoilProfileCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="SoilProfileEntity"/> based on the information of the <see cref="PipingSoilProfile"/>.
@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <returns>A new <see cref="SoilProfileEntity"/> or one from the <paramref name="collector"/> if it
         /// was created for the <see cref="profile"/> earlier.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static SoilProfileEntity Create(this PipingSoilProfile profile, CreateConversionCollector collector)
+        internal static SoilProfileEntity Create(this PipingSoilProfile profile, CreateConversionCollector collector)
         {
             if (collector == null)
             {
@@ -55,13 +55,13 @@ namespace Application.Ringtoets.Storage.DbContext
                 Bottom = Convert.ToDecimal(profile.Bottom)
             };
 
-            CreatePipingSoilLayers(profile, collector, entity);
+            AddEntitiesForPipingSoilLayers(profile, collector, entity);
 
             collector.Create(entity, profile);
             return entity;
         }
 
-        private static void CreatePipingSoilLayers(PipingSoilProfile profile, CreateConversionCollector collector, SoilProfileEntity entity)
+        private static void AddEntitiesForPipingSoilLayers(PipingSoilProfile profile, CreateConversionCollector collector, SoilProfileEntity entity)
         {
             foreach (var pipingSoilLayer in profile.Layers)
             {

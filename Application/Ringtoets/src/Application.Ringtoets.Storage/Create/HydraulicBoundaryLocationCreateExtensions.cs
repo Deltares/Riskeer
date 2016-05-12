@@ -20,15 +20,15 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.HydraRing.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extension methods for <see cref="HydraulicBoundaryLocation"/> related to creating a <see cref="HydraulicLocationEntity"/>.
     /// </summary>
-    public static class HydraulicBoundaryLocationCreateExtensions
+    internal static class HydraulicBoundaryLocationCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="HydraulicLocationEntity"/> based on the information of the <see cref="HydraulicBoundaryLocation"/>.
@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="HydraulicLocationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static HydraulicLocationEntity Create(this HydraulicBoundaryLocation location, CreateConversionCollector collector)
+        internal static HydraulicLocationEntity Create(this HydraulicBoundaryLocation location, CreateConversionCollector collector)
         {
             if (collector == null)
             {
@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.DbContext
                 Name = location.Name,
                 LocationX = Convert.ToDecimal(location.Location.X),
                 LocationY = Convert.ToDecimal(location.Location.Y),
-                DesignWaterLevel = Double.IsNaN(location.DesignWaterLevel) ? (double?) null : Convert.ToDouble(location.DesignWaterLevel)
+                DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : Convert.ToDouble(location.DesignWaterLevel)
             };
 
             collector.Create(entity, location);

@@ -28,7 +28,7 @@ namespace Application.Ringtoets.Storage.Create
     /// <summary>
     /// Extension methods for <see cref="FailureMechanismSection"/> related to creating a <see cref="FailureMechanismSectionEntity"/>.
     /// </summary>
-    public static class FailureMechanismSectionCreateExtensions
+    internal static class FailureMechanismSectionCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="FailureMechanismSectionEntity"/> based on the information of the <see cref="FailureMechanismSection"/>.
@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="collector">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static FailureMechanismSectionEntity Create(this FailureMechanismSection section, CreateConversionCollector collector)
+        internal static FailureMechanismSectionEntity Create(this FailureMechanismSection section, CreateConversionCollector collector)
         {
             if (collector == null)
             {
@@ -48,19 +48,19 @@ namespace Application.Ringtoets.Storage.Create
                 Name = section.Name,
             };
 
-            CreateFailureMechanismSectionPoints(section, failureMechanismSectionEntity);
+            AddEntitiesForFailureMechanismSectionPoints(section, failureMechanismSectionEntity);
 
             collector.Create(failureMechanismSectionEntity, section);
 
             return failureMechanismSectionEntity;
         }
 
-        private static void CreateFailureMechanismSectionPoints(FailureMechanismSection section, FailureMechanismSectionEntity failureMechanismSectionEntity)
+        private static void AddEntitiesForFailureMechanismSectionPoints(FailureMechanismSection section, FailureMechanismSectionEntity failureMechanismSectionEntity)
         {
             var i = 0;
             foreach (var point2D in section.Points)
             {
-                failureMechanismSectionEntity.FailureMechanismSectionPointEntities.Add(point2D.CreateFailureMechanismSectionPoint(i++));
+                failureMechanismSectionEntity.FailureMechanismSectionPointEntities.Add(point2D.CreateFailureMechanismSectionPointEntity(i++));
             }
         }
     }

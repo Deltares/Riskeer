@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Update
     /// <summary>
     /// Extension methods for <see cref="StandAloneFailureMechanism"/> related to updating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    public static class StandAloneFailureMechanismUpdateExtensions
+    internal static class StandAloneFailureMechanismUpdateExtensions
     {
         /// <summary>
         /// Updates a <see cref="FailureMechanismEntity"/> in the database based on the information of the 
@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        public static void Update(this StandAloneFailureMechanism mechanism, UpdateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this StandAloneFailureMechanism mechanism, UpdateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)
             {

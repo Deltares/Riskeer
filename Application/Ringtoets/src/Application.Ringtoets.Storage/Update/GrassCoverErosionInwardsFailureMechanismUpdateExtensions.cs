@@ -21,18 +21,18 @@
 
 using System;
 using System.Linq;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
-using Application.Ringtoets.Storage.Update;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Piping.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Update
 {
     /// <summary>
     /// Extension methods for <see cref="PipingFailureMechanism"/> related to updating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    public static class GrassCoverErosionInwardsFailureMechanismUpdateExtensions
+    internal static class GrassCoverErosionInwardsFailureMechanismUpdateExtensions
     {
         /// <summary>
         /// Updates a <see cref="FailureMechanismEntity"/> in the database based on the information of the 
@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        public static void Update(this GrassCoverErosionInwardsFailureMechanism mechanism, UpdateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this GrassCoverErosionInwardsFailureMechanism mechanism, UpdateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)
             {

@@ -25,9 +25,9 @@ using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Create
 {
-    public static class FailureMechanismBaseCreateExtensions
+    internal static class FailureMechanismBaseCreateExtensions
     {
-        public static void CreateFailureMechanismSections(this FailureMechanismBase<FailureMechanismSectionResult> mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
+        internal static void CreateFailureMechanismSections(this FailureMechanismBase<FailureMechanismSectionResult> mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
         {
             if (collector == null)
             {

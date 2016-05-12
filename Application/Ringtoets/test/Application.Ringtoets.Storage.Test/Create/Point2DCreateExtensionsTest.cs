@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -34,7 +35,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         [TestCase(100)]
         [TestCase(Int32.MaxValue)]
         [TestCase(Int32.MinValue)]
-        public void CreateReferenceLinePoint_Always_NewReferenceLinePointEntityWithPropertiesSet(int order)
+        public void CreateReferenceLinePointEntity_Always_NewReferenceLinePointEntityWithPropertiesSet(int order)
         {
             // Setup
             var random = new Random(21);
@@ -43,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var point = new Point2D(x, y);
 
             // Call
-            var entity = point.CreateReferenceLinePoint(order);
+            var entity = point.CreateReferenceLinePointEntity(order);
 
             // Assert
             Assert.AreEqual(Convert.ToDecimal(x), entity.X);
@@ -56,7 +57,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         [TestCase(100)]
         [TestCase(Int32.MaxValue)]
         [TestCase(Int32.MinValue)]
-        public void CreateFailureMechanismSectionPoint_Always_NewFailureMechanismSectionPointEntityWithPropertiesSet(int order)
+        public void CreateFailureMechanismSectionPointEntity_Always_NewFailureMechanismSectionPointEntityWithPropertiesSet(int order)
         {
             // Setup
             var random = new Random(21);
@@ -65,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var point = new Point2D(x, y);
 
             // Call
-            var entity = point.CreateFailureMechanismSectionPoint(order);
+            var entity = point.CreateFailureMechanismSectionPointEntity(order);
 
             // Assert
             Assert.AreEqual(Convert.ToDecimal(x), entity.X);
