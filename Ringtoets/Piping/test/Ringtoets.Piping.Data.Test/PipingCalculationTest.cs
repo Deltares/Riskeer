@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GetObservalbeOutput_Always_ReturnsOutput()
+        public void GetObservableOutput_Always_ReturnsOutput()
         {
             // Setup
             var output = new PipingOutput(2.0, 3.0, 1.4, 50.3, 16.3, 58.2);
