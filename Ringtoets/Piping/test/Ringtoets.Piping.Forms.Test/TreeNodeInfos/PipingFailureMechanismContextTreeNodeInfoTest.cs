@@ -317,7 +317,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
 
             // Assert
-            Assert.AreEqual(13, menu.Items.Count);
+            Assert.AreEqual(15, menu.Items.Count);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 0, CoreCommonGuiResources.Open, CoreCommonGuiResources.Open_ToolTip, CoreCommonGuiResources.OpenIcon, false);
 
@@ -333,12 +333,15 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             TestHelper.AssertContextMenuStripContainsItem(menu, 11, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, false);
             TestHelper.AssertContextMenuStripContainsItem(menu, 12, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, false);
 
+            TestHelper.AssertContextMenuStripContainsItem(menu, 14, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesHS, false);
+
             CollectionAssert.AllItemsAreInstancesOfType(new[]
             {
                 menu.Items[1],
                 menu.Items[3],
                 menu.Items[7],
-                menu.Items[10]
+                menu.Items[10],
+                menu.Items[13]
             }, typeof(ToolStripSeparator));
 
             mocks.VerifyAll();
@@ -472,6 +475,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
 
             gui.Expect(cmp => cmp.Get(pipingFailureMechanismContext, treeViewControl)).Return(menuBuilder);

@@ -256,6 +256,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                       .AddSeparator()
                       .AddExpandAllItem()
                       .AddCollapseAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
                       .Build();
         }
 

@@ -32,7 +32,6 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -317,6 +316,8 @@ namespace Ringtoets.Piping.Plugin
                       .AddSeparator()
                       .AddExpandAllItem()
                       .AddCollapseAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
                       .Build();
         }
 
