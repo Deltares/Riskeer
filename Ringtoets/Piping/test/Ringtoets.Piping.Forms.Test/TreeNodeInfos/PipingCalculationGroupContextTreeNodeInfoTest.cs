@@ -44,7 +44,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin;
 using Ringtoets.Piping.Primitives;
-using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -190,26 +190,26 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(17, menu.Items.Count);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                          RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
                                                           "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
-                                                          RingtoetsFormsResources.AddFolderIcon);
+                                                          RingtoetsCommonFormsResources.AddFolderIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndex,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation,
+                                                          RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                                                           "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                           PipingFormsResources.PipingIcon);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
-                                                          RingtoetsFormsResources.Validate_all,
+                                                          RingtoetsCommonFormsResources.Validate_all,
                                                           "Valideer alle berekeningen binnen deze berekeningsmap.",
-                                                          RingtoetsFormsResources.ValidateAllIcon);
+                                                          RingtoetsCommonFormsResources.ValidateAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsCommonFormsResources.Calculate_all,
                                                           "Voer alle berekeningen binnen deze berekeningsmap uit.",
-                                                          RingtoetsFormsResources.CalculateAllIcon);
+                                                          RingtoetsCommonFormsResources.CalculateAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndex,
                                                           "&Wis alle uitvoer...",
                                                           "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
-                                                          RingtoetsFormsResources.ClearIcon);
+                                                          RingtoetsCommonFormsResources.ClearIcon);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 7,
                                                           CoreCommonGuiResources.Rename,
@@ -302,26 +302,26 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var mainCalculationGroupContextMenuItemOffset = 4;
             Assert.AreEqual(18, menu.Items.Count);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex + mainCalculationGroupContextMenuItemOffset,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                          RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
                                                           "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
-                                                          RingtoetsFormsResources.AddFolderIcon);
+                                                          RingtoetsCommonFormsResources.AddFolderIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndex + mainCalculationGroupContextMenuItemOffset,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation,
+                                                          RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                                                           "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                           PipingFormsResources.PipingIcon);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex + mainCalculationGroupContextMenuItemOffset,
-                                                          RingtoetsFormsResources.Validate_all,
+                                                          RingtoetsCommonFormsResources.Validate_all,
                                                           "Valideer alle berekeningen binnen deze berekeningsmap.",
-                                                          RingtoetsFormsResources.ValidateAllIcon);
+                                                          RingtoetsCommonFormsResources.ValidateAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex + mainCalculationGroupContextMenuItemOffset,
-                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsCommonFormsResources.Calculate_all,
                                                           "Voer alle berekeningen binnen deze berekeningsmap uit.",
-                                                          RingtoetsFormsResources.CalculateAllIcon);
+                                                          RingtoetsCommonFormsResources.CalculateAllIcon);
             TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndex + mainCalculationGroupContextMenuItemOffset,
                                                           "&Wis alle uitvoer...",
                                                           "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
-                                                          RingtoetsFormsResources.ClearIcon);
+                                                          RingtoetsCommonFormsResources.ClearIcon);
 
             TestHelper.AssertContextMenuStripContainsItem(menu, 11,
                                                           CoreCommonGuiResources.Import,
@@ -516,8 +516,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndex];
             Assert.IsFalse(validateItem.Enabled);
             Assert.IsFalse(calculateItem.Enabled);
-            Assert.AreEqual(PipingFormsResources.PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
-            Assert.AreEqual(PipingFormsResources.PipingFailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
+            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
+            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
 
             mocks.VerifyAll(); // Expect no calls on arguments
         }

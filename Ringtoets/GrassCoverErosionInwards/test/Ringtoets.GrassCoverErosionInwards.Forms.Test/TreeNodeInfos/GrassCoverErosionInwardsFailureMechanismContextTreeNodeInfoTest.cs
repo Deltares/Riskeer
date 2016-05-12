@@ -19,13 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.IO;
 using System.Linq;
-
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -33,12 +35,17 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
+using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
@@ -48,9 +55,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         private MockRepository mocksRepository;
         private GrassCoverErosionInwardsGuiPlugin plugin;
         private TreeNodeInfo info;
-
-        private const int contextMenuRelevancyIndexWhenRelevant = 1;
-        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
 
         [SetUp]
         public void SetUp()
@@ -170,7 +174,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, children.Length);
-            var commentContext = (CommentContext<ICommentable>)children[0];
+            var commentContext = (CommentContext<ICommentable>) children[0];
             Assert.AreSame(failureMechanism, commentContext.CommentContainer);
 
             mocksRepository.VerifyAll();
@@ -190,6 +194,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
@@ -355,5 +362,61 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.IsTrue(failureMechanism.IsRelevant);
             mocksRepository.VerifyAll();
         }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
+        {
+            // Setup
+            var gui = mocksRepository.StrictMock<IGui>();
+            var mainWindow = mocksRepository.Stub<IMainWindow>();
+            var treeViewControl = mocksRepository.StrictMock<TreeViewControl>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0)
+            });
+            failureMechanism.AddSection(section);
+
+            var validCalculation = GrassCoverErosionInwardsCalculationFactory.CreateCalculationWithValidInput();
+            validCalculation.Name = "A";
+            var invalidCalculation = GrassCoverErosionInwardsCalculationFactory.CreateCalculationWithInvalidData();
+            invalidCalculation.Name = "B";
+
+            failureMechanism.CalculationsGroup.Children.Add(validCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(invalidCalculation);
+
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocksRepository.Stub<HydraulicBoundaryDatabase>();
+            hydraulicBoundaryDatabase.FilePath = Path.GetTempPath();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            gui.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+            gui.Expect(g => g.MainWindow).Return(mainWindow);
+
+            mocksRepository.ReplayAll();
+
+            plugin.Gui = gui;
+            var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Don't care about dialogs in this test.
+            };
+
+            // Call
+            contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+
+            // Assert
+            mocksRepository.VerifyAll();
+        }
+
+        private const int contextMenuRelevancyIndexWhenRelevant = 1;
+        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
+        private const int contextMenuCalculateAllIndex = 3;
+        private const int contextMenuClearAllIndex = 4;
     }
 }

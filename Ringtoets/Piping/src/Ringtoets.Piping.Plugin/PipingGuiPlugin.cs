@@ -299,7 +299,7 @@ namespace Ringtoets.Piping.Plugin
             if (!GetAllPipingCalculations(pipingFailureMechanismContext.WrappedData).Any(c => c.HasOutput))
             {
                 clearAllItem.Enabled = false;
-                clearAllItem.ToolTipText = PipingFormsResources.PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
+                clearAllItem.ToolTipText = RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
             return Gui.Get(pipingFailureMechanismContext, treeViewControl)
@@ -350,7 +350,7 @@ namespace Ringtoets.Piping.Plugin
             if (!GetAllPipingCalculations(failureMechanism).Any())
             {
                 menuItem.Enabled = false;
-                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run;
+                menuItem.ToolTipText = RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run;
             }
 
             return menuItem;
@@ -368,7 +368,7 @@ namespace Ringtoets.Piping.Plugin
             if (!GetAllPipingCalculations(failureMechanism).Any())
             {
                 menuItem.Enabled = false;
-                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanism_CreateValidateAllItem_No_calculations_to_validate;
+                menuItem.ToolTipText = RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate;
             }
 
             return menuItem;
@@ -376,7 +376,7 @@ namespace Ringtoets.Piping.Plugin
 
         private static void ClearAll(PipingFailureMechanism failureMechanism)
         {
-            if (MessageBox.Show(PipingFormsResources.PipingCalculationGroupContext_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            if (MessageBox.Show(RingtoetsCommonFormsResources.FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
             }
@@ -658,7 +658,7 @@ namespace Ringtoets.Piping.Plugin
             if (!group.GetCalculations().Any())
             {
                 menuItem.Enabled = false;
-                menuItem.ToolTipText = PipingFormsResources.PipingFailureMechanism_CreateValidateAllItem_No_calculations_to_validate;
+                menuItem.ToolTipText = RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate;
             }
 
             return menuItem;

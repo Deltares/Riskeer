@@ -442,17 +442,8 @@
   <data name="PipingCalculationGroup_Add_PipingCalculation_ToolTip" xml:space="preserve">
     <value>Voeg een nieuwe berekening toe aan deze berekeningsmap.</value>
   </data>
-  <data name="PipingCalculationGroupContext_ContextMenuStrip_Are_you_sure_clear_all_output" xml:space="preserve">
-    <value>Weet u zeker dat u alle uitvoer wilt wissen?</value>
-  </data>
   <data name="PipingCalculationGroup_Validate_All_ToolTip" xml:space="preserve">
     <value>Valideer alle berekeningen binnen deze berekeningsmap.</value>
-  </data>
-  <data name="PipingFailureMechanism_CreateValidateAllItem_No_calculations_to_validate" xml:space="preserve">
-    <value>Er zijn geen berekeningen om te valideren.</value>
-  </data>
-  <data name="PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run" xml:space="preserve">
-    <value>Er zijn geen berekeningen om uit te voeren.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_BottomDitchDikeSide_Description" xml:space="preserve">
     <value>De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd.</value>

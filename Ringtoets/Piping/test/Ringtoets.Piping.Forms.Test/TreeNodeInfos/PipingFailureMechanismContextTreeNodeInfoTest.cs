@@ -444,8 +444,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndex];
             Assert.IsFalse(validateItem.Enabled);
             Assert.IsFalse(calculateItem.Enabled);
-            Assert.AreEqual(PipingFormsResources.PipingFailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
-            Assert.AreEqual(PipingFormsResources.PipingFailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
+            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
+            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
 
             mocks.VerifyAll(); // Expect no calls on arguments
         }
