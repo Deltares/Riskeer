@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideer en voer alle berekeningen binnen dit toetsspoor uit..
+        ///   Looks up a localized string similar to Voer alle berekeningen binnen dit toetsspoor uit..
         /// </summary>
         public static string Calculate_all_ToolTip {
             get {
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideer en voer deze berekening uit..
+        ///   Looks up a localized string similar to Voer deze berekening uit..
         /// </summary>
         public static string Calculate_ToolTip {
             get {

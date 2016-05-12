@@ -559,24 +559,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideer en voer alle berekeningen binnen deze berekeningsmap uit..
-        /// </summary>
-        public static string PipingCalculationGroup_CalculateAll_ToolTip {
-            get {
-                return ResourceManager.GetString("PipingCalculationGroup_CalculateAll_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekeningen met uitvoer om te wissen..
-        /// </summary>
-        public static string PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear {
-            get {
-                return ResourceManager.GetString("PipingCalculationGroup_ClearOutput_No_calculation_with_output_to_clear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Genereer &amp;scenario&apos;s....
         /// </summary>
         public static string PipingCalculationGroup_Generate_PipingCalculations {
