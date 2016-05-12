@@ -29,7 +29,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 namespace Ringtoets.Common.Forms.TreeNodeInfos
 {
     /// <summary>
-    /// Decorator for <see cref="ContextMenuBuilder"/>.
+    /// Decorator for <see cref="IContextMenuBuilder"/>.
     /// </summary>
     public class RingtoetsContextMenuBuilder
     {
@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         private readonly RingtoetsContextMenuItemFactory ringtoetsContextMenuItemFactory;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="RingtoetsContextMenuBuilder"/>.
+        /// Creates a new instance of the <see cref="RingtoetsContextMenuBuilder"/> class.
         /// </summary>
         /// <param name="contextMenuBuilder">The context menu builder to decorate.</param>
         public RingtoetsContextMenuBuilder(IContextMenuBuilder contextMenuBuilder)
@@ -47,122 +47,214 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             ringtoetsContextMenuItemFactory = new RingtoetsContextMenuItemFactory();
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which adds a new calculation group to a calculation group.
+        /// </summary>
+        /// <param name="calculationGroup">The calculation group to add the new calculation groups to.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddCreateCalculationGroupItem(CalculationGroup calculationGroup)
         {
             contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateAddCalculationGroupItem(calculationGroup));
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which adds a new calculation to a calculation group.
+        /// </summary>
+        /// <typeparam name="TCalculationContext">The type of the calculation group context.</typeparam>
+        /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
+        /// <param name="addCalculationAction">The action for adding a calculation to the calculation group.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddCreateCalculationItem<TCalculationContext>(
             TCalculationContext calculationGroupContext,
-            Action<TCalculationContext> addCalculation)
+            Action<TCalculationContext> addCalculationAction)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, addCalculation));
+            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, addCalculationAction));
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which clears the output of all calculations in a calculation group.
+        /// </summary>
+        /// <param name="calculationGroup">The calculation group to clear the output for.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddClearAllCalculationOutputInGroupItem(CalculationGroup calculationGroup)
         {
             contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup));
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which performs all calculations in a calculation group.
+        /// </summary>
+        /// <typeparam name="TCalculationContext">The type of the calculation group context.</typeparam>
+        /// <param name="calculationGroup">The calculation group to perform all calculations for.</param>
+        /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
+        /// <param name="calculateAllAction">The action that performs all calculations.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddPerformAllCalculationsInGroupItem<TCalculationContext>(
             CalculationGroup calculationGroup,
-            TCalculationContext context,
-            Action<CalculationGroup, TCalculationContext> calculateAll)
+            TCalculationContext calculationGroupContext,
+            Action<CalculationGroup, TCalculationContext> calculateAllAction)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, context, calculateAll));
+            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, calculateAllAction));
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which performs a calculation.
+        /// </summary>
+        /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
+        /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
+        /// <param name="calculation">The calculation to perform.</param>
+        /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
+        /// <param name="calculateAction">The action that performs the calculation.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddPerformCalculationItem<TCalculation, TCalculationContext>(
             TCalculation calculation,
-            TCalculationContext context,
-            Action<TCalculation, TCalculationContext> calculate)
+            TCalculationContext calculationContext,
+            Action<TCalculation, TCalculationContext> calculateAction)
             where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
             where TCalculation : ICalculation
         {
-            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, context, calculate));
+            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, calculateAction));
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which clears the output of a calculation.
+        /// </summary>
+        /// <param name="calculation">The calculation to clear the output for.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddClearCalculationOutputItem(ICalculation calculation)
         {
             contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculation));
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which enables a disabled failure mechanism.
+        /// </summary>
+        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddDisabledChangeRelevancyItem(IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
         {
             contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateDisabledChangeRelevancyItem(failureMechanismContext));
             return this;
         }
 
-        # region Decorated interface members
+        # region Decorated members
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which starts edit mode for the name of <see cref="TreeNode"/>.
+        /// </summary>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddRenameItem()
         {
             contextMenuBuilder.AddRenameItem();
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which deletes the <see cref="TreeNode"/>.
+        /// </summary>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddDeleteItem()
         {
             contextMenuBuilder.AddDeleteItem();
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which expands the <see cref="TreeNode"/>.
+        /// </summary>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddExpandAllItem()
         {
             contextMenuBuilder.AddExpandAllItem();
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which collapses the <see cref="TreeNode"/>.
+        /// </summary>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddCollapseAllItem()
         {
             contextMenuBuilder.AddCollapseAllItem();
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which opens a view for the data of the <see cref="TreeNode"/>.
+        /// </summary>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddOpenItem()
         {
             contextMenuBuilder.AddOpenItem();
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which exports the data of the <see cref="TreeNode"/>.
+        /// </summary>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddExportItem()
         {
             contextMenuBuilder.AddExportItem();
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which imports to the data of the <see cref="TreeNode"/>.
+        /// </summary>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddImportItem()
         {
             contextMenuBuilder.AddImportItem();
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which shows properties of the data of the <see cref="TreeNode"/>.
+        /// </summary>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddPropertiesItem()
         {
             contextMenuBuilder.AddPropertiesItem();
             return this;
         }
 
+        /// <summary>
+        /// Adds a <see cref="ToolStripSeparator"/> to the <see cref="ContextMenuStrip"/>. A <see cref="ToolStripSeparator"/>
+        /// is only added if the last item that was added to the <see cref="ContextMenuStrip"/> exists and is not a 
+        /// <see cref="ToolStripSeparator"/>.
+        /// </summary>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddSeparator()
         {
             contextMenuBuilder.AddSeparator();
             return this;
         }
 
+        /// <summary>
+        /// Adds a custom item to the <see cref="ContextMenuStrip"/>.
+        /// </summary>
+        /// <param name="item">The custom <see cref="StrictContextMenuItem"/> to add to the <see cref="ContextMenuStrip"/>.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddCustomItem(StrictContextMenuItem item)
         {
             contextMenuBuilder.AddCustomItem(item);
             return this;
         }
 
+        /// <summary>
+        /// Obtain the <see cref="ContextMenuStrip"/>, which has been constructed by using the other methods of
+        /// <see cref="RingtoetsContextMenuBuilder"/>.
+        /// </summary>
+        /// <returns>The constructed <see cref="ContextMenuStrip"/>.</returns>
         public ContextMenuStrip Build()
         {
             return contextMenuBuilder.Build();

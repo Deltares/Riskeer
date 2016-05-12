@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of adding new calculation groups.
         /// </summary>
-        /// <param name="calculationGroup">The calculation group involved.</param>
+        /// <param name="calculationGroup">The calculation group to add the new calculation groups to.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public StrictContextMenuItem CreateAddCalculationGroupItem(CalculationGroup calculationGroup)
         {
@@ -55,25 +55,26 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of adding new calculations.
         /// </summary>
-        /// <param name="calculationGroupContext">The calculation group context involved.</param>
-        /// <param name="addCalculation">The action for adding a calculation to the calculation group.</param>
+        /// <typeparam name="TCalculationContext">The type of the calculation group context.</typeparam>
+        /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
+        /// <param name="addCalculationAction">The action for adding a calculation to the calculation group.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public StrictContextMenuItem CreateAddCalculationItem<TCalculationContext>(
             TCalculationContext calculationGroupContext,
-            Action<TCalculationContext> addCalculation)
+            Action<TCalculationContext> addCalculationAction)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             return new StrictContextMenuItem(
                 Resources.CalculationGroup_Add_Calculation,
                 Resources.CalculationGroup_Add_Calculation_Tooltip,
                 Resources.FailureMechanismIcon,
-                (o, args) => addCalculation(calculationGroupContext));
+                (o, args) => addCalculationAction(calculationGroupContext));
         }
 
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing the output of all calculations in the calculation group.
         /// </summary>
-        /// <param name="calculationGroup">The calculation group involved.</param>
+        /// <param name="calculationGroup">The calculation group to clear the output for.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public StrictContextMenuItem CreateClearAllCalculationOutputInGroupItem(CalculationGroup calculationGroup)
         {
@@ -95,21 +96,22 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of performing all calculations in a calculation group.
         /// </summary>
-        /// <param name="calculationGroup">The calculation group involved.</param>
-        /// <param name="context">The calculation group context belonging to the calculation group.</param>
-        /// <param name="calculateAll">The action that performs all calculations.</param>
+        /// <typeparam name="TCalculationContext">The type of the calculation group context.</typeparam>
+        /// <param name="calculationGroup">The calculation group to perform all calculations for.</param>
+        /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
+        /// <param name="calculateAllAction">The action that performs all calculations.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public StrictContextMenuItem CreatePerformAllCalculationsInGroupItem<TCalculationContext>(
             CalculationGroup calculationGroup,
-            TCalculationContext context,
-            Action<CalculationGroup, TCalculationContext> calculateAll)
+            TCalculationContext calculationGroupContext,
+            Action<CalculationGroup, TCalculationContext> calculateAllAction)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             var performAllItem = new StrictContextMenuItem(
                 Resources.Calculate_all,
                 Resources.CalculationGroup_CalculateAll_ToolTip,
                 Resources.CalculateAllIcon,
-                (o, args) => calculateAll(calculationGroup, context));
+                (o, args) => calculateAllAction(calculationGroup, calculationGroupContext));
 
             if (!calculationGroup.GetCalculations().Any())
             {
@@ -123,14 +125,16 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of performing a calculation.
         /// </summary>
-        /// <param name="calculation">The calculation involved.</param>
-        /// <param name="context">The calculation context belonging to the calculation.</param>
-        /// <param name="calculate">The action that performs the calculation.</param>
+        /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
+        /// <typeparam name="TCalculationContext">The type of the calculation context.</typeparam>
+        /// <param name="calculation">The calculation to perform.</param>
+        /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
+        /// <param name="calculateAction">The action that performs the calculation.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public StrictContextMenuItem CreatePerformCalculationItem<TCalculation, TCalculationContext>(
             TCalculation calculation,
-            TCalculationContext context,
-            Action<TCalculation, TCalculationContext> calculate)
+            TCalculationContext calculationContext,
+            Action<TCalculation, TCalculationContext> calculateAction)
             where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
             where TCalculation : ICalculation
         {
@@ -138,13 +142,13 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Resources.Calculate,
                 Resources.Calculate_ToolTip,
                 Resources.CalculateIcon,
-                (o, args) => calculate(calculation, context));
+                (o, args) => calculateAction(calculation, calculationContext));
         }
 
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing the output of a calculation.
         /// </summary>
-        /// <param name="calculation">The calculation involved.</param>
+        /// <param name="calculation">The calculation to clear the output for.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public StrictContextMenuItem CreateClearCalculationOutputItem(ICalculation calculation)
         {
@@ -166,7 +170,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing the relevancy state of a disabled failure mechanism.
         /// </summary>
-        /// <param name="failureMechanismContext">The failure mechanism context involved.</param>
+        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public StrictContextMenuItem CreateDisabledChangeRelevancyItem(IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
         {
