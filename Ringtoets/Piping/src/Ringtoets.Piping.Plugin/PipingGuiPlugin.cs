@@ -290,36 +290,24 @@ namespace Ringtoets.Piping.Plugin
 
             var calculateAllItem = CreateCalculateAllItem(pipingFailureMechanismContext.WrappedData);
 
-            var clearAllItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Clear_all_output,
-                RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
-                RingtoetsCommonFormsResources.ClearIcon,
-                (o, args) => ClearAll(pipingFailureMechanismContext.WrappedData)
-                );
-
-            if (!GetAllPipingCalculations(pipingFailureMechanismContext.WrappedData).Any(c => c.HasOutput))
-            {
-                clearAllItem.Enabled = false;
-                clearAllItem.ToolTipText = RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
-            }
-
-            return Gui.Get(pipingFailureMechanismContext, treeViewControl)
-                      .AddOpenItem()
-                      .AddSeparator()
-                      .AddCustomItem(changeRelevancyItem)
-                      .AddSeparator()
-                      .AddCustomItem(validateAllItem)
-                      .AddCustomItem(calculateAllItem)
-                      .AddCustomItem(clearAllItem)
-                      .AddSeparator()
-                      .AddImportItem()
-                      .AddExportItem()
-                      .AddSeparator()
-                      .AddExpandAllItem()
-                      .AddCollapseAllItem()
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
+            return builder
+                .AddOpenItem()
+                .AddSeparator()
+                .AddCustomItem(changeRelevancyItem)
+                .AddSeparator()
+                .AddCustomItem(validateAllItem)
+                .AddCustomItem(calculateAllItem)
+                .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
+                .AddSeparator()
+                .AddImportItem()
+                .AddExportItem()
+                .AddSeparator()
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
@@ -372,20 +360,6 @@ namespace Ringtoets.Piping.Plugin
             }
 
             return menuItem;
-        }
-
-        private static void ClearAll(PipingFailureMechanism failureMechanism)
-        {
-            if (MessageBox.Show(RingtoetsCommonFormsResources.FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
-            {
-                return;
-            }
-
-            foreach (ICalculation calc in failureMechanism.Calculations)
-            {
-                calc.ClearOutput();
-                calc.NotifyObservers();
-            }
         }
 
         private void ValidateAll(PipingFailureMechanism failureMechanism)

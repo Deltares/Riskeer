@@ -185,6 +185,41 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 });
         }
 
+        /// <summary>
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing the output of all calculations in the failure mechanism.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to clear the output for.</param>
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public static StrictContextMenuItem CreateClearAllCalculationOutputInFailureMechanismItem(IFailureMechanism failureMechanism)
+        {
+            var clearAllItem = new StrictContextMenuItem(
+                Resources.Clear_all_output,
+                Resources.Clear_all_output_ToolTip,
+                Resources.ClearIcon,
+                (o, args) => ClearAllCalculationOutputInFailureMechanism(failureMechanism));
+
+            if (!failureMechanism.Calculations.Any(c => c.HasOutput))
+            {
+                clearAllItem.Enabled = false;
+                clearAllItem.ToolTipText = Resources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
+            }
+            return clearAllItem;
+        }
+
+        private static void ClearAllCalculationOutputInFailureMechanism(IFailureMechanism failureMechanism)
+        {
+            if (MessageBox.Show(Resources.FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            {
+                return;
+            }
+
+            foreach (var calc in failureMechanism.Calculations)
+            {
+                calc.ClearOutput();
+                calc.NotifyObservers();
+            }
+        }
+
         private static void CreateCalculationGroup(CalculationGroup calculationGroup)
         {
             calculationGroup.Children.Add(new CalculationGroup

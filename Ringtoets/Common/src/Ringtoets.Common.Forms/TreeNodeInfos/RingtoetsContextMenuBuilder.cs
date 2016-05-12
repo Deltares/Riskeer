@@ -145,6 +145,17 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which clears the output of all calculations in the failure mechanism.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to clear the output for.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        public RingtoetsContextMenuBuilder AddClearAllCalculationOutputInFailureMechanismItem(IFailureMechanism failureMechanism)
+        {
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInFailureMechanismItem(failureMechanism));
+            return this;
+        }
+
         # region Decorated members
 
         /// <summary>

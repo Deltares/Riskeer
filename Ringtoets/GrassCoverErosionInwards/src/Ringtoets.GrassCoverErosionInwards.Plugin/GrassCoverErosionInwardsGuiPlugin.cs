@@ -257,34 +257,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             var calculateAllItem = CreateCalculateAllItem(grassCoverErosionInwardsFailureMechanismContext);
 
-            var clearAllItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Clear_all_output,
-                RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
-                RingtoetsCommonFormsResources.ClearIcon,
-                (o, args) => ClearAll(grassCoverErosionInwardsFailureMechanismContext.WrappedData));
-
-            if (!GetAllCalculations(grassCoverErosionInwardsFailureMechanismContext.WrappedData).Any(c => c.HasOutput))
-            {
-                clearAllItem.Enabled = false;
-                clearAllItem.ToolTipText = RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
-            }
-
-            return Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl)
-                      .AddOpenItem()
-                      .AddSeparator()
-                      .AddCustomItem(changeRelevancyItem)
-                      .AddSeparator()
-                      .AddCustomItem(calculateAllItem)
-                      .AddCustomItem(clearAllItem)
-                      .AddSeparator()
-                      .AddImportItem()
-                      .AddExportItem()
-                      .AddSeparator()
-                      .AddExpandAllItem()
-                      .AddCollapseAllItem()
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
+            return builder
+                .AddOpenItem()
+                .AddSeparator()
+                .AddCustomItem(changeRelevancyItem)
+                .AddSeparator()
+                .AddCustomItem(calculateAllItem)
+                .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
+                .AddSeparator()
+                .AddImportItem()
+                .AddExportItem()
+                .AddSeparator()
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
@@ -329,20 +318,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
 
             return menuItem;
-        }
-
-        private static void ClearAll(GrassCoverErosionInwardsFailureMechanism failureMechanism)
-        {
-            if (MessageBox.Show(RingtoetsCommonFormsResources.FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
-            {
-                return;
-            }
-
-            foreach (ICalculation calc in failureMechanism.Calculations)
-            {
-                calc.ClearOutput();
-                calc.NotifyObservers();
-            }
         }
 
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanismContext context)
