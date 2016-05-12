@@ -20,43 +20,44 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Read;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This partial class describes the read operation for a <see cref="StochasticSoilProfile"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="StochasticSoilProfile"/> based on the
     /// <see cref="StochasticSoilProfileEntity"/>.
     /// </summary>
-    public partial class StochasticSoilProfileEntity
+    internal static class StochasticSoilProfileEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="StochasticSoilProfileEntity"/> and use the information to construct a <see cref="StochasticSoilProfile"/>.
         /// </summary>
+        /// <param name="entity">The <see cref="StochasticSoilProfileEntity"/> to create <see cref="StochasticSoilProfile"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StochasticSoilProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public StochasticSoilProfile Read(ReadConversionCollector collector)
+        internal static StochasticSoilProfile Read(this StochasticSoilProfileEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
 
-            var profile = new StochasticSoilProfile(Convert.ToDouble(Probability), SoilProfileType.SoilProfile1D, -1)
+            var profile = new StochasticSoilProfile(Convert.ToDouble(entity.Probability), SoilProfileType.SoilProfile1D, -1)
             {
-                StorageId = StochasticSoilProfileEntityId
+                StorageId = entity.StochasticSoilProfileEntityId
             };
-            ReadSoilProfile(profile, collector);
+            entity.ReadSoilProfile(profile, collector);
 
             return profile;
         }
 
-        private void ReadSoilProfile(StochasticSoilProfile profile, ReadConversionCollector collector)
+        private static void ReadSoilProfile(this StochasticSoilProfileEntity entity, StochasticSoilProfile profile, ReadConversionCollector collector)
         {
-            profile.SoilProfile = SoilProfileEntity.Read(collector);
+            profile.SoilProfile = entity.SoilProfileEntity.Read(collector);
         }
     }
 }

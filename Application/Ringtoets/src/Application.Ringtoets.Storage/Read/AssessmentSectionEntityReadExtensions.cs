@@ -21,78 +21,78 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.Read;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Placeholders;
-using Ringtoets.Piping.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This partial class describes the read operation for an <see cref="AssessmentSection"/> based on the
+    /// This class defines extension methods for read operations for an <see cref="AssessmentSection"/> based on the
     /// <see cref="AssessmentSectionEntity"/>.
     /// </summary>
-    public partial class AssessmentSectionEntity
+    internal static class AssessmentSectionEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="AssessmentSectionEntity"/> and use the information to construct a <see cref="AssessmentSection"/>.
         /// </summary>
+        /// <param name="entity">The <see cref="AssessmentSectionEntity"/> to create <see cref="AssessmentSection"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public AssessmentSection Read(ReadConversionCollector collector)
+        internal static AssessmentSection Read(this AssessmentSectionEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
 
-            var assessmentSection = new AssessmentSection((AssessmentSectionComposition) Composition)
+            var assessmentSection = new AssessmentSection((AssessmentSectionComposition)entity.Composition)
             {
-                StorageId = AssessmentSectionEntityId,
-                Name = Name
+                StorageId = entity.AssessmentSectionEntityId,
+                Name = entity.Name
             };
 
-            ReadPipingFailureMechanism(assessmentSection, collector);
-            ReadGrassCoverErosionInwardsFailureMechanism(assessmentSection);
-            ReadHydraulicDatabase(assessmentSection);
-            ReadReferenceLine(assessmentSection);
-            ReadStandAloneFailureMechanisms(assessmentSection);
+            entity.ReadPipingFailureMechanism(assessmentSection, collector);
+            entity.ReadGrassCoverErosionInwardsFailureMechanism(assessmentSection);
+            entity.ReadHydraulicDatabase(assessmentSection);
+            entity.ReadReferenceLine(assessmentSection);
+            entity.ReadStandAloneFailureMechanisms(assessmentSection);
 
             return assessmentSection;
         }
 
-        private void ReadReferenceLine(AssessmentSection assessmentSection)
+        private static void ReadReferenceLine(this AssessmentSectionEntity entity, AssessmentSection assessmentSection)
         {
-            if (ReferenceLinePointEntities.Any())
+            if (entity.ReferenceLinePointEntities.Any())
             {
                 assessmentSection.ReferenceLine = new ReferenceLine();
-                assessmentSection.ReferenceLine.SetGeometry(ReferenceLinePointEntities.OrderBy(rlpe => rlpe.Order).Select(rlpe => rlpe.Read()));
+                assessmentSection.ReferenceLine.SetGeometry(entity.ReferenceLinePointEntities.OrderBy(rlpe => rlpe.Order).Select(rlpe => rlpe.Read()));
             }
         }
 
-        private void ReadHydraulicDatabase(AssessmentSection assessmentSection)
+        private static void ReadHydraulicDatabase(this AssessmentSectionEntity entity, AssessmentSection assessmentSection)
         {
-            if (HydraulicDatabaseLocation != null)
+            if (entity.HydraulicDatabaseLocation != null)
             {
                 assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
-                    FilePath = HydraulicDatabaseLocation,
-                    Version = HydraulicDatabaseVersion
+                    FilePath = entity.HydraulicDatabaseLocation,
+                    Version = entity.HydraulicDatabaseVersion
                 };
 
-                foreach (var hydraulicLocationEntity in HydraulicLocationEntities)
+                foreach (var hydraulicLocationEntity in entity.HydraulicLocationEntities)
                 {
                     assessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicLocationEntity.Read());
                 }
             }
         }
 
-        private void ReadPipingFailureMechanism(AssessmentSection assessmentSection, ReadConversionCollector collector)
+        private static void ReadPipingFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var pipingFailureMechanismEntity = FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.Piping);
+            var pipingFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.Piping);
             if (pipingFailureMechanismEntity != null)
             {
                 var failureMechanism = pipingFailureMechanismEntity.ReadAsPipingFailureMechanism(collector);
@@ -108,9 +108,9 @@ namespace Application.Ringtoets.Storage.DbContext
             }
         }
 
-        private void ReadGrassCoverErosionInwardsFailureMechanism(AssessmentSection assessmentSection)
+        private static void ReadGrassCoverErosionInwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection)
         {
-            var grassCoverErosionInwardsFailureMechanismEntity = FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.GrassRevetmentTopErosionAndInwards);
+            var grassCoverErosionInwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.GrassRevetmentTopErosionAndInwards);
             if (grassCoverErosionInwardsFailureMechanismEntity != null)
             {
                 var failureMechanism = grassCoverErosionInwardsFailureMechanismEntity.ReadAsGrassCoverErosionInwardsFailureMechanism();
@@ -125,23 +125,23 @@ namespace Application.Ringtoets.Storage.DbContext
             }
         }
 
-        private void ReadStandAloneFailureMechanisms(AssessmentSection assessmentSection)
+        private static void ReadStandAloneFailureMechanisms(this AssessmentSectionEntity entity, AssessmentSection assessmentSection)
         {
-            ReadStandAloneFailureMechanism(FailureMechanismType.MacrostabilityInwards, assessmentSection.MacrostabilityInwards);
-            ReadStandAloneFailureMechanism(FailureMechanismType.StabilityStoneRevetment, assessmentSection.StabilityStoneCover);
-            ReadStandAloneFailureMechanism(FailureMechanismType.WaveImpactOnAsphaltRevetment, assessmentSection.WaveImpactAsphaltCover);
-            ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentErosionOutwards, assessmentSection.GrassCoverErosionOutside);
-            ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentSlidingOutwards, assessmentSection.GrassCoverSlipOffOutside);
-            ReadStandAloneFailureMechanism(FailureMechanismType.StructureHeight, assessmentSection.HeightStructure);
-            ReadStandAloneFailureMechanism(FailureMechanismType.ReliabilityClosingOfStructure, assessmentSection.ClosingStructure);
-            ReadStandAloneFailureMechanism(FailureMechanismType.PipingAtStructure, assessmentSection.PipingStructure);
-            ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityPointConstruction, assessmentSection.StrengthStabilityPointConstruction);
-            ReadStandAloneFailureMechanism(FailureMechanismType.DuneErosion, assessmentSection.DuneErosion);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.MacrostabilityInwards, assessmentSection.MacrostabilityInwards);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StabilityStoneRevetment, assessmentSection.StabilityStoneCover);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.WaveImpactOnAsphaltRevetment, assessmentSection.WaveImpactAsphaltCover);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentErosionOutwards, assessmentSection.GrassCoverErosionOutside);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentSlidingOutwards, assessmentSection.GrassCoverSlipOffOutside);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StructureHeight, assessmentSection.HeightStructure);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.ReliabilityClosingOfStructure, assessmentSection.ClosingStructure);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.PipingAtStructure, assessmentSection.PipingStructure);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.StrengthAndStabilityPointConstruction, assessmentSection.StrengthStabilityPointConstruction);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.DuneErosion, assessmentSection.DuneErosion);
         }
 
-        private void ReadStandAloneFailureMechanism(FailureMechanismType failureMechanismType, StandAloneFailureMechanism standAloneFailureMechanism)
+        private static void ReadStandAloneFailureMechanism(this AssessmentSectionEntity entity, FailureMechanismType failureMechanismType, StandAloneFailureMechanism standAloneFailureMechanism)
         {
-            var failureMechanismEntity = FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) failureMechanismType);
+            var failureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) failureMechanismType);
             if (failureMechanismEntity != null)
             {
                 var failureMechanism = failureMechanismEntity.ReadAsStandAloneFailureMechanism();

@@ -20,43 +20,42 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Application.Ringtoets.Storage.Read;
-using Ringtoets.Piping.Primitives;
+using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This partial class describes the read operation for a <see cref="PipingSoilProfile"/> based on the
-    /// <see cref="SoilProfileEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="Project"/> based on the
+    /// <see cref="ProjectEntity"/>.
     /// </summary>
-    public partial class SoilProfileEntity
+    internal static class ProjectEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="SoilProfileEntity"/> and use the information to construct a <see cref="PipingSoilProfile"/>.
+        /// Reads the <see cref="ProjectEntity"/> and use the information to construct a <see cref="Project"/>.
         /// </summary>
+        /// <param name="entity">The <see cref="ProjectEntity"/> to create <see cref="Project"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="PipingSoilProfile"/> or one from the <paramref name="collector"/> if the 
-        /// <see cref="SoilProfileEntity"/> has been read before.</returns>
+        /// <returns>A new <see cref="Project"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public PipingSoilProfile Read(ReadConversionCollector collector)
+        internal static Project Read(this ProjectEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
-
-            if (collector.Contains(this))
+            var project = new Project
             {
-                return collector.Get(this);
-            }
-            var layers = SoilLayerEntities.Select(sl => sl.Read());
-            var pipingSoilProfile = new PipingSoilProfile(Name, Convert.ToDouble(Bottom), layers, SoilProfileType.SoilProfile1D, -1)
-            {
-                StorageId = SoilProfileEntityId
+                StorageId = entity.ProjectEntityId,
+                Description = entity.Description
             };
-            collector.Read(this, pipingSoilProfile);
-            return pipingSoilProfile;
-        }
+
+            foreach (var assessmentSectionEntity in entity.AssessmentSectionEntities)
+            {
+                project.Items.Add(assessmentSectionEntity.Read(collector));
+            }
+
+            return project;
+        } 
     }
 }

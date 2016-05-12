@@ -20,23 +20,25 @@
 // All rights reserved.
 
 using System;
+using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This partial class describes the read operation for a <see cref="Point2D"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="Point2D"/> based on the
     /// <see cref="ReferenceLinePointEntity"/>.
     /// </summary>
-    public partial class FailureMechanismSectionPointEntity
+    internal static class ReferenceLinePointEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="ReferenceLinePointEntity"/> and use the information to construct a <see cref="Point2D"/>.
         /// </summary>
+        /// <param name="entity">The <see cref="ReferenceLinePointEntity"/> to create <see cref="Point2D"/> for.</param>
         /// <returns>A new <see cref="Point2D"/>.</returns>
-        public Point2D Read()
+        internal static Point2D Read(this ReferenceLinePointEntity entity)
         {
-            return new Point2D(Convert.ToDouble(X), Convert.ToDouble(Y));
+            return new Point2D(Convert.ToDouble(entity.X), Convert.ToDouble(entity.Y));
         }
     }
 }

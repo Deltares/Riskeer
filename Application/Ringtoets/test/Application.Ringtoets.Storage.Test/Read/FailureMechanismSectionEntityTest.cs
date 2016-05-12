@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.Test.Read

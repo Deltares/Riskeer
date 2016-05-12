@@ -20,27 +20,28 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Read;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Piping.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This partial class describes the read operation for a <see cref="PipingFailureMechanism"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="PipingFailureMechanism"/> based on the
     /// <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    public partial class FailureMechanismEntity
+    internal static class FailureMechanismEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="PipingFailureMechanism"/>.
         /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="PipingFailureMechanism"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="PipingFailureMechanism"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public PipingFailureMechanism ReadAsPipingFailureMechanism(ReadConversionCollector collector)
+        internal static PipingFailureMechanism ReadAsPipingFailureMechanism(this FailureMechanismEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -49,16 +50,16 @@ namespace Application.Ringtoets.Storage.DbContext
 
             var failureMechanism = new PipingFailureMechanism
             {
-                StorageId = FailureMechanismEntityId,
-                IsRelevant = IsRelevant == 1
+                StorageId = entity.FailureMechanismEntityId,
+                IsRelevant = entity.IsRelevant == 1
             };
 
-            foreach (var stochasticSoilModelEntity in StochasticSoilModelEntities)
+            foreach (var stochasticSoilModelEntity in entity.StochasticSoilModelEntities)
             {
                 failureMechanism.StochasticSoilModels.Add(stochasticSoilModelEntity.Read(collector));
             }
 
-            ReadFailureMechanismSections(failureMechanism);
+            entity.ReadFailureMechanismSections(failureMechanism);
 
             return failureMechanism;
         }
@@ -67,15 +68,15 @@ namespace Application.Ringtoets.Storage.DbContext
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
         /// <returns>A new <see cref="PipingFailureMechanism"/>.</returns>
-        public GrassCoverErosionInwardsFailureMechanism ReadAsGrassCoverErosionInwardsFailureMechanism()
+        internal static GrassCoverErosionInwardsFailureMechanism ReadAsGrassCoverErosionInwardsFailureMechanism(this FailureMechanismEntity entity)
         {
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
-                StorageId = FailureMechanismEntityId,
-                IsRelevant = IsRelevant == 1
+                StorageId = entity.FailureMechanismEntityId,
+                IsRelevant = entity.IsRelevant == 1
             };
 
-            ReadFailureMechanismSections(failureMechanism);
+            entity.ReadFailureMechanismSections(failureMechanism);
 
             return failureMechanism;
         }
@@ -84,22 +85,22 @@ namespace Application.Ringtoets.Storage.DbContext
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to construct a <see cref="StandAloneFailureMechanism"/>.
         /// </summary>
         /// <returns>A new <see cref="StandAloneFailureMechanism"/>.</returns>
-        public StandAloneFailureMechanism ReadAsStandAloneFailureMechanism()
+        internal static StandAloneFailureMechanism ReadAsStandAloneFailureMechanism(this FailureMechanismEntity entity)
         {
             var failureMechanism = new StandAloneFailureMechanism("temporaryName", "temporaryCode")
             {
-                StorageId = FailureMechanismEntityId,
-                IsRelevant = IsRelevant == 1
+                StorageId = entity.FailureMechanismEntityId,
+                IsRelevant = entity.IsRelevant == 1
             };
 
-            ReadFailureMechanismSections(failureMechanism);
+            entity.ReadFailureMechanismSections(failureMechanism);
 
             return failureMechanism;
         }
 
-        private void ReadFailureMechanismSections(FailureMechanismBase<FailureMechanismSectionResult> failureMechanism)
+        private static void ReadFailureMechanismSections(this FailureMechanismEntity entity, FailureMechanismBase<FailureMechanismSectionResult> failureMechanism)
         {
-            foreach (var failureMechanismSectionEntity in FailureMechanismSectionEntities)
+            foreach (var failureMechanismSectionEntity in entity.FailureMechanismSectionEntities)
             {
                 failureMechanism.AddSection(failureMechanismSectionEntity.Read());
             }

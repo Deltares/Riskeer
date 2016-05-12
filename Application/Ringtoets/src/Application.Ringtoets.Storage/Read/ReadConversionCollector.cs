@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Read
     /// Class that can be used to keep track of data model objects which were initialized during a read operation
     /// from the database. Can be used to reuse objects when reading an already read entity.
     /// </summary>
-    public class ReadConversionCollector
+    internal class ReadConversionCollector
     {
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = new Dictionary<SoilProfileEntity, PipingSoilProfile>(new ReferenceEqualityComparer<SoilProfileEntity>());
 

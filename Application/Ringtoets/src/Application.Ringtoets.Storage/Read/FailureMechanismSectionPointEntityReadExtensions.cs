@@ -20,27 +20,25 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Piping.Primitives;
+using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Geometry;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This partial class describes the read operation for a <see cref="PipingSoilLayer"/> based on the
-    /// <see cref="FailureMechanismEntity"/>.
+    /// This class defines extension methods for read operationsn for a <see cref="Point2D"/> based on the
+    /// <see cref="ReferenceLinePointEntity"/>.
     /// </summary>
-    public partial class SoilLayerEntity
+    internal static class FailureMechanismSectionPointEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="SoilLayerEntity"/> and use the information to construct a <see cref="PipingSoilLayer"/>.
+        /// Reads the <see cref="ReferenceLinePointEntity"/> and use the information to construct a <see cref="Point2D"/>.
         /// </summary>
-        /// <returns>A new <see cref="PipingSoilLayer"/>.</returns>
-        public PipingSoilLayer Read()
+        /// <param name="entity">The <see cref="FailureMechanismSectionPointEntity"/> to create <see cref="Point2D"/> for.</param>
+        /// <returns>A new <see cref="Point2D"/>.</returns>
+        internal static Point2D Read(this FailureMechanismSectionPointEntity entity)
         {
-            return new PipingSoilLayer(Convert.ToDouble(Top))
-            {
-                StorageId = SoilLayerEntityId,
-                IsAquifer = Convert.ToBoolean(IsAquifer)
-            };
+            return new Point2D(Convert.ToDouble(entity.X), Convert.ToDouble(entity.Y));
         }
     }
 }

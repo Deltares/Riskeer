@@ -20,45 +20,45 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Read;
-using Ringtoets.Piping.Data;
+using System.Linq;
+using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.Piping.Primitives;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This partial class describes the read operation for a <see cref="StochasticSoilModel"/> based on the
-    /// <see cref="StochasticSoilModelEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="PipingSoilProfile"/> based on the
+    /// <see cref="SoilProfileEntity"/>.
     /// </summary>
-    public partial class StochasticSoilModelEntity
+    internal static class SoilProfileEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="StochasticSoilModelEntity"/> and use the information to construct a <see cref="StochasticSoilModel"/>.
+        /// Reads the <see cref="SoilProfileEntity"/> and use the information to construct a <see cref="PipingSoilProfile"/>.
         /// </summary>
+        /// <param name="entity">The <see cref="SoilProfileEntity"/> to create <see cref="PipingSoilProfile"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="StochasticSoilModel"/>.</returns>
+        /// <returns>A new <see cref="PipingSoilProfile"/> or one from the <paramref name="collector"/> if the 
+        /// <see cref="SoilProfileEntity"/> has been read before.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public StochasticSoilModel Read(ReadConversionCollector collector)
+        internal static PipingSoilProfile Read(this SoilProfileEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
 
-            var model = new StochasticSoilModel(-1, Name, SegmentName)
+            if (collector.Contains(entity))
             {
-                StorageId = StochasticSoilModelEntityId
-            };
-            ReadStochasticSoilProfiles(model, collector);
-
-            return model;
-        }
-
-        private void ReadStochasticSoilProfiles(StochasticSoilModel model, ReadConversionCollector collector)
-        {
-            foreach (var stochasticSoilProfileEntity in StochasticSoilProfileEntities)
-            {
-                model.StochasticSoilProfiles.Add(stochasticSoilProfileEntity.Read(collector));
+                return collector.Get(entity);
             }
+            var layers = entity.SoilLayerEntities.Select(sl => sl.Read());
+            var pipingSoilProfile = new PipingSoilProfile(entity.Name, Convert.ToDouble(entity.Bottom), layers, SoilProfileType.SoilProfile1D, -1)
+            {
+                StorageId = entity.SoilProfileEntityId
+            };
+
+            collector.Read(entity, pipingSoilProfile);
+            return pipingSoilProfile;
         }
     }
 }

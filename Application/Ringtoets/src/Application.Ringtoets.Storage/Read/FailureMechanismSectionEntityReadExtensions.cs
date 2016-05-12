@@ -20,30 +20,32 @@
 // All rights reserved.
 
 using System.Linq;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This partial class describes the read operation for a <see cref="FailureMechanismSection"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="FailureMechanismSection"/> based on the
     /// <see cref="FailureMechanismSectionEntity"/>.
     /// </summary>
-    public partial class FailureMechanismSectionEntity
+    internal static class FailureMechanismSectionEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="FailureMechanismSectionEntity"/> and use the information to construct a <see cref="FailureMechanismSection"/>.
         /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> to create <see cref="FailureMechanismSection"/> for.</param>
         /// <returns>A new <see cref="FailureMechanismSection"/>.</returns>
-        public FailureMechanismSection Read()
+        internal static FailureMechanismSection Read(this FailureMechanismSectionEntity entity)
         {
-            var points = FailureMechanismSectionPointEntities
+            var points = entity.FailureMechanismSectionPointEntities
                 .OrderBy(fmsp => fmsp.Order)
                 .Select(failureMechanismSectionPointEntity => failureMechanismSectionPointEntity.Read())
                 .ToList();
 
-            var mechanismSection = new FailureMechanismSection(Name, points)
+            var mechanismSection = new FailureMechanismSection(entity.Name, points)
             {
-                StorageId = FailureMechanismSectionEntityId
+                StorageId = entity.FailureMechanismSectionEntityId
             };
 
             return mechanismSection;

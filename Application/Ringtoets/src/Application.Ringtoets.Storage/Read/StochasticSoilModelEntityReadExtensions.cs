@@ -20,41 +20,46 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Read;
-using Core.Common.Base.Data;
+using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.Piping.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This partial class describes the read operation for a <see cref="Project"/> based on the
-    /// <see cref="ProjectEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="StochasticSoilModel"/> based on the
+    /// <see cref="StochasticSoilModelEntity"/>.
     /// </summary>
-    public partial class ProjectEntity
+    internal static class StochasticSoilModelEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="ProjectEntity"/> and use the information to construct a <see cref="Project"/>.
+        /// Reads the <see cref="StochasticSoilModelEntity"/> and use the information to construct a <see cref="StochasticSoilModel"/>.
         /// </summary>
+        /// <param name="entity">The <see cref="StochasticSoilModelEntity"/> to create <see cref="StochasticSoilModel"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="Project"/>.</returns>
+        /// <returns>A new <see cref="StochasticSoilModel"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public Project Read(ReadConversionCollector collector)
+        internal static StochasticSoilModel Read(this StochasticSoilModelEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
-            var project = new Project
+
+            var model = new StochasticSoilModel(-1, entity.Name, entity.SegmentName)
             {
-                StorageId = ProjectEntityId,
-                Description = Description
+                StorageId = entity.StochasticSoilModelEntityId
             };
+            entity.ReadStochasticSoilProfiles(model, collector);
 
-            foreach (var assessmentSectionEntity in AssessmentSectionEntities)
+            return model;
+        }
+
+        private static void ReadStochasticSoilProfiles(this StochasticSoilModelEntity entity, StochasticSoilModel model, ReadConversionCollector collector)
+        {
+            foreach (var stochasticSoilProfileEntity in entity.StochasticSoilProfileEntities)
             {
-                project.Items.Add(assessmentSectionEntity.Read(collector));
+                model.StochasticSoilProfiles.Add(stochasticSoilProfileEntity.Read(collector));
             }
-
-            return project;
-        } 
+        }
     }
 }

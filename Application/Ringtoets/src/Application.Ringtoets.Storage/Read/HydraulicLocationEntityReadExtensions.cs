@@ -20,34 +20,36 @@
 // All rights reserved.
 
 using System;
+using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.HydraRing.Data;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This partial class describes the read operation for a <see cref="HydraulicBoundaryLocation"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="HydraulicBoundaryLocation"/> based on the
     /// <see cref="HydraulicLocationEntity"/>.
     /// </summary>
-    public partial class HydraulicLocationEntity
+    internal static class HydraulicLocationEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="HydraulicLocationEntity"/> and use the information to construct a <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
+        /// <param name="entity">The <see cref="HydraulicLocationEntity"/> to create <see cref="HydraulicBoundaryLocation"/> for.</param>
         /// <returns>A new <see cref="HydraulicBoundaryLocation"/>.</returns>
-        public HydraulicBoundaryLocation Read()
+        internal static HydraulicBoundaryLocation Read(this HydraulicLocationEntity entity)
         {
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(
-                LocationId, 
-                Name, 
-                Convert.ToDouble(LocationX), 
-                Convert.ToDouble(LocationY))
+                entity.LocationId,
+                entity.Name,
+                Convert.ToDouble(entity.LocationX),
+                Convert.ToDouble(entity.LocationY))
             {
-                StorageId = HydraulicLocationEntityId
+                StorageId = entity.HydraulicLocationEntityId
             };
 
-            if (DesignWaterLevel.HasValue)
+            if (entity.DesignWaterLevel.HasValue)
             {
-                hydraulicBoundaryLocation.DesignWaterLevel = Convert.ToDouble(DesignWaterLevel);
+                hydraulicBoundaryLocation.DesignWaterLevel = Convert.ToDouble(entity.DesignWaterLevel);
             }
 
             return hydraulicBoundaryLocation;
