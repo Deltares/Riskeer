@@ -54,8 +54,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationGroup, treeViewControlMock);
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-            mocks.ReplayAll();
-
             // Call
             var result = ringtoetsContextMenuBuilder.AddCreateCalculationGroupItem(calculationGroup).Build();
 
@@ -80,16 +78,14 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var calculationGroup = new CalculationGroup();
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
             var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationGroup, treeViewControlMock);
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
-
-            mocks.ReplayAll();
 
             // Call
             var result = ringtoetsContextMenuBuilder.AddCreateCalculationItem(calculationGroupContext, context => { }).Build();
@@ -115,9 +111,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithOutputMock = mocks.StrictMock<ICalculation>();
 
-            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
+            calculationWithOutputMock.Expect(c => c.HasOutput).Return(true);
 
             mocks.ReplayAll();
 
@@ -125,14 +121,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    calculationWithOutput
+                    calculationWithOutputMock
                 }
             };
             
             var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationGroup, treeViewControlMock);
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
-
-            mocks.ReplayAll();
 
             // Call
             var result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInGroupItem(calculationGroup).Build();
@@ -162,11 +156,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var calculationGroup = new CalculationGroup();
-
             var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationGroup, treeViewControlMock);
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
-
-            mocks.ReplayAll();
 
             // Call
             var result = ringtoetsContextMenuBuilder.AddClearAllCalculationOutputInGroupItem(calculationGroup).Build();
@@ -205,15 +196,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                     calculation
                 }
             };
-            var testCalculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanisMock);
-
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanisMock);
             var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationGroup, treeViewControlMock);
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-            mocks.ReplayAll();
-
             // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, testCalculationGroupContext, null).Build();
+            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null).Build();
 
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -241,15 +229,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var calculationGroup = new CalculationGroup();
-            var testCalculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanisMock);
-
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanisMock);
             var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationGroup, treeViewControlMock);
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-            mocks.ReplayAll();
-
             // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, testCalculationGroupContext, null).Build();
+            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null).Build();
 
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -278,15 +263,12 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-            var testCalculationContext = new TestCalculationContext(calculation, failureMechanisMock);
-
+            var calculationContext = new TestCalculationContext(calculation, failureMechanisMock);
             var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculation, treeViewControlMock);
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-            mocks.ReplayAll();
-
             // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformCalculationItem(calculation, testCalculationContext, null).Build();
+            var result = ringtoetsContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null).Build();
 
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -309,19 +291,17 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var calculationWithOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithOutputMock = mocks.StrictMock<ICalculation>();
 
-            calculationWithOutput.Expect(c => c.HasOutput).Return(true);
+            calculationWithOutputMock.Expect(c => c.HasOutput).Return(true);
 
             mocks.ReplayAll();
 
-            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationWithOutput, treeViewControlMock);
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationWithOutputMock, treeViewControlMock);
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-            mocks.ReplayAll();
-
             // Call
-            var result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithOutput).Build();
+            var result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithOutputMock).Build();
 
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -344,19 +324,17 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
+            var calculationWithoutOutputMock = mocks.StrictMock<ICalculation>();
 
-            calculationWithoutOutput.Expect(c => c.HasOutput).Return(false);
+            calculationWithoutOutputMock.Expect(c => c.HasOutput).Return(false);
 
             mocks.ReplayAll();
 
-            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationWithoutOutput, treeViewControlMock);
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationWithoutOutputMock, treeViewControlMock);
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-            mocks.ReplayAll();
-
             // Call
-            var result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithoutOutput).Build();
+            var result = ringtoetsContextMenuBuilder.AddClearCalculationOutputItem(calculationWithoutOutputMock).Build();
 
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -380,17 +358,15 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            var failureMechanismContextMock = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
 
             mocks.ReplayAll();
 
-            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismContext, treeViewControlMock);
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismContextMock, treeViewControlMock);
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
-            mocks.ReplayAll();
-
             // Call
-            var result = ringtoetsContextMenuBuilder.AddDisabledChangeRelevancyItem(failureMechanismContext).Build();
+            var result = ringtoetsContextMenuBuilder.AddDisabledChangeRelevancyItem(failureMechanismContextMock).Build();
 
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -409,13 +385,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            contextMenuBuilder.Expect(cmb => cmb.AddRenameItem());
+            contextMenuBuilderMock.Expect(cmb => cmb.AddRenameItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
 
             // Call
             ringtoetsContextMenuBuilder.AddRenameItem();
@@ -429,13 +405,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            contextMenuBuilder.Expect(cmb => cmb.AddDeleteItem());
+            contextMenuBuilderMock.Expect(cmb => cmb.AddDeleteItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
 
             // Call
             ringtoetsContextMenuBuilder.AddDeleteItem();
@@ -449,13 +425,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            contextMenuBuilder.Expect(cmb => cmb.AddExpandAllItem());
+            contextMenuBuilderMock.Expect(cmb => cmb.AddExpandAllItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
 
             // Call
             ringtoetsContextMenuBuilder.AddExpandAllItem();
@@ -469,13 +445,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            contextMenuBuilder.Expect(cmb => cmb.AddCollapseAllItem());
+            contextMenuBuilderMock.Expect(cmb => cmb.AddCollapseAllItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
 
             // Call
             ringtoetsContextMenuBuilder.AddCollapseAllItem();
@@ -489,13 +465,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            contextMenuBuilder.Expect(cmb => cmb.AddOpenItem());
+            contextMenuBuilderMock.Expect(cmb => cmb.AddOpenItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
 
             // Call
             ringtoetsContextMenuBuilder.AddOpenItem();
@@ -509,13 +485,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            contextMenuBuilder.Expect(cmb => cmb.AddExportItem());
+            contextMenuBuilderMock.Expect(cmb => cmb.AddExportItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
 
             // Call
             ringtoetsContextMenuBuilder.AddExportItem();
@@ -529,13 +505,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            contextMenuBuilder.Expect(cmb => cmb.AddImportItem());
+            contextMenuBuilderMock.Expect(cmb => cmb.AddImportItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
 
             // Call
             ringtoetsContextMenuBuilder.AddImportItem();
@@ -549,13 +525,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            contextMenuBuilder.Expect(cmb => cmb.AddPropertiesItem());
+            contextMenuBuilderMock.Expect(cmb => cmb.AddPropertiesItem());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
 
             // Call
             ringtoetsContextMenuBuilder.AddPropertiesItem();
@@ -569,13 +545,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            contextMenuBuilder.Expect(cmb => cmb.AddSeparator());
+            contextMenuBuilderMock.Expect(cmb => cmb.AddSeparator());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
 
             // Call
             ringtoetsContextMenuBuilder.AddSeparator();
@@ -589,17 +565,17 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuItem = mocks.StrictMock<StrictContextMenuItem>();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var contextMenuItemMock = mocks.StrictMock<StrictContextMenuItem>();
+            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            contextMenuBuilder.Expect(cmb => cmb.AddCustomItem(contextMenuItem));
+            contextMenuBuilderMock.Expect(cmb => cmb.AddCustomItem(contextMenuItemMock));
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
 
             // Call
-            ringtoetsContextMenuBuilder.AddCustomItem(contextMenuItem);
+            ringtoetsContextMenuBuilder.AddCustomItem(contextMenuItemMock);
 
             // Assert
             mocks.VerifyAll();
@@ -610,13 +586,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var contextMenuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+            var contextMenuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            contextMenuBuilder.Expect(cmb => cmb.Build());
+            contextMenuBuilderMock.Expect(cmb => cmb.Build());
 
             mocks.ReplayAll();
 
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilderMock);
 
             // Call
             ringtoetsContextMenuBuilder.Build();
