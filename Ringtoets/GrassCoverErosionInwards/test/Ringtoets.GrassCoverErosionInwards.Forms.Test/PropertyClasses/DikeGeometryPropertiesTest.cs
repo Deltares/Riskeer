@@ -106,7 +106,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(coordinatesProperty);
             Assert.IsTrue(coordinatesProperty.IsReadOnly);
             Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
-            Assert.AreEqual("Lijst met geometrie punten.", coordinatesProperty.Description);
+            Assert.AreEqual("Lijst met geometriepunten.", coordinatesProperty.Description);
 
             PropertyDescriptor numberOfCoordinatesDikeHeightProperty = dynamicProperties[numberOfCoordinatesDikeHeightPropertyIndex];
             Assert.IsNotNull(numberOfCoordinatesDikeHeightProperty);

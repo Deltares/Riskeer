@@ -185,7 +185,7 @@
     <value>Dijkgeometrie</value>
   </data>
   <data name="DikeGeometry_Coordinates_Description" xml:space="preserve">
-    <value>Lijst met geometrie punten.</value>
+    <value>Lijst met geometriepunten.</value>
   </data>
   <data name="DikeGeometry_Coordinates_DisplayName" xml:space="preserve">
     <value>Coördinaten [m]</value>

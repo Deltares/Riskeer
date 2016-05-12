@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
@@ -41,6 +42,23 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             Assert.AreEqual("34-1", hydraRingConfigurationService.RingId);
             Assert.AreEqual(HydraRingTimeIntegrationSchemeType.NTI, hydraRingConfigurationService.TimeIntegrationSchemeType);
             Assert.AreEqual(HydraRingUncertaintiesType.Model, hydraRingConfigurationService.UncertaintiesType);
+        }
+
+        [Test]
+        public void AddHydraRingCalculationInput_DuplicateSectionId_ThrowsArgumentException()
+        {
+            // Setup
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
+            var calculationInput = new HydraRingCalculationInputImplementation(1, 2);
+
+            // Precondition
+            hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput);
+
+            // Call
+            TestDelegate test = () => hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Section id is not unique");
         }
 
         [Test]

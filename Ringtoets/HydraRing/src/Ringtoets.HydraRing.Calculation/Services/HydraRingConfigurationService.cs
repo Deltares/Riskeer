@@ -120,8 +120,15 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// Adds Hydra-Ring calculation input to the configuration.
         /// </summary>
         /// <param name="hydraRingCalculationInput">The calculation input to add to the configuration.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="hydraRingCalculationInput"/> with 
+        /// the same <see cref="HydraRingSection.SectionId"/> has already been added.</exception>
         public void AddHydraRingCalculationInput(HydraRingCalculationInput hydraRingCalculationInput)
         {
+            var conflictingIds = hydraRingCalculationInputs.Where(h => h.Section.SectionId == hydraRingCalculationInput.Section.SectionId);
+            if (conflictingIds.Any())
+            {
+                throw new ArgumentException(@"Section id is not unique", "hydraRingCalculationInput");
+            }
             hydraRingCalculationInputs.Add(hydraRingCalculationInput);
         }
 

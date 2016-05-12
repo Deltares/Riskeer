@@ -34,7 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Data
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingSection"/> class.
         /// </summary>
-        /// <param name="sectionId">The id of the section.</param>
+        /// <param name="sectionId">The unique identifier of the section.</param>
         /// <param name="sectionName">The name of the section.</param>
         /// <param name="sectionLength">The length of the section.</param>
         /// <param name="crossSectionNormal">The normal of the cross section.</param>

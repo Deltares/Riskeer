@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 failureMechanismSection.Name, // TODO: Provide name of reference line instead
                 HydraRingTimeIntegrationSchemeType.FBC,
                 HydraRingUncertaintiesType.All,
-                new OvertoppingCalculationInput(hydraulicBoundaryLocationId, new HydraRingSection(hydraulicBoundaryLocationId, failureMechanismSection.Name, sectionLength, inwardsInput.Orientation),
+                new OvertoppingCalculationInput(hydraulicBoundaryLocationId, new HydraRingSection(1, failureMechanismSection.Name, sectionLength, inwardsInput.Orientation),
                                                 inwardsInput.DikeHeight,
                                                 inwardsInput.CriticalOvertoppingModelFactor,
                                                 inwardsInput.FbFactor.Mean, inwardsInput.FbFactor.StandardDeviation,
