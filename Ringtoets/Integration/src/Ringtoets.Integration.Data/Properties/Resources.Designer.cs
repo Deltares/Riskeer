@@ -259,7 +259,7 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Golfklappen op asfaltbekledingen.
+        ///   Looks up a localized string similar to Dijken en dammen - Golfklappen op asfaltbekleding.
         /// </summary>
         public static string WaveImpactAsphaltCoverFailureMechanism_DisplayName {
             get {

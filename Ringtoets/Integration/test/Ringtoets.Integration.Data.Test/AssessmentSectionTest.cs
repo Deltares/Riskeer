@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Data.Test
             var grassErosionInsideName = "Dijken en dammen - Grasbekleding erosie kruin en binnentalud";
             var macrostabilityInwardName = "Dijken en dammen - Macrostabiliteit binnenwaarts";
             var stoneRevetmentName = "Dijken en dammen - Stabiliteit steenzetting";
-            var waveImpactAsphaltName = "Dijken en dammen - Golfklappen op asfaltbekledingen";
+            var waveImpactAsphaltName = "Dijken en dammen - Golfklappen op asfaltbekleding";
             var grassCoverErosionOutwardsName = "Dijken en dammen - Grasbekleding erosie buitentalud";
             var grassCoverSlipOffOutsideName = "Dijken en dammen - Grasbekleding afschuiven buitentalud";
             var heightStructureName = "Kunstwerken - Hoogte kunstwerk";
