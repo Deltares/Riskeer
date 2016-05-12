@@ -221,7 +221,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var mocks = new MockRepository();
-            var model = mocks.StrictMock<FailureMechanismBase>("name", "code");
+            var model = mocks.StrictMock<IFailureMechanism>();
             var collector = new CreateConversionCollector();
             
             // Call

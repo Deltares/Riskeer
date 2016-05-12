@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<FailureMechanismSectionResult>), info.DataType);
             Assert.AreEqual(typeof(IEnumerable<FailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new Simple();
-            var context = new FailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism);
+            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
             mocks.ReplayAll();
 
             // Call
@@ -112,7 +112,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext), dataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<FailureMechanismSectionResult>), dataType);
         }
 
         [Test]
@@ -161,7 +161,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var viewMock = mocks.StrictMock<FailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mocks.Stub<IFailureMechanism>();
+            var failureMechanismMock = mocks.Stub<FailureMechanismBase<FailureMechanismSectionResult>>("N","C");
             var failureMechanism = new Simple();
 
             viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
@@ -280,7 +280,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var viewMock = mocks.StrictMock<FailureMechanismResultView>();
             var failureMechanism = new Simple();
-            var context = new FailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism);
+            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
             viewMock.Expect(v => v.FailureMechanism = failureMechanism);
 
@@ -293,7 +293,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             mocks.VerifyAll();
         }
 
-        private class Simple : FailureMechanismBase
+        private class Simple : FailureMechanismBase<FailureMechanismSectionResult>
         {
             public Simple() : base("simple failure mechanism", "simple code") {}
 
@@ -303,6 +303,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 {
                     throw new NotImplementedException();
                 }
+            }
+
+            protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+            {
+                throw new NotImplementedException();
             }
         }
     }

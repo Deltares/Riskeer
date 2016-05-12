@@ -598,7 +598,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             return failureMechanismResultView;
         }
 
-        private class SimpleFailureMechanism : FailureMechanismBase
+        private class SimpleFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>
         {
             public SimpleFailureMechanism() : base("Stubbed name", "Stubbed code") {}
 
@@ -608,6 +608,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                 {
                     throw new NotImplementedException();
                 }
+            }
+
+            protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+            {
+                return new FailureMechanismSectionResult(section);
             }
         }
 

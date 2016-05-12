@@ -291,7 +291,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 new Point2D(3, 4)
             });
 
-            var failureMechanism = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.AddSection(section);
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)

@@ -28,7 +28,7 @@ namespace Application.Ringtoets.Storage.Update
 {
     public static class FailureMechanismBaseUpdateExtensions
     {
-        public static void UpdateFailureMechanismSections(this FailureMechanismBase mechanism, UpdateConversionCollector collector, FailureMechanismEntity entity, IRingtoetsEntities context)
+        public static void UpdateFailureMechanismSections(this FailureMechanismBase<FailureMechanismSectionResult> mechanism, UpdateConversionCollector collector, FailureMechanismEntity entity, IRingtoetsEntities context)
         {
             if (collector == null)
             {

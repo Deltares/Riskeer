@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsFormsResources.Map
             };
 
-            yield return new ViewInfo<FailureMechanismSectionResultContext, IEnumerable<FailureMechanismSectionResult>, FailureMechanismResultView>
+            yield return new ViewInfo<FailureMechanismSectionResultContext<FailureMechanismSectionResult>, IEnumerable<FailureMechanismSectionResult>, FailureMechanismResultView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -247,7 +247,7 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext>
+            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<FailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -317,13 +317,13 @@ namespace Ringtoets.Integration.Plugin
             var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
             if (assessmentSection != null)
             {
-                return assessmentSection.GetFailureMechanisms().Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                return assessmentSection.GetFailureMechanisms().Any(fm => ReferenceEquals(view.Data, ((FailureMechanismBase<FailureMechanismSectionResult>)fm).SectionResults));
             }
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<FailureMechanismSectionResult>)failureMechanism).SectionResults);
         }
 
         #endregion
@@ -505,7 +505,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new ArrayList
             {
-                new FailureMechanismSectionResultContext(nodeData.SectionResults, nodeData)
+                new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(nodeData.SectionResults, nodeData)
             };
         }
 

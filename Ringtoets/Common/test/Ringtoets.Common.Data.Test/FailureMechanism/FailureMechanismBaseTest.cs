@@ -331,7 +331,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 
-        private class SimpleFailureMechanismBase : FailureMechanismBase
+        private class SimpleFailureMechanismBase : FailureMechanismBase<FailureMechanismSectionResult>
         {
             public SimpleFailureMechanismBase(string failureMechanismName = "SomeName", string failureMechanismCode = "SomeCode") : base(failureMechanismName, failureMechanismCode) {}
 
@@ -341,6 +341,11 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                 {
                     throw new NotImplementedException();
                 }
+            }
+
+            protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+            {
+                return new FailureMechanismSectionResult(section);
             }
         }
     }

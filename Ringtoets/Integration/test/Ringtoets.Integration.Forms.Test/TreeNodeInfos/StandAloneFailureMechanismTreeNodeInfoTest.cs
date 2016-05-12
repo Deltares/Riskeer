@@ -185,7 +185,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Uitvoer", outputFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-                var failureMechanismResultsContext = (FailureMechanismSectionResultContext) outputFolder.Contents[0];
+                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<FailureMechanismSectionResult>)outputFolder.Contents[0];
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
             }

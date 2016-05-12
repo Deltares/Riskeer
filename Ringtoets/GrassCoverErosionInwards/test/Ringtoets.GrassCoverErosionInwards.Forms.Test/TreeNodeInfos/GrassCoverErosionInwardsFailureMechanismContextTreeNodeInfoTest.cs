@@ -151,7 +151,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Uitvoer", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext) outputsFolder.Contents[0];
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<FailureMechanismSectionResult>)outputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
             mocksRepository.VerifyAll();

@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Data.Test.Placeholders
             var failureMechanism = new StandAloneFailureMechanism(expectedName, expectedCode);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.IsInstanceOf<FailureMechanismBase<FailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual(expectedName, failureMechanism.Name);
             Assert.AreEqual(expectedCode, failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);

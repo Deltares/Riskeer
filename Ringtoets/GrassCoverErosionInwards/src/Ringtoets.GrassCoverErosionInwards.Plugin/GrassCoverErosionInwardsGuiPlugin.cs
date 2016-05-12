@@ -238,7 +238,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             return new ArrayList
             {
-                new FailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism)
+                new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
             };
         }
 

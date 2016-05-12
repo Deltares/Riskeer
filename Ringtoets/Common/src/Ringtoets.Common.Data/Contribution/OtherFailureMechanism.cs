@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.Contribution
     /// This class represents a failure mechanism which has no representative within Ringtoets but 
     /// contributes to the overall verdict nonetheless.
     /// </summary>
-    public class OtherFailureMechanism : FailureMechanismBase
+    public class OtherFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="OtherFailureMechanism"/>.
@@ -43,6 +43,11 @@ namespace Ringtoets.Common.Data.Contribution
             {
                 yield break;
             }
+        }
+
+        protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        {
+            return new FailureMechanismSectionResult(section);
         }
     }
 }

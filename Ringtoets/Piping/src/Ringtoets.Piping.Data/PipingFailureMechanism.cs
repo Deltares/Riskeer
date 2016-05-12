@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism
+    public class PipingFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>, ICalculatableFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
@@ -53,6 +53,11 @@ namespace Ringtoets.Piping.Data
             {
                 return CalculationsGroup.GetCalculations();
             }
+        }
+
+        protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        {
+            return new FailureMechanismSectionResult(section);
         }
 
         public override double Contribution

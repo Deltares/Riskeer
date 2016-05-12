@@ -31,7 +31,7 @@ namespace Ringtoets.Integration.Data.Placeholders
     /// <summary>
     /// Defines a placeholder for stand alone failure mechanisms objects
     /// </summary>
-    public class StandAloneFailureMechanism : FailureMechanismBase
+    public class StandAloneFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StandAloneFailureMechanism"/> class.
@@ -56,6 +56,11 @@ namespace Ringtoets.Integration.Data.Placeholders
             {
                 yield break;
             }
+        }
+
+        protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        {
+            return new FailureMechanismSectionResult(section);
         }
 
         /// <summary>

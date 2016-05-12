@@ -27,7 +27,7 @@ namespace Application.Ringtoets.Storage.Create
 {
     public static class FailureMechanismBaseCreateExtensions
     {
-        public static void CreateFailureMechanismSections(this FailureMechanismBase mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
+        public static void CreateFailureMechanismSections(this FailureMechanismBase<FailureMechanismSectionResult> mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
         {
             if (collector == null)
             {

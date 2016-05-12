@@ -167,7 +167,8 @@ namespace Application.Ringtoets.Storage.Test.Update
         } 
     }
 
-    public class TestFailureMechanism : FailureMechanismBase {
+    public class TestFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>
+    {
         public TestFailureMechanism() : base("name", "code")
         {}
 
@@ -177,6 +178,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 throw new NotImplementedException();
             }
+        }
+
+        protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        {
+            return new FailureMechanismSectionResult(section);
         }
     }
 }

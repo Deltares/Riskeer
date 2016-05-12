@@ -97,7 +97,7 @@ namespace Application.Ringtoets.Storage.DbContext
             return failureMechanism;
         }
 
-        private void ReadFailureMechanismSections(FailureMechanismBase failureMechanism)
+        private void ReadFailureMechanismSections(FailureMechanismBase<FailureMechanismSectionResult> failureMechanism)
         {
             foreach (var failureMechanismSectionEntity in FailureMechanismSectionEntities)
             {

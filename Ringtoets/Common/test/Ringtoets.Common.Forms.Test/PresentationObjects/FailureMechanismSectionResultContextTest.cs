@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 
@@ -23,7 +23,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            var context = new FailureMechanismSectionResultContext(new[]
+            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(new []
             {
                 sectionResult
             }, failureMechanismMock);
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionResultContext(null, failureMechanismMock);
+            TestDelegate call = () => new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(null, failureMechanismMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             var sectionResult = CreateFailureMechanismSectionResult();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionResultContext(new[]
+            TestDelegate call = () => new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(new[]
             {
                 sectionResult
             }, null);

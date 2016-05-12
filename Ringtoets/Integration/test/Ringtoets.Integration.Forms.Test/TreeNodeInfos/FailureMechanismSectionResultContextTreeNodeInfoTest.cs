@@ -26,6 +26,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Data;
@@ -45,14 +46,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<FailureMechanismSectionResult>));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext), info.TagType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<FailureMechanismSectionResult>), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
@@ -75,7 +76,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new PipingFailureMechanism();
-            var context = new FailureMechanismSectionResultContext(mechanism.SectionResults, mechanism);
+            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
 
             // Call
             var text = info.Text(context);

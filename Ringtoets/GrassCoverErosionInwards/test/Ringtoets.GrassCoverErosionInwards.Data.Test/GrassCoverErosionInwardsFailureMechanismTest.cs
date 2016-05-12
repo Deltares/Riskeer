@@ -45,7 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // assert
-            Assert.IsInstanceOf<FailureMechanismBase>(grassCoverErosionInwardsFailureMechanism);
+            Assert.IsInstanceOf<FailureMechanismBase<FailureMechanismSectionResult>>(grassCoverErosionInwardsFailureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(grassCoverErosionInwardsFailureMechanism);
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, grassCoverErosionInwardsFailureMechanism.Name);
             Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, grassCoverErosionInwardsFailureMechanism.Code);

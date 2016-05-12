@@ -30,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// Model for performing grass cover erosion inwards calculations.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism
+    public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>, ICalculatableFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanism"/> class.
@@ -49,6 +49,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 return CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
             }
+        }
+
+        protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        {
+            return new FailureMechanismSectionResult(section);
         }
 
         /// <summary>

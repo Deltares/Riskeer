@@ -36,6 +36,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -171,7 +172,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Uitvoer", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext) outputsFolder.Contents[0];
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<FailureMechanismSectionResult>)outputsFolder.Contents[0];
             Assert.AreSame(pipingFailureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
             mocks.VerifyAll();

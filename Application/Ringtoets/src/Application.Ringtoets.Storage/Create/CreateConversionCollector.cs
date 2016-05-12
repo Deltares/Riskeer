@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Create
     {
         private readonly Dictionary<ProjectEntity, Project> projects = new Dictionary<ProjectEntity, Project>(new ReferenceEqualityComparer<ProjectEntity>());
         private readonly Dictionary<AssessmentSectionEntity, AssessmentSection> assessmentSections = new Dictionary<AssessmentSectionEntity, AssessmentSection>(new ReferenceEqualityComparer<AssessmentSectionEntity>());
-        private readonly Dictionary<FailureMechanismEntity, FailureMechanismBase> failureMechanisms = new Dictionary<FailureMechanismEntity, FailureMechanismBase>(new ReferenceEqualityComparer<FailureMechanismEntity>());
+        private readonly Dictionary<FailureMechanismEntity, IFailureMechanism> failureMechanisms = new Dictionary<FailureMechanismEntity, IFailureMechanism>(new ReferenceEqualityComparer<FailureMechanismEntity>());
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = new Dictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
         private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels = new Dictionary<StochasticSoilModelEntity, StochasticSoilModel>(new ReferenceEqualityComparer<StochasticSoilModelEntity>());
@@ -103,13 +103,13 @@ namespace Application.Ringtoets.Storage.Create
         /// was constructed with the information.
         /// </summary>
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> that was constructed.</param>
-        /// <param name="model">The new <see cref="FailureMechanismBase"/> which needed to be created.</param>
+        /// <param name="model">The new <see cref="IFailureMechanism"/> which needed to be created.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        internal void Create(FailureMechanismEntity entity, FailureMechanismBase model)
+        internal void Create(FailureMechanismEntity entity, IFailureMechanism model)
         {
             Create(failureMechanisms, entity, model);
         }
