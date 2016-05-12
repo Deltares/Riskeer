@@ -19,8 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils.Attributes;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
@@ -55,7 +60,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-
         [Test]
         public void PropertyAttributes_ReturnExpectedValues()
         {
@@ -69,7 +73,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
+
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
+            Assert.AreEqual(4, dynamicProperties.Count);
+
+            var meanAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty("Mean"));
+            Assert.IsNotNull(meanAttributes);
+            AssertAttributesOfType<ResourcesDisplayNameAttribute, string>(meanAttributes, "Verwachtingswaarde",
+                                                                          attribute => attribute.DisplayName);
+            AssertAttributesOfType<ResourcesDescriptionAttribute, string>(meanAttributes,
+                                                                          "De gemiddelde waarde van de lognormale verdeling.",
+                                                                          attribute => attribute.Description);
+
+            var standardAttributes = Attribute.GetCustomAttributes(properties.GetType().GetProperty("StandardDeviation"));
+            Assert.IsNotNull(standardAttributes);
+            AssertAttributesOfType<ResourcesDisplayNameAttribute, string>(standardAttributes, "Standaardafwijking",
+                                                                          attribute => attribute.DisplayName);
+            AssertAttributesOfType<ResourcesDescriptionAttribute, string>(standardAttributes,
+                                                                          "De standaardafwijking van de lognormale verdeling.",
+                                                                          attribute => attribute.Description);
+
             mockRepository.VerifyAll();
+        }
+
+        private static void AssertAttributesOfType<T, TR>(IEnumerable<Attribute> attributes, TR expectedValue,
+                                                          Func<T, TR> action)
+        {
+            var meanDisplayNameAttribute = attributes.OfType<T>();
+            Assert.IsNotNull(meanDisplayNameAttribute);
+            var e = meanDisplayNameAttribute.FirstOrDefault();
+            Assert.IsNotNull(e);
+            Assert.AreEqual(expectedValue, action(e));
         }
     }
 }

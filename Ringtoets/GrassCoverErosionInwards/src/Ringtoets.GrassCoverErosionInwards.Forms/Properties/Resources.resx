@@ -185,13 +185,13 @@
     <value>Dijkgeometrie</value>
   </data>
   <data name="DikeGeometry_Coordinates_Description" xml:space="preserve">
-    <value>Lijst met geometriepunten.</value>
+    <value>Lijst met punten in lokale coördinaten.</value>
   </data>
   <data name="DikeGeometry_Coordinates_DisplayName" xml:space="preserve">
     <value>Coördinaten [m]</value>
   </data>
   <data name="DikeGeometry_Roughness_Description" xml:space="preserve">
-    <value>Lijst met ruwheden per sectie.</value>
+    <value>Lijst met de ruwheid van elk onderdeel.</value>
   </data>
   <data name="DikeGeometry_Roughness_DisplayName" xml:space="preserve">
     <value>Ruwheden [-]</value>
@@ -275,9 +275,15 @@
     <value>Standaardafwijking</value>
   </data>
   <data name="CriticalFlowRate_Description" xml:space="preserve">
-    <value>Het kritische overslagdebiet.</value>
+    <value>Kritisch overslagdebiet per strekkende meter.</value>
   </data>
   <data name="CriticalFlowRate_DisplayName" xml:space="preserve">
-    <value>Kritisch overslagdebiet [m3/m/s]</value>
+    <value>Kritisch overslagdebiet [m³/s/m]</value>
+  </data>
+  <data name="LognormalDistribution_Mean_Description" xml:space="preserve">
+    <value>De gemiddelde waarde van de lognormale verdeling.</value>
+  </data>
+  <data name="LogNormalDistribution_StandardDeviation_Description" xml:space="preserve">
+    <value>De standaardafwijking van de lognormale verdeling.</value>
   </data>
 </root>

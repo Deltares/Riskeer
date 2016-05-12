@@ -21,8 +21,11 @@
 
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
@@ -43,6 +46,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             get
             {
                 return "Lognormaal";
+            }
+        }
+
+        [ResourcesDescription(typeof(Resources), "LognormalDistribution_Mean_Description")]
+        public override RoundedDouble Mean
+        {
+            get
+            {
+                return base.Mean;
+            }
+            set
+            {
+                base.Mean = value;
+            }
+        }
+
+        [ResourcesDescription(typeof(Resources), "LogNormalDistribution_StandardDeviation_Description")]
+        public override RoundedDouble StandardDeviation
+        {
+            get
+            {
+                return base.StandardDeviation;
+            }
+            set
+            {
+                base.StandardDeviation = value;
             }
         }
     }

@@ -106,13 +106,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(coordinatesProperty);
             Assert.IsTrue(coordinatesProperty.IsReadOnly);
             Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
-            Assert.AreEqual("Lijst met geometriepunten.", coordinatesProperty.Description);
+            Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
 
             PropertyDescriptor numberOfCoordinatesDikeHeightProperty = dynamicProperties[numberOfCoordinatesDikeHeightPropertyIndex];
             Assert.IsNotNull(numberOfCoordinatesDikeHeightProperty);
             Assert.IsTrue(numberOfCoordinatesDikeHeightProperty.IsReadOnly);
             Assert.AreEqual("Ruwheden [-]", numberOfCoordinatesDikeHeightProperty.DisplayName);
-            Assert.AreEqual("Lijst met ruwheden per sectie.", numberOfCoordinatesDikeHeightProperty.Description);
+            Assert.AreEqual("Lijst met de ruwheid van elk onderdeel.", numberOfCoordinatesDikeHeightProperty.Description);
             mockRepository.VerifyAll();
         }
 

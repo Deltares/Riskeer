@@ -179,7 +179,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het kritische overslagdebiet..
+        ///   Looks up a localized string similar to Kritisch overslagdebiet per strekkende meter..
         /// </summary>
         public static string CriticalFlowRate_Description {
             get {
@@ -188,7 +188,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kritisch overslagdebiet [m3/m/s].
+        ///   Looks up a localized string similar to Kritisch overslagdebiet [m³/s/m].
         /// </summary>
         public static string CriticalFlowRate_DisplayName {
             get {
@@ -197,7 +197,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lijst met geometriepunten..
+        ///   Looks up a localized string similar to Lijst met punten in lokale coördinaten..
         /// </summary>
         public static string DikeGeometry_Coordinates_Description {
             get {
@@ -215,7 +215,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lijst met ruwheden per sectie..
+        ///   Looks up a localized string similar to Lijst met de ruwheid van elk onderdeel..
         /// </summary>
         public static string DikeGeometry_Roughness_Description {
             get {
@@ -475,6 +475,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string GrassCoverErosionInwardsInputContext_NodeDisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsInputContext_NodeDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De gemiddelde waarde van de lognormale verdeling..
+        /// </summary>
+        public static string LognormalDistribution_Mean_Description {
+            get {
+                return ResourceManager.GetString("LognormalDistribution_Mean_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De standaardafwijking van de lognormale verdeling..
+        /// </summary>
+        public static string LogNormalDistribution_StandardDeviation_Description {
+            get {
+                return ResourceManager.GetString("LogNormalDistribution_StandardDeviation_Description", resourceCulture);
             }
         }
         

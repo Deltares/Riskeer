@@ -194,8 +194,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor criticalFlowRateProperty = dynamicProperties[criticalFlowRatePropertyIndex];
             Assert.IsNotNull(criticalFlowRateProperty);
             Assert.IsTrue(criticalFlowRateProperty.IsReadOnly);
-            Assert.AreEqual("Kritisch overslagdebiet [m3/m/s]", criticalFlowRateProperty.DisplayName);
-            Assert.AreEqual("Het kritische overslagdebiet.", criticalFlowRateProperty.Description);
+            Assert.AreEqual("Kritisch overslagdebiet [m³/s/m]", criticalFlowRateProperty.DisplayName);
+            Assert.AreEqual("Kritisch overslagdebiet per strekkende meter.", criticalFlowRateProperty.Description);
             mockRepository.VerifyAll();
         }
 

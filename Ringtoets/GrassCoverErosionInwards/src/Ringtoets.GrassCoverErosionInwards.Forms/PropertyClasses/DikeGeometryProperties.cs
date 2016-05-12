@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     public class DikeGeometryProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {
         [PropertyOrder(1)]
-        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
         [ResourcesDisplayName(typeof(Resources), "DikeGeometry_Coordinates_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeGeometry_Coordinates_Description")]
         public RoundedDouble[] Coordinates
@@ -62,7 +62,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
         [ResourcesDisplayName(typeof(Resources), "DikeGeometry_Roughness_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeGeometry_Roughness_Description")]
         public RoundedDouble[] Roughness
