@@ -35,6 +35,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -411,6 +412,72 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
 
             // Assert
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenMultipleCalculationsWithOutput_WhenClearingOutputFromContextMenu_ThenCalculationsOutputClearedAndNotified(bool confirm)
+        {
+            // Given
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var validCalculation = GrassCoverErosionInwardsCalculationFactory.CreateCalculationWithValidInput();
+            validCalculation.Name = "A";
+            var invalidCalculation = GrassCoverErosionInwardsCalculationFactory.CreateCalculationWithInvalidData();
+            invalidCalculation.Name = "B";
+            failureMechanism.CalculationsGroup.Children.Add(validCalculation);
+            failureMechanism.CalculationsGroup.Children.Add(invalidCalculation);
+
+            var gui = mocksRepository.DynamicMock<IGui>();
+            var observerMock = mocksRepository.StrictMock<IObserver>();
+            var treeViewControlMock = mocksRepository.StrictMock<TreeViewControl>();
+            gui.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControlMock)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+            if (confirm)
+            {
+                observerMock.Expect(o => o.UpdateObserver()).Repeat.Twice();
+            }
+            mocksRepository.ReplayAll();
+
+            plugin.Gui = gui;
+
+            validCalculation.Output = new GrassCoverErosionInwardsOutput(0, 0, 0, 0, 0);
+            validCalculation.Attach(observerMock);
+            invalidCalculation.Output = new GrassCoverErosionInwardsOutput(0, 0, 0, 0, 0);
+            invalidCalculation.Attach(observerMock);
+
+            var contextMenuAdapter = info.ContextMenuStrip(failureMechanismContext, null, treeViewControlMock);
+
+            string messageBoxText = null, messageBoxTitle = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                messageBoxText = messageBox.Text;
+                messageBoxTitle = messageBox.Title;
+                if (confirm)
+                {
+                    messageBox.ClickOk();
+                }
+                else
+                {
+                    messageBox.ClickCancel();
+                }
+            };
+
+            // When
+            contextMenuAdapter.Items[contextMenuClearAllIndex].PerformClick();
+
+            // Then
+            foreach (var calculation in failureMechanism.CalculationsGroup.Children.OfType<ICalculation>())
+            {
+                Assert.AreNotEqual(confirm, calculation.HasOutput);
+            }
+            Assert.AreEqual("Bevestigen", messageBoxTitle);
+            Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
             mocksRepository.VerifyAll();
         }
 
