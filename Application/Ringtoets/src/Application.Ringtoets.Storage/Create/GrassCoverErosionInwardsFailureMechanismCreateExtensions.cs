@@ -22,17 +22,16 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="PipingFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="GrassCoverErosionInwardsFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
     internal static class GrassCoverErosionInwardsFailureMechanismCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="PipingFailureMechanism"/>.
+        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The failure mechanism to create a database entity for.</param>
         /// <param name="collector">The object keeping track of create operations.</param>
@@ -51,7 +50,7 @@ namespace Application.Ringtoets.Storage.Create
                 IsRelevant = Convert.ToByte(mechanism.IsRelevant)
             };
 
-            mechanism.CreateFailureMechanismSections(collector, entity);
+            mechanism.AddEntitiesForFailureMechanismSections(collector, entity);
 
             collector.Create(entity, mechanism);
             return entity;

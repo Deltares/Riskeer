@@ -21,7 +21,6 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -33,7 +32,7 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class GrassCoverErosionInwardsFailureMechanismTest
     {
         [Test]
-        public void CreateFailureMechanismSections_WithoutCollector_ArgumentNullException()
+        public void CreateFailureMechanismSections_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();

@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Create
             };
 
             AddEntitiesForStochasticSoilModels(mechanism, collector, entity);
-            mechanism.CreateFailureMechanismSections(collector, entity);
+            mechanism.AddEntitiesForFailureMechanismSections(collector, entity);
 
             collector.Create(entity, mechanism);
             return entity;

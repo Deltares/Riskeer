@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoPipingFailureMechanism_EntityNotFoundException()
+        public void Update_ContextWithNoGrassCoverErosionInwardsFailureMechanism_EntityNotFoundException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoPipingFailureMechanismWithId_EntityNotFoundException()
+        public void Update_ContextWithNoGrassCoverErosionInwardsFailureMechanismWithId_EntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -123,7 +123,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithPipingFailureMechanism_PropertiesUpdated()
+        public void Update_ContextWithGrassCoverErosionInwardsFailureMechanism_PropertiesUpdated()
         {
             // Setup
             MockRepository mocks = new MockRepository();

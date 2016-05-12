@@ -135,7 +135,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             var newName = "newName";
             var composition = AssessmentSectionComposition.Dune;
-            var section = InitialzeCreatedDikeAssessmentSection(AssessmentSectionComposition.Dune);
+            var section = InitializeCreatedDikeAssessmentSection(AssessmentSectionComposition.Dune);
             section.Name = newName;
 
             var entity = new AssessmentSectionEntity
@@ -175,7 +175,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 new Point2D(1, 2)
             });
-            var section = InitialzeCreatedDikeAssessmentSection();
+            var section = InitializeCreatedDikeAssessmentSection();
             section.ReferenceLine = referenceLine;
 
             var entity = new AssessmentSectionEntity
@@ -208,7 +208,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 new Point2D(1, 2)
             });
-            var section = InitialzeCreatedDikeAssessmentSection();
+            var section = InitializeCreatedDikeAssessmentSection();
             section.ReferenceLine = referenceLine;
 
             var referenceLinePointEntity = new ReferenceLinePointEntity
@@ -248,7 +248,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             var newVersion = "new version";
             var filePath = "new path";
-            var section = InitialzeCreatedDikeAssessmentSection();
+            var section = InitializeCreatedDikeAssessmentSection();
             section.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = filePath,
@@ -292,7 +292,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 StorageId = 1
             };
-            var section = InitialzeCreatedDikeAssessmentSection();
+            var section = InitializeCreatedDikeAssessmentSection();
             section.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = filePath,
@@ -344,7 +344,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var section = InitialzeCreatedDikeAssessmentSection();
+            var section = InitializeCreatedDikeAssessmentSection();
             section.PipingFailureMechanism.StorageId = 1;
             section.PipingFailureMechanism.Contribution = 0.5;
             section.PipingFailureMechanism.IsRelevant = true;
@@ -387,7 +387,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var section = InitialzeCreatedDikeAssessmentSection();
+            var section = InitializeCreatedDikeAssessmentSection();
             section.GrassCoverErosionInwards.Contribution = 0.5;
             section.GrassCoverErosionInwards.IsRelevant = true;
 
@@ -429,7 +429,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var section = InitialzeCreatedDikeAssessmentSection();
+            var section = InitializeCreatedDikeAssessmentSection();
             section.StorageId = 1;
             section.MacrostabilityInwards.StorageId = 1;
             section.MacrostabilityInwards.Contribution = 0.5;
@@ -541,7 +541,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             mocks.VerifyAll();
         }
 
-        public AssessmentSection InitialzeCreatedDikeAssessmentSection(AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
+        private AssessmentSection InitializeCreatedDikeAssessmentSection(AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
             return new AssessmentSection(composition)
             {

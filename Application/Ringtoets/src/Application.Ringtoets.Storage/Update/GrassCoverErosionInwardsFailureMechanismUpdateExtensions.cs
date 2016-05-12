@@ -25,18 +25,17 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Update
 {
     /// <summary>
-    /// Extension methods for <see cref="PipingFailureMechanism"/> related to updating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="GrassCoverErosionInwardsFailureMechanism"/> related to updating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
     internal static class GrassCoverErosionInwardsFailureMechanismUpdateExtensions
     {
         /// <summary>
         /// Updates a <see cref="FailureMechanismEntity"/> in the database based on the information of the 
-        /// <see cref="PipingFailureMechanism"/>.
+        /// <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The mechanism to update the database entity for.</param>
         /// <param name="collector">The object keeping track of update operations.</param>

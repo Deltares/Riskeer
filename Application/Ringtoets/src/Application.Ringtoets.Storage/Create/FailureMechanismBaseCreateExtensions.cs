@@ -25,9 +25,24 @@ using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Create
 {
+    /// <summary>
+    /// Extension methods for <see cref="FailureMechanismBase{T}"/> related to creating a <see cref="FailureMechanismEntity"/>.
+    /// </summary>
     internal static class FailureMechanismBaseCreateExtensions
     {
-        internal static void CreateFailureMechanismSections(this FailureMechanismBase<FailureMechanismSectionResult> mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
+        /// <summary>
+        /// Creates <see cref="FailureMechanismSectionEntity"/> instances based on the information of the <see cref="FailureMechanismBase{T}"/>.
+        /// </summary>
+        /// <param name="mechanism">The failure mechanism to create a database failure mechanism section entities for.</param>
+        /// <param name="collector">The object keeping track of create operations.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to which to add the created entities.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// </list>
+        /// </exception>
+        internal static void AddEntitiesForFailureMechanismSections(this FailureMechanismBase<FailureMechanismSectionResult> mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
         {
             if (collector == null)
             {

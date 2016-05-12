@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Read
             return assessmentSection;
         }
 
-        private static void ReadReferenceLine(this AssessmentSectionEntity entity, AssessmentSection assessmentSection)
+        private static void ReadReferenceLine(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)
         {
             if (entity.ReferenceLinePointEntities.Any())
             {
@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadHydraulicDatabase(this AssessmentSectionEntity entity, AssessmentSection assessmentSection)
+        private static void ReadHydraulicDatabase(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)
         {
             if (entity.HydraulicDatabaseLocation != null)
             {

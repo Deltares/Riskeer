@@ -26,8 +26,26 @@ using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Update
 {
+    /// <summary>
+    /// Extension methods for <see cref="FailureMechanismBase{T}"/> related to updating a <see cref="FailureMechanismEntity"/>.
+    /// </summary>
     internal static class FailureMechanismBaseUpdateExtensions
     {
+        /// <summary>
+        /// Updates <see cref="FailureMechanismSectionEntity"/> instances of a <see cref="FailureMechanismEntity"/>
+        /// based on the sections defined on the <see cref="FailureMechanismBase{T}"/>.
+        /// </summary>
+        /// <param name="mechanism">The failure mechanism to update the database failure mechanism section entities for.</param>
+        /// <param name="collector">The object keeping track of update operations.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> for which to update the assessment section entities.</param>
+        /// <param name="context">The context to obtain the existing entities from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="collector"/> is <c>null</c></item>
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="context"/> is <c>null</c></item>
+        /// </list>
+        /// </exception>
         internal static void UpdateFailureMechanismSections(this FailureMechanismBase<FailureMechanismSectionResult> mechanism, UpdateConversionCollector collector, FailureMechanismEntity entity, IRingtoetsEntities context)
         {
             if (collector == null)

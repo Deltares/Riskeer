@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Update
     public class FailureMechanismBaseUpdateExtensionsTest
     {
         [Test]
-        public void CreateFailureMechanismSections_WithoutCollector_ArgumentNullException()
+        public void UpdateFailureMechanismSections_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void CreateFailureMechanismSections_WithoutEntity_ArgumentNullException()
+        public void UpdateFailureMechanismSections_WithoutEntity_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void CreateFailureMechanismSections_WithoutContext_ArgumentNullException()
+        public void UpdateFailureMechanismSections_WithoutContext_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();

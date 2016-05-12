@@ -34,13 +34,13 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class FailureMechanismBaseCreateExtensionsTest
     {
         [Test]
-        public void CreateFailureMechanismSections_WithoutCollector_ArgumentNullException()
+        public void CreateFailureMechanismSections_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.CreateFailureMechanismSections(null, new FailureMechanismEntity());
+            TestDelegate test = () => failureMechanism.AddEntitiesForFailureMechanismSections(null, new FailureMechanismEntity());
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -48,13 +48,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void CreateFailureMechanismSections_WithoutEntity_ArgumentNullException()
+        public void CreateFailureMechanismSections_WithoutEntity_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.CreateFailureMechanismSections(new CreateConversionCollector(), null);
+            TestDelegate test = () => failureMechanism.AddEntitiesForFailureMechanismSections(new CreateConversionCollector(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var failureMechanismEntity = new FailureMechanismEntity();
 
             // Call
-            failureMechanism.CreateFailureMechanismSections(new CreateConversionCollector(), failureMechanismEntity);
+            failureMechanism.AddEntitiesForFailureMechanismSections(new CreateConversionCollector(), failureMechanismEntity);
 
             // Assert
             Assert.IsEmpty(failureMechanismEntity.FailureMechanismSectionEntities);
@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var failureMechanismEntity = new FailureMechanismEntity();
 
             // Call
-            failureMechanism.CreateFailureMechanismSections(new CreateConversionCollector(), failureMechanismEntity);
+            failureMechanism.AddEntitiesForFailureMechanismSections(new CreateConversionCollector(), failureMechanismEntity);
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
