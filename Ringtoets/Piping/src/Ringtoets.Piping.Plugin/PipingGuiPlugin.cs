@@ -323,11 +323,10 @@ namespace Ringtoets.Piping.Plugin
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
         {
-            var builder = Gui.Get(pipingFailureMechanismContext, treeViewControl);
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
 
-            RingtoetsContextMenuItemFactory.AddDisabledChangeRelevancyItem(builder, pipingFailureMechanismContext);
-
-            return builder.AddSeparator()
+            return builder.AddDisabledChangeRelevancyItem(pipingFailureMechanismContext)
+                          .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .Build();
@@ -445,20 +444,20 @@ namespace Ringtoets.Piping.Plugin
 
         private ContextMenuStrip PipingCalculationContextContextMenuStrip(PipingCalculationScenarioContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var builder = Gui.Get(nodeData, treeViewControl);
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
             PipingCalculation calculation = nodeData.WrappedData;
+
             var validateItem = new StrictContextMenuItem(RingtoetsCommonFormsResources.Validate,
                                                          RingtoetsCommonFormsResources.Validate_ToolTip,
                                                          RingtoetsCommonFormsResources.ValidateIcon,
                                                          (o, args) => { PipingCalculationService.Validate(calculation); });
 
-            builder.AddCustomItem(validateItem);
-            RingtoetsContextMenuItemFactory.AddPerformCalculationItem(builder, calculation, nodeData, PerformCalculation);
-            RingtoetsContextMenuItemFactory.AddClearCalculationOutputItem(builder, calculation);
-            builder.AddSeparator();
-
-            return builder.AddRenameItem()
+            return builder.AddCustomItem(validateItem)
+                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
+                          .AddClearCalculationOutputItem(calculation)
+                          .AddSeparator()
+                          .AddRenameItem()
                           .AddDeleteItem()
                           .AddSeparator()
                           .AddImportItem()
@@ -558,7 +557,7 @@ namespace Ringtoets.Piping.Plugin
         private ContextMenuStrip PipingCalculationGroupContextContextMenuStrip(PipingCalculationGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var group = nodeData.WrappedData;
-            var builder = Gui.Get(nodeData, treeViewControl);
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var isNestedGroup = parentData is PipingCalculationGroupContext;
 
             var generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
@@ -572,13 +571,13 @@ namespace Ringtoets.Piping.Plugin
                        .AddSeparator();
             }
 
-            RingtoetsContextMenuItemFactory.AddCreateCalculationGroupItem(builder, group);
-            RingtoetsContextMenuItemFactory.AddCreateCalculationItem(builder, nodeData, AddCalculationScenario);
-            builder.AddSeparator();
-            builder.AddCustomItem(validateAllItem);
-            RingtoetsContextMenuItemFactory.AddPerformAllCalculationsInGroupItem(builder, group, nodeData, CalculateAll);
-            RingtoetsContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
-            builder.AddSeparator();
+            builder.AddCreateCalculationGroupItem(group)
+                   .AddCreateCalculationItem(nodeData, AddCalculationScenario)
+                   .AddSeparator()
+                   .AddCustomItem(validateAllItem)
+                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll)
+                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddSeparator();
 
             if (isNestedGroup)
             {

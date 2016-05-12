@@ -20,9 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Core.Common.Controls.TreeView;
-using Core.Common.Gui.Commands;
-using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -39,50 +36,39 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class RingtoetsContextMenuItemFactoryTest : NUnitFormTest
     {
-        [Test]
-        public void AddCreateCalculationGroupItem_Always_CreatesDecoratedCalculationGroupItem()
+        private RingtoetsContextMenuItemFactory factory;
+
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
-
-            mocks.ReplayAll();
-
-            var calculationGroup = new CalculationGroup();
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
-
-            // Call
-            RingtoetsContextMenuItemFactory.AddCreateCalculationGroupItem(menuBuilder, calculationGroup);
-
-            // Assert
-            TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
-                                                          RingtoetsFormsResources.AddFolderIcon);
+            factory = new RingtoetsContextMenuItemFactory();
         }
 
         [Test]
-        public void AddCreateCalculationGroupItem_PerformClickOnCreatedItem_CalculationGroupAdded()
+        public void CreateAddCalculationGroupItem_Always_CreatesDecoratedItem()
         {
             // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
-
-            mocks.ReplayAll();
-
             var calculationGroup = new CalculationGroup();
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
-            RingtoetsContextMenuItemFactory.AddCreateCalculationGroupItem(menuBuilder, calculationGroup);
-            var contextMenuItem = menuBuilder.Build().Items[0];
 
             // Call
-            contextMenuItem.PerformClick();
+            var toolStripItem = factory.CreateAddCalculationGroupItem(calculationGroup);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AddFolderIcon, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
+        }
+
+        [Test]
+        public void CreateAddCalculationGroupItem_PerformClickOnCreatedItem_CalculationGroupAdded()
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup();
+            var toolStripItem = factory.CreateAddCalculationGroupItem(calculationGroup);
+
+            // Call
+            toolStripItem.PerformClick();
 
             // Assert
             Assert.AreEqual(1, calculationGroup.Children.Count);
@@ -90,69 +76,56 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddCreateCalculationItem_Always_CreatesDecoratedCalculationItem()
+        public void CreateAddCalculationItem_Always_CreatesDecoratedItem()
         {
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
 
             mocks.ReplayAll();
 
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
 
             // Call
-            RingtoetsContextMenuItemFactory.AddCreateCalculationItem(menuBuilder, calculationGroupContext, null);
+            var toolStripItem = factory.CreateAddCalculationItem(calculationGroupContext, context => { });
 
             // Assert
-            TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation,
-                                                          RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip,
-                                                          RingtoetsFormsResources.FailureMechanismIcon);
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Add_Calculation, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.FailureMechanismIcon, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void AddCreateCalculationItem_PerformClickOnCreatedItem_AddCalculationMethodPerformed()
+        public void CreateAddCalculationItem_PerformClickOnCreatedItem_AddCalculationMethodPerformed()
         {
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
 
             mocks.ReplayAll();
 
             var counter = 0;
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
-
-            RingtoetsContextMenuItemFactory.AddCreateCalculationItem(menuBuilder, calculationGroupContext, context => counter++);
-            var contextMenuItem = menuBuilder.Build().Items[0];
+            var toolStripItem = factory.CreateAddCalculationItem(calculationGroupContext, context => counter++);
 
             // Call
-            contextMenuItem.PerformClick();
+            toolStripItem.PerformClick();
 
             // Assert
             Assert.AreEqual(1, counter);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void AddClearAllCalculationOutputInGroupItem_GroupWithCalculationOutput_CreatesDecoratedAndEnabledClearItem()
+        public void CreateClearAllCalculationOutputInGroupItem_GroupWithCalculationOutput_CreatesDecoratedAndEnabledItem()
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var calculationWithOutput = mocks.StrictMock<ICalculation>();
 
             calculationWithOutput.Expect(c => c.HasOutput).Return(true);
@@ -167,27 +140,21 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 }
             };
 
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
-
             // Call
-            RingtoetsContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(menuBuilder, calculationGroup);
+            var toolStripItem = factory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
 
             // Assert
-            TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
-                                                          RingtoetsFormsResources.Clear_all_output,
-                                                          RingtoetsFormsResources.CalculationGroup_ClearOutput_ToolTip,
-                                                          RingtoetsFormsResources.ClearIcon);
+            Assert.AreEqual(RingtoetsFormsResources.Clear_all_output, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_ClearOutput_ToolTip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
         }
 
         [Test]
-        public void AddClearAllCalculationOutputInGroupItem_GroupWithoutCalculationOutput_CreatesDecoratedAndDisabledClearItem()
+        public void CreateClearAllCalculationOutputInGroupItem_GroupWithoutCalculationOutput_CreatesDecoratedAndDisabledItem()
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
 
             calculationWithoutOutput.Expect(c => c.HasOutput).Return(false);
@@ -202,29 +169,22 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 }
             };
 
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
-
             // Call
-            RingtoetsContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(menuBuilder, calculationGroup);
+            var toolStripItem = factory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
 
             // Assert
-            TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
-                                                          RingtoetsFormsResources.Clear_all_output,
-                                                          RingtoetsFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
-                                                          RingtoetsFormsResources.ClearIcon,
-                                                          false);
+            Assert.AreEqual(RingtoetsFormsResources.Clear_all_output, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
         }
 
         [Test]
-        public void AddClearAllCalculationOutputInGroupItem_PerformClickOnCreatedItemAndConfirmChange_CalculationOutputClearedAndObserversNotified()
+        public void CreateClearAllCalculationOutputInGroupItem_PerformClickOnCreatedItemAndConfirmChange_CalculationOutputClearedAndObserversNotified()
         {
             var messageBoxText = "";
             var messageBoxTitle = "";
             var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var calculationWithOutput1 = mocks.StrictMock<ICalculation>();
             var calculationWithOutput2 = mocks.StrictMock<ICalculation>();
             var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
@@ -265,13 +225,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 }
             };
 
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
-
-            RingtoetsContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(menuBuilder, calculationGroup);
-            var contextMenuItem = menuBuilder.Build().Items[0];
+            var toolStripItem = factory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
 
             // Call
-            contextMenuItem.PerformClick();
+            toolStripItem.PerformClick();
 
             // Assert
             Assert.AreEqual(BaseResources.Confirm, messageBoxTitle);
@@ -281,13 +238,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddClearAllCalculationOutputInGroupItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
+        public void CreateClearAllCalculationOutputInGroupItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
         {
             var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var calculationWithOutput1 = mocks.StrictMock<ICalculation>();
             var calculationWithOutput2 = mocks.StrictMock<ICalculation>();
             var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
@@ -321,30 +274,25 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 }
             };
 
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
-
-            RingtoetsContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(menuBuilder, calculationGroup);
-            var contextMenuItem = menuBuilder.Build().Items[0];
+            var toolStripItem = factory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
 
             // Call
-            contextMenuItem.PerformClick();
+            toolStripItem.PerformClick();
 
+            // Assert
             mocks.VerifyAll();
         }
 
         [Test]
-        public void AddPerformAllCalculationsInGroupItem_GroupWithCalculations_CreatesDecoratedAndEnabledPerformItem()
+        public void CreatePerformAllCalculationsInGroupItem_GroupWithCalculations_CreatesDecoratedAndEnabledItem()
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
-            var calculation = mocks.StrictMock<ICalculation>();
+            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
+            var calculation = new TestCalculation();
             var calculationGroup = new CalculationGroup
             {
                 Children =
@@ -352,54 +300,45 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                     calculation
                 }
             };
-
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
+            var testCalculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanisMock);
 
             // Call
-            RingtoetsContextMenuItemFactory.AddPerformAllCalculationsInGroupItem<TestCalculationGroupContext>(menuBuilder, calculationGroup, null, null);
+            var toolStripItem = factory.CreatePerformAllCalculationsInGroupItem(calculationGroup, testCalculationGroupContext, null);
 
             // Assert
-            TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
-                                                          RingtoetsFormsResources.Calculate_all,
-                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip,
-                                                          RingtoetsFormsResources.CalculateAllIcon);
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
         }
 
         [Test]
-        public void AddPerformAllCalculationsInGroupItem_GroupWithoutCalculations_CreatesDecoratedAndDisabledPerformItem()
+        public void CreatePerformAllCalculationsInGroupItem_GroupWithoutCalculations_CreatesDecoratedAndDisabledItem()
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var calculationGroup = new CalculationGroup();
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
+            var testCalculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanisMock);
 
             // Call
-            RingtoetsContextMenuItemFactory.AddPerformAllCalculationsInGroupItem<TestCalculationGroupContext>(menuBuilder, calculationGroup, null, null);
+            var toolStripItem = factory.CreatePerformAllCalculationsInGroupItem(calculationGroup, testCalculationGroupContext, null);
 
             // Assert
-            TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
-                                                          RingtoetsFormsResources.Calculate_all,
-                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
-                                                          RingtoetsFormsResources.CalculateAllIcon,
-                                                          false);
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
         }
 
         [Test]
-        public void AddPerformAllCalculationsInGroupItem_PerformClickOnCreatedItem_PerformAllCalculationMethodPerformed()
+        public void CreatePerformAllCalculationsInGroupItem_PerformClickOnCreatedItem_PerformAllCalculationMethodPerformed()
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var calculation = mocks.StrictMock<ICalculation>();
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
 
@@ -416,56 +355,45 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
 
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationGroup, treeViewControl);
-
-            RingtoetsContextMenuItemFactory.AddPerformAllCalculationsInGroupItem(menuBuilder, calculationGroup, calculationGroupContext, (group, context) => counter++);
-            var contextMenuItem = menuBuilder.Build().Items[0];
+            var toolStripItem = factory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, (group, context) => counter++);
 
             // Call
-            contextMenuItem.PerformClick();
+            toolStripItem.PerformClick();
 
             // Assert
             Assert.AreEqual(1, counter);
         }
 
         [Test]
-        public void AddPerformCalculationItem_Always_CreatesPerformItem()
+        public void CreatePerformCalculationItem_Always_CreatesDecoratedItem()
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
 
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
-
-            var menubuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculation, treeViewControl);
+            var calculationContext = new TestCalculationContext(calculation, failureMechanisMock);
 
             // Call
-            RingtoetsContextMenuItemFactory.AddPerformCalculationItem<TestCalculation, TestCalculationContext>(menubuilder, calculation, null, null);
+            var toolStripItem = factory.CreatePerformCalculationItem(calculation, calculationContext, null);
 
             // Assert
-            TestHelper.AssertContextMenuStripContainsItem(menubuilder.Build(), 0,
-                                                          RingtoetsFormsResources.Calculate,
-                                                          RingtoetsFormsResources.Calculate_ToolTip,
-                                                          RingtoetsFormsResources.CalculateIcon);
+            Assert.AreEqual(RingtoetsFormsResources.Calculate, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_ToolTip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateIcon, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void AddPerformCalculationItem_PerformClickOnCreatedItem_PerformCalculationMethod()
+        public void CreatePerformCalculationItem_PerformClickOnCreatedItem_PerformCalculationMethod()
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
 
             mocks.ReplayAll();
 
@@ -473,13 +401,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var testCalculationContext = new TestCalculationContext(calculation, failureMechanisMock);
 
             var counter = 0;
-
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculation, treeViewControl);
-            RingtoetsContextMenuItemFactory.AddPerformCalculationItem(menuBuilder, calculation, testCalculationContext, (calc, context) => counter++);
-            var contextMenuItem = menuBuilder.Build().Items[0];
+            var toolStripItem = factory.CreatePerformCalculationItem(calculation, testCalculationContext, (calc, context) => counter++);
 
             // Call
-            contextMenuItem.PerformClick();
+            toolStripItem.PerformClick();
 
             // Assert
             Assert.AreEqual(1, counter);
@@ -487,76 +412,60 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddClearCalculationOutputItem_CalculationWithOutput_CreatesDecoratedAndEnabledClearItem()
+        public void CreateClearCalculationOutputItem_CalculationWithOutput_CreatesDecoratedAndEnabledItem()
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var calculationWithOutput = mocks.StrictMock<ICalculation>();
 
             calculationWithOutput.Expect(c => c.HasOutput).Return(true);
 
             mocks.ReplayAll();
 
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationWithOutput, treeViewControl);
-
             // Call
-            RingtoetsContextMenuItemFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
+            var toolStripItem = factory.CreateClearCalculationOutputItem(calculationWithOutput);
 
             // Assert
-            TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
-                                                          RingtoetsFormsResources.Clear_output,
-                                                          RingtoetsFormsResources.Clear_output_ToolTip,
-                                                          RingtoetsFormsResources.ClearIcon);
+            Assert.AreEqual(RingtoetsFormsResources.Clear_output, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.Clear_output_ToolTip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
+
             mocks.VerifyAll();
         }
 
         [Test]
-        public void AddClearCalculationOutputItem_CalculationWithoutOutput_CreatesDecoratedAndDisabledClearItem()
+        public void CreateClearCalculationOutputItem_CalculationWithoutOutput_CreatesDecoratedAndDisabledItem()
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var calculationWithOutput = mocks.StrictMock<ICalculation>();
 
             calculationWithOutput.Expect(c => c.HasOutput).Return(false);
 
             mocks.ReplayAll();
 
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationWithOutput, treeViewControl);
-
             // Call
-            RingtoetsContextMenuItemFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
+            var toolStripItem = factory.CreateClearCalculationOutputItem(calculationWithOutput);
 
             // Assert
-            TestHelper.AssertContextMenuStripContainsItem(menuBuilder.Build(), 0,
-                                                          RingtoetsFormsResources.Clear_output,
-                                                          RingtoetsFormsResources.ClearOutput_No_output_to_clear,
-                                                          RingtoetsFormsResources.ClearIcon,
-                                                          false);
+            Assert.AreEqual(RingtoetsFormsResources.Clear_output, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.ClearOutput_No_output_to_clear, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ClearIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
+
             mocks.VerifyAll();
         }
 
         [Test]
-        public void AddClearCalculationOutputItem_PerformClickOnCreatedItemAndConfirmChange_CalculationOutputClearedAndObserversNotified()
+        public void CreateClearCalculationOutputItem_PerformClickOnCreatedItemAndConfirmChange_CalculationOutputClearedAndObserversNotified()
         {
             var messageBoxText = "";
             var messageBoxTitle = "";
             var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var calculationWithOutput = mocks.StrictMock<ICalculation>();
 
             calculationWithOutput.Stub(c => c.HasOutput).Return(true);
-
             calculationWithOutput.Expect(c => c.ClearOutput());
             calculationWithOutput.Expect(c => c.NotifyObservers());
 
@@ -571,13 +480,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 messageBox.ClickOk();
             };
 
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationWithOutput, treeViewControl);
-
-            RingtoetsContextMenuItemFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
-            var contextMenuItem = menuBuilder.Build().Items[0];
+            var toolStripItem = factory.CreateClearCalculationOutputItem(calculationWithOutput);
 
             // Call
-            contextMenuItem.PerformClick();
+            toolStripItem.PerformClick();
 
             // Assert
             Assert.AreEqual(BaseResources.Confirm, messageBoxTitle);
@@ -587,13 +493,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddClearCalculationOutputItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
+        public void CreateClearCalculationOutputItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
         {
             var mocks = new MockRepository();
-            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
-            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-            var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var calculationWithOutput = mocks.StrictMock<ICalculation>();
 
             calculationWithOutput.Stub(c => c.HasOutput).Return(true);
@@ -607,13 +509,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 messageBox.ClickCancel();
             };
 
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, calculationWithOutput, treeViewControl);
-
-            RingtoetsContextMenuItemFactory.AddClearCalculationOutputItem(menuBuilder, calculationWithOutput);
-            var contextMenuItem = menuBuilder.Build().Items[0];
+            var toolStripItem = factory.CreateClearCalculationOutputItem(calculationWithOutput);
 
             // Call
-            contextMenuItem.PerformClick();
+            toolStripItem.PerformClick();
 
             mocks.VerifyAll();
         }

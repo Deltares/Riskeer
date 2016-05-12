@@ -19,17 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Gui.ContextMenu;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.TreeNodeInfos
 {
     /// <summary>
     /// Decorator for <see cref="ContextMenuBuilder"/>.
     /// </summary>
-    public class RingtoetsContextMenuBuilder : IContextMenuBuilder
+    public class RingtoetsContextMenuBuilder
     {
         private readonly IContextMenuBuilder contextMenuBuilder;
+        private readonly RingtoetsContextMenuItemFactory ringtoetsContextMenuItemFactory;
 
         /// <summary>
         /// Creates a new instance of the <see cref="RingtoetsContextMenuBuilder"/>.
@@ -38,61 +43,131 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         public RingtoetsContextMenuBuilder(IContextMenuBuilder contextMenuBuilder)
         {
             this.contextMenuBuilder = contextMenuBuilder;
+
+            ringtoetsContextMenuItemFactory = new RingtoetsContextMenuItemFactory();
         }
 
-        public IContextMenuBuilder AddRenameItem()
+        public RingtoetsContextMenuBuilder AddCreateCalculationGroupItem(CalculationGroup calculationGroup)
         {
-            return contextMenuBuilder.AddRenameItem();
+            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateAddCalculationGroupItem(calculationGroup));
+            return this;
         }
 
-        public IContextMenuBuilder AddDeleteItem()
+        public RingtoetsContextMenuBuilder AddCreateCalculationItem<TCalculationContext>(
+            TCalculationContext calculationGroupContext,
+            Action<TCalculationContext> addCalculation)
+            where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            return contextMenuBuilder.AddDeleteItem();
+            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, addCalculation));
+            return this;
         }
 
-        public IContextMenuBuilder AddExpandAllItem()
+        public RingtoetsContextMenuBuilder AddClearAllCalculationOutputInGroupItem(CalculationGroup calculationGroup)
         {
-            return contextMenuBuilder.AddExpandAllItem();
+            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup));
+            return this;
         }
 
-        public IContextMenuBuilder AddCollapseAllItem()
+        public RingtoetsContextMenuBuilder AddPerformAllCalculationsInGroupItem<TCalculationContext>(
+            CalculationGroup calculationGroup,
+            TCalculationContext context,
+            Action<CalculationGroup, TCalculationContext> calculateAll)
+            where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            return contextMenuBuilder.AddCollapseAllItem();
+            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, context, calculateAll));
+            return this;
         }
 
-        public IContextMenuBuilder AddOpenItem()
+        public RingtoetsContextMenuBuilder AddPerformCalculationItem<TCalculation, TCalculationContext>(
+            TCalculation calculation,
+            TCalculationContext context,
+            Action<TCalculation, TCalculationContext> calculate)
+            where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
+            where TCalculation : ICalculation
         {
-            return contextMenuBuilder.AddOpenItem();
+            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, context, calculate));
+            return this;
         }
 
-        public IContextMenuBuilder AddExportItem()
+        public RingtoetsContextMenuBuilder AddClearCalculationOutputItem(ICalculation calculation)
         {
-            return contextMenuBuilder.AddExportItem();
+            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculation));
+            return this;
         }
 
-        public IContextMenuBuilder AddImportItem()
+        public RingtoetsContextMenuBuilder AddDisabledChangeRelevancyItem(IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
         {
-            return contextMenuBuilder.AddImportItem();
+            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateDisabledChangeRelevancyItem(failureMechanismContext));
+            return this;
         }
 
-        public IContextMenuBuilder AddPropertiesItem()
+        # region Decorated interface members
+
+        public RingtoetsContextMenuBuilder AddRenameItem()
         {
-            return contextMenuBuilder.AddPropertiesItem();
+            contextMenuBuilder.AddRenameItem();
+            return this;
         }
 
-        public IContextMenuBuilder AddSeparator()
+        public RingtoetsContextMenuBuilder AddDeleteItem()
         {
-            return contextMenuBuilder.AddSeparator();
+            contextMenuBuilder.AddDeleteItem();
+            return this;
         }
 
-        public IContextMenuBuilder AddCustomItem(StrictContextMenuItem item)
+        public RingtoetsContextMenuBuilder AddExpandAllItem()
         {
-            return contextMenuBuilder.AddCustomItem(item);
+            contextMenuBuilder.AddExpandAllItem();
+            return this;
+        }
+
+        public RingtoetsContextMenuBuilder AddCollapseAllItem()
+        {
+            contextMenuBuilder.AddCollapseAllItem();
+            return this;
+        }
+
+        public RingtoetsContextMenuBuilder AddOpenItem()
+        {
+            contextMenuBuilder.AddOpenItem();
+            return this;
+        }
+
+        public RingtoetsContextMenuBuilder AddExportItem()
+        {
+            contextMenuBuilder.AddExportItem();
+            return this;
+        }
+
+        public RingtoetsContextMenuBuilder AddImportItem()
+        {
+            contextMenuBuilder.AddImportItem();
+            return this;
+        }
+
+        public RingtoetsContextMenuBuilder AddPropertiesItem()
+        {
+            contextMenuBuilder.AddPropertiesItem();
+            return this;
+        }
+
+        public RingtoetsContextMenuBuilder AddSeparator()
+        {
+            contextMenuBuilder.AddSeparator();
+            return this;
+        }
+
+        public RingtoetsContextMenuBuilder AddCustomItem(StrictContextMenuItem item)
+        {
+            contextMenuBuilder.AddCustomItem(item);
+            return this;
         }
 
         public ContextMenuStrip Build()
         {
             return contextMenuBuilder.Build();
         }
+
+        # endregion
     }
 }

@@ -558,11 +558,10 @@ namespace Ringtoets.Integration.Plugin
 
         private ContextMenuStrip StandAloneFailureMechanismDisabledContextMenuStrip(StandAloneFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var builder = Gui.Get(nodeData, treeViewControl);
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            RingtoetsContextMenuItemFactory.AddDisabledChangeRelevancyItem(builder, nodeData);
-
-            return builder.AddSeparator()
+            return builder.AddDisabledChangeRelevancyItem(nodeData)
+                          .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .Build();

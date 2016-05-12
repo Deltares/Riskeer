@@ -289,11 +289,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
         {
-            var builder = Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl);
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
 
-            RingtoetsContextMenuItemFactory.AddDisabledChangeRelevancyItem(builder, grassCoverErosionInwardsFailureMechanismContext);
-
-            return builder.AddSeparator()
+            return builder.AddDisabledChangeRelevancyItem(grassCoverErosionInwardsFailureMechanismContext)
+                          .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .Build();
@@ -388,7 +387,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var group = nodeData.WrappedData;
-            var builder = Gui.Get(nodeData, treeViewControl);
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var isNestedGroup = parentData is GrassCoverErosionInwardsCalculationGroupContext;
 
             if (!isNestedGroup)
@@ -397,11 +396,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                        .AddSeparator();
             }
 
-            RingtoetsContextMenuItemFactory.AddCreateCalculationGroupItem(builder, group);
-            RingtoetsContextMenuItemFactory.AddCreateCalculationItem(builder, nodeData, AddCalculation);
+            builder.AddCreateCalculationGroupItem(group);
+            builder.AddCreateCalculationItem(nodeData, AddCalculation);
             builder.AddSeparator();
-            RingtoetsContextMenuItemFactory.AddPerformAllCalculationsInGroupItem(builder, group, nodeData, CalculateAll);
-            RingtoetsContextMenuItemFactory.AddClearAllCalculationOutputInGroupItem(builder, group);
+            builder.AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll);
+            builder.AddClearAllCalculationOutputInGroupItem(group);
             builder.AddSeparator();
 
             if (isNestedGroup)
@@ -459,30 +458,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip CalculationContextContextmenuStrip(GrassCoverErosionInwardsCalculationContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var builder = Gui.Get(nodeData, treeViewControl);
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
             GrassCoverErosionInwardsCalculation calculation = nodeData.WrappedData;
 
-            RingtoetsContextMenuItemFactory.AddPerformCalculationItem(
-                builder,
-                calculation,
-                nodeData,
-                PerformCalculation);
-            RingtoetsContextMenuItemFactory.AddClearCalculationOutputItem(builder, calculation);
-            builder.AddSeparator();
-
-            return builder
-                .AddRenameItem()
-                .AddDeleteItem()
-                .AddSeparator()
-                .AddImportItem()
-                .AddExportItem()
-                .AddSeparator()
-                .AddExpandAllItem()
-                .AddCollapseAllItem()
-                .AddSeparator()
-                .AddPropertiesItem()
-                .Build();
+            return builder.AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
+                          .AddClearCalculationOutputItem(calculation)
+                          .AddSeparator()
+                          .AddRenameItem()
+                          .AddDeleteItem()
+                          .AddSeparator()
+                          .AddImportItem()
+                          .AddExportItem()
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         private void PerformCalculation(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)

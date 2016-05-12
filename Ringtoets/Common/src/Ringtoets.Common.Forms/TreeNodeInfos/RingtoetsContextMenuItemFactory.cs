@@ -36,48 +36,46 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
     /// <summary>
     /// This class represents a factory for creating <see cref="ToolStripItem"/>.
     /// </summary>
-    public static class RingtoetsContextMenuItemFactory
+    public class RingtoetsContextMenuItemFactory
     {
         /// <summary>
-        /// This method adds a context menu item for creating new calculation groups.
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of adding new calculation groups.
         /// </summary>
-        /// <param name="builder">The builder to add the context menu item to.</param>
         /// <param name="calculationGroup">The calculation group involved.</param>
-        public static void AddCreateCalculationGroupItem(IContextMenuBuilder builder, CalculationGroup calculationGroup)
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public StrictContextMenuItem CreateAddCalculationGroupItem(CalculationGroup calculationGroup)
         {
-            var createCalculationGroupItem = new StrictContextMenuItem(
+            return new StrictContextMenuItem(
                 Resources.CalculationGroup_Add_CalculationGroup,
                 Resources.CalculationGroup_Add_CalculationGroup_Tooltip,
                 Resources.AddFolderIcon,
                 (o, args) => CreateCalculationGroup(calculationGroup));
-
-            builder.AddCustomItem(createCalculationGroupItem);
         }
 
         /// <summary>
-        /// This method adds a context menu item for creating new calculations.
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of adding new calculations.
         /// </summary>
-        /// <param name="builder">The builder to add the context menu item to.</param>
         /// <param name="calculationGroupContext">The calculation group context involved.</param>
         /// <param name="addCalculation">The action for adding a calculation to the calculation group.</param>
-        public static void AddCreateCalculationItem<TCalculationGroupContext>(IContextMenuBuilder builder, TCalculationGroupContext calculationGroupContext, Action<TCalculationGroupContext> addCalculation)
-            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public StrictContextMenuItem CreateAddCalculationItem<TCalculationContext>(
+            TCalculationContext calculationGroupContext,
+            Action<TCalculationContext> addCalculation)
+            where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            var createCalculationItem = new StrictContextMenuItem(
+            return new StrictContextMenuItem(
                 Resources.CalculationGroup_Add_Calculation,
                 Resources.CalculationGroup_Add_Calculation_Tooltip,
                 Resources.FailureMechanismIcon,
                 (o, args) => addCalculation(calculationGroupContext));
-
-            builder.AddCustomItem(createCalculationItem);
         }
 
         /// <summary>
-        /// This method adds a context menu item for clearing the output of all calculations in the calculation group.
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing the output of all calculations in the calculation group.
         /// </summary>
-        /// <param name="builder">The builder to add the context menu item to.</param>
         /// <param name="calculationGroup">The calculation group involved.</param>
-        public static void AddClearAllCalculationOutputInGroupItem(IContextMenuBuilder builder, CalculationGroup calculationGroup)
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public StrictContextMenuItem CreateClearAllCalculationOutputInGroupItem(CalculationGroup calculationGroup)
         {
             var clearAllItem = new StrictContextMenuItem(
                 Resources.Clear_all_output,
@@ -91,19 +89,21 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 clearAllItem.ToolTipText = Resources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
 
-            builder.AddCustomItem(clearAllItem);
+            return clearAllItem;
         }
 
         /// <summary>
-        /// This method adds a context menu item for performing all calculations in the calculation group.
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of performing all calculations in a calculation group.
         /// </summary>
-        /// <param name="builder">The builder to add the context menu item to.</param>
         /// <param name="calculationGroup">The calculation group involved.</param>
         /// <param name="context">The calculation group context belonging to the calculation group.</param>
         /// <param name="calculateAll">The action that performs all calculations.</param>
-        public static void AddPerformAllCalculationsInGroupItem<TCalculationGroupContext>
-            (IContextMenuBuilder builder, CalculationGroup calculationGroup, TCalculationGroupContext context, Action<CalculationGroup, TCalculationGroupContext> calculateAll)
-            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public StrictContextMenuItem CreatePerformAllCalculationsInGroupItem<TCalculationContext>(
+            CalculationGroup calculationGroup,
+            TCalculationContext context,
+            Action<CalculationGroup, TCalculationContext> calculateAll)
+            where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             var performAllItem = new StrictContextMenuItem(
                 Resources.Calculate_all,
@@ -117,36 +117,36 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 performAllItem.ToolTipText = Resources.CalculationGroup_CalculateAll_No_calculations_to_run;
             }
 
-            builder.AddCustomItem(performAllItem);
+            return performAllItem;
         }
 
         /// <summary>
-        /// This method adds a context menu item for performing a calculation.
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of performing a calculation.
         /// </summary>
-        /// <param name="builder">The builder to add the context menu item to.</param>
         /// <param name="calculation">The calculation involved.</param>
         /// <param name="context">The calculation context belonging to the calculation.</param>
         /// <param name="calculate">The action that performs the calculation.</param>
-        public static void AddPerformCalculationItem<TCalculation, TCalculationContext>(
-            IContextMenuBuilder builder, TCalculation calculation, TCalculationContext context, Action<TCalculation, TCalculationContext> calculate)
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public StrictContextMenuItem CreatePerformCalculationItem<TCalculation, TCalculationContext>(
+            TCalculation calculation,
+            TCalculationContext context,
+            Action<TCalculation, TCalculationContext> calculate)
+            where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
             where TCalculation : ICalculation
-            where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
-            var calculateItem = new StrictContextMenuItem(
+            return new StrictContextMenuItem(
                 Resources.Calculate,
                 Resources.Calculate_ToolTip,
                 Resources.CalculateIcon,
                 (o, args) => calculate(calculation, context));
-
-            builder.AddCustomItem(calculateItem);
         }
 
         /// <summary>
-        /// This method adds a context menu item for clearing the output of a calculation.
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing the output of a calculation.
         /// </summary>
-        /// <param name="builder">The builder to add the context menu item to.</param>
         /// <param name="calculation">The calculation involved.</param>
-        public static void AddClearCalculationOutputItem(IContextMenuBuilder builder, ICalculation calculation)
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public StrictContextMenuItem CreateClearCalculationOutputItem(ICalculation calculation)
         {
             var clearOutputItem = new StrictContextMenuItem(
                 Resources.Clear_output,
@@ -160,18 +160,17 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 clearOutputItem.ToolTipText = Resources.ClearOutput_No_output_to_clear;
             }
 
-            builder.AddCustomItem(clearOutputItem);
+            return clearOutputItem;
         }
 
         /// <summary>
-        /// This method adds a context menu item for changing the relevancy state of a disabled failure mechanism.
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing the relevancy state of a disabled failure mechanism.
         /// </summary>
-        /// <param name="builder">The builder to add the context menu item to.</param>
         /// <param name="failureMechanismContext">The failure mechanism context involved.</param>
-        public static void AddDisabledChangeRelevancyItem<TFailureMechanismContext>(IContextMenuBuilder builder, TFailureMechanismContext failureMechanismContext)
-            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public StrictContextMenuItem CreateDisabledChangeRelevancyItem(IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
         {
-            var changeRelevancyItem = new StrictContextMenuItem(
+            return new StrictContextMenuItem(
                 Resources.FailureMechanismContextMenuStrip_Is_relevant,
                 Resources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
                 Resources.Checkbox_empty,
@@ -180,8 +179,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                     failureMechanismContext.WrappedData.IsRelevant = true;
                     failureMechanismContext.WrappedData.NotifyObservers();
                 });
-
-            builder.AddCustomItem(changeRelevancyItem);
         }
 
         private static void CreateCalculationGroup(CalculationGroup calculationGroup)
