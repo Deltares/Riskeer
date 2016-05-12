@@ -372,6 +372,39 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void AddDisabledChangeRelevancyItem_WhenBuild_ItemAddedToContextMenu()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+
+            mocks.ReplayAll();
+
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismContext, treeViewControlMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+            mocks.ReplayAll();
+
+            // Call
+            var result = ringtoetsContextMenuBuilder.AddDisabledChangeRelevancyItem(failureMechanismContext).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                          RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
+                                                          RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                                                          RingtoetsFormsResources.Checkbox_empty);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void AddRenameItem_ContextMenuBuilder_CorrectlyDecorated()
         {
             // Setup

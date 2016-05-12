@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using BaseResources = Core.Common.Base.Properties.Resources;
+using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
@@ -61,18 +62,31 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateAddCalculationGroupItem_PerformClickOnCreatedItem_CalculationGroupAdded()
+        public void CreateAddCalculationGroupItem_PerformClickOnCreatedItem_CalculationGroupWithUniqueNameAdded()
         {
             // Setup
-            var calculationGroup = new CalculationGroup();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    new CalculationGroup()
+                }
+            };
+
+            // Precondition
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+
             var toolStripItem = factory.CreateAddCalculationGroupItem(calculationGroup);
 
             // Call
             toolStripItem.PerformClick();
 
             // Assert
-            Assert.AreEqual(1, calculationGroup.Children.Count);
-            Assert.IsTrue(calculationGroup.Children[0] is CalculationGroup);
+            Assert.AreEqual(2, calculationGroup.Children.Count);
+
+            var newGroup = calculationGroup.Children[1] as CalculationGroup;
+            Assert.IsNotNull(newGroup);
+            Assert.AreEqual(string.Format("{0} (1)", RingtoetsDataResources.CalculationGroup_DefaultName), newGroup.Name);
         }
 
         [Test]
@@ -514,6 +528,50 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Call
             toolStripItem.PerformClick();
 
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateDisabledChangeRelevancyItem_Always_CreatesDecoratedItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+
+            mocks.ReplayAll();
+
+            // Call
+            var toolStripItem = factory.CreateDisabledChangeRelevancyItem(failureMechanismContext);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Checkbox_empty, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateDisabledChangeRelevancyItem_PerformClickOnCreatedItem_FailureMechanismIsRelevantSetToTrueAndObserversNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+
+            failureMechanismContext.Stub(c => c.WrappedData).Return(failureMechanism);
+            failureMechanism.Expect(c => c.IsRelevant).SetPropertyWithArgument(true);
+            failureMechanism.Expect(c => c.NotifyObservers());
+
+            mocks.ReplayAll();
+
+            var toolStripItem = factory.CreateDisabledChangeRelevancyItem(failureMechanismContext);
+
+            // Call
+            toolStripItem.PerformClick();
+
+            // Assert
             mocks.VerifyAll();
         }
 
