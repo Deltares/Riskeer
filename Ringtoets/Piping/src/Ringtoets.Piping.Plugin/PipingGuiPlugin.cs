@@ -288,8 +288,6 @@ namespace Ringtoets.Piping.Plugin
 
             var validateAllItem = CreateValidateAllItem(pipingFailureMechanismContext.WrappedData);
 
-            var calculateAllItem = CreateCalculateAllItem(pipingFailureMechanismContext.WrappedData);
-
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
             return builder
                 .AddOpenItem()
@@ -297,7 +295,7 @@ namespace Ringtoets.Piping.Plugin
                 .AddCustomItem(changeRelevancyItem)
                 .AddSeparator()
                 .AddCustomItem(validateAllItem)
-                .AddCustomItem(calculateAllItem)
+                .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll)
                 .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                 .AddSeparator()
                 .AddImportItem()
@@ -326,24 +324,6 @@ namespace Ringtoets.Piping.Plugin
             return failureMechanism.Calculations.OfType<PipingCalculation>();
         }
 
-        private StrictContextMenuItem CreateCalculateAllItem(PipingFailureMechanism failureMechanism)
-        {
-            var menuItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_all,
-                RingtoetsCommonFormsResources.Calculate_all_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
-                (o, args) => CalculateAll(failureMechanism)
-                );
-
-            if (!GetAllPipingCalculations(failureMechanism).Any())
-            {
-                menuItem.Enabled = false;
-                menuItem.ToolTipText = RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run;
-            }
-
-            return menuItem;
-        }
-
         private StrictContextMenuItem CreateValidateAllItem(PipingFailureMechanism failureMechanism)
         {
             var menuItem = new StrictContextMenuItem(
@@ -370,9 +350,9 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private void CalculateAll(PipingFailureMechanism failureMechanism)
+        private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, GetAllPipingCalculations(failureMechanism).Select(calc => new PipingCalculationActivity(calc)).ToList());
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, GetAllPipingCalculations(failureMechanismContext.WrappedData).Select(calc => new PipingCalculationActivity(calc)).ToList());
         }
 
         private object[] FailureMechanismEnabledChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)

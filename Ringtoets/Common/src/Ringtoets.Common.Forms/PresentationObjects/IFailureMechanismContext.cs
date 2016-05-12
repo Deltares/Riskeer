@@ -3,7 +3,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// Interface for a failure mechanism context which wrappes an implementation of the 
+    /// Interface for a failure mechanism context which wraps an implementation of the 
     /// <see cref="IFailureMechanism"/> interface.
     /// </summary>
     /// <typeparam name="T"></typeparam>

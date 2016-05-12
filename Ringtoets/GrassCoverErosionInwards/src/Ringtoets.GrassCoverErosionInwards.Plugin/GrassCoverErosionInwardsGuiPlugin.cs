@@ -255,15 +255,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     grassCoverErosionInwardsFailureMechanismContext.WrappedData.NotifyObservers();
                 });
 
-            var calculateAllItem = CreateCalculateAllItem(grassCoverErosionInwardsFailureMechanismContext);
-
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
             return builder
                 .AddOpenItem()
                 .AddSeparator()
                 .AddCustomItem(changeRelevancyItem)
                 .AddSeparator()
-                .AddCustomItem(calculateAllItem)
+                .AddPerformAllCalculationsInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, CalculateAll)
                 .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
                 .AddSeparator()
                 .AddImportItem()
@@ -287,11 +285,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private static IEnumerable<GrassCoverErosionInwardsCalculation> GetAllCalculations(GrassCoverErosionInwardsFailureMechanism failureMechanism)
-        {
-            return failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>();
-        }
-
         private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
         {
             var calculation = new GrassCoverErosionInwardsCalculation(context.FailureMechanism.GeneralInput)
@@ -302,27 +295,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             context.WrappedData.NotifyObservers();
         }
 
-        private StrictContextMenuItem CreateCalculateAllItem(GrassCoverErosionInwardsFailureMechanismContext context)
-        {
-            var menuItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_all,
-                RingtoetsCommonFormsResources.Calculate_all_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
-                (o, args) => CalculateAll(context)
-                );
-
-            if (!GetAllCalculations(context.WrappedData).Any())
-            {
-                menuItem.Enabled = false;
-                menuItem.ToolTipText = RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run;
-            }
-
-            return menuItem;
-        }
-
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanismContext context)
         {
-            CalculateAll(context.WrappedData, GetAllCalculations(context.WrappedData), context.Parent);
+            CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.Parent);
         }
 
         #endregion

@@ -156,6 +156,22 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which performs all calculations in a failure mechanism.
+        /// </summary>
+        /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
+        /// <param name="failureMechanismContext">The failure mechanism to perform all calculations for.</param>
+        /// <param name="calculateAllAction">The action that performs all calculations.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        public RingtoetsContextMenuBuilder AddPerformAllCalculationsInFailureMechanismItem<TFailureMechanismContext>(
+            TFailureMechanismContext failureMechanismContext,
+            Action<TFailureMechanismContext> calculateAllAction)
+            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+        {
+            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, calculateAllAction));
+            return this;
+        }
+
         # region Decorated members
 
         /// <summary>

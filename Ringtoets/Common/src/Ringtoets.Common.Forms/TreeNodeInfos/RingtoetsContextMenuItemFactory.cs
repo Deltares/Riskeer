@@ -206,6 +206,34 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             return clearAllItem;
         }
 
+        /// <summary>
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of performing all calculations in a failure mechanism.
+        /// </summary>
+        /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
+        /// <param name="failureMechanismContext">The failure mechanism to perform all calculations for.</param>
+        /// <param name="calculateAllAction">The action that performs all calculations.</param>
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public StrictContextMenuItem CreatePerformAllCalculationsInFailureMechanismItem<TFailureMechanismContext>(
+            TFailureMechanismContext failureMechanismContext,
+            Action<TFailureMechanismContext> calculateAllAction)
+            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+        {
+            var performAllItem = new StrictContextMenuItem(
+                Resources.Calculate_all,
+                Resources.Calculate_all_ToolTip,
+                Resources.CalculateAllIcon,
+                (o, args) => calculateAllAction(failureMechanismContext)
+                );
+
+            if (!failureMechanismContext.WrappedData.Calculations.Any())
+            {
+                performAllItem.Enabled = false;
+                performAllItem.ToolTipText = Resources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run;
+            }
+
+            return performAllItem;
+        }
+
         private static void ClearAllCalculationOutputInFailureMechanism(IFailureMechanism failureMechanism)
         {
             if (MessageBox.Show(Resources.FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
