@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -94,9 +95,12 @@ namespace Ringtoets.Piping.Data.Test
             var generalInputParameters = new GeneralPipingInput();
             var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
 
-            var scenario =  new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
-            scenario.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, expectedProbability, 0, 0);
-            
+            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters)
+            {
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, expectedProbability, 0, 0)
+            };
+
             // Call
             RoundedDouble probability = scenario.Probability;
 
@@ -146,6 +150,7 @@ namespace Ringtoets.Piping.Data.Test
 
             var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters)
             {
+                Output = new TestPipingOutput(),
                 SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, double.NaN, 0, 0)
             };
 
@@ -165,8 +170,11 @@ namespace Ringtoets.Piping.Data.Test
             var generalInputParameters = new GeneralPipingInput();
             var semiProbabilisticInputParameters = new NormProbabilityPipingInput();
 
-            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
-            scenario.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, expectedProbability, 0, 0);
+            var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters)
+            {
+                Output = new TestPipingOutput(),
+                SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, expectedProbability, 0, 0)
+            };
 
             // Call
             CalculationScenarioStatus status = scenario.CalculationScenarioStatus;

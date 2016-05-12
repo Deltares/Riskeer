@@ -44,6 +44,7 @@ namespace Ringtoets.Common.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult> failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
+        private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
         private IEnumerable<FailureMechanismSectionResult> failureMechanismSectionResult;
@@ -64,6 +65,7 @@ namespace Ringtoets.Common.Forms.Views
             failureMechanismSectionResultObserver = new RecursiveObserver<IFailureMechanism, FailureMechanismSectionResult>(RefreshDataGridView, mechanism => mechanism.SectionResults);
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableInput())));
+            calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(UpdataDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculationScenario>().Select(c => c.GetObservableOutput())));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdataDataGridViewDataSource, c => c.Children);
             Load += OnLoad;
         }
@@ -88,6 +90,7 @@ namespace Ringtoets.Common.Forms.Views
                 CalculationGroup observableGroup = calculatableFailureMechanism != null ? calculatableFailureMechanism.CalculationsGroup : null;
 
                 calculationInputObserver.Observable = observableGroup;
+                calculationOutputObserver.Observable = observableGroup;
                 calculationGroupObserver.Observable = observableGroup;
             }
         }
@@ -120,6 +123,7 @@ namespace Ringtoets.Common.Forms.Views
             failureMechanismObserver.Dispose();
             failureMechanismSectionResultObserver.Dispose();
             calculationInputObserver.Dispose();
+            calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
 
             if (disposing && (components != null))

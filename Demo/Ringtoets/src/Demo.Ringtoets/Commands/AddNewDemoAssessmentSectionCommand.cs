@@ -129,6 +129,9 @@ namespace Demo.Ringtoets.Commands
                 StandardDeviation = originalPhreaticLevelExit.StandardDeviation
             };
             calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
+
+            pipingFailureMechanism.CalculationsGroup.AddCalculationScenariosToFailureMechanismSectionResult(pipingFailureMechanism);
+
             var stochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(sm => sm.Name == "PK001_0001_Piping");
             calculation.InputParameters.StochasticSoilModel = stochasticSoilModel;
             calculation.InputParameters.StochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First(sp => sp.SoilProfile.Name == "W1-6_0_1D1");

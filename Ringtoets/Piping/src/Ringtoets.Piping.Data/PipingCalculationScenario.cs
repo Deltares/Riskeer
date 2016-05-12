@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                if (SemiProbabilisticOutput == null)
+                if (!HasOutput)
                 {
                     return CalculationScenarioStatus.NotCalculated;
                 }

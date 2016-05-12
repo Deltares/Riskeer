@@ -21,7 +21,6 @@
 
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 

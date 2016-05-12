@@ -19,14 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
     /// <summary>
     /// This class contains the results of a grass cover erosion inwards calculation.
     /// </summary>
-    public class GrassCoverErosionInwardsOutput
+    public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput
     {
         private RoundedDouble probability;
         private RoundedDouble reliability;

@@ -1111,6 +1111,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 return null;
             }
+
+            public ICalculationOutput GetObservableOutput()
+            {
+                return null;
+            }
         }
 
         private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>

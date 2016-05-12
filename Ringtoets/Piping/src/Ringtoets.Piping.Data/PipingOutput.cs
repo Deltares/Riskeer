@@ -19,12 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base;
+using Ringtoets.Common.Data.Calculation;
+
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// Simple class containing the results of a Piping calculation.
     /// </summary>
-    public class PipingOutput
+    public class PipingOutput : Observable, ICalculationOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingOutput"/>. 

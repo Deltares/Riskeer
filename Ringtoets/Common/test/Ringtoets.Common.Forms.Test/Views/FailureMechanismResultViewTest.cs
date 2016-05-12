@@ -369,7 +369,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var formattedValue = dataGridViewCell.FormattedValue; // Need to do this to fire the CellFormatting event.
 
                 // Assert
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak zijn opgeteld niet gelijk aan 100%.", dataGridViewCell.ErrorText);
+                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak is opgeteld niet gelijk aan 100%.", dataGridViewCell.ErrorText);
                 Assert.AreEqual(double.NaN.ToString(CultureInfo.InvariantCulture), formattedValue);
                 mocks.VerifyAll();
             }

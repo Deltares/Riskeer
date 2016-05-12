@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
@@ -10,6 +11,7 @@ using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -85,12 +87,21 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(1, demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Count);
             var calculation = demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.GetCalculations().OfType<PipingCalculationScenario>().First();
             AssertCalculationAbleToCalculate(calculation);
+            AssertCalculationInFailureMechanismSectionResult(calculation, demoAssessmentSection.PipingFailureMechanism.SectionResults.ToArray());
 
             foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
             {
                 Assert.AreEqual(283, failureMechanism.Sections.Count());
             }
             mocks.VerifyAll();
+        }
+
+        private void AssertCalculationInFailureMechanismSectionResult(PipingCalculationScenario calculation, FailureMechanismSectionResult[] sectionResults)
+        {
+            Assert.AreEqual(283, sectionResults.Length);
+            var sectionResultWithCalculation = sectionResults[22];
+
+            CollectionAssert.AreEqual(new[] { calculation }, sectionResultWithCalculation.CalculationScenarios);
         }
 
         private void AssertValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)

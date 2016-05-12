@@ -20,14 +20,16 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data.Test
 {
     public class PipingOutputTest
     {
         [Test]
-        public void GivenSomeValues_WhenConstructedWithValues_ThenPropertiesAreSet()
+        public void Constructor_ExpectedValues()
         {
             var random = new Random(22);
             var zuValue = random.NextDouble();
@@ -37,14 +39,16 @@ namespace Ringtoets.Piping.Data.Test
             var zsValue = random.NextDouble();
             var foSsValue = random.NextDouble();
 
-            var actual = new PipingOutput(zuValue, foSuValue, zhValue, foShValue, zsValue, foSsValue);
+            var output = new PipingOutput(zuValue, foSuValue, zhValue, foShValue, zsValue, foSsValue);
 
-            Assert.That(actual.UpliftZValue, Is.EqualTo(zuValue));
-            Assert.That(actual.UpliftFactorOfSafety, Is.EqualTo(foSuValue));
-            Assert.That(actual.HeaveZValue, Is.EqualTo(zhValue));
-            Assert.That(actual.HeaveFactorOfSafety, Is.EqualTo(foShValue));
-            Assert.That(actual.SellmeijerZValue, Is.EqualTo(zsValue));
-            Assert.That(actual.SellmeijerFactorOfSafety, Is.EqualTo(foSsValue));
+            Assert.IsInstanceOf<Observable>(output);
+            Assert.IsInstanceOf<ICalculationOutput>(output);
+            Assert.AreEqual(output.UpliftZValue, zuValue);
+            Assert.AreEqual(output.UpliftFactorOfSafety, foSuValue);
+            Assert.AreEqual(output.HeaveZValue, zhValue);
+            Assert.AreEqual(output.HeaveFactorOfSafety, foShValue);
+            Assert.AreEqual(output.SellmeijerZValue, zsValue);
+            Assert.AreEqual(output.SellmeijerFactorOfSafety, foSsValue);
         }
     }
 }

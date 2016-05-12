@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -43,6 +45,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var output = new GrassCoverErosionInwardsOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
 
             // Assert
+            Assert.IsInstanceOf<Observable>(output);
+            Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.IsNotNull(output);
             Assert.AreEqual(requiredProbability, output.RequiredProbability);
             Assert.AreEqual(requiredReliability, output.RequiredReliability);

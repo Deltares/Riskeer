@@ -470,7 +470,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijdrage van de geselecteerde scenario&apos;s voor dit vak zijn opgeteld niet gelijk aan 100%..
+        ///   Looks up a localized string similar to Bijdrage van de geselecteerde scenario&apos;s voor dit vak is opgeteld niet gelijk aan 100%..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100 {
             get {

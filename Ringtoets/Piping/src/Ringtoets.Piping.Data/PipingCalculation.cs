@@ -102,5 +102,10 @@ namespace Ringtoets.Piping.Data
         {
             return InputParameters;
         }
+
+        public ICalculationOutput GetObservableOutput()
+        {
+            return Output;
+        }
     }
 }

@@ -88,6 +88,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             return InputParameters;
         }
 
+        public ICalculationOutput GetObservableOutput()
+        {
+            return Output;
+        }
+
         private void AddDemoInput()
         {
             // BreakWater
