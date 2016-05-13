@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -341,7 +340,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithNonExistingFilePath_WhenCalculatingFromContextMenu_ThenLogMessagesAddedOutputNotChangedObserversNotNotified()
+        public void GivenCalculationWithNonExistingFilePath_WhenCalculatingFromContextMenu_ThenOutputClearedLogMessagesAddedObserversNotNotified()
         {
             // Given
             var gui = mocks.DynamicMock<IGui>();
@@ -358,19 +357,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.AddSection(section);
-            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
-            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)
-            {
-                DesignWaterLevel = 4.2
-            };
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                Locations =
-                {
-                    hydraulicBoundaryLocation1,
-                    hydraulicBoundaryLocation2
-                },
                 FilePath = "D:/nonExistingDirectory/nonExistingFile",
                 Version = "random"
             };
@@ -413,7 +402,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 StringAssert.StartsWith("Er is een fout opgetreden tijdens de berekening.", msgs.Current);
             });
 
-            Assert.AreSame(calculationOutput, calculation.Output);
+            Assert.IsNull(calculation.Output);
 
             mocks.VerifyAll();
         }

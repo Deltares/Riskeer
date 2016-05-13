@@ -683,7 +683,7 @@ namespace Ringtoets.Integration.Plugin
                 HydraRingTimeIntegrationSchemeType.FBC,
                 HydraRingUncertaintiesType.All,
                 new AssessmentLevelCalculationInput((int) hydraulicBoundaryLocation.Id, assessmentSection.FailureMechanismContribution.Norm),
-                () => { },
+                () => { hydraulicBoundaryLocation.DesignWaterLevel = double.NaN; },
                 output => { ParseHydraRingOutput(hydraulicBoundaryLocation, output); });
         }
 

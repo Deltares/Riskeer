@@ -136,7 +136,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                 ParseForeshore(inwardsInput),
                                                 ParseBreakWater(inwardsInput)
                     ),
-                () => { },
+                calculation.ClearOutput,
                 output => { ParseHydraRingOutput(calculation, output); });
         }
 
