@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             {
                 return performAllItem;
             }
-            
+
             if (!calculationGroup.GetCalculations().Any())
             {
                 performAllItem.Enabled = false;
@@ -256,7 +256,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 return;
             }
 
-            foreach (var calc in failureMechanism.Calculations)
+            foreach (var calc in failureMechanism.Calculations.Where(c => c.HasOutput))
             {
                 calc.ClearOutput();
                 calc.NotifyObservers();
