@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Test.Update
     public class ProjectUpdateExtensionsTest
     {
         [Test]
-        public void Update_WithoutContext_ArgumentNullException()
+        public void Update_WithoutContext_ThrowsArgumentNullException()
         {
             // Setup
             var project = new Project();
@@ -47,10 +47,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("context", paramName);
-        } 
+        }
 
         [Test]
-        public void Update_WithoutCollector_ArgumentNullException()
+        public void Update_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
             var project = new Project();
@@ -67,10 +67,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("collector", paramName);
-        } 
+        }
 
         [Test]
-        public void Update_ContextWithNoProject_EntityNotFoundException()
+        public void Update_ContextWithNoProject_ThrowsEntityNotFoundException()
         {
             // Setup
             var project = new Project();
@@ -86,10 +86,10 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             // Assert
             Assert.Throws<EntityNotFoundException>(test);
-        } 
+        }
 
         [Test]
-        public void Update_ContextWithNoProjectWithId_EntityNotFoundException()
+        public void Update_ContextWithNoProjectWithId_ThrowsEntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -120,7 +120,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithMultipleProjectsWithId_EntityNotFoundException()
+        public void Update_ContextWithMultipleProjectsWithId_ThrowsEntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -157,7 +157,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(expectedInnerMessage, exception.InnerException.Message);
 
             mocks.VerifyAll();
-        } 
+        }
 
         [Test]
         public void Update_ContextWithProject_DescriptionUpdated()
@@ -277,11 +277,11 @@ namespace Application.Ringtoets.Storage.Test.Update
                         {
                             StorageId = 1
                         },
-                        GrassCoverSlipOffOutside = 
+                        GrassCoverSlipOffOutside =
                         {
                             StorageId = 1
                         },
-                        PipingStructure = 
+                        PipingStructure =
                         {
                             StorageId = 1
                         },
@@ -317,9 +317,12 @@ namespace Application.Ringtoets.Storage.Test.Update
             project.Update(new UpdateConversionCollector(), ringtoetsEntities);
 
             // Assert
-            CollectionAssert.AreEqual(new [] {assessmentSectionEntity}, projectEntity.AssessmentSectionEntities);
+            CollectionAssert.AreEqual(new[]
+            {
+                assessmentSectionEntity
+            }, projectEntity.AssessmentSectionEntities);
 
             mocks.VerifyAll();
-        } 
+        }
     }
 }

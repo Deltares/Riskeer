@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Test.Update
     public class AssessmentSectionUpdateExtensionsTest
     {
         [Test]
-        public void Update_WithoutContext_ArgumentNullException()
+        public void Update_WithoutContext_ThrowsArgumentNullException()
         {
             // Setup
             var section = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_WithoutCollector_ArgumentNullException()
+        public void Update_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
             var section = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -582,11 +582,11 @@ namespace Application.Ringtoets.Storage.Test.Update
                 {
                     StorageId = 9
                 },
-                GrassCoverSlipOffOutside = 
+                GrassCoverSlipOffOutside =
                 {
                     StorageId = 10
                 },
-                PipingStructure = 
+                PipingStructure =
                 {
                     StorageId = 11
                 },
@@ -616,5 +616,4 @@ namespace Application.Ringtoets.Storage.Test.Update
             }
         }
     }
-
 }

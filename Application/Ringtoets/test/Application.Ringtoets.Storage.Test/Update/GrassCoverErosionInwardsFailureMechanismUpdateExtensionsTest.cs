@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Update
     public class GrassCoverErosionInwardsFailureMechanismUpdateExtensionsTest
     {
         [Test]
-        public void Update_WithoutContext_ArgumentNullException()
+        public void Update_WithoutContext_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_WithoutCollector_ArgumentNullException()
+        public void Update_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoGrassCoverErosionInwardsFailureMechanism_EntityNotFoundException()
+        public void Update_ContextWithNoGrassCoverErosionInwardsFailureMechanism_ThrowsEntityNotFoundException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoGrassCoverErosionInwardsFailureMechanismWithId_EntityNotFoundException()
+        public void Update_ContextWithNoGrassCoverErosionInwardsFailureMechanismWithId_ThrowsEntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -153,7 +153,7 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Update_ContextWithNewFailureMechanismSections_FailureMechanismSectionsAdded()
         {
@@ -167,7 +167,10 @@ namespace Application.Ringtoets.Storage.Test.Update
             {
                 StorageId = 1
             };
-            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(0, 0)
+            }));
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -199,7 +202,10 @@ namespace Application.Ringtoets.Storage.Test.Update
                 StorageId = 1
             };
             var testName = "testName";
-            failureMechanism.AddSection(new FailureMechanismSection(testName, new[] { new Point2D(0, 0) })
+            failureMechanism.AddSection(new FailureMechanismSection(testName, new[]
+            {
+                new Point2D(0, 0)
+            })
             {
                 StorageId = 1
             });
@@ -211,7 +217,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 1,
-                FailureMechanismSectionEntities = 
+                FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
                 }
@@ -228,6 +234,6 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(testName, failureMechanismEntity.FailureMechanismSectionEntities.ElementAt(0).Name);
 
             mocks.VerifyAll();
-        } 
+        }
     }
 }
