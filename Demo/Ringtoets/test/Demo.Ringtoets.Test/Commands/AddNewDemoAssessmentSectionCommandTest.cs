@@ -11,6 +11,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
@@ -83,10 +84,13 @@ namespace Demo.Ringtoets.Test.Commands
             AssertCharacteristicPointsOnSurfaceLines(surfaceLines);
 
             Assert.AreEqual(1, demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Count);
-            var calculation = demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.GetCalculations().OfType<PipingCalculationScenario>().First();
-            AssertCalculationAbleToCalculate(calculation);
-            AssertCalculationInFailureMechanismSectionResult(calculation, demoAssessmentSection.PipingFailureMechanism.SectionResults.ToArray());
+            var pipingCalculationScenario = demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.GetCalculations().OfType<PipingCalculationScenario>().First();
+            AssertCalculationAbleToCalculate(pipingCalculationScenario);
+            AssertCalculationInFailureMechanismSectionResult(pipingCalculationScenario, demoAssessmentSection.PipingFailureMechanism.SectionResults.ToArray());
 
+            Assert.AreEqual(1, demoAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Count);
+            var grassCoverErosionInwardsCalculation = demoAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>().First();
+            AssertExpectedGrassCoverErosionInwardsInput(grassCoverErosionInwardsCalculation.InputParameters);
             foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
             {
                 Assert.AreEqual(283, failureMechanism.Sections.Count());
@@ -99,7 +103,10 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(283, sectionResults.Length);
             var sectionResultWithCalculation = sectionResults[22];
 
-            CollectionAssert.AreEqual(new[] { calculation }, sectionResultWithCalculation.CalculationScenarios);
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation
+            }, sectionResultWithCalculation.CalculationScenarios);
         }
 
         private void AssertValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
@@ -219,6 +226,11 @@ namespace Demo.Ringtoets.Test.Commands
                             GetAccuracy(inputParameters.DampingFactorExit));
             Assert.AreEqual(20.29, PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DampingFactorExit));
+        }
+
+        private static void AssertExpectedGrassCoverErosionInwardsInput(GrassCoverErosionInwardsInput inputParameters)
+        {
+            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
         }
 
         private static double GetAccuracy(IDistribution distribution)

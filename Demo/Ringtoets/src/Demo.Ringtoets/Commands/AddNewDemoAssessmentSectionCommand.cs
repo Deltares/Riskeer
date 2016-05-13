@@ -9,6 +9,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
@@ -63,8 +64,11 @@ namespace Demo.Ringtoets.Commands
             InitializeDemoHydraulicBoundaryDatabase(demoAssessmentSection);
             InitializeDemoFailureMechanismSections(demoAssessmentSection);
             InitializeDemoPipingData(demoAssessmentSection);
+            InitializeGrassCoverErosionInwardsData(demoAssessmentSection);
             return demoAssessmentSection;
         }
+
+       
 
         private void InitializeDemoReferenceLine(AssessmentSection demoAssessmentSection)
         {
@@ -137,6 +141,16 @@ namespace Demo.Ringtoets.Commands
             calculation.InputParameters.StochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First(sp => sp.SoilProfile.Name == "W1-6_0_1D1");
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
 
+            calculation.InputParameters.NotifyObservers();
+        }
+
+        private void InitializeGrassCoverErosionInwardsData(AssessmentSection demoAssessmentSection)
+        {
+            var failureMechanism = demoAssessmentSection.GrassCoverErosionInwards;
+
+            var calculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
         }
 
