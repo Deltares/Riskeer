@@ -227,18 +227,27 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
         /// <param name="failureMechanismContext">The failure mechanism to perform all calculations for.</param>
         /// <param name="calculateAllAction">The action that performs all calculations.</param>
+        /// <param name="isEnabledFunc">The func that checks if the item is enabled.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public static StrictContextMenuItem CreatePerformAllCalculationsInFailureMechanismItem<TFailureMechanismContext>(
             TFailureMechanismContext failureMechanismContext,
-            Action<TFailureMechanismContext> calculateAllAction)
+            Action<TFailureMechanismContext> calculateAllAction,
+            Func<TFailureMechanismContext, bool> isEnabledFunc)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
             var performAllItem = new StrictContextMenuItem(
                 Resources.Calculate_all,
                 Resources.Calculate_all_ToolTip,
                 Resources.CalculateAllIcon,
-                (o, args) => calculateAllAction(failureMechanismContext)
-                );
+                (o, args) => calculateAllAction(failureMechanismContext))
+            {
+                Enabled = isEnabledFunc(failureMechanismContext)
+            };
+
+            if (!performAllItem.Enabled)
+            {
+                return performAllItem;
+            }
 
             if (!failureMechanismContext.WrappedData.Calculations.Any())
             {

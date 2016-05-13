@@ -21,6 +21,7 @@
 
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
@@ -412,6 +413,82 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
 
             // Assert
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_NoHydraulicDatabaseAndFailureMechanismSections_ReturnContextMenuWithCalculateAllDisabled()
+        {
+            // Setup
+            var gui = mocksRepository.StrictMock<IGui>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(null);
+
+            var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            var applicationFeatureCommandHandler = mocksRepository.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocksRepository.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocksRepository.StrictMock<IViewCommands>();
+            var treeViewControl = mocksRepository.StrictMock<TreeViewControl>();
+
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
+            gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
+            viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
+
+            plugin.Gui = gui;
+            mocksRepository.ReplayAll();
+
+            // Call
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(menu, 4,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.Calculate_all_ToolTip,
+                                                          RingtoetsFormsResources.CalculateIcon,
+                                                          false);
+            mocksRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_HydraulicDatabaseAndFailureMechanismSectionsSet_ReturnContextMenuWithCalculateAllEnabled()
+        {
+            // Setup
+            var gui = mocksRepository.StrictMock<IGui>();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[] { new Point2D(0, 0) }));
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput()));
+
+            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+
+            var nodeData = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            var applicationFeatureCommandHandler = mocksRepository.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocksRepository.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocksRepository.StrictMock<IViewCommands>();
+            var treeViewControl = mocksRepository.StrictMock<TreeViewControl>();
+
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
+            gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
+            viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
+
+            plugin.Gui = gui;
+            mocksRepository.ReplayAll();
+
+            // Call
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(menu, 4,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.Calculate_all_ToolTip,
+                                                          RingtoetsFormsResources.CalculateIcon);
             mocksRepository.VerifyAll();
         }
 

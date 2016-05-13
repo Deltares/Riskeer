@@ -295,7 +295,7 @@ namespace Ringtoets.Piping.Plugin
                 .AddCustomItem(changeRelevancyItem)
                 .AddSeparator()
                 .AddCustomItem(validateAllItem)
-                .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll)
+                .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll, context => true)
                 .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                 .AddSeparator()
                 .AddImportItem()

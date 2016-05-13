@@ -166,13 +166,15 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
         /// <param name="failureMechanismContext">The failure mechanism to perform all calculations for.</param>
         /// <param name="calculateAllAction">The action that performs all calculations.</param>
+        /// <param name="isEnabledFunc">The func that checks if the item is enabled.</param>
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddPerformAllCalculationsInFailureMechanismItem<TFailureMechanismContext>(
             TFailureMechanismContext failureMechanismContext,
-            Action<TFailureMechanismContext> calculateAllAction)
+            Action<TFailureMechanismContext> calculateAllAction,
+            Func<TFailureMechanismContext, bool> isEnabledFunc)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, calculateAllAction));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, calculateAllAction, isEnabledFunc));
             return this;
         }
 

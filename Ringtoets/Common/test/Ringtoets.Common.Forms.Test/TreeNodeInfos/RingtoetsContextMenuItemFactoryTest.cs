@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using BaseResources = Core.Common.Base.Properties.Resources;
 using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -597,7 +598,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
 
             // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => true);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
@@ -619,7 +620,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
 
             // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => true);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
@@ -644,7 +645,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 calculationMock
             });
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, (fmContext) => counter++);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, (fmContext) => counter++, context => true);
 
             // Call
             toolStripItem.PerformClick();
@@ -873,6 +874,55 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreatePerformAllCalculationsInFailureMechanismItem_IsEnabledFuncTrue_CreatesDecoratedAndEnabledItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            failureMechanismMock.Expect(fm => fm.Calculations).Return(new[] { new TestCalculation() });
+
+            var failureMechanismContextMock = mocks.StrictMock<FailureMechanismContext<IFailureMechanism>>(failureMechanismMock, assessmentSectionMock);
+
+            mocks.ReplayAll();
+
+            // Call
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContextMock, null, context => true);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all_ToolTip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreatePerformAllCalculationsInFailureMechanismItem_IsEnabledFuncFalse_CreatesDecoratedAndEnabledItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+
+            var failureMechanismContextMock = mocks.StrictMock<FailureMechanismContext<IFailureMechanism>>(failureMechanismMock, assessmentSectionMock);
+
+            mocks.ReplayAll();
+
+            // Call
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContextMock, null, context => false);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all_ToolTip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
+
             mocks.VerifyAll();
         }
 

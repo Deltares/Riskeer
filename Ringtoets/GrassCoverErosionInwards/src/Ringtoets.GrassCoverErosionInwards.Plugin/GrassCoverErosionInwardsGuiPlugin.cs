@@ -118,11 +118,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var sectionLength = failureMechanismSection.GetSectionLength();
             var inwardsInput = calculation.InputParameters;
 
-            if (calculation.Output == null)
-            {
-                calculation.Output = new GrassCoverErosionInwardsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
-            }
-
             return HydraRingActivityFactory.Create(
                 calculation.Name,
                 hlcdDirectory,
@@ -142,7 +137,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                 ParseForeshore(inwardsInput),
                                                 ParseBreakWater(inwardsInput)
                     ),
-                output => { ParseHydraRingOutput(calculation.Output, output); });
+                output => { ParseHydraRingOutput(calculation, output); });
         }
 
         private static HydraRingBreakWater ParseBreakWater(GrassCoverErosionInwardsInput input)
@@ -183,11 +178,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
         }
 
-        private static void ParseHydraRingOutput(GrassCoverErosionInwardsOutput grassCoverErosionInwardsOutput, ExceedanceProbabilityCalculationOutput output)
+        private static void ParseHydraRingOutput(GrassCoverErosionInwardsCalculation calculation, ExceedanceProbabilityCalculationOutput output)
         {
             if (output != null)
             {
-                grassCoverErosionInwardsOutput.Probability = (RoundedDouble) output.Beta;
+                calculation.Output = new GrassCoverErosionInwardsOutput(double.NaN, double.NaN, (RoundedDouble)output.Beta, double.NaN, double.NaN);
             }
             else
             {
@@ -266,7 +261,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 .AddSeparator()
                 .AddCustomItem(changeRelevancyItem)
                 .AddSeparator()
-                .AddPerformAllCalculationsInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, CalculateAll)
+                .AddPerformAllCalculationsInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, CalculateAll, EnablePerformAllCalculationsInFailureMechanism)
                 .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
                 .AddSeparator()
                 .AddImportItem()
@@ -277,6 +272,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();
+        }
+
+        private static bool EnablePerformAllCalculationsInFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
+        {
+            return AllDataAvailable(context.Parent, context.WrappedData);
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
