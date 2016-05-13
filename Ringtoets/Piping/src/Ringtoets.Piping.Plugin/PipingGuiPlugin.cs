@@ -275,24 +275,13 @@ namespace Ringtoets.Piping.Plugin
 
         private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
         {
-            var changeRelevancyItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
-                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
-                RingtoetsCommonFormsResources.Checkbox_ticked,
-                (sender, args) =>
-                {
-                    Gui.ViewCommands.RemoveAllViewsForItem(pipingFailureMechanismContext);
-                    pipingFailureMechanismContext.WrappedData.IsRelevant = false;
-                    pipingFailureMechanismContext.WrappedData.NotifyObservers();
-                });
-
             var validateAllItem = CreateValidateAllItem(pipingFailureMechanismContext.WrappedData);
 
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
             return builder
                 .AddOpenItem()
                 .AddSeparator()
-                .AddCustomItem(changeRelevancyItem)
+                .AddChangeRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
                 .AddSeparator()
                 .AddCustomItem(validateAllItem)
                 .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll, context => true)
@@ -306,6 +295,11 @@ namespace Ringtoets.Piping.Plugin
                 .AddSeparator()
                 .AddPropertiesItem()
                 .Build();
+        }
+
+        private void RemoveAllViewsForItem(PipingFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)

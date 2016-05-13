@@ -386,6 +386,36 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void AddChangeRelevancyOfFailureMechanismItem_WhenBuild_ItemAddedToContextMenuEnabled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanismContextMock = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismMock, treeViewControlMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            var result = ringtoetsContextMenuBuilder.AddChangeRelevancyOfFailureMechanismItem(failureMechanismContextMock, null).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                          RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
+                                                          RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                                                          RingtoetsFormsResources.Checkbox_ticked);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void AddPerformCalculationItem_WhenBuildWithAllValidData_ItemAddedToContextMenuEnabled()
         {
             // Setup

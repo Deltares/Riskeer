@@ -258,6 +258,31 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             return performAllItem;
         }
 
+        /// <summary>
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing the relevance of the failure mechanism.
+        /// </summary>
+        /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
+        /// <param name="failureMechanismContext">The failure mechanism to set the relevance of.</param>
+        /// <param name="removeAllViewsForItemAction">The action that removes all views.</param>
+        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        public static StrictContextMenuItem CreateChangeRelevancyOfFailureMechanismItem<TFailureMechanismContext>(
+            TFailureMechanismContext failureMechanismContext,
+            Action<TFailureMechanismContext> removeAllViewsForItemAction)
+            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+        {
+            var changeRelevancyItem = new StrictContextMenuItem(
+                Resources.FailureMechanismContextMenuStrip_Is_relevant,
+                Resources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                Resources.Checkbox_ticked,
+                (sender, args) =>
+                {
+                    removeAllViewsForItemAction(failureMechanismContext);
+                    failureMechanismContext.WrappedData.IsRelevant = false;
+                    failureMechanismContext.WrappedData.NotifyObservers();
+                });
+            return changeRelevancyItem;
+        }
+
         private static void ClearAllCalculationOutputInFailureMechanism(IFailureMechanism failureMechanism)
         {
             if (MessageBox.Show(Resources.FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)

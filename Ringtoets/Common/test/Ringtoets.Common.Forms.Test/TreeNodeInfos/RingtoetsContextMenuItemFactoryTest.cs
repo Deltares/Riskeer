@@ -31,7 +31,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using BaseResources = Core.Common.Base.Properties.Resources;
 using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -656,6 +655,32 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void CreateChangeRelevancyOfFailureMechanismItem_PerformClickOnRelevanceItem_RelevanceFalseAndObserversNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            failureMechanismMock.Expect(fm => fm.NotifyObservers());
+            failureMechanismMock.Expect(fm => fm.IsRelevant).SetPropertyWithArgument(false);
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
+            var counter = 0;
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateChangeRelevancyOfFailureMechanismItem(failureMechanismContext, context => counter++);
+
+            // Call
+            toolStripItem.PerformClick();
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Checkbox_ticked, toolStripItem.Image);
+            Assert.AreEqual(1, counter);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void CreatePerformCalculationItem_IsEnabledFuncTrue_CreatesDecoratedAndEnabledItem()
         {
             // Setup
@@ -884,7 +909,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            failureMechanismMock.Expect(fm => fm.Calculations).Return(new[] { new TestCalculation() });
+            failureMechanismMock.Expect(fm => fm.Calculations).Return(new[]
+            {
+                new TestCalculation()
+            });
 
             var failureMechanismContextMock = mocks.StrictMock<FailureMechanismContext<IFailureMechanism>>(failureMechanismMock, assessmentSectionMock);
 
@@ -928,9 +956,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         # region Nested types
 
-        private class TestFailureMechanismContext : FailureMechanismContext<TestFailureMechanism>
+        private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
         {
-            public TestFailureMechanismContext(TestFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
+            public TestFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
                 base(wrappedFailureMechanism, parent) {}
         }
 

@@ -308,13 +308,13 @@ namespace Ringtoets.Integration.Plugin
             var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
             if (assessmentSection != null)
             {
-                return assessmentSection.GetFailureMechanisms().Any(fm => ReferenceEquals(view.Data, ((FailureMechanismBase<FailureMechanismSectionResult>)fm).SectionResults));
+                return assessmentSection.GetFailureMechanisms().Any(fm => ReferenceEquals(view.Data, ((FailureMechanismBase<FailureMechanismSectionResult>) fm).SectionResults));
             }
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<FailureMechanismSectionResult>)failureMechanism).SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<FailureMechanismSectionResult>) failureMechanism).SectionResults);
         }
 
         #endregion
@@ -502,49 +502,26 @@ namespace Ringtoets.Integration.Plugin
 
         private ContextMenuStrip StandAloneFailureMechanismEnabledContextMenuStrip(StandAloneFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var changeRelevancyItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
-                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
-                RingtoetsCommonFormsResources.Checkbox_ticked,
-                (sender, args) =>
-                {
-                    Gui.ViewCommands.RemoveAllViewsForItem(nodeData);
-                    nodeData.WrappedData.IsRelevant = false;
-                    nodeData.WrappedData.NotifyObservers();
-                }
-                );
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            return builder
+                .AddChangeRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
+                .AddSeparator()
+                .AddPerformAllCalculationsInFailureMechanismItem(nodeData, null, context => true)
+                .AddClearAllCalculationOutputInFailureMechanismItem(nodeData.WrappedData)
+                .AddSeparator()
+                .AddImportItem()
+                .AddExportItem()
+                .AddSeparator()
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
+        }
 
-            var calculateItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_all,
-                RingtoetsCommonFormsResources.Calculate_all_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
-                null)
-            {
-                Enabled = false
-            };
-            var clearOutputItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Clear_all_output,
-                RingtoetsCommonFormsResources.Clear_all_output_ToolTip,
-                RingtoetsCommonFormsResources.ClearIcon, null
-                )
-            {
-                Enabled = false
-            };
-
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddCustomItem(changeRelevancyItem)
-                      .AddSeparator()
-                      .AddCustomItem(calculateItem)
-                      .AddCustomItem(clearOutputItem)
-                      .AddSeparator()
-                      .AddImportItem()
-                      .AddExportItem()
-                      .AddSeparator()
-                      .AddExpandAllItem()
-                      .AddCollapseAllItem()
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
+        private void RemoveAllViewsForItem(StandAloneFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         private ContextMenuStrip StandAloneFailureMechanismDisabledContextMenuStrip(StandAloneFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)

@@ -178,6 +178,22 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which sets if the failure mechanism is relevant.
+        /// </summary>
+        /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
+        /// <param name="failureMechanismContext">The failure mechanism to change if it is relevant.</param>
+        /// <param name="removeAllViewsForItemAction">The action that removes all views.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        public RingtoetsContextMenuBuilder AddChangeRelevancyOfFailureMechanismItem<TFailureMechanismContext>(
+            TFailureMechanismContext failureMechanismContext,
+            Action<TFailureMechanismContext> removeAllViewsForItemAction)
+            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+        {
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateChangeRelevancyOfFailureMechanismItem(failureMechanismContext, removeAllViewsForItemAction));
+            return this;
+        }
+
         # region Decorated members
 
         /// <summary>

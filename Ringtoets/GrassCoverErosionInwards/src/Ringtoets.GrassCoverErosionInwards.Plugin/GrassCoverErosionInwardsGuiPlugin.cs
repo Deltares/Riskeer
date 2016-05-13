@@ -28,7 +28,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
@@ -245,22 +244,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
         {
-            var changeRelevancyItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
-                RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
-                RingtoetsCommonFormsResources.Checkbox_ticked,
-                (sender, args) =>
-                {
-                    Gui.ViewCommands.RemoveAllViewsForItem(grassCoverErosionInwardsFailureMechanismContext);
-                    grassCoverErosionInwardsFailureMechanismContext.WrappedData.IsRelevant = false;
-                    grassCoverErosionInwardsFailureMechanismContext.WrappedData.NotifyObservers();
-                });
-
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
             return builder
                 .AddOpenItem()
                 .AddSeparator()
-                .AddCustomItem(changeRelevancyItem)
+                .AddChangeRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, RemoveAllViewsForItem)
                 .AddSeparator()
                 .AddPerformAllCalculationsInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, CalculateAll, EnablePerformAllCalculationsInFailureMechanism)
                 .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
@@ -278,6 +266,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         private static bool EnablePerformAllCalculationsInFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
         {
             return AllDataAvailable(context.Parent, context.WrappedData);
+        }
+
+        private void RemoveAllViewsForItem(GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
