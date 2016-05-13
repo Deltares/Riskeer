@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.Service
             }
 
             LogMessages.Clear();
-            calculation.Output = null;
+            calculation.ClearOutput();;
 
             PipingCalculationService.Calculate(calculation);
             PipingSemiProbabilisticCalculationService.Calculate(calculation);

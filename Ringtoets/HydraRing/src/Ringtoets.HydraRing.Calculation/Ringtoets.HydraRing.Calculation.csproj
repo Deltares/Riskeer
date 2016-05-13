@@ -48,6 +48,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Activities\ExceedanceProbabilityCalculationActivity.cs" />
+    <Compile Include="Activities\HydraRingActivity.cs" />
     <Compile Include="Data\HydraRingBreakWater.cs" />
     <Compile Include="Data\HydraRingSection.cs" />
     <Compile Include="Data\HydraRingForelandPoint.cs" />

@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Activities\ExceedanceProbabilityCalculationActivityTest.cs" />
     <Compile Include="Activities\HydraRingActivityFactoryTest.cs" />
+    <Compile Include="Activities\HydraRingActivityTest.cs" />
     <Compile Include="Data\HydraRingBreakWaterTest.cs" />
     <Compile Include="Data\HydraRingForelandPointTest.cs" />
     <Compile Include="Data\Input\Overtopping\HydraRingRoughnessProfilePointTest.cs" />
