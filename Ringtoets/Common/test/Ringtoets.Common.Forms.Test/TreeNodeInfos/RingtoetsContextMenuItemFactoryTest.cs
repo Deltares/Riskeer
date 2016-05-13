@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroup = new CalculationGroup();
 
             // Call
-            var toolStripItem = factory.CreateAddCalculationGroupItem(calculationGroup);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationGroupItem(calculationGroup);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup, toolStripItem.Text);
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Precondition
             Assert.AreEqual(1, calculationGroup.Children.Count);
 
-            var toolStripItem = factory.CreateAddCalculationGroupItem(calculationGroup);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationGroupItem(calculationGroup);
 
             // Call
             toolStripItem.PerformClick();
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
 
             // Call
-            var toolStripItem = factory.CreateAddCalculationItem(calculationGroupContext, context => { });
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => { });
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_Add_Calculation, toolStripItem.Text);
@@ -125,7 +125,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var counter = 0;
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
-            var toolStripItem = factory.CreateAddCalculationItem(calculationGroupContext, context => counter++);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, context => counter++);
 
             // Call
             toolStripItem.PerformClick();
@@ -156,7 +156,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             };
 
             // Call
-            var toolStripItem = factory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Clear_all_output, toolStripItem.Text);
@@ -187,7 +187,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             };
 
             // Call
-            var toolStripItem = factory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Clear_all_output, toolStripItem.Text);
@@ -244,7 +244,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 }
             };
 
-            var toolStripItem = factory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
 
             // Call
             toolStripItem.PerformClick();
@@ -293,7 +293,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 }
             };
 
-            var toolStripItem = factory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup);
 
             // Call
             toolStripItem.PerformClick();
@@ -322,7 +322,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
 
             // Call
-            var toolStripItem = factory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => true);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
@@ -346,11 +346,73 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
 
             // Call
-            var toolStripItem = factory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => true);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
             Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreatePerformAllCalculationsInGroupItem_IsEnabledFuncTrue_CreatesDecoratedAndEnabledItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
+
+            // Call
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => true);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreatePerformAllCalculationsInGroupItem_IsEnabledFuncFalse_CreatesDecoratedAndEnabledItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
+
+            // Call
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => false);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
 
@@ -378,7 +440,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanisMock);
 
-            var toolStripItem = factory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, (group, context) => counter++);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, (group, context) => counter++, context => true);
 
             // Call
             toolStripItem.PerformClick();
@@ -402,7 +464,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
             // Call
-            var toolStripItem = factory.CreatePerformCalculationItem(calculation, calculationContext, null, context => true);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => true);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Calculate, toolStripItem.Text);
@@ -426,7 +488,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationContext = new TestCalculationContext(calculation, failureMechanisMock);
 
             // Call
-            var toolStripItem = factory.CreatePerformCalculationItem(calculation, calculationContext, null, context => false);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => false);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Calculate, toolStripItem.Text);
@@ -450,7 +512,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
             var counter = 0;
-            var toolStripItem = factory.CreatePerformCalculationItem(calculation, calculationContext, (calc, context) => counter++, context => true);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, (calc, context) => counter++, context => true);
 
             // Call
             toolStripItem.PerformClick();
@@ -473,7 +535,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var toolStripItem = factory.CreateClearCalculationOutputItem(calculationWithOutputMock);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutputMock);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Clear_output, toolStripItem.Text);
@@ -496,7 +558,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var toolStripItem = factory.CreateClearCalculationOutputItem(calculationWithOutputMock);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutputMock);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Clear_output, toolStripItem.Text);
@@ -530,7 +592,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 messageBox.ClickOk();
             };
 
-            var toolStripItem = factory.CreateClearCalculationOutputItem(calculationWithOutputMock);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutputMock);
 
             // Call
             toolStripItem.PerformClick();
@@ -559,7 +621,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 messageBox.ClickCancel();
             };
 
-            var toolStripItem = factory.CreateClearCalculationOutputItem(calculationWithOutputMock);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculationWithOutputMock);
 
             // Call
             toolStripItem.PerformClick();
@@ -577,7 +639,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            var toolStripItem = factory.CreateDisabledChangeRelevancyItem(failureMechanismContextMock);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateDisabledChangeRelevancyItem(failureMechanismContextMock);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant, toolStripItem.Text);
@@ -602,7 +664,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var toolStripItem = factory.CreateDisabledChangeRelevancyItem(failureMechanismContextMock);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateDisabledChangeRelevancyItem(failureMechanismContextMock);
 
             // Call
             toolStripItem.PerformClick();

@@ -201,7 +201,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null).Build();
+            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => true).Build();
 
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -234,7 +234,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null).Build();
+            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => true).Build();
 
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -250,7 +250,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddPerformAllCalculationsInGroupItem_WhenBuild_ItemAddedToContextMenu()
+        public void AddPerformCalculationItem_WhenBuildWithAllValidData_ItemAddedToContextMenuEnabled()
         {
             // Setup
             var mocks = new MockRepository();
@@ -278,6 +278,40 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                           RingtoetsFormsResources.Calculate,
                                                           RingtoetsFormsResources.Calculate_ToolTip,
                                                           RingtoetsFormsResources.CalculateIcon);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddPerformCalculationItem_WhenBuildWithoutAllValidData_ItemAddedToContextMenuDisabled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
+            var calculationContext = new TestCalculationContext(calculation, failureMechanisMock);
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculation, treeViewControlMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            var result = ringtoetsContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => false).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                          RingtoetsFormsResources.Calculate,
+                                                          RingtoetsFormsResources.Calculate_ToolTip,
+                                                          RingtoetsFormsResources.CalculateIcon,
+                                                          false);
 
             mocks.VerifyAll();
         }

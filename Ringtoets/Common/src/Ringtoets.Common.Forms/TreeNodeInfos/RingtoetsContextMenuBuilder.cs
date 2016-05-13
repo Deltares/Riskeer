@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddCreateCalculationGroupItem(CalculationGroup calculationGroup)
         {
-            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateAddCalculationGroupItem(calculationGroup));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateAddCalculationGroupItem(calculationGroup));
             return this;
         }
 
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             Action<TCalculationContext> addCalculationAction)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, addCalculationAction));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, addCalculationAction));
             return this;
         }
 
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddClearAllCalculationOutputInGroupItem(CalculationGroup calculationGroup)
         {
-            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateClearAllCalculationOutputInGroupItem(calculationGroup));
             return this;
         }
 
@@ -92,14 +92,16 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <param name="calculationGroup">The calculation group to perform all calculations for.</param>
         /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
         /// <param name="calculateAllAction">The action that performs all calculations.</param>
+        /// <param name="isEnabledFunc">The func that checks if the item is enabled.</param>
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddPerformAllCalculationsInGroupItem<TCalculationContext>(
             CalculationGroup calculationGroup,
             TCalculationContext calculationGroupContext,
-            Action<CalculationGroup, TCalculationContext> calculateAllAction)
+            Action<CalculationGroup, TCalculationContext> calculateAllAction,
+            Func<TCalculationContext, bool> isEnabledFunc)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, calculateAllAction));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, calculateAllAction, isEnabledFunc));
             return this;
         }
 
@@ -121,7 +123,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
             where TCalculation : ICalculation
         {
-            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, calculateAction, isEnabledFunc));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, calculateAction, isEnabledFunc));
             return this;
         }
 
@@ -132,7 +134,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddClearCalculationOutputItem(ICalculation calculation)
         {
-            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculation));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateClearCalculationOutputItem(calculation));
             return this;
         }
 
@@ -143,7 +145,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddDisabledChangeRelevancyItem(IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
         {
-            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreateDisabledChangeRelevancyItem(failureMechanismContext));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateDisabledChangeRelevancyItem(failureMechanismContext));
             return this;
         }
 
@@ -170,7 +172,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             Action<TFailureMechanismContext> calculateAllAction)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, calculateAllAction));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, calculateAllAction));
             return this;
         }
 

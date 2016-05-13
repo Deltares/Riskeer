@@ -530,7 +530,7 @@ namespace Ringtoets.Piping.Plugin
                    .AddCreateCalculationItem(nodeData, AddCalculationScenario)
                    .AddSeparator()
                    .AddCustomItem(validateAllItem)
-                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll)
+                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, context => true)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
 

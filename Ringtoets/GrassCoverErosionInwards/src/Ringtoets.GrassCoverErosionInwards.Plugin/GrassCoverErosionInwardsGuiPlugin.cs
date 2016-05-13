@@ -204,6 +204,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                      calc)).ToList());
         }
 
+        private static bool AllDataAvailable(IAssessmentSection assessmentSection, GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        {
+            return assessmentSection.HydraulicBoundaryDatabase != null && failureMechanism.Sections.Any();
+        }
+
         #region GrassCoverErosionInwards TreeNodeInfo
 
         private object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext)
@@ -349,7 +354,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             builder.AddCreateCalculationGroupItem(group);
             builder.AddCreateCalculationItem(nodeData, AddCalculation);
             builder.AddSeparator();
-            builder.AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll);
+            builder.AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, EnablePerformAllCalculationsInGroup);
             builder.AddClearAllCalculationOutputInGroupItem(group);
             builder.AddSeparator();
 
@@ -370,7 +375,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentNodeData)
+        private static bool EnablePerformAllCalculationsInGroup(GrassCoverErosionInwardsCalculationGroupContext context)
+        {
+            return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
+        }
+
+        private static void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext nodeData, object parentNodeData)
         {
             var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
 
@@ -428,9 +438,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private bool EnablePerformCalculation(GrassCoverErosionInwardsCalculationContext context)
+        private static bool EnablePerformCalculation(GrassCoverErosionInwardsCalculationContext context)
         {
-            return context.AssessmentSection.HydraulicBoundaryDatabase != null && context.FailureMechanism.Sections.Any();
+            return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
         }
 
         private void PerformCalculation(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)
