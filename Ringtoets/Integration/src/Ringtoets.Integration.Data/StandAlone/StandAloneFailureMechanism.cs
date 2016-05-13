@@ -23,13 +23,12 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Placeholder;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Integration.Data.Placeholders
+namespace Ringtoets.Integration.Data.StandAlone
 {
     /// <summary>
-    /// Defines a placeholder for stand alone failure mechanisms objects
+    /// Defines a stand alone failure mechanisms objects
     /// </summary>
     public class StandAloneFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>
     {
@@ -47,7 +46,6 @@ namespace Ringtoets.Integration.Data.Placeholders
         public StandAloneFailureMechanism(string name, string code)
             : base(name, code)
         {
-            AssessmentResult = new OutputPlaceholder(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName);
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -62,10 +60,5 @@ namespace Ringtoets.Integration.Data.Placeholders
         {
             return new FailureMechanismSectionResult(section);
         }
-
-        /// <summary>
-        /// Gets the calculation results for this failure mechanism.
-        /// </summary>
-        public OutputPlaceholder AssessmentResult { get; private set; }
     }
 }

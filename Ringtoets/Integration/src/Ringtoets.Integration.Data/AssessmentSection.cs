@@ -28,8 +28,8 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data.Placeholders;
 using Ringtoets.Integration.Data.Properties;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Data

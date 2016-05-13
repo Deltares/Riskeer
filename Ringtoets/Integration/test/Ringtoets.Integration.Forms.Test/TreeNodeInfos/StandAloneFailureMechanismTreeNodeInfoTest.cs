@@ -36,7 +36,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.Placeholders;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
@@ -89,15 +89,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var testName = "ttt";
-            var placeholder = new StandAloneFailureMechanism(testName, "C");
-            var placeholderContext = new StandAloneFailureMechanismContext(placeholder, assessmentSection);
+            var standAloneFailureMechanism = new StandAloneFailureMechanism(testName, "C");
+            var standAloneFailureMechanismContext = new StandAloneFailureMechanismContext(standAloneFailureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
 
                 // Call
-                var text = info.Text(placeholderContext);
+                var text = info.Text(standAloneFailureMechanismContext);
 
                 // Assert
                 Assert.AreEqual(testName, text);

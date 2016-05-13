@@ -21,7 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Integration.Data.Placeholders;
+using Ringtoets.Integration.Data.StandAlone;
 
 namespace Application.Ringtoets.Storage.Create
 {

@@ -23,7 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.Integration.Data.Placeholders;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Read

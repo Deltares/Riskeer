@@ -33,7 +33,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.Placeholders;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Data;
@@ -178,9 +178,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanisms[0], pipingFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, pipingFailureMechanismContext.Parent);
 
-                var placeholderFailureMechanismContext = (StandAloneFailureMechanismContext) objects[5];
-                Assert.AreSame(failureMechanisms[1], placeholderFailureMechanismContext.WrappedData);
-                Assert.AreSame(assessmentSection, placeholderFailureMechanismContext.Parent);
+                var standAloneFailureMechanismContext = (StandAloneFailureMechanismContext)objects[5];
+                Assert.AreSame(failureMechanisms[1], standAloneFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, standAloneFailureMechanismContext.Parent);
             }
             mocks.VerifyAll();
         }

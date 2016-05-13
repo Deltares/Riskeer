@@ -43,7 +43,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Placeholder;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Activities;
@@ -52,7 +51,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.Integration.Data.Placeholders;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -207,14 +206,6 @@ namespace Ringtoets.Integration.Plugin
                                            Color.FromKnownColor(KnownColor.ControlText) :
                                            Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = FailureMechanismSectionsContextMenuStrip
-            };
-
-            yield return new TreeNodeInfo<PlaceholderWithReadonlyName>
-            {
-                Text = placeholderWithReadonlyName => placeholderWithReadonlyName.Name,
-                Image = placeholderWithReadonlyName => GetIconForPlaceholder(placeholderWithReadonlyName),
-                ForeColor = placeholderWithReadonlyName => Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = PlaceholderWithReadonlyNameContextMenuStrip
             };
 
             yield return new TreeNodeInfo<CategoryTreeFolder>
@@ -565,53 +556,6 @@ namespace Ringtoets.Integration.Plugin
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .Build();
-        }
-
-        # endregion
-
-        # region PlaceholderWithReadonlyName
-
-        private static Bitmap GetIconForPlaceholder(PlaceholderWithReadonlyName nodeData)
-        {
-            if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
-            {
-                return RingtoetsCommonFormsResources.GenericInputOutputIcon;
-            }
-            return RingtoetsFormsResources.PlaceholderIcon;
-        }
-
-        private ContextMenuStrip PlaceholderWithReadonlyNameContextMenuStrip(PlaceholderWithReadonlyName nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            IContextMenuBuilder menuBuilder = Gui.Get(nodeData, treeViewControl);
-
-            if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
-            {
-                menuBuilder.AddOpenItem();
-            }
-
-            if (nodeData is OutputPlaceholder)
-            {
-                var clearItem = new StrictContextMenuItem(
-                    RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase,
-                    RingtoetsCommonFormsResources.FailureMechanism_InputsOutputs_Erase_ToolTip,
-                    RingtoetsCommonFormsResources.ClearIcon,
-                    null)
-                {
-                    Enabled = false
-                };
-
-                menuBuilder.AddCustomItem(clearItem);
-            }
-
-            if (nodeData is InputPlaceholder || nodeData is OutputPlaceholder)
-            {
-                menuBuilder.AddSeparator();
-            }
-            return menuBuilder.AddImportItem()
-                              .AddExportItem()
-                              .AddSeparator()
-                              .AddPropertiesItem()
-                              .Build();
         }
 
         # endregion

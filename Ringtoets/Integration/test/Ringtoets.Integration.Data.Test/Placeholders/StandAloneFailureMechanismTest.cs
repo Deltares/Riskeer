@@ -22,7 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.Placeholders;
+using Ringtoets.Integration.Data.StandAlone;
 
 namespace Ringtoets.Integration.Data.Test.Placeholders
 {
@@ -70,7 +70,6 @@ namespace Ringtoets.Integration.Data.Test.Placeholders
             Assert.AreEqual(expectedName, failureMechanism.Name);
             Assert.AreEqual(expectedCode, failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            Assert.AreEqual("Oordeel", failureMechanism.AssessmentResult.Name);
         }
     }
 }
