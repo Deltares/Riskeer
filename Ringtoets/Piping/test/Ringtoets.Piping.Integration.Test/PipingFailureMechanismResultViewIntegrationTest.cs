@@ -27,15 +27,15 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Integration.Test
 {
     [TestFixture]
-    public class FailureMechanismResultViewIntegrationTest
+    public class PipingFailureMechanismResultViewIntegrationTest
     {
         [Test]
         public void FailureMechanismResultView_DataImportedOrChanged_ChangesCorrectlyObservedAndSynced()
@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Integration.Test
             using (var form = new Form())
             {
                 // Show the view
-                var failureMechanismResultView = new FailureMechanismResultView();
+                var failureMechanismResultView = new PipingFailureMechanismResultView();
                 form.Controls.Add(failureMechanismResultView);
                 form.Show();
 

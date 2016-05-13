@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Data.Entity.Core.EntityClient;
 using System.Data.SQLite;
 using Core.Common.Base.Data;
-using Core.Common.Base.Properties;
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.TestUtil

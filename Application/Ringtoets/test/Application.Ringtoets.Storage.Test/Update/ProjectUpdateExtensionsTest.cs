@@ -200,7 +200,6 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             mocks.ReplayAll();
 
-            var newDescription = "newDescription";
             var project = new Project
             {
                 StorageId = 1,

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;

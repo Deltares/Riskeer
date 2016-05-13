@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -34,10 +33,10 @@ namespace Ringtoets.Piping.Service
     public static class PipingCalculationScenarioService
     {
         /// <summary>
-        /// Sets the <paramref name="calculationScenario"/> to the corresponding <see cref="FailureMechanismSectionResult"/> for the <paramref name="oldSurfaceLine"/>.
+        /// Sets the <paramref name="calculationScenario"/> to the corresponding <see cref="PipingFailureMechanismSectionResult"/> for the <paramref name="oldSurfaceLine"/>.
         /// </summary>
         /// <param name="calculationScenario">The calculation scenario to set containing the new surface line.</param>
-        /// <param name="failureMechanism">The failure mechanism containing the <see cref="FailureMechanismSectionResult"/>.</param>
+        /// <param name="failureMechanism">The failure mechanism containing the <see cref="PipingFailureMechanismSectionResult"/>.</param>
         /// <param name="oldSurfaceLine">The old surface line for the calculation scenario.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationScenario"/> or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static void SyncCalculationScenarioWithNewSurfaceLine(PipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism, RingtoetsPipingSurfaceLine oldSurfaceLine)
@@ -62,10 +61,10 @@ namespace Ringtoets.Piping.Service
         }
 
         /// <summary>
-        /// Removes the <paramref name="calculationScenario"/> from the <see cref="FailureMechanismSectionResult"/>.
+        /// Removes the <paramref name="calculationScenario"/> from the <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="calculationScenario">The calculation scenario to remove.</param>
-        /// <param name="failureMechanism">The failure mechanism containing the <see cref="FailureMechanismSectionResult"/>.</param>
+        /// <param name="failureMechanism">The failure mechanism containing the <see cref="PipingFailureMechanismSectionResult"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationScenario"/> or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static void RemoveCalculationScenarioFromSectionResult(PipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism)
         {

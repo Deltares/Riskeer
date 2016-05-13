@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Piping.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
@@ -188,8 +189,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new Simple();
 
             viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
-            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
+            assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
+                new PipingFailureMechanism(),
                 failureMechanism
             });
 

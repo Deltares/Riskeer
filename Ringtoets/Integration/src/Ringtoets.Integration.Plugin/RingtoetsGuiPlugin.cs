@@ -308,7 +308,10 @@ namespace Ringtoets.Integration.Plugin
             var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
             if (assessmentSection != null)
             {
-                return assessmentSection.GetFailureMechanisms().Any(fm => ReferenceEquals(view.Data, ((FailureMechanismBase<FailureMechanismSectionResult>) fm).SectionResults));
+                return assessmentSection
+                    .GetFailureMechanisms()
+                    .OfType<FailureMechanismBase<FailureMechanismSectionResult>>()
+                    .Any(fm => ReferenceEquals(view.Data,fm.SectionResults));
             }
             if (failureMechanismContext != null)
             {

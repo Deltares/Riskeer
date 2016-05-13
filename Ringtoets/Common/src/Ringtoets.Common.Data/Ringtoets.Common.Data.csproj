@@ -49,10 +49,10 @@
     <Compile Include="Contribution\FailureMechanismContribution.cs" />
     <Compile Include="Contribution\FailureMechanismContributionItem.cs" />
     <Compile Include="Contribution\OtherFailureMechanism.cs" />
+    <Compile Include="FailureMechanism\FailureMechanismSectionResult.cs" />
     <Compile Include="FailureMechanism\ICalculatableFailureMechanism.cs" />
     <Compile Include="FailureMechanism\FailureMechanismBase.cs" />
     <Compile Include="FailureMechanism\FailureMechanismSection.cs" />
-    <Compile Include="FailureMechanism\FailureMechanismSectionResult.cs" />
     <Compile Include="Calculation\ICalculation.cs" />
     <Compile Include="Calculation\ICalculationScenario.cs" />
     <Compile Include="FailureMechanism\IFailureMechanism.cs" />

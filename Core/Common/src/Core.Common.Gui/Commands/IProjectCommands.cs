@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
-
 using Core.Common.Base.Data;
 
 namespace Core.Common.Gui.Commands

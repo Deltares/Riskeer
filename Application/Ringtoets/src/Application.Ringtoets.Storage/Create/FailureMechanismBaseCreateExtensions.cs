@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// </list>
         /// </exception>
-        internal static void AddEntitiesForFailureMechanismSections(this FailureMechanismBase<FailureMechanismSectionResult> mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
+        internal static void AddEntitiesForFailureMechanismSections(this IFailureMechanism mechanism, CreateConversionCollector collector, FailureMechanismEntity entity)
         {
             if (collector == null)
             {

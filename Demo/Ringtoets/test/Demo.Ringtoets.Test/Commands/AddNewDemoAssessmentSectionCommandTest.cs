@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
@@ -11,7 +10,6 @@ using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -96,7 +94,7 @@ namespace Demo.Ringtoets.Test.Commands
             mocks.VerifyAll();
         }
 
-        private void AssertCalculationInFailureMechanismSectionResult(PipingCalculationScenario calculation, FailureMechanismSectionResult[] sectionResults)
+        private void AssertCalculationInFailureMechanismSectionResult(PipingCalculationScenario calculation, PipingFailureMechanismSectionResult[] sectionResults)
         {
             Assert.AreEqual(283, sectionResults.Length);
             var sectionResultWithCalculation = sectionResults[22];

@@ -1,6 +1,6 @@
 ﻿namespace Ringtoets.Common.Forms.Views
 {
-    partial class FailureMechanismResultView
+    partial class PipingFailureMechanismResultView
     {
         /// <summary> 
         /// Required designer variable.

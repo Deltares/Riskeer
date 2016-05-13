@@ -1,13 +1,7 @@
-﻿using System;
-using System.Windows.Forms.VisualStyles;
-using Core.Common.Base.Geometry;
-using Core.Common.Gui;
+﻿using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 
 using NUnit.Framework;
-
-using Ringtoets.Piping.Data;
-
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives;
 

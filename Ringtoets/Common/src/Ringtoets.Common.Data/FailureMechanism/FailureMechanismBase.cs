@@ -37,6 +37,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     {
         private readonly List<FailureMechanismSection> sections;
         private double contribution;
+        private readonly IList<T> sectionResults;
 
         /// <summary>
         /// Creates a new instance of the <see cref="FailureMechanismBase{T}"/> class.
@@ -56,7 +57,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             Name = failureMechanismName;
             Code = failureMechanismCode;
             sections = new List<FailureMechanismSection>();
-            SectionResults = new List<T>();
+            sectionResults = new List<T>();
             IsRelevant = true;
         }
 
@@ -93,7 +94,13 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Gets the failure mechanism section results.
         /// </summary>
-        public IList<T> SectionResults { get; private set; }
+        public IEnumerable<T> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
+        }
 
         public long StorageId { get; set; }
 
@@ -117,7 +124,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
                 InsertSectionWhileMaintainingConnectivityOrder(section);
             }
 
-            SectionResults.Add(CreateFailureMechanismSectionResult(section));
+            sectionResults.Add(CreateFailureMechanismSectionResult(section));
         }
 
         protected abstract T CreateFailureMechanismSectionResult(FailureMechanismSection section);
@@ -125,7 +132,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         public void ClearAllSections()
         {
             sections.Clear();
-            SectionResults.Clear();
+            sectionResults.Clear();
         }
 
         private static void ValidateParameters(string failureMechanismName, string failureMechanismCode)

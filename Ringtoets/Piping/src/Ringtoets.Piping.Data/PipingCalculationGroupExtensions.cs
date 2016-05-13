@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Data
     public static class PipingCalculationGroupExtensions
     {
         /// <summary>
-        /// Adds <see cref="PipingCalculationScenario"/> to <see cref="FailureMechanismBase.sectionResults"/>.
+        /// Adds <see cref="PipingCalculationScenario"/> to <see cref="FailureMechanismBase{T}.SectionResults"/>.
         /// </summary>
         /// <param name="pipingCalculationGroup">The group containing the calculations.</param>
         /// <param name="pipingFailureMechanism">The failure mechanism containing the section results.</param>

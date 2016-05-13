@@ -25,7 +25,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
 using PrimitivesResources = Ringtoets.Piping.Primitives.Properties.Resources;
 

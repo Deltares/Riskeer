@@ -33,12 +33,13 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Views;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Views;
 
-namespace Ringtoets.Common.Forms.Test.Views
+namespace Ringtoets.Piping.Forms.Test.Views
 {
     [TestFixture]
-    public class FailureMechanismResultViewTest
+    public class PipingFailureMechanismResultViewTest
     {
         private Form testForm;
 
@@ -58,7 +59,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            using (var view = new FailureMechanismResultView())
+            using (var view = new PipingFailureMechanismResultView())
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -109,8 +110,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 };
 
                 var section = new FailureMechanismSection("test", points);
-                var sectionResult = new FailureMechanismSectionResult(section);
-                var testData = new List<FailureMechanismSectionResult>
+                var sectionResult = new PipingFailureMechanismSectionResult(section);
+                var testData = new List<PipingFailureMechanismSectionResult>
                 {
                     sectionResult
                 };
@@ -159,7 +160,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var failureMechanism = new SimpleFailureMechanism();
             mocks.ReplayAll();
-            using (var view = new FailureMechanismResultView
+            using (var view = new PipingFailureMechanismResultView
             {
                 FailureMechanism = failureMechanism
             })
@@ -305,7 +306,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
 
-                var dataObject = view.Data as List<FailureMechanismSectionResult>;
+                var dataObject = view.Data as List<PipingFailureMechanismSectionResult>;
                 Assert.IsNotNull(dataObject);
                 var row = dataObject.First();
 
@@ -321,7 +322,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             // Setup
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>) view.Data;
+                var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
                 sections[0].AssessmentLayerOne = false;
 
                 var gridTester = new ControlTester("dataGridView");
@@ -357,7 +358,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>) view.Data;
+                var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
                 sections[0].CalculationScenarios.Add(calculationScenarioMock);
 
                 var gridTester = new ControlTester("dataGridView");
@@ -392,7 +393,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>) view.Data;
+                var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
                 sections[0].CalculationScenarios.Add(calculationScenarioMock);
 
                 var gridTester = new ControlTester("dataGridView");
@@ -426,7 +427,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>) view.Data;
+                var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
                 sections[0].CalculationScenarios.Add(calculationScenarioMock);
 
                 var gridTester = new ControlTester("dataGridView");
@@ -460,7 +461,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>) view.Data;
+                var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
                 sections[0].CalculationScenarios.Add(calculationScenarioMock);
 
                 var gridTester = new ControlTester("dataGridView");
@@ -516,7 +517,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>) view.Data;
+                var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
                 sections[0].CalculationScenarios.Add(calculationScenarioMock);
 
                 var gridTester = new ControlTester("dataGridView");
@@ -550,7 +551,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<FailureMechanismSectionResult>) view.Data;
+                var sections = (List<PipingFailureMechanismSectionResult>) view.Data;
                 sections[0].CalculationScenarios.Add(calculationScenarioMock);
 
                 var gridTester = new ControlTester("dataGridView");
@@ -575,7 +576,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         private const int assessmentLayerTwoBIndex = 3;
         private const int assessmentLayerThreeIndex = 4;
 
-        private FailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
+        private PipingFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
         {
             var failureMechanism = new SimpleFailureMechanism();
 
@@ -598,7 +599,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             return failureMechanismResultView;
         }
 
-        private class SimpleFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>
+        private class SimpleFailureMechanism : FailureMechanismBase<PipingFailureMechanismSectionResult>
         {
             public SimpleFailureMechanism() : base("Stubbed name", "Stubbed code") {}
 
@@ -610,15 +611,15 @@ namespace Ringtoets.Common.Forms.Test.Views
                 }
             }
 
-            protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+            protected override PipingFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
             {
-                return new FailureMechanismSectionResult(section);
+                return new PipingFailureMechanismSectionResult(section);
             }
         }
 
-        private FailureMechanismResultView ShowFailureMechanismResultsView()
+        private PipingFailureMechanismResultView ShowFailureMechanismResultsView()
         {
-            FailureMechanismResultView failureMechanismResultView = new FailureMechanismResultView();
+            PipingFailureMechanismResultView failureMechanismResultView = new PipingFailureMechanismResultView();
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

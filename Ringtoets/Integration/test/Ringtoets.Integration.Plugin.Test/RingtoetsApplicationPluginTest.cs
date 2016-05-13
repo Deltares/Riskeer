@@ -4,8 +4,6 @@ using Core.Common.Base.IO;
 using Core.Common.Base.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO;
 using Ringtoets.Integration.Data;

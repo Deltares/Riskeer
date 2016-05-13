@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using Core.Common.Gui.Forms.MessageWindow;
-using Core.Common.Gui.TestUtil;
 using Core.Common.TestUtil;
 using log4net.Core;
 using log4net.Util;

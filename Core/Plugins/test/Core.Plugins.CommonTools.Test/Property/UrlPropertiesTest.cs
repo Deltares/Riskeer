@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using Core.Common.Gui;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Plugins.CommonTools.Property;

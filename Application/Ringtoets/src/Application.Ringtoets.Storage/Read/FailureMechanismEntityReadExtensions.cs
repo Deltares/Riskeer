@@ -98,7 +98,7 @@ namespace Application.Ringtoets.Storage.Read
             return failureMechanism;
         }
 
-        private static void ReadFailureMechanismSections(this FailureMechanismEntity entity, FailureMechanismBase<FailureMechanismSectionResult> failureMechanism)
+        private static void ReadFailureMechanismSections(this FailureMechanismEntity entity, IFailureMechanism failureMechanism)
         {
             foreach (var failureMechanismSectionEntity in entity.FailureMechanismSectionEntities)
             {

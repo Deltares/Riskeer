@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Data.Test
             var piping = new PipingFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase<FailureMechanismSectionResult>>(piping);
+            Assert.IsInstanceOf<FailureMechanismBase<PipingFailureMechanismSectionResult>>(piping);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(piping);
             Assert.AreEqual(Resources.PipingFailureMechanism_DisplayName, piping.Name);
             Assert.AreEqual(Resources.PipingFailureMechanism_DisplayCode, piping.Code);

@@ -86,6 +86,15 @@ namespace Ringtoets.Piping.Plugin
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
             };
 
+            yield return new ViewInfo<FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>, IEnumerable<PipingFailureMechanismSectionResult>, PipingFailureMechanismResultView>
+            {
+                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                CloseForData = CloseFailureMechanismResultViewForData,
+                GetViewData = context => context.SectionResults,
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
+
             yield return new ViewInfo<PipingCalculationGroupContext, CalculationGroup, PipingCalculationsView>
             {
                 GetViewData = context => context.WrappedData,
@@ -120,6 +129,15 @@ namespace Ringtoets.Piping.Plugin
                 PipingCalculationGroupContextChildNodeObjects,
                 PipingCalculationGroupContextContextMenuStrip,
                 PipingCalculationGroupContextOnNodeRemoved);
+
+            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>>
+            {
+                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
 
             yield return new TreeNodeInfo<PipingInputContext>
             {
@@ -230,7 +248,7 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        # region PipingCalculationsView ViewInfo
+        # region PipingFailureMechanismView ViewInfo
 
         private bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)
         {
@@ -243,6 +261,29 @@ namespace Ringtoets.Piping.Plugin
             return assessmentSection != null
                        ? ReferenceEquals(viewPipingFailureMechanismContext.Parent, assessmentSection)
                        : ReferenceEquals(viewPipingFailureMechanism, pipingFailureMechanism);
+        }
+
+        # endregion
+
+        # region FailureMechanismResultsView ViewInfo
+
+        private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as IFailureMechanism;
+            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            if (assessmentSection != null)
+            {
+                return assessmentSection
+                    .GetFailureMechanisms()
+                    .OfType<PipingFailureMechanism>()
+                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+            }
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<PipingFailureMechanismSectionResult>)failureMechanism).SectionResults);
         }
 
         # endregion
@@ -383,7 +424,7 @@ namespace Ringtoets.Piping.Plugin
         {
             return new ArrayList
             {
-                new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
+                new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
             };
         }
 

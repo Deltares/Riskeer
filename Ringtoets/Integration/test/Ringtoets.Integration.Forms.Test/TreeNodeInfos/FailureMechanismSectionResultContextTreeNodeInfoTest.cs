@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -26,10 +27,10 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
-using Ringtoets.Piping.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
@@ -75,7 +76,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            var mechanism = new PipingFailureMechanism();
+            var mechanism = new SimpleFailureMechanism();
             var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
 
             // Call
@@ -119,6 +120,23 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             // Assert
             mocks.VerifyAll();
+        }
+    }
+
+    public class SimpleFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult> {
+        public SimpleFailureMechanism() : base("N", "C") {}
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
