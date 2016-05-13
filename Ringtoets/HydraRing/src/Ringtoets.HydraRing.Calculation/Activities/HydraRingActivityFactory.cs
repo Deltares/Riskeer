@@ -44,7 +44,8 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="targetProbabilityCalculationInput">The input of the calculation to perform.</param>
-        /// <param name="action">The action to perform after the calculation is performed.</param>
+        /// <param name="beforeRunAction">The action to perform before the calculation is performed.</param>
+        /// <param name="handleOutputAction">The action to perform after the calculation is performed.</param>
         /// <exception cref="ArgumentException">Thrown when one of the <c>string</c> arguments is null or empty.</exception>
         /// <exception cref="ArgumentNullException">Thrown when one of the other arguments is <c>null</c>.</exception>
         public static TargetProbabilityCalculationActivity Create(string name,
@@ -53,11 +54,17 @@ namespace Ringtoets.HydraRing.Calculation.Activities
                                                                   HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
                                                                   HydraRingUncertaintiesType uncertaintiesType,
                                                                   TargetProbabilityCalculationInput targetProbabilityCalculationInput,
-                                                                  Action<TargetProbabilityCalculationOutput> action)
+                                                                  Action beforeRunAction,
+                                                                  Action<TargetProbabilityCalculationOutput> handleOutputAction)
         {
-            VerifyCalculationActivityInput(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, action);
+            VerifyCalculationActivityInput(name, hlcdDirectory, ringId, timeIntegrationSchemeType,
+                                           uncertaintiesType, targetProbabilityCalculationInput,
+                                           beforeRunAction, handleOutputAction);
 
-            return new TargetProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, null, action, hydraRingCalculationService);
+            return new TargetProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType,
+                                                            uncertaintiesType, targetProbabilityCalculationInput,
+                                                            beforeRunAction, handleOutputAction,
+                                                            hydraRingCalculationService);
         }
 
         /// <summary>
@@ -69,7 +76,8 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="exceedanceProbabilityCalculationInput">The input of the calculation to perform.</param>
-        /// <param name="action">The action to perform after the calculation is performed.</param>
+        /// <param name="beforeRunAction">The action to perform before the calculation is performed.</param>
+        /// <param name="handleOutputAction">The action to perform after the calculation is performed.</param>
         /// <exception cref="ArgumentException">Thrown when one of the <c>string</c> arguments is null or empty.</exception>
         /// <exception cref="ArgumentNullException">Thrown when one of the other arguments is <c>null</c>.</exception>
         public static ExceedanceProbabilityCalculationActivity Create(string name,
@@ -78,16 +86,22 @@ namespace Ringtoets.HydraRing.Calculation.Activities
                                                                       HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
                                                                       HydraRingUncertaintiesType uncertaintiesType,
                                                                       ExceedanceProbabilityCalculationInput exceedanceProbabilityCalculationInput,
-                                                                      Action<ExceedanceProbabilityCalculationOutput> action)
+                                                                      Action beforeRunAction,
+                                                                      Action<ExceedanceProbabilityCalculationOutput> handleOutputAction)
         {
-            VerifyCalculationActivityInput(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, exceedanceProbabilityCalculationInput, action);
+            VerifyCalculationActivityInput(name, hlcdDirectory, ringId, timeIntegrationSchemeType,
+                                           uncertaintiesType, exceedanceProbabilityCalculationInput,
+                                           beforeRunAction, handleOutputAction);
 
-            return new ExceedanceProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, exceedanceProbabilityCalculationInput, null, action, hydraRingCalculationService);
+            return new ExceedanceProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType,
+                                                                uncertaintiesType, exceedanceProbabilityCalculationInput,
+                                                                beforeRunAction, handleOutputAction,
+                                                                hydraRingCalculationService);
         }
 
         private static void VerifyCalculationActivityInput(string name, string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
                                                            HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculationInput hydraRingCalculationInput,
-                                                           object action)
+                                                           object beforeRunAction, object handleOutputAction)
         {
             if (string.IsNullOrEmpty(hlcdDirectory))
             {
@@ -104,9 +118,14 @@ namespace Ringtoets.HydraRing.Calculation.Activities
                 throw new ArgumentNullException("hydraRingCalculationInput", @"Calculation input should be set.");
             }
 
-            if (action == null)
+            if (beforeRunAction == null)
             {
-                throw new ArgumentNullException("action", @"Handle calculation output action should be set.");
+                throw new ArgumentNullException("beforeRunAction", @"Before calculation run action should be set.");
+            }
+
+            if (handleOutputAction == null)
+            {
+                throw new ArgumentNullException("handleOutputAction", @"Handle calculation output action should be set.");
             }
         }
     }

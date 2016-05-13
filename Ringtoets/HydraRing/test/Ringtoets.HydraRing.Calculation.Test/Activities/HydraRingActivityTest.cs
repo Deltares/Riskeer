@@ -29,14 +29,30 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
     public class HydraRingActivityTest
     {
         [Test]
-        public void Constructor_BeforeRunActionNull_ThrowsArgumentNullException()
+        public void Run_BeforeRunActionSet_BeforeRunActionPerformed()
         {
+            // Setup
+            var count = 0;
+            var hydraRingActivity = new TestHydraRingActivity(() => { count++; });
+
             // Call
-            TestDelegate test = () => new TestHydraRingActivity(null);
+            hydraRingActivity.Run();
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("beforeRunAction", paramName);
+            Assert.AreEqual(1, count);
+        }
+
+        [Test]
+        public void Run_BeforeRunActionNull_DoesNotThrow()
+        {
+            // Setup
+            var hydraRingActivity = new TestHydraRingActivity(null);
+
+            // Call
+            TestDelegate test = () => hydraRingActivity.Run();
+
+            // Assert
+            Assert.DoesNotThrow(test);
         }
 
         private class TestHydraRingActivity : HydraRingActivity

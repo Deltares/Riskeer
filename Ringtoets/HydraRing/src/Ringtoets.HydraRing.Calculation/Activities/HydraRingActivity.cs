@@ -35,20 +35,17 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         /// Creates a new instance of the <see cref="HydraRingActivity"/> class.
         /// </summary>
         /// <param name="beforeRunAction">The action to perform before running a Hydra-Ring calculation (like clearing output, validation, etc.).</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="beforeRunAction"/> is <c>null</c>.</exception>
         protected HydraRingActivity(Action beforeRunAction)
         {
-            if (beforeRunAction == null)
-            {
-                throw new ArgumentNullException("beforeRunAction", @"The action to perform before run should be set.");
-            }
-
             this.beforeRunAction = beforeRunAction;
         }
 
         protected override void OnRun()
         {
-            beforeRunAction();
+            if (beforeRunAction != null)
+            {
+                beforeRunAction();
+            }
         }
     }
 }
