@@ -49,13 +49,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NTI, HydraRingUncertaintiesType.Model);
-            var calculationInput = new HydraRingCalculationInputImplementation(1, 2);
+            var calculationInput1 = new HydraRingCalculationInputImplementation(1, 2);
+            var calculationInput2 = new HydraRingCalculationInputImplementation(1, 3);
 
-            // Precondition
-            hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput);
+            hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput1);
 
             // Call
-            TestDelegate test = () => hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput);
+            TestDelegate test = () => hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput2);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Section id is not unique");

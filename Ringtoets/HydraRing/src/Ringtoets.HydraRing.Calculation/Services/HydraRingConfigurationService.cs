@@ -124,11 +124,11 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// the same <see cref="HydraRingSection.SectionId"/> has already been added.</exception>
         public void AddHydraRingCalculationInput(HydraRingCalculationInput hydraRingCalculationInput)
         {
-            var conflictingIds = hydraRingCalculationInputs.Where(h => h.Section.SectionId == hydraRingCalculationInput.Section.SectionId);
-            if (conflictingIds.Any())
+            if (hydraRingCalculationInputs.Any(h => h.Section.SectionId == hydraRingCalculationInput.Section.SectionId))
             {
                 throw new ArgumentException(@"Section id is not unique", "hydraRingCalculationInput");
             }
+
             hydraRingCalculationInputs.Add(hydraRingCalculationInput);
         }
 
