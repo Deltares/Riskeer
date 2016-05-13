@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsPlaceHolderIcon()
+        public void Image_Always_ReturnsPipingOutputIcon()
         {
             // Call
             var image = info.Image(null);

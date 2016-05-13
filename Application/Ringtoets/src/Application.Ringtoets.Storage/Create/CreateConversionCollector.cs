@@ -54,6 +54,22 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
         /// was constructed with the information.
         /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> that was constructed.</param>
+        /// <param name="model">The new <see cref="FailureMechanismSection"/> which needed to be created.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        public void Create(FailureMechanismSectionEntity entity, FailureMechanismSection model)
+        {
+            Create(failureMechanismSections, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
+        /// was constructed with the information.
+        /// </summary>
         /// <param name="entity">The <see cref="ProjectEntity"/> that was constructed.</param>
         /// <param name="model">The new <see cref="Project"/> which needed to be created.</param>
         /// <exception cref="ArgumentNullException">Thrown when either:
@@ -112,22 +128,6 @@ namespace Application.Ringtoets.Storage.Create
         internal void Create(FailureMechanismEntity entity, IFailureMechanism model)
         {
             Create(failureMechanisms, entity, model);
-        }
-
-        /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
-        /// was constructed with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> that was constructed.</param>
-        /// <param name="model">The new <see cref="FailureMechanismSection"/> which needed to be created.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
-        public void Create(FailureMechanismSectionEntity entity, FailureMechanismSection model)
-        {
-            Create(failureMechanismSections, entity, model);
         }
 
         /// <summary>
@@ -271,7 +271,7 @@ namespace Application.Ringtoets.Storage.Create
             }
         }
 
-        private bool ContainsValue<T,U>(Dictionary<T, U> collection, U model)
+        private bool ContainsValue<T, U>(Dictionary<T, U> collection, U model)
         {
             if (model == null)
             {

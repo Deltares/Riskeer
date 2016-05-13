@@ -407,12 +407,12 @@ namespace Ringtoets.Integration.Plugin
         {
             foreach (IFailureMechanism failureMechanism in nodeData.GetFailureMechanisms())
             {
-                var placeHolder = failureMechanism as StandAloneFailureMechanism;
+                var standAloneFailureMechanism = failureMechanism as StandAloneFailureMechanism;
                 var piping = failureMechanism as PipingFailureMechanism;
                 var grassCoverErosionInwards = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
-                if (placeHolder != null)
+                if (standAloneFailureMechanism != null)
                 {
-                    yield return new StandAloneFailureMechanismContext(placeHolder, nodeData);
+                    yield return new StandAloneFailureMechanismContext(standAloneFailureMechanism, nodeData);
                 }
                 else if (piping != null)
                 {

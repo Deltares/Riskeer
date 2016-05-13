@@ -204,18 +204,6 @@ namespace Application.Ringtoets.Storage
             }
         }
 
-        private ProjectEntity GetSingleProject(RingtoetsEntities dbContext)
-        {
-            try
-            {
-                return dbContext.ProjectEntities.Single();
-            }
-            catch (InvalidOperationException)
-            {
-                return null;
-            }
-        }
-
         public bool HasChanges(Project project)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
@@ -236,6 +224,18 @@ namespace Application.Ringtoets.Storage
                 catch (EntityNotFoundException) {}
                 catch (SystemException) {}
                 return false;
+            }
+        }
+
+        private ProjectEntity GetSingleProject(RingtoetsEntities dbContext)
+        {
+            try
+            {
+                return dbContext.ProjectEntities.Single();
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
             }
         }
 

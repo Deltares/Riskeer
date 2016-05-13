@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Piping.Data;
 
-namespace Ringtoets.Integration.Data.Test.Placeholders
+namespace Ringtoets.Integration.Data.Test.StandAlone
 {
     [TestFixture]
     public class StandAloneFailureMechanismTest

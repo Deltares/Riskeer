@@ -39,9 +39,9 @@ namespace Application.Ringtoets.Storage.Read
         internal static FailureMechanismSection Read(this FailureMechanismSectionEntity entity)
         {
             var points = entity.FailureMechanismSectionPointEntities
-                .OrderBy(fmsp => fmsp.Order)
-                .Select(failureMechanismSectionPointEntity => failureMechanismSectionPointEntity.Read())
-                .ToList();
+                               .OrderBy(fmsp => fmsp.Order)
+                               .Select(failureMechanismSectionPointEntity => failureMechanismSectionPointEntity.Read())
+                               .ToList();
 
             var mechanismSection = new FailureMechanismSection(entity.Name, points)
             {

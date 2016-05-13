@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Update
 
         private static AssessmentSectionEntity GetSingleAssessmentSection(AssessmentSection section, IRingtoetsEntities context)
         {
-            try 
+            try
             {
                 return context.AssessmentSectionEntities.Single(ase => ase.AssessmentSectionEntityId == section.StorageId);
             }

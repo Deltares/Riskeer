@@ -65,7 +65,5 @@ namespace Application.Ringtoets.Storage.Create
 
             return entity;
         }
-
-
     }
 }

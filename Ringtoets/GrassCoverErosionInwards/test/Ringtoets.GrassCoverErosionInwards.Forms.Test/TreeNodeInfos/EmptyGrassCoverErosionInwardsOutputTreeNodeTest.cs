@@ -80,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsPlaceHolderIcon()
+        public void Image_Always_ReturnsGenericInputOutputIcon()
         {
             // Call
             var image = info.Image(null);

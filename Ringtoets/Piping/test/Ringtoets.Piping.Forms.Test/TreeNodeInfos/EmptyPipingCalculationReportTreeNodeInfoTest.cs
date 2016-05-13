@@ -46,7 +46,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.IsNull(info.CanDrop);
             Assert.IsNull(info.CanInsert);
             Assert.IsNull(info.OnDrop);
-
         }
 
         [Test]
@@ -60,7 +59,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsPlaceHolderIcon()
+        public void Image_Always_ReturnsPipingCalculationReportIcon()
         {
             // Call
             var image = info.Image(null);

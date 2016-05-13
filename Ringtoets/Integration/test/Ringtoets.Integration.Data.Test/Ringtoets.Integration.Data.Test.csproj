@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssessmentSectionTest.cs" />
-    <Compile Include="Placeholders\StandAloneFailureMechanismTest.cs" />
+    <Compile Include="StandAlone\StandAloneFailureMechanismTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

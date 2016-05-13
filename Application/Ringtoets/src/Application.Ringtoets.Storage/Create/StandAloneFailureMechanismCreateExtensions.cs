@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Create
 
             FailureMechanismEntity entity = new FailureMechanismEntity
             {
-                FailureMechanismType = (short)type,
+                FailureMechanismType = (short) type,
                 IsRelevant = Convert.ToByte(mechanism.IsRelevant)
             };
 

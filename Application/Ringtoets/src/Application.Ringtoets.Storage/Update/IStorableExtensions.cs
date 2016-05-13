@@ -36,6 +36,6 @@ namespace Application.Ringtoets.Storage.Update
         internal static bool IsNew(this IStorable storable)
         {
             return storable.StorageId <= 0;
-        } 
+        }
     }
 }

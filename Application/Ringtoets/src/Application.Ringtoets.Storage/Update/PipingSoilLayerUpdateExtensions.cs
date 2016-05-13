@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Update
 
             entity.IsAquifer = Convert.ToByte(layer.IsAquifer);
             entity.Top = Convert.ToDecimal(layer.Top);
-            
+
             collector.Update(entity);
         }
 
@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Update
             catch (InvalidOperationException exception)
             {
                 throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(SoilLayerEntity).Name, layer.StorageId), exception);
-            } 
+            }
         }
     }
 }

@@ -56,6 +56,6 @@ namespace Application.Ringtoets.Storage.Read
             }
 
             return project;
-        } 
+        }
     }
 }

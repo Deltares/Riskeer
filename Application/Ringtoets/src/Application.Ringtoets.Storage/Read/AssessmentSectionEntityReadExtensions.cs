@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException("collector");
             }
 
-            var assessmentSection = new AssessmentSection((AssessmentSectionComposition)entity.Composition)
+            var assessmentSection = new AssessmentSection((AssessmentSectionComposition) entity.Composition)
             {
                 StorageId = entity.AssessmentSectionEntityId,
                 Name = entity.Name
@@ -110,7 +110,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadGrassCoverErosionInwardsFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection)
         {
-            var grassCoverErosionInwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.GrassRevetmentTopErosionAndInwards);
+            var grassCoverErosionInwardsFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards);
             if (grassCoverErosionInwardsFailureMechanismEntity != null)
             {
                 var failureMechanism = grassCoverErosionInwardsFailureMechanismEntity.ReadAsGrassCoverErosionInwardsFailureMechanism();

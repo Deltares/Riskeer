@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Update
             catch (InvalidOperationException exception)
             {
                 throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(StochasticSoilProfileEntity).Name, profile.StorageId), exception);
-            } 
+            }
         }
     }
 }

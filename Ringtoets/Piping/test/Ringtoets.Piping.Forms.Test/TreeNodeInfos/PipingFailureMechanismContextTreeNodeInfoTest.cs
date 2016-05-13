@@ -57,12 +57,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         private PipingGuiPlugin plugin;
         private TreeNodeInfo info;
 
-        private const int contextMenuRelevancyIndexWhenRelevant = 1;
-        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
-        private const int contextMenuValidateAllIndex = 3;
-        private const int contextMenuCalculateAllIndex = 4;
-        private const int contextMenuClearIndex = 5;
-
         [SetUp]
         public void SetUp()
         {
@@ -110,7 +104,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsPlaceHolderIcon()
+        public void Image_Always_ReturnsPipingIcon()
         {
             // Call
             var image = info.Image(null);
@@ -200,7 +194,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, children.Length);
-            var commentContext = (CommentContext<ICommentable>)children[0];
+            var commentContext = (CommentContext<ICommentable>) children[0];
             Assert.AreSame(pipingFailureMechanism, commentContext.CommentContainer);
             mocks.VerifyAll();
         }
@@ -693,5 +687,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.IsTrue(failureMechanism.IsRelevant);
             mocks.VerifyAll();
         }
+
+        private const int contextMenuRelevancyIndexWhenRelevant = 1;
+        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
+        private const int contextMenuValidateAllIndex = 3;
+        private const int contextMenuCalculateAllIndex = 4;
+        private const int contextMenuClearIndex = 5;
     }
 }
