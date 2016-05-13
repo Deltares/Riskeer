@@ -134,21 +134,25 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdataDataGridViewDataSource()
         {
+            EndEdit();
+
             dataGridView.DataSource = failureMechanismSectionResult.Select(sr => new FailureMechanismSectionResultRow(sr)).ToList();
+        }
+
+        private void EndEdit()
+        {
+            if (dataGridView.IsCurrentCellInEditMode)
+            {
+                dataGridView.CancelEdit();
+                dataGridView.EndEdit(); 
+                dataGridView.CurrentCell = null;
+            }
         }
 
         private void RefreshDataGridView()
         {
             dataGridView.Refresh();
             dataGridView.AutoResizeColumns();
-        }
-
-        private void DataGridViewGotFocus(object sender, EventArgs eventArgs)
-        {
-            if (dataGridView.CurrentCell != null)
-            {
-                dataGridView.BeginEdit(true); // Always start editing after setting the focus (otherwise data grid view cell dirty events are no longer fired when using the keyboard...)
-            }
         }
 
         #region Nested types
@@ -204,6 +208,14 @@ namespace Ringtoets.Common.Forms.Views
             if (string.IsNullOrWhiteSpace(dataGridView.Rows[e.RowIndex].ErrorText) && e.Exception != null)
             {
                 dataGridView.Rows[e.RowIndex].ErrorText = e.Exception.Message;
+            }
+        }
+
+        private void DataGridViewGotFocus(object sender, EventArgs eventArgs)
+        {
+            if (dataGridView.CurrentCell != null)
+            {
+                dataGridView.BeginEdit(true); // Always start editing after setting the focus (otherwise data grid view cell dirty events are no longer fired when using the keyboard...)
             }
         }
 
