@@ -681,7 +681,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreatePerformCalculationItem_IsEnabledFuncTrue_CreatesDecoratedAndEnabledItem()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreatePerformCalculationItem_IsEnabledFuncConditional_CreatesDecoratedAndConditionalEnabledItem(bool isEnabled)
         {
             // Setup
             var mocks = new MockRepository();
@@ -693,37 +695,13 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
             // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => true);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => isEnabled);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Calculate, toolStripItem.Text);
             Assert.AreEqual(RingtoetsFormsResources.Calculate_ToolTip, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateIcon, toolStripItem.Image);
-            Assert.IsTrue(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreatePerformCalculationItem_IsEnabledFuncFalse_CreatesDecoratedAndDisabledItem()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanisMock);
-
-            // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => false);
-
-            // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_ToolTip, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateIcon, toolStripItem.Image);
-            Assert.IsFalse(toolStripItem.Enabled);
+            Assert.AreEqual(isEnabled, toolStripItem.Enabled);
 
             mocks.VerifyAll();
         }

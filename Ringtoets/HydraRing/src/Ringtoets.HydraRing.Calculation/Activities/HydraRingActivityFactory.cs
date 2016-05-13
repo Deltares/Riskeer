@@ -57,7 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.Activities
                                                                   Action beforeRunAction,
                                                                   Action<TargetProbabilityCalculationOutput> handleOutputAction)
         {
-            VerifyCalculationActivityInput(name, hlcdDirectory, ringId, timeIntegrationSchemeType,
+            VerifyCalculationActivityInput(hlcdDirectory, ringId, timeIntegrationSchemeType,
                                            uncertaintiesType, targetProbabilityCalculationInput,
                                            beforeRunAction, handleOutputAction);
 
@@ -89,7 +89,7 @@ namespace Ringtoets.HydraRing.Calculation.Activities
                                                                       Action beforeRunAction,
                                                                       Action<ExceedanceProbabilityCalculationOutput> handleOutputAction)
         {
-            VerifyCalculationActivityInput(name, hlcdDirectory, ringId, timeIntegrationSchemeType,
+            VerifyCalculationActivityInput(hlcdDirectory, ringId, timeIntegrationSchemeType,
                                            uncertaintiesType, exceedanceProbabilityCalculationInput,
                                            beforeRunAction, handleOutputAction);
 
@@ -99,7 +99,7 @@ namespace Ringtoets.HydraRing.Calculation.Activities
                                                                 hydraRingCalculationService);
         }
 
-        private static void VerifyCalculationActivityInput(string name, string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
+        private static void VerifyCalculationActivityInput(string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
                                                            HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculationInput hydraRingCalculationInput,
                                                            object beforeRunAction, object handleOutputAction)
         {

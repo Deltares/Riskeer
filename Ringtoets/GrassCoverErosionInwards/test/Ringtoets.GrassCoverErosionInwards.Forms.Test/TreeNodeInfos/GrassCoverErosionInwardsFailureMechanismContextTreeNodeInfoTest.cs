@@ -152,7 +152,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Uitvoer", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<FailureMechanismSectionResult>)outputsFolder.Contents[0];
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<FailureMechanismSectionResult>) outputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
             mocksRepository.VerifyAll();
@@ -437,9 +437,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
             viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
+            mocksRepository.ReplayAll();
 
             plugin.Gui = gui;
-            mocksRepository.ReplayAll();
 
             // Call
             ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
@@ -459,7 +459,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Setup
             var gui = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
             failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput()));
 
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
@@ -477,9 +480,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
             viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
+            mocksRepository.ReplayAll();
 
             plugin.Gui = gui;
-            mocksRepository.ReplayAll();
 
             // Call
             ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);

@@ -151,15 +151,6 @@
     <None Include="Resources\folder-stand.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\blue-document-list.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\control-record.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\chart_single_line.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\map.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

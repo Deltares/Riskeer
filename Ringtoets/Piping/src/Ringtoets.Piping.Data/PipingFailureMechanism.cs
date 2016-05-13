@@ -55,11 +55,6 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        protected override PipingFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
-        {
-            return new PipingFailureMechanismSectionResult(section);
-        }
-
         public override double Contribution
         {
             get
@@ -71,8 +66,6 @@ namespace Ringtoets.Piping.Data
                 NormProbabilityInput.Contribution = value;
             }
         }
-
-        public CalculationGroup CalculationsGroup { get; private set; }
 
         /// <summary>
         /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.
@@ -94,5 +87,12 @@ namespace Ringtoets.Piping.Data
         /// in a semi-probabilistic assessment.
         /// </summary>
         public NormProbabilityPipingInput NormProbabilityInput { get; set; }
+
+        public CalculationGroup CalculationsGroup { get; private set; }
+
+        protected override PipingFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        {
+            return new PipingFailureMechanismSectionResult(section);
+        }
     }
 }
