@@ -32,7 +32,7 @@ namespace Ringtoets.HydraRing.Calculation.Activities
     /// <see cref="Activity"/> for running a type I calculation via Hydra-Ring:
     /// Given a set of random variables, compute the probability of failure.
     /// </summary>
-    public class ExceedanceProbabilityCalculationActivity : Activity
+    public class ExceedanceProbabilityCalculationActivity : HydraRingActivity
     {
         private readonly string name;
         private readonly string hlcdDirectory;
@@ -53,6 +53,7 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="exceedanceProbabilityCalculationInput">The input of the calculation to perform.</param>
+        /// <param name="beforeRunAction">The action to perform before running the calculation (like clearing output, validation, etc.).</param>
         /// <param name="handleCalculationOutputAction">The action to perform after the calculation is performed.</param>
         /// <param name="hydraRingCalculationService">The service to use for performing the calculation.</param>
         internal ExceedanceProbabilityCalculationActivity(
@@ -62,8 +63,10 @@ namespace Ringtoets.HydraRing.Calculation.Activities
             HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
             HydraRingUncertaintiesType uncertaintiesType,
             ExceedanceProbabilityCalculationInput exceedanceProbabilityCalculationInput,
+            Action beforeRunAction,
             Action<ExceedanceProbabilityCalculationOutput> handleCalculationOutputAction,
             HydraRingCalculationService hydraRingCalculationService)
+            : base(beforeRunAction)
         {
             this.name = name;
             this.hlcdDirectory = hlcdDirectory;
@@ -85,6 +88,8 @@ namespace Ringtoets.HydraRing.Calculation.Activities
 
         protected override void OnRun()
         {
+            base.OnRun();
+
             exceedanceProbabilityCalculationOutput = hydraRingCalculationService.PerformCalculation(
                 hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType,
                 exceedanceProbabilityCalculationInput);

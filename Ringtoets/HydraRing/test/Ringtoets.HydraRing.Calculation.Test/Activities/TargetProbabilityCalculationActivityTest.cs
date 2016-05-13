@@ -45,7 +45,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             mocks.ReplayAll();
 
             // Call
-            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, null, hydraRingCalculationService);
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, null, null, hydraRingCalculationService);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
 
             mocks.ReplayAll();
 
-            var activity = new TargetProbabilityCalculationActivity("Name of activity", hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, null, hydraRingCalculationService);
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, null, null, hydraRingCalculationService);
 
             // Call
             activity.Run();
@@ -93,13 +93,33 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
 
             mocks.ReplayAll();
 
-            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, null, hydraRingCalculationService);
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, null, null, hydraRingCalculationService);
 
             // Call
             activity.Cancel();
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Run_Always_BeforeRunActionPerformedAsExpected()
+        {
+            // Setup
+            var count = 0;
+            var mocks = new MockRepository();
+            var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
+            var targetProbabilityCalculationInput = mocks.StrictMock<TargetProbabilityCalculationInput>(1, 10000);
+
+            mocks.ReplayAll();
+
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, () => { count++; }, null, hydraRingCalculationService);
+
+            // Call
+            activity.Run();
+
+            // Assert
+            Assert.AreEqual(1, count);
         }
 
         [TestCase(ActivityState.None, false)]
@@ -117,7 +137,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
 
             mocks.ReplayAll();
 
-            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, output => { count++; }, hydraRingCalculationService);
+            var activity = new TargetProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, null, output => { count++; }, hydraRingCalculationService);
 
             TypeUtils.SetPrivatePropertyValue(activity, "State", state);
 

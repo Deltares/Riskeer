@@ -57,7 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         {
             VerifyCalculationActivityInput(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, action);
 
-            return new TargetProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, action, hydraRingCalculationService);
+            return new TargetProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, targetProbabilityCalculationInput, null, action, hydraRingCalculationService);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         {
             VerifyCalculationActivityInput(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, exceedanceProbabilityCalculationInput, action);
 
-            return new ExceedanceProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, exceedanceProbabilityCalculationInput, action, hydraRingCalculationService);
+            return new ExceedanceProbabilityCalculationActivity(name, hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, exceedanceProbabilityCalculationInput, null, action, hydraRingCalculationService);
         }
 
         private static void VerifyCalculationActivityInput(string name, string hlcdDirectory, string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,

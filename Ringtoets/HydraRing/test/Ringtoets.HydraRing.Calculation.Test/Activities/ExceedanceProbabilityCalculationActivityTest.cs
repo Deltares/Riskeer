@@ -45,7 +45,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             mocks.ReplayAll();
 
             // Call
-            var activity = new ExceedanceProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, null, hydraRingCalculationService);
+            var activity = new ExceedanceProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, null, null, hydraRingCalculationService);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
 
             mocks.ReplayAll();
 
-            var activity = new ExceedanceProbabilityCalculationActivity("Name of activity", hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, exceedanceProbabilityCalculationInput, null, hydraRingCalculationService);
+            var activity = new ExceedanceProbabilityCalculationActivity("Name of activity", hlcdDirectory, ringId, timeIntegrationSchemeType, uncertaintiesType, exceedanceProbabilityCalculationInput, null, null, hydraRingCalculationService);
 
             // Call
             activity.Run();
@@ -93,13 +93,33 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
 
             mocks.ReplayAll();
 
-            var activity = new ExceedanceProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, null, hydraRingCalculationService);
+            var activity = new ExceedanceProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, null, null, hydraRingCalculationService);
 
             // Call
             activity.Cancel();
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Run_Always_BeforeRunActionPerformedAsExpected()
+        {
+            // Setup
+            var count = 0;
+            var mocks = new MockRepository();
+            var hydraRingCalculationService = mocks.StrictMock<HydraRingCalculationService>();
+            var exceedanceProbabilityCalculationInput = mocks.StrictMock<ExceedanceProbabilityCalculationInput>(10000);
+
+            mocks.ReplayAll();
+
+            var activity = new ExceedanceProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, () => { count++; }, null, hydraRingCalculationService);
+
+            // Call
+            activity.Run();
+
+            // Assert
+            Assert.AreEqual(1, count);
         }
 
         [TestCase(ActivityState.None, false)]
@@ -117,7 +137,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
 
             mocks.ReplayAll();
 
-            var activity = new ExceedanceProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, output => { count++; }, hydraRingCalculationService);
+            var activity = new ExceedanceProbabilityCalculationActivity("Name of activity", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, null, output => { count++; }, hydraRingCalculationService);
 
             TypeUtils.SetPrivatePropertyValue(activity, "State", state);
 
