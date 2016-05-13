@@ -293,7 +293,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenCalculationWithOutput_WhenClearingOutputFromContextMenu_ThenCalculationOutputClearedAndNotified(bool confirm)
+        public void GivenCalculationWithOutput_WhenClearingOutput_ThenCalculationClearedAndNotified(bool confirm)
         {
             // Given
             var gui = mocks.DynamicMock<IGui>();

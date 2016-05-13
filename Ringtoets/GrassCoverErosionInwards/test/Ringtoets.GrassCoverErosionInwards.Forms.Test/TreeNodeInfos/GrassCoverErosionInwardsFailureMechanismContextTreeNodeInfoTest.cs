@@ -498,7 +498,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenMultipleCalculationsWithOutput_WhenClearingOutputFromContextMenu_ThenCalculationsOutputClearedAndNotified(bool confirm)
+        public void GivenCalculationsWithOutput_WhenClearing_ThenCalculationsClearedAndNotified(bool confirm)
         {
             // Given
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
