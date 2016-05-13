@@ -111,15 +111,17 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <param name="calculation">The calculation to perform.</param>
         /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
         /// <param name="calculateAction">The action that performs the calculation.</param>
+        /// <param name="isEnabledFunc">The func that checks if the item is enabled.</param>
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddPerformCalculationItem<TCalculation, TCalculationContext>(
             TCalculation calculation,
             TCalculationContext calculationContext,
-            Action<TCalculation, TCalculationContext> calculateAction)
+            Action<TCalculation, TCalculationContext> calculateAction,
+            Func<TCalculationContext, bool> isEnabledFunc)
             where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
             where TCalculation : ICalculation
         {
-            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, calculateAction));
+            contextMenuBuilder.AddCustomItem(ringtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, calculateAction, isEnabledFunc));
             return this;
         }
 

@@ -268,7 +268,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null).Build();
+            var result = ringtoetsContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => true).Build();
 
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);

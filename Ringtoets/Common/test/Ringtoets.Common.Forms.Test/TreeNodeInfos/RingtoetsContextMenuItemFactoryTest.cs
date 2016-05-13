@@ -390,7 +390,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreatePerformCalculationItem_Always_CreatesDecoratedItem()
+        public void CreatePerformCalculationItem_IsEnabledFuncTrue_CreatesDecoratedAndEnabledItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -402,13 +402,37 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
             // Call
-            var toolStripItem = factory.CreatePerformCalculationItem(calculation, calculationContext, null);
+            var toolStripItem = factory.CreatePerformCalculationItem(calculation, calculationContext, null, context => true);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Calculate, toolStripItem.Text);
             Assert.AreEqual(RingtoetsFormsResources.Calculate_ToolTip, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreatePerformCalculationItem_IsEnabledFuncFalse_CreatesDecoratedAndDisabledItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
+            var calculationContext = new TestCalculationContext(calculation, failureMechanisMock);
+
+            // Call
+            var toolStripItem = factory.CreatePerformCalculationItem(calculation, calculationContext, null, context => false);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.Calculate, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_ToolTip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
 
             mocks.VerifyAll();
         }
@@ -426,7 +450,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
 
             var counter = 0;
-            var toolStripItem = factory.CreatePerformCalculationItem(calculation, calculationContext, (calc, context) => counter++);
+            var toolStripItem = factory.CreatePerformCalculationItem(calculation, calculationContext, (calc, context) => counter++, context => true);
 
             // Call
             toolStripItem.PerformClick();

@@ -130,11 +130,13 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <param name="calculation">The calculation to perform.</param>
         /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
         /// <param name="calculateAction">The action that performs the calculation.</param>
+        /// <param name="isEnabledFunc">The func that checks if the item is enabled.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public StrictContextMenuItem CreatePerformCalculationItem<TCalculation, TCalculationContext>(
             TCalculation calculation,
             TCalculationContext calculationContext,
-            Action<TCalculation, TCalculationContext> calculateAction)
+            Action<TCalculation, TCalculationContext> calculateAction,
+            Func<TCalculationContext, bool> isEnabledFunc)
             where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
             where TCalculation : ICalculation
         {
@@ -142,7 +144,10 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 Resources.Calculate,
                 Resources.Calculate_ToolTip,
                 Resources.CalculateIcon,
-                (o, args) => calculateAction(calculation, calculationContext));
+                (o, args) => calculateAction(calculation, calculationContext))
+            {
+                Enabled = isEnabledFunc(calculationContext)
+            };
         }
 
         /// <summary>

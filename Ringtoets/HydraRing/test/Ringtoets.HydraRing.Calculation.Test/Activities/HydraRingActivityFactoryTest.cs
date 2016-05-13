@@ -35,23 +35,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         #region ExceedanceProbabilityCalculationInput
 
         [Test]
-        public void CreateExceedanceProbabilityCalculationInput_InputEmptyName_ThrowsArgumentException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var exceedanceProbabilityCalculationInput = mocks.StrictMock<ExceedanceProbabilityCalculationInput>(1);
-
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => HydraRingActivityFactory.Create("", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, exceedanceProbabilityCalculationInput, output => { });
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(test, "Name should be set.");
-            Assert.AreEqual("name", exception.ParamName);
-        }
-
-        [Test]
         public void CreateExceedanceProbabilityCalculationInput_InputEmptyHlcdDirectory_ThrowsArgumentException()
         {
             // Setup
@@ -138,23 +121,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         #endregion
 
         #region TargetProbabilityCalculationInput
-
-        [Test]
-        public void CreateTargetProbabilityCalculationInput_InputEmptyName_ThrowsArgumentException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var targetProbabilityCalculationInput = mocks.StrictMock<TargetProbabilityCalculationInput>(1, 2.2);
-
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => HydraRingActivityFactory.Create("", "hlcdDirectory", "ringId", HydraRingTimeIntegrationSchemeType.FBC, HydraRingUncertaintiesType.All, targetProbabilityCalculationInput, output => { });
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(test, "Name should be set.");
-            Assert.AreEqual("name", exception.ParamName);
-        }
 
         [Test]
         public void CreateTargetProbabilityCalculationInput_InputEmptyHlcdDirectory_ThrowsArgumentException()

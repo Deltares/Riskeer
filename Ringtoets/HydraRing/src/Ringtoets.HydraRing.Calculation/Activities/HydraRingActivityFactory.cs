@@ -89,11 +89,6 @@ namespace Ringtoets.HydraRing.Calculation.Activities
                                                            HydraRingUncertaintiesType uncertaintiesType, HydraRingCalculationInput hydraRingCalculationInput,
                                                            object action)
         {
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new ArgumentException(@"Name should be set.", "name");
-            }
-
             if (string.IsNullOrEmpty(hlcdDirectory))
             {
                 throw new ArgumentException(@"HLCD directory should be set.", "hlcdDirectory");

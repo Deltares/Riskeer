@@ -412,7 +412,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             GrassCoverErosionInwardsCalculation calculation = nodeData.WrappedData;
 
-            return builder.AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
+            return builder.AddPerformCalculationItem(calculation, nodeData, PerformCalculation, EnablePerformCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
@@ -426,6 +426,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private bool EnablePerformCalculation(GrassCoverErosionInwardsCalculationContext context)
+        {
+            return context.AssessmentSection.HydraulicBoundaryDatabase != null && context.FailureMechanism.Sections.Any();
         }
 
         private void PerformCalculation(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)

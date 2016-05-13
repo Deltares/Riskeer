@@ -409,7 +409,7 @@ namespace Ringtoets.Piping.Plugin
                                                          (o, args) => { PipingCalculationService.Validate(calculation); });
 
             return builder.AddCustomItem(validateItem)
-                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
+                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, context => true)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
