@@ -274,7 +274,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             {
                 string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
                               validFilePath),
-                "Profielschematisatie Rotterdam1 bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.",
+                "Profielschematisatie Rotterdam1 bevat aaneengesloten dubbele geometriepunten, welke zijn genegeerd.",
                 string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Finished_reading_surface_lines_from_File_0_,
                               validFilePath),
                 string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Import_No_characteristic_points_file_for_surface_line_file_expecting_file_0_,
