@@ -238,9 +238,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -313,7 +310,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_IsRelevantEnabledCalculateAllAndClearAllItemDisabled()
+        public void ContextMenuStrip_FailureMechanismIsRelevant_IsRelevantEnabled()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -344,16 +341,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
                                                                   RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
                                                                   RingtoetsCommonFormsResources.Checkbox_ticked);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 2,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run,
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 3,
-                                                                  RingtoetsCommonFormsResources.Clear_all_output,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
-                                                                  false);
                 }
 
                 // Assert

@@ -509,9 +509,6 @@ namespace Ringtoets.Integration.Plugin
 
             return builder.AddChangeRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddPerformAllCalculationsInFailureMechanismItem(nodeData, null, context => true)
-                          .AddClearAllCalculationOutputInFailureMechanismItem(nodeData.WrappedData)
-                          .AddSeparator()
                           .AddImportItem()
                           .AddExportItem()
                           .AddSeparator()
