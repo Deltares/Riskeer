@@ -87,7 +87,7 @@ namespace Core.Plugins.ProjectExplorer
             }
             set
             {
-                if (!treeViewControl.IsDisposed)
+                if (treeViewControl != null && !treeViewControl.IsDisposed)
                 {
                     treeViewControl.Data = value;
                 }
