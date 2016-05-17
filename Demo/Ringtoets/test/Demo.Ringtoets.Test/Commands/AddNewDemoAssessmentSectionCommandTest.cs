@@ -84,12 +84,18 @@ namespace Demo.Ringtoets.Test.Commands
             AssertCharacteristicPointsOnSurfaceLines(surfaceLines);
 
             Assert.AreEqual(1, demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Count);
-            var pipingCalculationScenario = demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.GetCalculations().OfType<PipingCalculationScenario>().First();
+            PipingCalculationScenario pipingCalculationScenario = demoAssessmentSection.PipingFailureMechanism
+                                                                                       .CalculationsGroup.GetCalculations()
+                                                                                       .OfType<PipingCalculationScenario>()
+                                                                                       .First();
             AssertCalculationAbleToCalculate(pipingCalculationScenario);
             AssertCalculationInFailureMechanismSectionResult(pipingCalculationScenario, demoAssessmentSection.PipingFailureMechanism.SectionResults.ToArray());
 
             Assert.AreEqual(1, demoAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Count);
-            var grassCoverErosionInwardsCalculation = demoAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>().First();
+            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = demoAssessmentSection.GrassCoverErosionInwards
+                                                                                                           .CalculationsGroup.GetCalculations()
+                                                                                                           .OfType<GrassCoverErosionInwardsCalculation>()
+                                                                                                           .First();
             AssertExpectedGrassCoverErosionInwardsInput(grassCoverErosionInwardsCalculation.InputParameters);
             foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
             {

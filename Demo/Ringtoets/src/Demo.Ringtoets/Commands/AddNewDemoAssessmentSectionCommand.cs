@@ -146,7 +146,7 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeGrassCoverErosionInwardsData(AssessmentSection demoAssessmentSection)
         {
-            var failureMechanism = demoAssessmentSection.GrassCoverErosionInwards;
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = demoAssessmentSection.GrassCoverErosionInwards;
 
             var calculation = new GrassCoverErosionInwardsCalculation(failureMechanism.GeneralInput);
             failureMechanism.CalculationsGroup.Children.Add(calculation);
