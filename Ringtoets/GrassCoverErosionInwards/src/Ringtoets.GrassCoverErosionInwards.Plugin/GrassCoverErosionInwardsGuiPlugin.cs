@@ -248,7 +248,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddChangeRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, RemoveAllViewsForItem)
+                          .AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddPerformAllCalculationsInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, CalculateAll, EnablePerformAllCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
@@ -277,7 +277,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
 
-            return builder.AddDisabledChangeRelevancyItem(grassCoverErosionInwardsFailureMechanismContext)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, null)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

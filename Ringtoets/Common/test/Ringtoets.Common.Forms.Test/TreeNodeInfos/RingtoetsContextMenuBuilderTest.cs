@@ -386,7 +386,9 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddChangeRelevancyOfFailureMechanismItem_WhenBuild_ItemAddedToContextMenuEnabled()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AddToggleRelevancyOfFailureMechanismItem_WhenBuild_ItemAddedToContextMenuEnabled(bool isRelevant)
         {
             // Setup
             var mocks = new MockRepository();
@@ -395,22 +397,25 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var viewCommandsMock = mocks.StrictMock<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            failureMechanismMock.Expect(fm => fm.IsRelevant).Return(isRelevant);
             var failureMechanismContextMock = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            failureMechanismContextMock.Expect(fmc => fmc.WrappedData).Return(failureMechanismMock);
             mocks.ReplayAll();
 
             var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismMock, treeViewControlMock);
             var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
             // Call
-            var result = ringtoetsContextMenuBuilder.AddChangeRelevancyOfFailureMechanismItem(failureMechanismContextMock, null).Build();
+            var result = ringtoetsContextMenuBuilder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContextMock, null).Build();
 
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
+            var checkboxIcon = isRelevant ? RingtoetsFormsResources.Checkbox_empty : RingtoetsFormsResources.Checkbox_ticked;
             TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                           RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
                                                           RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
-                                                          RingtoetsFormsResources.Checkbox_ticked);
+                                                          checkboxIcon);
 
             mocks.VerifyAll();
         }
@@ -545,37 +550,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                           RingtoetsFormsResources.ClearOutput_No_output_to_clear,
                                                           RingtoetsFormsResources.ClearIcon,
                                                           false);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AddDisabledChangeRelevancyItem_WhenBuild_ItemAddedToContextMenu()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var failureMechanismContextMock = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-
-            mocks.ReplayAll();
-
-            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismContextMock, treeViewControlMock);
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
-
-            // Call
-            var result = ringtoetsContextMenuBuilder.AddDisabledChangeRelevancyItem(failureMechanismContextMock).Build();
-
-            // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.AreEqual(1, result.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                          RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
-                                                          RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
-                                                          RingtoetsFormsResources.Checkbox_empty);
 
             mocks.VerifyAll();
         }

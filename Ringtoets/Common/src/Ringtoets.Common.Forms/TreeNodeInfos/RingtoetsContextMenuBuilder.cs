@@ -165,29 +165,18 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which enables a disabled failure mechanism.
-        /// </summary>
-        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddDisabledChangeRelevancyItem(IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
-        {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateDisabledChangeRelevancyItem(failureMechanismContext));
-            return this;
-        }
-
-        /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which sets if the failure mechanism is relevant.
         /// </summary>
         /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
         /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
-        /// <param name="removeAllViewsForItemAction">The action that removes all views.</param>
+        /// <param name="onChangeAction">The action to perform when relevance changes.</param>
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddChangeRelevancyOfFailureMechanismItem<TFailureMechanismContext>(
+        public RingtoetsContextMenuBuilder AddToggleRelevancyOfFailureMechanismItem<TFailureMechanismContext>(
             TFailureMechanismContext failureMechanismContext,
-            Action<TFailureMechanismContext> removeAllViewsForItemAction)
+            Action<TFailureMechanismContext> onChangeAction)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateChangeRelevancyOfFailureMechanismItem(failureMechanismContext, removeAllViewsForItemAction));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateToggleRelevancyOfFailureMechanismItem(failureMechanismContext, onChangeAction));
             return this;
         }
 

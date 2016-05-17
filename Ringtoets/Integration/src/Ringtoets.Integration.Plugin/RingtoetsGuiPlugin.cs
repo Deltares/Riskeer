@@ -311,7 +311,7 @@ namespace Ringtoets.Integration.Plugin
                 return assessmentSection
                     .GetFailureMechanisms()
                     .OfType<FailureMechanismBase<FailureMechanismSectionResult>>()
-                    .Any(fm => ReferenceEquals(view.Data,fm.SectionResults));
+                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
             }
             if (failureMechanismContext != null)
             {
@@ -507,7 +507,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddChangeRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddImportItem()
                           .AddExportItem()
@@ -528,7 +528,7 @@ namespace Ringtoets.Integration.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddDisabledChangeRelevancyItem(nodeData)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(nodeData, null)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

@@ -183,24 +183,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing the relevancy state of a disabled failure mechanism.
-        /// </summary>
-        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
-        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateDisabledChangeRelevancyItem(IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
-        {
-            return new StrictContextMenuItem(
-                Resources.FailureMechanismContextMenuStrip_Is_relevant,
-                Resources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
-                Resources.Checkbox_empty,
-                (o, args) =>
-                {
-                    failureMechanismContext.WrappedData.IsRelevant = true;
-                    failureMechanismContext.WrappedData.NotifyObservers();
-                });
-        }
-
-        /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing the output of all calculations in a failure mechanism.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to clear the output for.</param>
@@ -263,21 +245,27 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// </summary>
         /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
         /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
-        /// <param name="removeAllViewsForItemAction">The action that removes all views.</param>
+        /// <param name="onChangeAction">The action to perform when relevance changes.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateChangeRelevancyOfFailureMechanismItem<TFailureMechanismContext>(
+        public static StrictContextMenuItem CreateToggleRelevancyOfFailureMechanismItem<TFailureMechanismContext>(
             TFailureMechanismContext failureMechanismContext,
-            Action<TFailureMechanismContext> removeAllViewsForItemAction)
+            Action<TFailureMechanismContext> onChangeAction)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
+            var isRelevant = failureMechanismContext.WrappedData.IsRelevant;
+            var checkboxImage = isRelevant ? Resources.Checkbox_ticked : Resources.Checkbox_empty;
             return new StrictContextMenuItem(
                 Resources.FailureMechanismContextMenuStrip_Is_relevant,
                 Resources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
-                Resources.Checkbox_ticked,
+                checkboxImage,
                 (sender, args) =>
                 {
-                    removeAllViewsForItemAction(failureMechanismContext);
-                    failureMechanismContext.WrappedData.IsRelevant = false;
+                    if (onChangeAction != null)
+                    {
+                        onChangeAction(failureMechanismContext);
+                    }
+
+                    failureMechanismContext.WrappedData.IsRelevant = !isRelevant;
                     failureMechanismContext.WrappedData.NotifyObservers();
                 });
         }

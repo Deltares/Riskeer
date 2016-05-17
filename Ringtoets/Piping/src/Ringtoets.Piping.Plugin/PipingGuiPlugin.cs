@@ -283,7 +283,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<PipingFailureMechanismSectionResult>)failureMechanism).SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<PipingFailureMechanismSectionResult>) failureMechanism).SectionResults);
         }
 
         # endregion
@@ -322,7 +322,7 @@ namespace Ringtoets.Piping.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddChangeRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
+                          .AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCustomItem(validateAllItem)
                           .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll, context => true)
@@ -347,7 +347,7 @@ namespace Ringtoets.Piping.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
 
-            return builder.AddDisabledChangeRelevancyItem(pipingFailureMechanismContext)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, null)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

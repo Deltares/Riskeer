@@ -655,48 +655,56 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateChangeRelevancyOfFailureMechanismItem_Always_CreateDecoratedItem()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateToggleRelevancyOfFailureMechanismItem_IsRelevant_CreateDecoratedItem(bool isRelevant)
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
             mocks.ReplayAll();
-
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
+            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>())
+            {
+                IsRelevant = isRelevant
+            };
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
             // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreateChangeRelevancyOfFailureMechanismItem(failureMechanismContext, null);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateToggleRelevancyOfFailureMechanismItem(failureMechanismContext, null);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant, toolStripItem.Text);
             Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Checkbox_ticked, toolStripItem.Image);
+            var checkboxIcon = isRelevant ? RingtoetsFormsResources.Checkbox_empty : RingtoetsFormsResources.Checkbox_ticked;
+            TestHelper.AssertImagesAreEqual(checkboxIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateChangeRelevancyOfFailureMechanismItem_PerformClickOnRelevanceItem_RelevanceFalseAndObserversNotified()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateToggleRelevancyOfFailureMechanismItem_PerformClickOnRelevanceItem_RelevanceChangedAndObserversNotified(bool isRelevant)
         {
             // Setup
             var mocks = new MockRepository();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             failureMechanismMock.Expect(fm => fm.NotifyObservers());
-            failureMechanismMock.Expect(fm => fm.IsRelevant).SetPropertyWithArgument(false);
+            failureMechanismMock.Expect(fm => fm.IsRelevant).Return(isRelevant);
+            failureMechanismMock.Expect(fm => fm.IsRelevant).SetPropertyWithArgument(!isRelevant);
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
-            var counter = 0;
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreateChangeRelevancyOfFailureMechanismItem(failureMechanismContext, context => counter++);
+            var actionCounter = 0;
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateToggleRelevancyOfFailureMechanismItem(failureMechanismContext, context => actionCounter++);
 
             // Call
             toolStripItem.PerformClick();
 
             // Assert
-            Assert.AreEqual(1, counter);
+            Assert.AreEqual(1, actionCounter);
             mocks.VerifyAll();
         }
 
@@ -853,50 +861,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Call
             toolStripItem.PerformClick();
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreateDisabledChangeRelevancyItem_Always_CreatesDecoratedItem()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanismContextMock = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-
-            mocks.ReplayAll();
-
-            // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreateDisabledChangeRelevancyItem(failureMechanismContextMock);
-
-            // Assert
-            Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Checkbox_empty, toolStripItem.Image);
-            Assert.IsTrue(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreateDisabledChangeRelevancyItem_PerformClickOnCreatedItem_FailureMechanismIsRelevantSetToTrueAndObserversNotified()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            var failureMechanismContextMock = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-
-            failureMechanismContextMock.Stub(c => c.WrappedData).Return(failureMechanismMock);
-            failureMechanismMock.Expect(c => c.IsRelevant).SetPropertyWithArgument(true);
-            failureMechanismMock.Expect(c => c.NotifyObservers());
-
-            mocks.ReplayAll();
-
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreateDisabledChangeRelevancyItem(failureMechanismContextMock);
-
-            // Call
-            toolStripItem.PerformClick();
-
-            // Assert
             mocks.VerifyAll();
         }
 
