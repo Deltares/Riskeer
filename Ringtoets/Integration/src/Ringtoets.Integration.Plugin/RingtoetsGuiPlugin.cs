@@ -506,20 +506,20 @@ namespace Ringtoets.Integration.Plugin
         private ContextMenuStrip StandAloneFailureMechanismEnabledContextMenuStrip(StandAloneFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            return builder
-                .AddChangeRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
-                .AddSeparator()
-                .AddPerformAllCalculationsInFailureMechanismItem(nodeData, null, context => true)
-                .AddClearAllCalculationOutputInFailureMechanismItem(nodeData.WrappedData)
-                .AddSeparator()
-                .AddImportItem()
-                .AddExportItem()
-                .AddSeparator()
-                .AddExpandAllItem()
-                .AddCollapseAllItem()
-                .AddSeparator()
-                .AddPropertiesItem()
-                .Build();
+
+            return builder.AddChangeRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddPerformAllCalculationsInFailureMechanismItem(nodeData, null, context => true)
+                          .AddClearAllCalculationOutputInFailureMechanismItem(nodeData.WrappedData)
+                          .AddSeparator()
+                          .AddImportItem()
+                          .AddExportItem()
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         private void RemoveAllViewsForItem(StandAloneFailureMechanismContext failureMechanismContext)

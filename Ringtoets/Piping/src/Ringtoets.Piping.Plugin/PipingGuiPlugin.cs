@@ -319,23 +319,23 @@ namespace Ringtoets.Piping.Plugin
             var validateAllItem = CreateValidateAllItem(pipingFailureMechanismContext.WrappedData);
 
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
-            return builder
-                .AddOpenItem()
-                .AddSeparator()
-                .AddChangeRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
-                .AddSeparator()
-                .AddCustomItem(validateAllItem)
-                .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll, context => true)
-                .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
-                .AddSeparator()
-                .AddImportItem()
-                .AddExportItem()
-                .AddSeparator()
-                .AddExpandAllItem()
-                .AddCollapseAllItem()
-                .AddSeparator()
-                .AddPropertiesItem()
-                .Build();
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddChangeRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddCustomItem(validateAllItem)
+                          .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll, context => true)
+                          .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
+                          .AddSeparator()
+                          .AddImportItem()
+                          .AddExportItem()
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         private void RemoveAllViewsForItem(PipingFailureMechanismContext failureMechanismContext)

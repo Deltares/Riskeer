@@ -26,7 +26,7 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil
 {
     /// <summary>
-    /// Factory for creating <see cref="GrassCoverErosionInwardsCalculation"/>s.
+    /// Factory for creating <see cref="GrassCoverErosionInwardsCalculation"/> objects.
     /// </summary>
     public static class GrassCoverErosionInwardsCalculationFactory
     {

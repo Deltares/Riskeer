@@ -182,7 +182,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             if (output != null)
             {
-                calculation.Output = new GrassCoverErosionInwardsOutput(double.NaN, double.NaN, (RoundedDouble)output.Beta, double.NaN, double.NaN);
+                calculation.Output = new GrassCoverErosionInwardsOutput(double.NaN, double.NaN, (RoundedDouble) output.Beta, double.NaN, double.NaN);
             }
             else
             {
@@ -245,22 +245,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
-            return builder
-                .AddOpenItem()
-                .AddSeparator()
-                .AddChangeRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, RemoveAllViewsForItem)
-                .AddSeparator()
-                .AddPerformAllCalculationsInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, CalculateAll, EnablePerformAllCalculationsInFailureMechanism)
-                .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
-                .AddSeparator()
-                .AddImportItem()
-                .AddExportItem()
-                .AddSeparator()
-                .AddExpandAllItem()
-                .AddCollapseAllItem()
-                .AddSeparator()
-                .AddPropertiesItem()
-                .Build();
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddChangeRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddPerformAllCalculationsInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, CalculateAll, EnablePerformAllCalculationsInFailureMechanism)
+                          .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
+                          .AddSeparator()
+                          .AddImportItem()
+                          .AddExportItem()
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         private static bool EnablePerformAllCalculationsInFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
@@ -345,18 +345,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                        .AddSeparator();
             }
 
-            builder.AddCreateCalculationGroupItem(group);
-            builder.AddCreateCalculationItem(nodeData, AddCalculation);
-            builder.AddSeparator();
-            builder.AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, EnablePerformAllCalculationsInGroup);
-            builder.AddClearAllCalculationOutputInGroupItem(group);
-            builder.AddSeparator();
+            builder.AddCreateCalculationGroupItem(group)
+                   .AddCreateCalculationItem(nodeData, AddCalculation)
+                   .AddSeparator()
+                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, EnablePerformAllCalculationsInGroup)
+                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddSeparator();
 
             if (isNestedGroup)
             {
-                builder.AddRenameItem();
-                builder.AddDeleteItem();
-                builder.AddSeparator();
+                builder.AddRenameItem()
+                       .AddDeleteItem()
+                       .AddSeparator();
             }
 
             return builder.AddImportItem()

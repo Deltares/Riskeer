@@ -394,7 +394,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreateClearAllCalculationOutputInFailureMechanismItem_PerformClickOnCreatedItemAndCancelChangee_CalculationOutputNotCleared()
+        public void CreateClearAllCalculationOutputInFailureMechanismItem_PerformClickOnCreatedItemAndCancelChange_CalculationOutputNotCleared()
         {
             // Setup
             var mocks = new MockRepository();
@@ -519,7 +519,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreatePerformAllCalculationsInGroupItem_IsEnabledFuncFalse_CreatesDecoratedAndEnabledItem()
+        public void CreatePerformAllCalculationsInGroupItem_IsEnabledFuncFalse_CreatesDecoratedAndDisabledItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -582,7 +582,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreatePerformAllCalculationsInFailureMechanismItemItem_FailureMechanismItemWithCalculations_CreatesDecoratedAndEnabledItem()
+        public void CreatePerformAllCalculationsInFailureMechanismItem_FailureMechanismItemWithCalculations_CreatesDecoratedAndEnabledItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -608,7 +608,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreatePerformAllCalculationsInFailureMechanismItemItem_FailureMechanismItemWithoutCalculations_CreatesDecoratedAndDisabledItem()
+        public void CreatePerformAllCalculationsInFailureMechanismItem_FailureMechanismItemWithoutCalculations_CreatesDecoratedAndDisabledItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -630,7 +630,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreatePerformAllCalculationsInFailureMechanismItemItem_PerformClickOnCreatedItem_PerformAllCalculationMethodPerformed()
+        public void CreatePerformAllCalculationsInFailureMechanismItem_PerformClickOnCreatedItem_PerformAllCalculationMethodPerformed()
         {
             // Setup
             var mocks = new MockRepository();
@@ -644,13 +644,36 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 calculationMock
             });
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, (fmContext) => counter++, context => true);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, fmContext => counter++, context => true);
 
             // Call
             toolStripItem.PerformClick();
 
             // Assert
             Assert.AreEqual(1, counter);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateChangeRelevancyOfFailureMechanismItem_Always_CreateDecoratedItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+            mocks.ReplayAll();
+
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
+
+            // Call
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreateChangeRelevancyOfFailureMechanismItem(failureMechanismContext, null);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Checkbox_ticked, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
         }
 
@@ -673,9 +696,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Checkbox_ticked, toolStripItem.Image);
             Assert.AreEqual(1, counter);
             mocks.VerifyAll();
         }
@@ -909,7 +929,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreatePerformAllCalculationsInFailureMechanismItem_IsEnabledFuncFalse_CreatesDecoratedAndEnabledItem()
+        public void CreatePerformAllCalculationsInFailureMechanismItem_IsEnabledFuncFalse_CreatesDecoratedAndDisabledItem()
         {
             // Setup
             var mocks = new MockRepository();

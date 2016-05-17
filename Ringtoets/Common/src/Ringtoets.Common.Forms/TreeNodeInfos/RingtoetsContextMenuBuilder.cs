@@ -34,7 +34,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
     public class RingtoetsContextMenuBuilder
     {
         private readonly IContextMenuBuilder contextMenuBuilder;
-        private readonly RingtoetsContextMenuItemFactory ringtoetsContextMenuItemFactory;
 
         /// <summary>
         /// Creates a new instance of the <see cref="RingtoetsContextMenuBuilder"/> class.
@@ -43,8 +42,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         public RingtoetsContextMenuBuilder(IContextMenuBuilder contextMenuBuilder)
         {
             this.contextMenuBuilder = contextMenuBuilder;
-
-            ringtoetsContextMenuItemFactory = new RingtoetsContextMenuItemFactory();
         }
 
         /// <summary>
@@ -139,17 +136,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which enables a disabled failure mechanism.
-        /// </summary>
-        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddDisabledChangeRelevancyItem(IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
-        {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateDisabledChangeRelevancyItem(failureMechanismContext));
-            return this;
-        }
-
-        /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which clears the output of all calculations in the failure mechanism.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to clear the output for.</param>
@@ -164,7 +150,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which performs all calculations in a failure mechanism.
         /// </summary>
         /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
-        /// <param name="failureMechanismContext">The failure mechanism to perform all calculations for.</param>
+        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
         /// <param name="calculateAllAction">The action that performs all calculations.</param>
         /// <param name="isEnabledFunc">The func that checks if the item is enabled.</param>
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
@@ -179,10 +165,21 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which enables a disabled failure mechanism.
+        /// </summary>
+        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        public RingtoetsContextMenuBuilder AddDisabledChangeRelevancyItem(IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
+        {
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateDisabledChangeRelevancyItem(failureMechanismContext));
+            return this;
+        }
+
+        /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which sets if the failure mechanism is relevant.
         /// </summary>
         /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
-        /// <param name="failureMechanismContext">The failure mechanism to change if it is relevant.</param>
+        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
         /// <param name="removeAllViewsForItemAction">The action that removes all views.</param>
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddChangeRelevancyOfFailureMechanismItem<TFailureMechanismContext>(

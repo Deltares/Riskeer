@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
     /// <summary>
     /// This class represents a factory for creating <see cref="ToolStripItem"/>.
     /// </summary>
-    public class RingtoetsContextMenuItemFactory
+    public static class RingtoetsContextMenuItemFactory
     {
         /// <summary>
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of adding new calculation groups.
@@ -201,7 +201,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing the output of all calculations in the failure mechanism.
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of clearing the output of all calculations in a failure mechanism.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to clear the output for.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
@@ -225,7 +225,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of performing all calculations in a failure mechanism.
         /// </summary>
         /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
-        /// <param name="failureMechanismContext">The failure mechanism to perform all calculations for.</param>
+        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
         /// <param name="calculateAllAction">The action that performs all calculations.</param>
         /// <param name="isEnabledFunc">The func that checks if the item is enabled.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
@@ -259,10 +259,10 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing the relevance of the failure mechanism.
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing the relevance of a failure mechanism.
         /// </summary>
         /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
-        /// <param name="failureMechanismContext">The failure mechanism to set the relevance of.</param>
+        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
         /// <param name="removeAllViewsForItemAction">The action that removes all views.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public static StrictContextMenuItem CreateChangeRelevancyOfFailureMechanismItem<TFailureMechanismContext>(
@@ -270,7 +270,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             Action<TFailureMechanismContext> removeAllViewsForItemAction)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            var changeRelevancyItem = new StrictContextMenuItem(
+            return new StrictContextMenuItem(
                 Resources.FailureMechanismContextMenuStrip_Is_relevant,
                 Resources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
                 Resources.Checkbox_ticked,
@@ -280,7 +280,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                     failureMechanismContext.WrappedData.IsRelevant = false;
                     failureMechanismContext.WrappedData.NotifyObservers();
                 });
-            return changeRelevancyItem;
         }
 
         private static void ClearAllCalculationOutputInFailureMechanism(IFailureMechanism failureMechanism)
