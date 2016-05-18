@@ -44,8 +44,22 @@ namespace Application.Ringtoets.Storage.DbContext
         public long SurfaceLineEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public string Name { get; set; }
+        public decimal ReferenceLineIntersectionX { get; set; }
+        public decimal ReferenceLineIntersectionY { get; set; }
+        public Nullable<long> DitchPolderSidePointEntityId { get; set; }
+        public Nullable<long> BottomDitchPolderSidePointEntityId { get; set; }
+        public Nullable<long> BottomDitchDikeSidePointEntityId { get; set; }
+        public Nullable<long> DitchDikeSidePointEntityId { get; set; }
+        public Nullable<long> DikeToeAtRiverEntityId { get; set; }
+        public Nullable<long> DikeToeAtPolderEntityId { get; set; }
     
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+        public virtual SurfaceLinePointEntity DitchPolderSidePointEntity { get; set; }
+        public virtual SurfaceLinePointEntity DitchDikeSidePointEntity { get; set; }
+        public virtual SurfaceLinePointEntity DikeToeAtRiverPointEntity { get; set; }
+        public virtual SurfaceLinePointEntity DikeToeAtPolderPointEntity { get; set; }
+        public virtual SurfaceLinePointEntity BottomDitchPolderSidePointEntity { get; set; }
+        public virtual SurfaceLinePointEntity BottomDitchDikeSidePointEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurfaceLinePointEntity> SurfaceLinePointEntities { get; set; }
     }
