@@ -96,19 +96,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.TestUtil.Test
             Assert.AreEqual(a.FshallowModelFactor.Mean, b.FshallowModelFactor.Mean);
             Assert.AreEqual(a.FshallowModelFactor.StandardDeviation, b.FshallowModelFactor.StandardDeviation);
             CollectionAssertAreEqual(a.ForeshoreGeometry.ToList(), b.ForeshoreGeometry.ToList());
-            AssertHydraulicBoundaryLocationAreEqual(a.HydraulicBoundaryLocation, b.HydraulicBoundaryLocation);
             Assert.AreEqual(a.Orientation, b.Orientation);
             Assert.AreEqual(a.OvertoppingModelFactor, b.OvertoppingModelFactor);
             Assert.AreEqual(a.UseBreakWater, b.UseBreakWater);
             Assert.AreEqual(a.UseForeshore, b.UseForeshore);
-        }
-
-        private static void AssertHydraulicBoundaryLocationAreEqual(HydraulicBoundaryLocation a, HydraulicBoundaryLocation b)
-        {
-            Assert.AreEqual(a.Name, b.Name);
-            Assert.AreEqual(a.DesignWaterLevel, b.DesignWaterLevel);
-            Assert.AreEqual(a.Id, b.Id);
-            Assert.AreEqual(a.Location, b.Location);
         }
 
         private static void CollectionAssertAreEqual(IList<ProfileSection> a, IList<ProfileSection> b)

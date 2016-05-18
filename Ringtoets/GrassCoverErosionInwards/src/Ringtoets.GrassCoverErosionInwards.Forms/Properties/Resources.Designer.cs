@@ -152,6 +152,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hydraulische gegevens.
+        /// </summary>
+        public static string Categories_HydraulicData {
+            get {
+                return ResourceManager.GetString("Categories_HydraulicData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lengte-effect parameters.
         /// </summary>
         public static string Categories_LengthEffect {
@@ -475,6 +484,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string GrassCoverErosionInwardsInputContext_NodeDisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsInputContext_NodeDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden die gebruikt wordt tijdens de berekening..
+        /// </summary>
+        public static string HydraulicBoundaryLocation_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocation_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locatie met hydraulische randvoorwaarden.
+        /// </summary>
+        public static string HydraulicBoundaryLocation_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocation_DisplayName", resourceCulture);
             }
         }
         

@@ -464,17 +464,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1,string.Empty, 0.0,1.1);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
                 Version = "random"
             };
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             var calculation = new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput())
             {
-                Output = new GrassCoverErosionInwardsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN)
+                Output = new GrassCoverErosionInwardsOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
             };
 
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);

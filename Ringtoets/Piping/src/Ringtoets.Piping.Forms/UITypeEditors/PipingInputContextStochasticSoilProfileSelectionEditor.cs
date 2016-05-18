@@ -22,7 +22,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Utils.Reflection;
+using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.UITypeEditors
 {
@@ -30,7 +32,7 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
     /// This class defines a drop down list edit-control from which the user can select a
     /// <see cref="StochasticSoilProfile"/> from a collection.
     /// </summary>
-    public class PipingInputContextStochasticSoilProfileSelectionEditor : PipingInputContextSelectionEditor<StochasticSoilProfile>
+    public class PipingInputContextStochasticSoilProfileSelectionEditor : SelectionEditor<PipingInputContextProperties, StochasticSoilProfile>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputContextStochasticSoilProfileSelectionEditor"/>.

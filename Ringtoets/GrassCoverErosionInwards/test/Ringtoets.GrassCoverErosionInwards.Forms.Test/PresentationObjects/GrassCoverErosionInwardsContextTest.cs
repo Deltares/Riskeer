@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -27,6 +28,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 {
@@ -46,6 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(null);
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             mockRepository.ReplayAll();
 
@@ -59,7 +62,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             Assert.AreSame(target, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             Assert.AreSame(failureMechanismMock, context.FailureMechanism);
-
+            CollectionAssert.IsEmpty(context.AvailableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
 
@@ -117,6 +120,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void AvailableHydraulicBoundaryLocations_HydraulicBoundaryDatabaseSet_ReturnsAllHydraulicBoundaryLocations()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase).Repeat.Twice();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var target = new ObservableObject();
+            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanismMock, assessmentSectionMock);
+
+            // Call
+            var availableHydraulicBoundaryLocations = context.AvailableHydraulicBoundaryLocations;
+
+            // Assert
+            Assert.AreEqual(1, availableHydraulicBoundaryLocations.Count());
+            Assert.AreEqual(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
 

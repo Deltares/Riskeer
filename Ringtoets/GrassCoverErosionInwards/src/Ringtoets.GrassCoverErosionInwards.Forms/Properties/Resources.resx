@@ -286,4 +286,13 @@
   <data name="LogNormalDistribution_StandardDeviation_Description" xml:space="preserve">
     <value>De standaardafwijking van de lognormale verdeling.</value>
   </data>
+  <data name="Categories_HydraulicData" xml:space="preserve">
+    <value>Hydraulische gegevens</value>
+  </data>
+  <data name="HydraulicBoundaryLocation_Description" xml:space="preserve">
+    <value>De locatie met hydraulische randvoorwaarden die gebruikt wordt tijdens de berekening.</value>
+  </data>
+  <data name="HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
+    <value>Locatie met hydraulische randvoorwaarden</value>
+  </data>
 </root>

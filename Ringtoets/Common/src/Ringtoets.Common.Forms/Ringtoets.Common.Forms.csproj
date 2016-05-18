@@ -64,6 +64,7 @@
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilder.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactory.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactory.cs" />
+    <Compile Include="UITypeEditors\SelectionEditor.cs" />
     <Compile Include="Views\CommentView.cs">
       <SubType>UserControl</SubType>
     </Compile>

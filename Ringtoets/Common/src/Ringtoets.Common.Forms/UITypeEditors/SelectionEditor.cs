@@ -26,19 +26,19 @@ using System.Drawing.Design;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-
 using Core.Common.Gui.PropertyBag;
 
-using Ringtoets.Piping.Forms.PropertyClasses;
-
-namespace Ringtoets.Piping.Forms.UITypeEditors
+namespace Ringtoets.Common.Forms.UITypeEditors
 {
     /// <summary>
     /// This class provides a base implementation of <see cref="UITypeEditor"/> and defines a drop down list 
-    /// edit-control used for piping input data.
+    /// edit-control used for calculation input data.
     /// </summary>
-    /// <typeparam name="T">The type of items that populate the list-edit control.</typeparam>
-    public class PipingInputContextSelectionEditor<T> : UITypeEditor where T : class
+    /// <typeparam name="TProperty">The type of items that populate the list-edit control.</typeparam>
+    /// <typeparam name="TPropertiesClass">The type which' properties populates the dropdown editor.</typeparam>
+    public class SelectionEditor<TPropertiesClass, TProperty> : UITypeEditor
+        where TProperty : class
+        where TPropertiesClass : IObjectProperties
     {
         private IWindowsFormsEditorService editorService;
 
@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
         }
 
         /// <summary>
-        /// Gets which member to show of <typeparamref name="T"/> in the dropdown editor.
+        /// Gets which member to show of <typeparamref name="TProperty"/> in the dropdown editor.
         /// </summary>
         protected string DisplayMember { private get; set; }
 
@@ -77,18 +77,18 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
         /// Gets the available options which populate the dropdown editor.
         /// </summary>
         /// <param name="context">The context on which to base the available options.</param>
-        /// <returns>A <see cref="IEnumerable{T}"/> of objects of type <typeparamref name="T"/> which contains all the available options.</returns>
-        protected virtual IEnumerable<T> GetAvailableOptions(ITypeDescriptorContext context)
+        /// <returns>A <see cref="IEnumerable{T}"/> of objects of type <typeparamref name="TProperty"/> which contains all the available options.</returns>
+        protected virtual IEnumerable<TProperty> GetAvailableOptions(ITypeDescriptorContext context)
         {
-            return Enumerable.Empty<T>();
+            return Enumerable.Empty<TProperty>();
         }
 
         /// <summary>
         /// Gets the current option which should be selected in the dropdown editor.
         /// </summary>
         /// <param name="context">The context on which to base the current option.</param>
-        /// <returns>The object of type <typeparamref name="T"/> which is currently selected.</returns>
-        protected virtual T GetCurrentOption(ITypeDescriptorContext context)
+        /// <returns>The object of type <typeparamref name="TProperty"/> which is currently selected.</returns>
+        protected virtual TProperty GetCurrentOption(ITypeDescriptorContext context)
         {
             return null;
         }
@@ -98,9 +98,9 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
         /// </summary>
         /// <param name="context">The context from which the object is obtained.</param>
         /// <returns>The object which' properties populates the dropdown editor.</returns>
-        protected static PipingInputContextProperties GetPropertiesObject(ITypeDescriptorContext context)
+        protected static TPropertiesClass GetPropertiesObject(ITypeDescriptorContext context)
         {
-            return (PipingInputContextProperties)((DynamicPropertyBag)context.Instance).WrappedObject;
+            return (TPropertiesClass) ((DynamicPropertyBag) context.Instance).WrappedObject;
         }
 
         private ListBox CreateSelectionControl(ITypeDescriptorContext context)
@@ -112,7 +112,7 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
             };
             listBox.SelectedValueChanged += (sender, eventArgs) => editorService.CloseDropDown();
 
-            foreach (T option in GetAvailableOptions(context))
+            foreach (TProperty option in GetAvailableOptions(context))
             {
                 int index = listBox.Items.Add(option);
                 if (ReferenceEquals(GetCurrentOption(context), option))

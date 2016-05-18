@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 {
@@ -103,6 +104,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(breakWaterProperties.BreakWaterType, properties.BreakWater.BreakWaterType);
             Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
+            Assert.AreEqual(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
             mockRepository.VerifyAll();
         }
 
@@ -111,8 +113,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
-            const int numberProperties = 2;
+            const int numberProperties = 3;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
             var generalInput = new GeneralGrassCoverErosionInwardsInput();
@@ -132,10 +137,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Call
             properties.DikeHeight = newDikeHeight.ToString();
             properties.Orientation = newOrientation.Value.ToString(CultureInfo.InvariantCulture);
+            properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
             Assert.AreEqual(newDikeHeight, input.DikeHeight);
             Assert.AreEqual(newOrientation, input.Orientation);
+            Assert.AreEqual(hydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
             mockRepository.VerifyAll();
         }
 
@@ -159,43 +166,56 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor dikeGeometryProperty = dynamicProperties[dikeGeometryPropertyIndex];
             Assert.IsNotNull(dikeGeometryProperty);
             Assert.IsTrue(dikeGeometryProperty.IsReadOnly);
+            Assert.AreEqual("Schematisatie", dikeGeometryProperty.Category);
             Assert.AreEqual("Dijkgeometrie", dikeGeometryProperty.DisplayName);
             Assert.AreEqual("Eigenschappen van de dijkgeometrie.", dikeGeometryProperty.Description);
 
             PropertyDescriptor dikeHeightProperty = dynamicProperties[dikeHeightPropertyIndex];
             Assert.IsNotNull(dikeHeightProperty);
             Assert.IsFalse(dikeHeightProperty.IsReadOnly);
+            Assert.AreEqual("Schematisatie", dikeHeightProperty.Category);
             Assert.AreEqual("Dijkhoogte [m+NAP]", dikeHeightProperty.DisplayName);
             Assert.AreEqual("De hoogte van de dijk [m+NAP].", dikeHeightProperty.Description);
 
             PropertyDescriptor foreshoreProperty = dynamicProperties[foreshorePropertyIndex];
             Assert.IsNotNull(foreshoreProperty);
             Assert.IsTrue(foreshoreProperty.IsReadOnly);
+            Assert.AreEqual("Schematisatie", foreshoreProperty.Category);
             Assert.AreEqual("Voorland", foreshoreProperty.DisplayName);
             Assert.AreEqual("Eigenschappen van het voorland.", foreshoreProperty.Description);
 
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);
             Assert.IsFalse(orientationProperty.IsReadOnly);
+            Assert.AreEqual("Schematisatie", orientationProperty.Category);
             Assert.AreEqual("Oriëntatie [º]", orientationProperty.DisplayName);
             Assert.AreEqual("Oriëntatie van de dijk.", orientationProperty.Description);
 
             PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
             Assert.IsNotNull(breakWaterProperty);
             Assert.IsTrue(breakWaterProperty.IsReadOnly);
+            Assert.AreEqual("Schematisatie", breakWaterProperty.Category);
             Assert.AreEqual("Havendam", breakWaterProperty.DisplayName);
             Assert.AreEqual("Eigenschappen van de havendam.", breakWaterProperty.Description);
 
             PropertyDescriptor criticalFlowRateProperty = dynamicProperties[criticalFlowRatePropertyIndex];
             Assert.IsNotNull(criticalFlowRateProperty);
             Assert.IsTrue(criticalFlowRateProperty.IsReadOnly);
+            Assert.AreEqual("Toetseisen", criticalFlowRateProperty.Category);
             Assert.AreEqual("Kritisch overslagdebiet [m³/s/m]", criticalFlowRateProperty.DisplayName);
             Assert.AreEqual("Kritisch overslagdebiet per strekkende meter.", criticalFlowRateProperty.Description);
+
+            PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
+            Assert.IsNotNull(hydraulicBoundaryLocationProperty);
+            Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
+            Assert.AreEqual("Hydraulische gegevens", hydraulicBoundaryLocationProperty.Category);
+            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
+            Assert.AreEqual("De locatie met hydraulische randvoorwaarden die gebruikt wordt tijdens de berekening.", hydraulicBoundaryLocationProperty.Description);
             mockRepository.VerifyAll();
         }
 
@@ -205,5 +225,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int orientationPropertyIndex = 3;
         private const int breakWaterPropertyIndex = 4;
         private const int criticalFlowRatePropertyIndex = 5;
+        private const int hydraulicBoundaryLocationPropertyIndex = 6;
     }
 }

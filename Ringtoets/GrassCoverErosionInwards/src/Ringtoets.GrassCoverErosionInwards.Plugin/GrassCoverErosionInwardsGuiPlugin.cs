@@ -197,11 +197,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private void CalculateAll(IFailureMechanism failureMechanism, IEnumerable<GrassCoverErosionInwardsCalculation> calculations, IAssessmentSection assessmentSection)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Select(calc =>
-                                                                                 CreateHydraRingTargetProbabilityCalculationActivity(
-                                                                                     failureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
-                                                                                     Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
-                                                                                     calc)).ToList());
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null)
+                                                                         .Select(calc => CreateHydraRingTargetProbabilityCalculationActivity(
+                                                                             failureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
+                                                                             Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                             calc)).ToList());
         }
 
         private static string AllDataAvailable(IAssessmentSection assessmentSection, GrassCoverErosionInwardsFailureMechanism failureMechanism)
@@ -462,6 +462,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private void PerformCalculation(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)
         {
+            if (calculation.InputParameters.HydraulicBoundaryLocation == null)
+            {
+                return;
+            }
             var activity = CreateHydraRingTargetProbabilityCalculationActivity(
                 context.FailureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
                 Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),

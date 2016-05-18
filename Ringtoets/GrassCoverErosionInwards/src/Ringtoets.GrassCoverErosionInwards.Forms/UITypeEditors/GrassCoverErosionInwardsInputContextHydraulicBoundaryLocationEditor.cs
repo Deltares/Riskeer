@@ -23,33 +23,34 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PropertyClasses;
+using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.Piping.Forms.UITypeEditors
+namespace Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="StochasticSoilModel"/> from a collection.
+    /// <see cref="HydraulicBoundaryLocation"/> from a collection.
     /// </summary>
-    public class PipingInputContextStochasticSoilModelSelectionEditor : SelectionEditor<PipingInputContextProperties, StochasticSoilModel>
+    public class GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditor :
+        SelectionEditor<GrassCoverErosionInwardsInputContextProperties, HydraulicBoundaryLocation>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingInputContextStochasticSoilModelSelectionEditor"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditor"/>.
         /// </summary>
-        public PipingInputContextStochasticSoilModelSelectionEditor()
+        public GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditor()
         {
-            DisplayMember = TypeUtils.GetMemberName<StochasticSoilModel>(ssm => ssm.Name);
+            DisplayMember = TypeUtils.GetMemberName<HydraulicBoundaryLocation>(hbl => hbl.Name);
         }
 
-        protected override IEnumerable<StochasticSoilModel> GetAvailableOptions(ITypeDescriptorContext context)
+        protected override IEnumerable<HydraulicBoundaryLocation> GetAvailableOptions(ITypeDescriptorContext context)
         {
-            return GetPropertiesObject(context).GetAvailableStochasticSoilModels();
+            return GetPropertiesObject(context).GetAvailableHydraulicBoundaryLocations();
         }
 
-        protected override StochasticSoilModel GetCurrentOption(ITypeDescriptorContext context)
+        protected override HydraulicBoundaryLocation GetCurrentOption(ITypeDescriptorContext context)
         {
-            return GetPropertiesObject(context).StochasticSoilModel;
+            return GetPropertiesObject(context).HydraulicBoundaryLocation;
         }
     }
 }

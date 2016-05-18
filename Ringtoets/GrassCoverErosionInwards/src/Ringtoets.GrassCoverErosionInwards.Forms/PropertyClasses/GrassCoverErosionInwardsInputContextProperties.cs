@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing.Design;
 using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
@@ -26,6 +29,9 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using Ringtoets.GrassCoverErosionInwards.Forms.TypeConverters;
+using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
@@ -40,6 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int orientationPropertyIndex = 4;
         private const int breakWaterPropertyIndex = 5;
         private const int criticalFlowRatePropertyIndex = 6;
+        private const int hydraulicBoundaryLocationPropertyIndex = 7;
 
         [PropertyOrder(dikeGeometryPropertyIndex)]
         [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
@@ -133,6 +140,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                     Data = data.WrappedData.CriticalFlowRate
                 };
             }
+        }
+
+        [PropertyOrder(hydraulicBoundaryLocationPropertyIndex)]
+        [Editor(typeof(GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocation_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocation_Description")]
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation
+        {
+            get
+            {
+                return data.WrappedData.HydraulicBoundaryLocation;
+            }
+            set
+            {
+                data.WrappedData.HydraulicBoundaryLocation = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
+        {
+            return data.AvailableHydraulicBoundaryLocations;
         }
     }
 }

@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -118,9 +117,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             InputParameters.SetDikeGeometry(dikeSections);
             InputParameters.SetForeshoreGeometry(foreshoreSections);
             InputParameters.UseForeshore = true;
-
-            // Hydraulic boundaries location
-            InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "Demo", 0.0, 1.1);
 
             // Dike height
             InputParameters.DikeHeight = new RoundedDouble(InputParameters.DikeHeight.NumberOfDecimalPlaces, 10);

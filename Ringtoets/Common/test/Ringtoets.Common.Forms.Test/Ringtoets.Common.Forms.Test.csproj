@@ -69,6 +69,7 @@
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilderTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactoryTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactoryTest.cs" />
+    <Compile Include="UITypeEditors\SelectionEditorTest.cs" />
     <Compile Include="Views\CommentViewTest.cs" />
   </ItemGroup>
   <ItemGroup>

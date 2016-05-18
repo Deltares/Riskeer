@@ -213,10 +213,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsTrue(inputParameters.DikeGeometry.Any());
             Assert.IsTrue(inputParameters.UseForeshore);
 
-            // Hydraulic boundaries location
-            Assert.AreEqual("Demo", inputParameters.HydraulicBoundaryLocation.Name);
-            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
-
             // Dike height
             var expectedDikeHeight = new RoundedDouble(inputParameters.DikeHeight.NumberOfDecimalPlaces, 10);
             Assert.AreEqual(expectedDikeHeight, inputParameters.DikeHeight);

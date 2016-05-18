@@ -67,6 +67,7 @@
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsCalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextProperties.cs" />
+    <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -107,6 +108,11 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">

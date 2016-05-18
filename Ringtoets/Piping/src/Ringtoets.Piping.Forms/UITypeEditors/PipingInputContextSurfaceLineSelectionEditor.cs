@@ -22,6 +22,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Utils.Reflection;
+using Ringtoets.Common.Forms.UITypeEditors;
+using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.UITypeEditors
@@ -30,7 +32,7 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
     /// This class defines a drop down list edit-control from which the user can select a
     /// <see cref="RingtoetsPipingSurfaceLine"/> from a collection.
     /// </summary>
-    public class PipingInputContextSurfaceLineSelectionEditor : PipingInputContextSelectionEditor<RingtoetsPipingSurfaceLine>
+    public class PipingInputContextSurfaceLineSelectionEditor : SelectionEditor<PipingInputContextProperties, RingtoetsPipingSurfaceLine>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputContextSurfaceLineSelectionEditor"/>.
