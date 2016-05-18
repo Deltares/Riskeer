@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreSame(semiProbabilisticInputParameters, scenario.NormProbabilityParameters);
             Assert.IsTrue(scenario.IsRelevant);
             Assert.AreEqual((RoundedDouble) 1.0, scenario.Contribution);
-            Assert.AreEqual(CalculationScenarioStatus.NotCalculated, scenario.CalculationScenarioStatus);
+            Assert.AreEqual(CalculationScenarioStatus.NotCalculated, scenario.Status);
         }
 
         [Test]
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Data.Test
             var scenario = new PipingCalculationScenario(generalInputParameters, semiProbabilisticInputParameters);
 
             // Call
-            CalculationScenarioStatus status = scenario.CalculationScenarioStatus;
+            CalculationScenarioStatus status = scenario.Status;
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.NotCalculated, status);
@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            CalculationScenarioStatus status = scenario.CalculationScenarioStatus;
+            CalculationScenarioStatus status = scenario.Status;
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.Failed, status);
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            CalculationScenarioStatus status = scenario.CalculationScenarioStatus;
+            CalculationScenarioStatus status = scenario.Status;
 
             // Assert
             Assert.AreEqual(CalculationScenarioStatus.Done, status);

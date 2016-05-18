@@ -19,10 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Integration.Data.Properties;
+using Ringtoets.Integration.Data.StandAlone.Result;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.StandAlone
@@ -30,23 +31,14 @@ namespace Ringtoets.Integration.Data.StandAlone
     /// <summary>
     /// Defines a stand alone failure mechanisms objects
     /// </summary>
-    public class StandAloneFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>
+    public class DuneErosionFailureMechanism : FailureMechanismBase<SimpleFailureMechanismSectionResult>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StandAloneFailureMechanism"/> class.
+        /// Initializes a new instance of the <see cref="DuneErosionFailureMechanism"/> class.
         /// </summary>
-        /// <param name="name">The name for the <see cref="StandAloneFailureMechanism"/>.</param>
-        /// <param name="code">The code for the <see cref="StandAloneFailureMechanism"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="name"/> is <c>null</c> or empty.</item>
-        /// <item><paramref name="code"/> is <c>null</c> or empty.</item>
-        /// </list>
-        /// </exception>
-        public StandAloneFailureMechanism(string name, string code)
-            : base(name, code)
-        {
-        }
+        public DuneErosionFailureMechanism()
+            : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code)
+        { }
 
         public override IEnumerable<ICalculation> Calculations
         {
@@ -56,9 +48,9 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        protected override SimpleFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
         {
-            return new FailureMechanismSectionResult(section);
+            return new SimpleFailureMechanismSectionResult(section);
         }
     }
 }

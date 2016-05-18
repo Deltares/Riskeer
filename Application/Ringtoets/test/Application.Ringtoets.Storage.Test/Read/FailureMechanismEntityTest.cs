@@ -185,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            var failureMechanism = entity.ReadAsStandAloneFailureMechanism();
+            var failureMechanism = entity.ReadAsMacroStabilityInwardsFailureMechanism();
 
             // Assert
             Assert.IsEmpty(failureMechanism.Sections);
@@ -216,7 +216,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            var failureMechanism = entity.ReadAsStandAloneFailureMechanism();
+            var failureMechanism = entity.ReadAsMacroStabilityInwardsFailureMechanism();
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());

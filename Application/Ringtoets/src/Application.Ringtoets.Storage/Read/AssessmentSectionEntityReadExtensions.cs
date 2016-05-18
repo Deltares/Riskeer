@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
@@ -130,8 +131,8 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.MacrostabilityInwards, assessmentSection.MacrostabilityInwards);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.StabilityStoneRevetment, assessmentSection.StabilityStoneCover);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.WaveImpactOnAsphaltRevetment, assessmentSection.WaveImpactAsphaltCover);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentErosionOutwards, assessmentSection.GrassCoverErosionOutside);
-            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentSlidingOutwards, assessmentSection.GrassCoverSlipOffOutside);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentErosionOutwards, assessmentSection.GrassCoverErosionOutwards);
+            entity.ReadStandAloneFailureMechanism(FailureMechanismType.GrassRevetmentSlidingOutwards, assessmentSection.GrassCoverSlipOffOutwards);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.StructureHeight, assessmentSection.HeightStructure);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.ReliabilityClosingOfStructure, assessmentSection.ClosingStructure);
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.PipingAtStructure, assessmentSection.PipingStructure);
@@ -139,12 +140,12 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadStandAloneFailureMechanism(FailureMechanismType.DuneErosion, assessmentSection.DuneErosion);
         }
 
-        private static void ReadStandAloneFailureMechanism(this AssessmentSectionEntity entity, FailureMechanismType failureMechanismType, StandAloneFailureMechanism standAloneFailureMechanism)
+        private static void ReadStandAloneFailureMechanism(this AssessmentSectionEntity entity, FailureMechanismType failureMechanismType, IFailureMechanism standAloneFailureMechanism)
         {
             var failureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) failureMechanismType);
             if (failureMechanismEntity != null)
             {
-                var failureMechanism = failureMechanismEntity.ReadAsStandAloneFailureMechanism();
+                var failureMechanism = failureMechanismEntity.ReadAsMacroStabilityInwardsFailureMechanism();
 
                 standAloneFailureMechanism.StorageId = failureMechanism.StorageId;
                 standAloneFailureMechanism.IsRelevant = failureMechanism.IsRelevant;

@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                if (CalculationScenarioStatus != CalculationScenarioStatus.Done)
+                if (Status != CalculationScenarioStatus.Done)
                 {
                     throw new InvalidOperationException("The probability can only be accessed when the status is done.");
                 }
@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        public CalculationScenarioStatus CalculationScenarioStatus
+        public CalculationScenarioStatus Status
         {
             get
             {

@@ -52,6 +52,7 @@ using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.Result;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -104,7 +105,7 @@ namespace Ringtoets.Integration.Plugin
         {
             yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
-            yield return new PropertyInfo<StandAloneFailureMechanismContext, StandAloneFailureMechanismContextProperties>();
+            yield return new PropertyInfo<SimpleFailureMechanismContext, StandAloneFailureMechanismContextProperties>();
         }
 
         /// <summary>
@@ -131,11 +132,20 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsFormsResources.Map
             };
 
-            yield return new ViewInfo<FailureMechanismSectionResultContext<FailureMechanismSectionResult>, IEnumerable<FailureMechanismSectionResult>, FailureMechanismResultView>
+            yield return new ViewInfo<FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>, IEnumerable<SimpleFailureMechanismSectionResult>, SimpleFailureMechanismResultView>
             {
                 GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData,
+                CloseForData = CloseSimpleFailureMechanismResultViewForData,
+                GetViewData = context => context.SectionResults,
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
+
+            yield return new ViewInfo<FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>, IEnumerable<CustomFailureMechanismSectionResult>, CustomFailureMechanismResultView>
+            {
+                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                CloseForData = CloseCustomFailureMechanismResultViewForData,
                 GetViewData = context => context.SectionResults,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
@@ -192,7 +202,13 @@ namespace Ringtoets.Integration.Plugin
                                    Gui.Get(nodeData, treeViewControl).AddImportItem().Build()
             };
 
-            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StandAloneFailureMechanismContext>(
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<SimpleFailureMechanismContext>(
+                StandAloneFailureMechanismEnabledChildNodeObjects,
+                StandAloneFailureMechanismDisabledChildNodeObjects,
+                StandAloneFailureMechanismEnabledContextMenuStrip,
+                StandAloneFailureMechanismDisabledContextMenuStrip);
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<CustomFailureMechanismContext>(
                 StandAloneFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
@@ -238,7 +254,16 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<FailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>>
+            {
+                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -301,7 +326,7 @@ namespace Ringtoets.Integration.Plugin
 
         #region FailureMechanismResults ViewInfo
 
-        private static bool CloseFailureMechanismResultViewForData(FailureMechanismResultView view, object o)
+        private static bool CloseSimpleFailureMechanismResultViewForData(FailureMechanismResultView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as IFailureMechanism;
@@ -310,14 +335,33 @@ namespace Ringtoets.Integration.Plugin
             {
                 return assessmentSection
                     .GetFailureMechanisms()
-                    .OfType<FailureMechanismBase<FailureMechanismSectionResult>>()
+                    .OfType<FailureMechanismBase<SimpleFailureMechanismSectionResult>>()
                     .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
             }
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
-            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<FailureMechanismSectionResult>) failureMechanism).SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<SimpleFailureMechanismSectionResult>)failureMechanism).SectionResults);
+        }
+
+        private static bool CloseCustomFailureMechanismResultViewForData(FailureMechanismResultView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as IFailureMechanism;
+            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            if (assessmentSection != null)
+            {
+                return assessmentSection
+                    .GetFailureMechanisms()
+                    .OfType<FailureMechanismBase<CustomFailureMechanismSectionResult>>()
+                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+            }
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<CustomFailureMechanismSectionResult>)failureMechanism).SectionResults);
         }
 
         #endregion
@@ -407,12 +451,59 @@ namespace Ringtoets.Integration.Plugin
         {
             foreach (IFailureMechanism failureMechanism in nodeData.GetFailureMechanisms())
             {
-                var standAloneFailureMechanism = failureMechanism as StandAloneFailureMechanism;
+                var closingStructureFailureMechanism = failureMechanism as ClosingStructureFailureMechanism;
+                var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
+                var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
+                var grassCoverSlipOffOutwardsFailureMechanism = failureMechanism as GrassCoverSlipOffOutwardsFailureMechanism;
+                var heightStructureFailureMechanism = failureMechanism as HeightStructureFailureMechanism;
+                var macroStabilityInwardsFailureMechanism = failureMechanism as MacroStabilityInwardsFailureMechanism;
+                var pipingStructureFailureMechanism = failureMechanism as PipingStructureFailureMechanism;
+                var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
+                var strengthStabilityPointConstructionFailureMechanism = failureMechanism as StrengthStabilityPointConstructionFailureMechanism;
+                var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
+
                 var piping = failureMechanism as PipingFailureMechanism;
                 var grassCoverErosionInwards = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
-                if (standAloneFailureMechanism != null)
+
+                if (closingStructureFailureMechanism != null)
                 {
-                    yield return new StandAloneFailureMechanismContext(standAloneFailureMechanism, nodeData);
+                    yield return new CustomFailureMechanismContext(closingStructureFailureMechanism, nodeData);
+                }
+                else if (duneErosionFailureMechanism != null)
+                {
+                    yield return new SimpleFailureMechanismContext(duneErosionFailureMechanism, nodeData);
+                }
+                else if (grassCoverErosionOutwardsFailureMechanism != null)
+                {
+                    yield return new SimpleFailureMechanismContext(grassCoverErosionOutwardsFailureMechanism, nodeData);
+                }
+                else if (grassCoverSlipOffOutwardsFailureMechanism != null)
+                {
+                    yield return new SimpleFailureMechanismContext(grassCoverSlipOffOutwardsFailureMechanism, nodeData);
+                }
+                else if (heightStructureFailureMechanism != null)
+                {
+                    yield return new CustomFailureMechanismContext(heightStructureFailureMechanism, nodeData);
+                }
+                else if (macroStabilityInwardsFailureMechanism != null)
+                {
+                    yield return new CustomFailureMechanismContext(macroStabilityInwardsFailureMechanism, nodeData);
+                }
+                else if (pipingStructureFailureMechanism != null)
+                {
+                    yield return new SimpleFailureMechanismContext(pipingStructureFailureMechanism, nodeData);
+                }
+                else if (stabilityStoneCoverFailureMechanism != null)
+                {
+                    yield return new CustomFailureMechanismContext(stabilityStoneCoverFailureMechanism, nodeData);
+                }
+                else if (strengthStabilityPointConstructionFailureMechanism != null)
+                {
+                    yield return new CustomFailureMechanismContext(strengthStabilityPointConstructionFailureMechanism, nodeData);
+                }
+                else if (waveImpactAsphaltCoverFailureMechanism != null)
+                {
+                    yield return new CustomFailureMechanismContext(waveImpactAsphaltCoverFailureMechanism, nodeData);
                 }
                 else if (piping != null)
                 {
@@ -465,7 +556,7 @@ namespace Ringtoets.Integration.Plugin
 
         # region StandAloneFailureMechanismContext
 
-        private object[] StandAloneFailureMechanismEnabledChildNodeObjects(StandAloneFailureMechanismContext nodeData)
+        private object[] StandAloneFailureMechanismEnabledChildNodeObjects(FailureMechanismContext<IFailureMechanism> nodeData)
         {
             return new object[]
             {
@@ -478,7 +569,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private object[] StandAloneFailureMechanismDisabledChildNodeObjects(StandAloneFailureMechanismContext nodeData)
+        private object[] StandAloneFailureMechanismDisabledChildNodeObjects(FailureMechanismContext<IFailureMechanism> nodeData)
         {
             return new object[]
             {
@@ -486,7 +577,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private IList GetInputs(StandAloneFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private IList GetInputs(IFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -495,15 +586,25 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private IList GetOutputs(StandAloneFailureMechanism nodeData)
+        private IList GetOutputs(IFailureMechanism nodeData)
         {
-            return new ArrayList
+            var simple = nodeData as FailureMechanismBase<SimpleFailureMechanismSectionResult>;
+            var custom = nodeData as FailureMechanismBase<CustomFailureMechanismSectionResult>;
+            var failureMechanismSectionResultContexts = new object[1];
+            if (simple != null)
             {
-                new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(nodeData.SectionResults, nodeData)
-            };
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>(simple.SectionResults, nodeData);
+            }
+            if (custom != null)
+            {
+                failureMechanismSectionResultContexts[0] =
+                    new FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>(custom.SectionResults, nodeData);
+            }
+            return failureMechanismSectionResultContexts;
         }
 
-        private ContextMenuStrip StandAloneFailureMechanismEnabledContextMenuStrip(StandAloneFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StandAloneFailureMechanismEnabledContextMenuStrip(FailureMechanismContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -519,12 +620,12 @@ namespace Ringtoets.Integration.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(StandAloneFailureMechanismContext failureMechanismContext)
+        private void RemoveAllViewsForItem(FailureMechanismContext<IFailureMechanism> failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip StandAloneFailureMechanismDisabledContextMenuStrip(StandAloneFailureMechanismContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StandAloneFailureMechanismDisabledContextMenuStrip(FailureMechanismContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 

@@ -117,36 +117,36 @@ namespace Ringtoets.Integration.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to GEBU.
         /// </summary>
-        public static string GrassCoverErosionOutsideFailureMechanism_Code {
+        public static string GrassCoverErosionOutwardsFailureMechanism_Code {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutsideFailureMechanism_Code", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanism_Code", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dijken en dammen - Grasbekleding erosie buitentalud.
         /// </summary>
-        public static string GrassCoverErosionOutsideFailureMechanism_DisplayName {
+        public static string GrassCoverErosionOutwardsFailureMechanism_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutsideFailureMechanism_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanism_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to GABU.
         /// </summary>
-        public static string GrassCoverSlipOffOutsideFailureMechanism_Code {
+        public static string GrassCoverSlipOffOutwardsFailureMechanism_Code {
             get {
-                return ResourceManager.GetString("GrassCoverSlipOffOutsideFailureMechanism_Code", resourceCulture);
+                return ResourceManager.GetString("GrassCoverSlipOffOutwardsFailureMechanism_Code", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dijken en dammen - Grasbekleding afschuiven buitentalud.
         /// </summary>
-        public static string GrassCoverSlipOffOutsideFailureMechanism_DisplayName {
+        public static string GrassCoverSlipOffOutwardsFailureMechanism_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverSlipOffOutsideFailureMechanism_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverSlipOffOutwardsFailureMechanism_DisplayName", resourceCulture);
             }
         }
         

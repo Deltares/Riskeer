@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
@@ -33,9 +35,10 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.Result;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
@@ -44,7 +47,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StandAloneFailureMechanismTreeNodeInfoTest
+    public class SimpleFailureMechanismContextTreeNodeInfoTest
     {
         private MockRepository mocks;
 
@@ -63,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(StandAloneFailureMechanismContext), info.TagType);
+                Assert.AreEqual(typeof(SimpleFailureMechanismContext), info.TagType);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
                 Assert.IsNull(info.CanRename);
                 Assert.IsNull(info.OnNodeRenamed);
@@ -86,19 +89,18 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var testName = "ttt";
-            var standAloneFailureMechanism = new StandAloneFailureMechanism(testName, "C");
-            var standAloneFailureMechanismContext = new StandAloneFailureMechanismContext(standAloneFailureMechanism, assessmentSection);
+            var failureMechanism = new TestFailureMechanism("name", "code");
+            var failureMechanismContext = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var plugin = new RingtoetsGuiPlugin())
             {
                 var info = GetInfo(plugin);
 
                 // Call
-                var text = info.Text(standAloneFailureMechanismContext);
+                var text = info.Text(failureMechanismContext);
 
                 // Assert
-                Assert.AreEqual(testName, text);
+                Assert.AreEqual(failureMechanism.Name, text);
             }
             mocks.VerifyAll();
         }
@@ -129,8 +131,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 mocks.ReplayAll();
 
-                var failureMechanism = new StandAloneFailureMechanism("C", "C");
-                var context = new StandAloneFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanism = new TestFailureMechanism("C", "C");
+                var context = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 var textColor = info.ForeColor(context);
@@ -153,13 +155,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var info = GetInfo(plugin);
 
-                var failureMechanism = new StandAloneFailureMechanism("test", "C");
+                var failureMechanism = new TestFailureMechanism("test", "C");
                 failureMechanism.AddSection(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(1, 2),
                     new Point2D(5, 6)
                 }));
-                var failureMechanismContext = new StandAloneFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -183,7 +185,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreEqual("Uitvoer", outputFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<FailureMechanismSectionResult>) outputFolder.Contents[0];
+                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>) outputFolder.Contents[0];
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.SectionResults);
             }
@@ -201,7 +203,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 var info = GetInfo(plugin);
 
-                var failureMechanism = new StandAloneFailureMechanism("test", "C")
+                var failureMechanism = new TestFailureMechanism("test", "C")
                 {
                     IsRelevant = false
                 };
@@ -210,7 +212,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     new Point2D(1, 2),
                     new Point2D(5, 6)
                 }));
-                var failureMechanismContext = new StandAloneFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -229,9 +231,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var failureMechanism = new StandAloneFailureMechanism("A", "C");
+                var failureMechanism = new TestFailureMechanism("A", "C");
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new StandAloneFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var gui = mocks.StrictMock<IGui>();
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
@@ -273,12 +275,12 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var failureMechanism = new StandAloneFailureMechanism("A", "C")
+                var failureMechanism = new TestFailureMechanism("A", "C")
                 {
                     IsRelevant = false
                 };
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new StandAloneFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var gui = mocks.StrictMock<IGui>();
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
@@ -316,8 +318,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             using (var treeView = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = new StandAloneFailureMechanism("A", "C");
-                var context = new StandAloneFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanism = new TestFailureMechanism("A", "C");
+                var context = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilderMock = new CustomItemsOnlyContextMenuBuilder();
 
@@ -355,14 +357,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var failureMechanismObserver = mocks.Stub<IObserver>();
             failureMechanismObserver.Expect(o => o.UpdateObserver());
 
-            var failureMechanism = new StandAloneFailureMechanism("A", "C")
+            var failureMechanism = new TestFailureMechanism("A", "C")
             {
                 IsRelevant = true
             };
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new StandAloneFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
 
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
@@ -402,14 +404,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var failureMechanismObserver = mocks.Stub<IObserver>();
             failureMechanismObserver.Expect(o => o.UpdateObserver());
 
-            var failureMechanism = new StandAloneFailureMechanism("A", "C")
+            var failureMechanism = new TestFailureMechanism("A", "C")
             {
                 IsRelevant = false
             };
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new StandAloneFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
 
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -442,7 +444,27 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
         private TreeNodeInfo GetInfo(RingtoetsGuiPlugin guiPlugin)
         {
-            return guiPlugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StandAloneFailureMechanismContext));
+            return guiPlugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(SimpleFailureMechanismContext));
+        }
+
+        public class TestFailureMechanism : FailureMechanismBase<SimpleFailureMechanismSectionResult>
+        {
+            public TestFailureMechanism(string name, string code)
+                : base(name, code)
+            { }
+
+            public override IEnumerable<ICalculation> Calculations
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            protected override SimpleFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+            {
+                return new SimpleFailureMechanismSectionResult(section);
+            }
         }
     }
 }

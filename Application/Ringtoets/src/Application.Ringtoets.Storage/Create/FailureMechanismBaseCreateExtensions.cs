@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Integration.Data.StandAlone;
 
 namespace Application.Ringtoets.Storage.Create
 {
@@ -30,6 +31,33 @@ namespace Application.Ringtoets.Storage.Create
     /// </summary>
     internal static class FailureMechanismBaseCreateExtensions
     {
+        /// <summary>
+        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="FailureMechanismBase{T}"/>.
+        /// </summary>
+        /// <param name="mechanism">The failure mechanism to create a database entity for.</param>
+        /// <param name="type">The type of the failure mechanism that is being created.</param>
+        /// <param name="collector">The object keeping track of create operations.</param>
+        /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        internal static FailureMechanismEntity Create(this IFailureMechanism mechanism, FailureMechanismType type, CreateConversionCollector collector)
+        {
+            if (collector == null)
+            {
+                throw new ArgumentNullException("collector");
+            }
+
+            FailureMechanismEntity entity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (short)type,
+                IsRelevant = Convert.ToByte(mechanism.IsRelevant)
+            };
+
+            mechanism.AddEntitiesForFailureMechanismSections(collector, entity);
+
+            collector.Create(entity, mechanism);
+            return entity;
+        }
+
         /// <summary>
         /// Creates <see cref="FailureMechanismSectionEntity"/> instances based on the information of the <see cref="FailureMechanismBase{T}"/>.
         /// </summary>

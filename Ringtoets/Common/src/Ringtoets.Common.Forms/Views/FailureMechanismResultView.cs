@@ -32,11 +32,10 @@ using CoreCommonResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="Ringtoets.Piping.Data.PipingFailureMechanismSectionResult"/>.
+    /// The view for the <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
     public partial class FailureMechanismResultView : UserControl, IView
     {
-        private const double tolerance = 1e-6;
         private readonly Observer failureMechanismObserver;
         private readonly RecursiveObserver<FailureMechanismBase<FailureMechanismSectionResult>, FailureMechanismSectionResult> failureMechanismSectionResultObserver;
 
@@ -44,9 +43,9 @@ namespace Ringtoets.Common.Forms.Views
         private FailureMechanismBase<FailureMechanismSectionResult> failureMechanism;
 
         /// <summary>
-        /// Creates a new instance of <see cref="Ringtoets.Piping.Forms.Views.PipingFailureMechanismResultView"/>.
+        /// Creates a new instance of <see cref="FailureMechanismResultView"/>.
         /// </summary>
-        public FailureMechanismResultView()
+        protected FailureMechanismResultView()
         {
             InitializeComponent();
             InitializeDataGridView();
@@ -115,21 +114,24 @@ namespace Ringtoets.Common.Forms.Views
             dataGridView.DataError += DataGridViewDataError;
             dataGridView.GotFocus += DataGridViewGotFocus;
 
-            var sectionName = new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Name",
-                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                Name = "column_Name"
-            };
-
             dataGridView.AutoGenerateColumns = false;
-            dataGridView.Columns.AddRange(sectionName);
+            dataGridView.Columns.AddRange(GetDataGridColumns().ToArray());
 
             foreach (var column in dataGridView.Columns.OfType<DataGridViewColumn>())
             {
                 column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
+        }
+
+        protected virtual IEnumerable<DataGridViewColumn> GetDataGridColumns()
+        {
+            yield return new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Name",
+                HeaderText = Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
+                Name = "column_Name"
+            };
         }
 
         private void UpdataDataGridViewDataSource()
@@ -154,28 +156,6 @@ namespace Ringtoets.Common.Forms.Views
             dataGridView.Refresh();
             dataGridView.AutoResizeColumns();
         }
-
-        #region Nested types
-
-        private class FailureMechanismSectionResultRow
-        {
-            public FailureMechanismSectionResultRow(FailureMechanismSectionResult failureMechanismSectionResult)
-            {
-                FailureMechanismSectionResult = failureMechanismSectionResult;
-            }
-
-            public string Name
-            {
-                get
-                {
-                    return FailureMechanismSectionResult.Section.Name;
-                }
-            }
-
-            public FailureMechanismSectionResult FailureMechanismSectionResult { get; private set; }
-        }
-
-        #endregion
 
         #region Event handling
 

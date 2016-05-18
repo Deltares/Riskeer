@@ -21,23 +21,24 @@
 
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for an instance of <see cref="StandAloneFailureMechanism"/>.
+    /// This class is a presentation object for an instance of <see cref="MacroStabilityInwardsFailureMechanism"/>.
     /// </summary>
-    public class StandAloneFailureMechanismContext : FailureMechanismContext<StandAloneFailureMechanism>
+    public class SimpleFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StandAloneFailureMechanismContext"/> class.
+        /// Initializes a new instance of the <see cref="SimpleFailureMechanismContext"/> class.
         /// </summary>
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism" />.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedFailureMechanism"/> or <paramref name="parent"/> are <c>null</c>.</exception>
-        public StandAloneFailureMechanismContext(StandAloneFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
+        public SimpleFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
             base(wrappedFailureMechanism, parent)
         {
             

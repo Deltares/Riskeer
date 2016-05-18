@@ -53,7 +53,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssessmentSectionTest.cs" />
-    <Compile Include="StandAlone\StandAloneFailureMechanismTest.cs" />
+    <Compile Include="StandAlone\ClosingStructureFailureMechanismTest.cs" />
+    <Compile Include="StandAlone\DuneErosionFailureMechanismTest.cs" />
+    <Compile Include="StandAlone\GrassCoverErosionOutwardsFailureMechanismTest.cs" />
+    <Compile Include="StandAlone\GrassCoverSlipOffOutwardsFailureMechanismTest.cs" />
+    <Compile Include="StandAlone\HeightStructureFailureMechanismTest.cs" />
+    <Compile Include="StandAlone\MacroStabilityInwardsFailureMechanismTest.cs" />
+    <Compile Include="StandAlone\PipingStructureFailureMechanismTest.cs" />
+    <Compile Include="StandAlone\StabilityStoneCoverFailureMechanismTest.cs" />
+    <Compile Include="StandAlone\StrengthStabilityPointConstructionFailureMechanismTest.cs" />
+    <Compile Include="StandAlone\WaveImpactAsphaltFailureMechanismTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

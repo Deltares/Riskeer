@@ -321,9 +321,9 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(isRelevant, section.WaveImpactAsphaltCover.IsRelevant);
             Assert.AreEqual(2, section.WaveImpactAsphaltCover.Sections.Count());
 
-            Assert.AreEqual(grassRevetmentEntityId, section.GrassCoverErosionOutside.StorageId);
-            Assert.AreEqual(isRelevant, section.GrassCoverErosionOutside.IsRelevant);
-            Assert.AreEqual(2, section.GrassCoverErosionOutside.Sections.Count());
+            Assert.AreEqual(grassRevetmentEntityId, section.GrassCoverErosionOutwards.StorageId);
+            Assert.AreEqual(isRelevant, section.GrassCoverErosionOutwards.IsRelevant);
+            Assert.AreEqual(2, section.GrassCoverErosionOutwards.Sections.Count());
 
             Assert.AreEqual(duneErosionEntityId, section.DuneErosion.StorageId);
             Assert.AreEqual(isRelevant, section.DuneErosion.IsRelevant);

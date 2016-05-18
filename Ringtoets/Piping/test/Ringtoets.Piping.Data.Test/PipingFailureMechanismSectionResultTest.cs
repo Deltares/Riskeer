@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Data.Test
             calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble)1.0);
             var expectedProbability = (RoundedDouble)41661830;
             calculationScenarioMock.Stub(cs => cs.Probability).Return(expectedProbability);
-            calculationScenarioMock.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.Done);
+            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Done);
 
             mocks.ReplayAll();
 
@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Data.Test
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
             calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.NotCalculated);
+            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.NotCalculated);
 
             mocks.ReplayAll();
 
@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.Data.Test
             calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
             calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble) double.NaN);
             calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble)1.0);
-            calculationScenarioMock.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.Failed);
+            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Failed);
 
             mocks.ReplayAll();
 
@@ -296,7 +296,7 @@ namespace Ringtoets.Piping.Data.Test
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
             calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.NotCalculated);
+            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.NotCalculated);
 
             mocks.ReplayAll();
 
@@ -322,7 +322,7 @@ namespace Ringtoets.Piping.Data.Test
             calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
             calculationScenarioMock.Stub(cs => cs.Probability).Return((RoundedDouble)double.NaN);
             calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble)1.0);
-            calculationScenarioMock.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.Failed);
+            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Failed);
 
             mocks.ReplayAll();
 
@@ -346,13 +346,13 @@ namespace Ringtoets.Piping.Data.Test
             var mocks = new MockRepository();
             var calculationScenarioMock = mocks.StrictMock<ICalculationScenario>();
             calculationScenarioMock.Stub(cs => cs.IsRelevant).Return(true);
-            calculationScenarioMock.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.NotCalculated);
+            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.NotCalculated);
             
             var calculationScenarioMock2 = mocks.StrictMock<ICalculationScenario>();
             calculationScenarioMock2.Stub(cs => cs.IsRelevant).Return(true);
             calculationScenarioMock2.Stub(cs => cs.Probability).Return((RoundedDouble)double.NaN);
             calculationScenarioMock2.Stub(cs => cs.Contribution).Return((RoundedDouble)1.0);
-            calculationScenarioMock2.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.Failed);
+            calculationScenarioMock2.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Failed);
 
             mocks.ReplayAll();
 
@@ -380,7 +380,7 @@ namespace Ringtoets.Piping.Data.Test
             calculationScenarioMock.Stub(cs => cs.Contribution).Return((RoundedDouble)1.0);
             var expectedProbability = (RoundedDouble)41661830;
             calculationScenarioMock.Stub(cs => cs.Probability).Return(expectedProbability);
-            calculationScenarioMock.Stub(cs => cs.CalculationScenarioStatus).Return(CalculationScenarioStatus.Done);
+            calculationScenarioMock.Stub(cs => cs.Status).Return(CalculationScenarioStatus.Done);
 
             mocks.ReplayAll();
 

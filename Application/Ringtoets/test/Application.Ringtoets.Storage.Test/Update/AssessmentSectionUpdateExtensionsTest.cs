@@ -449,9 +449,9 @@ namespace Application.Ringtoets.Storage.Test.Update
             section.WaveImpactAsphaltCover.StorageId = 6;
             section.WaveImpactAsphaltCover.Contribution = 0.5;
             section.WaveImpactAsphaltCover.IsRelevant = true;
-            section.GrassCoverErosionOutside.StorageId = 7;
-            section.GrassCoverErosionOutside.Contribution = 0.5;
-            section.GrassCoverErosionOutside.IsRelevant = true;
+            section.GrassCoverErosionOutwards.StorageId = 7;
+            section.GrassCoverErosionOutwards.Contribution = 0.5;
+            section.GrassCoverErosionOutwards.IsRelevant = true;
             section.DuneErosion.StorageId = 8;
             section.DuneErosion.Contribution = 0.5;
             section.DuneErosion.IsRelevant = true;
@@ -578,11 +578,11 @@ namespace Application.Ringtoets.Storage.Test.Update
                 {
                     StorageId = 8
                 },
-                GrassCoverErosionOutside =
+                GrassCoverErosionOutwards =
                 {
                     StorageId = 9
                 },
-                GrassCoverSlipOffOutside =
+                GrassCoverSlipOffOutwards =
                 {
                     StorageId = 10
                 },

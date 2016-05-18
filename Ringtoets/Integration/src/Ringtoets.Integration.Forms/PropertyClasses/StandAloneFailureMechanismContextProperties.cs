@@ -6,9 +6,9 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="StandAloneFailureMechanismContext"/> properties panel.
+    /// ViewModel of <see cref="SimpleFailureMechanismContext"/> properties panel.
     /// </summary>
-    public class StandAloneFailureMechanismContextProperties : ObjectProperties<StandAloneFailureMechanismContext> {
+    public class StandAloneFailureMechanismContextProperties : ObjectProperties<SimpleFailureMechanismContext> {
 
         #region General
 

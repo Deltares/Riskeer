@@ -41,18 +41,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new StandAloneFailureMechanismContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StandAloneFailureMechanismContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<SimpleFailureMechanismContext>>(properties);
         }
 
         [Test]
         public void Data_SetNewStandAloneFailureMechanismContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var failureMechanism = new StandAloneFailureMechanism("testName", "testCode");
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var properties = new StandAloneFailureMechanismContextProperties();
 
             // Call
-            properties.Data = new StandAloneFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
+            properties.Data = new SimpleFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);

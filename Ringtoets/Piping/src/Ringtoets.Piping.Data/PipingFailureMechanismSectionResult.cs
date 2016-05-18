@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return CalculationScenarios.Where(cs => cs.IsRelevant && cs.CalculationScenarioStatus == CalculationScenarioStatus.Done)
+                return CalculationScenarios.Where(cs => cs.IsRelevant && cs.Status == CalculationScenarioStatus.Done)
                                            .Aggregate((RoundedDouble) 0.0, (current, scenario) => (current + scenario.Contribution * scenario.Probability));
             }
         }
@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Data
             bool notCalculated = false;
             foreach (var calculationScenario in CalculationScenarios.Where(cs => cs.IsRelevant))
             {
-                switch (calculationScenario.CalculationScenarioStatus) 
+                switch (calculationScenario.Status) 
                 {
                     case CalculationScenarioStatus.Failed:
                         failed = true;

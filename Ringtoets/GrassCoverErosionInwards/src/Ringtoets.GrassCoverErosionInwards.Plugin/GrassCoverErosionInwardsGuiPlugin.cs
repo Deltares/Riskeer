@@ -40,6 +40,7 @@ using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -66,6 +67,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInputContextProperties>();
         }
 
+        public override IEnumerable<ViewInfo> GetViewInfos()
+        {
+            yield return new ViewInfo<
+                FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>, 
+                IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>, 
+                GrassCoverErosionInwardsFailureMechanismResultView
+            >
+            {
+                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                CloseForData = CloseFailureMechanismResultViewForData,
+                GetViewData = context => context.SectionResults,
+                AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
+        }
+
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverErosionInwardsFailureMechanismContext>(
@@ -84,6 +101,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 CalculationContextChildNodeObjects,
                 CalculationContextContextmenuStrip,
                 CalculationContextOnNodeRemoved);
+
+            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>>
+            {
+                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsInputContext>
             {
@@ -259,7 +285,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             return new ArrayList
             {
-                new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
+                new FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
             };
         }
 
@@ -318,6 +344,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanismContext context)
         {
             CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.Parent);
+        }
+
+        #endregion
+
+        #region GrassCoverErosionInwardsFailureMechanismResultView ViewInfo
+
+        private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionInwardsFailureMechanismResultView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as IFailureMechanism;
+            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
+            if (assessmentSection != null)
+            {
+                return assessmentSection
+                    .GetFailureMechanisms()
+                    .OfType<GrassCoverErosionInwardsFailureMechanism>()
+                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+            }
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+            return failureMechanism != null && ReferenceEquals(view.Data, ((FailureMechanismBase<GrassCoverErosionInwardsFailureMechanismSectionResult>)failureMechanism).SectionResults);
         }
 
         #endregion

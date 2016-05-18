@@ -142,7 +142,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var failureMechanisms = new IFailureMechanism[]
             {
                 new PipingFailureMechanism(),
-                new StandAloneFailureMechanism("A", "C")
+                new MacroStabilityInwardsFailureMechanism()
             };
             var contribution = new FailureMechanismContribution(failureMechanisms, 10.0, 2);
 
@@ -178,9 +178,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanisms[0], pipingFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, pipingFailureMechanismContext.Parent);
 
-                var standAloneFailureMechanismContext = (StandAloneFailureMechanismContext)objects[5];
-                Assert.AreSame(failureMechanisms[1], standAloneFailureMechanismContext.WrappedData);
-                Assert.AreSame(assessmentSection, standAloneFailureMechanismContext.Parent);
+                var macroStabilityFailureMechanismContext = (CustomFailureMechanismContext)objects[5];
+                Assert.AreSame(failureMechanisms[1], macroStabilityFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, macroStabilityFailureMechanismContext.Parent);
             }
             mocks.VerifyAll();
         }

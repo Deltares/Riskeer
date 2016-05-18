@@ -70,8 +70,8 @@ namespace Application.Ringtoets.Storage.Create
             entity.FailureMechanismEntities.Add(section.MacrostabilityInwards.Create(FailureMechanismType.MacrostabilityInwards, collector));
             entity.FailureMechanismEntities.Add(section.StabilityStoneCover.Create(FailureMechanismType.StabilityStoneRevetment, collector));
             entity.FailureMechanismEntities.Add(section.WaveImpactAsphaltCover.Create(FailureMechanismType.WaveImpactOnAsphaltRevetment, collector));
-            entity.FailureMechanismEntities.Add(section.GrassCoverErosionOutside.Create(FailureMechanismType.GrassRevetmentErosionOutwards, collector));
-            entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffOutside.Create(FailureMechanismType.GrassRevetmentSlidingOutwards, collector));
+            entity.FailureMechanismEntities.Add(section.GrassCoverErosionOutwards.Create(FailureMechanismType.GrassRevetmentErosionOutwards, collector));
+            entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffOutwards.Create(FailureMechanismType.GrassRevetmentSlidingOutwards, collector));
             entity.FailureMechanismEntities.Add(section.HeightStructure.Create(FailureMechanismType.StructureHeight, collector));
             entity.FailureMechanismEntities.Add(section.ClosingStructure.Create(FailureMechanismType.ReliabilityClosingOfStructure, collector));
             entity.FailureMechanismEntities.Add(section.PipingStructure.Create(FailureMechanismType.PipingAtStructure, collector));

@@ -30,6 +30,8 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.Result;
 using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -47,14 +49,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsGuiPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<FailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<FailureMechanismSectionResult>), info.TagType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>), info.TagType);
             Assert.IsNull(info.ForeColor);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
@@ -77,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new SimpleFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
+            var context = new FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
 
             // Call
             var text = info.Text(context);
@@ -123,7 +125,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
     }
 
-    public class SimpleFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult> {
+    public class SimpleFailureMechanism : FailureMechanismBase<CustomFailureMechanismSectionResult>
+    {
         public SimpleFailureMechanism() : base("N", "C") {}
 
         public override IEnumerable<ICalculation> Calculations
@@ -134,7 +137,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             }
         }
 
-        protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+        protected override CustomFailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
         {
             throw new System.NotImplementedException();
         }

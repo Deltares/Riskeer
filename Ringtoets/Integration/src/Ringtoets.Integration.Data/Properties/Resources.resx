@@ -141,13 +141,13 @@
   <data name="WaveImpactAsphaltCoverFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Golfklappen op asfaltbekleding</value>
   </data>
-  <data name="GrassCoverErosionOutsideFailureMechanism_DisplayName" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Grasbekleding erosie buitentalud</value>
   </data>
   <data name="ClosingStructureFailureMechanism_DisplayName" xml:space="preserve">
     <value>Kunstwerken - Betrouwbaarheid sluiting kunstwerk</value>
   </data>
-  <data name="GrassCoverSlipOffOutsideFailureMechanism_DisplayName" xml:space="preserve">
+  <data name="GrassCoverSlipOffOutwardsFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Grasbekleding afschuiven buitentalud</value>
   </data>
   <data name="PipingStructureFailureMechanism_DisplayName" xml:space="preserve">
@@ -165,10 +165,10 @@
   <data name="WaveImpactAsphaltCoverFailureMechanism_Code" xml:space="preserve">
     <value>AGK</value>
   </data>
-  <data name="GrassCoverErosionOutsideFailureMechanism_Code" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsFailureMechanism_Code" xml:space="preserve">
     <value>GEBU</value>
   </data>
-  <data name="GrassCoverSlipOffOutsideFailureMechanism_Code" xml:space="preserve">
+  <data name="GrassCoverSlipOffOutwardsFailureMechanism_Code" xml:space="preserve">
     <value>GABU</value>
   </data>
   <data name="HeightStructureFailureMechanism_Code" xml:space="preserve">

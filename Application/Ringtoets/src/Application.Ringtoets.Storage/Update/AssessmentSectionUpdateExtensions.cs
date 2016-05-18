@@ -78,8 +78,8 @@ namespace Application.Ringtoets.Storage.Update
             section.MacrostabilityInwards.Update(collector, context);
             section.StabilityStoneCover.Update(collector, context);
             section.WaveImpactAsphaltCover.Update(collector, context);
-            section.GrassCoverErosionOutside.Update(collector, context);
-            section.GrassCoverSlipOffOutside.Update(collector, context);
+            section.GrassCoverErosionOutwards.Update(collector, context);
+            section.GrassCoverSlipOffOutwards.Update(collector, context);
             section.HeightStructure.Update(collector, context);
             section.ClosingStructure.Update(collector, context);
             section.PipingStructure.Update(collector, context);

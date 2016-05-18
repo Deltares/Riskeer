@@ -42,6 +42,8 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.Result;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -194,7 +196,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.GetObjectPropertiesData);
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.AfterCreate);
 
-                var standAloneFailureMechanismProperties = propertyInfos.Single(pi => pi.DataType == typeof(StandAloneFailureMechanismContext));
+                var standAloneFailureMechanismProperties = propertyInfos.Single(pi => pi.DataType == typeof(SimpleFailureMechanismContext));
                 Assert.AreEqual(typeof(StandAloneFailureMechanismContextProperties), standAloneFailureMechanismProperties.PropertyObjectType);
                 Assert.IsNull(standAloneFailureMechanismProperties.AdditionalDataCheck);
                 Assert.IsNull(standAloneFailureMechanismProperties.GetObjectPropertiesData);
@@ -212,7 +214,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 ViewInfo[] viewInfos = guiPlugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(4, viewInfos.Length);
+                Assert.AreEqual(5, viewInfos.Length);
 
                 var contributionViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismContributionContext));
                 Assert.AreEqual(typeof(FailureMechanismContributionView), contributionViewInfo.ViewType);
@@ -222,10 +224,15 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.AreEqual(typeof(AssessmentSectionView), mapViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.Map, mapViewInfo.Image);
 
-                var resultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<FailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<FailureMechanismSectionResult>), resultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(FailureMechanismResultView), resultViewInfo.ViewType);
+                var resultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>));
+                Assert.AreEqual(typeof(IEnumerable<CustomFailureMechanismSectionResult>), resultViewInfo.ViewDataType);
+                Assert.AreEqual(typeof(CustomFailureMechanismResultView), resultViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, resultViewInfo.Image);
+
+                var simpleResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>));
+                Assert.AreEqual(typeof(IEnumerable<SimpleFailureMechanismSectionResult>), simpleResultViewInfo.ViewDataType);
+                Assert.AreEqual(typeof(SimpleFailureMechanismResultView), simpleResultViewInfo.ViewType);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, simpleResultViewInfo.Image);
 
                 var commentView = viewInfos.Single(vi => vi.DataType == typeof(CommentContext<ICommentable>));
                 Assert.AreEqual(typeof(CommentView), commentView.ViewType);
@@ -255,15 +262,17 @@ namespace Ringtoets.Integration.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = guiPlugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(9, treeNodeInfos.Length);
+                Assert.AreEqual(11, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(IAssessmentSection)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StandAloneFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SimpleFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CustomFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CategoryTreeFolder)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContributionContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<FailureMechanismSectionResult>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<SimpleFailureMechanismSectionResult>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<CustomFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CommentContext<ICommentable>)));
             }
             mocks.VerifyAll();

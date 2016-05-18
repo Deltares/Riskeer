@@ -84,7 +84,6 @@
     <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\CreateConversionCollectorTest.cs" />
     <Compile Include="Create\FailureMechanismBaseCreateExtensionsTest.cs" />
-    <Compile Include="Create\StandAloneFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensionsTest.cs" />
     <Compile Include="Create\FailureMechanismSectionCreateExtensionsTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensionsTest.cs" />
@@ -116,7 +115,6 @@
     <Compile Include="Update\AssessmentSectionUpdateExtensionsTest.cs" />
     <Compile Include="Update\GrassCoverErosionInwardsFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\FailureMechanismBaseUpdateExtensionsTest.cs" />
-    <Compile Include="Update\StandAloneFailureMechanismUpdateExtensionsTest.cs" />
     <Compile Include="Update\FailureMechanismSectionUpdateExtensionsTest.cs" />
     <Compile Include="Update\HydraulicBoundaryLocationUpdateExtensionsTest.cs" />
     <Compile Include="Update\IStorableExtensionsTest.cs" />

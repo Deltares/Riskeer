@@ -45,7 +45,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="MapDataFactory.cs" />
-    <Compile Include="PresentationObjects\StandAloneFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\CustomFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\SimpleFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
     <Compile Include="PropertyClasses\StandAloneFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationProperties.cs" />
@@ -63,11 +64,17 @@
     <Compile Include="Views\AssessmentSectionView.Designer.cs">
       <DependentUpon>AssessmentSectionView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\CustomFailureMechanismResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\FailureMechanismContributionView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\FailureMechanismContributionView.Designer.cs">
       <DependentUpon>FailureMechanismContributionView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SimpleFailureMechanismResultView.cs">
+      <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

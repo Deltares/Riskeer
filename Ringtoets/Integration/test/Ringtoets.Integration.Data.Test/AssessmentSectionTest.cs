@@ -126,8 +126,8 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(macrostabilityInwardName, section.MacrostabilityInwards.Name);
             Assert.AreEqual(stoneRevetmentName, section.StabilityStoneCover.Name);
             Assert.AreEqual(waveImpactAsphaltName, section.WaveImpactAsphaltCover.Name);
-            Assert.AreEqual(grassCoverErosionOutwardsName, section.GrassCoverErosionOutside.Name);
-            Assert.AreEqual(grassCoverSlipOffOutsideName, section.GrassCoverSlipOffOutside.Name);
+            Assert.AreEqual(grassCoverErosionOutwardsName, section.GrassCoverErosionOutwards.Name);
+            Assert.AreEqual(grassCoverSlipOffOutsideName, section.GrassCoverSlipOffOutwards.Name);
             Assert.AreEqual(heightStructureName, section.HeightStructure.Name);
             Assert.AreEqual(closingStructureName, section.ClosingStructure.Name);
             Assert.AreEqual(pipingStructureName, section.PipingStructure.Name);
@@ -193,8 +193,8 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreSame(assessmentSection.MacrostabilityInwards, failureMechanisms[2]);
             Assert.AreSame(assessmentSection.StabilityStoneCover, failureMechanisms[3]);
             Assert.AreSame(assessmentSection.WaveImpactAsphaltCover, failureMechanisms[4]);
-            Assert.AreSame(assessmentSection.GrassCoverErosionOutside, failureMechanisms[5]);
-            Assert.AreSame(assessmentSection.GrassCoverSlipOffOutside, failureMechanisms[6]);
+            Assert.AreSame(assessmentSection.GrassCoverErosionOutwards, failureMechanisms[5]);
+            Assert.AreSame(assessmentSection.GrassCoverSlipOffOutwards, failureMechanisms[6]);
             Assert.AreSame(assessmentSection.HeightStructure, failureMechanisms[7]);
             Assert.AreSame(assessmentSection.ClosingStructure, failureMechanisms[8]);
             Assert.AreSame(assessmentSection.PipingStructure, failureMechanisms[9]);
@@ -320,8 +320,8 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(contributions[2], assessmentSection.MacrostabilityInwards.Contribution);
             Assert.AreEqual(contributions[3], assessmentSection.StabilityStoneCover.Contribution);
             Assert.AreEqual(contributions[4], assessmentSection.WaveImpactAsphaltCover.Contribution);
-            Assert.AreEqual(contributions[5], assessmentSection.GrassCoverErosionOutside.Contribution);
-            Assert.AreEqual(contributions[6], assessmentSection.GrassCoverSlipOffOutside.Contribution);
+            Assert.AreEqual(contributions[5], assessmentSection.GrassCoverErosionOutwards.Contribution);
+            Assert.AreEqual(contributions[6], assessmentSection.GrassCoverSlipOffOutwards.Contribution);
             Assert.AreEqual(contributions[7], assessmentSection.HeightStructure.Contribution);
             Assert.AreEqual(contributions[8], assessmentSection.ClosingStructure.Contribution);
             Assert.AreEqual(contributions[9], assessmentSection.PipingStructure.Contribution);

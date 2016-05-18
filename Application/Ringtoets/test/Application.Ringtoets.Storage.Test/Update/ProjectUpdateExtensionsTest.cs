@@ -272,11 +272,11 @@ namespace Application.Ringtoets.Storage.Test.Update
                         {
                             StorageId = 1
                         },
-                        GrassCoverErosionOutside =
+                        GrassCoverErosionOutwards =
                         {
                             StorageId = 1
                         },
-                        GrassCoverSlipOffOutside =
+                        GrassCoverSlipOffOutwards =
                         {
                             StorageId = 1
                         },

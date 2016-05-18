@@ -333,7 +333,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
         private class SimpleFailureMechanismBase : FailureMechanismBase<FailureMechanismSectionResult>
         {
-            public SimpleFailureMechanismBase(string failureMechanismName = "SomeName", string failureMechanismCode = "SomeCode") : base(failureMechanismName, failureMechanismCode) {}
+            public SimpleFailureMechanismBase(string name = "SomeName", string failureMechanismCode = "SomeCode") : base(name, failureMechanismCode) {}
 
             public override IEnumerable<ICalculation> Calculations
             {

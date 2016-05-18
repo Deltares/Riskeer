@@ -43,12 +43,12 @@ namespace Ringtoets.Common.Data.Calculation
         /// Gets the probability of the scenario.
         /// </summary>
         /// <remarks>Implementers should throw <see cref="InvalidOperationException"/>
-        /// when the getter is called while the <see cref="CalculationScenarioStatus"/> does not return Done.</remarks>
+        /// when the getter is called while the <see cref="Status"/> does not return Done.</remarks>
         RoundedDouble Probability { get; }
 
         /// <summary>
         /// Gets the status of the scenario.
         /// </summary>
-        CalculationScenarioStatus CalculationScenarioStatus { get; }
+        CalculationScenarioStatus Status { get; }
     }
 }

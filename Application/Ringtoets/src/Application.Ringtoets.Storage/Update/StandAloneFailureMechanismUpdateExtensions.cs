@@ -24,18 +24,19 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone;
 
 namespace Application.Ringtoets.Storage.Update
 {
     /// <summary>
-    /// Extension methods for <see cref="StandAloneFailureMechanism"/> related to updating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="MacroStabilityInwardsFailureMechanism"/> related to updating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
     internal static class StandAloneFailureMechanismUpdateExtensions
     {
         /// <summary>
         /// Updates a <see cref="FailureMechanismEntity"/> in the database based on the information of the 
-        /// <see cref="StandAloneFailureMechanism"/>.
+        /// <see cref="MacroStabilityInwardsFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The mechanism to update the database entity for.</param>
         /// <param name="collector">The object keeping track of update operations.</param>
@@ -45,7 +46,7 @@ namespace Application.Ringtoets.Storage.Update
         /// <item><paramref name="collector"/> is <c>null</c></item>
         /// <item><paramref name="context"/> is <c>null</c></item>
         /// </list></exception>
-        internal static void Update(this StandAloneFailureMechanism mechanism, UpdateConversionCollector collector, IRingtoetsEntities context)
+        internal static void Update(this IFailureMechanism mechanism, UpdateConversionCollector collector, IRingtoetsEntities context)
         {
             if (context == null)
             {
@@ -64,7 +65,7 @@ namespace Application.Ringtoets.Storage.Update
             collector.Update(entity);
         }
 
-        private static FailureMechanismEntity GetSingleFailureMechanism(StandAloneFailureMechanism mechanism, IRingtoetsEntities context)
+        private static FailureMechanismEntity GetSingleFailureMechanism(this IFailureMechanism mechanism, IRingtoetsEntities context)
         {
             try
             {

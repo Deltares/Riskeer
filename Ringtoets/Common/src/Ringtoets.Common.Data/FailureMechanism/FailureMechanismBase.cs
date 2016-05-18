@@ -42,19 +42,19 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// <summary>
         /// Creates a new instance of the <see cref="FailureMechanismBase{T}"/> class.
         /// </summary>
-        /// <param name="failureMechanismName">The name of the failure mechanism.</param>
+        /// <param name="name">The name of the failure mechanism.</param>
         /// <param name="failureMechanismCode">The code of the failure mechanism.</param>
         /// <exception cref="ArgumentException">Thrown when either:
         /// <list type="bullet">
-        /// <item><paramref name="failureMechanismName"/> is <c>null</c> or empty.</item>
+        /// <item><paramref name="name"/> is <c>null</c> or empty.</item>
         /// <item><paramref name="failureMechanismCode"/> is <c>null</c> or empty.</item>
         /// </list>
         /// </exception>
-        protected FailureMechanismBase(string failureMechanismName, string failureMechanismCode)
+        protected FailureMechanismBase(string name, string failureMechanismCode)
         {
-            ValidateParameters(failureMechanismName, failureMechanismCode);
+            ValidateParameters(name, failureMechanismCode);
 
-            Name = failureMechanismName;
+            Name = name;
             Code = failureMechanismCode;
             sections = new List<FailureMechanismSection>();
             sectionResults = new List<T>();

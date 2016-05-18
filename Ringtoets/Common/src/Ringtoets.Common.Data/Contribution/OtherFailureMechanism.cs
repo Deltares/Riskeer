@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Data.Contribution
 
         protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
         {
-            return new FailureMechanismSectionResult(section);
+            return null;
         }
     }
 }
