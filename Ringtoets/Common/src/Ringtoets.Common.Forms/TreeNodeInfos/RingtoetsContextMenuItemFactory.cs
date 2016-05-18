@@ -100,33 +100,33 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <param name="calculationGroup">The calculation group to perform all calculations for.</param>
         /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
         /// <param name="calculateAllAction">The action that performs all calculations.</param>
-        /// <param name="isEnabledFunc">The func that checks if the item is enabled.</param>
+        /// <param name="additionalValidationFunc">The func for performing additional validation checks.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        /// <remarks>When <paramref name="additionalValidationFunc"/> returns a <c>string</c>, the item will be disabled and the <c>string</c> will be shown in the tooltip.</remarks>
         public static StrictContextMenuItem CreatePerformAllCalculationsInGroupItem<TCalculationContext>(
             CalculationGroup calculationGroup,
             TCalculationContext calculationGroupContext,
             Action<CalculationGroup, TCalculationContext> calculateAllAction,
-            Func<TCalculationContext, bool> isEnabledFunc)
+            Func<TCalculationContext, string> additionalValidationFunc)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
+            var validationText = additionalValidationFunc(calculationGroupContext);
+
             var performAllItem = new StrictContextMenuItem(
                 Resources.Calculate_all,
                 Resources.CalculationGroup_CalculateAll_ToolTip,
                 Resources.CalculateAllIcon,
-                (o, args) => calculateAllAction(calculationGroup, calculationGroupContext))
-            {
-                Enabled = isEnabledFunc(calculationGroupContext)
-            };
+                (o, args) => calculateAllAction(calculationGroup, calculationGroupContext));
 
-            if (!performAllItem.Enabled)
-            {
-                return performAllItem;
-            }
-
-            if (!calculationGroup.GetCalculations().Any())
+            if (!calculationGroupContext.WrappedData.Children.Any())
             {
                 performAllItem.Enabled = false;
                 performAllItem.ToolTipText = Resources.CalculationGroup_CalculateAll_No_calculations_to_run;
+            }
+            else if (!string.IsNullOrEmpty(validationText))
+            {
+                performAllItem.Enabled = false;
+                performAllItem.ToolTipText = validationText;
             }
 
             return performAllItem;
@@ -140,23 +140,28 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <param name="calculation">The calculation to perform.</param>
         /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
         /// <param name="calculateAction">The action that performs the calculation.</param>
-        /// <param name="isEnabledFunc">The func that checks if the item is enabled.</param>
+        /// <param name="additionalValidationFunc">The func for performing additional validation checks.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        /// <remarks>When <paramref name="additionalValidationFunc"/> returns a <c>string</c>, the item will be disabled and the <c>string</c> will be shown in the tooltip.</remarks>
         public static StrictContextMenuItem CreatePerformCalculationItem<TCalculation, TCalculationContext>(
             TCalculation calculation,
             TCalculationContext calculationContext,
             Action<TCalculation, TCalculationContext> calculateAction,
-            Func<TCalculationContext, bool> isEnabledFunc)
+            Func<TCalculationContext, string> additionalValidationFunc)
             where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
             where TCalculation : ICalculation
         {
+            var validationText = additionalValidationFunc(calculationContext);
+            var nodeEnabled = string.IsNullOrEmpty(validationText);
+
             return new StrictContextMenuItem(
                 Resources.Calculate,
                 Resources.Calculate_ToolTip,
                 Resources.CalculateIcon,
                 (o, args) => calculateAction(calculation, calculationContext))
             {
-                Enabled = isEnabledFunc(calculationContext)
+                Enabled = nodeEnabled,
+                ToolTipText = nodeEnabled ? Resources.Calculate_ToolTip : validationText
             };
         }
 
@@ -209,32 +214,32 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
         /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
         /// <param name="calculateAllAction">The action that performs all calculations.</param>
-        /// <param name="isEnabledFunc">The func that checks if the item is enabled.</param>
+        /// <param name="additionalValidationFunc">The func for performing additional validation checks.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
+        /// <remarks>When <paramref name="additionalValidationFunc"/> returns a <c>string</c>, the item will be disabled and the <c>string</c> will be shown in the tooltip.</remarks>
         public static StrictContextMenuItem CreatePerformAllCalculationsInFailureMechanismItem<TFailureMechanismContext>(
             TFailureMechanismContext failureMechanismContext,
             Action<TFailureMechanismContext> calculateAllAction,
-            Func<TFailureMechanismContext, bool> isEnabledFunc)
+            Func<TFailureMechanismContext, string> additionalValidationFunc)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
+            var validationText = additionalValidationFunc(failureMechanismContext);
+
             var performAllItem = new StrictContextMenuItem(
                 Resources.Calculate_all,
                 Resources.Calculate_all_ToolTip,
                 Resources.CalculateAllIcon,
-                (o, args) => calculateAllAction(failureMechanismContext))
-            {
-                Enabled = isEnabledFunc(failureMechanismContext)
-            };
-
-            if (!performAllItem.Enabled)
-            {
-                return performAllItem;
-            }
+                (o, args) => calculateAllAction(failureMechanismContext));
 
             if (!failureMechanismContext.WrappedData.Calculations.Any())
             {
                 performAllItem.Enabled = false;
                 performAllItem.ToolTipText = Resources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run;
+            }
+            else if (!string.IsNullOrEmpty(validationText))
+            {
+                performAllItem.Enabled = false;
+                performAllItem.ToolTipText = validationText;
             }
 
             return performAllItem;

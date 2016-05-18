@@ -283,7 +283,7 @@ namespace Ringtoets.Integration.Plugin
                 if (validationProblem != null)
                 {
                     log.WarnFormat(
-                        Resources.RingtoetsGuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_,
+                        RingtoetsCommonFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_,
                         validationProblem);
                 }
             }

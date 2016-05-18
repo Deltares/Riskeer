@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -28,6 +29,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -245,147 +247,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddPerformAllCalculationsInGroupItem_WhenBuildWithCalculation_ItemAddedToContextMenuEnabled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            var calculation = new TestCalculation();
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    calculation
-                }
-            };
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanisMock);
-            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationGroup, treeViewControlMock);
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
-
-            // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => true).Build();
-
-            // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.AreEqual(1, result.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                          RingtoetsFormsResources.Calculate_all,
-                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip,
-                                                          RingtoetsFormsResources.CalculateAllIcon);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AddPerformAllCalculationsInGroupItem_WhenBuildWithoutCalculation_ItemAddedToContextMenuDisabled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            var calculationGroup = new CalculationGroup();
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanisMock);
-            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationGroup, treeViewControlMock);
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
-
-            // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => true).Build();
-
-            // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.AreEqual(1, result.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                          RingtoetsFormsResources.Calculate_all,
-                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
-                                                          RingtoetsFormsResources.CalculateAllIcon,
-                                                          false);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AddPerformAllCalculationsInFailureMechanismItem_WhenBuildWithCalculation_ItemAddedToContextMenuEnabled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            failureMechanismMock.Expect(fm => fm.Calculations).Return(new[]
-            {
-                new TestCalculation()
-            });
-            var failureMechanismContextMock = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContextMock.Expect(fmc => fmc.WrappedData).Return(failureMechanismMock);
-            mocks.ReplayAll();
-
-            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismContextMock, treeViewControlMock);
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
-
-            // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContextMock, null, context => true).Build();
-
-            // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.AreEqual(1, result.Items.Count);
-            TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                          RingtoetsFormsResources.Calculate_all,
-                                                          RingtoetsFormsResources.Calculate_all_ToolTip,
-                                                          RingtoetsFormsResources.CalculateAllIcon);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AddPerformAllCalculationsInFailureMechanismItem_WhenBuildWithoutCalculation_ItemAddedToContextMenuDisabled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var failureMechanismContextMock = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            failureMechanismContextMock.Expect(fmc => fmc.WrappedData).Return(failureMechanismMock);
-            failureMechanismMock.Expect(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-            mocks.ReplayAll();
-
-            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismContextMock, treeViewControlMock);
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
-
-            // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContextMock, null, context => true).Build();
-
-            // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.AreEqual(1, result.Items.Count);
-            TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                          RingtoetsFormsResources.Calculate_all,
-                                                          RingtoetsFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run,
-                                                          RingtoetsFormsResources.CalculateAllIcon, false);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void AddToggleRelevancyOfFailureMechanismItem_WhenBuild_ItemAddedToContextMenuEnabled(bool isRelevant)
@@ -416,73 +277,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                           RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
                                                           RingtoetsFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
                                                           checkboxIcon);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AddPerformCalculationItem_WhenBuildWithAllValidData_ItemAddedToContextMenuEnabled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanisMock);
-            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculation, treeViewControlMock);
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
-
-            // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => true).Build();
-
-            // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.AreEqual(1, result.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                          RingtoetsFormsResources.Calculate,
-                                                          RingtoetsFormsResources.Calculate_ToolTip,
-                                                          RingtoetsFormsResources.CalculateIcon);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AddPerformCalculationItem_WhenBuildWithoutAllValidData_ItemAddedToContextMenuDisabled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanisMock);
-            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculation, treeViewControlMock);
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
-
-            // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => false).Build();
-
-            // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.AreEqual(1, result.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                          RingtoetsFormsResources.Calculate,
-                                                          RingtoetsFormsResources.Calculate_ToolTip,
-                                                          RingtoetsFormsResources.CalculateIcon,
-                                                          false);
 
             mocks.VerifyAll();
         }
@@ -549,76 +343,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                           RingtoetsFormsResources.Clear_output,
                                                           RingtoetsFormsResources.ClearOutput_No_output_to_clear,
                                                           RingtoetsFormsResources.ClearIcon,
-                                                          false);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AddPerformAllCalculationsInFailureMechanismItem_WhenBuildWithAllValidData_ItemAddedToContextmenuEnabled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            failureMechanismMock.Expect(fm => fm.Calculations).Return(new[]
-            {
-                new TestCalculation()
-            });
-
-            var failureMechanismContextMock = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContextMock.Expect(fmc => fmc.WrappedData).Return(failureMechanismMock);
-
-            mocks.ReplayAll();
-
-            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismContextMock, treeViewControlMock);
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
-
-            // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContextMock, null, context => true).Build();
-
-            // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.AreEqual(1, result.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                          RingtoetsFormsResources.Calculate_all,
-                                                          RingtoetsFormsResources.Calculate_all_ToolTip,
-                                                          RingtoetsFormsResources.CalculateAllIcon);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AddPerformAllCalculationsInFailureMechanismItem_WhenBuildWithoutAllValidData_ItemAddedToContextmenuDisabled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            var failureMechanismContextMock = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-
-            mocks.ReplayAll();
-
-            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismContextMock, treeViewControlMock);
-            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
-
-            // Call
-            var result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContextMock, null, context => false).Build();
-
-            // Assert
-            Assert.IsInstanceOf<ContextMenuStrip>(result);
-            Assert.AreEqual(1, result.Items.Count);
-
-            TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                          RingtoetsFormsResources.Calculate_all,
-                                                          RingtoetsFormsResources.Calculate_all_ToolTip,
-                                                          RingtoetsFormsResources.CalculateAllIcon,
                                                           false);
 
             mocks.VerifyAll();
@@ -845,7 +569,414 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
+        #region AddPerformCalculationItem
+
+        [Test]
+        public void AddPerformCalculationItem_AdditionalValidationNull_ItemAddedToContextMenuEnabled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
+            var calculationContext = new TestCalculationContext(calculation, failureMechanisMock);
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculation, treeViewControlMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => null).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                          RingtoetsFormsResources.Calculate,
+                                                          RingtoetsFormsResources.Calculate_ToolTip,
+                                                          RingtoetsFormsResources.CalculateIcon);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddPerformCalculationItem_AdditionalValidationConatainsMessage_ItemAddedToContextMenuDisabledWithMessageInTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
+            var calculationContext = new TestCalculationContext(calculation, failureMechanisMock);
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculation, treeViewControlMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+            
+            var errorMessage = "No valid data";
+
+            // Call
+            ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformCalculationItem(calculation, calculationContext, null, context => errorMessage).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                          RingtoetsFormsResources.Calculate,
+                                                          errorMessage,
+                                                          RingtoetsFormsResources.CalculateIcon,
+                                                          false);
+
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
+        #region AddPerformAllCalculationsInGroupItem
+
+        [Test]
+        public void AddPerformAllCalculationsInGroupItem_GeneralValidationTrueAdditionalValidationNull_ItemAddedToContextMenuEnabled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+
+            var failureMechanism = new TestFailureMechanism(new[] { calculation });
+
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationGroup, treeViewControlMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip,
+                                                          RingtoetsFormsResources.CalculateAllIcon);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddPerformAllCalculationsInGroupItem_GeneralValidationFalseAdditionalValidationNull_ItemAddedToContextMenuDisabledWithGeneralValidationMessageTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var calculationGroup = new CalculationGroup();
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationGroup, treeViewControlMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                                                          RingtoetsFormsResources.CalculateAllIcon,
+                                                          false);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddPerformAllCalculationsInGroupItem_GeneralValidationTrueAdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithMessageTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+
+            var failureMechanism = new TestFailureMechanism(new[] { calculation });
+
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationGroup, treeViewControlMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+            var errorMessage = "Additional validation failed.";
+
+            // Call
+            ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          errorMessage,
+                                                          RingtoetsFormsResources.CalculateAllIcon,
+                                                          false);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddPerformAllCalculationsInGroupItem_GeneralValidationFalseAdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithGeneralValidationMessageTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var calculationGroup = new CalculationGroup();
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, calculationGroup, treeViewControlMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+            var errorMessage = "Additional validation failed.";
+
+            // Call
+            ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                                                          RingtoetsFormsResources.CalculateAllIcon,
+                                                          false);
+
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
+        #region AddPerformAllCalculationsInFailureMechanismItem
+
+        [Test]
+        public void AddPerformAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationNull_ItemAddedToContextMenuEnabled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+            var failureMechanism = new TestFailureMechanism(new[] { new TestCalculation() });
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            mocks.ReplayAll();
+
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismContext, treeViewControlMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.Calculate_all_ToolTip,
+                                                          RingtoetsFormsResources.CalculateAllIcon);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddPerformAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationNull_ItemAddedToContextMenuDisabledWithGeneralValidationMessageTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            mocks.ReplayAll();
+
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismContext, treeViewControlMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+            // Call
+            ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run,
+                                                          RingtoetsFormsResources.CalculateAllIcon,
+                                                          false);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddPerformAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithMessageTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+            var failureMechanism = new TestFailureMechanism(new[] { new TestCalculation() });
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            mocks.ReplayAll();
+
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismContext, treeViewControlMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+            var errorMessage = "Additional validation failed.";
+
+            // Call
+            ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          errorMessage,
+                                                          RingtoetsFormsResources.CalculateAllIcon,
+                                                          false);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AddPerformAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationContainsMessage_ItemAddedToContextMenuDisabledWithGeneralValidationMessageTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var exportImportHandlerMock = mocks.StrictMock<IExportImportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            mocks.ReplayAll();
+
+            var contextMenuBuilder = new ContextMenuBuilder(applicationFeatureCommandsMock, exportImportHandlerMock, viewCommandsMock, failureMechanismContext, treeViewControlMock);
+            var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
+
+            var errorMessage = "Additional validation failed.";
+
+            // Call
+            ContextMenuStrip result = ringtoetsContextMenuBuilder.AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage).Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run,
+                                                          RingtoetsFormsResources.CalculateAllIcon,
+                                                          false);
+
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
         # region Nested types
+        
+        private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
+        {
+            public TestFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
+                base(wrappedFailureMechanism, parent) { }
+        }
+
+        private class TestFailureMechanism : FailureMechanismBase<FailureMechanismSectionResult>
+        {
+            private readonly IEnumerable<ICalculation> calculations;
+
+            public TestFailureMechanism(IEnumerable<ICalculation> calculations)
+                : base("Name", "Code")
+            {
+                this.calculations = calculations;
+            }
+
+            public override IEnumerable<ICalculation> Calculations
+            {
+                get
+                {
+                    return calculations;
+                }
+            }
+
+            protected override FailureMechanismSectionResult CreateFailureMechanismSectionResult(FailureMechanismSection section)
+            {
+                return null;
+            }
+        }
 
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
         {

@@ -30,6 +30,7 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
+using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -45,6 +46,7 @@ using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.IO;
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -58,6 +60,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
     /// </summary>
     public class GrassCoverErosionInwardsGuiPlugin : GuiPlugin
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionInwardsGuiPlugin));
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismContextProperties>();
@@ -123,7 +127,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 failureMechanismSection.Name, // TODO: Provide name of reference line instead
                 HydraRingTimeIntegrationSchemeType.FBC,
                 HydraRingUncertaintiesType.All,
-                new OvertoppingCalculationInput(hydraulicBoundaryLocationId, new HydraRingSection(1, failureMechanismSection.Name, sectionLength, inwardsInput.Orientation),
+                new OvertoppingCalculationInput(hydraulicBoundaryLocationId,
+                                                new HydraRingSection(1, failureMechanismSection.Name, sectionLength, inwardsInput.Orientation),
                                                 inwardsInput.DikeHeight,
                                                 inwardsInput.CriticalOvertoppingModelFactor,
                                                 inwardsInput.FbFactor.Mean, inwardsInput.FbFactor.StandardDeviation,
@@ -199,9 +204,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                      calc)).ToList());
         }
 
-        private static bool AllDataAvailable(IAssessmentSection assessmentSection, GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private static string AllDataAvailable(IAssessmentSection assessmentSection, GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
-            return assessmentSection.HydraulicBoundaryDatabase != null && failureMechanism.Sections.Any();
+            if (!failureMechanism.Sections.Any())
+            {
+                return Resources.GrassCoverErosionInwardsGuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported;
+            }
+
+            if (assessmentSection.HydraulicBoundaryDatabase == null)
+            {
+                return Resources.GrassCoverErosionInwardsGuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
+            }
+
+            string selectedFile = assessmentSection.HydraulicBoundaryDatabase.FilePath;
+            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(selectedFile);
+
+            if (!string.IsNullOrEmpty(validationProblem))
+            {
+                return string.Format(RingtoetsCommonFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_, validationProblem);
+            }
+
+            return null;
         }
 
         #region GrassCoverErosionInwards TreeNodeInfo
@@ -263,7 +286,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private static bool EnablePerformAllCalculationsInFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
+        private static string EnablePerformAllCalculationsInFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
         {
             return AllDataAvailable(context.Parent, context.WrappedData);
         }
@@ -369,7 +392,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private static bool EnablePerformAllCalculationsInGroup(GrassCoverErosionInwardsCalculationGroupContext context)
+        private static string EnablePerformAllCalculationsInGroup(GrassCoverErosionInwardsCalculationGroupContext context)
         {
             return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
         }
@@ -432,7 +455,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private static bool EnablePerformCalculation(GrassCoverErosionInwardsCalculationContext context)
+        private static string EnablePerformCalculation(GrassCoverErosionInwardsCalculationContext context)
         {
             return AllDataAvailable(context.AssessmentSection, context.FailureMechanism);
         }

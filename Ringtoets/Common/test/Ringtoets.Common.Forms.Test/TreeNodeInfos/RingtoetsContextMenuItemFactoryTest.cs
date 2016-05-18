@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -433,228 +434,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CreatePerformAllCalculationsInGroupItem_GroupWithCalculations_CreatesDecoratedAndEnabledItem()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            var calculation = new TestCalculation();
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    calculation
-                }
-            };
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
-
-            // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => true);
-
-            // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
-            Assert.IsTrue(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreatePerformAllCalculationsInGroupItem_GroupWithoutCalculations_CreatesDecoratedAndDisabledItem()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            var calculationGroup = new CalculationGroup();
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
-
-            // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => true);
-
-            // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
-            Assert.IsFalse(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreatePerformAllCalculationsInGroupItem_IsEnabledFuncTrue_CreatesDecoratedAndEnabledItem()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            var calculation = new TestCalculation();
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    calculation
-                }
-            };
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
-
-            // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => true);
-
-            // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
-            Assert.IsTrue(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreatePerformAllCalculationsInGroupItem_IsEnabledFuncFalse_CreatesDecoratedAndDisabledItem()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            var calculation = new TestCalculation();
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    calculation
-                }
-            };
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanismMock);
-
-            // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => false);
-
-            // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
-            Assert.IsFalse(toolStripItem.Enabled);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreatePerformAllCalculationsInGroupItem_PerformClickOnCreatedItem_PerformAllCalculationMethodPerformed()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var calculationMock = mocks.StrictMock<ICalculation>();
-            var failureMechanisMock = mocks.StrictMock<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            var counter = 0;
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    calculationMock
-                }
-            };
-
-            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanisMock);
-
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, (group, context) => counter++, context => true);
-
-            // Call
-            toolStripItem.PerformClick();
-
-            // Assert
-            Assert.AreEqual(1, counter);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreatePerformAllCalculationsInFailureMechanismItem_FailureMechanismItemWithCalculations_CreatesDecoratedAndEnabledItem()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var calculationMock = mocks.StrictMock<ICalculation>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanismMock = new TestFailureMechanism(new[]
-            {
-                calculationMock
-            });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
-
-            // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => true);
-
-            // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all_ToolTip, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
-            Assert.IsTrue(toolStripItem.Enabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreatePerformAllCalculationsInFailureMechanismItem_FailureMechanismItemWithoutCalculations_CreatesDecoratedAndDisabledItem()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanismMock = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanismMock, assessmentSectionMock);
-
-            // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => true);
-
-            // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
-            Assert.IsFalse(toolStripItem.Enabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreatePerformAllCalculationsInFailureMechanismItem_PerformClickOnCreatedItem_PerformAllCalculationMethodPerformed()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var calculationMock = mocks.StrictMock<ICalculation>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var counter = 0;
-            var failureMechanism = new TestFailureMechanism(new[]
-            {
-                calculationMock
-            });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, fmContext => counter++, context => true);
-
-            // Call
-            toolStripItem.PerformClick();
-
-            // Assert
-            Assert.AreEqual(1, counter);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void CreateToggleRelevancyOfFailureMechanismItem_IsRelevant_CreateDecoratedItem(bool isRelevant)
@@ -705,56 +484,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, actionCounter);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CreatePerformCalculationItem_IsEnabledFuncConditional_CreatesDecoratedAndConditionalEnabledItem(bool isEnabled)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
-
-            // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => isEnabled);
-
-            // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_ToolTip, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateIcon, toolStripItem.Image);
-            Assert.AreEqual(isEnabled, toolStripItem.Enabled);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreatePerformCalculationItem_PerformClickOnCreatedItem_PerformCalculationMethod()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
-            mocks.ReplayAll();
-
-            var calculation = new TestCalculation();
-            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
-
-            var counter = 0;
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, (calc, context) => counter++, context => true);
-
-            // Call
-            toolStripItem.PerformClick();
-
-            // Assert
-            Assert.AreEqual(1, counter);
-
             mocks.VerifyAll();
         }
 
@@ -864,57 +593,350 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
+        #region CreatePerformCalculationItem
+
         [Test]
-        public void CreatePerformAllCalculationsInFailureMechanismItem_IsEnabledFuncTrue_CreatesDecoratedAndEnabledItem()
+        public void CreatePerformCalculationItem_AdditionalValidationNull_CreatesEnabledItem()
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-            failureMechanismMock.Expect(fm => fm.Calculations).Return(new[]
-            {
-                new TestCalculation()
-            });
-
-            var failureMechanismContextMock = mocks.StrictMock<FailureMechanismContext<IFailureMechanism>>(failureMechanismMock, assessmentSectionMock);
 
             mocks.ReplayAll();
 
+            var calculation = new TestCalculation();
+            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
+
             // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContextMock, null, context => true);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => null);
 
             // Assert
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.Calculate_all_ToolTip, toolStripItem.ToolTipText);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.AreEqual(RingtoetsFormsResources.Calculate, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_ToolTip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CreatePerformAllCalculationsInFailureMechanismItem_IsEnabledFuncFalse_CreatesDecoratedAndDisabledItem()
+        public void CreatePerformCalculationItem_AdditionalValidationContainsMessage_CreatesDisabledItemAndSetMessageInTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
+            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
+
+            var errorMessage = "Additional check failed.";
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, null, context => errorMessage);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.Calculate, toolStripItem.Text);
+            Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreatePerformCalculationItem_PerformClickOnCreatedItem_PerformCalculationMethod()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
+
+            mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
+            var calculationContext = new TestCalculationContext(calculation, failureMechanismMock);
+
+            var counter = 0;
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, (calc, context) => counter++, context => null);
+
+            // Call
+            toolStripItem.PerformClick();
+
+            // Assert
+            Assert.AreEqual(1, counter);
+
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
+        #region CreatePerformAllCalculationsInGroupItem
+
+        [Test]
+        public void CreatePerformAllCalculationsInGroupItem_GeneralValidationTrueAdditionalValidationNull_CreatesEnabledItem()
+        {
+            // Setup
+            var calculation = new TestCalculation();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+
+            var failureMechanism = new TestFailureMechanism(new[]
+            {
+                calculation
+            });
+
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
+        }
+
+        [Test]
+        public void CreatePerformAllCalculationsInGroupItem_GeneralValidationFalseAdditionalValidationNull_CreatesDisabledItemAndSetGeneralValidationMessageTooltip()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+
+            var calculationGroup = new CalculationGroup();
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => null);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
+        }
+
+        [Test]
+        public void CreatePerformAllCalculationsInGroupItem_GeneralValidationTrueAdditionalValidationContainsMessage_CreatesDisabledItemAndSetMessageInTooltip()
+        {
+            // Setup
+            var calculation = new TestCalculation();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+
+            var failureMechanism = new TestFailureMechanism(new[]
+            {
+                calculation
+            });
+
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+
+            var errorMessage = "Additional check failed.";
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
+        }
+
+        [Test]
+        public void CreatePerformAllCalculationsInGroupItem_GeneralValidationFalseAdditionalValidationContainsMessage_CreatesDisabledItemAndSetGeneralValidationMessageTooltip()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+
+            var calculationGroup = new CalculationGroup();
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+
+            var errorMessage = "Additional check failed.";
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, null, context => errorMessage);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
+        }
+
+        [Test]
+        public void CreatePerformAllCalculationsInGroupItem_PerformClickOnCreatedItem_PerformAllCalculationMethodPerformed()
+        {
+            // Setup
+            var calculation = new TestCalculation();
+            var failureMechanism = new TestFailureMechanism(new[]
+            {
+                calculation
+            });
+
+            var counter = 0;
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+
+            var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
+
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, (group, context) => counter++, context => null);
+
+            // Call
+            toolStripItem.PerformClick();
+
+            // Assert
+            Assert.AreEqual(1, counter);
+        }
+
+        #endregion
+
+        #region CreatePerformAllCalculationInFailureMechanismItem
+
+        [Test]
+        public void CreatePerformAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationNull_CreatesEnabledItem()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
-
-            var failureMechanismContextMock = mocks.StrictMock<FailureMechanismContext<IFailureMechanism>>(failureMechanismMock, assessmentSectionMock);
-
             mocks.ReplayAll();
 
+            var calculation = new TestCalculation();
+            var failureMechanism = new TestFailureMechanism(new[]
+            {
+                calculation
+            });
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
             // Call
-            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContextMock, null, context => false);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null);
 
             // Assert
             Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
             Assert.AreEqual(RingtoetsFormsResources.Calculate_all_ToolTip, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
-            Assert.IsFalse(toolStripItem.Enabled);
-
+            Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void CreatePerformAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationNull_CreatesDisabledItemAndSetGeneralValidationMessageTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreatePerformAllCalculationsInFailureMechanismItem_GeneralValidationTrueAdditionalValidationContainsMessage_CreatesDisabledItemAndSetMessageInTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new TestCalculation();
+
+            var failureMechanism = new TestFailureMechanism(new[]
+            {
+                calculation
+            });
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            var errorMessage = "Additional check failed.";
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreatePerformAllCalculationsInFailureMechanismItem_GeneralValidationFalseAdditionalValidationContainsMessage_CreatesDisabledItemAndSetGeneralValidationMessageTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            var errorMessage = "Additional check failed.";
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => errorMessage);
+
+            // Assert
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, toolStripItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreatePerformAllCalculationsInFailureMechanismItem_PerformClickOnCreatedItem_PerformAllCalculationMethodPerformed()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationMock = mocks.StrictMock<ICalculation>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var counter = 0;
+            var failureMechanism = new TestFailureMechanism(new[]
+            {
+                calculationMock
+            });
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var toolStripItem = RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, fmContext => counter++, context => null);
+
+            // Call
+            toolStripItem.PerformClick();
+
+            // Assert
+            Assert.AreEqual(1, counter);
+            mocks.VerifyAll();
+        }
+
+        #endregion
 
         # region Nested types
 

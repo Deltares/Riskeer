@@ -120,4 +120,10 @@
   <data name="GrassCoverErosionInwardsGuiPlugin_Error_during_overtopping_calculation" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens de berekening.</value>
   </data>
+  <data name="GrassCoverErosionInwardsGuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported" xml:space="preserve">
+    <value>Er is geen vakindeling geïmporteerd.</value>
+  </data>
+  <data name="GrassCoverErosionInwardsGuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported" xml:space="preserve">
+    <value>Er is geen hydraulische randvoorwaarden database geïmporteerd.</value>
+  </data>
 </root>

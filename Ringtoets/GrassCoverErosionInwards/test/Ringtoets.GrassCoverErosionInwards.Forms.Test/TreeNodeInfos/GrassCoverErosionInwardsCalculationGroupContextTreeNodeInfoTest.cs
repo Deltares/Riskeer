@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -37,6 +39,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
+using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 using Ringtoets.HydraRing.Data;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -47,6 +50,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationGroupContextTreeNodeInfoTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
+
         private IGui gui;
         private TreeNodeInfo info;
         private MockRepository mocks;
@@ -144,7 +149,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             failureMechanism.AddSection(new FailureMechanismSection("test", new[] { new Point2D(0, 0) }));
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                failureMechanism,
@@ -236,14 +241,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoHydraulicDatabaseAndFailureMechanismSections_ReturnContextMenuWithCalculateAllDisabled()
+        public void ContextMenuStrip_NoFailureMechanismSections_ReturnContextMenuDisabledAndTooltipSet()
         {
             // Setup
-            var group = new CalculationGroup();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(null);
+
+            var group = new CalculationGroup()
+            {
+                Children =
+                {
+                    new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput())
+                }
+            };
 
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                failureMechanism,
@@ -268,24 +278,140 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Assert
             TestHelper.AssertContextMenuStripContainsItem(menu, 5,
                                                           RingtoetsFormsResources.Calculate_all,
-                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_ToolTip,
-                                                          RingtoetsFormsResources.CalculateIcon,
+                                                          Resources.GrassCoverErosionInwardsGuiPlugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                          RingtoetsFormsResources.CalculateAllIcon,
                                                           false);
             mocks.VerifyAll();
         }
-
+        
         [Test]
-        public void ContextMenuStrip_HydraulicDatabaseAndFailureMechanismSectionsSet_ReturnContextMenuWithCalculateAllEnabled()
+        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemDisabledAndTooltipSet()
         {
             // Setup
-            var group = new CalculationGroup();
-            group.Children.Add(new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput()));
+            var group = new CalculationGroup()
+            {
+                Children =
+                {
+                    new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput())
+                }
+            };
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("test", new[] { new Point2D(0, 0) }));
+            failureMechanism.CalculationsGroup.Children.Add(
+                new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput()));
+
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(null);
+
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
+
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
+            gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
+            viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
+
+            mocks.ReplayAll();
+
+            // Call
+            var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+            // Assert
+            mocks.VerifyAll(); // Expect no calls on arguments
+
+            TestHelper.AssertContextMenuStripContainsItem(contextMenu, 5,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          Resources.GrassCoverErosionInwardsGuiPlugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                          RingtoetsFormsResources.CalculateAllIcon,
+                                                          false);
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemDisabledAndTooltipSet()
+        {
+            // Setup
+            var group = new CalculationGroup()
+            {
+                Children =
+                {
+                    new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput())
+                }
+            };
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[] { new Point2D(0, 0) }));
+            failureMechanism.CalculationsGroup.Children.Add(
+                new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput()));
+
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
+
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
+            gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
+            viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
+
+            mocks.ReplayAll();
+
+            // Call
+            ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+            // Assert
+            mocks.VerifyAll(); // Expect no calls on arguments
+
+            ToolStripItem contextMenuItem = contextMenu.Items[5];
+
+            Assert.AreEqual(RingtoetsFormsResources.Calculate_all, contextMenuItem.Text);
+            StringAssert.Contains(string.Format(RingtoetsFormsResources.GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, contextMenuItem.Image);
+            Assert.IsFalse(contextMenuItem.Enabled);
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicDatabaseSet_ReturnContextMenuWithCalculateAllEnabled()
+        {
+            // Setup
+            var group = new CalculationGroup()
+            {
+                Children =
+                {
+                    new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput())
+                }
+            };
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "1.0"
+            };
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[] { new Point2D(0, 0) }));
+            failureMechanism.CalculationsGroup.Children.Add(
+                new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput()));
             
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                failureMechanism,
@@ -316,6 +442,44 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_NoCalculationsInCalculationGroup_ContextMenuItemDisabled()
+        {
+            // Setup
+            var group = new CalculationGroup();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
+
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            var treeViewControl = mocks.StrictMock<TreeViewControl>();
+
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
+            gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+            treeViewControl.Expect(tvc => tvc.CanExpandOrCollapseForData(nodeData)).Repeat.Twice().Return(false);
+            viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
+
+            mocks.ReplayAll();
+
+            // Call
+            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+            // Assert
+            TestHelper.AssertContextMenuStripContainsItem(menu, 5,
+                                                          RingtoetsFormsResources.Calculate_all,
+                                                          RingtoetsFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                                                          RingtoetsFormsResources.CalculateIcon,
+                                                          false);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void ContextmenuStrip_NestedCalculationGroup_ReturnContextMenuWithAllItems()
         {
             // Setup
@@ -328,7 +492,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             failureMechanism.AddSection(new FailureMechanismSection("test", new[] { new Point2D(0, 0) }));
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             var parentData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
                                                                                  failureMechanism,
@@ -436,7 +600,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var parentGroup = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                failureMechanism,
                                                                                assessmentSectionMock);
@@ -487,7 +650,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var parentGroup = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                failureMechanism,
                                                                                assessmentSectionMock);

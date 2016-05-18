@@ -89,16 +89,17 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <param name="calculationGroup">The calculation group to perform all calculations for.</param>
         /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
         /// <param name="calculateAllAction">The action that performs all calculations.</param>
-        /// <param name="isEnabledFunc">The func that checks if the item is enabled.</param>
+        /// <param name="additionalValidationFunc">The func for performing additional validation checks.</param>
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        /// <remarks>When <paramref name="additionalValidationFunc"/> returns a <c>string</c>, the item will be disabled and the <c>string</c> will be shown in the tooltip.</remarks>
         public RingtoetsContextMenuBuilder AddPerformAllCalculationsInGroupItem<TCalculationContext>(
             CalculationGroup calculationGroup,
             TCalculationContext calculationGroupContext,
             Action<CalculationGroup, TCalculationContext> calculateAllAction,
-            Func<TCalculationContext, bool> isEnabledFunc)
+            Func<TCalculationContext, string> additionalValidationFunc)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, calculateAllAction, isEnabledFunc));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroup, calculationGroupContext, calculateAllAction, additionalValidationFunc));
             return this;
         }
 
@@ -110,17 +111,18 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <param name="calculation">The calculation to perform.</param>
         /// <param name="calculationContext">The calculation context belonging to the calculation.</param>
         /// <param name="calculateAction">The action that performs the calculation.</param>
-        /// <param name="isEnabledFunc">The func that checks if the item is enabled.</param>
+        /// <param name="additionalValidationFunc">The func for performing additional validation checks.</param>
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        /// <remarks>When <paramref name="additionalValidationFunc"/> returns a <c>string</c>, the item will be disabled and the <c>string</c> will be shown in the tooltip.</remarks>
         public RingtoetsContextMenuBuilder AddPerformCalculationItem<TCalculation, TCalculationContext>(
             TCalculation calculation,
             TCalculationContext calculationContext,
             Action<TCalculation, TCalculationContext> calculateAction,
-            Func<TCalculationContext, bool> isEnabledFunc)
+            Func<TCalculationContext, string> additionalValidationFunc)
             where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
             where TCalculation : ICalculation
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, calculateAction, isEnabledFunc));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformCalculationItem(calculation, calculationContext, calculateAction, additionalValidationFunc));
             return this;
         }
 
@@ -152,15 +154,16 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
         /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
         /// <param name="calculateAllAction">The action that performs all calculations.</param>
-        /// <param name="isEnabledFunc">The func that checks if the item is enabled.</param>
+        /// <param name="additionalValidationFunc">The func for performing additional validation checks.</param>
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        /// <remarks>When <paramref name="additionalValidationFunc"/> returns a <c>string</c>, the item will be disabled and the <c>string</c> will be shown in the tooltip.</remarks>
         public RingtoetsContextMenuBuilder AddPerformAllCalculationsInFailureMechanismItem<TFailureMechanismContext>(
             TFailureMechanismContext failureMechanismContext,
             Action<TFailureMechanismContext> calculateAllAction,
-            Func<TFailureMechanismContext, bool> isEnabledFunc)
+            Func<TFailureMechanismContext, string> additionalValidationFunc)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, calculateAllAction, isEnabledFunc));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, calculateAllAction, additionalValidationFunc));
             return this;
         }
 

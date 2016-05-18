@@ -322,4 +322,7 @@
   <data name="FailureMechanism_CreateValidateAllItem_No_calculations_to_validate" xml:space="preserve">
     <value>Er zijn geen berekeningen om te valideren.</value>
   </data>
+  <data name="GuiPlugin_VerifyHydraulicBoundaryDatabasePath_Hydraulic_boundary_database_connection_failed_0_" xml:space="preserve">
+    <value>Herstellen van de verbinding met de hydraulische randvoorwaarden database is mislukt. {0}</value>
+  </data>
 </root>

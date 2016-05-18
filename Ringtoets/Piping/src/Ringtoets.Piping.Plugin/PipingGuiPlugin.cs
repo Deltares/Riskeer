@@ -325,7 +325,7 @@ namespace Ringtoets.Piping.Plugin
                           .AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCustomItem(validateAllItem)
-                          .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll, context => true)
+                          .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll, context => null)
                           .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                           .AddSeparator()
                           .AddImportItem()
@@ -444,7 +444,7 @@ namespace Ringtoets.Piping.Plugin
                                                          (o, args) => { PipingCalculationService.Validate(calculation); });
 
             return builder.AddCustomItem(validateItem)
-                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, context => true)
+                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, context => null)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
@@ -565,7 +565,7 @@ namespace Ringtoets.Piping.Plugin
                    .AddCreateCalculationItem(nodeData, AddCalculationScenario)
                    .AddSeparator()
                    .AddCustomItem(validateAllItem)
-                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, context => true)
+                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, context => null)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
 
