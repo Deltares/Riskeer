@@ -30,7 +30,6 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
-using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -60,8 +59,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
     /// </summary>
     public class GrassCoverErosionInwardsGuiPlugin : GuiPlugin
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionInwardsGuiPlugin));
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismContextProperties>();

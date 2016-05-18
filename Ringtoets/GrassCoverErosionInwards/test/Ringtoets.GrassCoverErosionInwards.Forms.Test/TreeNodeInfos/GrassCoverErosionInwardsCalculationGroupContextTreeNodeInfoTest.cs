@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -146,7 +145,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
@@ -283,7 +285,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                           false);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemDisabledAndTooltipSet()
         {
@@ -297,7 +299,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             };
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
             failureMechanism.CalculationsGroup.Children.Add(
                 new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput()));
 
@@ -347,7 +352,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             };
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
             failureMechanism.CalculationsGroup.Children.Add(
                 new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput()));
 
@@ -406,10 +414,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             };
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
             failureMechanism.CalculationsGroup.Children.Add(
                 new GrassCoverErosionInwardsCalculation(new GeneralGrassCoverErosionInwardsInput()));
-            
+
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
@@ -489,7 +500,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             parentGroup.Children.Add(group);
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
 
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
