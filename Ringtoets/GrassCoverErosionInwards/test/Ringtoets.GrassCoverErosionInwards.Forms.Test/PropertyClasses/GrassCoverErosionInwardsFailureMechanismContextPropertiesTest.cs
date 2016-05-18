@@ -154,25 +154,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor frunupModelFactorProperty = dynamicProperties[frunupModelFactorPropertyIndex];
             Assert.IsNotNull(frunupModelFactorProperty);
             Assert.IsTrue(frunupModelFactorProperty.IsReadOnly);
-            Assert.AreEqual("Frunup [-]", frunupModelFactorProperty.DisplayName);
+            Assert.AreEqual("Modelfactor Frunup [-]", frunupModelFactorProperty.DisplayName);
             Assert.AreEqual("De parameter 'Frunup' die gebruikt wordt in de berekening.", frunupModelFactorProperty.Description);
 
             PropertyDescriptor fbModelProperty = dynamicProperties[fbFactorPropertyIndex];
             Assert.IsNotNull(fbModelProperty);
             Assert.IsTrue(fbModelProperty.IsReadOnly);
-            Assert.AreEqual("Fb [-]", fbModelProperty.DisplayName);
+            Assert.AreEqual("Modelfactor Fb [-]", fbModelProperty.DisplayName);
             Assert.AreEqual("De parameter 'Fb' die gebruikt wordt in de berekening.", fbModelProperty.Description);
 
             PropertyDescriptor fnFactorProperty = dynamicProperties[fnFactorPropertyIndex];
             Assert.IsNotNull(fnFactorProperty);
             Assert.IsTrue(fnFactorProperty.IsReadOnly);
-            Assert.AreEqual("Fn [-]", fnFactorProperty.DisplayName);
+            Assert.AreEqual("Modelfactor Fn [-]", fnFactorProperty.DisplayName);
             Assert.AreEqual("De parameter 'Fn' die gebruikt wordt in de berekening.", fnFactorProperty.Description);
 
             PropertyDescriptor fshallowProperty = dynamicProperties[fshallowModelFactorPropertyIndex];
             Assert.IsNotNull(fshallowProperty);
             Assert.IsTrue(fshallowProperty.IsReadOnly);
-            Assert.AreEqual("Fondiep [-]", fshallowProperty.DisplayName);
+            Assert.AreEqual("Modelfactor Fondiep [-]", fshallowProperty.DisplayName);
             Assert.AreEqual("De parameter 'Fondiep' die gebruikt wordt in de berekening.", fshallowProperty.Description);
         }
 

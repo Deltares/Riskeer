@@ -370,7 +370,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fb [-].
+        ///   Looks up a localized string similar to Modelfactor Fb [-].
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FbFactor_DisplayName {
             get {
@@ -388,7 +388,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fn [-].
+        ///   Looks up a localized string similar to Modelfactor Fn [-].
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FnFactor_DisplayName {
             get {
@@ -406,7 +406,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Frunup [-].
+        ///   Looks up a localized string similar to Modelfactor Frunup [-].
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName {
             get {
@@ -424,7 +424,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fondiep [-].
+        ///   Looks up a localized string similar to Modelfactor Fondiep [-].
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FshallowModelFactor_DisplayName {
             get {

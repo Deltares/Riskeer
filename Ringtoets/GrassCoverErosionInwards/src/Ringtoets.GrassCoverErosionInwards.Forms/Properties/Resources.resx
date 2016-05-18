@@ -230,25 +230,25 @@
     <value>De parameter 'Fb' die gebruikt wordt in de berekening.</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FbFactor_DisplayName" xml:space="preserve">
-    <value>Fb [-]</value>
+    <value>Modelfactor Fb [-]</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FnFactor_Description" xml:space="preserve">
     <value>De parameter 'Fn' die gebruikt wordt in de berekening.</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FnFactor_DisplayName" xml:space="preserve">
-    <value>Fn [-]</value>
+    <value>Modelfactor Fn [-]</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FshallowModelFactor_Description" xml:space="preserve">
     <value>De parameter 'Fondiep' die gebruikt wordt in de berekening.</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FshallowModelFactor_DisplayName" xml:space="preserve">
-    <value>Fondiep [-]</value>
+    <value>Modelfactor Fondiep [-]</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FrunupModelFactor_Description" xml:space="preserve">
     <value>De parameter 'Frunup' die gebruikt wordt in de berekening.</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName" xml:space="preserve">
-    <value>Frunup [-]</value>
+    <value>Modelfactor Frunup [-]</value>
   </data>
   <data name="GrassCoverErosionInwardsInputCalculation_Name_Description" xml:space="preserve">
     <value>De naam van de berekening voor grasbekleding erosie kruin en binnentalud.</value>
