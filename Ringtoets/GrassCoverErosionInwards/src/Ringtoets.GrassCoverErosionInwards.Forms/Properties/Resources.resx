@@ -158,7 +158,7 @@
     <value>De hoogte van de havendam [m+NAP].</value>
   </data>
   <data name="BreakWaterHeight_DisplayName" xml:space="preserve">
-    <value>Havendam hoogte</value>
+    <value>Hoogte</value>
   </data>
   <data name="BreakWaterProperties_Description" xml:space="preserve">
     <value>Eigenschappen van de havendam.</value>
@@ -170,7 +170,7 @@
     <value>Het type van de havendam.</value>
   </data>
   <data name="BreakWaterType_DisplayName" xml:space="preserve">
-    <value>Type havendam</value>
+    <value>Type</value>
   </data>
   <data name="BreakWater_UseBreakWater_Discription" xml:space="preserve">
     <value>Is er een havendam aanwezig?</value>
@@ -227,28 +227,28 @@
     <value>Oriëntatie [º]</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FbFactor_Description" xml:space="preserve">
-    <value>De parameter 'Fb factor' die gebruikt wordt in de berekening.</value>
+    <value>De parameter 'Fb' die gebruikt wordt in de berekening.</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FbFactor_DisplayName" xml:space="preserve">
-    <value>Fb factor [-]</value>
+    <value>Fb [-]</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FnFactor_Description" xml:space="preserve">
-    <value>De parameter 'Fn factor' die gebruikt wordt in de berekening.</value>
+    <value>De parameter 'Fn' die gebruikt wordt in de berekening.</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FnFactor_DisplayName" xml:space="preserve">
-    <value>Fn factor [-]</value>
+    <value>Fn [-]</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FshallowModelFactor_Description" xml:space="preserve">
-    <value>De parameter 'F ondiep model factor' die gebruikt wordt in de berekening.</value>
+    <value>De parameter 'Fondiep' die gebruikt wordt in de berekening.</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FshallowModelFactor_DisplayName" xml:space="preserve">
-    <value>F ondiep model factor [-]</value>
+    <value>Fondiep [-]</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FrunupModelFactor_Description" xml:space="preserve">
-    <value>De parameter 'Frunup model factor' die gebruikt wordt in de berekening.</value>
+    <value>De parameter 'Frunup' die gebruikt wordt in de berekening.</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName" xml:space="preserve">
-    <value>Frunup model factor [-]</value>
+    <value>Frunup [-]</value>
   </data>
   <data name="GrassCoverErosionInwardsInputCalculation_Name_Description" xml:space="preserve">
     <value>De naam van de berekening voor grasbekleding erosie kruin en binnentalud.</value>

@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Havendam hoogte.
+        ///   Looks up a localized string similar to Hoogte.
         /// </summary>
         public static string BreakWaterHeight_DisplayName {
             get {
@@ -124,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type havendam.
+        ///   Looks up a localized string similar to Type.
         /// </summary>
         public static string BreakWaterType_DisplayName {
             get {
@@ -361,7 +361,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;Fb factor&apos; die gebruikt wordt in de berekening..
+        ///   Looks up a localized string similar to De parameter &apos;Fb&apos; die gebruikt wordt in de berekening..
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FbFactor_Description {
             get {
@@ -370,7 +370,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fb factor [-].
+        ///   Looks up a localized string similar to Fb [-].
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FbFactor_DisplayName {
             get {
@@ -379,7 +379,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;Fn factor&apos; die gebruikt wordt in de berekening..
+        ///   Looks up a localized string similar to De parameter &apos;Fn&apos; die gebruikt wordt in de berekening..
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FnFactor_Description {
             get {
@@ -388,7 +388,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fn factor [-].
+        ///   Looks up a localized string similar to Fn [-].
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FnFactor_DisplayName {
             get {
@@ -397,7 +397,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;Frunup model factor&apos; die gebruikt wordt in de berekening..
+        ///   Looks up a localized string similar to De parameter &apos;Frunup&apos; die gebruikt wordt in de berekening..
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FrunupModelFactor_Description {
             get {
@@ -406,7 +406,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Frunup model factor [-].
+        ///   Looks up a localized string similar to Frunup [-].
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName {
             get {
@@ -415,7 +415,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;F ondiep model factor&apos; die gebruikt wordt in de berekening..
+        ///   Looks up a localized string similar to De parameter &apos;Fondiep&apos; die gebruikt wordt in de berekening..
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FshallowModelFactor_Description {
             get {
@@ -424,7 +424,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to F ondiep model factor [-].
+        ///   Looks up a localized string similar to Fondiep [-].
         /// </summary>
         public static string GrassCoverErosionInwardsInput_FshallowModelFactor_DisplayName {
             get {
