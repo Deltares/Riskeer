@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -43,20 +44,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
         [ResourcesDisplayName(typeof(Resources), "DikeGeometry_Coordinates_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeGeometry_Coordinates_Description")]
-        public RoundedDouble[] Coordinates
+        public Point2D[] Coordinates
         {
             get
             {
                 var startingPoint = data.WrappedData.DikeGeometry.FirstOrDefault();
                 if (startingPoint == null)
                 {
-                    return new RoundedDouble[0];
+                    return new Point2D[0];
                 }
-                var coordinates = new List<RoundedDouble>
+                var coordinates = new List<Point2D>
                 {
-                    new RoundedDouble(2, startingPoint.StartingPoint.X)
+                    startingPoint.StartingPoint
                 };
-                coordinates.AddRange(data.WrappedData.DikeGeometry.Select(d => new RoundedDouble(2, d.EndingPoint.X)));
+                coordinates.AddRange(data.WrappedData.DikeGeometry.Select(d => d.EndingPoint));
                 return coordinates.ToArray();
             }
         }
@@ -76,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return Resources.DikeGeometryProperties_DisplayName;
+            return string.Empty;
         }
     }
 }

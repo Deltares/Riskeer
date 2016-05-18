@@ -51,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsInputContext>>(properties);
             Assert.IsNull(properties.Data);
-            Assert.AreEqual(Resources.DikeGeometryProperties_DisplayName, properties.ToString());
+            Assert.AreEqual(string.Empty, properties.ToString());
         }
 
         [Test]
@@ -106,7 +106,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(coordinatesProperty);
             Assert.IsTrue(coordinatesProperty.IsReadOnly);
             Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
-            Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
+            Assert.AreEqual("Lijst met punten in coördinaten.", coordinatesProperty.Description);
 
             PropertyDescriptor numberOfCoordinatesDikeHeightProperty = dynamicProperties[numberOfCoordinatesDikeHeightPropertyIndex];
             Assert.IsNotNull(numberOfCoordinatesDikeHeightProperty);

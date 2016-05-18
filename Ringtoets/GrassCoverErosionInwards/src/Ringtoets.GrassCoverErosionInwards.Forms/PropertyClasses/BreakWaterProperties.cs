@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     {
         [PropertyOrder(1)]
         [ResourcesDisplayName(typeof(Resources), "BreakWater_UseBreakWater_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "BreakWater_UseBreakWater_Discription")]
+        [ResourcesDescription(typeof(Resources), "BreakWater_UseBreakWater_Description")]
         public bool UseBreakWater
         {
             get
@@ -89,7 +89,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return Resources.BreakWaterProperties_DisplayName;
+            return string.Empty;
         }
     }
 }

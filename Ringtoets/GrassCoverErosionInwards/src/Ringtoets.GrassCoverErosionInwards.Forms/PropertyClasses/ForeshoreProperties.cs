@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(useForeshorePropertyIndex)]
         [ResourcesDisplayName(typeof(Resources), "Foreshore_UseForeshore_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Foreshore_UseForeshore_Discription")]
+        [ResourcesDescription(typeof(Resources), "Foreshore_UseForeshore_Description")]
         public bool UseForeshore
         {
             get
@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(numberOfCoordinatesPropertyIndex)]
         [ResourcesDisplayName(typeof(Resources), "Foreshore_NumberOfCoordinates_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Foreshore_NumberOfCoordinates_Discription")]
+        [ResourcesDescription(typeof(Resources), "Foreshore_NumberOfCoordinates_Description")]
         public int NumberOfCoordinates
         {
             get
@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return Resources.ForeshoreProperties_DisplayName;
+            return string.Empty;
         }
     }
 }

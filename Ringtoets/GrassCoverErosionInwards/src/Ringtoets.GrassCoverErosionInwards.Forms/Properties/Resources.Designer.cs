@@ -63,9 +63,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Is er een havendam aanwezig?.
         /// </summary>
-        public static string BreakWater_UseBreakWater_Discription {
+        public static string BreakWater_UseBreakWater_Description {
             get {
-                return ResourceManager.GetString("BreakWater_UseBreakWater_Discription", resourceCulture);
+                return ResourceManager.GetString("BreakWater_UseBreakWater_Description", resourceCulture);
             }
         }
         
@@ -206,7 +206,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lijst met punten in lokale coördinaten..
+        ///   Looks up a localized string similar to Lijst met punten in coördinaten..
         /// </summary>
         public static string DikeGeometry_Coordinates_Description {
             get {
@@ -280,14 +280,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Aantal coördinaten tot de teen van de dijk..
         /// </summary>
-        public static string Foreshore_NumberOfCoordinates_Discription {
+        public static string Foreshore_NumberOfCoordinates_Description {
             get {
-                return ResourceManager.GetString("Foreshore_NumberOfCoordinates_Discription", resourceCulture);
+                return ResourceManager.GetString("Foreshore_NumberOfCoordinates_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aantal.
+        ///   Looks up a localized string similar to Aantal coördinaten.
         /// </summary>
         public static string Foreshore_NumberOfCoordinates_DisplayName {
             get {
@@ -298,9 +298,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Is er een voorland aanwezig?.
         /// </summary>
-        public static string Foreshore_UseForeshore_Discription {
+        public static string Foreshore_UseForeshore_Description {
             get {
-                return ResourceManager.GetString("Foreshore_UseForeshore_Discription", resourceCulture);
+                return ResourceManager.GetString("Foreshore_UseForeshore_Description", resourceCulture);
             }
         }
         

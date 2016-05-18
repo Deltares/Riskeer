@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsInputContext>>(properties);
             Assert.IsNull(properties.Data);
-            Assert.AreEqual(Resources.BreakWaterProperties_DisplayName, properties.ToString());
+            Assert.AreEqual(string.Empty, properties.ToString());
         }
 
         [Test]

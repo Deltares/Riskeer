@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsInputContext>>(properties);
             Assert.IsNull(properties.Data);
-            Assert.AreEqual(Resources.ForeshoreProperties_DisplayName, properties.ToString());
+            Assert.AreEqual(string.Empty, properties.ToString());
         }
 
         [Test]
@@ -140,7 +140,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor numberOfCoordinatesProperty = dynamicProperties[numberOfCoordinatesDikeHeightProperty];
             Assert.IsNotNull(numberOfCoordinatesProperty);
             Assert.IsTrue(numberOfCoordinatesProperty.IsReadOnly);
-            Assert.AreEqual("Aantal", numberOfCoordinatesProperty.DisplayName);
+            Assert.AreEqual("Aantal coördinaten", numberOfCoordinatesProperty.DisplayName);
             Assert.AreEqual("Aantal coördinaten tot de teen van de dijk.", numberOfCoordinatesProperty.Description);
             mockRepository.VerifyAll();
         }
