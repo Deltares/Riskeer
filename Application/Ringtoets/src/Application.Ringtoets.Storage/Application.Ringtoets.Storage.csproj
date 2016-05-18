@@ -55,6 +55,8 @@
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwardsFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismBaseCreateExtensions.cs" />
+    <Compile Include="Create\RingtoetsPipingSurfaceLineCreateExtensions.cs" />
+    <Compile Include="Create\RingtoetsPipingSurfaceLinePointCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismSectionCreateExtensions.cs" />
     <Compile Include="Create\PipingFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensions.cs" />

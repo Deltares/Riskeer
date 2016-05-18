@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Utils;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
@@ -49,6 +50,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles = new Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile>(new ReferenceEqualityComparer<StochasticSoilProfileEntity>());
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = new Dictionary<SoilProfileEntity, PipingSoilProfile>(new ReferenceEqualityComparer<SoilProfileEntity>());
         private readonly Dictionary<SoilLayerEntity, PipingSoilLayer> soilLayers = new Dictionary<SoilLayerEntity, PipingSoilLayer>(new ReferenceEqualityComparer<SoilLayerEntity>());
+        private readonly Dictionary<SurfaceLinePointEntity, Point3D> surfaceLinePoints = new Dictionary<SurfaceLinePointEntity, Point3D>(new ReferenceEqualityComparer<SurfaceLinePointEntity>());
 
         /// <summary>
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/> that
@@ -221,6 +223,40 @@ namespace Application.Ringtoets.Storage.Create
         }
 
         /// <summary>
+        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
+        /// that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="SurfaceLinePointEntity"/> that was constructed.</param>
+        /// <param name="model">The surfaceline geometry <see cref="Point3D"/> corresponding
+        /// the newly create database entity.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Create(SurfaceLinePointEntity entity, Point3D model)
+        {
+            Create(surfaceLinePoints, entity, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="SurfaceLinePointEntity"/> which was created for the
+        /// given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The surfaceline geometry <see cref="Point3D"/> for which
+        /// a create operation has been registered.</param>
+        /// <returns>The constructed <see cref="PipingSoilProfile"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains"/> to find out whether a create operation has
+        /// been registered for <paramref name="model"/>.</remarks>
+        internal SurfaceLinePointEntity GetSurfaceLinePoint(Point3D model)
+        {
+            return Get(surfaceLinePoints, model);
+        }
+
+        /// <summary>
         /// Transfer ids from the created entities to the domain model objects' property.
         /// </summary>
         internal void TransferIds()
@@ -268,6 +304,11 @@ namespace Application.Ringtoets.Storage.Create
             foreach (var entity in soilLayers.Keys)
             {
                 soilLayers[entity].StorageId = entity.SoilLayerEntityId;
+            }
+
+            foreach (var entity in surfaceLinePoints.Keys)
+            {
+                surfaceLinePoints[entity].StorageId = entity.SurfaceLinePointEntityId;
             }
         }
 

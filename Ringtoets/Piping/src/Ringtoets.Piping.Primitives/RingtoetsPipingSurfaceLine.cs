@@ -103,6 +103,9 @@ namespace Ringtoets.Piping.Primitives
         /// </summary>
         public Point3D DikeToeAtPolder { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the reference line intersection point in world coordinates.
+        /// </summary>
         public Point2D ReferenceLineIntersectionWorldPoint { get; set; }
 
         /// <summary>

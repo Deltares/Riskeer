@@ -158,6 +158,24 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.Throws<InvalidOperationException>(test);
         }
 
+        [Test]
+        public void GetSurfaceLinePoint_SurfaceLinePointAdded_ReturnsEntity()
+        {
+            // Setup
+            var surfaceLineGeometryPoint = new Point3D(1.1, 2.2, 3.3);
+            var initializedEntity = new SurfaceLinePointEntity();
+
+            var collector = new CreateConversionCollector();
+            collector.Create(initializedEntity, surfaceLineGeometryPoint);
+
+            // Call
+            SurfaceLinePointEntity retrievedEntity = collector.GetSurfaceLinePoint(surfaceLineGeometryPoint);
+
+            // Assert
+            Assert.AreSame(initializedEntity, retrievedEntity);
+
+        }
+
         #region Create methods
 
         [Test]
@@ -400,6 +418,34 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual("model", paramName);
         }
 
+        [Test]
+        public void Create_WithNullSurfaceLinePointEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new CreateConversionCollector();
+
+            // Call
+            TestDelegate call = () => collector.Create(null, new Point3D(1.1, 2.2, 3.3));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Create_WithNullSurfaceLinePoint_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new CreateConversionCollector();
+
+            // Call
+            TestDelegate call = () => collector.Create(new SurfaceLinePointEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
         #endregion
 
         #region TransferId method
@@ -605,6 +651,27 @@ namespace Application.Ringtoets.Storage.Test.Create
                 SoilLayerEntityId = storageId
             };
             var model = new PipingSoilLayer(0);
+            collector.Create(entity, model);
+
+            // Call
+            collector.TransferIds();
+
+            // Assert
+            Assert.AreEqual(storageId, model.StorageId);
+        }
+
+        [Test]
+        public void TransferId_WithSurfaceLinePointEntityAdded_EqualSurfaceLinePointEntityIdAndPoint3DStorageId()
+        {
+            // Setup
+            var collector = new CreateConversionCollector();
+
+            long storageId = new Random(21).Next(1, 4000);
+            var entity = new SurfaceLinePointEntity
+            {
+                SurfaceLinePointEntityId = storageId
+            };
+            var model = new Point3D(1.1, 2.2, 3.3);
             collector.Create(entity, model);
 
             // Call
