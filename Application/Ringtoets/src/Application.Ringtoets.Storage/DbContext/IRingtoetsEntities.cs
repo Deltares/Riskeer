@@ -96,6 +96,18 @@ namespace Application.Ringtoets.Storage.DbContext
         /// </summary>
         DbSet<SoilLayerEntity> SoilLayerEntities { get; }
 
+        /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="SurfaceLineEntity"/> containing
+        /// every piping surface line entity in the database.
+        /// </summary>
+        DbSet<SurfaceLineEntity> SurfaceLineEntities { get; }
+
+        /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="SurfaceLinePointEntity"/>
+        /// containing every piping surface line geometry point in the database.
+        /// </summary>
+        DbSet<SurfaceLinePointEntity> SurfaceLinePointEntities { get; }
+
         /// <summary> 
         /// Persists all updates to the database and resets change tracking in the object context, see <see cref="ObjectContext.SaveChanges()"/>.
         /// </summary>

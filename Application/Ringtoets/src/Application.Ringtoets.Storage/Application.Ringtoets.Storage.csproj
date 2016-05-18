@@ -66,29 +66,18 @@
     <Compile Include="Create\PipingSoilProfileCreateExtensions.cs" />
     <Compile Include="Create\StochasticSoilModelCreateExtensions.cs" />
     <Compile Include="Create\StochasticSoilProfileCreateExtensions.cs" />
-    <Compile Include="DbContext\FailureMechanismSectionEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\FailureMechanismSectionPointEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Read\FailureMechanismEntityReadExtensions.cs" />
-    <Compile Include="Read\FailureMechanismSectionEntityReadExtensions.cs" />
-    <Compile Include="Read\FailureMechanismSectionPointEntityReadExtensions.cs" />
-    <Compile Include="Read\HydraulicLocationEntityReadExtensions.cs" />
-    <Compile Include="Read\ReadConversionCollector.cs" />
-    <Compile Include="Read\ReferenceLinePointEntityReadExtensions.cs" />
-    <Compile Include="Read\SoilLayerEntityReadExtensions.cs" />
-    <Compile Include="Read\SoilProfileEntityReadExtensions.cs" />
-    <Compile Include="Read\StochasticSoilModelEntityReadExtensions.cs" />
-    <Compile Include="Read\StochasticSoilProfileEntityReadExtensions.cs" />
     <Compile Include="DbContext\AssessmentSectionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\FailureMechanismEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\FailureMechanismType.cs" />
+    <Compile Include="DbContext\FailureMechanismSectionEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\FailureMechanismSectionPointEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\HydraulicLocationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -110,9 +99,26 @@
     <Compile Include="DbContext\StochasticSoilProfileEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\SurfaceLineEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\SurfaceLinePointEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\VersionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Read\FailureMechanismEntityReadExtensions.cs" />
+    <Compile Include="Read\FailureMechanismSectionEntityReadExtensions.cs" />
+    <Compile Include="Read\FailureMechanismSectionPointEntityReadExtensions.cs" />
+    <Compile Include="Read\HydraulicLocationEntityReadExtensions.cs" />
+    <Compile Include="Read\ReadConversionCollector.cs" />
+    <Compile Include="Read\ReferenceLinePointEntityReadExtensions.cs" />
+    <Compile Include="Read\SoilLayerEntityReadExtensions.cs" />
+    <Compile Include="Read\SoilProfileEntityReadExtensions.cs" />
+    <Compile Include="Read\StochasticSoilModelEntityReadExtensions.cs" />
+    <Compile Include="Read\StochasticSoilProfileEntityReadExtensions.cs" />
+    <Compile Include="DbContext\FailureMechanismType.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensions.cs" />
     <Compile Include="Read\ProjectEntityReadExtensions.cs" />
     <Compile Include="StorageSqliteCreator.cs" />

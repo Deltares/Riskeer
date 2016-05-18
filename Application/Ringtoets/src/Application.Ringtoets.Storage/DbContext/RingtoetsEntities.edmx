@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -108,6 +108,24 @@
           <Property Name="SoilProfileEntityId" Type="integer" Nullable="false" />
           <Property Name="StochasticSoilModelEntityId" Type="integer" Nullable="false" />
           <Property Name="Probability" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SurfaceLineEntity">
+          <Key>
+            <PropertyRef Name="SurfaceLineEntityId" />
+          </Key>
+          <Property Name="SurfaceLineEntityId" Type="integer" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SurfaceLinePointEntity">
+          <Key>
+            <PropertyRef Name="SurfaceLinePointEntityId" />
+          </Key>
+          <Property Name="SurfaceLinePointEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurfaceLineEntityId" Type="integer" Nullable="false" />
+          <Property Name="X" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="Y" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="VersionEntity">
           <Key>
@@ -238,6 +256,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SurfaceLineEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
+          <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="SurfaceLineEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurfaceLinePointEntity_0_0">
+          <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="1" />
+          <End Role="SurfaceLinePointEntity" Type="Self.SurfaceLinePointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurfaceLineEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Principal>
+            <Dependent Role="SurfaceLinePointEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="RingtoetsEntitiesModelStoreContainer">
           <EntitySet Name="AssessmentSectionEntity" EntityType="Self.AssessmentSectionEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismEntity" EntityType="Self.FailureMechanismEntity" store:Type="Tables" />
@@ -250,6 +292,8 @@
           <EntitySet Name="SoilProfileEntity" EntityType="Self.SoilProfileEntity" store:Type="Tables" />
           <EntitySet Name="StochasticSoilModelEntity" EntityType="Self.StochasticSoilModelEntity" store:Type="Tables" />
           <EntitySet Name="StochasticSoilProfileEntity" EntityType="Self.StochasticSoilProfileEntity" store:Type="Tables" />
+          <EntitySet Name="SurfaceLineEntity" EntityType="Self.SurfaceLineEntity" store:Type="Tables" />
+          <EntitySet Name="SurfaceLinePointEntity" EntityType="Self.SurfaceLinePointEntity" store:Type="Tables" />
           <EntitySet Name="VersionEntity" EntityType="Self.VersionEntity" store:Type="Tables" />
           <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="Self.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntity" />
@@ -291,6 +335,14 @@
             <End Role="SoilProfileEntity" EntitySet="SoilProfileEntity" />
             <End Role="StochasticSoilProfileEntity" EntitySet="StochasticSoilProfileEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_SurfaceLineEntity_0_0" Association="Self.FK_SurfaceLineEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurfaceLinePointEntity_0_0" Association="Self.FK_SurfaceLinePointEntity_0_0">
+            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
+            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntity" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -308,6 +360,8 @@
           <EntitySet Name="SoilProfileEntities" EntityType="RingtoetsEntitiesModel.SoilProfileEntity" />
           <EntitySet Name="StochasticSoilModelEntities" EntityType="RingtoetsEntitiesModel.StochasticSoilModelEntity" />
           <EntitySet Name="StochasticSoilProfileEntities" EntityType="RingtoetsEntitiesModel.StochasticSoilProfileEntity" />
+          <EntitySet Name="SurfaceLineEntities" EntityType="RingtoetsEntitiesModel.SurfaceLineEntity" />
+          <EntitySet Name="SurfaceLinePointEntities" EntityType="RingtoetsEntitiesModel.SurfaceLinePointEntity" />
           <EntitySet Name="VersionEntities" EntityType="RingtoetsEntitiesModel.VersionEntity" />
           <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntities" />
@@ -333,6 +387,10 @@
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="StochasticSoilModelEntity" EntitySet="StochasticSoilModelEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_SurfaceLineEntity_0_0" Association="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_FailureMechanismSectionPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_FailureMechanismSectionPointEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="FailureMechanismSectionPointEntity" EntitySet="FailureMechanismSectionPointEntities" />
@@ -348,6 +406,10 @@
           <AssociationSet Name="FK_StochasticSoilProfileEntity_0_0" Association="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_0_0">
             <End Role="StochasticSoilModelEntity" EntitySet="StochasticSoilModelEntities" />
             <End Role="StochasticSoilProfileEntity" EntitySet="StochasticSoilProfileEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurfaceLinePointEntity_0_0" Association="RingtoetsEntitiesModel.FK_SurfaceLinePointEntity_0_0">
+            <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
+            <End Role="SurfaceLinePointEntity" EntitySet="SurfaceLinePointEntities" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AssessmentSectionEntity">
@@ -378,6 +440,7 @@
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="StochasticSoilModelEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StochasticSoilModelEntity" />
+          <NavigationProperty Name="SurfaceLineEntities" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="FailureMechanismEntity" ToRole="SurfaceLineEntity" />
         </EntityType>
         <EntityType Name="FailureMechanismSectionEntity">
           <Key>
@@ -474,6 +537,27 @@
           <NavigationProperty Name="SoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="StochasticSoilProfileEntity" ToRole="SoilProfileEntity" />
           <NavigationProperty Name="StochasticSoilModelEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_0_0" FromRole="StochasticSoilProfileEntity" ToRole="StochasticSoilModelEntity" />
         </EntityType>
+        <EntityType Name="SurfaceLineEntity">
+          <Key>
+            <PropertyRef Name="SurfaceLineEntityId" />
+          </Key>
+          <Property Name="SurfaceLineEntityId" Type="Int64" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="SurfaceLineEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="SurfaceLinePointEntities" Relationship="RingtoetsEntitiesModel.FK_SurfaceLinePointEntity_0_0" FromRole="SurfaceLineEntity" ToRole="SurfaceLinePointEntity" />
+        </EntityType>
+        <EntityType Name="SurfaceLinePointEntity">
+          <Key>
+            <PropertyRef Name="SurfaceLinePointEntityId" />
+          </Key>
+          <Property Name="SurfaceLinePointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SurfaceLineEntityId" Type="Int64" Nullable="false" />
+          <Property Name="X" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="Y" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLinePointEntity_0_0" FromRole="SurfaceLinePointEntity" ToRole="SurfaceLineEntity" />
+        </EntityType>
         <EntityType Name="VersionEntity">
           <Key>
             <PropertyRef Name="VersionId" />
@@ -555,6 +639,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SurfaceLineEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.SurfaceLineEntity" Role="SurfaceLineEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="SurfaceLineEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FailureMechanismSectionPointEntity_0_0">
           <End Type="RingtoetsEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.FailureMechanismSectionPointEntity" Role="FailureMechanismSectionPointEntity" Multiplicity="*" />
@@ -600,6 +696,18 @@
             </Principal>
             <Dependent Role="StochasticSoilProfileEntity">
               <PropertyRef Name="StochasticSoilModelEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurfaceLinePointEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.SurfaceLineEntity" Role="SurfaceLineEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.SurfaceLinePointEntity" Role="SurfaceLinePointEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurfaceLineEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
+            </Principal>
+            <Dependent Role="SurfaceLinePointEntity">
+              <PropertyRef Name="SurfaceLineEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -721,6 +829,26 @@
                 <ScalarProperty Name="StochasticSoilModelEntityId" ColumnName="StochasticSoilModelEntityId" />
                 <ScalarProperty Name="SoilProfileEntityId" ColumnName="SoilProfileEntityId" />
                 <ScalarProperty Name="StochasticSoilProfileEntityId" ColumnName="StochasticSoilProfileEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SurfaceLineEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.SurfaceLineEntity">
+              <MappingFragment StoreEntitySet="SurfaceLineEntity">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="SurfaceLineEntityId" ColumnName="SurfaceLineEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SurfaceLinePointEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.SurfaceLinePointEntity">
+              <MappingFragment StoreEntitySet="SurfaceLinePointEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="SurfaceLineEntityId" ColumnName="SurfaceLineEntityId" />
+                <ScalarProperty Name="SurfaceLinePointEntityId" ColumnName="SurfaceLinePointEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
