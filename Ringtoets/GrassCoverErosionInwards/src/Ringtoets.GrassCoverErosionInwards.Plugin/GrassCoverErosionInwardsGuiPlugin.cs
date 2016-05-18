@@ -197,6 +197,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private void CalculateAll(IFailureMechanism failureMechanism, IEnumerable<GrassCoverErosionInwardsCalculation> calculations, IAssessmentSection assessmentSection)
         {
+            // TODO: Remove "Where" filter when validation is implemented
             ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null)
                                                                          .Select(calc => CreateHydraRingTargetProbabilityCalculationActivity(
                                                                              failureMechanism.Sections.First(), // TODO: Pass dike section based on cross section of calculation with reference line
@@ -462,6 +463,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private void PerformCalculation(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)
         {
+            // TODO: Remove null-check when validation is implemented
             if (calculation.InputParameters.HydraulicBoundaryLocation == null)
             {
                 return;
