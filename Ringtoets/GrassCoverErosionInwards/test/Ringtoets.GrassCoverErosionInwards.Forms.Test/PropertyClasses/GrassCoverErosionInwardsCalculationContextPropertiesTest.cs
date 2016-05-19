@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
-            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new GeneralGrassCoverErosionInwardsInput());
+            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>(new GeneralGrassCoverErosionInwardsInput(), new GeneralNormProbabilityInput());
             mockRepository.ReplayAll();
 
             var properties = new GrassCoverErosionInwardsCalculationContextProperties();

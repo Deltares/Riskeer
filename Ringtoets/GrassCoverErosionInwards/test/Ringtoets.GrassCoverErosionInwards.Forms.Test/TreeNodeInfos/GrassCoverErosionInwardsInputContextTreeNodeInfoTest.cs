@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
@@ -79,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var assessmentSection = mocksRepository.StrictMock<IAssessmentSection>();
             var grassCoverErosionInwardsInputContext = new GrassCoverErosionInwardsInputContext(
                 mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(generalInput),
-                mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput),
+                mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new GeneralNormProbabilityInput()),
                 new GrassCoverErosionInwardsFailureMechanism(),
                 assessmentSection);
             mocksRepository.ReplayAll();
@@ -100,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var assessmentSection = mocksRepository.StrictMock<IAssessmentSection>();
             var grassCoverErosionInwardsInputContext = new GrassCoverErosionInwardsInputContext(
                 mocksRepository.StrictMock<GrassCoverErosionInwardsInput>(generalInput),
-                mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput),
+                mocksRepository.StrictMock<GrassCoverErosionInwardsCalculation>(generalInput, new GeneralNormProbabilityInput()),
                 new GrassCoverErosionInwardsFailureMechanism(),
                 assessmentSection);
             mocksRepository.ReplayAll();
